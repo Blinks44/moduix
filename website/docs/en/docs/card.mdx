@@ -8,17 +8,17 @@ import * as CardDocs from '@/components/examples/card';
 
 ## API Reference
 
-Ark UI does not provide a dedicated Card primitive. moduix builds Card with the official
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) and follows Ark's guidance for
+Ark UI does not provide a dedicated Card primitive. moduix builds Card with Ark's official
+[factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) and follows Ark's guidance for
 [composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
 [refs](https://ark-ui.com/docs/guides/ref).
 
 ## Basic
 
-Use `<Card />` as the root and add the namespaced `Card` parts for a standard card.
+Use `<Card />` as the root, then add the parts you need from the `Card` namespace.
 
-If you are coming from shadcn, the overall structure stays familiar. The main API difference is that
-`CardContent` becomes `Card.Body`; the other parts remain under the `Card` namespace.
+If you know shadcn/ui, the structure should feel familiar. moduix uses `Card.Body` where shadcn uses
+`CardContent`; the other parts remain under the `Card` namespace.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/card/basic.tsx"
@@ -34,12 +34,12 @@ If you are coming from shadcn, the overall structure stays familiar. The main AP
 
 ```text
 Card.Root
-├─ Card.Background (optional moduix sugar)
-├─ Card.Media (optional moduix sugar)
+├─ Card.Background (optional moduix helper)
+├─ Card.Media (optional moduix helper)
 ├─ Card.Header
 │  ├─ Card.Title
 │  ├─ Card.Description
-│  └─ Card.Action (optional moduix sugar)
+│  └─ Card.Action (optional moduix helper)
 ├─ Card.Body
 └─ Card.Footer (optional)
 ```
@@ -49,41 +49,43 @@ Card.Root
 | Part                 | Role                                                                                    |
 | -------------------- | --------------------------------------------------------------------------------------- |
 | `Card` / `Card.Root` | Root container with `size`, `variant`, and `asChild`.                                  |
-| `Card.Background`    | Optional background layer that covers the card for decorative media.                    |
-| `Card.Media`         | Optional edge-to-edge media wrapper that clips the top corners consistently.            |
+| `Card.Background`    | Optional full-card background layer for decorative media.                                  |
+| `Card.Media`         | Optional edge-to-edge media wrapper that clips the top corners consistently.              |
 | `Card.Header`        | Header layout for the title, description, and an optional trailing action.              |
 | `Card.Body`          | Main content area.                                                                       |
 | `Card.Footer`        | Footer row for actions or metadata. It wraps when needed.                                |
 | `Card.Title`         | Heading. Renders `h3` by default; use `asChild` for another heading level.               |
 | `Card.Description`   | Supporting text below the title.                                                         |
 | `Card.Action`        | Layout slot for an action in the header.                                                 |
-| `Card.Link`          | Stretched link for a navigable card that also contains separate actions.                |
+| `Card.Link`          | Link whose clickable area expands across the card while leaving other controls usable.     |
 
 ## Composition
 
 ### Recommended composition
 
-Start with `<Card />`, then add `Card.Header`, `Card.Title`, `Card.Description`, `Card.Body`, and
-`Card.Footer`. Use `Card.Media` for leading media that should reach the card edges with consistent
-clipping. Use `Card.Background` for a decorative image behind the whole card, and define its gradient
-and text contrast in your application styles.
+Start with `<Card />` and add only the sections you need. A typical card uses `Card.Header`,
+`Card.Title`, `Card.Description`, `Card.Body`, and `Card.Footer`. Use `Card.Media` for leading media
+that should reach the card edges with consistent clipping. Use `Card.Background` for decorative media
+behind the whole card, then add any overlay and text-contrast styles in your application.
+
 The root defaults to `size="md"` and `variant="outline"`.
 
 ### When to go custom
 
 Use `asChild` when a semantic child should provide the DOM element for a part. Ark composition expects
-exactly one child. If the root is a link, do not place nested buttons, inputs, or links inside it.
+exactly one child that can receive the merged props and ref. If the root is a link, do not put buttons,
+inputs, or other links inside it.
 
-Use `Card.Link` inside the title when the card needs a navigation target and also contains separate
-controls. The visible link stays in the title, while its hit area expands across the card without
-covering the other interactive elements. `Card.Action` only controls layout and does not create ARIA
+Use `Card.Link` inside `Card.Title` when the card needs a navigation target and also contains separate
+controls. The visible link stays in the title, while its clickable area expands across the card without
+covering the other interactive elements. `Card.Action` only controls layout; it does not create ARIA
 relationships.
 
 | Situation                                                                                 | Recommended API                                                |
 | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
-| The whole card is one link and has no nested controls.                                    | `Card asChild` with an `<a>` root                              |
-| The card should navigate but also has buttons, menus, or other separate actions.          | `Card.Link` inside `Card.Title`, optionally with `Card.Action` |
-| The card only groups content and does not navigate.                                       | Plain `Card` composition without link sugar                   |
+| The whole card is one link and has no nested controls.                     | `Card asChild` with an `<a>` root                             |
+| The card navigates but also has separate buttons, menus, or other actions. | `Card.Link` inside `Card.Title`, optionally with `Card.Action` |
+| The card only groups content and does not navigate.                         | Plain `Card` composition without link sugar                   |
 
 ### Default props
 
@@ -96,16 +98,16 @@ relationships.
 
 - The root renders a presentational `div` by default and forwards its ref to the rendered element.
 - Every part accepts native props, `className`, `style`, and Ark factory `asChild`.
-- `Card.Media` is an optional helper. Leave it out when you need custom media framing or the media is
-  not placed at the top of the card.
-- `Card.Background` is an optional helper for decorative media behind the whole card. Keep its image's
-  `alt=""`; use `Card.Media` when the image conveys information and needs alternative text.
+- `Card.Media` is optional. Leave it out when you need custom media framing or the media is not at the
+  top of the card.
+- `Card.Background` is an optional helper for decorative media behind the whole card. Keep a background
+  image's `alt` empty; use `Card.Media` when the image conveys information and needs alternative text.
 - `Card.Title` renders `h3` by default.
 - Interactive roots created with `asChild` and `Card.Link` receive the same themeable `:focus-visible` ring.
 - Card has no managed state, callbacks, keyboard behavior, provider, context, or hidden input.
-- `Card.Body` resets the margins of its first and last direct children.
-- `--moduix-card-spacing`, `--moduix-card-spacing-sm`, and `--moduix-card-spacing-lg` control shared
-  inset and section spacing without replacing the more specific `--moduix-card-*` overrides.
+- `Card.Body` removes the top margin from its first direct child and the bottom margin from its last one.
+- `--moduix-card-spacing`, `--moduix-card-spacing-sm`, and `--moduix-card-spacing-lg` set shared inset
+  and section spacing and take precedence over the corresponding size-specific padding fallbacks.
 
 ## Examples
 
@@ -121,8 +123,8 @@ Use `Card.Action` for a compact status or control at the end of the header.
 
 ### Horizontal
 
-Use your application's layout CSS to create a horizontal card. The component does not need a
-presentation-specific prop for this.
+Use your application's layout CSS to create a horizontal card. Card has no presentation-specific prop
+for this layout.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/card/horizontal.tsx"
@@ -183,26 +185,26 @@ Place profile media in the header when the card represents a person or entity.
 ```
 </PreviewFrame>
 
+### With Background
+
+Use `Card.Background` for decorative media behind the whole card. Add the overlay and text-contrast
+styles in your application.
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="./_snippets/card/with-background.tsx"
+
+```
+</PreviewFrame>
+
 ### With Image
 
-Use `Card.Media` when leading media should span the card width with consistent clipping.
+Use `Card.Media` for leading media that should span the card width with consistent clipping.
 
 <PreviewFrame maxWidth="sm">
 ```tsx preview file="./_snippets/card/with-image.tsx"
 
 ```
 
-</PreviewFrame>
-
-### With Background
-
-Use `Card.Background` for a decorative image behind the whole card. Define the gradient and text
-contrast in your application styles.
-
-<PreviewFrame maxWidth="sm">
-```tsx preview file="./_snippets/card/with-background.tsx"
-
-```
 </PreviewFrame>
 
 ### Within Form

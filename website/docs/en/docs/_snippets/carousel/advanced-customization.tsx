@@ -64,7 +64,7 @@ export default function AdvancedCustomizationCarousel() {
                 size="sm"
                 variant="outline"
                 onClick={() => {
-                  api.scrollTo(1);
+                  api.scrollToIndex(3);
                 }}
               >
                 Go to slide 4

@@ -1,14 +1,14 @@
 ---
 title: Checkbox
 component: checkbox
-description: A composable checkbox primitive for individual options and groups.
+description: A composable checkbox for individual options and multi-select groups.
 ---
 
 import * as CheckboxDocs from '@/components/examples/checkbox';
 
-Use `Checkbox` to let people select one or more independent options in forms, settings, and filter
-lists. Choose `RadioGroup` when only one option may be selected, or `Switch` when a setting should
-take effect immediately.
+Use `Checkbox` when people need to select one or more independent options in a form, settings panel,
+or filter list. Use `RadioGroup` when only one option can be selected. Use `Switch` when a setting
+should take effect immediately.
 
 ## API Reference
 
@@ -16,9 +16,9 @@ take effect immediately.
 
 ## Basic
 
-Build a checkbox from the Ark parts. In most cases, `Checkbox.Control` renders the built-in checked
-and indeterminate indicators, so you only need `Checkbox.Control` and `Checkbox.Label`. moduix
-adds the native form input automatically.
+Compose a checkbox from Ark's parts. In most cases, leave `Checkbox.Control` empty to use moduix's
+built-in checked and indeterminate icons. Add `Checkbox.Label` for the visible text. moduix adds the
+native form input automatically.
 
 ```tsx preview file="./_snippets/checkbox/basic.tsx"
 
@@ -51,11 +51,11 @@ Checkbox.Group
 | Part                         | Role                                                                                     |
 | ---------------------------- | ---------------------------------------------------------------------------------------- |
 | `Checkbox` / `Checkbox.Root` | Holds the state for one checkbox and renders its wrapping label.                         |
-| `Checkbox.RootProvider`      | Connects the parts to Ark state created outside the rendered subtree.                    |
-| `Checkbox.Control`           | The visible checkbox. When empty, it renders the built-in state indicators.              |
-| `Checkbox.Indicator`         | Optional icon slot for a custom indicator. Use `indeterminate` for that state.           |
-| `Checkbox.Label`             | The checkbox's visible label.                                                            |
-| `Checkbox.Group`             | Shares the selected values across several checkboxes.                                    |
+| `Checkbox.RootProvider`      | Connects the parts to Ark state created outside the rendered tree.                        |
+| `Checkbox.Control`           | The visible checkbox. When empty, it renders the built-in state icons.                     |
+| `Checkbox.Indicator`         | Optional slot for a custom icon. Pass `indeterminate` for that state.                      |
+| `Checkbox.Label`             | The visible label for the checkbox.                                                        |
+| `Checkbox.Group`             | Manages the selected values for several checkboxes.                                        |
 
 ## Composition
 
@@ -63,52 +63,58 @@ Checkbox.Group
 
 Keep the Ark part tree in your markup. `Checkbox.Root` accepts standard Ark root props such as `checked`,
 `defaultChecked`, `onCheckedChange(details)`, `disabled`, `readOnly`, `invalid`, `required`,
-`name`, `value`, `form`, `ids`, and `asChild`.
+`name`, `value`, `form`, `ids`, and `asChild`. The `checked` and `defaultChecked` props accept
+`true`, `false`, or `"indeterminate"`.
 
 `Checkbox.Group` accepts `value`, `defaultValue`, `onValueChange(value)`, `disabled`, `readOnly`,
 `invalid`, `maxSelectedValues`, and `name`.
 
-`Checkbox.Control` is the convenient moduix default. Leave it empty to use the built-in icons, or
-pass children to create a custom indicator. `size` is the only moduix-specific prop on
-`Checkbox.Root` and `Checkbox.RootProvider`.
+`Checkbox.Control` is moduix's convenient default. Leave it empty to use the built-in icons, or pass
+children to provide a custom indicator. `size` is the only moduix-specific prop on `Checkbox.Root`
+and `Checkbox.RootProvider`.
 
 ### When to go custom
 
-Use `Checkbox.RootProvider` when the checkbox state is created outside the rendered subtree. moduix
-re-exports `useCheckbox()` for this pattern. `Checkbox.Context`, `useCheckboxContext()`,
-`useCheckboxGroup()`, and `useCheckboxGroupContext()` provide access to Ark state for more advanced
-compositions. Render `Checkbox.Indicator` explicitly only for custom icons or a different
-indicator layout.
+Use `Checkbox.RootProvider` when checkbox state needs to live outside the rendered tree. moduix
+re-exports `useCheckbox()` for this pattern. Pass the returned state to `Checkbox.RootProvider` via
+its `value` prop. `Checkbox.Context`, `useCheckboxContext()`, `useCheckboxGroup()`, and
+`useCheckboxGroupContext()` expose Ark state for more advanced compositions. For a group whose state
+lives outside the tree, pair `useCheckboxGroup()` with Ark's `Checkbox.GroupProvider` from
+`@ark-ui/react/checkbox`. Render
+`Checkbox.Indicator` explicitly only when you need a custom icon or indicator layout.
 
 ### Default props
 
 | Surface                      | Default | Notes                                                   |
 | ---------------------------- | ------- | ------------------------------------------------------- |
-| `Checkbox` / `Checkbox.Root` | -       | No additional behavioral defaults; Ark defaults apply.  |
-| `size`                       | `md`    | Applied on `Checkbox.Root` and `Checkbox.RootProvider`. |
+| `Checkbox` / `Checkbox.Root` | -       | No extra behavior is added; Ark defaults apply.         |
+| `size`                       | `md`    | Applied to `Checkbox.Root` and `Checkbox.RootProvider`. |
 
 ### Behavioral notes
 
-The root adds a native input automatically, so the checkbox works with native form validation,
-reset, and submission. For a standalone checkbox, pass `name` and `value` to `Checkbox.Root`. For
-a group, pass `name` to `Checkbox.Group` and `value` to each `Checkbox.Root`.
+Both `Checkbox.Root` and `Checkbox.RootProvider` always render a native input, so the checkbox can
+participate in native form validation, reset, and submission. To include a standalone checkbox in
+submitted form data, pass `name` and `value` to `Checkbox.Root`. For a group, pass `name` to
+`Checkbox.Group` and `value` to each `Checkbox.Root`.
 
-If you are moving from shadcn, `Checkbox.Control` already includes the default icon treatment. The
-control and label remain explicit in the tree; the hidden input stays internal.
+If you are migrating from shadcn, `Checkbox.Control` already includes the default icon treatment.
+`Checkbox.Control` and `Checkbox.Label` remain explicit in the tree, while the hidden input stays
+internal.
 
-Ark `Checkbox.Root` renders a `label`. When you use `asChild`, its direct child must also be a
-semantic `label`; otherwise the checkbox no longer has a valid form label.
+Ark `Checkbox.Root` and `Checkbox.RootProvider` render a `label`. When you use `asChild`, the direct
+child must also be a semantic `label`; otherwise the checkbox no longer has a valid form label.
 
 When `readOnly` is set, moduix mirrors that state to `aria-readonly` on the automatic native input
 while Ark prevents interaction.
 
-A ref points to the corresponding Ark DOM part. Press <kbd>Space</kbd> to toggle a focused checkbox.
+A ref passed to a part points to the corresponding Ark DOM node. Press <kbd>Space</kbd> to toggle a
+focused checkbox.
 
 ## Examples
 
 ### Controlled
 
-Control `checked` from React state when the checkbox needs to stay in sync with other UI or derived values.
+Use a controlled checkbox when another part of your UI owns its value.
 
 ```tsx preview file="./_snippets/checkbox/controlled.tsx"
 
@@ -116,7 +122,7 @@ Control `checked` from React state when the checkbox needs to stay in sync with 
 
 ### Controlled Group
 
-Control the group value from React state when selected options drive filters, summaries, or actions.
+Use a controlled group when selected options drive filters, summaries, or actions.
 
 ```tsx preview file="./_snippets/checkbox/controlled-group.tsx"
 
@@ -124,7 +130,8 @@ Control the group value from React state when selected options drive filters, su
 
 ### Custom Indicator
 
-Replace the default checkmark when your product needs a different icon while retaining Ark checkbox behavior.
+Replace the built-in checkmark with your own icon while keeping Ark's checkbox behavior and
+accessibility semantics.
 
 ```tsx preview file="./_snippets/checkbox/custom-indicator.tsx"
 
@@ -132,7 +139,8 @@ Replace the default checkmark when your product needs a different icon while ret
 
 ### Default Checked
 
-Use `defaultChecked` when the checkbox starts checked and manages its own state afterwards.
+Use `defaultChecked` when the checkbox needs an initial value and can manage its own state after
+rendering.
 
 ```tsx preview file="./_snippets/checkbox/default-checked.tsx"
 
@@ -140,7 +148,7 @@ Use `defaultChecked` when the checkbox starts checked and manages its own state 
 
 ### Disabled
 
-Use `disabled` when an option is unavailable and must not accept focus or input.
+Use `disabled` when an option is unavailable and must not be interactive.
 
 ```tsx preview file="./_snippets/checkbox/disabled.tsx"
 
@@ -148,7 +156,7 @@ Use `disabled` when an option is unavailable and must not accept focus or input.
 
 ### Group
 
-Use `Checkbox.Group` when several options share one array of selected values.
+Use `Checkbox.Group` when several checkboxes share an array of selected values.
 
 ```tsx preview file="./_snippets/checkbox/group.tsx"
 
@@ -156,7 +164,7 @@ Use `Checkbox.Group` when several options share one array of selected values.
 
 ### Group With Fieldset
 
-Wrap the group in `Fieldset` when the set represents one form field with a shared legend.
+Use `Fieldset` when the group represents one form field and needs a shared legend.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/checkbox/group-with-fieldset.tsx"
@@ -166,7 +174,8 @@ Wrap the group in `Fieldset` when the set represents one form field with a share
 
 ### Group With Form
 
-Use `Checkbox.Group` inside a form and read selected values with `FormData.getAll(name)`.
+Put `Checkbox.Group` inside a form when you need all selected values in `FormData`. Read them with
+`FormData.getAll(name)`.
 
 ```tsx preview file="./_snippets/checkbox/group-with-form.tsx"
 
@@ -174,7 +183,8 @@ Use `Checkbox.Group` inside a form and read selected values with `FormData.getAl
 
 ### Indeterminate
 
-Use the indeterminate state when a checkbox represents a partial selection, rather than a simple on or off value.
+Use `checked="indeterminate"` when a checkbox represents a partial selection. This is common for a
+Select all control.
 
 ```tsx preview file="./_snippets/checkbox/indeterminate.tsx"
 
@@ -182,7 +192,7 @@ Use the indeterminate state when a checkbox represents a partial selection, rath
 
 ### Invalid Group
 
-Mark the group invalid when the set is validated as a whole and requires a valid selection.
+Set `invalid` on the group when validation applies to the selection as a whole.
 
 ```tsx preview file="./_snippets/checkbox/invalid-group.tsx"
 
@@ -190,7 +200,7 @@ Mark the group invalid when the set is validated as a whole and requires a valid
 
 ### Max Selected
 
-Use `maxSelectedValues` when only a fixed number of options can be selected.
+Use `maxSelectedValues` to limit how many options can be selected at once.
 
 ```tsx preview file="./_snippets/checkbox/max-selected.tsx"
 
@@ -198,7 +208,7 @@ Use `maxSelectedValues` when only a fixed number of options can be selected.
 
 ### Read Only
 
-Use `readOnly` when the value should remain visible but users must not be able to change it.
+Use `readOnly` to show a value without allowing users to change it.
 
 ```tsx preview file="./_snippets/checkbox/read-only.tsx"
 
@@ -206,8 +216,8 @@ Use `readOnly` when the value should remain visible but users must not be able t
 
 ### Root Provider
 
-Use `Checkbox.RootProvider` when checkbox state lives outside the rendered subtree. Import the
-state hook from `@moduix/react`.
+Use `Checkbox.RootProvider` when checkbox state needs to live outside the rendered tree. Import
+`useCheckbox` from `@moduix/react/checkbox`.
 
 ```tsx preview file="./_snippets/checkbox/root-provider.tsx"
 
@@ -215,7 +225,8 @@ state hook from `@moduix/react`.
 
 ### Select All
 
-Combine a parent checkbox with a controlled group when one control should toggle the whole selection.
+Combine a parent checkbox with a controlled group when one control should select or clear every
+option.
 
 ```tsx preview file="./_snippets/checkbox/select-all.tsx"
 
@@ -231,7 +242,7 @@ Use moduix `size` to match the checkbox density to the surrounding form or setti
 
 ### With Field
 
-Wrap one checkbox in `Field` when it needs helper text, validation feedback, or shared field state.
+Use `Field` when a checkbox needs helper text, validation messages, or shared field state.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/checkbox/with-field.tsx"
@@ -241,7 +252,8 @@ Wrap one checkbox in `Field` when it needs helper text, validation feedback, or 
 
 ### With Form
 
-Pass `name` and `value` to `Checkbox.Root` so its automatic native input is included in `FormData`.
+Pass `name` and `value` to `Checkbox.Root` to include the checkbox's automatic native input in
+`FormData`.
 
 ```tsx preview file="./_snippets/checkbox/with-form.tsx"
 
@@ -255,9 +267,9 @@ Pass `name` and `value` to `Checkbox.Root` so its automatic native input is incl
 
 ### Styling hooks
 
-- `Checkbox.Root` exposes `data-slot="checkbox-root"`, `data-size`, and Ark state attributes such as `data-state`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-hover`, `data-focus`, and `data-focus-visible`.
+- `Checkbox.Root` exposes `data-slot="checkbox-root"`, `data-size`, and Ark state attributes such as `data-state`, `data-active`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-hover`, `data-focus`, and `data-focus-visible`.
 - `Checkbox.RootProvider` exposes `data-slot="checkbox-root-provider"` and the same root styling contract.
-- `Checkbox.Control` exposes `data-slot="checkbox-control"` and Ark state attributes including `data-state="checked" | "indeterminate" | "unchecked"`.
+- `Checkbox.Control` exposes `data-slot="checkbox-control"` and Ark state attributes including `data-state="checked" | "indeterminate" | "unchecked"` and `data-active`.
 - `Checkbox.Indicator` exposes `data-slot="checkbox-indicator"` and inherits Ark checkbox state attributes.
 - `Checkbox.Label` exposes `data-slot="checkbox-label"` and Ark checkbox state attributes.
 - `Checkbox.Group` exposes `data-slot="checkbox-group"`.

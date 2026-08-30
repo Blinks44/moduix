@@ -14,12 +14,22 @@ export default function CheckboxSelectAllDemo() {
   const indeterminate = value.length > 0 && value.length < allValues.length;
 
   return (
-    <Checkbox
-      checked={indeterminate ? 'indeterminate' : allSelected}
-      onCheckedChange={(details) => setValue(details.checked === true ? allValues : [])}
-    >
-      <Checkbox.Control />
-      <Checkbox.Label>Select all</Checkbox.Label>
-    </Checkbox>
+    <div style={{ display: 'grid', gap: 'var(--moduix-spacing-2)' }}>
+      <Checkbox
+        checked={indeterminate ? 'indeterminate' : allSelected}
+        onCheckedChange={(details) => setValue(details.checked === true ? allValues : [])}
+      >
+        <Checkbox.Control />
+        <Checkbox.Label>Select all</Checkbox.Label>
+      </Checkbox>
+      <Checkbox.Group value={value} onValueChange={setValue} name="frameworks">
+        {options.map((option) => (
+          <Checkbox key={option.value} value={option.value}>
+            <Checkbox.Control />
+            <Checkbox.Label>{option.label}</Checkbox.Label>
+          </Checkbox>
+        ))}
+      </Checkbox.Group>
+    </div>
   );
 }

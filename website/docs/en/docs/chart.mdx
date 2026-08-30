@@ -1,22 +1,25 @@
 ---
 title: Chart
 component: chart
-description: Render accessible, responsive TanStack Charts definitions with a composed moduix figure, tooltip, legend, and motion.
+description: Build accessible, responsive charts with TanStack Charts and moduix's figure, tooltip, legend, and motion defaults.
 ---
 
 import * as ChartDocs from '@/components/examples/chart';
 
 ## API Reference
 
-Ark UI does not include a chart primitive. moduix provides the figure, title, legend, and tooltip
-around the [TanStack Charts React host](https://tanstack.com/charts/latest/docs/framework/react/reference/chart).
-You still define marks, scales, interactions, and callbacks with TanStack Charts. TanStack Charts
-0.14 requires React 19.
+Ark UI does not include a chart primitive. moduix adds a semantic `figure`, title, description,
+legend, and compact tooltip body around the [TanStack Charts React host](https://tanstack.com/charts/latest/docs/framework/react/reference/chart).
+Define marks, scales, interactions, and callbacks with TanStack Charts; moduix keeps the chart
+composition around them.
+
+`@tanstack/charts` is an optional peer dependency of moduix. The current peer range is `^0.16.0`,
+and TanStack's React adapter requires React 19.
 
 ## Basic
 
-Create a TanStack definition and pass it to `Chart.Plot`. Add the visible title, description, and
-legend around the plot, then provide a concise `ariaLabel` for people using assistive technology.
+Create a TanStack definition and pass it to `Chart.Plot`. Add a visible title, description, and
+legend around the plot, then provide a concise `ariaLabel` for assistive technology.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/chart/basic.tsx"
@@ -43,8 +46,8 @@ Chart / Chart.Root
 
 | Part | Role |
 | --- | --- |
-| `Chart` / `Chart.Root` | Composed `figure` surface. Accepts native props, `asChild`, and an `HTMLElement` ref. |
-| `Chart.Plot` | TanStack React host. Requires `definition` and `ariaLabel`; defaults to the Moduix motion preset and accepts `motion={false}`. |
+| `Chart` / `Chart.Root` | Composed `figure` root. Accepts native props, `asChild`, and an `HTMLElement` ref. |
+| `Chart.Plot` | TanStack Charts React host. Requires `definition` and `ariaLabel`; uses the Moduix motion preset by default and accepts `motion={false}`. |
 | `Chart.Header` | `figcaption` layout for the title and description. |
 | `Chart.Title` | Chart heading; renders `h3` by default. |
 | `Chart.Description` | Supporting visible context. |
@@ -57,7 +60,7 @@ Chart / Chart.Root
 
 Keep a stable TanStack definition outside the component, then assemble `Chart.Header`,
 `Chart.Plot`, and `Chart.Legend` in the root component. Define `barY`, `areaY`, `lineY`, stacking,
-scales, guides, and color channels directly with TanStack. moduix does not duplicate them as React
+scales, guides, and color channels directly with TanStack. moduix does not mirror them as React
 parts.
 
 Use the definition's `color` scale for marks and tooltip swatches. Reuse the corresponding moduix
@@ -65,8 +68,8 @@ chart tokens in `Chart.LegendItem` so the visible legend stays aligned with the 
 
 ### Choosing marks
 
-`Chart.Plot` is the renderer host, while the marks inside `definition` determine what is drawn. All
-variants use the same `<Chart.Plot definition={definition} />` composition.
+`Chart.Plot` provides the rendering host, while the marks inside `definition` determine what is
+drawn. All variants use the same `<Chart.Plot definition={definition} />` composition.
 
 | Goal | Marks | Example |
 | --- | --- | --- |
@@ -80,19 +83,19 @@ variants use the same `<Chart.Plot definition={definition} />` composition.
 ### When to go custom
 
 `Chart.Plot` uses TanStack's responsive `motion()` preset by default. Set `motion={false}` for a
-static SVG chart, or pass a different `renderer` to control animation yourself. An explicit
-`renderer` takes precedence over `motion`. If your application owns the rendering surface, use
-TanStack's canvas or low-level renderer directly.
+static SVG chart, or pass a different `renderer` when you need to control rendering yourself. An
+explicit `renderer` takes precedence over `motion`. If your application owns the rendering surface,
+use TanStack's canvas or low-level renderer directly.
 
 ```tsx
 <Chart.Plot definition={definition} ariaLabel="Monthly revenue" motion={false} />
 ```
 
-Chart uses a compact Moduix tooltip by default, so rows without a swatch do not leave an empty
-column. Use `renderTooltipBody` only to add React content. Its callback receives TanStack's native
-`defaultBody` with the title, rows, formatting, and swatches. TanStack continues to handle the
-tooltip's anchor, position, portal, pinned state, and dismissal. Only render interactive controls
-when `pinned` is true.
+Chart uses a compact Moduix tooltip body by default, so rows without a swatch do not leave an empty
+column. Use `renderTooltipBody` only when you need to add React content. Its context includes
+TanStack's native `defaultBody` with the title, rows, formatting, and swatches. TanStack continues
+to handle the tooltip's anchor, placement, portal, pinned state, and dismissal. Render interactive
+controls only when `pinned` is true.
 
 ### Default props
 
@@ -102,7 +105,7 @@ when `pinned` is true.
 | `Chart.Plot` | `definition` | - | Required TanStack chart definition. |
 | `Chart.Plot` | `ariaLabel` | - | Required accessible chart name. |
 | `Chart.Plot` | `motion` | `true` | Set to `false` to use TanStack's static SVG renderer. |
-| `Chart.Plot` | `renderer` | Moduix motion preset | Animates geometry and tooltip; respects reduced motion. |
+| `Chart.Plot` | `renderer` | Moduix motion preset | Animates geometry and tooltip; respects reduced-motion preferences. |
 | `Chart.Plot` | `height` | `320` | Used when `aspectRatio` is absent. |
 | `Chart.Plot` | `width` | responsive | Follows the host width. |
 | `Chart.Plot` | `initialWidth` | `640` | Server and pre-measurement width. |
@@ -113,12 +116,12 @@ when `pinned` is true.
 - Keep a static definition at module scope. When it captures props or state, memoize the complete
   definition with `useMemo`.
 - The default motion renderer animates initial geometry, keyed data updates, focus guides, and the
-  native tooltip. It snaps when `prefers-reduced-motion: reduce` matches; `motion={false}` disables
-  it independently of the user's media preference.
-- Pointer focus, arrow-key navigation, Enter/Space activation, `onFocusChange`, and `onSelect`
-  remain owned by TanStack.
-- The plot's focusable SVG uses the moduix focus ring. Do not set `focusRing: false` unless custom
-  focus geometry replaces TanStack's point indicator.
+  native tooltip. It switches to instant updates when `prefers-reduced-motion: reduce` matches;
+  `motion={false}` disables animation independently of the user's media preference.
+- TanStack owns pointer focus, arrow-key navigation, Enter/Space activation, `onFocusChange`, and
+  `onSelect`.
+- The focusable plot SVG uses the moduix focus ring. Keep TanStack's `focusRing` enabled unless your
+  definition provides replacement focus geometry.
 - `ariaDescription` adds detail when the visible title and description are not sufficient.
 - `className` and `style` on `Chart.Plot` target the outer TanStack host. The host has no ref API.
 
@@ -136,8 +139,8 @@ Area, line, points, grouped focus, and tooltip motion all remain native TanStack
 
 ### Chart colors
 
-Use moduix chart tokens in the TanStack color scale. CSS custom properties are valid SVG paint
-values and automatically follow the active theme.
+Use moduix chart tokens in the TanStack color scale. CSS custom properties work as SVG paint values
+and automatically follow the active theme.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/chart/line-colors.tsx"
@@ -148,7 +151,7 @@ values and automatically follow the active theme.
 ### Donut chart
 
 Compose TanStack's opt-in `pie`, `polar`, and `radialArc` primitives for part-to-whole data. The
-same `Chart.Plot`, motion, focus, tooltip, and legend composition work outside Cartesian charts.
+same composition of `Chart.Plot`, motion, focus, tooltip, and legend works outside Cartesian charts.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/chart/donut.tsx"
@@ -191,7 +194,7 @@ without changing the x and y relationship.
 
 ### Stacked bars
 
-Use TanStack's tidy color channel and `stack()` layout for multi-series bars. `focus: 'group-x'`
+Use a TanStack color channel and the `stack()` layout for multi-series bars. `focus: 'group-x'`
 keeps the tooltip and keyboard focus grouped by quarter.
 
 <PreviewFrame maxWidth="lg">
@@ -203,7 +206,7 @@ keeps the tooltip and keyboard focus grouped by quarter.
 ### Advanced Customization
 
 The Ark factory parts accept `asChild`, so they can apply their styles to semantic elements in your
-layout. This dashboard section combines Chart with Button, replaces the default `figure` and
+layout. This dashboard example combines Chart with Button, replaces the default `figure` and
 `figcaption` with a labelled `section` and `header`, and places the legend in the header.
 
 `Chart.Plot` is still the TanStack host, not a slot. Use its `className` and `style` on the outer
@@ -221,7 +224,7 @@ pinned tooltip.
 
 Style the figure with `Chart.Root` and the TanStack host with `Chart.Plot`. Public CSS properties
 control the surface, focus ring, tooltip shell, and default tooltip layout. Keep chart geometry in
-the TanStack definition, using mark options, scales, and color channels.
+the TanStack definition through mark options, scales, and color channels.
 
 Give the root a class when a chart needs local overrides:
 
@@ -247,8 +250,8 @@ Give the root a class when a chart needs local overrides:
   and `Chart.LegendItem` expose `data-scope="chart"`, `data-part`, and `data-slot`.
 - `className` on `Chart.Plot` reaches the outer `.ts-chart-host` element.
 - The default tooltip uses `chart-tooltip-body`, `chart-tooltip-title`,
-  `chart-tooltip-rows`, `chart-tooltip-row`, `chart-tooltip-swatch`, `chart-tooltip-label`, and
-  `chart-tooltip-value` data slots.
+  `chart-tooltip-rows`, `chart-tooltip-row`, `chart-tooltip-swatch`, `chart-tooltip-label`,
+  `chart-tooltip-value`, and `chart-tooltip-text` data slots.
 - Use `--moduix-color-chart-1` through `--moduix-color-chart-5` in TanStack color scales.
 - The tooltip shell is styled through the documented `--ts-chart-tooltip-*` variables mapped from
   Moduix properties. Use TanStack's `tooltip.className` for custom selectors, or
