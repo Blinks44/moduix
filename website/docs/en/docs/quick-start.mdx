@@ -8,13 +8,13 @@ import { Card, Cards } from '@/components/mdx/Components';
 
 # Quick start
 
-moduix supports two equivalent production workflows:
+moduix supports two equivalent ways to use it in an application:
 
 - Install `@moduix/react` for package-managed installation and updates.
 - Install with the shadcn CLI for component source, styles, and utilities inside your repository.
 
-Both methods expose the same components, Ark-aligned contracts, and token system. Choose by how you
-want to own and update the code.
+Both workflows use the same component implementations, Ark-aligned contracts, and token system.
+Choose based on where you want the source to live and how you plan to update it.
 
 ## Choose an installation method
 
@@ -31,18 +31,18 @@ want to own and update the code.
   />
 </Cards>
 
-You need React 18 or 19, `@ark-ui/react`, and a framework or bundler that can import CSS from npm
-packages. Interactive components must render inside a client boundary when the framework requires
-one.
+To get started, you need React 18 or 19, `@ark-ui/react`, and a framework or bundler that can import
+CSS from npm packages. Interactive components must render inside a client boundary when the framework
+requires one.
 
-Accessibility is a shared responsibility: Ark UI owns primitive behavior, moduix owns the wrapper
-contract and defaults, and the application owns labels, content, validation messages, and product
+Accessibility is a shared responsibility: Ark UI provides primitive behavior, moduix defines wrapper
+contracts and defaults, and your application supplies labels, content, validation messages, and product
 flow.
 
 ## Choose your framework
 
-The package and registry contracts are the same in every React stack. Choose your framework for the
-exact stylesheet location, source alias, and client or SSR boundary.
+The package and registry workflows work the same way in every React stack. Choose your framework to
+see the exact stylesheet location, source alias, and client or SSR setup.
 
 <FrameworkGrid />
 
@@ -121,8 +121,8 @@ export function Example() {
 }
 ```
 
-You are set when the button uses the moduix styles, opens the dialog with keyboard and pointer
-input, and focus returns to the button after closing it.
+The setup is working when the button uses moduix styles, opens the dialog from keyboard and pointer
+input, and focus returns to the button after the dialog closes.
 
 ## Install with the shadcn CLI
 
@@ -163,15 +163,16 @@ The `tailwind` object is required by the shadcn configuration schema, but moduix
 Tailwind and does not require it to be installed. Its empty paths and `baseColor` prevent the CLI
 from looking for Tailwind files or downloading a shadcn color palette.
 
-Keep `rsc: false` for client-rendered applications. In a React Server Components application, set `rsc: true` so the
-shadcn CLI preserves `use client` directives already present in registry source files. The CLI does not infer which
-components need the directive.
+Keep `rsc: false` unless your project uses React Server Components. Set `rsc: true` in an RSC application. With
+`rsc: true`, the CLI adds `use client` to client components from the registry. Add the directive yourself to your
+own wrappers when they own state, effects, or event handlers.
 
 Make sure your project resolves the `@/*` alias to its source directory. A typical `src` layout uses:
 
 ```json
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }
@@ -189,7 +190,7 @@ Before writing source files, inspect the current configuration and registry item
 
 ```bash
 npx shadcn@latest info --json
-npx shadcn@latest search @moduix-react --query "confirmation dialog"
+npx shadcn@latest search @moduix-react --query "dialog"
 npx shadcn@latest view @moduix-react/dialog
 npx shadcn@latest add @moduix-react/dialog --dry-run
 ```
@@ -243,11 +244,11 @@ import { Button } from '@/components/moduix/button';
 import { Accordion } from '@/components/moduix/accordion';
 ```
 
-Most components are composed from named parts. This keeps behavior accessible while letting you
-control markup, layout, and styling in the consuming application.
+Most components are built from named parts. This keeps behavior accessible while letting you control
+markup, layout, and styling in your application.
 
-The ownership flow is inspired by [shadcn/ui](https://ui.shadcn.com/), while component anatomy and
-interaction behavior remain aligned with [Ark UI](https://ark-ui.com/).
+This source-ownership model is inspired by [shadcn/ui](https://ui.shadcn.com/), while component anatomy
+and interaction behavior remain aligned with [Ark UI](https://ark-ui.com/).
 
 ## Configure portal layering
 
@@ -268,9 +269,9 @@ values.
 }
 ```
 
-If your application supports iOS 26 Safari, test a scrolled modal against the browser chrome. When
-content remains visible below the backdrop, keep the document body positioned so absolute
-backdrops can cover the full visual viewport.
+If your application supports Safari on iOS 26, test a scrolled modal while Safari's browser UI is
+visible. If content remains visible below the backdrop, set `body` to `position: relative` so an
+absolutely positioned backdrop can cover the full visual viewport.
 
 ```css title="styles.css"
 body {
@@ -287,9 +288,9 @@ moduix works with the styling approach your project already uses:
 - Tailwind CSS utility classes for layout and one-off styling.
 - CSS-in-JS libraries that attach classes or pass scoped styles through your own wrappers.
 
-The default density uses `--moduix-size-md: 36px` for primary controls and `--moduix-size-sm: 32px` for popup
-rows. Because components consume the shared scale, changing those tokens updates related inputs,
-triggers, buttons, and menu-like items together.
+In the default density, primary controls use `--moduix-size-md: 36px` and popup rows use
+`--moduix-size-sm: 32px`. Because components consume the shared scale, changing those tokens updates
+related inputs, triggers, buttons, and menu-like items together.
 
 Component pages list their public CSS variables and styling hooks. Use shared semantic tokens for
 system-wide changes and component variables only for deliberate exceptions. See
@@ -298,12 +299,12 @@ recipes.
 
 ## Troubleshooting
 
-| Symptom                              | Check                                                                                 |
-| ------------------------------------ | ------------------------------------------------------------------------------------- |
-| Components render without styles     | Import the correct `style.css` entry point once, after any optional reset.             |
-| A copy-owned import cannot be found  | Verify the `@/*` alias in TypeScript and your bundler, then check `components.json`.    |
-| A popup appears below page content   | Add `isolation: isolate` to the application root and avoid unrelated global z-indexes. |
-| Server rendering reports client APIs | Keep interactive components below a client boundary in frameworks that require one.   |
+| Symptom                                  | Check                                                                                 |
+| ---------------------------------------- | ------------------------------------------------------------------------------------- |
+| Components render without styles         | Import the correct `style.css` entry point once, after any optional reset.             |
+| A generated component import is unresolved | Verify the `@/*` alias in TypeScript and your bundler, then check `components.json`.    |
+| A popup appears below page content       | Add `isolation: isolate` to the application root and avoid unrelated global z-indexes. |
+| Server rendering reports client APIs     | Keep interactive components inside a client boundary in frameworks that require one.  |
 
 ## Next reading
 
@@ -314,5 +315,5 @@ recipes.
 - [Tokens](/docs/tokens) for shared design tokens, global overrides, and component fallbacks.
 - [Dark mode](/docs/dark-mode) and [Right-to-left (RTL)](/docs/rtl) for application-wide theme and
   direction setup.
-- [Updating and migration](/docs/updating) for package and copy-owned update flows.
+- [Updating and migration](/docs/updating) for package and generated-source update flows.
 - [Animations](/docs/animations) for motion defaults and local transition recipes.

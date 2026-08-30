@@ -1,18 +1,19 @@
 ---
 title: Next.js
-description: "Intégrez moduix à l’App Router de Next.js : CSS partagé dans le layout racine et frontières client explicites."
+description: "Utilisez moduix avec l’App Router de Next.js : importez une seule fois les styles de base et ajoutez la directive use client lorsque votre composition en a besoin."
 ---
 
 # Next.js
 
-Dans l’App Router, importez le CSS de moduix depuis le layout racine et placez les composants interactifs à
-l’intérieur d’une frontière client.
+moduix fonctionne avec l’App Router de Next.js. Importez les styles de base depuis le fichier `app/layout.tsx` à la
+racine de l’application et n’ajoutez la directive `'use client'` que lorsque votre composition a besoin de logique côté
+client.
 
 ## Installer le paquet
 
 <PackageManagerTabs command="install @moduix/react @ark-ui/react" />
 
-Importez une seule fois la feuille de style de base dans le layout racine :
+Importez une seule fois la feuille de style de base depuis le fichier `app/layout.tsx` à la racine de l’application :
 
 ```tsx title="app/layout.tsx"
 import '@moduix/react/style.css';
@@ -26,39 +27,67 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
-Placez la composition moduix interactive dans un composant client :
+Les composants qui se contentent d’afficher du balisage peuvent rester des Server Components. Ajoutez la directive
+`'use client'` à votre composant lorsque celui-ci gère un état, des effets, des API du navigateur ou des événements :
 
 ```tsx title="app/continue-button.tsx"
 'use client';
 
+import { useState } from 'react';
 import { Button } from '@moduix/react/button';
 
 export function ContinueButton() {
-  return <Button>Continue</Button>;
+  const [isComplete, setIsComplete] = useState(false);
+
+  return (
+    <Button type="button" onClick={() => setIsComplete(true)}>
+      {isComplete ? 'Done' : 'Continue'}
+    </Button>
+  );
 }
 ```
 
-Les composants serveur peuvent afficher du balisage ordinaire autour de cette frontière. Transmettez au composant
-client des données sérialisables plutôt que des gestionnaires d’événements.
+Utilisez le composant client depuis un Server Component :
 
-## Installer avec la CLI shadcn
+```tsx title="app/page.tsx"
+import { ContinueButton } from './continue-button';
 
-Terminez la [configuration de la CLI shadcn](/docs/quick-start#installer-avec-la-cli-shadcn) avec `rsc: true`.
-Conservez l'alias `@/*` par défaut du starter Next.js et importez la feuille de style de base générée depuis le
-layout racine :
+export default function Page() {
+  return (
+    <main>
+      <ContinueButton />
+    </main>
+  );
+}
+```
+
+Les Server Components peuvent afficher le balisage environnant et utiliser `ContinueButton`. Transmettez uniquement
+des données sérialisables à un composant client. Les gestionnaires d’événements et les autres fonctions ne peuvent pas
+franchir la frontière entre le serveur et le client.
+
+## Utiliser la CLI shadcn
+
+Choisissez cette méthode si vous voulez copier les composants moduix dans votre application. Terminez la
+[configuration de la CLI shadcn](/docs/quick-start#installer-avec-la-cli-shadcn) et définissez `"rsc": true` dans
+`components.json`.
+
+Conservez l’alias `@/*` par défaut du starter Next.js. Si vous utilisez d’autres alias, mettez à jour `components.json`
+et les chemins des fichiers générés. Avec cette méthode, importez la feuille de style de base générée depuis le fichier
+`app/layout.tsx` à la racine de l’application, plutôt que `@moduix/react/style.css` :
 
 ```tsx title="app/layout.tsx"
 import '@/lib/moduix/styles/style.css';
 ```
 
-Avec `rsc: true`, la CLI shadcn conserve une directive `use client` déjà présente dans le fichier source d’un
-composant du registre ; elle ne détermine pas elle-même si le composant en a besoin. Ajoutez la directive à votre
-propre wrapper composé s’il contient un état, des effets ou des gestionnaires d’événements.
+Avec `rsc: true`, la CLI shadcn conserve la directive `'use client'` déjà présente dans le fichier source d’un composant
+du registre. Elle ne détermine pas automatiquement si le composant copié ou votre propre composition en a besoin.
+Ajoutez la directive à votre composant lorsqu’il gère un état, des effets, des API du navigateur ou des événements.
 
-## Vérifier
+## Vérifier l’intégration
 
-La configuration est prête lorsque les styles sont présents dès la première réponse et que les composants interactifs
-ne provoquent ni erreur de frontière serveur/client ni erreur d’hydratation.
+L’intégration est correcte lorsque les styles moduix s’appliquent dès le rendu initial, que les composants interactifs
+fonctionnent après l’hydratation et que Next.js ne signale aucune erreur liée à la frontière entre le serveur et le client
+ni erreur d’hydratation.
 
 Consultez les guides Next.js sur le [CSS](https://nextjs.org/docs/app/getting-started/css) et la
 [directive `use client`](https://nextjs.org/docs/app/api-reference/directives/use-client).

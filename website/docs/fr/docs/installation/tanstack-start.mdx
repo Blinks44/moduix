@@ -1,25 +1,26 @@
 ---
 title: TanStack Start
-description: "Intégrez moduix à TanStack Start : CSS partagé, composants hydratés et alias de code source."
+description: "Utilisez moduix dans TanStack Start avec des composants installés depuis le paquet ou copiés via la CLI shadcn, des styles globaux et une hydratation compatible avec le SSR."
 ---
 
 # TanStack Start
 
-TanStack Start ne dépend d’aucun bundler et hydrate les composants de route côté client. Les composants moduix
-fonctionnent donc dans l’arbre de routes habituel, sans directive `use client`. Vite et Rsbuild sont tous deux pris
-en charge.
+Cette page suppose que vous disposez déjà d’une application TanStack Start. TanStack Start rend l’arbre des routes
+côté serveur, puis l’hydrate dans le navigateur. moduix fonctionne avec Vite comme avec Rsbuild. Dans la configuration
+standard, la directive `use client` n’est pas nécessaire.
 
-## Installer le paquet
+## Installer comme paquet
 
 <PackageManagerTabs command="install @moduix/react @ark-ui/react" />
 
-Ajoutez la feuille de style de base à la feuille de style globale déjà chargée par votre route racine :
+Importez une seule fois la feuille de style de base dans la route racine. Dans un projet TanStack Start standard, cette
+route se trouve dans `src/routes/__root.tsx` :
 
-```css title="src/styles.css"
-@import '@moduix/react/style.css';
+```tsx title="src/routes/__root.tsx"
+import '@moduix/react/style.css';
 ```
 
-Utilisez un composant dans une route :
+Utilisez un composant moduix dans une route :
 
 ```tsx title="src/routes/index.tsx"
 import { createFileRoute } from '@tanstack/react-router';
@@ -36,22 +37,39 @@ function Home() {
 
 ## Installer avec la CLI shadcn
 
-Terminez la [configuration de la CLI shadcn](/docs/quick-start#installer-avec-la-cli-shadcn). Si votre starter
-associe déjà `@/*` à `src/*`, conservez cet alias. Sinon, ajoutez les alias TypeScript et ceux de votre bundler à
-partir de la [configuration Vite](/docs/installation/vite#installer-avec-la-cli-shadcn) ou
-[Rsbuild](/docs/installation/rsbuild#installer-avec-la-cli-shadcn).
+Choisissez cette méthode si vous voulez conserver le code source et les styles des composants dans votre dépôt.
+Commencez par suivre la [configuration de la CLI shadcn](/docs/quick-start#installer-avec-la-cli-shadcn).
 
-Remplacez l'import CSS du paquet par la feuille de style générée :
+TanStack Start ne configure pas d’alias de chemins par défaut. Si votre starter associe déjà `@/*` à `src/*`,
+conservez cet alias. Sinon, ajoutez-le au fichier `tsconfig.json` à la racine du projet :
 
-```css title="src/styles.css"
-@import '@/lib/moduix/styles/style.css';
+```json title="tsconfig.json"
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
 ```
 
-## Vérifier
+Configurez ensuite le même alias pour votre bundler. Pour Vite, consultez le [guide TanStack Start sur les alias de chemins](https://tanstack.com/start/latest/docs/framework/react/guide/path-aliases).
+Rsbuild lit automatiquement le champ `paths` du `tsconfig.json` racine.
 
-La configuration est prête lorsque la page rendue côté serveur s’hydrate sans divergence et qu’un composant
-interactif répond après l’hydratation. Comme dans le reste de TanStack Start, n’exécutez pas côté serveur de code
-réservé au navigateur.
+Remplacez l’import de la feuille de style du paquet dans la route racine par la feuille de style générée. N’importez pas
+les deux feuilles :
 
-Consultez le [démarrage rapide de TanStack Start](https://tanstack.com/start/latest/docs/framework/react/quick-start)
-pour la configuration complète du framework.
+```tsx title="src/routes/__root.tsx"
+import '@/lib/moduix/styles/style.css';
+```
+
+## Vérifier l’intégration
+
+Lancez le serveur de développement et ouvrez `/`. L’intégration fonctionne lorsque les styles moduix sont appliqués dès
+le rendu côté serveur, que la page s’hydrate sans divergence et que le bouton réagit aux clics. Évitez d’utiliser des API
+du navigateur ou des valeurs susceptibles de différer entre le serveur et le navigateur dans le code exécuté lors du
+rendu serveur.
+
+Pour la configuration complète de TanStack Start, consultez les guides [Getting Started](https://tanstack.com/start/latest/docs/framework/react/getting-started)
+et [Build from Scratch](https://tanstack.com/start/latest/docs/framework/react/build-from-scratch).

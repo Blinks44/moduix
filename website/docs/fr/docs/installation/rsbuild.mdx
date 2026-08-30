@@ -1,23 +1,26 @@
 ---
 title: Rsbuild
-description: "Intégrez moduix à une application React avec Rsbuild : un import CSS partagé et un alias TypeScript."
+description: "Intégrez moduix à une application React utilisant Rsbuild : installez le paquet ou ajoutez le code source via la CLI shadcn, puis configurez les styles partagés et les alias TypeScript."
 ---
 
 # Rsbuild
 
-Rsbuild charge directement le CSS du paquet moduix et lit automatiquement les alias de chemins TypeScript.
+Ce guide part du principe que vous disposez déjà d’une application React construite avec Rsbuild. Si vous partez de
+zéro, suivez d’abord le [démarrage rapide de Rsbuild](https://rsbuild.rs/guide/start/quick-start). Rsbuild prend
+automatiquement en compte les alias de chemins TypeScript. Avec la CLI shadcn, vous n’avez donc pas besoin de
+dupliquer cet alias dans `resolve.alias`.
 
 ## Installer le paquet
 
 <PackageManagerTabs command="install @moduix/react @ark-ui/react" />
 
-Importez une seule fois la feuille de style de base dans le point d'entrée de l'application :
+Importez la feuille de style commune une seule fois depuis le point d’entrée de l’application :
 
 ```tsx title="src/index.tsx"
 import '@moduix/react/style.css';
 ```
 
-Importez ensuite les composants depuis leurs sous-chemins de paquet :
+Importez ensuite chaque composant depuis le sous-chemin correspondant du paquet :
 
 ```tsx title="src/App.tsx"
 import { Button } from '@moduix/react/button';
@@ -29,8 +32,8 @@ export function App() {
 
 ## Installer avec la CLI shadcn
 
-Terminez la [configuration de la CLI shadcn](/docs/quick-start#installer-avec-la-cli-shadcn), puis ajoutez l'alias
-de source à `tsconfig.json` :
+Suivez d’abord la [configuration de la CLI shadcn](/docs/quick-start#installer-avec-la-cli-shadcn), puis ajoutez
+l’alias de chemin `@/*` dans `tsconfig.json` :
 
 ```json title="tsconfig.json"
 {
@@ -43,8 +46,9 @@ de source à `tsconfig.json` :
 }
 ```
 
-Rsbuild utilise cet alias sans nécessiter d’entrée `resolve.alias`. Importez une seule fois la feuille de style de base
-générée au point d’entrée de l’application :
+Rsbuild lit automatiquement `compilerOptions.paths` ; il est donc inutile de recopier cet alias dans `resolve.alias`
+de `rsbuild.config.ts`. Remplacez l’import de la feuille de style du paquet par la feuille générée ci-dessous.
+N’importez pas les deux feuilles en même temps :
 
 ```tsx title="src/index.tsx"
 import '@/lib/moduix/styles/style.css';
@@ -52,8 +56,8 @@ import '@/lib/moduix/styles/style.css';
 
 ## Vérifier
 
-La configuration est prête lorsqu’un composant stylé s’affiche et que TypeScript comme Rsbuild résolvent correctement
-`@/components/moduix/*`.
+Lancez le serveur de développement Rsbuild. L’intégration fonctionne lorsque le composant s’affiche avec les styles
+moduix et que TypeScript comme Rsbuild résolvent correctement `@/components/moduix/*`.
 
-Consultez le [démarrage rapide de Rsbuild](https://rsbuild.rs/guide/start/quick-start) pour la configuration
-complète du framework.
+Pour obtenir la configuration complète de Rsbuild, notamment pour créer une application React, consultez le [démarrage rapide de
+Rsbuild](https://rsbuild.rs/guide/start/quick-start) et le [guide React](https://rsbuild.rs/guide/framework/react).

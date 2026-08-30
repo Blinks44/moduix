@@ -1,24 +1,33 @@
 ---
 title: React Router
-description: "Intégrez moduix à React Router en mode framework : CSS partagé, balisage compatible SSR et alias."
+description: "Intégrez moduix à une application React Router en mode Framework, chargez les styles de base et utilisez un composant dans un module de route."
 ---
 
 # React Router
 
-Cette configuration concerne React Router en mode framework. En mode données, utilisez les mêmes imports de paquet
-dans votre point d’entrée Vite existant.
+Cette page concerne React Router en mode Framework. Si votre application utilise déjà ce mode, ajoutez moduix en
+suivant les étapes ci-dessous. Pour les modes Data ou Declarative, suivez la [configuration Vite](/docs/installation/vite) : les imports moduix restent identiques.
 
 ## Installer le paquet
 
 <PackageManagerTabs command="install @moduix/react @ark-ui/react" />
 
-Importez une seule fois la feuille de style de base depuis la route racine :
+En mode Framework, React Router rend les modules de route dans `app/root.tsx`. Importez-y une seule fois la feuille de
+style de base :
 
 ```tsx title="app/root.tsx"
 import '@moduix/react/style.css';
 ```
 
-Utilisez les composants dans un module de route :
+Déclarez la route dans `app/routes.ts` :
+
+```tsx title="app/routes.ts"
+import { type RouteConfig, index } from '@react-router/dev/routes';
+
+export default [index('routes/home.tsx')] satisfies RouteConfig;
+```
+
+Utilisez un composant moduix dans le module de route :
 
 ```tsx title="app/routes/home.tsx"
 import { Button } from '@moduix/react/button';
@@ -28,10 +37,13 @@ export default function Home() {
 }
 ```
 
+La route d’index est accessible à l’adresse `/`. Ouvrez cette adresse après avoir lancé le serveur de développement.
+
 ## Installer avec la CLI shadcn
 
-Terminez la [configuration de la CLI shadcn](/docs/quick-start#installer-avec-la-cli-shadcn). Associez `@/*` à
-`app/*` plutôt qu'à `src/*` lorsque le code généré doit se trouver dans le répertoire `app` standard :
+Choisissez cette méthode si vous voulez conserver le code source et les styles des composants dans votre dépôt.
+Commencez par suivre la [configuration de la CLI shadcn](/docs/quick-start#installer-avec-la-cli-shadcn). Le modèle
+React Router standard place le code de l’application dans `app`. Associez donc `@/*` à `app/*`, et non à `src/*` :
 
 ```json title="tsconfig.json"
 {
@@ -44,15 +56,22 @@ Terminez la [configuration de la CLI shadcn](/docs/quick-start#installer-avec-la
 }
 ```
 
-Le mode framework de React Router utilise Vite. Reprenez donc l’alias dans `vite.config.ts` comme indiqué dans la
-[configuration Vite](/docs/installation/vite#installer-avec-la-cli-shadcn), en remplaçant `./src` par `./app`.
-Importez ensuite `@/lib/moduix/styles/style.css` depuis `app/root.tsx`.
+Le mode Framework utilise Vite. Rendez le même alias disponible pour le bundler en suivant la [configuration Vite](/docs/installation/vite#installer-avec-la-cli-shadcn) et en remplaçant `./src` par `./app`. Conservez le plugin React Router et les autres réglages Vite déjà présents dans votre projet.
+
+Après la génération des fichiers, remplacez l’import de la feuille de style du paquet dans `app/root.tsx` par celui de
+la feuille générée :
+
+```tsx title="app/root.tsx"
+import '@/lib/moduix/styles/style.css';
+```
+
+N’importez pas les deux feuilles de style. Avec cette méthode, la feuille générée fournit les styles de base.
 
 ## Vérifier
 
-La configuration est prête lorsque le rendu serveur initial correspond à la page hydratée et que les composants
-interactifs fonctionnent après l’hydratation. Pendant le rendu, ne faites pas dépendre le balisage des objets globaux
-du navigateur.
+Lancez le serveur de développement et ouvrez `/`. La page doit être rendue côté serveur, s’hydrater sans divergence et
+conserver le fonctionnement des composants interactifs après l’hydratation. Pendant le rendu, ne faites pas dépendre le
+balisage des objets globaux du navigateur.
 
-Consultez l'[installation de React Router](https://reactrouter.com/start/framework/installation) pour la
-configuration complète du framework.
+Consultez le [guide d’installation de React Router](https://reactrouter.com/start/framework/installation) et le
+[guide du routage](https://reactrouter.com/start/framework/routing) pour la configuration complète du framework.

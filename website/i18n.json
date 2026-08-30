@@ -406,6 +406,141 @@
     "ru": "По умолчанию",
     "fr": "Par défaut"
   },
+  "themePresetPreviewLabel": {
+    "en": "Theme preset preview",
+    "ru": "Предпросмотр пресетов тем",
+    "fr": "Aperçu des préréglages de thème"
+  },
+  "themePresetListLabel": {
+    "en": "Theme presets",
+    "ru": "Пресеты тем",
+    "fr": "Préréglages de thème"
+  },
+  "themePresetCalmDescription": {
+    "en": "The balanced moduix foundation. Quiet surfaces and a neutral rhythm.",
+    "ru": "Сбалансированная основа moduix со спокойными поверхностями и нейтральным ритмом.",
+    "fr": "Le socle moduix équilibré, avec des surfaces discrètes et un rythme neutre."
+  },
+  "themePresetDenseDescription": {
+    "en": "Compact spacing and blue structure for admin and data-heavy interfaces.",
+    "ru": "Компактные интервалы и синяя палитра для админ-панелей и интерфейсов с большим объёмом данных.",
+    "fr": "Un espacement compact et une structure bleue pour les interfaces d’administration riches en données."
+  },
+  "themePresetSoftDescription": {
+    "en": "Rounded surfaces and a warmer violet accent for product workflows.",
+    "ru": "Округлые поверхности и более тёплый фиолетовый акцент для продуктовых сценариев.",
+    "fr": "Des surfaces arrondies et un accent violet plus chaleureux pour les parcours produit."
+  },
+  "themePresetContrastDescription": {
+    "en": "Sharper borders and clearer contrast for focused, technical interfaces.",
+    "ru": "Чёткие границы и усиленный контраст для технических интерфейсов, где важна ясная иерархия.",
+    "fr": "Des bordures plus nettes et un contraste renforcé pour les interfaces techniques qui privilégient la lisibilité."
+  },
+  "themePreviewColorModeLabel": {
+    "en": "Preview color mode",
+    "ru": "Цветовая схема предпросмотра",
+    "fr": "Mode de couleur de l’aperçu"
+  },
+  "themePreviewLight": {
+    "en": "Light",
+    "ru": "Светлая",
+    "fr": "Clair"
+  },
+  "themePreviewDark": {
+    "en": "Dark",
+    "ru": "Тёмная",
+    "fr": "Sombre"
+  },
+  "themePreviewLabel": {
+    "en": "moduix preset",
+    "ru": "Пресет moduix",
+    "fr": "Préréglage moduix"
+  },
+  "themePreviewControls": {
+    "en": "Controls",
+    "ru": "Элементы",
+    "fr": "Contrôles"
+  },
+  "themePreviewPopupRows": {
+    "en": "Popup rows",
+    "ru": "Строки списка",
+    "fr": "Lignes de popup"
+  },
+  "themePreviewReleaseWorkspace": {
+    "en": "Release workspace",
+    "ru": "Рабочая область выпуска",
+    "fr": "Espace de publication"
+  },
+  "themePreviewOneVisualDecision": {
+    "en": "One visual decision, applied across the system.",
+    "ru": "Одно визуальное решение для всей системы.",
+    "fr": "Un choix visuel appliqué à tout le système."
+  },
+  "themePreviewReady": {
+    "en": "Ready",
+    "ru": "Готово",
+    "fr": "Prêt"
+  },
+  "themePreviewProjectName": {
+    "en": "Project name",
+    "ru": "Название проекта",
+    "fr": "Nom du projet"
+  },
+  "themePreviewSpringRelease": {
+    "en": "Spring release",
+    "ru": "Весенний релиз",
+    "fr": "Version de printemps"
+  },
+  "themePreviewStage": {
+    "en": "Stage",
+    "ru": "Этап",
+    "fr": "Étape"
+  },
+  "themePreviewSelectStage": {
+    "en": "Select a stage",
+    "ru": "Выберите этап",
+    "fr": "Sélectionner une étape"
+  },
+  "themePreviewWorkflow": {
+    "en": "Workflow",
+    "ru": "Процесс",
+    "fr": "Processus"
+  },
+  "themePreviewPlanning": {
+    "en": "Planning",
+    "ru": "Планирование",
+    "fr": "Planification"
+  },
+  "themePreviewInReview": {
+    "en": "In review",
+    "ru": "На проверке",
+    "fr": "En vérification"
+  },
+  "themePreviewReadyToShip": {
+    "en": "Ready to ship",
+    "ru": "Готово к выпуску",
+    "fr": "Prêt à publier"
+  },
+  "themePreviewTaskCount": {
+    "en": "12 tasks",
+    "ru": "12 задач",
+    "fr": "12 tâches"
+  },
+  "themePreviewReviewerCount": {
+    "en": "4 reviewers",
+    "ru": "4 проверяющих",
+    "fr": "4 relecteurs"
+  },
+  "themePreviewCreateWorkspace": {
+    "en": "Create workspace",
+    "ru": "Создать рабочую область",
+    "fr": "Créer l’espace de travail"
+  },
+  "themePreviewPreview": {
+    "en": "Preview",
+    "ru": "Предпросмотр",
+    "fr": "Aperçu"
+  },
   "tokensOverviewTokenArchitecture": {
     "en": "Token architecture",
     "ru": "Архитектура токенов",
@@ -718,8 +853,8 @@
   },
   "frameworkAstroDescription": {
     "en": "Interactive React islands in Astro.",
-    "ru": "Интерактивные React-острова в Astro.",
-    "fr": "Îlots React interactifs dans Astro."
+    "ru": "Интерактивные React-острова для Astro.",
+    "fr": "Îlots React interactifs pour Astro."
   },
   "frameworkNextDescription": {
     "en": "App Router and React Server Components.",
@@ -728,23 +863,23 @@
   },
   "frameworkReactRouterDescription": {
     "en": "Framework mode and data mode apps.",
-    "ru": "Приложения в режиме фреймворка и в режиме данных.",
-    "fr": "Applications en mode framework et en mode données."
+    "ru": "Приложения в режимах framework и data.",
+    "fr": "Applications en mode framework ou en mode data."
   },
   "frameworkRsbuildDescription": {
     "en": "React apps powered by Rspack.",
     "ru": "React-приложения на базе Rspack.",
-    "fr": "Applications React propulsées par Rspack."
+    "fr": "Applications React basées sur Rspack."
   },
   "frameworkTanStackStartDescription": {
     "en": "Full-stack React on Vite.",
-    "ru": "Полнофункциональный React на Vite.",
-    "fr": "React full stack sur Vite."
+    "ru": "Full-stack-приложения на React и Vite.",
+    "fr": "Applications React full-stack sur Vite."
   },
   "frameworkViteDescription": {
     "en": "Standard React apps and SPAs.",
-    "ru": "Стандартные React-приложения и SPA.",
-    "fr": "Applications React et SPA standard."
+    "ru": "Обычные React-приложения и SPA.",
+    "fr": "Applications React classiques et SPA."
   },
   "frameworkSupportGroupLabel": {
     "en": "Framework support",

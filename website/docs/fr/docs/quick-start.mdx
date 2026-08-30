@@ -1,6 +1,6 @@
 ---
 title: Démarrage rapide
-description: Installez moduix comme paquet ou copiez des composants depuis le registre shadcn.
+description: Installez moduix en tant que paquet ou ajoutez le code source des composants depuis le registre shadcn.
 ---
 
 import { FrameworkGrid } from '@/components/docs/framework-grid';
@@ -8,89 +8,91 @@ import { Card, Cards } from '@/components/mdx/Components';
 
 # Démarrage rapide
 
-moduix offre deux façons équivalentes de l’intégrer à un projet de production :
+moduix propose deux façons équivalentes de l’utiliser dans une application :
 
-- Installez `@moduix/react` et gérez ses mises à jour avec votre gestionnaire de paquets.
-- Ajoutez les composants avec la CLI shadcn afin de conserver leur code source, leurs styles et leurs utilitaires
-  dans votre dépôt.
+- Installez `@moduix/react` et laissez votre gestionnaire de paquets gérer les mises à jour.
+- Ajoutez les composants avec la CLI shadcn pour conserver leur code source, leurs styles et leurs utilitaires dans
+  votre dépôt.
 
-Les deux méthodes donnent accès aux mêmes composants, aux contrats d’Ark UI et au même système de tokens. Choisissez
-selon que vous préférez une dépendance gérée ou garder le contrôle complet du code dans votre dépôt.
+Les deux méthodes utilisent les mêmes implémentations de composants, les mêmes contrats alignés sur Ark UI et le même
+système de tokens. Choisissez selon l’endroit où vous voulez conserver le code source et la manière dont vous souhaitez
+le mettre à jour.
 
 ## Choisir une méthode d'installation
 
 <Cards>
   <Card
-    title="Installer comme paquet"
-    description="Conservez moduix dans node_modules et recevez les mises à jour par votre gestionnaire de paquets."
-    href="#installer-comme-paquet"
+    title="Installer le paquet"
+    description="Laissez moduix dans node_modules et recevez les mises à jour par votre gestionnaire de paquets."
+    href="#installer-le-paquet"
   />
   <Card
     title="Installer avec la CLI shadcn"
-    description="Ajoutez le code source des composants et les styles à votre application pour les modifier librement."
+    description="Ajoutez le code source des composants et les styles à votre application pour les modifier directement."
     href="#installer-avec-la-cli-shadcn"
   />
 </Cards>
 
-Vous avez besoin de React 18 ou 19, de `@ark-ui/react` et d'un framework ou bundler capable d'importer du CSS depuis
-des paquets npm. Les composants interactifs doivent être rendus dans une limite client lorsque le framework l'exige.
+Pour commencer, vous avez besoin de React 18 ou 19, de `@ark-ui/react` et d'un framework ou bundler capable d'importer
+du CSS depuis des paquets npm. Lorsque le framework l'exige, placez les composants interactifs dans un composant client.
 
-L’accessibilité est une responsabilité partagée : Ark UI gère le comportement des primitives, moduix les contrats des
-wrappers et les valeurs par défaut, et l’application les libellés, le contenu, les messages de validation et le
-parcours utilisateur.
+L’accessibilité est une responsabilité partagée : Ark UI fournit le comportement des primitives, moduix définit les
+contrats et les valeurs par défaut des wrappers, et votre application fournit les libellés, le contenu, les messages de
+validation et le parcours utilisateur.
 
 ## Choisir votre framework
 
-Le paquet et le registre fonctionnent de la même façon avec toutes les piles React. Choisissez votre framework pour
-savoir où importer les styles, comment définir l’alias de code source et où placer la frontière client ou SSR.
+Quel que soit le mode d’installation, moduix fonctionne de la même façon avec toutes les piles React. Choisissez votre
+framework pour savoir où importer les styles, comment définir l’alias du répertoire source et où placer les composants
+clients.
 
 <FrameworkGrid />
 
-## Installer comme paquet
+## Installer le paquet
 
-Choisissez cette méthode si vous préférez laisser moduix dans `node_modules` et le mettre à jour avec votre
-gestionnaire de paquets.
+Choisissez cette méthode si vous voulez laisser moduix dans `node_modules` et le mettre à jour avec votre gestionnaire
+de paquets.
 
 ### 1. Installer le paquet
 
-Les composants, le CSS et les design tokens sont livrés ensemble. React 18 ou 19 et Ark UI sont des dépendances de
-pair :
+Les composants, le CSS et les tokens de design sont livrés ensemble. React 18 ou 19 et Ark UI sont déclarés comme
+dépendances peer :
 
 <PackageManagerTabs command="install @moduix/react @ark-ui/react" />
 
-`react`, `react-dom` et `@ark-ui/react` restent des dépendances de votre application : moduix ne duplique donc ni le
-runtime React ni celui des primitives.
+`react`, `react-dom` et `@ark-ui/react` restent des dépendances de votre application. moduix n’embarque donc pas de
+copies supplémentaires de React ou des primitives.
 
 ### 2. Ajouter les styles
 
-Importez une seule fois la feuille de style de base requise dans le point d'entrée de votre application :
+Importez une seule fois le fichier de styles de base requis dans le point d’entrée de votre application :
 
 ```tsx
 import '@moduix/react/style.css';
 ```
 
-Cette feuille est indispensable : elle définit les design tokens partagés et la couche de base dont dépendent les
-styles des composants. Les styles propres à chaque composant restent chargés avec les composants importés.
+Ce fichier définit les tokens partagés et la couche de base dont dépendent les styles des composants. Les styles propres
+à chaque composant sont ensuite chargés avec le composant importé.
 
-Tous les design tokens moduix utilisent l'espace de noms `--moduix-*`. Votre projet peut conserver ses propres noms
-de tokens et les associer sélectivement dans une feuille de style chargée après `style.css` ; consultez
+Tous les tokens de design moduix utilisent l'espace de noms `--moduix-*`. Votre projet peut conserver ses propres noms
+de tokens et les associer sélectivement dans un fichier de styles chargé après `style.css` ; consultez
 [Tokens](/docs/tokens).
 
-Si vous souhaitez le reset facultatif, importez-le explicitement avant la feuille de style principale :
+Si vous souhaitez réinitialiser les styles, importez le fichier facultatif `reset.css` avant le fichier principal :
 
 ```tsx
 import '@moduix/react/reset.css';
 import '@moduix/react/style.css';
 ```
 
-Ainsi, `style.css` ne contient que le socle global et le CSS des composants inutilisés peut rester hors du bundle.
+Ainsi, `style.css` reste limité au socle global et les styles des composants inutilisés peuvent rester hors du bundle.
 
-Pour un point de départ visuel sélectionné, importez un préréglage facultatif après `style.css` ; consultez
+Pour une base visuelle prête à l’emploi, importez l’un des préréglages facultatifs après `style.css` ; consultez
 [Thèmes](/docs/themes).
 
 ### 3. Utiliser un composant
 
-Importez chaque composant depuis son sous-chemin `@moduix/react/*` :
+Importez les composants depuis leurs sous-chemins `@moduix/react/*` :
 
 ```tsx
 import { Button } from '@moduix/react/button';
@@ -121,13 +123,13 @@ export function Example() {
 }
 ```
 
-La configuration est prête lorsque le bouton adopte les styles moduix, ouvre la boîte de dialogue au clavier comme
-à la souris et récupère le focus après sa fermeture.
+L’installation est terminée lorsque le bouton utilise les styles moduix, ouvre la boîte de dialogue au clavier comme à
+la souris et récupère le focus après sa fermeture.
 
 ## Installer avec la CLI shadcn
 
-Choisissez cette méthode si vous voulez conserver le code source et les styles des composants dans votre dépôt. La
-CLI shadcn lit le registre moduix, résout les dépendances et écrit les fichiers aux emplacements définis par vos alias.
+Choisissez cette méthode si vous voulez conserver le code source et les styles des composants dans votre dépôt. La CLI
+shadcn lit le registre moduix, résout les dépendances et écrit les fichiers aux emplacements correspondant à vos alias.
 
 ### 1. Configurer shadcn
 
@@ -159,13 +161,13 @@ Créez `components.json` à la racine de votre projet avec la configuration du r
 }
 ```
 
-L'objet `tailwind` est requis par le schéma de configuration shadcn, mais moduix n'utilise pas Tailwind et ne
-nécessite pas son installation. Ses chemins vides et `baseColor` empêchent la CLI de rechercher des fichiers
-Tailwind ou de télécharger une palette de couleurs shadcn.
+L'objet `tailwind` est requis par le schéma de configuration shadcn, mais moduix n'utilise pas Tailwind et ne nécessite
+pas son installation. Ses chemins vides et `baseColor` empêchent la CLI de rechercher des fichiers Tailwind ou de
+télécharger une palette de couleurs shadcn.
 
-Conservez `rsc: false` pour les applications rendues côté client. Dans une application React Server Components,
-définissez `rsc: true` : la CLI shadcn conserve les directives `use client` déjà présentes dans les fichiers source du
-registre. Elle ne détermine pas elle-même quels composants en ont besoin.
+Conservez `rsc: false` sauf si votre projet utilise React Server Components. Dans une application RSC, définissez
+`rsc: true`. Avec cette option, la CLI ajoute `use client` aux composants client du registre. Ajoutez vous-même cette
+directive à vos wrappers lorsqu’ils gèrent un état, des effets ou des gestionnaires d’événements.
 
 Assurez-vous que votre projet résout l'alias `@/*` vers son répertoire source. Une structure classique avec `src`
 utilise :
@@ -173,6 +175,7 @@ utilise :
 ```json
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }
@@ -180,17 +183,17 @@ utilise :
 }
 ```
 
-La CLI `shadcn` dispose ainsi des alias et de l’URL du registre pour écrire les fichiers générés dans votre
-arborescence source plutôt que dans un dossier `@` littéral. La [configuration de framework](#choisir-votre-framework)
-indique si le même alias doit aussi être déclaré dans le bundler et quel répertoire source utiliser.
+La CLI `shadcn` dispose ainsi des alias et de l’URL du registre pour écrire les fichiers générés dans votre répertoire
+source plutôt que dans un dossier `@` littéral. La [configuration du framework](#choisir-votre-framework) indique si le
+même alias doit aussi être déclaré dans le bundler et quel répertoire source utiliser.
 
-### 2. Examiner un élément du registre
+### 2. Inspecter une entrée du registre
 
-Avant d'écrire des fichiers source, examinez la configuration actuelle et l'élément du registre :
+Avant de créer des fichiers source, inspectez la configuration actuelle et la description de l’entrée choisie :
 
 ```bash
 npx shadcn@latest info --json
-npx shadcn@latest search @moduix-react --query "confirmation dialog"
+npx shadcn@latest search @moduix-react --query "dialog"
 npx shadcn@latest view @moduix-react/dialog
 npx shadcn@latest add @moduix-react/dialog --dry-run
 ```
@@ -201,60 +204,60 @@ composants, des thèmes et leurs dépendances déclarées. Le même parcours via
 
 ### 3. Ajouter un composant
 
-Ajoutez des éléments du registre moduix :
+Ajoutez des composants du registre moduix :
 
 <PackageManagerTabs command="shadcn@latest add @moduix-react/button" dlx />
 
-Exécutez la même commande avec le nom d'un autre élément du registre, par exemple `@moduix-react/accordion`, pour
-ajouter d'autres composants.
+Exécutez la même commande avec le nom d'un autre composant du registre, par exemple `@moduix-react/accordion`, pour en
+ajouter d'autres.
 
-Le registre installe uniquement les fichiers de runtime partagés nécessaires aux composants. Il n’ajoute pas de police
-globale ; la typographie continue donc d’être héritée de votre application.
+Le registre ajoute uniquement les fichiers partagés nécessaires au fonctionnement des composants. Il n’ajoute pas de
+police globale : la typographie continue donc d’être héritée de votre application.
 
 ### 4. Importer les styles générés
 
-Importez la feuille de style de base générée depuis les fichiers que `shadcn` a ajoutés à votre projet :
+Importez le fichier de styles de base parmi ceux que `shadcn` a ajoutés à votre projet :
 
 ```tsx
 import '@/lib/moduix/styles/style.css';
 ```
 
-Si vous souhaitez le reset facultatif avec cette méthode, installez son élément de registre distinct :
+Si vous souhaitez réinitialiser les styles avec cette méthode, ajoutez l’entrée de registre correspondante :
 
 ```bash
 npx shadcn@latest add @moduix-react/reset
 ```
 
-Importez-le ensuite avant la feuille de style principale :
+Importez ensuite ce fichier avant le fichier de styles principal :
 
 ```tsx
 import '@/lib/moduix/styles/reset.css';
 import '@/lib/moduix/styles/style.css';
 ```
 
-Les exemples ci-dessous supposent `@/components` et `@/lib`. Si votre projet utilise des alias différents, mettez à
-jour `components.json` et importez les fichiers générés depuis les chemins correspondants.
+Les exemples ci-dessous utilisent `@/components` et `@/lib`. Si votre projet utilise des alias différents, mettez à jour
+`components.json` et importez les fichiers générés depuis les chemins correspondants.
 
-### 5. Utiliser le composant généré
+### 5. Utiliser les composants générés
 
-Importez les composants depuis les fichiers générés dans votre propre projet :
+Importez les composants depuis les fichiers créés dans votre projet :
 
 ```tsx
 import { Button } from '@/components/moduix/button';
 import { Accordion } from '@/components/moduix/accordion';
 ```
 
-La plupart des composants se composent de parties nommées. Cette structure préserve leur comportement accessible tout
-en vous laissant maîtriser le balisage, la mise en page et les styles dans l’application.
+La plupart des composants sont composés de parties nommées. Cette structure préserve leur comportement accessible tout
+en vous laissant maîtriser le balisage, la mise en page et les styles dans votre application.
 
-Le flux de possession s'inspire de [shadcn/ui](https://ui.shadcn.com/), tandis que l'anatomie des composants et le
-comportement d'interaction restent alignés sur [Ark UI](https://ark-ui.com/).
+La gestion du code source s’inspire de [shadcn/ui](https://ui.shadcn.com/), tandis que la structure des composants et
+leur comportement restent alignés sur [Ark UI](https://ark-ui.com/).
 
 ## Configurer la superposition des portails
 
 Cette configuration s’applique aux deux méthodes d’installation. `Dialog`, `Popover`, `Menu`, `Select` et d’autres
-composants affichent leurs superpositions dans des portails. Isolez la racine de l’application pour que les fonds et
-fenêtres contextuelles restent au-dessus de la page sans entrer en conflit avec des valeurs locales de `z-index`.
+composants affichent le contenu des superpositions dans des portails. Isolez la racine de l’application pour que les
+fonds et fenêtres contextuelles restent au-dessus de la page sans entrer en conflit avec des valeurs locales de `z-index`.
 
 ```tsx title="layout.tsx"
 <body>
@@ -268,9 +271,9 @@ fenêtres contextuelles restent au-dessus de la page sans entrer en conflit avec
 }
 ```
 
-Si votre application prend en charge Safari sur iOS 26, testez une modale défilante avec l’interface du navigateur.
-Si du contenu apparaît sous le fond, ne changez pas le positionnement du `body` : un fond positionné absolument pourra
-alors couvrir toute la zone visible.
+Si votre application prend en charge Safari sur iOS 26, testez une modale défilante avec la barre du navigateur visible.
+Si du contenu apparaît sous le fond, définissez `body` avec `position: relative` afin qu’un fond positionné
+absolument puisse couvrir toute la zone visible.
 
 ```css title="styles.css"
 body {
@@ -280,42 +283,40 @@ body {
 
 ## Styles
 
-moduix s’adapte à la méthode de style déjà utilisée dans votre projet :
+moduix fonctionne avec l’approche de style déjà utilisée dans votre projet :
 
-- CSS natif avec sélecteurs globaux, couches de cascade et variables CSS.
+- CSS natif avec des sélecteurs globaux, des couches de cascade et des variables CSS.
 - CSS Modules via `className` et les props de classe des slots de composants.
-- Classes utilitaires Tailwind CSS pour la mise en page et le style ponctuel.
-- Bibliothèques CSS-in-JS qui attachent des classes ou transmettent des styles limités à leurs wrappers.
+- Classes utilitaires Tailwind CSS pour la mise en page et les modifications ponctuelles.
+- Bibliothèques CSS-in-JS qui ajoutent des classes ou transmettent des styles via vos propres wrappers.
 
-Par défaut, les contrôles principaux utilisent `--moduix-size-md: 36px` et les lignes de listes contextuelles
-`--moduix-size-sm: 32px`. Les composants partagent cette échelle : modifier ces tokens met donc à jour ensemble les
-champs, déclencheurs, boutons et éléments semblables à des éléments de menu.
+Dans la densité par défaut, les contrôles principaux utilisent `--moduix-size-md: 36px` et les lignes de menus et de
+listes contextuelles utilisent `--moduix-size-sm: 32px`. Les composants partagent cette échelle : modifier ces tokens met donc à
+jour ensemble les champs, déclencheurs, boutons et éléments de menu.
 
-Les pages de composants répertorient leurs variables CSS publiques et leurs hooks de style. Pour les changements à
-l’échelle du système, utilisez les tokens sémantiques partagés ; réservez les variables de composants aux exceptions
-ciblées. Consultez [Tokens](/docs/tokens) pour la hiérarchie complète et [Animations](/docs/animations) pour les
-recettes de mouvement.
+Les pages de composants répertorient leurs variables CSS publiques et leurs points d’extension de style. Pour les
+changements à l’échelle du système, utilisez les tokens sémantiques partagés ; réservez les variables de composants aux
+exceptions ciblées. Consultez [Tokens](/docs/tokens) pour la hiérarchie complète et [Animations](/docs/animations) pour
+les recettes de mouvement.
 
 ## Résoudre les problèmes
 
-| Symptôme | Vérification |
+| Problème | Vérification |
 | --- | --- |
-| Les composants s'affichent sans styles | Importez une fois le bon point d'entrée `style.css`, après tout reset facultatif. |
-| Un import de code source possédé est introuvable | Vérifiez l'alias `@/*` dans TypeScript et votre bundler, puis vérifiez `components.json`. |
+| Les composants s'affichent sans styles | Importez une fois le bon point d'entrée `style.css`, après la réinitialisation facultative si vous l’utilisez. |
+| Le bundler ne trouve pas un import de composant généré | Vérifiez l'alias `@/*` dans TypeScript et votre bundler, puis vérifiez `components.json`. |
 | Une fenêtre contextuelle apparaît sous le contenu de la page | Ajoutez `isolation: isolate` à la racine de l'application et évitez les `z-index` globaux sans rapport. |
-| Le rendu serveur signale des API client | Conservez les composants interactifs sous une limite client dans les frameworks qui l'exigent. |
+| Le rendu serveur signale des API client | Placez les composants interactifs dans un composant client dans les frameworks qui l'exigent. |
 
 ## À lire ensuite
 
 - [Migration depuis shadcn](/docs/migrate-from-shadcn) pour les noms de composants, les imports, le style et les
-  différences de possession.
-- [Patrons de composition](https://moduix.dev/docs/composition-patterns) pour les règles de composition centrées sur
-  les wrappers et les échappatoires de bas niveau.
-- [Tokens](/docs/tokens) pour les design tokens partagés, les substitutions globales et les valeurs de repli des
-  composants.
-- [Mode sombre](https://moduix.dev/docs/dark-mode) et [de droite à gauche (RTL)](https://moduix.dev/docs/rtl) pour
-  configurer le thème et la direction à l'échelle de l'application.
-- [Mise à jour et migration](https://moduix.dev/docs/updating) pour les flux de mise à jour du paquet et du code
-  source possédé.
-- [Animations](https://moduix.dev/docs/animations) pour les valeurs de mouvement par défaut et les recettes de
-  transition locale.
+  différences dans la gestion du code source.
+- [Modèles de composition](/docs/composition-patterns) pour les règles de composition centrées sur les wrappers et les
+  échappatoires de bas niveau.
+- [Tokens](/docs/tokens) pour les tokens partagés, les substitutions globales et les valeurs de repli des composants.
+- [Mode sombre](/docs/dark-mode) et [De droite à gauche (RTL)](/docs/rtl) pour configurer le thème et la direction à
+  l'échelle de l'application.
+- [Mise à jour et migration](/docs/updating) pour les processus de mise à jour du paquet et du code source conservé
+  dans le projet.
+- [Animations](/docs/animations) pour les valeurs de mouvement par défaut et les recettes de transition locale.

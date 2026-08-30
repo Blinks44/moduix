@@ -1,24 +1,33 @@
 ---
 title: React Router
-description: Install moduix in a React Router framework app with root CSS, SSR-safe markup, and aliases.
+description: Install moduix in a React Router framework app, load the foundation styles, and use a component in a route module.
 ---
 
 # React Router
 
-This setup targets React Router framework mode. Data mode apps can use the same package imports in
-their existing Vite entry.
+This guide covers React Router in Framework Mode. If you already have a Framework Mode app, add moduix with the
+steps below. For Data Mode or Declarative Mode, follow the [Vite setup](/docs/installation/vite); the moduix imports
+stay the same.
 
-## Package install
+## Install the package
 
 <PackageManagerTabs command="install @moduix/react @ark-ui/react" />
 
-Import the foundation stylesheet once from the root route:
+React Router renders framework route modules inside `app/root.tsx`. Import the foundation stylesheet there once:
 
 ```tsx title="app/root.tsx"
 import '@moduix/react/style.css';
 ```
 
-Use components in a route module:
+Register the route in `app/routes.ts`:
+
+```tsx title="app/routes.ts"
+import { type RouteConfig, index } from '@react-router/dev/routes';
+
+export default [index('routes/home.tsx')] satisfies RouteConfig;
+```
+
+Use a moduix component in the route module:
 
 ```tsx title="app/routes/home.tsx"
 import { Button } from '@moduix/react/button';
@@ -28,10 +37,13 @@ export default function Home() {
 }
 ```
 
-## shadcn CLI install
+The index route renders at `/`, so you can open that URL after starting the development server.
 
-Complete the [shadcn CLI setup](/docs/quick-start#install-with-the-shadcn-cli). Map `@/*` to `app/*`
-instead of `src/*` when generated code belongs under the standard `app` directory:
+## Install with the shadcn CLI
+
+Use this method when you want the component source and styles in your repository. First complete the [shadcn CLI
+setup](/docs/quick-start#install-with-the-shadcn-cli). The standard React Router template keeps application code in
+`app`, so map `@/*` to `app/*` instead of `src/*`:
 
 ```json title="tsconfig.json"
 {
@@ -44,14 +56,20 @@ instead of `src/*` when generated code belongs under the standard `app` director
 }
 ```
 
-React Router framework mode uses Vite, so mirror the alias in `vite.config.ts` as shown in the
-[Vite setup](/docs/installation/vite#shadcn-cli-install), changing `./src` to `./app`.
-Import `@/lib/moduix/styles/style.css` from `app/root.tsx`.
+Framework Mode uses Vite. Make the same alias available to the bundler by following the [Vite setup](/docs/installation/vite#install-with-the-shadcn-cli) and changing `./src` to `./app`. Keep the React Router plugin and any other existing Vite configuration in place.
+
+After shadcn generates the files, replace the package stylesheet import in `app/root.tsx` with the generated one:
+
+```tsx title="app/root.tsx"
+import '@/lib/moduix/styles/style.css';
+```
+
+Do not import both stylesheets. The generated file is the foundation stylesheet for the source-owned setup.
 
 ## Verify
 
-The setup is complete when the initial server render matches the hydrated page and interactive
-components work after hydration. Do not branch component markup on browser globals during render.
+Start the development server and open `/`. The page should render on the server, hydrate without a mismatch, and keep
+interactive components working after hydration. Do not branch component markup on browser globals during render.
 
-See [React Router installation](https://reactrouter.com/start/framework/installation) for the
-framework's complete setup.
+See the [React Router framework installation guide](https://reactrouter.com/start/framework/installation) and
+[routing guide](https://reactrouter.com/start/framework/routing) for the framework's complete setup.
