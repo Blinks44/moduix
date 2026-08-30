@@ -1,29 +1,28 @@
 ---
 title: Native Select
 component: native-select
-description: Un élément `select` natif stylisé pour les listes d’options simples et le comportement de sélection géré par le navigateur.
+description: Un élément `<select>` natif stylisé pour les listes d’options simples, dont la sélection est gérée par le navigateur.
 ---
 
 import * as NativeSelectDocs from '@/components/examples/native-select';
 
 ## Référence de l’API
 
-`NativeSelect` encapsule le composant Ark UI
-[Field.Select](https://ark-ui.com/docs/components/field) et rend un véritable élément HTML `<select>`.
-Son apparence reprend le même langage visuel que `Select`, composant personnalisable, comme le composant
-[Native Select](https://chakra-ui.com/docs/components/native-select) de Chakra UI. moduix conserve une API
-publique réduite à un seul composant.
+`NativeSelect` est un composant stylisé basé sur [`Field.Select` d’Ark UI](https://ark-ui.com/docs/components/field).
+Il rend un véritable élément HTML `<select>` : le navigateur reste donc responsable de l’affichage des options,
+de la navigation au clavier, de la soumission et de la réinitialisation du formulaire, du remplissage automatique
+et de la validation.
 
 ## Choisir le bon composant
 
-Utilisez `NativeSelect` pour des listes d’options simples lorsque vous souhaitez conserver la saisie automatique du navigateur,
-la réinitialisation du formulaire, le comportement clavier natif et l’interface de sélection native sur mobile. Préférez
-[`Select`](/docs/select) lorsqu’il vous faut un menu déroulant personnalisable, les API de collection, des options riches,
-l’effacement, l’affichage de plusieurs valeurs sélectionnées ou le contrôle programmatique de l’ouverture.
+Utilisez `NativeSelect` pour des listes d’options simples lorsque vous souhaitez conserver le comportement natif du navigateur,
+notamment le remplissage automatique, la réinitialisation du formulaire, la navigation au clavier et l’interface de sélection
+propre à la plateforme sur mobile. Préférez [`Select`](/docs/select) lorsqu’il vous faut une fenêtre contextuelle personnalisée,
+les API de collection, des options riches, une action d’effacement ou le contrôle programmatique de la fenêtre.
 
 ## Exemple de base
 
-Ajoutez des éléments natifs `option` ou `optgroup` comme enfants et utilisez les propriétés habituelles d’un élément `<select>`.
+Ajoutez des éléments natifs `option` ou `optgroup` comme enfants et passez les mêmes propriétés qu’à un élément HTML `<select>`.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/native-select/basic.tsx"
@@ -37,67 +36,72 @@ Ajoutez des éléments natifs `option` ou `optgroup` comme enfants et utilisez l
 
 ## Anatomie
 
-`NativeSelect` conserve le véritable élément `<select>` comme contrôle de formulaire et lui ajoute l’icône non interactive
-`ChevronDownIcon` de moduix pour rester visuellement cohérent avec `Select`.
+`NativeSelect` rend le véritable `<select>` dans un conteneur externe. En mode sélection unique et fenêtre fermée, il ajoute
+l’icône décorative `ChevronDownIcon`. Elle est masquée avec `multiple` ou `size > 1`, lorsque le navigateur affiche une liste.
 
 ```text
-NativeSelect
-└─ span[data-scope="native-select"][data-part="control"]
+NativeSelect / NativeSelect.Root
+└─ span[data-scope="native-select"][data-part="control"][data-slot="native-select-control"]
    ├─ select[data-scope="field"][data-part="select"][data-slot="native-select-root"]
    │  ├─ option
    │  └─ optgroup
-   └─ span[data-scope="native-select"][data-part="indicator"]
+   └─ span[data-scope="native-select"][data-part="indicator"][data-slot="native-select-indicator"]
       └─ ChevronDownIcon
 ```
 
-| Partie         | Rôle                                                |
-| -------------- | --------------------------------------------------- |
-| `NativeSelect` | Élément `<select>` natif stylisé avec indicateur visuel. |
+| Partie                              | Rôle                                                                    |
+| ---------------------------------- | ----------------------------------------------------------------------- |
+| `NativeSelect` / `NativeSelect.Root` | Composant racine public. Rend le `<select>` natif et l’indicateur décoratif. |
 
 ## Composition
 
 ### Composition recommandée
 
-Utilisez la forme abrégée `NativeSelect` avec des enfants natifs et les propriétés d’un composant contrôlé ou non contrôlé.
+Utilisez `NativeSelect` directement pour un contrôle simple. Ajoutez des éléments natifs `option` et `optgroup` comme enfants.
 Placez-le dans `Field.Root` lorsque le contrôle doit afficher un libellé, une description, un message d’erreur ou partager
 les états `required`, `invalid` et `disabled`.
+Donnez-lui un nom accessible avec `Field.Label`, un élément `<label>`, `aria-label` ou `aria-labelledby`.
 
 `NativeSelect.Root` est un alias conservé pour la compatibilité. Dans le code de l’application, utilisez plutôt `NativeSelect`.
 
 ### Quand créer une composition personnalisée
 
-Passez à `Select` si l’application doit contrôler le rendu des options, le positionnement du menu, l’état de la collection
-ou des indicateurs personnalisés. Gardez `NativeSelect` lorsque vous souhaitez laisser le navigateur gérer la sélection.
+Passez à `Select` si l’application doit contrôler l’affichage des options, utiliser une collection, ajouter une action
+d’effacement ou contrôler programmatiquement la fenêtre. Gardez `NativeSelect` lorsque vous souhaitez laisser le navigateur
+gérer la sélection.
 
 ### Propriétés par défaut
 
-| Propriété      | Valeur par défaut          | Remarques                                                     |
-| -------------- | -------------------------- | ------------------------------------------------------------- |
-| `value`        | -                              | Valeur en mode contrôlé                                      |
-| `defaultValue` | -                              | Valeur initiale en mode non contrôlé                         |
-| `onChange`     | -                              | Événement natif `ChangeEvent<HTMLSelectElement>`             |
-| `multiple`     | `false`                        | Active la sélection de plusieurs options                     |
-| `size`         | valeur par défaut du navigateur | Nombre de lignes visibles, pas une variante visuelle de taille |
-| `disabled`     | `false`                        | État désactivé                                               |
-| `controlProps` | -                              | Propriétés du conteneur externe                              |
-| `asChild`      | `false`                        | Composition Ark ; l’enfant doit rester un `<select>`         |
+| Propriété      | Valeur par défaut             | Remarques                                                                    |
+| -------------- | ----------------------------- | ---------------------------------------------------------------------------- |
+| `value`        | -                             | Valeur en mode contrôlé.                                                     |
+| `defaultValue` | -                             | Valeur initiale en mode non contrôlé.                                        |
+| `onChange`     | -                             | Événement natif `ChangeEvent<HTMLSelectElement>`.                            |
+| `multiple`     | `false`                       | Active la sélection native de plusieurs options.                             |
+| `size`         | valeur par défaut du navigateur | Nombre de lignes visibles, pas une variante visuelle de taille.              |
+| `disabled`     | `false`                       | Désactive le contrôle.                                                        |
+| `controlProps` | -                             | Propriétés du `<span>` externe, notamment pour son style.                    |
+| `asChild`      | `false`                       | Composition Ark ; l’enfant doit rester un élément `<select>` sémantique.     |
 
 ### Comportement
 
-- La référence pointe vers le véritable `HTMLSelectElement`.
+- La `ref` pointe vers le véritable `HTMLSelectElement`.
 - La soumission du formulaire, la saisie automatique, la réinitialisation, la validation `required`, la gestion des options
   et le comportement clavier natif sont conservés.
-- Avec `multiple` ou une valeur de `size` supérieure à un, le navigateur définit la hauteur intrinsèque de la liste.
-- `Field.Root` fournit les identifiants et `aria-describedby`, et transmet l’état invalide ainsi que les autres états natifs du champ.
-- Avec `asChild`, l’enfant doit rester un élément HTML `<select>` sémantique.
+- Avec `multiple` ou une valeur de `size` supérieure à un, le navigateur définit la hauteur de la liste et gère son apparence
+  ainsi que ses interactions.
+- `Field.Root` relie le libellé, le texte associé et le message d’erreur au `<select>`, et fournit les identifiants,
+  `aria-describedby`, `aria-invalid`, `disabled` et `required`.
+- Avec `asChild`, passez un seul élément HTML `<select>` sémantique comme enfant.
 - L’élément HTML `<select>` ne prend pas en charge le mode lecture seule.
-- L’icône `ChevronDownIcon` aligne le contrôle fermé sur `Select`. Le navigateur reste responsable de l’apparence du menu déroulant.
+- L’icône `ChevronDownIcon` est décorative et masquée pour les listes ; le navigateur reste responsable de l’apparence de la fenêtre.
 
 ## Exemples
 
 ### État contrôlé
 
-Utilisez l’événement de changement natif lorsque React contrôle la valeur sélectionnée.
+Utilisez `value` et `onChange` lorsque React doit contrôler la valeur courante. Lisez la nouvelle valeur
+dans `event.target.value` et transmettez-la via `value`.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/native-select/controlled.tsx"
@@ -105,9 +109,10 @@ Utilisez l’événement de changement natif lorsque React contrôle la valeur s
 ```
 </PreviewFrame>
 
-### Intégration avec Field
+### Champ de formulaire
 
-Utilisez `Field` pour associer le select à un libellé accessible, une description, un message d’erreur et un état de formulaire partagé.
+Utilisez `Field.Root` lorsque le `<select>` a besoin d’un libellé visible, d’un texte d’aide, d’un message d’erreur
+ou d’un état de champ partagé. `Field` relie ces éléments au contrôle natif.
 
 <PreviewFrame maxWidth="sm" contentWidth="fit-content">
   ```tsx preview file="../../en/docs/_snippets/native-select/field-integration.tsx"
@@ -117,7 +122,8 @@ Utilisez `Field` pour associer le select à un libellé accessible, une descript
 
 ### Sélection multiple
 
-Les propriétés natives `multiple` et `size` transforment le contrôle en liste d’options dont le navigateur gère directement la sélection.
+Passez les propriétés natives `multiple` et `size` pour afficher une liste à sélection multiple. Le navigateur
+gère directement les options sélectionnées et les interactions au clavier.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/native-select/multiple-selection.tsx"
@@ -129,10 +135,9 @@ Les propriétés natives `multiple` et `size` transforment le contrôle en liste
 
 ### Propriétés CSS
 
-`NativeSelect` utilise les mêmes variables `--moduix-select-*` au niveau du contrôle que `Select`. Les deux composants
-partagent ainsi leurs dimensions, l’espacement de l’indicateur, les bordures, les couleurs, le rayon, l’anneau de focus,
-l’opacité à l’état désactivé et les transitions. L’espacement interne par défaut et la géométrie de l’indicateur suivent
-l’échelle d’espacement commune de 4 px.
+`NativeSelect` réutilise les mêmes variables `--moduix-select-*` que `Select`. Vous pouvez ainsi régler de manière cohérente
+les dimensions, l’espacement de l’indicateur, les bordures, les couleurs, le rayon, l’anneau de focus, l’opacité à l’état
+désactivé et les transitions. L’espacement interne par défaut et la géométrie de l’indicateur suivent l’échelle commune de 4 px.
 
 <div className="docs-reference">
   <Tabs
@@ -146,12 +151,13 @@ l’échelle d’espacement commune de 4 px.
   </Tabs>
 </div>
 
-### Sélecteurs CSS utiles
+### Points d’accroche CSS
 
-- `className` applique les styles à l’élément `<select>` réel. Utilisez `controlProps.className` pour le conteneur externe.
-- Placez dans `controlProps.style` les variables `--moduix-select-*` qui agissent sur l’indicateur, afin qu’elles soient
+- `className` applique les styles au véritable `<select>`. Utilisez `controlProps.className` pour le conteneur externe.
+- Placez dans `controlProps.style` les variables `--moduix-select-*` liées à l’indicateur lorsqu’elles doivent être
   héritées à la fois par l’élément `<select>` et par l’indicateur.
 - `data-scope="field"` et `data-part="select"` préservent le contrat de styles d’Ark Field.
 - `data-slot="native-select-root"` est le sélecteur moduix stable de l’élément `<select>`.
 - `data-slot="native-select-control"` et `data-slot="native-select-indicator"` ciblent le conteneur interne et l’icône.
-- Les sélecteurs natifs `:focus-visible`, `:disabled`, `[aria-invalid="true"]`, `[multiple]` et `[size]` gèrent les états visuels.
+- Les pseudo-classes et attributs natifs `:focus-visible`, `:disabled`, `[aria-invalid="true"]`, `[multiple]` et `[size]`
+  gèrent les états visuels.

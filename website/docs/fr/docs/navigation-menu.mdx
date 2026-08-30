@@ -1,7 +1,7 @@
 ---
 title: Navigation Menu
 component: navigation-menu
-description: Menu de navigation pour les liens directs et les panneaux dépliables, avec une zone partagée facultative pour les transitions animées.
+description: Barre de navigation pour les liens directs et les panneaux dépliables, avec la possibilité d’utiliser une zone `Viewport` partagée pour les transitions animées.
 ---
 
 import * as NavigationMenuDocs from '@/components/examples/navigation-menu';
@@ -9,19 +9,23 @@ import { ClientOnly } from '@ark-ui/react/client-only';
 
 ## Référence de l’API
 
-Ark UI ne publie pas encore de documentation dédiée à Navigation Menu. Le composant suit le [code source React d’Ark](https://github.com/chakra-ui/ark/tree/main/packages/react/src/components/navigation-menu) et en conserve les parties ainsi que le modèle d’état.
+<PrimitiveReference href="https://ark-ui.com/docs/components/navigation-menu" />
 
 ## Choisir le bon composant
 
-Utilisez `NavigationMenu` pour la navigation principale d’un produit ou d’un site lorsque quelques liens associés doivent être regroupés avec des panneaux dépliables.
+Utilisez `NavigationMenu` pour la navigation principale d’un site ou d’un produit lorsque certains
+éléments de premier niveau ouvrent des groupes de destinations associées.
 
-- Choisissez **`NavigationMenu`** lorsqu’un élément de premier niveau peut ouvrir un panneau compact contenant des liens associés.
-- Choisissez **`Menu`** pour les actions contextuelles, pas pour la navigation vers une destination.
-- Choisissez **`Tabs`** lorsque chaque contrôle sélectionné affiche le panneau de contenu correspondant sur la page courante.
+- Choisissez **`NavigationMenu`** lorsqu’un élément de premier niveau peut afficher un groupe de liens associés.
+- Choisissez **`Menu`** pour les actions contextuelles plutôt que pour la navigation.
+- Choisissez **`Tabs`** lorsque chaque contrôle sélectionné change le contenu affiché dans une zone de la page courante.
 
 ## Exemple de base
 
-Utilisez `NavigationMenu.List`, `NavigationMenu.Item` et `NavigationMenu.Link`. Pour chaque panneau dépliable, associez un `NavigationMenu.Trigger` à son `NavigationMenu.Content`.
+Utilisez `NavigationMenu` avec `NavigationMenu.List` et `NavigationMenu.Item`. Attribuez une valeur
+`value` unique à chaque élément. Pour un groupe de liens, placez `NavigationMenu.Trigger` et
+`NavigationMenu.Content` dans le même élément. Utilisez `NavigationMenu.Link` pour les destinations
+directes du premier niveau et pour les liens à l’intérieur d’un panneau.
 
 <ClientOnly>
   <PreviewFrame maxWidth="lg">
@@ -38,21 +42,22 @@ Utilisez `NavigationMenu.List`, `NavigationMenu.Item` et `NavigationMenu.Link`. 
 ## Anatomie
 
 ```text
-NavigationMenu
+NavigationMenu (NavigationMenu.Root)
 ├─ NavigationMenu.List
 │  ├─ NavigationMenu.Item[value]
 │  │  └─ NavigationMenu.Link
 │  └─ NavigationMenu.Item[value]
 │     ├─ NavigationMenu.Trigger
+│     ├─ NavigationMenu.ItemIndicator (facultatif)
 │     └─ NavigationMenu.Content
-│        ├─ NavigationMenu.Indicator > NavigationMenu.Arrow (facultatif sans Viewport)
+│        ├─ NavigationMenu.Indicator > NavigationMenu.Arrow (facultatif sans zone Viewport partagée)
 │        └─ NavigationMenu.Link
 └─ NavigationMenu.ViewportPositioner (facultatif)
-   ├─ NavigationMenu.Indicator > NavigationMenu.Arrow (facultatif avec Viewport)
+   ├─ NavigationMenu.Indicator > NavigationMenu.Arrow (facultatif avec une zone Viewport partagée)
    └─ NavigationMenu.Viewport
 
 NavigationMenu.RootProvider
-└─ même arbre de parties relié à l’état géré par useNavigationMenu()
+└─ même arbre de parties relié à l’état créé avec useNavigationMenu()
 
 NavigationMenu.Context
 └─ accès avancé à l’état courant de la navigation via une fonction de rendu
@@ -60,48 +65,80 @@ NavigationMenu.Context
 
 | Partie | Rôle |
 | --- | --- |
-| `NavigationMenu` | Racine `nav` qui contrôle l’élément ouvert, les délais, le focus et la direction. |
-| `NavigationMenu.RootProvider` | Relie les parties à un store créé avec `useNavigationMenu()`. |
-| `NavigationMenu.Context` | Donne un accès avancé à l’état courant via une fonction de rendu. |
+| `NavigationMenu` | Élément `nav` racine qui gère l’élément ouvert, les délais, le focus et l’orientation. |
+| `NavigationMenu.RootProvider` | Relie les parties à l’état créé avec `useNavigationMenu()`. |
+| `NavigationMenu.Context` | Expose l’état courant de la navigation via une fonction de rendu. |
 | `NavigationMenu.List` | Regroupe les éléments de navigation de premier niveau. |
-| `NavigationMenu.Item` | Impose une `value` et l’associe au déclencheur, au lien et au contenu de l’élément. |
-| `NavigationMenu.Trigger` | Bouton qui ouvre le panneau de l’élément. |
-| `NavigationMenu.Content` | Panneau dépliable de l’élément ; peut être rendu dans un `Viewport` partagé. |
-| `NavigationMenu.Link` | Lien de navigation, y compris les destinations directes de premier niveau. |
-| `NavigationMenu.Indicator` / `NavigationMenu.Arrow` | Repère visuel facultatif dans un contenu autonome ou un `Viewport` partagé. |
-| `NavigationMenu.ItemIndicator` | Indicateur visuel facultatif pour l’élément courant. |
-| `NavigationMenu.ViewportPositioner` | Positionne un `Viewport` partagé facultatif. |
-| `NavigationMenu.Viewport` | Surface partagée animée pour le contenu ouvert. |
+| `NavigationMenu.Item` | Requiert une valeur `value` unique et relie le déclencheur, le contenu et les liens de l’élément. |
+| `NavigationMenu.Trigger` | Bouton qui ouvre ou ferme le panneau dépliable de l’élément. |
+| `NavigationMenu.Content` | Panneau dépliable de l’élément. Il peut s’afficher à côté de l’élément ou dans une zone `Viewport` partagée. |
+| `NavigationMenu.Link` | Lien vers une destination directe ou lien à l’intérieur d’un panneau dépliable. |
+| `NavigationMenu.ItemIndicator` | Marqueur visuel facultatif de l’élément actif. |
+| `NavigationMenu.Indicator` / `NavigationMenu.Arrow` | Repère facultatif qui pointe vers l’élément actif dans un contenu autonome ou une zone `Viewport` partagée. |
+| `NavigationMenu.ViewportPositioner` | Positionne une zone `Viewport` partagée et son indicateur facultatif. |
+| `NavigationMenu.Viewport` | Zone animée partagée pour le contenu actuellement ouvert. |
 
 ## Composition
 
 ### Composition recommandée
 
-Gardez les parties Ark explicites dans votre balisage. Attribuez une `value` stable à chaque `NavigationMenu.Item`. Le `Trigger` et le `Content` associés réutilisent automatiquement cette valeur. Utilisez `NavigationMenu.Link` pour les destinations directes comme pour les liens à l’intérieur d’un panneau dépliable.
+Gardez les parties Ark explicites dans votre balisage. Attribuez une valeur `value` stable et unique à
+chaque `NavigationMenu.Item`. Son `Trigger` et son `Content` sont reliés par l’`Item` qui les contient,
+il n’est donc pas nécessaire de leur attribuer la prop `value`. Utilisez `NavigationMenu.Link`
+pour les destinations directes et pour les liens à l’intérieur d’un panneau dépliable.
 
-Le composant racine accepte les propriétés Ark `value`, `defaultValue`, `onValueChange(details)`, `openDelay`, `closeDelay`, `orientation`, `disableClickTrigger`, `disableHoverTrigger`, `disablePointerLeaveClose`, `ids`, `lazyMount` et `unmountOnExit`.
+La racine accepte les propriétés Ark telles que `value`, `defaultValue`, `onValueChange(details)`,
+`openDelay`, `closeDelay`, `orientation`, `disableClickTrigger`, `disableHoverTrigger`,
+`disablePointerLeaveClose`, `ids`, `translations`, `lazyMount`, `unmountOnExit` et `hideMode`.
 
 ### Quand créer une composition personnalisée
 
-Utilisez `asChild` sur `NavigationMenu.Trigger` ou `NavigationMenu.Link` lorsqu’un lien de routeur ou un autre élément sémantique doit recevoir le comportement d’Ark. L’enfant doit rester un unique élément interactif pouvant recevoir le focus.
+Utilisez `asChild` sur `NavigationMenu.Trigger` ou `NavigationMenu.Link` lorsqu’un lien de routeur ou
+un autre élément sémantique doit recevoir le comportement d’Ark. L’enfant doit rester un seul élément
+interactif pouvant recevoir le focus afin qu’Ark conserve les comportements clavier, le focus et les
+attributs ARIA.
 
-Ajoutez `NavigationMenu.ViewportPositioner` et `NavigationMenu.Viewport` lorsque plusieurs panneaux doivent s’ouvrir dans une seule zone animée. Si le déclencheur actif doit être relié visuellement à son panneau, placez un `Indicator` avec un `Arrow` avant le `Viewport` dans `ViewportPositioner`. Le viewport mesure chaque panneau et anime sa largeur et sa hauteur lorsque vous passez d’un déclencheur à l’autre. Sans viewport partagé, `Content` reste à côté de son `Item`, sous la forme d’un panneau dépliable compact, et peut contenir son propre `Indicator`.
+Ajoutez `NavigationMenu.ViewportPositioner` et `NavigationMenu.Viewport` lorsque plusieurs panneaux
+doivent s’ouvrir dans une même zone animée. Si le panneau actif doit pointer vers son déclencheur,
+placez un `Indicator` avec un `Arrow` avant le `Viewport` dans `ViewportPositioner`. La zone `Viewport`
+mesure chaque panneau et anime sa largeur et sa hauteur lorsque vous passez d’un déclencheur à l’autre.
+Sans zone `Viewport` partagée, `Content` s’affiche à côté de son `Item` sous la forme d’un panneau
+dépliable compact et peut contenir son propre `Indicator`.
 
-Utilisez `useNavigationMenu()` avec `NavigationMenu.RootProvider` lorsque l’état de navigation doit être géré en dehors de l’arbre de composants rendu. Utilisez `NavigationMenu.Context` ou `useNavigationMenuContext()` lorsque l’interface environnante doit lire cet état.
+Utilisez `useNavigationMenu()` avec `NavigationMenu.RootProvider` lorsque l’état de navigation doit être
+créé en dehors de l’arbre des composants rendus. Transmettez le résultat du hook à la prop `value`,
+obligatoire sur `NavigationMenu.RootProvider`. Utilisez `NavigationMenu.Context` ou
+`useNavigationMenuContext()` lorsque le reste de l’interface doit lire cet état.
+
+### Propriétés par défaut
+
+| Propriété | Valeur par défaut | Remarques |
+| --- | --- | --- |
+| `NavigationMenu.openDelay` | `200` | Délai avant l’ouverture d’un panneau au survol. |
+| `NavigationMenu.closeDelay` | `300` | Délai avant la fermeture du panneau ouvert. |
+| `NavigationMenu.orientation` | `horizontal` | Définit la direction de la mise en page et de la navigation au clavier. |
+| `NavigationMenu.lazyMount` | `false` | Ne monte le contenu qu’après sa première ouverture. |
+| `NavigationMenu.unmountOnExit` | `false` | Retire le contenu inactif du DOM après sa fermeture. |
+| `NavigationMenu.hideMode` | `display-none` | Masque le contenu monté avec l’attribut `hidden`. React 19 prend également en charge le mode `activity`. |
+| `NavigationMenu.Link.closeOnClick` | `true` | Ferme le menu après la sélection du lien. |
+| `NavigationMenu.ViewportPositioner.align` | `center` | Aligne la zone `Viewport` partagée sur le déclencheur. |
 
 ### Comportement
 
-- `onValueChange` reçoit l’objet de détails d’Ark ; `details.value` identifie l’élément actuellement ouvert.
-- `NavigationMenu` rend un `nav` sémantique. Ark gère les attributs ARIA des panneaux dépliables, les interactions au survol et au clic, ainsi que la navigation au clavier.
-- `Content` et `Viewport` conservent les attributs de présence d’Ark. `lazyMount` et `unmountOnExit` fonctionnent avec l’animation de sortie par défaut.
-- L’enveloppe n’ajoute ni icône de déclencheur ni `Viewport`. Ajoutez-les uniquement lorsque votre composition en a besoin.
-- Les flèches sont facultatives et ne font pas partie de la composition de base recommandée.
+- `onValueChange` reçoit l’objet `details` d’Ark. `details.value` contient la valeur de l’élément actuellement ouvert, ou une chaîne vide lorsque tous les panneaux sont fermés.
+- Par défaut, le survol à la souris ou un clic sur un déclencheur ouvre son panneau. Utilisez `disableHoverTrigger`, `disableClickTrigger` et `disablePointerLeaveClose` pour modifier ce comportement.
+- `NavigationMenu` rend un élément `nav` sémantique. Ark gère les attributs ARIA des panneaux, le déplacement du focus et la navigation au clavier entre les déclencheurs et les panneaux.
+- Définissez `current` sur `NavigationMenu.Link` pour marquer la destination courante. Le lien expose l’attribut `data-current`, utilisable pour le style.
+- `Content` et `Viewport` conservent les attributs de présence d’Ark. `lazyMount`, `unmountOnExit` et l’animation de sortie par défaut fonctionnent donc ensemble.
+- Le composant n’ajoute ni icône de déclencheur ni zone `Viewport` partagée. Ajoutez-les uniquement lorsque votre composition en a besoin.
+- `Indicator` et `Arrow` sont facultatifs et ne font pas partie de la composition de base recommandée.
 
 ## Exemples
 
 ### Valeur contrôlée
 
-Utilisez une valeur contrôlée lorsque le panneau ouvert doit également piloter une interface voisine. La sortie sous l’exemple affiche la valeur actuellement ouverte.
+Contrôlez l’élément ouvert avec un état React lorsque le panneau actif doit également piloter une partie
+voisine de l’interface. La sortie sous l’exemple affiche la valeur de l’élément actuellement ouvert.
 
 <ClientOnly>
   <PreviewFrame maxWidth="lg">
@@ -113,7 +150,10 @@ Utilisez une valeur contrôlée lorsque le panneau ouvert doit également pilote
 
 ### Viewport
 
-Utilisez un `Viewport` partagé lorsque les panneaux ont des tailles différentes, mais doivent s’animer dans une seule zone. Cet exemple utilise un panneau à deux colonnes et des largeurs différentes, afin de rendre visibles les animations de largeur et de hauteur du viewport lorsque vous changez de déclencheur.
+Utilisez une zone `Viewport` partagée lorsque les panneaux ont des tailles différentes, mais doivent
+s’animer dans une même zone. Cet exemple utilise un panneau à deux colonnes et des panneaux de largeurs
+différentes, afin de rendre visibles les animations de largeur et de hauteur de `Viewport` lors du passage
+d’un déclencheur à l’autre.
 
 <ClientOnly>
   <PreviewFrame maxWidth="lg">
@@ -125,7 +165,7 @@ Utilisez un `Viewport` partagé lorsque les panneaux ont des tailles différente
 
 ### Avec une flèche
 
-Ajoutez un `Indicator` et un `Arrow` lorsqu’un panneau doit pointer visuellement vers son déclencheur actif.
+Ajoutez un `Indicator` et un `Arrow` lorsqu’un panneau doit pointer vers son déclencheur actif.
 
 <ClientOnly>
   <PreviewFrame maxWidth="lg">
@@ -137,27 +177,44 @@ Ajoutez un `Indicator` et un `Arrow` lorsqu’un panneau doit pointer visuelleme
 
 ## Styles
 
-Mettez en forme `NavigationMenu` avec `className`, les hooks stables `data-slot="navigation-menu-*"`, les attributs `data-scope` et `data-part` d’Ark, ainsi que les variables CSS publiques `--moduix-navigation-menu-*` présentées dans le tableau ci-dessous.
+Stylisez `NavigationMenu` avec `className`, les points d’accroche stables `data-slot="navigation-menu-*"`,
+les attributs Ark `data-scope` et `data-part`, ainsi que les variables CSS publiques
+`--moduix-navigation-menu-*` présentées dans le tableau ci-dessous.
 
 ### Propriétés CSS
 
 <div className="docs-reference">
-  <Tabs values={[{ label: 'Variables CSS', value: 'CSS Variables' }]} className="docs-reference-tabs" contentItemClassName="docs-reference-panel">
+  <Tabs
+    values={[{ label: 'Variables CSS', value: 'Variables CSS' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
     <Tab>
       <NavigationMenuDocs.NavigationMenuCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>
 
-### Sélecteurs CSS utiles
+### Points d’accroche CSS
 
-- `NavigationMenu` définit la largeur de la racine, la couleur du texte et sa position dans la mise en page.
-- `NavigationMenu.List` définit l’espacement et l’orientation des éléments de premier niveau.
-- `NavigationMenu.Trigger` et `NavigationMenu.Link` permettent de styliser les contrôles de navigation, l’état courant et le focus.
-- `NavigationMenu.Content` permet de styliser les surfaces des panneaux dépliables et leurs liens.
-- `NavigationMenu.Indicator`, `ItemIndicator` et `Arrow` permettent de styliser les décorations facultatives de l’état actif.
-- `NavigationMenu.ViewportPositioner` et `Viewport` permettent de styliser une zone de panneau partagée et animée.
+Ciblez la partie responsable de l’aspect que vous souhaitez modifier :
 
-Les principaux hooks publics sont `data-slot="navigation-menu-root"`, `data-slot="navigation-menu-root-provider"`, `data-slot="navigation-menu-list"`, `data-slot="navigation-menu-item"`, `data-slot="navigation-menu-trigger"`, `data-slot="navigation-menu-content"`, `data-slot="navigation-menu-link"`, `data-slot="navigation-menu-indicator"`, `data-slot="navigation-menu-item-indicator"`, `data-slot="navigation-menu-arrow"`, `data-slot="navigation-menu-viewport-positioner"` et `data-slot="navigation-menu-viewport"`.
+- `NavigationMenu` pour la largeur de la racine, la couleur du texte et sa position dans la mise en page
+- `NavigationMenu.List` pour l’espacement et l’orientation des éléments de premier niveau
+- `NavigationMenu.Trigger` et `NavigationMenu.Link` pour les contrôles de navigation, l’état courant et le focus
+- `NavigationMenu.Content` pour l’apparence des panneaux dépliables et de leurs liens
+- `NavigationMenu.Indicator`, `ItemIndicator` et `Arrow` pour les décorations facultatives de l’état actif
+- `NavigationMenu.ViewportPositioner` et `Viewport` pour une zone de panneau partagée et animée
 
-Les hooks Ark utiles comprennent `data-scope="navigation-menu"`, `data-part`, `data-state`, `data-current`, `data-disabled`, `data-orientation` et `data-motion`. À l’exécution, Ark définit `--trigger-x`, `--trigger-y`, `--trigger-width`, `--trigger-height`, `--viewport-x`, `--viewport-y`, `--viewport-width` et `--viewport-height`.
+Les principaux points d’accroche publics sont `data-slot="navigation-menu-root"`,
+`data-slot="navigation-menu-root-provider"`, `data-slot="navigation-menu-list"`,
+`data-slot="navigation-menu-item"`, `data-slot="navigation-menu-trigger"`,
+`data-slot="navigation-menu-content"`, `data-slot="navigation-menu-link"`,
+`data-slot="navigation-menu-indicator"`, `data-slot="navigation-menu-item-indicator"`,
+`data-slot="navigation-menu-arrow"`, `data-slot="navigation-menu-viewport-positioner"` et
+`data-slot="navigation-menu-viewport"`.
+
+Parmi les attributs Ark utiles figurent `data-scope="navigation-menu"`, `data-part`, `data-state`,
+`data-current`, `data-disabled`, `data-orientation` et `data-motion`. À l’exécution, Ark définit les
+variables `--trigger-x`, `--trigger-y`, `--trigger-width`, `--trigger-height`, `--viewport-x`,
+`--viewport-y`, `--viewport-width` et `--viewport-height`.

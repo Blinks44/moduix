@@ -1,7 +1,7 @@
 ---
 title: Pin Input
 component: pin-input
-description: Un composant Ark UI pour saisir des codes PIN et des codes de vérification courts.
+description: Un champ segmenté pour saisir des codes PIN et des codes de vérification courts, avec gestion automatique du focus et prise en charge des codes OTP.
 ---
 
 import * as PinInputDocs from '@/components/examples/pin-input';
@@ -12,17 +12,20 @@ import * as PinInputDocs from '@/components/examples/pin-input';
 
 ## Choisir le bon composant
 
-Utilisez `PinInput` lorsqu’un code court de longueur fixe doit être saisi un caractère à la fois dans plusieurs cases.
+Utilisez `PinInput` lorsqu’un code court de longueur fixe doit être saisi un caractère à la fois dans des cases
+distinctes.
 
 - Choisissez **`PinInput`** pour les codes à usage unique, les codes PIN, les codes de secours et les codes d’invitation.
 - Choisissez **`Input`** lorsqu’un seul champ de texte simple suffit.
-- Choisissez **`PasswordInput`** lorsque la valeur est une chaîne confidentielle unique avec un bouton de visibilité.
+- Choisissez **`PasswordInput`** lorsque la valeur est une chaîne secrète unique avec un bouton de visibilité.
 
 ## Exemple de base
 
-Commencez par l’arborescence des parties Ark : la racine, un libellé, `Control` et `Inputs`. moduix ajoute
-automatiquement un champ de formulaire natif masqué. La valeur est ainsi transmise lors de la soumission du formulaire
-et reste synchronisée avec sa réinitialisation. Les aperçus sont centrés par défaut.
+Pour la disposition standard, utilisez `<PinInput>`. Il s’agit d’un raccourci pour `<PinInput.Root>`. Indiquez
+`count` pour que le rendu SSR et les attributs ARIA soient prévisibles.
+
+moduix rend automatiquement un champ natif masqué dans la racine. Passez `name` lorsque la valeur doit être envoyée
+avec un formulaire, et indiquez aussi `form` lorsque le composant ne se trouve pas dans ce formulaire.
 
 ```tsx preview file="../../en/docs/_snippets/pin-input/basic.tsx"
 
@@ -44,69 +47,76 @@ PinInput / PinInput.Root
 └─ champ natif masqué (ajouté automatiquement)
 ```
 
-| Partie                         | Rôle                                                                  |
-| ------------------------------ | --------------------------------------------------------------------- |
-| `PinInput` / `PinInput.Root`   | Machine à états de la racine : nombre de cases, tableau de valeurs, validation et options de formulaire. |
-| `PinInput.RootProvider`        | Construit l’arborescence Pin Input à partir de l’état renvoyé par `usePinInput`.                 |
-| `PinInput.Label`               | Libellé du groupe de saisie du code.                                                            |
-| `PinInput.Control`             | Conteneur des champs indexés visibles.                                                          |
-| `PinInput.Input`               | Champ visible qui accepte un caractère. Fournissez un `index` commençant à zéro.               |
-| `PinInput.Inputs`              | Génère les champs indexés standard à partir du contexte Ark.                                   |
-| `PinInput.Separator`           | Séparateur décoratif pour grouper les champs. C’est une aide moduix, pas une partie du primitif Ark. |
-| `usePinInput` / `PinInput.RootProvider` | Gestion de l’état hors de l’arbre rendu et méthodes impératives.                      |
+| Partie                                  | Rôle                                                                                                  |
+| --------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `PinInput` / `PinInput.Root`            | Machine à états racine, nombre de cases, tableau de valeurs, validation et options de formulaire.    |
+| `PinInput.RootProvider`                 | Rend l’arborescence à partir de l’état renvoyé par `usePinInput`.                                     |
+| `PinInput.Context`                      | Expose l’état racine aux descendants via une fonction de rendu.                                       |
+| `PinInput.Label`                        | Libellé du groupe de saisie du code PIN ou du code de vérification.                                   |
+| `PinInput.Control`                      | Conteneur des champs visibles indexés.                                                                |
+| `PinInput.Input`                        | Champ visible qui accepte un caractère. Fournissez un `index` commençant à zéro.                     |
+| `PinInput.Inputs`                       | Génère un `Input` indexé pour chaque élément du contexte Ark. Son `className` est appliqué à chaque champ. |
+| `PinInput.Separator`                    | Composant décoratif moduix pour regrouper les champs. Ce n’est pas une partie du primitif Ark.       |
+| `usePinInput`                           | Crée l’état à utiliser avec `PinInput.RootProvider`.                                                  |
+| `usePinInputContext`                    | Lit l’état actuel de Pin Input dans l’arborescence du composant.                                     |
 
 ## Composition
 
 ### Composition recommandée
 
-Utilisez la forme abrégée `<PinInput>`, ajoutez un `Label` visible et placez `Inputs` dans `Control`. La racine ajoute
-toujours un champ de formulaire natif masqué, ce qui préserve la soumission du formulaire, la synchronisation de la
-réinitialisation et l’autocomplétion OTP.
+Utilisez la syntaxe compacte `<PinInput>`, ajoutez un `Label` visible et placez `Inputs` dans `Control`. Passez
+`name` lorsque le code doit être inclus dans la soumission d’un formulaire.
 
-### Quand utiliser une autre composition
+### Quand créer une composition personnalisée
 
-Utilisez des parties `Input` avec des index explicites lorsqu’un séparateur doit diviser le code en groupes ou lorsque
-chaque champ nécessite ses propres propriétés. Utilisez `PinInput.RootProvider` et `usePinInput` lorsque l’état doit
-être créé en dehors de l’arbre rendu. Les index Ark doivent rester consécutifs dans tout le code.
+Rendez explicitement les parties `Input` indexées et `Separator` lorsque le code doit être divisé en groupes ou que
+les champs ont besoin de propriétés différentes. Utilisez `PinInput.RootProvider` et `usePinInput` lorsque l’état
+doit être créé en dehors de l’arborescence rendue. Les index doivent commencer à zéro et rester consécutifs dans
+toute la composition.
 
 ### Propriétés par défaut
 
-| Propriété        | Valeur par défaut | Remarques                                                              |
-| ---------------- | ----------------- | ---------------------------------------------------------------------- |
-| `count`          | -                 | Nombre de cases. Indiquez-le explicitement pour obtenir un rendu SSR prévisible.               |
-| `type`           | `numeric`         | `numeric`, `alphabetic` ou `alphanumeric`.                                                     |
-| `placeholder`    | `''` dans moduix  | Ark utilise `○` par défaut ; moduix le masque sans `placeholder`.                              |
-| `otp`            | `false`           | Active l’autocomplétion des codes à usage unique.                                              |
-| `mask`           | `false`           | Masque les caractères saisis comme dans un champ de mot de passe.                              |
-| `blurOnComplete` | `false`           | Retire le focus du dernier champ lorsque le code est complet.                                  |
-| `selectOnFocus`  | -                 | Sélectionne la valeur actuelle d’un champ lorsqu’il reçoit le focus.                           |
-| `autoFocus`      | -                 | Place automatiquement le focus dans le premier champ.                                          |
-| `autoSubmit`     | -                 | Soumet le formulaire lorsque tous les champs sont remplis.                                     |
-| `pattern`        | -                 | Expression régulière personnalisée pour les caractères acceptés.                               |
-| `sanitizeValue`  | -                 | Nettoie les valeurs collées avant validation, par exemple en supprimant espaces et tirets.     |
-| `defaultValue`   | `[]`              | Valeur initiale non contrôlée, sous forme de tableau de chaînes.                                |
-| `value`          | -                 | Valeur contrôlée, sous forme de tableau de chaînes.                                            |
+| Propriété        | Valeur par défaut | Remarques                                                                                          |
+| ---------------- | ----------------- | -------------------------------------------------------------------------------------------------- |
+| `count`          | -                 | Nombre de cases. Indiquez-le explicitement pour rendre prévisibles le SSR et les attributs ARIA.   |
+| `type`           | `numeric`         | `numeric`, `alphabetic` ou `alphanumeric`.                                                         |
+| `placeholder`    | `''` dans moduix  | Ark utilise `○` par défaut ; moduix utilise une chaîne vide tant que la propriété est absente.    |
+| `otp`            | `false`           | Ajoute `autocomplete="one-time-code"` aux champs visibles.                                         |
+| `mask`           | `false`           | Masque les caractères saisis comme dans un champ de mot de passe.                                  |
+| `blurOnComplete` | `false`           | Retire le focus du dernier champ lorsque toutes les cases sont remplies.                          |
+| `selectOnFocus`  | -                 | Sélectionne la valeur actuelle lorsqu’un champ reçoit le focus.                                    |
+| `autoFocus`      | -                 | Place le focus sur le premier champ au montage du composant.                                      |
+| `autoSubmit`     | -                 | Soumet le formulaire associé lorsque tous les champs sont remplis.                                |
+| `pattern`        | -                 | Expression régulière personnalisée pour les caractères acceptés.                                  |
+| `sanitizeValue`  | -                 | Nettoie les valeurs collées avant validation, par exemple en supprimant les espaces ou les tirets. |
+| `defaultValue`   | `[]`              | Valeur initiale non contrôlée, sous forme de tableau de chaînes.                                   |
+| `value`          | -                 | Valeur contrôlée, sous forme de tableau de chaînes.                                                |
 
 ### Comportement
 
-`value` et `defaultValue` sont des tableaux de chaînes. `onValueChange(details)` et `onValueComplete(details)`
-fournissent `details.value` et `details.valueAsString`. `onValueInvalid(details)` fournit la valeur rejetée
-`details.value` et son index `details.index`.
+`value` et `defaultValue` sont des tableaux de chaînes. Les callbacks `onValueChange(details)` et
+`onValueComplete(details)` exposent `details.value` et `details.valueAsString`. Le callback
+`onValueInvalid(details)` expose la valeur rejetée dans `details.value` et son `details.index`.
 
-Utilisez `type` et `pattern` pour valider la valeur. `sanitizeValue` permet de nettoyer le texte collé avant la
-validation. `Field.Root` et `Fieldset.Root` peuvent transmettre les états `disabled`, `invalid`, `required` et
-`readOnly` via le contexte Ark. Les parties Ark acceptent `asChild`, et `ids` permet de définir des identifiants
-stables pour les libellés ou descriptions externes.
+Utilisez `type` pour les jeux de caractères intégrés et `pattern` pour une expression régulière personnalisée.
+`sanitizeValue` reçoit le texte collé et renvoie la valeur à valider.
 
-Activez `autoSubmit` uniquement si le code complet doit soumettre le formulaire auquel le champ appartient. Le clavier
-suit le comportement Ark : les touches fléchées passent d’une case à l’autre, `Backspace` efface la case et revient en
-arrière si nécessaire, `Delete` efface la case courante et le collage remplit les cases restantes.
+`Field.Root` et `Fieldset.Root` peuvent fournir les états `disabled`, `invalid`, `required` et `readOnly` via le
+contexte Ark. Passez à `PinInput` les options de la racine telles que `name`, `form`, `ids` et `translations`. La racine
+et ses parties acceptent `asChild`.
+
+Passez `className` à `PinInput.Inputs` lorsque tous les champs générés doivent partager la même classe. Utilisez
+des parties `Input` explicites lorsque les champs doivent avoir des propriétés ou des styles différents.
+
+Activez `autoSubmit` uniquement si la saisie complète doit soumettre le formulaire associé. Le comportement clavier
+est celui d’Ark : les touches fléchées passent d’une case à l’autre, la touche Backspace efface une case et revient
+en arrière si nécessaire, la touche Delete efface la case courante et le collage remplit les cases restantes.
 
 ## Exemples
 
 ### Retirer le focus après la saisie
 
-Activez `blurOnComplete` pour retirer le focus du dernier champ lorsque toutes les cases sont remplies.
+Définissez `blurOnComplete` lorsque le focus doit quitter le dernier champ une fois toutes les cases remplies.
 
 ```tsx preview file="../../en/docs/_snippets/pin-input/blur-on-complete.tsx"
 
@@ -114,7 +124,8 @@ Activez `blurOnComplete` pour retirer le focus du dernier champ lorsque toutes l
 
 ### Événements de modification
 
-Conservez le tableau de valeurs dans l’état React et lisez directement les objets `details` transmis par les callbacks Ark.
+Conservez le tableau de valeurs dans l’état React et lisez `details.value` ou `details.valueAsString` dans les
+callbacks Ark.
 
 ```tsx preview file="../../en/docs/_snippets/pin-input/change-events.tsx"
 
@@ -122,8 +133,8 @@ Conservez le tableau de valeurs dans l’état React et lisez directement les ob
 
 ### Field
 
-Placez `PinInput` dans `Field` lorsque le libellé, le texte d’aide, l’état invalide et le message d’erreur doivent être
-associés au champ par les mécanismes d’accessibilité du formulaire d’Ark.
+Placez `PinInput` dans `Field` lorsque le libellé, le texte d’aide, le message d’erreur et l’état du champ doivent
+être associés aux champs visibles grâce aux mécanismes d’accessibilité d’Ark pour les formulaires.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/pin-input/field.tsx"
@@ -134,8 +145,8 @@ associés au champ par les mécanismes d’accessibilité du formulaire d’Ark.
 
 ### Disposition groupée
 
-N’utilisez pas `Inputs` lorsqu’un séparateur doit diviser le code en groupes. Rendez explicitement les parties `Input`
-indexées et gardez leurs index Ark consécutifs.
+Utilisez des parties `Input` indexées explicites lorsqu’un séparateur divise le code en groupes. Gardez des index
+consécutifs, même si les champs sont rendus dans des groupes distincts.
 
 ```tsx preview file="../../en/docs/_snippets/pin-input/grouped-layout.tsx"
 
@@ -143,7 +154,7 @@ indexées et gardez leurs index Ark consécutifs.
 
 ### Masquage
 
-Utilisez `mask` lorsque le code saisi est sensible et ne doit pas apparaître en clair.
+Définissez `mask` lorsque le code saisi est sensible et ne doit pas apparaître en clair.
 
 ```tsx preview file="../../en/docs/_snippets/pin-input/masking.tsx"
 
@@ -151,7 +162,8 @@ Utilisez `mask` lorsque le code saisi est sensible et ne doit pas apparaître en
 
 ### Mode OTP
 
-Activez `otp` pour qu’Ark ajoute l’autocomplétion des codes à usage unique, notamment les suggestions OTP sur mobile.
+Définissez `otp` pour ajouter `autocomplete="one-time-code"` aux champs visibles et activer les suggestions de
+codes à usage unique sur les navigateurs mobiles compatibles.
 
 ```tsx preview file="../../en/docs/_snippets/pin-input/otp-mode.tsx"
 
@@ -159,7 +171,8 @@ Activez `otp` pour qu’Ark ajoute l’autocomplétion des codes à usage unique
 
 ### Texte indicatif
 
-Utilisez `placeholder` pour afficher un caractère indicatif dans chaque champ. moduix laisse ce texte vide par défaut.
+Passez `placeholder` pour afficher un caractère dans chaque case vide. moduix laisse le texte indicatif vide par
+défaut.
 
 ```tsx preview file="../../en/docs/_snippets/pin-input/placeholder.tsx"
 
@@ -167,13 +180,23 @@ Utilisez `placeholder` pour afficher un caractère indicatif dans chaque champ. 
 
 ### Personnalisation avancée
 
-Utilisez `usePinInput` avec `RootProvider` lorsque l’état et les méthodes impératives doivent être gérés en dehors de
-l’arbre rendu. Cet exemple remplace `Inputs` par des parties `Input` explicites pour montrer la composition Ark indexée
-complète.
+Utilisez `usePinInput` avec `RootProvider` lorsque l’état et les méthodes impératives doivent être gérés en dehors
+de l’arborescence rendue. Cet exemple remplace `Inputs` par des parties `Input` indexées explicites.
 
 ```tsx preview file="../../en/docs/_snippets/pin-input/root-provider.tsx"
 
 ```
+
+## Accessibilité
+
+Ark gère le transfert du focus, la répartition du texte collé, la modification au clavier, les données de formulaire
+et le remplissage automatique des codes à usage unique. Ajoutez un `Label` pour donner un nom accessible au groupe.
+
+`PinInput.Separator` est décoratif par défaut et rend les attributs `aria-hidden` et `role="presentation"`. Placez
+tout texte porteur de sens en dehors du séparateur.
+
+Pour la soumission native d’un formulaire, passez `name` à la racine. Utilisez aussi `form` lorsque le composant
+appartient à un formulaire situé ailleurs dans le document. La racine rend automatiquement le champ natif masqué.
 
 ## Styles
 
@@ -194,14 +217,10 @@ complète.
 ### Points d’accroche CSS
 
 - La racine et `RootProvider` exposent `data-slot="pin-input-root"` et `data-slot="pin-input-root-provider"`.
-- Les parties Ark conservent `data-scope="pin-input"` et `data-part="root" | "label" | "control" | "input"`.
+- `Label`, `Control`, `Input` et le champ masqué exposent respectivement `data-slot="pin-input-label"`,
+  `data-slot="pin-input-control"`, `data-slot="pin-input-input"` et `data-slot="pin-input-hidden-input"`.
+- Les parties Ark utilisent `data-scope="pin-input"` et `data-part="root" | "label" | "control" | "input"`.
 - Les styles de l’état racine utilisent `data-disabled`, `data-invalid`, `data-complete` et `data-readonly`.
-- Les styles d’état du champ utilisent `data-disabled`, `data-invalid`, `data-complete`, `data-filled` et `data-index`.
+- Les styles d’état du champ utilisent `data-disabled`, `data-invalid`, `data-complete`, `data-filled` et
+  `data-index`.
 - `PinInput.Separator` expose `data-slot="pin-input-separator"` et est décoratif par défaut.
-
-## Accessibilité
-
-Ark gère le transfert du focus, la répartition du contenu collé, la modification au clavier, les données du formulaire
-dans le champ masqué et l’autocomplétion. Ajoutez un `Label` pour donner un nom accessible au groupe. La racine ajoute
-automatiquement son champ de formulaire natif masqué ; configurez sa participation au formulaire avec des propriétés
-de la racine telles que `name` et `form`.

@@ -107,14 +107,14 @@
     "fr": "Inspiré par shadcn"
   },
   "homeCssModules": {
-    "en": "CSS Modules",
-    "ru": "CSS Modules",
-    "fr": "CSS Modules"
+    "en": "CSS Modules at the core",
+    "ru": "CSS Modules в основе",
+    "fr": "CSS Modules au cœur"
   },
   "homeLead": {
-    "en": "Accessible React components with calm defaults and explicit composition. Under the hood, moduix uses CSS Modules and shared CSS tokens, so you can theme components with familiar CSS and keep your own styling in your app.",
-    "ru": "Доступные React-компоненты с продуманными настройками по умолчанию и явной композицией. В основе стилей - CSS Modules и общие CSS-токены: тему можно настроить привычным CSS, а собственные стили оставить в приложении.",
-    "fr": "Des composants React accessibles, avec des valeurs par défaut soignées et une composition explicite. Sous le capot, moduix s’appuie sur des CSS Modules et des tokens CSS partagés : vous pouvez personnaliser le thème en CSS tout en gardant vos styles dans l’application."
+    "en": "Accessible components with calm defaults and explicit composition. CSS Modules keep component styles scoped, while shared tokens make them easy to theme; your own styles stay in your app.",
+    "ru": "Доступные компоненты с продуманными настройками по умолчанию и явной композицией. CSS Modules изолируют стили компонентов, а общие токены помогают настроить тему привычными средствами; собственные стили остаются в приложении.",
+    "fr": "Des composants accessibles, avec des valeurs par défaut soignées et une composition explicite. Les CSS Modules isolent les styles des composants, tandis que les tokens partagés facilitent la personnalisation du thème ; vos propres styles restent dans l’application."
   },
   "homeGetStarted": {
     "en": "Get started",

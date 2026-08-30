@@ -1,7 +1,7 @@
 ---
 title: Progress Circular
 component: progress-circular
-description: A circular progress indicator for tasks with known or unknown progress.
+description: A circular progress indicator for determinate or indeterminate tasks.
 ---
 
 import * as ProgressCircularDocs from '@/components/examples/progress-circular';
@@ -12,16 +12,15 @@ import * as ProgressCircularDocs from '@/components/examples/progress-circular';
 
 ## Choosing the right component
 
-Use `ProgressCircular` for compact status indicators in inline content, cards, toolbar badges, and
-small dashboards. Use `ProgressLinear` when users need to compare progress against a horizontal
-track.
+Use `ProgressCircular` for compact progress feedback in inline content, cards, toolbar badges, and
+small dashboards. Use `ProgressLinear` when progress is easier to compare on a horizontal track.
 
 ## Basic
 
-Use `ProgressCircular.Ring` for the standard SVG circle, track, and range. Add
-`ProgressCircular.ValueText` when the current value should be visible. In this example, the wrapper
-places the value in the center of the circle. Give `Ring` an `aria-label` that describes the task and
-matches the visible label.
+Use `ProgressCircular.Ring` to render the standard circle with its track and range. Add
+`ProgressCircular.ValueText` to show the current value. The example wraps the circle and value text
+so the value appears in the center. Give `Ring` an `aria-label` that names the task and matches the
+visible label.
 
 <style>{ProgressCircularDocs.progressCircularBasicExampleCss}</style>
 
@@ -52,74 +51,77 @@ ProgressCircular.RootProvider
 └─ same part tree connected to ProgressCircular.useProgress()
 ```
 
-| Part                                         | Role                                                                   |
-| -------------------------------------------- | ---------------------------------------------------------------------- |
-| `ProgressCircular` / `ProgressCircular.Root` | Owns progress state, formatting, and ids.                              |
-| `ProgressCircular.RootProvider`              | Connects parts to state created with `ProgressCircular.useProgress()`. |
-| `ProgressCircular.Context`                   | Passes the current progress state to a render prop.                    |
-| `ProgressCircular.Label`                     | Adds visible context for the progressbar.                              |
-| `ProgressCircular.Ring`                      | Convenience shorthand for the default circle, track, and range.        |
-| `ProgressCircular.Circle`                    | SVG progressbar surface with its role and ARIA value attributes.       |
-| `ProgressCircular.CircleTrack`               | Background circle.                                                     |
-| `ProgressCircular.CircleRange`               | Foreground circle that reflects the current percent or state.          |
-| `ProgressCircular.ValueText`                 | Displays the formatted value and announces its changes.               |
-| `ProgressCircular.View`                      | Displays content for `indeterminate`, `loading`, or `complete`.        |
+| Part                                         | Role                                                                                       |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| `ProgressCircular` / `ProgressCircular.Root` | Owns progress state, formatting, and generated ids.                                        |
+| `ProgressCircular.RootProvider`              | Connects parts to state created with `ProgressCircular.useProgress()`.                     |
+| `ProgressCircular.Context`                   | Exposes the current progress state through a render prop.                                  |
+| `ProgressCircular.Label`                     | Provides visible context for the progress indicator.                                      |
+| `ProgressCircular.Ring`                      | Convenience part that renders the default circle, track, and range.                       |
+| `ProgressCircular.Circle`                    | SVG progressbar element with Ark's role and ARIA value attributes.                         |
+| `ProgressCircular.CircleTrack`               | Background circle.                                                                         |
+| `ProgressCircular.CircleRange`               | Foreground circle that reflects the current progress or indeterminate state.               |
+| `ProgressCircular.ValueText`                 | Displays the formatted value and announces updates.                                      |
+| `ProgressCircular.View`                      | Renders content for `indeterminate`, `loading`, or `complete`.                             |
 
 ## Composition
 
 ### Recommended composition
 
-`ProgressCircular` is the shorthand root component and is equivalent to `ProgressCircular.Root`.
-Use `ProgressCircular.Ring` for the standard circle, track, and range. It accepts `className`, ARIA
-props, and the same CSS variables as `ProgressCircular.Circle`.
+`ProgressCircular` is the shorthand root and is equivalent to `ProgressCircular.Root`. For the
+standard circle, use `ProgressCircular.Ring`; it renders `Circle`, `CircleTrack`, and `CircleRange`
+for you. `Ring` accepts `className`, ARIA props, and the same CSS variables as `Circle`.
 
 Use `defaultValue` for uncontrolled progress. Use `value` with `onValueChange(details)` for
-controlled progress. Set `defaultValue={null}` or `value={null}` when the task's completion is
-unknown.
+controlled progress. Set `defaultValue={null}` or `value={null}` when progress cannot be measured
+yet.
 
 ### When to go custom
 
-Use `translations.value(details)` to customize Ark's generated accessible name when `Ring` or
-`Circle` does not have an explicit `aria-label`. To show the same text in the UI, render `ValueText`
-inside `ProgressCircular.Context` and pass `progress.valueAsString` as its child. If the value should
-appear in the center of the circle, wrap the circle and value text in a layout element of your choice.
+Use `translations.value(details)` to provide Ark with a task-specific accessible name when `Ring`
+or `Circle` does not have an explicit `aria-label`. This only changes the accessible name. To show
+the same wording in the UI, render `ValueText` inside `ProgressCircular.Context` and pass
+`progress.valueAsString` as its child. To center it, wrap the circle and value text in a layout
+element of your choice.
 
 Use `Circle`, `CircleTrack`, and `CircleRange` when you need to change the SVG structure or use
-Ark's `asChild` composition. Use `ids` when the label, circle, or surrounding layout need stable,
-explicit IDs in a custom tree. Use `ProgressCircular.useProgress()` with `RootProvider` when another
-component needs to create or control the state outside the rendered tree. Use
+Ark's `asChild` composition. Use `ids` when a custom tree needs stable, explicit IDs for the root,
+label, or circle. Use `ProgressCircular.useProgress()` with `RootProvider` when progress state
+needs to be created outside the rendered tree or shared with another component. Use
 `ProgressCircular.useProgressContext()` below a root or provider when a custom component needs the
-current state. Reserve direct Ark imports for integrations that cannot use the moduix API.
+current state. Use direct Ark imports only for integrations that cannot use the moduix API.
 
 ### Default props
 
-| Prop            | Default                | Notes                                   |
-| --------------- | ---------------------- | --------------------------------------- |
-| `defaultValue`  | `50`                   | Starting value for uncontrolled progress.  |
-| `min`           | `0`                    | Minimum used for the percent and ARIA value. |
-| `max`           | `100`                  | Maximum used for the percent and ARIA value. |
-| `formatOptions` | `{ style: 'percent' }` | Options used to format `ValueText`.         |
-| `locale`        | `'en-US'`              | Locale passed to `Intl.NumberFormat`.       |
+| Prop            | Default                | Notes                                                       |
+| --------------- | ---------------------- | ----------------------------------------------------------- |
+| `defaultValue`  | `50`                   | Initial uncontrolled value.                                 |
+| `min`           | `0`                    | Lower bound for percent and ARIA value.                     |
+| `max`           | `100`                  | Upper bound for percent and ARIA value.                     |
+| `formatOptions` | `{ style: 'percent' }` | Controls `ValueText` formatting.                            |
+| `locale`        | `'en-US'`              | Locale used by `Intl.NumberFormat`.                         |
+| `orientation`   | `'horizontal'`         | Ark orientation. Usually leave it horizontal for a circle. |
 
 ### Behavioral notes
 
-`ProgressCircular.Circle` receives the progressbar role and ARIA value attributes from Ark. Give
-`Ring` or `Circle` an `aria-label` that names the task. `ProgressCircular.Label` adds visible
-context, but it does not automatically associate that text with the circle. Ark also manages the
-SVG variables for radius, circumference, percent, and stroke offset.
+`ProgressCircular.Circle` receives the `progressbar` role and ARIA value attributes from Ark.
+`ProgressCircular.Label` provides visible context, but it does not automatically name the circle.
+Give `Ring` or `Circle` an `aria-label` or `aria-labelledby` that identifies the task. Ark also
+sets the SVG variables for radius, circumference, percent, and stroke offset.
 
-All Ark-backed parts except `Ring` support `asChild` through polymorphic composition. Keep replacement
-children semantic and preserve the progressbar semantics on the circle.
+All exported Ark parts except `Ring` support `asChild` through polymorphic composition. When you
+replace a rendered element, keep it semantic and preserve the progressbar semantics on the circle.
 
-`ProgressCircular.ValueText` announces changes with `aria-live="polite"`. Keep a visible label in the
-tree, or provide `aria-label`/`aria-labelledby` when composing without `ProgressCircular.Label`.
+`ProgressCircular.ValueText` announces changes with `aria-live="polite"`. Keep a visible label in
+the tree, or provide `aria-label`/`aria-labelledby` when composing without
+`ProgressCircular.Label`.
 
 ## Examples
 
 ### Controlled
 
-Keep `value` in React state when progress needs to stay in sync with another control or an external
-task.
+Keep `value` in React state when the progress should stay synchronized with another control or an
+external task.
 
 <style>{ProgressCircularDocs.progressCircularControlledExampleCss}</style>
 
@@ -131,8 +133,8 @@ task.
 
 ### Indeterminate
 
-Use `defaultValue={null}` or `value={null}` when the task is still running but its progress cannot
-be measured yet.
+Set `defaultValue={null}` or `value={null}` when the task is running but its progress cannot be
+measured yet.
 
 <style>{ProgressCircularDocs.progressCircularBasicExampleCss}</style>
 
@@ -144,7 +146,7 @@ be measured yet.
 
 ### Min and max
 
-Use `min` and `max` to map a value to a range other than the default `0` to `100`.
+Use `min` and `max` to map values to a range other than the default `0` to `100`.
 
 <style>{ProgressCircularDocs.progressCircularBasicExampleCss}</style>
 
@@ -154,11 +156,11 @@ Use `min` and `max` to map a value to a range other than the default `0` to `100
   ```
 </PreviewFrame>
 
-### Value Text
+### Value text
 
-`translations.value(details)` changes Ark's generated accessible name; it does not change the percent
-formatting that `ValueText` uses by default. Render `progress.valueAsString` through
-`ProgressCircular.Context` when the custom wording should also be visible.
+Use `Context` with `translations.value(details)` when visible value text needs task-specific wording.
+Render `progress.valueAsString` as the `ValueText` child so the visible text matches the accessible
+value string.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/progress-circular/value-text.tsx"
@@ -166,15 +168,15 @@ formatting that `ValueText` uses by default. Render `progress.valueAsString` thr
   ```
 </PreviewFrame>
 
-### Advanced Customization
+### Advanced customization
 
 Use the individual circle parts instead of `ProgressCircular.Ring` when you need to change the SVG
 tree or create the progress store outside the rendered component tree.
 
 #### RootProvider
 
-Create the progress store with `ProgressCircular.useProgress()` outside the rendered tree when
-another component or part of the UI needs to control the state.
+Create the store with `ProgressCircular.useProgress()` and pass it to `RootProvider` when another
+component needs to read or update progress outside the rendered tree.
 
 <style>{ProgressCircularDocs.progressCircularBasicExampleCss}</style>
 
@@ -184,10 +186,10 @@ another component or part of the UI needs to control the state.
   ```
 </PreviewFrame>
 
-#### State Views
+#### State views
 
-Use `ProgressCircular.View` when supporting text or UI should change with Ark's progress state. This
-keeps state checks out of your own component.
+Use `ProgressCircular.View` when supporting text or UI should change with the Ark progress state.
+This keeps state checks out of your own component.
 
 <style>{ProgressCircularDocs.progressCircularStateViewsExampleCss}</style>
 
@@ -204,9 +206,10 @@ attributes, Ark SVG variables, and moduix `data-slot` hooks.
 
 Use `--moduix-progress-circular-range-indeterminate-bg` to give indeterminate progress a different
 semantic color from determinate progress. When reduced motion is preferred, the range neither
-transitions nor spins. Use the reduced-motion dash-pattern variable to keep a visible static cue.
+transitions nor spins. Use `--moduix-progress-circular-range-indeterminate-reduced-motion-dasharray`
+to keep a visible static cue.
 
-### CSS Properties
+### CSS properties
 
 <div className="docs-reference">
   <Tabs
@@ -222,9 +225,10 @@ transitions nor spins. Use the reduced-motion dash-pattern variable to keep a vi
 
 ### Styling hooks
 
-- `data-slot="progress-circular-root"`, `progress-circular-root-provider`,
-  `progress-circular-label`, `progress-circular-circle`, `progress-circular-circle-track`,
-  `progress-circular-circle-range`, `progress-circular-value-text`, and `progress-circular-view`.
+- `data-slot="progress-circular-root"`, `data-slot="progress-circular-root-provider"`,
+  `data-slot="progress-circular-label"`, `data-slot="progress-circular-circle"`,
+  `data-slot="progress-circular-circle-track"`, `data-slot="progress-circular-circle-range"`,
+  `data-slot="progress-circular-value-text"`, and `data-slot="progress-circular-view"`.
 - `ProgressCircular.Ring` shares `ProgressCircular.Circle`'s `data-slot`, `className`, ref, and
   `--moduix-progress-circular-*` size and thickness variables.
 - Ark hooks: `data-scope="progress"`, `data-part`, `data-state="indeterminate|loading|complete"`,

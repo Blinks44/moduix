@@ -1,7 +1,7 @@
 ---
 title: Popover
 component: popover
-description: An accessible Ark UI popover anchored to a trigger or a custom reference element.
+description: An accessible popover for compact interactive content, anchored to a trigger or another reference element.
 ---
 
 import * as PopoverDocs from '@/components/examples/popover';
@@ -12,13 +12,13 @@ import * as PopoverDocs from '@/components/examples/popover';
 
 ## Choosing the right component
 
-Use `Popover` for compact interactive content associated with a trigger. Use `Tooltip` for
-non-interactive hints and `Dialog` for larger workflows that need to interrupt the current task.
+Use `Popover` for compact interactive content that opens from a trigger. Use `Tooltip` for short,
+non-interactive hints. Use `Dialog` for larger workflows that need the user's full attention.
 
 ## Basic
 
-Keep the Ark parts explicit. Set positioning on `Popover`, and use `asChild` when a custom button
-should act as the trigger.
+Use the explicit Ark parts shown here. Set positioning on the root and use `asChild` when your own
+button should render the trigger.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/popover/basic.tsx"
@@ -37,7 +37,7 @@ Popover / Popover.Root
 ├─ Popover.Anchor (optional)
 ├─ Popover.Trigger
 │  └─ Popover.Indicator (optional)
-└─ Overlay subtree (automatically portalled)
+└─ Overlay subtree (automatically rendered in a portal)
    └─ Popover.Positioner
       └─ Popover.Content
          ├─ Popover.Arrow
@@ -48,89 +48,112 @@ Popover / Popover.Root
          ├─ Popover.Body
          ├─ Popover.Footer
          └─ Popover.CloseTrigger / Popover.CloseIcon
+
+Popover.RootProvider
+└─ the same part tree connected to state from moduix usePopover()
+
+Popover.Context
+└─ a render prop with the current popover state
 ```
 
-| Part                         | Role                                                             |
-| ---------------------------- | ---------------------------------------------------------------- |
-| `Popover` / `Popover.Root`   | Manages state, the open/close lifecycle, dismissal, focus, and positioning. |
-| `Popover.RootProvider`       | Renders a popover tree from the state returned by `usePopover`.       |
-| `Popover.Context`            | Reads current state through a render prop on a descendant.           |
-| `Popover.Anchor`             | Optional custom positioning reference.                           |
-| `Popover.Trigger`            | Button that toggles the popover and can have a trigger `value`.  |
-| `Popover.Indicator`          | Optional trigger state indicator.                                |
-| `Popover.Positioner`         | Floating layer that exposes Ark positioning CSS variables.       |
-| `Popover.Content`            | Interactive popover surface.                                     |
-| `Popover.Arrow` / `ArrowTip` | Optional positioned arrow and visible tip.                       |
-| `Popover.Title`              | Accessible title associated with the content.                     |
-| `Popover.Description`        | Accessible description associated with the content.               |
-| `Popover.CloseTrigger`       | Low-level trigger that dismisses the popover.                     |
-| `Popover.CloseIcon`          | Shared icon-only close button built on Ark's close trigger.       |
-| `Popover.Header` / `Body`    | moduix layout wrappers with stable slots.                        |
-| `Popover.Footer`             | moduix action row wrapper with stable slot.                      |
+| Part                         | Role                                                                  |
+| ---------------------------- | --------------------------------------------------------------------- |
+| `Popover` / `Popover.Root`   | Owns state, opening and closing, focus, dismissal, and positioning.    |
+| `Popover.RootProvider`       | Connects the parts to state created with `usePopover()`.              |
+| `Popover.Context`            | Exposes current state through a render prop for descendants.          |
+| `Popover.Anchor`             | Optional reference element used for positioning.                      |
+| `Popover.Trigger`            | Button that toggles the popover and can have a trigger `value`.       |
+| `Popover.Indicator`          | Optional indicator for the trigger's state.                           |
+| `Popover.Positioner`         | Floating layer that exposes Ark positioning CSS variables.            |
+| `Popover.Content`            | Visible interactive popover surface.                                  |
+| `Popover.Arrow` / `ArrowTip` | Optional positioned arrow and its visible tip.                       |
+| `Popover.Title`              | Accessible title associated with the content.                         |
+| `Popover.Description`        | Accessible description associated with the content.                    |
+| `Popover.CloseTrigger`       | Low-level trigger that closes the popover.                             |
+| `Popover.CloseIcon`          | Moduix helper that combines Ark's close trigger with an icon button.  |
+| `Popover.Header` / `Body`    | Moduix layout helpers with stable slots.                               |
+| `Popover.Footer`             | Moduix action-row helper with a stable slot.                           |
+
+Use the short `Popover` root form in application code. `Popover.Root` remains available when the
+explicit Ark name makes the composition easier to read.
 
 ## Composition
 
-The root automatically renders `Positioner` in a portal. Use `portalled={false}` to render it in the
-current container, or `portalRef` to choose a custom portal container. Structural parts remain
-explicit and can be styled.
+The root renders `Positioner` in a portal by default. Set `portalled={false}` to keep it in the
+current DOM tree, or pass `portalRef` to choose a custom portal container. Keep the structural
+parts explicit so you can style and configure them independently.
 
 ### Recommended composition
 
-Keep `Popover.Positioner` and `Popover.Content` explicit. `Popover` is an alias for
-`Popover.Root`. Configure placement, collision handling, and offsets through `positioning`. Set
-`positioning.sameWidth` to match the popover's width to its reference.
+For the usual case, use `Popover` with `Popover.Trigger`, `Popover.Positioner`, and
+`Popover.Content`. Configure placement, collision handling, and offsets through the root's
+`positioning` prop. Set `positioning.sameWidth` when the popover should match its reference width.
 
 ### When to go custom
 
-Use `Anchor` when the positioning reference differs from the trigger. Use `asChild` with exactly one
-semantic child when you want your own element to render the trigger, anchor, content, or close
-trigger. Set `portalled={false}` when a popover inside another overlay should render in place. Use
-`lazyMount` and `unmountOnExit` only when deferred mounting and removal after the exit animation are
-useful.
+Use `Anchor` when a different element should determine the popover's position. Use `asChild` with
+one semantic child when your own element should render the trigger, anchor, content, or close
+trigger. Set `portalled={false}` when a popover inside another overlay must stay in its parent's
+DOM tree.
+
+The root already enables `lazyMount` and `unmountOnExit`. Change these props only when you need the
+content to mount eagerly or remain in the DOM after closing.
 
 ### Default props
 
-By default, portalled overlay content mounts on first open and unmounts after its exit animation.
-Set `unmountOnExit={false}` to keep it mounted after the first open. Set both lifecycle props to
+By default, popover content mounts on the first open and is removed after its exit animation. Set
+`unmountOnExit={false}` to keep it mounted after the first open. Set both lifecycle props to
 `false` only when the content must render from the start.
 
 | Prop                     | Default | Notes                                                        |
 | ------------------------ | ------- | ------------------------------------------------------------ |
 | `autoFocus`              | `true`  | Moves focus to the first focusable element when the popover opens. |
 | `closeOnEscape`          | `true`  | Closes the popover when the user presses Escape.              |
-| `closeOnInteractOutside` | `true`  | Closes the popover when the user interacts outside it.        |
-| `lazyMount`              | `true`  | Defers popup content mounting until first open.              |
-| `modal`                  | `false` | Enables focus trapping, scroll lock, and isolation of outside content. |
-| `portalled`              | `true`  | Renders the positioner in a portal and preserves Ark's tab behavior. |
-| `portalRef`              | -       | Targets a custom portal container.                           |
+| `closeOnInteractOutside` | `true`  | Closes the popover after interaction outside it.              |
+| `lazyMount`              | `true`  | Defers mounting the content until the first open.             |
+| `modal`                  | `false` | Traps focus, locks scrolling, and hides outside content from assistive technology. |
+| `portalled`              | `true`  | Renders the positioner in a portal.                          |
+| `portalRef`              | `-`     | Targets a custom portal container.                           |
 | `skipAnimationOnMount`   | `false` | Keeps the initial enter animation enabled.                   |
-| `unmountOnExit`          | `true`  | Removes popup content after its exit animation.              |
-| `defaultOpen`            | -       | Initial uncontrolled open state.                             |
-| `open`                   | -       | Controlled open state.                                       |
-| `ids`                    | -       | Stable IDs for trigger, content, title, description, anchor. |
-| `initialFocusEl`         | -       | Function returning the element to focus on open.             |
-| `positioning`            | -       | Ark floating positioning options.                            |
-| `present`                | -       | Controls presence for JavaScript animation lifecycles.       |
+| `unmountOnExit`          | `true`  | Removes the content after its exit animation.                |
+| `defaultOpen`            | `-`     | Initial open state for uncontrolled usage.                   |
+| `open`                   | `-`     | Controlled open state.                                       |
+| `ids`                    | `-`     | Stable IDs for the trigger, content, title, description, anchor, and close trigger. |
+| `initialFocusEl`         | `-`     | Function that returns the element to focus when the popover opens. |
+| `positioning`            | `-`     | Ark floating-positioning options.                            |
+| `present`                | `-`     | Controls presence for JavaScript-driven animation lifecycles. |
 
 ### Behavioral notes
 
-- Refs point to the underlying Ark DOM parts: `Trigger` and `CloseTrigger` point to buttons, while
+- Refs point to the underlying Ark DOM parts. `Trigger` and `CloseTrigger` point to buttons, while
   `Anchor`, `Positioner`, `Content`, `Arrow`, `ArrowTip`, `Title`, `Description`, `Indicator`,
   `Header`, `Body`, and `Footer` point to their rendered elements.
-- `onOpenChange` receives `{ open }`; the callback receives an object rather than a positional
-  argument.
-- `modal` is a boolean. When true, it traps focus, locks scrolling, blocks outside interaction,
-  and isolates content from screen readers. Modal popovers are always rendered in a portal, even
-  when `portalled={false}` is passed.
-- Pass the object returned by `usePopover` to `RootProvider`. Do not wrap the same state in `Root`.
-- `Popover.Context` and `usePopoverContext` expose the current Ark state to descendants. The hook
-  is exported from `@moduix/react`; use `Context` when a render prop is clearer.
-- Use `usePopover` to own state outside the rendered tree and pass it to `RootProvider`.
-- `Popover.Arrow` renders the default `ArrowTip`; render `ArrowTip` explicitly only to customize it.
-- Ark closes on Escape and outside interaction by default. Both behaviors can be disabled separately.
-- Use `ids` when stable trigger, content, title, description, anchor, or close-trigger IDs are needed.
-- CSS exit animations use Ark's closed presence state. Use `present` for JavaScript-driven lifecycles.
-- For content that can exceed the available height, place the scrollable region in `Popover.Body`.
+- `onOpenChange` receives a details object such as `{ open }`. Read the next open state from
+  `details.open`, not from a positional callback argument.
+- When several triggers share one popover, give each trigger a `value` and handle
+  `onTriggerValueChange(details)`. The active trigger is available in `details.value`, and Ark
+  marks it with `data-current`.
+- `modal` is a boolean. When `true`, it traps focus, locks scrolling, blocks outside interaction,
+  and hides outside content from assistive technology. A modal popover is always portalled, even
+  when `portalled={false}` is passed to the root.
+- Use `Popover.Title` to give the popup an accessible name and `Popover.Description` for supporting
+  text. Ark connects these parts to `Content` through their IDs.
+- Create external state with `usePopover()` and pass it to `Popover.RootProvider`. Do not wrap the
+  same state instance in `Popover` or `Popover.Root`.
+- `Popover.Context` and `usePopoverContext()` expose the same Ark state to descendants. Use the
+  context hook when a child component needs the state, or `Popover.Context` when a render prop is
+  clearer.
+- `Popover.Arrow` renders the default `ArrowTip`. Render `ArrowTip` explicitly only when you need
+  to customize it.
+- `Popover.CloseIcon` uses `aria-label="Close popover"` by default and is positioned in the
+  content corner. Pass your own accessible label when the action needs different wording.
+- Escape and outside interaction close the popover by default. The corresponding dismissal
+  callbacks receive Ark event objects unchanged, and each behavior can be disabled separately.
+- Use `ids` when separately composed parts need stable trigger, content, title, description, anchor,
+  or close-trigger IDs.
+- CSS exit animations target Ark's `data-state="closed"` presence state. Use `present` for a
+  JavaScript-controlled presence lifecycle.
+- When content can exceed the available height, put the scrollable region in `Popover.Body`.
 
 ## Examples
 
@@ -146,8 +169,8 @@ Use `Anchor` when a different element should provide the positioning reference.
 
 ### Close Behavior
 
-Disable dismissal on outside interaction or Escape only when the workflow provides an explicit close
-action.
+Disable dismissal on outside interaction or Escape only when the workflow provides an explicit
+close action.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/popover/close-behavior.tsx"
@@ -157,8 +180,8 @@ action.
 
 ### Context
 
-Read the current state from a descendant with `usePopoverContext`. `Popover.Context` provides the
-same state through a render prop.
+Use `usePopoverContext()` inside a descendant that needs the current popover state. Use
+`Popover.Context` when a render prop makes the composition clearer.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/popover/context.tsx"
@@ -168,8 +191,8 @@ same state through a render prop.
 
 ### Controlled
 
-Use the details object from `onOpenChange` and its `open` property to synchronize state with the
-surrounding UI.
+Keep `open` in React state and read `details.open` from `onOpenChange` to synchronize the popover
+with the rest of the application.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/popover/controlled.tsx"
@@ -179,7 +202,8 @@ surrounding UI.
 
 ### Lazy Mount
 
-Use `lazyMount` and `unmountOnExit` when content should exist only while the popover is in use.
+Use `lazyMount` and `unmountOnExit` when the content should be mounted only while the popover is
+in use.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/popover/lazy-mount.tsx"
@@ -189,8 +213,9 @@ Use `lazyMount` and `unmountOnExit` when content should exist only while the pop
 
 ### Modal
 
-Modal popovers trap focus and isolate content outside the popover. Use `initialFocusEl` to choose a
-deliberate initial focus target.
+Use modal mode when the interaction should keep the user inside the popover. It traps focus and
+hides outside content from assistive technology. Use `initialFocusEl` to choose the first focus
+target.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/popover/modal.tsx"
@@ -200,8 +225,8 @@ deliberate initial focus target.
 
 ### Multiple Triggers
 
-When several triggers share one popover, give each trigger a `value` so the surface can react to the
-trigger that opened it.
+Share one content area across several triggers by giving each trigger a `value` and reacting to
+the active value.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/popover/multiple-triggers.tsx"
@@ -211,8 +236,8 @@ trigger that opened it.
 
 ### Nested
 
-Nested popovers keep independent state and expose Ark's nested-layer data attributes. Render the
-nested popover in place so it remains within its parent overlay.
+Nested popovers keep independent state. Render the nested popover with `portalled={false}` so it
+stays inside the parent overlay and participates in its layer structure.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/popover/nested.tsx"
@@ -222,7 +247,7 @@ nested popover in place so it remains within its parent overlay.
 
 ### Placement
 
-Set placement and offsets through Ark's `positioning` object.
+Pass Ark positioning options through the root's `positioning` prop.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/popover/placement.tsx"
@@ -232,8 +257,8 @@ Set placement and offsets through Ark's `positioning` object.
 
 ### Root Provider
 
-Use `usePopover` with `RootProvider` when controls outside the rendered popover tree need to read its
-state or call its methods.
+Use `usePopover()` with `Popover.RootProvider` when controls outside the popover tree need to read
+or update its state.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/popover/root-provider.tsx"
@@ -243,7 +268,7 @@ state or call its methods.
 
 ### Same Width
 
-Enable `positioning.sameWidth` and use Ark's `--reference-width` variable on the content.
+Set `positioning.sameWidth` and use Ark's `--reference-width` variable on the content.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/popover/same-width.tsx"
@@ -253,7 +278,8 @@ Enable `positioning.sameWidth` and use Ark's `--reference-width` variable on the
 
 ### With Arrow
 
-Add `Arrow` to use the default moduix-styled `ArrowTip`.
+Add `Popover.Arrow` when the popover needs a visual pointer to its reference element. The wrapper
+renders the default moduix-styled `ArrowTip`.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/popover/with-arrow.tsx"
@@ -263,8 +289,9 @@ Add `Arrow` to use the default moduix-styled `ArrowTip`.
 
 ### Advanced Customization
 
-Skip the layout helpers when the popup needs its own compact header. The Ark parts remain explicit
-and can be styled independently. The arrow is optional; omit it for a cleaner anchored panel.
+Compose the Ark parts directly when the popover needs a compact custom header or another layout
+that does not fit the moduix helpers. The arrow is optional, so omit it when the panel does not
+need a visual pointer.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/popover/advanced-customization.tsx"
@@ -276,7 +303,7 @@ and can be styled independently. The arrow is optional; omit it for a cleaner an
 
 ### CSS Properties
 
-Use these variables to customize the popover without replacing its structure.
+Use the public variables below to customize the popover without replacing its structure.
 
 <div className="docs-reference">
   <Tabs
@@ -294,13 +321,14 @@ Use these variables to customize the popover without replacing its structure.
 
 ### Styling hooks
 
-Ark parts retain `data-scope="popover"` and their `data-part` values. Every exported rendered part
-accepts `className`, and moduix adds `data-slot="popover-*"` to rendered wrappers. Target
-`data-state="open|closed"`, `data-placement`, `data-side`, `data-nested`, `data-has-nested`, and
-`data-expanded` to style by state. When multiple triggers have `value`, use `data-current` to style
-only the trigger that opened the popover.
+Every rendered part accepts `className`. Ark parts retain `data-scope="popover"` and their
+`data-part` values, while moduix adds `data-slot="popover-*"` to rendered wrappers. `Popover` and
+`Popover.RootProvider` provide state but do not render DOM elements. For state-aware styling,
+target `data-state="open|closed"`, `data-placement`, `data-side`, `data-value`, `data-nested`,
+`data-has-nested`, `data-expanded`, and `data-current` when several valued triggers share one
+popover.
 
 `Positioner` exposes `--reference-width`, `--reference-height`, `--available-width`,
 `--available-height`, `--x`, `--y`, `--z-index`, and `--transform-origin`. `Content` exposes
-`--layer-index` and `--nested-layer-count`; `Arrow` exposes Ark's arrow measurement variables.
+`--layer-index` and `--nested-layer-count`. `Arrow` exposes Ark's arrow measurement variables.
 Content wraps long unbroken strings and disables its motion when the user prefers reduced motion.

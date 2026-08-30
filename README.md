@@ -6,11 +6,11 @@
 
 # moduix
 
-Product-minded React components built on [Ark UI](https://ark-ui.com/), with accessible behavior,
-explicit composition, and CSS Modules styling.
+Product-minded components built on [Ark UI](https://ark-ui.com/), with accessible behavior,
+explicit composition, and CSS Modules at the core.
 
 moduix combines Ark UI primitives with considered defaults and a shadcn-inspired ownership model.
-Use the published `@moduix/react` package when you want managed updates, or add the component source
+Use the published package when you want managed updates, or add the component source
 to your application through the hosted shadcn registry when you want to own it.
 
 [Documentation](https://moduix.dev/) ·

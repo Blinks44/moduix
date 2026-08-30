@@ -1,7 +1,7 @@
 ---
 title: Menu
 component: menu
-description: Меню, которое открывается по триггеру и подходит для действий, ссылок, выбора, вложенных команд и контекстных меню.
+description: Меню, которое открывается по триггеру и подходит для действий, ссылок, выбора вариантов, вложенных команд и контекстных меню.
 ---
 
 import * as MenuDocs from '@/components/examples/menu';
@@ -10,18 +10,9 @@ import * as MenuDocs from '@/components/examples/menu';
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/menu" />
 
-## Выбор подходящего компонента
-
-Используйте `Menu` для списков команд, которые открываются по триггеру, контекстных меню, простого выбора и
-вложенных действий.
-
-- Выбирайте **`Menu`** для дополнительных действий, действий над строками и списков команд, которые открываются
-  кнопкой или триггером контекстного меню.
-
 ## Базовый пример
 
-Начните с дерева частей Ark: `Menu`, `Menu.Trigger`, `Menu.Positioner` и `Menu.Content`. Стабильные значения `value`
-нужны для выбора пунктов и поиска по первым введённым символам.
+Используйте стандартную композицию для меню, которое открывается кнопкой, собственным триггером или контекстным триггером. Корневой компонент управляет клавиатурной навигацией, поиском по начальным символам, фокусом и закрытием меню. Задайте каждому пункту стабильное значение `value`, чтобы выбор и поиск по начальным символам работали и после изменения списка.
 
 <style>{MenuDocs.menuExampleCss}</style>
 
@@ -38,113 +29,126 @@ import * as MenuDocs from '@/components/examples/menu';
 ## Анатомия
 
 ```text
-Menu
+Menu / Menu.Root
 ├─ Menu.Trigger
+│  ├─ Menu.TriggerIcon
 │  └─ Menu.Indicator
 ├─ Menu.ContextTrigger
-├─ Ветка всплывающего слоя (автоматически переносится в портал)
-│  └─ Menu.Positioner
-│     └─ Menu.Content
-│        ├─ Menu.Arrow
-│        │  └─ Menu.ArrowTip
-│        ├─ Menu.Item
-│        ├─ Menu.CheckboxItem
-│        │  ├─ Menu.ItemIndicator
-│        │  └─ Menu.ItemText
-│        ├─ Menu.RadioItemGroup
-│        │  └─ Menu.RadioItem
-│        ├─ Menu.ItemGroup
-│        │  └─ Menu.ItemGroupLabel
-│        └─ Menu
-│           └─ Menu.TriggerItem
+└─ Ветка всплывающего слоя (автоматически переносится в портал)
+   └─ Menu.Positioner
+      └─ Menu.Content
+         ├─ Menu.Arrow
+         │  └─ Menu.ArrowTip
+         ├─ Menu.Item
+         │  ├─ Menu.ItemText
+         │  │  ├─ Menu.ItemTextIcon
+         │  │  └─ Menu.ItemTextLabel
+         │  └─ Menu.ItemShortcut
+         ├─ Menu.CheckboxItem
+         │  └─ Menu.ItemIndicator
+         ├─ Menu.RadioItemGroup
+         │  └─ Menu.RadioItem
+         ├─ Menu.ItemGroup
+         │  └─ Menu.ItemGroupLabel
+         ├─ Menu.Separator
+         └─ Menu
+            └─ Menu.TriggerItem
+               └─ Menu.TriggerItemIcon
 ```
 
-| Часть                  | Назначение                                                        |
-| --------------------- | ----------------------------------------------------------------- |
-| `Menu` / `Menu.Root`  | Корень Ark, который управляет открытием, позиционированием, поиском по первым символам и закрытием. |
-| `Menu.RootProvider`   | Отрисовывает меню на основе экземпляра состояния `useMenu`.             |
-| `Menu.Trigger`        | Кнопка-триггер; используйте `asChild`, чтобы передать свой элемент. |
-| `Menu.Indicator`      | Индикатор триггера Ark, который учитывает состояние меню.                   |
-| `Menu.ContextTrigger` | Триггер по правому клику или долгому нажатию для контекстного меню. |
-| `Menu.Positioner`     | Позиционирует плавающий слой.                                      |
-| `Menu.Content`        | Поверхность всплывающего меню с ролью menu и коллекцией пунктов.     |
-| `Menu.Item`           | Пункт меню, выполняющий команду.                                                   |
-| `Menu.CheckboxItem`   | Пункт, который можно включить или выключить.                                   |
-| `Menu.RadioItemGroup` | Группа пунктов, из которых можно выбрать только один.            |
-| `Menu.RadioItem`      | Пункт для выбора одного варианта.                             |
-| `Menu.TriggerItem`    | Пункт, открывающий вложенное `Menu`.                             |
-| `Menu.ItemIndicator`  | Индикатор выбора для пунктов с флажками и пунктов с выбором одного варианта.                     |
+| Часть | Назначение |
+| --- | --- |
+| `Menu` / `Menu.Root` | Корневой компонент, который управляет открытием, позиционированием, поиском по начальным символам, фокусом и закрытием меню. |
+| `Menu.RootProvider` | Подключает меню к экземпляру состояния, созданному с помощью `useMenu`. |
+| `Menu.Trigger` | Кнопка, открывающая меню. Используйте `asChild`, чтобы передать другой семантический элемент. |
+| `Menu.TriggerIcon` | Обёртка для иконки триггера. Если потомок не передан, отображается шеврон по умолчанию. |
+| `Menu.Indicator` | Индикатор состояния триггера, обычно шеврон. |
+| `Menu.ContextTrigger` | Триггер для контекстного меню по правому клику или долгому нажатию. |
+| `Menu.Positioner` | Позиционирует плавающий слой меню. |
+| `Menu.Content` | Всплывающая область с ролью `menu` и коллекцией пунктов. |
+| `Menu.Arrow` / `Menu.ArrowTip` | Необязательная стрелка, визуально связывающая всплывающее меню с триггером. |
+| `Menu.Item` | Обычный пункт, выполняющий команду. |
+| `Menu.CheckboxItem` | Пункт с независимым логическим состоянием. |
+| `Menu.RadioItemGroup` / `Menu.RadioItem` | Группа и пункты для выбора одного значения. |
+| `Menu.ItemIndicator` | Индикатор выбора для пунктов с флажками и вариантами с единственным выбором. |
+| `Menu.ItemText` и помощники для текста | Компоненты для текста пункта, иконки и подписи. |
+| `Menu.ItemShortcut` | Обёртка для сочетания клавиш или другой подсказки справа. |
+| `Menu.ItemGroup` / `Menu.ItemGroupLabel` | Группа и подпись для связанных пунктов. |
+| `Menu.Separator` | Разделитель между группами пунктов. |
+| `Menu.TriggerItem` / `Menu.TriggerItemIcon` | Пункт и иконка для открытия вложенного меню. |
+| `Menu.ItemContext` | Передаёт состояние пункта его содержимому. |
 
 ## Композиция
 
-Корневой элемент автоматически помещает `Positioner` в портал. Используйте `portalled={false}`, чтобы оставить меню
-в текущем контейнере, а `portalRef`, чтобы указать другой контейнер для портала. Структурные части остаются явными,
-и их можно стилизовать.
+`Menu` автоматически помещает `Menu.Positioner` в портал. Установите `portalled={false}`, чтобы отрисовать меню в текущем контейнере, или передайте `portalRef`, чтобы использовать определённый контейнер портала. `Menu.Positioner` и `Menu.Content` остаются явными частями, поэтому их можно независимо стилизовать и компоновать.
 
 ### Рекомендуемая композиция
 
-Сохраняйте структуру всплывающего меню явной. `Menu.Content` отвечает за содержимое Ark, а `Menu.Positioner` остаётся
-отдельной частью.
+Оставляйте структуру всплывающего меню видимой в коде. `Menu.Content` является частью содержимого Ark, а `Menu.Positioner` отвечает за отдельное позиционирование.
 
 ```tsx
-<Menu positioning={{ placement: 'bottom-start', gutter: 8 }}>
-  <Menu.Trigger asChild>
-    <Button>
-      Actions
-      <Menu.Indicator />
-    </Button>
-  </Menu.Trigger>
-  <Menu.Positioner>
-    <Menu.Content className="menu-content">
-      <Menu.Item value="edit">Edit</Menu.Item>
-    </Menu.Content>
-  </Menu.Positioner>
-</Menu>
+import { Button } from '@moduix/react/button';
+import { Menu } from '@moduix/react/menu';
+
+export function ActionsMenu() {
+  return (
+    <Menu positioning={{ placement: 'bottom-start', gutter: 8 }}>
+      <Menu.Trigger asChild>
+        <Button>
+          Actions
+          <Menu.Indicator />
+        </Button>
+      </Menu.Trigger>
+      <Menu.Positioner>
+        <Menu.Content>
+          <Menu.Item value="edit">Edit</Menu.Item>
+        </Menu.Content>
+      </Menu.Positioner>
+    </Menu>
+  );
+}
 ```
 
 ### Когда нужна собственная композиция
 
-Используйте `asChild`, если триггер, пункт или содержимое должны рендериться другим семантическим элементом.
-Передавайте ровно одного семантического потомка, чтобы Ark мог корректно добавить ARIA-атрибуты и настроить
-фокус и клавиатурное управление. Для ссылок указывайте `asChild` на `Menu.Item`, а для своего контейнера
-всплывающего меню на `Menu.Content`.
+Используйте `asChild`, если триггер, пункт или содержимое должны отображаться другим семантическим элементом. Передавайте ровно одного семантического потомка, чтобы Ark мог объединить его ARIA-атрибуты, обработчики событий и ref. Для ссылок указывайте `asChild` на `Menu.Item`, чтобы сама ссылка получила поведение пункта меню. Для собственного контейнера всплывающего меню указывайте `asChild` на `Menu.Content`.
 
-Вложенное меню представляет собой обычный корень `Menu` внутри содержимого родительского меню. Для него используйте
-`Menu.TriggerItem`, затем его собственные `Menu.Positioner` и `Menu.Content`.
+Вложенное меню представляет собой обычный корневой `Menu` внутри содержимого родительского меню. Добавьте в него `Menu.TriggerItem`, а затем собственные `Menu.Positioner` и `Menu.Content`.
 
 ### Свойства по умолчанию
 
-Содержимое меню в портале по умолчанию монтируется при открытии и удаляется после анимации закрытия.
-Установите `unmountOnExit={false}`, чтобы сохранить его после первого открытия. Указывайте `lazyMount={false}`
-и `unmountOnExit={false}` только если содержимое нужно отрисовать сразу.
+По умолчанию moduix добавляет содержимое всплывающего меню в DOM при первом открытии и удаляет его после анимации закрытия. Установите `unmountOnExit={false}`, чтобы сохранить содержимое в DOM после первого открытия. Указывайте одновременно `lazyMount={false}` и `unmountOnExit={false}` только если содержимое нужно отрисовать сразу и оставить в DOM.
 
-| Поверхность                       | По умолчанию | Примечания                                                  |
-| --------------------------------- | ------------ | ----------------------------------------------------------- |
-| `Menu` / `Menu.Root`                  | -       | Дополнительных значений по умолчанию в moduix нет, используются значения Ark. |
-| `Menu.CheckboxItem` / `Menu.RadioItem` | `start` | `indicator` управляет позицией столбца индикатора.                         |
+| Свойство или часть | По умолчанию | Примечания |
+| --- | --- | --- |
+| `lazyMount` | `true` | Откладывает монтирование всплывающего меню до первого открытия. |
+| `unmountOnExit` | `true` | Удаляет всплывающее меню после анимации закрытия. |
+| `closeOnSelect` | `true` | Значение Ark по умолчанию. Установите `false`, если пользователь должен выбрать несколько пунктов до закрытия меню. |
+| `loopFocus` | `false` | Значение Ark по умолчанию. При навигации с клавиатуры фокус не переходит с последнего пункта на первый. |
+| `typeahead` | `true` | Значение Ark по умолчанию. Ввод печатных символов переводит подсветку на подходящий пункт. |
+| `indicator` у `Menu.CheckboxItem` / `Menu.RadioItem` | `start` | Свойство только moduix, которое управляет столбцом индикатора. При необходимости используйте `end` или `none`. |
 
 ### Особенности поведения
 
-- В moduix свойства `lazyMount` и `unmountOnExit` по умолчанию имеют значение `true`. Свойства `open`, `defaultOpen`,
-  `onOpenChange(details)`, `highlightedValue`, `onHighlightChange(details)`, `onSelect(details)`, `closeOnSelect`,
-  `ids` и `present` передаются в Ark без дополнительных значений по умолчанию со стороны moduix.
-- Для идентификации пункта меню используйте `value`, а не собственный `id`.
+- Управляйте меню с помощью `open`, `defaultOpen` и `onOpenChange(details)`. Колбэк получает объект с деталями Ark.
+- Используйте `value` для идентификации пункта. Свойство `valueText` позволяет задать отдельный текст для поиска по начальным символам. Не задавайте пунктам произвольные значения `id`: Ark сам создаёт эти идентификаторы и использует их внутри компонента.
+- Используйте `highlightedValue` и `onHighlightChange(details)`, чтобы управлять подсветкой пункта или реагировать на её изменение. Свойство `present` нужно только для внешнего управления жизненным циклом уже смонтированного содержимого.
+- `onSelect(details)` на корневом компоненте вызывается при выборе любого пункта. У отдельных пунктов также есть собственные обработчики `onSelect`.
 - `Menu.CheckboxItem.onCheckedChange` получает новое логическое значение состояния.
-- `Menu.RadioItemGroup.onValueChange` получает `details.value`.
-- `Menu.RootProvider` нужно использовать с экземпляром `useMenu`, а не отрисовывать второй корневой элемент `Menu` для того же состояния.
-- `Menu.Context`, `useMenuContext` и `useMenuItemContext` дают потомкам доступ к состоянию Ark для расширенной композиции.
-- Корневой компонент автоматически помещает `Menu.Positioner` в портал. Используйте `portalled={false}`, чтобы оставить
-  меню внутри диалога или прокручиваемого контейнера. Если контейнер прокручивается, добавьте
-  `positioning={{ strategy: 'fixed', hideWhenDetached: true }}`.
-- Анимации открытия и закрытия учитывают `prefers-reduced-motion`.
-- `Menu.Indicator` соответствует части indicator в Ark. `Menu.TriggerIcon`, `Menu.TriggerItemIcon`, `Menu.ItemShortcut`
-  и помощники для текста пунктов являются вспомогательными компонентами moduix для типового содержимого.
+- `Menu.RadioItemGroup.onValueChange` получает объект с деталями. Выбранное значение находится в `details.value`.
+- Для нескольких триггеров используйте `triggerValue`, `defaultTriggerValue` и `onTriggerValueChange(details)`, если активный триггер нужно контролировать или отслеживать.
+- Используйте `Menu.RootProvider` с экземпляром `useMenu`, если коду за пределами дерева компонентов нужен доступ к API меню. Не создавайте второй корневой компонент для того же экземпляра состояния.
+- `Menu.Context`, `useMenuContext`, `Menu.ItemContext` и `useMenuItemContext` открывают доступ к состоянию для расширенной композиции.
+- Корневой компонент автоматически помещает `Menu.Positioner` в портал. Используйте `portalled={false}` внутри диалога или прокручиваемого контейнера. Если контейнер прокручивается, добавьте `positioning={{ strategy: 'fixed', hideWhenDetached: true }}`.
+- `Menu.ContextTrigger` открывает меню по правому клику, а на сенсорных устройствах и при использовании пера также после долгого нажатия примерно 700 мс.
+- Анимации открытия и закрытия учитывают настройку `prefers-reduced-motion`.
+- В moduix есть `tone="destructive"` для опасных действий и вспомогательные компоненты `Menu.TriggerIcon`, `Menu.TriggerItemIcon`, `Menu.ItemTextContent`, `Menu.ItemTextIcon`, `Menu.ItemTextLabel` и `Menu.ItemShortcut`.
 
 ## Примеры
 
 ### Пункты с флажками
 
-Пункты с флажками сохраняют логическое состояние и при этом поддерживают навигацию по меню и поиск по первым символам.
+Используйте пункты с флажками для независимых параметров, которые можно включать и выключать. Установите `closeOnSelect={false}`, если пользователь должен изменить несколько настроек до закрытия меню.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/menu/checkbox-items.tsx"
@@ -154,7 +158,7 @@ Menu
 
 ### Контекстное меню
 
-Используйте `Menu.ContextTrigger` для контекстного меню, открываемого правым кликом или долгим нажатием.
+Используйте `Menu.ContextTrigger`, если действия должны появляться по правому клику. На сенсорных устройствах и при использовании пера меню также открывается долгим нажатием.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/menu/context-menu.tsx"
@@ -164,7 +168,7 @@ Menu
 
 ### Управляемое состояние
 
-Управляйте `open` через `onOpenChange(details)`, если меню должно открываться и закрываться другим элементом управления.
+Управляйте `open` через состояние React, если меню должно открываться или закрываться другим элементом управления.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/menu/controlled.tsx"
@@ -174,7 +178,7 @@ Menu
 
 ### Группировка
 
-Используйте `Menu.ItemGroup` и `Menu.ItemGroupLabel`, чтобы объединить связанные пункты меню.
+Используйте `Menu.ItemGroup` и `Menu.ItemGroupLabel`, чтобы объединить связанные пункты, а `Menu.Separator` - чтобы разделить группы.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/menu/grouping.tsx"
@@ -184,8 +188,7 @@ Menu
 
 ### Размещение индикатора
 
-moduix добавляет `indicator="start" | "end" | "none"` для пунктов checkbox и radio, чтобы можно было выбрать
-положение индикатора.
+Задайте для пунктов с флажками и вариантами с единственным выбором `indicator="start"`, `"end"` или `"none"`, чтобы выбрать положение индикатора.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/menu/indicator-placement.tsx"
@@ -195,7 +198,7 @@ moduix добавляет `indicator="start" | "end" | "none"` для пункт
 
 ### Контекст элемента
 
-Используйте `Menu.ItemContext`, чтобы получить доступ к состоянию пункта прямо внутри него, например к `highlighted`.
+Используйте `Menu.ItemContext`, если содержимое пункта должно реагировать на его состояние, например на наличие подсветки.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/menu/item-context.tsx"
@@ -203,10 +206,9 @@ moduix добавляет `indicator="start" | "end" | "none"` для пункт
 ```
 </PreviewFrame>
 
-### Контекстное меню с ленивым монтированием
+### Контекстное меню с отложенным монтированием
 
-По умолчанию содержимое контекстного меню монтируется при открытии и удаляется после анимации закрытия. Установите
-`unmountOnExit={false}`, если нужно сохранить его поддерево после первого открытия.
+По умолчанию содержимое контекстного меню добавляется в DOM при первом открытии и удаляется после анимации закрытия. Установите `unmountOnExit={false}`, если поддерево должно оставаться смонтированным после закрытия меню.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/menu/lazy-mounted-context-menu.tsx"
@@ -216,7 +218,7 @@ moduix добавляет `indicator="start" | "end" | "none"` для пункт
 
 ### Ссылки
 
-Используйте `Menu.Item asChild` для ссылок, чтобы сама ссылка получила роль и поведение пункта меню.
+Используйте `Menu.Item asChild` и сделайте саму ссылку пунктом меню. Тогда ссылка получит ARIA-атрибуты, клавиатурное поведение и обработку фокуса пункта.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/menu/links.tsx"
@@ -226,8 +228,7 @@ moduix добавляет `indicator="start" | "end" | "none"` для пункт
 
 ### Меню в диалоге
 
-Оставьте всплывающее меню внутри диалога или прокручиваемого контейнера с `portalled={false}`. Если контейнер
-прокручивается, задайте фиксированное позиционирование и `hideWhenDetached`.
+Установите `portalled={false}`, чтобы оставить всплывающее меню внутри диалога или прокручиваемого контейнера. Если контейнер может прокручиваться, используйте фиксированное позиционирование и `hideWhenDetached`, чтобы скрывать меню после выхода за видимую область.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/menu/menu-in-dialog.tsx"
@@ -237,7 +238,7 @@ moduix добавляет `indicator="start" | "end" | "none"` для пункт
 
 ### Несколько триггеров
 
-Передайте каждому `Menu.Trigger` свой `value`, если одно меню используется несколькими элементами-триггерами.
+Чтобы использовать одно меню с несколькими триггерами, передайте каждому `Menu.Trigger` своё значение `value`. Меню будет позиционироваться относительно триггера, который его открыл.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/menu/multiple-triggers.tsx"
@@ -247,7 +248,7 @@ moduix добавляет `indicator="start" | "end" | "none"` для пункт
 
 ### Вложенное меню
 
-Выведите вложенное `Menu` и открывайте его через `Menu.TriggerItem`.
+Разместите дочерний `Menu` внутри содержимого родительского меню и открывайте его с помощью `Menu.TriggerItem`.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/menu/nested.tsx"
@@ -257,7 +258,7 @@ moduix добавляет `indicator="start" | "end" | "none"` для пункт
 
 ### Пункты с выбором одного варианта
 
-Используйте `Menu.RadioItemGroup`, чтобы выбрать в меню только одно значение.
+Используйте `Menu.RadioItemGroup`, если пользователь должен выбрать одно значение из нескольких вариантов. Установите `closeOnSelect={false}`, если меню должно оставаться открытым во время выбора.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/menu/radio-items.tsx"
@@ -267,7 +268,7 @@ moduix добавляет `indicator="start" | "end" | "none"` для пункт
 
 ### Root Provider
 
-Используйте `useMenu` и `Menu.RootProvider`, если коду за пределами дерева компонентов нужен доступ к API меню.
+Используйте `useMenu` и `Menu.RootProvider`, если коду за пределами дерева компонентов нужно читать состояние меню или изменять его.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/menu/root-provider.tsx"
@@ -277,7 +278,7 @@ moduix добавляет `indicator="start" | "end" | "none"` для пункт
 
 ### Событие выбора
 
-Используйте `onSelect(details)` на корне, если нужно реагировать на выбор любого пункта меню.
+Используйте `onSelect(details)` на корневом компоненте, если один обработчик должен реагировать на выбор любого пункта. Выбранное значение находится в `details.value`.
 
 <PreviewFrame maxWidth="xs">
   ```tsx preview file="../../en/docs/_snippets/menu/select-event.tsx"
@@ -287,8 +288,7 @@ moduix добавляет `indicator="start" | "end" | "none"` для пункт
 
 ### Со стрелкой
 
-Добавьте `Menu.Arrow` и `Menu.ArrowTip` внутрь `Menu.Content`, если всплывающему меню нужен визуальный ориентир,
-связывающий его с триггером.
+Добавьте `Menu.Arrow` и `Menu.ArrowTip` непосредственно внутрь `Menu.Content`, если нужно визуально связать всплывающее меню с триггером.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/menu/with-arrow.tsx"
@@ -298,8 +298,7 @@ moduix добавляет `indicator="start" | "end" | "none"` для пункт
 
 ### Расширенная настройка
 
-Для типового содержимого меню используйте вспомогательные компоненты moduix, а если нужен полностью настраиваемый
-пункт или элемент ссылки, переходите к структурным частям Ark.
+Используйте вспомогательные компоненты для типовой разметки пунктов, а если пункту или ссылке нужна особая структура, компонуйте части Ark напрямую.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/menu/advanced-customization.tsx"
@@ -312,13 +311,23 @@ moduix добавляет `indicator="start" | "end" | "none"` для пункт
 ### CSS-свойства
 
 <div className="not-prose docs-reference">
-  <Tabs values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]} className="docs-reference-tabs" contentItemClassName="docs-reference-panel">
-    <Tab value="CSS Variables"><div style={{ maxHeight: '28rem', overflow: 'auto' }}><MenuDocs.MenuCssPropertiesPanel /></div></Tab>
+  <Tabs
+    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab value="CSS Variables">
+      <div style={{ maxHeight: '28rem', overflow: 'auto' }}>
+        <MenuDocs.MenuCssPropertiesPanel />
+      </div>
+    </Tab>
   </Tabs>
 </div>
 
 ### Хуки стилизации
 
+Используйте атрибуты состояния Ark, чтобы стилизовать меню и его пункты:
+
 - Атрибуты Ark: `[data-scope='menu']`, `[data-part='trigger']`, `[data-part='indicator']`, `[data-part='content']`, `[data-part='item']`, `[data-type='checkbox' | 'radio']`, `[data-state='open' | 'closed' | 'checked' | 'unchecked']`, `[data-current]`, `[data-highlighted]`, `[data-disabled]`, `[data-placement]` и `[data-side]`.
-- Переменные Ark: `--reference-width`, `--available-width`, `--available-height`, `--transform-origin`, `--layer-index`, `--arrow-size` и `--arrow-background`.
-- Хуки moduix: `data-slot="menu-trigger"`, `menu-content`, `menu-item`, `menu-checkbox-item`, `menu-radio-item`, `menu-trigger-item`, `menu-item-indicator` и `menu-item-shortcut`.
+- Атрибуты moduix: `[data-slot='menu-trigger']`, `[data-slot='menu-trigger-icon']`, `[data-slot='menu-indicator']`, `[data-slot='menu-context-trigger']`, `[data-slot='menu-positioner']`, `[data-slot='menu-content']`, `[data-slot='menu-arrow']`, `[data-slot='menu-arrow-tip']`, `[data-slot='menu-item']`, `[data-slot='menu-trigger-item']`, `[data-slot='menu-trigger-item-icon']`, `[data-slot='menu-separator']`, `[data-slot='menu-item-group']`, `[data-slot='menu-item-group-label']`, `[data-slot='menu-radio-item-group']`, `[data-slot='menu-radio-item']`, `[data-slot='menu-checkbox-item']`, `[data-slot='menu-item-indicator']`, `[data-slot='menu-item-text']`, `[data-slot='menu-item-text-content']`, `[data-slot='menu-item-text-icon']`, `[data-slot='menu-item-text-label']`, `[data-slot='menu-item-shortcut']` и `[data-indicator-position='start' | 'end' | 'none']`.
+- Переменные позиционирования: `--reference-width`, `--available-width`, `--available-height`, `--transform-origin`, `--layer-index`, `--arrow-size` и `--arrow-background`.

@@ -1,7 +1,7 @@
 ---
 title: Number Input
 component: number-input
-description: Числовое поле на базе Ark UI с кнопками увеличения и уменьшения значения, форматированием, валидацией и необязательным изменением значения перетаскиванием.
+description: Поле для ввода чисел на базе Ark UI с кнопками изменения значения, форматированием, валидацией и необязательным перетаскиванием.
 ---
 
 import * as NumberInputDocs from '@/components/examples/number-input';
@@ -30,11 +30,11 @@ import * as NumberInputDocs from '@/components/examples/number-input';
 NumberInput.Root
 ├─ NumberInput.Label
 ├─ NumberInput.Scrubber (необязательно)
-├─ NumberInput.Field (рекомендуется)
-├─ NumberInput.Control
-│  ├─ NumberInput.DecrementTrigger
-│  ├─ NumberInput.Input
-│  └─ NumberInput.IncrementTrigger
+├─ NumberInput.Field (рекомендуемая короткая форма)
+│  └─ отображает NumberInput.Control
+│     ├─ NumberInput.DecrementTrigger
+│     ├─ NumberInput.Input
+│     └─ NumberInput.IncrementTrigger
 └─ NumberInput.ValueText (необязательно)
 
 NumberInput.RootProvider
@@ -46,55 +46,77 @@ NumberInput.RootProvider
 | `NumberInput` / `NumberInput.Root` | Управляет состоянием числового поля, разбором введённого значения, форматированием и поведением клавиатуры. |
 | `NumberInput.RootProvider`         | Подключает части к состоянию, созданному с помощью `useNumberInput()`.                                      |
 | `NumberInput.Context`              | Предоставляет форматированное и числовое представление значения, а также императивные методы работы с состоянием. |
-| `NumberInput.Label`                | Доступная подпись, связанная с полем, которым управляет компонент.                                           |
+| `NumberInput.Label`                | Подпись поля, которую используют вспомогательные технологии.                                                 |
 | `NumberInput.Scrubber`             | Необязательная зона перетаскивания, которая изменяет значение при движении указателя.                        |
-| `NumberInput.Control`              | Контейнер для поля и кнопок увеличения и уменьшения значения.                                                |
-| `NumberInput.Field`                | Отображает стандартный `Control`, поле ввода и группу кнопок.                                                  |
-| `NumberInput.DecrementTrigger`     | Кнопка, уменьшающая текущее значение. Если дочерний элемент не задан, по умолчанию отображает значок минуса moduix. |
+| `NumberInput.Control`              | Объединяет поле ввода и кнопки увеличения и уменьшения значения.                                               |
+| `NumberInput.Field`                | Удобная часть, которая отображает стандартный `NumberInput.Control` и группу кнопок.                           |
+| `NumberInput.DecrementTrigger`     | Уменьшает текущее значение. Если дочерний элемент не задан, по умолчанию отображает значок минуса moduix.     |
 | `NumberInput.Input`                | Редактируемое текстовое поле для числа под управлением Ark UI.                                                |
-| `NumberInput.IncrementTrigger`     | Кнопка, увеличивающая текущее значение. Если дочерний элемент не задан, по умолчанию отображает значок плюса moduix. |
+| `NumberInput.IncrementTrigger`     | Увеличивает текущее значение. Если дочерний элемент не задан, по умолчанию отображает значок плюса moduix.   |
 | `NumberInput.ValueText`            | Текстовый элемент только для чтения с форматированным значением.                                             |
 
 ## Композиция
 
 ### Рекомендуемая композиция
 
-`NumberInput` обрабатывает разбор значения, проверку диапазона, изменение значения с клавиатуры, повторное изменение
-при удержании кнопки, перетаскивание и форматирование. Включайте `allowMouseWheel`, если изменение значения колёсиком
-мыши нужно в вашем сценарии. Для стандартного набора видимых частей используйте `NumberInput.Field`.
+`NumberInput` обрабатывает введённое значение, проверяет границы, изменяет значение с клавиатуры, повторяет изменение,
+пока кнопка удерживается, поддерживает перетаскивание и форматирование. Включайте `allowMouseWheel`, если в вашем
+сценарии значение должно изменяться колёсиком мыши. Для стандартного набора частей используйте `NumberInput.Field`.
 
-Передавайте `value` и `defaultValue` как строки. Ark сообщает об изменениях через `onValueChange(details)`, где
-`details.value` содержит строковое значение, а `details.valueAsNumber` - число после разбора.
+Задайте полю доступное имя с помощью `NumberInput.Label`, `aria-label` или `aria-labelledby`. Добавьте
+`NumberInput.ValueText`, если форматированное значение нужно показывать не только внутри поля ввода.
+
+Храните `value` и `defaultValue` в виде строк. Ark сообщает об изменениях через `onValueChange(details)`, где
+`details.value` содержит строковое значение, а `details.valueAsNumber` - его числовое представление.
 
 ### Когда нужна собственная композиция
 
-Используйте `NumberInput.Control` с отдельными частями, если нужно изменить порядок кнопок, значки или стили поля
-по сравнению со стандартным `NumberInput.Field`. Добавьте `NumberInput.Scrubber` рядом с полем, чтобы менять значение
+Используйте `NumberInput.Control` с отдельными частями, если стандартный `NumberInput.Field` не подходит из-за порядка
+кнопок, значков или стилей поля. Добавьте `NumberInput.Scrubber` рядом с полем, если пользователи должны менять значение
 перетаскиванием.
 
 ### Свойства по умолчанию
 
-| Свойство | По умолчанию | Примечания |
-| ---------------------------------- | ------- | ------------------------------------------------------------ |
-| `NumberInput` / `NumberInput.Root` | - | Дополнительных настроек поведения нет, применяются значения Ark по умолчанию. |
-| `NumberInput.Field` | - | Отображает стандартные `Control`, поле ввода и группу кнопок. |
-| `NumberInput.DecrementTrigger` | - | Отображает значок минуса moduix, если дочерний элемент не задан. |
-| `NumberInput.IncrementTrigger` | - | Отображает значок плюса moduix, если дочерний элемент не задан. |
+| Свойство                       | По умолчанию             | Назначение                                                               |
+| ------------------------------ | ------------------------ | ------------------------------------------------------------------------ |
+| `allowOverflow`                | `true`                   | Разрешает введённому значению выходить за `min` и `max`.                 |
+| `clampValueOnBlur`             | `true`                   | Ограничивает значение до `min` или `max` при потере фокуса.              |
+| `focusInputOnChange`           | `true`                   | Сохраняет фокус поля после изменения значения кнопкой.                   |
+| `inputMode`                    | `'decimal'`              | Показывает подходящую для десятичных чисел клавиатуру на мобильных устройствах, где это поддерживается. |
+| `largeStep`                    | `10 * step`              | Величина изменения при нажатии `Shift` вместе со стрелкой.              |
+| `locale`                       | `'en-US'`                | Локаль, используемая для форматирования значения.                       |
+| `max`                          | `Number.MAX_SAFE_INTEGER` | Максимальное значение.                                                   |
+| `min`                          | `Number.MIN_SAFE_INTEGER` | Минимальное значение.                                                    |
+| `spinOnPress`                  | `true`                   | Повторяет изменение, пока кнопка увеличения или уменьшения удерживается. |
+| `step`                         | `1`                      | Величина, на которую значение изменяется за один шаг.                    |
+| `smallStep`                    | `step / 10`              | Величина изменения при нажатии `Alt` вместе со стрелкой.                 |
+| `NumberInput.Field`            | -                        | Отображает стандартные `NumberInput.Control`, поле ввода и группу кнопок. |
+| `NumberInput.DecrementTrigger` | -                        | Отображает значок минуса moduix, если дочерний элемент не задан.         |
+| `NumberInput.IncrementTrigger` | -                        | Отображает значок плюса moduix, если дочерний элемент не задан.          |
 
 ### Особенности поведения
 
-- Для форматирования локализованных чисел используйте `formatOptions`, а не `format`.
-- Используйте `translations.incrementLabel`, `translations.decrementLabel` и `translations.valueText`, чтобы задать доступные подписи на нужном языке.
-- `min`, `max`, `step`, `allowOverflow`, `clampValueOnBlur`, `spinOnPress`, `inputMode` и `allowMouseWheel` передаются в Ark без изменений.
-- `onValueInvalid(details)` сообщает `rangeUnderflow` или `rangeOverflow`, когда значение превышает настроенные границы.
-- Установите `clampValueOnBlur={false}`, если введённые значения за пределами `min` или `max` должны оставаться неизменными при потере фокуса.
-- Используйте `ids`, когда внешним меткам или описаниям требуются стабильные идентификаторы элементов.
-- Части Ark поддерживают `asChild` для использования собственного элемента. `NumberInput.Field` намеренно
+- Используйте `formatOptions` вместе с `Intl.NumberFormat` для локализованного форматирования и отображения валюты. Если
+  нужна другая локаль, задайте её через `locale`.
+- Используйте `translations.incrementLabel`, `translations.decrementLabel` и `translations.valueText`, чтобы задать
+  локализованные подписи для вспомогательных технологий и текст значения.
+- Свойства `min`, `max`, `step`, `allowOverflow`, `clampValueOnBlur`, `spinOnPress`, `inputMode` и `allowMouseWheel`
+  напрямую передаются Ark.
+- `largeStep` задаёт изменение при нажатии `Shift` вместе со стрелкой, а `smallStep` - при нажатии `Alt` вместе со
+  стрелкой. Клавиши `Home` и `End` устанавливают минимальное и максимальное значения.
+- `onValueInvalid(details)` сообщает, что значение вышло за настроенные границы. В `details` причина указывается как
+  `rangeUnderflow` или `rangeOverflow`.
+- Установите `clampValueOnBlur={false}`, если введённое значение за пределами `min` или `max` должно оставаться без
+  изменений после потери фокуса.
+- `onValueCommit(details)` срабатывает, когда значение фиксируется при потере фокуса или после нажатия Enter.
+  Используйте `onFocusChange`, чтобы отслеживать смену фокуса, а `ids` - если внешним подписям или описаниям нужны
+  стабильные идентификаторы.
+- Части Ark поддерживают `asChild`, чтобы использовать выбранный вами элемент. `NumberInput.Field` намеренно
   отображает фиксированную структуру из трёх частей и передаёт `ref` в `NumberInput.Control`.
-- `useNumberInput`, `useNumberInputContext` и `NumberInput.Context` экспортируются из `@moduix/react`.
-- `name` и `form` передаются видимому числовому полю с ролью `spinbutton` для нативной отправки формы. Рендерьте скрытый
-  нативный input через `NumberInput.Context` с `context.valueAsNumber`, только если форме нужно числовое значение
-  после разбора, а не отображаемая строка.
+- `useNumberInput`, `useNumberInputContext` и `NumberInput.Context` доступны из `@moduix/react`.
+- `name` и `form` передаются видимому полю ввода с ролью `spinbutton` для нативной отправки формы. Добавляйте скрытый
+  нативный input через `NumberInput.Context` с `context.valueAsNumber`, только если форме нужно числовое представление
+  значения, а не отображаемая строка.
 
 ## Примеры
 
@@ -108,9 +130,21 @@ NumberInput.RootProvider
 ```
 </PreviewFrame>
 
+### Отключённое состояние и только для чтения
+
+Используйте `disabled`, чтобы полностью отключить взаимодействие. Используйте `readOnly`, если значение должно
+оставаться доступным для выделения, но не должно редактироваться.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/number-input/disabled-and-read-only.tsx"
+
+```
+</PreviewFrame>
+
 ### Field
 
-Используйте `Field`, если нужно объединить состояние формы, вспомогательный текст, текст ошибки и метаданные доступности.
+Используйте `Field`, чтобы связать состояние поля формы со вспомогательным текстом, сообщением об ошибке и настройками
+доступности.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="../../en/docs/_snippets/number-input/field.tsx"
@@ -130,8 +164,9 @@ NumberInput.RootProvider
 
 ### Минимум и максимум
 
-Используйте `min`, `max` и `step`, чтобы ограничить ввод и изменения с клавиатуры, с помощью кнопок и при перетаскивании. Установите
-`clampValueOnBlur={false}`, если введённое значение вне диапазона должно оставаться видимым после потери фокуса.
+Используйте `min`, `max` и `step`, чтобы задать диапазон и шаг для изменений с клавиатуры, с помощью кнопок и при
+перетаскивании. По умолчанию значение ограничивается при потере фокуса. Установите `clampValueOnBlur={false}`, если
+введённое значение вне диапазона должно оставаться видимым после потери фокуса.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="../../en/docs/_snippets/number-input/min-and-max.tsx"
@@ -141,10 +176,22 @@ NumberInput.RootProvider
 
 ### Колесо мыши
 
-Включите `allowMouseWheel`, если изменение значения колёсиком мыши нужно в вашем сценарии.
+Включите `allowMouseWheel`, если в вашем сценарии значение должно изменяться колёсиком мыши.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="../../en/docs/_snippets/number-input/mouse-wheel.tsx"
+
+```
+</PreviewFrame>
+
+### Нативная отправка формы
+
+Задайте `name`, чтобы нативная форма отправляла значение видимого поля ввода с ролью `spinbutton`. Добавляйте скрытый
+нативный input через `NumberInput.Context`, только если форме нужно числовое представление значения, а не отображаемая
+строка.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/number-input/form-submission.tsx"
 
 ```
 </PreviewFrame>
@@ -162,8 +209,8 @@ NumberInput.RootProvider
 
 ### Root Provider
 
-Используйте `useNumberInput()` с `NumberInput.RootProvider`, если состояние нужно создать вне дерева, в котором
-отображаются части компонента.
+Используйте `useNumberInput()` с `NumberInput.RootProvider`, если состояние нужно создать вне дерева компонентов, в
+котором отображаются части компонента.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="../../en/docs/_snippets/number-input/root-provider.tsx"
@@ -173,7 +220,7 @@ NumberInput.RootProvider
 
 ### Изменение перетаскиванием
 
-Перетаскивайте подпись влево или вправо, чтобы изменить значение.
+Перетаскивайте `NumberInput.Scrubber` влево или вправо, чтобы изменить значение.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="../../en/docs/_snippets/number-input/scrubbing.tsx"
@@ -183,7 +230,8 @@ NumberInput.RootProvider
 
 ### Текст значения
 
-Используйте `<output>`, если текущее значение нужно дополнительно показывать за пределами редактируемого поля.
+Используйте `NumberInput.ValueText`, если форматированное значение нужно дополнительно показывать за пределами
+редактируемого поля.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="../../en/docs/_snippets/number-input/value-text.tsx"
@@ -191,33 +239,11 @@ NumberInput.RootProvider
 ```
 </PreviewFrame>
 
-### Отключённое состояние и только для чтения
-
-Используйте `disabled`, чтобы полностью отключить взаимодействие. Используйте `readOnly`, если значение должно
-оставаться доступным для выделения, но не должно редактироваться.
-
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/number-input/disabled-and-read-only.tsx"
-
-```
-</PreviewFrame>
-
-### Нативная отправка формы
-
-Задайте `name`, чтобы нативная форма отправляла значение видимого числового поля с ролью `spinbutton`. Рендерьте скрытый
-нативный input через `NumberInput.Context`, только если форме нужно числовое значение после разбора, а не отображаемая
-строка.
-
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/number-input/form-submission.tsx"
-
-```
-</PreviewFrame>
-
 ### Расширенная настройка
 
 Соберите компонент из частей нижнего уровня вместо `NumberInput.Field`, если нужно настроить значки кнопок или стили
-поля. Передайте `translations`, если для пользовательских кнопок нужны локализованные доступные подписи.
+поля. Передайте `translations`, если пользовательское содержимое кнопок требует локализованных подписей для
+вспомогательных технологий.
 
 <style>{NumberInputDocs.numberInputAdvancedCustomizationCss}</style>
 
@@ -245,8 +271,8 @@ NumberInput.RootProvider
 
 ### Хуки стилизации
 
-- `data-slot="number-input-root"`, `number-input-root-provider`, `number-input-label`,
-`number-input-scrubber`, `number-input-control`, `number-input-decrement-trigger`,
-`number-input-input`, `number-input-increment-trigger` и `number-input-value-text`.
+- Значения `data-slot` moduix: `number-input-root`, `number-input-root-provider`, `number-input-label`,
+  `number-input-scrubber`, `number-input-control`, `number-input-decrement-trigger`, `number-input-input`,
+  `number-input-increment-trigger` и `number-input-value-text`.
 - Атрибуты состояния Ark: `data-disabled`, `data-invalid`, `data-focus` и `data-scrubbing`.
 - Атрибуты частей Ark: `data-scope="number-input"` и значения `data-part`, соответствующие анатомии компонента.

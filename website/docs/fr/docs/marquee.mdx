@@ -1,7 +1,7 @@
 ---
 title: Marquee
 component: marquee
-description: Un composant Ark UI qui fait défiler en continu des logos, des annonces ou d’autres éléments répétés.
+description: Un composant basé sur Ark UI pour faire défiler en continu des logos, des annonces ou d’autres contenus répétés.
 ---
 
 import * as MarqueeDocs from '@/components/examples/marquee';
@@ -12,9 +12,11 @@ import * as MarqueeDocs from '@/components/examples/marquee';
 
 ## Exemple de base
 
-Utilisez `Marquee` comme racine Ark et composez explicitement `Viewport`, `Content` et `Item`. Lorsque le contenu
-transmet une information, ajoutez un libellé descriptif avec `aria-label` ou `translations.root`.
-La racine n’ajoute aucun habillage visuel par défaut. Dans cet exemple, `PreviewFrame` limite uniquement la largeur de l’aperçu.
+Utilisez la forme courte `Marquee` comme racine, puis composez explicitement `Viewport`, `Content` et `Item` à
+l’intérieur. Si le contenu défilant transmet une information, ajoutez un libellé avec `aria-label` ou
+`translations.root`. `Marquee` fournit le comportement et les styles d’animation nécessaires, mais ne définit ni le style
+des éléments ni celui du cadre. Dans l’exemple, le style des éléments est défini séparément et `PreviewFrame` limite uniquement
+la largeur de l’aperçu.
 
 <style>{MarqueeDocs.marqueeExampleCss}</style>
 
@@ -32,14 +34,14 @@ La racine n’ajoute aucun habillage visuel par défaut. Dans cet exemple, `Prev
 
 ```text
 Marquee / Marquee.Root
-├─ Marquee.Edge
+├─ Marquee.Edge (facultatif)
 ├─ Marquee.Viewport
 │  └─ Marquee.Content
 │     └─ Marquee.Item
-└─ Marquee.Edge
+└─ Marquee.Edge (facultatif)
 
 Marquee.RootProvider
-└─ même arbre de parties, relié à l’état créé par `useMarquee()` de moduix
+└─ même arbre de parties, relié à l’état créé par useMarquee() de moduix
 ```
 
 | Partie                       | Rôle                                                                                              |
@@ -47,9 +49,10 @@ Marquee.RootProvider
 | `Marquee` / `Marquee.Root`   | État du composant, libellés, identifiants, orientation, état de pause et variables CSS.            |
 | `Marquee.RootProvider`       | Rend l’arbre du composant à partir de l’état renvoyé par `useMarquee()`.                           |
 | `Marquee.Viewport`           | Zone d’affichage qui masque ce qui dépasse du contenu défilant.                                   |
-| `Marquee.Content`            | Conteneur du contenu animé. Ark le clone si nécessaire.                                           |
+| `Marquee.Content`            | Conteneur du contenu animé. Ark le duplique si nécessaire.                                         |
 | `Marquee.Item`               | Élément individuel du contenu.                                                                    |
 | `Marquee.Edge`               | Dégradé facultatif qui fait disparaître le contenu au bord. `side` en choisit le côté.           |
+| `Marquee.Context`            | Accès avancé au contexte du composant `Marquee` qui l’englobe.                                   |
 
 ## Composition
 
@@ -62,15 +65,22 @@ de l’animation et les attributs d’état ; le style des éléments et de la r
 
 Ajoutez `Marquee.Edge` lorsque le contenu doit se fondre dans l’arrière-plan de la page. Utilisez
 `useMarquee()` de moduix avec `Marquee.RootProvider` lorsque des commandes externes doivent appeler `pause()`,
-`resume()`, `togglePause()` ou `restart()`. N’utilisez pas `Marquee` et `Marquee.RootProvider` avec le même objet d’état.
+`resume()`, `togglePause()` ou `restart()`. Ne rendez pas `Marquee` et `Marquee.RootProvider` pour une même instance d’état.
+
+Utilisez `Marquee.Context` ou `useMarqueeContext()` lorsqu’un contrôle placé dans l’arbre du composant doit lire
+l’API courante. Utilisez `useMarquee()` avec `Marquee.RootProvider` lorsque l’état est créé séparément ou partagé
+avec des contrôles situés à l’extérieur de l’arbre.
 
 Utilisez `asChild` sur les parties Ark si vous devez remplacer l’élément rendu. L’élément de remplacement doit être
 sémantiquement adapté et rester l’unique enfant. Utilisez `ids` lorsqu’une composition personnalisée nécessite des
 identifiants stables pour la racine, la zone d’affichage ou le contenu.
 
-### Props et callbacks
+### Propriétés par défaut
 
-| Prop                 | Valeur par défaut | Remarques                                                                                 |
+Le tableau présente les valeurs par défaut de la racine. `Marquee.Edge` exige une valeur pour `side`, et
+`Marquee.RootProvider` exige un `value` renvoyé par `useMarquee()`.
+
+| Propriété            | Valeur par défaut | Remarques                                                                                 |
 | -------------------- | ----------------- | ----------------------------------------------------------------------------------------- |
 | `side`               | `start`           | Valeurs possibles : `start`, `end`, `top` et `bottom`. Les deux dernières activent l’orientation verticale. |
 | `speed`              | `50`              | Vitesse en pixels par seconde. Ark calcule la durée à partir de la taille du contenu.                    |
@@ -84,28 +94,31 @@ identifiants stables pour la racine, la zone d’affichage ou le contenu.
 | `paused`             | -                 | État de pause contrôlé. À associer à `onPauseChange`.                                                     |
 | `onPauseChange`      | -                 | Reçoit les détails Ark sur l’état de pause.                                                              |
 | `onLoopComplete`     | -                 | Appelé après chaque boucle.                                                                              |
-| `onComplete`         | -                 | Appelé après la dernière boucle lorsque `loopCount` limite le nombre de répétitions.                     |
-| `translations`       | -                 | Libellé localisé de la racine. Utilisez-le ou fournissez `aria-label`.                                    |
+| `onComplete`         | -                 | Appelé après la dernière boucle lorsque `loopCount` est supérieur à `0`.                                |
+| `translations`       | -                 | Libellé localisé de la racine via `translations.root`. Utilisez-le ou fournissez `aria-label`.            |
 | `ids`                | -                 | Identifiants stables de la racine, de la zone d’affichage et des instances de contenu.                   |
 | `asChild`            | -                 | Disponible sur chaque partie Ark pour remplacer l’élément rendu.                                         |
 | `Marquee.Edge side`  | -                 | Côté obligatoire : `start`, `end`, `top` ou `bottom`.                                                     |
-| `RootProvider.value` | -                 | Objet `UseMarqueeReturn` obligatoire renvoyé par `useMarquee()`.                                         |
+| `RootProvider.value` | -                 | Valeur `UseMarqueeReturn` obligatoire renvoyée par `useMarquee()`.                                       |
 
 ### Comportement
 
-Utilisez `paused` avec `onPauseChange(details)` pour contrôler le défilement depuis l’état React. Utilisez
-`loopCount`, `onLoopComplete` et `onComplete` lorsque le défilement doit s’arrêter après un nombre défini de boucles.
-Les callbacks conservent les signatures d’origine d’Ark.
+Pour contrôler le défilement depuis l’état React, utilisez `paused` avec `onPauseChange(details)`. `defaultPaused`
+ne définit que l’état initial d’un composant non contrôlé. Utilisez `loopCount`, `onLoopComplete` et `onComplete`
+lorsque le défilement doit s’arrêter après un nombre défini de boucles. Les callbacks conservent les signatures
+d’origine d’Ark.
 
-Ark expose le composant comme une région nommée et masque le contenu cloné aux technologies d’assistance. Fournissez
+Ark expose la racine comme une région nommée et masque les copies du contenu aux technologies d’assistance. Fournissez
 un `aria-label` pertinent ou `translations.root`. Activez `pauseOnInteraction` si le contenu est interactif ou doit
 rester lisible, et n’utilisez pas le composant pour afficher une information critique.
 
-Il n’y a pas de déplacement automatique du focus ni de navigation au clavier avec les flèches. Lorsque
-`pauseOnInteraction` est activé, le focus met le composant en pause et sa perte relance le défilement.
+Le composant ne déplace pas automatiquement le focus et ne propose pas de navigation au clavier avec les flèches.
+Lorsque `pauseOnInteraction` est activé, le focus met le composant en pause et sa perte relance le défilement.
 
-Si l’utilisateur a activé la réduction des animations, moduix désactive l’animation du contenu tout en le laissant
-accessible.
+Lorsque la préférence système de réduction des animations est active, moduix désactive l’animation du contenu sans
+le masquer.
+
+Le `ref` de chaque partie est transmis à l’élément DOM Ark correspondant.
 
 ## Exemples
 
@@ -122,7 +135,7 @@ les copies du contenu.
 ```
 </PreviewFrame>
 
-### Bords
+### Fondu sur les bords
 
 Ajoutez `Marquee.Edge` sur les côtés où le contenu doit se fondre dans l’arrière-plan de la page. Cette partie est
 décorative et n’intercepte pas les événements de pointeur.
@@ -135,7 +148,7 @@ décorative et n’intercepte pas les événements de pointeur.
 ```
 </PreviewFrame>
 
-### Nombre fini de boucles
+### Boucles limitées
 
 Définissez `loopCount` pour limiter le nombre de boucles. `onLoopComplete` est appelé après chaque boucle et
 `onComplete` après la dernière.
@@ -148,7 +161,7 @@ Définissez `loopCount` pour limiter le nombre de boucles. `onLoopComplete` est 
 ```
 </PreviewFrame>
 
-### Pause lors d’une interaction
+### Pause lors des interactions
 
 Utilisez `pauseOnInteraction` pour mettre le composant en pause lorsque l’utilisateur le survole ou place le focus
 dans son contenu.
@@ -161,9 +174,9 @@ dans son contenu.
 ```
 </PreviewFrame>
 
-### Contrôle programmatique
+### Root Provider
 
-Utilisez `useMarquee()` de moduix et `Marquee.RootProvider` lorsque des commandes externes doivent mettre le
+Utilisez `useMarquee()` de moduix avec `Marquee.RootProvider` lorsque des commandes externes doivent mettre le
 défilement en pause, le reprendre ou le relancer.
 
 <style>{MarqueeDocs.marqueeExampleCss}</style>
@@ -227,9 +240,12 @@ Définissez `side="top"` ou `side="bottom"` pour faire défiler le contenu verti
 
 ## Styles
 
-Marquee s’appuie sur les images clés fournies par la bibliothèque pour animer le contenu. Personnalisez les dimensions
-et l’apparence avec les variables CSS et les classes des parties, tout en conservant les attributs d’état Ark pour
-styliser le comportement.
+Marquee inclut les images clés nécessaires à l’animation du contenu. Utilisez `className` pour les dimensions et le
+style des éléments, les variables CSS pour les dimensions, la couleur, l’espacement et le fondu des bords, et les
+attributs d’état Ark pour les styles liés au comportement.
+
+`Marquee` est transparent par défaut et n’ajoute ni bordure, ni arrière-plan, ni marge intérieure, ni arrondi. Si vous
+avez besoin d’un conteneur avec un fond ou une bordure, définissez-le dans le CSS de votre application.
 
 ### Propriétés CSS
 
@@ -239,7 +255,7 @@ styliser le comportement.
   </Tabs>
 </div>
 
-### Points de personnalisation
+### Points d’accroche CSS
 
 - `data-slot="marquee-root"`, `marquee-root-provider`, `marquee-viewport`, `marquee-content`, `marquee-item` et `marquee-edge`.
 - Attributs Ark : `data-scope="marquee"`, `data-part="root|viewport|content|item|edge"`, `data-state="paused|idle"`, `data-orientation`, `data-side`, `data-index`, `data-paused`, `data-reverse` et `data-clone`.
