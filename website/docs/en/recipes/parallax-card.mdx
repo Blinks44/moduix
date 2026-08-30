@@ -1,15 +1,20 @@
 ---
 title: Parallax card
-description: A photo-led moduix Card with a gentle 3D tilt on pointer hover.
+description: A copy-ready moduix Card recipe with a decorative background image and a subtle 3D tilt effect.
 ---
 
 import { ParallaxCardPreview } from '@/components/recipes/parallax-card-preview';
 
 # Parallax card
 
-A full-bleed image card with a subtle 3D tilt. `Card.Background` owns the decorative photo layer,
-while `react-parallax-tilt` handles pointer motion and stays still when a precise hover pointer is
-unavailable or reduced motion is requested.
+This recipe combines `Card.Background` from `@moduix/react/card` with `react-parallax-tilt` to create
+a card with a full-bleed image and a subtle 3D tilt on pointer hover. It is a copy-ready composition,
+not a `ParallaxCard` component exported by `@moduix/react`.
+
+`Card.Background` places the image behind the card content. The gradient overlay and text contrast are
+defined in the example CSS, so you can adjust them for the image you choose. The tilt effect is enabled
+only when the device has a fine pointer that supports hover. The card stays still when that pointer is
+unavailable or the user prefers reduced motion.
 
 <ExampleFrame clientOnly>
   <ParallaxCardPreview />
@@ -38,8 +43,15 @@ unavailable or reduced motion is requested.
 
 <ShadcnInstall packageName="card" itemKind="recipe" copiedSource dependencies={['react-parallax-tilt']} />
 
-## In a page
+## Use it in a page
 
-Replace the image URL and copy with your content. Keep the background image decorative with `alt=""`;
-use `Card.Media` when the image itself needs an alternative text. The motion is decorative, so keep
-the card readable and usable without hover; use a regular link or button for the real destination.
+Copy the component and CSS above into your application, then:
+
+- Replace the image URL and visible copy with your content.
+- Keep the image inside `Card.Background` decorative with `alt=""`. Use `Card.Media` when the image
+  conveys information and needs alternative text.
+- Treat the tilt as a visual enhancement. The card must remain readable and usable without hover or
+  motion.
+- Add a real link or button if the card has an action. Use `Card.Root asChild` when the entire card is
+  one link with no nested controls, or `Card.Link` inside `Card.Title` when the card also contains
+  separate actions.

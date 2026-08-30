@@ -73,7 +73,7 @@ export default function ProjectForm() {
                   Project name
                   <Field.RequiredIndicator />
                 </Field.Label>
-                <Input {...field.props} value={field.input} />
+                <Input {...field.props} value={field.input ?? ''} />
                 <Field.ErrorText>{field.errors?.[0]}</Field.ErrorText>
               </Field>
             )}
@@ -91,9 +91,10 @@ export default function ProjectForm() {
                   name={field.props.name}
                   value={field.input ? [field.input] : []}
                   onValueChange={(details) => field.onChange(details.value[0] ?? '')}
+                  invalid={field.errors !== null}
                 >
                   <Select.Control>
-                    <Select.Trigger>
+                    <Select.Trigger onFocus={field.props.onFocus} onBlur={field.props.onBlur}>
                       <Select.ValueText placeholder="Choose a team" />
                       <Select.Indicator />
                     </Select.Trigger>
@@ -127,6 +128,7 @@ export default function ProjectForm() {
                   value={field.input ? [field.input] : []}
                   onValueChange={(details) => field.onChange(details.value[0] ?? '')}
                   onInputValueChange={(details) => filter(details.inputValue)}
+                  invalid={field.errors !== null}
                 >
                   <Combobox.Control>
                     <Combobox.Input
@@ -163,7 +165,7 @@ export default function ProjectForm() {
                 <Field.Label>Summary</Field.Label>
                 <Textarea
                   {...field.props}
-                  value={field.input}
+                  value={field.input ?? ''}
                   placeholder="What are you planning to build?"
                   rows={3}
                 />
@@ -173,14 +175,20 @@ export default function ProjectForm() {
 
           <FormischField of={form} path={['notifications']}>
             {(field) => (
-              <Checkbox
-                name={field.props.name}
-                checked={field.input}
-                onCheckedChange={(details) => field.onChange(details.checked === true)}
-              >
-                <Checkbox.Control />
-                <Checkbox.Label>Send status notifications</Checkbox.Label>
-              </Checkbox>
+              <Field invalid={field.errors !== null}>
+                <Checkbox
+                  name={field.props.name}
+                  checked={field.input ?? false}
+                  invalid={field.errors !== null}
+                  onCheckedChange={(details) => field.onChange(details.checked === true)}
+                  onFocus={field.props.onFocus}
+                  onBlur={field.props.onBlur}
+                >
+                  <Checkbox.Control />
+                  <Checkbox.Label>Send status notifications</Checkbox.Label>
+                </Checkbox>
+                <Field.ErrorText>{field.errors?.[0]}</Field.ErrorText>
+              </Field>
             )}
           </FormischField>
         </Card.Body>

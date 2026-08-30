@@ -1,6 +1,6 @@
 ---
 title: Format Relative Time
-description: Affichez des dates en temps relatif dans la locale active avec Ark UI Format.RelativeTime et moduix.
+description: Formatez des dates en temps relatif avec Ark UI et partagez la locale via le LocaleProvider de moduix.
 ---
 
 ## Référence de l’API
@@ -9,9 +9,13 @@ description: Affichez des dates en temps relatif dans la locale active avec Ark 
 
 ## Quand l’utiliser
 
-Utilisez `Format.RelativeTime` lorsque le temps écoulé ou restant est plus utile que l’horodatage exact : flux
-d’activité, état de sauvegarde, échéances et événements à venir. Il accepte un `Date`, le compare à l’heure actuelle au
-rendu et produit un texte comme « dans 12 minutes » ou « hier ».
+Utilisez `Format.RelativeTime` lorsque la proximité avec le moment présent est plus utile qu’un horodatage exact : flux
+d’activité, états de sauvegarde, échéances et événements à venir. Passez un objet `Date` à `value`. Lors du rendu, Ark
+compare cette date à l’heure actuelle, choisit une unité adaptée, des secondes aux années, puis formate le résultat
+avec `Intl.RelativeTimeFormat`.
+
+Par défaut, `numeric` vaut `"always"` : le résultat reste numérique, par exemple « dans 12 minutes » ou « il y a 1 jour ».
+Définissez `numeric="auto"` pour autoriser des formulations naturelles comme « demain » et « hier ».
 
 Importez `Format` directement depuis Ark UI :
 
@@ -21,8 +25,8 @@ import { Format } from '@ark-ui/react';
 
 ## Exemple de base
 
-Utilisez `numeric="auto"` lorsque des mots naturels comme « demain » et « hier » sont plus clairs qu’un nombre.
-Placez le texte formaté près du statut ou de l’événement qu’il décrit.
+Utilisez `numeric="auto"` lorsque des dates proches d’aujourd’hui peuvent être formulées naturellement, par exemple
+« demain » ou « hier ». Dans cet exemple, une carte indique dans combien de temps une revue planifiée commencera.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/format-relative-time/basic.tsx"
@@ -32,8 +36,8 @@ Placez le texte formaté près du statut ou de l’événement qu’il décrit.
 
 ## Format court
 
-`style="short"` convient aux interfaces compactes, telles que les listes et les lignes de statut courtes. Conservez
-l’horodatage complet ailleurs lorsqu’une personne doit pouvoir vérifier la date et l’heure exactes.
+Utilisez `style="short"` lorsque l’espace est limité, par exemple dans une liste ou une ligne de statut compacte.
+Conservez la date et l’heure exactes ailleurs si la personne doit pouvoir vérifier l’horodatage.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/format-relative-time/short.tsx"
@@ -41,10 +45,11 @@ l’horodatage complet ailleurs lorsqu’une personne doit pouvoir vérifier la 
   ```
 </PreviewFrame>
 
-## Locale et mise à jour
+## Locale
 
-`Format.RelativeTime` récupère sa locale depuis `LocaleProvider`. moduix réexporte ce fournisseur : utilisez-le pour
-définir la locale une seule fois dans toute l’interface.
+`Format.RelativeTime` lit sa locale depuis `LocaleProvider`. Sans `LocaleProvider`, Ark utilise `en-US`. moduix
+réexporte `LocaleProvider`, vous pouvez donc utiliser un seul `LocaleProvider` pour définir la locale du temps relatif
+et d’autres composants qui en tiennent compte :
 
 ```tsx
 import { Format } from '@ark-ui/react';
@@ -61,16 +66,29 @@ export function LocalizedUpdate() {
 }
 ```
 
-Le formateur calcule le texte lors du rendu React ; il ne l’actualise pas seul au fil du temps. Si le libellé doit
-rester à jour, déclenchez un nouveau rendu à la fréquence nécessaire ; pour un compte à rebours en direct, utilisez
-`Timer`.
+## Options d’affichage
+
+`Format.RelativeTime` accepte les options standard de `Intl.RelativeTimeFormat`. Les plus utiles sont les suivantes :
+
+| Option    | Valeurs                                    | Rôle                                         |
+| --------- | ------------------------------------------ | -------------------------------------------- |
+| `numeric` | `"always"` (par défaut), `"auto"`          | Choisir les nombres ou des formulations naturelles. |
+| `style`   | `"long"` (par défaut), `"short"`, `"narrow"` | Contrôler la longueur du résultat.          |
+
+Vous n’avez pas à fournir séparément l’unité et la valeur numérique. Le composant les déduit du `Date` passé à
+`value`.
+
+## Mise à jour dans le temps
+
+`Format.RelativeTime` ne démarre pas de minuteur. Il calcule le texte au rendu et le conserve jusqu’au rendu suivant de
+votre application. Si un libellé doit rester à jour, déclenchez de nouveaux rendus à une fréquence adaptée à
+l’interface. Pour une durée ou un compte à rebours mis à jour en continu, utilisez [`Timer`](/docs/timer).
 
 ## Utilisation avec moduix
 
-`Format.RelativeTime` ne rend que du texte. Utilisez les composants moduix `Card`, `Stack`, `Text` et de statut pour
-donner un contexte à l’événement ; ne créez pas de composant juste pour appeler le formateur.
+`Format.RelativeTime` ne rend que du texte, sans ajouter d’élément autour. Placez-le dans le composant de mise en page,
+de statut ou d’affichage des données qui explique à quoi le temps relatif se rapporte. Les exemples de cette page utilisent
+`Card` et `Stack` de moduix pour fournir ce contexte.
 
-## Responsabilités
-
-Ark UI gère le formatage du temps relatif et l’API `Format.RelativeTime`. moduix fournit les composants d’interface qui
-l’accompagnent et réexporte `LocaleProvider`, mais ne réexporte pas `Format.RelativeTime`.
+Le formateur vient d’Ark UI et s’importe depuis `@ark-ui/react`. moduix fournit les composants qui l’entourent et
+réexporte `LocaleProvider`, mais ne réexporte pas `Format.RelativeTime`.

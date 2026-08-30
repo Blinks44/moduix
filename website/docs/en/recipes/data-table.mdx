@@ -1,6 +1,6 @@
 ---
 title: Data Table
-description: Build sortable, filterable, and paginated tables for your application with moduix Table and TanStack Table v9.
+description: Build sortable, filterable, and paginated tables with moduix Table and TanStack Table v9.
 ---
 
 import { DataTable } from '@/components/recipes/data-table';
@@ -8,26 +8,26 @@ import { DataTable } from '@/components/recipes/data-table';
 # Data Table
 
 `Data Table` is a composition pattern, not a component exported by moduix. Use the semantic and
-styled `Table` parts for markup, then use TanStack Table v9 to model the data-grid state. The product
-feature owns its records and controls table state when that state drives a route or server query.
-Each product has different columns, filters, row actions, and server contracts, so keep that
-behavior close to the feature that needs it.
+styled `Table` parts for markup, then use TanStack Table v9 for table state and data-grid behavior.
+Keep records and table state in the screen or product feature that owns them, especially when that
+state drives a route or server query. Columns, filters, row actions, and server contracts vary by
+product, so keep that logic close to the feature that needs it.
 
-The copy-ready recipe below is the same interactive table shown on the home page. It includes
-search, sorting, column visibility, row selection, actions, and pagination; replace its example
-records and actions with your product data.
+The full recipe below is the interactive table shown on the home page. It demonstrates search,
+sorting, column visibility, row selection, actions, and pagination. Copy the source and replace the
+example records and actions with your product data.
 
 ## Start simple
 
 | Need                                            | Start with                                                    |
 | ----------------------------------------------- | ------------------------------------------------------------- |
-| Read-only rows and columns                      | The semantic [Table](/docs/table) component                   |
-| Local sorting or filtering for a small dataset  | Table plus the matching TanStack row model                    |
+| Read-only table                                 | The semantic [Table](/docs/table) component                   |
+| Local sorting or filtering for a small dataset  | `Table` plus the matching TanStack row model                   |
 | Server sorting, filtering, or pagination        | Controlled query state with the manual TanStack options below |
 | Virtualized rows                                | Add virtualization only after measuring a real performance issue |
 
-Do not copy every control from the full recipe by default. Remove selection, column visibility,
-actions, or pagination when the user cannot use that capability.
+Use only the controls your table needs. Remove selection, column visibility, actions, or pagination
+when users cannot use that capability.
 
 <ExampleFrame clientOnly>
   <DataTable />
@@ -55,29 +55,32 @@ actions, or pagination when the user cannot use that capability.
 ## Install
 
 <ShadcnInstall
-  packageName={['badge', 'button', 'checkbox', 'input-group', 'menu', 'table']}
+  packageName={['badge', 'button', 'checkbox', 'input', 'input-group', 'menu', 'table']}
   itemKind="recipe"
   copiedSource
-  dependencies={['@tanstack/react-table@^9.1.2', 'lucide-react']}
+  dependencies={['@tanstack/react-table@^9.2.3', 'lucide-react']}
 />
 
 ## Setup
 
-Install TanStack Table in the application that owns the data-grid behavior:
+Install TanStack Table in the application or feature that owns the data-grid behavior:
 
 ```bash
-npm install @tanstack/react-table@^9
+npm install @tanstack/react-table@^9.2.3
 ```
 
-`Table` already comes from `@moduix/react/table`. It deliberately does not include TanStack Table, so
-applications that only need a semantic table do not pay for data-grid logic.
+`Table` is available from `@moduix/react/table`. It deliberately does not include TanStack Table, so
+applications that only need a semantic table do not load data-grid logic.
 
 ## Basic
 
-Define typed `ColumnDef<typeof features, Payment>` entries, declare the required features with
-`tableFeatures()`, then create a table instance with `useTable`. Map its header groups and visible
-cells into the moduix table anatomy. Use `flexRender` for headers and cells: column definitions may
-contain plain values or React render functions.
+Declare the feature set with `tableFeatures()`, define typed `ColumnDef<typeof features, Payment>`
+entries, and create a table instance with `useTable`. Map its header groups and visible cells into the
+moduix table anatomy. Use `flexRender` for headers and cells because column definitions may contain
+plain values or React render functions.
+
+The snippet renders visible columns and cells, so it registers `columnVisibilityFeature`. Add other
+features only when the table needs them.
 
 <style>{`
       .data-table {
@@ -94,33 +97,33 @@ contain plain values or React render functions.
 
 ```
 
-Keep the columns alongside the feature's data type. This is the natural place for formatting,
-numeric alignment, row actions, and business-specific filter definitions.
+Keep the columns alongside the feature's data type. This is the natural place for formatting, numeric
+alignment, row actions, and business-specific filter definitions.
 
 ## Stable references
 
-The examples define `payments` and `columns` outside their components, so TanStack Table receives
-the same references between renders. When data or columns depend on props or state, use `useMemo`
-for the resulting array instead of creating it inline in the component or passing `data.filter(...)`
-directly to `useTable`. New references make TanStack Table recalculate and can cause React
-render loops. See the TanStack [FAQ](https://tanstack.com/table/latest/docs/faq) for the full
-explanation.
+The examples define `features`, `payments`, and `columns` outside their components, so TanStack Table
+receives the same references between renders. When data or columns depend on props or state, use
+`useMemo` for the resulting array instead of creating it inline in the component or passing
+`data.filter(...)` directly to `useTable`. A new reference on every render makes TanStack Table
+recalculate and can cause React render loops. See the TanStack
+[FAQ](https://tanstack.com/table/latest/docs/faq) for the full explanation.
 
 ## Column widths
 
-Use native `Table.ColumnGroup` and `Table.Column htmlWidth` for columns whose width should stay
-stable. Combine them with `table-layout: fixed` on the table root: the remaining column takes the
-available space, while a changing sort icon cannot resize its column.
+Use `Table.ColumnGroup` and `Table.Column htmlWidth` for columns whose width should stay stable.
+Combine them with `table-layout: fixed` on the table root. The remaining column takes the available
+space, while a changing sort icon cannot resize its column.
 
 ## Table controls
 
-Add only the TanStack features and row models the table needs. The example below controls sorting
-and column filters in React state, filters the email column, selects rows by their stable payment
-IDs, and paginates five rows at a time.
+Add only the TanStack features and row models the table needs. The interactive example below keeps
+sorting, column filters, and row selection in React state, filters the email column, uses stable
+payment IDs through `getRowId`, and shows five rows per page.
 
-TanStack Table v9 tree-shakes filter and sort functions. Register the individual built-ins a table
-uses in `tableFeatures()`; this recipe registers `includesString`, `alphanumeric`, and `text` rather
-than a full registry.
+Import the individual built-in filter and sort functions that a table uses and register them in
+`tableFeatures()`. This keeps unused functions out of the bundle. The recipe registers
+`includesString`, `alphanumeric`, and `text` instead of a full registry.
 
 <style>{`
       .data-table {
@@ -173,7 +176,8 @@ than a full registry.
 For a sortable header, render a real button inside `Table.ColumnHeader`. The example uses Lucide
 icons with a consistent size and sets `aria-sort="none" | "ascending" | "descending"` on sortable
 column headers. The selection column uses moduix `Checkbox` with the built-in indeterminate state
-for the current page.
+for the current page. When no rows match, render `Table.Empty` with
+`colSpan={table.getVisibleLeafColumns().length}`.
 
 ## Server data
 
@@ -203,42 +207,43 @@ const table = useTable({
 });
 ```
 
-Do not add `filteredRowModel`, `sortedRowModel`, or `paginatedRowModel` to `features` for the
-matching server-owned behavior: TanStack assumes that `response.rows` already reflects the query. Pass
-`pageCount` instead of `rowCount` when that is what the API provides. `manualPagination` also turns
-off the usual page reset, so reset `pagination.pageIndex` to `0` whenever a remote filter or sort
-changes; otherwise the API can return an empty page. See TanStack's
+For server-owned behavior, do not add the matching `filteredRowModel`, `sortedRowModel`, or
+`paginatedRowModel` to `features`: TanStack assumes that `response.rows` already reflects the query.
+Pass `pageCount` instead of `rowCount` when that is what the API provides. `manualPagination` also
+turns off the usual page reset, so reset `pagination.pageIndex` to `0` whenever a remote filter or
+sort changes. Otherwise, the API can return an empty page. See TanStack's
 [filtering](https://tanstack.com/table/latest/docs/guide/global-filtering),
 [sorting](https://tanstack.com/table/latest/docs/guide/sorting), and
 [pagination](https://tanstack.com/table/latest/docs/guide/pagination) guides for the query layer.
 
-Render the request state next to the table, not inside unrelated cells:
+Render request state next to the table, not inside unrelated cells:
 
-| Request state | Recommended result                                                               |
-| ------------- | -------------------------------------------------------------------------------- |
-| Initial load  | Keep column headers visible and show a labeled loading row or skeleton.          |
-| Refetch       | Preserve current rows, mark the toolbar busy, and prevent duplicate requests.    |
-| Empty result  | Explain whether there are no records or filters removed every match.             |
-| Error         | Keep the query controls available and offer a retry that repeats the same query.  |
+| Request state | Recommended result                                                              |
+| ------------- | ------------------------------------------------------------------------------- |
+| Initial load  | Keep column headers visible and show a labeled loading row or skeleton.         |
+| Refetch       | Preserve current rows, expose a busy state, and prevent duplicate requests.     |
+| Empty result  | Explain whether there are no records or filters removed every match.            |
+| Error         | Keep the query controls available and offer a retry for the same query.          |
 
 ## Add features
 
-TanStack Table is headless. Choose the state and row models for the behavior that belongs to this
-specific data view instead of turning every grid feature on by default.
+TanStack Table is headless, so it does not provide the controls or layout for these features. Choose
+the state and row models for the behavior that belongs to this specific data view instead of turning
+every grid feature on by default.
 
 | Need              | Add to this table                                                                                                                                                                                             |
 | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Row actions       | Render a `Menu` in an actions column; action handlers stay with the product feature.                                                                                                                          |
+| Row actions       | Render a `Menu` in an actions column; keep action handlers in the product feature.                                                                                                                             |
 | Row selection     | Control `rowSelection`, configure `getRowId` with a durable record ID, and render moduix `Checkbox` controls in a selection column.                                                                           |
 | Column visibility | Control `columnVisibility` and expose `column.toggleVisibility()` through a `Menu`.                                                                                                                           |
-| Server data       | Keep query state in the route or data layer. Use `manualFiltering`, `manualSorting`, and `manualPagination` only for the transforms owned by the API, then pass response rows with `rowCount` or `pageCount`. |
-| Large datasets    | Add virtualization to the table body only after measuring; keep the native `table`, `thead`, `tbody`, `tr`, `th`, and `td` semantics intact.                                                                  |
+| Server data       | Keep query state in the route or data layer. Use `manualFiltering`, `manualSorting`, and `manualPagination` only for transforms owned by the API, then pass response rows with `rowCount` or `pageCount`. |
+| Large datasets    | Add virtualization to the table body only after measuring; keep the native `table`, `thead`, `tbody`, `tr`, `th`, and `td` semantics intact.                                                                     |
 
 The TanStack Table [row models guide](https://tanstack.com/table/latest/docs/guide/row-models) lists
-the available client-side transforms. Their [row selection guide](https://tanstack.com/table/latest/docs/guide/row-selection)
+the available client-side transforms. The [row selection guide](https://tanstack.com/table/latest/docs/guide/row-selection)
 explains controlled selection state and page-level selection, while the [React adapter](https://tanstack.com/table/latest/docs/framework/react/react-table)
-documents `useTable`. The moduix [Table](/docs/table) page documents the rendered structure
-and its styling hooks.
+documents `useTable`. The moduix [Table](/docs/table) page documents the rendered structure and its
+styling hooks.
 
 With `manualPagination`, keep the full `rowSelection` state for actions that span pages. TanStack's
 selected-row models can only return records currently supplied to the table, even when the selection
@@ -246,15 +251,16 @@ state also contains IDs from other pages.
 
 ## Reuse
 
-If the same product table appears in more than one place, extract its columns, toolbar, or
-pagination controls into local feature components. Keep the resulting API product-specific:
-`PaymentsTable` is more maintainable than a broad `DataTable` wrapper that attempts to predict every
-filter, server response, action, or selection rule.
+If the same product table appears in more than one place, extract its columns, toolbar, or pagination
+controls into local feature components. Keep the resulting API product-specific. `PaymentsTable` is
+more maintainable than a broad `DataTable` component that attempts to predict every filter, server
+response, action, or selection rule.
 
 ## Accessibility
 
 Keep the native table parts in the rendered output. Use `Table.ColumnHeader` for headers,
-`Table.Cell` for data, and a short caption when the surrounding heading does not identify the data.
-Interactive controls inside cells need descriptive accessible names, and sortable headers should
-expose their current direction through `aria-sort`. The filter input and selection controls in the
-interactive example have explicit accessible names rather than relying on placeholder or icon text.
+`Table.Cell` for data, and a short `Table.Caption` when the surrounding heading does not identify the
+data. Interactive controls inside cells need descriptive accessible names, and sortable headers
+should expose their current direction through `aria-sort`. The filter input and selection controls in
+the interactive example have explicit accessible names rather than relying on placeholder or icon
+text.

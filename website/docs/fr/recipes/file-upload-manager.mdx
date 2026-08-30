@@ -1,22 +1,27 @@
 ---
 title: Téléversement de fichiers
-description: Une interface de pièces jointes avec glisser-déposer, validation et suppression des fichiers sélectionnés.
+description: Une interface de pièces jointes avec glisser-déposer, validation, aperçu et suppression des fichiers.
 ---
 
 import { FileUploadManagerPreview } from '@/components/recipes/file-upload-manager-preview';
 
 # Téléversement de fichiers
 
-Ajoutez une interface pratique pour les pièces jointes, avec glisser-déposer, sélecteur de fichiers natif,
-limites et message clair lorsqu’un fichier est refusé. La recette ne gère que la liste locale. Branchez votre
-propre mutation de téléversement là où le produit envoie les fichiers au serveur.
+Utilisez cette recette lorsqu’un formulaire ou un parcours doit permettre d’ajouter et de vérifier des pièces jointes.
+L’exemple accepte les fichiers PDF, DOC, DOCX, PNG et JPG jusqu’à 10 Mo, affiche jusqu’à cinq fichiers acceptés et
+permet de supprimer un fichier ou de vider toute la liste. Les fichiers rejetés restent visibles avec leur message
+de validation.
+
+La recette gère uniquement la sélection et la liste locale. Elle n’envoie pas les fichiers au serveur et ne suit pas
+leur progression. Reliez `onFileChange` à votre formulaire ou à votre requête de téléversement dans la fonctionnalité
+qui gère ces données.
 
 <ExampleFrame clientOnly>
   <FileUploadManagerPreview />
 </ExampleFrame>
 
 <div className="docs-reference">
-  <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+  <Tabs values={[{ label: 'Composant', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="Component">
 
 ```tsx file="../../../src/components/recipes/file-upload-manager.tsx"
@@ -38,21 +43,26 @@ propre mutation de téléversement là où le produit envoie les fichiers au ser
 
 <ShadcnInstall packageName={['card', 'file-upload']} itemKind="recipe" copiedSource />
 
-## Téléversement
+Installez les composants `card` et `file-upload`, puis copiez le code source et les styles de la recette dans votre
+application.
 
-`FileUpload` conserve les fichiers sélectionnés dans son état local. Si votre route doit transmettre
-`details.acceptedFiles` à une action de formulaire ou à une mutation de téléversement, ajoutez `onFileChange`
-à la racine. Gardez les états de progression et de fin près de cette requête réelle au lieu de les simuler.
+## Connecter une requête de téléversement
 
-La validation côté client améliore le retour, mais le serveur doit à nouveau vérifier le type, la taille,
-le contenu et l’autorisation du fichier. Traitez le `File` sélectionné comme une entrée non fiable.
+`FileUpload` conserve les fichiers sélectionnés dans son état local. Si votre formulaire ou votre requête de
+téléversement a besoin de la sélection actuelle, ajoutez `onFileChange(details)` à la racine et transmettez
+`details.acceptedFiles` à votre gestionnaire de formulaire ou de téléversement. Conservez l’état de progression et
+l’état final près de la requête réelle au lieu de les simuler dans la recette.
+
+La validation dans le navigateur accélère le retour d’erreur, mais elle ne remplace pas la validation côté serveur.
+Le serveur doit à nouveau vérifier le type, la taille, le contenu et les autorisations. Traitez chaque `File` sélectionné
+comme une donnée non fiable.
 
 | État | À montrer à l’utilisateur |
-| ---- | ------------------------- |
+| ---- | ------------------------ |
 | Sélectionné | Le nom et la taille du fichier, une action de suppression et un envoi explicite du fichier ou du formulaire. |
-| En cours | La progression lorsqu’elle est connue, un statut clair et la désactivation des envois en double. |
+| En cours | La progression lorsqu’elle est connue, un statut d’attente et la désactivation des soumissions en double. |
 | Échec | Le message du serveur lorsqu’il peut être affiché sans risque, ainsi que des actions pour réessayer et supprimer. |
 | Terminé | Un état de réussite stable avec l’identifiant du fichier stocké par le serveur. |
 
-Si les fichiers sont téléversés dès leur sélection, conservez l’identifiant attribué par l’application à chaque
-requête. Ainsi, une nouvelle tentative met à jour la même ligne et la suppression d’un fichier n’annule pas les autres.
+Si le téléversement démarre dès la sélection, attribuez à chaque requête un identifiant généré par l’application. Une
+nouvelle tentative pourra ainsi mettre à jour la même ligne, et la suppression d’un fichier n’annulera pas les autres.

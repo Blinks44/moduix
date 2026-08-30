@@ -1,61 +1,66 @@
 ---
 title: Utilitaires
-description: Utilitaires Ark UI pour les comportements de bas niveau qui ne relèvent pas déjà d’un composant moduix.
+description: Utilitaires Ark UI de bas niveau et composants moduix pour le rendu côté navigateur, la gestion du focus, le formatage et le cycle de vie du contenu.
 ---
 
 import { Card, Cards } from '@/components/mdx/Components';
 
 # Utilitaires
 
-Les utilitaires Ark UI sont de petits blocs pour les besoins qui ne relèvent pas d’un composant moduix précis : rendu
-dans le navigateur, document alternatif, gestion du focus, formatage ou cycle de vie du contenu.
+Cette section rassemble des briques de bas niveau d’Ark UI et des composants moduix qui les adaptent. Utilisez-les pour
+afficher du contenu uniquement dans le navigateur, travailler avec une iframe ou un autre document, gérer le focus,
+formater des valeurs, enregistrer des raccourcis clavier ou contrôler le moment où un contenu est monté dans le DOM.
 
-Lorsqu’un composant moduix gère déjà l’interaction, préférez son API. Utilisez un utilitaire directement lorsque
-l’application contrôle le balisage ou le comportement qui l’entoure. Chaque page indique l’import recommandé,
-propose des exemples exécutables et renvoie vers l’API Ark complète.
+Dans la plupart des guides, l’import vient directement d’Ark UI. `Highlight`, `JsonTreeView` et `Swap` sont des
+composants moduix qui ajoutent des styles ou des réglages par défaut. `Locale` est exposé via le point d’entrée stable
+`@moduix/react/locale`. Chaque guide indique l’import à utiliser, propose un exemple exécutable et renvoie vers l’API
+complète d’Ark.
+
+Commencez par un composant moduix lorsqu’il gère déjà l’interaction. Utilisez l’un de ces utilitaires lorsque votre
+application contrôle la structure environnante ou le comportement associé.
 
 ## Guides
 
 <Cards>
   <Card
     title="Client Only"
-    description="Affichez le contenu dépendant du navigateur après hydratation, avec une solution de repli utile côté serveur."
+    description="Affichez après l’hydratation le contenu qui dépend du navigateur, tout en conservant un contenu de repli utile côté serveur."
     href="/docs/client-only"
   />
   <Card
     title="Download Trigger"
-    description="Téléchargez une URL, un Blob, un File ou des données générées depuis un bouton familier."
+    description="Déclenchez le téléchargement d’une URL, d’un Blob, d’un File ou de données générées depuis un bouton."
     href="/docs/download-trigger"
   />
   <Card
     title="Environment"
-    description="Utilisez Ark et moduix dans une iframe, un Shadow DOM, Electron ou un autre document."
+    description="Dirigez les requêtes DOM d’Ark UI vers une iframe, un Shadow DOM, Electron ou un autre document."
     href="/docs/environment"
   />
   <Card
     title="Focus Trap"
-    description="Conservez le focus clavier dans une interface modale personnalisée."
+    description="Conservez le focus clavier dans une interface modale ou une autre interface interactive."
     href="/docs/focus-trap"
   />
   <Card
     title="Format Byte"
-    description="Formatez les tailles de fichier et de stockage dans la locale active."
+    description="Formatez des valeurs en octets comme des tailles de fichier dans la locale active."
     href="/docs/format-byte"
   />
   <Card
     title="Format Number"
-    description="Formatez nombres, devises, pourcentages et valeurs compactes."
+    description="Formatez des nombres, des devises, des pourcentages et des valeurs compactes."
     href="/docs/format-number"
   />
   <Card
-    title="Format Relative Time"
-    description="Affichez une date relative, par exemple « il y a 2 minutes »."
-    href="/docs/format-relative-time"
+    title="Format Time"
+    description="Formatez les heures et les valeurs Date dans la locale active."
+    href="/docs/format-time"
   />
   <Card
-    title="Format Time"
-    description="Formatez l’heure et les chaînes horaires pour la locale active."
-    href="/docs/format-time"
+    title="Format Relative Time"
+    description="Affichez les dates en temps relatif, par exemple « il y a 2 minutes »."
+    href="/docs/format-relative-time"
   />
   <Card
     title="Frame"
@@ -64,12 +69,12 @@ propose des exemples exécutables et renvoie vers l’API Ark complète.
   />
   <Card
     title="Highlight"
-    description="Mettez en évidence les mots et expressions avec les règles Ark et les styles moduix."
+    description="Mettez en évidence les mots et expressions correspondants avec la logique de correspondance d’Ark UI et les styles moduix."
     href="/docs/highlight"
   />
   <Card
     title="Hotkeys"
-    description="Enregistrez des raccourcis clavier, des séquences et des commandes."
+    description="Enregistrez des raccourcis clavier, des séquences et des commandes en tenant compte de la plateforme."
     href="/docs/hotkeys"
   />
   <Card
@@ -79,12 +84,12 @@ propose des exemples exécutables et renvoie vers l’API Ark complète.
   />
   <Card
     title="Locale"
-    description="Partagez une locale et la direction du texte avec les composants et formateurs Ark."
+    description="Définissez la locale et la direction du texte utilisées par le formatage Ark et les composants qui gèrent la locale."
     href="/docs/locale"
   />
   <Card
     title="Presence"
-    description="Contrôlez le montage, le masquage et le démontage de contenu géré par l’application."
+    description="Contrôlez si le contenu de l’application est ajouté au DOM, masqué ou retiré."
     href="/docs/presence"
   />
   <Card

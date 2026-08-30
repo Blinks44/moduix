@@ -1,6 +1,6 @@
 ---
 title: Hotkeys
-description: Enregistrez des raccourcis clavier, des séquences et des commandes avec Ark UI Hotkeys et moduix.
+description: Utilisez Hotkeys d’Ark UI pour enregistrer des raccourcis adaptés à la plateforme, des séquences et des commandes dans une application moduix.
 ---
 
 ## Référence de l’API
@@ -9,7 +9,7 @@ description: Enregistrez des raccourcis clavier, des séquences et des commandes
 
 ## Quand l’utiliser
 
-Utilisez Hotkeys pour enregistrer des commandes au clavier, par exemple enregistrer un brouillon, ouvrir la recherche ou naviguer dans un espace de travail. Le hook écoute le document et retire son enregistrement lorsque le composant est démonté.
+Hotkeys est l’utilitaire d’Ark UI qui permet d’enregistrer des commandes clavier. Utilisez-le pour des actions comme enregistrer un brouillon, ouvrir la recherche ou naviguer dans un espace de travail. `useHotkey` écoute les événements clavier au niveau du document et supprime son enregistrement lorsque le composant est démonté.
 
 Importez les hooks directement depuis Ark UI :
 
@@ -17,9 +17,9 @@ Importez les hooks directement depuis Ark UI :
 import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/react';
 ```
 
-## Exemple de base
+## Raccourci simple
 
-Utilisez `mod` au lieu de choisir vous-même entre Control et Command. Après le montage, `useFormatHotkey` affiche l’intitulé adapté à la plateforme de l’utilisateur.
+Utilisez `mod` au lieu de choisir vous-même entre Control et Command. Le même raccourci fonctionne ainsi sur macOS, Windows et Linux. Une fois le composant monté, `useFormatHotkey` affiche la notation adaptée à la plateforme de l’utilisateur.
 
 <PreviewFrame maxWidth="sm">
 
@@ -28,11 +28,13 @@ Utilisez `mod` au lieu de choisir vous-même entre Control et Command. Après le
 
 </PreviewFrame>
 
-Lorsque l’application doit intercepter un raccourci habituel du navigateur, ajoutez `preventDefault` ; sinon, l’action du navigateur peut aussi s’exécuter.
+Si votre application doit intercepter un raccourci habituellement géré par le navigateur, ajoutez `preventDefault`. Sinon, le navigateur peut également exécuter sa propre action.
 
 ## Plusieurs raccourcis et séquences
 
-Utilisez `useHotkeys` lorsqu’un écran a plusieurs commandes ou que les commandes viennent de données. Séparez les touches d’une séquence par `>`, par exemple `g > i`. Par défaut, une seconde est accordée pour la terminer.
+Utilisez `useHotkeys` lorsqu’un écran comporte plusieurs commandes ou que la liste des commandes vient de données. Le hook reçoit un tableau de commandes. Chaque commande doit fournir `hotkey` et `action`. Ajoutez `label`, `category` ou `keywords` si une autre partie de l’application a besoin des métadonnées de la commande.
+
+Séparez les touches d’une séquence par `>`, par exemple `g > i`. Par défaut, l’utilisateur dispose d’une seconde pour appuyer sur la touche suivante.
 
 <PreviewFrame maxWidth="sm">
 
@@ -43,7 +45,7 @@ Utilisez `useHotkeys` lorsqu’un écran a plusieurs commandes ou que les comman
 
 ## Champs de saisie et portées
 
-Par défaut, les raccourcis à une seule touche sont ignorés dans `input`, `textarea` et `select`, tandis que ceux avec un modificateur continuent de fonctionner. Activez-les dans les champs de formulaire seulement lorsque c’est nécessaire :
+Par défaut, les raccourcis à une seule touche sont ignorés lorsque le focus se trouve dans un `input`, un `textarea` ou un `select`. Les raccourcis avec modificateur continuent de fonctionner, ce qui permet à `mod+S` d’enregistrer un formulaire. Activez les raccourcis à une seule touche dans les champs de saisie uniquement lorsque ce comportement est voulu :
 
 ```tsx
 useHotkey({
@@ -53,12 +55,48 @@ useHotkey({
 });
 ```
 
-Pour des zones indépendantes de l’application, créez un store de raccourcis stable hors du composant ou mémorisez-le. Les portées n’activent que les commandes pertinentes pour la zone active ou la palette de commandes.
+Utilisez `scopes` pour limiter une commande à une partie de l’application. La commande ne se déclenche que lorsqu’au moins l’une de ses portées est active.
+
+## Créer un store dédié
+
+Créez un store lorsque plusieurs parties de l’application doivent avoir des commandes indépendantes ou des valeurs par défaut différentes. Conservez-le en dehors du composant ou mémorisez-le. Un store créé pendant le rendu est recréé à chaque rendu et perd ses enregistrements.
+
+```tsx
+import { createHotkeyStore, useHotkey } from '@ark-ui/react';
+
+const editorHotkeys = createHotkeyStore({
+  activeScopes: ['editor'],
+  sequenceTimeoutMs: 800,
+});
+
+function Editor() {
+  const save = () => {
+    // Save the current document.
+  };
+
+  useHotkey({
+    action: save,
+    hotkey: 'mod+S',
+    scopes: ['editor'],
+    store: editorHotkeys,
+  });
+}
+```
+
+Appelez `editorHotkeys.setScope('preview')` lorsque la partie active de l’application change. Passez ce même store à `useHotkeys` ou `useHotkey` pour conserver leurs commandes dans un registre isolé.
+
+## Afficher un raccourci
+
+`useFormatHotkey` renvoie un formateur adapté à la plateforme actuelle. Par exemple, `mod+K` devient `⌘ K` sur macOS et `Ctrl K` ailleurs. Dans une application rendue côté serveur, utilisez ce hook dans un composant au lieu d’importer directement `formatHotkey` pendant le rendu. Le serveur et le navigateur conserveront ainsi la même structure lors de l’hydratation.
+
+## Autres options utiles
+
+Utilisez `enabled` pour activer ou désactiver une commande. Vous pouvez lui transmettre une fonction lorsque l’état doit être relu à chaque pression, sans réenregistrer la commande. Définissez `options.eventType` sur `'keyup'` pour exécuter l’action au relâchement de la touche. Si une touche maintenue change le comportement de l’interaction, utilisez `usePressedKeys` ou `useIsKeyPressed`.
 
 ## Utilisation avec moduix
 
-Utilisez `Kbd` de moduix pour rendre les raccourcis faciles à repérer et placez-le près de l’action concernée. `Card`, `Stack` et `Button` relient l’indication au contrôle qu’elle décrit.
+Utilisez `Kbd` de moduix pour rendre les raccourcis faciles à repérer et placez-le près de l’action concernée. `Card`, `Stack` et `Button` relient l’indication au contrôle qu’elle décrit. Ces composants affichent l’indication, tandis qu’Ark UI Hotkeys reste responsable de l’enregistrement et des événements clavier.
 
-## Responsabilités
+## Ce qui relève de votre application
 
-Hotkeys enregistre et formate les raccourcis clavier. Créez la palette de commandes, la persistance et la navigation dans votre application.
+Hotkeys enregistre les commandes, associe les touches aux commandes, formate les intitulés des raccourcis et gère les portées. `useHotkeyRegistrations` expose les commandes enregistrées et leurs métadonnées, ce qui permet de garder une palette de commandes synchronisée avec le registre des raccourcis. Les effets des commandes, l’interface de la palette, la persistance et la navigation restent à la charge de votre application.

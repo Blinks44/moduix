@@ -1,22 +1,25 @@
 ---
 title: Code de vérification
-description: Un formulaire de vérification d’e-mail par code à six chiffres, construit avec les composants React moduix.
+description: Un formulaire de vérification d’adresse e-mail avec un code à usage unique de six chiffres, construit avec les composants React moduix.
 ---
 
 import { VerificationCodePreview } from '@/components/recipes/verification-code-preview';
 
 # Code de vérification
 
-Vérifiez une adresse e-mail avec un code à usage unique de six chiffres. `PinInput` apporte le champ de
-formulaire natif, la navigation au clavier et le remplissage automatique OTP sur mobile. Envoyez le formulaire
-avec moins de six chiffres pour afficher l’erreur intégrée au champ.
+Utilisez cette recette lorsque votre application envoie un code à usage unique à l’adresse e-mail de
+l’utilisateur. Elle réunit `Card`, `Field`, `Button` et `PinInput` pour former un formulaire complet.
+`PinInput` conserve la valeur dans un champ natif masqué du formulaire, gère la navigation au clavier et
+le collage, et active le remplissage automatique du code à usage unique sur mobile. Envoyez le formulaire
+avec moins de six chiffres pour afficher l’erreur intégrée au champ. Cette vérification confirme uniquement
+que les six chiffres ont été saisis. Votre application doit toujours vérifier le code sur le serveur.
 
 <ExampleFrame clientOnly>
   <VerificationCodePreview />
 </ExampleFrame>
 
 <div className="docs-reference">
-  <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+  <Tabs values={[{ label: 'Composant', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="Component">
 
 ```tsx file="../../../src/components/recipes/verification-code.tsx"
@@ -38,18 +41,23 @@ avec moins de six chiffres pour afficher l’erreur intégrée au champ.
 
 <ShadcnInstall packageName={['button', 'card', 'field', 'pin-input']} itemKind="recipe" copiedSource />
 
-## Dans une route
+## Utiliser la recette dans une route
 
-Affichez `VerificationCode` après l’envoi du code par e-mail et passez-lui le véritable gestionnaire d’envoi
-du formulaire. `onSubmit` reçoit l’événement natif du formulaire : lisez `new FormData(event.currentTarget)`
-et vérifiez la valeur `code` auprès du serveur. Remplacez le lien `/sign-in` par la route de l’application.
+Copiez le composant `VerificationCode` et sa feuille de styles, puis affichez-le dans la route qui gère la
+vérification de l’adresse e-mail. Affichez le formulaire après avoir envoyé le code. `onSubmit` reçoit
+l’événement natif du formulaire. Si vous envoyez le code à votre API depuis le navigateur, appelez
+`event.preventDefault()`, lisez `new FormData(event.currentTarget).get('code')`, puis envoyez cette valeur
+au serveur. Remplacez le lien `/sign-in` par la route de votre application.
 
-La prévisualisation ne contient volontairement aucun serveur de vérification. Après la saisie de six chiffres,
-elle exécute son gestionnaire d’envoi vide ; dans la recette copiée, c’est le gestionnaire que vous fournissez
-qui sera appelé.
+L’aperçu interactif n’envoie volontairement aucune requête au serveur. Son gestionnaire appelle
+`event.preventDefault()` afin de rester sur la page. Dans la recette copiée, passez le gestionnaire qui
+connecte le formulaire à votre API.
 
-Tant que la requête n’est pas terminée, désactivez les envois en double. Si le code est incorrect,
-conservez les chiffres saisis et affichez l’erreur sur le champ ; s’il est expiré, expliquez qu’il faut
-en demander un nouveau. N’autorisez le renvoi qu’après un court délai, annoncez l’envoi du nouveau code
-et laissez le serveur appliquer la véritable limitation de débit. Ne considérez jamais le compte à rebours
-côté client comme une preuve d’autorisation.
+## Gérer les états en production
+
+- Pendant la vérification, désactivez le bouton d’envoi pour éviter les requêtes en double.
+- Si le serveur refuse le code, conservez les chiffres saisis et affichez l’erreur via `Field`. L’erreur
+  intégrée à cet exemple vérifie uniquement que les six chiffres sont présents.
+- Si le code a expiré, indiquez à l’utilisateur qu’il doit en demander un nouveau et ajoutez une action de
+  renvoi. Prévoyez un court délai, annoncez l’envoi du nouveau code et faites respecter la limite de
+  tentatives par le serveur. Le compte à rebours côté client ne remplace pas la vérification du serveur.

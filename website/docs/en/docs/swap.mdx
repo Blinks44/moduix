@@ -1,6 +1,6 @@
 ---
 title: Swap
-description: Switch between two visual states with Ark UI state management and moduix animation presets.
+description: Animate the transition between two visual states with moduix presets built on Ark UI.
 ---
 
 import * as SwapDocs from '@/components/examples/swap';
@@ -11,8 +11,9 @@ import * as SwapDocs from '@/components/examples/swap';
 
 ## Basic
 
-Set `swap` to choose the visible indicator. `Swap` uses the `scale` animation by default; the
-surrounding button still owns its accessible name and click behavior.
+Use `Swap` when one piece of UI needs to switch between two visual states, such as an icon that
+changes after an action. Pass the current boolean to `swap`: `false` shows the `off` indicator and
+`true` shows the `on` indicator. The surrounding control owns the interaction and accessible name.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/swap/basic.tsx"
@@ -24,7 +25,7 @@ surrounding button still owns its accessible name and click behavior.
 
 <ShadcnInstall packageName="swap" />
 
-This install path also pulls in the shared moduix foundation styles that provide the animation presets.
+This command also adds the shared moduix foundation styles required by the built-in animation presets.
 
 ## Anatomy
 
@@ -34,53 +35,56 @@ Swap / Swap.Root
 └─ Swap.Indicator type="on"
 ```
 
-| Part                 | Role                                                             |
-| -------------------- | ---------------------------------------------------------------- |
-| `Swap` / `Swap.Root` | Owns the Ark `swap` state and layers both visual states.         |
-| `Swap.RootProvider`  | Uses state created with `Swap.useSwap()` outside the subtree.    |
-| `Swap.Indicator`     | Renders one `on` or `off` visual state with Presence attributes. |
+| Part                  | Role                                                               |
+| --------------------- | ------------------------------------------------------------------ |
+| `Swap` / `Swap.Root`  | Supplies the Ark `swap` state and stacks both visual states.       |
+| `Swap.RootProvider`   | Provides state created with `Swap.useSwap()` outside the subtree.  |
+| `Swap.Indicator`      | Renders the `on` or `off` state selected by its `type` prop.       |
 
-Render both indicators as direct children of the root. They then share one grid cell, and the included
-animation recipes stay scoped to this Swap.
+Render both indicators as direct children of the root. They share one grid cell, and the built-in
+animation recipes stay scoped to that `Swap` instance.
 
 ## Composition
 
 ### Recommended composition
 
-Keep `Swap` focused on visual replacement. Put it inside a semantic button, link, or status
-surface; that parent owns events, focus handling, and accessible naming. Mark icon-only indicators
-as `aria-hidden="true"` and put the current accessible name on the host control.
+`Swap` is a visual primitive, not a button or a toggle. Put it inside a semantic button, link, or
+status element. Keep state updates, event handlers, focus behavior, and the accessible name on that
+parent. If the indicators contain only icons, set `aria-hidden="true"` on both of them.
 
-### When to go custom
+### When to use a custom animation
 
-Use `animation` to select the included `fade`, `scale`, `rotate`, or `flip` recipes. The prop also
-accepts a custom name: moduix writes it to `data-animation` and leaves the indicators unanimated,
-so consumer CSS can use Ark's `data-state` attributes without fighting a default animation.
+Use `animation` to choose one of the built-in `fade`, `scale`, `rotate`, or `flip` recipes. The prop
+also accepts a custom name. moduix writes that name to `data-animation` and applies no built-in
+animation, so your CSS can use Ark's `data-state` attributes to define the transition.
 
 ### Default props
 
-| Prop              | Default | Notes                                                               |
-| ----------------- | ------- | ------------------------------------------------------------------- |
-| `swap`            | `false` | Selects the `off` indicator.                                       |
-| `animation`       | `scale` | Uses moduix's scale-and-fade animation preset.                      |
-| `lazyMount`       | `false` | Defers mounting an inactive indicator until it is first displayed. |
-| `unmountOnExit`   | `false` | Removes an inactive indicator after its exit animation.            |
+| Prop              | Default | Description                                                        |
+| ----------------- | ------- | ------------------------------------------------------------------ |
+| `swap`            | `false` | Shows the `off` indicator.                                         |
+| `animation`       | `scale` | Uses moduix's scale-and-fade preset.                              |
+| `lazyMount`       | `false` | Mounts both indicators instead of delaying the inactive one.       |
+| `unmountOnExit`   | `false` | Keeps an indicator mounted after its exit animation.              |
 
 ### Behavioral notes
 
-- `swap` is controlled; `Swap` does not react to hover or clicks by itself.
-- Each indicator receives Ark `data-state="open" | "closed"` while transitioning.
-- `Swap.RootProvider` accepts state from `Swap.useSwap()`, and `useSwapContext()` reads that state
-  from a descendant when custom composition needs it.
-- `asChild` is available on every part. Pass exactly one semantic child so it can receive Ark props,
-  refs, and the moduix styling hooks.
+- `swap` is controlled. `Swap` does not react to hover or clicks by itself and renders a `span` by
+  default.
+- Ark Presence adds `data-state="open" | "closed"` to indicators so CSS can style their enter and
+  exit states. Set `lazyMount` or `unmountOnExit` when you need to control when inactive indicators
+  enter or leave the DOM.
+- `Swap.RootProvider` accepts the state returned by `Swap.useSwap()`, and `useSwapContext()` reads
+  the nearest provider state from a descendant.
+- `asChild` is available on every rendered part. Pass exactly one semantic child so Ark can merge
+  its props and ref with that element.
 
 ## Examples
 
 ### Animation presets
 
-Choose among the included recipes, then activate the button to see the selected transition. The
-controls and current value live in a centered `PreviewMeta` block, separate from the Swap anatomy.
+Try each built-in recipe, then activate the button to see the selected transition. The controls and
+current value are shown below the demo.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/swap/animation-presets.tsx"
@@ -90,9 +94,10 @@ controls and current value live in a centered `PreviewMeta` block, separate from
 
 ### Custom animation
 
-Pass a custom `animation` name and target the root's `data-animation` plus the indicators' Ark
-`data-state`. This bounce recipe is intentionally ordinary CSS: no extra Swap API or JavaScript is
-needed.
+Pass a custom `animation` name and target the root's `data-animation` together with the indicators'
+Ark `data-state`. The `bounce` recipe below is plain CSS. No extra Swap API or JavaScript is needed,
+but a custom recipe must define both enter and exit animations and should include a reduced-motion
+fallback.
 
 <style>{SwapDocs.swapCustomAnimationCss}</style>
 
@@ -110,12 +115,37 @@ needed.
 .swap-custom-animation[data-animation='bounce'] [data-slot='swap-indicator'][data-state='closed'] {
   animation: swap-bounce-exit var(--moduix-swap-transition, var(--moduix-transition-slow));
 }
+
+@keyframes swap-bounce-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+
+  70% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes swap-bounce-exit {
+  to {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .swap-custom-animation[data-animation='bounce'] [data-slot='swap-indicator'][data-state] {
+    animation-duration: 1ms;
+  }
+}
 ```
 
-### Root provider
+### RootProvider
 
-Create Swap state outside the rendered subtree with `Swap.useSwap()`, then pass it to
-`Swap.RootProvider`. This example also uses `asChild` to make the semantic button the real Swap root.
+Create the Swap state separately with `Swap.useSwap()`, then pass it to `Swap.RootProvider` through
+the `value` prop. This example also uses `asChild`, so the semantic button becomes the rendered Swap
+root.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/swap/root-provider.tsx"
@@ -125,17 +155,20 @@ Create Swap state outside the rendered subtree with `Swap.useSwap()`, then pass 
 
 ## Styling
 
+Built-in recipes read the CSS variables below. A custom animation name disables those recipes, but
+you can still reuse `--moduix-swap-transition` in your own CSS.
+
 ### CSS Properties
 
 <CssPropertiesSection properties={SwapDocs.swapOverrideCssProperties} />
 
 ### Styling hooks
 
-- `Swap.Root` -> `data-slot="swap-root"`
-- `Swap.RootProvider` -> `data-slot="swap-root-provider"`
-- `Swap.Indicator` -> `data-slot="swap-indicator"`
+- `Swap.Root` uses `data-slot="swap-root"`.
+- `Swap.RootProvider` uses `data-slot="swap-root-provider"`.
+- `Swap.Indicator` uses `data-slot="swap-indicator"`.
 - `animation` is exposed as `data-animation` on `Swap` and `Swap.RootProvider`.
-- Included animation recipes target only direct `Swap.Indicator` children of that root.
+- Built-in recipes target only direct `Swap.Indicator` children of their root.
 - Ark adds `data-scope="swap"` and `data-part="root" | "indicator"`.
-- Ark adds `data-state="open" | "closed"` to indicators; moduix uses those attributes for its
-  included animations.
+- Ark adds `data-state="open" | "closed"` to indicators. moduix uses those attributes for its
+  built-in animations and for custom recipes.

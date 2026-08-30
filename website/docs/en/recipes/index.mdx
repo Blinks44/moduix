@@ -1,6 +1,6 @@
 ---
 title: Browse recipes
-description: Copy-paste interface examples composed from moduix components.
+description: Copyable interface examples built from moduix components.
 ---
 
 import { Card, Cards } from '@/components/mdx/Components';
@@ -21,9 +21,9 @@ import {
 
 # Recipes
 
-Recipes are copy-paste examples for common interface patterns and product flows. Copy the component
-and CSS from a recipe page, install the moduix components it uses, then adapt its data and behavior
-to your application.
+Recipes are copyable examples for common interface patterns and product flows. Open a recipe to preview
+it, inspect the component and styles, and copy the source. Install the listed moduix components, then
+connect the example to your own data and product logic.
 
 ## App shell
 
@@ -42,7 +42,7 @@ to your application.
   />
 </Cards>
 
-The app header can sit above the sidebar shell.
+Use the app header above the sidebar shell when the product needs both.
 
 ## Authentication
 
@@ -73,7 +73,7 @@ The app header can sit above the sidebar shell.
   />
   <Card
     title="Verification code"
-    description="Enter a six-digit email code with mobile OTP autofill and resend handling."
+    description="Enter a six-digit email code with mobile OTP autofill. Connect verification and resend behavior to your server."
     href="/recipes/verification-code"
     preview={<VerificationCodeCardPreview />}
   />
@@ -98,8 +98,8 @@ The app header can sit above the sidebar shell.
 
 ## People
 
-Use these patterns to represent people and identity in compact, user-facing lists. Switch to a
-dedicated people list when the group needs more detail or grows beyond a short roster.
+These patterns represent people and identity in compact, user-facing lists. Switch to a dedicated
+people list when the group needs more detail or grows beyond a short roster.
 
 <Cards>
   <Card
@@ -115,7 +115,7 @@ dedicated people list when the group needs more detail or grows beyond a short r
 <Cards>
   <Card
     title="Autoplay gallery"
-    description="A featured-content carousel with side navigation, blurred slide copy, and filling progress indicators."
+    description="An autoplay carousel with partially visible slides, overlaid copy, arrow navigation, and indicators that fill as slides advance."
     href="/recipes/autoplay-gallery"
     preview={<AutoplayGalleryCardPreview />}
   />
@@ -127,6 +127,5 @@ dedicated people list when the group needs more detail or grows beyond a short r
   />
 </Cards>
 
-Every recipe intentionally stops at the boundary where your routes, API, authorization rules, and
-analytics begin. The page calls out those production connections so the copied UI does not pretend
-to implement product behavior.
+Recipes stop at the edge of product logic: routes, API calls, authorization, and analytics stay in your
+application. Each page points out the production wiring you need to add.

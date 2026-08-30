@@ -20,7 +20,7 @@ export default function FormatTimeSecondsAndLabelsDemo() {
           <Stack direction="row" justify="space-between" style={{ inlineSize: '100%' }}>
             <span>Support window</span>
             <strong>
-              <Format.Time amLabel="morning" pmLabel="evening" value="17:15" />
+              <Format.Time value="17:15" format="12h" amLabel="morning" pmLabel="evening" />
             </strong>
           </Stack>
         </Stack>

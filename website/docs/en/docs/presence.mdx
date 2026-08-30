@@ -1,16 +1,21 @@
 ---
 title: Presence
-description: Control whether application-owned content stays mounted, hides, or unmounts with Ark UI Presence and moduix.
+description: Control when content mounts, hides, and unmounts with Ark UI Presence, then compose it with moduix components.
 ---
 
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/presence" />
 
-## When to use it
+## What Presence does
 
-Use `Presence` when you need explicit control over the mount lifecycle of application-owned content. It renders a root
-`<div>` around the content and adds `data-state="open"` or `data-state="closed"` for styling.
+`Presence` is an Ark UI utility, not a component exported by `@moduix/react`. It controls one child subtree with the
+`present` prop. Depending on its render-strategy props, that subtree can stay mounted while hidden, mount only when it
+is first shown, or unmount after its exit animation.
+
+By default, Presence renders a `<div>` root with `data-scope="presence"` and `data-part="root"`. The root also gets
+`data-state="open"` or `data-state="closed"`, which lets you style enter and exit states with CSS. Use `asChild` when
+an existing child element should receive Presence's props instead of adding a wrapper.
 
 Import it directly from Ark UI:
 
@@ -18,13 +23,20 @@ Import it directly from Ark UI:
 import { Presence } from '@ark-ui/react/presence';
 ```
 
-For Dialog, Drawer, Popover, Menu, Tooltip, Lightbox, Tour, and similar moduix roots, use their built-in presence
-props. Use standalone `Presence` for application-owned content.
+## When to use it
+
+Use standalone `Presence` for application-controlled panels, notices, cards, or other content whose mount lifecycle
+needs explicit control.
+
+For Dialog, Drawer, Lightbox, Menu, Popover, Tooltip, Tour, and similar moduix roots, use the presence props exposed by
+those components. They already coordinate presence with focus management, positioning, and dismissal. Use standalone
+`Presence` when the lifecycle belongs to your application rather than to an existing moduix root.
 
 ## Basic
 
-Control the element with a single `present` state. With `unmountOnExit`, Presence keeps the root in the DOM for the
-closing animation and removes it when the animation finishes.
+Control `Presence` with the `present` prop. When `unmountOnExit` is `false`, closing hides the root but keeps it mounted.
+This preserves local state and lets effects continue to run. The example enables `unmountOnExit` so the exit animation
+can finish before the root is removed.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/presence/basic.tsx"
@@ -34,8 +46,8 @@ closing animation and removes it when the animation finishes.
 
 ## Mount on demand
 
-Set `lazyMount` when content should not mount before its first appearance. Add `unmountOnExit` to remove it after it
-closes. Here, the animation is attached directly to the Presence root through its `data-state` attribute.
+Combine `lazyMount` and `unmountOnExit` when content should be absent before its first appearance and after it closes.
+`lazyMount` delays the first mount; by itself it does not remove content on close. `unmountOnExit` handles that part.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/presence/mount-on-demand.tsx"
@@ -45,8 +57,9 @@ closes. Here, the animation is attached directly to the Presence root through it
 
 ## Exit animations
 
-`Presence` adds `data-state` to its root so CSS can react to `open` and `closed`. Use `onExitComplete` when other work
-must wait for a root-level exit animation to finish.
+When `unmountOnExit` is enabled, Presence keeps the root in the DOM while its CSS exit animation runs. Target
+`data-state="open"` and `data-state="closed"` to define the enter and exit styles. Use `onExitComplete` when other
+work must wait until the exit animation has finished.
 
 ```tsx
 import { Presence } from '@ark-ui/react/presence';
@@ -85,22 +98,48 @@ export function ActivityPanel({ open }: { open: boolean }) {
 }
 ```
 
-## Hiding strategy
+Set `skipAnimationOnMount` when the first appearance should be immediate. Set `immediate` when the `present` change
+should be applied immediately instead of being deferred to the next frame.
 
-The default `hideMode="display-none"` uses the `hidden` attribute, so effects inside the subtree continue to run.
-With React 19 or later, `hideMode="activity"` uses React’s `Activity` component instead; hidden effects pause.
+## Hiding mounted content
 
-Choose `lazyMount` and `unmountOnExit` when the subtree should not exist, not merely be invisible. Use `hideMode`
-when it should stay mounted but needs a different effect lifecycle.
+When content stays mounted, `hideMode` controls how Ark hides it:
+
+- `display-none` is the default. It uses the `hidden` attribute, so effects in the subtree continue to run.
+- `activity` uses React 19's `Activity` component with `mode="hidden"`, which pauses effects while the content is
+  hidden. This option requires React 19 or later. If `Activity` is not available, Ark falls back to the `hidden`
+  attribute.
+
+Choose `lazyMount` and `unmountOnExit` when the subtree should not exist outside its active lifecycle. Choose
+`hideMode` when it should stay mounted but needs a different hidden-state behavior.
+
+## Composition
+
+### Recommended composition
+
+Keep `Presence` close to the content whose mount lifecycle it controls. It can wrap a moduix component or a semantic
+HTML element. Pass `className` to the Presence root when that container needs layout or animation styles.
+
+### When to use `asChild`
+
+Use `asChild` when you already have one suitable root element and want Presence to merge its props into that element.
+Make sure the child can receive a ref, `hidden`, `data-*`, and the forwarded class name. Do not use `asChild` with
+multiple children.
 
 ## Using moduix
 
-Place any moduix interface inside `Presence`: cards, buttons, forms, and custom panels keep their regular styling.
-The Ark root handles only visibility and lifecycle. Pass `className` to `Presence` when its container needs an
-animation or layout rule.
+Place any moduix component inside `Presence`: cards, buttons, forms, and custom panels keep their regular styling and
+behavior. Presence only manages the mount lifecycle and state attributes; it does not replace the child's semantics or
+interaction model.
 
-## Ownership
+## Ark UI and moduix
 
-Ark UI owns the `Presence` API, mounting strategy, and animation lifecycle. moduix supplies the surrounding
-interface components and exposes equivalent presence props on its Ark-backed roots where that behavior already
-belongs to the component.
+Ark UI provides the `Presence` API, mount strategy, and animation lifecycle. `@moduix/react` does not re-export `Presence`,
+so import it from `@ark-ui/react/presence` and use moduix components inside it. Moduix roots that manage their own
+expandable or overlay behavior expose equivalent presence props where appropriate.
+
+If you use the standalone utility with moduix, install both packages:
+
+```bash
+pnpm add @ark-ui/react @moduix/react
+```

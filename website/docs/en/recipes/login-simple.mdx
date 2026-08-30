@@ -1,19 +1,23 @@
 ---
 title: Sign in
-description: An email and password sign-in form built with moduix React components.
+description: A sign-in form with email, password, and remember-me fields, built with moduix React components.
 ---
 
 import { LoginSimplePreview } from '@/components/recipes/login-simple-preview';
 
 # Sign in
 
-A compact email-and-password form with native validation, a remember-me control, and clear account
-recovery links. It deliberately does not implement authentication: pass `onSubmit` to connect your
-own action or API.
+This recipe gives you a compact sign-in form with native browser validation, email and password
+autocomplete, and links for account recovery and registration. It uses moduix `Card`, `Field`,
+`Input`, `Checkbox`, and `Button` components. The recipe does not authenticate users or manage request
+state. Connect those pieces to your application through `onSubmit`.
 
 <ExampleFrame clientOnly>
   <LoginSimplePreview />
 </ExampleFrame>
+
+The preview prevents the default form submission, so it never calls an authentication endpoint. The
+copied recipe forwards `onSubmit` to the native form and leaves authentication to your application.
 
 <div className="docs-reference">
   <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
@@ -38,16 +42,48 @@ own action or API.
 
 <ShadcnInstall packageName={['button', 'card', 'checkbox', 'field', 'input']} itemKind="recipe" copiedSource />
 
-## In a route
+## Connect it to authentication
 
-Render `LoginSimple` in the route that owns authentication and pass its real submit handler. Replace
-the default `/forgot-password` and `/sign-up` links with your application routes.
+`LoginSimple` passes `onSubmit` to its native `<form>`. The handler receives the regular form event,
+so call `event.preventDefault()`, read `new FormData(event.currentTarget)`, and send it to your API.
+The form fields are named `email`, `password`, and `remember`; `remember` is included only when the
+checkbox is checked.
 
-| Result             | Route behavior                                                               |
-| ------------------ | ---------------------------------------------------------------------------- |
-| Pending            | Disable duplicate submission and label the button `Signing in…`.             |
-| Invalid credentials| Show one form-level error without identifying which credential was wrong.     |
-| Network error      | Preserve the email and offer retry; do not clear the password before needed.  |
-| Success            | Replace the history entry or redirect to the safe destination chosen by your app. |
+```tsx
+import type { FormEvent } from 'react';
+import { LoginSimple } from './login-simple';
 
-Validate any `returnTo` or redirect URL on the server before navigating to it.
+export function SignInRoute() {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const response = await fetch('/api/sign-in', {
+      method: 'POST',
+      body: new FormData(event.currentTarget),
+    });
+
+    if (!response.ok) {
+      // Show a form-level error and keep the entered email.
+      return;
+    }
+
+    window.location.assign('/dashboard');
+  }
+
+  return <LoginSimple onSubmit={handleSubmit} />;
+}
+```
+
+Replace `/api/sign-in` and `/dashboard` with your application routes. In the copied recipe, also
+replace the `/forgot-password` and `/sign-up` links.
+
+## Production checklist
+
+| Situation | What to do |
+| --------- | ---------- |
+| Request pending | Disable the submit button and prevent duplicate submissions while the request is in flight. |
+| Invalid credentials | Show one form-level message without revealing which credential was incorrect. |
+| Network error | Keep the entered email and offer a retry. Clear the password only when your security policy requires it. |
+| Successful sign-in | Redirect to a safe route or replace the current history entry, according to your application flow. |
+
+If your application accepts a `returnTo` or redirect URL, validate it on the server before navigating.

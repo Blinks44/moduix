@@ -1,6 +1,6 @@
 ---
 title: Format Time
-description: Format time strings and Date values for the current locale with Ark UI Format.Time and moduix.
+description: Format clock times for the active locale with Ark UI Format.Time and moduix.
 ---
 
 ## API Reference
@@ -9,8 +9,11 @@ description: Format time strings and Date values for the current locale with Ark
 
 ## When to use it
 
-Use `Format.Time` to display a time consistently with the current locale in schedules, activity feeds, support hours,
-and other user-facing UI. It accepts a `Date` or a time string in `HH:mm` or `HH:mm:ss` form.
+Use `Format.Time` when you need to display a clock time according to the active locale: in schedules, activity feeds,
+support hours, and other user-facing UI. It accepts a `Date` object or a time string in `HH:mm` or `HH:mm:ss` form.
+
+Use a string for a wall-clock time from a schedule that should not change with the time zone. Use a `Date` when the
+value represents a specific moment.
 
 Import `Format` directly from Ark UI:
 
@@ -20,7 +23,7 @@ import { Format } from '@ark-ui/react';
 
 ## Basic
 
-Use a time string when the value is a clock time rather than a specific moment in a time zone. Place the formatted text
+For a scheduled time, pass a string so the displayed time stays independent of the time zone. Place the formatted text
 in moduix components that provide the event and its context.
 
 <PreviewFrame maxWidth="sm">
@@ -29,10 +32,11 @@ in moduix components that provide the event and its context.
   ```
 </PreviewFrame>
 
-## Seconds and day-period labels
+## 12-hour format, seconds, and AM/PM labels
 
-Set `withSeconds` when seconds matter, such as in a recent sync indicator. Use `amLabel` and `pmLabel` to replace
-AM/PM labels in 12-hour locales.
+`Format.Time` uses the 24-hour format by default. Set `format="12h"` to use a 12-hour clock. Set `withSeconds` when
+seconds matter, such as in a recent sync indicator. In 12-hour format, `amLabel` and `pmLabel` replace the default
+day-period labels.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/format-time/seconds-and-labels.tsx"
@@ -61,15 +65,26 @@ export function LocalizedTime() {
 }
 ```
 
-Use a `Date` when you already have a date-time value. Its displayed clock time follows the user’s locale and time zone,
-so do not replace a schedule’s plain local time with a `Date` unless that conversion is intended.
+Use a `Date` when you already have a date-time value, for example a timestamp received from an API:
+
+```tsx
+import { Format } from '@ark-ui/react';
+
+export function UpdatedAt({ value }: { value: Date }) {
+  return <Format.Time value={value} />;
+}
+```
+
+For a `Date`, `Format.Time` uses the runtime’s local time zone to determine the displayed clock time. `LocaleProvider`
+sets the locale, not the time zone. Do not replace a schedule’s plain local time with a `Date` unless that conversion is
+intended.
 
 ## Using moduix
 
-`Format.Time` renders text only. Use moduix `Card`, `Stack`, `Text`, and status components to explain what the time
-means; do not create a component just to call the formatter.
+`Format.Time` renders text only. Use moduix `Card`, `Stack`, `Text`, and status components around it to explain what the
+time means; do not create a wrapper just to call the formatter.
 
 ## Ownership
 
-Ark UI handles time formatting and the `Format.Time` API. moduix supplies the surrounding interface components and
+Ark UI provides time formatting and the `Format.Time` API. moduix supplies the surrounding interface components and
 re-exports `LocaleProvider`, but does not re-export `Format.Time`.

@@ -2,7 +2,6 @@ import { Button } from '@moduix/react/button';
 import { Swap } from '@moduix/react/swap';
 import { Check as CheckIcon, Download as DownloadIcon } from 'lucide-react';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function SwapRootProviderDemo() {
   const [downloaded, setDownloaded] = useState(false);
@@ -23,9 +22,7 @@ export default function SwapRootProviderDemo() {
           </Swap.Indicator>
         </Button>
       </Swap.RootProvider>
-      <PreviewMeta>
-        <output>Visible indicator: {downloaded ? 'Downloaded' : 'Download'}</output>
-      </PreviewMeta>
+      <output>Visible indicator: {downloaded ? 'Downloaded' : 'Download'}</output>
     </div>
   );
 }

@@ -1,14 +1,18 @@
 ---
-title: Avatar group
-description: A stacked avatar group that expands on hover or keyboard focus and labels each member with a tooltip.
+title: Expandable avatar group
+description: A compact avatar group that expands on hover or keyboard focus and identifies each person with a tooltip.
 ---
 
 import { ExpandableAvatarGroup } from '@/components/recipes/expandable-avatar-group';
 
-# Avatar group
+# Expandable avatar group
 
-Use this compact team roster when space is limited but every person still needs an identifiable
-label. Hovering or focusing one avatar makes room after it and opens the matching tooltip.
+Use this recipe for a small team roster when space is limited but people still need to be easy to
+identify. Hover or focus an avatar to spread the group and show that person's name and role.
+
+This is a copy-ready composition, not an `ExpandableAvatarGroup` component exported by
+`@moduix/react`. It combines `Avatar` and `Tooltip`. Install those components, copy the source
+and styles below, then replace the sample members with data from your application.
 
 <ExampleFrame clientOnly>
   <ExpandableAvatarGroup />
@@ -19,18 +23,15 @@ label. Hovering or focusing one avatar makes room after it and opens the matchin
     <Tab value="Component">
 
 ```tsx file="../../../src/components/recipes/expandable-avatar-group.tsx"
-
 ```
 
     </Tab>
     <Tab value="Styles">
 
 ```css file="../../../src/components/recipes/expandable-avatar-group.module.css"
-
 ```
 
     </Tab>
-
   </Tabs>
 </div>
 
@@ -38,19 +39,25 @@ label. Hovering or focusing one avatar makes room after it and opens the matchin
 
 <ShadcnInstall packageName={['avatar', 'tooltip']} itemKind="recipe" copiedSource />
 
-## Details
+## Customize the recipe
 
-The group uses `Avatar.Image` with `Avatar.Fallback` as a loading fallback, and
-`Tooltip.Trigger asChild` so each avatar remains a semantic button. The motion is CSS-only: the
-active button lifts slightly while its following siblings make room for it. Replace the fixture
-image URLs with your application's avatar source before shipping the recipe.
+Replace the sample `members` data with data from your application and keep the order stable. Use an
+image URL from your application for each member. `Avatar.Fallback` shows initials while an image
+loads or when it is unavailable.
 
-Keep the tooltip content short and non-essential. If selecting a member should navigate or perform
-an action, replace the button with the appropriate semantic control and preserve its accessible
-name.
+The recipe renders each member as a native `button`. `Tooltip.Trigger asChild` lets the tooltip
+reuse that button without adding another wrapper, while `Tooltip.Body` displays the member's name
+and role. The button's `aria-label` includes both values because the image uses `alt=""` and the
+tooltip is supplemental. Keep the tooltip content short and non-essential.
 
-Use `role="group"` with a useful label for the roster, and include each person's role in the
-button's accessible name when the role helps users distinguish similar names. For a long team, show
-only the first few members and a final `+N` control that opens a complete, searchable people list.
-Keep the list order stable, and preserve the expanded spacing while removing lift and transition
-effects under `prefers-reduced-motion: reduce`.
+If selecting a member should navigate or perform an action, connect the button to that behavior or
+replace it with the appropriate semantic control. Preserve the accessible name when changing the
+trigger.
+
+Use `role="group"` with a useful label for the roster. For a long team, show only the first few
+members and add a final `+N` button that opens a complete, searchable people list.
+
+The motion is CSS-only. The active button lifts slightly while the other buttons make room for it.
+The included `prefers-reduced-motion: reduce` rule disables transition interpolation, so these
+position changes happen immediately. If your accessibility policy also removes the position
+changes, set the hover and focus transforms to `none` in that media query.

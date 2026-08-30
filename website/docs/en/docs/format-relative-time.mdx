@@ -1,6 +1,6 @@
 ---
 title: Format Relative Time
-description: Display dates as relative time in the active locale with Ark UI Format.RelativeTime and moduix components.
+description: Format dates as relative time with Ark UI and share the active locale through moduix's LocaleProvider.
 ---
 
 ## API Reference
@@ -9,9 +9,13 @@ description: Display dates as relative time in the active locale with Ark UI For
 
 ## When to use it
 
-Use `Format.RelativeTime` when elapsed or remaining time matters more than the exact timestamp: activity feeds, save
-states, deadlines, and upcoming events. It accepts a `Date`, compares it with the current time during render, and
-returns text such as “12 minutes from now” or “yesterday”.
+Use `Format.RelativeTime` when knowing how long ago or how soon something happens is more useful than an exact
+timestamp: for activity feeds, save status, deadlines, and upcoming events. Pass a `Date` to `value`. When it
+renders, Ark compares that date with the current time, chooses a unit from seconds to years, and formats the result
+with `Intl.RelativeTimeFormat`.
+
+By default, `numeric` is set to `"always"`, so the output is numeric, such as “in 12 minutes” or “1 day ago”.
+Set `numeric="auto"` to allow natural phrases such as “tomorrow” and “yesterday”.
 
 Import `Format` directly from Ark UI:
 
@@ -21,8 +25,8 @@ import { Format } from '@ark-ui/react';
 
 ## Basic
 
-Use `numeric="auto"` when natural words such as “tomorrow” and “yesterday” are clearer than a number. Place the
-formatted result beside the status or event it describes.
+Use `numeric="auto"` when dates close to today can be described naturally, such as “tomorrow” or “yesterday”.
+In this example, a card shows when a scheduled review will begin.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/format-relative-time/basic.tsx"
@@ -32,8 +36,8 @@ formatted result beside the status or event it describes.
 
 ## Short format
 
-Use `style="short"` for space-constrained interfaces such as lists and compact status rows. Keep the full timestamp
-available elsewhere when a person may need to inspect the exact date and time.
+Use `style="short"` when space is limited, such as in a list or compact status row. Keep the exact date and time
+available elsewhere when people may need to inspect the timestamp.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/format-relative-time/short.tsx"
@@ -41,10 +45,10 @@ available elsewhere when a person may need to inspect the exact date and time.
   ```
 </PreviewFrame>
 
-## Locale and updates
+## Locale
 
-`Format.RelativeTime` receives its locale from `LocaleProvider`. moduix re-exports that provider, so it can be the
-shared locale provider for your interface:
+`Format.RelativeTime` reads its locale from `LocaleProvider`. Without a provider, Ark uses `en-US`. moduix re-exports
+`LocaleProvider`, so you can use one provider for relative-time output and other locale-aware parts of your interface:
 
 ```tsx
 import { Format } from '@ark-ui/react';
@@ -61,15 +65,29 @@ export function LocalizedUpdate() {
 }
 ```
 
-The formatter calculates the text when React renders it; it does not refresh itself as time passes. Re-render it at
-the interval your interface needs when the text must stay current, and use `Timer` for a live countdown.
+## Display options
+
+`Format.RelativeTime` accepts the standard `Intl.RelativeTimeFormatOptions`. The most useful display options are:
+
+| Option    | Values                                      | Purpose                                      |
+| --------- | ------------------------------------------- | -------------------------------------------- |
+| `numeric` | `"always"` (default), `"auto"`             | Use numbers or natural words where available. |
+| `style`   | `"long"` (default), `"short"`, `"narrow"` | Control how much text the result uses.        |
+
+You do not need to provide a unit or a numeric distance separately. The component derives both from the `Date` you
+pass to `value`.
+
+## Updating over time
+
+`Format.RelativeTime` does not start a timer. It computes the string during render and keeps that value until your
+application renders it again. If a label must stay current, trigger re-renders at a cadence that suits the interface.
+For a duration or countdown that updates continuously, use [`Timer`](/docs/timer).
 
 ## Using moduix
 
-`Format.RelativeTime` renders text only. Use moduix `Card`, `Stack`, `Text`, and status components to establish the
-event’s hierarchy and meaning; do not create a component just to call the formatter.
+`Format.RelativeTime` renders text only; it does not add a wrapper element. Place it inside the layout, status, or
+data-display component that explains what the relative time refers to. The examples on this page use moduix `Card`
+and `Stack` for that surrounding context.
 
-## Ownership
-
-Ark UI handles relative-time formatting and the `Format.RelativeTime` API. moduix supplies the surrounding interface
-components and re-exports `LocaleProvider`, but does not re-export `Format.RelativeTime`.
+The formatter itself comes from Ark UI and is imported from `@ark-ui/react`. moduix provides the surrounding
+components and re-exports `LocaleProvider`, but it does not re-export `Format.RelativeTime`.

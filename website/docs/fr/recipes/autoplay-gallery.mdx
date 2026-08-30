@@ -1,34 +1,31 @@
 ---
-title: Galerie
-description: Une galerie Carousel avec navigation latérale, texte sur les diapositives et indicateurs temporisés.
+title: Galerie à lecture automatique
+description: Une recette de galerie à lecture automatique avec Carousel, texte superposé, navigation par flèches et indicateurs de progression.
 ---
 
 import { AutoplayGalleryPreview } from '@/components/recipes/autoplay-gallery-preview';
 
-# Galerie
+# Galerie à lecture automatique
 
-Un carrousel de contenu à la une avec diapositives voisines partiellement visibles, navigation latérale, panneau
-de texte flouté et indicateurs qui se remplissent pendant le délai de lecture automatique. Il n’utilise que les
-parties de `Carousel` : `Carousel.Context` transmet l’état de lecture à l’animation CSS, et les flèches comme les
-indicateurs relancent la lecture sans ajouter de bouton distinct.
+Utilisez cette recette pour du contenu mis en avant qui défile automatiquement tout en restant facile à parcourir.
+Elle associe `Carousel` à des diapositives voisines partiellement visibles, du texte superposé, des flèches de
+navigation et des indicateurs qui se remplissent pendant chaque intervalle de lecture automatique.
 
 <ExampleFrame clientOnly>
   <AutoplayGalleryPreview />
 </ExampleFrame>
 
 <div className="docs-reference">
-  <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="Component">
+  <Tabs values={[{ label: 'Composant', value: 'Composant' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="Composant">
 
 ```tsx file="../../../src/components/recipes/autoplay-gallery.tsx"
-
 ```
 
     </Tab>
     <Tab value="Styles">
 
 ```css file="../../../src/components/recipes/autoplay-gallery.module.css"
-
 ```
 
     </Tab>
@@ -39,11 +36,48 @@ indicateurs relancent la lecture sans ajouter de bouton distinct.
 
 <ShadcnInstall packageName="carousel" itemKind="recipe" copiedSource />
 
-## Dans une page
+La commande ajoute `Carousel` à votre projet. Copiez le composant de la recette et sa feuille de styles depuis les
+onglets ci-dessus, puis remplacez le contenu de démonstration par le vôtre.
 
-Remplacez les images et le texte des diapositives par votre contenu. La durée de l’animation CSS doit correspondre
-à `autoplay.delay`, afin que l’indicateur se remplisse exactement jusqu’à l’apparition de la diapositive suivante.
-Après une navigation manuelle, les callbacks reportent `api.play()` à l’image suivante : Ark traite d’abord le
-changement de diapositive qui met la lecture automatique en pause, puis un nouvel intervalle démarre sans contrôle
-distinct. Ark met la lecture automatique en pause lorsque le document est masqué ; la recette appelle la méthode
-publique `api.play()` lorsqu’il redevient visible.
+## Utiliser la recette dans une page
+
+Le fichier copié est prêt à être adapté :
+
+- Remplacez les données de `slides` par vos images, libellés, titres, descriptions et textes alternatifs. Gardez un
+  `id` stable pour chaque diapositive et maintenez `slideCount` synchronisé avec `slides.length`.
+- Modifiez `aria-label` afin de décrire le rôle de votre carrousel, et non le contenu de la démonstration.
+- Gardez `autoplay.delay` et la durée de l’animation de progression synchronisés. Cette recette utilise `3500`
+  millisecondes et une animation CSS de `3.5s`, de sorte que l’indicateur se remplisse au moment où la diapositive
+  suivante apparaît.
+- Remplacez les URL Unsplash avant de publier la recette. Utilisez une source d’images contrôlée par votre application
+  et adaptée à vos exigences de chargement, de mise en cache et de contenu.
+
+Ajustez `slidesPerPage`, `spacing` et `padding` pour modifier la portion visible de la diapositive voisine et les
+espacements de la galerie dans son conteneur.
+
+## Fonctionnement
+
+La recette utilise deux blocs `Carousel.Context` connectés à la même racine. Le premier lit l’API du carrousel pour
+marquer la diapositive active et afficher les boutons précédent et suivant. Le second construit les indicateurs de
+progression à partir de `api.pageSnapPoints` et marque l’indicateur courant avec `data-current`.
+
+Les clics sur les flèches et les indicateurs appellent `requestAnimationFrame(api.play)`. La navigation manuelle met la
+lecture automatique en pause : le lancement au prochain cycle d’affichage laisse le changement de diapositive se terminer
+avant de lancer un nouvel intervalle. Les interactions tactiles et la molette mettent également la lecture automatique en
+pause. Si votre produit doit la reprendre après ces interactions, ajoutez ce comportement à votre logique ou affichez
+`Carousel.AutoplayTrigger`.
+
+Ark met la lecture automatique en pause lorsque le document est masqué. La recette écoute `visibilitychange` et appelle
+la méthode publique `api.play()` lorsque le document redevient visible.
+
+## Accessibilité et mouvement
+
+Donnez un nom accessible à la racine avec `aria-label` ou `aria-labelledby`. Fournissez un texte `alt` utile pour les
+images informatives. Utilisez `alt=""` pour une image décorative lorsque le texte voisin de la diapositive contient
+déjà l’information. Laissez les boutons précédent et suivant ainsi que les indicateurs accessibles, afin que personne
+ne soit obligé d’attendre le minuteur.
+
+Lorsque `prefers-reduced-motion: reduce` est actif, la recette supprime les transitions des diapositives et l’animation
+des indicateurs. Le minuteur continue toutefois de faire avancer le carrousel. Si les utilisateurs doivent pouvoir
+arrêter les changements automatiques, ajoutez `Carousel.AutoplayTrigger` ou retirez la prop `autoplay`. Consultez la
+[documentation de Carousel](/docs/carousel) pour les contrôles de lecture automatique et l’API complète.

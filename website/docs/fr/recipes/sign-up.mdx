@@ -1,22 +1,24 @@
 ---
 title: Inscription
-description: Un formulaire de création de compte construit avec les composants React moduix.
+description: Un formulaire d’inscription prêt à copier, construit avec les composants React de moduix.
 ---
 
 import { SignUpPreview } from '@/components/recipes/sign-up-preview';
 
 # Inscription
 
-Le formulaire propose une validation native du nom, de l’e-mail, des mots de passe et de l’acceptation des
-conditions. Ajoutez vous-même l’authentification et la vérification de la correspondance des mots de passe
-dans le gestionnaire `onSubmit`.
+Utilisez cette recette comme point de départ pour un écran d’inscription. Elle associe `Card`, `Field`,
+`Input`, `Checkbox` et `Button`, et confie au navigateur la validation des champs obligatoires, du format
+de l’adresse e-mail et de l’acceptation des conditions. La recette ne se connecte à aucun service
+d’authentification et ne compare pas les deux mots de passe : ajoutez cette logique dans le gestionnaire
+`onSubmit`.
 
 <ExampleFrame clientOnly>
   <SignUpPreview />
 </ExampleFrame>
 
 <div className="docs-reference">
-  <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+  <Tabs values={[{ label: 'Composant', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="Component">
 
 ```tsx file="../../../src/components/recipes/sign-up.tsx"
@@ -38,13 +40,63 @@ dans le gestionnaire `onSubmit`.
 
 <ShadcnInstall packageName={['button', 'card', 'checkbox', 'field', 'input']} itemKind="recipe" copiedSource />
 
-## Dans une route
+## Utiliser la recette dans une route
 
-Affichez `SignUp` dans la route qui gère l’inscription et passez-lui le véritable gestionnaire d’envoi du
-formulaire. Remplacez les liens `/terms`, `/privacy` et `/sign-in` par les routes de l’application.
+Copiez le code source et le CSS de la recette depuis les onglets ci-dessus, puis importez `SignUp` depuis
+le fichier copié. Le navigateur vérifie les contraintes natives avant d’appeler `onSubmit`. Utilisez ce
+gestionnaire pour comparer les deux mots de passe et envoyer les données à votre serveur d’inscription.
 
-Affichez les exigences de mot de passe avant l’envoi et validez-les aussi côté serveur. Pendant la création
-du compte, désactivez les envois en double. Associez chaque erreur serveur propre à un champ - par exemple,
-une adresse e-mail déjà utilisée - au champ concerné. Pour les erreurs réseau ou inattendues, utilisez un
-message général au niveau du formulaire. Après l’inscription, suivez la prochaine étape prévue par le produit :
-démarrez une session, vérifiez l’adresse e-mail ou affichez une page de confirmation.
+```tsx
+import type { FormEvent } from 'react';
+import { SignUp } from '@/components/sign-up';
+
+export function SignUpRoute() {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const password = formData.get('password');
+    const confirmation = formData.get('confirm-password');
+
+    if (password !== confirmation) {
+      const confirmationInput = form.elements.namedItem('confirm-password');
+
+      if (confirmationInput instanceof HTMLInputElement) {
+        confirmationInput.setCustomValidity('Passwords do not match.');
+        confirmationInput.reportValidity();
+        confirmationInput.setCustomValidity('');
+      }
+
+      return;
+    }
+
+    await fetch('/api/sign-up', {
+      method: 'POST',
+      body: formData,
+    });
+  }
+
+  return <SignUp onSubmit={handleSubmit} />;
+}
+```
+
+Les champs portent les noms `name`, `email`, `password`, `confirm-password` et `terms`, qui sont donc
+les clés disponibles dans `FormData`. Remplacez `/api/sign-up` et le chemin d’importation par ceux de
+votre application.
+
+## Avant la mise en production
+
+Le code source copié reste volontairement minimal. Ajoutez le comportement et l’affichage des erreurs
+nécessaires à votre application :
+
+- Affichez clairement les exigences liées au mot de passe et ajoutez, si nécessaire, des contraintes comme
+  `minLength` ou `pattern` aux champs copiés. Appliquez les mêmes règles côté serveur.
+- Désactivez le bouton d’envoi pendant la requête. En cas d’échec, conservez les valeurs saisies pour permettre à
+  l’utilisateur de les corriger et de réessayer.
+- Affichez l’erreur renvoyée par le serveur à côté du champ concerné. Affichez les erreurs réseau ou
+  inattendues au niveau du formulaire dans un élément doté de `role="alert"` et laissez la possibilité de
+  réessayer.
+- Remplacez `/terms`, `/privacy` et `/sign-in` par les routes de votre application.
+- Après une inscription réussie, enchaînez avec l’étape prévue par votre parcours : connectez l’utilisateur,
+  demandez la vérification de l’adresse e-mail ou redirigez vers une page de confirmation.

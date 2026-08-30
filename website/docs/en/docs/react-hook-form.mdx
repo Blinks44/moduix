@@ -1,54 +1,62 @@
 ---
 title: React Hook Form
-description: Integrate moduix native and compound controls with React Hook Form.
+description: Connect native and compound moduix controls to React Hook Form for validation, reset, field arrays, and server errors.
 ---
 
 # React Hook Form
 
 [React Hook Form documentation](https://react-hook-form.com/get-started) covers the complete API,
-validation modes, resolvers, and TypeScript support. This page focuses on the moduix mapping.
+validation modes, resolvers, and TypeScript support. This guide focuses on connecting that library
+to moduix controls.
 
-Use `register` for parts that render a native input. Use `Controller` when an Ark component exposes
-controlled values and detail callbacks. Ark compound controls render their own native form control
-when they need one, so never add or register a separate hidden input.
+React Hook Form owns field values, validation, and submission state. moduix owns accessible form
+markup, field semantics, and the native form control that a compound component needs.
+
+Use `register` when a component exposes a native input, textarea, or select. Use `Controller` when a
+compound component exposes controlled values through props and callback detail objects. A
+form-aware compound component already handles its own form participation, so do not add or register
+a second hidden input.
 
 ```bash
 npm install react-hook-form
 ```
 
-## Mapping
+## Choose the integration
 
-| Control                                         | React Hook Form wiring                                                    |
-| ----------------------------------------------- | ------------------------------------------------------------------------- |
-| `Input`, `Textarea`, `Field.Select`              | Spread `register(name, rules)` onto the native control.                   |
-| `Select`                                        | Use `Controller`; map a scalar string to Ark's string-array `value`.      |
-| `Combobox`                                      | Use `Controller`; map `value` and keep filtering in `onInputValueChange`. |
-| `Checkbox`                                      | Use `Controller`; map `details.checked === true` to a boolean.            |
-| Automatic native controls                       | Pass semantic root props such as `name` or `form`; moduix owns the input. |
+| Moduix control | React Hook Form integration |
+| -------------- | --------------------------- |
+| `Input`, `Textarea`, `NativeSelect`, `Field.Input`, `Field.Textarea`, `Field.Select` | Spread `register(name, rules)` onto the native control. |
+| `Select` | Use `Controller`; map the scalar field value to Select's string-array `value`. |
+| `Combobox` | Use `Controller`; map the selected value and keep filtering in `onInputValueChange`. |
+| `Checkbox` | Use `Controller`; map `details.checked === true` to a boolean field value. |
+| Other form-aware compound controls | Pass semantic root props such as `name` or `form`; use `Controller` when you control their value. |
 
-Always provide `defaultValues` for controlled fields. React Hook Form uses them for initial state,
-dirty checks, and `reset()`.
+Give every controlled field a value in `defaultValues`. React Hook Form uses these values for the
+initial render, dirty checks, and `reset()`.
 
-Use `formState.isSubmitting` for the pending UI. Disable only duplicate submission, keep field values
-visible, and let the button label describe the active request. `handleSubmit` keeps `isSubmitting`
-true until an async submit handler settles.
+Use `formState.isSubmitting` for pending UI. Prevent duplicate submissions, keep the field values
+visible, and make the button label describe the request in progress. `handleSubmit` keeps
+`isSubmitting` true until an asynchronous submit handler settles.
 
 ## Validation and reset
 
-Use `rules` for small field-local checks. For shared, cross-field, or schema-defined validation,
-add a resolver; the moduix component mapping stays the same. When React Hook Form owns visible
-errors, add `noValidate` to the native form and derive `Field invalid` and `Field.ErrorText` from
-`fieldState`. Omit `noValidate` when browser constraint validation should run first.
+Use `rules` for checks that belong to one field. For shared, cross-field, or schema-based validation,
+add a resolver. The moduix integration stays the same: pass `fieldState.invalid` to `Field` and
+render `fieldState.error?.message` with `Field.ErrorText` for controlled fields. For registered
+controls, read the message from `formState.errors`.
 
-Call `reset()` to restore the same `defaultValues` that initialized the form. Calling only the DOM
-form's `reset()` is not enough for controlled `Controller` fields: React Hook Form will otherwise
-render its previous value back into the moduix control.
+Set `noValidate` on the native form only when React Hook Form should own the visible error flow. Leave
+it out when browser constraint validation should run first.
+
+Call React Hook Form's `reset()` to restore controlled fields. A DOM `form.reset()` alone is not
+enough for `Controller` fields because the next render can write the old value back into the moduix
+component.
 
 ## Complete form
 
-The form combines registered `Input` and `Textarea` controls with controlled `Select`, `Combobox`,
-and `Checkbox`. `noValidate` lets React Hook Form own the error messages in this demo. Omit it when
-you intentionally want the browser's native validation UI.
+This form combines registered `Input` and `Textarea` controls with controlled `Select`, `Combobox`,
+and `Checkbox` components. `noValidate` lets React Hook Form own the error messages in this example.
+Remove it when you intentionally want the browser's native validation UI.
 
 <style>{`
       .form {
@@ -86,97 +94,163 @@ you intentionally want the browser's native validation UI.
 
 ## Repeated fields
 
-Use `useFieldArray` for a list the user can edit. It supplies a stable `id` for every row; use it
-as the React key, never the current index. The index is only for the registered field path. Keep
-the group's label in `Fieldset` when the list has a shared purpose. This is a fragment for the
-component that owns `useForm`; render the rows and buttons inside its form.
+Use `useFieldArray` for a list that users can add to, remove from, or reorder. Its `fields` include
+a stable `id`; use that value as the React key, and use the current index only in the registered
+field path. Put the shared label in `Fieldset`, then give every row its own `Field`, label, and
+validation message.
 
 ```tsx
 import { Button } from '@moduix/react/button';
 import { Field } from '@moduix/react/field';
+import { Fieldset } from '@moduix/react/fieldset';
+import { Input } from '@moduix/react/input';
 import { useFieldArray, useForm } from 'react-hook-form';
 
 type EmailFormValues = {
   emails: { address: string }[];
 };
 
-const { control, register } = useForm<EmailFormValues>({
-  defaultValues: { emails: [{ address: '' }] },
-});
-const { fields, append, remove } = useFieldArray({ control, name: 'emails' });
+export function EmailListForm() {
+  const {
+    control,
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<EmailFormValues>({
+    defaultValues: { emails: [{ address: '' }] },
+  });
+  const { fields, append, remove } = useFieldArray({ control, name: 'emails' });
 
-{
-  fields.map((item, index) => (
-    <Field key={item.id}>
-      <Field.Label>Email {index + 1}</Field.Label>
-      <Input type="email" {...register(`emails.${index}.address` as const)} />
-      <Button type="button" onClick={() => remove(index)}>
-        Remove email
-      </Button>
-    </Field>
-  ));
+  return (
+    <form onSubmit={handleSubmit((values) => console.log(values))}>
+      <Fieldset>
+        <Fieldset.Legend>Email addresses</Fieldset.Legend>
+        <Fieldset.HelperText>Add one address per row.</Fieldset.HelperText>
+
+        {fields.map((item, index) => (
+          <Field
+            key={item.id}
+            invalid={Boolean(errors.emails?.[index]?.address)}
+            required
+          >
+            <Field.Label>
+              Email {index + 1}
+              <Field.RequiredIndicator />
+            </Field.Label>
+            <Input
+              type="email"
+              {...register(`emails.${index}.address` as const, {
+                required: 'Enter an email address.',
+              })}
+            />
+            <Field.ErrorText>{errors.emails?.[index]?.address?.message}</Field.ErrorText>
+            <Button type="button" onClick={() => remove(index)}>
+              Remove email
+            </Button>
+          </Field>
+        ))}
+
+        <Button type="button" onClick={() => append({ address: '' })}>
+          Add email
+        </Button>
+      </Fieldset>
+    </form>
+  );
 }
-
-<Button type="button" onClick={() => append({ address: '' })}>
-  Add email
-</Button>;
 ```
 
 ## Server errors
 
-After a request, use `setError` for errors that belong to a field and the `root` namespace for a
-form-wide error. The existing `errors.name` mapping still drives `Field invalid` and
-`Field.ErrorText`; render the root message once near the form heading or submit button.
+Map errors returned by the server after the request finishes. Use `setError` for a specific field and
+the `root` namespace for a form-level error. The `Field` mapping stays the same as for client-side
+validation. The request function is passed into the component so the example can focus on the error
+mapping.
 
 ```tsx
-const {
-  handleSubmit,
-  setError,
-  formState: { errors },
-} = useForm<{ name: string }>({
-  defaultValues: { name: '' },
-});
+import { Field } from '@moduix/react/field';
+import { Input } from '@moduix/react/input';
+import { useForm } from 'react-hook-form';
 
-const onSubmit = handleSubmit(async (values) => {
-  const result = await createProject(values);
+type ProjectFormValues = {
+  name: string;
+};
 
-  if (result.nameError) {
-    setError('name', {
-      type: 'server',
-      message: result.nameError,
-    });
-  }
+type CreateProjectResult = {
+  nameError?: string;
+  message?: string;
+};
 
-  if (result.message) {
-    setError('root.server', {
-      type: 'server',
-      message: result.message,
-    });
-  }
-});
+type ProjectFormProps = {
+  createProject: (values: ProjectFormValues) => Promise<CreateProjectResult>;
+};
 
-{
-  errors.root?.server?.message ? <p role="alert">{errors.root.server.message}</p> : null;
+export function ProjectForm({ createProject }: ProjectFormProps) {
+  const {
+    handleSubmit,
+    register,
+    setError,
+    formState: { errors },
+  } = useForm<ProjectFormValues>({
+    defaultValues: { name: '' },
+  });
+
+  const onSubmit = handleSubmit(async (values) => {
+    const result = await createProject(values);
+
+    if (result.nameError) {
+      setError('name', {
+        type: 'server',
+        message: result.nameError,
+      });
+    }
+
+    if (result.message) {
+      setError('root.server', {
+        type: 'server',
+        message: result.message,
+      });
+    }
+  });
+
+  return (
+    <form noValidate onSubmit={onSubmit}>
+      <Field invalid={Boolean(errors.name)}>
+        <Field.Label>Project name</Field.Label>
+        <Input
+          {...register('name', {
+            required: 'Enter a project name.',
+          })}
+        />
+        <Field.ErrorText>{errors.name?.message}</Field.ErrorText>
+      </Field>
+
+      {errors.root?.server?.message ? (
+        <p role="alert">{errors.root.server.message}</p>
+      ) : null}
+
+      <button type="submit">Create project</button>
+    </form>
+  );
 }
 ```
 
-## Notes
+## Details that matter
 
-- Do not spread a `Controller` field object onto `Select` or `Combobox`; their callback and value
+- Do not spread a `Controller` field object onto `Select` or `Combobox`. Their value and callback
   shapes are not native input events.
-- For single selection, pass `field.value ? [field.value] : []` and read
-  `details.value[0] ?? ""`.
-- Call `field.onBlur` from `Select.onInteractOutside` or `Combobox.Input.onBlur` so touched state
-  and blur-based validation follow the user's interaction.
-- Forward `field.ref` to `Select.Trigger` or `Combobox.Input`. This lets React Hook Form focus the
-  first invalid field.
-- `Select` renders its native select automatically for native semantics, autofill, and reset
-  synchronization.
-- Map `Checkbox` checked state to a boolean field value; its root renders the native input
-  automatically.
-- `name={field.name}` enables native `FormData` semantics but does not replace `Controller` as the
-  source of the field value. Keep the controlled value and callback mapping shown above.
-- For the other automatic controls, keep exceptional form configuration on their roots: `DateInput`
-  uses a two-item `names` tuple for distinct indexed range keys, `Select` uses
-  `nativeFormControl="input"` for virtualized collections, and `SignaturePad` uses `getFormValue`
-  for custom serialization.
+- For a single-value `Select` or `Combobox`, pass `field.value ? [field.value] : []` and read
+  `details.value[0] ?? ""` in the value callback.
+- Call `field.onBlur` when the control interaction ends: use `Select.onInteractOutside` for `Select`
+  and `Combobox.Input.onBlur` for `Combobox`. This keeps touched state and blur validation in sync.
+- Forward `field.ref` to `Select.Trigger` or `Combobox.Input`. React Hook Form uses that ref when it
+  focuses the first invalid field.
+- `Select` creates a native `<select>` automatically. `Checkbox` creates its native input
+  automatically. Pass `name` and `form` to the component root; never add a duplicate hidden input.
+- `Combobox` also takes `name` and `form` on its root. It does not expose a `HiddenInput` part, and no
+  extra input is needed for form integration.
+- For a very large virtualized `Select` collection, `nativeFormControl="input"` uses lightweight
+  hidden inputs instead of a native select. This keeps form submission and reset synchronization,
+  but gives up native-select autofill, validation, and progressive enhancement.
+- For other automatic controls, keep form-specific options on their roots. `DateInput` uses a
+  two-item `names` tuple for distinct range keys, and `SignaturePad` uses `getFormValue` for custom
+  serialization.

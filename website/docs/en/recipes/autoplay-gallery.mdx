@@ -1,15 +1,15 @@
 ---
-title: Gallery
-description: A Carousel gallery with side navigation, slide copy, and timed progress indicators.
+title: Autoplay gallery
+description: An autoplay gallery recipe built with Carousel, overlaid slide copy, arrow navigation, and progress indicators.
 ---
 
 import { AutoplayGalleryPreview } from '@/components/recipes/autoplay-gallery-preview';
 
-# Gallery
+# Autoplay gallery
 
-A featured-content carousel with partial neighbouring slides, side navigation, a blurred copy panel, and indicators
-that fill over the autoplay delay. It uses only `Carousel` parts: `Carousel.Context` exposes the playing state for
-the CSS animation, while arrow and indicator clicks restart autoplay without adding a separate play button.
+Use this recipe for featured content that advances automatically while keeping navigation within reach. It combines
+`Carousel` with partially visible neighbouring slides, overlaid copy, arrow controls, and indicators that fill during
+each autoplay interval.
 
 <ExampleFrame clientOnly>
   <AutoplayGalleryPreview />
@@ -20,14 +20,12 @@ the CSS animation, while arrow and indicator clicks restart autoplay without add
     <Tab value="Component">
 
 ```tsx file="../../../src/components/recipes/autoplay-gallery.tsx"
-
 ```
 
     </Tab>
     <Tab value="Styles">
 
 ```css file="../../../src/components/recipes/autoplay-gallery.module.css"
-
 ```
 
     </Tab>
@@ -38,10 +36,45 @@ the CSS animation, while arrow and indicator clicks restart autoplay without add
 
 <ShadcnInstall packageName="carousel" itemKind="recipe" copiedSource />
 
-## In a page
+The command adds `Carousel` to your project. Copy the recipe component and its stylesheet from the tabs above, then
+replace the demo content with your own.
 
-Replace the slide images and copy with your content. Keep the CSS animation duration equal to `autoplay.delay` so the
-filled indicator reaches its end as the next slide appears. The navigation callbacks defer `api.play()` to the next
-frame, letting Ark first handle the manual change that pauses autoplay; a fresh interval then starts without exposing
-a separate play control. Ark pauses autoplay while the document is hidden; this recipe uses the public `api.play()`
-method to resume it when the document becomes visible again.
+## Use it in a page
+
+The copied recipe is ready to adapt:
+
+- Replace the `slides` data with your own images, labels, titles, descriptions, and alternative text. Keep each
+  `id` stable and keep `slideCount` in sync with `slides.length`.
+- Update `aria-label` so it describes the purpose of your carousel, not the demo content.
+- Keep `autoplay.delay` and the progress animation duration in sync. This recipe uses `3500` milliseconds and a `3.5s`
+  CSS animation, so the indicator finishes filling as the next slide appears.
+- Replace the Unsplash URLs before shipping the recipe. Use an image source that your application controls and that
+  matches your loading, caching, and content requirements.
+
+Adjust `slidesPerPage`, `spacing`, and `padding` to change how much of the neighbouring slide is visible and how the
+gallery sits within its container.
+
+## How it works
+
+The recipe uses two `Carousel.Context` blocks over the same root. The first reads the carousel API to mark the active
+slide and render the previous and next controls. The second builds the progress indicators from
+`api.pageSnapPoints` and marks the current indicator with `data-current`.
+
+Arrow and indicator clicks call `requestAnimationFrame(api.play)`. Manual navigation pauses autoplay, so starting it on
+the next frame lets the page change finish before a fresh interval begins. Touch and wheel interaction pause autoplay as
+well. If your product needs playback to resume after those interactions, add that behavior to your own interaction
+flow or expose `Carousel.AutoplayTrigger`.
+
+Ark pauses autoplay while the document is hidden. The recipe listens for `visibilitychange` and calls the public
+`api.play()` method when the document becomes visible again.
+
+## Accessibility and motion
+
+Keep an accessible name on the root with `aria-label` or `aria-labelledby`. Give meaningful images useful `alt` text;
+use `alt=""` when an image is decorative and the adjacent slide copy already provides the information. Keep the
+previous and next buttons and the indicators available so users do not have to wait for the timer.
+
+The recipe removes slide transitions and the indicator animation when `prefers-reduced-motion: reduce` is active. The
+autoplay timer still advances the carousel. If users need to stop automatic changes, add
+`Carousel.AutoplayTrigger` or remove the `autoplay` prop for that use case. See the [Carousel documentation](/docs/carousel)
+for the autoplay controls and the full component API.

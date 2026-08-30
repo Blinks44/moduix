@@ -1,16 +1,20 @@
 ---
 title: TanStack Form
-description: Integrate moduix native and compound controls with TanStack Form.
+description: Integrate moduix controls with TanStack Form, including validation, reset, arrays, server errors, and focus management.
 ---
 
 # TanStack Form
 
 [TanStack Form documentation](https://tanstack.com/form/latest/docs/framework/react/overview) covers
-the complete React API and validation model. This page focuses on mapping moduix controls.
+the complete React API and validation model. This page shows how to connect moduix controls to a
+TanStack form.
 
-TanStack Form fields are controlled. Pass `field.state.value` to the component, then map the
-component callback back to `field.handleChange`. Ark compound controls render their own native form
-control when they need one, so never add a separate hidden input.
+TanStack Form fields use controlled values. Pass `field.state.value` to the control, then send the
+value from its change callback to `field.handleChange`. `Select`, `Checkbox`, `DateInput`, and
+`SignaturePad` create the native form control they need for form submission. Do not add a second
+hidden input for these components. `Combobox` is different: it does not create an additional hidden
+input. Its visible input can participate in `FormData`, but serialize `field.state.value` yourself
+when the submitted value must be the selected item.
 
 ```bash
 npm install @tanstack/react-form
@@ -18,39 +22,44 @@ npm install @tanstack/react-form
 
 ## Mapping
 
-| Control                                         | TanStack Form wiring                                                      |
-| ----------------------------------------------- | ------------------------------------------------------------------------- |
-| `Input`, `Textarea`, `Field.Select`              | Pass `field.state.value` and map the native change event.                 |
-| `Select`                                        | Convert the scalar field value to and from Ark's string-array `value`.    |
-| `Combobox`                                      | Use the same value mapping and keep filtering in `onInputValueChange`.    |
-| `Checkbox`                                      | Map `details.checked === true` to the boolean field value.                |
-| Automatic native controls                       | Pass semantic root props such as `name` or `form`; moduix owns the input. |
+| Control                          | TanStack Form wiring                                                              |
+| -------------------------------- | --------------------------------------------------------------------------------- |
+| `Input`, `Textarea`, `Field.Select` | Pass the scalar `field.state.value` and call `field.handleChange` from `onChange`. |
+| `Select`                         | Convert the scalar field value to and from Ark's string-array `value`.             |
+| `Combobox`                       | Use the same value mapping and keep filtering in `onInputValueChange`.             |
+| `Checkbox`                       | Map `details.checked === true` to the boolean field value.                         |
+| `DateInput`, `SignaturePad`      | Pass form props such as `name` or `form` to the root; the component owns the input. |
+
+The same native-input rule applies to `AngleSlider`, `ColorPicker`, `FileUpload`, `PinInput`,
+`RadioGroup`, `RatingGroup`, `SegmentGroup`, `Slider`, `Switch`, and `TagsInput`. Pass form-related
+props such as `name`, `form`, `required`, and `disabled` to their semantic root.
 
 Define every field in `defaultValues`. Call `field.handleBlur` from the actual interaction
 boundary so touched state and blur validation remain accurate.
 
 Subscribe to `state.canSubmit` and `state.isSubmitting` for the submit button, as the complete
-example does. Keep the values visible, block invalid submission, and disable duplicate submission
-until the async `onSubmit` handler settles.
+example does. Keep the form state as the source of truth, block invalid submission, and disable
+duplicate submissions until the async `onSubmit` handler settles.
 
 ## Validation and reset
 
 Use a field validator for local rules and a form-level Standard Schema validator for shared or
-cross-field rules. The component mapping below stays the same. The example validates on submit;
-when you validate on blur or input, show `Field.ErrorText` and set `Field invalid` after the field
-has been touched, rather than marking every initially empty required field as invalid.
+cross-field rules. The control mapping stays the same. The complete example validates on submit. If
+you validate on blur or input, render `Field.ErrorText` and set the `invalid` prop on `Field` only
+after the user has interacted with the field, so initially empty required fields are not all shown as
+invalid.
 
-`noValidate` is appropriate only when TanStack Form owns the visible error flow. Otherwise leave
-native constraint validation enabled. Use `form.reset()` for controlled fields so the library state
-and moduix controls reset together; a DOM reset alone cannot replace the controlled value stored by
-the form.
+Use `noValidate` only when TanStack Form owns the visible error flow. Otherwise leave native
+constraint validation enabled. Use `form.reset()` for controlled fields so the library state and
+moduix controls reset together; a DOM reset alone cannot replace the controlled value stored by the
+form.
 
 ## Complete form
 
 This example integrates `Input`, `Select`, `Combobox`, `Textarea`, and `Checkbox`, validates on
-submit, focuses the first invalid control, and subscribes only to submit readiness and pending
-state. `noValidate` keeps the demo's error flow inside TanStack Form; omit it when native browser
-validation should run first.
+submit, focuses the first invalid control, and subscribes only to whether submission is allowed and
+whether it is pending. `noValidate` keeps the demo's error flow inside TanStack Form; remove it when
+native browser validation should run first.
 
 <style>{`
       .form {
@@ -88,10 +97,10 @@ validation should run first.
 
 ## Repeated fields
 
-Use an array-mode field as the owner of add and remove operations, and render a nested field for
-each value. A user-created item should also have its own persistent `id`; use it as the React key
-while the index remains part of the nested field name. Wrap the list in `Fieldset` when it has a
-shared label. This fragment is rendered in the component where `form` was created.
+Use an array-mode field to own add and remove operations, then render a nested field for each item.
+Give every item, including items created on the client, a stable `id`. Use it as the React key while
+the index remains part of the nested field name. Wrap the list in `Fieldset` when it has a shared
+label. Render this fragment in the component where `form` was created.
 
 ```tsx
 const newEmail = () => ({ id: crypto.randomUUID(), address: '' });
@@ -133,9 +142,9 @@ creating new client-side rows.
 
 ## Server errors
 
-To display errors returned by the server, put an asynchronous submit validator on the form. Return
+To display errors returned by the server, add an asynchronous submit validator to the form. Return
 `fields` with the exact rejected field names and an optional `form` message for errors that do not
-belong to one field. The normal `field.state.meta.errors` rendering then shows field errors without a
+belong to one field. The usual `field.state.meta.errors` rendering then shows field errors without a
 separate error store.
 
 ```tsx
@@ -171,8 +180,8 @@ const form = useForm<ProjectFormValues>({
 
 ## Focus management
 
-TanStack Form does not choose a DOM focus target. Use `onSubmitInvalid` to move focus to the first
-rendered control that your `Field invalid` mapping marks with `aria-invalid="true"`:
+TanStack Form does not manage DOM focus or choose a focus target. Use `onSubmitInvalid` to move focus
+to the first rendered control that your `Field` configuration marks with `aria-invalid="true"`:
 
 ```tsx
 function focusFirstInvalid(formId: string) {
@@ -186,12 +195,20 @@ function focusFirstInvalid(formId: string) {
 }
 
 const form = useForm({
-  defaultValues,
-  onSubmit,
+  defaultValues: { email: '' },
+  onSubmit: ({ value }) => console.log(value),
   onSubmitInvalid: () => focusFirstInvalid('project-form'),
 });
 
-<form id="project-form">{/* fields */}</form>;
+<form
+  id="project-form"
+  onSubmit={(event) => {
+    event.preventDefault();
+    void form.handleSubmit();
+  }}
+>
+  {/* fields */}
+</form>;
 ```
 
 Forward focus to the actual control: the native Input, `Select.Trigger`, or `Combobox.Input`.
@@ -209,10 +226,13 @@ Forward focus to the actual control: the native Input, `Select.Trigger`, or `Com
   automatically.
 - `name={field.name}` enables native `FormData` semantics but does not replace the field's controlled
   `state.value` and `handleChange` mapping.
-- For the other automatic controls, keep exceptional form configuration on their roots: `DateInput`
-  uses a two-item `names` tuple for distinct indexed range keys, `Select` uses
+- `Combobox` does not render a hidden input. Its visible input can be part of `FormData`; add an
+  explicit input when the submitted value must be the selected item, or submit the controlled form
+  state instead.
+- For controls with special form options, keep the configuration on their roots: `DateInput` uses a
+  two-item `names` tuple for distinct indexed range keys, `Select` uses
   `nativeFormControl="input"` for virtualized collections, and `SignaturePad` uses `getFormValue`
   for custom serialization.
-- TanStack Form intentionally does not manage DOM focus. If you want to focus the first invalid
-  field, implement it in `onSubmitInvalid` using the rendered `aria-invalid` controls.
+- Do not spread a field object onto `Select` or `Combobox`. Their values and callbacks use Ark detail
+  objects, so map them explicitly as shown above.
 - Use `form.Subscribe` for derived form state instead of reading `form.state` during render.

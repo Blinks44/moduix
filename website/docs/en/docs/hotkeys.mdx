@@ -1,15 +1,15 @@
 ---
 title: Hotkeys
-description: Register platform-aware keyboard shortcuts, sequences, and commands with Ark UI Hotkeys and moduix.
+description: Use Ark UI Hotkeys to register platform-aware keyboard shortcuts, sequences, and commands in a moduix application.
 ---
 
-## API Reference
+## API reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/hotkeys" />
 
 ## When to use it
 
-Use Hotkeys to register keyboard commands such as saving a draft, opening search, or navigating a workspace. The hook listens on the document and removes its registration when the component unmounts.
+Hotkeys is Ark UI's utility for registering keyboard commands. Use it for actions such as saving a draft, opening search, or navigating a workspace. `useHotkey` listens for keyboard events on the document and removes its registration when the component unmounts.
 
 Import the hooks directly from Ark UI:
 
@@ -17,9 +17,9 @@ Import the hooks directly from Ark UI:
 import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/react';
 ```
 
-## Basic
+## Basic shortcut
 
-Use `mod` instead of choosing Control or Command yourself. After the page mounts, `useFormatHotkey` renders the label for the visitor's platform.
+Use `mod` instead of choosing Control or Command yourself. The same shortcut works on macOS, Windows, and Linux. After the component mounts, `useFormatHotkey` displays the notation used by the visitor's platform.
 
 <PreviewFrame maxWidth="sm">
 
@@ -28,11 +28,13 @@ Use `mod` instead of choosing Control or Command yourself. After the page mounts
 
 </PreviewFrame>
 
-When an application needs to handle a familiar browser shortcut itself, add `preventDefault`; otherwise the browser may handle it too.
+When your application needs to handle a shortcut normally reserved for the browser, add `preventDefault`. Otherwise, the browser may perform its own action as well.
 
 ## Multiple shortcuts and sequences
 
-Use `useHotkeys` when a screen has several commands or commands come from data. Separate a sequence with `>`, such as `g > i`. By default, the user has one second to complete it.
+Use `useHotkeys` when a screen has several commands or the command list comes from data. It accepts an array of commands. Each command needs a `hotkey` and an `action`; add `label`, `category`, or `keywords` when another part of the application needs command metadata.
+
+Separate the keys in a sequence with `>`, such as `g > i`. By default, the user has one second to press the next key.
 
 <PreviewFrame maxWidth="sm">
 
@@ -43,7 +45,7 @@ Use `useHotkeys` when a screen has several commands or commands come from data. 
 
 ## Form fields and scopes
 
-Single-key shortcuts ignore `input`, `textarea`, and `select` elements by default, while shortcuts with a modifier still work. Enable them in form fields only when it is intentional:
+Single-key shortcuts are ignored while focus is in an `input`, `textarea`, or `select` by default. Shortcuts with a modifier still work, so `mod+S` can save a form. Enable a single-key shortcut in form fields only when that behavior is intentional:
 
 ```tsx
 useHotkey({
@@ -53,12 +55,48 @@ useHotkey({
 });
 ```
 
-For independent areas of an application, create a stable hotkey store outside the component or memoize it. Scopes activate only the commands relevant to the current area or command palette.
+Use `scopes` to limit a command to a part of the application. The command fires only when one of its scopes is active.
+
+## Create a dedicated store
+
+Create a store when different parts of the application need independent commands or different defaults. Keep it outside the component or memoize it. A store created during render is recreated on every render and loses its registrations.
+
+```tsx
+import { createHotkeyStore, useHotkey } from '@ark-ui/react';
+
+const editorHotkeys = createHotkeyStore({
+  activeScopes: ['editor'],
+  sequenceTimeoutMs: 800,
+});
+
+function Editor() {
+  const save = () => {
+    // Save the current document.
+  };
+
+  useHotkey({
+    action: save,
+    hotkey: 'mod+S',
+    scopes: ['editor'],
+    store: editorHotkeys,
+  });
+}
+```
+
+Call `editorHotkeys.setScope('preview')` when the active part of the application changes. Pass the same store to `useHotkeys` or `useHotkey` to keep their commands in one isolated registry.
+
+## Displaying a shortcut
+
+`useFormatHotkey` returns a formatter for the current platform. For example, `mod+K` becomes `⌘ K` on macOS and `Ctrl K` elsewhere. In an SSR application, use this hook inside a component instead of importing `formatHotkey` directly during render. This keeps the server and browser markup consistent during hydration.
+
+## Other useful options
+
+Use `enabled` to turn a command on or off. It can be a function when the value must be read from current application state without re-registering the command. Set `options.eventType` to `'keyup'` to run an action when the key is released, and use `usePressedKeys` or `useIsKeyPressed` when a held key changes the interaction.
 
 ## Using moduix
 
-Use moduix `Kbd` to make shortcuts easy to scan, and place it beside the related action. `Card`, `Stack`, and `Button` keep shortcut hints visually connected to the controls they describe.
+Use moduix `Kbd` to make shortcuts easy to scan, and place it beside the related action. `Card`, `Stack`, and `Button` keep shortcut hints visually connected to the controls they describe. These components display the hint; Ark UI Hotkeys still handles registration and keyboard events.
 
-## Responsibilities
+## What belongs in your application
 
-Hotkeys registers and formats keyboard shortcuts. Build command palettes, persistence, and application navigation in your application.
+Hotkeys registers commands, matches key presses, formats shortcut labels, and manages scopes. `useHotkeyRegistrations` exposes the registered commands and their metadata, which can keep a command palette in sync with the hotkey registry. Your application owns command side effects, the command-palette UI, persistence, and navigation.

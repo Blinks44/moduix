@@ -1,15 +1,18 @@
 ---
-title: File uploads
-description: An attachment surface with drag-and-drop, file validation, and removable file selections.
+title: File upload manager
+description: Build an attachment manager with drag-and-drop, file validation, previews, and removal.
 ---
 
 import { FileUploadManagerPreview } from '@/components/recipes/file-upload-manager-preview';
 
-# File uploads
+# File upload manager
 
-Add a polished attachment surface with drag-and-drop, a native file picker, file limits, and clear
-feedback when a file is not accepted. The recipe manages the local list only: connect your own upload
-mutation where the product needs to send files to a server.
+Use this recipe when a form or workflow needs a clear place to add and review attachments. It accepts
+PDF, DOC, DOCX, PNG, and JPG files up to 10 MB, shows up to five accepted files, and lets users remove
+one file or clear the whole list. Rejected files stay visible with their validation errors.
+
+The recipe manages selection and the local file list only. It does not send files to a server or track
+upload progress. Connect `onFileChange` to the form or upload request in the feature that owns the data.
 
 <ExampleFrame clientOnly>
   <FileUploadManagerPreview />
@@ -20,14 +23,12 @@ mutation where the product needs to send files to a server.
     <Tab value="Component">
 
 ```tsx file="../../../src/components/recipes/file-upload-manager.tsx"
-
 ```
 
     </Tab>
     <Tab value="Styles">
 
 ```css file="../../../src/components/recipes/file-upload-manager.module.css"
-
 ```
 
     </Tab>
@@ -38,21 +39,24 @@ mutation where the product needs to send files to a server.
 
 <ShadcnInstall packageName={['card', 'file-upload']} itemKind="recipe" copiedSource />
 
-## Upload
+Install the `card` and `file-upload` pieces, then copy the recipe source and styles into your application.
 
-`FileUpload` keeps the selected files in its local state. Add `onFileChange` to the root when your
-route needs to pass `details.acceptedFiles` to a form action or upload mutation. Keep the progress
-and completion state next to that real request rather than simulating it in the recipe.
+## Connect an upload request
 
-Client validation improves feedback, but the server must validate file type, size, content, and
-authorization again. Treat the selected `File` as untrusted input.
+`FileUpload` keeps the selected files in its local state. Add `onFileChange(details)` to the root when
+your form or upload request needs the current selection, and pass `details.acceptedFiles` to that logic.
+Track progress and completion alongside the real request instead of simulating them in the recipe.
+
+Browser-side validation improves feedback, but it does not replace server-side validation. The server
+must validate the file type, size, content, and authorization again. Treat every selected `File` as
+untrusted input.
 
 | Upload state | Show to the user                                                        |
 | ------------ | ----------------------------------------------------------------------- |
-| Selected     | File name, size, removal action, and an explicit upload or form submit.  |
-| Uploading    | Progress when known, a pending label, and disabled duplicate submission. |
-| Failed       | The server message when safe, plus retry and remove actions.              |
-| Complete     | A stable success state using the server's stored file identifier.         |
+| Selected     | File name, size, a removal action, and an explicit upload or form submit. |
+| Uploading    | Progress when known, a pending status, and disabled duplicate submission. |
+| Failed       | The server message when safe, plus retry and remove actions.               |
+| Complete     | A stable success state with the file identifier stored by the server.     |
 
-If files upload immediately after selection, keep an application-owned ID for each request so a
-retry updates the same row and removing one file does not cancel the others.
+If files upload immediately after selection, assign an ID to each request in your application. A retry
+can then update the same row, and removing one file does not cancel the others.

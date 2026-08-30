@@ -48,6 +48,9 @@ function BrowserDetailsFallback() {
           <Skeleton height="1rem" width="50%" />
         </Stack>
       </Card.Body>
+      <Card.Footer>
+        <Skeleton height="2.25rem" width="5rem" />
+      </Card.Footer>
     </Card>
   );
 }

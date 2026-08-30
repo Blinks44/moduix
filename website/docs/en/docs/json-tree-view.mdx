@@ -1,7 +1,7 @@
 ---
 title: JSON Tree View
 component: json-tree-view
-description: Inspect JSON and JavaScript values in an accessible, expandable tree with moduix JsonTreeView.
+description: Inspect JSON and JavaScript values in an accessible, expandable tree with JsonTreeView from moduix.
 ---
 
 ## API Reference
@@ -10,13 +10,18 @@ description: Inspect JSON and JavaScript values in an accessible, expandable tre
 
 ## Choosing the right component
 
-Use `JsonTreeView` to inspect unknown or JSON-like data without building a recursive renderer. Choose `TreeView` when
-you need typed nodes, labels, icons, links, editing, or custom branch content.
+Use `JsonTreeView` when you already have a JavaScript value and need to inspect it without writing a recursive
+renderer. Choose `TreeView` when you own the node model and need custom labels, icons, links, renaming, or branch
+content.
 
 ## Basic
 
-Pass data to `JsonTreeView` and render its `Tree` part. moduix styles the rows, indentation, focus, and default
-disclosure icon; Ark generates the nodes from the provided value.
+Pass any JSON-like JavaScript value through `data`, then render `<JsonTreeView.Tree />` inside the component.
+`JsonTreeView` generates the object, array, and value nodes for you. moduix styles the rows, indentation, focus
+states, and default disclosure icon.
+
+The example starts with two levels expanded. Use `defaultExpandedDepth` to choose how much of a response or
+configuration should be visible on the first render.
 
 <PreviewFrame maxWidth="lg">
 
@@ -39,21 +44,27 @@ JsonTreeView / JsonTreeView.Root
 
 | Part | Role |
 | --- | --- |
-| `JsonTreeView` / `JsonTreeView.Root` | Manages the data, generated tree collection, and Ark tree state. |
-| `JsonTreeView.RootProvider` | Connects `useJsonTreeView` state created outside the rendered tree. |
-| `JsonTreeView.Tree` | Renders generated object, array, and value nodes. |
+| `JsonTreeView` / `JsonTreeView.Root` | Owns the data, generated tree collection, and Ark tree state. |
+| `JsonTreeView.RootProvider` | Connects a `useJsonTreeView` state instance created outside the rendered tree. |
+| `JsonTreeView.Tree` | Renders the generated object, array, and value nodes. |
 
 ## Composition
 
 ### Recommended composition
 
-Use the `<JsonTreeView>` shorthand with `<JsonTreeView.Tree />`. It is equivalent to
-`<JsonTreeView.Root>`, and `Tree` renders the JSON nodes automatically.
+Use the `<JsonTreeView>` shorthand with `<JsonTreeView.Tree />` for a regular data inspector. It is equivalent to
+`<JsonTreeView.Root>`, while `Tree` renders the JSON nodes automatically.
 
-### Root provider
+### When to go custom
 
-Use `useJsonTreeView` and `RootProvider` only when controls outside the tree need the Ark state or methods. Do not
-render `Root` and `RootProvider` for the same state instance.
+Use `TreeView` when the application needs to decide how branches and items are rendered. If the generated structure
+is right but individual values need a different presentation, use `renderValue` on `JsonTreeView.Tree`.
+
+### RootProvider
+
+Use `useJsonTreeView` when controls outside the tree need to read or change its state, such as the expanded or
+selected nodes. Pass the returned state to `RootProvider` and render `Tree` inside it. Do not render `Root` and
+`RootProvider` for the same state instance.
 
 ```tsx
 import { JsonTreeView, useJsonTreeView } from '@moduix/react/json-tree-view';
@@ -69,18 +80,30 @@ function InspectResponse({ data }: { data: unknown }) {
 }
 ```
 
+### Common options
+
+| Prop | Use it for |
+| --- | --- |
+| `defaultExpandedDepth` | Choose the initial number of expanded levels. |
+| `maxPreviewItems` | Limit the number of items shown in object and array previews. |
+| `collapseStringsAfterLength` | Shorten long string previews until a node is expanded. |
+| `groupArraysAfterLength` | Group items in long array previews. |
+| `renderValue` | Replace the default rendering for individual values. |
+| `translations` | Provide localized accessible labels and state text. |
+
 ### Behavioral notes
 
 Ark supports objects, arrays, primitives, and JavaScript values such as `Date`, `Map`, `Set`, `Error`, functions,
-and regular expressions. It also implements the WAI-ARIA tree pattern, including roving focus, arrow-key navigation,
-expansion, selection, and callbacks for controlled state.
+and regular expressions. The component follows the WAI-ARIA tree pattern with roving focus, arrow-key navigation,
+expansion, and selection. When the application owns state, control `expandedValue`, `selectedValue`, `checkedValue`,
+or `focusedValue` and update it from the corresponding change callback.
 
 ## Examples
 
 ### Compact previews
 
-Limit previews of long strings and collections when inspecting data rather than reading every value. Expand a node to
-see its complete value.
+Use `maxPreviewItems` to limit object and array previews, and `collapseStringsAfterLength` to shorten long strings.
+Users can expand a node to inspect its complete value.
 
 <PreviewFrame maxWidth="lg">
 
@@ -89,15 +112,13 @@ see its complete value.
 
 </PreviewFrame>
 
-### Expanded depth
-
-Use `defaultExpandedDepth` to set the initial expanded depth. One or two levels are usually enough for a response or
-configuration payload; deeper expansion can make large data difficult to scan.
-
 ## Styling
 
-Use `className` on `Root`, `RootProvider`, or `Tree` for local layout changes. Generated nodes preserve Ark's
-`data-scope="json-tree-view"` and `data-part` attributes, while moduix adds the stable
+Use `className` on `Root`, `RootProvider`, or `Tree` for local layout changes. `JsonTreeView.Tree` uses the
+`ChevronRightIcon` supplied by moduix when `arrow` is omitted; pass your own `arrow` when the inspection surface
+needs a different disclosure icon.
+
+Generated nodes preserve Ark's `data-scope="json-tree-view"` and `data-part` attributes. moduix adds the stable
 `data-slot="json-tree-view-root"`, `json-tree-view-root-provider`, and `json-tree-view-tree` hooks.
 
 The component uses foundation tokens directly, without a separate `--moduix-json-tree-view-*` variable layer. Add a

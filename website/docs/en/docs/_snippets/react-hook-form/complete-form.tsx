@@ -44,14 +44,14 @@ export default function ProjectForm() {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-  } = useForm({
+  } = useForm<FormValues>({
     defaultValues: {
       name: '',
       team: '',
       reviewer: '',
       summary: '',
       notifications: false,
-    } as FormValues,
+    },
   });
 
   return (
@@ -183,7 +183,6 @@ export default function ProjectForm() {
                 name={field.name}
                 checked={field.value}
                 onCheckedChange={(details) => field.onChange(details.checked === true)}
-                ref={field.ref}
                 onBlur={field.onBlur}
               >
                 <Checkbox.Control />

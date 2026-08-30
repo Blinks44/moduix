@@ -1,22 +1,27 @@
 ---
 title: Connexion
-description: Un formulaire de connexion par e-mail et mot de passe, construit avec les composants React moduix.
+description: Un formulaire de connexion par e-mail et mot de passe composé avec les composants React de moduix.
 ---
 
 import { LoginSimplePreview } from '@/components/recipes/login-simple-preview';
 
 # Connexion
 
-Un formulaire compact avec e-mail et mot de passe, validation native, option « Se souvenir de moi » et liens
-clairs pour récupérer l’accès au compte. L’authentification n’y est volontairement pas intégrée : passez
-`onSubmit` pour y brancher votre propre action ou API.
+Cette recette propose un formulaire de connexion compact avec validation native du navigateur,
+autocomplétion de l’e-mail et du mot de passe, ainsi que des liens pour récupérer l’accès au compte et
+pour s’inscrire. Elle utilise les composants moduix `Card`, `Field`, `Input`, `Checkbox` et `Button`.
+Elle ne gère ni l’authentification ni l’état de la requête. Branchez ces éléments dans votre application
+via `onSubmit`.
 
 <ExampleFrame clientOnly>
   <LoginSimplePreview />
 </ExampleFrame>
 
+L’aperçu empêche l’envoi standard du formulaire et n’appelle donc aucune API d’authentification. La recette
+copiée transmet `onSubmit` au formulaire natif et laisse votre application gérer l’authentification.
+
 <div className="docs-reference">
-  <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+  <Tabs values={[{ label: 'Composant', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="Component">
 
 ```tsx file="../../../src/components/recipes/login-simple.tsx"
@@ -38,16 +43,48 @@ clairs pour récupérer l’accès au compte. L’authentification n’y est vol
 
 <ShadcnInstall packageName={['button', 'card', 'checkbox', 'field', 'input']} itemKind="recipe" copiedSource />
 
-## Dans une route
+## Connecter le formulaire à l’authentification
 
-Affichez `LoginSimple` dans la route qui gère l’authentification et passez-lui le véritable gestionnaire
-d’envoi du formulaire. Remplacez les liens `/forgot-password` et `/sign-up` par les routes de l’application.
+`LoginSimple` transmet `onSubmit` à l’élément `<form>` natif. Le gestionnaire reçoit l’événement habituel
+du formulaire : appelez `event.preventDefault()`, créez un `FormData` à partir de `event.currentTarget`,
+puis envoyez-le à votre API. Les champs du formulaire s’appellent `email`, `password` et `remember` ;
+`remember` n’est envoyé que si la case est cochée.
 
-| Résultat | Comportement de la route |
-| -------- | ------------------------ |
-| Envoi | Désactivez les envois en double et attribuez au bouton le libellé `Signing in…`. |
-| Informations incorrectes | Affichez une seule erreur de formulaire, sans préciser ce qui est incorrect. |
-| Erreur réseau | Conservez l’e-mail et proposez de réessayer ; n’effacez pas le mot de passe sans nécessité. |
-| Réussite | Remplacez l’entrée de l’historique ou redirigez vers une page sûre, choisie par l’application. |
+```tsx
+import type { FormEvent } from 'react';
+import { LoginSimple } from './login-simple';
 
-Validez sur le serveur toute URL `returnTo` ou de redirection avant d’y naviguer.
+export function SignInRoute() {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const response = await fetch('/api/sign-in', {
+      method: 'POST',
+      body: new FormData(event.currentTarget),
+    });
+
+    if (!response.ok) {
+      // Show a form-level error and keep the entered email.
+      return;
+    }
+
+    window.location.assign('/dashboard');
+  }
+
+  return <LoginSimple onSubmit={handleSubmit} />;
+}
+```
+
+Remplacez `/api/sign-in` et `/dashboard` par les routes de votre application. Dans la recette copiée,
+remplacez également les liens `/forgot-password` et `/sign-up`.
+
+## À prévoir en production
+
+| Situation | À faire |
+| --------- | ------- |
+| Requête en cours | Désactivez le bouton d’envoi et empêchez les envois en double pendant la requête. |
+| Identifiants incorrects | Affichez un message général au niveau du formulaire, sans préciser si l’e-mail ou le mot de passe est incorrect. |
+| Erreur réseau | Conservez l’e-mail saisi et permettez une nouvelle tentative. N’effacez le mot de passe que si les règles de sécurité de votre application l’exigent. |
+| Connexion réussie | Redirigez vers une route sûre ou remplacez l’entrée courante dans l’historique, selon le parcours de votre application. |
+
+Si votre application accepte un paramètre `returnTo` ou une URL de redirection, validez cette valeur côté serveur avant toute navigation.

@@ -1,6 +1,6 @@
 ---
 title: Highlight
-description: Mettez en évidence les mots et expressions trouvés par Ark UI avec les styles moduix pour mark.
+description: Mettez en évidence des mots et des expressions dans un texte existant avec des éléments mark natifs et les styles moduix.
 ---
 
 import * as HighlightDocs from '@/components/examples/highlight';
@@ -11,14 +11,17 @@ import * as HighlightDocs from '@/components/examples/highlight';
 
 ## Choisir le bon composant
 
-Utilisez `Highlight` pour mettre en évidence un ou plusieurs termes de recherche sans interrompre le flux du texte.
+Utilisez `Highlight` pour mettre en évidence des termes de recherche dans un texte qui possède
+déjà un conteneur sémantique. Le composant rend les segments correspondants sans ajouter son
+propre conteneur de mise en page.
 
-- Choisissez **`Highlight`** pour mettre en évidence les correspondances dans une phrase ou un libellé existant.
-- Choisissez **`Text`** lorsque la ligne entière a seulement besoin d’un style typographique, sans recherche de correspondances.
+- Choisissez **`Highlight`** lorsqu’un ou plusieurs termes doivent ressortir dans une phrase, un libellé ou un bloc de texte existant.
+- Choisissez **`Text`** lorsque toute la chaîne a seulement besoin d’un style typographique, sans recherche de correspondances.
 
 ## Exemple de base
 
-Utilisez `Highlight` dans un conteneur de texte qui définit déjà la mise en page et la sémantique. Le composant ne stylise que les correspondances et n’ajoute pas de conteneur autour de toute la phrase.
+Transmettez le texte source complet via `text` et le terme recherché via `query`. Placez `Highlight`
+dans le composant de texte ou l’élément HTML qui définit la mise en page et la sémantique autour du texte.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/highlight/basic.tsx"
@@ -32,50 +35,64 @@ Utilisez `Highlight` dans un conteneur de texte qui définit déjà la mise en p
 
 ## Anatomie
 
-`Highlight` ne possède qu’une partie racine, mais son contrat s’applique à chaque segment natif `<mark>` correspondant. Le texte sans correspondance reste constitué de nœuds de texte ordinaires dans le flux environnant.
+`Highlight` n’expose qu’une racine publique. Il renvoie un fragment sans ajouter de conteneur
+supplémentaire. Chaque segment correspondant devient un élément natif `<mark>`, tandis que le texte
+sans correspondance reste du texte ordinaire dans le flux environnant.
 
 ```text
 Highlight / Highlight.Root
-└─ repeated <mark> segments for matched ranges inside the provided text
+└─ segments correspondants rendus dans des éléments <mark> successifs
 ```
 
-| Partie                         | Rôle                                                                                                  |
-| ------------------------------ | ----------------------------------------------------------------------------------------------------- |
-| `Highlight` / `Highlight.Root` | Applique les styles moduix de `mark` à chaque plage correspondante dans le texte fourni.              |
+| Partie                         | Rôle                                                                  |
+| ------------------------------ | --------------------------------------------------------------------- |
+| `Highlight` / `Highlight.Root` | Applique les styles moduix à chaque correspondance du texte fourni. |
 
 ## Composition
 
 ### Composition recommandée
 
-Utilisez la forme racine courte `<Highlight>` dans `Text`, `Heading`, un élément de liste ou un autre conteneur de texte. Elle est équivalente à `<Highlight.Root>`.
+Utilisez la forme courte `<Highlight>` dans `Text`, `Heading`, un élément de liste, une cellule de
+tableau ou tout autre conteneur qui contient le texte. Elle équivaut à `<Highlight.Root>`.
 
 ### Quand créer une composition personnalisée
 
-`Highlight` affiche volontairement des éléments natifs `<mark>` pour les plages correspondantes et ne fournit pas de moteur de rendu de fragments. Si chaque correspondance exige un autre élément ou rendu, composez directement ce balisage au lieu d’ajouter une seconde API de rendu à `Highlight`.
+Utilisez `Highlight` lorsque chaque correspondance peut être rendue dans un élément natif `<mark>`.
+Si les correspondances doivent utiliser des éléments différents, recevoir un comportement interactif
+ou contenir un contenu spécifique, construisez cette structure dans votre propre composant. Le composant
+moduix ne fournit volontairement pas d’API de rendu personnalisé pour chaque segment.
 
 ### Propriétés par défaut
 
-| Propriété     | Valeur par défaut                                   | Remarques                                                                  |
-| ------------- | --------------------------------------------------- | -------------------------------------------------------------------------- |
-| `query`       | -                                                   | Chaîne ou tableau de chaînes contenant les termes à mettre en évidence.    |
-| `text`        | -                                                   | Chaîne source complète obligatoire.                                        |
-| `ignoreCase`  | `false`                                             | Rend la recherche insensible à la casse.                                   |
-| `matchAll`    | `false` pour une chaîne ; `true` pour un tableau    | Met en évidence toutes les correspondances. `true` est requis avec un tableau. |
-| `exactMatch`  | `false`                                             | Limite la recherche aux mots entiers correspondant exactement.             |
+| Propriété     | Valeur par défaut                    | Remarques                                                     |
+| ------------- | ------------------------------------ | ------------------------------------------------------------- |
+| `query`       | -                                    | Chaîne ou tableau de chaînes à rechercher.                    |
+| `text`        | -                                    | Texte source complet obligatoire.                             |
+| `ignoreCase`  | `false`                              | Ignore la casse pendant la recherche.                        |
+| `matchAll`    | `false` pour une chaîne ; `true` pour un tableau | Met en évidence chaque correspondance. Avec un tableau, la valeur `false` provoque une erreur. |
+| `exactMatch`  | `false`                              | Recherche des mots entiers, et non des fragments de mots.    |
 
 ### Comportement
 
-`className`, `style`, `title`, `id` et les autres propriétés de l’élément `mark` s’appliquent à chaque `<mark>` correspondant. Si la requête ne correspond à rien, le composant affiche uniquement du texte ordinaire, sans élément `mark`.
+`className`, `style`, `title`, `id` et les autres propriétés de `<mark>` s’appliquent à chaque
+segment correspondant. Lorsque rien ne correspond, `Highlight` affiche le texte source sans aucun
+élément `<mark>`.
 
-`Highlight` ne possède ni cible de ref, ni machine à états, ni callback, ni intégration avec `Field`/`Fieldset`, ni `HiddenInput`, ni `ids`, ni hook de contexte, ni `RootProvider`.
+`Highlight` n’ajoute pas de conteneur et ne gère ni l’état, ni le focus, ni les interactions au clavier,
+ni le comportement des formulaires. Les attributs `data-*` stables de moduix sur chaque élément
+correspondant sont décrits dans la section [Styles](#styles).
 
-`exactMatch` utilise la détection Ark fondée sur les limites de mots JavaScript. Elle fonctionne de manière fiable pour les mots latins, mais ne reconnaît pas le cyrillique ni certaines autres écritures non ASCII comme des mots entiers. Si cette différence est importante, utilisez avant le rendu un moteur de recherche sensible à la langue.
+`exactMatch` utilise les limites de mots de JavaScript. Cela fonctionne de manière fiable pour le
+texte latin, mais ces limites ne reconnaissent pas le cyrillique ni certaines autres écritures non ASCII
+comme des mots entiers. Si la recherche de mots entiers doit fonctionner pour ces écritures, effectuez-la
+avec une logique adaptée à la langue, puis affichez vous-même le résultat.
 
 ## Exemples
 
 ### Requête dynamique
 
-Pilotez la requête depuis l’état React lorsque les utilisateurs filtrent ou recherchent du texte visible.
+Contrôlez `query` avec l’état React pour mettre en évidence le terme saisi pendant une recherche ou
+un filtrage du texte affiché.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/highlight/dynamic-query.tsx"
@@ -86,7 +103,8 @@ Pilotez la requête depuis l’état React lorsque les utilisateurs filtrent ou 
 
 ### Correspondance exacte
 
-Activez `exactMatch` lorsque les correspondances partielles dans un texte latin génèrent trop de bruit. Pour le cyrillique et les autres écritures non ASCII, utilisez plutôt un moteur de recherche sensible à la langue.
+Activez `exactMatch` lorsque les correspondances partielles sont trop larges. Dans cet exemple,
+`box` correspond au mot isolé, mais pas à `checkbox` ni à `combobox`.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/highlight/exact-match.tsx"
@@ -97,7 +115,7 @@ Activez `exactMatch` lorsque les correspondances partielles dans un texte latin 
 
 ### Casse ignorée
 
-Activez `ignoreCase` lorsque la casse du texte visible ne doit pas influencer la recherche de correspondances.
+Activez `ignoreCase` lorsque la casse du texte source ne doit pas influencer le résultat.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/highlight/ignore-case.tsx"
@@ -108,7 +126,7 @@ Activez `ignoreCase` lorsque la casse du texte visible ne doit pas influencer la
 
 ### Toutes les correspondances
 
-Utilisez `matchAll` lorsque toutes les occurrences doivent rester visibles, au lieu de mettre uniquement la première en évidence.
+Activez `matchAll` pour mettre en évidence chaque occurrence au lieu de la première seulement.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/highlight/match-all.tsx"
@@ -119,7 +137,8 @@ Utilisez `matchAll` lorsque toutes les occurrences doivent rester visibles, au l
 
 ### Plusieurs requêtes
 
-Transmettez un tableau de chaînes pour mettre en évidence plusieurs termes de recherche en une seule passe. Ark active automatiquement `matchAll` pour un tableau ; transmettre un tableau avec `matchAll={false}` provoque une erreur.
+Transmettez un tableau de chaînes lorsque plusieurs termes doivent être mis en évidence dans le même
+texte. Pour un tableau, `matchAll` vaut `true` par défaut ; définir `matchAll={false}` provoque une erreur.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/highlight/multiple-queries.tsx"
@@ -130,7 +149,9 @@ Transmettez un tableau de chaînes pour mettre en évidence plusieurs termes de 
 
 ## Styles
 
-Utilisez `className` pour un style local et ponctuel de `mark`, et les variables `--moduix-highlight-*` lorsqu’un même traitement visuel doit rester cohérent entre plusieurs instances de mise en évidence.
+Les segments correspondants reçoivent les styles `<mark>` par défaut de moduix. Utilisez `className`
+pour une modification locale, ou les variables `--moduix-highlight-*` si la même apparence doit être
+partagée par plusieurs instances.
 
 ### Propriétés CSS
 
@@ -138,6 +159,7 @@ Utilisez `className` pour un style local et ponctuel de `mark`, et les variables
 
 ### Points d’accroche CSS
 
-- Chaque `<mark>` correspondant reçoit `data-scope="highlight"` et `data-part="root"`.
-- `data-slot="highlight-root"` est un sélecteur moduix stable sur chaque `mark` correspondant.
-- Il n’existe ni wrapper, ni attribut d’état, ni variable CSS d’exécution Ark, car `Highlight` affiche uniquement des nœuds de texte ordinaires et les segments `<mark>` correspondants.
+- Chaque `<mark>` correspondant porte `data-scope="highlight"` et `data-part="root"`.
+- `data-slot="highlight-root"` est le sélecteur moduix stable de chaque `mark` correspondant.
+- Il n’y a ni conteneur supplémentaire, ni attribut d’état, ni variable CSS d’exécution Ark. Le rendu
+  se compose uniquement de nœuds de texte ordinaires et d’éléments `<mark>` correspondants.

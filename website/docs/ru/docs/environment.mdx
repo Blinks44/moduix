@@ -1,28 +1,29 @@
 ---
 title: Environment
-description: Настраивайте DOM-запросы Ark UI в iframe, Shadow DOM, Electron и других нестандартных корневых узлах.
+description: Настройте DOM-запросы Ark UI для iframe, Shadow DOM, Electron и других нестандартных окружений.
 ---
 
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/environment" />
 
-## Когда использовать
+## Когда нужен `EnvironmentProvider`
 
-Используйте `EnvironmentProvider`, если компоненты Ark или moduix рендерятся не в основном `document` страницы:
-например, в iframe, Shadow DOM, Electron или другом документе. Ark обращается к DOM для поиска элементов и ID,
-управления фокусом и обработки событий, поэтому ему нужен корневой узел, в котором находится компонент.
+Используйте `EnvironmentProvider`, если компонент отображается в другом DOM-окружении, а не в основном `document`
+страницы. Например, в iframe, Shadow DOM или окне Electron. Ark UI использует это окружение, чтобы находить элементы
+и идентификаторы, управлять фокусом и работать с нужным документом.
 
-Импортируйте провайдер и хук контекста напрямую из Ark UI:
+Импортируйте провайдер и его хук контекста напрямую из Ark UI:
 
 ```tsx
 import { EnvironmentProvider, useEnvironmentContext } from '@ark-ui/react/environment';
 ```
 
-## Базовый пример
+## Базовая настройка
 
-Оберните нужное поддерево провайдером. Без `value` он определяет корневой узел, в котором рендерится. Хук контекста
-даёт функции для доступа к этому узлу, его `Document` и `Window`.
+Оберните провайдером часть дерева React, которая отображается в нестандартном окружении. Если не передать `value`,
+провайдер автоматически определит окружение, в котором он отображается. `useEnvironmentContext` возвращает функции
+для доступа к этому корневому узлу, его `Document` и `Window`.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/environment/basic.tsx"
@@ -30,26 +31,54 @@ import { EnvironmentProvider, useEnvironmentContext } from '@ark-ui/react/enviro
   ```
 </PreviewFrame>
 
-Пример работает в основном документе, поэтому его корневой узел - документ страницы. Для другой среды передайте
-реальный узел в `value`.
+Пример отображается в основном документе страницы, поэтому провайдер определяет именно его. Если приложение
+рендерит содержимое в iframe или Shadow DOM, передайте через `value` корневой узел, содержащий это поддерево.
 
-## iframe и Shadow DOM
+## Нестандартные корневые узлы
 
-Передайте `Document`, `ShadowRoot` или другой корневой узел, в котором находится отрисованное поддерево. Если узел
-появляется после первого рендера - например, при загрузке iframe или подключении shadow root, - передавайте функцию.
+В `value` можно передать корневой узел напрямую или функцию, которая его возвращает. Функция пригодится, если узел
+недоступен во время первого рендера, например пока загружается iframe или ещё не создан Shadow DOM.
 
 ```tsx
-<EnvironmentProvider value={() => shadowHost.current?.shadowRoot ?? document}>
-  <SettingsPanel />
-</EnvironmentProvider>
+import { EnvironmentProvider } from '@ark-ui/react/environment';
+import { Button } from '@moduix/react/button';
+import { createPortal } from 'react-dom';
+import { useEffect, useRef, useState } from 'react';
+
+export function ShadowDomSettings() {
+  const hostRef = useRef<HTMLDivElement>(null);
+  const [shadowRoot, setShadowRoot] = useState<ShadowRoot | null>(null);
+
+  useEffect(() => {
+    const host = hostRef.current;
+    if (!host) return;
+    setShadowRoot(host.shadowRoot ?? host.attachShadow({ mode: 'open' }));
+  }, []);
+
+  return (
+    <>
+      <div ref={hostRef} />
+      {shadowRoot
+        ? createPortal(
+            <EnvironmentProvider value={shadowRoot}>
+              <Button type="button">Save settings</Button>
+            </EnvironmentProvider>,
+            shadowRoot,
+          )
+        : null}
+    </>
+  );
+}
 ```
 
-Провайдер меняет только корневой узел, в котором Ark ищет DOM API. Он не переносит React-содержимое в iframe или
-Shadow DOM: порталом и точкой монтирования по-прежнему управляет приложение или библиотека iframe. Провайдер и его
-поддерево должны находиться в одной среде.
+Провайдер только сообщает Ark UI, какой корневой узел использовать для работы с DOM. Он не переносит React-контент
+в iframe или Shadow DOM. Точку монтирования и порталы по-прежнему настраивает приложение или библиотека для iframe.
+Провайдер должен находиться в том же окружении, что и настраиваемое поддерево.
 
-Утилита Ark `Frame` уже передаёт дочерним элементам документ iframe. При использовании `Frame` просто разместите
-внутри компоненты moduix: отдельный провайдер не нужен.
+## Использование `Frame`
+
+Компонент `Frame` из Ark отображает дочерние элементы внутри iframe и передаёт Ark UI `document` этого iframe.
+Размещайте компоненты moduix прямо внутри `Frame`, дополнительный `EnvironmentProvider` не нужен:
 
 ```tsx
 import { Frame } from '@ark-ui/react/frame';
@@ -66,14 +95,14 @@ export function IframeAction() {
 
 ## Использование с moduix
 
-Используйте компоненты moduix внутри `EnvironmentProvider` как обычно. Оберните всё поддерево в другом документе
-один раз, а не настраивайте каждый компонент отдельно. Тогда Dialog, Menu, Popover и другие компоненты на базе Ark
-смогут искать элементы и управлять фокусом в правильном корневом узле.
+Используйте компоненты moduix внутри `EnvironmentProvider` как обычно. Оберните всё поддерево один раз вместо того,
+чтобы настраивать каждый компонент отдельно. Тогда Dialog, Menu, Popover и другие компоненты на базе Ark смогут
+управлять фокусом и DOM-связями в правильном корневом узле.
 
-Провайдер не копирует CSS в iframe или Shadow DOM. Подключите таблицу стилей moduix и в это окружение, чтобы
-компоненты сохранили свой внешний вид.
+Провайдер не подключает CSS в iframe или Shadow DOM. Подключите стили moduix и в это окружение, чтобы компоненты
+сохранили свой внешний вид.
 
-## Границы ответственности
+## Кто за что отвечает
 
-Ark UI отвечает за определение окружения и API `EnvironmentProvider`. moduix показывает, как размещать свои
-компоненты в другом окружении, но не переэкспортирует этот провайдер.
+`EnvironmentProvider` и `useEnvironmentContext` относятся к API Ark UI. moduix не переэкспортирует их. На этой
+странице показано, как использовать их вместе с компонентами moduix; полный API смотрите в справочнике Ark UI.
