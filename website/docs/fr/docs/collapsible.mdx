@@ -1,7 +1,7 @@
 ---
 title: Collapsible
 component: collapsible
-description: Un contrôle qui permet d’afficher ou de masquer une seule zone de contenu.
+description: Un composant qui permet de déplier ou de replier une seule zone de contenu.
 ---
 
 import * as CollapsibleDocs from '@/components/examples/collapsible';
@@ -10,10 +10,16 @@ import * as CollapsibleDocs from '@/components/examples/collapsible';
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/collapsible" />
 
+## Choisir le bon composant
+
+Utilisez `Collapsible` pour une seule section indépendante. Préférez `Accordion` lorsque plusieurs
+sections liées doivent partager la navigation au clavier ou un état coordonné.
+
 ## Exemple de base
 
-Utilisez `Collapsible` avec ses parties `Trigger`, `Indicator` et `Content` pour afficher ou masquer
-une seule zone de contenu.
+Utilisez `Collapsible` avec `Trigger`, `Content` et, si besoin, `Indicator` pour déplier ou replier une
+seule zone de contenu. Placez le contenu dans `Collapsible.Body` lorsque vous avez besoin du conteneur
+interne recommandé pour les espacements et la mise en page.
 
 <style>{CollapsibleDocs.collapsibleExampleCss}</style>
 
@@ -39,66 +45,83 @@ Collapsible.Root
        └─ contenu
 ```
 
-| Partie                                 | Rôle                                                                          |
-| -------------------------------------- | ----------------------------------------------------------------------------- |
-| `Collapsible` / `Collapsible.Root`     | Gère l’état d’ouverture, que vous pouvez contrôler ou laisser au composant. |
-| `Collapsible.RootProvider`             | Fournit aux parties l’état créé avec `useCollapsible`.                     |
-| `Collapsible.Trigger`                  | Bouton accessible qui ouvre ou ferme le contenu.                            |
-| `Collapsible.Indicator`                | Indicateur d’état facultatif, avec un chevron moduix par défaut.            |
-| `Collapsible.Content`                  | Zone de contenu dont la taille est mesurée avec les variables CSS d’Ark.    |
-| `Collapsible.Body`                     | Enveloppe interne de moduix pour les espacements et la mise en page.        |
+| Partie                             | Rôle                                                                    |
+| ---------------------------------- | ----------------------------------------------------------------------- |
+| `Collapsible` / `Collapsible.Root` | Gère l’état d’une seule section repliable.                              |
+| `Collapsible.RootProvider`         | Relie les parties à l’état créé avec `useCollapsible`.                  |
+| `Collapsible.Trigger`              | Bouton accessible qui déplie ou replie le contenu.                       |
+| `Collapsible.Indicator`            | Indicateur facultatif qui affiche par défaut un chevron moduix.         |
+| `Collapsible.Content`              | Zone animée dont Ark mesure les dimensions.                             |
+| `Collapsible.Body`                 | Conteneur interne pour les espacements et la mise en page du contenu.    |
 
 ## Composition
 
 ### Composition recommandée
 
-Utilisez `Collapsible`, `Collapsible.Trigger`, `Collapsible.Content` et `Collapsible.Body`, avec
-`Collapsible.Indicator` si nécessaire, pour composer le composant. Les propriétés de la racine
-comprennent `open`, `defaultOpen`, `onOpenChange(details)`, `disabled`, `collapsedHeight`,
-`collapsedWidth`, `lazyMount`, `unmountOnExit`, `ids` et `onExitComplete`.
+Commencez par `Collapsible`, `Collapsible.Trigger`, `Collapsible.Content` et `Collapsible.Body`.
+Ajoutez `Collapsible.Indicator` lorsqu’un repère visuel de l’état est utile. Les propriétés de la
+racine comprennent `open`, `defaultOpen`, `onOpenChange(details)`, `disabled`, `collapsedHeight`,
+`collapsedWidth`, `hideMode`, `lazyMount`, `unmountOnExit`, `ids` et `onExitComplete`.
 
-Ajoutez les espacements et les styles de surface à `Collapsible.Body`, pas à `Collapsible.Content`.
-Ark mesure le contenu et expose `--height`, `--width`, `--collapsed-height` et `--collapsed-width`.
+Placez les espacements et les styles de surface sur `Collapsible.Body`, et non sur
+`Collapsible.Content`. Ark mesure le contenu et expose `--height`, `--width`, `--collapsed-height` et
+`--collapsed-width`.
 
 Pour migrer depuis shadcn, remplacez `CollapsibleTrigger` par `Collapsible.Trigger` et
 `CollapsibleContent` par `Collapsible.Content`. moduix conserve l’objet `details` d’Ark : dans une
 utilisation contrôlée, l’état se lit via `details.open` au lieu d’être transmis directement sous
 forme de valeur booléenne.
 
-### Quand utiliser une composition personnalisée
+### Quand personnaliser la composition
 
-Utilisez `asChild` lorsqu’un autre élément sémantique doit être rendu à la place de l’élément par défaut.
-Collapsible lui ajoute le comportement et les attributs d’état d’Ark, tout en lui laissant la maîtrise
-de ses styles visuels.
+Utilisez `asChild` lorsqu’un autre élément sémantique doit porter le nœud DOM rendu. La partie lui
+ajoute le comportement et les attributs d’état d’Ark, tout en vous laissant la maîtrise de ses styles
+visuels. Un déclencheur personnalisé doit rester accessible au clavier et se comporter comme un bouton.
 
-Utilisez `useCollapsible` de moduix avec `Collapsible.RootProvider` lorsque vous devez créer l’état en
-dehors de l’arborescence du composant. moduix exporte également `Collapsible.Context` et
-`useCollapsibleContext()`.
+Utilisez `useCollapsible()` depuis `@moduix/react/collapsible` avec `Collapsible.RootProvider` lorsque
+vous devez créer l’état en dehors de l’arborescence rendue. moduix exporte également
+`Collapsible.Context` et `useCollapsibleContext()`.
 
 `Collapsible.Indicator` est facultatif. Sans contenu enfant, il affiche le chevron moduix orienté vers
-le bas. Vous pouvez lui fournir un contenu personnalisé si nécessaire.
+le bas. Fournissez-lui un contenu personnalisé si nécessaire.
 
 ### Propriétés par défaut
 
-| Partie                    | Valeur par défaut | Remarques                                                     |
-| ------------------------- | ----------------- | ------------------------------------------------------------- |
-| `Collapsible`             | fermé              | `defaultOpen={false}`, contenu monté par défaut                 |
-| `Collapsible.Trigger`     | `button`           | Prend en charge `asChild` d’Ark                                 |
-| `Collapsible.Indicator`   | chevron vers le bas | Pivote vers le haut lorsque `data-state="open"`                |
-| `Collapsible.Content`     | zone repliée       | Utilise les variables de mesure et la stratégie de rendu d’Ark  |
-| `Collapsible.Body`        | `div`              | Enveloppe interne pour les espacements et l’écart               |
+| Propriété          | Valeur par défaut | Remarques                                                                    |
+| ------------------ | ----------------- | ----------------------------------------------------------------------------- |
+| `collapsedHeight`  | non défini        | Hauteur conservée lorsque le contenu est replié.                              |
+| `collapsedWidth`   | non défini        | Largeur conservée lorsque le contenu est replié.                              |
+| `defaultOpen`      | `false`           | La zone est repliée au premier rendu.                                         |
+| `disabled`         | `false`           | Le déclencheur ne peut pas ouvrir ou fermer le contenu.                       |
+| `hideMode`         | `display-none`    | Utilise `hidden` pour masquer le contenu monté et fermé. `activity` nécessite React 19. |
+| `lazyMount`        | `false`           | Monte le contenu lors de sa première ouverture.                               |
+| `open`             | non défini        | État contrôlé, à utiliser avec `onOpenChange`.                                |
+| `unmountOnExit`    | `false`           | Retire le contenu du DOM après sa fermeture.                                  |
 
 ### Comportement
 
 - `onOpenChange` reçoit un objet `details` d’Ark. L’état suivant se trouve dans `details.open`.
-- `open` correspond à l’état demandé. `visible` reste à `true` tant que le contenu en cours de fermeture
-  est monté pour l’animation de sortie.
-- Gardez les éléments interactifs imbriqués en dehors de `Collapsible.Trigger`.
+- `open` correspond à l’état visé. `visible` reste à `true` tant que le contenu en cours de fermeture
+  reste monté pour l’animation de sortie.
+- Le déclencheur est rendu comme un bouton natif. `Enter` et `Space` ouvrent ou referment la zone.
+- Gardez les éléments interactifs en dehors de `Collapsible.Trigger` afin que le déclencheur reste un bouton.
+- Avec `hideMode="activity"`, le contenu fermé et monté utilise le mode Activity de React 19 et met ses
+  effets en pause. Par défaut, `hideMode="display-none"` utilise l’attribut `hidden`.
 - Les animations du contenu et de l’indicateur respectent `prefers-reduced-motion`.
-- Préférez `Accordion` lorsque plusieurs zones dépliables nécessitent une gestion coordonnée du clavier
-  ou des valeurs.
 
 ## Exemples
+
+### Contexte
+
+Utilisez `useCollapsibleContext()` dans un composant descendant lorsqu’il doit lire l’état ou fermer
+la zone par programmation.
+
+<PreviewFrame maxWidth="xs">
+```tsx preview file="../../en/docs/_snippets/collapsible/context.tsx"
+
+```
+
+</PreviewFrame>
 
 ### État contrôlé
 
@@ -129,7 +152,7 @@ Définissez `defaultOpen` pour qu’un composant non contrôlé soit ouvert dès
 
 ### État désactivé
 
-Définissez `disabled` sur la racine pour empêcher l’utilisateur d’ouvrir ou de fermer la zone.
+Ajoutez `disabled` à la racine pour empêcher l’utilisateur d’ouvrir ou de fermer la zone.
 
 <style>{CollapsibleDocs.collapsibleExampleCss}</style>
 
@@ -142,7 +165,8 @@ Définissez `disabled` sur la racine pour empêcher l’utilisateur d’ouvrir o
 
 ### Montage différé
 
-Combinez `lazyMount` et `unmountOnExit` lorsque le contenu fermé ne doit pas rester monté dans le DOM.
+Activez `lazyMount` pour ne monter le contenu qu’à sa première ouverture. Ajoutez `unmountOnExit` pour
+le retirer du DOM après sa fermeture.
 
 <style>{CollapsibleDocs.collapsibleExampleCss}</style>
 
@@ -169,8 +193,8 @@ Imbriquez des racines indépendantes lorsqu’une section ouverte contient un au
 ### Repli partiel
 
 Utilisez `collapsedHeight` ou `collapsedWidth` pour laisser une partie du contenu visible lorsque la zone
-est fermée. Les contrôles interactifs de cette partie ne sont plus interactifs tant que la zone est repliée ;
-placez donc les actions qui doivent rester disponibles en dehors de `Collapsible.Content`.
+est fermée. Les éléments interactifs de cette partie deviennent inertes (`inert`) tant que la zone est
+repliée. Placez donc les actions qui doivent rester disponibles en dehors de `Collapsible.Content`.
 
 <style>{CollapsibleDocs.collapsibleExampleCss}</style>
 
@@ -192,21 +216,10 @@ Utilisez `collapsedWidth` lorsqu’un aperçu horizontal est plus utile qu’un 
 
 </PreviewFrame>
 
-### Contexte
-
-Utilisez `useCollapsibleContext()` dans un élément descendant pour lire l’état ou fermer la zone.
-
-<PreviewFrame maxWidth="xs">
-```tsx preview file="../../en/docs/_snippets/collapsible/context.tsx"
-
-```
-
-</PreviewFrame>
-
 ### Root Provider
 
-Créez la machine à états avec `useCollapsible` de moduix lorsque vous devez gérer l’état en dehors
-du composant racine rendu.
+Créez l’état avec `useCollapsible()` et transmettez-le à `Collapsible.RootProvider` lorsque du code
+extérieur à l’arborescence rendue doit y accéder.
 
 <style>{CollapsibleDocs.collapsibleExampleCss}</style>
 
@@ -234,14 +247,20 @@ les attributs d’état sont conservés.
 
 ## Styles
 
+Utilisez `className` sur les parties exportées pour appliquer les styles structurels. Pour les styles
+qui dépendent de l’état, privilégiez les attributs de données Ark tels que `data-state` et
+`data-disabled`, ainsi que les sélecteurs `data-slot` de moduix.
+
 ### Propriétés CSS
 
 <CssPropertiesSection properties={CollapsibleDocs.collapsibleOverrideCssProperties} />
 
-### Attributs pour le style
+### Points d’accroche CSS
 
 - Les parties DOM exposent `data-slot="collapsible-root"`, `collapsible-root-provider`,
   `collapsible-trigger`, `collapsible-indicator`, `collapsible-content` et `collapsible-body`.
+- Les parties Ark exposent `data-scope="collapsible"` et les valeurs `data-part` de la racine, du
+  déclencheur, de l’indicateur et du contenu. `Collapsible.Body` ajoute `data-part="body"`.
 - Ark ajoute `data-state="open" | "closed"` à la racine, au déclencheur, à l’indicateur et au contenu.
 - Ark ajoute `data-collapsible` à la partie `Content`.
 - `data-disabled` marque les parties déclencheur, indicateur et contenu lorsqu’elles sont désactivées.

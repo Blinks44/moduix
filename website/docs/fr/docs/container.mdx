@@ -1,22 +1,23 @@
 ---
 title: Container
 component: container
-description: Un composant de mise en page adaptatif pour limiter la largeur du contenu et gérer les espacements intérieurs horizontaux.
+description: Un composant de mise en page adaptatif pour conserver une largeur de contenu lisible et des espacements horizontaux fluides.
 ---
 
 import * as ContainerDocs from '@/components/examples/container';
 
 ## Référence de l’API
 
-Ark UI ne fournit pas de primitive `container` dédiée. Dans moduix, ce composant est construit à l’aide de la
-[fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) et suit les recommandations d’Ark pour
-la [composition](https://ark-ui.com/docs/guides/composition), le [style](https://ark-ui.com/docs/guides/styling) et
-les [refs](https://ark-ui.com/docs/guides/ref).
+Ark UI ne fournit pas de primitive `container` dédiée. Dans moduix, `Container` est construit avec la
+[fabrique officielle d’Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) et suit les recommandations d’Ark pour
+la [composition](https://ark-ui.com/docs/guides/composition), le [style](https://ark-ui.com/docs/guides/styling) et la
+[gestion des refs](https://ark-ui.com/docs/guides/ref).
 
 ## Exemple de base
 
-Utilisez `Container` lorsque vous devez limiter la largeur du texte pour le rendre plus agréable à lire. Le composant
-centre la colonne de contenu, ajoute un espacement intérieur horizontal adaptatif et ne gère pas les espacements verticaux.
+Importez `Container` depuis `@moduix/react/container` lorsque vous avez besoin d’une colonne de contenu centrée et facile
+à lire. Le composant ajoute des espacements intérieurs horizontaux adaptatifs et laisse la gestion des espacements
+verticaux à la mise en page qui l’entoure.
 
 <PreviewFrame maxWidth="lg">
 ```tsx preview file="../../en/docs/_snippets/container/basic.tsx"
@@ -28,12 +29,11 @@ centre la colonne de contenu, ajoute un espacement intérieur horizontal adaptat
 
 <ShadcnInstall packageName="container" />
 
-Cette méthode ajoute également les fichiers de base partagés par moduix et nécessaires à `Container`, notamment les
-styles, les icônes et quelques utilitaires.
+Cette commande ajoute `Container` au code source du projet ainsi que les éléments de base partagés par moduix dont il a besoin.
 
 ## Anatomie
 
-`Container` se limite volontairement à un composant racine construit avec la composition de la fabrique Ark.
+`Container` rend un seul élément racine et n’ajoute aucune enveloppe supplémentaire.
 
 ```text
 Container / Container.Root
@@ -42,71 +42,77 @@ Container / Container.Root
 
 | Partie                         | Rôle                                                                                  |
 | ------------------------------ | ------------------------------------------------------------------------------------- |
-| `Container` / `Container.Root` | Enveloppe racine. Définit la largeur du contenu et l’espacement intérieur horizontal. |
+| `Container` / `Container.Root` | Élément racine de mise en page. Centre le contenu et gère sa largeur ainsi que ses espacements horizontaux. |
 
 ## Composition
 
 ### Composition recommandée
 
-Utilisez `Container` pour les structures de page, le corps des articles, les sections de documentation, les écrans de
-réglages et toute mise en page qui doit présenter une colonne de contenu centrée avec des espacements latéraux prévisibles.
+Utilisez `Container` pour structurer une page, le corps d’un article, des sections de documentation, des écrans de
+réglages et toute autre mise en page qui doit présenter une colonne de contenu centrée avec des espacements latéraux prévisibles.
 
-`Container.Root` désigne le même composant, exposé comme un alias d’espace de noms aligné sur le modèle d’Ark.
+`Container.Root` désigne le même composant via une notation d’espace de noms. Cette forme peut être utile pour rester
+cohérent avec les autres composants qui suivent le modèle d’Ark.
 
-Utilisez `size` pour choisir la largeur du contenu et `gutter` pour définir l’espacement par rapport aux bords. Utilisez
-`asChild` lorsque l’enveloppe doit également être un élément sémantique tel que `main`, `section` ou `article`.
-`asChild` attend exactement un enfant sémantique. La ref pointe alors vers cet enfant, et non vers le `div` par défaut.
+Définissez `size` pour choisir la largeur du contenu et `gutter` pour choisir les espacements horizontaux. La prop
+`asChild` remplace le `div` par défaut par un unique élément enfant. Choisissez un élément sémantique comme `main`,
+`section` ou `article` lorsque l’enveloppe doit décrire la structure du document. La ref pointe vers l’élément racine
+rendu, ou vers cet enfant lorsque `asChild` est utilisé.
+
+Toutes les props standard d’un `<div>` sont transmises, notamment `className` et `style`.
 
 ### Quand créer une composition personnalisée
 
-`Container` se limite volontairement à son composant racine. Il n’a pas de sous-parties, de propriétés de slot ni
-d’outils de mise en page imbriqués.
+`Container` ne comporte qu’un élément racine, sans sous-parties, slots ni outils de mise en page imbriqués.
 
-Pour l’adapter localement :
+Pour les besoins courants, il suffit de choisir l’une des options suivantes :
 
 - passez `className` pour appliquer des styles locaux à la mise en page ou au bloc ;
-- surchargez les variables `--moduix-container-*` si la page a besoin d’une autre largeur ou d’une autre formule de calcul de l’espacement ;
-- utilisez `asChild` lorsqu’un autre élément doit constituer le nœud DOM ;
-- composez-le avec `Bleed` lorsqu’un enfant doit dépasser les limites de la colonne de texte.
+- surchargez les variables `--moduix-container-*` si la page a besoin d’autres valeurs de largeur ou d’espacement ;
+- utilisez `asChild` lorsqu’un autre élément doit devenir le nœud DOM rendu ;
+- associez le composant à `Bleed` lorsqu’un enfant doit dépasser les limites de la colonne de texte.
 
 ### Propriétés par défaut
 
 | Propriété  | Valeur par défaut | Valeurs / remarques                                      |
 | ---------- | ----------------- | -------------------------------------------------------- |
-| `size`     | `lg`              | `xs` (40rem), `sm` (48rem), `md` (64rem), `lg` (72rem), `xl` (90rem), `full` (sans largeur maximale) |
-| `gutter`   | `md`              | `none`, `sm`, `md`, `lg`                                 |
-| `asChild`  | `false`           | Composition avec l’Ark factory                           |
+| `size`     | `lg`              | `xs` (40rem), `sm` (48rem), `md` (64rem), `lg` (72rem), `xl` (90rem), `full` (sans limite de largeur maximale) |
+| `gutter`   | `md`              | `none`, `sm`, `md`, `lg`                                                             |
+| `asChild`  | `false`           | Remplace le `div` racine par un seul élément enfant                                  |
 
 ### Comportement
 
 - `Container` ne gère pas les espacements verticaux. Ajoutez-les à l’extérieur du composant ou sur ses enfants.
-- `size="full"` supprime uniquement la largeur maximale. L’espacement intérieur horizontal choisi reste appliqué, sauf avec
-  `gutter="none"`.
-- Le composant racine expose `data-scope="container"`, `data-part="root"`, `data-slot="container-root"`,
-  `data-size` et `data-gutter`. Vous pouvez les utiliser pour le style et les tests.
+- `size="full"` supprime uniquement la limite de largeur maximale. Les espacements latéraux choisis restent appliqués,
+  sauf avec `gutter="none"`.
+- Le calcul de `max-width` inclut les deux espacements horizontaux : l’enveloppe contrainte conserve donc les espacements choisis.
+- Avec `asChild`, fournissez exactement un élément enfant. La ref pointe alors vers cet élément.
+- `Container` est purement structurel : il n’ajoute ni rôles ARIA, ni libellés, ni gestion du focus ou du clavier. Utilisez
+  `asChild` avec `main`, `section` ou `article` lorsque l’enveloppe doit porter une information sémantique.
+- L’élément racine expose `data-scope="container"`, `data-part="root"`, `data-slot="container-root"`, `data-size` et
+  `data-gutter`, que vous pouvez cibler pour le style et les tests.
 
 ## Exemples
 
+### Pleine largeur
+
+Utilisez `size="full"` pour qu’une section occupe toute la largeur de son parent tout en conservant un espacement latéral adaptatif.
+
+<PreviewFrame>
+```tsx preview file="../../en/docs/_snippets/container/full-width.tsx"
+
+```
+</PreviewFrame>
+
 ### Espacements latéraux
 
-Utilisez `gutter` pour contrôler l’espacement intérieur horizontal adaptatif.
+Utilisez `gutter` pour choisir la taille des espacements intérieurs horizontaux adaptatifs.
 
 <PreviewFrame maxWidth="lg">
 ```tsx preview file="../../en/docs/_snippets/container/gutters.tsx"
 
 ```
 
-</PreviewFrame>
-
-### Pleine largeur
-
-Utilisez `size="full"` pour une section large qui doit occuper toute la largeur de son parent, tout
-en conservant un espacement latéral adaptatif.
-
-<PreviewFrame>
-```tsx preview file="../../en/docs/_snippets/container/full-width.tsx"
-
-```
 </PreviewFrame>
 
 ### Élément sémantique
@@ -122,7 +128,7 @@ Utilisez `asChild` lorsque l’enveloppe de mise en page doit également décrir
 
 ### Avec Bleed
 
-Conservez la largeur limitée de la colonne de texte et autorisez uniquement un enfant plus large à la dépasser.
+Conservez une largeur de texte limitée et laissez uniquement l’enfant plus large dépasser cette limite.
 
 <PreviewFrame maxWidth="lg">
 ```tsx preview file="../../en/docs/_snippets/container/with-bleed.tsx"
@@ -133,9 +139,8 @@ Conservez la largeur limitée de la colonne de texte et autorisez uniquement un 
 
 ## Styles
 
-Utilisez les variables CSS sur le composant racine si l’enveloppe de page a besoin d’une autre formule pour les espacements
-ou d’une autre échelle de largeur. Utilisez `className` pour les styles locaux du bloc, par exemple pour ajouter des
-espacements intérieurs, des bordures ou un arrière-plan.
+Surchargez les variables CSS sur l’élément racine si l’enveloppe de page a besoin d’autres valeurs de largeur ou
+d’espacement. Utilisez `className` pour les styles locaux du bloc, par exemple les espacements intérieurs, les bordures ou l’arrière-plan.
 
 ### Propriétés CSS
 
@@ -144,8 +149,8 @@ espacements intérieurs, des bordures ou un arrière-plan.
 ### Points d’accroche CSS
 
 - `Container` et `Container.Root` exposent `data-slot="container-root"` sur le composant racine.
-- `data-scope="container"` et `data-part="root"` fournissent des points d’accroche alignés sur Ark pour le composant racine.
+- `data-scope="container"` et `data-part="root"` suivent les conventions de style d’Ark.
 - `data-size` sélectionne le préréglage de largeur : `xs`, `sm`, `md`, `lg`, `xl`, `full`.
 - `data-gutter` sélectionne le préréglage d’espacement : `none`, `sm`, `md`, `lg`.
-- Les variables `--moduix-container-*` contrôlent uniquement l’espacement horizontal et le calcul de la largeur maximale.
+- Les variables `--moduix-container-*` contrôlent uniquement les espacements horizontaux et le calcul de la largeur maximale.
   L’espacement vertical et la disposition des enfants relèvent du CSS de mise en page environnant.

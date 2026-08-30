@@ -1,7 +1,7 @@
 ---
 title: Close Button
 component: close-button
-description: An icon-only button for closing notifications, cards, overlays, and other UI surfaces.
+description: An icon-only button for dismissing notifications, cards, overlays, and other UI surfaces.
 ---
 
 import * as CloseButtonDocs from '@/components/examples/close-button';
@@ -15,9 +15,9 @@ Ark UI does not ship a dedicated primitive for close buttons. moduix builds `Clo
 
 ## Basic
 
-Use `CloseButton` to add a close control to a notification, card, overlay, or another UI surface. Connect
-`onClick` to the state that hides or removes that surface. The component provides button semantics, a fallback
-accessible name, and a default `CloseIcon`, but it does not manage the surface's state.
+Use `CloseButton` to add a close control to a notification, card, overlay, or another UI surface. Connect its
+`onClick` handler to the state that hides or removes that surface. The component renders a semantic button,
+provides a default accessible name, and shows a `CloseIcon`, but it does not manage the surface's state.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/close-button/basic.tsx"
@@ -34,7 +34,7 @@ styles, icons, and small utilities.
 
 ## Anatomy
 
-`CloseButton` exposes one Ark-style root part.
+`CloseButton` exposes a single root part following the Ark model.
 
 ```text
 CloseButton / CloseButton.Root
@@ -44,70 +44,69 @@ CloseButton / CloseButton.Root
 
 | Part                               | Role                                                                     |
 | ---------------------------------- | ------------------------------------------------------------------------ |
-| `CloseButton` / `CloseButton.Root` | Interactive dismiss control built on button semantics and accessibility. |
+| `CloseButton` / `CloseButton.Root` | Interactive dismiss control based on button semantics and accessibility. |
 
 ## Composition
 
 ### Recommended composition
 
-Use `CloseButton` directly when a native button should render the close control. The wrapper forwards
-Ark factory button props, native attributes, event handlers, and refs.
+Use `CloseButton` directly when you want it to render a native button. The component forwards button props
+from Ark's factory, native attributes, event handlers, and refs.
 
 ### When to go custom
 
-Use `asChild` when another button component must own the DOM node. Ark composition requires one
-child element, and that child must include its own icon content.
+Use `asChild` when another button component needs to own the rendered DOM node. Pass exactly one child,
+and put the icon content inside that child.
 
-If an overlay component already provides a close trigger, use that trigger so it can manage
-dismissal state and focus behavior.
+If an overlay already provides a close trigger, use that trigger so it can manage dismissal state and
+focus behavior.
 
 ### Default props
 
 | Prop         | Default                                         | Values / Notes                             |
 | ------------ | ----------------------------------------------- | ------------------------------------------ |
 | `type`       | `button`                                        | Applied only to the native root            |
-| `aria-label` | `Close` when `aria-labelledby` is absent        | Prefer a surface-specific label in real UI |
-| `children`   | `CloseIcon`                                     | Replaced by custom icon content            |
-| `asChild`    | `false`                                         | Ark factory single-child composition       |
+| `aria-label` | `Close` when both label attributes are absent | Prefer a surface-specific label in real UI |
+| `children`   | `CloseIcon`                                   | Replaced by custom content                 |
+| `asChild`    | `false`                                       | Uses one child as the rendered root        |
 
 ### Behavioral notes
 
 - `CloseButton` does not close anything by itself. Connect `onClick` to your state logic or use an
   overlay's close trigger.
-- If neither `aria-label` nor `aria-labelledby` is provided, the accessible name is `Close`. Set one
-  of them to describe what the control closes.
-- Native `disabled` and `aria-disabled="true"` expose `data-disabled` for Ark-style state
-  targeting and suppress click activation.
-- With `asChild`, `disabled` does not add a native `disabled` attribute to the custom host. It
-  adds `aria-disabled="true"` and `data-disabled`, then suppresses click activation.
-- The previous `render`, `nativeButton`, and `focusableWhenDisabled` props are removed.
-- `CloseButton.Root` is available as the equivalent Ark-aligned namespace form.
+- If neither `aria-label` nor `aria-labelledby` is provided, the accessible name defaults to `Close`.
+  Use a surface-specific label, such as `Dismiss notification`, in a real interface.
+- `disabled` and `aria-disabled="true"` set `data-disabled` and prevent click activation.
+- The native root defaults to `type="button"`. With `asChild`, set `type` on the child yourself,
+  especially when the button is inside a form.
+- With `asChild`, `disabled` is represented by `aria-disabled="true"` instead of a native `disabled`
+  attribute. Click activation is still blocked.
+- `CloseButton.Root` is the equivalent namespace form.
 
 ## Examples
 
-### As Child
+### Using `asChild`
 
 Use `asChild` when an existing semantic button must be the rendered element while receiving
-CloseButton's styling and data attributes. The example keeps `type="button"` on the child and
-uses a larger circular icon.
+CloseButton's styles and data attributes. Set `type="button"` on the child and provide the icon there.
 
 ```tsx preview file="./_snippets/close-button/as-child.tsx"
 
 ```
 
-### Custom Children
+### Custom content
 
-Pass custom content through `children` to replace the default glyph while keeping the root button
-contract. The example uses a simple X mark instead of the circular icon in the `asChild` example.
+Pass custom content through `children` to replace the default icon while keeping the root button contract.
+The example uses a simple X-shaped mark and keeps it decorative with `aria-hidden="true"`.
 
 ```tsx preview file="./_snippets/close-button/custom-children.tsx"
 
 ```
 
-### Disabled State
+### Disabled state
 
-Use native `disabled` for a regular button. Use `aria-disabled="true"` when the control should remain
-available to assistive technologies while preventing activation.
+Use native `disabled` when the button should not be focusable. Use `aria-disabled="true"` when it should
+remain focusable but must not activate.
 
 ```tsx preview file="./_snippets/close-button/disabled-state.tsx"
 
@@ -125,4 +124,5 @@ available to assistive technologies while preventing activation.
 - `data-part="root"` identifies the only exported part.
 - `data-slot="close-button-root"` provides the moduix slot hook.
 - `data-disabled` exposes the normalized `disabled` and `aria-disabled="true"` styling state.
-- Direct nested SVG children inherit sizing from `--moduix-close-button-icon-size`.
+- `className` is merged with the component's default styles on the root.
+- Direct child SVG elements use `--moduix-close-button-icon-size` for their width and height.

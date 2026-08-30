@@ -1,7 +1,7 @@
 ---
 title: Collapsible
 component: collapsible
-description: Компонент для показа и скрытия одной области содержимого.
+description: Компонент для раскрытия и сворачивания одной области содержимого.
 ---
 
 import * as CollapsibleDocs from '@/components/examples/collapsible';
@@ -10,10 +10,16 @@ import * as CollapsibleDocs from '@/components/examples/collapsible';
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/collapsible" />
 
+## Какой компонент выбрать
+
+Используйте `Collapsible` для одного независимого раскрывающегося блока. Если несколько связанных
+секций должны использовать общую навигацию с клавиатуры или общее состояние, выбирайте `Accordion`.
+
 ## Базовый пример
 
-Используйте `Collapsible` с частями `Trigger`, `Indicator` и `Content` из Ark UI, чтобы показывать
-и скрывать одну область содержимого.
+Используйте `Collapsible` с частями `Trigger`, необязательным `Indicator` и `Content`, чтобы
+раскрывать и сворачивать одну область содержимого. Размещайте содержимое внутри `Collapsible.Body`,
+если нужна рекомендуемая внутренняя обёртка для отступов и размещения.
 
 <style>{CollapsibleDocs.collapsibleExampleCss}</style>
 
@@ -39,67 +45,88 @@ Collapsible.Root
        └─ содержимое
 ```
 
-| Часть                              | Назначение                                             |
-| ---------------------------------- | ------------------------------------------------------ |
-| `Collapsible` / `Collapsible.Root` | Управляет состоянием открытия. Его можно задавать извне или оставить под управлением компонента. |
-| `Collapsible.RootProvider`         | Передаёт частям состояние, созданное через `useCollapsible`. |
-| `Collapsible.Trigger`              | Доступная кнопка, которая открывает и закрывает содержимое. |
-| `Collapsible.Indicator`            | Необязательный индикатор состояния с шевроном moduix по умолчанию. |
-| `Collapsible.Content`              | Область содержимого, размер которой Ark вычисляет с помощью CSS-переменных. |
-| `Collapsible.Body`                 | Внутренняя обёртка moduix для отступов и размещения содержимого. |
+| Часть                              | Назначение                                                               |
+| ---------------------------------- | ------------------------------------------------------------------------ |
+| `Collapsible` / `Collapsible.Root` | Управляет состоянием одного раскрывающегося блока.                       |
+| `Collapsible.RootProvider`         | Подключает части к состоянию, созданному через `useCollapsible`.          |
+| `Collapsible.Trigger`              | Доступная кнопка для раскрытия и сворачивания содержимого.                |
+| `Collapsible.Indicator`            | Необязательный индикатор состояния с шевроном moduix по умолчанию.        |
+| `Collapsible.Content`              | Анимируемая область, размер которой измеряет Ark.                        |
+| `Collapsible.Body`                 | Внутренняя обёртка для отступов и размещения содержимого.                 |
 
 ## Композиция
 
 ### Рекомендуемая композиция
 
-Используйте `Collapsible`, `Collapsible.Trigger`, `Collapsible.Content` и `Collapsible.Body`, а
-`Collapsible.Indicator` добавляйте при необходимости. Корневой компонент поддерживает
-свойства `open`, `defaultOpen`, `onOpenChange(details)`, `disabled`, `collapsedHeight`,
-`collapsedWidth`, `lazyMount`, `unmountOnExit`, `ids` и `onExitComplete`.
+Начните с `Collapsible`, `Collapsible.Trigger`, `Collapsible.Content` и `Collapsible.Body`.
+Добавляйте `Collapsible.Indicator`, если нужен визуальный признак состояния. Корневой компонент
+принимает свойства `open`, `defaultOpen`, `onOpenChange(details)`, `disabled`, `collapsedHeight`,
+`collapsedWidth`, `hideMode`, `lazyMount`, `unmountOnExit`, `ids` и `onExitComplete`.
 
-Добавляйте отступы и стили контейнера к `Collapsible.Body`, а не к `Collapsible.Content`. Ark измеряет
-содержимое и делает доступными переменные `--height`, `--width`, `--collapsed-height` и `--collapsed-width`.
+Размещайте отступы и стили поверхности на `Collapsible.Body`, а не на `Collapsible.Content`. Ark
+измеряет содержимое и предоставляет переменные `--height`, `--width`, `--collapsed-height` и
+`--collapsed-width`.
 
 При переходе с shadcn замените `CollapsibleTrigger` на `Collapsible.Trigger`, а `CollapsibleContent`
 на `Collapsible.Content`. В moduix сохраняется объект `details` из Ark, поэтому в управляемом режиме
 следующее состояние берите из `details.open`, а не из самого аргумента.
 
-### Когда нужна нестандартная композиция
+### Когда нужна своя композиция
 
-Используйте `asChild`, если отрисованный узел должен быть другим семантическим элементом. В этом режиме
-Collapsible добавляет к нему поведение Ark и атрибуты состояния, а внешний вид остаётся под вашим контролем.
+Используйте `asChild`, если итоговый DOM-узел должен принадлежать другому семантическому элементу.
+Часть добавляет к этому элементу поведение Ark и атрибуты состояния, а внешний вид остаётся под вашим
+контролем. Пользовательский триггер должен оставаться доступным с клавиатуры и вести себя как кнопка.
 
-Используйте `useCollapsible` из moduix вместе с `Collapsible.RootProvider`, когда состояние нужно создать
-за пределами дерева компонента. В moduix также доступны `Collapsible.Context` и `useCollapsibleContext()`.
+Используйте `useCollapsible()` из `@moduix/react/collapsible` вместе с `Collapsible.RootProvider`, когда
+состояние нужно создать за пределами дерева отрисованных компонентов. В moduix также доступны
+`Collapsible.Context` и `useCollapsibleContext()`.
 
 `Collapsible.Indicator` необязателен. Если не передать дочерние элементы, он выводит шеврон moduix,
-направленный вниз. При необходимости можно передать собственное содержимое.
+направленный вниз. При необходимости передайте собственное содержимое.
 
 ### Свойства по умолчанию
 
-| Часть                   | По умолчанию     | Примечания                                         |
-| ----------------------- | ---------------- | -------------------------------------------------- |
-| `Collapsible`           | закрыт           | `defaultOpen={false}`, содержимое смонтировано      |
-| `Collapsible.Trigger`   | `button`         | Поддерживает `asChild` из Ark                       |
-| `Collapsible.Indicator` | шеврон вниз      | Поворачивается вверх при `data-state="open"`       |
-| `Collapsible.Content`   | свёрнутая область | Использует переменные измерения и стратегию рендеринга Ark |
-| `Collapsible.Body`      | `div`            | Внутренняя обёртка с отступами и интервалом         |
+| Свойство          | По умолчанию | Примечания                                                                    |
+| ----------------- | ------------ | ----------------------------------------------------------------------------- |
+| `collapsedHeight` | не задано    | Высота, которая сохраняется, когда содержимое свёрнуто.                       |
+| `collapsedWidth`  | не задано    | Ширина, которая сохраняется, когда содержимое свёрнуто.                       |
+| `defaultOpen`     | `false`      | При первом рендере область свёрнута.                                          |
+| `disabled`        | `false`      | Триггер не может открыть или закрыть содержимое.                              |
+| `hideMode`        | `display-none` | Смонтированное закрытое содержимое скрывается через `hidden`. `activity` требует React 19. |
+| `lazyMount`       | `false`      | Содержимое монтируется при первом открытии.                                   |
+| `open`            | не задано    | Управляемое состояние. Используйте вместе с `onOpenChange`.                  |
+| `unmountOnExit`   | `false`      | После закрытия содержимое удаляется из DOM.                                   |
 
 ### Особенности поведения
 
 - `onOpenChange` получает объект `details` от Ark. Следующее состояние находится в `details.open`.
 - `open` описывает целевое состояние. `visible` остаётся равным `true`, пока закрывающееся содержимое
   смонтировано для анимации выхода.
-- Не помещайте вложенные интерактивные элементы внутрь `Collapsible.Trigger`.
+- Триггер рендерится как нативная кнопка. Клавиши `Enter` и `Space` открывают и закрывают область.
+- Не помещайте интерактивные элементы внутрь `Collapsible.Trigger`, чтобы триггер оставался кнопкой.
+- При `hideMode="activity"` смонтированное закрытое содержимое использует режим Activity React 19,
+  а его эффекты приостанавливаются. По умолчанию `hideMode="display-none"` используется атрибут
+  `hidden`.
 - Анимации содержимого и индикатора учитывают `prefers-reduced-motion`.
-- Используйте `Accordion`, если нескольким раскрывающимся секциям нужны единые правила работы с клавиатурой
-  или общие значения.
 
 ## Примеры
 
+### Контекст
+
+Используйте `useCollapsibleContext()` внутри дочернего компонента, которому нужно получить состояние
+или программно закрыть область.
+
+<PreviewFrame maxWidth="xs">
+```tsx preview file="../../en/docs/_snippets/collapsible/context.tsx"
+
+```
+
+</PreviewFrame>
+
 ### Управляемое состояние
 
-Используйте `open` с колбэком Ark `onOpenChange(details)`, когда состояние хранится в другой части интерфейса.
+Используйте `open` с колбэком Ark `onOpenChange(details)`, когда состояние хранится в другой части
+интерфейса.
 
 <style>{CollapsibleDocs.collapsibleExampleCss}</style>
 
@@ -123,9 +150,9 @@ Collapsible добавляет к нему поведение Ark и атриб�
 
 </PreviewFrame>
 
-### Отключение
+### Отключённое состояние
 
-Задайте `disabled` на корневом компоненте, чтобы запретить открытие и закрытие области.
+Задайте `disabled` корневому компоненту, чтобы запретить открытие и закрытие области.
 
 <style>{CollapsibleDocs.collapsibleExampleCss}</style>
 
@@ -138,7 +165,8 @@ Collapsible добавляет к нему поведение Ark и атриб�
 
 ### Отложенное монтирование
 
-Сочетайте `lazyMount` и `unmountOnExit`, когда закрытое содержимое не должно оставаться в DOM.
+Установите `lazyMount`, чтобы монтировать содержимое только после первого открытия. Добавьте
+`unmountOnExit`, чтобы удалять его из DOM после закрытия.
 
 <style>{CollapsibleDocs.collapsibleExampleCss}</style>
 
@@ -165,8 +193,9 @@ Collapsible добавляет к нему поведение Ark и атриб�
 ### Частичное сворачивание
 
 Укажите `collapsedHeight` или `collapsedWidth`, чтобы после закрытия часть содержимого оставалась видимой.
-Интерактивные элементы в этой области не реагируют на взаимодействие, пока компонент свёрнут, поэтому
-действия, которые должны оставаться доступными, размещайте за пределами `Collapsible.Content`.
+Интерактивные элементы в этой области становятся недоступными для взаимодействия и навигации с
+клавиатуры, пока компонент свёрнут. Поэтому действия, которые должны оставаться доступными, размещайте
+за пределами `Collapsible.Content`.
 
 <style>{CollapsibleDocs.collapsibleExampleCss}</style>
 
@@ -188,21 +217,10 @@ Collapsible добавляет к нему поведение Ark и атриб�
 
 </PreviewFrame>
 
-### Контекст
-
-Используйте `useCollapsibleContext()` внутри дочернего компонента, чтобы получить состояние или закрыть область.
-
-<PreviewFrame maxWidth="xs">
-```tsx preview file="../../en/docs/_snippets/collapsible/context.tsx"
-
-```
-
-</PreviewFrame>
-
 ### Root Provider
 
-Создайте машину состояний через `useCollapsible` из moduix, если состояние нужно создавать и использовать
-за пределами корневого компонента.
+Создайте состояние через `useCollapsible()` и передайте его в `Collapsible.RootProvider`, если код за
+пределами дерева отрисованных компонентов должен обращаться к этому состоянию.
 
 <style>{CollapsibleDocs.collapsibleExampleCss}</style>
 
@@ -229,14 +247,20 @@ Collapsible добавляет к нему поведение Ark и атриб�
 
 ## Стилизация
 
+Используйте `className` у экспортируемых частей для структурных стилей. Для стилей, зависящих от
+состояния, предпочитайте атрибуты данных Ark, например `data-state` и `data-disabled`, вместе с
+селекторами `data-slot` библиотеки moduix.
+
 ### CSS-свойства
 
 <CssPropertiesSection properties={CollapsibleDocs.collapsibleOverrideCssProperties} />
 
-### Точки подключения стилей
+### Хуки стилизации
 
 - Части DOM предоставляют `data-slot="collapsible-root"`, `collapsible-root-provider`,
   `collapsible-trigger`, `collapsible-indicator`, `collapsible-content` и `collapsible-body`.
+- Части Ark предоставляют `data-scope="collapsible"` и значения `data-part` для корня, триггера,
+  индикатора и содержимого. `Collapsible.Body` добавляет `data-part="body"`.
 - Ark добавляет `data-state="open" | "closed"` к корневому компоненту, триггеру, индикатору и содержимому.
 - Ark добавляет `data-collapsible` к части `Content`.
 - `data-disabled` помечает триггер, индикатор и содержимое, если они отключены.

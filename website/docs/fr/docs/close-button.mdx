@@ -1,7 +1,7 @@
 ---
 title: Close Button
 component: close-button
-description: Un bouton affichant uniquement une icône pour fermer des notifications, des cartes, des fenêtres superposées et d’autres éléments d’interface.
+description: Un bouton sans libellé, représenté par une icône, pour fermer des notifications, des cartes, des panneaux superposés et d’autres surfaces d’interface.
 ---
 
 import * as CloseButtonDocs from '@/components/examples/close-button';
@@ -12,10 +12,10 @@ Ark UI ne fournit pas de primitive dédiée à la fermeture. moduix construit `C
 
 ## Exemple de base
 
-Utilisez `CloseButton` pour ajouter un bouton de fermeture à une notification, une carte, une fenêtre superposée
-ou une autre zone d’interface. Reliez `onClick` à l’état qui masque ou supprime cette zone. Le composant fournit
-la sémantique de bouton, un nom accessible de secours et l’icône `CloseIcon` par défaut. Il ne gère pas lui-même
-l’état de la zone.
+Utilisez `CloseButton` pour ajouter un bouton de fermeture à une notification, une carte, un panneau superposé
+ou une autre surface d’interface. Reliez son gestionnaire `onClick` à l’état qui masque ou supprime cette surface.
+Le composant rend un bouton sémantique, lui attribue un nom accessible par défaut et affiche l’icône `CloseIcon`,
+mais il ne gère pas lui-même l’état de la surface.
 
 <PreviewFrame maxWidth="sm">
 ```tsx preview file="../../en/docs/_snippets/close-button/basic.tsx"
@@ -27,12 +27,12 @@ l’état de la zone.
 
 <ShadcnInstall packageName="close-button" />
 
-Cette commande installe également les fichiers de base moduix partagés dont dépend `CloseButton`, notamment les
-styles, les icônes et de petits utilitaires.
+Cette commande installe également les fichiers partagés de la base moduix dont dépend `CloseButton`, notamment les
+styles, les icônes et quelques utilitaires.
 
 ## Anatomie
 
-`CloseButton` comporte une seule partie racine, conforme au modèle d’Ark.
+`CloseButton` expose une seule partie racine, suivant le modèle d’Ark.
 
 ```text
 CloseButton / CloseButton.Root
@@ -42,61 +42,60 @@ CloseButton / CloseButton.Root
 
 | Partie                             | Rôle                                                                          |
 | ---------------------------------- | ----------------------------------------------------------------------------- |
-| `CloseButton` / `CloseButton.Root` | Bouton interactif de fermeture qui reprend la sémantique et les exigences d’accessibilité d’un bouton. |
+| `CloseButton` / `CloseButton.Root` | Contrôle interactif de fermeture fondé sur la sémantique et l’accessibilité d’un bouton. |
 
 ## Composition
 
 ### Composition recommandée
 
-Utilisez directement `CloseButton` lorsqu’un bouton natif doit exécuter l’action de fermeture. La version moduix
-transmet les propriétés de bouton de l’Ark factory, les attributs HTML natifs, les gestionnaires d’événements et la ref.
+Utilisez directement `CloseButton` lorsque le composant doit rendre un élément `<button>` natif. Il transmet les
+props de bouton de l’Ark factory, les attributs HTML natifs, les gestionnaires d’événements et la `ref`.
 
 ### Quand utiliser un élément personnalisé
 
-Utilisez `asChild` lorsqu’un autre composant bouton doit fournir l’élément DOM rendu. La composition Ark attend un
-seul enfant, qui doit fournir sa propre icône.
+Utilisez `asChild` lorsqu’un autre composant bouton doit fournir le nœud DOM rendu. Passez un seul enfant et placez
+le contenu de l’icône dans cet enfant.
 
-Si une fenêtre superposée fournit déjà un bouton de fermeture, utilisez-le de préférence. Il gère notamment l’état
-de fermeture et le retour du focus.
+Si un panneau superposé fournit déjà un bouton de fermeture, utilisez-le afin qu’il gère l’état de fermeture et le
+retour du focus.
 
 ### Propriétés par défaut
 
 | Propriété    | Valeur par défaut                          | Valeurs et remarques                                      |
 | ------------ | ------------------------------------------ | -------------------------------------------------------- |
 | `type`       | `button`                                   | S’applique uniquement au composant racine natif          |
-| `aria-label` | `Close` si `aria-labelledby` est absent    | Préférez un libellé qui précise ce qui sera fermé        |
-| `children`   | `CloseIcon`                                | Remplace l’icône par défaut                              |
-| `asChild`    | `false`                                    | Composition Ark factory avec un seul enfant              |
+| `aria-label` | `Close` si les deux attributs de nom sont absents | Préférez un libellé qui précise ce qui sera fermé |
+| `children`   | `CloseIcon`                                      | Remplace le contenu par défaut                    |
+| `asChild`    | `false`                                          | Utilise un seul enfant comme racine rendue        |
 
 ### Comportement
 
 - `CloseButton` ne ferme aucun élément tout seul. Reliez `onClick` à votre logique ou utilisez le bouton de fermeture
-  fourni par le composant de fenêtre superposée.
-- Si aucun nom n’est fourni, le libellé accessible est `Close`. Utilisez `aria-label` ou `aria-labelledby` pour
-  préciser ce qui sera fermé.
-- Les attributs `disabled` et `aria-disabled="true"` ajoutent `data-disabled`, que vous pouvez cibler pour les styles,
-  et bloquent l’activation par clic.
-- Avec `asChild`, `disabled` n’ajoute pas l’attribut HTML natif `disabled` à l’élément personnalisé. Il ajoute
-  `aria-disabled="true"` et `data-disabled`, puis bloque l’activation par clic.
-- Les anciennes propriétés `render`, `nativeButton` et `focusableWhenDisabled` ne sont plus prises en charge.
-- Vous pouvez aussi utiliser `CloseButton.Root` ; cette forme est équivalente et correspond au modèle Ark.
+  fourni par le panneau superposé.
+- Si `aria-label` et `aria-labelledby` sont tous les deux absents, le nom accessible est `Close`. Dans une interface
+  réelle, utilisez un libellé qui précise la surface concernée, par exemple `Dismiss notification`.
+- Les propriétés `disabled` et `aria-disabled="true"` définissent `data-disabled` et bloquent l’activation par clic.
+- La racine native utilise `type="button"` par défaut. Avec `asChild`, définissez vous-même `type` sur l’enfant,
+  en particulier si le bouton se trouve dans un formulaire.
+- Avec `asChild`, `disabled` est représenté par `aria-disabled="true"` et non par l’attribut natif `disabled`.
+  L’activation par clic reste bloquée.
+- Vous pouvez aussi utiliser `CloseButton.Root` ; cette forme est équivalente.
 
 ## Exemples
 
-### As Child
+### Utiliser `asChild`
 
 Utilisez `asChild` pour conserver un bouton sémantique existant comme élément rendu, tout en lui appliquant les styles
-et les attributs `data-*` de `CloseButton`. L’exemple conserve `type="button"` sur le bouton enfant et utilise une
-icône circulaire plus grande.
+et les attributs `data-*` de `CloseButton`. Définissez `type="button"` sur l’enfant et fournissez-y l’icône.
 
 ```tsx preview file="../../en/docs/_snippets/close-button/as-child.tsx"
 
 ```
 
-### Enfants personnalisés
+### Contenu personnalisé
 
 Passez votre propre contenu à `children` pour remplacer l’icône par défaut tout en conservant le contrat du bouton
-racine. L’exemple utilise une simple croix à la place de l’icône circulaire de l’exemple `asChild`.
+racine. L’exemple utilise une simple croix décorative avec `aria-hidden="true"`.
 
 ```tsx preview file="../../en/docs/_snippets/close-button/custom-children.tsx"
 
@@ -104,8 +103,8 @@ racine. L’exemple utilise une simple croix à la place de l’icône circulair
 
 ### État désactivé
 
-Utilisez l’attribut natif `disabled` pour un bouton ordinaire. Utilisez `aria-disabled="true"` si le contrôle doit
-rester présent et signaler son état désactivé sans utiliser l’attribut natif.
+Utilisez l’attribut natif `disabled` lorsque le bouton ne doit pas recevoir le focus. Utilisez
+`aria-disabled="true"` lorsqu’il doit rester focusable sans pouvoir être activé.
 
 ```tsx preview file="../../en/docs/_snippets/close-button/disabled-state.tsx"
 
@@ -123,4 +122,5 @@ rester présent et signaler son état désactivé sans utiliser l’attribut nat
 - `data-part="root"` identifie l’unique partie exportée.
 - `data-slot="close-button-root"` fournit le sélecteur de slot stable de moduix.
 - `data-disabled` indique un état désactivé normalisé pour `disabled` et `aria-disabled="true"`.
-- Les éléments SVG placés directement dans le bouton reprennent leur taille depuis `--moduix-close-button-icon-size`.
+- `className` est combiné avec les styles par défaut du composant sur la racine.
+- Les éléments SVG enfants directs utilisent `--moduix-close-button-icon-size` pour leur largeur et leur hauteur.

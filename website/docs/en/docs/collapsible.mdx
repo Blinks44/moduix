@@ -1,7 +1,7 @@
 ---
 title: Collapsible
 component: collapsible
-description: A control for showing and hiding a single content region.
+description: A disclosure control for showing and hiding one content region.
 ---
 
 import * as CollapsibleDocs from '@/components/examples/collapsible';
@@ -10,10 +10,16 @@ import * as CollapsibleDocs from '@/components/examples/collapsible';
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/collapsible" />
 
+## Choosing the right component
+
+Use `Collapsible` for one independent disclosure. Use `Accordion` when several related sections
+need shared keyboard navigation or coordinated state.
+
 ## Basic
 
-Use `Collapsible` with its `Trigger`, `Indicator`, and `Content` parts to show and hide a single
-section of content.
+Use `Collapsible` with `Trigger`, the optional `Indicator`, and `Content` to show and hide one
+content region. Put the content inside `Collapsible.Body` when you need the recommended inner
+wrapper for spacing and layout.
 
 <style>{CollapsibleDocs.collapsibleExampleCss}</style>
 
@@ -39,22 +45,22 @@ Collapsible.Root
       └─ content
 ```
 
-| Part                               | Role                                                   |
-| ---------------------------------- | ------------------------------------------------------ |
-| `Collapsible` / `Collapsible.Root` | Manages the open state, whether controlled or uncontrolled. |
-| `Collapsible.RootProvider`         | Provides the parts with state created by `useCollapsible`. |
-| `Collapsible.Trigger`              | Accessible button that toggles the content.                 |
-| `Collapsible.Indicator`            | Optional state indicator with a moduix chevron by default. |
-| `Collapsible.Content`              | Expandable region measured through Ark CSS variables.      |
-| `Collapsible.Body`                 | moduix wrapper for padding and content layout.             |
+| Part                               | Role                                                               |
+| ---------------------------------- | ------------------------------------------------------------------ |
+| `Collapsible` / `Collapsible.Root` | Owns the open state for one disclosure.                            |
+| `Collapsible.RootProvider`         | Connects the parts to state created with `useCollapsible`.         |
+| `Collapsible.Trigger`              | Accessible button that opens or closes the content.                 |
+| `Collapsible.Indicator`            | Optional state indicator that renders a moduix chevron by default. |
+| `Collapsible.Content`              | Animated region whose dimensions Ark measures.                     |
+| `Collapsible.Body`                 | Inner wrapper for spacing and content layout.                       |
 
 ## Composition
 
 ### Recommended composition
 
-Use `Collapsible`, `Collapsible.Trigger`, optional `Collapsible.Indicator`,
-`Collapsible.Content`, and `Collapsible.Body` to compose the component. Root props include `open`,
-`defaultOpen`, `onOpenChange(details)`, `disabled`, `collapsedHeight`, `collapsedWidth`,
+Start with `Collapsible`, `Collapsible.Trigger`, `Collapsible.Content`, and `Collapsible.Body`.
+Add `Collapsible.Indicator` when a visual state cue is useful. Root props include `open`,
+`defaultOpen`, `onOpenChange(details)`, `disabled`, `collapsedHeight`, `collapsedWidth`, `hideMode`,
 `lazyMount`, `unmountOnExit`, `ids`, and `onExitComplete`.
 
 Put padding and surface styles on `Collapsible.Body`, not `Collapsible.Content`. Ark measures the
@@ -66,41 +72,58 @@ state reads `details.open` instead of receiving a boolean directly.
 
 ### When to go custom
 
-Use `asChild` when you want another semantic element to render the part. Collapsible adds Ark
-behavior and state attributes to that element while leaving its visual styling under your control.
+Use `asChild` when another semantic element should own the rendered part. The part adds Ark behavior
+and state attributes to that element while leaving its visual styling under your control. A custom
+trigger should remain keyboard-accessible and behave like a button.
 
-Use moduix `useCollapsible` with `Collapsible.RootProvider` when you need to create the state
-outside the component tree. moduix also exports `Collapsible.Context` and
-`useCollapsibleContext()`.
+Use `useCollapsible()` from `@moduix/react/collapsible` with `Collapsible.RootProvider` when you
+need to create the state outside the rendered component tree. moduix also exports
+`Collapsible.Context` and `useCollapsibleContext()`.
 
-`Collapsible.Indicator` is optional. Without children, it renders the moduix down chevron and
-accepts custom children when needed.
+`Collapsible.Indicator` is optional. Without children, it renders the moduix down chevron. Pass
+custom children when you need a different indicator.
 
 ### Default props
 
-| Part                    | Default          | Notes                                              |
-| ----------------------- | ---------------- | -------------------------------------------------- |
-| `Collapsible`           | closed           | `defaultOpen={false}`, content mounted by default       |
-| `Collapsible.Trigger`   | `button`         | Supports Ark `asChild`                                  |
-| `Collapsible.Indicator` | down chevron     | Rotates upward when `data-state="open"`                 |
-| `Collapsible.Content`   | collapsed region | Uses Ark measurement variables and render strategy       |
-| `Collapsible.Body`      | `div`            | Inner wrapper for padding and gap                        |
+| Prop               | Default        | Notes                                                                 |
+| ------------------ | -------------- | --------------------------------------------------------------------- |
+| `collapsedHeight`  | not set        | Height to keep visible when the content is closed.                    |
+| `collapsedWidth`   | not set        | Width to keep visible when the content is closed.                     |
+| `defaultOpen`      | `false`        | The disclosure starts closed.                                         |
+| `disabled`         | `false`        | The trigger cannot open or close the content.                         |
+| `hideMode`         | `display-none` | Uses `hidden` for mounted closed content. `activity` requires React 19. |
+| `lazyMount`        | `false`        | Mounts content when it is opened for the first time.                  |
+| `open`             | not set        | Controlled state. Use it with `onOpenChange`.                         |
+| `unmountOnExit`    | `false`        | Removes content from the DOM after it closes.                         |
 
 ### Behavioral notes
 
 - `onOpenChange` receives an Ark `details` object. Read the next state from `details.open`.
 - `open` is the target state. `visible` stays true while closing content remains mounted for the
   exit animation.
-- Keep nested interactive controls outside `Collapsible.Trigger`.
+- The trigger renders as a native button. `Enter` and `Space` open or close the disclosure.
+- Keep nested interactive controls outside `Collapsible.Trigger` so the trigger remains a button.
+- With `hideMode="activity"`, mounted closed content uses React 19 Activity mode and pauses its
+  effects. The default `hideMode="display-none"` uses the `hidden` attribute.
 - Content and indicator animations respect `prefers-reduced-motion`.
-- Use `Accordion` when multiple disclosures need coordinated keyboard or value behavior.
 
 ## Examples
 
+### Context
+
+Use `useCollapsibleContext()` inside a descendant when it needs to read state or close the disclosure
+programmatically.
+
+<PreviewFrame maxWidth="xs">
+  ```tsx preview file="./_snippets/collapsible/context.tsx"
+
+```
+
+</PreviewFrame>
+
 ### Controlled
 
-Use `open` with the Ark `onOpenChange(details)` callback when another part of your UI owns the
-state.
+Use `open` with the Ark `onOpenChange(details)` callback when another part of your UI owns the state.
 
 <style>{CollapsibleDocs.collapsibleExampleCss}</style>
 
@@ -139,7 +162,8 @@ Set `disabled` on the root to prevent users from opening or closing the disclosu
 
 ### Lazy Mount
 
-Combine `lazyMount` and `unmountOnExit` when closed content should not remain mounted in the DOM.
+Set `lazyMount` to mount content only after its first opening. Add `unmountOnExit` to remove it from
+the DOM after it closes.
 
 <style>{CollapsibleDocs.collapsibleExampleCss}</style>
 
@@ -166,8 +190,8 @@ Nest independent roots when a revealed section contains another optional detail.
 ### Partial Collapse
 
 Use `collapsedHeight` or `collapsedWidth` to keep part of the content visible while closed.
-Interactive controls in that visible area become inert until the disclosure opens, so keep actions
-that must stay available outside `Collapsible.Content`.
+Interactive elements in that area become inert until the disclosure opens, so keep actions that must
+stay available outside `Collapsible.Content`.
 
 <style>{CollapsibleDocs.collapsibleExampleCss}</style>
 
@@ -189,21 +213,10 @@ Use `collapsedWidth` when a horizontal preview is more useful than a height-limi
 
 </PreviewFrame>
 
-### Context
-
-Use `useCollapsibleContext()` inside a descendant to read state or close the disclosure.
-
-<PreviewFrame maxWidth="xs">
-  ```tsx preview file="./_snippets/collapsible/context.tsx"
-
-```
-
-</PreviewFrame>
-
 ### Root Provider
 
-Create the state machine with moduix `useCollapsible` when code outside the rendered root needs
-access to its state.
+Create the state with `useCollapsible()` and pass it to `Collapsible.RootProvider` when code outside
+the rendered component tree needs access to the state.
 
 <style>{CollapsibleDocs.collapsibleExampleCss}</style>
 
@@ -230,6 +243,9 @@ Use `asChild` to apply the trigger behavior to a button you own. This skips the 
 
 ## Styling
 
+Use `className` on exported parts for structural styles. For state-based styles, prefer Ark data
+attributes such as `data-state` and `data-disabled`, together with moduix `data-slot` selectors.
+
 ### CSS Properties
 
 <CssPropertiesSection properties={CollapsibleDocs.collapsibleOverrideCssProperties} />
@@ -238,6 +254,8 @@ Use `asChild` to apply the trigger behavior to a button you own. This skips the 
 
 - DOM parts expose `data-slot="collapsible-root"`, `collapsible-root-provider`,
   `collapsible-trigger`, `collapsible-indicator`, `collapsible-content`, and `collapsible-body`.
+- Ark parts expose `data-scope="collapsible"` and `data-part` values for the root, trigger, indicator,
+  and content. `Collapsible.Body` adds `data-part="body"`.
 - Ark exposes `data-state="open" | "closed"` on root, trigger, indicator, and content.
 - Ark adds `data-collapsible` to the content part.
 - `data-disabled` marks disabled trigger, indicator, and content parts.

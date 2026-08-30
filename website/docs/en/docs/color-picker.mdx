@@ -18,8 +18,8 @@ to enter a known value and do not need to manipulate the color directly.
 ## Basic
 
 Start with a compact field that combines a root, one channel input, the trigger's default swatch,
-explicit popup content, and the picker's default internal parts. The component also adds a hidden
-native input for form submission.
+explicit popup content, and the picker's default internal parts. The component also renders a hidden
+native input. Pass `name` when the color should be submitted with a form.
 
 <style>{ColorPickerDocs.colorPickerExampleCss}</style>
 
@@ -84,14 +84,14 @@ normal advanced state path. Import Ark-only type helpers directly when needed as
 
 ## Composition
 
-The root automatically renders `Positioner` through a portal. Set `portalled={false}` for inline
-rendering or pass `portalRef` to use a custom container. Structural parts remain explicit and
-styleable.
+`ColorPicker.Positioner` renders through a portal by default. Set `portalled={false}` to render it
+in the current document structure, or pass `portalRef` to use a custom container. Structural parts
+remain explicit and styleable.
 
 ### Recommended composition
 
 Keep `ColorPicker.Positioner` and `ColorPicker.Content` explicit for popup-based pickers. `Content`
-is the Ark part that contains the popup; the root only manages the portal.
+is the Ark part that contains the popup, while `Positioner` places it in the configured portal.
 
 Leave `Trigger`, `Area`, `ChannelSlider`, and `SwatchTrigger` without children to use their default
 visual composition. Use `ColorPicker.Sliders` for the usual hue and alpha pair. Style its channels
@@ -149,6 +149,20 @@ props to `false` only when eager initial rendering is needed.
 - All Ark DOM parts preserve `asChild`.
 
 ## Examples
+
+### Color Area and Sliders
+
+Use this compact composition when users need the color area and channel sliders but do not need
+typed channel input.
+
+<style>{ColorPickerDocs.colorPickerInlineCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/color-picker/slider-only.tsx"
+
+```
+
+</PreviewFrame>
 
 ### Compact Trigger
 
@@ -284,7 +298,7 @@ Use controlled `open` state when another control or workflow owns the popup's vi
 
 </PreviewFrame>
 
-### Root Provider
+### RootProvider
 
 Use moduix `useColorPicker` with `RootProvider` when the color picker state must be created outside
 the rendered tree and shared with nearby controls.
@@ -293,20 +307,6 @@ the rendered tree and shared with nearby controls.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/color-picker/root-provider.tsx"
-
-```
-
-</PreviewFrame>
-
-### Slider Only
-
-Use slider-only composition when direct manipulation is useful but typed channel input is
-unnecessary.
-
-<style>{ColorPickerDocs.colorPickerInlineCss}</style>
-
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/color-picker/slider-only.tsx"
 
 ```
 
