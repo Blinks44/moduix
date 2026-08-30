@@ -1,34 +1,38 @@
 ---
 title: Alert
 component: alert
-description: Messages affichés dans la page pour les statuts, la validation et les événements système.
+description: Messages intégrés à la page pour les mises à jour de statut, la validation et les messages système.
 ---
 
 import * as AlertDocs from '@/components/examples/alert';
 
 ## Référence de l’API
 
-Ark UI ne fournit pas de primitive `alert` dédiée. moduix construit `Alert` à partir de la
-[fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit ses recommandations pour la
-[composition](https://ark-ui.com/docs/guides/composition), les [styles](https://ark-ui.com/docs/guides/styling) et les
-[refs](https://ark-ui.com/docs/guides/ref).
+Ark UI ne fournit pas de primitive `alert` dédiée. moduix construit `Alert` avec la fabrique officielle
+d’Ark, en suivant les recommandations d’Ark en matière de [composition](https://ark-ui.com/docs/guides/composition), de
+[styles](https://ark-ui.com/docs/guides/styling) et de [gestion des refs](https://ark-ui.com/docs/guides/ref).
 
-Les parties publiques sont `Alert.Root`, `Alert.Indicator`, `Alert.Content`, `Alert.Title`,
+Importez `Alert` depuis `@moduix/react/alert`. Vous pouvez utiliser `Alert` comme composant racine ou
+passer par `Alert.Root` : les deux formes rendent la même partie racine. Les autres parties publiques sont
+`Alert.Indicator`, `Alert.Content`, `Alert.Title`,
 `Alert.Description` et `Alert.Actions`.
+
+Chaque partie accepte les propriétés usuelles de l’élément qu’elle rend, notamment `className` et
+`asChild`, et transmet la ref à l’élément rendu.
 
 ## Choisir le bon composant
 
-Utilisez `Alert` lorsque le message doit rester intégré à la page et occuper sa place dans le flux normal
-du document.
+Utilisez `Alert` lorsqu’un message doit faire partie de la mise en page et occuper une place dans le
+flux normal du document.
 
-- Utilisez **`Alert`** pour les messages de statut, de validation et les messages système dans les formulaires,
-  les panneaux ou le contenu de la page.
-- Utilisez **`Toast`** pour les notifications temporaires qui apparaissent hors du flux du document et se ferment automatiquement.
+- Utilisez **`Alert`** pour les mises à jour de statut, les résultats de validation et les messages système dans les formulaires, les panneaux ou le contenu de la page.
+- Utilisez **`Toast`** pour les notifications temporaires qui s’affichent au-dessus de la page, n’occupent pas de place dans le flux du document et se ferment automatiquement.
 
 ## Exemple de base
 
-Commencez par `Alert`, `Alert.Title` et `Alert.Description`. Ajoutez `Alert.Indicator` lorsqu’un repère visuel
-placé en tête aide à parcourir le message.
+Pour un message intégré courant, utilisez la forme courte `<Alert>` avec `Alert.Title` et
+`Alert.Description`. Ajoutez `Alert.Indicator` lorsqu’une icône aide à comprendre plus rapidement le
+type de message.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/alert/basic.tsx"
@@ -40,10 +44,14 @@ placé en tête aide à parcourir le message.
 
 <ShadcnInstall packageName="alert" />
 
-Cette installation ajoute aussi les fichiers de base partagés dont `Alert` a besoin, notamment les styles,
+Cette commande ajoute aussi les fichiers de base partagés dont `Alert` a besoin, notamment les styles,
 les icônes et quelques utilitaires.
 
 ## Anatomie
+
+Pour un message compact, placez `Alert.Title` et `Alert.Description` directement dans l’élément racine.
+Lorsque l’indicateur doit être placé à côté d’un texte et de contrôles regroupés, placez-les dans
+`Alert.Content`.
 
 ```text
 Alert / Alert.Root
@@ -57,33 +65,35 @@ Alert / Alert.Root
    └─ Extra custom blocks
 ```
 
-| Partie | Rôle | `data-part` |
-| ---------------------- | ------------------------------------------------------------- | ------------- |
-| `Alert` / `Alert.Root` | Partie racine. Applique les styles et la sémantique du statut. | `root` |
-| `Alert.Indicator` | Partie indicateur facultative. Uniformise la taille des icônes SVG qu’elle contient. | `indicator` |
-| `Alert.Content` | Conteneur de colonne facultatif qui regroupe le texte et les actions. | `content` |
-| `Alert.Title` | Partie titre de l’alerte. Rend un `p` par défaut. | `title` |
-| `Alert.Description` | Partie contenant le texte complémentaire. | `description` |
-| `Alert.Actions` | Ligne d’actions facultative avec retour à la ligne dans `Content`. | `actions` |
+| Partie                 | Rôle                                                                  | `data-part`   |
+| ---------------------- | --------------------------------------------------------------------- | ------------- |
+| `Alert` / `Alert.Root` | Élément racine. Applique les styles du statut et la sémantique automatique de région dynamique. | `root`        |
+| `Alert.Indicator`      | Repère visuel facultatif. Les icônes SVG qu’il contient ont une taille cohérente. | `indicator`   |
+| `Alert.Content`        | Conteneur en colonne facultatif pour regrouper le texte et les actions. | `content`     |
+| `Alert.Title`          | Titre de l’alerte. Rend un `p` par défaut.                              | `title`       |
+| `Alert.Description`    | Texte complémentaire du message.                                       | `description` |
+| `Alert.Actions`        | Ligne d’actions facultative avec retour à la ligne dans `Content`.     | `actions`     |
 
 ## Composition
 
 ### Composition recommandée
 
-Pour le cas courant d’un message intégré à la page, utilisez directement `Alert`, `Alert.Title` et `Alert.Description`.
+Pour le cas courant d’un message intégré à la page, composez `<Alert>` avec `Alert.Title` et
+`Alert.Description`.
 
-Utilisez `status` pour indiquer le type de message : `info`, `success`, `warning` ou `error`.
+Définissez `status` pour choisir le type de message : `info`, `success`, `warning` ou `error`.
 
-Ajoutez `Alert.Indicator` lorsque l’alerte a besoin d’un repère visuel explicite. Le composant n’impose
-volontairement aucune propriété spéciale ni aucun ensemble de slots pour les actions.
+Ajoutez `Alert.Indicator` lorsque l’alerte a besoin d’un repère visuel explicite. Les actions restent
+du contenu ordinaire à placer dans `Alert.Content` ; le composant ne crée ni boutons ni slots d’action.
 
-### Quand créer une composition personnalisée
+### Quand personnaliser la composition
 
-Ajoutez `Alert.Content` lorsque le titre, la description et les contrôles supplémentaires doivent rester regroupés
-dans une même colonne à côté de l’indicateur. Utilisez `Alert.Actions` pour une ligne d’actions avec retour à la ligne
-dans cette colonne. Si la structure du document exige un autre niveau de titre, utilisez `Alert.Title asChild`.
+Ajoutez `Alert.Content` lorsque le titre, la description et les contrôles supplémentaires doivent
+rester regroupés dans une même colonne à côté de l’indicateur. Utilisez `Alert.Actions` pour une ligne
+d’actions avec retour à la ligne dans cette colonne. Avec `asChild`, fournissez un seul enfant
+sémantiquement adapté afin qu’il prenne en charge l’élément DOM rendu.
 
-Par exemple :
+Si la hiérarchie des titres du document exige un autre élément, utilisez `Alert.Title asChild` :
 
 ```tsx
 <Alert.Title asChild>
@@ -93,35 +103,29 @@ Par exemple :
 
 ### Propriétés par défaut
 
-| Propriété | Par défaut | Valeurs et remarques |
-| -------- | --------- | --------------------------------------------------------------- |
-| `status` | `info` | `info`, `success`, `warning`, `error` |
-| `role` | Automatique | `role="status"` par défaut, `role="alert"` pour `status="error"` |
+| Propriété | Valeur par défaut | Valeurs et remarques                                             |
+| --------- | ----------------- | ----------------------------------------------------------------- |
+| `status`  | `info`            | `info`, `success`, `warning`, `error`                             |
+| `role`    | Automatique       | `role="status"` par défaut, `role="alert"` pour `status="error"` |
 
 ### Comportement
 
-- `Alert.Root` est par défaut `role="status"` et passe à `role="alert"` pour `status="error"`.
-- Ces rôles créent des régions dynamiques avec des priorités d’annonce différentes. `status` annonce les mises à jour
-  sans interrompre l’utilisateur, tandis que `alert` les annonce immédiatement. Si le message doit être annoncé,
-  montez l’alerte avant de mettre son contenu à jour. Un contenu déjà présent au chargement de la page peut ne pas être annoncé.
-- Remplacez `role` lorsque l’alerte est un encart statique et non un message signalant une mise à jour. Pour une
-  information statique complémentaire, utilisez `role="note"`.
-- `Alert.Indicator` est par défaut `aria-hidden="true"`.
-- `Alert.Title` rend un `p` par défaut et utilise `asChild` d’Ark lorsque vous avez besoin d’un autre élément de titre.
-- La signification essentielle doit rester dans le titre ou la description, car l'indicateur reste
-`aria-hidden`.
-- `Alert.Content` est facultatif. Utilisez-le lorsque le titre, la description et les contrôles supplémentaires doivent en partager un
-colonne de contenu à côté de l’indicateur.
-- `Alert.Actions` est facultatif. Utilisez-le lorsque des boutons ou des liens doivent partager l'action encapsulée par défaut
-style de ligne.
-- Le composant se charge uniquement de l’affichage. Il ne gère ni l’état de fermeture, ni le focus, ni le
-  comportement clavier des actions que vous placez à l’intérieur.
+- `Alert.Root` utilise `role="status"` par défaut et passe à `role="alert"` pour `status="error"`.
+- `role="status"` annonce généralement les mises à jour sans interrompre la lecture en cours, tandis que `role="alert"` les annonce immédiatement. Si le message doit être annoncé, montez l’alerte avant de mettre son texte à jour. Un contenu déjà présent au chargement de la page peut ne pas être annoncé.
+- Remplacez `role` lorsque l’alerte est un encart statique et non un message signalant une mise à jour. Pour une information statique complémentaire, utilisez `role="note"`.
+- `Alert.Indicator` utilise `aria-hidden="true"` par défaut.
+- Gardez le sens essentiel dans le titre ou la description, car l’indicateur est masqué pour les technologies d’assistance.
+- `Alert.Title` rend un `p` par défaut. Utilisez `asChild` d’Ark lorsque le titre doit être rendu avec un autre élément.
+- `Alert.Content` est facultatif. Utilisez-le lorsque le titre, la description et les contrôles supplémentaires doivent partager une même colonne à côté de l’indicateur.
+- `Alert.Actions` est facultatif. Utilisez-le lorsque des boutons ou des liens doivent utiliser les styles par défaut de la ligne d’actions avec retour à la ligne.
+- Le composant se limite à l’affichage. Il ne gère ni l’état de fermeture, ni le focus, ni le comportement clavier des actions que vous placez à l’intérieur.
 
 ## Exemples
 
 ### Titre personnalisé
 
-Utilisez `asChild` sur `Alert.Title` lorsque l’alerte doit s’inscrire dans une structure de titres précise.
+Utilisez `asChild` sur `Alert.Title` lorsque le titre de l’alerte doit s’inscrire dans la hiérarchie
+des titres de la page.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/alert/custom-heading.tsx"
@@ -132,8 +136,8 @@ Utilisez `asChild` sur `Alert.Title` lorsque l’alerte doit s’inscrire dans u
 
 ### Erreur
 
-Utilisez `status="error"` lorsque le message doit être annoncé avec une priorité élevée et bénéficier d’un accent
-visuel plus marqué.
+Définissez `status="error"` lorsque le message doit être annoncé avec une priorité élevée et bénéficier
+d’un accent visuel plus marqué.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/alert/error.tsx"
@@ -144,8 +148,8 @@ visuel plus marqué.
 
 ### Statuts
 
-Utilisez `Alert.Indicator` avec l’icône de votre choix pour les messages d’information, de réussite,
-d’avertissement et d’erreur.
+Utilisez les quatre statuts pour distinguer les messages d’information, de réussite, d’avertissement et
+d’erreur. Ajoutez `Alert.Indicator` avec l’icône de votre choix lorsque ce repère visuel est utile.
 
 <style>{AlertDocs.alertStatusesCss}</style>
 
@@ -169,8 +173,8 @@ Placez une icône moduix ou un SVG personnalisé dans `Alert.Indicator`.
 
 ### Personnalisation avancée
 
-Utilisez `Alert.Actions` au lieu d’ajouter des conteneurs de mise en page ad hoc lorsque le message doit proposer
-des actions de récupération ou de suivi dans `Alert.Content`. Gérez l’état de fermeture dans le composant qui affiche
+Utilisez `Alert.Content` et `Alert.Actions` lorsque le message doit proposer des actions pour corriger
+un problème ou poursuivre le parcours. Gérez l’état de fermeture dans le composant qui affiche
 l’alerte si vous devez pouvoir la masquer localement.
 
 <style>{AlertDocs.alertCustomCompositionCss}</style>
@@ -184,30 +188,28 @@ l’alerte si vous devez pouvoir la masquer localement.
 
 ## Styles
 
-Utilisez `className` sur la racine ou sur les différentes parties pour appliquer des styles locaux. Remplacez les variables
-CSS `--moduix-alert-*` sur la racine lorsque l’alerte nécessite un thème local.
+Utilisez `className` sur la racine ou sur les différentes parties pour appliquer des styles locaux.
+Définissez les variables `--moduix-alert-*` sur la racine lorsqu’une alerte nécessite un thème local.
 
-Les variables `--moduix-alert-bg`, `--moduix-alert-border-color`, `--moduix-alert-color` et
-`--moduix-alert-indicator-color` s’appliquent à tous les statuts. Utilisez les variables correspondantes
-`--moduix-alert-<status>-*` lorsqu’un seul statut doit changer.
+Les variables communes `--moduix-alert-bg`, `--moduix-alert-border-color`, `--moduix-alert-color` et
+`--moduix-alert-indicator-color` s’appliquent à tous les statuts. Utilisez les variables
+`--moduix-alert-<status>-*` correspondantes lorsqu’un seul statut doit changer.
 
-Les statuts intégrés lisent également les jetons de palette partagée :
+Les statuts intégrés utilisent également les tokens de palette partagée :
 
-| Statut | Jeton partagé | Par défaut |
+| Statut    | Token partagé                | Valeur par défaut            |
 | --------- | ---------------------------- | ---------------------------- |
-| `info` | `--moduix-color-card` | carte du thème |
-| `success` | `--moduix-color-success` | `oklch(0.627 0.194 149.214)` |
-| `warning` | `--moduix-color-warning` | `oklch(0.795 0.184 86.047)` |
-| `error` | `--moduix-color-destructive` | thème destructeur |
+| `info`    | `--moduix-color-card`        | surface de carte du thème    |
+| `success` | `--moduix-color-success`     | `oklch(0.627 0.194 149.214)` |
+| `warning` | `--moduix-color-warning`     | `oklch(0.795 0.184 86.047)`  |
+| `error`   | `--moduix-color-destructive` | couleur destructive du thème |
 
 ### Propriétés CSS
 
 <CssPropertiesSection properties={AlertDocs.alertCssProperties} />
 
-### Points d’accroche CSS
+### Sélecteurs de style
 
-- Sélecteurs `data-slot` stables : `alert-root`, `alert-indicator`, `alert-content`, `alert-title`,
-`alert-description` et `alert-actions`
-- Sélecteurs de style Ark : `data-scope="alert"` avec `data-part="root"`, `indicator`, `content`,
-`title`, `description` ou `actions`
-- `Alert.Root` écrit l'état sélectionné dans `data-status`
+- Sélecteurs `data-slot` stables : `alert-root`, `alert-indicator`, `alert-content`, `alert-title`, `alert-description` et `alert-actions`
+- Sélecteurs de style Ark : `data-scope="alert"` avec `data-part="root"`, `indicator`, `content`, `title`, `description` ou `actions`
+- `Alert.Root` écrit le statut sélectionné dans `data-status`
