@@ -46,7 +46,7 @@
     }
   }
 
-  .root[data-orientation='vertical'] > .itemGroup {
+  .itemGroup[data-orientation='vertical'] {
     height: 100%;
     overscroll-behavior-x: auto;
     overscroll-behavior-y: contain;
@@ -155,8 +155,7 @@
     gap: var(--moduix-carousel-indicator-gap, var(--moduix-spacing-2));
   }
 
-  .root[data-orientation='vertical'] > .indicatorGroup,
-  .control[data-orientation='vertical'] > .indicatorGroup {
+  .indicatorGroup[data-orientation='vertical'] {
     flex-direction: column;
   }
 
@@ -206,12 +205,9 @@
     }
   }
 
-  .root[data-orientation='vertical'] > .indicatorGroup .indicator,
-  .control[data-orientation='vertical'] > .indicatorGroup .indicator {
-    &[data-current] {
-      width: var(--moduix-carousel-indicator-size, var(--moduix-spacing-2));
-      height: calc(var(--moduix-carousel-indicator-size, var(--moduix-spacing-2)) * 3);
-    }
+  .indicator[data-orientation='vertical'][data-current] {
+    width: var(--moduix-carousel-indicator-size, var(--moduix-spacing-2));
+    height: calc(var(--moduix-carousel-indicator-size, var(--moduix-spacing-2)) * 3);
   }
 
   .autoplayTrigger {
