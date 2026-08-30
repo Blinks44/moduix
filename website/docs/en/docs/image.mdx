@@ -1,23 +1,24 @@
 ---
 title: Image
 component: image
-description: Responsive, CDN-aware images with Unpic-generated srcset and sizes attributes.
+description: Responsive images with automatic CDN detection and Unpic-generated srcset and sizes attributes.
 ---
 
 import * as ImageDocs from '@/components/examples/image';
 
 ## API Reference
 
-`Image` is a moduix component built around the `<img>` component from [Unpic React](https://unpic.pics/img/react/).
-Ark UI does not provide a dedicated image primitive, so `Image` keeps the native `<img>` and
-`<picture>` composition instead of replacing it with an Ark part. See Ark's [Composition
-guide](https://ark-ui.com/react/docs/guides/composition) for more on its native-element model.
+`Image` is a thin moduix wrapper around the `<img>` component from [Unpic React](https://unpic.pics/img/react/).
+Ark UI does not provide a dedicated image primitive, so `Image` uses native `<img>` and `<picture>`
+composition instead of an Ark part. See Ark's [Composition guide](https://ark-ui.com/docs/guides/composition)
+for more on its native-element model.
 
 ## Basic
 
-Use `Image` with a URL from a supported image CDN, and provide `width` and `height` for the default
-constrained layout. Unpic generates responsive `srcSet` and `sizes`, while the browser reserves
-space for the image before it loads.
+Use `Image` with a URL from a supported image CDN or any regular image URL. For the default
+`layout="constrained"`, provide `width` and `height`. When Unpic recognizes the provider, it
+generates responsive `srcset` and `sizes` attributes. Otherwise, it keeps the source URL unchanged.
+The browser reserves space for the image before it loads.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/image/basic.tsx"
@@ -42,31 +43,32 @@ picture (native)
 
 | Part                   | Role                                                                  |
 | ---------------------- | --------------------------------------------------------------------- |
-| `Image` / `Image.Root` | Responsive native `<img>` element; Unpic creates `srcSet`, `sizes`, and styles. |
+| `Image` / `Image.Root` | Responsive native `<img>` element; Unpic creates `srcset`, `sizes`, and styles. |
 | `Image.Source`         | Responsive `<source>` for a native `<picture>` element.                     |
 
 ## Composition
 
 ### Recommended composition
 
-`Image` is the short root form and is equivalent to `Image.Root`. Use `width` and `height` with
-the default `layout="constrained"` to preserve the asset's aspect ratio and let the browser reserve
-space before loading, which prevents layout shifts. For URLs from supported providers, Unpic detects
-the provider and generates transformed `srcSet` entries automatically.
+`Image` is the short form of `Image.Root`. For `layout="constrained"` and `layout="fixed"`, provide
+`width` and `height` so the browser can reserve space before loading. In the constrained layout,
+these dimensions preserve the asset's aspect ratio and let the image shrink when its container is
+narrower. For URLs from supported providers, Unpic detects the provider and generates transformed
+`srcset` entries automatically.
 
 Use `priority` only for images that must load immediately, such as the primary hero image visible
-when the page opens. It enables eager loading and a high fetch priority unless native `loading` or
+when the page opens. It enables eager loading and high fetch priority unless native `loading` or
 React's camel-cased `fetchPriority` prop is set explicitly.
 
 ### When to go custom
 
 Use native `<picture>` with `Image.Source` when you need art direction or different sources for
-different media queries. Keep `Image` as the last child; it acts as the fallback image. Pass
-`fallback`, `options`, or `operations` when Unpic cannot recognize a URL and should use a specific
-provider.
+different media queries. Keep `Image` as the last child. It acts as the fallback image when the
+browser does not select a `<source>`. Pass `fallback`, `options`, or `operations` when Unpic cannot
+recognize a URL and needs a specific provider.
 
-For format selection, put an `Image.Source` with a `type` before an equivalent source without
-`type`; the browser uses the first format it supports.
+For format selection, put an `Image.Source` with a `type` before an equivalent source without `type`.
+The browser uses the first format it supports.
 
 ### Default props
 
@@ -83,10 +85,14 @@ For format selection, put an `Image.Source` with a `type` before an equivalent s
 
 - `fixed` keeps the requested pixel dimensions and can overflow a narrower parent, while
   `fullWidth` fills its container width.
-- `alt` is required for informative images. Use `alt=""` for decorative images; Unpic then applies
-  `role="presentation"` unless you override the role.
-- Unpic generates `srcSet` from the source URL. Use `breakpoints` when its standard responsive
+- For informative images, provide meaningful `alt` text. Use `alt=""` for decorative images; Unpic
+  then applies `role="presentation"` unless you override the role.
+- Use `aspectRatio` instead of `width` and `height` when you want to provide only the image's aspect
+  ratio.
+- Unpic generates `srcset` from the source URL. Use `breakpoints` when its standard responsive
   widths are not a good fit.
+- Unpic detects supported image providers automatically. For other URLs, it keeps the source URL
+  unchanged unless you provide a `fallback` provider.
 - Native `loading`, `decoding`, and React's camel-cased `fetchPriority` remain available when the
   generated defaults do not match the image's loading needs.
 - `background="auto"` creates a low-resolution background from supported providers. It remains

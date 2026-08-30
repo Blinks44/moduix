@@ -1,7 +1,7 @@
 ---
 title: Fieldset
 component: fieldset
-description: Group related form controls under one legend with native fieldset semantics and shared state. Helper text and error messages are connected for assistive technologies.
+description: Group related form controls under one legend while preserving native fieldset semantics and shared state. Helper text and error messages are connected to the group so assistive technologies can announce them.
 ---
 
 import * as FieldsetDocs from '@/components/examples/fieldset';
@@ -12,15 +12,15 @@ import * as FieldsetDocs from '@/components/examples/fieldset';
 
 ## Choosing the right component
 
-Use `Fieldset` when several related form controls belong to one group and need a shared legend, such
-as contact details or notification preferences. Use `Field` when a single control needs its own label,
-description, and validation message.
+Use `Fieldset` when several related controls belong to one group and need a shared legend, such as
+contact details or notification preferences. Use `Field` when one control needs its own label, helper
+text, and validation message.
 
 ## Basic
 
 Build a group with `Fieldset`, `Fieldset.Legend`, the related controls, and optional helper or error
-text. The short `<Fieldset>` form is equivalent to `<Fieldset.Root>`, which remains available for the
-Ark-compatible API.
+text. The shorter `<Fieldset>` syntax is equivalent to `<Fieldset.Root>`. The `.Root` form remains
+available for compatibility with Ark's namespace API.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/fieldset/basic.tsx"
@@ -46,17 +46,18 @@ Fieldset.Root | Fieldset.RootProvider
 | ---------------------------- | --------------------------------------------------------------------- |
 | `Fieldset` / `Fieldset.Root` | Creates state and renders a native `fieldset`.                                             |
 | `Fieldset.RootProvider`      | Renders a native `fieldset` with state created by `useFieldset`.                             |
+| `Fieldset.Context`           | Exposes the current fieldset state to descendants without rendering an extra DOM element.    |
 | `Fieldset.Legend`            | Native `legend` that provides the accessible name for the group.                             |
 | `Fieldset.HelperText`        | Description linked to the root through `aria-describedby`.                                   |
-| `Fieldset.ErrorText`         | Validation message announced without interrupting the user and rendered only when `invalid` is `true`. |
+| `Fieldset.ErrorText`         | Validation message announced through `aria-live="polite"` and rendered only when `invalid` is `true`. |
 
 ## Composition
 
 ### Recommended composition
 
 Keep exactly one visible `Fieldset.Legend` inside the root, preferably before the controls. Pass
-`disabled`, `invalid`, and `id` directly to the root. Ark links the legend, helper text when present,
-and active error text to the fieldset.
+`disabled`, `invalid`, and `id` directly to the root. Ark uses the legend as the fieldset's accessible
+name and connects helper text and the active error message through `aria-describedby`.
 
 The root, provider, legend, helper text, and error text forward refs to their rendered DOM elements.
 Use `asChild` with one semantic child when you need to replace the HTML element rendered for a part.
@@ -65,7 +66,8 @@ Use `asChild` with one semantic child when you need to replace the HTML element 
 
 Use `useFieldset` from `@moduix/react` with `Fieldset.RootProvider` when state must be created outside
 the JSX tree or shared with sibling controls and reusable descendants. Use `useFieldsetContext()` or
-`Fieldset.Context` in a descendant that needs to read that state. Do not use `Fieldset.Root` together
+pass a render function to `Fieldset.Context` in a descendant that needs to read that state. Do not use
+`Fieldset.Root` together
 with `Fieldset.RootProvider` for the same state instance.
 
 ### Default props
@@ -139,8 +141,8 @@ one phone number.
 
 ### Invalid
 
-Set `invalid` on `Fieldset` to validate the group and show its group-level error. Set `invalid` on
-nested `Field` components as well when individual controls need their own invalid styling and ARIA state.
+Set `invalid` on `Fieldset` to mark the group as invalid and show its group-level error. Set `invalid`
+on nested `Field` components as well when individual controls need their own invalid styling and ARIA state.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/fieldset/invalid.tsx"

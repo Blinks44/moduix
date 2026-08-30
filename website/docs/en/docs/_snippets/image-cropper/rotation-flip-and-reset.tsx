@@ -23,6 +23,7 @@ export default function TransformImageCropperDemo() {
   return (
     <div className="cropper-stack">
       <ImageCropper
+        aria-label="Image cropper"
         rotation={rotation}
         flip={flip}
         onRotationChange={(details) => setRotation(details.rotation)}
@@ -83,7 +84,7 @@ export default function TransformImageCropperDemo() {
           )}
         </ImageCropper.Context>
         <ImageCropper.Viewport>
-          <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
+          <ImageCropper.Image src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
           <ImageCropper.CropArea />
         </ImageCropper.Viewport>
       </ImageCropper>

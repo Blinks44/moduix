@@ -1,18 +1,23 @@
 ---
 title: Heading
 component: heading
-description: Composant sémantique pour les titres, avec une composition via l’Ark factory et les tokens typographiques de moduix.
+description: Composant sémantique pour les titres, basé sur la fabrique Ark et les tokens typographiques de moduix.
 ---
 
 import * as HeadingDocs from '@/components/examples/heading';
 
 ## Référence de l’API
 
-Ark UI ne fournit pas de primitive dédiée aux titres. moduix s’appuie sur l’[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations d’Ark pour la [composition](https://ark-ui.com/docs/guides/composition), la [mise en forme](https://ark-ui.com/docs/guides/styling) et le [transfert des refs](https://ark-ui.com/docs/guides/ref).
+Ark UI ne propose pas de primitive dédiée aux titres. moduix implémente `Heading` avec la
+[fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations
+d’Ark pour la [composition](https://ark-ui.com/docs/guides/composition), la [mise en forme](https://ark-ui.com/docs/guides/styling)
+et le [transfert de ref](https://ark-ui.com/docs/guides/ref).
 
 ## Exemple de base
 
-Par défaut, `Heading` rend un élément `h1`. Utilisez-le pour les titres de page et choisissez le niveau de titre correspondant à la structure du document.
+Par défaut, `Heading` rend un `h1`. Utilisez-le pour les titres du document et choisissez la valeur de `as`
+en fonction de sa place dans la structure du document. Définissez `size` séparément lorsque l’importance visuelle
+doit différer du niveau sémantique.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/heading/basic.tsx"
@@ -26,11 +31,11 @@ Par défaut, `Heading` rend un élément `h1`. Utilisez-le pour les titres de pa
 
 ## Anatomie
 
-`Heading` comporte uniquement un élément racine. `Heading.Root` désigne le même composant sous la forme d’un espace de noms conforme aux conventions d’Ark.
+`Heading` rend un seul élément de titre natif. Les formes `<Heading>` et `<Heading.Root>` sont équivalentes.
 
 ```text
 Heading / Heading.Root
-└─ text or inline content
+└─ texte ou contenu en ligne
 ```
 
 | Partie                     | Rôle                                                               |
@@ -41,48 +46,53 @@ Heading / Heading.Root
 
 ### Composition recommandée
 
-Utilisez `<Heading>` pour `h1`. Pour choisir un autre niveau sémantique, transmettez `as="h2"`,
-`as="h3"`, `as="h4"`, `as="h5"` ou `as="h6"` :
+Utilisez `<Heading>` dans le cas courant d’un `h1`. Pour choisir un autre niveau sémantique, transmettez
+à `as` une valeur de `h2` à `h6` :
 
 ```tsx
+import { Heading } from '@moduix/react/heading';
+
 <Heading as="h2" size="2xl">
   Page title rendered as h2
 </Heading>
 ```
 
-Utilisez `asChild` uniquement si l’élément enfant, qui doit être un titre sémantique, doit porter le nœud DOM
-tout en recevant les props du composant, sa `className`, ses attributs `data-*` et la ref transmise.
+Utilisez `asChild` pour composer avec la fabrique lorsqu’un unique élément enfant sémantique de titre doit
+porter le nœud DOM rendu. L’enfant reçoit les propriétés du composant, sa `className`, ses attributs `data-*`
+et la `ref` transmise.
 
 ### Quand créer une composition personnalisée
 
-Pour modifier l’apparence, utilisez `className` et les variables publiques `--moduix-heading-*`. Si le contenu
-est du texte courant ou relève de la typographie générale plutôt que d’un titre de document, utilisez `Text`.
+Pour ajuster localement l’apparence, utilisez `className` et les variables publiques `--moduix-heading-*`.
+Utilisez `Text` pour le texte courant, les libellés auxiliaires ou le texte en ligne, plutôt que pour un titre
+de document.
 
 ### Propriétés par défaut
 
-| Élément     | Valeur par défaut        | Valeurs et remarques                            |
+| Propriété   | Valeur par défaut        | Valeurs et remarques                            |
 | ----------- | ------------------------ | ----------------------------------------------- |
-| element     | `h1`                     | Utilisez `as` pour `h2`-`h6`                    |
+| `as`        | `h1`                     | `h1` à `h6`                                     |
 | `size`      | selon l’élément rendu    | `xs`, `sm`, `md`, `lg`, `xl`, `2xl`             |
 | `weight`    | `semibold`               | `regular`, `medium`, `semibold`, `bold`         |
-| `asChild`   | `false`                  | Composition via l’Ark factory                  |
+| `asChild`   | `false`                  | Composition via la fabrique Ark                |
 | `className` | -                        | Appliqué à l’élément racine du titre rendu      |
 
 ### Comportement
 
-- La taille visuelle par défaut dépend de l’élément rendu : `h1 -> 2xl`, `h2 -> xl`, `h3 -> lg`,
-  `h4 -> md`, `h5 -> sm` et `h6 -> xs`.
+- Lorsque `size` n’est pas défini, la taille visuelle dépend de l’élément rendu : `h1 -> 2xl`, `h2 -> xl`,
+  `h3 -> lg`, `h4 -> md`, `h5 -> sm` et `h6 -> xs`.
 - Une valeur `size` explicite remplace cette correspondance sans modifier la sémantique.
 - La racine transmet la ref à l’élément de titre rendu.
-- Les éléments de titre natifs portent déjà la sémantique nécessaire et n’ont pas besoin d’attribut ARIA supplémentaire.
+- Les éléments de titre natifs fournissent la sémantique requise et n’ont pas besoin d’attribut ARIA supplémentaire.
   Ne transmettez pas à `asChild` un élément qui n’est pas un titre.
-- `Heading` ne gère aucun état et n’expose ni callback, ni comportement clavier, ni provider, ni hook de contexte.
+- `Heading` ne gère aucun état et n’expose ni callback, ni interaction au clavier, ni provider, ni hook de contexte.
 
 ## Exemples
 
 ### Niveaux de titre
 
-Utilisez `as` pour `h2`-`h6`. Par défaut, la taille visuelle est déterminée par l’élément de titre utilisé.
+Utilisez `as` pour choisir un niveau de `h2` à `h6`. Lorsque `size` n’est pas défini, la taille visuelle
+dépend de l’élément de titre rendu.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/heading/heading-levels.tsx"
@@ -92,8 +102,8 @@ Utilisez `as` pour `h2`-`h6`. Par défaut, la taille visuelle est déterminée p
 
 ### Niveau sémantique et taille visuelle
 
-Dissociez la structure du document de l’importance visuelle : choisissez le niveau sémantique voulu,
-puis définissez explicitement la taille visuelle.
+Séparez la hiérarchie du document de l’importance visuelle. Utilisez `as` pour le niveau sémantique et
+`size` pour la taille visuelle.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/heading/semantic-level-and-visual-size.tsx"
@@ -113,7 +123,7 @@ Utilisez `size` lorsque plusieurs titres partagent le même niveau sémantique m
 
 ### Graisse
 
-Utilisez `weight` pour choisir l’un des niveaux de graisse typographique proposés.
+Utilisez `weight` pour choisir l’une des graisses typographiques intégrées.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/heading/weights.tsx"
@@ -123,8 +133,8 @@ Utilisez `weight` pour choisir l’un des niveaux de graisse typographique propo
 
 ### Personnalisation avancée
 
-Utilisez `asChild` uniquement si l’élément sémantique de titre doit porter le nœud DOM tout en recevant les props
-du composant, sa `className`, ses attributs `data-*` et la ref transmise.
+Utilisez `asChild` lorsqu’un autre élément sémantique de titre doit porter le nœud DOM rendu. Pour les cas
+courants avec `h1` à `h6`, utilisez plutôt `as`.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/heading/custom-host.tsx"
@@ -133,6 +143,9 @@ du composant, sa `className`, ses attributs `data-*` et la ref transmise.
 </PreviewFrame>
 
 ## Styles
+
+Personnalisez `Heading` avec `className`, les attributs de données de la racine et les variables CSS publiques
+`--moduix-heading-*` présentées dans la référence CSS ci-dessous.
 
 ### Propriétés CSS
 
@@ -150,10 +163,9 @@ du composant, sa `className`, ses attributs `data-*` et la ref transmise.
 
 ### Points d’accroche CSS
 
-- `data-scope="heading"` identifie la portée du composant selon les conventions d’Ark.
-- `data-part="root"` identifie l’unique partie racine.
+- `data-scope="heading"` et `data-part="root"` identifient la racine selon les conventions d’Ark.
 - `data-slot="heading-root"` est un sélecteur moduix stable.
 - `data-size` est présent lorsque `size` est défini explicitement.
 - `data-weight` indique la graisse choisie : `regular`, `medium`, `semibold` ou `bold`.
-- `Heading` définit ces attributs lui-même. Des props `data-*` du même nom ne peuvent pas remplacer le contrat de style du composant.
+- `Heading` définit lui-même ces attributs. Les propriétés `data-*` correspondantes ne peuvent pas remplacer le contrat de style du composant.
 - Utilisez `className` et les variables `--moduix-heading-*` pour ajuster localement l’apparence.

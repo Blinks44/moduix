@@ -1,7 +1,7 @@
 ---
 title: Editable
 component: editable
-description: Inline text editing with Ark UI, including preview and input states, edit controls, and native form integration.
+description: Inline text editing with Ark UI, preview and input states, edit controls, and native form support.
 ---
 
 import * as EditableDocs from '@/components/examples/editable';
@@ -12,17 +12,17 @@ import * as EditableDocs from '@/components/examples/editable';
 
 ## Choosing the right component
 
-- Choose **`Input`** or **`Textarea`** when the value should always appear editable.
-- Choose **`Editable`** when the value is usually read-only and users enter edit mode intentionally.
+- Choose **`Input`** or **`Textarea`** when the value should always be available for editing.
+- Choose **`Editable`** when the value is usually read-only and editing should be an explicit action.
 - Wrap **`Editable`** in **`Field`** when helper text, error text, or shared form state should appear
-  outside its part tree.
+  outside the component.
 
 ## Basic
 
-Use the Ark-style parts: `Editable`, `Editable.Label`, `Editable.Area`, `Editable.Input`, and
-`Editable.Preview`. Add `Editable.Controls` for the standard edit, submit, and cancel flow.
-The moduix wrapper adds styles, `data-slot` attributes, and default trigger icons.
-By default, moduix enters edit mode on double-click to help prevent accidental edits.
+Use `Editable` as the root and compose it from `Editable.Label`, `Editable.Area`, `Editable.Input`,
+and `Editable.Preview`. Add `Editable.Controls` for the standard edit, submit, and cancel flow.
+The moduix wrapper adds styles, `data-slot` hooks, and default trigger icons. By default, users
+enter edit mode with a double-click, which helps prevent accidental changes.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/editable/basic.tsx"
@@ -69,17 +69,19 @@ Editable.RootProvider
 
 ### Recommended composition
 
-Keep `Input` and `Preview` as siblings inside `Area`, and place `Controls` after `Area` for the
-standard trigger layout. For single-line inputs, the trigger buttons appear on the right and are
-vertically centered. Textarea compositions use the same structure. Set
-`--moduix-editable-control-align: start` to align the controls with the top of the multiline area.
+Place `Editable.Input` and `Editable.Preview` as siblings inside `Editable.Area`. Put
+`Editable.Controls` after the area to use the standard trigger layout. For a single-line input,
+the controls appear on the right and are vertically centered. Textarea compositions use the same
+structure. Set `--moduix-editable-control-align: start` to align the controls with the top of the
+multiline area.
 
 ### When to go custom
 
-Use moduix `Editable.Context` or `useEditableContext()` when reusable child parts or inline state
-reads need access to the edit state. Use moduix `useEditable()` with `Editable.RootProvider` when
-state or methods must be managed outside the rendered `Editable` tree. Use `asChild` when the input
-needs a custom semantic host, such as a textarea.
+Use moduix `Editable.Context` or `useEditableContext()` when reusable child parts or custom content
+need access to the current edit state. Use `useEditable()` with `Editable.RootProvider` when the
+state or methods need to live outside the rendered `Editable` tree. `RootProvider` replaces
+`Editable.Root` for that state instance. Use `asChild` when the input should render as another
+semantic element, such as a native `<textarea>`.
 
 ### Default props
 
@@ -91,17 +93,17 @@ needs a custom semantic host, such as a textarea.
 
 ### Behavioral notes
 
-`value` and `defaultValue` control the text value. `edit` and `defaultEdit` control edit mode. Ark
-callback props preserve their `details` objects, so `onValueChange`, `onValueCommit`,
+The `value` and `defaultValue` props set the text value. The `edit` and `defaultEdit` props control
+edit mode. Ark callback props keep their `details` objects, so `onValueChange`, `onValueCommit`,
 `onValueRevert`, and `onEditChange` receive the same payload shapes as in Ark UI.
 
-`Enter` commits the value, and `Escape` reverts it. When `Editable.Input` renders a textarea through
-`asChild`, Cmd/Ctrl + Enter commits the value. `name` and `form` are forwarded to Ark for native
-form submission. `disabled` blocks activation, while `readOnly` keeps the value visible without
-allowing it to change.
+Press `Enter` to commit the value and `Escape` to revert it. When `Editable.Input` renders as a
+textarea through `asChild`, Cmd/Ctrl + Enter commits the value. `name` and `form` are forwarded to
+Ark for native form submission. `disabled` prevents interaction, while `readOnly` keeps the value
+visible without allowing edits.
 
-Set `translations.input` when the input needs a context-specific accessible name. `Editable.Label`
-remains the visible label.
+Set `translations.input` to provide a context-specific accessible name for the input.
+`Editable.Label` remains the visible label.
 
 ## Examples
 
@@ -117,7 +119,7 @@ Use `value` and `onValueChange` when application state should be the source of t
 
 ### Field
 
-Wrap `Editable` in `Field` when validation state or error text should appear outside the component.
+Wrap `Editable` in `Field` when validation state or an error message should appear outside the component.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="./_snippets/editable/field.tsx"
@@ -128,9 +130,9 @@ Wrap `Editable` in `Field` when validation state or error text should appear out
 
 ### Ark options
 
-Common Ark options are forwarded through root props: activation mode, auto-resize, maximum length,
-mode-specific placeholders, and localized control labels.
-This example sets `activationMode` to `click` to show how to replace the moduix double-click default.
+The root accepts common Ark options such as activation mode, auto-resize, maximum length,
+mode-specific placeholders, and localized control labels. This example sets `activationMode` to
+`click` to show how to replace moduix's default double-click activation.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/editable/guides.tsx"
@@ -140,9 +142,10 @@ This example sets `activationMode` to `click` to show how to replace the moduix 
 
 ### Root Provider
 
-Use moduix `useEditable()` and `Editable.RootProvider` when external controls need access to
-`Editable` state and methods. Pass `activationMode: 'dblclick'` to the hook to match the default
-activation behavior of the moduix root component.
+Use moduix `useEditable()` and `Editable.RootProvider` when controls outside the component tree
+need access to `Editable` state and methods. Pass `activationMode: 'dblclick'` to the hook to match
+the root component's default activation behavior. The provider replaces `Editable.Root` for this
+state instance.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="./_snippets/editable/root-provider.tsx"
@@ -153,8 +156,8 @@ activation behavior of the moduix root component.
 
 ### Textarea
 
-Render `Editable.Input` as a textarea for multiline content. The example sets its size inline so
-the copied snippet remains complete.
+Use `Editable.Input asChild` with a native `<textarea>` for multiline content. The example sets the
+textarea size inline, so the copied snippet works as-is.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/editable/textarea.tsx"
@@ -164,8 +167,8 @@ the copied snippet remains complete.
 
 ### Advanced Customization
 
-Skip `Editable.Controls` when a custom state-dependent layout needs direct access to
-`Editable.Context`.
+Use `Editable.Context` directly when a custom state-dependent layout needs access to the current
+edit state. The example skips `Editable.Controls` and shows keyboard instructions while editing.
 
 <PreviewFrame maxWidth="sm">
 ```tsx preview file="./_snippets/editable/advanced-customization.tsx"
@@ -177,7 +180,7 @@ Skip `Editable.Controls` when a custom state-dependent layout needs direct acces
 ### Disabled and read-only
 
 Use `disabled` when the field should be unavailable for interaction. Use `readOnly` when the value
-should remain visible but must not change.
+should remain visible but must not be editable.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/editable/disabled-and-read-only.tsx"
@@ -187,7 +190,7 @@ should remain visible but must not change.
 
 ### In a form
 
-Pass `name` to include the current value in native form submission.
+Pass `name` to include the current value in a native form submission.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/editable/form.tsx"
@@ -213,10 +216,10 @@ Pass `name` to include the current value in native form submission.
 
 ### Styling hooks
 
-- `data-slot="editable-root"`, `editable-root-provider`, `editable-label`, `editable-area`,
-  `editable-input`, `editable-preview`, `editable-control`, `editable-edit-trigger`,
-  `editable-submit-trigger`, and `editable-cancel-trigger`.
-- Ark also emits `data-scope="editable"` and `data-part` attributes for each primitive part.
+- Target parts with `data-slot="editable-root"`, `editable-root-provider`, `editable-label`,
+  `editable-area`, `editable-input`, `editable-preview`, `editable-control`,
+  `editable-edit-trigger`, `editable-submit-trigger`, and `editable-cancel-trigger`.
+- Ark also emits `data-scope="editable"` and `data-part` attributes for each part.
 - State selectors include `data-focus` on `Label` and `Area`; `data-disabled` on `Area`, `Input`,
   and `Preview`; `data-readonly` / `aria-readonly` on read-only controls; `data-invalid` on
   `Label`, `Input`, and `Preview`; `data-required` on `Label`; `data-placeholder-shown` on `Area`

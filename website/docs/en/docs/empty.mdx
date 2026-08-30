@@ -8,18 +8,19 @@ import * as EmptyDocs from '@/components/examples/empty';
 
 ## API Reference
 
-Ark UI does not include a dedicated empty-state primitive. `moduix` builds `Empty` with the official
-[Ark factory](https://ark-ui.com/react/docs/guides/composition#the-ark-factory) and follows Ark's
-guidance for [composition](https://ark-ui.com/react/docs/guides/composition), [styling](https://ark-ui.com/react/docs/guides/styling), and
-[refs](https://ark-ui.com/react/docs/guides/ref). The explicit composition is informed by
-[Chakra's Empty State](https://chakra-ui.com/docs/components/empty-state). Unlike Chakra, `moduix`
-exposes optional `Empty.Icon` and `Empty.Actions` as siblings of the root so you can place them
-where they make sense for your layout.
+Ark UI does not include a dedicated empty-state primitive. `moduix` builds `Empty` with Ark's
+official [factory](https://ark-ui.com/react/docs/guides/composition#the-ark-factory) and follows
+Ark's guidance for [composition](https://ark-ui.com/react/docs/guides/composition),
+[styling](https://ark-ui.com/react/docs/guides/styling), and
+[refs](https://ark-ui.com/react/docs/guides/ref). Its composition also draws on Chakra UI's
+[Empty State](https://chakra-ui.com/docs/components/empty-state). Unlike Chakra UI, `moduix`
+exposes optional `Empty.Icon` and `Empty.Actions` as root-level parts alongside
+`Empty.Content`, so you can arrange them in the order your screen needs.
 
 ## Basic
 
-Start with the `<Empty />` root and its namespaced parts. Add `Empty.Icon` and `Empty.Actions` only
-when the state needs a visual cue or an explicit next step.
+Start with `<Empty />` and add its namespaced parts. Add `Empty.Icon` and `Empty.Actions` only when
+the state benefits from a visual cue or a clear next step.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/empty/basic.tsx"
@@ -34,7 +35,7 @@ when the state needs a visual cue or an explicit next step.
 ## Anatomy
 
 ```text
-Empty
+Empty / Empty.Root
 ├─ Empty.Icon (optional)
 ├─ Empty.Content
 │  ├─ Empty.Title
@@ -42,60 +43,59 @@ Empty
 └─ Empty.Actions (optional)
 ```
 
-| Part                   | Role                                                               |
-| ---------------------- | ------------------------------------------------------------------ |
-| `Empty` / `Empty.Root` | Root container that controls padding, border, background, and alignment. |
-| `Empty.Icon`           | Optional container for an icon or small visual cue.                    |
-| `Empty.Content`        | Groups the title and description with tighter spacing.                 |
-| `Empty.Title`          | Main heading for the empty state.                                      |
-| `Empty.Description`    | Supporting text block for one or more pieces of content.               |
-| `Empty.Actions`        | Optional row for actions that can wrap onto multiple lines.            |
+| Part                   | Role                                                                                         |
+| ---------------------- | -------------------------------------------------------------------------------------------- |
+| `Empty` / `Empty.Root` | Root container for padding, border, background, and alignment.                               |
+| `Empty.Icon`           | Optional container for an icon or another small visual cue.                                  |
+| `Empty.Content`        | Groups the title and description with tighter spacing.                                       |
+| `Empty.Title`          | Main heading for the empty state.                                                            |
+| `Empty.Description`    | Supporting content below the title. It can contain paragraphs, links, or other block content. |
+| `Empty.Actions`        | Optional action row that wraps its children when needed.                                     |
 
 ## Composition
 
 ### Recommended composition
 
-For most empty states, use the exported parts:
+Most empty states only need the exported parts:
 
 - `Empty` for the container and centered layout
 - `Empty.Content` for the text block
 - `Empty.Title` for the heading
-- `Empty.Description` for supporting copy
-- `Empty.Icon` and `Empty.Actions` only when they add value
+- `Empty.Description` for supporting content
+- `Empty.Icon` and `Empty.Actions` when they add value
 
-This keeps the common structure easy to read while leaving room for richer descriptions, links, or
-custom buttons. You do not need a separate configuration API.
+This keeps the common structure readable while leaving room for richer descriptions, links, and
+custom buttons. Add or remove parts with normal JSX composition.
 
 ### When to go custom
 
-`Empty` exposes its parts directly, so customization usually means changing the structure with
-normal component composition:
+Use normal JSX composition when the default structure needs to change:
 
-- leave out `Empty.Icon` or `Empty.Actions`
-- add richer markup inside `Empty.Description`
-- change the surrounding landmark or heading level with `Empty asChild` and `Empty.Title asChild`
+- omit `Empty.Icon` or `Empty.Actions`
+- add richer block content inside `Empty.Description`
+- use the `asChild` prop on `Empty` or `Empty.Title` when the surrounding section needs a different
+  semantic element or heading level
 - apply `className` and `--moduix-empty-*` variables to the parts that control the visual property
 
 ### Default props
 
-| Surface                | Default | Notes                                                  |
-| ---------------------- | ------- | ------------------------------------------------------ |
-| `Empty` / `Empty.Root` | -       | No component-specific behavior is added; Ark defaults apply. |
+| Surface                | Default element | Notes                                                                    |
+| ---------------------- | --------------- | ------------------------------------------------------------------------ |
+| `Empty` / `Empty.Root` | `div`           | Presentational root with no built-in role or state.                      |
+| `Empty.Title`          | `h3`            | Use `asChild` when the document outline needs a different heading level. |
+| `Empty.Description`    | `div`           | Supports paragraphs, links, and other block content.                    |
 
 ### Behavioral notes
 
-- `Empty.Title` renders an `h3` by default. Use Ark factory `asChild` when you need a different
-  heading level for the document outline.
-- `Empty.Description` renders a `div` rather than a `p`, so it can safely contain block content.
-- Every part forwards its ref to the rendered DOM element and accepts Ark factory `asChild` with a
-  single semantic child.
-- Every part adds `data-scope="empty"` and the matching `data-part` attribute for Ark-style
-  styling, along with stable `data-slot="empty-*"` hooks for moduix overrides.
-- `Empty.Actions` centers its children and lets them wrap when needed. This keeps paired actions and
+- Every part forwards its `ref` to the rendered DOM element and accepts Ark factory `asChild`.
+  Pass exactly one semantic child that can receive the part's props and ref.
+- Every part emits `data-scope="empty"` and its matching `data-part` attribute for Ark-style
+  styling, along with a stable `data-slot="empty-*"` hook for moduix overrides.
+- `Empty.Actions` centers its children and lets them wrap when needed, keeping paired actions and
   long button or link labels readable in narrow layouts.
-- `Empty` only handles presentation. It does not add a landmark, `role`, or live-region behavior.
-  Add those semantics when the surrounding screen needs them. Use `aria-hidden` for decorative
-  icons and give meaningful icons an accessible name.
+- `Empty` only handles presentation. It does not add a landmark, role, `aria-live` behavior, or
+  focus management. Add the semantics your surrounding screen needs. Mark decorative icons with
+  `aria-hidden` and give meaningful icons an accessible name.
 
 ## Examples
 
@@ -112,7 +112,7 @@ Leave out `Empty.Actions` when the state is informational and does not need an i
 
 ### Without an icon
 
-The icon slot is optional, so a text-only empty state can stay compact.
+The icon is optional, so a text-only empty state can stay compact.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/empty/without-icon.tsx"
@@ -123,9 +123,9 @@ The icon slot is optional, so a text-only empty state can stay compact.
 
 ### Advanced customization
 
-Use `Empty asChild` and `Empty.Title asChild` when the surrounding section needs a landmark and a
-different heading level. `Empty.Description` accepts normal block markup, so richer content remains
-semantic without a separate configuration API.
+Use the `asChild` prop on `Empty` when the empty state needs to render as a semantic container such
+as `section`. Use it on `Empty.Title` when the heading needs a different level. Because
+`Empty.Description` renders as a `div`, it can contain paragraphs, links, and other block content.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/empty/advanced-customization.tsx"
@@ -157,13 +157,14 @@ Customize `Empty` with `className`, Ark `data-scope="empty"` / `data-part` selec
 
 Target the part that controls the visual property you want to change:
 
-- `[data-scope="empty"][data-part="root"]` / `data-slot="empty-root"` for container layout, border,
-  background, and shadow overrides
-- `[data-scope="empty"][data-part="icon"]` / `data-slot="empty-icon"` for icon container size,
-  padding, and colors
-- `[data-scope="empty"][data-part="content"]` / `data-slot="empty-content"` for text block width
-  and spacing
-- `[data-scope="empty"][data-part="title"]` and
-  `[data-scope="empty"][data-part="description"]` for typography
-- `[data-scope="empty"][data-part="actions"]` / `data-slot="empty-actions"` for action row spacing
-  and alignment
+- `[data-scope="empty"][data-part="root"]` or `[data-slot="empty-root"]` for container layout,
+  border, background, and shadow overrides
+- `[data-scope="empty"][data-part="icon"]` or `[data-slot="empty-icon"]` for icon container
+  size, padding, and colors
+- `[data-scope="empty"][data-part="content"]` or `[data-slot="empty-content"]` for text block
+  width and spacing
+- `[data-scope="empty"][data-part="title"]` or `[data-slot="empty-title"]`, and
+  `[data-scope="empty"][data-part="description"]` or `[data-slot="empty-description"]` for
+  typography
+- `[data-scope="empty"][data-part="actions"]` or `[data-slot="empty-actions"]` for action row
+  spacing and alignment

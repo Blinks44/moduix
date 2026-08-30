@@ -5,9 +5,15 @@ const sampleImage =
 
 export default function SizeLimitImageCropperDemo() {
   return (
-    <ImageCropper minWidth={96} minHeight={72} maxWidth={320} maxHeight={240}>
+    <ImageCropper
+      minWidth={96}
+      minHeight={72}
+      maxWidth={320}
+      maxHeight={240}
+      aria-label="Image cropper"
+    >
       <ImageCropper.Viewport>
-        <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
+        <ImageCropper.Image src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
         <ImageCropper.CropArea />
       </ImageCropper.Viewport>
     </ImageCropper>

@@ -18,8 +18,8 @@ importers:
         specifier: ^9.1.7
         version: 9.1.7
       lint-staged:
-        specifier: ^17.3.0
-        version: 17.3.0
+        specifier: ^17.4.1
+        version: 17.4.1
       oxfmt:
         specifier: ^0.65.0
         version: 0.65.0
@@ -1088,6 +1088,9 @@ packages:
 
   '@jridgewell/sourcemap-codec@1.5.5':
     resolution: {integrity: sha512-cYQ9310grqxueWbl+WuIUIaiUaDcj7WOq5fVhEljNVgRfOUhY9fy2zTvfoqWsnebh8Sl70VScFbICvJnLKB0Og==}
+
+  '@jridgewell/sourcemap-codec@1.6.0':
+    resolution: {integrity: sha512-T7jf+5zgsZHwNJ4lvQ7/aezbyk0nNX+zJVWpmHA7VYsEx7a7qr5Rg5IbtJFqkgze5Y2sruq1RUY8Q837Od7iFw==}
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
@@ -3646,8 +3649,8 @@ packages:
     resolution: {integrity: sha512-9Be3ZoN4LmYR90tUoVu2te2BsbzHfhJyfEiAVfz7N5/zv+jduIfLrV2xdQXOHbaD6KgpGdO9PRPM1Y4Q9QkPkA==}
     engines: {node: ^18.19.0 || >=20.5.0}
 
-  express-rate-limit@8.6.2:
-    resolution: {integrity: sha512-YH4ru+eOJxQABscKFfRCy9R7x9QFGdezclVMwwgFFndzS2Xnm0uo6B0ABZsLhcpeptGv2qvuJVWlQr9gQZoC3A==}
+  express-rate-limit@8.7.0:
+    resolution: {integrity: sha512-hOwV7WOxXfjRpAM1DSJWZDXx3GhplwD8IfwuwvogD8i1Qnkgosw/H45s4ZnFAUHDAhPjlY9hLBvJhKmGMyY26g==}
     engines: {node: '>= 16'}
     peerDependencies:
       express: '>= 4.11'
@@ -3675,8 +3678,8 @@ packages:
   fast-uri@3.1.6:
     resolution: {integrity: sha512-7Ical1vFEMr0onbVzEDIreM22I4khW+fzyQPwvAFWBp1iwdshSZRsL4jjRvPG9JP1uiqMHRto+YU6R2/CzDz5Q==}
 
-  fastq@1.20.1:
-    resolution: {integrity: sha512-GGToxJ/w1x32s/D2EKND7kTil4n8OVk/9mycTc4VDza13lOvpUZTGX3mFSCtV9ksdGBVzvsyAVLM6mHFThxXxw==}
+  fastq@1.20.3:
+    resolution: {integrity: sha512-XKv5nnLs6nLF71NgiKJLIZFLkPyIEuOselLG7ujZnGrRfQK8HpvY+WqKhAJUAdLomwVHErVS4LfxFlPq0/FTAw==}
 
   fdir@6.5.0:
     resolution: {integrity: sha512-tIbYtZbucOs0BRGqPJkshJUYdL+SDH7dVM8gjy+ERp3WAUjLEFJE+02kanyHtwjWOnwrKYBiwAmM0p4kLJAnXg==}
@@ -3970,8 +3973,8 @@ packages:
     resolution: {integrity: sha512-5Hh7Y1wQbvY5ooGgPbDaL5iYLAPzMTUrjMulskHLH6wnv/A+1q5rgEaiuqEjB+oxGXIVZs1FF+R/KPN3ZSQYYg==}
     engines: {node: '>=12'}
 
-  ip-address@10.5.0:
-    resolution: {integrity: sha512-R5SnVLJmgYYvf2F2ZgwSBnelz5G4q5AxIC277GDfUaNbrZKNANcBC7RHqYYePlszf4kBolVkJauG0ZjHHFh55g==}
+  ip-address@10.7.0:
+    resolution: {integrity: sha512-BGFsyJd5mpXp3rK6jIdADLNgpJUK1jnjzvYF8lK+VyDab9JAmqN0YOKDdP17HlgKb2+ehPgDc8EtnRLbGCAMhA==}
     engines: {node: '>= 12'}
 
   ipaddr.js@1.9.1:
@@ -4191,8 +4194,8 @@ packages:
   lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
 
-  lint-staged@17.3.0:
-    resolution: {integrity: sha512-woZS3vNe3UKqBaLPvbLOtKRY4tLANpWQhom12MGWqC8Mh1lCOO+WgSwmX2amjJAqTY9BkXYW87fCUH5H9Ph6xw==}
+  lint-staged@17.4.1:
+    resolution: {integrity: sha512-FmJeudcalbSfg1du+JCfvi5vS6Qt08KgbfLWiHinbef+2JJwUZwAWVoaO1AcJVUTWPfk0t30PMQNwPAeCzYQ+Q==}
     engines: {node: '>=22.22.1'}
     hasBin: true
 
@@ -4671,8 +4674,8 @@ packages:
     resolution: {integrity: sha512-YgBpdJHPyQ2UE5x+hlSXcnejzAvD0b22U2OuAP+8OnlJT+PjWPxtgmGqKKc+RgTM63U9gN0YzrYc71R2WT/hTA==}
     engines: {node: '>=18'}
 
-  open@11.0.1:
-    resolution: {integrity: sha512-NzwMUB6C1D0+Kd+9iMS/H4k+Ck3cTX6Ckyfr/gAGlmvSE1LUQZnEZvWBi4PYmMwH/S5SMeTXnE+9uAz8uF+pWw==}
+  open@11.0.2:
+    resolution: {integrity: sha512-RWqF+pBSkqecEvCKOn8QYhaNdRMJDZRIrlS/7rTDdLHaPcfXGCZ/h8zb413NfvdeAV0MR7T1yJcA34/q+CSm1Q==}
     engines: {node: '>=20'}
 
   open@8.4.2:
@@ -4883,8 +4886,8 @@ packages:
     resolution: {integrity: sha512-dM0jVuXJPsDN6DvRpea484tCUaMiXWjuCn++HGTqUWzGDjv5tZkEZldAJ/UMlqRYGFrD/etByo4/xOuC/snX2A==}
     engines: {node: '>=20'}
 
-  powershell-utils@0.2.0:
-    resolution: {integrity: sha512-ZlsFlG7MtSFCoc5xreOvBAozCJ6Pf06opgJjh9ONEv418xpZSAzNjstD36C6+JwOnfSqOW/9uDkqKjezTdxZhw==}
+  powershell-utils@0.2.1:
+    resolution: {integrity: sha512-C+y9x90UElAddDZmV4qOx9W53B61PO7cIqWz2dQsWlwswuq4mr8NEwytdGKboYbQlGZ3awrkTeNvcZiZNHnQ8A==}
     engines: {node: '>=20'}
 
   prettier@2.8.8:
@@ -4896,8 +4899,8 @@ packages:
     resolution: {integrity: sha512-Qb1gy5OrP5+zDf2Bvnzdl3jsTf1qXVMazbvCoKhtKqVs4/YK4ozX4gKQJJVyNe+cajNPn0KoC0MC3FUmaHWEmQ==}
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
 
-  pretty-ms@9.3.0:
-    resolution: {integrity: sha512-gjVS5hOP+M3wMm5nmNOucbIrqudzs9v/57bWRHQWLYklXqoXKrVfYW2W9+glfGsqtPgpiz5WwyEEB+ksXIx3gQ==}
+  pretty-ms@9.3.1:
+    resolution: {integrity: sha512-HzMy3Geq23nVALD/M2LliU+F+M+gVNsvkQWWqeBZ8HDiCgzo6YPJ/Omrmtq24EFrIsk0a3EkQGEd7bDOo+IhGA==}
     engines: {node: '>=18'}
 
   process@0.11.10:
@@ -5462,8 +5465,8 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
-  systeminformation@5.33.4:
-    resolution: {integrity: sha512-poXpX8M9NBll1NDMW1ho6qRFkjrlttfm8E/YtPmn5x0TQ1z8LoJUHg9kwr/sRDmCjktqfnFRxqsoUNpaRakeMQ==}
+  systeminformation@5.33.6:
+    resolution: {integrity: sha512-hMOQG/eRUzuopuYGGdl8ntkau0nEC7fOaRoTUg1RSr2GTQIk2VNa76DA0+ApajkGfzmcgAupgIP/vt+jtoe5EA==}
     engines: {node: '>=10.0.0'}
     os: [darwin, linux, win32, freebsd, openbsd, netbsd, sunos, android]
     hasBin: true
@@ -6371,7 +6374,7 @@ snapshots:
       object-treeify: 1.1.33
       open: 8.4.2
       picomatch: 4.0.7
-      systeminformation: 5.33.4
+      systeminformation: 5.33.6
       undici: 7.29.0
       which: 4.0.0
       yocto-spinner: 1.2.2
@@ -6728,7 +6731,7 @@ snapshots:
 
   '@jridgewell/gen-mapping@0.3.13':
     dependencies:
-      '@jridgewell/sourcemap-codec': 1.5.5
+      '@jridgewell/sourcemap-codec': 1.6.0
       '@jridgewell/trace-mapping': 0.3.31
 
   '@jridgewell/remapping@2.3.5':
@@ -6744,6 +6747,8 @@ snapshots:
       '@jridgewell/trace-mapping': 0.3.31
 
   '@jridgewell/sourcemap-codec@1.5.5': {}
+
+  '@jridgewell/sourcemap-codec@1.6.0': {}
 
   '@jridgewell/trace-mapping@0.3.31':
     dependencies:
@@ -6985,7 +6990,7 @@ snapshots:
       eventsource: 3.0.7
       eventsource-parser: 3.1.1
       express: 5.2.1(supports-color@10.2.2)
-      express-rate-limit: 8.6.2(express@5.2.1(supports-color@10.2.2))(supports-color@10.2.2)
+      express-rate-limit: 8.7.0(express@5.2.1(supports-color@10.2.2))(supports-color@10.2.2)
       hono: 4.13.5
       jose: 6.2.10
       json-schema-typed: 8.0.2
@@ -7027,7 +7032,7 @@ snapshots:
   '@nodelib/fs.walk@1.2.8':
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
-      fastq: 1.20.1
+      fastq: 1.20.3
 
   '@oxc-parser/binding-android-arm-eabi@0.127.0':
     optional: true
@@ -9493,16 +9498,16 @@ snapshots:
       is-plain-obj: 4.1.0
       is-stream: 4.0.1
       npm-run-path: 6.0.0
-      pretty-ms: 9.3.0
+      pretty-ms: 9.3.1
       signal-exit: 4.1.0
       strip-final-newline: 4.0.0
       yoctocolors: 2.2.0
 
-  express-rate-limit@8.6.2(express@5.2.1(supports-color@10.2.2))(supports-color@10.2.2):
+  express-rate-limit@8.7.0(express@5.2.1(supports-color@10.2.2))(supports-color@10.2.2):
     dependencies:
       debug: 4.4.3(supports-color@10.2.2)
       express: 5.2.1(supports-color@10.2.2)
-      ip-address: 10.5.0
+      ip-address: 10.7.0
     transitivePeerDependencies:
       - supports-color
 
@@ -9557,7 +9562,7 @@ snapshots:
 
   fast-uri@3.1.6: {}
 
-  fastq@1.20.1:
+  fastq@1.20.3:
     dependencies:
       reusify: 1.1.0
 
@@ -9935,7 +9940,7 @@ snapshots:
 
   internmap@2.0.3: {}
 
-  ip-address@10.5.0: {}
+  ip-address@10.7.0: {}
 
   ipaddr.js@1.9.1: {}
 
@@ -10103,7 +10108,7 @@ snapshots:
 
   lines-and-columns@1.2.4: {}
 
-  lint-staged@17.3.0:
+  lint-staged@17.4.1:
     dependencies:
       picomatch: 4.0.7
       string-argv: 0.3.2
@@ -10830,13 +10835,13 @@ snapshots:
       is-inside-container: 1.0.0
       wsl-utils: 0.1.0
 
-  open@11.0.1:
+  open@11.0.2:
     dependencies:
       default-browser: 5.5.1
       define-lazy-prop: 3.0.0
       is-in-ssh: 1.0.0
       is-inside-container: 1.0.0
-      powershell-utils: 0.2.0
+      powershell-utils: 0.2.1
       wsl-utils: 1.0.0
 
   open@8.4.2:
@@ -11092,7 +11097,7 @@ snapshots:
 
   powershell-utils@0.1.0: {}
 
-  powershell-utils@0.2.0: {}
+  powershell-utils@0.2.1: {}
 
   prettier@2.8.8: {}
 
@@ -11102,7 +11107,7 @@ snapshots:
       ansi-styles: 5.2.0
       react-is: 17.0.2
 
-  pretty-ms@9.3.0:
+  pretty-ms@9.3.1:
     dependencies:
       parse-ms: 4.0.0
 
@@ -11524,7 +11529,7 @@ snapshots:
       fs-extra: 11.4.0
       fuzzysort: 3.1.0
       kleur: 4.1.5
-      open: 11.0.1
+      open: 11.0.2
       ora: 8.2.0
       postcss: 8.5.26
       postcss-selector-parser: 7.1.5
@@ -11644,7 +11649,7 @@ snapshots:
 
   socks@2.8.9:
     dependencies:
-      ip-address: 10.5.0
+      ip-address: 10.7.0
       smart-buffer: 4.2.0
 
   source-map-js@1.2.1: {}
@@ -11838,7 +11843,7 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
-  systeminformation@5.33.4: {}
+  systeminformation@5.33.6: {}
 
   tailwind-merge@3.6.0: {}
 

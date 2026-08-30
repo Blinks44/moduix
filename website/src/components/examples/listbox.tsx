@@ -1,7 +1,6 @@
 import type { CssPropertyInput } from '../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
-const listboxOverrideCssProperties: CssPropertyInput[] = [
+export const listboxOverrideCssProperties: CssPropertyInput[] = [
   [
     '--moduix-listbox-bg',
     'var(--moduix-color-background)',
@@ -346,17 +345,3 @@ const listboxOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--moduix-listbox-width', '16rem', 'Controls root width.'],
 ];
-
-export function ListboxCssPropertiesPanel() {
-  return (
-    <CSSPropertiesReferenceTable
-      properties={listboxOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  return property;
-}

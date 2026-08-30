@@ -1,21 +1,20 @@
 ---
 title: Input
 component: input
-description: Use Input for native single-line fields with Ark Field semantics, native events, and moduix styling.
+description: A styled native single-line input built on Ark Field.Input, with native events and moduix styling.
 ---
 
 import * as InputDocs from '@/components/examples/input';
 
 ## API Reference
 
-`Input` is a styled component built on [Ark Field.Input](https://ark-ui.com/docs/components/field).
+`Input` is a styled wrapper around [Ark's `Field.Input`](https://ark-ui.com/docs/components/field).
 It follows Ark's guidance for [composition](https://ark-ui.com/docs/guides/composition),
 [styling](https://ark-ui.com/docs/guides/styling), and [ref forwarding](https://ark-ui.com/docs/guides/ref).
-It renders a native single-line `<input>` and keeps the browser's form behavior and React's native
+It renders a native single-line `<input>` and preserves browser form behavior and React's native
 event API.
 
-Use `Field` when the control needs a label, helper or error text, generated ids, or shared field
-state.
+Use `Field` when the control needs a label, helper or error text, generated ids, or shared state.
 
 ## Choosing the right component
 
@@ -26,10 +25,10 @@ state.
 - Use **`Textarea`** for multi-line content.
 - Use **`Editable`** when text should appear as a value first and switch into edit mode on demand.
 
-## Basic usage
+## Basic
 
 Place `Input` inside `Field` when you need a label, helper text, or an error message. `Field`
-connects that content to the control and provides its ids and state.
+connects that content to the control, generates the necessary ids, and provides its state.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/input/basic.tsx"
@@ -44,33 +43,35 @@ connects that content to the control and provides its ids and state.
 ## Anatomy
 
 ```text
-Field.Root (optional)
-└─ Input
+Field (optional wrapper)
+└─ Input / Input.Root
 ```
 
 | Part                   | Role                                                                  |
 | ---------------------- | --------------------------------------------------------------------- |
-| `Input` / `Input.Root` | Styled Ark `Field.Input` that renders the native single-line control. |
+| `Input` / `Input.Root` | Styled version of Ark's `Field.Input` that renders a native single-line `<input>`. |
+
+`Input.Root` is an alias of `Input`; both render the same control.
 
 ## Composition
 
 ### Recommended composition
 
-Use `Input` inside `Field` when the field needs a label, helper or error text, generated ids, or
-shared `disabled`, `invalid`, `required`, or `readOnly` state. `Fieldset` can disable several
+Use `Input` inside `Field` when the field needs an accessible label, helper or error text, generated
+ids, or shared `disabled`, `invalid`, `required`, or `readOnly` state. `Fieldset` can disable several
 nested fields at once.
 
-Pass native input props and events directly to `Input`. For a controlled input, pass `value` and
-update it from `onChange(event)`; for an uncontrolled input, use `defaultValue`.
+Pass native `<input>` props and event handlers directly to `Input`. For a controlled input, pass
+`value` and update it from `onChange(event)`; for an uncontrolled input, use `defaultValue`.
 
 ### When to go custom
 
 Use `asChild` only when another input-compatible element must be the actual DOM node. Provide one
-semantic, focusable input child. Ark merges the component props, field props, class, and ref into
+semantic, focusable input child. Ark merges the component and `Field` props, class, and ref into
 that child.
 
-If the control is not input-compatible, use the component that provides its appropriate Ark
-control primitive instead of forcing it through `Input`.
+If the control is not input-compatible, use the component that provides the appropriate Ark control
+primitive instead of forcing it through `Input`.
 
 ### Default props
 
@@ -82,14 +83,14 @@ control primitive instead of forcing it through `Input`.
 
 ### Behavioral notes
 
-- `ref` points to the real `HTMLInputElement`.
-- No `HiddenInput` is needed because `Input` is the native form control.
+- `ref` points to the real `HTMLInputElement`, so a form library can focus the control after an invalid submission.
+- No `HiddenInput` is needed because `Input` is already the native form control.
 - Ark `Field` supplies `aria-describedby`, `aria-invalid`, ids, and state props.
-- `Input` does not manage the value, validity, focus, or keyboard navigation.
+- `Input` does not manage the value, its validity, focus, or keyboard navigation.
 
 ## Examples
 
-### Controlled
+### Controlled value
 
 Use this pattern when React owns the current value. Read the next value from the native
 `onChange(event)` and pass it back through `value`.
@@ -102,8 +103,9 @@ Use this pattern when React owns the current value. Read the next value from the
 
 ### Disabled and read-only
 
-Set `disabled` and `readOnly` directly on `Input` for one control. Put them on `Field.Root` when
-the label, supporting text, and input should share the same state.
+Use `disabled` when the user must not interact with the control. Use `readOnly` when they can read
+and select the value but must not edit it. Set them directly on `Input` for one control, or on
+`Field` when the label, supporting text, and input should share the same state.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/input/disabled-and-readonly.tsx"
@@ -111,10 +113,10 @@ the label, supporting text, and input should share the same state.
 ```
 </PreviewFrame>
 
-### Field State
+### Field validation
 
 Set `invalid` on `Field` when validation fails. Ark adds `aria-invalid` and `data-invalid` to the
-input and connects the error text to it.
+input and connects it to the error text.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/input/field-state.tsx"
@@ -122,24 +124,24 @@ input and connects the error text to it.
 ```
 </PreviewFrame>
 
-### Native Attributes
+### File input
+
+`Input` is enough for a native file chooser in a simple form. Use `FileUpload` when the application
+needs to keep selected files in state, show a dropzone, or manage an upload flow.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/input/file-input.tsx"
+
+```
+</PreviewFrame>
+
+### Native attributes
 
 Use native attributes for browser behavior such as validation, input mode, autocomplete, and form
 submission. Use `htmlSize` for a character-based width and `size` for visual density.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/input/native-attributes.tsx"
-
-```
-</PreviewFrame>
-
-### File Input
-
-`Input` is enough for a native file chooser in a simple form. Use `FileUpload` when the application
-needs to keep selected files in state or manage a dropzone and upload flow.
-
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/input/file-input.tsx"
 
 ```
 </PreviewFrame>
@@ -155,11 +157,11 @@ native character-based width.
 ```
 </PreviewFrame>
 
-### Standalone Input
+### Standalone input
 
-`Field` is optional. When `Input` is used on its own, provide an accessible name with a label,
-`aria-label`, or `aria-labelledby`. Native props still work, but there is no field context to
-generate ids or connect helper and error text.
+`Field` is optional. When `Input` is used on its own, provide an accessible name with an HTML
+`<label>`, `aria-label`, or `aria-labelledby`. Native props still work, but without `Field` context,
+ids are not generated automatically and helper or error text is not connected to the control.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/input/standalone-input.tsx"
@@ -169,7 +171,7 @@ generate ids or connect helper and error text.
 
 ### Advanced Customization
 
-Use `asChild` only when a custom input host must be the rendered DOM node. Keep one semantic,
+Use `asChild` only when another DOM node must be rendered as the input. Keep one semantic,
 focusable input element that can receive the merged props and `ref`.
 
 <PreviewFrame maxWidth="sm">

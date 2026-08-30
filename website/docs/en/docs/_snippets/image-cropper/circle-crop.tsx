@@ -5,9 +5,9 @@ const sampleImage =
 
 export default function CircleImageCropperDemo() {
   return (
-    <ImageCropper cropShape="circle" aspectRatio={1}>
+    <ImageCropper cropShape="circle" aspectRatio={1} aria-label="Image cropper">
       <ImageCropper.Viewport>
-        <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
+        <ImageCropper.Image src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
         <ImageCropper.CropArea />
       </ImageCropper.Viewport>
     </ImageCropper>

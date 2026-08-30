@@ -1,7 +1,7 @@
 ---
 title: Hover Card
 component: hover-card
-description: Ark UI Hover Card composition for supplementary previews triggered by hover or focus.
+description: An Ark UI hover card for supplementary previews opened when its trigger is hovered or focused.
 ---
 
 import * as HoverCardDocs from '@/components/examples/hover-card';
@@ -10,11 +10,17 @@ import * as HoverCardDocs from '@/components/examples/hover-card';
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/hover-card" />
 
+## Choosing the right component
+
+Use `Tooltip` for short, non-interactive hints. Use `Popover` when the popup contains richer
+content or actions. Use `HoverCard` when you need a supplementary preview tied to a trigger, such as
+a profile or article summary.
+
 ## Basic
 
-Use the explicit Ark part structure: place `HoverCard.Trigger` next to the element that should open
-the card, then add `HoverCard.Positioner` and `HoverCard.Content`. The default composition is a
-simple popup without an arrow.
+Compose the card from explicit Ark parts. `HoverCard.Trigger` opens the card, while
+`HoverCard.Positioner` and `HoverCard.Content` define its floating content. The basic composition
+does not include an arrow.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/hover-card/basic.tsx"
@@ -29,9 +35,9 @@ simple popup without an arrow.
 ## Anatomy
 
 ```text
-HoverCard
+HoverCard / HoverCard.Root
 ├─ HoverCard.Trigger
-└─ Overlay subtree (automatically portalled)
+└─ Overlay subtree (automatically rendered in a portal)
    └─ HoverCard.Positioner
       └─ HoverCard.Content
          ├─ HoverCard.Arrow
@@ -42,64 +48,85 @@ HoverCard.RootProvider
 └─ same part tree connected to a moduix useHoverCard() store
 ```
 
-| Part                           | Role                                                                     |
-| ------------------------------ | ------------------------------------------------------------------------ |
-| `HoverCard`                    | Root state, delays, positioning, ids, presence, and outside interaction. |
-| `HoverCard.RootProvider`       | Renders the same hover-card tree from moduix `useHoverCard()` state.    |
-| `HoverCard.Trigger`            | Hover and focus target. Use `asChild` for a link or custom semantic element. |
-| `HoverCard.Positioner`         | Floating layer that exposes Ark positioning CSS variables.               |
-| `HoverCard.Content`            | Visible popup surface that closes on outside interaction.                |
-| `HoverCard.Arrow`              | Positioned arrow wrapper. Renders `HoverCard.ArrowTip` by default.       |
-| `HoverCard.ArrowTip`           | Arrow tip element styled through Ark arrow variables.                    |
+| Part                           | Role                                                                  |
+| ------------------------------ | --------------------------------------------------------------------- |
+| `HoverCard` / `HoverCard.Root`  | Owns state, lifecycle, delays, positioning, ids, and outside interaction. |
+| `HoverCard.RootProvider`        | Connects the parts to state created with `useHoverCard()`.            |
+| `HoverCard.Context`             | Exposes current state through a render prop for descendants.         |
+| `HoverCard.Trigger`             | Interactive element that opens the card on hover or focus. Use `asChild` for a link or another semantic element. |
+| `HoverCard.Positioner`          | Positions the floating layer and exposes Ark positioning variables.  |
+| `HoverCard.Content`             | Visible card surface that closes on outside interaction.              |
+| `HoverCard.Arrow`               | Optional positioned arrow wrapper that renders `HoverCard.ArrowTip` by default. |
+| `HoverCard.ArrowTip`             | Arrow tip element styled through Ark arrow variables.                 |
 
-`HoverCard.Root` remains available as a compatibility alias. In application code, use the short
-`HoverCard` root form.
+`HoverCard` is the short root form, and `HoverCard.Root` is its namespace alias. Use the short form
+in application code.
 
 ## Composition
 
-The root automatically portals `HoverCard.Positioner`. Set `portalled={false}` to keep it in the
-current DOM tree, or pass `portalRef` to choose a different container. Keep the structural parts
-explicit so you can configure the position, content, and arrow independently.
+The root automatically renders `HoverCard.Positioner` in a portal. Set `portalled={false}` to keep
+it in the current DOM tree, or pass `portalRef` to choose a different portal container. Keep the
+structural parts explicit so you can style and configure the positioner, content, and arrow
+independently.
+
+### Recommended composition
+
+For most hover cards, use `HoverCard` with `HoverCard.Trigger`, `HoverCard.Positioner`, and
+`HoverCard.Content`. Add `HoverCard.Arrow` only when the popup needs a visual pointer to its
+trigger.
 
 ### When to go custom
 
-Use `asChild` on `HoverCard.Trigger` for a link or your own semantic button. Render
-`HoverCard.ArrowTip` directly only when you need to customize its markup. Use `HoverCard.RootProvider`
-with moduix `useHoverCard()` when state must be shared with controls outside the card tree. Use
-`HoverCard.Context` or `useHoverCardContext()` to read state from within the tree.
+Use `asChild` on `HoverCard.Trigger` when the trigger should be a link or another semantic element.
+Pass one focusable child that can preserve the trigger behavior. Use `HoverCard.RootProvider` with
+`useHoverCard()` when state must be shared with controls outside the card tree. Use
+`HoverCard.Context` or `useHoverCardContext()` to read state inside the tree. Render
+`HoverCard.ArrowTip` directly only when you need to customize its markup.
 
 ### Default props
 
-By default, the portalled overlay content mounts on first open and unmounts after its exit animation.
-Set `unmountOnExit={false}` to keep it mounted after the first open. Set both lifecycle props to
+Portalled content mounts on first open and is removed after its exit animation by default. Set
+`unmountOnExit={false}` to keep it mounted after the first open. Set both lifecycle props to
 `false` only when the content must render eagerly.
 
-| Prop                   | Default | Notes                                                              |
-| ---------------------- | ------- | ------------------------------------------------------------------ |
-| `closeDelay`           | `300`   | Delay in ms between leaving the trigger or content and closing.    |
-| `openDelay`            | `600`   | Delay in ms between entering the trigger and opening.              |
-| `lazyMount`            | `true`  | Mounts the content only when it first opens.                       |
-| `unmountOnExit`        | `true`  | Removes the content after its exit animation.                      |
-| `skipAnimationOnMount` | `false` | Runs the initial presence animation by default.                    |
+| Prop                   | Default | Notes                                                                    |
+| ---------------------- | ------- | ------------------------------------------------------------------------ |
+| `openDelay`            | `600`   | Delay before opening after the trigger is hovered or focused.            |
+| `closeDelay`           | `300`   | Delay before closing after the pointer leaves the trigger or content.    |
+| `lazyMount`            | `true`  | Mounts the content only after its first opening.                         |
+| `unmountOnExit`        | `true`  | Removes the content after its exit animation.                            |
+| `skipAnimationOnMount` | `false` | Keeps the initial presence animation enabled.                            |
+| `portalled`            | `true`  | Renders the positioner in a portal.                                     |
+| `portalRef`            | `-`     | Targets a custom portal container.                                      |
+| `positioning`          | `-`     | Ark positioning options.                                                 |
+| `ids`                  | `-`     | Stable IDs for the trigger, content, positioner, and arrow.             |
+| `defaultOpen`          | `-`     | Initial open state for uncontrolled usage.                              |
+| `open`                 | `-`     | Controlled open state.                                                    |
+| `disabled`             | `false` | Disables hover-card interaction.                                         |
 
 ### Behavioral notes
 
-`onOpenChange` receives an Ark detail object such as `{ open }`; read the state from `details.open`.
-For multiple triggers, use `Trigger value` with `onTriggerValueChange`. Use `ids` to set stable IDs
-for the trigger, content, positioner, and arrow when you need to compose the parts accessibly. Ark
-presence props, including `present`, `immediate`, and `onExitComplete`, pass through unchanged.
-
-Hover Card disables trigger and content motion when the user prefers reduced motion. Long unbroken
-words wrap inside the content instead of overflowing it.
-
-Hover cards are for supplementary previews only. Keep the information required to understand or
-complete a task visible without opening the card.
+- `onOpenChange(details)` receives an object such as `{ open }`. Read the next open state from
+  `details.open`.
+- Give each trigger a `value` and use `onTriggerValueChange(details)` when several triggers share
+  one content area. Read the active trigger from `details.value`.
+- `HoverCard.RootProvider`, `HoverCard.Context`, `useHoverCard`, and `useHoverCardContext` are
+  available for advanced state access. Create the store with `useHoverCard()` when state belongs
+  outside the rendered card tree, then pass it to `RootProvider` through its `value` prop.
+- Ark presence props such as `present`, `immediate`, and `onExitComplete` pass through unchanged.
+- `HoverCard.Trigger` receives moduix's default trigger styling only when `asChild` is not used.
+  With `asChild`, the child element owns its styling.
+- Trigger and content motion is disabled when the user prefers reduced motion. Long unbroken words
+  wrap inside the content instead of overflowing it.
+- Hover cards are for supplementary previews. Keep information required to understand or complete a
+  task visible without opening the card.
 
 ## Examples
 
 ### Context
 
-Use `HoverCard.Context` to read state locally without changing the visible part tree.
+Use `HoverCard.Context` to read state inside the card tree without changing its visible part
+structure.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/hover-card/context.tsx"
@@ -119,7 +146,7 @@ Control whether the card is open with `open` and `onOpenChange(details)`.
 
 ### Delay
 
-Set `openDelay` and `closeDelay` on the root to adjust the opening and closing delays.
+Set `openDelay` and `closeDelay` on the root to adjust hover and focus timing.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/hover-card/delay.tsx"
@@ -130,8 +157,8 @@ Set `openDelay` and `closeDelay` on the root to adjust the opening and closing d
 ### Dialog
 
 Render a hover card inline inside a dialog when it must stay in the dialog's overlay layer. The
-dialog's initial focus may land on the Hover Card trigger, opening the card after `openDelay`;
-set `initialFocusEl` to another element when the preview should remain closed until hover or focus.
+dialog's initial focus can land on the Hover Card trigger and open the card after `openDelay`; set
+`initialFocusEl` to another element when the preview should remain closed until hover or focus.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/hover-card/dialog.tsx"
@@ -141,7 +168,7 @@ set `initialFocusEl` to another element when the preview should remain closed un
 
 ### Disabled
 
-Set `disabled` to prevent the card from opening while keeping the trigger's content visible.
+Set `disabled` to prevent the card from opening while keeping the trigger visible.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/hover-card/disabled.tsx"
@@ -151,8 +178,8 @@ Set `disabled` to prevent the card from opening while keeping the trigger's cont
 
 ### Multiple Triggers
 
-Use `Trigger value` and `onTriggerValueChange(details)` to share one content surface across multiple
-triggers.
+Give each trigger a `value` and use `onTriggerValueChange(details)` to share one content area
+across several triggers.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/hover-card/multiple-triggers.tsx"
@@ -172,8 +199,8 @@ Pass Ark positioning options through the `positioning` prop.
 
 ### Root Provider
 
-Create state with moduix `useHoverCard()` when controls or other UI outside the card need to read or
-update it.
+Use `useHoverCard()` with `HoverCard.RootProvider` when controls or other UI outside the card tree
+need to read or update its state.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/hover-card/root-provider.tsx"
@@ -183,8 +210,8 @@ update it.
 
 ### With Arrow
 
-Add `HoverCard.Arrow` inside `HoverCard.Content` when the popup needs a visual anchor. The wrapper
-renders `HoverCard.ArrowTip` by default.
+Add `HoverCard.Arrow` inside `HoverCard.Content` when the popup needs a visual pointer to its
+trigger. The wrapper renders `HoverCard.ArrowTip` by default.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/hover-card/with-arrow.tsx"
@@ -196,18 +223,28 @@ renders `HoverCard.ArrowTip` by default.
 
 ### CSS Properties
 
-<CssPropertiesSection properties={HoverCardDocs.hoverCardCssProperties} />
+<div className="not-prose">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab value="CSS Variables">
+      <HoverCardDocs.HoverCardCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
 
 ### Styling hooks
 
 Every rendered part accepts `className`. Moduix also adds `data-slot="hover-card-*"` hooks to the
-trigger, positioner, content, arrow, and arrow tip. `HoverCard` and `HoverCard.RootProvider` provide
-state without rendering DOM elements, so they have no styling hook. Ark adds
+trigger, positioner, content, arrow, and arrow tip. `HoverCard` and `HoverCard.RootProvider` only
+provide state and do not render DOM elements, so they have no styling hooks. Ark adds
 `data-scope="hover-card"` and `data-part` to its parts. For state-aware styling, target
 `data-state="open|closed"`, `data-placement`, `data-side`, `data-value`, `data-current`,
 `data-nested`, and `data-has-nested`.
 
 `HoverCard.Positioner` exposes `--reference-width`, `--reference-height`, `--available-width`,
 `--available-height`, `--x`, `--y`, `--z-index`, and `--transform-origin`. `HoverCard.Content`
-exposes `--layer-index` and `--nested-layer-count`; `HoverCard.Arrow` exposes
-`--arrow-size`, `--arrow-size-half`, `--arrow-background`, and `--arrow-offset`.
+exposes `--layer-index` and `--nested-layer-count`. `HoverCard.Arrow` exposes `--arrow-size`,
+`--arrow-size-half`, `--arrow-background`, and `--arrow-offset`.

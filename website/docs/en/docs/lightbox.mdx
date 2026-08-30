@@ -1,7 +1,7 @@
 ---
 title: Lightbox
 component: lightbox
-description: Ark UI dialog composition for modal image previews.
+description: Dialog-based image previews built on Ark UI.
 ---
 
 import * as LightboxDocs from '@/components/examples/lightbox';
@@ -17,9 +17,9 @@ Ark UI does not provide a dedicated `lightbox` primitive. moduix builds this com
 
 ## Choosing the right component
 
-Use `Lightbox` when the overlay is mainly for viewing images or other media.
+Use `Lightbox` when you primarily need to view images or other media in a modal window.
 
-- Choose **`Lightbox`** for zoomed-in image previews, product galleries, and media-focused modal previews.
+- Choose **`Lightbox`** for zoomed-in image previews, product galleries, and other media-focused views.
 - Choose **`Dialog`** for general application UI such as forms, actions, or mixed content.
 - Compose **`Carousel` inside `Lightbox.Gallery`** when the preview needs slides or navigation arrows.
 
@@ -81,22 +81,22 @@ Lightbox.RootProvider
 
 ## Composition
 
-The root automatically portals `Backdrop` and `Positioner`. Use `portalled={false}` to render
-inline, or `portalRef` to target a custom container. The structural parts remain explicit and
-styleable.
+By default, the root renders `Backdrop` and `Positioner` through a portal. Use `portalled={false}`
+to render them in place, or pass `portalRef` to target a custom container. The structural parts
+remain explicit and can be styled independently.
 
 ### Recommended composition
 
-Keep the overlay structure explicit. `Lightbox.Content` is the actual Ark content part. It does not
+Keep the modal structure explicit. `Lightbox.Content` is the actual Ark content part. It does not
 render a backdrop, positioner, image, gallery, or close button for you.
 
 Use `Lightbox.Image` for a single image. It renders a native `<img>`, accepts native image props,
 and forwards its ref to the `HTMLImageElement`. `Lightbox.Header`, `Body`, and `Footer` are optional
 layout helpers that keep text, media, and actions visually separated.
 
-Wrap `Carousel` in `Lightbox.Gallery` for a known image collection. It provides the lightbox-specific
-viewport, arrow alignment, media sizing, and indicator layout while Carousel continues to manage all
-slide behavior.
+Wrap `Carousel` in `Lightbox.Gallery` for a known image collection. `Gallery` provides the
+lightbox-specific viewport, arrow alignment, media sizing, and indicator layout while `Carousel`
+continues to manage all slide behavior.
 
 Render `Lightbox.CloseIcon` as a sibling of `Lightbox.Content` inside `Lightbox.Positioner` when
 you want it pinned to the viewport corner. Rendering it inside `Lightbox.Content` makes it inherit
@@ -106,13 +106,14 @@ content transforms during entry and exit motion.
 
 Render custom content directly inside `Lightbox.Content` when it is not a single media frame or a
 `Carousel` gallery. Use `Lightbox.Bind` only when the source markup cannot render
-`Lightbox.Trigger`. For structured image arrays, use explicit triggers and `Lightbox.Gallery`.
+`Lightbox.Trigger`. For a structured image array, use explicit triggers and compose `Carousel`
+inside `Lightbox.Gallery`.
 
 ### Default props
 
-By default, portalled overlay content mounts lazily and unmounts after its exit animation. Set
-`unmountOnExit={false}` to retain it after the first open. Set both lifecycle props to `false` only
-when the content must render eagerly on the initial page load.
+By default, portalled content mounts lazily and unmounts after its exit animation. Set
+`unmountOnExit={false}` to keep it mounted after the first open. Set both lifecycle props to `false`
+only when the content must render eagerly on the initial page load.
 
 | Prop                     | Default    | Notes                                                               |
 | ------------------------ | ---------- | ------------------------------------------------------------------- |
@@ -128,19 +129,19 @@ when the content must render eagerly on the initial page load.
 
 ### Behavioral notes
 
-`onOpenChange` and `onTriggerValueChange` use Ark's detail-object callback shape. Read
-`details.open` for controlled open state and `details.value` for multiple-trigger galleries.
+`onOpenChange` and `onTriggerValueChange` use Ark's detail-object callback signature. Read
+`details.open` for controlled open state and `details.value` for galleries with multiple triggers.
 
 Use `useLightbox()` with `Lightbox.RootProvider` when controls live outside the rendered root.
 Read dialog state in child components with `useLightboxContext()`. Both APIs are available from
 `@moduix/react` and on the `Lightbox` namespace.
 
-`Lightbox.Image closeOnClick` is the supported shortcut when clicking the image should dismiss the
-overlay. `Lightbox.Bind` is the renderless binding helper for CMS or third-party markup that cannot
-be wrapped in `Lightbox.Trigger`. It must be rendered inside `Lightbox` and reports the selected
-image through `onImageSelect(details)`. The details contain `src`, optional `alt`, and the source
-`HTMLImageElement` as `element`. `selector` is required and must match a semantic button or link so
-every preview remains keyboard-accessible.
+`Lightbox.Image closeOnClick` is the supported shortcut for dismissing the overlay when the image is
+clicked. `Lightbox.Bind` connects CMS or third-party markup that cannot be wrapped in
+`Lightbox.Trigger`. Render it inside `Lightbox`; it reports the selected image through
+`onImageSelect(details)`. The details contain `src`, optional `alt`, and the source
+`HTMLImageElement` as `element`. `selector` is required and should match a semantic button or link
+so every preview remains keyboard-accessible.
 
 Other inherited Dialog props pass through unchanged, including `id`, `ids`, `initialFocusEl`,
 `finalFocusEl`, `persistentElements`, `restoreFocus`, `present`, `immediate`,
@@ -150,15 +151,15 @@ Other inherited Dialog props pass through unchanged, including `id`, `ids`, `ini
 
 ### Bind CMS Content
 
-Use `Lightbox.Bind` when previewable images come from CMS or third-party markup that you do not
-render directly with `Lightbox.Trigger`. Point it at a container with `rootRef` or `rootSelector`,
-choose a `selector`, and handle the resolved `{ src, alt, element }` through `onImageSelect`.
-`Bind` opens its parent Lightbox but renders no overlay structure, so the backdrop, content, close
-controls, and image layout remain fully composable. It reads `data-lightbox-src`, then `currentSrc`,
-then `src`, and preloads that source on pointer hover or keyboard focus. Use a semantic button or
-link as the matched `selector` so native keyboard activation produces the click that opens the
-Lightbox. If your server already returns a structured image array, prefer the
-`Lightbox.Gallery + Carousel` composition above.
+Use `Lightbox.Bind` when preview images come from a CMS or third-party markup that you cannot render
+directly with `Lightbox.Trigger`. Point it at a container with `rootRef` or `rootSelector`, choose a
+`selector`, and handle the resolved `{ src, alt, element }` through `onImageSelect`. `Bind` opens its
+parent Lightbox but renders no overlay structure, so the backdrop, content, close controls, and image
+layout remain yours to compose. It reads the source from `data-lightbox-src`, then `currentSrc`, then
+`src`, and preloads it on pointer hover or keyboard focus. Use a semantic button or link for the
+matched `selector` so native keyboard activation produces the click that opens the Lightbox. If your
+server already returns a structured image array, prefer the `Lightbox.Gallery + Carousel` composition
+above.
 
 <style>{LightboxDocs.lightboxBindCmsContentCss}</style>
 
@@ -201,9 +202,9 @@ after close so the focus handoff is visible.
 
 ### Gallery
 
-When a CMS or API gives you a structured array of images, keep that array in React state and
-compose `Carousel` inside `Lightbox.Gallery`. Use `Lightbox.Trigger.value` to choose the initial
-slide and keep Carousel page state in sync as the user navigates.
+When a CMS or API returns a structured array of images, keep the selected image and Carousel page in
+React state, then compose `Carousel` inside `Lightbox.Gallery`. Use `Lightbox.Trigger.value` to choose
+the initial slide and keep the Carousel page in sync as the user navigates.
 
 <style>{LightboxDocs.lightboxGalleryExampleCss}</style>
 
@@ -245,10 +246,10 @@ while the image is open.
 
 ```
 
-### RootProvider and Context
+### Root Provider
 
-Create state with `useLightbox()` when the opener is outside the root. Read inline state with
-`useLightboxContext()` inside a child component. The external opener is a regular moduix `Button`.
+Create state with `useLightbox()` when the opener is outside the root. Read the state inside a child
+component with `useLightboxContext()`. The external opener is a regular moduix `Button`.
 
 <style>{LightboxDocs.lightboxRootProviderCss}</style>
 

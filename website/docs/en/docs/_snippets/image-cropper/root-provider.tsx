@@ -20,9 +20,9 @@ export default function RootProviderImageCropperDemo() {
 
   return (
     <div className="cropper-stack">
-      <ImageCropper.RootProvider value={imageCropper}>
+      <ImageCropper.RootProvider value={imageCropper} aria-label="Image cropper">
         <ImageCropper.Viewport>
-          <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
+          <ImageCropper.Image src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
           <ImageCropper.CropArea />
         </ImageCropper.Viewport>
       </ImageCropper.RootProvider>

@@ -12,8 +12,8 @@ const priorities = createListCollection({
 
 export default function SelectFieldDemo() {
   return (
-    <Field required>
-      <Select collection={priorities} name="priority">
+    <Field>
+      <Select collection={priorities} required name="priority">
         <Select.Label>Priority</Select.Label>
         <Select.Control>
           <Select.Trigger>

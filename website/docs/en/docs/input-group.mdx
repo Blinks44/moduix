@@ -1,29 +1,30 @@
 ---
 title: Input Group
 component: input-group
-description: Group one native input with inline addons, text, and actions.
+description: Compose a native input with inline addons, text, or actions.
 ---
 
 import * as InputGroupDocs from '@/components/examples/input-group';
 
 ## API Reference
 
-Ark UI does not ship a dedicated input-group primitive. moduix builds this component with Ark's official
-[factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) and follows Ark's guidance on
-[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
-[refs](https://ark-ui.com/docs/guides/ref).
+`InputGroup` is a moduix composition, not an Ark UI primitive. It combines Ark factory elements
+with the Ark-backed moduix `Input` and `Button` components. The composition follows Ark's guidance
+on [composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling),
+and [refs](https://ark-ui.com/docs/guides/ref).
 
 ## Choosing the right component
 
-- Choose **`Input`** for a plain single-line field.
-- Choose **`InputGroup`** for inline prefixes, suffixes, text, or actions.
-- Choose **`Editable`** for text that starts read-only and becomes editable on demand.
-- Choose **`PasswordInput`** for the existing composition that controls password visibility.
-- Choose **`NumberInput`** when the field needs numeric behavior.
+- Use **`Input`** for an ordinary single-line input.
+- Use **`InputGroup`** when the input needs inline content such as a prefix, suffix, or action.
+- Use **`PasswordInput`** for a password field with a visibility toggle.
+- Use **`NumberInput`** when you need numeric behavior and step controls.
+- Use **`Textarea`** for multi-line content.
+- Use **`Editable`** when text should appear as a value first and switch into edit mode on demand.
 
 ## Basic
 
-Build a grouped input with only the elements the field needs.
+Build a grouped input with only the parts the field needs.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/input-group/basic.tsx"
@@ -44,29 +45,31 @@ InputGroup / InputGroup.Root
 └─ InputGroup.Button (optional)
 ```
 
-| Part                             | Role                                                         |
-| -------------------------------- | ------------------------------------------------------------ |
-| `InputGroup` / `InputGroup.Root` | Ark factory root for shared layout, border, focus, and size. |
-| `InputGroup.Input`               | Ark-backed native input that owns the form value.           |
-| `InputGroup.Addon`               | Filled prefix or suffix.                                    |
-| `InputGroup.Text`                | Inline text without a fill.                                 |
-| `InputGroup.Button`              | Native action button with grouped visual defaults.          |
+| Part                             | Role                                                        |
+| -------------------------------- | ----------------------------------------------------------- |
+| `InputGroup` / `InputGroup.Root` | Shared layout, border, focus ring, and size context.       |
+| `InputGroup.Input`               | Native `<input>` that owns the form value.                  |
+| `InputGroup.Addon`               | Filled prefix or suffix.                                   |
+| `InputGroup.Text`                | Inline text without a fill.                                |
+| `InputGroup.Button`              | Action button associated with the input.                   |
 
 ## Composition
 
 ### Recommended composition
 
-Use exactly one `InputGroup.Input`. Place addons, text, or buttons before or after it. Wrap the
-group in `Field` when the field needs a label, helper text, error text, ids, or shared state.
+Render exactly one `InputGroup.Input`. Place `Addon`, `Text`, or `Button` before or after it. Wrap
+the group in `Field` when the input needs a label, helper text, error text, generated ids, or shared
+state.
 
-`InputGroup.Input` uses native input events. Control its value with `value` and `onChange(event)`.
-The root `size` is inherited by the input and button.
+`InputGroup.Input` remains a native input. For a controlled input, pass `value` and update it from
+`onChange(event)`. For an uncontrolled input, use `defaultValue`. The root `size` is inherited by
+`InputGroup.Input` and `InputGroup.Button`; the other parts follow the same visual density.
 
 ### When to go custom
 
-`InputGroup`, `InputGroup.Addon`, and `InputGroup.Text` support Ark's `asChild`. The root child must
-remain a container; addon and text children should stay presentational and accept forwarded props
-and refs.
+The root, `InputGroup.Addon`, and `InputGroup.Text` support Ark's `asChild`. Pass exactly one child
+when using it. The root child must remain a semantic layout container. An addon or text child should
+remain presentational and accept the merged props and ref.
 
 Use `InputGroup.Button` for actions instead of making an addon interactive. Add `role="group"` and
 an accessible name only when the standalone composition needs group semantics.
@@ -83,16 +86,17 @@ an accessible name only when the standalone composition needs group semantics.
 
 ### Behavioral notes
 
-- The input `ref` targets the real `HTMLInputElement`.
-- The root does not own the value or validation, provide ARIA ids or context hooks, or render a `HiddenInput`.
+- The `InputGroup.Input` ref points to the real `HTMLInputElement`.
+- The root is a passive composition wrapper. It does not own the value or validation, generate ARIA ids, provide context hooks, or render a `HiddenInput`.
 - Root styling for invalid, disabled, and read-only states derives from the nested input state.
+- Buttons do not inherit `disabled` from `Field`; disable each action explicitly when it should be unavailable.
 
 ## Examples
 
 ### Disabled
 
-The `disabled` state stays on the native input. Disable related actions explicitly when they should
-also become unavailable.
+Set `disabled` on the native input. Disable related buttons separately when they should be
+unavailable too.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/input-group/disabled.tsx"
@@ -101,8 +105,8 @@ also become unavailable.
 
 ### Field State
 
-Set `invalid` on `Field`. Ark passes the state and required ARIA attributes to `InputGroup.Input`,
-and the group reacts to the input state.
+Set `invalid` on `Field` when validation fails. Ark passes the state and required ARIA attributes to
+`InputGroup.Input`, and the group reflects the input state.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/input-group/field-state.tsx"
@@ -111,7 +115,7 @@ and the group reacts to the input state.
 
 ### Prefix and Suffix
 
-Mix a filled addon with plain text when the two sides need different visual emphasis.
+Use `Addon` for a filled prefix or suffix and `Text` for inline text without a fill.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/input-group/prefix-and-suffix.tsx"
@@ -120,7 +124,7 @@ Mix a filled addon with plain text when the two sides need different visual emph
 
 ### Sizes
 
-Set the size once on the root so the input, addon, text, and button stay aligned.
+Set `size` once on the root to keep the input, addon, text, and button aligned.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/input-group/sizes.tsx"
@@ -129,7 +133,8 @@ Set the size once on the root so the input, addon, text, and button stay aligned
 
 ### With Action
 
-Use a grouped button for an action tied to the native input's value.
+Use `InputGroup.Button` for an action tied to the input value. This example keeps the input
+controlled and enables `Send` only after a value is entered.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/input-group/with-action.tsx"
@@ -138,8 +143,8 @@ Use a grouped button for an action tied to the native input's value.
 
 ### Advanced Customization
 
-Use `asChild` when the root must render a custom container while keeping the group styling and size
-context. This replaces the default `div`, so the child must remain a semantic layout container.
+Use `asChild` when the root must render a custom container instead of the default `div`. The group
+keeps its styling and size context, and the child must remain a semantic layout container.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/input-group/as-child.tsx"
@@ -164,13 +169,13 @@ context. This replaces the default `div`, so the child must remain a semantic la
 
 ### Styling hooks
 
-- `data-slot="input-group-root"` and `data-size`
-- `data-scope="input-group"` and `data-part="root" | "addon" | "text"` on Ark factory parts
+- `data-slot="input-group-root"` and `data-size="xs" | "sm" | "md" | "lg" | "xl"` on the root
+- `data-scope="input-group"` and `data-part="root" | "addon" | "text"` on the Ark factory parts
 - `data-slot="input-root"` plus Ark Field input state attributes
 - `data-slot="input-group-addon"`
 - `data-slot="input-group-text"`
-- `data-slot="input-group-button"` on the group's action button
-- nested `data-invalid`, `aria-invalid`, `disabled`, and `readOnly` state through root `:has(...)`
+- `data-slot="input-group-button"` on the grouped action button
+- Nested `data-invalid`, `aria-invalid="true"`, `data-disabled`/`:disabled`, and `data-readonly`/`:read-only` states are reflected through `:has(...)` on the root
 
 Component-owned `data-slot`, `data-scope`, `data-part`, and root `data-size` hooks stay stable when
 consumer props are supplied. `className` always merges with the component styles.

@@ -1,7 +1,7 @@
 ---
 title: Editable
 component: editable
-description: "Modification de texte directement dans la page avec Ark UI : aperçu, saisie, contrôles et intégration aux formulaires natifs."
+description: "Modification de texte directement dans l’interface avec Ark UI : aperçu, saisie, commandes et prise en charge des formulaires natifs."
 ---
 
 import * as EditableDocs from '@/components/examples/editable';
@@ -12,17 +12,18 @@ import * as EditableDocs from '@/components/examples/editable';
 
 ## Choisir le bon composant
 
-- Choisissez **`Input`** ou **`Textarea`** lorsque la valeur doit toujours se présenter comme modifiable.
-- Choisissez **`Editable`** lorsque la valeur est généralement en lecture seule et que l’utilisateur passe volontairement en mode de modification.
-- Placez **`Editable`** dans **`Field`** lorsque le texte d’aide, le message d’erreur ou l’état global du formulaire doivent s’afficher
-  en dehors de la structure d’`Editable`.
+- Choisissez **`Input`** ou **`Textarea`** lorsque la valeur doit toujours être disponible pour la modification.
+- Choisissez **`Editable`** lorsque la valeur est généralement en lecture seule et que la modification doit être une action explicite.
+- Utilisez **`Editable`** dans **`Field`** lorsque le texte d’aide, le message d’erreur ou l’état partagé du formulaire doivent s’afficher
+  en dehors du composant.
 
 ## Exemple de base
 
-Utilisez les parties Ark : `Editable`, `Editable.Label`, `Editable.Area`, `Editable.Input` et
-`Editable.Preview`. Ajoutez `Editable.Controls` pour obtenir le fonctionnement standard avec les boutons de modification,
-de validation et d’annulation. Le composant moduix ajoute les styles, les attributs `data-slot` et les icônes par défaut
-des déclencheurs. Par défaut, moduix active le mode de modification au double-clic pour éviter les changements accidentels.
+Utilisez `Editable` comme composant racine, puis composez-le avec `Editable.Label`, `Editable.Area`,
+`Editable.Input` et `Editable.Preview`. Ajoutez `Editable.Controls` pour obtenir le parcours standard
+avec les boutons de modification, de validation et d’annulation. moduix ajoute les styles, les attributs
+`data-slot` et les icônes intégrées des boutons. Par défaut, un double-clic permet de passer en mode de
+modification, ce qui limite les changements accidentels.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/editable/basic.tsx"
@@ -48,57 +49,62 @@ Editable.Root
 │  └─ Editable.CancelTrigger
 
 Editable.RootProvider
-└─ le même arbre de parties, relié à l’état Ark `useEditable()`
+└─ le même arbre de parties, relié à l’état Ark créé par `useEditable()`
 ```
 
 | Partie                       | Rôle                                                                                 |
 | ---------------------------- | ------------------------------------------------------------------------------------ |
-| `Editable` / `Editable.Root` | État du composant, callbacks, propriétés de formulaire et liaison avec l’accessibilité. |
-| `Editable.RootProvider`      | Composant racine relié à une instance de `useEditable()`.                                |
-| `Editable.Label`             | Libellé visible du champ et de l’aperçu.                                                  |
-| `Editable.Area`              | Conteneur commun du champ de saisie et de l’aperçu.                                       |
-| `Editable.Input`             | Champ de texte affiché pendant la modification.                                           |
-| `Editable.Preview`           | Valeur affichée ou espace réservé affiché hors du mode de modification.                   |
-| `Editable.Control`           | Conteneur facultatif pour les boutons de modification, de validation et d’annulation.     |
-| `Editable.Controls`          | Groupe prêt à l’emploi pour le parcours standard de modification, de validation et d’annulation. |
-| `Editable.EditTrigger`       | Bouton qui active le mode de modification.                                                |
-| `Editable.SubmitTrigger`     | Bouton qui valide la valeur actuelle.                                                      |
-| `Editable.CancelTrigger`     | Bouton qui rétablit la valeur précédente.                                                  |
+| `Editable` / `Editable.Root` | Composant racine qui gère l’état, les callbacks, les propriétés du formulaire et l’accessibilité. |
+| `Editable.RootProvider`      | Composant racine relié à une instance de `useEditable()`.                                      |
+| `Editable.Label`             | Libellé visible du champ et de la valeur affichée.                                               |
+| `Editable.Area`              | Zone commune du champ de saisie et de la valeur affichée.                                        |
+| `Editable.Input`             | Champ de saisie affiché pendant la modification.                                                 |
+| `Editable.Preview`           | Valeur ou espace réservé affiché hors du mode de modification.                                   |
+| `Editable.Control`           | Conteneur facultatif pour les boutons de modification, de validation et d’annulation.           |
+| `Editable.Controls`          | Groupe pratique pour le parcours standard de modification, de validation et d’annulation.       |
+| `Editable.EditTrigger`       | Bouton qui active le mode de modification.                                                       |
+| `Editable.SubmitTrigger`     | Bouton qui valide la valeur actuelle.                                                             |
+| `Editable.CancelTrigger`     | Bouton qui annule les modifications en cours.                                                    |
 
 ## Composition
 
 ### Composition recommandée
 
-Gardez `Input` et `Preview` côte à côte dans `Area`, puis placez `Controls` après `Area` pour la disposition standard des boutons.
-Pour un champ sur une ligne, les boutons apparaissent à droite et sont centrés verticalement. Avec une textarea, la structure
-reste la même. Définissez `--moduix-editable-control-align: start` pour aligner les contrôles en haut de la zone multiligne.
+Placez `Editable.Input` et `Editable.Preview` côte à côte dans `Editable.Area`. Placez `Editable.Controls`
+après cette zone pour utiliser la disposition standard des boutons. Pour un champ sur une ligne, les
+boutons apparaissent à droite et sont centrés verticalement. Avec une textarea, la structure reste la
+même. Définissez `--moduix-editable-control-align: start` pour aligner les contrôles en haut de la zone multiligne.
 
 ### Quand créer une composition personnalisée
 
-Utilisez `Editable.Context` de moduix ou `useEditableContext()` lorsque des enfants réutilisables ou du code intégré à l’arbre
-doivent accéder à l’état de modification. Utilisez `useEditable()` avec `Editable.RootProvider` lorsque l’état ou les méthodes
-doivent être gérés en dehors de l’arbre `Editable` rendu. Utilisez `asChild` lorsque le champ doit utiliser un autre élément
-sémantiquement adapté, par exemple une textarea.
+Utilisez `Editable.Context` de moduix ou `useEditableContext()` lorsque des enfants réutilisables ou un
+contenu personnalisé doivent accéder à l’état actuel de modification. Utilisez `useEditable()` avec
+`Editable.RootProvider` lorsque l’état ou les méthodes doivent vivre en dehors de l’arbre `Editable` rendu.
+`RootProvider` remplace `Editable.Root` pour cette instance d’état. Utilisez `asChild` lorsque le champ
+doit être rendu sous la forme d’un autre élément sémantique, par exemple un `<textarea>` natif.
 
 ### Propriétés par défaut
 
 | Propriété        | Valeur par défaut | Remarques                                                                                                                      |
 | ---------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | `activationMode` | `dblclick`        | moduix utilise le double-clic par défaut. Passez `focus`, `click` ou `none` pour choisir un autre mode d’activation Ark.       |
-| `selectOnFocus`  | `true`            | Ark sélectionne le texte du champ lorsqu’il reçoit le focus.                                                                  |
-| `submitMode`     | `both`            | `Enter` et la perte de focus valident la valeur par défaut. Utilisez `none` si seule une commande explicite doit valider la valeur. |
+| `selectOnFocus`  | `true`            | Ark sélectionne le texte du champ lorsqu’il reçoit le focus.                                                           |
+| `submitMode`     | `both`            | `Enter` et la perte de focus valident la valeur par défaut. Utilisez `none` si seule une commande explicite doit la valider. |
 
 ### Comportement
 
-`value` et `defaultValue` définissent la valeur textuelle. `edit` et `defaultEdit` contrôlent le mode de modification. Les callbacks
-Ark conservent leur objet `details` : `onValueChange`, `onValueCommit`, `onValueRevert` et `onEditChange` reçoivent donc les
-mêmes données et les mêmes propriétés utiles qu’avec Ark UI.
+Les propriétés `value` et `defaultValue` définissent la valeur textuelle. Les propriétés `edit` et
+`defaultEdit` contrôlent le mode de modification. Les callbacks Ark conservent l’objet `details` :
+`onValueChange`, `onValueCommit`, `onValueRevert` et `onEditChange` reçoivent donc la même structure de
+données qu’avec Ark UI.
 
-`Enter` valide les modifications et `Escape` les annule. Lorsque `Editable.Input` est rendu comme une textarea avec `asChild`,
-Cmd/Ctrl + Enter valide la valeur. `name` et `form` sont transmis à Ark pour permettre la soumission native du formulaire.
-`disabled` bloque l’activation, tandis que `readOnly` garde la valeur visible sans permettre sa modification.
+Appuyez sur `Enter` pour valider la valeur et sur `Escape` pour annuler les modifications. Lorsque
+`Editable.Input` est rendu sous la forme d’un `<textarea>` avec `asChild`, Cmd/Ctrl + Enter valide la
+valeur. `name` et `form` sont transmis à Ark pour permettre la soumission native du formulaire.
+`disabled` bloque les interactions, tandis que `readOnly` garde la valeur visible sans permettre sa modification.
 
-Définissez `translations.input` lorsque le champ nécessite un nom accessible adapté au contexte. `Editable.Label` reste le libellé visible.
+Définissez `translations.input` pour fournir au champ un nom accessible adapté au contexte.
+`Editable.Label` reste le libellé visible.
 
 ## Exemples
 
@@ -114,7 +120,7 @@ Utilisez `value` et `onValueChange` lorsque l’état de l’application doit pi
 
 ### Field
 
-Placez `Editable` dans `Field` lorsque l’état de validation ou le message d’erreur doivent s’afficher en dehors du composant.
+Utilisez `Editable` dans `Field` lorsque l’état de validation ou le message d’erreur doivent s’afficher en dehors du composant.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/editable/field.tsx"
@@ -125,9 +131,10 @@ Placez `Editable` dans `Field` lorsque l’état de validation ou le message d�
 
 ### Options Ark
 
-Les options courantes d’Ark sont transmises par les propriétés du composant racine : mode d’activation, redimensionnement automatique,
-longueur maximale, espaces réservés selon le mode et libellés localisés des contrôles.
-Cet exemple définit `activationMode` sur `click` pour montrer comment remplacer le double-clic utilisé par défaut dans moduix.
+Le composant racine accepte les options courantes d’Ark, notamment le mode d’activation, le redimensionnement
+automatique, la longueur maximale, des espaces réservés différents selon le mode et les libellés localisés
+des commandes. Cet exemple définit `activationMode` sur `click` pour montrer comment remplacer le double-clic
+utilisé par défaut dans moduix.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/editable/guides.tsx"
@@ -137,8 +144,10 @@ Cet exemple définit `activationMode` sur `click` pour montrer comment remplacer
 
 ### Root Provider
 
-Utilisez `useEditable()` de moduix et `Editable.RootProvider` lorsque des contrôles externes doivent accéder à l’état et aux méthodes
-d’`Editable`. Passez `activationMode: 'dblclick'` au hook pour retrouver le comportement d’activation par défaut du composant racine moduix.
+Utilisez `useEditable()` de moduix et `Editable.RootProvider` lorsque des commandes placées en dehors de
+l’arbre du composant doivent accéder à l’état et aux méthodes d’`Editable`. Passez
+`activationMode: 'dblclick'` au hook pour conserver le comportement d’activation par défaut du composant
+racine moduix. Pour cette instance d’état, le provider remplace `Editable.Root`.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/editable/root-provider.tsx"
@@ -149,8 +158,8 @@ d’`Editable`. Passez `activationMode: 'dblclick'` au hook pour retrouver le co
 
 ### Textarea
 
-Utilisez `Editable.Input` avec une textarea pour le contenu multiligne. L’exemple définit sa taille avec des styles en ligne afin que
-le code copié puisse être utilisé tel quel.
+Utilisez `Editable.Input` avec `asChild` et un élément natif `<textarea>` pour le contenu multiligne.
+L’exemple fixe la taille de la textarea avec des styles en ligne afin que le code copié puisse être utilisé tel quel.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/editable/textarea.tsx"
@@ -160,8 +169,9 @@ le code copié puisse être utilisé tel quel.
 
 ### Personnalisation avancée
 
-N’utilisez pas `Editable.Controls` lorsqu’une disposition personnalisée qui dépend de l’état doit accéder directement à
-`Editable.Context`.
+Accédez directement à `Editable.Context` lorsqu’une disposition personnalisée dépend de l’état de
+modification. Cet exemple n’utilise pas `Editable.Controls` et affiche une indication clavier pendant
+la modification.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/editable/advanced-customization.tsx"
@@ -170,9 +180,9 @@ N’utilisez pas `Editable.Controls` lorsqu’une disposition personnalisée qui
 
 </PreviewFrame>
 
-### État désactivé et lecture seule
+### Désactivé et en lecture seule
 
-Utilisez `disabled` lorsque le champ doit être désactivé. Utilisez `readOnly` lorsque la valeur doit rester visible sans pouvoir être modifiée.
+Utilisez `disabled` lorsque le champ doit être indisponible. Utilisez `readOnly` lorsque la valeur doit rester visible sans pouvoir être modifiée.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/editable/disabled-and-read-only.tsx"
@@ -182,7 +192,7 @@ Utilisez `disabled` lorsque le champ doit être désactivé. Utilisez `readOnly`
 
 ### Dans un formulaire
 
-Passez `name` pour inclure la valeur actuelle dans la soumission native du formulaire.
+Passez `name` pour inclure la valeur actuelle dans l’envoi natif du formulaire.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/editable/form.tsx"
