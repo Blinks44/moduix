@@ -142,12 +142,12 @@
     }
   }
 
-  .control:has(.input + .input) .input {
+  .control:has(.input[data-index='1']) .input {
     min-width: min(var(--moduix-date-picker-range-input-min-width, 7.5rem), 100%);
     padding-inline-end: var(--moduix-date-picker-input-padding-x-start, var(--moduix-spacing-3-5));
   }
 
-  .control:has(.input + .input) .input:last-of-type {
+  .control .input[data-index='1'] {
     padding-inline-end: var(--moduix-date-picker-input-padding-x-end, 4.25rem);
   }
 
@@ -215,11 +215,8 @@
     top: 50%;
     width: var(--moduix-date-picker-action-size, var(--moduix-size-xs));
     height: var(--moduix-date-picker-action-size, var(--moduix-size-xs));
-    transform: translateY(-50%);
-  }
-
-  .trigger {
     inset-inline-end: var(--moduix-date-picker-trigger-offset-right, var(--moduix-spacing-2));
+    transform: translateY(-50%);
   }
 
   .clearTrigger {
@@ -318,6 +315,13 @@
             var(--moduix-popup-motion-easing, var(--moduix-ease-in-out))
         );
       pointer-events: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      &[data-state] {
+        animation-delay: 0ms;
+        animation-duration: 1ms;
+      }
     }
   }
 
