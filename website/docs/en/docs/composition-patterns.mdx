@@ -1,44 +1,42 @@
 ---
 title: Composition Patterns
-description: Compose moduix parts without hiding Ark behavior or application customization points.
+description: Compose moduix parts while keeping Ark behavior and application-level customization visible.
 ---
 
 # Composition Patterns
 
-moduix keeps Ark composition visible. Instead of folding behavior into one large prop surface, most
-components expose the stateful root and the parts that own semantics, layout, and styling.
+`moduix` keeps Ark's composition model visible. Most components expose a stateful root and separate
+parts for structure, semantics, and styling. This makes it clear which layer owns each responsibility
+and gives you a predictable way to customize a component:
 
-That gives you a predictable customization ladder:
+- use the shipped parts directly;
+- re-export them from your product layer;
+- wrap only the parts that need repeated product styling or layout.
 
-- use the shipped parts directly
-- re-export them behind product-specific names
-- wrap only the parts that need repeated product styling or layout
-
-These patterns stay the same whether you consume `@moduix/react` or install source through the
-registry.
+The same approach works with `@moduix/react` and with source code copied from the registry.
 
 ## Choose an install
 
-Use the npm package for package-managed updates, component imports from
-`@moduix/react/*`, and styles from `@moduix/react/style.css`.
+Choose the npm package when you want your package manager to handle updates. Import components from
+`@moduix/react/*` and the shared styles from `@moduix/react/style.css`.
 
-Use the `shadcn` registry when you want to own the component source files inside your application. It writes
-the selected component and its required moduix styles, icons, and utilities into your project, so you
-can change them directly and import them from `@/components/moduix/*`.
+Choose the `shadcn` registry when your application should own the component source. It copies the
+selected component and its required moduix styles, icons, and utilities into your project. You can
+then change that code directly and import it from `@/components/moduix/*`.
 
-Copy-owned components do not receive package updates automatically. When a newer moduix version is
-available, add it through `shadcn`, then review and merge the resulting diff on your terms. Follow the
-[Quick start](/docs/quick-start#install-with-the-shadcn-cli) for the one-time registry setup
-and component commands.
+Components whose source lives in your application do not receive package updates automatically. When
+a new moduix version is available, add the component again through `shadcn`, then review and merge
+the resulting diff. Follow the [Quick start](/docs/quick-start#install-with-the-shadcn-cli) for the
+one-time registry setup and component commands.
 
 ## Use the part tree
 
-Before creating wrappers, start with the part tree documented on the component page. Use `className`, CSS variables,
-`data-slot`, and Ark state attributes on the parts that actually own those responsibilities.
+Before creating wrappers, start with the part tree on the component page. Apply `className`, CSS
+variables, `data-slot`, and Ark state attributes to the parts that actually own those responsibilities.
 
-Root-only exports such as `Popover`, `Tooltip`, and `Select` are the short form of `*.Root`.
-Popup-like and dialog-like roots portal their overlay subtree automatically, so the structure stays
-visible without adding a separate `Portal` wrapper.
+Root exports such as `Popover`, `Tooltip`, and `Select` are shortcuts for `*.Root`. For dialog-like
+and popup components, the root automatically portals the overlay subtree, so the structure remains
+explicit without a separate `Portal` wrapper.
 
 For example:
 
@@ -55,27 +53,28 @@ Dialog / Dialog.Root
 ```
 
 Use `portalled={false}` for inline rendering and `portalRef` for a custom container when the
-component supports those props. Use `Dialog.RootProvider` as the alternative state entry point when
-the state object lives outside the rendered subtree.
+component supports those props. Use `Dialog.RootProvider` when the state object is created outside
+the rendered tree.
 
 ## Structural parts
 
-Not every primitive exposes every part below. Start from the component page's anatomy, then keep the
-parts it documents visible when your product needs to override them.
+Not every primitive exposes every part below. Start with the anatomy on the component page, then keep
+the parts it documents visible when your product needs to override them.
 
-| Part         | Responsibility                                                                 |
-| ------------ | ------------------------------------------------------------------------------ |
-| `Backdrop`   | Provides modal separation and outside-interaction targeting.                   |
-| `Positioner` | Owns viewport or anchored placement and scrolling behavior.                    |
-| `Content`    | Renders the interactive surface and receives state attributes.                 |
-| `Arrow`      | Connects anchored popup content to its trigger when the primitive supports it. |
+| Part         | Responsibility                                                                    |
+| ------------ | ------------------------------------------------------------------------------- |
+| `Backdrop`   | Separates a modal surface from the rest of the page and receives outside interactions. |
+| `Positioner` | Owns viewport or anchored placement and scrolling behavior.                       |
+| `Content`    | Renders the interactive surface and receives state attributes.                    |
+| `Arrow`      | Connects anchored popup content to its trigger when the primitive supports it.   |
 
 Do not hide these nodes inside product wrappers unless your product contract intentionally removes
 their override points.
 
 ## `asChild`
 
-Use `asChild` when another semantic element should own the DOM node while a moduix part attaches its behavior to it.
+Use `asChild` when an existing semantic element should be the DOM node and a moduix part should only
+add its behavior to that element.
 
 ```tsx
 import { Button } from '@moduix/react/button';
@@ -97,13 +96,14 @@ export function FiltersPopover() {
 }
 ```
 
-Keep a single semantic child that can receive Ark props. If the child component swallows refs,
-event handlers, or attributes, `asChild` will not behave correctly.
+Keep one semantic child that can receive Ark props. If the child component swallows refs, event
+handlers, or attributes, `asChild` will not behave correctly.
 
 ## `ids`
 
-Most compositions wire their own relationships automatically. Share `ids` only when two primitives must point at the
-same trigger or description node, share IDs instead of hand-writing aria relationships.
+Most compositions create their own relationships automatically. Use `ids` when two primitives need
+to coordinate a stable ID, such as when they share the same trigger element. Do not write the ARIA
+relationships by hand.
 
 ```tsx
 import { Avatar } from '@moduix/react/avatar';
@@ -126,13 +126,13 @@ export function AssigneeTooltip() {
 }
 ```
 
-This keeps the accessibility wiring in Ark instead of duplicating `aria-*` attributes by hand.
+This keeps the accessibility wiring in Ark instead of duplicating `aria-*` attributes manually.
 
 ## Re-export first
 
-If your product needs shorter imports or a branded surface, start with re-exports before writing
-new abstractions. Re-exporting keeps the original behavior intact while giving your application a
-stable local API.
+If your product needs shorter imports or a branded API, start with re-exports before writing new
+abstractions. Re-exports preserve the original behavior while giving your application a stable local
+API.
 
 ```tsx
 import { Dialog as ModuixDialog } from '@moduix/react/dialog';
@@ -151,17 +151,17 @@ export const DialogCloseTrigger = ModuixDialog.CloseTrigger;
 This is the lowest-risk customization path:
 
 - consumers import from your product layer instead of directly from `@moduix/react/*` or
-  `@/components/moduix/*`
-- Ark behavior stays untouched
-- moving from package usage to copy-owned usage stays straightforward
-- wrappers can be added later only where they are actually needed
+  `@/components/moduix/*`;
+- Ark behavior stays untouched;
+- moving from package usage to source-owned usage stays straightforward;
+- wrappers can be added later only where they are actually needed.
 
 ## Add a product contract
 
-Give the product contract only to the part that owns the decision. The local `Dialog` is a complete product boundary:
-consumers import one component and use
-`Dialog.Trigger`, `Dialog.Content`, and every other part from it. Internally, only the dialog surface
-adds the small `tone` contract because it owns the visual decision.
+Give a product contract only to the part that owns the decision. The local `Dialog` becomes a complete
+product boundary: consumers import one component and use `Dialog.Trigger`, `Dialog.Content`, and the
+other parts from it. Internally, only the dialog surface adds the small `tone` contract because it owns
+the visual decision.
 
 <div className="docs-reference">
   <Tabs values={[{ label: 'Code', value: 'Code' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
@@ -212,23 +212,22 @@ export function DeleteProjectDialog() {
 
 The product root preserves the complete moduix API. Its custom `Dialog.Content` forwards `ref`,
 `className`, and every existing content prop. The `data-dialog-tone` attribute is a product styling
-hook; the CSS maps it through public dialog variables instead of copying the component's styles.
+hook; the CSS maps it to public dialog variables instead of copying the component's styles.
 
-Keep the part tree explicit: `Dialog.Backdrop`, `Dialog.Positioner`, and `Dialog.Content` still make
-overlay behavior and styling ownership easy to find. Add a wrapper only when it represents a repeated
-product decision, not for a one-off class name.
+Keep the part tree explicit: `Dialog.Backdrop`, `Dialog.Positioner`, and `Dialog.Content` make overlay
+behavior and styling ownership easy to find. Add a wrapper only when it represents a repeated product
+decision, not for a one-off class name.
 
 ## External state
 
-Move state outside the tree only when its ownership changes, and keep Ark detail objects intact. For example, dialog
-open state still uses
-`onOpenChange(details)` and reads `details.open`.
+Move state outside the tree only when its ownership changes, and keep Ark detail objects intact. For
+example, dialog open state still uses `onOpenChange(details)` and reads `details.open`.
 
-Use component state helpers only when state needs to live outside the rendered subtree:
+Use the component's state APIs according to where you need access:
 
-- `Component.Context` for one-off inline reads
-- `useComponentContext()` inside descendants that already live under the root
-- `useComponent()` plus `Component.RootProvider` when state is created outside the rendered tree
+- `Dialog.Context` for a one-off read in the render tree;
+- `useDialogContext()` inside reusable descendants that already live under the root;
+- `useDialog()` with `Dialog.RootProvider` when state is created outside the rendered tree.
 
 ```tsx
 import { Dialog, useDialog } from '@moduix/react/dialog';
@@ -252,7 +251,7 @@ Do not render `Root` and `RootProvider` for the same state instance.
 
 ## Choose a level
 
-- Only need usage? Stay on the shipped parts.
-- Need product import paths? Re-export first.
+- Need only the standard usage? Stay with the shipped parts.
+- Need product-specific import paths? Re-export first.
 - Need repeated product visuals? Wrap the specific parts that own those visuals.
-- Need different behavior? Drop to the explicit part tree instead of inventing new top-level props.
+- Need different behavior? Use the explicit part tree instead of inventing new top-level props.

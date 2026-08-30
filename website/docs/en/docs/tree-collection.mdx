@@ -1,6 +1,6 @@
 ---
 title: Tree Collection
-description: Model, query, traverse, filter, and update hierarchical data for Tree View and custom trees.
+description: Create, query, traverse, filter, and update hierarchical data for Tree View and custom tree interfaces.
 ---
 
 # Tree Collection
@@ -9,17 +9,17 @@ description: Model, query, traverse, filter, and update hierarchical data for Tr
 
 <PrimitiveReference href="https://ark-ui.com/docs/collections/tree-collection" />
 
-A tree collection normalizes hierarchical data for `TreeView` and custom tree interfaces. It
-provides value-based lookup, parent and descendant queries, index paths, traversal, and immutable
-updates.
+A tree collection turns hierarchical data into a consistent structure for `TreeView` and custom tree
+interfaces. It lets you look up nodes by value, inspect parent and descendant relationships, work
+with index paths, traverse the tree, and apply immutable updates.
 
 ```tsx
-import { createFileTreeCollection, createTreeCollection } from '@ark-ui/react/collection';
+import { createFileTreeCollection, createTreeCollection } from '@moduix/react/tree-view';
 ```
 
-## Create
+## Create a collection
 
-The default shape uses `value`, `label`, `children`, and optional `disabled` properties:
+The default node shape uses `value`, `label`, `children`, and an optional `disabled` property:
 
 ```tsx
 const tree = createTreeCollection({
@@ -41,13 +41,13 @@ const tree = createTreeCollection({
 });
 ```
 
-The root node is a container and is not included in `getValues()`. Pass the collection directly to
-`TreeView` and render from `collection.rootNode.children`.
+The root node is a container, so it is not included in `getValues()`. Pass the collection directly to
+`TreeView`, then render nodes from `collection.rootNode.children`.
 
 ## Tree View
 
-The collection owns the hierarchy; Tree View owns expansion, focus, keyboard navigation, and
-selection. Render branches recursively from the same node and index path supplied by the collection.
+The collection stores the hierarchy. `TreeView` manages branch expansion, focus, keyboard navigation,
+and selection. Render each branch recursively with the node and index path supplied by the collection.
 
 ```tsx preview file="./_snippets/tree-view/basic.tsx"
 
@@ -55,7 +55,7 @@ selection. Render branches recursively from the same node and index path supplie
 
 ## Custom nodes
 
-Map your own fields when they differ from Ark's defaults:
+If your nodes use different field names, tell the collection how to read them:
 
 ```tsx
 type NavigationNode = {
@@ -63,6 +63,19 @@ type NavigationNode = {
   name: string;
   items?: NavigationNode[];
   unavailable?: boolean;
+};
+
+const navigation: NavigationNode = {
+  id: 'root',
+  name: 'Documentation',
+  items: [
+    {
+      id: 'guides',
+      name: 'Guides',
+      items: [{ id: 'getting-started', name: 'Getting started' }],
+    },
+    { id: 'components', name: 'Components' },
+  ],
 };
 
 const tree = createTreeCollection<NavigationNode>({
@@ -86,8 +99,8 @@ const tree = createTreeCollection<NavigationNode>({
 
 ## Lookup
 
-Use value-based lookup and index paths. An index path identifies a node by its numeric position at
-every tree level:
+Use values to find nodes and index paths to identify their position. An index path records the
+numeric position of a node at each tree level:
 
 ```tsx
 const path = tree.getIndexPath('input')!; // [0, 1]
@@ -107,21 +120,21 @@ tree.getDepth('input'); // 2
 | `getValuePath(indexPath)`        | Ancestor values followed by the target value.    |
 | `getDepth(value)`                | Node depth below the root.                       |
 | `getValues(rootNode?)`           | All descendant values in traversal order.        |
-| `getNodeChildren(node)`          | Normalized children for a node.                  |
+| `getNodeChildren(node)`          | Normalized child nodes.                          |
 | `getNodeChildrenCount(node)`     | Known child count, or `undefined`.               |
 | `getNodeValue(node)`             | Normalized node value.                           |
 | `stringifyNode(node)`            | Normalized node text.                            |
-| `stringify(value)`               | Node text for a value, or `null`.                |
+| `stringify(value)`               | Node text for a value, or `null` if not found.   |
 | `getNodeDisabled(node)`          | Normalized disabled state.                       |
 | `isRootNode(node)`               | Whether the node is the collection root.         |
-| `isSameNode(node, other)`        | Whether two nodes resolve to the same value.     |
+| `isSameNode(node, other)`        | Whether two nodes have the same value.          |
 
-`sort(values)` orders values by their tree position. `isEqual(other)` compares collections, and
-`toJSON()` returns the collection values.
+`sort(values)` orders values by their position in the tree. `isEqual(other)` compares collections, and
+`toJSON()` returns the collection's values.
 
 ## Navigation
 
-Navigate between nodes and query their parent, ancestor, and descendant relationships:
+Move between nodes and inspect their parent, ancestor, and descendant relationships:
 
 ```tsx
 tree.getFirstNode();
@@ -135,10 +148,10 @@ tree.getDescendantNodes('src'); // Button.tsx and Input.tsx nodes
 tree.getDescendantValues('src'); // ['button', 'input']
 ```
 
-`getFirstNode`, `getLastNode`, `getNextNode`, and `getPreviousNode` accept a `skip` callback for
-nodes that should not participate in traversal.
+`getFirstNode`, `getLastNode`, `getNextNode`, and `getPreviousNode` accept an options object with a
+`skip` callback for nodes that should not participate in traversal.
 
-Sibling APIs work with index paths:
+Sibling methods work with index paths:
 
 ```tsx
 const path = tree.getIndexPath('button')!;
@@ -196,7 +209,8 @@ Use the returned collection for rendering. The original tree is unchanged.
 
 ## Updates
 
-Every update is immutable and returns a new `TreeCollection`:
+Every update is immutable and returns a new `TreeCollection`. The examples below each start from
+`tree`; to chain changes, use the collection returned by the previous operation:
 
 ```tsx
 const srcPath = tree.getIndexPath('src')!;
@@ -213,12 +227,12 @@ const renamed = tree.replace(buttonPath, {
 const moved = tree.move([readmePath], srcPath);
 ```
 
-Index paths describe positions in one collection snapshot. After insert, remove, reorder, or move,
-discard stored index paths and resolve them again from the returned collection before the next
+Index paths describe positions in one collection snapshot. After inserting, removing, reordering, or
+moving nodes, discard stored paths and resolve them again from the returned collection before the next
 operation. Store stable node values in application state instead of numeric paths.
 
 `insertBefore` and `insertAfter` can return `undefined` when the target path is invalid. Guard paths
-obtained from dynamic data before using them.
+that come from dynamic data before using them.
 
 | API                         | Operation                                    |
 | --------------------------- | -------------------------------------------- |
@@ -232,7 +246,7 @@ obtained from dynamic data before using them.
 
 ## File trees
 
-Use `createFileTreeCollection` when the source is already a list of paths:
+Use `createFileTreeCollection` when your data is already a list of paths:
 
 ```tsx
 const files = createFileTreeCollection([
@@ -245,6 +259,6 @@ const files = createFileTreeCollection([
 files.getBranchValues(); // ['src', 'components', 'utils']
 ```
 
-For complete rendering composition, expansion, selection, lazy loading, and recursive nodes, see
-[Tree View](/docs/tree-view). For remote children, use its Async loading example and update the
+For the complete `TreeView` composition, expansion, selection, lazy loading, and recursive nodes, see
+[Tree View](/docs/tree-view). For remote children, see its Async loading example and update the
 collection only after the request succeeds.

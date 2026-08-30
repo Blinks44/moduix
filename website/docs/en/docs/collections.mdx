@@ -7,11 +7,13 @@ import { Card, Cards } from '@/components/mdx/Components';
 
 # Collections
 
-Ark UI collections are the data layer behind list-based interfaces. They model item identity, labels, disabled state,
-and traversal; moduix components render the accessible interaction on top.
+Collections are data structures and hooks for list-based interfaces. They keep item values, labels, disabled state,
+hierarchy, and asynchronous state in a form that Ark UI components can consume. Collections do not render UI by
+themselves; moduix components provide the accessible interaction around that data.
 
-Use a collection when data is shared by `Select`, `Combobox`, `Listbox`, `TreeView`, or a custom list. These APIs come
-directly from Ark UI, while the linked pages show how to connect them to moduix components.
+Use a collection with `Select`, `Combobox`, `Listbox`, `TreeView`, or a custom list or tree. The collection helpers
+come directly from Ark UI. The guides below show how to create and update collections, connect them to moduix
+components, and manage loading or selection state.
 
 ## Guides
 

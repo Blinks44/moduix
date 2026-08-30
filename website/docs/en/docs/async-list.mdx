@@ -1,6 +1,6 @@
 ---
 title: Async List
-description: Load, filter, sort, and paginate remote list data with useAsyncList, including cancellation and retries.
+description: Manage asynchronous list data with useAsyncList, including loading, filtering, sorting, pagination, cancellation, and retry handling.
 ---
 
 # Async List
@@ -9,8 +9,19 @@ description: Load, filter, sort, and paginate remote list data with useAsyncList
 
 <PrimitiveReference href="https://ark-ui.com/docs/collections/async-list" />
 
-`useAsyncList` manages remote list data and the request lifecycle around it. It owns loaded items,
-loading and sorting state, errors, filtering, pagination cursors, and request cancellation.
+`useAsyncList` is an Ark UI hook for data that arrives asynchronously. It keeps the current items
+and request state together, and exposes actions for reloading, loading more items, filtering,
+sorting, and aborting a request. It does not render any markup, so your component decides how to
+present the list, loading, empty, and error states.
+
+The hook comes from `@ark-ui/react/collection`. `@moduix/react` does not re-export it, but its
+`Button` and `Input` components are used in the examples below.
+
+If your application does not already depend on Ark UI, install it first:
+
+```bash
+npm install @ark-ui/react
+```
 
 ```tsx
 import { useAsyncList } from '@ark-ui/react/collection';
@@ -18,55 +29,55 @@ import { useAsyncList } from '@ark-ui/react/collection';
 
 ## Loading
 
-Use this section for the initial request, refresh behavior, and retry placement.
+Set `autoReload: true` when the first request should run after the component mounts. It defaults to
+`false`, so without this option call `list.reload()` when your application is ready to load data.
 
-Set `autoReload: true` when the first request should run on mount. Pass the provided `signal` to
-`fetch` so a superseded request can be cancelled.
+Pass the `signal` received by `load` to `fetch` or another cancellable API. This lets the hook
+cancel a request when a newer load replaces it.
 
-The runnable example uses a short local delay so loading, refreshing, empty, and error branches stay
-visible in one component. Replace its loader with your real request and pass `signal` to `fetch`.
+The runnable example uses a small local data set and a short delay to demonstrate the initial load
+and refresh states. It also includes the empty and error branches that you can connect to your own
+loader.
 
 ```tsx preview file="./_snippets/async-list/basic.tsx"
 
 ```
 
-`autoReload` defaults to `false`. Without it, call `list.reload()` when the application is ready to
-load.
-
-Keep the current items visible during refresh. Use a full loading replacement only before the first
-result, and put retry next to the error so it repeats the same request.
+Because `reload()` clears the current items before loading fresh data, show a full loading state
+when `list.loading` is true and there are no items. During filtering and sorting, the hook keeps
+the current items available while the new operation is pending.
 
 ## Configuration
 
 | Prop                    | Purpose                                                     | Default     |
 | ----------------------- | ----------------------------------------------------------- | ----------- |
-| `load`                  | Required async loader.                                      | -           |
-| `sort`                  | Optional client-side async or synchronous sorting function. | -           |
-| `autoReload`            | Run the initial load on mount.                              | `false`     |
-| `initialItems`          | Items shown before the first successful load.               | `[]`        |
-| `dependencies`          | Primitive values that trigger a reload when changed.        | `[]`        |
-| `initialFilterText`     | Initial server-side filter text.                            | `''`        |
-| `initialSortDescriptor` | Initial `{ column, direction }` descriptor.                 | `undefined` |
-| `onSuccess`             | Called with `{ items }` after a successful load.             | -           |
-| `onError`               | Called with `{ error }` after a failed load.                 | -           |
+| `load`                  | Required function that loads the data.                      | -           |
+| `sort`                  | Optional synchronous or asynchronous client-side sorter.   | -           |
+| `autoReload`            | Run the initial load when the component mounts.             | `false`     |
+| `initialItems`          | Items to show before the first successful load.             | `[]`        |
+| `dependencies`          | Values that trigger a reload when they change.              | `[]`        |
+| `initialFilterText`     | Initial value passed to `load` as `filterText`.             | `''`        |
+| `initialSortDescriptor` | Initial `{ column, direction }` sort descriptor.            | `undefined` |
+| `onSuccess`             | Called with `{ items }` after a successful load or sort.     | -           |
+| `onError`               | Called with `{ error }` after a failed load or sort.        | -           |
 
-Dependencies support `string`, `number`, `boolean`, `null`, and `undefined`. Keep object and array
-state out of the dependency list; derive stable primitive values instead.
+`dependencies` accepts `string`, `number`, `boolean`, `null`, and `undefined`. Keep objects and
+arrays out of the list and derive stable primitive values instead.
 
 ## `load`
 
-The `load` callback receives the current list state and returns the next items.
+The `load` function receives the current list state and returns the next set of items.
 
-Every `load` call receives:
+Each call receives:
 
-| Value            | Purpose                                                  |
-| ---------------- | -------------------------------------------------------- |
-| `signal`         | Abort signal for the active request.                     |
-| `filterText`     | Current text set through `setFilterText`.                |
-| `cursor`         | Cursor returned by the previous load, when loading more. |
-| `sortDescriptor` | Current sort column and direction.                       |
+| Value            | Purpose                                                     |
+| ---------------- | ----------------------------------------------------------- |
+| `signal`         | Abort signal for the active request. It may be `undefined`. |
+| `filterText`     | Current text set through `setFilterText`.                   |
+| `cursor`         | Cursor from the previous result when loading more items.    |
+| `sortDescriptor` | Current sort column and direction.                          |
 
-Return an object with `items` and an optional `cursor`:
+Return an object with `items` and, when more data is available, a `cursor` for the next load:
 
 ```tsx
 const list = useAsyncList<User, string>({
@@ -74,7 +85,7 @@ const list = useAsyncList<User, string>({
   async load({ cursor, signal }) {
     const params = new URLSearchParams();
 
-    if (cursor) params.set('cursor', cursor);
+    if (cursor != null) params.set('cursor', cursor);
 
     const response = await fetch(`/api/users?${params}`, { signal });
     if (!response.ok) throw new Error('Could not load users');
@@ -88,32 +99,36 @@ const list = useAsyncList<User, string>({
 });
 ```
 
+`sortDescriptor.column` is a key of the item type, and `direction` is either `'ascending'` or
+`'descending'`.
+
 ## State and actions
 
-| State            | Meaning                                    |
-| ---------------- | ------------------------------------------ |
-| `items`          | Current loaded items.                      |
-| `filterText`     | Current filter text.                       |
-| `cursor`         | Cursor for the next page.                  |
-| `sortDescriptor` | Current sort descriptor.                   |
-| `loading`        | A load request is running.                 |
-| `sorting`        | A sort operation is running.               |
-| `empty`          | The current item array is empty.           |
-| `hasMore`        | A cursor exists for another page.          |
-| `error`          | Error from the most recent failed request. |
+| State            | Meaning                                      |
+| ---------------- | -------------------------------------------- |
+| `items`          | Items currently in the list.                 |
+| `filterText`     | Current filter text.                         |
+| `cursor`         | Cursor for the next page.                    |
+| `sortDescriptor` | Current sort descriptor.                     |
+| `loading`        | A data load is in progress.                  |
+| `sorting`        | A sort operation is in progress.             |
+| `empty`          | The current item array is empty.             |
+| `hasMore`        | A cursor exists for another page.            |
+| `error`          | Error from the most recent failed load.      |
 
 | Action                 | Purpose                                        |
 | ---------------------- | ---------------------------------------------- |
-| `reload()`             | Replace items with a fresh load.               |
-| `loadMore()`           | Load the current cursor and append the result. |
-| `abort()`              | Cancel the active request.                     |
-| `setFilterText(value)` | Set filter text and reload.                    |
-| `clearFilter()`        | Clear filter text.                             |
-| `sort(descriptor)`     | Apply a sort descriptor.                       |
+| `reload()`             | Clear the items and start a fresh load.         |
+| `loadMore()`           | Load the current cursor and append the result.  |
+| `abort()`              | Cancel the active request.                      |
+| `setFilterText(value)` | Set the filter text and start a new load.       |
+| `clearFilter()`        | Clear the filter text.                          |
+| `sort(descriptor)`     | Apply a sort descriptor.                        |
 
 ## Filtering
 
-Filtering is server-driven through the `load` callback:
+The hook does not filter items by itself. It stores `filterText` and passes it to `load`, so
+filtering can happen on the server or in the application:
 
 ```tsx
 import { Input } from '@moduix/react/input';
@@ -141,8 +156,9 @@ function UserSearch() {
 }
 ```
 
-`useAsyncList` cancels superseded loads. The application controls when or whether to debounce
-`setFilterText`; the server controls matching rules and result limits.
+`setFilterText` starts a load immediately. Add debouncing in the application when you want to wait
+until the user pauses typing. The hook cancels superseded requests, and the server or your loader
+defines the matching rules and result limits.
 
 ## Pagination
 
@@ -160,7 +176,7 @@ import { Button } from '@moduix/react/button';
 }
 ```
 
-Do not compute `hasMore` separately; it reflects whether the last result returned a cursor.
+`hasMore` is derived from the cursor in the latest result. Do not calculate it separately.
 
 ## Sorting
 
@@ -212,12 +228,15 @@ function useClientSortedUsers() {
 }
 ```
 
-The descriptor column is typed as a key of the item type. Prefer server sorting when pagination is
-also server-owned; sorting only the currently loaded page is usually misleading.
+The `sort` function receives the current `items`, `descriptor`, and `filterText`. It may return the
+sorted items directly or from a promise.
+
+Client-side sorting only sorts the items that are already loaded. Prefer server-side sorting when
+pagination is also controlled by the server; sorting one loaded page can produce misleading results.
 
 ## Dependencies
 
-Use dependencies when an external filter should reload the list:
+Use `dependencies` when an external filter should reload the list:
 
 ```tsx
 function useDepartmentUsers(department: string) {
@@ -237,14 +256,16 @@ function useDepartmentUsers(department: string) {
 
 ## Errors
 
-Handle failed and obsolete requests explicitly. Pass `signal` to cancellable requests, and use
+Handle failed and superseded requests separately. Pass `signal` to cancellable requests, and use
 `reload()` when the user retries a failed request.
 
 - Check `response.ok`; `fetch` does not reject for HTTP error statuses.
 - Pass `signal` to every cancellable request.
 - Filtering and sorting keep the current items available while work is pending. `reload()` clears
   the current items before loading a fresh result.
+- Requests that end with an `AbortError` are ignored by the hook and do not set `error` or call
+  `onError`.
 - Use `reload()` for retry actions.
 - Treat `error` as unknown application input and narrow it before reading `.message`.
-- Use `onSuccess` and `onError` for external effects, not for duplicating the hook's item or error
+- Use `onSuccess` and `onError` for external effects, not to duplicate the hook's item or error
   state.

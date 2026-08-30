@@ -1,6 +1,6 @@
 ---
 title: Styling
-description: Style moduix components with CSS Modules, Panda CSS, or Tailwind CSS.
+description: Learn how to style moduix components with CSS Modules, Panda CSS, Tailwind CSS, or plain CSS.
 ---
 
 import { Accordion } from '@moduix/react/accordion';
@@ -8,39 +8,40 @@ import styles from '@/components/examples/styling.module.css';
 
 # Styling
 
-moduix ships component styles and a shared CSS foundation, but it does not prescribe an authoring
-tool. Use CSS Modules, Panda CSS, Tailwind CSS, or another CSS strategy already used by your
-application. The component API stays the same.
+moduix provides component styles and a shared CSS foundation, but it does not require a particular
+styling tool. Keep using the approach your application already uses: CSS Modules, Panda CSS,
+Tailwind CSS, plain CSS, or another strategy. The component API stays the same in each case.
 
-Import the foundation stylesheet once in your application entry point:
+Import the foundation stylesheet once from your application entry point:
 
 ```tsx
 import '@moduix/react/style.css';
 ```
 
-Panda CSS and Tailwind CSS are not dependencies of moduix or this documentation site. The examples
-below style the same `ProjectChecklist` in each tool, so only the authoring syntax changes. They
-are consumer snippets for applications where the respective tool is already configured.
+moduix does not install Panda CSS or Tailwind CSS for you. The examples below style the same
+`ProjectChecklist` composition with each tool, so only the styling syntax changes. They assume that
+the corresponding tool is already configured in your application.
 
-## Choose an override
+## Choose where to make a change
 
 | Goal                                             | Preferred surface                                              |
 | ------------------------------------------------ | -------------------------------------------------------------- |
 | Adopt a complete visual direction                | A curated [Theme preset](/docs/themes)                         |
 | Change a system-wide color, size, radius, or gap | A primitive or semantic token from [Tokens](/docs/tokens)      |
 | Keep a family of controls or popup rows aligned  | A shared family token such as `--moduix-popup-item-min-height` |
-| Make one component intentionally different       | A documented `--<component>-*` alias                           |
-| Style one product composition                    | `className` on the rendered part, preferably with local CSS    |
+| Make one component intentionally different       | A documented `--moduix-<component>-*` alias                    |
+| Style one product composition                    | `className` on each part that needs styling, preferably local CSS |
 
-This table keeps themes compact and component styling predictable. Prefer a high-level token when
-the decision should propagate; move closer to the rendered part only as the scope becomes local.
+Choose the highest-level surface that matches the scope of the decision. Use a token when the change
+should reach several components, and move to a rendered part when the change belongs to one
+composition.
 
 ## Style parts
 
-Start with `className` on the part that owns the visual change. This keeps the component anatomy
-visible and the styles local to the product component. Use the documented Ark state attributes on
-that same part for stateful styling, and use public CSS variables when a component exposes the value
-you need to change.
+Give `className` to the part that owns the visual change. This keeps the component anatomy explicit
+and limits the rule to the product component. For stateful styling, combine that class with the
+documented Ark `data-*` attributes on the same part. Use a public CSS variable when the component
+exposes the value you need to change.
 
 The panel below uses CSS Modules and styles each exported Accordion part directly.
 
@@ -96,8 +97,8 @@ The panel below uses CSS Modules and styles each exported Accordion part directl
 
 ## CSS Modules
 
-CSS Modules are the dependency-free baseline. This `ProjectChecklist` keeps its styles attached
-directly to the parts it renders.
+CSS Modules are the dependency-free baseline. In this `ProjectChecklist`, each class is attached
+directly to the part it styles.
 
 <div className="docs-reference">
   <Tabs values={[{ label: 'ProjectChecklist.tsx', value: 'ProjectChecklist.tsx' }, { label: 'ProjectChecklist.module.css', value: 'ProjectChecklist.module.css' }]} className="docs-tabs">
@@ -121,8 +122,9 @@ directly to the parts it renders.
 
 ### Hidden parts
 
-When a product wrapper owns the composition but does not expose a part to its callers, use a stable `data-slot`. It
-can still tune an internal trigger without depending on DOM order or generated class names:
+When a product wrapper owns the composition but does not expose one of its inner parts as a prop,
+target that part with its stable `data-slot`. You can then style an internal trigger without relying
+on DOM order or generated class names:
 
 ```css
 .root {
@@ -136,13 +138,14 @@ can still tune an internal trigger without depending on DOM order or generated c
 }
 ```
 
-This is an escape hatch, not a replacement for `className`. For automatically portalled parts such
-as `Dialog.Content` or `Tooltip.Content`, put `className` on the portalled part itself.
+Use this as an escape hatch, not as a replacement for `className`. Parts such as `Dialog.Content`
+and `Tooltip.Content` render in a portal by default, so put `className` on the portalled part itself
+or scope its variables to the portal container.
 
 ## Panda CSS
 
-In an application that already has Panda configured, generate classes for the same
-`ProjectChecklist` parts. The token names below belong to your Panda theme, not to moduix.
+If your application already uses Panda CSS, generate classes for the same `ProjectChecklist` parts.
+The token names in this example come from your Panda theme, not from moduix.
 
 ```tsx
 import { Accordion } from '@moduix/react/accordion';
@@ -236,7 +239,7 @@ export function ProjectChecklist() {
 
 ## Tailwind CSS
 
-In an application that already uses Tailwind, apply utilities and state variants to the same
+If your application already uses Tailwind CSS, apply utilities and state variants to the same
 `ProjectChecklist` parts. No moduix-specific Tailwind plugin or configuration is required.
 
 ```tsx
@@ -277,14 +280,14 @@ export function ProjectChecklist() {
 
 | Symptom                                  | Most likely check                                                                 |
 | ---------------------------------------- | --------------------------------------------------------------------------------- |
-| A variable has no effect                 | Confirm the component page exposes it and that your rule loads after `style.css`. |
-| A popup ignores a wrapper-scoped value   | The popup may be portalled; put the value on its part, root, or portal container. |
-| A state selector never matches           | Inspect the documented `data-state`, `data-disabled`, or other Ark attribute.     |
+| A variable has no effect                 | Check that the component page lists it and your override loads after `style.css`. |
+| A popup ignores a wrapper-scoped value   | It may be portalled. Put the variable on its part, root, or portal container.     |
+| A state selector never matches           | Inspect the exact Ark attribute, such as `data-state` or `data-disabled`.         |
 | A class reaches the root but not a part  | Put `className` on the exported part that owns the visual property.               |
-| A utility class loses to component CSS   | Use a documented CSS variable or a local class with deliberate cascade order.    |
+| A utility class loses to component CSS   | Prefer a documented CSS variable, or verify the cascade order of a local class.   |
 
-Use browser developer tools to inspect the rendered part, its `data-slot`, state attributes, and
-resolved custom properties before increasing selector specificity.
+Before increasing selector specificity, use your browser's developer tools to inspect the rendered
+part, its `data-slot`, state attributes, and resolved custom properties.
 
 ## Related
 
