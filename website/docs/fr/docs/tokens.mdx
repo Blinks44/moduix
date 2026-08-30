@@ -1,46 +1,46 @@
 ---
 title: Tokens
-description: Personnalisez les thèmes moduix avec des tokens CSS sémantiques, des valeurs par défaut partagées et des alias locaux.
+description: Personnalisez moduix avec des tokens CSS sémantiques, des valeurs par défaut partagées et des alias locaux.
 ---
 
 import { TokensOverview } from '@/components/docs/tokens-overview';
 
 # Tokens
 
-Les styles moduix reposent sur des variables CSS. Commencez par les tokens de couleur sémantiques
-pour les surfaces, le texte, les bordures, les anneaux de focus et les overlays. Si votre système de
-design a besoin d’un autre rythme, ajustez l’espacement, les rayons, les tailles, la typographie, les
-animations, les ombres et les calques.
+Les styles de moduix reposent sur des variables CSS. Commencez par les tokens de couleur sémantiques
+pour les surfaces, le texte, les bordures, les anneaux de focus et les superpositions. Si votre système
+de conception a besoin d’un autre rythme visuel, ajustez l’espacement, les rayons, les tailles, la
+typographie, les animations, les ombres et les calques.
 
 Si vous utilisez moduix comme paquet npm, importez `@moduix/react/style.css` une seule fois. Si vous
-installez les sources avec `shadcn`, importez `@/lib/moduix/styles/style.css` une seule fois. Les deux
-points d’entrée chargent le même socle de tokens.
+installez le code source avec `shadcn`, importez `@/lib/moduix/styles/style.css` une seule fois. Les
+deux points d’entrée chargent le même socle de tokens.
 
 La réinitialisation des styles reste facultative dans les deux cas. Avec npm, importez
-`@moduix/react/reset.css` avant `style.css`. Si le code source est dans le projet, exécutez d’abord
-`npx shadcn@latest add @moduix-react/reset`, puis importez `@/lib/moduix/styles/reset.css` avant
-`style.css`.
+`@moduix/react/reset.css` avant `style.css`. Pour une installation depuis les sources, exécutez
+d’abord `npx shadcn@latest add @moduix-react/reset`, puis importez
+`@/lib/moduix/styles/reset.css` avant `style.css`.
 
-Pour un point de départ prêt à l’emploi, utilisez [Thèmes](/docs/themes). Les préréglages redéfinissent
-une petite couche de tokens sémantiques après `style.css`. Cette page décrit les tokens système et
-partagés ; les pages de composants présentent les alias locaux et les sélecteurs d’état que vous pouvez
-personnaliser sans risque.
+Pour démarrer rapidement, utilisez [Thèmes](/docs/themes). Les préréglages redéfinissent une petite
+couche de tokens sémantiques après `style.css`. Cette page décrit les tokens système et partagés ; les
+pages de composants présentent les alias locaux et les sélecteurs d’état que vous pouvez personnaliser
+en toute sécurité.
 
-## Choisissez le bon niveau de surcharge
+## Choisissez le niveau de surcharge adapté
 
-1. Modifiez une primitive de thème comme `--moduix-primary` pour une décision visuelle à l’échelle
-   du produit.
-2. Modifiez une valeur par défaut de famille partagée quand des composants liés doivent évoluer
+1. Modifiez une primitive de thème comme `--moduix-primary` pour une décision visuelle à l’échelle du
+   produit.
+2. Modifiez une valeur par défaut partagée par une famille quand des composants liés doivent évoluer
    ensemble.
-3. Modifiez un alias de composant uniquement quand ce composant doit intentionnellement différer.
-4. Limitez la variable au conteneur d’une fonctionnalité pour une exception locale ponctuelle.
+3. Modifiez un alias de composant uniquement quand ce composant doit intentionnellement se distinguer.
+4. Limitez la variable au conteneur de la partie concernée pour une exception locale ponctuelle.
 
-En cas de doute, commencez plus haut dans la liste. Une petite surcharge sémantique est plus facile à
-maintenir que de répéter la même valeur dans de nombreux alias de composants.
+En cas de doute, commencez par le niveau le plus haut qui convient. Une petite surcharge sémantique est
+plus facile à maintenir que de répéter la même valeur dans de nombreux alias de composants.
 
 ## Modèle de tokens
 
-Les tokens sont répartis en couches pour que les changements courants restent limités et intentionnels :
+Les tokens sont organisés en couches pour que les changements courants restent ciblés et maîtrisés :
 
 | Couche | Exemples | À utiliser pour |
 | --- | --- | --- |
@@ -57,11 +57,11 @@ Les alias de composants utilisent des chaînes de valeurs de repli plutôt que d
 Un thème peut donc redéfinir quelques primitives, tandis que la typographie, la géométrie des icônes,
 les anneaux de focus et les dimensions des composants restent cohérents.
 
-## Utiliser moduix avec un système de design existant
+## Utilisez moduix avec un système de conception existant
 
-moduix ne gère que les variables `--moduix-*`. Vos tokens existants `--primary`, `--space-2` et les
-autres ne sont ni lus, ni écrasés, ni réinitialisés. Faites pointer les valeurs à partager dans une
-feuille de styles chargée après `style.css` :
+moduix ne définit que les variables `--moduix-*`. Vos tokens existants `--primary`, `--space-2` et les
+autres ne sont ni lus, ni écrasés, ni réinitialisés. Associez les valeurs à partager dans une feuille
+de styles chargée après `style.css` :
 
 ```css
 :root {
@@ -75,31 +75,31 @@ feuille de styles chargée après `style.css` :
 }
 ```
 
-Vous pouvez ne mapper que les tokens gérés par votre système ; les autres valeurs par défaut de moduix
-continuent de fonctionner. Les exceptions propres aux composants suivent la même convention, par
-exemple `--moduix-dialog-*` et `--moduix-button-*`.
+Vous pouvez associer uniquement les tokens gérés par votre système ; les autres valeurs par défaut de
+moduix continuent de fonctionner. Les exceptions propres aux composants suivent la même convention,
+par exemple `--moduix-dialog-*` et `--moduix-button-*`.
 
-L’exception concerne les variables d’état définies par Ark UI à l’exécution : `--height`,
+L’exception concerne les variables d’état définies par Ark UI à l’exécution. `--height`,
 `--available-width` et `--transform-origin` restent sans préfixe, car Ark les écrit dans les parties
 correspondantes des composants. moduix ne déclare pas ces valeurs sur `:root`.
 
 Utilisez cette page pour les décisions à l’échelle du système et la page du composant concerné pour
-les alias locaux. Aucun mode d’installation ne requiert à l’exécution une feuille de styles distincte
-qui serve de référence pour les variables.
+les alias locaux. Aucun mode d’installation n’a besoin à l’exécution d’une feuille de styles distincte
+servant de référence pour les variables.
 
 ## Densité et échelle des contrôles
 
-L’échelle par défaut est compacte sans être étriquée :
+L’échelle par défaut est compacte sans donner une impression d’étroitesse :
 
 | Token | Valeur par défaut | Rôle prévu |
 | --- | --- | --- |
 | `--moduix-size-xs` | `24px` | Petits contrôles avec icônes et actions compactes. |
-| `--moduix-size-sm` | `32px` | Lignes de liste contextuelle et contrôles secondaires compacts. |
+| `--moduix-size-sm` | `32px` | Lignes de listes contextuelles et contrôles secondaires compacts. |
 | `--moduix-size-md` | `36px` | Champs de saisie, boutons, déclencheurs, pagination et contrôles composites par défaut. |
 | `--moduix-size-lg` | `40px` | Contrôles volontairement plus spacieux. |
 | `--moduix-size-xl` | `48px` | Contrôles proéminents et interfaces pensées pour le tactile. |
 
-La plupart des contrôles principaux utilisent `--moduix-size-md` ; les éléments des menus, Select,
+La plupart des contrôles principaux utilisent `--moduix-size-md`. Les éléments des menus, Select,
 Combobox, palettes de commandes et listes contextuelles similaires utilisent `--moduix-size-sm`.
 Ainsi, un déclencheur et sa liste restent visuellement liés, tout en laissant les lignes de liste un
 peu plus compactes.
@@ -116,30 +116,30 @@ peu plus compactes.
 }
 ```
 
-## Surcharges de styles globales
+## Surcharges à l’échelle du système
 
-Certaines variables sont définies au-dessus du niveau des composants individuels. Les modifier met à
-jour plusieurs composants à la fois, jusqu’à ce qu’une variable de composant
+Certaines variables se situent au-dessus du niveau des composants individuels. Les modifier met à jour
+plusieurs composants à la fois, jusqu’à ce qu’une variable de composant
 `--moduix-<component>-*` redéfinisse la valeur de repli.
 
 | Groupe de variables | Ce qu'il modifie | Consommateurs courants |
 | --- | --- | --- |
 | <code>--moduix-backdrop-bg</code><br /><code>--moduix-backdrop-filter</code> | Couleur et flou du fond par défaut | Command Palette, Dialog, Drawer, Lightbox, Tour |
-| <code>--moduix-duration-\*</code><br /><code>--moduix-ease-\*</code><br /><code>--moduix-transition-\*</code> | Durées et easing d’animation partagés | Contrôles, overlays, onglets, accordéons, champs de saisie, toasts |
-| <code>--moduix-popup-motion-\*</code> | Durées et phases de l’animation du contenu contextuel | Popover, Menu, Tooltip, Hover Card, Floating Panel, surfaces modales et pickers |
-| <code>--moduix-scale-popup</code><br /><code>--moduix-scale-dropdown</code> | Échelle d’ouverture et de fermeture par défaut | Dialog, Popover, Tooltip, Menu, Toast, Select, Combobox |
+| <code>--moduix-duration-\*</code><br /><code>--moduix-ease-\*</code><br /><code>--moduix-transition-\*</code> | Durées et fonctions d’accélération partagées | Contrôles, superpositions, onglets, accordéons, champs de saisie, toasts |
+| <code>--moduix-popup-motion-\*</code> | Durées et phases de l’animation du contenu contextuel | Popover, Menu, Tooltip, Hover Card, Floating Panel, surfaces modales et sélecteurs |
+| <code>--moduix-scale-popup</code><br /><code>--moduix-scale-dropdown</code> | Échelle d’ouverture et de fermeture des fenêtres contextuelles et des listes | Contenu des superpositions et listes contextuelles, notamment Dialog, Popover, Tooltip, Menu, Toast, Select et Combobox |
 | <code>--moduix-popup-\*</code> | Densité et espacement partagés des listes contextuelles | Menu, Select, Combobox, CommandPalette |
 | <code>--moduix-spacing-\*</code><br /><code>--moduix-size-\*</code> | Densité et échelle partagées des contrôles | Contrôles, géométrie des icônes, lignes de liste, rythme de mise en page |
 | <code>--moduix-focus-ring-\*</code><br /><code>--moduix-color-ring</code> | Géométrie et couleur partagées de l’anneau de focus | Boutons, champs de saisie, contrôles composites, déclencheurs de liste contextuelle |
 
 Utilisez ces tokens pour apporter un changement visuel étendu à tout le système. Utilisez les tokens
-propres à un composant, comme `--moduix-dialog-backdrop-bg` ou `--moduix-popover-transition`, lorsqu’un seul
-composant doit se distinguer.
+propres à un composant, comme `--moduix-dialog-backdrop-bg` ou `--moduix-popover-transition`, lorsqu’un
+seul composant doit se distinguer.
 
 Le tableau rapide ci-dessus sert d’index transversal. L’aperçu détaillé ci-dessous présente les mêmes
-tokens dans les sections correspondantes : les animations dans `Motion`, l’échelle dans
-`Elevation & Layers`, et les valeurs partagées d’arrière-plan, de liste contextuelle et d’animation
-dans `Shared Component Defaults`.
+tokens dans les sections correspondantes : les animations, l’échelle, puis les valeurs partagées
+d’arrière-plan, de liste contextuelle et d’animation dans la section consacrée aux valeurs par défaut
+communes aux composants.
 
 ```css
 :root {
@@ -156,7 +156,7 @@ dans `Shared Component Defaults`.
 ```
 
 Les tokens d’espacement fractionnaires comme `--moduix-spacing-1-5` et `--moduix-spacing-3-5` sont
-dérivés des étapes primitives voisines. Un préréglage de densité n’a besoin de redéfinir que les
+calculés à partir des étapes primitives voisines. Un préréglage de densité n’a besoin de redéfinir que les
 primitives entières : les espacements intermédiaires des composants, la géométrie des icônes et les
 décalages de focus suivent automatiquement.
 
@@ -164,10 +164,10 @@ décalages de focus suivent automatiquement.
 
 ## Portée des surcharges
 
-Définissez les tokens à l’échelle du projet dans `:root`. Une valeur sur
+Définissez les tokens à l’échelle du projet dans `:root`. Une valeur définie sur
 `[data-moduix-color-scheme='dark']` ou un autre conteneur parent n’est héritée que par les composants
-rendus à l’intérieur de cet élément. Les overlays rendus par défaut dans un portail ont besoin de la
-valeur sur la racine du document, `body` ou un conteneur de portail situé dans cette portée.
+rendus à l’intérieur de cet élément. Les superpositions rendues par défaut dans un portail ont besoin
+de la valeur sur la racine du document, `body` ou un conteneur de portail situé dans cette portée.
 
 ```css
 :root {
@@ -188,4 +188,4 @@ valeur sur la racine du document, `body` ou un conteneur de portail situé dans 
 Pour un thème réutilisable, conservez les surcharges dans une feuille de styles dédiée, chargée après
 `style.css`. Si plusieurs thèmes doivent coexister, limitez le fichier avec un attribut tel que
 `[data-moduix-theme='brand']`. Gardez les ajustements ponctuels d’un composant près de la fonctionnalité
-concernée, afin qu’ils ne deviennent pas silencieusement des décisions globales du système de design.
+concernée, afin qu’ils ne deviennent pas discrètement des décisions globales du système de conception.

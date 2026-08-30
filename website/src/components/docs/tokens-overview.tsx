@@ -5,7 +5,7 @@ import styles from './tokens-overview.module.css';
 type ColorToken = {
   name: string;
   alias: string;
-  label: string;
+  labelKey: keyof typeof import('i18n');
   light: string;
   dark: string;
 };
@@ -14,161 +14,161 @@ const colorTokens = [
   {
     name: '--moduix-background',
     alias: '--moduix-color-background',
-    label: 'Canvas',
+    labelKey: 'tokensOverviewColorCanvas',
     light: 'oklch(0.982 0.003 285)',
     dark: 'oklch(0.155 0.008 285)',
   },
   {
     name: '--moduix-foreground',
     alias: '--moduix-color-foreground',
-    label: 'Canvas text',
+    labelKey: 'tokensOverviewColorCanvasText',
     light: 'oklch(0.175 0.01 285)',
     dark: 'oklch(0.968 0.003 285)',
   },
   {
     name: '--moduix-card',
     alias: '--moduix-color-card',
-    label: 'Raised surface',
+    labelKey: 'tokensOverviewColorRaisedSurface',
     light: 'oklch(0.995 0.002 285)',
     dark: 'oklch(0.2 0.011 285)',
   },
   {
     name: '--moduix-card-foreground',
     alias: '--moduix-color-card-foreground',
-    label: 'Raised text',
+    labelKey: 'tokensOverviewColorRaisedText',
     light: 'oklch(0.175 0.01 285)',
     dark: 'oklch(0.968 0.003 285)',
   },
   {
     name: '--moduix-popover',
     alias: '--moduix-color-popover',
-    label: 'Layer surface',
+    labelKey: 'tokensOverviewColorLayerSurface',
     light: 'oklch(0.995 0.002 285)',
     dark: 'oklch(0.2 0.011 285)',
   },
   {
     name: '--moduix-popover-foreground',
     alias: '--moduix-color-popover-foreground',
-    label: 'Layer text',
+    labelKey: 'tokensOverviewColorLayerText',
     light: 'oklch(0.175 0.01 285)',
     dark: 'oklch(0.968 0.003 285)',
   },
   {
     name: '--moduix-primary',
     alias: '--moduix-color-primary',
-    label: 'Primary action',
+    labelKey: 'tokensOverviewColorPrimaryAction',
     light: 'oklch(0.235 0.016 285)',
     dark: 'oklch(0.918 0.007 285)',
   },
   {
     name: '--moduix-primary-foreground',
     alias: '--moduix-color-primary-foreground',
-    label: 'Primary text',
+    labelKey: 'tokensOverviewColorPrimaryText',
     light: 'oklch(0.982 0.003 285)',
     dark: 'oklch(0.2 0.011 285)',
   },
   {
     name: '--moduix-secondary',
     alias: '--moduix-color-secondary',
-    label: 'Secondary fill',
+    labelKey: 'tokensOverviewColorSecondaryFill',
     light: 'oklch(0.96 0.006 285)',
     dark: 'oklch(0.255 0.012 285)',
   },
   {
     name: '--moduix-secondary-foreground',
     alias: '--moduix-color-secondary-foreground',
-    label: 'Secondary text',
+    labelKey: 'tokensOverviewColorSecondaryText',
     light: 'oklch(0.235 0.016 285)',
     dark: 'oklch(0.968 0.003 285)',
   },
   {
     name: '--moduix-muted',
     alias: '--moduix-color-muted',
-    label: 'Subtle fill',
+    labelKey: 'tokensOverviewColorSubtleFill',
     light: 'oklch(0.955 0.006 285)',
     dark: 'oklch(0.255 0.012 285)',
   },
   {
     name: '--moduix-muted-foreground',
     alias: '--moduix-color-muted-foreground',
-    label: 'Subtle text',
+    labelKey: 'tokensOverviewColorSubtleText',
     light: 'oklch(0.485 0.015 285)',
     dark: 'oklch(0.705 0.016 285)',
   },
   {
     name: '--moduix-accent',
     alias: '--moduix-color-accent',
-    label: 'Hover fill',
+    labelKey: 'tokensOverviewColorHoverFill',
     light: 'oklch(0.95 0.01 285)',
     dark: 'oklch(0.29 0.015 285)',
   },
   {
     name: '--moduix-accent-foreground',
     alias: '--moduix-color-accent-foreground',
-    label: 'Hover text',
+    labelKey: 'tokensOverviewColorHoverText',
     light: 'oklch(0.235 0.016 285)',
     dark: 'oklch(0.968 0.003 285)',
   },
   {
     name: '--moduix-destructive',
     alias: '--moduix-color-destructive',
-    label: 'Danger',
+    labelKey: 'tokensOverviewColorDanger',
     light: 'oklch(0.565 0.235 22)',
     dark: 'oklch(0.69 0.185 18)',
   },
   {
     name: '--moduix-destructive-foreground',
     alias: '--moduix-color-destructive-foreground',
-    label: 'Danger text',
+    labelKey: 'tokensOverviewColorDangerText',
     light: 'oklch(0.982 0.003 285)',
     dark: 'oklch(0.2 0.011 285)',
   },
   {
     name: '--moduix-success',
     alias: '--moduix-color-success',
-    label: 'Success',
+    labelKey: 'tokensOverviewColorSuccess',
     light: 'oklch(0.627 0.194 149.214)',
     dark: 'oklch(0.627 0.194 149.214)',
   },
   {
     name: '--moduix-warning',
     alias: '--moduix-color-warning',
-    label: 'Warning',
+    labelKey: 'tokensOverviewColorWarning',
     light: 'oklch(0.795 0.184 86.047)',
     dark: 'oklch(0.795 0.184 86.047)',
   },
   {
     name: '--moduix-border',
     alias: '--moduix-color-border',
-    label: 'Borders',
+    labelKey: 'tokensOverviewColorBorders',
     light: 'oklch(0.905 0.008 285)',
     dark: 'oklch(1 0.004 285 / 13%)',
   },
   {
     name: '--moduix-input',
     alias: '--moduix-color-input',
-    label: 'Input border',
+    labelKey: 'tokensOverviewColorInputBorder',
     light: 'oklch(0.905 0.008 285)',
     dark: 'oklch(1 0.004 285 / 17%)',
   },
   {
     name: '--moduix-ring',
     alias: '--moduix-color-ring',
-    label: 'Focus ring',
+    labelKey: 'tokensOverviewColorFocusRing',
     light: 'oklch(0.62 0.035 285)',
     dark: 'oklch(0.585 0.038 285)',
   },
   {
     name: '--moduix-overlay',
     alias: '--moduix-color-overlay',
-    label: 'Backdrop base',
+    labelKey: 'tokensOverviewColorBackdropBase',
     light: 'oklch(0.175 0.014 285 / 0.2)',
     dark: 'oklch(0.105 0.012 285 / 0.74)',
   },
   {
     name: '--moduix-overlay-foreground',
     alias: '--moduix-color-overlay-foreground',
-    label: 'Soft overlay',
+    labelKey: 'tokensOverviewColorSoftOverlay',
     light: 'oklch(0.175 0.014 285 / 0.07)',
     dark: 'oklch(0.968 0.003 285 / 0.09)',
   },
@@ -178,35 +178,35 @@ const chartTokens = [
   {
     name: '--moduix-chart-1',
     alias: '--moduix-color-chart-1',
-    label: 'Chart 1',
+    labelKey: 'tokensOverviewColorChart1',
     light: 'oklch(0.65 0.18 295)',
     dark: 'oklch(0.72 0.17 295)',
   },
   {
     name: '--moduix-chart-2',
     alias: '--moduix-color-chart-2',
-    label: 'Chart 2',
+    labelKey: 'tokensOverviewColorChart2',
     light: 'oklch(0.7 0.14 175)',
     dark: 'oklch(0.76 0.13 175)',
   },
   {
     name: '--moduix-chart-3',
     alias: '--moduix-color-chart-3',
-    label: 'Chart 3',
+    labelKey: 'tokensOverviewColorChart3',
     light: 'oklch(0.72 0.16 55)',
     dark: 'oklch(0.78 0.15 55)',
   },
   {
     name: '--moduix-chart-4',
     alias: '--moduix-color-chart-4',
-    label: 'Chart 4',
+    labelKey: 'tokensOverviewColorChart4',
     light: 'oklch(0.6 0.2 350)',
     dark: 'oklch(0.67 0.19 350)',
   },
   {
     name: '--moduix-chart-5',
     alias: '--moduix-color-chart-5',
-    label: 'Chart 5',
+    labelKey: 'tokensOverviewColorChart5',
     light: 'oklch(0.68 0.13 130)',
     dark: 'oklch(0.74 0.12 130)',
   },
@@ -216,56 +216,56 @@ const sidebarTokens = [
   {
     name: '--moduix-sidebar',
     alias: '--moduix-color-sidebar',
-    label: 'Sidebar surface',
+    labelKey: 'tokensOverviewColorSidebarSurface',
     light: 'oklch(0.975 0.005 285)',
     dark: 'oklch(0.2 0.011 285)',
   },
   {
     name: '--moduix-sidebar-foreground',
     alias: '--moduix-color-sidebar-foreground',
-    label: 'Sidebar text',
+    labelKey: 'tokensOverviewColorSidebarText',
     light: 'oklch(0.175 0.01 285)',
     dark: 'oklch(0.968 0.003 285)',
   },
   {
     name: '--moduix-sidebar-primary',
     alias: '--moduix-color-sidebar-primary',
-    label: 'Sidebar primary',
+    labelKey: 'tokensOverviewColorSidebarPrimary',
     light: 'oklch(0.235 0.016 285)',
     dark: 'oklch(0.72 0.17 295)',
   },
   {
     name: '--moduix-sidebar-primary-foreground',
     alias: '--moduix-color-sidebar-primary-foreground',
-    label: 'Sidebar primary text',
+    labelKey: 'tokensOverviewColorSidebarPrimaryText',
     light: 'oklch(0.982 0.003 285)',
     dark: 'oklch(0.155 0.008 285)',
   },
   {
     name: '--moduix-sidebar-accent',
     alias: '--moduix-color-sidebar-accent',
-    label: 'Sidebar accent',
+    labelKey: 'tokensOverviewColorSidebarAccent',
     light: 'oklch(0.95 0.01 285)',
     dark: 'oklch(0.29 0.015 285)',
   },
   {
     name: '--moduix-sidebar-accent-foreground',
     alias: '--moduix-color-sidebar-accent-foreground',
-    label: 'Sidebar accent text',
+    labelKey: 'tokensOverviewColorSidebarAccentText',
     light: 'oklch(0.235 0.016 285)',
     dark: 'oklch(0.968 0.003 285)',
   },
   {
     name: '--moduix-sidebar-border',
     alias: '--moduix-color-sidebar-border',
-    label: 'Sidebar border',
+    labelKey: 'tokensOverviewColorSidebarBorder',
     light: 'oklch(0.905 0.008 285)',
     dark: 'oklch(1 0.004 285 / 13%)',
   },
   {
     name: '--moduix-sidebar-ring',
     alias: '--moduix-color-sidebar-ring',
-    label: 'Sidebar focus ring',
+    labelKey: 'tokensOverviewColorSidebarFocusRing',
     light: 'oklch(0.62 0.035 285)',
     dark: 'oklch(0.585 0.038 285)',
   },
@@ -371,7 +371,7 @@ const opacityTokens = [
 const motionTokens = [
   ['--moduix-duration-fast', '150ms'],
   ['--moduix-duration-normal', '200ms'],
-  ['--moduix-duration-slow', '300ms'],
+  ['--moduix-duration-slow', '350ms'],
   ['--moduix-duration-slower', '450ms'],
   ['--moduix-ease-in', 'cubic-bezier(0.4, 0, 1, 1)'],
   ['--moduix-ease-out', 'cubic-bezier(0, 0, 0.2, 1)'],
@@ -415,8 +415,8 @@ const shadowTokens = [
 ];
 
 const transformTokens = [
-  ['--moduix-scale-popup', '0.9', 'Dialog, popover, tooltip, menu, hover card, toast, nav menu'],
-  ['--moduix-scale-dropdown', '0.95', 'Select, combobox, autocomplete'],
+  ['--moduix-scale-popup', '0.9', 'tokensOverviewPopupScaleConsumers'],
+  ['--moduix-scale-dropdown', '0.95', 'tokensOverviewDropdownScaleConsumers'],
 ];
 
 const zIndexTokens = [
@@ -433,8 +433,12 @@ const zIndexTokens = [
 ];
 
 const sharedBackdropTokens = [
-  ['--moduix-backdrop-bg', 'var(--moduix-color-overlay)', 'Global backdrop color fallback'],
-  ['--moduix-backdrop-filter', 'blur(4px)', 'Global backdrop filter fallback'],
+  [
+    '--moduix-backdrop-bg',
+    'var(--moduix-color-overlay)',
+    'tokensOverviewGlobalBackdropColorFallback',
+  ],
+  ['--moduix-backdrop-filter', 'blur(4px)', 'tokensOverviewGlobalBackdropFilterFallback'],
   [
     '--moduix-command-palette-backdrop-bg',
     'var(--moduix-backdrop-bg, var(--moduix-color-overlay))',
@@ -483,16 +487,56 @@ const sharedPopupTokens = [
 ];
 
 const sharedPopupMotionTokens = [
-  ['--moduix-popup-motion-duration', 'component default', 'Content enter and exit duration'],
-  ['--moduix-popup-motion-easing', 'component default', 'Content enter and exit easing'],
-  ['--moduix-popup-motion-starting-opacity', 'component default', 'Entry opacity'],
-  ['--moduix-popup-motion-starting-scale', 'component default', 'Entry scale'],
-  ['--moduix-popup-motion-starting-translate-x', 'component default', 'Entry horizontal offset'],
-  ['--moduix-popup-motion-starting-translate-y', 'component default', 'Entry vertical offset'],
-  ['--moduix-popup-motion-ending-opacity', 'component default', 'Exit opacity'],
-  ['--moduix-popup-motion-ending-scale', 'component default', 'Exit scale'],
-  ['--moduix-popup-motion-ending-translate-x', 'component default', 'Exit horizontal offset'],
-  ['--moduix-popup-motion-ending-translate-y', 'component default', 'Exit vertical offset'],
+  [
+    '--moduix-popup-motion-duration',
+    'tokensOverviewComponentDefault',
+    'tokensOverviewPopupContentDuration',
+  ],
+  [
+    '--moduix-popup-motion-easing',
+    'tokensOverviewComponentDefault',
+    'tokensOverviewPopupContentEasing',
+  ],
+  [
+    '--moduix-popup-motion-starting-opacity',
+    'tokensOverviewComponentDefault',
+    'tokensOverviewPopupEntryOpacity',
+  ],
+  [
+    '--moduix-popup-motion-starting-scale',
+    'tokensOverviewComponentDefault',
+    'tokensOverviewPopupEntryScale',
+  ],
+  [
+    '--moduix-popup-motion-starting-translate-x',
+    'tokensOverviewComponentDefault',
+    'tokensOverviewPopupEntryHorizontalOffset',
+  ],
+  [
+    '--moduix-popup-motion-starting-translate-y',
+    'tokensOverviewComponentDefault',
+    'tokensOverviewPopupEntryVerticalOffset',
+  ],
+  [
+    '--moduix-popup-motion-ending-opacity',
+    'tokensOverviewComponentDefault',
+    'tokensOverviewPopupExitOpacity',
+  ],
+  [
+    '--moduix-popup-motion-ending-scale',
+    'tokensOverviewComponentDefault',
+    'tokensOverviewPopupExitScale',
+  ],
+  [
+    '--moduix-popup-motion-ending-translate-x',
+    'tokensOverviewComponentDefault',
+    'tokensOverviewPopupExitHorizontalOffset',
+  ],
+  [
+    '--moduix-popup-motion-ending-translate-y',
+    'tokensOverviewComponentDefault',
+    'tokensOverviewPopupExitVerticalOffset',
+  ],
 ];
 
 export function TokensOverview() {
@@ -568,10 +612,10 @@ export function TokensOverview() {
         </div>
         <div className={styles.colorLegend} aria-hidden="true">
           <span>
-            <i className={styles.legendLight} /> Light
+            <i className={styles.legendLight} /> {t('themePreviewLight')}
           </span>
           <span>
-            <i className={styles.legendDark} /> Dark
+            <i className={styles.legendDark} /> {t('themePreviewDark')}
           </span>
         </div>
         <div className={styles.colorGrid}>
@@ -584,19 +628,19 @@ export function TokensOverview() {
             return (
               <article className={styles.chartToken} key={token.name}>
                 <div className={styles.tokenMeta}>
-                  <strong>{token.label}</strong>
+                  <strong>{t(token.labelKey)}</strong>
                   <code>{token.name}</code>
                   <small>{token.alias}</small>
                 </div>
                 <div className={styles.swatches}>
                   <div className={styles.swatchBlock}>
                     <span className={styles.chartLight} style={{ background: token.light }} />
-                    <small>Light</small>
+                    <small>{t('themePreviewLight')}</small>
                     <code>{token.light}</code>
                   </div>
                   <div className={styles.swatchBlock}>
                     <span className={styles.chartDark} style={{ background: token.dark }} />
-                    <small>Dark</small>
+                    <small>{t('themePreviewDark')}</small>
                     <code>{token.dark}</code>
                   </div>
                 </div>
@@ -689,7 +733,7 @@ export function TokensOverview() {
         </div>
         <div className={styles.motionGrid}>
           <TokenList title={t('tokensOverviewTransforms')} tokens={transformTokens} />
-          <TokenList title="Z-index" tokens={zIndexTokens} />
+          <TokenList title={t('tokensOverviewZIndex')} tokens={zIndexTokens} />
         </div>
       </Section>
 
@@ -701,7 +745,7 @@ export function TokensOverview() {
           <div className={styles.backdropStage}>
             <div className={styles.backdropLayer} />
             <div className={styles.backdropDialog}>
-              <strong>Layered UI</strong>
+              <strong>{t('tokensOverviewLayeredUi')}</strong>
               <span>--moduix-backdrop-bg + --moduix-backdrop-filter</span>
             </div>
           </div>
@@ -721,7 +765,8 @@ export function TokensOverview() {
 }
 
 function ThemePreview({ theme }: { theme: 'light' | 'dark' }) {
-  const title = theme === 'light' ? 'Light theme' : 'Dark theme';
+  const t = useI18n<typeof import('i18n')>();
+  const title = t(theme === 'light' ? 'tokensOverviewLightTheme' : 'tokensOverviewDarkTheme');
 
   return (
     <article className={styles.themeCard} data-theme={theme}>
@@ -731,12 +776,12 @@ function ThemePreview({ theme }: { theme: 'light' | 'dark' }) {
       </div>
       <div className={styles.themeCanvas}>
         <div className={styles.themeSurface}>
-          <span className={styles.themeEyebrow}>Preview</span>
-          <strong>Dialog surface</strong>
-          <p>Text, muted copy, border, action, and backdrop tokens in one compact layout.</p>
+          <span className={styles.themeEyebrow}>{t('tokensOverviewPreview')}</span>
+          <strong>{t('tokensOverviewDialogSurface')}</strong>
+          <p>{t('tokensOverviewPreviewDescription')}</p>
           <div className={styles.themeControls}>
-            <span>Cancel</span>
-            <strong>Apply</strong>
+            <span>{t('tokensOverviewCancel')}</span>
+            <strong>{t('tokensOverviewApply')}</strong>
           </div>
         </div>
       </div>
@@ -767,22 +812,24 @@ function TokenCallout({ title, code, body }: { title: string; code: string; body
 }
 
 function ColorCard({ token }: { token: ColorToken }) {
+  const t = useI18n<typeof import('i18n')>();
+
   return (
     <article className={styles.colorCard}>
       <div className={styles.tokenMeta}>
-        <strong>{token.label}</strong>
+        <strong>{t(token.labelKey)}</strong>
         <code>{token.name}</code>
         <small>{token.alias}</small>
       </div>
       <div className={styles.swatches}>
         <div className={styles.swatchBlock}>
           <span style={{ background: token.light }} />
-          <small>Light</small>
+          <small>{t('themePreviewLight')}</small>
           <code>{token.light}</code>
         </div>
         <div className={styles.swatchBlock}>
           <span style={{ background: token.dark }} />
-          <small>Dark</small>
+          <small>{t('themePreviewDark')}</small>
           <code>{token.dark}</code>
         </div>
       </div>
@@ -816,9 +863,11 @@ function TokenScale({
 }
 
 function RadiusScale() {
+  const t = useI18n<typeof import('i18n')>();
+
   return (
     <div className={styles.scaleCard}>
-      <h3>Radius</h3>
+      <h3>{t('tokensOverviewRadius')}</h3>
       <div className={styles.radiusGrid}>
         {radiusTokens.map(([name, value], index) => (
           <div className={styles.radiusToken} data-index={index} key={name}>
@@ -833,14 +882,18 @@ function RadiusScale() {
 }
 
 function TokenList({ title, tokens }: { title: string; tokens: string[][] }) {
+  const t = useI18n<typeof import('i18n')>();
+  const localize = (value: string) =>
+    value.startsWith('tokensOverview') ? t(value as keyof typeof import('i18n')) : value;
+
   return (
     <div className={styles.tokenList}>
       <h3>{title}</h3>
       {tokens.map(([name, value, note]) => (
         <div className={styles.tokenLine} key={name}>
           <code>{name}</code>
-          <span>{value}</span>
-          {note ? <small>{note}</small> : null}
+          <span>{localize(value)}</span>
+          {note ? <small>{localize(note)}</small> : null}
         </div>
       ))}
     </div>

@@ -1,58 +1,61 @@
 ---
 title: Components
-description: Browse moduix React components by product need and implementation pattern.
+description: Explore moduix React components by interface need and composition pattern.
 ---
 
 import { ComponentGallery } from '@/components/docs/component-gallery';
 
 # Components
 
-moduix components are styled, composable Ark UI wrappers with a shared token language. Browse the
-categories below, then use the sidebar or search for the complete catalog. Every component
-page shows the public part tree, examples, Ark-aligned behavior, and local CSS variables.
+moduix provides accessible, composable React components with shared CSS tokens. Many interactive
+components build on Ark UI primitives while keeping their composition explicit in the public API.
+Choose a category below, then open a component page from the sidebar or search. Each page includes a
+copyable basic example, the public part structure, behavior notes, and the styling options available
+for that component.
 
-## Form & Input
+## Forms & Inputs
 
-Inputs, selection controls, field composition, and form-ready controls.
+Fields, input and selection controls, and other building blocks for forms.
 
 <ComponentGallery category="form-input" />
 
 ## Layout & Navigation
 
-Structure product screens, reveal content, and guide people through them.
+Build product screens, reveal content, and help users move through the interface.
 
 <ComponentGallery category="layout-navigation" />
 
 ## Overlays & Dialogs
 
-Focused surfaces for commands, details, help, and temporary workflows.
+Contextual surfaces for commands, details, help, and short-lived workflows.
 
 <ComponentGallery category="overlays-dialogs" />
 
 ## Feedback & Status
 
-Communicate progress, empty states, loading, and actionable messages.
+Show progress, loading, empty states, and messages that help users decide what to do next.
 
 <ComponentGallery category="feedback-status" />
 
 ## Display & Content
 
-Present identity, media, data, keyboard hints, and supporting information.
+Present user identity, media, data, keyboard shortcuts, and supporting content.
 
 <ComponentGallery category="display-content" />
 
 ## Actions & Utilities
 
-Small interaction primitives for common product actions and patterns.
+Small interaction primitives for common actions and product patterns.
 
 <ComponentGallery category="actions-utilities" />
 
-## Before you compose
+## Before you build
 
-- Use [Quick start](/docs/quick-start) to choose package-managed or copy-owned installation.
-- Read [Composition Patterns](/docs/composition-patterns) before hiding component parts in product
-  wrappers.
-- Use [Themes](/docs/themes) and [Tokens](/docs/tokens) for system-wide visual changes; keep
-  component aliases for deliberate exceptions.
-- Start from [Recipes](/recipes) when you need a copy-paste product pattern rather than one
-  primitive.
+- Use [Quick start](/docs/quick-start) to choose between installing the package and copying source
+  files into your project.
+- Read [Composition Patterns](/docs/composition-patterns) before wrapping component parts in
+  product-specific components.
+- Use [Themes](/docs/themes) and [Tokens](/docs/tokens) for system-wide visual changes. Keep
+  component aliases for deliberate, local exceptions.
+- Start with [Recipes](/recipes) when you need a copyable product pattern built from several
+  components.

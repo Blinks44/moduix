@@ -588,8 +588,8 @@
   },
   "tokensOverviewScopedThemes": {
     "en": "Scoped themes",
-    "ru": "Темы с ограниченной областью",
-    "fr": "Thèmes à portée limitée"
+    "ru": "Темы для отдельной области",
+    "fr": "Thèmes locaux"
   },
   "tokensOverviewColors": {
     "en": "Colors",
@@ -633,8 +633,8 @@
   },
   "tokensOverviewTypography": {
     "en": "Font families, sizes, line heights, weights, and tracking tokens.",
-    "ru": "Семейства шрифтов, размеры, межстрочные интервалы, начертания и токены трекинга.",
-    "fr": "Familles de polices, tailles, hauteurs de ligne, graisses et tokens d'approche."
+    "ru": "Семейства шрифтов, размеры, межстрочные интервалы, начертания и межбуквенные интервалы.",
+    "fr": "Familles de polices, tailles, hauteurs de ligne, graisses et espacement des caractères."
   },
   "tokensOverviewFontFamilies": {
     "en": "Font families",
@@ -643,7 +643,7 @@
   },
   "tokensOverviewMotion": {
     "en": "Durations, easing, transition shorthands, and reusable animations.",
-    "ru": "Длительности, сглаживание, сокращения переходов и повторно используемые анимации.",
+    "ru": "Длительности, кривые плавности, сокращённые записи переходов и повторно используемые анимации.",
     "fr": "Durées, fonctions d'accélération, raccourcis de transition et animations réutilisables."
   },
   "tokensOverviewTimingAndTransitionTokens": {
@@ -658,7 +658,7 @@
   },
   "tokensOverviewElevationLayers": {
     "en": "Elevation & Layers",
-    "ru": "Высота и слои",
+    "ru": "Глубина и слои",
     "fr": "Élévation et calques"
   },
   "tokensOverviewTransforms": {
@@ -679,12 +679,317 @@
   "tokensOverviewSharedPopupContentMotion": {
     "en": "Shared popup content motion",
     "ru": "Общая анимация содержимого всплывающих окон",
-    "fr": "Animation partagée du contenu des fenêtres surgissantes"
+    "fr": "Animation partagée du contenu contextuel"
   },
   "tokensOverviewSharedPopupMenuDefaults": {
     "en": "Shared popup menu defaults",
     "ru": "Общие значения меню всплывающих окон",
-    "fr": "Valeurs par défaut partagées des menus surgissants"
+    "fr": "Valeurs par défaut partagées des menus contextuels"
+  },
+  "tokensOverviewColorCanvas": {
+    "en": "Canvas",
+    "ru": "Фон страницы",
+    "fr": "Surface de base"
+  },
+  "tokensOverviewColorCanvasText": {
+    "en": "Canvas text",
+    "ru": "Текст страницы",
+    "fr": "Texte de base"
+  },
+  "tokensOverviewColorRaisedSurface": {
+    "en": "Raised surface",
+    "ru": "Приподнятая поверхность",
+    "fr": "Surface surélevée"
+  },
+  "tokensOverviewColorRaisedText": {
+    "en": "Raised text",
+    "ru": "Текст на приподнятой поверхности",
+    "fr": "Texte sur surface surélevée"
+  },
+  "tokensOverviewColorLayerSurface": {
+    "en": "Layer surface",
+    "ru": "Фон слоя",
+    "fr": "Surface de calque"
+  },
+  "tokensOverviewColorLayerText": {
+    "en": "Layer text",
+    "ru": "Текст слоя",
+    "fr": "Texte de calque"
+  },
+  "tokensOverviewColorPrimaryAction": {
+    "en": "Primary action",
+    "ru": "Основное действие",
+    "fr": "Action principale"
+  },
+  "tokensOverviewColorPrimaryText": {
+    "en": "Primary text",
+    "ru": "Текст основного действия",
+    "fr": "Texte de l’action principale"
+  },
+  "tokensOverviewColorSecondaryFill": {
+    "en": "Secondary fill",
+    "ru": "Вторичный фон",
+    "fr": "Fond secondaire"
+  },
+  "tokensOverviewColorSecondaryText": {
+    "en": "Secondary text",
+    "ru": "Текст на вторичном фоне",
+    "fr": "Texte secondaire"
+  },
+  "tokensOverviewColorSubtleFill": {
+    "en": "Subtle fill",
+    "ru": "Приглушённый фон",
+    "fr": "Fond discret"
+  },
+  "tokensOverviewColorSubtleText": {
+    "en": "Subtle text",
+    "ru": "Приглушённый текст",
+    "fr": "Texte discret"
+  },
+  "tokensOverviewColorHoverFill": {
+    "en": "Hover fill",
+    "ru": "Фон при наведении",
+    "fr": "Fond au survol"
+  },
+  "tokensOverviewColorHoverText": {
+    "en": "Hover text",
+    "ru": "Текст при наведении",
+    "fr": "Texte au survol"
+  },
+  "tokensOverviewColorDanger": {
+    "en": "Danger",
+    "ru": "Опасное действие",
+    "fr": "Action destructive"
+  },
+  "tokensOverviewColorDangerText": {
+    "en": "Danger text",
+    "ru": "Текст опасного действия",
+    "fr": "Texte de l’action destructive"
+  },
+  "tokensOverviewColorSuccess": {
+    "en": "Success",
+    "ru": "Успешное состояние",
+    "fr": "Succès"
+  },
+  "tokensOverviewColorWarning": {
+    "en": "Warning",
+    "ru": "Предупреждение",
+    "fr": "Avertissement"
+  },
+  "tokensOverviewColorBorders": {
+    "en": "Borders",
+    "ru": "Границы",
+    "fr": "Bordures"
+  },
+  "tokensOverviewColorInputBorder": {
+    "en": "Input border",
+    "ru": "Граница поля",
+    "fr": "Bordure des champs"
+  },
+  "tokensOverviewColorFocusRing": {
+    "en": "Focus ring",
+    "ru": "Кольцо фокуса",
+    "fr": "Anneau de focus"
+  },
+  "tokensOverviewColorBackdropBase": {
+    "en": "Backdrop base",
+    "ru": "Базовый фон оверлея",
+    "fr": "Fond de superposition"
+  },
+  "tokensOverviewColorSoftOverlay": {
+    "en": "Soft overlay",
+    "ru": "Мягкий оверлей",
+    "fr": "Superposition légère"
+  },
+  "tokensOverviewColorChart1": {
+    "en": "Chart 1",
+    "ru": "График 1",
+    "fr": "Graphique 1"
+  },
+  "tokensOverviewColorChart2": {
+    "en": "Chart 2",
+    "ru": "График 2",
+    "fr": "Graphique 2"
+  },
+  "tokensOverviewColorChart3": {
+    "en": "Chart 3",
+    "ru": "График 3",
+    "fr": "Graphique 3"
+  },
+  "tokensOverviewColorChart4": {
+    "en": "Chart 4",
+    "ru": "График 4",
+    "fr": "Graphique 4"
+  },
+  "tokensOverviewColorChart5": {
+    "en": "Chart 5",
+    "ru": "График 5",
+    "fr": "Graphique 5"
+  },
+  "tokensOverviewColorSidebarSurface": {
+    "en": "Sidebar surface",
+    "ru": "Фон боковой панели",
+    "fr": "Surface de la barre latérale"
+  },
+  "tokensOverviewColorSidebarText": {
+    "en": "Sidebar text",
+    "ru": "Текст боковой панели",
+    "fr": "Texte de la barre latérale"
+  },
+  "tokensOverviewColorSidebarPrimary": {
+    "en": "Sidebar primary",
+    "ru": "Основной цвет боковой панели",
+    "fr": "Couleur principale de la barre latérale"
+  },
+  "tokensOverviewColorSidebarPrimaryText": {
+    "en": "Sidebar primary text",
+    "ru": "Текст основного цвета боковой панели",
+    "fr": "Texte principal de la barre latérale"
+  },
+  "tokensOverviewColorSidebarAccent": {
+    "en": "Sidebar accent",
+    "ru": "Акцент боковой панели",
+    "fr": "Accent de la barre latérale"
+  },
+  "tokensOverviewColorSidebarAccentText": {
+    "en": "Sidebar accent text",
+    "ru": "Текст акцента боковой панели",
+    "fr": "Texte de l’accent de la barre latérale"
+  },
+  "tokensOverviewColorSidebarBorder": {
+    "en": "Sidebar border",
+    "ru": "Граница боковой панели",
+    "fr": "Bordure de la barre latérale"
+  },
+  "tokensOverviewColorSidebarFocusRing": {
+    "en": "Sidebar focus ring",
+    "ru": "Кольцо фокуса боковой панели",
+    "fr": "Anneau de focus de la barre latérale"
+  },
+  "tokensOverviewLightTheme": {
+    "en": "Light theme",
+    "ru": "Светлая тема",
+    "fr": "Thème clair"
+  },
+  "tokensOverviewDarkTheme": {
+    "en": "Dark theme",
+    "ru": "Тёмная тема",
+    "fr": "Thème sombre"
+  },
+  "tokensOverviewPreview": {
+    "en": "Preview",
+    "ru": "Предпросмотр",
+    "fr": "Aperçu"
+  },
+  "tokensOverviewDialogSurface": {
+    "en": "Dialog surface",
+    "ru": "Поверхность диалога",
+    "fr": "Surface de la boîte de dialogue"
+  },
+  "tokensOverviewPreviewDescription": {
+    "en": "Text, muted copy, border, action, and backdrop tokens in one compact layout.",
+    "ru": "Токены текста, приглушённого текста, границ, действий и фона оверлея в одной компактной композиции.",
+    "fr": "Les tokens du texte, du texte discret, des bordures, des actions et de l’arrière-plan réunis dans une composition compacte."
+  },
+  "tokensOverviewCancel": {
+    "en": "Cancel",
+    "ru": "Отмена",
+    "fr": "Annuler"
+  },
+  "tokensOverviewApply": {
+    "en": "Apply",
+    "ru": "Применить",
+    "fr": "Appliquer"
+  },
+  "tokensOverviewRadius": {
+    "en": "Radius",
+    "ru": "Радиусы",
+    "fr": "Rayons"
+  },
+  "tokensOverviewZIndex": {
+    "en": "Z-index",
+    "ru": "Z-index",
+    "fr": "Z-index"
+  },
+  "tokensOverviewLayeredUi": {
+    "en": "Layered UI",
+    "ru": "Слоистый интерфейс",
+    "fr": "Interface en couches"
+  },
+  "tokensOverviewComponentDefault": {
+    "en": "Component default",
+    "ru": "Значение компонента по умолчанию",
+    "fr": "Valeur par défaut du composant"
+  },
+  "tokensOverviewPopupScaleConsumers": {
+    "en": "Dialog, Popover, Tooltip, Menu, Hover Card, Toast, Navigation Menu",
+    "ru": "Dialog, Popover, Tooltip, Menu, Hover Card, Toast, Navigation Menu",
+    "fr": "Dialog, Popover, Tooltip, Menu, Hover Card, Toast, Navigation Menu"
+  },
+  "tokensOverviewDropdownScaleConsumers": {
+    "en": "Select, Combobox",
+    "ru": "Select, Combobox",
+    "fr": "Select, Combobox"
+  },
+  "tokensOverviewGlobalBackdropColorFallback": {
+    "en": "Global backdrop color fallback",
+    "ru": "Резервный цвет фона оверлея",
+    "fr": "Couleur de secours globale de l’arrière-plan"
+  },
+  "tokensOverviewGlobalBackdropFilterFallback": {
+    "en": "Global backdrop filter fallback",
+    "ru": "Резервный фильтр для фона оверлея",
+    "fr": "Filtre de secours global de l’arrière-plan"
+  },
+  "tokensOverviewPopupContentDuration": {
+    "en": "Content enter and exit duration",
+    "ru": "Длительность появления и скрытия содержимого",
+    "fr": "Durée d’entrée et de sortie du contenu"
+  },
+  "tokensOverviewPopupContentEasing": {
+    "en": "Content enter and exit easing",
+    "ru": "Плавность появления и скрытия содержимого",
+    "fr": "Fonction d’accélération à l’entrée et à la sortie du contenu"
+  },
+  "tokensOverviewPopupEntryOpacity": {
+    "en": "Opacity when entering",
+    "ru": "Непрозрачность при появлении",
+    "fr": "Opacité à l’entrée"
+  },
+  "tokensOverviewPopupEntryScale": {
+    "en": "Scale when entering",
+    "ru": "Масштаб при появлении",
+    "fr": "Échelle à l’entrée"
+  },
+  "tokensOverviewPopupEntryHorizontalOffset": {
+    "en": "Horizontal offset when entering",
+    "ru": "Горизонтальное смещение при появлении",
+    "fr": "Décalage horizontal à l’entrée"
+  },
+  "tokensOverviewPopupEntryVerticalOffset": {
+    "en": "Vertical offset when entering",
+    "ru": "Вертикальное смещение при появлении",
+    "fr": "Décalage vertical à l’entrée"
+  },
+  "tokensOverviewPopupExitOpacity": {
+    "en": "Opacity when exiting",
+    "ru": "Непрозрачность при скрытии",
+    "fr": "Opacité à la sortie"
+  },
+  "tokensOverviewPopupExitScale": {
+    "en": "Scale when exiting",
+    "ru": "Масштаб при скрытии",
+    "fr": "Échelle à la sortie"
+  },
+  "tokensOverviewPopupExitHorizontalOffset": {
+    "en": "Horizontal offset when exiting",
+    "ru": "Горизонтальное смещение при скрытии",
+    "fr": "Décalage horizontal à la sortie"
+  },
+  "tokensOverviewPopupExitVerticalOffset": {
+    "en": "Vertical offset when exiting",
+    "ru": "Вертикальное смещение при скрытии",
+    "fr": "Décalage vertical à la sortie"
   },
   "ownershipLayersBehavior": {
     "en": "Behavior",
@@ -762,9 +1067,9 @@
     "fr": "Version majeure"
   },
   "chartHeroSummary": {
-    "en": "Composable, accessible charts powered by TanStack Charts.",
-    "ru": "Компонуемые и доступные графики на базе TanStack Charts.",
-    "fr": "Des graphiques composables et accessibles, propulsés par TanStack Charts."
+    "en": "Accessible, composable charts powered by TanStack Charts.",
+    "ru": "Доступные графики на базе TanStack Charts, которые можно собрать под свой сценарий.",
+    "fr": "Des graphiques accessibles et composables, basés sur TanStack Charts."
   },
   "navigationMenuHeroDate": {
     "en": "August 25, 2026",
@@ -773,8 +1078,8 @@
   },
   "navigationMenuHeroSummary": {
     "en": "Build accessible product navigation with direct links, disclosure panels, and an optional shared viewport.",
-    "ru": "Создавайте доступную навигацию по сайту или продукту с прямыми ссылками, раскрывающимися панелями и общей анимированной областью.",
-    "fr": "Créez une navigation accessible pour un site ou un produit avec des liens directs, des panneaux déroulants et une surface partagée facultative."
+    "ru": "Создавайте доступную навигацию по сайту или продукту с прямыми ссылками, раскрывающимися панелями и общей областью для их анимации.",
+    "fr": "Créez une navigation accessible pour un site ou un produit avec des liens directs, des panneaux déroulants et, si nécessaire, une zone d’animation commune."
   },
   "tableOfContentsHeroDate": {
     "en": "August 27, 2026",
@@ -783,8 +1088,8 @@
   },
   "tableOfContentsHeroSummary": {
     "en": "Keep an accessible table of contents in sync with the section your reader is viewing.",
-    "ru": "Создавайте доступное оглавление, которое автоматически отмечает раздел, видимый читателю, и ведёт к нужному заголовку.",
-    "fr": "Gardez un sommaire accessible synchronisé avec la section consultée par le lecteur et reliez chaque entrée au titre correspondant."
+    "ru": "Создавайте доступное оглавление, синхронизированное с разделом, который сейчас читает пользователь.",
+    "fr": "Un sommaire accessible qui reste synchronisé avec la section consultée."
   },
   "localizationHeroDate": {
     "en": "August 10, 2026",
@@ -798,8 +1103,8 @@
   },
   "localizationHeroSummary": {
     "en": "Russian and French are here. More translations are next.",
-    "ru": "Документация на русском и французском уже доступна. Далее - другие языки.",
-    "fr": "La documentation en français et en russe est disponible. D’autres langues suivront."
+    "ru": "Документация на русском и французском уже доступна. Позже появятся и другие языки.",
+    "fr": "Les traductions française et russe sont disponibles. D’autres langues suivront."
   },
   "v2MigrationHeroDate": {
     "en": "July 19, 2026",
@@ -807,24 +1112,24 @@
     "fr": "19 juillet 2026"
   },
   "v2MigrationHeroSummary": {
-    "en": "A deliberate Ark UI foundation for accessible components.",
-    "ru": "Продуманная основа на базе Ark UI для доступных компонентов.",
-    "fr": "Une base Ark UI pensée pour créer des composants accessibles."
+    "en": "An Ark UI foundation for accessible components.",
+    "ru": "Основа на Ark UI для доступных компонентов.",
+    "fr": "Une base Ark UI pour des composants accessibles."
   },
   "tokensOverviewSemanticVariables": {
     "en": "Components read semantic variables while themes override the raw palette.",
-    "ru": "Компоненты читают семантические переменные, а темы переопределяют исходную палитру.",
-    "fr": "Les composants lisent les variables sémantiques tandis que les thèmes remplacent la palette brute."
+    "ru": "Компоненты используют семантические переменные, а темы переопределяют исходную палитру.",
+    "fr": "Les composants utilisent les variables sémantiques, tandis que les thèmes redéfinissent la palette de base."
   },
   "tokensOverviewCentralizedBackdrop": {
     "en": "Global backdrop color and blur stay centralized, and component-level variables can still opt out.",
-    "ru": "Глобальные цвет и размытие фона остаются централизованными, а переменные уровня компонента по-прежнему могут от них отказаться.",
-    "fr": "La couleur et le flou globaux de l'arrière-plan restent centralisés, et les variables de composant peuvent toujours s'en écarter."
+    "ru": "Цвет и размытие фона задаются централизованно, а переменные уровня компонента по-прежнему позволяют переопределить их.",
+    "fr": "La couleur et le flou de l’arrière-plan sont définis à un seul endroit, mais chaque composant peut toujours les redéfinir."
   },
   "tokensOverviewParentScope": {
     "en": "Any parent scope can change density, motion, or color for a focused area.",
-    "ru": "Любая родительская область может изменить плотность, анимацию или цвет для выделенной зоны.",
-    "fr": "Toute portée parente peut modifier la densité, le mouvement ou la couleur d'une zone ciblée."
+    "ru": "В любом родительском контейнере можно изменить плотность, анимацию или цвет отдельной области.",
+    "fr": "Un conteneur parent peut modifier la densité, les animations ou les couleurs de la zone qu’il contient."
   },
   "tokensOverviewColorThemeValues": {
     "en": "Light and dark theme values plus semantic aliases.",
@@ -838,8 +1143,8 @@
   },
   "tokensOverviewRadiusAndBorders": {
     "en": "Radius derives from one root value; borders stay simple.",
-    "ru": "Скругление выводится из одного корневого значения; границы остаются простыми.",
-    "fr": "Les rayons dérivent d'une valeur racine unique ; les bordures restent simples."
+    "ru": "Радиусы вычисляются из одного корневого значения; границы остаются простыми.",
+    "fr": "Les rayons sont calculés à partir d’une valeur racine unique ; les bordures restent simples."
   },
   "tokensOverviewElevation": {
     "en": "Shadows, transforms, and z-index tokens for overlays.",
@@ -848,8 +1153,8 @@
   },
   "tokensOverviewOverlayDefaults": {
     "en": "Backdrop, popup, and popup-motion defaults are reused across overlay families, with local component tokens layered on top.",
-    "ru": "Значения по умолчанию для фона, всплывающих окон и их анимации используются всеми семействами оверлеев, а поверх них располагаются локальные токены компонентов.",
-    "fr": "Les valeurs par défaut d'arrière-plan, de fenêtre surgissante et de mouvement sont réutilisées par les familles de superpositions, avec des tokens locaux de composant par-dessus."
+    "ru": "Значения по умолчанию для фона, всплывающих окон и их анимации используются всеми семействами оверлеев, а отдельные компоненты могут дополнить их своими токенами.",
+    "fr": "Les valeurs par défaut de l’arrière-plan, des fenêtres contextuelles et de leurs animations sont partagées par les familles de superpositions ; chaque composant peut ensuite appliquer ses tokens locaux."
   },
   "frameworkAstroDescription": {
     "en": "Interactive React islands in Astro.",

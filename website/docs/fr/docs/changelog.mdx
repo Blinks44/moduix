@@ -13,61 +13,58 @@ import { ChangelogNewsItem } from '@/components/changelog/hero';
 <ChangelogNewsItem>
   <TableOfContentsHero />
 
-[Table of Contents](/docs/table-of-contents) aide les lecteurs à parcourir les articles longs.
-Fournissez les titres à suivre : le composant met en évidence la section visible et ses liens
-amènent le lecteur au titre correspondant.
+[Table of Contents](/docs/table-of-contents) synchronise la navigation avec la section consultée.
+Indiquez les titres à suivre : le composant met en évidence l’entrée active et relie chaque entrée
+au titre correspondant.
 
 ### À retenir
 
-- Composez l’article avec `Toc.Content` et sa zone de navigation avec `Toc.Nav` ; chaque entrée
-  suivie correspond à un ID de titre stable.
-- Ajoutez `Toc.Indicator` ou `Toc.Rail` pour rendre la hiérarchie visible, et utilisez
-  `Toc.RootProvider` lorsque des contrôles externes ont besoin du même état de suivi.
+- Construisez la zone de lecture avec `Toc.Content` et la navigation avec `Toc.Nav`. Chaque entrée
+  suivie pointe vers un ID de titre stable.
+- Utilisez `Toc.Indicator` ou `Toc.Rail` pour rendre la hiérarchie visible. Ajoutez `Toc.RootProvider`
+  uniquement lorsque des contrôles externes doivent partager l’état du sommaire.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <NavigationMenuHero />
 
 [Navigation Menu](/docs/navigation-menu) structure la navigation principale d’un site ou d’un
-produit. Utilisez des liens directs pour les destinations et des panneaux déroulants pour les liens
-associés. Ajoutez `NavigationMenu.Viewport` lorsque les panneaux doivent s’animer dans une même
-surface.
+produit. Utilisez des liens directs pour les destinations et des panneaux déroulants lorsqu’une
+destination propose des liens associés.
 
 ### À retenir
 
-- Utilisez `NavigationMenu.Link` pour les destinations directes et une paire `Trigger` / `Content`
-  pour un groupe de liens associés.
-- Ark UI gère le clavier, le focus et l’élément ouvert ; `Viewport` et `Arrow` restent facultatifs
-  lorsque plusieurs panneaux partagent une surface animée.
+- Utilisez `NavigationMenu.Link` pour les destinations directes et une paire
+  `NavigationMenu.Trigger` / `NavigationMenu.Content` pour un groupe de liens associés.
+- Ajoutez `NavigationMenu.Viewport` lorsque plusieurs panneaux doivent s’animer dans une même zone.
+  Ark UI gère le clavier, le focus et l’élément ouvert ; `Arrow` reste facultatif.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <ChartHero />
 
-[Chart](/docs/chart) ajoute à moduix des graphiques de données accessibles et composables, propulsés
-par TanStack Charts. Créez des graphiques en lignes, en aires, en barres, en anneau ou en nuage de
-points, ainsi que des cartes de chaleur, avec les composants moduix et leurs réglages par défaut pour
-la figure, la légende, l’infobulle et les animations, tout en conservant l’API de configuration de
-TanStack.
+[Chart](/docs/chart) ajoute à moduix une balise `figure` accessible autour de TanStack Charts. Définissez
+le graphique avec TanStack, puis utilisez moduix pour l’en-tête de la figure, la légende, l’infobulle
+compacte et les réglages d’animation. L’API de configuration de TanStack reste inchangée.
 
 ### À retenir
 
-- Définissez les marques, échelles, interactions et fonctions de rappel dans une définition TanStack, puis
-  composez-la avec `Chart.Header`, `Chart.Plot` et `Chart.Legend`.
-- L’infobulle et l’animation par défaut prennent en charge le clavier et la préférence de réduction
-  des mouvements ; passez `motion={false}` pour un rendu statique.
+- Définissez les marques, échelles, interactions et fonctions de rappel dans une définition TanStack,
+  puis composez-la avec `Chart.Header`, `Chart.Plot` et `Chart.Legend`.
+- TanStack continue de gérer la navigation au clavier et le cycle de vie de l’infobulle. L’animation
+  moduix respecte la préférence pour la réduction des mouvements ; passez `motion={false}` pour un rendu statique.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <LocalizationHero />
 
-La documentation française et russe est maintenant complète. Vous pouvez découvrir un composant,
-copier un exemple et suivre une recette sans changer de langue en cours de route.
+L’ensemble du site de documentation est maintenant disponible en français et en russe. Vous pouvez
+découvrir un composant, copier un exemple et suivre une recette sans changer de langue en cours de route.
 
 ### À retenir
 
-- Les guides de composants, l’installation, les références API et les recettes ont désormais leurs
-  pages correspondantes en russe et en français.
+- Les guides de composants, l’installation, les références API et les recettes sont disponibles en
+  français et en russe.
 - La navigation, les métadonnées, les routes adaptées à chaque langue et les exemples copiables
   restent alignés en anglais, en français et en russe.
 </ChangelogNewsItem>
@@ -75,24 +72,23 @@ copier un exemple et suivre une recette sans changer de langue en cours de route
 <ChangelogNewsItem>
   <V2MigrationHero />
 
-v2 est une version majeure qui introduit une nouvelle base pour le comportement et l’accessibilité des
-composants. Lorsqu’un composant dispose d’une primitive dédiée, Ark UI en fournit désormais le
-comportement ; moduix conserve son CSS natif et ses deux modes d’installation.
+v2 est une version majeure. Lorsqu’un composant dispose d’une primitive Ark UI correspondante, Ark UI
+gère son état, ses interactions et son accessibilité. moduix conserve ses CSS Modules, ses tokens de
+design et ses deux modes d’installation.
 
 ### À retenir
 
-- Les primitives Ark UI assurent désormais l’état, les interactions et l’accessibilité des composants
-  qui disposent d’une primitive dédiée.
-- La composition publique et les propriétés de bas niveau suivent les contrats Ark, tandis que moduix
-  conserve son CSS natif et ses deux modes d’installation : paquet ou copie du code source.
+- Les primitives Ark UI gèrent l’état, les interactions et l’accessibilité des composants concernés.
+- La composition publique et les propriétés de bas niveau suivent les contrats Ark. Vous pouvez
+  installer le paquet ou copier le code source dans votre application pour le gérer vous-même.
 </ChangelogNewsItem>
 
 ## Autres mises à jour
 
 ### v2.5.0 - 27 août 2026
 
-- Ajout de `Sidebar`, redimensionnable et rétractable, pour la navigation de l’application.
-- `AngleSlider` conserve désormais l’arrière-plan de sa piste au survol et à l’appui.
+- Ajout de `Sidebar`, redimensionnable et repliable, pour la navigation de l’application.
+- L’arrière-plan de la piste de `AngleSlider` reste inchangé au survol et à l’appui.
 
 ### v2.4.0 - 25 août 2026
 
@@ -101,9 +97,9 @@ comportement ; moduix conserve son CSS natif et ses deux modes d’installation.
 
 ### v2.2.4 - 10 août 2026
 
-- `DatePicker` hérite désormais de `disabled` et `invalid` depuis `Field` et `Fieldset`, ainsi que de `readOnly` et `required` depuis `Field`.
+- `DatePicker` hérite désormais des états `disabled` et `invalid` de `Field` et `Fieldset`, ainsi que des états `readOnly` et `required` de `Field`.
 - `DatePicker.Field` et `DatePicker.RangeField` conservent des index de champs stables pour que les valeurs de formulaire natives restent prévisibles.
-- Les champs de plage `DateInput` génèrent automatiquement des champs natifs indexés tout en préservant le comportement au clavier et la sémantique d’accessibilité d’Ark.
+- Les champs de plage `DateInput` génèrent automatiquement des champs natifs avec des index stables, tout en préservant le comportement au clavier et la sémantique d’accessibilité d’Ark.
 
 ### v2.2.3 - 24 juillet 2026
 
@@ -116,8 +112,8 @@ comportement ; moduix conserve son CSS natif et ses deux modes d’installation.
 
 ### v2.2.1 - 23 juillet 2026
 
-- Ajout de la variante `island` détachée de Drawer ; sa toile de fond reste visible entre les points d’ancrage.
-- Ajout d’une feuille de référence des variables Ark UI, sans code exécuté à l’exécution, pour les outils du dépôt.
+- Ajout de la variante `island` de Drawer, indépendante du flux principal ; sa toile de fond reste visible entre les points d’ancrage.
+- Ajout d’une feuille de référence des variables Ark UI pour les outils du dépôt ; elle n’est pas chargée à l’exécution.
 
 ### v2.2.0 - 22 juillet 2026
 
@@ -131,10 +127,9 @@ comportement ; moduix conserve son CSS natif et ses deux modes d’installation.
 ## Politique de versions et de support
 
 moduix suit le versionnement sémantique. Les versions majeures peuvent inclure des changements
-incompatibles, les versions mineures ajoutent des fonctionnalités rétrocompatibles et les correctifs
-apportent des corrections rétrocompatibles.
+incompatibles, les versions mineures ajoutent des fonctionnalités rétrocompatibles et les versions de
+correctif apportent des corrections rétrocompatibles.
 
 La dernière version majeure est activement prise en charge. v2 prend en charge React 18 et 19, et
-l’intégration de moduix à Ark UI reste alignée sur les versions actuelles. Pour chaque version majeure,
-cette page recense les API concernées, les étapes de migration et les implications pour le paquet ou
-le registre.
+l’intégration de moduix à Ark UI suit les versions compatibles. Pour chaque version majeure, cette page
+recense les API concernées, les étapes de migration et les implications pour le paquet ou le registre.
