@@ -1,7 +1,7 @@
 ---
 title: Tree View
 component: tree-view
-description: Доступное дерево Ark UI для иерархических папок, файлов и вложенных ресурсов.
+description: Доступное дерево на базе Ark UI для папок, файлов и любых вложенных данных.
 ---
 
 import * as TreeViewDocs from '@/components/examples/tree-view';
@@ -12,7 +12,9 @@ import * as TreeViewDocs from '@/components/examples/tree-view';
 
 ## Базовый пример
 
-Передайте результат `createTreeCollection` в `TreeView`. `TreeView.Node` убирает повторяющиеся provider и прокладку контекста из рекурсивного рендерера, сохраняя видимым полное дерево частей Ark.
+Создайте коллекцию данных с помощью `createTreeCollection`, затем передайте её в `TreeView`.
+`TreeView.Node` передаёт в рекурсивный рендерер текущие `node`, `indexPath` и `state`, поэтому можно
+вывести ветку или конечный узел без повторной настройки провайдера и контекста на каждом уровне.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/tree-view/basic.tsx"
@@ -42,32 +44,43 @@ TreeView / TreeView.Root
          └─ TreeView.ItemText
 ```
 
-| Часть | Роль |
-| --- | --- |
-| `TreeView` / `TreeView.Root` | Управляет коллекцией, выбором, раскрытием, фокусом, отметками и переименованием. |
-| `TreeView.RootProvider` | Подключает части к экземпляру `useTreeView`. |
-| `TreeView.Label` | Задаёт дереву доступное имя. |
-| `TreeView.Tree` | Контейнер ARIA-дерева. |
-| `TreeView.Node` | Удобный provider с `{ node, indexPath, state }`. |
-| `TreeView.NodeProvider` | Низкоуровневая граница контекста Ark для пользовательской композиции. |
-| `TreeView.Branch*` | Раскрываемый узел, триггер, индикатор, метка и потомки. |
-| `TreeView.Item*` | Конечный элемент дерева и необязательный индикатор выбранного состояния. |
-| `TreeView.NodeCheckbox*` | Элемент управления дерева с флажками и индикатор отмеченного или промежуточного состояния. |
-| `TreeView.NodeRenameInput` | Встроенное поле ввода, отображаемое при переименовании узла. |
+| Часть                            | Назначение                                                            |
+| -------------------------------- | --------------------------------------------------------------------- |
+| `TreeView` / `TreeView.Root`     | Хранит коллекцию и управляет раскрытием, выбором, фокусом, флажками и переименованием. |
+| `TreeView.RootProvider`          | Связывает части дерева с экземпляром, созданным через `useTreeView`. |
+| `TreeView.Label`                 | Задаёт доступное имя дерева.                                         |
+| `TreeView.Tree`                  | Создаёт контейнер дерева с ARIA-разметкой.                           |
+| `TreeView.Node`                  | Упрощённый провайдер с `{ node, indexPath, state }`.                 |
+| `TreeView.NodeProvider`          | Низкоуровневая граница контекста Ark для нестандартной композиции.   |
+| `TreeView.Branch*`               | Раскрываемый узел, его элемент управления, индикатор, текст и содержимое. |
+| `TreeView.Item*`                 | Конечный узел и необязательный индикатор выбранного состояния.       |
+| `TreeView.NodeCheckbox*`         | Флажок и индикатор отмеченного или частично отмеченного состояния.   |
+| `TreeView.NodeRenameInput`       | Поле ввода, которое появляется при переименовании узла.              |
 
 ## Композиция
 
-### Рекомендуемый путь
+### Рекомендуемая композиция
 
-Используйте `TreeView.Node` для обычных рекурсивных рендереров. Его колбэк рендеринга получает текущие `node`, `indexPath` и состояние узла Ark `state`, поэтому может выбирать разметку ветви или элемента без отдельного компонента контекста. `NodeProvider` остаётся доступным, когда пользовательскому дереву компонентов нужен прямой контроль.
+Для обычного рекурсивного рендерера используйте `TreeView.Node`. Его дочерняя функция получает
+текущие `node`, `indexPath` и состояние узла Ark, а затем возвращает разметку ветки или конечного
+узла. Структура частей остаётся явной, но не приходится заново подключать контекст.
 
-### Выделенный триггер раскрытия
+### Когда нужен NodeProvider
 
-По умолчанию `BranchControl` раскрывает всю строку. При рендеринге отдельного `BranchTrigger` установите `role="none"` у `BranchControl`, чтобы триггер не был вложен в другой интерактивный элемент дерева.
+Используйте `TreeView.NodeProvider`, если вашему рекурсивному компоненту нужен прямой доступ к
+контексту узла. Это низкоуровневая альтернатива `TreeView.Node`, а не дополнительная обёртка вокруг него.
 
-### Ссылки и другие семантические конечные элементы
+### Строка ветки и отдельная кнопка
 
-Используйте `asChild` у `TreeView.Item` для одного семантического потомка, например ссылки. Заменяющий элемент должен принимать свойства Ark и сохранять поведение клавиатуры и фокуса.
+По умолчанию `BranchControl` раскрывает или сворачивает ветку при клике по всей строке. Если нужна
+отдельная кнопка `BranchTrigger`, задайте для `BranchControl` `role="none"`, чтобы не вкладывать один
+интерактивный элемент дерева в другой.
+
+### Конечные элементы в виде ссылок
+
+Используйте `asChild` у `TreeView.Item`, когда конечный узел должен состоять из одного семантического
+элемента, например ссылки. Этот элемент должен принимать props Ark, чтобы не нарушить фокус и
+клавиатурное управление.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/tree-view/links.tsx"
@@ -75,23 +88,35 @@ TreeView / TreeView.Root
   ```
 </PreviewFrame>
 
-### Состояние и поведение клавиатуры
+### Состояние и клавиатурная навигация
 
-Ark управляет паттерном дерева WAI-ARIA: перемещающимся фокусом, навигацией стрелками, Home/End, поиском по вводу, выбором, отметками, отключёнными узлами, асинхронной загрузкой и клавишами переименования. Управляйте `expandedValue`, `selectedValue`, `checkedValue` и `focusedValue` через их колбэки с объектом `details` Ark.
+Ark UI реализует паттерн дерева WAI-ARIA. Пользователь перемещается по нему стрелками, клавишами Home
+и End и поиском по мере ввода, поэтому вручную управлять фокусом обычно не нужно. Передавайте
+`expandedValue`, `selectedValue`, `checkedValue` или `focusedValue` только если это состояние должно
+храниться в вашем приложении, и добавляйте соответствующий callback.
 
-| Свойство | По умолчанию | Примечания |
-| --- | --- | --- |
-| `selectionMode` | `"single"` | Используйте `"multiple"` для выбора диапазона и выбора с клавишами-модификаторами. |
-| `expandOnClick` | `true` | Нажатие на строку ветви раскрывает или сворачивает её. |
-| `typeahead` | `true` | Использует `nodeToString` из коллекции. |
-| `lazyMount` | `false` | Откладывает рендеринг содержимого ветви до её первого раскрытия. |
-| `unmountOnExit` | `false` | Удаляет закрытое содержимое после жизненного цикла закрытия. |
+| Prop            | По умолчанию | Что делает                                                     |
+| --------------- | ------------ | -------------------------------------------------------------- |
+| `selectionMode` | `"single"`   | Выберите `"multiple"` для выбора с модификаторами и диапазонами. |
+| `expandOnClick` | `true`       | Клик по строке ветки раскрывает или сворачивает её.           |
+| `typeahead`     | `true`       | Ищет по тексту, который возвращает `nodeToString` коллекции.  |
+| `lazyMount`     | `false`      | Создаёт содержимое ветки только при её первом раскрытии.      |
+| `unmountOnExit` | `false`      | Удаляет закрытое содержимое после завершения анимации.        |
+
+### Переименование и большие деревья
+
+Чтобы разрешить переименование, передайте `canRename`, выводите `NodeRenameInput`, пока
+`state.renaming` равно `true`, и обновляйте коллекцию в `onRenameComplete`. Для виртуализированного
+дерева создайте состояние через `useTreeView`, подключите его с помощью `RootProvider`, отрисовывайте
+плоский результат `getVisibleNodes()` и передайте `scrollToIndexFn`, чтобы клавиатурная навигация
+прокручивала список до нужного узла. Moduix не добавляет отдельный API для виртуализации.
 
 ## Примеры
 
 ### Асинхронная загрузка
 
-Ветви с `childrenCount` могут загружать потомков через `loadChildren`. Замените коллекцию на `details.collection` после `onLoadChildrenComplete`.
+Если у ветки известен `childrenCount`, загрузите её дочерние узлы через `loadChildren`. В
+`onLoadChildrenComplete` замените коллекцию в состоянии приложения значением `details.collection`.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/tree-view/async-loading.tsx"
@@ -101,7 +126,8 @@ Ark управляет паттерном дерева WAI-ARIA: перемещ�
 
 ### Дерево с флажками
 
-Размещайте `NodeCheckbox` и в элементах управления ветвями, и в конечных элементах. Индикатор по умолчанию уже рендерит значки отмеченного и промежуточного состояния.
+Разместите `NodeCheckbox` и в элементах управления ветками, и в конечных узлах. Индикатор по
+умолчанию уже отображает отмеченное и частично отмеченное состояния.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/tree-view/checkboxes.tsx"
@@ -111,7 +137,8 @@ Ark управляет паттерном дерева WAI-ARIA: перемещ�
 
 ### Значки файлов
 
-Размещайте декоративные значки файлов и папок внутри `BranchText` и `ItemText`. `BranchIndicator` остаётся отдельным, поэтому продолжает быть единственным элементом для раскрытия и сворачивания.
+Помещайте декоративные значки файлов и папок внутрь `BranchText` и `ItemText`. Оставьте
+`BranchIndicator` отдельным элементом, чтобы он по-прежнему отвечал только за раскрытие и сворачивание.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/tree-view/file-icons.tsx"
@@ -121,7 +148,8 @@ Ark управляет паттерном дерева WAI-ARIA: перемещ�
 
 ### Множественный выбор
 
-Установите `selectionMode="multiple"`. Используйте Ctrl/⌘, чтобы добавить или убрать отдельные элементы, и Shift, чтобы расширить диапазон выбора; состоянием по-прежнему управляет потребитель.
+Задайте `selectionMode="multiple"`. Используйте Ctrl или ⌘, чтобы добавлять и убирать отдельные
+элементы, и Shift, чтобы расширять диапазон выбора. В примере выбранные значения хранятся в состоянии приложения.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/tree-view/controlled-selection.tsx"
@@ -129,13 +157,11 @@ Ark управляет паттерном дерева WAI-ARIA: перемещ�
   ```
 </PreviewFrame>
 
-### Переименование и виртуализация
+### Root provider
 
-Включите встроенное переименование через `canRename`, рендерите `NodeRenameInput`, пока `state.renaming` равно true, и обновляйте коллекцию в `onRenameComplete`. Для больших деревьев используйте `RootProvider`, `getVisibleNodes()` и `scrollToIndexFn` вместе с виртуализатором; moduix не добавляет конкурирующий API виртуализации.
-
-### Root Provider
-
-Создавайте состояние за пределами отрендеренного дерева с помощью `useTreeView`, когда элементам управления в другом месте нужны методы, такие как `expand()` и `collapse()`. В предпросмотре оба элемента управления и обратная связь остаются выровненными по центру в `PreviewMeta`.
+Создайте состояние дерева через `useTreeView`, если кнопкам и другим элементам вне дерева нужны методы
+вроде `expand()` или `collapse()`. Передайте это состояние в `RootProvider` вместо того, чтобы
+рендерить второй `TreeView.Root`.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/tree-view/root-provider.tsx"
@@ -145,7 +171,12 @@ Ark управляет паттерном дерева WAI-ARIA: перемещ�
 
 ## Стилизация
 
-Используйте `className` в экспортируемых частях для структурной стилизации. Части ветви предоставляют `data-state="open|closed"`, части с флажком - `data-state="checked|unchecked|indeterminate"`, а части узла - `data-focus`, `data-selected`, `data-disabled`, `data-loading`, `data-renaming`, `data-depth`, `data-path` и `data-value`. Обёртка учитывает переменные отступа Ark `--depth` и измерения сворачивания `--height`, а также отключает анимацию ветвей при настройке предпочтения уменьшенного движения.
+Используйте `className` у любой экспортируемой части для структурной стилизации. Части веток имеют
+`data-state="open|closed"`, части флажков имеют
+`data-state="checked|unchecked|indeterminate"`, а части узлов имеют `data-focus`,
+`data-selected`, `data-disabled`, `data-loading`, `data-renaming`, `data-depth`, `data-path` и
+`data-value`. Обёртка использует переменные Ark `--depth` для отступов и `--height` для высоты при
+сворачивании, а также отключает анимацию веток при предпочтении уменьшенного движения.
 
 <div className="docs-reference">
   <Tabs
@@ -159,7 +190,12 @@ Ark управляет паттерном дерева WAI-ARIA: перемещ�
   </Tabs>
 </div>
 
-### Хуки стилизации
+### Точки для стилизации
 
-- `data-slot="tree-view-root"`, `tree-view-root-provider`, `tree-view-label`, `tree-view-tree`, `tree-view-branch`, `tree-view-branch-control`, `tree-view-branch-trigger`, `tree-view-branch-indicator`, `tree-view-branch-text`, `tree-view-branch-content`, `tree-view-branch-indent-guide`, `tree-view-item`, `tree-view-item-text`, `tree-view-item-indicator`, `tree-view-node-checkbox`, `tree-view-node-checkbox-indicator` и `tree-view-node-rename-input`.
-- Вся визуальная настройка доступна через документированные переменные `--moduix-tree-view-*`.
+- `data-slot="tree-view-root"`, `tree-view-root-provider`, `tree-view-label`, `tree-view-tree`,
+  `tree-view-branch`, `tree-view-branch-control`, `tree-view-branch-trigger`,
+  `tree-view-branch-indicator`, `tree-view-branch-text`, `tree-view-branch-content`,
+  `tree-view-branch-indent-guide`, `tree-view-item`, `tree-view-item-text`,
+  `tree-view-item-indicator`, `tree-view-node-checkbox`, `tree-view-node-checkbox-indicator` и
+  `tree-view-node-rename-input`.
+- Для визуальной настройки используйте документированные переменные `--moduix-tree-view-*`.

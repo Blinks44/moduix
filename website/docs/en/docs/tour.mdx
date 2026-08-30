@@ -1,7 +1,7 @@
 ---
 title: Tour
 component: tour
-description: A guided product walkthrough with Ark UI tour state, accessible overlay parts, and styled actions.
+description: Build guided product walkthroughs with Ark UI tour state, accessible overlay parts, and ready-made actions.
 ---
 
 import { TourCssPropertiesPanel } from '@/components/examples/tour';
@@ -12,8 +12,10 @@ import { TourCssPropertiesPanel } from '@/components/examples/tour';
 
 ## Basic
 
-Create state with `useTour`, pass it to `Tour`, and keep the overlay parts explicit. `Tour.Body`
-keeps long step content scrollable without clipping the popup or action row.
+Create tour state with `useTour`, define its steps, and pass the returned object to `Tour`. This
+example starts with a dialog, moves to a tooltip anchored to a page control, and finishes with a
+floating step. Keep the parts in JSX so each one can be adjusted when needed. `Tour.Body` keeps
+long copy scrollable inside the panel.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/tour/basic.tsx"
@@ -48,58 +50,63 @@ Tour
 
 | Part | Role |
 | --- | --- |
-| `Tour` | Root bound to the `UseTourReturn` object. `Tour.Root` remains an alias. |
-| `Tour.Backdrop` / `Tour.Spotlight` | Optional overlay and current-target highlight. |
-| `Tour.Positioner` / `Tour.Content` | Positions and renders the Ark `alertdialog` surface. |
-| `Tour.Arrow` | Renders the moduix `ArrowTip` by default for tooltip steps. |
-| `Tour.CloseIcon` | Accessible icon-only dismiss helper; use `CloseTrigger` for custom markup. |
-| `Tour.Body` | moduix scrollable content wrapper for title, description, and progress. |
-| `Tour.Control` / `Tour.ActionList` | Recommended action row and direct mapping from the current step actions. |
-| `Tour.Actions` / `Tour.ActionTrigger` | Ark-shaped render-prop escape hatch for custom action UI. |
+| `Tour` | Root bound to a `UseTourReturn` object. `Tour.Root` is an alias. |
+| `Tour.Backdrop` / `Tour.Spotlight` | Optional page overlay and highlight for the current target. |
+| `Tour.Positioner` / `Tour.Content` | Position and render Ark's `alertdialog` surface. |
+| `Tour.Arrow` | Renders moduix's `ArrowTip` by default for tooltip steps. |
+| `Tour.CloseIcon` | Accessible icon-only dismiss control. Use `CloseTrigger` for custom markup. |
+| `Tour.Body` | Scrollable moduix wrapper for the title, description, and progress text. |
+| `Tour.Control` / `Tour.ActionList` | Recommended action row and the actions from the current step. |
+| `Tour.Actions` / `Tour.ActionTrigger` | Custom action UI while preserving each Ark action object. |
 
 ## Composition
 
-`Tour` portals `Backdrop`, `Spotlight`, and `Positioner` automatically. Set `portalled={false}`
-only when an inline overlay is required, or pass `portalRef` for a custom container. The structural
-parts remain explicit and independently styleable.
+### Recommended composition
 
-### Accessible content
+`Tour` automatically portals `Backdrop`, `Spotlight`, and `Positioner`. Set `portalled={false}`
+only when the overlay must remain inline, or pass `portalRef` to render it in a specific container.
+Keep the structural parts explicit. Add `Tour.ActionList` when the actions declared in `steps` suit
+your interface; it renders the current step's actions for you.
 
-Render `Tour.Title` for the alert dialog's accessible name and `Tour.Description` for its
-description. Ark owns focus movement, focus return, Escape, outside interaction, and Left/Right
-navigation; keep `keyboardNavigation` enabled unless the step deliberately owns those keys. In RTL,
-Ark reverses Left and Right navigation.
+### When to go custom
 
-### State and custom actions
-
-`useTour` owns `steps`, `stepId`, `onStepChange`, `onStepsChange`, and `onStatusChange`. Use the
-moduix-exported `useTourContext` or `Tour.Context` inside the tree when custom UI needs the active
-step or navigation methods. `Tour.ActionList` is the concise default; use `Tour.Actions` only when
-the action UI itself must vary.
+Use `Tour.Actions` and `Tour.ActionTrigger` when an action needs custom markup. They keep Ark's
+navigation, dismissal, and disabled behavior while letting you render your own controls. Pass
+`onStepChange`, `onStepsChange`, or `onStatusChange` to `useTour` when surrounding UI or analytics
+need to react to the tour. Inside the tree, use the moduix exports `useTourContext` or
+`Tour.Context` to access the active step and navigation methods.
 
 ### Default props
 
-The portalled overlay content lazily mounts and unmounts after its exit animation by default. Set
-`unmountOnExit={false}` to retain it after first open; set both lifecycle props to `false` only when
-eager initial rendering is needed.
+The portalled overlay mounts when the tour first opens and unmounts after its exit animation by
+default. Set `unmountOnExit={false}` to keep it mounted after the first open. Set both lifecycle
+props to `false` only when the overlay must render eagerly.
 
 | Prop | Default | Notes |
 | --- | --- | --- |
 | `closeOnEscape` | `true` | Escape dismisses the tour. |
-| `closeOnInteractOutside` | `true` | Outside interaction dismisses unless disabled. |
+| `closeOnInteractOutside` | `true` | Interaction outside the tour dismisses it unless disabled. |
 | `keyboardNavigation` | `true` | Left and Right navigate available steps. |
-| `preventInteraction` | `false` | Set to `true` to block page interaction while open. |
-| `spotlightOffset` | `{ x: 10, y: 10 }` | Expands the highlighted target region. |
-| `spotlightRadius` | `4` | Sets the spotlight clip-path corner radius. |
-| `lazyMount` | `true` | Defers the tour overlay until it first opens. |
-| `unmountOnExit` | `true` | Unmounts after the closing animation. |
+| `preventInteraction` | `false` | Set to `true` to block page interaction while the tour is open. |
+| `spotlightOffset` | `{ x: 10, y: 10 }` | Expands the highlighted area around the target. |
+| `spotlightRadius` | `4` | Rounds the corners of the spotlight. |
+| `lazyMount` | `true` | Defers rendering the overlay until the first open. |
+| `unmountOnExit` | `true` | Unmounts the overlay after the closing animation. |
+
+### Behavioral notes
+
+`Tour.Title` gives the alert dialog its accessible name, and `Tour.Description` supplies its
+description. Ark manages focus on open and close, Escape, outside interaction, and Left/Right
+navigation. Leave `keyboardNavigation` enabled unless a step intentionally uses those keys. In
+right-to-left layouts, Ark reverses Left and Right navigation.
 
 ## Examples
 
 ### Events
 
-Use Ark's callback detail objects for analytics or UI outside the tour. Start the tour, choose Next,
-then Done: the centered `PreviewMeta` reports the step and final status callbacks.
+Use the detail objects from Ark callbacks to update surrounding UI or record analytics. Start the
+tour, choose Next, then Done. The `PreviewMeta` in this example shows both the step and final-status
+callbacks.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/tour/events.tsx"
@@ -109,10 +116,9 @@ then Done: the centered `PreviewMeta` reports the step and final status callback
 
 ### Wait for input
 
-Use the `Input` change event with the tour state object when a valid value should advance the flow.
-Enter two characters to move from the tooltip to the confirmation step. For asynchronous conditions,
-`waitForElement`, `waitForElementValue`, `waitForEvent`, and `waitForPromise` are exported from
-`@moduix/react/tour`.
+This example calls `tour.next()` from the input handler after the value reaches two characters.
+For steps that depend on an asynchronous condition, `waitForElement`, `waitForElementValue`,
+`waitForEvent`, and `waitForPromise` are also exported from `@moduix/react/tour`.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/tour/wait-for-input.tsx"
@@ -122,8 +128,8 @@ Enter two characters to move from the tooltip to the confirmation step. For asyn
 
 ### With Arrow
 
-Add `Tour.Arrow` to a tooltip step when it needs a visual connection to its target. Enable the
-step's `arrow` option so Ark positions the arrow.
+Add `Tour.Arrow` to a tooltip step when it needs a visual connection to its target, and enable the
+step's `arrow` option so Ark can position it.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/tour/with-arrow.tsx"
@@ -131,11 +137,11 @@ step's `arrow` option so Ark positions the arrow.
 ```
 </PreviewFrame>
 
-### Custom actions
+### Advanced customization
 
-Bypass `Tour.ActionList` when each action needs custom markup. Continue, Back, and Skip tour are
-custom `Button` children, but each receives the original Ark action object through
-`Tour.ActionTrigger`, preserving navigation, dismissal, and disabled state.
+Replace `Tour.ActionList` when each action needs its own markup. The example uses custom `Button`
+children for Continue, Back, and Skip tour. Each `Tour.ActionTrigger` still receives the original
+Ark action object, so navigation, dismissal, and disabled state continue to work.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/tour/advanced-customization.tsx"
@@ -164,8 +170,9 @@ custom `Button` children, but each receives the original Ark action object throu
 ### Styling hooks
 
 Use moduix `data-slot` hooks such as `tour-content`, `tour-body`, and `tour-action-trigger` for
-local styling. Ark exposes `data-scope="tour"`, `data-part`, `data-state`, `data-type`,
-`data-placement`, `data-side`, `data-step`, and `data-disabled`; its runtime variables include
-`--tour-layer`, `--tour-z-index`, `--available-width`, `--available-height`, `--transform-origin`, and the arrow
-variables. Pass `className` to `Tour.ActionList` to style every generated trigger. Tour shortens
-overlay presence animations and removes action-button transitions when the user prefers reduced motion.
+local styling. Ark also provides `data-scope="tour"`, `data-part`, `data-state`, `data-type`,
+`data-placement`, `data-side`, `data-step`, and `data-disabled`, plus runtime variables including
+`--tour-layer`, `--tour-z-index`, `--available-width`, `--available-height`, `--transform-origin`,
+and the arrow variables. Pass `className` to `Tour.ActionList` to style every generated trigger.
+The stylesheet shortens overlay animations and removes action-button transitions for people who
+prefer reduced motion.
