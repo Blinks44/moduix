@@ -2,6 +2,7 @@ import type { JSX } from 'solid-js';
 import { createSignal, Show } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import { Alert } from '@/components/alert/Alert';
+import { Button } from '@/components/button/Button';
 import styles from './Alert.stories.module.css';
 
 function CheckIcon(props: JSX.SvgSVGAttributes<SVGSVGElement>) {
@@ -72,10 +73,10 @@ function DismissibleCustomAlert() {
             You are using 92% of the available storage. Archive old uploads or upgrade the plan.
           </Alert.Description>
           <Alert.Actions>
-            <button type="button">Review uploads</button>
-            <button type="button" onClick={() => setVisible(false)}>
+            <Button size="sm">Review uploads</Button>
+            <Button size="sm" variant="outline" onClick={() => setVisible(false)}>
               Dismiss
-            </button>
+            </Button>
           </Alert.Actions>
         </Alert.Content>
       </Alert>

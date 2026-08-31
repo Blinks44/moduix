@@ -23,6 +23,14 @@
       "types": "./dist/components/alert/index.d.ts",
       "import": "./dist/components/alert/index.js"
     },
+    "./button": {
+      "types": "./dist/components/button/index.d.ts",
+      "import": "./dist/components/button/index.js"
+    },
+    "./spinner": {
+      "types": "./dist/components/spinner/index.d.ts",
+      "import": "./dist/components/spinner/index.js"
+    },
     "./text": {
       "types": "./dist/components/text/index.d.ts",
       "import": "./dist/components/text/index.js"
