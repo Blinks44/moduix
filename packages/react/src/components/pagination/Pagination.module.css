@@ -49,8 +49,7 @@
       }
     }
 
-    &:focus-visible,
-    &[data-focus] {
+    &:focus-visible {
       outline: var(
           --moduix-pagination-focus-ring-width,
           var(--moduix-focus-ring-width, var(--moduix-border-width-md))

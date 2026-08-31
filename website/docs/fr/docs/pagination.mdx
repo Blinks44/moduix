@@ -82,7 +82,7 @@ peut lire ce même état via `Pagination.usePaginationContext()`. Définissez `t
 
 | Propriété         | Valeur par défaut | Remarques                                                        |
 | ----------------- | ----------------- | ---------------------------------------------------------------- |
-| `aria-label`      | `Pagination`      | Libellé par défaut de la zone de navigation dans moduix.                  |
+| `aria-label`      | `pagination` | Libellé Ark de la zone de navigation ; définissez `translations.rootLabel` pour le localiser. |
 | `defaultPage`     | `1`               | Page active initiale lorsque le composant gère son état.                  |
 | `defaultPageSize` | `10`              | Nombre initial d’éléments par page lorsque le composant gère son état.    |
 | `siblingCount`    | `1`               | Nombre de pages affichées de part et d’autre de la page active.           |
@@ -96,7 +96,7 @@ contrôler depuis votre application, passez `page`, `pageSize`, `onPageChange(de
 `onPageSizeChange(details)`. Les fonctions de rappel reçoivent les objets `details` d’Ark : lisez
 `details.page` et `details.pageSize` directement. Le composant moduix conserve la navigation au clavier, la
 sémantique de l’élément sélectionné, l’état désactivé des contrôles, `ids`, `asChild`, les traductions
-et la génération des URL.
+et la génération des URL. Avec `asChild`, fournissez un seul enfant sémantique, tel qu’une ancre.
 
 ## Exemples
 

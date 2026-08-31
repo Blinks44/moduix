@@ -13,12 +13,11 @@ import styles from './Pagination.module.css';
 const PaginationRoot = forwardRef<
   ComponentRef<typeof PaginationPrimitive.Root>,
   ComponentProps<typeof PaginationPrimitive.Root>
->(function PaginationRoot({ 'aria-label': ariaLabel = 'Pagination', className, ...props }, ref) {
+>(function PaginationRoot({ className, ...props }, ref) {
   return (
     <PaginationPrimitive.Root
       ref={ref}
       data-slot="pagination-root"
-      aria-label={ariaLabel}
       className={clsx(styles.root, normalizeClassName(className))}
       {...props}
     />
@@ -28,15 +27,11 @@ const PaginationRoot = forwardRef<
 const PaginationRootProvider = forwardRef<
   ComponentRef<typeof PaginationPrimitive.RootProvider>,
   ComponentProps<typeof PaginationPrimitive.RootProvider>
->(function PaginationRootProvider(
-  { 'aria-label': ariaLabel = 'Pagination', className, ...props },
-  ref,
-) {
+>(function PaginationRootProvider({ className, ...props }, ref) {
   return (
     <PaginationPrimitive.RootProvider
       ref={ref}
       data-slot="pagination-root-provider"
-      aria-label={ariaLabel}
       className={clsx(styles.root, normalizeClassName(className))}
       {...props}
     />
@@ -68,7 +63,7 @@ const PaginationEllipsis = forwardRef<
       className={clsx(styles.ellipsis, normalizeClassName(className))}
       {...props}
     >
-      {children ?? '...'}
+      {children ?? (!props.asChild && '...')}
     </PaginationPrimitive.Ellipsis>
   );
 });
@@ -99,7 +94,7 @@ const PaginationPrevTrigger = forwardRef<
       )}
       {...props}
     >
-      {children ?? <ChevronLeftIcon />}
+      {children ?? (!props.asChild && <ChevronLeftIcon />)}
     </PaginationPrimitive.PrevTrigger>
   );
 });
@@ -119,7 +114,7 @@ const PaginationNextTrigger = forwardRef<
       )}
       {...props}
     >
-      {children ?? <ChevronRightIcon />}
+      {children ?? (!props.asChild && <ChevronRightIcon />)}
     </PaginationPrimitive.NextTrigger>
   );
 });
@@ -139,7 +134,7 @@ const PaginationFirstTrigger = forwardRef<
       )}
       {...props}
     >
-      {children ?? <EdgeIcon side="left" />}
+      {children ?? (!props.asChild && <EdgeIcon side="left" />)}
     </PaginationPrimitive.FirstTrigger>
   );
 });
@@ -159,7 +154,7 @@ const PaginationLastTrigger = forwardRef<
       )}
       {...props}
     >
-      {children ?? <EdgeIcon side="right" />}
+      {children ?? (!props.asChild && <EdgeIcon side="right" />)}
     </PaginationPrimitive.LastTrigger>
   );
 });

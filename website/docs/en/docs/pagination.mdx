@@ -82,7 +82,7 @@ changes should use navigational links.
 
 | Prop              | Default      | Notes                                                       |
 | ----------------- | ------------ | ----------------------------------------------------------- |
-| `aria-label`      | `Pagination` | moduix root default for the navigation landmark.            |
+| `aria-label`      | `pagination` | Ark navigation landmark label; set `translations.rootLabel` to localize it. |
 | `defaultPage`     | `1`          | Ark initial active page when uncontrolled.                  |
 | `defaultPageSize` | `10`         | Ark initial items per page when uncontrolled.               |
 | `siblingCount`    | `1`          | Ark pages shown beside the active page.                     |
@@ -95,7 +95,8 @@ Use `defaultPage` and `defaultPageSize` when the component should manage its own
 the state from your application, pass `page`, `pageSize`, `onPageChange(details)`, and
 `onPageSizeChange(details)`. The callbacks receive Ark detail objects, so read `details.page` and
 `details.pageSize` directly. The wrapper keeps Ark's keyboard behavior, selected-item semantics,
-disabled state, `ids`, `asChild`, translations, and link URL generation.
+disabled state, `ids`, `asChild`, translations, and link URL generation. When using `asChild`, pass
+one semantic child, such as an anchor.
 
 ## Examples
 

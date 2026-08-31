@@ -22,7 +22,7 @@ test('preserves Ark navigation semantics, refs, and default trigger boundaries',
     </Pagination>,
   );
 
-  expect(screen.getByRole('navigation', { name: 'Pagination' })).toHaveAttribute(
+  expect(screen.getByRole('navigation', { name: 'pagination' })).toHaveAttribute(
     'data-slot',
     'pagination-root',
   );
@@ -42,6 +42,16 @@ test('preserves Ark navigation semantics, refs, and default trigger boundaries',
     'pagination-item',
   );
   expect(screen.getByRole('button', { name: /page 1/i })).toHaveAttribute('data-selected');
+});
+
+test('uses Ark translations for the navigation landmark label', () => {
+  render(
+    <Pagination count={20} pageSize={10} translations={{ rootLabel: 'Page navigation' }}>
+      <PageItems />
+    </Pagination>,
+  );
+
+  expect(screen.getByRole('navigation', { name: 'Page navigation' })).toBeInTheDocument();
 });
 
 test('renders a long range with ellipses and keeps edge trigger boundaries in sync', async () => {
