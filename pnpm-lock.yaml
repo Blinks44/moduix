@@ -208,6 +208,9 @@ importers:
 
   playgrounds/solid:
     devDependencies:
+      '@ark-ui/solid':
+        specifier: ^5.39.1
+        version: 5.39.1(solid-js@1.9.15)
       '@types/node':
         specifier: ^24.13.3
         version: 24.13.3

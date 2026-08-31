@@ -1,0 +1,17 @@
+# Input (Solid)
+
+`Input` is the native Solid wrapper around Ark UI's `Field.Input`. It preserves the React
+component's visual sizes, `htmlSize`, data hooks, native input props, field state, and
+`Input.Root` namespace alias.
+
+## Solid composition
+
+Solid Ark components use a render-function `asChild` prop:
+
+```tsx
+<Input asChild={(props) => <input {...props()} name="repository" placeholder="owner/project" />} />
+```
+
+The installed Ark Solid factory removes `ref` from the props passed to an `asChild` render
+function. The ordinary ref path and the `asChild` path are therefore supported independently,
+matching the native Solid primitive behavior.
