@@ -129,6 +129,9 @@ importers:
 
   packages/solid:
     dependencies:
+      '@zag-js/solid':
+        specifier: 1.43.3
+        version: 1.43.3(solid-js@1.9.15)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -178,6 +181,9 @@ importers:
 
   playgrounds/react:
     devDependencies:
+      '@ark-ui/react':
+        specifier: ^5.39.0
+        version: 5.39.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@storybook/react-vite':
         specifier: ^10.5.10
         version: 10.5.10(@types/react-dom@19.2.5(@types/react@19.2.18))(@types/react@19.2.18)(esbuild@0.28.2)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rollup@4.63.1)(storybook@10.5.10(@types/react@19.2.18)(prettier@2.8.8)(react@19.2.8))(supports-color@10.2.2)(typescript@6.0.3)(vite@7.3.6(@types/node@24.13.3)(terser@5.50.0)(yaml@2.9.0))(webpack@5.109.2(clean-css@5.3.3)(esbuild@0.28.2)(html-minifier-terser@7.2.0)(postcss@8.5.26))

@@ -1,6 +1,6 @@
-import { Field } from '@ark-ui/solid/field';
 import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
+import { Field } from '@/components/field';
 import { Input } from '@/components/input/Input';
 import storyStyles from './Input.stories.module.css';
 
@@ -18,11 +18,11 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   render: () => (
-    <Field.Root class={storyStyles.field}>
+    <Field class={storyStyles.field}>
       <Field.Label>Name</Field.Label>
       <Field.HelperText>Used in your public workspace profile.</Field.HelperText>
       <Input placeholder="Enter your name" />
-    </Field.Root>
+    </Field>
   ),
 };
 
@@ -31,14 +31,14 @@ export const Controlled: Story = {
     const [value, setValue] = createSignal('');
 
     return (
-      <Field.Root class={storyStyles.field}>
+      <Field class={storyStyles.field}>
         <Field.Label>Username</Field.Label>
         <Input
           value={value()}
           onChange={(event) => setValue(event.currentTarget.value)}
           placeholder="Type to control value"
         />
-      </Field.Root>
+      </Field>
     );
   },
 };
@@ -57,7 +57,7 @@ export const Sizes: Story = {
 
 export const NativeAttributes: Story = {
   render: () => (
-    <Field.Root class={storyStyles.field}>
+    <Field class={storyStyles.field}>
       <Field.Label>Security code</Field.Label>
       <Input
         htmlSize={8}
@@ -68,28 +68,28 @@ export const NativeAttributes: Story = {
         type="text"
         autocomplete="one-time-code"
       />
-    </Field.Root>
+    </Field>
   ),
 };
 
 export const File: Story = {
   render: () => (
-    <Field.Root class={storyStyles.field}>
+    <Field class={storyStyles.field}>
       <Field.Label>Attachment</Field.Label>
       <Input accept=".pdf,.png" type="file" />
       <Field.HelperText>Choose a PDF or PNG file.</Field.HelperText>
-    </Field.Root>
+    </Field>
   ),
 };
 
 export const AsChild: Story = {
   render: () => (
-    <Field.Root class={storyStyles.field}>
+    <Field class={storyStyles.field}>
       <Field.Label>Repository</Field.Label>
       <Input
         asChild={(props) => <input {...props()} name="repository" placeholder="owner/project" />}
       />
-    </Field.Root>
+    </Field>
   ),
 };
 
@@ -104,19 +104,19 @@ export const DisabledAndReadOnly: Story = {
 
 export const WithFieldValidation: Story = {
   render: () => (
-    <Field.Root class={storyStyles.field} invalid>
+    <Field class={storyStyles.field} invalid>
       <Field.Label>Email</Field.Label>
       <Input type="email" placeholder="name@example.com" />
       <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
-    </Field.Root>
+    </Field>
   ),
 };
 
 export const CustomStyles: Story = {
   render: () => (
-    <Field.Root class={storyStyles.field}>
+    <Field class={storyStyles.field}>
       <Field.Label>Project key</Field.Label>
       <Input placeholder="MAPS" class={storyStyles.customInput} />
-    </Field.Root>
+    </Field>
   ),
 };
