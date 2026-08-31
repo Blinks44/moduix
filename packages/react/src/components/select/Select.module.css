@@ -154,15 +154,7 @@
   }
 
   .control:has(.clearTrigger:not([hidden])) .trigger {
-    padding-inline-end: var(
-      --moduix-select-trigger-padding-x-end,
-      calc(
-        var(--moduix-select-action-offset-right, var(--moduix-spacing-2)) +
-          (var(--moduix-select-action-size, var(--moduix-size-xs)) * 2) +
-          var(--moduix-select-action-gap, var(--moduix-spacing-0-5)) +
-          var(--moduix-select-trigger-padding-x-start, var(--moduix-spacing-3-5))
-      )
-    );
+    padding-inline-end: var(--moduix-select-trigger-padding-x-end, 4.25rem);
   }
 
   .valueText {
