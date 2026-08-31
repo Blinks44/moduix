@@ -19,6 +19,10 @@
       "types": "./dist/components/accordion/index.d.ts",
       "import": "./dist/components/accordion/index.js"
     },
+    "./alert": {
+      "types": "./dist/components/alert/index.d.ts",
+      "import": "./dist/components/alert/index.js"
+    },
     "./text": {
       "types": "./dist/components/text/index.d.ts",
       "import": "./dist/components/text/index.js"

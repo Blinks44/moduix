@@ -76,6 +76,12 @@ while keeping the same names and meaning as the React package.
 Use `ark` and `HTMLArkProps` from `@ark-ui/solid/factory`. Keep the same default semantic host,
 supported host choices, `asChild` behavior, data hooks, variants, and CSS-variable fallbacks.
 
+Verify the installed Ark Solid factory's `asChild` and `ref` behavior before claiming parity. When
+Ark Solid does not forward a `ref` through `asChild`, preserve that native limitation: do not wrap,
+reinject, or compose the ref yourself. Test ordinary refs and `asChild` composition independently,
+and record the framework-specific difference with the component. Do not weaken either supported
+path merely to make their unsupported combination appear to work.
+
 When the React component selects among several `ark.*` elements, preserve that explicit host map
 unless the Solid API provides a smaller equally typed form. Do not add polymorphic helper layers for
 a single component.
@@ -148,6 +154,8 @@ A port is complete only when:
 - existing React behavior tests have Solid equivalents and pass;
 - the React and Solid playgrounds contain the same component scenarios and demo styling;
 - DOM anatomy, accessibility, states, callback details, refs, and composition are equivalent;
+- any unavoidable Ark Solid factory difference, including unsupported `ref` with `asChild`, is
+  documented and tested as separate native paths;
 - CSS Modules are identical unless a necessary difference is documented;
 - the Solid package build and declaration output succeed;
 - required repository formatting, lint, and type checks pass.
