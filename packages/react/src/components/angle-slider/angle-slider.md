@@ -167,6 +167,8 @@ per-marker props, or custom ordering.
 
 ## Local changelog
 
+- 2026-08-31: Removed the unused `Dial.thumbClassName` configuration prop; use explicit
+  `Control` and `Thumb` composition to style the thumb.
 - 2026-08-08: Added external `form` ownership and native reset synchronization, completed
   asChild/ref/read-only regression coverage, made invalid indicator theming accurate, and added
   interactive ring plus reduced-motion styling.

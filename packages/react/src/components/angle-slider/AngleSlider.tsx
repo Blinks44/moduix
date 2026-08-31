@@ -196,14 +196,13 @@ type AngleSliderDialProps = Omit<
   'asChild' | 'children'
 > & {
   children?: ReactNode;
-  thumbClassName?: string;
 };
 
-function AngleSliderDial({ children, thumbClassName, ...props }: AngleSliderDialProps) {
+function AngleSliderDial({ children, ...props }: AngleSliderDialProps) {
   return (
     <AngleSliderControl {...props}>
       {children}
-      <AngleSliderThumb className={thumbClassName} />
+      <AngleSliderThumb />
     </AngleSliderControl>
   );
 }
