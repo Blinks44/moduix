@@ -29,6 +29,10 @@ export function Home() {
               <Sparkles size={14} aria-hidden="true" />
               {t('homeBuiltOnArk')}
             </a>
+            <span className={styles.badge}>
+              <Code2 size={14} aria-hidden="true" />
+              {t('homeCssModules')}
+            </span>
             <a
               className={styles.badge}
               href="https://ui.shadcn.com/"
@@ -38,10 +42,6 @@ export function Home() {
               <Layers3 size={14} aria-hidden="true" />
               {t('homeShadcnInspired')}
             </a>
-            <span className={styles.badge}>
-              <Code2 size={14} aria-hidden="true" />
-              {t('homeCssModules')}
-            </span>
           </div>
           <h1 id="home-title" className={styles.title}>
             moduix

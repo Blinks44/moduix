@@ -97,19 +97,19 @@
     "fr": "Fondations du design"
   },
   "homeBuiltOnArk": {
-    "en": "Built on Ark UI",
-    "ru": "Построено на Ark UI",
-    "fr": "Basé sur Ark UI"
+    "en": "Powered by Ark UI",
+    "ru": "На базе Ark UI",
+    "fr": "Propulsé par Ark UI"
+  },
+  "homeCssModules": {
+    "en": "CSS Modules",
+    "ru": "CSS Modules",
+    "fr": "CSS Modules"
   },
   "homeShadcnInspired": {
     "en": "shadcn-inspired",
     "ru": "В духе shadcn",
     "fr": "Inspiré par shadcn"
-  },
-  "homeCssModules": {
-    "en": "CSS Modules at the core",
-    "ru": "CSS Modules в основе",
-    "fr": "CSS Modules au cœur"
   },
   "homeLead": {
     "en": "Accessible components with calm defaults and explicit composition. CSS Modules keep component styles scoped, while shared tokens make them easy to theme; your own styles stay in your app.",
@@ -1200,6 +1200,11 @@
     "en": "Planned",
     "ru": "Запланировано",
     "fr": "Prévu"
+  },
+  "frameworkSupportInProgress": {
+    "en": "In progress",
+    "ru": "В разработке",
+    "fr": "En cours"
   },
   "copyMarkdownText": {
     "en": "Copy Markdown",
