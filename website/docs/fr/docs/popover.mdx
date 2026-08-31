@@ -80,10 +80,11 @@ lorsque le nom explicite de la racine rend la composition plus lisible.
 
 ## Composition
 
-Par défaut, la racine rend `Positioner` dans un portail. Définissez `portalled={false}` pour le
-conserver dans l’arbre DOM courant, ou passez `portalRef` pour choisir un conteneur de portail
-personnalisé. Gardez les parties structurelles explicites afin de pouvoir les styliser et les
-configurer séparément.
+`Popover` et `Popover.Root` rendent `Positioner` dans un portail par défaut. Définissez
+`portalled={false}` pour le conserver dans l’arbre DOM courant, ou passez `portalRef` pour choisir
+un conteneur de portail personnalisé. Avec `Popover.RootProvider`, configurez `portalled` dans
+`usePopover()` et passez seulement `portalRef` au provider. Gardez les parties structurelles
+explicites afin de pouvoir les styliser et les configurer séparément.
 
 ### Composition recommandée
 
@@ -144,8 +145,9 @@ ouverture. Ne définissez les deux propriétés de cycle de vie sur `false` que 
   transmis à la racine.
 - Utilisez `Popover.Title` pour donner un nom accessible à la fenêtre et `Popover.Description` pour
   le texte complémentaire. Ark relie ces parties à `Content` via leurs identifiants.
-- Créez l’état externe avec `usePopover()` et transmettez-le à `Popover.RootProvider`. N’utilisez
-  pas la même instance d’état avec `Popover` ou `Popover.Root`.
+- Créez l’état externe avec `usePopover()` et transmettez-le à `Popover.RootProvider`. Configurez
+  également `portalled` dans `usePopover()` ; n’utilisez pas la même instance d’état avec
+  `Popover` ou `Popover.Root`.
 - `Popover.Context` et `usePopoverContext()` exposent le même état Ark aux descendants. Utilisez le
   hook lorsqu’un composant enfant a besoin de cet état, ou `Popover.Context` lorsqu’une fonction de
   rendu rend la composition plus claire.

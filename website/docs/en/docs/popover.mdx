@@ -79,9 +79,10 @@ explicit Ark name makes the composition easier to read.
 
 ## Composition
 
-The root renders `Positioner` in a portal by default. Set `portalled={false}` to keep it in the
-current DOM tree, or pass `portalRef` to choose a custom portal container. Keep the structural
-parts explicit so you can style and configure them independently.
+`Popover` and `Popover.Root` render `Positioner` in a portal by default. Set `portalled={false}`
+to keep it in the current DOM tree, or pass `portalRef` to choose a custom portal container. When
+using `Popover.RootProvider`, configure `portalled` in `usePopover()` and pass only `portalRef` to
+the provider. Keep the structural parts explicit so you can style and configure them independently.
 
 ### Recommended composition
 
@@ -138,8 +139,9 @@ By default, popover content mounts on the first open and is removed after its ex
   when `portalled={false}` is passed to the root.
 - Use `Popover.Title` to give the popup an accessible name and `Popover.Description` for supporting
   text. Ark connects these parts to `Content` through their IDs.
-- Create external state with `usePopover()` and pass it to `Popover.RootProvider`. Do not wrap the
-  same state instance in `Popover` or `Popover.Root`.
+- Create external state with `usePopover()` and pass it to `Popover.RootProvider`. Configure
+  `portalled` in `usePopover()` too; do not wrap the same state instance in `Popover` or
+  `Popover.Root`.
 - `Popover.Context` and `usePopoverContext()` expose the same Ark state to descendants. Use the
   context hook when a child component needs the state, or `Popover.Context` when a render prop is
   clearer.

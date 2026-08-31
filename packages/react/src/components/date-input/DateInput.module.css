@@ -114,7 +114,6 @@
       min-width: auto;
       padding-inline: 0;
       background: transparent;
-      box-shadow: none;
       color: var(--moduix-date-input-separator-color, var(--moduix-color-muted-foreground));
       pointer-events: none;
     }

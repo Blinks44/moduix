@@ -205,7 +205,6 @@
         ) *
         -1
     );
-    overscroll-behavior: auto;
     scrollbar-gutter: stable;
     scroll-padding-block: var(
       --moduix-listbox-content-padding-y,
@@ -232,7 +231,7 @@
       max-height: var(--moduix-listbox-horizontal-content-max-height, none);
       overflow-x: auto;
       overflow-y: hidden;
-      padding-inline: var(--moduix-listbox-content-padding-y, var(--moduix-spacing-1));
+      padding-inline: var(--moduix-spacing-1);
     }
   }
 
@@ -382,7 +381,6 @@
 
   .itemText {
     min-width: 0;
-    flex: 1;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

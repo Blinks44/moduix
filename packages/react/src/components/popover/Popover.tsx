@@ -17,8 +17,9 @@ import styles from './Popover.module.css';
 const DEFAULT_CLOSE_BUTTON_LABEL = 'Close popover';
 
 type PopoverRootProps = ComponentProps<typeof PopoverPrimitive.Root> & OverlayPortalProps;
-type PopoverRootProviderProps = ComponentProps<typeof PopoverPrimitive.RootProvider> &
-  OverlayPortalProps;
+type PopoverRootProviderProps = ComponentProps<typeof PopoverPrimitive.RootProvider> & {
+  portalRef?: OverlayPortalProps['portalRef'];
+};
 
 function PopoverRoot({
   lazyMount = true,
@@ -45,14 +46,13 @@ function PopoverRoot({
 
 function PopoverRootProvider({
   lazyMount = true,
-  portalled,
   portalRef,
   unmountOnExit = true,
   value,
   ...props
 }: PopoverRootProviderProps) {
   return (
-    <OverlayPortalProvider portalled={portalled ?? value.portalled} portalRef={portalRef}>
+    <OverlayPortalProvider portalled={value.portalled} portalRef={portalRef}>
       <PopoverPrimitive.RootProvider
         value={value}
         lazyMount={lazyMount}

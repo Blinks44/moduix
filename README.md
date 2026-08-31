@@ -162,9 +162,19 @@ See [AGENTS.md](./AGENTS.md) for repository conventions.
 
 ## Acknowledgements
 
-- [Ark UI](https://ark-ui.com/) provides primitive behavior and the composition model.
-- [Chakra UI](https://chakra-ui.com/) informs Ark-aligned ergonomics and design-system craft.
-- [shadcn/ui](https://ui.shadcn.com/) inspires open-code delivery and practical documentation.
+moduix is possible because of the work and ideas of these projects:
+
+- [Ark UI](https://ark-ui.com/) for the accessible, state-machine-backed primitives that define the
+  behavioral foundation.
+- [Chakra UI](https://chakra-ui.com/) for Ark-aligned composition ergonomics and design-system
+  craft.
+- [shadcn/ui](https://ui.shadcn.com/) for open-code distribution, beautiful defaults, and a
+  documentation style centered on practical ownership.
+- [UnoCSS](https://unocss.dev/) and [Tailwind CSS](https://tailwindcss.com/) for the foundations
+  adapted by the optional reset.
+- [Rstack](https://rstack.rs/) for its Rust-based ecosystem: Rspress for documentation, Rslib for
+  library builds, and Rstest for tests.
+- [VoidZero](https://voidzero.dev/) for the JavaScript tooling used throughout the workspace.
 
 ## License
 

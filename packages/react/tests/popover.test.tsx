@@ -51,21 +51,27 @@ test('preserves open-change details and returns focus after Escape', async () =>
   expect(details).toEqual([{ open: true }, { open: false }]);
 });
 
-test('keeps RootProvider state available through the moduix context hook', async () => {
+test('keeps RootProvider state and portalling configuration available through the moduix context hook', async () => {
   function ContextValue() {
     const popover = usePopoverContext();
-    return <output>Open: {String(popover.open)}</output>;
+    return (
+      <output>
+        Open: {String(popover.open)}. Portalled: {String(popover.portalled)}
+      </output>
+    );
   }
 
   function ProviderPopover() {
-    const popover = usePopover();
+    const popover = usePopover({ portalled: false });
 
     return (
-      <Popover.RootProvider value={popover} portalled={false}>
-        <Popover.Trigger>Open preferences</Popover.Trigger>
-        <PopoverSurface />
-        <ContextValue />
-      </Popover.RootProvider>
+      <div data-testid="popover-host">
+        <Popover.RootProvider value={popover}>
+          <Popover.Trigger>Open preferences</Popover.Trigger>
+          <PopoverSurface />
+          <ContextValue />
+        </Popover.RootProvider>
+      </div>
     );
   }
 
@@ -73,7 +79,8 @@ test('keeps RootProvider state available through the moduix context hook', async
 
   fireEvent.click(screen.getByRole('button', { name: 'Open preferences' }));
 
-  await waitFor(() => expect(screen.getByText('Open: true')).toBeVisible());
+  await waitFor(() => expect(screen.getByText('Open: true. Portalled: false')).toBeVisible());
+  expect(within(screen.getByTestId('popover-host')).getByRole('dialog')).toBeInTheDocument();
 });
 
 test('preserves semantic hosts with asChild', () => {

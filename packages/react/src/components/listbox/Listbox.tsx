@@ -22,7 +22,7 @@ import styles from './Listbox.module.css';
 
 const ListboxRoot = forwardRef(function ListboxRoot<T extends CollectionItem>(
   { className, ...props }: ListboxRootProps<T>,
-  ref: ForwardedRef<HTMLDivElement>,
+  ref: ForwardedRef<ComponentRef<typeof ListboxPrimitive.Root>>,
 ) {
   return (
     <ListboxPrimitive.Root
@@ -36,7 +36,7 @@ const ListboxRoot = forwardRef(function ListboxRoot<T extends CollectionItem>(
 
 const ListboxRootProvider = forwardRef(function ListboxRootProvider<T extends CollectionItem>(
   { className, ...props }: ListboxRootProviderProps<T>,
-  ref: ForwardedRef<HTMLDivElement>,
+  ref: ForwardedRef<ComponentRef<typeof ListboxPrimitive.RootProvider>>,
 ) {
   return (
     <ListboxPrimitive.RootProvider
@@ -89,25 +89,22 @@ function ListboxFilter({ className, children, ...props }: ComponentProps<'div'>)
   );
 }
 
-const ListboxClearTrigger = forwardRef<HTMLButtonElement, ComponentProps<'button'>>(
+const ListboxClearTrigger = forwardRef<ComponentRef<typeof ark.button>, HTMLArkProps<'button'>>(
   function ListboxClearTrigger(
     { 'aria-label': ariaLabel = 'Clear search', className, children, type = 'button', ...props },
     ref,
   ) {
     return (
-      <ark.button
+      <CloseButton.Root
         ref={ref}
-        asChild
         data-slot="listbox-clear-trigger"
         type={type}
         aria-label={ariaLabel}
         className={clsx(styles.clearTrigger, normalizeClassName(className))}
         {...props}
       >
-        <CloseButton.Root aria-label={ariaLabel} type={type}>
-          {children}
-        </CloseButton.Root>
-      </ark.button>
+        {children}
+      </CloseButton.Root>
     );
   },
 );
