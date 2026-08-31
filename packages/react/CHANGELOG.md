@@ -1,5 +1,17 @@
 # moduix
 
+## 2.5.1
+
+### Patch Changes
+
+### Sidebar
+
+- c42f5c3: Improve composable collapsed navigation and align navigation controls and badges.
+
+### DatePicker
+
+- c42f5c3: respect reduced-motion preferences and use Ark input indexes for range styling.
+
 ## 2.5.0
 
 ### Minor Changes
