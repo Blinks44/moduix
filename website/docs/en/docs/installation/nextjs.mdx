@@ -1,18 +1,18 @@
 ---
 title: Next.js
-description: Install moduix in the Next.js App Router with root CSS and explicit client component boundaries.
+description: Use moduix with the Next.js App Router, loading the foundation stylesheet once and adding client boundaries where interactive composition needs them.
 ---
 
 # Next.js
 
-In the App Router, load moduix CSS from the root layout and keep interactive components below a
-client boundary.
+moduix works with the Next.js App Router. Import the foundation stylesheet from the root layout, and
+add a client boundary with the `'use client'` directive only where your composition needs client-side behavior.
 
-## Package install
+## Install as a package
 
 <PackageManagerTabs command="install @moduix/react @ark-ui/react" />
 
-Import the foundation stylesheet once in the root layout:
+Import the foundation stylesheet once from the root layout:
 
 ```tsx title="app/layout.tsx"
 import '@moduix/react/style.css';
@@ -26,39 +26,65 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
-Put interactive moduix composition in a client component:
+Components that only render markup can stay in a Server Component. Add the `'use client'` directive to your own
+component when it owns state, effects, browser APIs, or event handlers:
 
 ```tsx title="app/continue-button.tsx"
 'use client';
 
+import { useState } from 'react';
 import { Button } from '@moduix/react/button';
 
 export function ContinueButton() {
-  return <Button>Continue</Button>;
+  const [isComplete, setIsComplete] = useState(false);
+
+  return (
+    <Button type="button" onClick={() => setIsComplete(true)}>
+      {isComplete ? 'Done' : 'Continue'}
+    </Button>
+  );
 }
 ```
 
-Server components can render ordinary markup around this boundary. They should pass serializable
-data into the client component instead of event handlers.
+Render the client component from a Server Component:
 
-## shadcn CLI install
+```tsx title="app/page.tsx"
+import { ContinueButton } from './continue-button';
 
-Complete the [shadcn CLI setup](/docs/quick-start#install-with-the-shadcn-cli) with `rsc: true`.
-Keep the default `@/*` alias from the Next.js starter and import the generated foundation stylesheet
-from the root layout:
+export default function Page() {
+  return (
+    <main>
+      <ContinueButton />
+    </main>
+  );
+}
+```
+
+Server Components can render the surrounding markup and include `ContinueButton`. Pass serializable
+data to a client component. Event handlers and other functions cannot cross the server/client boundary.
+
+## Use the shadcn CLI
+
+Choose this route when you want to copy moduix components into your application. Complete the
+[shadcn CLI setup](/docs/quick-start#install-with-the-shadcn-cli) and set `"rsc": true` in
+`components.json`.
+
+Keep the default `@/*` alias from the Next.js starter. If your aliases are different, update
+`components.json` and the paths to the generated files. Import the generated foundation stylesheet
+from the root layout instead of importing `@moduix/react/style.css`:
 
 ```tsx title="app/layout.tsx"
 import '@/lib/moduix/styles/style.css';
 ```
 
-With `rsc: true`, the shadcn CLI preserves a `use client` directive already present in a registry
-component's source file; it does not infer whether a component needs one. Add the directive to your
-own composed wrapper when it owns state, effects, or event handlers.
+With `rsc: true`, the shadcn CLI preserves an existing `'use client'` directive in a registry
+component's source file. It does not infer whether a copied component or your own wrapper needs one.
+Add the directive to your wrapper when it owns state, effects, browser APIs, or event handlers.
 
 ## Verify
 
-The setup is complete when styles are present on the first response and interactive components do
-not report a server/client boundary or hydration error.
+The integration is working when moduix styles are applied on the initial render, interactive
+components work after hydration, and Next.js reports no server/client boundary errors or hydration errors.
 
 See the Next.js guides for [CSS](https://nextjs.org/docs/app/getting-started/css) and the
 [`use client` directive](https://nextjs.org/docs/app/api-reference/directives/use-client).

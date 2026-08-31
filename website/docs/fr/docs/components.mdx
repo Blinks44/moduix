@@ -1,60 +1,62 @@
 ---
 title: Composants
-description: Trouvez les composants React de moduix selon les besoins de votre interface et vos cas d’usage.
+description: Explorez les composants React de moduix selon les besoins de votre interface et les modes de composition.
 ---
 
 import { ComponentGallery } from '@/components/docs/component-gallery';
 
 # Composants
 
-Les composants moduix sont des wrappers Ark UI stylisés et composables, fondés sur un même système de
-tokens. Choisissez d’abord la catégorie qui convient, puis parcourez le catalogue complet depuis la
-barre latérale ou la recherche. Chaque page présente l’arbre des parties exposées, des exemples, un
-comportement cohérent avec Ark UI et les variables CSS locales.
+moduix propose des composants React accessibles et composables, fondés sur des tokens CSS partagés.
+De nombreux composants interactifs s’appuient sur les primitives d’Ark UI, tout en conservant une
+composition explicite dans leur API publique. Choisissez une catégorie ci-dessous, puis ouvrez une
+page depuis la barre latérale ou la recherche. Chaque page contient un exemple de base à copier, la
+structure des parties publiques, des notes sur le comportement et les possibilités de personnalisation
+CSS du composant.
 
 ## Formulaires et saisie
 
-Champs de saisie, contrôles de sélection, composition de champs et éléments prêts à l’emploi pour vos formulaires.
+Champs, contrôles de saisie et de sélection, ainsi que les briques nécessaires aux formulaires.
 
 <ComponentGallery category="form-input" />
 
 ## Mise en page et navigation
 
-Structurez les écrans de votre produit, affichez le bon contenu et guidez les utilisateurs.
+Structurez les écrans de votre produit, affichez le contenu au bon moment et accompagnez les utilisateurs dans leur parcours.
 
 <ComponentGallery category="layout-navigation" />
 
 ## Superpositions et dialogues
 
-Des surfaces contextuelles pour les commandes, les détails, l’aide et les parcours temporaires.
+Des éléments contextuels pour les commandes, les détails, l’aide et les parcours temporaires.
 
 <ComponentGallery category="overlays-dialogs" />
 
 ## États et retours
 
-Indiquez la progression, le chargement, les états vides et les messages qui invitent à agir.
+Affichez la progression, le chargement, les états vides et les messages qui indiquent la suite.
 
 <ComponentGallery category="feedback-status" />
 
 ## Affichage et contenu
 
-Présentez l’identité, les médias, les données, les raccourcis clavier et les informations complémentaires.
+Présentez l’identité des utilisateurs, les médias, les données, les raccourcis clavier et les informations complémentaires.
 
 <ComponentGallery category="display-content" />
 
 ## Actions et utilitaires
 
-Petites primitives d’interaction pour les actions et scénarios courants d’un produit.
+Des primitives d’interaction compactes pour les actions et les scénarios courants.
 
 <ComponentGallery category="actions-utilities" />
 
-## Avant de commencer
+## Pour bien commencer
 
 - Consultez le [Démarrage rapide](/docs/quick-start) pour choisir entre l’installation du package et
-  la copie du code source dans votre projet.
-- Lisez les [Modèles de composition](/docs/composition-patterns) avant de masquer des parties de
-  composants dans vos wrappers applicatifs.
+  la copie des fichiers sources dans votre projet.
+- Lisez les [Modèles de composition](/docs/composition-patterns) avant d’encapsuler des parties de
+  composant dans vos composants métier.
 - Utilisez [Thèmes](/docs/themes) et [Tokens](/docs/tokens) pour les changements visuels à l’échelle
-  du système ; réservez les alias de composants aux exceptions choisies en connaissance de cause.
-- Commencez par les [Recettes](/recipes) si vous cherchez un modèle d’interface prêt à copier plutôt
-  qu’une primitive isolée.
+  du système. Réservez les alias de composants aux exceptions locales et intentionnelles.
+- Commencez par les [Recettes](/recipes) si vous cherchez un modèle d’interface prêt à copier qui
+  assemble plusieurs composants.

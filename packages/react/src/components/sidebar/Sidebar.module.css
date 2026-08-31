@@ -30,6 +30,7 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    container-type: inline-size;
     background-color: var(--moduix-sidebar-bg, var(--moduix-color-card));
     color: var(--moduix-sidebar-color, var(--moduix-color-card-foreground));
     transition:
@@ -46,6 +47,10 @@
       .header,
       .footer {
         justify-content: center;
+      }
+
+      .header > :only-child {
+        width: auto;
       }
 
       .content {
@@ -126,18 +131,24 @@
     box-sizing: border-box;
     display: inline-flex;
     flex: none;
+    position: relative;
+    z-index: 4;
     align-items: center;
     justify-content: center;
     width: var(--moduix-sidebar-trigger-size, var(--moduix-spacing-7));
     min-width: var(--moduix-sidebar-trigger-size, var(--moduix-spacing-7));
     height: var(--moduix-sidebar-trigger-size, var(--moduix-spacing-7));
+    margin-inline: calc(var(--moduix-sidebar-trigger-size, var(--moduix-spacing-7)) * -0.5);
     padding: 0;
-    border: 0;
+    border: var(--moduix-sidebar-trigger-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-sidebar-trigger-border-color, var(--moduix-color-border));
     border-radius: var(--moduix-sidebar-trigger-radius, var(--moduix-radius-full));
-    background-color: transparent;
+    background-color: var(--moduix-sidebar-trigger-bg, var(--moduix-color-background));
     color: var(--moduix-sidebar-muted-color, var(--moduix-color-muted-foreground));
     appearance: none;
     cursor: pointer;
+    translate: 0 var(--moduix-sidebar-trigger-offset-y, 40px);
+    box-shadow: var(--moduix-sidebar-trigger-shadow, var(--moduix-shadow-sm));
     transition:
       background-color var(--moduix-sidebar-transition, var(--moduix-transition-default)),
       color var(--moduix-sidebar-transition, var(--moduix-transition-default)),
@@ -146,6 +157,12 @@
     > svg {
       width: var(--moduix-sidebar-icon-size, var(--moduix-spacing-4));
       height: var(--moduix-sidebar-icon-size, var(--moduix-spacing-4));
+      transition: transform var(--moduix-sidebar-transition, var(--moduix-transition-default));
+    }
+
+    &[data-side='left'][data-state='collapsed'] > svg,
+    &[data-side='right'][data-state='expanded'] > svg {
+      transform: rotate(180deg);
     }
 
     &:focus-visible {
@@ -171,29 +188,6 @@
     }
   }
 
-  .trigger {
-    position: relative;
-    z-index: 4;
-    margin-block-start: 0;
-    margin-inline: calc(var(--moduix-sidebar-trigger-size, var(--moduix-spacing-7)) * -0.5);
-    border: var(--moduix-sidebar-trigger-border-width, var(--moduix-border-width-sm)) solid
-      var(--moduix-sidebar-trigger-border-color, var(--moduix-color-border));
-    border-radius: var(--moduix-sidebar-trigger-radius, var(--moduix-radius-full));
-    background-color: var(--moduix-sidebar-trigger-bg, var(--moduix-color-background));
-    box-shadow: var(--moduix-sidebar-trigger-shadow, var(--moduix-shadow-sm));
-
-    &[data-side='left'][data-state='collapsed'] > svg,
-    &[data-side='right'][data-state='expanded'] > svg {
-      transform: rotate(180deg);
-    }
-
-    > svg {
-      transition: transform var(--moduix-sidebar-transition, var(--moduix-transition-default));
-    }
-
-    translate: 0 var(--moduix-sidebar-trigger-offset-y, 40px);
-  }
-
   .label,
   .groupLabel {
     min-width: 0;
@@ -214,6 +208,10 @@
   .header {
     border-block-end: var(--moduix-sidebar-section-border-width, 0) solid
       var(--moduix-sidebar-border-color, var(--moduix-color-border));
+
+    > :only-child {
+      width: 100%;
+    }
   }
 
   .footer {
@@ -256,7 +254,7 @@
     height: var(--moduix-sidebar-group-action-size, var(--moduix-size-xs));
     padding: 0;
     border: 0;
-    border-radius: var(--moduix-sidebar-menu-button-radius, var(--moduix-radius-md));
+    border-radius: var(--moduix-sidebar-navigation-button-radius, var(--moduix-radius-md));
     background-color: transparent;
     color: var(--moduix-sidebar-muted-color, var(--moduix-color-muted-foreground));
     appearance: none;
@@ -296,11 +294,15 @@
 
   .group:has(.groupAction) .groupLabel {
     grid-column: 1;
+    display: flex;
+    align-items: center;
+    min-height: var(--moduix-sidebar-group-action-size, var(--moduix-size-xs));
   }
 
   .group:has(.groupAction) .groupAction {
     grid-column: 2;
     align-self: center;
+    margin-inline-end: var(--moduix-sidebar-navigation-button-padding-x, var(--moduix-spacing-2));
   }
 
   .groupContent {
@@ -312,11 +314,15 @@
     grid-column: 1 / -1;
   }
 
+  .group:has(.groupAction) .menu {
+    grid-column: 1 / -1;
+  }
+
   .menu,
   .menuSub {
     display: flex;
     flex-direction: column;
-    gap: var(--moduix-sidebar-menu-gap, var(--moduix-spacing-1));
+    gap: var(--moduix-sidebar-navigation-gap, var(--moduix-spacing-1));
     width: 100%;
     min-width: 0;
     margin: 0;
@@ -324,10 +330,17 @@
     list-style: none;
   }
 
-  .menuItem,
-  .menuSubItem {
+  .menuItem {
     position: relative;
     min-width: 0;
+  }
+
+  .menuSubItem {
+    min-width: 0;
+  }
+
+  .menuItem > [data-scope='select'][data-part='root'] {
+    --moduix-select-width: 100%;
   }
 
   .menuButton,
@@ -338,8 +351,8 @@
     width: 100%;
     min-width: 0;
     overflow: hidden;
-    border: var(--moduix-sidebar-menu-button-border-width, 0) solid transparent;
-    border-radius: var(--moduix-sidebar-menu-button-radius, var(--moduix-radius-md));
+    border: var(--moduix-sidebar-navigation-button-border-width, 0) solid transparent;
+    border-radius: var(--moduix-sidebar-navigation-button-radius, var(--moduix-radius-md));
     background-color: transparent;
     color: var(--moduix-sidebar-color, var(--moduix-color-card-foreground));
     appearance: none;
@@ -402,49 +415,52 @@
   }
 
   .menuButton {
-    gap: var(--moduix-sidebar-menu-button-gap, var(--moduix-spacing-2));
-    min-height: var(--moduix-sidebar-menu-button-height, var(--moduix-size-md));
-    padding-block: var(--moduix-sidebar-menu-button-padding-y, var(--moduix-spacing-1));
-    padding-inline: var(--moduix-sidebar-menu-button-padding-x, var(--moduix-spacing-2));
-    font-size: var(--moduix-sidebar-menu-button-font-size, var(--moduix-text-sm));
-    line-height: var(--moduix-sidebar-menu-button-line-height, var(--moduix-line-height-text-sm));
+    gap: var(--moduix-sidebar-navigation-button-gap, var(--moduix-spacing-2));
+    min-height: var(--moduix-sidebar-navigation-button-height, var(--moduix-size-md));
+    padding-block: var(--moduix-sidebar-navigation-button-padding-y, var(--moduix-spacing-1));
+    padding-inline: var(--moduix-sidebar-navigation-button-padding-x, var(--moduix-spacing-2));
+    font-size: var(--moduix-sidebar-navigation-button-font-size, var(--moduix-text-sm));
+    line-height: var(
+      --moduix-sidebar-navigation-button-line-height,
+      var(--moduix-line-height-text-sm)
+    );
 
     &[data-size='sm'] {
-      min-height: var(--moduix-sidebar-menu-button-height-sm, var(--moduix-size-sm));
-      font-size: var(--moduix-sidebar-menu-button-font-size-sm, var(--moduix-text-xs));
+      min-height: var(--moduix-sidebar-navigation-button-height-sm, var(--moduix-size-sm));
+      font-size: var(--moduix-sidebar-navigation-button-font-size-sm, var(--moduix-text-xs));
     }
 
     &[data-size='lg'] {
-      min-height: var(--moduix-sidebar-menu-button-height-lg, var(--moduix-size-lg));
+      min-height: var(--moduix-sidebar-navigation-button-height-lg, var(--moduix-size-lg));
     }
 
     > [data-slot='collapsible-indicator'],
     > [data-slot='menu-indicator'] {
       margin-inline-start: auto;
     }
-  }
 
-  .panel .menuButton {
-    justify-content: flex-start;
+    > [data-scope='select'][data-part='indicator'] {
+      margin-inline-start: auto;
+    }
   }
 
   .menuAction {
     position: absolute;
     inset-block-start: calc(
-      (var(--moduix-sidebar-menu-button-height, var(--moduix-size-md)) -
-          var(--moduix-sidebar-menu-action-size, var(--moduix-size-xs))) /
+      (var(--moduix-sidebar-navigation-button-height, var(--moduix-size-md)) -
+          var(--moduix-sidebar-navigation-action-size, var(--moduix-size-xs))) /
         2
     );
-    inset-inline-end: var(--moduix-sidebar-menu-button-padding-x, var(--moduix-spacing-2));
+    inset-inline-end: var(--moduix-sidebar-navigation-button-padding-x, var(--moduix-spacing-2));
     z-index: 1;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: var(--moduix-sidebar-menu-action-size, var(--moduix-size-xs));
-    height: var(--moduix-sidebar-menu-action-size, var(--moduix-size-xs));
+    width: var(--moduix-sidebar-navigation-action-size, var(--moduix-size-xs));
+    height: var(--moduix-sidebar-navigation-action-size, var(--moduix-size-xs));
     padding: 0;
     border: 0;
-    border-radius: var(--moduix-sidebar-menu-button-radius, var(--moduix-radius-md));
+    border-radius: var(--moduix-sidebar-navigation-button-radius, var(--moduix-radius-md));
     background-color: transparent;
     color: var(--moduix-sidebar-muted-color, var(--moduix-color-muted-foreground));
     appearance: none;
@@ -478,53 +494,68 @@
   .menuBadge {
     position: absolute;
     inset-block-start: calc(
-      (var(--moduix-sidebar-menu-button-height, var(--moduix-size-md)) -
-          var(--moduix-sidebar-menu-badge-min-width, 1.5rem)) /
+      (var(--moduix-sidebar-navigation-button-height, var(--moduix-size-md)) -
+          var(--moduix-sidebar-navigation-badge-min-width, 1.125rem)) /
         2
     );
-    inset-inline-end: var(--moduix-sidebar-menu-button-padding-x, var(--moduix-spacing-2));
+    inset-inline-end: calc(
+      var(--moduix-sidebar-navigation-button-padding-x, var(--moduix-spacing-2)) +
+        (var(--moduix-sidebar-navigation-action-size, var(--moduix-size-xs)) -
+          var(--moduix-sidebar-navigation-badge-min-width, 1.125rem)) /
+        2
+    );
     z-index: 1;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: var(--moduix-sidebar-menu-badge-min-width, 1.5rem);
-    min-height: var(--moduix-sidebar-menu-badge-min-width, 1.5rem);
-    padding-inline: var(--moduix-sidebar-menu-badge-padding-x, var(--moduix-spacing-1));
+    min-width: var(--moduix-sidebar-navigation-badge-min-width, 1.125rem);
+    min-height: var(--moduix-sidebar-navigation-badge-min-width, 1.125rem);
+    padding-inline: var(--moduix-sidebar-navigation-badge-padding-x, var(--moduix-spacing-0-5));
     border-radius: var(--moduix-radius-full);
     background-color: var(--moduix-sidebar-accent-bg, var(--moduix-color-accent));
     color: var(--moduix-sidebar-accent-color, var(--moduix-color-accent-foreground));
-    font-size: var(--moduix-text-xs);
+    font-size: var(--moduix-sidebar-navigation-badge-font-size, 0.625rem);
+    font-weight: var(--moduix-sidebar-navigation-badge-font-weight, var(--moduix-weight-medium));
     font-variant-numeric: tabular-nums;
     line-height: 1;
   }
 
-  .menuItem:has(.menuAction) .menuButton,
+  .menuItem:has(.menuAction) .menuButton {
+    padding-inline-end: calc(
+      var(--moduix-sidebar-navigation-action-size, var(--moduix-size-xs)) +
+        var(--moduix-sidebar-navigation-button-padding-x, var(--moduix-spacing-2)) * 2
+    );
+  }
+
   .menuItem:has(.menuBadge) .menuButton {
     padding-inline-end: calc(
-      var(--moduix-sidebar-menu-action-size, var(--moduix-size-xs)) +
-        var(--moduix-sidebar-menu-button-padding-x, var(--moduix-spacing-2)) * 2
+      var(--moduix-sidebar-navigation-badge-min-width, 1.125rem) +
+        var(--moduix-sidebar-navigation-button-padding-x, var(--moduix-spacing-2)) * 2 +
+        (var(--moduix-sidebar-navigation-action-size, var(--moduix-size-xs)) -
+          var(--moduix-sidebar-navigation-badge-min-width, 1.125rem)) /
+        2
     );
-
-    > [data-slot='sidebar-menu-sub-label'] {
-      min-width: 0;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
   }
 
   .menuItem:has(.menuAction):has(.menuBadge) {
     .menuButton {
       padding-inline-end: calc(
-        var(--moduix-sidebar-menu-action-size, var(--moduix-size-xs)) +
-          var(--moduix-sidebar-menu-badge-min-width, 1.5rem) +
-          var(--moduix-sidebar-menu-button-padding-x, var(--moduix-spacing-2)) * 3
+        var(--moduix-sidebar-navigation-action-size, var(--moduix-size-xs)) +
+          var(--moduix-sidebar-navigation-badge-min-width, 1.125rem) +
+          var(--moduix-sidebar-navigation-button-padding-x, var(--moduix-spacing-2)) * 3 +
+          (var(--moduix-sidebar-navigation-action-size, var(--moduix-size-xs)) -
+            var(--moduix-sidebar-navigation-badge-min-width, 1.125rem)) /
+          2
       );
     }
 
     .menuAction {
       inset-inline-end: calc(
-        var(--moduix-sidebar-menu-badge-min-width, 1.5rem) +
-          var(--moduix-sidebar-menu-button-padding-x, var(--moduix-spacing-2)) * 2
+        var(--moduix-sidebar-navigation-badge-min-width, 1.125rem) +
+          var(--moduix-sidebar-navigation-button-padding-x, var(--moduix-spacing-2)) * 2 +
+          (var(--moduix-sidebar-navigation-action-size, var(--moduix-size-xs)) -
+            var(--moduix-sidebar-navigation-badge-min-width, 1.125rem)) /
+          2
       );
     }
   }
@@ -537,22 +568,44 @@
   .menuSub {
     box-sizing: border-box;
     width: auto;
-    margin-block-start: var(--moduix-sidebar-menu-sub-margin-y, var(--moduix-spacing-1));
-    margin-inline-start: var(--moduix-sidebar-menu-sub-margin-x, var(--moduix-spacing-4));
-    padding-inline-start: var(--moduix-sidebar-menu-sub-padding-x, var(--moduix-spacing-2));
-    border-inline-start: var(--moduix-sidebar-menu-sub-border-width, var(--moduix-border-width-sm))
+    margin-block-start: var(--moduix-sidebar-navigation-sub-margin-y, var(--moduix-spacing-1));
+    margin-inline-start: var(--moduix-sidebar-navigation-sub-margin-x, var(--moduix-spacing-4));
+    padding-inline-start: var(--moduix-sidebar-navigation-sub-padding-x, var(--moduix-spacing-2));
+    border-inline-start: var(
+        --moduix-sidebar-navigation-sub-border-width,
+        var(--moduix-border-width-sm)
+      )
       solid var(--moduix-sidebar-border-color, var(--moduix-color-border));
   }
 
   .menuSubButton {
-    gap: var(--moduix-sidebar-menu-sub-button-gap, var(--moduix-spacing-2));
-    min-height: var(--moduix-sidebar-menu-sub-button-height, var(--moduix-size-sm));
-    padding-inline: var(--moduix-sidebar-menu-sub-button-padding-x, var(--moduix-spacing-2));
-    font-size: var(--moduix-sidebar-menu-sub-button-font-size, var(--moduix-text-sm));
+    gap: var(--moduix-sidebar-navigation-sub-button-gap, var(--moduix-spacing-2));
+    min-height: var(--moduix-sidebar-navigation-sub-button-height, var(--moduix-size-sm));
+    padding-inline: var(--moduix-sidebar-navigation-sub-button-padding-x, var(--moduix-spacing-2));
+    font-size: var(--moduix-sidebar-navigation-sub-button-font-size, var(--moduix-text-sm));
     line-height: var(
-      --moduix-sidebar-menu-sub-button-line-height,
+      --moduix-sidebar-navigation-sub-button-line-height,
       var(--moduix-line-height-text-sm)
     );
+  }
+
+  @container (max-width: 7rem) {
+    .groupAction,
+    .menuAction,
+    .menuBadge,
+    [data-slot='collapsible-indicator'],
+    [data-slot='menu-indicator'],
+    [data-slot='select-indicator'] {
+      display: none;
+    }
+
+    .menuItem:has(.menuAction) .menuButton,
+    .menuItem:has(.menuBadge) .menuButton {
+      padding-inline-end: var(
+        --moduix-sidebar-navigation-button-padding-x,
+        var(--moduix-spacing-2)
+      );
+    }
   }
 
   .input {

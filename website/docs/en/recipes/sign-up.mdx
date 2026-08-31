@@ -1,15 +1,16 @@
 ---
 title: Sign up
-description: An account-creation form built with moduix React components.
+description: A ready-to-copy account registration form built with moduix React components.
 ---
 
 import { SignUpPreview } from '@/components/recipes/sign-up-preview';
 
 # Sign up
 
-Create an account with native validation for name, email, passwords, and terms acceptance. The
-recipe deliberately leaves authentication and matching-password validation to your `onSubmit`
-handler.
+Use this recipe as a starting point for an account registration screen. It combines `Card`, `Field`,
+`Input`, `Checkbox`, and `Button`, and relies on the browser to validate required fields, email format,
+and terms acceptance. The recipe does not connect to an authentication service or compare the two
+password fields, so add that logic in your `onSubmit` handler.
 
 <ExampleFrame clientOnly>
   <SignUpPreview />
@@ -38,13 +39,61 @@ handler.
 
 <ShadcnInstall packageName={['button', 'card', 'checkbox', 'field', 'input']} itemKind="recipe" copiedSource />
 
-## In a route
+## Use it in a route
 
-Render `SignUp` in the route that owns registration and pass its real submit handler. Replace the
-default `/terms`, `/privacy`, and `/sign-in` links with your application routes.
+Copy the recipe source and CSS from the tabs above, then import `SignUp` from the copied file. The
+browser checks the native constraints before calling `onSubmit`. Use the handler to compare the two
+passwords and send the form data to your registration endpoint.
 
-Keep password policy text visible before submission and validate the same policy on the server.
-While creating the account, disable duplicate submission. Map field-specific server errors, such as
-an unavailable email, to the relevant field; use a form-level message for network or unexpected
-errors. After success, follow your product's explicit next step: start a session, verify the email,
-or show a confirmation page.
+```tsx
+import type { FormEvent } from 'react';
+import { SignUp } from '@/components/sign-up';
+
+export function SignUpRoute() {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const password = formData.get('password');
+    const confirmation = formData.get('confirm-password');
+
+    if (password !== confirmation) {
+      const confirmationInput = form.elements.namedItem('confirm-password');
+
+      if (confirmationInput instanceof HTMLInputElement) {
+        confirmationInput.setCustomValidity('Passwords do not match.');
+        confirmationInput.reportValidity();
+        confirmationInput.setCustomValidity('');
+      }
+
+      return;
+    }
+
+    await fetch('/api/sign-up', {
+      method: 'POST',
+      body: formData,
+    });
+  }
+
+  return <SignUp onSubmit={handleSubmit} />;
+}
+```
+
+The fields are named `name`, `email`, `password`, `confirm-password`, and `terms`, so these are the
+keys available in `FormData`. Replace `/api/sign-up` and the import path with values from your
+application.
+
+## Before shipping
+
+The copied source is intentionally small. Add the behavior and error UI required by your application:
+
+- Keep the password requirements visible and add constraints such as `minLength` or `pattern` to the
+  copied inputs when necessary. Enforce the same rules on the server.
+- Disable the submit action while the request is pending. Keep the user's values when the request
+  fails so they can correct and retry.
+- Show a field-specific server error next to the relevant field. Show network and unexpected failures
+  in a form-level `role="alert"` and keep retry available.
+- Replace `/terms`, `/privacy`, and `/sign-in` with routes from your application.
+- After successful registration, follow the next step in your flow: sign the user in, ask them to
+  verify their email, or redirect them to a confirmation page.

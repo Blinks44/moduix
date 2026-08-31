@@ -1,7 +1,7 @@
 ---
 title: Combobox
 component: combobox
-description: A filterable input for selecting one or more values from an Ark UI collection.
+description: An input for searching and selecting one or more values from an Ark UI collection.
 ---
 
 import * as ComboboxDocs from '@/components/examples/combobox';
@@ -17,8 +17,8 @@ Use `Select` when the same predefined choice does not need an editable input.
 
 ## Basic
 
-Create an Ark `ListCollection`, pass it to `Combobox`, and keep the popup structure explicit.
-Use `Combobox.Option` for ordinary rows; drop to `Combobox.Item` when a row needs custom structure.
+Create an Ark collection with `useListCollection`, pass it to `Combobox`, and keep the popup structure
+explicit. Use `Combobox.Option` for ordinary rows; use `Combobox.Item` when a row needs custom structure.
 `onInputValueChange` receives an Ark details object.
 
 <style>{ComboboxDocs.comboboxExampleCss}</style>
@@ -36,7 +36,7 @@ Use `Combobox.Option` for ordinary rows; drop to `Combobox.Item` when a row need
 ## Anatomy
 
 ```text
-Combobox.Root[collection]
+Combobox / Combobox.Root[collection]
 ├─ Combobox.Label
 ├─ Combobox.Control
 │  ├─ Combobox.Input
@@ -73,23 +73,27 @@ Combobox.Root[collection]
 | `Combobox.ItemText`          | Text label slot inside an item.                                    |
 | `Combobox.ItemIndicator`     | Selected/highlight indicator slot for an item.                     |
 | `Combobox.Context`           | Renderless access to the current combobox state.                   |
+| `Combobox.ItemContext`       | Renderless access to the current item state.                       |
 
-`Combobox.RootProvider` renders the same styled root around state created with moduix
-`useCombobox`. Read in-tree state with `Combobox.Context` or moduix `useComboboxContext`.
+`Combobox.RootProvider` renders the same styled root for state created with moduix's `useCombobox`.
+Read combobox state inside the tree with `Combobox.Context` or `useComboboxContext`; use
+`Combobox.ItemContext` or `useComboboxItemContext` for item state.
 
 ## Composition
 
-The root portals `Positioner` automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; structural parts remain explicit and styleable.
+The root automatically renders `Positioner` through a portal. Set `portalled={false}` to render the popup in the current
+tree, or pass `portalRef` to use a specific container. You still compose `Positioner` and `Content`
+explicitly, and can style each part independently.
 
 ### Recommended composition
 
-Use `createListCollection` for a static collection or `useListCollection` when filtering changes
-the rendered items. Object collections should define `itemToString` and `itemToValue`.
+Use `createListCollection` for static data. Use `useListCollection` when filtering or other updates
+change the collection. Object collections should define `itemToString` and `itemToValue`.
 
-Keep `Combobox.Positioner` and `Combobox.Content` visible. `Content` is the actual Ark content part;
-the root only automates the portal boundary.
+Keep `Combobox.Positioner` and `Combobox.Content` in your JSX. `Content` is the actual Ark content part;
+the root only manages where it is rendered.
 
-When that popup structure repeats, prefer a small local helper. Use `Combobox.Option` for simple
+If you repeat this popup structure, extract a small local helper. Use `Combobox.Option` for simple
 rows and keep `Combobox.Item` for links, rich rows, or custom indicator placement:
 
 ```tsx
@@ -113,31 +117,35 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
 
 ### When to go custom
 
-Use controlled `value` and Ark detail callbacks when adjacent UI needs selected values. When state
-must be created outside the rendered subtree, create it with `useCombobox` from `@moduix/react` and
-render `Combobox.RootProvider`. Use moduix `Combobox.ItemContext` or `useComboboxItemContext` for
+Use controlled `value` and Ark detail callbacks when another part of the interface needs the selected
+values. If state must be created outside the rendered subtree, create it with moduix's `useCombobox`
+and render `Combobox.RootProvider`. Use moduix `Combobox.ItemContext` or `useComboboxItemContext` for
 item state; import only collection helpers and types that moduix does not expose from Ark.
 
-Multiple selection does not add a combobox-specific chip API. Render tags or another value summary
-from controlled state, then keep selection behavior on `Combobox multiple`.
+Multiple selection does not provide combobox-specific chips. Render tags or another value summary from
+controlled state; the combobox still owns selection behavior through `multiple`.
 
-Ark does not expose a combobox status part. moduix `Combobox.Status` is a styled `div` for
-consumer-owned loading, error, or guidance messages; it does not manage state or set an ARIA role.
+Ark does not expose a combobox status part. moduix `Combobox.Status` is a styled `div` for messages
+owned by your application. It does not manage loading or error state and does not add an ARIA role.
 
 ### Default props
 
-The portalled overlay content lazily mounts and unmounts after its exit animation by default. Set
-`unmountOnExit={false}` to retain it after first open; set both lifecycle props to `false` only when
-eager initial rendering is needed.
+By default, the portalled content mounts on first open and unmounts after its exit animation. Set
+`unmountOnExit={false}` to retain it after the first open. Keep both lifecycle props set to `false`
+only when eager initial rendering is needed.
 
-| Surface                            | Default               | Notes                                                                 |
-| ---------------------------------- | --------------------- | --------------------------------------------------------------------- |
-| `Combobox.Trigger`                 | moduix chevron icon   | Used when children are omitted.                                       |
-| `Combobox.ClearTrigger`            | moduix close icon     | Used when children are omitted.                                       |
-| `Combobox.ItemIndicator`           | moduix check icon     | Used when children are omitted.                                       |
-| `Combobox.Option.indicator`        | check icon            | Pass `false` to hide it or a React node to replace the icon.          |
-| `Combobox` width                  | `16rem` (max `100%`)  | Styled root width defaults.                                           |
-| `Combobox.Positioner` variables    | Ark runtime variables | Uses `--reference-width`, `--available-height`, `--transform-origin`. |
+| Surface                            | Default               | Notes                                                                  |
+| ---------------------------------- | --------------------- | ---------------------------------------------------------------------- |
+| `Combobox.Trigger`                 | moduix chevron icon   | Used when children are omitted.                                        |
+| `Combobox.ClearTrigger`            | moduix close icon     | Used when children are omitted.                                        |
+| `Combobox.ItemIndicator`           | moduix check icon     | Used when children are omitted.                                        |
+| `Combobox.Option.indicator`        | check icon            | Pass `false` to hide it or a React node to replace the icon.           |
+| `Combobox` `portalled`             | `true`                | Renders `Positioner` through a portal automatically.                    |
+| `Combobox` `portalRef`             | -                     | Optional container for the portal.                                     |
+| `Combobox` `lazyMount`             | `true`                | Mounts popup content when it is first opened.                           |
+| `Combobox` `unmountOnExit`         | `true`                | Removes popup content after its exit animation.                        |
+| `Combobox` width                   | `16rem` (max `100%`)  | Styled root width defaults.                                            |
+| `Combobox.Positioner` variables    | Ark runtime variables | Uses `--reference-width`, `--available-height`, `--transform-origin`.  |
 
 ### Behavioral notes
 
@@ -147,7 +155,9 @@ eager initial rendering is needed.
 - `onInputValueChange(details)` reads input text from `details.inputValue` and its source from
   `details.reason`.
 - `onOpenChange`, `onHighlightChange`, and `onSelect` keep their Ark detail shapes.
-- All Ark DOM parts preserve `asChild`.
+- All Ark DOM parts support `asChild`. `Combobox.Option` is the exception: it is a convenience
+  wrapper for simple rows and does not accept `asChild`.
+- `Combobox.Input asChild` keeps Ark input behavior but leaves visual styling to the child element.
 - The current Ark Combobox package does not expose a `HiddenInput` part. Use the root `name` and
   `form` props for Ark's built-in form submission behavior.
 - `Combobox.RootProvider` preserves moduix root styling and portal configuration for externally
@@ -162,7 +172,7 @@ eager initial rendering is needed.
 
 ### Migrating from shadcn
 
-Keep the moduix API Ark-shaped, then translate the common shadcn conveniences explicitly:
+Keep the Ark-shaped moduix API and map common shadcn conveniences explicitly:
 
 | shadcn pattern          | moduix path                                                          |
 | ----------------------- | -------------------------------------------------------------------- |
@@ -177,10 +187,9 @@ Keep the moduix API Ark-shaped, then translate the common shadcn conveniences ex
 
 ### Async Search
 
-Replace collection items from an async result, render `Combobox.Status` while a request is pending,
-and use `details.reason` to distinguish typed input from machine-driven input updates. When the
-query is empty, keep the popup informative with a `Start typing to search…` status instead of an
-empty surface.
+Replace collection items with async results and render `Combobox.Status` while a request is pending.
+Use `details.reason` to distinguish typed input from machine-driven updates. When the query is empty,
+show a `Start typing to search…` status so the popup remains informative.
 
 <style>{ComboboxDocs.comboboxExampleCss}</style>
 
@@ -290,8 +299,8 @@ popup harder to scan. Filtering still runs against the complete initial collecti
 
 ### Multiple
 
-Enable `multiple` and render selected objects from controlled `value`. Tags remain consumer
-composition; when they must live inside the same field shell, compose `Combobox` with `TagsInput`.
+Enable `multiple` and render selected objects from controlled `value`. Tags belong to the application;
+when they must live inside the same field shell, compose `Combobox` with `TagsInput`.
 
 <style>{`
     .tags {
@@ -325,7 +334,7 @@ composition; when they must live inside the same field shell, compose `Combobox`
 
 ### Root Provider
 
-Create the state with Ark `useCombobox` when external controls need imperative methods or shared
+Create the state with moduix's `useCombobox` when external controls need imperative methods or shared
 state before the root renders. `Combobox.RootProvider` preserves the moduix root styling and portal
 configuration.
 
@@ -341,7 +350,7 @@ configuration.
 ### Virtualized
 
 For large collections, render only visible rows with TanStack Virtual and connect Ark keyboard
-navigation through `scrollToIndexFn`. Keep `aria-setsize` and `aria-posinset` on virtual rows.
+navigation through `scrollToIndexFn`. Keep `aria-setsize` and `aria-posinset` on virtualized rows.
 
 <style>{`
     .virtualContent {
@@ -375,8 +384,8 @@ navigation through `scrollToIndexFn`. Keep `aria-setsize` and `aria-posinset` on
 
 ### With TagsInput
 
-Compose `Combobox` with `TagsInput` when users still need filtered suggestions, but the selected
-values should live inside one editable chip field.
+Use `Combobox` with `TagsInput` when users need filtered suggestions but the selected values should
+live inside one editable chip field.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/combobox/with-tags-input.tsx"
@@ -387,8 +396,8 @@ values should live inside one editable chip field.
 
 ### Advanced Customization
 
-Bypass `Combobox.Option` when a row needs a custom semantic element or layout. This example keeps
-the full item anatomy while composing each result as a link with `Combobox.Item asChild`.
+Use the full item composition when a row needs a custom semantic element or layout. This example
+renders each result as a link with `Combobox.Item asChild`.
 
 <style>{ComboboxDocs.comboboxExampleCss}</style>
 
@@ -407,6 +416,8 @@ the full item anatomy while composing each result as a link with `Combobox.Item 
 
 ### Styling hooks
 
+- Ark parts keep `data-scope="combobox"` and their `data-part` values. moduix adds stable `data-slot`
+  hooks to the styled parts.
 - Stable slots include `combobox-root`, `combobox-root-provider`, `combobox-label`, `combobox-control`,
   `combobox-input`, `combobox-clear-trigger`, `combobox-trigger`, `combobox-positioner`,
   `combobox-content`, `combobox-empty`, `combobox-status`, `combobox-list`, `combobox-item-group`,

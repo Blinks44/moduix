@@ -1,23 +1,24 @@
 ---
 title: Image
 component: image
-description: "Images responsives compatibles avec les CDN : Unpic génère automatiquement les attributs srcSet et sizes."
+description: "Images responsives avec détection automatique des CDN. Unpic génère les attributs srcset et sizes."
 ---
 
 import * as ImageDocs from '@/components/examples/image';
 
 ## Référence de l’API
 
-`Image` est le wrapper moduix de l’élément `<img>`, construit autour d’[Unpic React](https://unpic.pics/img/react/).
-Ark UI ne propose pas de primitive dédiée aux images : `Image` conserve donc la composition native `<img>` et
-`<picture>`, au lieu d’adapter une partie Ark. Consultez le [guide de composition d’Ark](https://ark-ui.com/react/docs/guides/composition)
-pour son modèle d’éléments natifs.
+`Image` est un composant moduix léger qui s’appuie sur le composant `<img>` d’[Unpic React](https://unpic.pics/img/react/).
+Ark UI ne propose pas de primitive dédiée aux images. `Image` utilise donc la composition native de `<img>` et de
+`<picture>` plutôt que de les remplacer par une partie Ark. Consultez le [guide de composition d’Ark](https://ark-ui.com/docs/guides/composition)
+pour en savoir plus sur son modèle fondé sur les éléments natifs.
 
 ## Exemple de base
 
-Utilisez `Image` avec l’URL d’un CDN d’images pris en charge et indiquez ses dimensions pour la mise en page
-contrainte par défaut. Unpic génère les attributs adaptatifs `srcSet` et `sizes`, tandis que le navigateur réserve
-à l’avance l’espace nécessaire à l’image.
+Utilisez `Image` avec l’URL d’une image provenant d’un CDN pris en charge ou avec une URL d’image classique. Dans le
+mode `layout="constrained"`, indiquez `width` et `height`. Unpic génère un `srcset` et un attribut `sizes` adaptés aux
+différentes tailles d’écran lorsqu’il reconnaît le fournisseur. Dans le cas contraire, il conserve l’URL source telle quelle.
+Le navigateur réserve l’espace nécessaire avant le chargement de l’image.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/image/basic.tsx"
@@ -40,68 +41,73 @@ picture (native)
 └─ Image / Image.Root
 ```
 
-| Partie                  | Rôle                                                                                   |
-| ---------------------- | ------------------------------------------------------------------------------------------ |
-| `Image` / `Image.Root` | Image native responsive ; Unpic génère `srcSet`, `sizes` et les styles.                |
-| `Image.Source`         | Élément `<source>` responsive pour un élément natif `<picture>`.                        |
+| Partie                  | Rôle                                                                                              |
+| ----------------------- | ------------------------------------------------------------------------------------------------ |
+| `Image` / `Image.Root` | Élément `<img>` natif et adaptatif ; Unpic génère `srcset`, `sizes` et les styles.                 |
+| `Image.Source`         | Élément `<source>` adaptatif utilisé dans un élément natif `<picture>`.                          |
 
 ## Composition
 
 ### Composition recommandée
 
-`Image` est la forme abrégée du composant racine, équivalente à `Image.Root`. Utilisez `width` et `height` avec le
-`layout="constrained"` par défaut pour préserver le rapport d’aspect de l’image et éviter les décalages de mise en
-page. Pour les URL distantes de fournisseurs pris en charge, Unpic détecte le fournisseur et génère automatiquement
-les valeurs `srcSet` transformées.
+`Image` est la forme courte de `Image.Root`. Pour les modes `layout="constrained"` et `layout="fixed"`, indiquez `width`
+et `height` afin que le navigateur réserve l’espace nécessaire avant le chargement. Avec `layout="constrained"`, ces
+dimensions préservent le rapport d’aspect de l’image et lui permettent de se réduire si son conteneur est plus étroit.
+Si l’URL provient d’un fournisseur pris en charge, Unpic le détecte et génère automatiquement un `srcset` avec les variantes
+transformées.
 
-Utilisez `priority` uniquement pour les images qui doivent se charger immédiatement, comme l’image principale d’un
-hero visible sans défilement. Cette propriété active le chargement immédiat et une priorité de récupération élevée,
-sauf si `loading` ou la propriété React `fetchPriority` en camelCase sont fournis explicitement.
+Utilisez `priority` uniquement pour les images qui doivent se charger immédiatement, par exemple l’image principale
+visible dès l’ouverture de la page. Cette propriété active le chargement immédiat et une priorité de chargement élevée,
+sauf si vous fournissez explicitement `loading` ou la propriété React `fetchPriority` en camelCase.
 
 ### Quand créer une composition personnalisée
 
-Utilisez un élément natif `<picture>` avec `Image.Source` pour l’art direction ou pour fournir différentes sources
-selon les media queries. Gardez `Image` comme dernier enfant afin de fournir l’image de repli. Transmettez
-`fallback`, `options` ou `operations` si une URL non reconnue doit être traitée par un fournisseur Unpic précis.
+Utilisez un élément natif `<picture>` avec `Image.Source` lorsque le cadrage doit varier selon la taille de l’écran ou
+que plusieurs sources doivent être choisies selon des requêtes média. Placez toujours `Image` en dernier enfant. Il sert
+d’image de secours si le navigateur ne sélectionne aucune balise `<source>`. Transmettez `fallback`, `options` ou
+`operations` si Unpic ne reconnaît pas l’URL et doit utiliser un fournisseur précis.
 
-Pour sélectionner un format, placez une `Image.Source` avec une valeur `type` avant la source équivalente sans
-`type` : le navigateur utilise le premier format pris en charge.
+Pour proposer plusieurs formats, placez une `Image.Source` avec `type` avant une source équivalente sans `type`. Le
+navigateur retient le premier format qu’il prend en charge.
 
 ### Propriétés par défaut
 
 | Propriété                | Valeur par défaut                       | Remarques                                                                     |
 | ------------------------ | ------------------------------------ | -------------------------------------------------------------------------------- |
-| `layout`                 | `constrained`                           | Respecte les dimensions fournies et se réduit si nécessaire.                  |
-| `loading`                | `lazy`                                  | Devient `eager` lorsque `priority` est défini.                                 |
-| `decoding`               | `async` pour les images sans `priority` | Une valeur native est conservée ; omise par défaut avec `priority`.          |
-| `fetchPriority`          | `high` avec `priority`                  | Une valeur native remplace la valeur par défaut de `priority`.                 |
-| `objectFit`              | `cover`                                 | Appliqué via les styles en ligne générés par Unpic.                            |
-| `--moduix-image-radius`  | `var(--moduix-radius-md)`               | Rayon visible de moduix par défaut.                                            |
+| `layout`                 | `constrained`                           | Respecte les dimensions indiquées et se réduit si nécessaire.                 |
+| `loading`                | `lazy`                                  | Passe à `eager` lorsque `priority` est défini.                                |
+| `decoding`               | `async` pour les images sans `priority` | Une valeur native est conservée ; avec `priority`, elle n’est pas définie par défaut. |
+| `fetchPriority`          | `high` avec `priority`                  | Une valeur native explicite remplace la valeur par défaut de `priority`.     |
+| `objectFit`              | `cover`                                 | Appliqué par les styles en ligne générés par Unpic.                           |
+| `--moduix-image-radius`  | `var(--moduix-radius-md)`              | Rayon visible appliqué par défaut par moduix.                                |
 
 ### Comportement
 
-- `fixed` conserve les dimensions indiquées en pixels CSS et peut déborder d’un parent plus étroit, tandis que
-  `fullWidth` remplit la largeur du conteneur.
-- `alt` est obligatoire pour les images porteuses de sens. Pour une image décorative, utilisez `alt=""` : Unpic
-  applique alors `role="presentation"`, sauf si vous remplacez explicitement ce rôle.
-- Unpic génère `srcSet` à partir de l’URL source. Utilisez `breakpoints` lorsque ses largeurs adaptatives par défaut ne conviennent pas.
-- Les propriétés natives `loading`, `decoding` et `fetchPriority` de React en camelCase restent disponibles lorsque
-  les valeurs générées ne correspondent pas au comportement de chargement voulu.
-- `background="auto"` crée un arrière-plan basse résolution chez les fournisseurs pris en charge. Il reste après le
-  chargement : utilisez-le donc uniquement pour les images opaques, ou fournissez une valeur d’arrière-plan choisie
-  explicitement.
-- `unstyled` désactive les styles de mise en page en ligne générés par Unpic ; les styles d’affichage et de rayon
-  ainsi que les sélecteurs `data-slot` de moduix restent disponibles. Utilisez-le lorsque des sources destinées à
-  l’art direction nécessitent d’autres règles de mise en page responsive, puis définissez-les dans votre propre CSS.
+- `fixed` conserve les dimensions indiquées en pixels CSS et peut déborder d’un conteneur parent plus étroit, tandis que
+  `fullWidth` occupe toute la largeur du conteneur.
+- Pour une image informative, indiquez un texte alternatif pertinent. Pour une image décorative, utilisez `alt=""`.
+  Dans ce cas, Unpic ajoute `role="presentation"`, sauf si vous fournissez explicitement un autre rôle.
+- Utilisez `aspectRatio` au lieu de `width` et `height` lorsque vous préférez indiquer uniquement le rapport largeur/hauteur.
+- Unpic génère `srcset` à partir de l’URL source. Utilisez `breakpoints` si les largeurs responsives standard d’Unpic ne
+  conviennent pas.
+- Unpic détecte automatiquement les fournisseurs d’images pris en charge. Pour les autres URL, il conserve l’URL source
+  telle quelle, sauf si vous fournissez un fournisseur `fallback`.
+- Les attributs natifs `loading`, `decoding` et la propriété React `fetchPriority` en camelCase restent disponibles si
+  vous avez besoin d’un autre comportement de chargement.
+- `background="auto"` crée une image d’arrière-plan basse résolution pour les fournisseurs pris en charge. Elle reste
+  visible après le chargement. Utilisez cette option uniquement pour les images opaques ou définissez vous-même un arrière-plan.
+- `unstyled` désactive les styles de mise en page en ligne générés par Unpic. Le style d’affichage, le rayon et les
+  points d’accroche `data-slot` de moduix restent disponibles. Utilisez cette option lorsque le cadrage varie selon la
+  taille de l’écran, puis définissez vos propres règles dans votre CSS.
 
 ## Exemples
 
-### Art direction
+### Cadrage selon l’écran
 
-Utilisez `Image.Source` pour afficher une vue plus large du bureau sur les grands écrans et une image de repli en
-portrait sur les petits écrans. La première source destinée aux ordinateurs demande le format AVIF ; la source
-équivalente sert de repli aux navigateurs qui ne le prennent pas en charge. `Image.Source` doit rester dans un
-élément natif `<picture>`.
+Utilisez `Image.Source` pour afficher une vue plus large d’un bureau sur les grands écrans et une image au format portrait
+sur les petits écrans. La première source destinée aux grands écrans demande le format AVIF. La suivante, avec la même
+requête média, sert de solution de remplacement aux navigateurs qui ne prennent pas l’AVIF en charge. `Image.Source`
+doit rester dans un élément natif `<picture>`.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/image/art-direction.tsx"
@@ -111,8 +117,8 @@ portrait sur les petits écrans. La première source destinée aux ordinateurs d
 
 ### Taille fixe
 
-Utilisez `layout="fixed"` lorsque l’image doit conserver des dimensions exactes en pixels CSS. Vérifiez que son
-parent dispose de suffisamment d’espace : les images fixes ne se réduisent pas pour tenir dans un conteneur plus étroit.
+Utilisez `layout="fixed"` lorsque l’image doit conserver des dimensions exactes en pixels CSS. Vérifiez que son conteneur
+parent dispose de suffisamment d’espace : une image fixe ne se réduit pas pour tenir dans un conteneur plus étroit.
 
 <PreviewFrame maxWidth="xs">
   ```tsx preview file="../../en/docs/_snippets/image/fixed.tsx"
@@ -122,8 +128,8 @@ parent dispose de suffisamment d’espace : les images fixes ne se réduisent pa
 
 ### Pleine largeur
 
-Utilisez `layout="fullWidth"` pour un hero ou une bande média qui doit occuper toute la largeur de la mise en page
-parente. Transmettez `height` si la hauteur du recadrage doit rester fixe.
+Utilisez `layout="fullWidth"` pour une image principale ou une section média qui doit occuper toute la largeur de son
+conteneur. Indiquez `height` si la hauteur du cadrage doit rester fixe.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/image/full-width.tsx"
@@ -139,7 +145,7 @@ parente. Transmettez `height` si la hauteur du recadrage doit rester fixe.
 
 ### Points d’accroche CSS
 
-- `data-slot="image-root"` permet de styliser l’élément `<img>` affiché.
-- `data-slot="image-source"` sélectionne le nœud source dans un élément natif `<picture>`.
-- `className` sur `Image` est la méthode recommandée pour appliquer des styles locaux. La racine est un élément de
-  type bloc par défaut.
+- `data-slot="image-root"` permet de sélectionner l’élément `<img>` affiché en CSS.
+- `data-slot="image-source"` permet de sélectionner le nœud `<source>` dans un élément natif `<picture>`.
+- `className` sur `Image` est la méthode recommandée pour appliquer des styles locaux. La racine est un élément de type
+  bloc par défaut.

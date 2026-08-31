@@ -26,7 +26,7 @@ export default function AppSidebar() {
     >
       <Sidebar.Panel>
         <Sidebar.Header>
-          <div style={{ display: 'grid', gap: '0.75rem', width: '100%' }}>
+          <div style={{ display: 'grid', gap: '0.75rem' }}>
             <div style={{ alignItems: 'center', display: 'flex', fontWeight: 600, gap: '0.5rem' }}>
               <strong
                 data-sidebar-icon
@@ -54,81 +54,100 @@ export default function AppSidebar() {
             <Sidebar.GroupAction aria-label="Create workspace item">
               <Plus />
             </Sidebar.GroupAction>
-            <Sidebar.GroupContent>
-              <Sidebar.Menu>
-                <Sidebar.MenuItem>
-                  <Sidebar.Tooltip content="Overview">
-                    <Sidebar.MenuButton asChild active>
-                      <a href="/overview">
-                        <Gauge />
-                        <Sidebar.Label>Overview</Sidebar.Label>
-                      </a>
-                    </Sidebar.MenuButton>
-                  </Sidebar.Tooltip>
-                  <Sidebar.MenuBadge>3</Sidebar.MenuBadge>
-                </Sidebar.MenuItem>
-                <Sidebar.MenuItem>
+            <Sidebar.NavigationList>
+              <Sidebar.NavigationItem>
+                <Sidebar.Tooltip content="Overview">
+                  <Sidebar.NavigationButton asChild active>
+                    <a href="/overview">
+                      <Gauge />
+                      <Sidebar.Label>Overview</Sidebar.Label>
+                    </a>
+                  </Sidebar.NavigationButton>
+                </Sidebar.Tooltip>
+                <Sidebar.NavigationBadge>3</Sidebar.NavigationBadge>
+              </Sidebar.NavigationItem>
+              <Sidebar.NavigationItem>
+                <Sidebar.ExpandedContent>
                   <Collapsible defaultOpen>
                     <Sidebar.Tooltip content="Projects">
                       <Collapsible.Trigger asChild>
-                        <Sidebar.MenuButton>
+                        <Sidebar.NavigationButton>
                           <FolderOpen />
                           <Sidebar.Label>Projects</Sidebar.Label>
                           <Collapsible.Indicator />
-                        </Sidebar.MenuButton>
+                        </Sidebar.NavigationButton>
                       </Collapsible.Trigger>
                     </Sidebar.Tooltip>
-                    <Sidebar.MenuAction aria-label="Rename project group">
+                    <Sidebar.NavigationAction aria-label="Rename project group">
                       <Pencil />
-                    </Sidebar.MenuAction>
+                    </Sidebar.NavigationAction>
                     <Collapsible.Content>
-                      <Sidebar.MenuSub>
-                        <Sidebar.MenuSubItem>
-                          <Sidebar.MenuSubButton href="/projects/website">
+                      <Sidebar.NavigationSubList>
+                        <Sidebar.NavigationSubItem>
+                          <Sidebar.NavigationSubButton href="/projects/website">
                             Website
-                          </Sidebar.MenuSubButton>
-                        </Sidebar.MenuSubItem>
-                        <Sidebar.MenuSubItem>
-                          <Sidebar.MenuSubButton href="/projects/mobile">
+                          </Sidebar.NavigationSubButton>
+                        </Sidebar.NavigationSubItem>
+                        <Sidebar.NavigationSubItem>
+                          <Sidebar.NavigationSubButton href="/projects/mobile">
                             Mobile app
-                          </Sidebar.MenuSubButton>
-                        </Sidebar.MenuSubItem>
-                      </Sidebar.MenuSub>
+                          </Sidebar.NavigationSubButton>
+                        </Sidebar.NavigationSubItem>
+                      </Sidebar.NavigationSubList>
                     </Collapsible.Content>
                   </Collapsible>
-                </Sidebar.MenuItem>
-                <Sidebar.MenuItem>
-                  <Sidebar.Tooltip content="Team">
-                    <Sidebar.MenuButton asChild>
-                      <a href="/team">
-                        <Users />
-                        <Sidebar.Label>Team</Sidebar.Label>
-                      </a>
-                    </Sidebar.MenuButton>
-                  </Sidebar.Tooltip>
-                  <Sidebar.MenuBadge>12</Sidebar.MenuBadge>
-                </Sidebar.MenuItem>
-                <Sidebar.MenuItem>
-                  <Sidebar.Tooltip content="Documents">
-                    <Sidebar.MenuButton asChild>
-                      <a href="/documents">
-                        <FileText />
-                        <Sidebar.Label>Documents</Sidebar.Label>
-                      </a>
-                    </Sidebar.MenuButton>
-                  </Sidebar.Tooltip>
-                </Sidebar.MenuItem>
-              </Sidebar.Menu>
-            </Sidebar.GroupContent>
+                </Sidebar.ExpandedContent>
+                <Sidebar.CollapsedContent>
+                  <Menu positioning={{ placement: 'right-start', gutter: 8 }}>
+                    <Menu.Trigger asChild>
+                      <Sidebar.NavigationButton aria-label="Open projects" title="Projects">
+                        <FolderOpen />
+                      </Sidebar.NavigationButton>
+                    </Menu.Trigger>
+                    <Menu.Positioner>
+                      <Menu.Content>
+                        <Menu.Item value="website" asChild>
+                          <a href="/projects/website">Website</a>
+                        </Menu.Item>
+                        <Menu.Item value="mobile-app" asChild>
+                          <a href="/projects/mobile">Mobile app</a>
+                        </Menu.Item>
+                      </Menu.Content>
+                    </Menu.Positioner>
+                  </Menu>
+                </Sidebar.CollapsedContent>
+              </Sidebar.NavigationItem>
+              <Sidebar.NavigationItem>
+                <Sidebar.Tooltip content="Team">
+                  <Sidebar.NavigationButton asChild>
+                    <a href="/team">
+                      <Users />
+                      <Sidebar.Label>Team</Sidebar.Label>
+                    </a>
+                  </Sidebar.NavigationButton>
+                </Sidebar.Tooltip>
+                <Sidebar.NavigationBadge>12</Sidebar.NavigationBadge>
+              </Sidebar.NavigationItem>
+              <Sidebar.NavigationItem>
+                <Sidebar.Tooltip content="Documents">
+                  <Sidebar.NavigationButton asChild>
+                    <a href="/documents">
+                      <FileText />
+                      <Sidebar.Label>Documents</Sidebar.Label>
+                    </a>
+                  </Sidebar.NavigationButton>
+                </Sidebar.Tooltip>
+              </Sidebar.NavigationItem>
+            </Sidebar.NavigationList>
           </Sidebar.Group>
         </Sidebar.Content>
         <Sidebar.Footer style={{ display: 'grid', width: '100%' }}>
           <Sidebar.Separator />
-          <Sidebar.Menu>
-            <Sidebar.MenuItem>
+          <Sidebar.NavigationList>
+            <Sidebar.NavigationItem>
               <Menu positioning={{ placement: 'right-end', gutter: 8, flip: false }}>
                 <Menu.Trigger asChild>
-                  <Sidebar.MenuButton
+                  <Sidebar.NavigationButton
                     size="lg"
                     aria-label="Open account menu"
                     style={{ height: 'auto' }}
@@ -162,7 +181,7 @@ export default function AppSidebar() {
                     <Menu.Indicator>
                       <ChevronsUpDown />
                     </Menu.Indicator>
-                  </Sidebar.MenuButton>
+                  </Sidebar.NavigationButton>
                 </Menu.Trigger>
                 <Menu.Positioner>
                   <Menu.Content style={{ maxWidth: '18rem', minWidth: '14rem' }}>
@@ -200,8 +219,8 @@ export default function AppSidebar() {
                   </Menu.Content>
                 </Menu.Positioner>
               </Menu>
-            </Sidebar.MenuItem>
-          </Sidebar.Menu>
+            </Sidebar.NavigationItem>
+          </Sidebar.NavigationList>
         </Sidebar.Footer>
       </Sidebar.Panel>
       <Sidebar.ResizeTrigger />

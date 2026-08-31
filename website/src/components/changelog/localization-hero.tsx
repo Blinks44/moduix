@@ -8,7 +8,7 @@ export function LocalizationHero() {
   return (
     <ChangelogHero
       eyebrow={t('localizationHeroDate')}
-      title={t('localizationHeroTitle')}
+      title={t('changelogDocumentationUpdate')}
       summary={t('localizationHeroSummary')}
     >
       <ChangelogHeroCard label={t('localizationHeroLanguages')}>

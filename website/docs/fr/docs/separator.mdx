@@ -1,18 +1,20 @@
 ---
 title: Separator
 component: separator
-description: Séparez du contenu ou des groupes associés par une ligne horizontale ou verticale accessible.
+description: Sépare le contenu ou les groupes associés par une ligne horizontale ou verticale, avec une sémantique adaptée aux technologies d’assistance.
 ---
 
 import * as SeparatorDocs from '@/components/examples/separator';
 
 ## Référence de l’API
 
-Ark UI ne fournit pas de primitive separator dédiée. moduix construit ce composant avec la [fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations d’Ark en matière de [composition](https://ark-ui.com/docs/guides/composition), de [styles](https://ark-ui.com/docs/guides/styling) et de [ref](https://ark-ui.com/docs/guides/ref).
+Ark UI ne fournit pas de primitive dédiée pour les séparateurs. moduix construit ce composant avec la [fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations d’Ark en matière de [composition](https://ark-ui.com/docs/guides/composition), de [styles](https://ark-ui.com/docs/guides/styling) et de [ref](https://ark-ui.com/docs/guides/ref).
+
+Ses propriétés `orientation`, `variant` et `size` reprennent le modèle familier du `Separator` de Chakra UI. Consultez la [documentation de Chakra UI relative à Separator](https://chakra-ui.com/docs/components/separator), qui a servi de référence pour cette API.
 
 ## Exemple de base
 
-Utilisez `Separator` lorsque la ligne elle-même indique la structure entre des fragments de contenu associés.
+Utilisez `Separator` pour marquer visuellement la limite entre des sections liées.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/separator/basic.tsx"
@@ -26,53 +28,58 @@ Utilisez `Separator` lorsque la ligne elle-même indique la structure entre des 
 
 ## Anatomie
 
-`Separator` fournit une seule partie racine.
+`Separator` n’expose qu’une seule partie racine.
 
 ```text
 Separator / Separator.Root
 └─ root[data-scope="separator"][data-part="root"][data-slot="separator-root"]
 ```
 
-| Partie                          | Rôle                                                                                                             |
-| ------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `Separator` / `Separator.Root`  | Élément séparateur racine. Gère l’orientation, les métadonnées d’accessibilité et la recette visuelle.          |
+| Partie                         | Rôle                                                                   |
+| ------------------------------ | ---------------------------------------------------------------------- |
+| `Separator` / `Separator.Root` | Élément séparateur racine. Définit l’orientation, les informations d’accessibilité et le style visuel. |
 
-Stylisez directement la racine avec `className`, `asChild` ou les propriétés CSS `--moduix-separator-*`.
+Utilisez `className` et les propriétés CSS `--moduix-separator-*` pour styliser la racine. Utilisez
+`asChild` si un autre élément doit héberger le séparateur.
 
 ## Composition
 
 ### Composition recommandée
 
-Pour la plupart des séparateurs, utilisez la forme courte `<Separator />`. Elle équivaut à `<Separator.Root />` et maintient une forme racine publique cohérente avec les composants composés dans le style d’Ark.
+Pour la plupart des séparateurs, utilisez la forme courte `<Separator />`. Il s’agit du même composant racine
+que `<Separator.Root />` ; vous pouvez donc passer de l’un à l’autre sans modifier le comportement.
 
 ### Quand créer une composition personnalisée
 
-Utilisez `asChild` uniquement lorsqu’un autre élément hôte doit posséder le nœud DOM affiché. `Separator` affiche déjà un séparateur sémantique ; son enfant doit être un élément unique capable de recevoir les role, attributs ARIA et data fusionnés, ainsi que le nom de classe et la ref.
+Utilisez `asChild` uniquement si vous devez faire porter le séparateur par un autre élément. `Separator` rend
+déjà un séparateur sémantique. Son enfant doit être un élément unique capable de recevoir les attributs fusionnés
+`role`, ARIA et `data-*`, ainsi que `className` et `ref`.
 
 ### Propriétés par défaut
 
-| Propriété       | Valeur par défaut | Remarques                                                        |
-| --------------- | ----------------- | ---------------------------------------------------------------- |
-| `orientation`   | `horizontal`      | `horizontal`, `vertical`                                         |
-| `variant`       | `solid`           | `solid`, `dashed`, `dotted`                                      |
-| `size`          | `sm`              | `xs`, `sm`, `md`, `lg`                                           |
-| `asChild`       | `false`           | Composition de la fabrique Ark avec un enfant unique             |
-| `role`          | `separator`       | Transmettez `presentation` pour une utilisation décorative       |
+| Propriété      | Valeur par défaut | Remarques                                         |
+| -------------- | ----------------- | ------------------------------------------------ |
+| `orientation`  | `horizontal`      | `horizontal`, `vertical`                        |
+| `variant`      | `solid`           | `solid`, `dashed`, `dotted`                     |
+| `size`         | `sm`              | `xs`, `sm`, `md`, `lg`                          |
+| `asChild`      | `false`           | Composition avec la fabrique Ark et un enfant unique |
+| `role`         | `separator`       | Transmettez `presentation` pour une ligne décorative |
 
 ### Comportement
 
-- `Separator` déduit `aria-orientation` de `orientation` lorsque son rôle est `separator` et l’omet pour un rôle décoratif, afin que les attributs transmis ne puissent pas contredire sa sémantique.
-- Utilisez `role="presentation"` lorsque la ligne est purement décorative. Ce comportement diffère de la valeur décorative par défaut de shadcn : moduix conserve par défaut les séparateurs de contenu significatifs dans l’arbre d’accessibilité.
+- Lorsque son rôle est `separator`, `Separator` définit `aria-orientation` à partir de `orientation`. Pour un autre rôle, comme `presentation`, il omet `aria-orientation`, même si vous le transmettez vous-même.
+- Utilisez `role="presentation"` lorsque la ligne est purement visuelle et n’apporte aucune information de structure aux technologies d’assistance.
 - Les séparateurs horizontaux occupent toute la largeur disponible par défaut.
-- Les séparateurs verticaux mesurent `1em` de haut par défaut, ce qui les aligne naturellement avec le texte en ligne et les rangées d’actions compactes.
-- `Separator` n’est pas interactif et ne fournit ni état, ni rappel, ni comportement disabled, ni gestion du focus.
-- Pour créer des espaces vides, utilisez des primitives de disposition ou des tokens d’espacement.
+- Les séparateurs verticaux ont par défaut une hauteur de `1em`, ce qui les aligne naturellement sur le texte en ligne et les rangées d’actions compactes.
+- `Separator` n’est pas interactif : il n’expose ni état, ni fonction de rappel, ni prise en charge de la désactivation, ni gestion du focus.
+- Pour un simple espace, utilisez des primitives de mise en page ou des tokens d’espacement.
 
 ## Exemples
 
 ### Décoratif
 
-Utilisez `role="presentation"` pour une ligne qui équilibre seulement la disposition sans communiquer de structure aux technologies d’assistance.
+Utilisez `role="presentation"` pour une ligne purement visuelle qui n’apporte aucune structure aux technologies
+d’assistance.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/separator/decorative.tsx"
@@ -82,7 +89,7 @@ Utilisez `role="presentation"` pour une ligne qui équilibre seulement la dispos
 
 ### Tailles
 
-Utilisez `size` pour choisir l’épaisseur de la recette avant d’appliquer des redéfinitions personnalisées des variables CSS.
+Utilisez `size` pour choisir l’épaisseur du séparateur, puis les propriétés CSS pour l’ajuster si nécessaire.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/separator/sizes.tsx"
@@ -92,7 +99,7 @@ Utilisez `size` pour choisir l’épaisseur de la recette avant d’appliquer de
 
 ### Variantes
 
-Utilisez `variant` lorsqu’un séparateur nécessite une ligne continue, en tirets ou en pointillés.
+Utilisez `variant` pour choisir une ligne continue, en tirets ou en pointillés.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/separator/variants.tsx"
@@ -102,7 +109,7 @@ Utilisez `variant` lorsqu’un séparateur nécessite une ligne continue, en tir
 
 ### Vertical
 
-Utilisez `orientation="vertical"` pour les groupes en ligne, comme les actions de navigation.
+Utilisez `orientation="vertical"` pour les groupes disposés sur une ligne, comme des liens de navigation.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/separator/vertical.tsx"
@@ -112,7 +119,8 @@ Utilisez `orientation="vertical"` pour les groupes en ligne, comme les actions d
 
 ### Personnalisation avancée
 
-Utilisez `asChild` lorsqu’un élément hôte personnalisé doit recevoir le rôle de séparateur, les hooks de style et la ref transmise. Dans les autres cas, utilisez directement `<Separator />`.
+Utilisez `asChild` lorsqu’un élément hôte précis doit recevoir le rôle de séparateur, les sélecteurs de style et la
+`ref` transmise. Dans les autres cas, utilisez directement `<Separator />`.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/separator/as-child.tsx"
@@ -122,13 +130,14 @@ Utilisez `asChild` lorsqu’un élément hôte personnalisé doit recevoir le r�
 
 ## Styles
 
-`Separator` fournit des sélecteurs de parties dans le style d’Ark et un contrat compact de variables CSS `--moduix-separator-*` pour la couleur, le style de bordure, l’épaisseur et la longueur dépendante de l’orientation.
+`Separator` expose les sélecteurs de partie compatibles avec Ark et un ensemble ciblé de propriétés CSS
+`--moduix-separator-*` pour la couleur, le style de bordure, l’épaisseur et la longueur selon l’orientation.
 
 ### Propriétés CSS
 
 <div className="docs-reference">
   <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    values={[{ label: 'Variables CSS', value: 'Variables CSS' }]}
     className="docs-reference-tabs"
     contentItemClassName="docs-reference-panel"
   >
@@ -140,8 +149,8 @@ Utilisez `asChild` lorsqu’un élément hôte personnalisé doit recevoir le r�
 
 ### Points d’accroche CSS
 
-- `data-scope="separator"` et `data-part="root"` définissent la partie racine dans le style d’Ark.
-- `data-slot="separator-root"` est le sélecteur stable de moduix.
-- `data-orientation="horizontal"` et `data-orientation="vertical"` ciblent les styles propres à chaque axe.
-- `data-size="xs|sm|md|lg"` et `data-variant="solid|dashed|dotted"` exposent la recette visuelle.
-- `className` et `style` sont appliqués directement à l’élément séparateur racine.
+- `data-scope="separator"` et `data-part="root"` identifient la partie racine au format Ark.
+- `data-slot="separator-root"` est le sélecteur moduix stable.
+- `data-orientation="horizontal"` et `data-orientation="vertical"` permettent de cibler les styles propres à chaque axe.
+- `data-size="xs|sm|md|lg"` et `data-variant="solid|dashed|dotted"` exposent les paramètres du style visuel.
+- `className` et `style` s’appliquent directement à l’élément séparateur racine.

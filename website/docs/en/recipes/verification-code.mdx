@@ -1,14 +1,17 @@
 ---
 title: Verification code
-description: A six-digit email-verification form built with moduix React components.
+description: A six-digit email verification form built with moduix React components.
 ---
 
 import { VerificationCodePreview } from '@/components/recipes/verification-code-preview';
 
 # Verification code
 
-Verify an email with a six-digit one-time code. `PinInput` provides the native form input,
-keyboard flow, and mobile OTP autofill. Submit fewer than six digits to see the inline field error.
+Use this recipe when your application sends a one-time code to a user's email address. It combines
+`Card`, `Field`, `Button`, and `PinInput` into a complete form. `PinInput` keeps the value in a hidden
+native form input, handles keyboard navigation and paste, and enables OTP autofill on mobile. Submit
+with fewer than six digits to see the built-in field error. This check only confirms that all six digits
+are present. Your application still needs to verify the code on the server.
 
 <ExampleFrame clientOnly>
   <VerificationCodePreview />
@@ -37,17 +40,22 @@ keyboard flow, and mobile OTP autofill. Submit fewer than six digits to see the 
 
 <ShadcnInstall packageName={['button', 'card', 'field', 'pin-input']} itemKind="recipe" copiedSource />
 
-## In a route
+## Use the recipe in a route
 
-Render `VerificationCode` after your application sends the email code and pass its real submit
-handler. `onSubmit` receives the native form event, so read `new FormData(event.currentTarget)`
-and verify the `code` value with your server. Replace the default `/sign-in` link with your
-application route.
+Copy `VerificationCode` and its CSS, then render it in the route that owns email verification. Show
+the form after your application sends the code. `onSubmit` receives the native form event. If you
+submit the code from the browser, call `event.preventDefault()`, read
+`new FormData(event.currentTarget).get('code')`, and send that value to your server. Replace the
+default `/sign-in` link with your application route.
 
-The preview intentionally has no verification server. After six digits it runs its empty submit
-handler; the copied recipe runs the handler you provide instead.
+The interactive preview makes no server request. Its submit handler calls `event.preventDefault()` so
+the browser stays on the page. In the copied recipe, pass the handler that connects to your API.
 
-Disable duplicate verification while the request is pending. For an invalid code, keep the entered
-digits available and attach the error to the field; for an expired code, explain that a new code is
-required. Put resend behind a short cooldown, announce when a new code is sent, and let the server
-enforce the real rate limit. Never treat the client countdown as authorization.
+## Handle production states
+
+- While verification is pending, disable the submit button to prevent duplicate requests.
+- If the server rejects the code, keep the entered digits and show the server error through `Field`.
+  The built-in error in this example checks only that all six digits are present.
+- If the code has expired, tell the user to request a new one and add a resend action. Add a short
+  cooldown, announce when the new code is sent, and enforce the actual rate limit on the server. A
+  client-side countdown is not proof of authorization.

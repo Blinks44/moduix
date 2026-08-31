@@ -19,10 +19,11 @@ export default function ControlledZoomImageCropperDemo() {
         zoom={zoom}
         minZoom={minZoom}
         maxZoom={maxZoom}
+        aria-label="Image cropper"
         onZoomChange={(details) => setZoom(details.zoom)}
       >
         <ImageCropper.Viewport>
-          <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
+          <ImageCropper.Image src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
           <ImageCropper.CropArea />
         </ImageCropper.Viewport>
       </ImageCropper>

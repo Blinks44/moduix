@@ -1,24 +1,26 @@
 ---
 title: TanStack Start
-description: Install moduix in TanStack Start with global CSS, hydrated components, and a copy-owned alias.
+description: Install moduix in TanStack Start as a package or through the shadcn CLI, with global styles and SSR-safe hydration.
 ---
 
 # TanStack Start
 
-TanStack Start is bundler-agnostic and hydrates route components on the client, so moduix components work in the
-normal route tree without a `use client` directive. It supports both Vite and Rsbuild.
+This guide assumes you already have a TanStack Start app. TanStack Start renders the route tree on the server and
+hydrates it in the browser. moduix works with both Vite and Rsbuild. In the standard setup, you do not need a
+`use client` directive.
 
-## Package install
+## Install as a package
 
 <PackageManagerTabs command="install @moduix/react @ark-ui/react" />
 
-Add the foundation stylesheet to the global stylesheet already loaded by your root route:
+Import the foundation stylesheet once from the root route. In a standard TanStack Start project, the root route is
+`src/routes/__root.tsx`:
 
-```css title="src/styles.css"
-@import '@moduix/react/style.css';
+```tsx title="src/routes/__root.tsx"
+import '@moduix/react/style.css';
 ```
 
-Use a component in a route:
+Use a moduix component in a route:
 
 ```tsx title="src/routes/index.tsx"
 import { createFileRoute } from '@tanstack/react-router';
@@ -33,24 +35,40 @@ function Home() {
 }
 ```
 
-## shadcn CLI install
+## Install with the shadcn CLI
 
-Complete the [shadcn CLI setup](/docs/quick-start#install-with-the-shadcn-cli). If your starter
-already maps `@/*` to `src/*`, keep that alias. Otherwise add the TypeScript and bundler alias from the
-[Vite](/docs/installation/vite#shadcn-cli-install) or [Rsbuild](/docs/installation/rsbuild#shadcn-cli-install)
-setup.
+Use this method when you want the component source and styles in your repository. First complete the
+[shadcn CLI setup](/docs/quick-start#install-with-the-shadcn-cli).
 
-Replace the package CSS import with the generated stylesheet:
+TanStack Start does not add path aliases by default. If your starter already maps `@/*` to `src/*`, keep that alias.
+Otherwise add it to the root `tsconfig.json`:
 
-```css title="src/styles.css"
-@import '@/lib/moduix/styles/style.css';
+```json title="tsconfig.json"
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
+```
+
+Make the same alias available to your bundler. For Vite, follow the [TanStack Start path aliases guide](https://tanstack.com/start/latest/docs/framework/react/guide/path-aliases).
+Rsbuild reads `paths` from the root `tsconfig.json` automatically.
+
+Replace the package stylesheet import in the root route with the generated stylesheet. Do not import both:
+
+```tsx title="src/routes/__root.tsx"
+import '@/lib/moduix/styles/style.css';
 ```
 
 ## Verify
 
-The setup is complete when the server-rendered page hydrates without a mismatch and an interactive
-component responds after hydration. Keep browser-only application code out of the server render as
-you would elsewhere in TanStack Start.
+Start the development server and open `/`. The integration is working when the initial server-rendered page uses moduix
+styles, hydrates without a mismatch, and the button responds to clicks. Keep browser-only APIs and values that can
+differ between the server and client out of code that runs during server rendering.
 
-See the [TanStack Start quick start](https://tanstack.com/start/latest/docs/framework/react/quick-start)
-for the framework's complete setup.
+See TanStack Start's [Getting Started](https://tanstack.com/start/latest/docs/framework/react/getting-started) and
+[Build from Scratch](https://tanstack.com/start/latest/docs/framework/react/build-from-scratch) guides for the
+framework's complete setup.

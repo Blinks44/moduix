@@ -1,7 +1,7 @@
 ---
 title: Tour
 component: tour
-description: Un parcours guidé du produit fondé sur l’état Tour d’Ark UI, des parties d’overlay accessibles et des actions stylisées.
+description: Créez des parcours guidés pour faire découvrir votre produit avec l’état Tour d’Ark UI, une couche superposée accessible et des actions prêtes à l’emploi.
 ---
 
 import { TourCssPropertiesPanel } from '@/components/examples/tour';
@@ -12,8 +12,11 @@ import { TourCssPropertiesPanel } from '@/components/examples/tour';
 
 ## Exemple de base
 
-Créez l’état avec `useTour`, passez-le à `Tour` et laissez les parties de l’overlay explicites. `Tour.Body` permet au
-contenu long d’une étape de défiler sans rogner le popup ni la rangée d’actions.
+Créez l’état du tour avec `useTour`, définissez les étapes, puis transmettez l’objet renvoyé à
+`Tour`. L’exemple commence par une boîte de dialogue, passe à une infobulle ancrée à un contrôle de
+la page, puis se termine par une étape flottante. Les éléments de composition restent explicites dans
+le JSX afin de pouvoir les adapter si nécessaire. `Tour.Body` permet à un texte long de défiler dans
+le panneau.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/tour/basic.tsx"
@@ -29,7 +32,7 @@ contenu long d’une étape de défiler sans rogner le popup ni la rangée d’a
 
 ```text
 Tour
-└─ Sous-arbre de l’overlay (porté par défaut)
+└─ Éléments superposés (rendus dans un portail par défaut)
    ├─ Tour.Backdrop
    ├─ Tour.Spotlight
    └─ Tour.Positioner
@@ -48,58 +51,67 @@ Tour
 
 | Partie | Rôle |
 | --- | --- |
-| `Tour` | Composant racine associé à un objet `UseTourReturn`. `Tour.Root` reste un alias. |
-| `Tour.Backdrop` / `Tour.Spotlight` | Overlay et mise en évidence facultatifs de la cible actuelle. |
-| `Tour.Positioner` / `Tour.Content` | Positionnent et rendent la surface Ark `alertdialog`. |
-| `Tour.Arrow` | Rend par défaut l’`ArrowTip` moduix pour les étapes de type tooltip. |
-| `Tour.CloseIcon` | Utilitaire de fermeture accessible avec une icône seule ; utilisez `CloseTrigger` pour une composition personnalisée. |
-| `Tour.Body` | Enveloppe de contenu moduix défilante pour le titre, la description et la progression. |
-| `Tour.Control` / `Tour.ActionList` | Rangée d’actions recommandée et rendu direct des actions de l’étape actuelle. |
-| `Tour.Actions` / `Tour.ActionTrigger` | Échappatoire avec render props dans le style d’Ark pour une interface d’actions personnalisée. |
+| `Tour` | Composant racine associé à un objet `UseTourReturn`. `Tour.Root` est un alias. |
+| `Tour.Backdrop` / `Tour.Spotlight` | Voile d’arrière-plan facultatif et mise en évidence de la cible active. |
+| `Tour.Positioner` / `Tour.Content` | Positionnent et affichent la boîte de dialogue `alertdialog` d’Ark. |
+| `Tour.Arrow` | Affiche par défaut l’`ArrowTip` de moduix pour les étapes de type infobulle. |
+| `Tour.CloseIcon` | Bouton de fermeture accessible avec une icône. Utilisez `CloseTrigger` pour votre propre balisage. |
+| `Tour.Body` | Conteneur moduix défilant pour le titre, la description et le texte de progression. |
+| `Tour.Control` / `Tour.ActionList` | Rangée d’actions recommandée et actions de l’étape en cours. |
+| `Tour.Actions` / `Tour.ActionTrigger` | Interface d’actions personnalisée qui conserve chaque objet d’action Ark. |
 
 ## Composition
 
-`Tour` porte automatiquement `Backdrop`, `Spotlight` et `Positioner`. Ne définissez `portalled={false}` que si un
-overlay dans le flux est nécessaire, ou passez `portalRef` pour un conteneur personnalisé. Les parties structurelles
-restent explicites et peuvent être mises en forme indépendamment.
+### Composition recommandée
 
-### Contenu accessible
+`Tour` rend automatiquement `Backdrop`, `Spotlight` et `Positioner` dans un portail. Définissez
+`portalled={false}` uniquement si la couche superposée doit rester dans le flux de la page, ou passez
+`portalRef` pour l’afficher dans un conteneur précis. Gardez les parties structurelles explicites.
+Ajoutez `Tour.ActionList` lorsque les actions déclarées dans `steps` conviennent à votre interface :
+il rend les actions de l’étape en cours.
 
-Rendez `Tour.Title` pour donner un nom accessible à la boîte de dialogue d’alerte et `Tour.Description` pour sa
-description. Ark gère le déplacement et le retour du focus, Échap, les interactions extérieures et la navigation
-avec les flèches gauche et droite ; laissez `keyboardNavigation` activé sauf si une étape utilise volontairement ces
-touches. En RTL, Ark inverse la navigation gauche et droite.
+### Quand personnaliser l’interface
 
-### État et actions personnalisées
-
-`useTour` gère `steps`, `stepId`, `onStepChange`, `onStepsChange` et `onStatusChange`. Utilisez `useTourContext` ou
-`Tour.Context`, exportés par moduix, dans l’arbre lorsque l’interface personnalisée a besoin de l’étape active ou des
-méthodes de navigation. `Tour.ActionList` est la forme abrégée par défaut ; n’utilisez `Tour.Actions` que si
-l’interface des actions elle-même doit changer.
+Utilisez `Tour.Actions` et `Tour.ActionTrigger` lorsqu’une action demande son propre balisage. Ils
+préservent la navigation, la fermeture et l’état désactivé gérés par Ark, tout en vous laissant
+rendre vos propres contrôles. Ajoutez `onStepChange`, `onStepsChange` ou `onStatusChange` à
+`useTour` si une autre partie de l’interface ou votre outil d’analyse doit réagir au tour. À
+l’intérieur de l’arbre, les exports moduix `useTourContext` et `Tour.Context` donnent accès à
+l’étape active et aux méthodes de navigation.
 
 ### Propriétés par défaut
 
-Le contenu de l’overlay porté est monté paresseusement par défaut, puis démonté après l’animation de fermeture.
-Définissez `unmountOnExit={false}` pour le conserver après la première ouverture ; ne définissez les deux props de
-cycle de vie sur `false` que si un rendu initial anticipé est nécessaire.
+La couche superposée rendue dans le portail est montée à la première ouverture, puis démontée après
+son animation de fermeture. Définissez `unmountOnExit={false}` pour la conserver après la première
+ouverture. Ne placez les deux propriétés de cycle de vie à `false` que si elle doit être rendue dès
+le départ.
 
-| Prop | Valeur par défaut | Remarques |
+| Propriété | Valeur par défaut | Remarques |
 | --- | --- | --- |
-| `closeOnEscape` | `true` | Échap ferme le tour. |
-| `closeOnInteractOutside` | `true` | Une interaction extérieure ferme le tour, sauf désactivation. |
+| `closeOnEscape` | `true` | La touche Échap ferme le tour. |
+| `closeOnInteractOutside` | `true` | Une interaction hors du tour le ferme, sauf désactivation. |
 | `keyboardNavigation` | `true` | Les flèches gauche et droite parcourent les étapes disponibles. |
-| `preventInteraction` | `false` | Définissez `true` pour bloquer les interactions avec la page tant que le tour est ouvert. |
+| `preventInteraction` | `false` | Définissez `true` pour bloquer la page tant que le tour est ouvert. |
 | `spotlightOffset` | `{ x: 10, y: 10 }` | Agrandit la zone mise en évidence autour de la cible. |
-| `spotlightRadius` | `4` | Définit le rayon des angles du clip-path de mise en évidence. |
-| `lazyMount` | `true` | Diffère le montage de l’overlay du tour jusqu’à sa première ouverture. |
-| `unmountOnExit` | `true` | Démonte le composant après l’animation de fermeture. |
+| `spotlightRadius` | `4` | Arrondit les coins de la mise en évidence. |
+| `lazyMount` | `true` | Diffère le rendu de la couche jusqu’à la première ouverture. |
+| `unmountOnExit` | `true` | Démonte la couche après l’animation de fermeture. |
+
+### Comportement et accessibilité
+
+`Tour.Title` fournit le nom accessible de la boîte de dialogue d’alerte et `Tour.Description` sa
+description. Ark gère le focus à l’ouverture et à la fermeture, Échap, les interactions extérieures,
+et la navigation avec les flèches gauche et droite. Laissez `keyboardNavigation` activé, sauf si une
+étape utilise volontairement ces touches. En interface RTL, Ark inverse la navigation gauche et
+droite.
 
 ## Exemples
 
 ### Événements
 
-Utilisez les objets `details` des callbacks Ark pour les analyses ou une interface située hors du tour. Démarrez le
-tour, sélectionnez « Next », puis « Done » : le `PreviewMeta` centré affiche les callbacks de l’étape et du statut final.
+Utilisez les objets transmis aux fonctions de rappel d’Ark pour mettre à jour une autre partie de
+l’interface ou enregistrer des données d’analyse. Lancez le tour, cliquez sur Next puis sur Done. Le
+`PreviewMeta` de cet exemple affiche le changement d’étape et le statut final.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/tour/events.tsx"
@@ -109,9 +121,9 @@ tour, sélectionnez « Next », puis « Done » : le `PreviewMeta` centré affic
 
 ### Attendre une saisie
 
-Utilisez l’événement de changement d’`Input` avec l’objet d’état du tour lorsqu’une valeur valide doit faire avancer
-le parcours. Saisissez deux caractères pour passer du tooltip à l’étape de confirmation. Pour les conditions
-asynchrones, `waitForElement`, `waitForElementValue`, `waitForEvent` et `waitForPromise` sont exportés depuis
+Dans cet exemple, le gestionnaire du champ appelle `tour.next()` dès que la valeur contient deux
+caractères. Pour des étapes qui dépendent d’une condition asynchrone, `waitForElement`,
+`waitForElementValue`, `waitForEvent` et `waitForPromise` sont aussi exportés depuis
 `@moduix/react/tour`.
 
 <PreviewFrame maxWidth="lg">
@@ -122,8 +134,8 @@ asynchrones, `waitForElement`, `waitForElementValue`, `waitForEvent` et `waitFor
 
 ### Avec flèche
 
-Ajoutez `Tour.Arrow` à une étape tooltip lorsqu’elle a besoin d’un lien visuel avec sa cible. Activez l’option
-`arrow` de l’étape pour qu’Ark positionne la flèche.
+Ajoutez `Tour.Arrow` à une étape de type infobulle lorsqu’elle doit indiquer visuellement sa cible,
+et activez l’option `arrow` de l’étape pour qu’Ark puisse positionner la flèche.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/tour/with-arrow.tsx"
@@ -131,11 +143,12 @@ Ajoutez `Tour.Arrow` à une étape tooltip lorsqu’elle a besoin d’un lien vi
 ```
 </PreviewFrame>
 
-### Actions personnalisées
+### Personnalisation avancée
 
-N’utilisez pas `Tour.ActionList` si chaque action exige sa propre composition. « Continue », « Back » et « Skip
-tour » sont des descendants `Button` personnalisés, mais chacun reçoit l’objet d’action Ark d’origine par
-`Tour.ActionTrigger`, ce qui conserve la navigation, la fermeture et l’état désactivé.
+Remplacez `Tour.ActionList` lorsque chaque action exige son propre balisage. L’exemple utilise des
+enfants `Button` personnalisés pour Continue, Back et Skip tour. Chaque `Tour.ActionTrigger` reçoit
+toujours l’objet d’action Ark d’origine, donc la navigation, la fermeture et l’état désactivé restent
+fonctionnels.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/tour/advanced-customization.tsx"
@@ -161,11 +174,13 @@ tour » sont des descendants `Button` personnalisés, mais chacun reçoit l’ob
   </Tabs>
 </div>
 
-### Points d’accroche CSS
+### Hooks de style
 
-Utilisez les hooks moduix `data-slot`, comme `tour-content`, `tour-body` et `tour-action-trigger`, pour une mise en
-forme locale. Ark fournit `data-scope="tour"`, `data-part`, `data-state`, `data-type`, `data-placement`, `data-side`,
-`data-step` et `data-disabled` ; ses variables d’exécution comprennent `--tour-layer`, `--tour-z-index`,
-`--available-width`, `--available-height`, `--transform-origin` et les variables de flèche. Passez `className` à `Tour.ActionList` pour
-mettre en forme chaque déclencheur généré. Lorsque l’utilisateur préfère réduire les animations, Tour raccourcit les
-animations de présence de l’overlay et supprime les transitions des boutons d’action.
+Utilisez les attributs moduix `data-slot`, par exemple `tour-content`, `tour-body` et
+`tour-action-trigger`, pour appliquer des styles locaux. Ark fournit aussi `data-scope="tour"`,
+`data-part`, `data-state`, `data-type`, `data-placement`, `data-side`, `data-step` et
+`data-disabled`, ainsi que les variables d’exécution `--tour-layer`, `--tour-z-index`,
+`--available-width`, `--available-height`, `--transform-origin` et les variables de flèche. Passez
+`className` à `Tour.ActionList` pour styliser chaque déclencheur créé. La feuille de style raccourcit
+les animations de la couche superposée et retire les transitions des boutons d’action lorsque
+l’utilisateur préfère réduire les animations.

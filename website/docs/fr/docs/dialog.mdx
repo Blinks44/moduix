@@ -1,7 +1,7 @@
 ---
 title: Dialog
 component: dialog
-description: Fenêtre modale pour les tâches ciblées, avec confirmation des actions dangereuses via un alert dialog.
+description: Fenêtre modale pour les formulaires, les confirmations et les autres tâches qui demandent de l’attention.
 ---
 
 import { DialogCssPropertiesPanel } from '@/components/examples/dialog';
@@ -12,12 +12,14 @@ import { DialogCssPropertiesPanel } from '@/components/examples/dialog';
 
 ## Choisir le bon composant
 
-Utilisez `Dialog` pour les formulaires, les confirmations, les détails et les tâches secondaires qui restent dans le
-contexte de la page actuelle. Utilisez `Drawer` lorsque la surface doit être ancrée à un bord de la fenêtre d’affichage.
+Utilisez `Dialog` pour les formulaires, les confirmations, l’affichage de détails et les autres tâches qui doivent rester
+dans le contexte de la page actuelle. Préférez `Drawer` lorsque le panneau doit rester fixé à un bord de la fenêtre ou
+pouvoir être déplacé.
 
 ## Exemple de base
 
-Composez la structure Ark UI explicite : `Dialog`, `Dialog.Backdrop`, `Dialog.Positioner` et `Dialog.Content`.
+Utilisez `Dialog` comme racine et composez explicitement ses parties structurelles. `Dialog.Backdrop` fournit le fond
+modal, `Dialog.Positioner` positionne le dialogue et `Dialog.Content` contient sa surface.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/dialog/basic.tsx"
@@ -32,238 +34,242 @@ Composez la structure Ark UI explicite : `Dialog`, `Dialog.Backdrop`, `Dialog.Po
 ## Anatomie
 
 ```text
-Dialog
+Dialog / Dialog.Root
 ├─ Dialog.Trigger
-└─ Overlay subtree (automatically portalled)
-   ├─ Dialog.Backdrop
+└─ Contenu superposé (rendu automatiquement dans un portail)
+   ├─ Dialog.Backdrop (facultatif)
    └─ Dialog.Positioner
       └─ Dialog.Content
-         ├─ Dialog.CloseTrigger or Dialog.CloseIcon
+         ├─ Dialog.CloseTrigger ou Dialog.CloseIcon
          ├─ Dialog.Title
          ├─ Dialog.Description
-         ├─ Dialog.Header (moduix layout sugar)
-         ├─ Dialog.Body (moduix layout sugar)
-         └─ Dialog.Footer (moduix layout sugar)
+         ├─ Dialog.Header (aide de mise en page moduix)
+         ├─ Dialog.Body (aide de mise en page moduix)
+         └─ Dialog.Footer (aide de mise en page moduix)
 
 Dialog.RootProvider
-└─ the same automatically portalled content tree connected to moduix useDialog()
+└─ la même arborescence reliée à l’état créé avec useDialog() de moduix
 
 Dialog.Context
-└─ a render function with the current dialog state and methods
+└─ une fonction de rendu qui reçoit l’état et les méthodes actuels du dialogue
 ```
 
-| Partie                  | Rôle |
-| ----------------------- | ---- |
-| `Dialog`                | Gère l’état ouvert, le cycle de focus et la fermeture du dialogue. |
-| `Dialog.Trigger`        | Ouvre le dialogue. |
-| `Dialog.Backdrop`       | Couche d’arrière-plan facultative de la fenêtre modale. |
-| `Dialog.Positioner`     | Positionneur flottant du contenu. |
-| `Dialog.Content`        | Conteneur de la surface du dialogue. |
-| `Dialog.Title`          | Titre accessible du dialogue. |
-| `Dialog.Description`    | Description d’aide accessible. |
-| `Dialog.CloseTrigger`   | Ferme le dialogue. |
-| `Dialog.Context`        | Rend ses enfants avec l’état et les méthodes actuels du dialogue. |
-| `Dialog.RootProvider`   | Connecte les parties à l’état créé avec `useDialog()` de moduix. |
+| Partie                  | Rôle                                                                  |
+| ----------------------- | --------------------------------------------------------------------- |
+| `Dialog` / `Dialog.Root` | Gère l’état d’ouverture, le focus et la fermeture du dialogue.         |
+| `Dialog.RootProvider`   | Relie les parties à l’état créé avec `useDialog()`.                    |
+| `Dialog.Trigger`        | Ouvre le dialogue.                                                     |
+| `Dialog.Backdrop`       | Couche d’arrière-plan facultative du dialogue modal.                  |
+| `Dialog.Positioner`     | Positionne le contenu du dialogue.                                     |
+| `Dialog.Content`        | Contient la surface visible du dialogue.                              |
+| `Dialog.Title`          | Donne au dialogue un titre accessible.                                |
+| `Dialog.Description`    | Ajoute un texte complémentaire accessible.                            |
+| `Dialog.CloseTrigger`   | Ferme le dialogue.                                                     |
+| `Dialog.CloseIcon`      | Bouton de fermeture moduix qui ferme aussi le dialogue.               |
+| `Dialog.Header`         | Aide moduix pour organiser l’en-tête.                                 |
+| `Dialog.Body`           | Aide moduix pour organiser le contenu principal.                      |
+| `Dialog.Footer`         | Aide moduix pour organiser les actions.                               |
+| `Dialog.Context`        | Rend ses enfants avec l’état et les méthodes actuels du dialogue.      |
 
-Importez `useDialog()` lorsque l’état du dialogue doit vivre hors de l’arbre rendu. Lisez-le dans des enfants
-réutilisables avec `Dialog.Context` ou `useDialogContext()` depuis `@moduix/react`.
+Importez `useDialog()` lorsque l’état doit être géré en dehors de l’arbre rendu du dialogue. Lisez-le ou mettez-le à jour
+avec `Dialog.Context` ou `useDialogContext()` depuis `@moduix/react`.
 
 ## Composition
 
-Le composant racine place automatiquement `Backdrop` et `Positioner` dans un portail. Utilisez `portalled={false}`
-pour un rendu intégré ou `portalRef` pour un conteneur personnalisé ; les parties structurelles restent explicites et stylables.
+Le composant racine place automatiquement `Dialog.Backdrop` et `Dialog.Positioner` dans un portail. Définissez
+`portalled={false}` pour les afficher dans l’arbre courant, ou transmettez `portalRef` pour utiliser un conteneur
+personnalisé. Gardez les parties structurelles explicites afin de pouvoir les styliser et les personnaliser séparément.
 
 ### Composition recommandée
 
-Conservez `Backdrop`, `Positioner` et `Content` explicites. Vous gardez ainsi les points de personnalisation structurelle
-et une correspondance directe avec Ark UI. Pour un dialogue non modal, ne rendez pas `Backdrop`.
+Rendez explicitement `Dialog.Backdrop`, `Dialog.Positioner` et `Dialog.Content`. Ajoutez l’arrière-plan pour un dialogue
+modal et omettez-le lorsque le dialogue doit être non modal.
 
-Utilisez `Dialog.Trigger asChild` et `Dialog.CloseTrigger asChild` avec un unique bouton enfant sémantique.
-`Dialog.CloseIcon` est une composition moduix prête à l’emploi qui associe le `CloseTrigger` Ark au bouton de fermeture
-de la bibliothèque.
+Utilisez `Dialog.Trigger asChild` et `Dialog.CloseTrigger asChild` avec un seul élément enfant sémantique. Cet élément doit
+pouvoir recevoir le focus et conserver le comportement d’un bouton. `Dialog.CloseIcon` est une aide moduix qui associe le
+`CloseTrigger` d’Ark au bouton de fermeture de la bibliothèque.
 
 ### Quand créer une composition personnalisée
 
-Pour un état contrôlé par React, utilisez `open` avec `onOpenChange(details)`. Le callback reçoit l’objet `details` d’Ark ;
-lisez donc la valeur dans `details.open`.
+Utilisez `open` et `onOpenChange(details)` lorsque React doit gérer l’état d’ouverture. Le callback reçoit un objet
+`details` d’Ark ; lisez donc le nouvel état dans `details.open`.
 
-Utilisez `useDialog()` de moduix avec `Dialog.RootProvider` lorsque l’état et les méthodes doivent vivre hors de l’arbre
-rendu du dialogue. Ne rendez pas `Dialog` pour le même store.
+Utilisez `useDialog()` avec `Dialog.RootProvider` lorsque l’état ou les méthodes doivent être accessibles en dehors de
+l’arbre du dialogue. Ne rendez pas un second `Dialog` pour la même instance. Si un composant enfant réutilisable doit lire
+cet état, utilisez `Dialog.Context` ou `useDialogContext()`.
 
 Utilisez `ids` lorsque des parties composées séparément ont besoin d’identifiants d’accessibilité stables et communs.
-`initialFocusEl` et `finalFocusEl` définissent des cibles de focus explicites. `role="alertdialog"` modélise la confirmation
-d’actions dangereuses ou critiques.
+Utilisez `initialFocusEl` et `finalFocusEl` pour choisir explicitement les cibles du focus. Définissez
+`role="alertdialog"` pour les décisions dangereuses ou particulièrement critiques.
 
-Utilisez `lazyMount` et `unmountOnExit` plutôt qu’un rendu conditionnel du composant racine. N’utilisez `present` que
-lorsqu’une animation de sortie contrôlée en JavaScript doit piloter l’état monté.
+Gardez la racine montée lorsque l’état d’ouverture change. Utilisez `lazyMount` et `unmountOnExit` pour contrôler le
+moment où le contenu placé dans le portail entre dans le DOM et en sort. Définissez `present` uniquement lorsqu’une
+animation de sortie pilotée par JavaScript doit contrôler le maintien du contenu dans le DOM.
 
 ### Propriétés par défaut
 
-Par défaut, le contenu de l’overlay dans le portail est monté à la demande et démonté après l’animation de sortie.
-Définissez `unmountOnExit={false}` pour le conserver après la première ouverture ; désactivez les deux propriétés de
-cycle de vie uniquement lorsqu’un rendu initial immédiat est nécessaire.
+Les deux premières valeurs sont définies par moduix. Les autres sont héritées d’Ark UI.
 
-| Surface  | Valeur par défaut | Remarques |
-| -------- | ----------------- | --------- |
-| `Dialog` | -                 | Aucun réglage comportemental supplémentaire ; les valeurs Ark s’appliquent. |
+| Propriété                 | Valeur par défaut | Remarques                                                         |
+| ------------------------- | ----------------- | ----------------------------------------------------------------- |
+| `lazyMount`               | `true`            | Monte le contenu placé dans le portail à la première ouverture.   |
+| `unmountOnExit`            | `true`            | Démonte le contenu après son animation de sortie.                 |
+| `modal`                    | `true`            | Empêche les interactions avec le contenu situé hors du dialogue.  |
+| `preventScroll`            | `true`            | Empêche le défilement de la page lorsque le dialogue est ouvert.  |
+| `trapFocus`                | `true`            | Retient le focus dans un dialogue modal.                          |
+| `closeOnEscape`            | `true`            | Ferme le dialogue lorsque l’utilisateur appuie sur `Escape`.      |
+| `closeOnInteractOutside`   | `true`            | Ferme le dialogue après une interaction extérieure.               |
+| `role`                     | `"dialog"`        | Utilise par défaut la sémantique d’un dialogue ordinaire.         |
 
 ### Comportement
 
-- Les dialogues modaux retiennent le focus, empêchent le défilement en arrière-plan, masquent le contenu sous-jacent
-  aux technologies d’assistance et restaurent le focus après leur fermeture.
-- `modal={false}` désactive la rétention du focus et le verrouillage du défilement ; aucun arrière-plan n’est nécessaire
-  dans ce mode.
+- Un dialogue modal retient le focus, empêche le défilement de la page, masque le contenu situé derrière lui aux
+  technologies d’assistance et restaure le focus après sa fermeture.
+- Définissez `modal={false}` pour désactiver la rétention du focus et le blocage du défilement. Dans ce mode, omettez
+  `Dialog.Backdrop` afin que la page reste interactive.
 - `closeOnEscape`, `closeOnInteractOutside`, `trapFocus`, `preventScroll`, `restoreFocus`, `persistentElements` et les
-  callbacks d’interaction extérieure sont transmis à Ark UI sans modification.
-- Un nom accessible exige `Dialog.Title` ou un `aria-label` sur le composant racine.
-- Lorsque le système d’exploitation demande une réduction des mouvements, Dialog raccourcit ses
-  animations d’entrée et de sortie tout en préservant le cycle de présence d’Ark UI.
-- Tous les identifiants des parties de fermeture rendues doivent être uniques. La composition de base canonique utilise
-  un seul `Dialog.CloseIcon` ; si plusieurs contrôles de fermeture sont nécessaires, attribuez des `id` explicites et
-  uniques aux parties supplémentaires.
-- Le contenu imbriqué reçoit `data-has-nested` et `--nested-layer-count`. moduix utilise ces points d’accroche pour
-  réduire le dialogue parent et le décaler vers le bas, tout en préservant l’effet visuel de couches du dialogue imbriqué actif.
-- L’ouverture depuis un menu et les changements rapides d’état utilisent le contrat contrôlé `open`. La confirmation de
-  modifications non enregistrées utilise deux stores `useDialog()` de moduix et intercepte le `onOpenChange` du store parent.
+  callbacks d’interaction extérieure sont transmis à Ark UI.
+- Rendez `Dialog.Title` ou définissez `aria-label` sur la racine pour donner au dialogue un nom accessible. Utilisez
+  `Dialog.Description` lorsque les utilisateurs ont besoin d’une explication complémentaire.
+- Lorsque la préférence système de réduction des animations est activée, moduix raccourcit les animations d’entrée et de
+  sortie, tandis qu’Ark UI termine normalement le cycle de présence.
+- Si un dialogue contient plusieurs contrôles de fermeture, donnez à chaque `Dialog.CloseTrigger` un `id` explicite et
+  unique. Un seul `Dialog.CloseIcon` n’en a pas besoin.
+- Pour les dialogues imbriqués, le contenu parent reçoit `data-has-nested` et `--nested-layer-count`. moduix s’en sert
+  pour réduire le parent et le décaler vers le bas tant que le dialogue imbriqué est ouvert.
+- Ne démontez pas la racine conditionnellement pour fermer le dialogue. Gardez-la montée et contrôlez `open`, ou utilisez
+  `lazyMount` et `unmountOnExit` lorsque le contenu placé dans le portail ne doit pas rester dans le DOM.
 
 ## Exemples
 
-### Alert Dialog
+### Dialogue d’alerte
 
-Utilisez `role="alertdialog"` pour les décisions critiques et laissez l’action la plus sûre disponible comme déclencheur de fermeture.
+Utilisez `role="alertdialog"` pour les décisions lourdes de conséquences. Ajoutez une action d’annulation claire et une
+action distincte pour confirmer la décision.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/dialog/alert-dialog.tsx"
 
 ```
-
 </PreviewFrame>
 
 ### Confirmation
 
-Interceptez la demande de fermeture du dialogue parent lorsqu’il faut d’abord confirmer des modifications non enregistrées.
+Interceptez la demande de fermeture du dialogue parent lorsqu’un formulaire contient des modifications non enregistrées et
+demandez à l’utilisateur s’il souhaite les abandonner.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/dialog/confirmation.tsx"
 
 ```
-
 </PreviewFrame>
 
 ### État contrôlé
 
-Utilisez l’objet `details` d’Ark lorsque vous synchronisez l’état du dialogue avec React.
+Conservez `open` dans l’état React et lisez `details.open` dans `onOpenChange` pour synchroniser le dialogue avec le reste
+de l’application.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/dialog/controlled.tsx"
 
 ```
-
 </PreviewFrame>
 
-### Montage et cycle de focus
+### Défilement du contenu
 
-Ark UI prend en charge le montage à la demande et les cibles de focus initiale et finale explicites via les propriétés
-du composant racine.
-
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/dialog/mounting-and-focus-lifecycle.tsx"
-
-```
-
-</PreviewFrame>
-
-### Défilement intérieur
-
-Utilisez `ScrollArea` dans `Dialog.Content` lorsque le titre et les actions doivent rester visibles pendant le défilement
-du contenu principal.
+Rendez uniquement le contenu principal défilable lorsque le titre et les actions doivent rester visibles.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/dialog/inside-scroll.tsx"
 
 ```
-
 </PreviewFrame>
 
-### Défilement extérieur
+### Montage et cycle de focus
 
-Laissez `Dialog.Positioner` faire défiler l’ensemble du dialogue lorsqu’un long document doit conserver sa hauteur naturelle.
+Utilisez `lazyMount` et `unmountOnExit` pour gérer le cycle de présence. Utilisez `initialFocusEl` et `finalFocusEl` lorsque
+le focus doit aller vers des éléments précis à l’ouverture et à la fermeture.
 
 <PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/dialog/outside-scroll.tsx"
+  ```tsx preview file="../../en/docs/_snippets/dialog/mounting-and-focus-lifecycle.tsx"
 
 ```
-
 </PreviewFrame>
 
 ### Plusieurs déclencheurs
 
-Attribuez une `value` à chaque déclencheur et traitez `onTriggerValueChange(details)` lorsqu’un même dialogue modifie
-plusieurs entrées.
+Partagez un même dialogue entre plusieurs déclencheurs en attribuant une `value` à chacun et en gérant
+`onTriggerValueChange(details)`.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/dialog/multiple-triggers.tsx"
 
 ```
-
 </PreviewFrame>
 
 ### Dialogues imbriqués
 
-Utilisez des stores `useDialog()` de moduix distincts pour les couches imbriquées. Ark UI transmet au contenu parent
-l’état de la pile et les variables CSS ; moduix s’en sert pour créer l’effet d’un parent en retrait et décalé vers le bas.
+Utilisez des instances distinctes de `useDialog()` pour les dialogues imbriqués. Ark UI gère la pile des calques et moduix
+utilise cet état pour faire reculer le parent lorsque le dialogue imbriqué est ouvert.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/dialog/nested.tsx"
 
 ```
-
 </PreviewFrame>
 
 ### Mode non modal
 
-Définissez `modal={false}` et ne rendez pas l’arrière-plan lorsque les interactions hors du dialogue doivent rester accessibles.
+Définissez `modal={false}` et omettez l’arrière-plan lorsque les utilisateurs doivent pouvoir continuer à interagir avec
+la page en dehors du dialogue.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/dialog/non-modal.tsx"
 
 ```
-
 </PreviewFrame>
 
 ### Ouverture depuis un menu
 
-Contrôlez `open` depuis un élément de menu lorsqu’une action contextuelle nécessite un dialogue de confirmation.
+Contrôlez `open` depuis un élément de menu lorsqu’une action contextuelle doit ouvrir un dialogue de confirmation.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/dialog/open-from-menu.tsx"
 
 ```
-
 </PreviewFrame>
 
-### Root Provider et contexte
+### Défilement de l’ensemble du dialogue
 
-Créez l’état avec `useDialog()` de moduix lorsque les contrôles se trouvent hors du dialogue. Lisez l’état avec
-`Dialog.Context` ou utilisez `useDialogContext()` dans un composant React réutilisable.
+Laissez `Dialog.Positioner` faire défiler l’ensemble du dialogue lorsque son contenu est long et doit conserver sa hauteur
+naturelle.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/dialog/outside-scroll.tsx"
+
+```
+</PreviewFrame>
+
+### Root Provider
+
+Créez l’état avec `useDialog()` lorsque les contrôles se trouvent en dehors du dialogue. Reliez-le avec
+`Dialog.RootProvider`, puis lisez-le avec `Dialog.Context` ou `useDialogContext()` dans des composants réutilisables.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/dialog/root-provider-and-ark-context-hooks.tsx"
 
 ```
-
 </PreviewFrame>
 
 ### Personnalisation avancée
 
-N’utilisez pas `Header`, `Body`, `Footer` ni `CloseIcon` lorsqu’une mise en page personnalisée exige un contrôle direct
-de chaque partie Ark du dialogue.
+N’utilisez pas `Header`, `Body`, `Footer` ni `CloseIcon` lorsqu’une mise en page personnalisée doit contrôler directement
+chaque partie du dialogue Ark.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/dialog/advanced-customization.tsx"
 
 ```
-
 </PreviewFrame>
 
 ## Styles
@@ -284,11 +290,11 @@ de chaque partie Ark du dialogue.
 
 ### Points d’accroche CSS
 
-- Slots moduix : `dialog-trigger`, `dialog-backdrop`, `dialog-positioner`, `dialog-content`,
-  `dialog-title`, `dialog-description`, `dialog-close-trigger`, `dialog-close-icon`,
-  `dialog-header`, `dialog-body` et `dialog-footer`.
-- Anatomie Ark : `data-scope="dialog"` avec `data-part="trigger|backdrop|positioner|content|title|description|close-trigger"`.
-- État : `data-state="open|closed"`, `data-has-nested`, `data-nested`, `data-current` et `data-value`.
+- Valeurs `data-slot` de moduix : `dialog-trigger`, `dialog-backdrop`, `dialog-positioner`, `dialog-content`,
+  `dialog-title`, `dialog-description`, `dialog-close-trigger`, `dialog-close-icon`, `dialog-header`, `dialog-body` et
+  `dialog-footer`.
+- Attributs Ark : `data-scope="dialog"` et `data-part="trigger|backdrop|positioner|content|title|description|close-trigger"`.
+- Attributs d’état : `data-state="open|closed"`, `data-has-nested`, `data-nested`, `data-current` et `data-value`.
 - Variables d’exécution : `--layer-index` et `--nested-layer-count`.
-- `Dialog.CloseIcon` est positionné de manière absolue par rapport à `Dialog.Content` ; son emplacement ne dépend pas de
+- `Dialog.CloseIcon` est positionné par rapport à l’angle de `Dialog.Content`, et son emplacement ne dépend donc pas de
   `Dialog.Header`.

@@ -1,18 +1,21 @@
 ---
 title: Utilities
-description: Ark UI utilities for lower-level behavior that moduix components do not already provide.
+description: Lower-level Ark UI utilities and moduix wrappers for browser rendering, focus management, formatting, and content lifecycle.
 ---
 
 import { Card, Cards } from '@/components/mdx/Components';
 
 # Utilities
 
-Ark UI utilities are small building blocks for behavior that does not belong to a specific moduix component: browser
-rendering, document environments, focus management, formatting, and rendering lifecycle.
+This section covers lower-level building blocks from Ark UI and moduix. Use them for browser-only rendering, custom
+document contexts, focus management, formatting, keyboard shortcuts, or control over when content mounts.
 
-Start with a moduix component when it already owns the interaction. Use a utility directly when your application owns
-the surrounding markup or behavior. Each page below explains the recommended import, provides runnable examples, and
-links to the complete Ark API.
+Most guides use Ark UI directly. `Highlight`, `JsonTreeView`, and `Swap` are moduix wrappers with library styles or
+defaults, while `Locale` is exposed through a stable `@moduix/react/locale` entry point. Each guide shows the import
+you need, a runnable example, and a link to the complete Ark API.
+
+Start with a moduix component when it already owns the interaction. Use one of these utilities when your application
+owns the surrounding markup or behavior.
 
 ## Guides
 
@@ -24,22 +27,22 @@ links to the complete Ark API.
   />
   <Card
     title="Download Trigger"
-    description="Download a URL, Blob, File, or generated payload from a familiar button."
+    description="Trigger downloads for a URL, Blob, File, or generated data from a button."
     href="/docs/download-trigger"
   />
   <Card
     title="Environment"
-    description="Use Ark and moduix in an iframe, Shadow DOM, Electron, or another document."
+    description="Point Ark UI's DOM queries at an iframe, Shadow DOM, Electron, or another document."
     href="/docs/environment"
   />
   <Card
     title="Focus Trap"
-    description="Keep keyboard focus within a custom modal surface."
+    description="Keep keyboard focus inside a custom modal or interactive surface."
     href="/docs/focus-trap"
   />
   <Card
     title="Format Byte"
-    description="Format file sizes and storage values for the active locale."
+    description="Format byte values as readable file sizes for the active locale."
     href="/docs/format-byte"
   />
   <Card
@@ -48,14 +51,14 @@ links to the complete Ark API.
     href="/docs/format-number"
   />
   <Card
-    title="Format Relative Time"
-    description="Show dates as relative time, such as “2 minutes ago”."
-    href="/docs/format-relative-time"
+    title="Format Time"
+    description="Format clock times and Date values for the active locale."
+    href="/docs/format-time"
   />
   <Card
-    title="Format Time"
-    description="Format clock times and time strings for the active locale."
-    href="/docs/format-time"
+    title="Format Relative Time"
+    description="Display dates as relative time, such as “2 minutes ago”."
+    href="/docs/format-relative-time"
   />
   <Card
     title="Frame"
@@ -64,12 +67,12 @@ links to the complete Ark API.
   />
   <Card
     title="Highlight"
-    description="Highlight matching words and phrases with Ark matching and moduix styles."
+    description="Highlight matching words and phrases with Ark's matching logic and moduix styles."
     href="/docs/highlight"
   />
   <Card
     title="Hotkeys"
-    description="Register keyboard shortcuts, sequences, and commands."
+    description="Register platform-aware keyboard shortcuts, sequences, and commands."
     href="/docs/hotkeys"
   />
   <Card
@@ -79,12 +82,12 @@ links to the complete Ark API.
   />
   <Card
     title="Locale"
-    description="Share one locale and text direction with Ark formatters and components."
+    description="Provide a locale and text direction to Ark formatters and locale-aware components."
     href="/docs/locale"
   />
   <Card
     title="Presence"
-    description="Control whether application-owned content mounts, hides, or unmounts."
+    description="Control when application-owned content mounts, hides, or unmounts."
     href="/docs/presence"
   />
   <Card

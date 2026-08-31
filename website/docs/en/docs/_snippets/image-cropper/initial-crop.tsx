@@ -12,9 +12,9 @@ const initialCrop = {
 
 export default function InitialCropImageCropperDemo() {
   return (
-    <ImageCropper initialCrop={initialCrop}>
+    <ImageCropper initialCrop={initialCrop} aria-label="Image cropper">
       <ImageCropper.Viewport>
-        <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
+        <ImageCropper.Image src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
         <ImageCropper.CropArea />
       </ImageCropper.Viewport>
     </ImageCropper>

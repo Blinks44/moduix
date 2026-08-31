@@ -1,100 +1,146 @@
 ---
-title: Migration depuis shadcn
-description: Repérez les équivalents moduix pour les composants, imports, styles et modes de propriété du code dans shadcn.
+title: Migrer depuis shadcn vers moduix
+description: Passez d’une application shadcn à moduix composant par composant, en adaptant la propriété du code source, les imports, les styles et l’état Ark.
 ---
 
-# Migration depuis shadcn
+# Migrer depuis shadcn vers moduix
 
-moduix reprend ce qui rend shadcn simple à adopter : le code source que vous gardez dans votre projet,
-`components.json` et l’installation depuis le registre. Les principales différences sont des noms de
-composants cohérents, des API composées dans l’esprit d’Ark et un CSS fondé sur les tokens, qui n’a pas besoin de Tailwind.
+Si votre application utilise déjà shadcn, vous pouvez passer à moduix composant par composant. Les
+deux bibliothèques peuvent cohabiter pendant que vous remplacez certains écrans ou certaines
+familles de composants.
 
-Il n’est pas nécessaire de migrer toute l’application d’un coup. Commencez par un écran ou une famille
-de composants : pendant la transition, shadcn et moduix peuvent coexister.
+Le choix principal concerne l’emplacement du code source. Utilisez le paquet npm si vous voulez
+recevoir les mises à jour par votre gestionnaire de paquets. Utilisez le registre compatible avec
+shadcn si vous voulez conserver le code source et les styles dans votre dépôt.
 
-## Choisissez comment gérer le code
+## Choisissez où conserver le code source
 
-| Mode moduix | À choisir si | Mises à jour |
+| Installation moduix | À privilégier si | Fonctionnement des mises à jour |
 | --- | --- | --- |
-| Paquet npm | Vous voulez des mises à jour gérées par le gestionnaire de paquets et des imports stables depuis `@moduix/react/*`. | Mettez à jour le paquet. |
-| Registre compatible shadcn | Le code source et les styles doivent se trouver dans votre dépôt. | Examinez et appliquez les mises à jour du registre. |
+| Paquet npm | Vous voulez que les composants restent une dépendance et utiliser des imports depuis `@moduix/react/*`. | Mettez le paquet à jour avec votre gestionnaire de paquets. |
+| Registre compatible avec shadcn | Vous voulez versionner, consulter et modifier le code source des composants dans votre application. | Examinez et fusionnez vous-même chaque mise à jour du registre. |
 
-Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète. Si vous utilisez
-déjà shadcn, conservez son CLI et votre `components.json`, puis ajoutez le registre moduix et les
-alias qui y sont indiqués.
+Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète. Si votre projet
+possède déjà une configuration du CLI shadcn, gardez son CLI et `components.json`. Ajoutez le
+registre moduix et les alias indiqués dans le guide.
 
-## Trouvez le composant équivalent
+## Installez moduix à côté des composants shadcn existants
 
-moduix privilégie le nom de l’interaction sous-jacente plutôt qu’un alias lié au produit.
-
-| Nom shadcn habituel | Utilisez dans moduix | Note de migration |
-| --- | --- | --- |
-| Accordion | `Accordion` | Même interaction, avec des parties nommées dans un même espace de noms. |
-| Alert Dialog | `Dialog` | Définissez `role="alertdialog"` ; aucun alias séparé n’est nécessaire. |
-| Avatar | `Avatar` | Placez le fallback et l’image dans les parties `Avatar`. |
-| Breadcrumb | `Breadcrumbs` | Nom de famille au pluriel ; conservez les liens sémantiques et l’état de la page courante. |
-| Calendar | `DatePicker` | Utilisez la vue calendrier, sans créer une deuxième famille publique. |
-| Carousel | `Carousel` | Les contrôles, indicateurs et groupes d’éléments suivent la structure Ark. |
-| Collapsible | `Collapsible` | Utilisez l’objet `details` fourni par `onOpenChange` plutôt qu’un callback booléen. |
-| Combobox | `Combobox` | L’état de la collection et les valeurs des éléments suivent les contrats Ark. |
-| Command | `CommandPalette` | Une interface prête pour la recherche et les commandes, pas un alias de liste générique. |
-| Context Menu | `Menu.ContextTrigger` | La même famille `Menu` avec un déclencheur contextuel. |
-| Data Table | `Table` + recette Data Table | Conservez le tri, le filtrage et l'état serveur dans le code applicatif. |
-| Date Picker | `DatePicker` | Une seule famille composée, pour la saisie de date comme pour le calendrier. |
-| Dropdown Menu | `Menu` | Utilisez le chemin habituel avec `Menu.Trigger`. |
-| Form | `Field` et `Fieldset` | Gardez la validation et la soumission dans la bibliothèque de formulaires ou l’application. |
-| Hover Card | `HoverCard` | Même objectif, avec les détails de positionnement et de cycle de vie d’Ark. |
-| Input OTP | `PinInput` | La prise en charge des formulaires natifs et du SSR fait partie du contrat du composant. |
-| Progress | `ProgressLinear` ou `ProgressCircular` | Choisissez explicitement la forme visuelle. |
-| Resizable | `Splitter` | Les panneaux utilisent des identifiants stables et un état de mise en page explicite. |
-| Select | `Select` | Les éléments utilisent une collection Ark plutôt que des objets option ad hoc. |
-| Sheet | `Drawer` | Un panneau latéral dont le cycle de vie est aligné sur Dialog. |
-| Sidebar | `Sidebar` | Conservez la composition d’une navigation produit adaptative. |
-| Sonner / Toast | `Toast` | Une seule surface de notification, dont l’application maîtrise les messages. |
-| Tabs | `Tabs` | Même interaction avec des parties composées nommées. |
-| Toggle Group | `ToggleGroup` | Utilisez les valeurs des éléments et l’état du groupe définis par le contrat Ark. |
-| Tooltip | `Tooltip` | Le déclencheur et le contenu rendu dans un portail restent explicites. |
-
-Il est inutile de chercher un équivalent direct pour Navigation Menu et Menubar. Choisissez `Sidebar`,
-`Menu`, `Breadcrumbs` ou des liens ordinaires selon l’interaction recherchée.
-
-## Adaptez les imports
-
-shadcn exporte généralement chaque partie comme un symbole local distinct :
-
-```tsx
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-```
-
-moduix réunit une famille de composants sous un seul espace de noms :
+Conservez les imports shadcn déjà en place et remplacez les composants progressivement. Avec le
+paquet npm, importez chaque composant depuis son sous-chemin :
 
 ```tsx
 import { Dialog } from '@moduix/react/dialog';
-
-<Dialog>
-  <Dialog.Trigger>Open</Dialog.Trigger>
-  <Dialog.Backdrop />
-  <Dialog.Positioner>
-    <Dialog.Content>
-      <Dialog.Title>Project settings</Dialog.Title>
-    </Dialog.Content>
-  </Dialog.Positioner>
-</Dialog>;
 ```
 
-Lors d’une installation avec copie du code source dans le projet, seul le chemin d’import change :
+Avec le code copié dans votre projet, terminez la [configuration du CLI shadcn](/docs/quick-start#installer-avec-la-cli-shadcn),
+puis ajoutez les éléments du registre un par un :
+
+```bash
+npx shadcn@latest add @moduix-react/dialog
+```
+
+Le CLI écrit le code source du composant et les dépendances moduix nécessaires dans les chemins
+définis par `components.json`. Importez ensuite le composant généré depuis votre application :
 
 ```tsx
 import { Dialog } from '@/components/moduix/dialog';
 ```
 
-Les parties explicites `Backdrop`, `Positioner` et `Content` simplifient la personnalisation du portail
-et de la mise en page.
+## Trouvez le composant le plus proche
 
-## Adaptez les styles sans tout réécrire
+moduix nomme généralement ses composants d’après l’interaction qu’ils proposent. Le tableau ci-dessous
+met en regard les noms shadcn courants et leurs équivalents moduix, avec les adaptations importantes
+pour la migration.
 
-moduix fournit un CSS prêt à l’emploi et des tokens partagés `--moduix-*`. Importez une seule fois la
-feuille de style de base, puis personnalisez les tokens sémantiques dans un CSS chargé après elle :
+| Nom shadcn habituel | Utilisez dans moduix | Adaptation à prévoir |
+| --- | --- | --- |
+| Accordion | `Accordion` | Utilisez les parties nommées, comme `Accordion.Item` et `Accordion.Content`. |
+| Alert Dialog | `Dialog` | Pour une confirmation critique, définissez `role="alertdialog"` sur `Dialog.Content`. |
+| Avatar | `Avatar` | Placez le contenu de repli et l’image dans `Avatar.Fallback` et `Avatar.Image`. |
+| Breadcrumb | `Breadcrumbs` | Le nom de la famille est au pluriel ; conservez les liens sémantiques et l’état de la page courante. |
+| Calendar | `DatePicker` ou `DateInput` | Utilisez `DatePicker` pour un calendrier et `DateInput` si seule la saisie de segments de date est nécessaire. |
+| Carousel | `Carousel` | Composez les contrôles, les indicateurs et le groupe d’éléments avec les parties nommées. |
+| Collapsible | `Collapsible` | Lisez `details.open` dans `onOpenChange(details)` au lieu d’attendre un booléen. |
+| Combobox | `Combobox` | Créez une collection Ark et définissez les valeurs des éléments-objets. |
+| Command | `CommandPalette` | Utilisez le composant dédié aux commandes plutôt qu’un alias de liste générique. |
+| Context Menu | `Menu.ContextTrigger` | Conservez la famille `Menu` et utilisez son déclencheur contextuel. |
+| Data Table | `Table` et la recette Data Table | Gardez le tri, le filtrage et l’état serveur dans le code de l’application. |
+| Date Picker | `DatePicker` | Utilisez la famille composée qui réunit saisie de date et calendrier. |
+| Dropdown Menu | `Menu` | Utilisez la composition habituelle avec `Menu.Trigger`. |
+| Form | `Field` et `Fieldset` | Utilisez-les pour structurer les champs ; laissez la validation et la soumission à votre bibliothèque de formulaires ou à l’application. |
+| Hover Card | `HoverCard` | Consultez la page du composant pour les parties explicites de positionnement et de fermeture. |
+| Input OTP | `PinInput` | Conservez sa configuration pour les formulaires natifs et le SSR. |
+| Progress | `ProgressLinear` ou `ProgressCircular` | Choisissez explicitement la forme visuelle souhaitée. |
+| Resizable | `Splitter` | Donnez des identifiants stables aux panneaux et gardez l’état de mise en page explicite. |
+| Select | `Select` | Utilisez une collection Ark plutôt qu’un tableau d’objets option ad hoc. |
+| Sheet | `Drawer` | Utilisez le composant de panneau latéral dont le cycle de vie est aligné sur celui de Dialog. |
+| Sidebar | `Sidebar` | Gardez la composition de la navigation produit et son comportement adaptatif dans l’application. |
+| Sonner / Toast | `Toast` et `Toaster` | L’application doit garder le contrôle du texte des notifications et du moment où elles apparaissent. |
+| Tabs | `Tabs` | Utilisez les parties composées nommées pour la même interaction d’onglets. |
+| Toggle Group | `ToggleGroup` | Utilisez les valeurs des éléments et l’état du groupe définis par le contrat Ark. |
+| Tooltip | `Tooltip` | Gardez explicites le déclencheur et le contenu rendu dans un portail. |
+
+Navigation Menu et Menubar ne nécessitent pas de remplacement forcé un pour un. Choisissez `Sidebar`,
+`Menu`, `Breadcrumbs` ou des liens ordinaires selon l’interaction attendue par votre produit.
+
+## Adaptez la forme des imports
+
+Dans shadcn, chaque partie est généralement exportée comme un symbole local distinct :
+
+```tsx
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+```
+
+moduix regroupe toute la famille sous un même espace de noms :
+
+```tsx
+import { Dialog } from '@moduix/react/dialog';
+
+export function ProjectSettingsDialog() {
+  return (
+    <Dialog>
+      <Dialog.Trigger>Open settings</Dialog.Trigger>
+      <Dialog.Backdrop />
+      <Dialog.Positioner>
+        <Dialog.Content>
+          <Dialog.Title>Project settings</Dialog.Title>
+          <Dialog.CloseTrigger>Close</Dialog.CloseTrigger>
+        </Dialog.Content>
+      </Dialog.Positioner>
+    </Dialog>
+  );
+}
+```
+
+Avec une installation qui copie le code dans le projet, gardez la composition et changez seulement
+le chemin d’import :
+
+```tsx
+import { Dialog } from '@/components/moduix/dialog';
+```
+
+Les parties explicites `Backdrop`, `Positioner` et `Content` montrent quels éléments gèrent le
+portail, le positionnement et la surface du dialogue. Vous pouvez les personnaliser séparément.
+
+## Conservez votre approche actuelle des styles
+
+moduix fournit les styles des composants et des tokens partagés `--moduix-*`. Importez une seule fois
+la feuille de style de base, puis placez vos surcharges dans une feuille chargée après celle-ci.
+
+Avec le paquet npm :
+
+```tsx
+import '@moduix/react/style.css';
+```
+
+Avec le registre compatible shadcn :
+
+```tsx
+import '@/lib/moduix/styles/style.css';
+```
+
+Personnalisez les tokens sémantiques dans votre propre CSS :
 
 ```css title="app.css"
 :root {
@@ -104,36 +150,55 @@ feuille de style de base, puis personnalisez les tokens sémantiques dans un CSS
 ```
 
 Tailwind peut rester dans l’application pour la mise en page et les classes utilitaires ponctuelles.
-Il n’est pas requis par moduix, et il n’est pas nécessaire de convertir chaque utilitaire avant de
-remplacer un composant. Les pages de composants répertorient les slots stables, les variables CSS et
-les propriétés `className` pour les exceptions locales.
+Il n’est pas nécessaire de réécrire toutes vos classes avant de remplacer un composant. Consultez la
+page du composant cible pour connaître ses slots stables, ses variables CSS et ses propriétés
+`className`.
 
-## Adaptez les callbacks d’état au modèle Ark
+## Adaptez les callbacks Ark et les collections
 
-Les callbacks Ark reçoivent un objet `details`, afin que le contrat puisse évoluer sans arguments
-positionnels :
+Les callbacks Ark reçoivent un objet `details`. Lisez-y la valeur nécessaire au lieu de reprendre
+tel quel un callback shadcn qui attend un argument positionnel :
 
 ```tsx
-<Dialog open={open} onOpenChange={(details) => setOpen(details.open)}>
-  {/* parts */}
-</Dialog>
+import { useState } from 'react';
+import { Dialog } from '@moduix/react/dialog';
+
+export function ControlledDialog() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Dialog open={open} onOpenChange={(details) => setOpen(details.open)}>
+      <Dialog.Trigger>Open dialog</Dialog.Trigger>
+      <Dialog.Backdrop />
+      <Dialog.Positioner>
+        <Dialog.Content>
+          <Dialog.Title>Project settings</Dialog.Title>
+          <Dialog.CloseTrigger>Close</Dialog.CloseTrigger>
+        </Dialog.Content>
+      </Dialog.Positioner>
+    </Dialog>
+  );
+}
 ```
 
-Les composants fondés sur des collections utilisent aussi des valeurs d’éléments stables et un état de
-collection explicite. Consultez la page du composant cible avant de copier tel quel un callback shadcn
-ou une structure `option`.
+Les composants qui utilisent des collections, notamment `Combobox` et `Select`, s’appuient sur un
+état de collection Ark explicite. Pour des éléments-objets, définissez avec `itemToString` et
+`itemToValue` le texte affiché et la valeur stable de chaque élément. Consultez la page du composant
+cible avant de reprendre sans changement un tableau `options` ou un callback shadcn.
 
-## Migrez par étapes
+## Migrez écran par écran
 
-1. Ajoutez la feuille de style de base et les tokens moduix.
-2. Remplacez les composants peu dépendants : Button, Badge, Avatar et Separator.
-3. Migrez les overlays et les collections, une famille à la fois, y compris les parties du portail et de l’état.
-4. Remplacez les modèles d’écran par des [recettes](/recipes) uniquement lorsque le flux produit correspond.
-5. Une fois l’écran validé, supprimez l’ancien code source du composant et ses styles.
+1. Ajoutez la feuille de style de base moduix et importez-la avant vos surcharges.
+2. Commencez par des composants peu couplés, comme `Button`, `Badge`, `Avatar` et `Separator`.
+3. Migrez les composants flottants et ceux fondés sur des collections, famille par famille, avec leurs parties de portail et leurs callbacks d’état.
+4. Utilisez une [recette](/recipes) uniquement si le flux de l’écran correspond à votre produit.
+5. Vérifiez la navigation au clavier, la restitution du focus, les labels et les rôles ARIA importants, puis supprimez l’ancien code source et les styles du composant.
 
-Les responsabilités de l’application restent dans l’application : libellés, messages de validation,
-permissions, appels serveur et flux produit. Ark fournit le comportement des primitives ; moduix
-fournit le contrat du wrapper, les styles et les valeurs par défaut.
+Les responsabilités de l’application doivent rester dans l’application. Les labels, messages de
+validation, permissions, appels serveur et parcours produit n’ont pas leur place dans un wrapper
+générique. Ark fournit le comportement des primitives ; moduix fournit l’API des composants, les
+styles et les valeurs par défaut.
 
-Utilisez [Mise à jour et migration](/docs/updating) pour les mises à jour ultérieures du paquet ou du registre, et
-[Patrons de composition](/docs/composition-patterns) lorsque vous adaptez des wrappers existants.
+Consultez [Mise à jour et migration](/docs/updating) pour les mises à jour ultérieures du paquet ou
+du registre. Lisez [Patrons de composition](/docs/composition-patterns) pour adapter des wrappers
+existants.

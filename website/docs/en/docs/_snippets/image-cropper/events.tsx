@@ -16,11 +16,12 @@ export default function EventsImageCropperDemo() {
   return (
     <div className="cropper-stack">
       <ImageCropper
+        aria-label="Image cropper"
         onCropChange={(details) => setCrop(details.crop)}
         onZoomChange={(details) => setZoom(details.zoom)}
       >
         <ImageCropper.Viewport>
-          <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
+          <ImageCropper.Image src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
           <ImageCropper.CropArea />
         </ImageCropper.Viewport>
       </ImageCropper>

@@ -22,86 +22,94 @@ export function SidebarDashboard() {
         <Sidebar.Content>
           <Sidebar.Group>
             <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
-            <Sidebar.Menu>
-              <Sidebar.MenuItem>
+            <Sidebar.NavigationList>
+              <Sidebar.NavigationItem>
                 <Sidebar.Tooltip content="Overview">
-                  <Sidebar.MenuButton asChild active>
+                  <Sidebar.NavigationButton asChild active>
                     <a href="#overview">
                       <Gauge />
                       <Sidebar.Label>Overview</Sidebar.Label>
                     </a>
-                  </Sidebar.MenuButton>
+                  </Sidebar.NavigationButton>
                 </Sidebar.Tooltip>
-              </Sidebar.MenuItem>
-              <Sidebar.MenuItem>
+              </Sidebar.NavigationItem>
+              <Sidebar.NavigationItem>
                 <Collapsible defaultOpen>
                   <Sidebar.Tooltip content="Projects">
                     <Collapsible.Trigger asChild>
-                      <Sidebar.MenuButton>
+                      <Sidebar.NavigationButton>
                         <FolderOpen />
                         <Sidebar.Label>Projects</Sidebar.Label>
                         <Collapsible.Indicator />
-                      </Sidebar.MenuButton>
+                      </Sidebar.NavigationButton>
                     </Collapsible.Trigger>
                   </Sidebar.Tooltip>
                   <Collapsible.Content>
-                    <Sidebar.MenuSub>
-                      <Sidebar.MenuSubItem>
-                        <Sidebar.MenuSubButton href="#website">Website</Sidebar.MenuSubButton>
-                      </Sidebar.MenuSubItem>
-                      <Sidebar.MenuSubItem>
-                        <Sidebar.MenuSubButton href="#mobile-app">Mobile app</Sidebar.MenuSubButton>
-                      </Sidebar.MenuSubItem>
-                    </Sidebar.MenuSub>
+                    <Sidebar.NavigationSubList>
+                      <Sidebar.NavigationSubItem>
+                        <Sidebar.NavigationSubButton href="#website">
+                          Website
+                        </Sidebar.NavigationSubButton>
+                      </Sidebar.NavigationSubItem>
+                      <Sidebar.NavigationSubItem>
+                        <Sidebar.NavigationSubButton href="#mobile-app">
+                          Mobile app
+                        </Sidebar.NavigationSubButton>
+                      </Sidebar.NavigationSubItem>
+                    </Sidebar.NavigationSubList>
                   </Collapsible.Content>
                 </Collapsible>
-              </Sidebar.MenuItem>
-              <Sidebar.MenuItem>
+              </Sidebar.NavigationItem>
+              <Sidebar.NavigationItem>
                 <Sidebar.Tooltip content="Documents">
-                  <Sidebar.MenuButton asChild>
+                  <Sidebar.NavigationButton asChild>
                     <a href="#documents">
                       <FileText />
                       <Sidebar.Label>Documents</Sidebar.Label>
                     </a>
-                  </Sidebar.MenuButton>
+                  </Sidebar.NavigationButton>
                 </Sidebar.Tooltip>
-              </Sidebar.MenuItem>
-            </Sidebar.Menu>
+              </Sidebar.NavigationItem>
+            </Sidebar.NavigationList>
           </Sidebar.Group>
 
           <Sidebar.Group>
             <Sidebar.GroupLabel>Manage</Sidebar.GroupLabel>
-            <Sidebar.Menu>
-              <Sidebar.MenuItem>
+            <Sidebar.NavigationList>
+              <Sidebar.NavigationItem>
                 <Sidebar.Tooltip content="Team">
-                  <Sidebar.MenuButton asChild>
+                  <Sidebar.NavigationButton asChild>
                     <a href="#team">
                       <Users />
                       <Sidebar.Label>Team</Sidebar.Label>
                     </a>
-                  </Sidebar.MenuButton>
+                  </Sidebar.NavigationButton>
                 </Sidebar.Tooltip>
-              </Sidebar.MenuItem>
-              <Sidebar.MenuItem>
+              </Sidebar.NavigationItem>
+              <Sidebar.NavigationItem>
                 <Sidebar.Tooltip content="Settings">
-                  <Sidebar.MenuButton asChild>
+                  <Sidebar.NavigationButton asChild>
                     <a href="#settings">
                       <Settings />
                       <Sidebar.Label>Settings</Sidebar.Label>
                     </a>
-                  </Sidebar.MenuButton>
+                  </Sidebar.NavigationButton>
                 </Sidebar.Tooltip>
-              </Sidebar.MenuItem>
-            </Sidebar.Menu>
+              </Sidebar.NavigationItem>
+            </Sidebar.NavigationList>
           </Sidebar.Group>
         </Sidebar.Content>
 
         <Sidebar.Footer>
-          <Sidebar.Menu>
-            <Sidebar.MenuItem>
+          <Sidebar.NavigationList>
+            <Sidebar.NavigationItem>
               <Menu positioning={{ placement: 'right-end', gutter: 8, flip: false }}>
                 <Menu.Trigger asChild>
-                  <Sidebar.MenuButton size="lg" aria-label="Open workspace menu" title="Workspace">
+                  <Sidebar.NavigationButton
+                    size="lg"
+                    aria-label="Open workspace menu"
+                    title="Workspace"
+                  >
                     <span className={styles.workspaceMark} data-sidebar-icon>
                       AC
                     </span>
@@ -109,7 +117,7 @@ export function SidebarDashboard() {
                     <Menu.Indicator>
                       <ChevronsUpDown />
                     </Menu.Indicator>
-                  </Sidebar.MenuButton>
+                  </Sidebar.NavigationButton>
                 </Menu.Trigger>
                 <Menu.Positioner>
                   <Menu.Content className={styles.workspaceMenu}>
@@ -136,8 +144,8 @@ export function SidebarDashboard() {
                   </Menu.Content>
                 </Menu.Positioner>
               </Menu>
-            </Sidebar.MenuItem>
-          </Sidebar.Menu>
+            </Sidebar.NavigationItem>
+          </Sidebar.NavigationList>
         </Sidebar.Footer>
       </Sidebar.Panel>
 

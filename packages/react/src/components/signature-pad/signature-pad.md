@@ -83,7 +83,7 @@ export function SignaturePadDemo() {
 - Basic drawing, touch/pointer input, clear trigger, and SVG path rendering are direct Ark behavior.
 - Image preview is supported through `onDrawEnd(details)` and `details.getDataUrl('image/png' | 'image/jpeg' | 'image/svg+xml', quality?)`.
 - Controlled state uses `paths` with `onDraw(details)`; uncontrolled state uses `defaultPaths`.
-- `drawing` forwards Zag stroke options: `fill`, `size`, and `simulatePressure`. If `drawing.fill` is not set, moduix CSS supplies the default stroke color.
+- `drawing` forwards Zag stroke options: `fill`, `size`, and `simulatePressure`. `drawing.fill` must be a valid CSS color string. If it is not set, moduix CSS supplies the default stroke color through `--moduix-signature-pad-stroke-color`.
 - The installed Zag default is `{ size: 2, simulatePressure: false }`; pass `drawing` to opt into pressure simulation.
 - Form usage uses `name`, `required`, and the automatic native input. Pass `getFormValue(paths)` when the form needs a custom serialization.
 - `Field.Root` context carries `disabled`, `required`, `readOnly`, and shared ids into `SignaturePad`. `Field` invalid state controls helper/error messaging and native-input descriptions, but Ark does not add `data-invalid` to signature pad parts.
@@ -132,7 +132,7 @@ The CSS default stroke color applies only when `drawing.fill` is not provided; e
 
 ## Agent notes
 
-Keep `getFormValue(paths)` as the semantic serialization escape hatch. Do not replace `paths`/`onDraw` with a local `value` abstraction. `drawing.fill` accepts CSS color values, including `var(...)` references.
+Keep `getFormValue(paths)` as the semantic serialization escape hatch. Do not replace `paths`/`onDraw` with a local `value` abstraction. `drawing.fill` must be a valid CSS color string. To use a CSS custom property for the stroke color, leave `drawing.fill` unset and override `--moduix-signature-pad-stroke-color` instead.
 
 ## Local changelog
 

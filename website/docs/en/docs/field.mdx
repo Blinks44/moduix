@@ -1,7 +1,7 @@
 ---
 title: Field
 component: field
-description: Ark UI field context for labels, helper text, errors, and form-control state.
+description: Field context that connects one form control to its label, helper text, error message, and shared state.
 ---
 
 import * as FieldDocs from '@/components/examples/field';
@@ -12,16 +12,17 @@ import * as FieldDocs from '@/components/examples/field';
 
 ## Choosing the right component
 
-Use `Field` when one control needs a visible label, helper text, error text, or shared
-`disabled`, `invalid`, `required`, and `readOnly` state.
+Use `Field` when one form control needs an accessible label, helper text, an error message, or shared
+`disabled`, `invalid`, `required`, or `readOnly` state.
 
 - Choose **`Field`** for one control and its label or descriptive text.
-- Choose **`Fieldset`** when several related fields need one shared legend.
-- Use a standalone control when no field-level ARIA wiring or shared state is needed.
+- Choose **`Fieldset`** when several related controls need one shared legend.
+- Use a control on its own when you do not need field-level ARIA relationships or shared state.
 
 ## Basic
 
-Start with `Field`, `Field.Label`, one moduix control, and optional helper or error text.
+Use `Field` as the wrapper for one form control. Put `Field.Label` before the control, then add
+helper or error text when the user needs more information.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/field/basic.tsx"
@@ -35,7 +36,9 @@ Start with `Field`, `Field.Label`, one moduix control, and optional helper or er
 
 ## Anatomy
 
-`Field` follows Ark UI's field parts and keeps their names in the public moduix API.
+The public `Field` namespace follows Ark UI's part names. Use the low-level `Field.*` controls for
+explicit Ark composition. For regular forms, prefer the matching moduix components such as `Input`,
+`Textarea`, or `NativeSelect`.
 
 ```text
 Field
@@ -46,59 +49,73 @@ Field
 └─ Field.RequiredIndicator
 ```
 
-| Part                      | Role                                                            |
-| ------------------------- | --------------------------------------------------------------- |
-| `Field` / `Field.Root`    | Root context and default `<div role="group">`.                  |
-| `Field.RootProvider`      | Root powered by a `useField()` instance owned outside the tree. |
-| `Field.Context`           | Renderless access to the current field state.                   |
-| `Field.Label`             | Label linked to the current control id.                         |
-| `Field.Input`             | Low-level Ark-shaped native input escape hatch. Prefer `Input`. |
-| `Field.Textarea`          | Low-level Ark-shaped textarea escape hatch. Prefer `Textarea`.  |
-| `Field.Select`            | Native select wired with field ARIA and state props.            |
-| `Field.HelperText`        | Helper text included in `aria-describedby`.                     |
-| `Field.ErrorText`         | Error text rendered only when `Field` is `invalid`.             |
-| `Field.RequiredIndicator` | Visual required marker with optional `fallback`.                |
-| `Field.Item`              | Item-scoped field context for grouped controls via `value`; its ref targets the row wrapper. |
+| Part                     | Role                                                                                             |
+| ------------------------ | ------------------------------------------------------------------------------------------------ |
+| `Field` / `Field.Root`   | Root context. It renders a `<div role="group">` by default.                                    |
+| `Field.RootProvider`     | Root that uses a `useField()` state object created outside the tree.                             |
+| `Field.Context`          | Reads the current field state without adding an element to the DOM.                             |
+| `Field.Label`            | Accessible label associated with the current control.                                            |
+| `Field.Input`            | Low-level native input. Use `Input` for the usual moduix-styled input.                           |
+| `Field.Textarea`         | Low-level native textarea. Use `Textarea` for the usual moduix-styled textarea.                 |
+| `Field.Select`           | Low-level native select. Use `NativeSelect` for the usual moduix-styled select.                 |
+| `Field.HelperText`       | Helper text associated with the control through `aria-describedby`.                              |
+| `Field.ErrorText`        | Error text rendered when the root is `invalid`.                                                  |
+| `Field.RequiredIndicator` | Visual marker for a required field. Use `fallback` to replace its default marker.               |
+| `Field.Item`             | Nested context for a grouped control identified by `value`; its ref points to the local row wrapper. |
 
 ## Composition
 
 ### Recommended composition
 
-Keep one visible label in the root, render exactly one primary moduix control such as `Input`,
-`Textarea`, or `NativeSelect`, and add helper or error text when it needs description or validation
+Keep one visible label in the root and place one primary moduix control, such as `Input`, `Textarea`,
+or `NativeSelect`, after it. Add helper or error text when the user needs a description or validation
 feedback.
+
+Controls with their own compound root, such as `Checkbox`, `RadioGroup`, or `Select`, can also sit
+inside `Field`. Those components keep their own state props, so pass `required`, `invalid`, `disabled`,
+or `readOnly` to the child root when that control owns the state.
 
 ### When to go custom
 
-Use `Field.Item value` with root `target` when a field contains multiple native controls and the
-label should point to one of them. `Field.Input`, `Field.Textarea`, and `Field.Select` remain
-available for advanced Ark-shaped composition, but ordinary application code should use their
-dedicated moduix controls.
+Use `Field.Item value` with the root `target` prop when a field contains several native controls and
+the root label should point to one of them. `Field.Input`, `Field.Textarea`, and `Field.Select` are
+available for low-level Ark composition, but application code should usually use the dedicated moduix
+controls.
+
+For a custom control that does not consume Ark Field context, use `Field.Context` or
+`useFieldContext` from `@moduix/react` to read the field state and wire its ids and ARIA attributes.
 
 ### Default props
 
-| Surface                | Default | Notes                                                  |
-| ---------------------- | ------- | ------------------------------------------------------ |
-| `Field` / `Field.Root` | -       | No additional behavioral defaults; Ark defaults apply. |
+| Prop       | Default | Notes                                                                                  |
+| ---------- | ------- | -------------------------------------------------------------------------------------- |
+| `disabled` | `false` | Marks the field disabled and propagates to supported field parts.                      |
+| `invalid`  | `false` | Controls `Field.ErrorText`; pass it to a compound child when that child owns validation. |
+| `readOnly` | `false` | Marks the field read-only and propagates to supported field parts.                     |
+| `required` | `false` | Marks the field required. `Field.RequiredIndicator` is still an explicit child.       |
+| `target`   | -       | The `value` of the `Field.Item` that the root label should target.                     |
 
 ### Behavioral notes
 
-- `Field.ErrorText` is absent from the DOM until the root is `invalid`.
-- Long labels, helper text, and error text wrap inside the field instead of overflowing it.
-- `Field.RootProvider` must receive state from `useField()` imported from `@moduix/react`
-  and should not be nested inside `Field.Root` for the same field instance.
+- `Field.ErrorText` is not rendered until the root is `invalid`.
+- The field does not validate values. Application state or a form library decides when `invalid`
+  should be `true`.
+- Long labels, helper text, and error messages wrap inside the field instead of overflowing its container.
+- Pass the value returned by `useField()` from `@moduix/react` to `Field.RootProvider`. Do not render
+  `Field.Root` and `Field.RootProvider` for the same field instance.
 - Use `Field.Context` or `useFieldContext` from `@moduix/react` when a custom control needs the
-  current field state. Direct Ark imports are only for lower-level APIs not exported by moduix.
-- `Field.Item` forwards its ref to the moduix row wrapper it renders around its children.
-- `Field` does not render a hidden input; composed controls such as `Checkbox` and `RadioGroup` own
-  their own native form parts.
+  current field state. Ark props such as `ids`, `target`, and `asChild` remain available on the
+  corresponding parts.
+- `Field.Item` forwards its ref to the row wrapper that moduix renders around its children.
+- Composed controls such as `Checkbox` and `RadioGroup` manage their own native form elements. Field
+  itself does not render a hidden input.
 
 ## Examples
 
 ### Checkbox
 
-Use `Field` with `Checkbox` when the field owns shared helper text, error text, or required state
-around a single checkbox control.
+Use `Field` around a checkbox when it needs field-level helper or error text. Pass the checkbox's own
+state and form props to `Checkbox`.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/field/checkbox.tsx"
@@ -106,9 +123,10 @@ around a single checkbox control.
 
 </PreviewFrame>
 
-### Controlled Invalid
+### Controlled invalid state
 
-Derive `invalid` from local state when the field should update as the user types.
+Derive `invalid` from local state when validation should update as the user types. The error text
+appears only while the field is invalid.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/field/controlled-invalid.tsx"
@@ -118,7 +136,7 @@ Derive `invalid` from local state when the field should update as the user types
 
 ### Disabled
 
-Set `disabled` on the root to propagate disabled state to Ark field parts.
+Set `disabled` on the root to pass the disabled state to the supported Ark field parts.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/field/disabled.tsx"
@@ -128,7 +146,8 @@ Set `disabled` on the root to propagate disabled state to Ark field parts.
 
 ### Invalid
 
-Set `invalid` on the root when validation is owned by application state or a form library.
+Set `invalid` on the root when application state or a form library controls validation. Pass it to a
+compound child root as well when that component owns its invalid state.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/field/invalid.tsx"
@@ -138,7 +157,8 @@ Set `invalid` on the root when validation is owned by application state or a for
 
 ### Native Select
 
-Use `NativeSelect` for a browser-native select with the field's label, state, and description wiring.
+Use `NativeSelect` for a browser-native select. `Field` connects it to the field label, state, and
+description.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/field/native-select.tsx"
@@ -146,20 +166,11 @@ Use `NativeSelect` for a browser-native select with the field's label, state, an
 
 </PreviewFrame>
 
-### Textarea
-
-Use `Textarea` for multi-line text while keeping the field's label, description, and state wiring.
-
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/field/textarea.tsx"
-  ```
-
-</PreviewFrame>
-
 ### RadioGroup
 
-Use `Field` with `RadioGroup` when one field label, helper text, or error message should describe
-the whole choice set instead of individual native radio inputs.
+Use `Field` with `RadioGroup` when one field-level label, helper text, or error message should describe
+the whole set of choices rather than individual radio items. Pass the group's own state props to
+`RadioGroup`.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/field/radiogroup.tsx"
@@ -169,7 +180,7 @@ the whole choice set instead of individual native radio inputs.
 
 ### Read Only
 
-Set `readOnly` on the root when the control value can be copied but not edited.
+Set `readOnly` on the root when users can copy the control's value but cannot edit it.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/field/read-only.tsx"
@@ -179,7 +190,9 @@ Set `readOnly` on the root when the control value can be copied but not edited.
 
 ### Select
 
-Use the composed `Select` when the native control is not enough and you need searchable or custom option UI.
+Use the composed `Select` when a native select is not enough and you need a custom option list or
+selection UI. Use `Combobox` when users need to type to find or create a value. Because `Select` owns
+its state, pass `required`, `invalid`, `disabled`, or `readOnly` to `Select` when needed.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/field/select.tsx"
@@ -187,9 +200,20 @@ Use the composed `Select` when the native control is not enough and you need sea
 
 </PreviewFrame>
 
+### Textarea
+
+Use `Textarea` for multi-line input while keeping the field's label, description, and state
+connections.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/field/textarea.tsx"
+  ```
+
+</PreviewFrame>
+
 ### Advanced Customization
 
-Use `Field.Item` with root `target` when one label should point to a control inside a grouped row.
+Use `Field.Item` with the root `target` prop when one label should target a control inside a group.
 
 <style>{`.inlineControls { display: grid; grid-template-columns: minmax(6rem, max-content) minmax(0, 1fr); gap: var(--moduix-spacing-2); }`}</style>
 
@@ -199,7 +223,8 @@ Use `Field.Item` with root `target` when one label should point to a control ins
 
 </PreviewFrame>
 
-Use `useField` with `Field.RootProvider` when state must be owned outside the rendered tree.
+Use `useField` with `Field.RootProvider` when the field state must be created outside the rendered
+tree.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/field/root-provider.tsx"
@@ -209,7 +234,7 @@ Use `useField` with `Field.RootProvider` when state must be owned outside the re
 
 ## Styling
 
-Style `Field` through `className`, Ark `data-scope="field"` / `data-part="..."` attributes,
+Customize `Field` with `className`, Ark `data-scope="field"` and `data-part="..."` attributes,
 moduix `data-slot="field-*"` hooks, and the public `--moduix-field-*` CSS variables shown below.
 
 ### CSS Properties
@@ -229,6 +254,6 @@ moduix `data-slot="field-*"` hooks, and the public `--moduix-field-*` CSS variab
 ### Styling hooks
 
 Ark adds `data-disabled`, `data-invalid`, `data-readonly`, and `data-required` to the relevant
-parts. `Field.ErrorText` is only rendered while the current field context is invalid. Helper text is
-included in the control's `aria-describedby`, and active error text is included in
+parts. `Field.ErrorText` exists only while the current field context is invalid. The helper text id
+is included in the control's `aria-describedby`, and the active error text id is included in
 `aria-errormessage`. Every DOM part also keeps a stable `data-slot="field-*"` hook.

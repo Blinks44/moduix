@@ -25,17 +25,19 @@ const definition = defineChart({
       strokeWidth: 2,
     }),
   ],
-  x: {
-    scale: scaleLinear,
-    nice: true,
-    grid: true,
-    axis: { label: 'Sessions' },
-  },
-  y: {
-    scale: scaleLinear,
-    nice: true,
-    grid: true,
-    axis: { label: 'Conversion (%)' },
+  scales: {
+    x: {
+      scale: scaleLinear,
+      nice: true,
+      grid: true,
+      axis: { label: 'Sessions' },
+    },
+    y: {
+      scale: scaleLinear,
+      nice: true,
+      grid: true,
+      axis: { label: 'Conversion (%)' },
+    },
   },
   color: {
     domain: ['Starter', 'Growth', 'Scale'],

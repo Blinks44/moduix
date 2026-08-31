@@ -1,22 +1,22 @@
 ---
 title: Button
 component: button
-description: A styled action control built with the Ark factory composition model.
+description: A styled button for actions, built with Ark's factory composition model.
 ---
 
 import * as ButtonDocs from '@/components/examples/button';
 
 ## API Reference
 
-Ark UI does not ship a dedicated `button` primitive. moduix builds this component with the official
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+Ark UI does not provide a dedicated `button` primitive. moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) and follows Ark's guidance for
 [composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
-[ref](https://ark-ui.com/docs/guides/ref) guidance.
+[refs](https://ark-ui.com/docs/guides/ref).
 
 ## Basic
 
-Use the short `<Button />` form for normal actions. `Button.Root` is the equivalent namespaced
-form.
+For most actions, use the short `<Button>...</Button>` form. `Button.Root` is the equivalent
+namespaced form.
 
 ```tsx preview file="./_snippets/button/basic.tsx"
 
@@ -28,7 +28,7 @@ form.
 
 ## Anatomy
 
-`Button` is a single-part component.
+`Button` has a single part.
 
 ```text
 Button.Root
@@ -38,15 +38,15 @@ Button.Root
 
 | Part                     | Role                                          |
 | ------------------------ | --------------------------------------------- |
-| `Button` / `Button.Root` | Root interactive surface with moduix styling. |
-| `Button`                 | Callable alias of `Button.Root`.              |
+| `Button` / `Button.Root` | Interactive root element with moduix styles. |
+| `Button`                 | Callable alias for `Button.Root`.             |
 
 ## Composition
 
 ### Recommended composition
 
-Use a native root for actions. It defaults to `type="button"` to avoid accidental form submission;
-set `type="submit"` explicitly for a submit action.
+Use the native root for actions. It defaults to `type="button"` to prevent accidental form submission;
+set `type="submit"` explicitly when the button should submit a form.
 
 ### Default props
 
@@ -56,46 +56,39 @@ set `type="submit"` explicitly for a submit action.
 | `variant` | `default` | `default`, `outline`, `secondary`, `destructive`, `destructive-outline`, `ghost`, `link` |
 | `size`    | `md`      | `xs`, `sm`, `md`, `lg`, `xl`, `icon-sm`, `icon-md`, `icon-lg`                            |
 | `type`    | `button`  | Native roots only                                                                        |
+| `asChild` | `false`   | Uses the single child as the rendered root                                               |
 
-### When to go custom
+### When to use a custom element
 
-Use `asChild` when one semantic child should own the DOM node. Ark composition requires exactly one
-child. The default `type="button"` is not injected into an `asChild` target.
+Use `asChild` when an existing semantic element should own the rendered DOM node. Ark composition
+requires exactly one child. The default `type="button"` is not injected into an `asChild` target.
 
 When `Dialog.Trigger`, `Menu.Trigger`, or another Ark part composes Button as its child, the parent
 part's `data-scope` and `data-part` take precedence on the shared DOM node. Button retains its
-recipe classes and stable `data-slot`, and Ark continues to merge the trigger handlers and refs.
+recipe classes and stable `data-slot`; Ark continues to merge the trigger handlers and refs.
 
-Use a real anchor for navigation. On an `asChild` host, `disabled`, `loading`, and
-`aria-disabled="true"` expose `aria-disabled` plus the disabled styling state and prevent click
-activation. They do not add a native `disabled` attribute to the custom host.
+Use a real anchor for navigation. On an element used with `asChild`, `disabled`, `loading`, and
+`aria-disabled="true"` expose `aria-disabled`, apply the disabled styling state, and prevent click
+activation. They do not add a native `disabled` attribute to the custom element.
 
 ### Behavioral notes
 
-- Native attributes, `className`, and `style` pass through without callback translation. Clicks on
-  disabled roots are prevented.
+- Native attributes, `style`, and event handlers are forwarded to the root. `className` is merged
+  with the moduix styles, and disabled roots prevent activation.
 - The forwarded ref targets the rendered root.
 - Native `disabled`, `aria-disabled="true"`, and `loading` expose `data-disabled`.
-- `loading` is narrow sugar: it sets `data-loading`, `aria-busy`, and the disabled styling path
-  while the spinner and label stay fully compositional.
+- `loading` is a small convenience prop: it sets `data-loading`, `aria-busy`, and the disabled styling
+  state while the spinner and label remain fully compositional.
 - Direct child `svg` elements inherit `currentColor` and use `--moduix-button-icon-size`.
 - Icon-only buttons require an accessible name.
-- Chakra-only `colorPalette`, responsive recipe props, `ButtonGroup`, and managed loading props are
-  intentionally outside this root-only moduix contract.
+- Chakra-only APIs such as `colorPalette`, responsive recipe props, `ButtonGroup`, and managed loading
+  props are intentionally outside moduix's root-only contract.
 
 ## Examples
 
-### AsChild Link
-
-Use `asChild` for navigation so the anchor retains link semantics while receiving button styling.
-
-```tsx preview file="./_snippets/button/as-child-link.tsx"
-
-```
-
 ### Disabled
 
-Use `disabled` for native buttons and `asChild` hosts.
+Use `disabled` with native buttons and elements used with `asChild`.
 
 ```tsx preview file="./_snippets/button/disabled.tsx"
 
@@ -103,16 +96,25 @@ Use `disabled` for native buttons and `asChild` hosts.
 
 ### Icons
 
-Icons can appear before or after text; their JSX order and the Button root's gap determine layout.
+Icons can appear before or after the label. Their order in JSX and the Button root's gap determine the
+layout.
 
 ```tsx preview file="./_snippets/button/icons.tsx"
 
 ```
 
-### Pending State
+### Link with `asChild`
 
-Use `loading` for the state wiring while keeping the label, spinner, and async lifecycle explicit
-in product code. On `asChild` hosts it also prevents click activation.
+Use `asChild` for navigation so the anchor keeps its link semantics while using button styles.
+
+```tsx preview file="./_snippets/button/as-child-link.tsx"
+
+```
+
+### Loading State
+
+Use `loading` to set the busy state while keeping the label, spinner, and async lifecycle explicit in
+your application code. It also prevents click activation on elements used with `asChild`.
 
 ```tsx preview file="./_snippets/button/pending-state.tsx"
 
@@ -120,7 +122,7 @@ in product code. On `asChild` hosts it also prevents click activation.
 
 ### Ref
 
-The forwarded ref points at the rendered root and can be used for imperative focus or measurement.
+The forwarded ref points to the rendered root and can be used to focus or measure it programmatically.
 
 ```tsx preview file="./_snippets/button/ref.tsx"
 
@@ -128,7 +130,7 @@ The forwarded ref points at the rendered root and can be used for imperative foc
 
 ### Sizes
 
-Text and icon-only sizes share the same root API.
+Text and icon-only buttons use the same root API.
 
 ```tsx preview file="./_snippets/button/sizes.tsx"
 
@@ -136,7 +138,7 @@ Text and icon-only sizes share the same root API.
 
 ### Variants
 
-Use variants to communicate action priority and intent.
+Use variants to communicate an action's priority and intent.
 
 ```tsx preview file="./_snippets/button/variants.tsx"
 
@@ -157,5 +159,5 @@ Use variants to communicate action priority and intent.
 - `data-disabled` is present for native `disabled`, `aria-disabled="true"`, and `loading`.
 - `data-loading` is present when `loading={true}`.
 - `[data-disabled]` drives disabled visuals for native `disabled`, `aria-disabled="true"`, and `loading`.
-- Enabled button variants use a subtle press movement; `link` keeps opacity feedback only, and reduced-motion
-  preferences omit the movement.
+- Enabled button variants use a subtle press movement; `link` keeps opacity feedback only, and the movement is
+  omitted when the user prefers reduced motion.

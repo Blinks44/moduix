@@ -3,8 +3,8 @@ import { Field } from '@moduix/react/field';
 
 export default function CheckboxFieldDemo() {
   return (
-    <Field required>
-      <Checkbox.Root>
+    <Field invalid>
+      <Checkbox.Root invalid required name="support-access" value="enabled">
         <Checkbox.Control />
         <Checkbox.Label>Accept support access</Checkbox.Label>
       </Checkbox.Root>

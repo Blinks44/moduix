@@ -1,10 +1,12 @@
 ---
 title: Rating Group
 component: rating-group
-description: Элемент управления звёздным рейтингом на основе Ark UI rating-group.
+description: Компонент для выбора оценки в виде набора звёзд на основе примитива rating-group из Ark UI.
 ---
 
 import * as RatingGroupDocs from '@/components/examples/rating-group';
+
+Используйте `RatingGroup`, когда пользователю нужно выбрать числовую оценку с помощью ряда звёзд или других одинаковых значков.
 
 ## Справочник API
 
@@ -12,7 +14,8 @@ import * as RatingGroupDocs from '@/components/examples/rating-group';
 
 ## Базовый пример
 
-Используйте короткую форму корневого элемента с `RatingGroup.Label`, `RatingGroup.Control` и `RatingGroup.Items`.
+В обычном случае используйте сокращённую форму корневого компонента с `RatingGroup.Label`,
+`RatingGroup.Control` и `RatingGroup.Items`.
 
 <style>{RatingGroupDocs.ratingGroupExampleCss}</style>
 
@@ -29,68 +32,92 @@ import * as RatingGroupDocs from '@/components/examples/rating-group';
 ## Анатомия
 
 ```text
-RatingGroup.Root
+RatingGroup / RatingGroup.Root
 ├─ RatingGroup.Label
 └─ RatingGroup.Control
-   ├─ RatingGroup.Items (recommended)
+   ├─ RatingGroup.Items (рекомендуемый вариант)
    │  └─ RatingGroup.Item[index]
    │     └─ RatingGroup.ItemIndicator
-   ├─ RatingGroup.Context (advanced, optional)
+   ├─ RatingGroup.Context (расширенный вариант, необязательно)
    │  └─ RatingGroup.Item[index]
    │     └─ RatingGroup.ItemIndicator
-   └─ the native form input (automatic)
+   └─ скрытое нативное поле формы (добавляется автоматически)
 
 RatingGroup.RootProvider
-└─ same part tree connected to a moduix useRatingGroup() store
+└─ та же структура, подключённая к состоянию moduix из useRatingGroup()
 ```
 
 | Часть                               | Назначение                                                     |
 | ---------------------------------- | -------------------------------------------------------------- |
-| `RatingGroup` / `RatingGroup.Root` | Управляет значением рейтинга, клавиатурным поведением и состоянием формы. |
-| `RatingGroup.RootProvider`         | Подключает части к состоянию, созданному с `useRatingGroup()`. |
-| `RatingGroup.Context`              | Доступ к текущему состоянию корневого элемента через render prop. |
-| `RatingGroup.ItemContext`          | Доступ к текущему состоянию элемента через render prop.        |
-| `RatingGroup.Label`                | Доступная подпись для группы рейтинга.                         |
-| `RatingGroup.Control`              | Группирует интерактивные элементы рейтинга.                    |
-| `RatingGroup.Items`                | Отрисовывает элементы Ark и звёзды по умолчанию.               |
-| `RatingGroup.Item`                 | Один выбираемый элемент рейтинга; требует `index`.             |
-| `RatingGroup.ItemIndicator`        | Визуальная звезда moduix, следующая контексту элемента Ark.    |
+| `RatingGroup` / `RatingGroup.Root` | Хранит состояние оценки, управляет клавиатурной навигацией, фокусом и интеграцией с формами. |
+| `RatingGroup.RootProvider`         | Подключает части к состоянию, созданному через `useRatingGroup()`.                         |
+| `RatingGroup.Context`              | Даёт доступ к текущему состоянию корня через render prop.                                  |
+| `RatingGroup.ItemContext`          | Даёт доступ к текущему состоянию элемента через render prop.                               |
+| `RatingGroup.Label`                | Доступная подпись группы рейтинга.                                                         |
+| `RatingGroup.Control`              | Объединяет интерактивные элементы рейтинга.                                                |
+| `RatingGroup.Items`                | Создаёт элементы для каждого значения и добавляет звезду по умолчанию.                     |
+| `RatingGroup.Item`                 | Один выбираемый элемент рейтинга; требует числовой `index`.                                |
+| `RatingGroup.ItemIndicator`        | Стандартный визуальный индикатор moduix, который учитывает состояние элемента.             |
 
 ## Композиция
 
 ### Рекомендуемая композиция
 
-`RatingGroup` - короткая форма корневого элемента. Он управляет состоянием значения Ark, состоянием наведения, перемещением фокуса, подписями, интеграцией с формой и клавиатурным поведением. Используйте `RatingGroup.Items` для обычных сгенерированных звёзд. Корневой элемент автоматически отрисовывает синхронизированное нативное поле ввода формы. Передайте пользовательский `RatingGroup.ItemIndicator` как дочерний элемент, чтобы изменить значок, сохранив то же поведение элемента.
+`RatingGroup` - сокращённая форма `RatingGroup.Root`. Компонент хранит состояние оценки, управляет
+фокусом, подписями и интеграцией с формами, а также обрабатывает взаимодействие с клавиатурой и указателем. Для стандартного ряда звёзд
+добавьте `RatingGroup.Items`: он создаёт элемент для каждого значения до `count` и добавляет звезду
+по умолчанию. Корневой компонент также автоматически добавляет синхронизированное нативное поле
+формы. Чтобы заменить значок, сохранив прежнее поведение, передайте свой
+`RatingGroup.ItemIndicator` дочерним элементом `RatingGroup.Items`.
 
 ### Когда нужна собственная композиция
 
-Используйте moduix `RatingGroup.Context`, `RatingGroup.ItemContext` или `useRatingGroupItemContext()`, когда пользовательскому дереву элементов нужно состояние `highlighted`, `checked` или `half`. Корневой элемент автоматически отрисовывает нативное поле ввода формы. Используйте `RatingGroup.RootProvider` с moduix `useRatingGroup()`, когда состояние рейтинга должно создаваться вне отрисовываемого поддерева.
+Используйте `RatingGroup.Context` или `RatingGroup.ItemContext`, когда нужно вывести собственное
+дерево элементов или построить визуальное представление на основе состояния корня или элемента.
+В пользовательском компоненте для доступа к этому состоянию используйте
+`useRatingGroupContext()` или `useRatingGroupItemContext()` из `@moduix/react`. Используйте
+`RatingGroup.RootProvider` с `useRatingGroup()`, когда состояние рейтинга нужно создать вне
+отрисовываемого дерева.
 
-Все части Ark поддерживают `asChild`. Сохраняйте дочерний элемент единственным семантичным элементом, который может поддерживать поведение фокуса и взаимодействия части.
+DOM-части Ark, доступные через компонент, поддерживают `asChild`. Оставляйте непосредственный
+дочерний элемент единственным семантическим элементом, способным сохранить фокус и взаимодействие
+этой части. `RatingGroup.ItemIndicator` - удобная визуальная обёртка moduix, а не замена DOM-части Ark.
 
 ### Свойства по умолчанию
 
-| Свойство                       | По умолчанию | Примечания                                               |
-| ------------------------------ | ------------ | -------------------------------------------------------- |
-| `count`                        | `5`          | Количество элементов Ark.                                |
-| `size`                         | `md`         | Размер стилизации moduix: `xs`, `sm`, `md`, `lg` или `xl`. |
-| `RatingGroup.Items`            | -            | Отрисовывает элементы по умолчанию.                      |
-| `RatingGroup.ItemIndicator`    | star         | По умолчанию отрисовывает передний/задний план звезды moduix. |
+| Элемент                       | По умолчанию | Примечания                                               |
+| ----------------------------- | ------------ | -------------------------------------------------------- |
+| `count`                       | `5`          | Количество элементов рейтинга.                           |
+| `size`                        | `md`         | Размер moduix: `xs`, `sm`, `md`, `lg` или `xl`.          |
+| `RatingGroup.Items`           | -            | Создаёт элементы от `1` до `count`.                      |
+| `RatingGroup.ItemIndicator`   | звезда       | По умолчанию показывает две наложенные звёзды: фоновую и активную. |
 
 ### Особенности поведения
 
-- `value` и `defaultValue` - числа.
-- `onValueChange` получает детали Ark; читайте значение из `details.value`.
-- `onHoverChange` получает детали наведения Ark.
-- `allowHalf` включает выбор с шагом в половину и отрисовку половины звезды.
-- `name`, `form` и `required` работают с нативным полем ввода формы, которое автоматически отрисовывает корневой элемент.
-- Ark обрабатывает `disabled` и `readOnly` и отражает их через атрибуты данных.
+- `value` и `defaultValue` - числа. Используйте `defaultValue` для неконтролируемого рейтинга.
+- `onValueChange(details)` получает детали Ark; выбранное значение находится в `details.value`.
+- `onHoverChange(details)` получает детали наведения Ark; их можно использовать для предпросмотра и
+  связанного интерфейса.
+- `allowHalf` включает выбор с шагом в половину и отображение половины звезды.
+- `autoFocus` переводит фокус на рейтинг сразу после монтирования.
+- `name`, `form` и `required` применяются к нативному полю формы, которое корневой компонент
+  добавляет автоматически.
+- Ark обрабатывает `disabled` и `readOnly` и отражает эти состояния через атрибуты данных.
+- Ark управляет клавиатурной навигацией: `ArrowRight` и `ArrowLeft` перемещают фокус между
+  элементами, а `Enter` выбирает элемент в фокусе. При `allowHalf` стрелки также перемещают фокус
+  с шагом в половину.
+- Используйте `ids`, чтобы задавать предсказуемые идентификаторы для составной разметки, а
+  `translations` - чтобы переопределить локализованные сообщения Ark для доступности.
+
+У `Root`, `RootProvider`, `Label`, `Control` и `Item` ref указывает на соответствующую DOM-часть
+Ark. `ItemIndicator` передаёт ref своей визуальной обёртке.
 
 ## Примеры
 
 ### Управляемое состояние
 
-Используйте управляемый режим, когда выбранная оценка влияет на окружающий интерфейс или должна сбрасываться родительским элементом.
+Используйте управляемый режим, если оценка зависит от другого состояния, влияет на соседний интерфейс
+или должна сбрасываться родителем.
 
 <style>{RatingGroupDocs.ratingGroupExampleCss}</style>
 
@@ -102,7 +129,9 @@ RatingGroup.RootProvider
 
 ### Пользовательский значок
 
-Передайте пользовательский `RatingGroup.ItemIndicator` в `RatingGroup.Items`, когда каждый элемент должен использовать одинаковый значок. Индикатор всё равно получает управляемые Ark атрибуты `data-highlighted` и `data-half` для стилизации.
+Передайте свой `RatingGroup.ItemIndicator` дочерним элементом `RatingGroup.Items`, если всем элементам
+нужен один и тот же значок. Индикатор сохраняет атрибуты состояния Ark `data-highlighted` и `data-half`,
+которые можно использовать для стилизации.
 
 <style>{RatingGroupDocs.ratingGroupCustomIconCss}</style>
 
@@ -112,9 +141,10 @@ RatingGroup.RootProvider
   ```
 </PreviewFrame>
 
-### Отключённое состояние и только для чтения
+### Отключённое состояние и режим только для чтения
 
-Используйте `disabled`, чтобы убрать взаимодействие. Используйте `readOnly`, чтобы оставить оценку видимой, не позволяя её изменять.
+Используйте `disabled`, чтобы отключить взаимодействие. Используйте `readOnly`, чтобы оставить оценку
+видимой, но запретить её изменение.
 
 <style>{RatingGroupDocs.ratingGroupExampleCss}</style>
 
@@ -126,7 +156,9 @@ RatingGroup.RootProvider
 
 ### Field
 
-Используйте `Field` вокруг группы рейтинга, когда вспомогательный текст или текст ошибки должны быть связаны с её автоматическим полем ввода. Ark наследует `disabled`, `readOnly` и `required` от поля; состоянием валидации по-прежнему управляют `Field` и код приложения.
+Оберните группу рейтинга в `Field`, если поясняющий текст или сообщение о валидации нужно связать с её
+автоматическим полем формы. Ark передаёт группе состояния `disabled`, `readOnly` и `required` от поля;
+состоянием валидации по-прежнему управляют `Field` и код приложения.
 
 <style>{RatingGroupDocs.ratingGroupExampleCss}</style>
 
@@ -138,7 +170,8 @@ RatingGroup.RootProvider
 
 ### Формы
 
-Передайте `name`, когда выбранное значение должно попасть в `FormData`; корневой элемент автоматически отрисует синхронизированное поле ввода.
+Передайте `name`, чтобы выбранная оценка попала в `FormData`; корневой компонент автоматически добавит
+синхронизированное нативное поле формы.
 
 <style>{RatingGroupDocs.ratingGroupExampleCss}</style>
 
@@ -150,7 +183,7 @@ RatingGroup.RootProvider
 
 ### Оценка с половинами
 
-Установите `allowHalf`, когда рейтинг должен поддерживать выбор и отображение с шагом в половину.
+Установите `allowHalf`, чтобы включить выбор и отображение с шагом в половину.
 
 <style>{RatingGroupDocs.ratingGroupExampleCss}</style>
 
@@ -162,7 +195,8 @@ RatingGroup.RootProvider
 
 ### Размеры
 
-Используйте свойство moduix `size`, когда то же поведение рейтинга Ark должно соответствовать другой плотности интерфейса.
+Используйте свойство moduix `size`, если нужно сохранить поведение рейтинга Ark, но изменить его
+визуальный размер.
 
 <style>{RatingGroupDocs.ratingGroupExampleCss}</style>
 
@@ -174,7 +208,9 @@ RatingGroup.RootProvider
 
 ### Расширенная композиция
 
-Используйте `RatingGroup.RootProvider` с moduix `useRatingGroup()`, когда состояние должно создаваться вне отрисовываемого поддерева. Используйте `RatingGroup.Context`, когда для пути с генерируемым `RatingGroup.Items` нужно ручное дерево элементов.
+Используйте `RatingGroup.RootProvider` с `useRatingGroup()`, когда состояние нужно создать вне дерева
+рейтинга. Используйте `RatingGroup.Context`, когда `RatingGroup.Items` недостаточно и нужно вывести
+каждый элемент вручную.
 
 <style>{RatingGroupDocs.ratingGroupExampleCss}</style>
 
@@ -186,7 +222,9 @@ RatingGroup.RootProvider
 
 ## Стилизация
 
-Стилизуйте `RatingGroup` через `className`, атрибуты Ark `data-scope="rating-group"` / `data-part`, атрибуты состояния Ark, хуки moduix `data-slot` и зарегистрированные CSS-переменные `--moduix-rating-group-*`.
+Стилизуйте `RatingGroup` с помощью `className`, атрибутов Ark `data-scope="rating-group"` и `data-part`,
+атрибутов состояния Ark, хуков moduix `data-slot` и зарегистрированных CSS-переменных
+`--moduix-rating-group-*`.
 
 ### CSS-свойства
 
@@ -209,8 +247,9 @@ RatingGroup.RootProvider
 - `data-slot="rating-group-control"`
 - `data-slot="rating-group-item"`
 - `data-slot="rating-group-item-indicator"`
+- `data-slot="rating-group-item-indicator-bg"` и `data-slot="rating-group-item-indicator-fg"`
 - `data-slot="rating-group-hidden-input"`
-- `data-size="xs" | "sm" | "md" | "lg" | "xl"` на корневом элементе или root provider
+- `data-size="xs" | "sm" | "md" | "lg" | "xl"` на `RatingGroup.Root` или `RatingGroup.RootProvider`
 - Атрибуты подписи Ark: `data-disabled` и `data-required`
 - Атрибуты контрола Ark: `data-disabled` и `data-readonly`
 - Атрибуты элемента Ark: `data-checked`, `data-highlighted`, `data-half`, `data-disabled` и `data-readonly`

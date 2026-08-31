@@ -1,7 +1,7 @@
 ---
 title: Scroll Area
 component: scroll-area
-description: A native scroll container with custom Ark UI scrollbars.
+description: A native scroll container with styled scrollbars built on Ark UI.
 ---
 
 import * as ScrollAreaDocs from '@/components/examples/scroll-area';
@@ -12,10 +12,10 @@ import * as ScrollAreaDocs from '@/components/examples/scroll-area';
 
 ## Basic
 
-Use `ScrollArea` as the Ark root and compose the viewport, content, scrollbar, thumb, and corner
-parts explicitly. The viewport keeps native wheel, touch, trackpad, and keyboard scrolling while the
-scrollbar parts provide the styled controls. moduix adds one small extra: `fade`, which applies a
-top and bottom mask to the viewport using Ark overflow measurements.
+Use `ScrollArea` as the Ark root and compose `Viewport`, `Content`, `Scrollbar`, `Thumb`, and
+`Corner` explicitly. The viewport remains a native scroll container, so scrolling with a mouse
+wheel, trackpad, touch, or keyboard continues to work. The scrollbar parts add styled controls.
+moduix also adds `fade`, which applies a top and bottom mask based on Ark's overflow measurements.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/scroll-area/basic.tsx"
@@ -39,29 +39,31 @@ ScrollArea
 └─ ScrollArea.Corner
 ```
 
-| Part                             | Role                                                            |
-| -------------------------------- | --------------------------------------------------------------- |
-| `ScrollArea` / `ScrollArea.Root` | State owner and outer positioning box.                          |
-| `ScrollArea.RootProvider`        | Root that receives a `ScrollArea.useScrollArea()` state object. |
-| `ScrollArea.Viewport`            | Native scroll viewport and focus target.                        |
-| `ScrollArea.Content`             | Inner content wrapper measured by Ark UI.                       |
-| `ScrollArea.Scrollbar`           | Custom scrollbar track for one axis.                            |
-| `ScrollArea.Thumb`               | Draggable thumb inside a scrollbar.                             |
-| `ScrollArea.Corner`              | Bottom-end intersection filler when both axes can overflow.     |
+| Part                             | Role                                                               |
+| -------------------------------- | ------------------------------------------------------------------ |
+| `ScrollArea` / `ScrollArea.Root` | State owner and outer positioning container.                       |
+| `ScrollArea.RootProvider`        | Root that receives the state returned by `ScrollArea.useScrollArea()`. |
+| `ScrollArea.Viewport`            | Native scroll container and focus target.                          |
+| `ScrollArea.Content`             | Inner content wrapper measured by Ark UI.                          |
+| `ScrollArea.Scrollbar`           | Styled scrollbar track for one axis.                               |
+| `ScrollArea.Thumb`               | Draggable thumb inside a scrollbar.                                |
+| `ScrollArea.Corner`              | Fills the intersection at the bottom end when both axes overflow. |
 
 ## Composition
 
 ### Recommended composition
 
-`ScrollArea` is the styled root. It does not render viewport, content, or scrollbar parts for you;
-compose the Ark parts explicitly so each structural node remains configurable. Give the root a bounded
-block size; otherwise content expands the viewport instead of scrolling.
+Use `ScrollArea` in most cases. It does not render `Viewport`, `Content`, or `Scrollbar` for you;
+add the Ark parts explicitly so each structural node remains configurable. Give the root a bounded
+height or block size. Without a size constraint, the content expands the root instead of scrolling.
 
 ### When to go custom
 
 Use `ScrollArea.useScrollArea()` with `ScrollArea.RootProvider` when controls outside the root need
-to call the scroll area API. Use `ScrollArea.Context` or `useScrollAreaContext()` from moduix for
-advanced state reads. Do not render `ScrollArea` and `ScrollArea.RootProvider` for the same state object.
+to call the scroll area API. The package also exports `useScrollArea` and `useScrollAreaContext`;
+`useScrollArea` is also available as `ScrollArea.useScrollArea()`. Use `ScrollArea.Context` or
+`useScrollAreaContext()` for advanced state reads. Do not render `ScrollArea` and
+`ScrollArea.RootProvider` for the same state object.
 
 ### Default props
 
@@ -69,31 +71,32 @@ advanced state reads. Do not render `ScrollArea` and `ScrollArea.RootProvider` f
 | ------------------------------------------------------- | ---------- | -------------------------------------------------------------------------------------- |
 | `fade` on `ScrollArea` and `ScrollArea.RootProvider`    | `false`    | Adds a top and bottom viewport mask driven by Ark `--scroll-area-overflow-y-*` values. |
 | `variant` on `ScrollArea` and `ScrollArea.RootProvider` | `hover`    | Use `always` to keep overflowing scrollbar tracks visible and interactive.             |
-| `orientation` on `ScrollArea.Scrollbar`                 | `vertical` | Set `orientation="horizontal"` for a horizontal track.                                 |
-| `asChild`                                               | `false`    | Available on each Ark part for single-child host composition.                          |
+| `orientation` on `ScrollArea.Scrollbar`                | `vertical` | Set `orientation="horizontal"` for a horizontal track.                                |
+| `asChild`                                               | `false`    | Available on every Ark part for composing a single child as the host element.         |
 | `ids` on `ScrollArea`                                   | generated  | Use when separate code needs stable root, viewport, content, scrollbar, or thumb IDs.  |
 
 ### Behavioral notes
 
 - Render one `ScrollArea.Scrollbar` per axis you want to expose.
-- Pass Ark's `dir="rtl"` to the root for right-to-left scrolling; moduix uses logical positioning so
-  the vertical scrollbar follows the inline end edge.
+- Pass Ark's `dir="rtl"` to the root for right-to-left scrolling; moduix uses logical positioning
+  so the vertical scrollbar follows the inline-end edge.
 - Ark adds `data-overflow-x` and `data-overflow-y`; moduix hides scrollbar tracks until the matching
   axis actually overflows.
 - Set `variant="always"` when the matching overflowing scrollbar should remain visible and
   interactive at rest.
-- The viewport CSS hides native browser scrollbars with `scrollbar-width: none` and the WebKit
+- The viewport styles hide native browser scrollbars with `scrollbar-width: none` and the WebKit
   scrollbar rule required by Ark UI.
 - In forced-colors mode, moduix disables the optional fade mask so it cannot obscure content and
   uses system colors for the viewport focus ring and scrollbar thumb.
-- The ref on `ScrollArea` points to the root element; the ref on `ScrollArea.Viewport` points to the
-  native scroll container.
+- Refs are forwarded to the underlying DOM element of every wrapped part. In particular, the ref on
+  `ScrollArea` points to the root element and the ref on `ScrollArea.Viewport` points to the native
+  scroll container.
 
 ## Examples
 
 ### Always Visible
 
-Use `variant="always"` in dense panels when the scrollbar should stay discoverable without hover.
+Use `variant="always"` in dense panels when the scrollbar should remain discoverable without hover.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/scroll-area/always-visible.tsx"
@@ -157,9 +160,9 @@ to the scrolling API.
 ## Styling
 
 Use CSS variables on the root when scrollbar thickness, focus ring treatment, or surface styling
-needs to change without replacing the structure. The default thumb keeps the border token color and
-grows by `2px` across its track on hover or drag; customize the amount with
-`--moduix-scroll-area-thumb-hover-increase` and the timing with
+needs to change without replacing the structure. The default thumb uses the border token color,
+and the scrollbar grows by `2px` on hover or drag, so the thumb grows with it. Customize the amount
+with `--moduix-scroll-area-thumb-hover-increase` and the timing with
 `--moduix-scroll-area-thumb-hover-transition`.
 
 ### CSS Properties
@@ -168,9 +171,9 @@ grows by `2px` across its track on hover or drag; customize the amount with
 
 ### Styling hooks
 
-- `data-slot="scroll-area-root"`, `scroll-area-root-provider`, `scroll-area-viewport`,
-  `scroll-area-content`, `scroll-area-scrollbar`, `scroll-area-thumb`, and `scroll-area-corner` are
-  the stable moduix hooks.
+- moduix adds stable `data-slot` hooks with the values `scroll-area-root`, `scroll-area-root-provider`,
+  `scroll-area-viewport`, `scroll-area-content`, `scroll-area-scrollbar`, `scroll-area-thumb`, and
+  `scroll-area-corner`.
 - `data-fade` is added by the `fade` prop and `data-variant="hover" | "always"` by the `variant`
   prop on `ScrollArea` and `ScrollArea.RootProvider`.
 - Ark adds `data-scope="scroll-area"` and `data-part` for every part.
@@ -181,7 +184,7 @@ grows by `2px` across its track on hover or drag; customize the amount with
   thumbs.
 - `data-hover` and `data-dragging` are available on scrollbar and thumb parts; `data-scrolling` is
   available on scrollbar parts.
-- Ark root variables `--corner-width`, `--corner-height`, `--thumb-width`, and `--thumb-height` drive
-  the corner offset and thumb dimensions. Ark viewport variables
+- Ark root variables `--corner-width`, `--corner-height`, `--thumb-width`, and `--thumb-height`
+  drive the corner offset and thumb dimensions. Ark viewport variables
   `--scroll-area-overflow-x-start`, `--scroll-area-overflow-x-end`,
   `--scroll-area-overflow-y-start`, and `--scroll-area-overflow-y-end` expose edge distances.

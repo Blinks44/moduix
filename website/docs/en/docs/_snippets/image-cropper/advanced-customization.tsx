@@ -5,9 +5,9 @@ const sampleImage =
 
 export default function AdvancedCustomizationImageCropperDemo() {
   return (
-    <ImageCropper>
+    <ImageCropper aria-label="Image cropper">
       <ImageCropper.Viewport>
-        <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
+        <ImageCropper.Image src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
         <ImageCropper.Selection>
           <ImageCropper.Grid axis="horizontal" />
           <ImageCropper.Grid axis="vertical" />

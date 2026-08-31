@@ -1,30 +1,43 @@
 ---
 title: Presence
-description: Contrôlez le montage, le masquage et le démontage du contenu de l’application avec Ark UI Presence et moduix.
+description: Contrôlez quand un contenu est monté, masqué ou démonté avec Presence d’Ark UI, puis composez-le avec les composants moduix.
 ---
 
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/presence" />
 
-## Quand l’utiliser
+## Ce que fait Presence
 
-Utilisez `Presence` lorsqu’il faut gérer explicitement le cycle de vie d’un contenu contrôlé par l’application. Il rend
-un `<div>` racine autour du contenu et ajoute `data-state="open"` ou `data-state="closed"` pour le style.
+`Presence` est un utilitaire d’Ark UI, et non un composant exporté par `@moduix/react`. Il contrôle un sous-arbre avec
+la prop `present`. Selon les options de stratégie de rendu, ce sous-arbre peut rester monté tout en étant masqué, être
+monté uniquement lors de sa première apparition ou être démonté après son animation de sortie.
 
-Importez l’utilitaire directement depuis Ark UI :
+Par défaut, Presence rend une racine `<div>` avec `data-scope="presence"` et `data-part="root"`. La racine reçoit aussi
+`data-state="open"` ou `data-state="closed"`, ce qui permet de cibler les états d’entrée et de sortie en CSS. Utilisez
+`asChild` lorsqu’un élément enfant existant doit recevoir les props de Presence au lieu d’ajouter une racine.
+
+Importez-le directement depuis Ark UI :
 
 ```tsx
 import { Presence } from '@ark-ui/react/presence';
 ```
 
-Pour Dialog, Drawer, Popover, Menu, Tooltip, Lightbox, Tour et les composants moduix similaires, utilisez les props
-de présence intégrées. Utilisez `Presence` seul pour du contenu contrôlé par l’application.
+## Quand l’utiliser
+
+Utilisez `Presence` seul pour des panneaux, notifications, cartes ou autres contenus contrôlés par l’application dont le
+cycle de montage doit être géré explicitement.
+
+Pour Dialog, Drawer, Lightbox, Menu, Popover, Tooltip, Tour et les racines moduix similaires, utilisez les props de
+présence exposées par ces composants. Ils coordonnent déjà la présence avec la gestion du focus, le positionnement et
+la fermeture. Utilisez `Presence` seul lorsque le cycle de vie relève de votre application et non d’une racine moduix
+existante.
 
 ## Exemple de base
 
-Contrôlez l’élément avec une seule valeur `present`. Avec `unmountOnExit`, Presence conserve la racine dans le DOM
-pendant l’animation de sortie, puis la retire une fois l’animation terminée.
+Contrôlez `Presence` avec la prop `present`. Lorsque `unmountOnExit` vaut `false`, la fermeture masque la racine, mais
+la laisse montée. L’état local est ainsi conservé et les effets continuent de s’exécuter. Cet exemple active
+`unmountOnExit` afin que l’animation de sortie puisse se terminer avant le retrait de la racine.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/presence/basic.tsx"
@@ -34,8 +47,9 @@ pendant l’animation de sortie, puis la retire une fois l’animation terminée
 
 ## Monter à la demande
 
-Ajoutez `lazyMount` lorsque le contenu ne doit pas être monté avant sa première apparition. `unmountOnExit` le retire
-après sa fermeture. Ici, l’animation est appliquée directement à la racine de Presence via l’attribut `data-state`.
+Combinez `lazyMount` et `unmountOnExit` lorsque le contenu ne doit pas exister avant sa première apparition ni après sa
+fermeture. `lazyMount` retarde le premier montage, mais ne retire pas le contenu à la fermeture. `unmountOnExit` s’en
+charge.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/presence/mount-on-demand.tsx"
@@ -43,9 +57,10 @@ après sa fermeture. Ici, l’animation est appliquée directement à la racine 
   ```
 </PreviewFrame>
 
-## Animation de sortie
+## Animations de sortie
 
-`Presence` ajoute `data-state` à sa racine afin que le CSS réagisse aux états `open` et `closed`. Utilisez
+Lorsque `unmountOnExit` est activé, Presence laisse la racine dans le DOM pendant l’exécution de son animation CSS de
+sortie. Ciblez `data-state="open"` et `data-state="closed"` pour définir les styles d’entrée et de sortie. Utilisez
 `onExitComplete` lorsqu’un autre traitement doit attendre la fin de l’animation de sortie.
 
 ```tsx
@@ -85,23 +100,51 @@ export function ActivityPanel({ open }: { open: boolean }) {
 }
 ```
 
-## Stratégie de masquage
+Définissez `skipAnimationOnMount` lorsque la première apparition doit être immédiate. Définissez `immediate` lorsque
+le changement de `present` doit s’appliquer immédiatement au lieu d’être reporté à la prochaine frame.
 
-Par défaut, `hideMode="display-none"` utilise l’attribut `hidden` : les effets du sous-arbre continuent donc de
-s’exécuter. Avec React 19 ou version ultérieure, `hideMode="activity"` utilise le composant React `Activity` ; les
-effets du contenu masqué sont alors mis en pause.
+## Masquer un contenu monté
 
-Choisissez `lazyMount` et `unmountOnExit` lorsque le contenu ne doit pas être monté, plutôt que seulement devenir
-invisible. Utilisez `hideMode` lorsqu’il doit rester monté, mais avec un cycle de vie d’effets différent.
+Lorsque le contenu reste monté, `hideMode` détermine la façon dont Ark le masque :
 
-## Utilisation avec moduix
+- `display-none` est le mode par défaut. Il utilise l’attribut `hidden`, les effets du sous-arbre continuent donc de
+  s’exécuter.
+- `activity` utilise le composant `Activity` de React 19 avec `mode="hidden"`, ce qui met les effets en pause lorsque
+  le contenu est masqué. Cette option nécessite React 19 ou une version ultérieure. Si `Activity` n’est pas disponible,
+  Ark revient au comportement fondé sur l’attribut `hidden`.
 
-Placez n’importe quelle interface moduix dans `Presence` : cartes, boutons, formulaires et panneaux personnalisés
-conservent leur style habituel. La racine Ark gère uniquement la visibilité et le cycle de vie. Passez `className` à
-`Presence` lorsque son conteneur a besoin d’une animation ou d’une règle de mise en page.
+Choisissez `lazyMount` et `unmountOnExit` lorsque le sous-arbre ne doit pas exister en dehors de son cycle de vie actif.
+Choisissez `hideMode` lorsqu’il doit rester monté, mais avec un comportement différent à l’état masqué.
 
-## Responsabilités
+## Composition
 
-Ark UI gère l’API de `Presence`, la stratégie de montage et le cycle de vie des animations. moduix fournit les
-composants d’interface environnants et transmet des props Presence équivalentes à ses racines Ark là où ce
-comportement appartient déjà au composant.
+### Composition recommandée
+
+Placez `Presence` au plus près du contenu dont il contrôle le cycle de montage. Il peut envelopper un composant moduix
+ou un élément HTML sémantique. Passez `className` à la racine de Presence lorsque ce conteneur a besoin de styles de
+mise en page ou d’animation.
+
+### Quand utiliser `asChild`
+
+Utilisez `asChild` lorsque vous avez déjà un élément racine adapté et que vous voulez lui transmettre les props de
+Presence. Vérifiez que l’enfant peut recevoir une ref, `hidden`, `data-*` et la classe transmise. N’utilisez pas
+`asChild` avec plusieurs enfants.
+
+## Utiliser moduix
+
+Placez n’importe quel composant moduix dans `Presence` : cartes, boutons, formulaires et panneaux personnalisés
+conservent leur style et leur comportement habituels. Presence gère uniquement le cycle de montage et les attributs
+d’état ; il ne modifie ni la sémantique ni le modèle d’interaction de l’enfant.
+
+## Ark UI et moduix
+
+Ark UI fournit l’API de `Presence`, la stratégie de montage et le cycle de vie des animations. `@moduix/react` ne
+ré-exporte pas `Presence` : importez-le depuis `@ark-ui/react/presence` et utilisez les composants moduix à l’intérieur.
+Les racines moduix qui gèrent leur propre comportement d’ouverture, de fermeture ou de superposition exposent des props
+de présence équivalentes lorsque cela est pertinent.
+
+Si vous utilisez l’utilitaire seul avec moduix, installez les deux paquets :
+
+```bash
+pnpm add @ark-ui/react @moduix/react
+```

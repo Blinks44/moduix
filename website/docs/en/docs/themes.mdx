@@ -1,6 +1,6 @@
 ---
 title: Themes
-description: Start from a curated moduix token preset, then keep the CSS in your project.
+description: Start with a moduix preset, then adapt its CSS tokens to your product.
 ---
 
 import { ThemePresets } from '@/components/docs/theme-presets';
@@ -8,10 +8,10 @@ import { ClientOnly } from '@ark-ui/react/client-only';
 
 # Themes
 
-moduix themes are plain CSS token layers. `Calm` is the balanced foundation; `Dense`, `Soft`, and
-`Contrast` are optional starting points for a different visual direction. A preset can change the
-palette, radius, spacing, control density, and shadows without changing component APIs or adding a
-theme runtime.
+moduix themes are CSS token layers. `Calm` is the default foundation theme; `Dense`, `Soft`, and
+`Contrast` are optional presets for different visual directions. A preset can change the palette,
+radii, spacing, control density, and shadows without changing component APIs or adding a theme
+provider or runtime.
 
 <ClientOnly fallback={<ThemePresets />}>
   <ThemePresets />
@@ -19,37 +19,45 @@ theme runtime.
 
 ## Choose a preset
 
-| Preset   | Controls / popup rows | Best starting point for                                                  |
-| -------- | --------------------- | ------------------------------------------------------------------------ |
-| Calm     | 36px / 32px           | Most product interfaces; neutral rhythm and quiet surfaces.              |
-| Dense    | 34px / 30px           | Data-heavy tools where visible information density matters.              |
-| Soft     | 40px / 34px           | Touch-friendly or spacious interfaces with a warmer visual direction.    |
-| Contrast | 36px / 32px           | Interfaces that benefit from stronger borders and focus separation.      |
+| Preset   | Main control / popup row | Good starting point for                                                           |
+| -------- | ------------------------ | --------------------------------------------------------------------------------- |
+| Calm     | 36px / 32px              | Most product interfaces: a neutral rhythm and quiet surfaces.                     |
+| Dense    | 34px / 30px              | Admin and data-heavy tools where more information must fit on screen.             |
+| Soft     | 40px / 34px              | Spacious or touch-friendly workflows with rounded surfaces and a warmer accent.  |
+| Contrast | 36px / 32px              | Interfaces that benefit from sharper borders and clearer focus separation.         |
 
-The preview uses real moduix controls. Open the Select and move through the fields with the keyboard
-to compare trigger density, smaller popup rows, labels, surfaces, and focus treatment together.
+The sizes in the table are the default heights for the preset's main controls and popup rows.
+The preview uses real moduix components. Use the preset and color mode buttons, then open the
+Select and move through its fields with the keyboard to compare control height, popup row height,
+labels, surfaces, and focus styles together.
+
 Preset names describe a visual direction, not an accessibility guarantee. Test text contrast,
-focus visibility, zoom, and target sizes with your content and application overrides before release.
+focus visibility, zoom, and interactive target sizes with your content and application overrides
+before release.
 
 ## How the layers work
 
-The foundation stylesheet defines the complete token contract and the `Calm` defaults. A preset
-selectively overrides that contract; your application can then override only the decisions that
-belong to your brand. Components consume semantic and component-level aliases, so a palette or
+The foundation stylesheet defines the complete token contract and the default `Calm` values. A
+preset overrides selected values, and your application can then override only the decisions that
+belong to your product. Components read semantic and component-level aliases, so a palette or
 density change flows through related controls instead of becoming a collection of one-off rules.
 
 ```text
 foundation tokens → optional preset → application overrides → component aliases
 ```
 
-Preset CSS stays small, readable, and removable. Use [Tokens](/docs/tokens) to see which variables
-form the public theming surface.
+Preset files contain only their overrides, so they stay easy to inspect and remove. Use
+[Tokens](/docs/tokens) to see which variables form the public theming surface.
 
 ## Use with the npm package
 
-Import the foundation first, then one preset. Put `data-moduix-theme` on `<html>` so portalled
-components inherit the same tokens. Set `data-moduix-color-scheme="dark"` on that element for the
-moduix dark palette.
+Import the foundation once, then import a preset. If users can switch between multiple presets,
+load every preset they can choose before switching. `Calm` uses the foundation values and does not
+have a `calm.css` file.
+
+Put `data-moduix-theme` on `<html>` so portalled components resolve the same tokens as the rest of
+the document. Set `data-moduix-color-scheme="dark"` on that element for the moduix dark mode; omit
+it for the light mode.
 
 ```tsx
 import '@moduix/react/style.css';
@@ -60,7 +68,7 @@ import '@moduix/react/presets/soft.css';
 <html data-moduix-theme="soft" data-moduix-color-scheme="dark"></html>
 ```
 
-Choose one of these paths instead of `soft.css`:
+To use another preset, replace `soft.css` with one of these paths:
 
 ```text
 @moduix/react/presets/dense.css
@@ -69,7 +77,8 @@ Choose one of these paths instead of `soft.css`:
 
 ## Use with the registry
 
-Install one copy-owned preset, then import its generated CSS after the foundation stylesheet.
+Install a preset from the hosted moduix registry. The CLI copies its CSS source into your project;
+import that file after the foundation stylesheet.
 
 ```bash
 npx shadcn@latest add @moduix-react/theme-dense
@@ -84,27 +93,33 @@ import '@/lib/moduix/presets/dense.css';
 <html data-moduix-theme="dense"></html>
 ```
 
-Replace `dense` with `soft` or `contrast` to use another preset.
+Replace `dense` with `soft` or `contrast` for another preset. If users can switch between presets,
+install and import each preset that can be selected.
 
 ## Switch themes at runtime
 
-Keep theme state on the document element so regular content and portalled overlays receive the same
-tokens. Persist the chosen name only if your product needs to remember it.
+Theme switching only changes the `data-moduix-theme` attribute. Keep the selected name on the
+document element so regular content and portalled overlays receive the same tokens. Persist the
+name only if your product needs to remember the user's choice.
 
 ```tsx
-function setTheme(theme: 'calm' | 'dense' | 'soft' | 'contrast') {
+type Theme = 'calm' | 'dense' | 'soft' | 'contrast';
+
+function setTheme(theme: Theme) {
   document.documentElement.dataset.moduixTheme = theme;
   localStorage.setItem('moduix-theme', theme);
 }
 ```
 
-Apply the saved value before the app renders to avoid a visible theme change during startup.
+The `calm` value leaves the foundation values in place. The CSS for every other selectable preset
+must already be loaded. Apply the saved value before the first paint to avoid a visible theme
+change during startup.
 
 ## Customize a preset
 
-The preset is only a layer of CSS variables. Override it in your own stylesheet after the preset
-import. Change semantic tokens for system-wide decisions and component aliases only for intentional
-exceptions.
+A preset is only a layer of CSS variables. Load your own stylesheet after the preset and override
+the values that need to change. Prefer semantic tokens for product-wide decisions and component
+aliases for deliberate exceptions.
 
 ```css
 [data-moduix-theme='soft'] {
@@ -115,10 +130,11 @@ exceptions.
 
 ## Create a custom theme
 
-Create a stylesheet after the foundation and apply its name on `<html>`. Start with the tokens that
-define your visual direction; omitted tokens keep their foundation values. Add size or spacing
-tokens only when your theme intentionally changes density. Use a preset as a reference when you
-want to replace the complete palette, spacing, and shadows.
+If the provided presets are not a fit, create a stylesheet loaded after the foundation and use a
+new value for `data-moduix-theme`. Start with the tokens that define your visual direction. Tokens
+you leave out keep their foundation values. Add size or spacing tokens only when your theme
+intentionally changes density. Use a preset as a reference when you want to replace the complete
+palette, spacing, and shadows.
 
 ```tsx
 import '@moduix/react/style.css';
@@ -159,5 +175,5 @@ import './brand.css';
 <html data-moduix-theme="brand" data-moduix-color-scheme="dark"></html>
 ```
 
-Use [Tokens](/docs/tokens) for the system token reference and [Dark mode](/docs/dark-mode) for the
-application-owned light/dark switch.
+Use [Tokens](/docs/tokens) for the system token reference and [Dark mode](/docs/dark-mode) for
+the application-owned light and dark mode switch.

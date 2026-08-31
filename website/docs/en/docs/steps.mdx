@@ -1,7 +1,7 @@
 ---
 title: Steps
 component: steps
-description: Guide users through a multi-step process with Ark UI state and navigation.
+description: Guide users through a multi-step process with accessible Ark UI state and navigation.
 ---
 
 import * as StepsDocs from '@/components/examples/steps';
@@ -14,7 +14,13 @@ import * as StepsDocs from '@/components/examples/steps';
 
 ## Basic
 
-Use `Steps` with a `count`, a `Steps.List` of zero-based `Steps.Item index={...}` parts, matching `Steps.Content index={...}` panels, and the built-in previous/next triggers.
+Use `Steps` with `count`, a `Steps.List` containing one `Steps.Item` for each step, matching
+`Steps.Content` panels, and the built-in previous and next triggers. Step indexes start at zero.
+For example, `count={3}` uses indexes `0`, `1`, and `2`. When the step value reaches `count`,
+`Steps.CompletedContent` is shown.
+
+The default `Steps` export is the root component. Use `Steps.Root` when you want the explicit root
+part name.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/steps/basic.tsx"
@@ -45,63 +51,74 @@ Steps.RootProvider
 └─ same part tree connected to a Steps.useSteps() store
 ```
 
-| Part                                | Role                                                                       |
-| ----------------------------------- | -------------------------------------------------------------------------- |
-| `Steps`                              | Controls step state, orientation, linear navigation, validation, and IDs.  |
-| `Steps.RootProvider`                | Connects parts to state created with `Steps.useSteps()`.                   |
-| `Steps.Progress`                    | Optional progressbar that reads Ark's `--percent` root variable.           |
-| `Steps.List`                        | Tablist that owns step triggers.                                           |
-| `Steps.Item`                        | One zero-based step item with a required `index`.                          |
-| `Steps.Trigger`                     | Tab button for a step; supports `asChild` for custom semantic hosts.       |
-| `Steps.Indicator`                   | Visual step marker. Defaults to `index + 1` or a check icon when complete. |
-| `Steps.Separator`                   | Decorative connector between items.                                        |
-| `Steps.Content`                     | Tabpanel for one step, matched by `index`.                                 |
-| `Steps.CompletedContent`            | Tabpanel shown when the current step equals `count`.                       |
-| `Steps.PrevTrigger` / `NextTrigger` | Buttons wired to Ark's previous and next actions.                          |
+| Part                                | Role                                                                              |
+| ----------------------------------- | --------------------------------------------------------------------------------- |
+| `Steps` / `Steps.Root`           | Root state machine for step state, orientation, navigation, validation, and IDs. |
+| `Steps.RootProvider`               | Connects the parts to state created with `Steps.useSteps()`.                    |
+| `Steps.Progress`                   | Optional visual progress track driven by Ark's `--percent` root variable.       |
+| `Steps.List`                       | Tablist containing the step triggers.                                            |
+| `Steps.Item`                       | Step item with a required zero-based `index`.                                    |
+| `Steps.Trigger`                    | Tab trigger for a step; supports `asChild` for custom semantic elements.         |
+| `Steps.Indicator`                  | Visual step marker. Defaults to `index + 1` or a check icon when complete.       |
+| `Steps.Separator`                  | Decorative connector between step items.                                         |
+| `Steps.Content`                    | Content panel for one step, matched by `index`.                                  |
+| `Steps.CompletedContent`           | Panel shown when the current step value equals `count`.                          |
+| `Steps.PrevTrigger` / `NextTrigger` | Buttons wired to Ark's previous and next actions.                                |
 
-Use `Steps.useSteps()` with `Steps.RootProvider` for externally owned state. `useStepsContext`,
-`useStepsItemContext`, `Steps.Context`, and `Steps.ItemContext` are also exported from
-`@moduix/react` as low-level Ark-shaped APIs.
+Use `Steps.useSteps()` with `Steps.RootProvider` when state must be created outside the rendered
+part tree. `useStepsContext`, `useStepsItemContext`, `Steps.Context`, and `Steps.ItemContext` are
+also exported from `@moduix/react` as low-level Ark-shaped APIs.
 
 ## Composition
 
 ### Recommended composition
 
-`Steps` owns the state machine. Use `count`, `defaultStep`, `step`, `onStepChange(details)`, `onStepComplete`, `linear`, `isStepValid`, `isStepSkippable`, `onStepInvalid(details)`, `orientation`, and `ids` directly on the root. Step items and panels use zero-based `index` values.
+`Steps` owns the state machine. Pass `count`, `defaultStep`, `step`, `onStepChange(details)`,
+`onStepComplete`, `linear`, `isStepValid`, `isStepSkippable`, `onStepInvalid(details)`,
+`orientation`, and `ids` to the root. Use matching zero-based `index` values on each step item and
+content panel. Active steps use indexes from `0` through `count - 1`; the value `count` represents
+completion.
 
-Use `Steps.RootProvider` with `Steps.useSteps()` when external controls need direct access to `value`,
-`setStep`, `goToNextStep`, `goToPrevStep`, `resetStep`, `percent`, and item-state helpers. Do not
-render `Steps.Root` and `Steps.RootProvider` for the same store.
+Use `Steps.RootProvider` with `Steps.useSteps()` when controls outside the `Steps` part tree need
+the same state. The returned object exposes `value`, `setStep`, `goToNextStep`, `goToPrevStep`,
+`resetStep`, `percent`, and `getItemState`. Do not render `Steps.Root` and `Steps.RootProvider`
+for the same state.
 
 ### When to go custom
 
-Use `asChild` on `Steps.Trigger`, `Steps.PrevTrigger`, or `Steps.NextTrigger` when the host element should be an anchor, router link, or design-system button. The child must remain a single semantic element that can carry Ark's ARIA, keyboard, and focus props.
+Use `asChild` on `Steps.Trigger`, `Steps.PrevTrigger`, or `Steps.NextTrigger` when the control
+should render as an anchor, router link, or design-system button. Keep exactly one semantic child
+so Ark can attach its ARIA, keyboard, and focus behavior to that element.
 
-`Steps.Indicator` has one moduix addition: when children are omitted, it renders `index + 1` for incomplete/current steps and the shared check icon for completed steps. Pass children to fully control the marker.
+`Steps.Indicator` has one moduix addition: when it has no children, it renders `index + 1` for
+incomplete and current steps and the shared check icon for completed steps. Pass children to take
+full control of the marker.
 
 ### Default props
 
-| Prop          | Default      | Notes                                                                                |
-| ------------- | ------------ | ------------------------------------------------------------------------------------ |
-| `orientation` | `horizontal` | Ark root orientation. Use `vertical` for stacked step navigation.                    |
-| `linear`      | `false`      | Set `true` to prevent arbitrary trigger jumps and require next/previous progression. |
-| `count`       | `1`          | Ark's total step count. Pass the visible step array length in real UIs.              |
-| `defaultStep` | `0`          | Initial uncontrolled step. `count` means completed.                                  |
+| Prop          | Default      | Notes                                                                                  |
+| ------------- | ------------ | -------------------------------------------------------------------------------------- |
+| `orientation` | `horizontal` | Orientation of the root. Use `vertical` for stacked step navigation.                  |
+| `linear`      | `false`      | Set `true` to require users to complete steps in order instead of jumping between them. |
+| `count`       | `1`          | Total number of steps. The completed state is represented by the value `count`.       |
+| `defaultStep` | `0`          | Initial uncontrolled value. Pass `count` to start with the process completed.         |
 
 ### Behavioral notes
 
-- `step`, `defaultStep`, `details.step`, and `Steps.Item index` are zero-based Ark values.
-- In linear flows, `onStepInvalid(details)` reports the blocked `details.step`, the `details.action` (`'next'` or `'set'`), and an optional `details.targetStep`.
-- `Steps.Content` uses `role="tabpanel"` and is hidden when its step is not current.
+- `step`, `defaultStep`, `details.step`, and `Steps.Item index` are zero-based Ark values. Active step indexes range from `0` to `count - 1`; `count` means complete.
+- In linear flows, `onStepInvalid(details)` reports the blocked `details.step`, the `details.action` (`'next'` or `'set'`), and the optional `details.targetStep`.
+- `Steps.Content` uses `role="tabpanel"` and is hidden when its step is not current. `Steps.CompletedContent` is shown when the current value equals `count`.
 - `Steps.List` uses `role="tablist"` with `aria-orientation`; triggers use `role="tab"` and `aria-controls`.
-- `Steps.PrevTrigger` and `Steps.NextTrigger` become disabled when Ark reports no previous or next step.
-- `ids` can provide stable root/list/trigger/content IDs when surrounding composition needs them.
+- `Steps.PrevTrigger` and `Steps.NextTrigger` become disabled when Ark reports that there is no previous or next step.
+- `ids` can provide stable IDs for the root, list, triggers, and content when the surrounding composition needs them.
+- `Steps.Progress` is a visual track driven by Ark's `--percent` variable. Pair it with visible or screen-reader text when progress needs to be announced.
 
 ## Examples
 
 ### Controlled
 
-Control `step` from React state when the active step must stay synchronized with routing, validation, or surrounding UI.
+Control `step` from React state when the active step must stay synchronized with routing, validation,
+or another part of the interface.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/steps/controlled.tsx"
@@ -111,7 +128,8 @@ Control `step` from React state when the active step must stay synchronized with
 
 ### Validation
 
-Use `linear`, `isStepValid`, and `onStepInvalid` when a user must complete the current step before moving forward.
+Use `linear`, `isStepValid`, and `onStepInvalid` to prevent navigation until the current step passes
+your validation rule.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/steps/validation.tsx"
@@ -121,7 +139,8 @@ Use `linear`, `isStepValid`, and `onStepInvalid` when a user must complete the c
 
 ### Progress
 
-Add `Steps.Progress` when the flow should expose a progressbar in addition to the step list.
+Add `Steps.Progress` when the flow should show a visual progress track alongside the step list. Add
+your own accessible status if the progress needs to be announced to assistive technology.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/steps/progress.tsx"
@@ -129,9 +148,10 @@ Add `Steps.Progress` when the flow should expose a progressbar in addition to th
 ```
 </PreviewFrame>
 
-### Root Provider
+### RootProvider
 
-Use `Steps.useSteps()` with `Steps.RootProvider` when controls outside the rendered tree need access to the same Ark store.
+Create the state with `Steps.useSteps()` outside the rendered part tree, then pass it to
+`Steps.RootProvider` when external controls need to work with the same state.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/steps/root-provider.tsx"
@@ -141,7 +161,8 @@ Use `Steps.useSteps()` with `Steps.RootProvider` when controls outside the rende
 
 ### Vertical
 
-Set `orientation="vertical"` when the step list should sit beside the active content panel on wide layouts and stack above it on narrow screens.
+Set `orientation="vertical"` when the step list should sit beside the active content panel on wide
+layouts and stack above it on narrow screens.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/steps/vertical.tsx"
@@ -151,7 +172,8 @@ Set `orientation="vertical"` when the step list should sit beside the active con
 
 ### Advanced Customization
 
-Bypass the default button host with `asChild` when a trigger must render as an anchor or router link. Keep one semantic child so it receives Ark's ARIA, keyboard, and focus behavior.
+Use `asChild` when a trigger must render as an anchor or router link instead of the default button.
+Keep one semantic child so it receives Ark's ARIA, keyboard, and focus behavior.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/steps/custom-composition.tsx"
@@ -161,9 +183,10 @@ Bypass the default button host with `asChild` when a trigger must render as an a
 
 ## Styling
 
-Style `Steps` through `className`, Ark `data-scope="steps"` / `data-part="..."`, Ark state attributes, moduix `data-slot` hooks, and the public `--moduix-steps-*` CSS variables shown below.
+Style `Steps` with `className`, Ark's `data-scope="steps"` and `data-part` attributes, Ark state
+attributes, moduix `data-slot` hooks, and the public `--moduix-steps-*` CSS variables listed below.
 
-### CSS Properties
+### CSS variables
 
 <div className="docs-reference">
   <Tabs
@@ -183,9 +206,9 @@ The useful public hooks are:
 
 - `className` on `Steps`, `Steps.RootProvider`, `Steps.List`, `Steps.Item`, `Steps.Trigger`, `Steps.Indicator`, `Steps.Separator`, `Steps.Content`, `Steps.CompletedContent`, `Steps.PrevTrigger`, `Steps.NextTrigger`, and `Steps.Progress`
 - `data-slot="steps-root"`, `steps-root-provider`, `steps-list`, `steps-item`, `steps-trigger`, `steps-indicator`, `steps-separator`, `steps-content`, `steps-completed-content`, `steps-prev-trigger`, `steps-next-trigger`, and `steps-progress`
-- Ark `data-scope="steps"` and `data-part` values for every primitive part
-- `data-orientation="horizontal" | "vertical"` on root/list/item/trigger/content/separator parts
+- Ark's `data-scope="steps"` and `data-part` values for every primitive part
+- `data-orientation="horizontal" | "vertical"` on the root, list, item, trigger, content, and separator parts
 - `data-current`, `data-complete`, and `data-incomplete` on indicator, separator, and trigger state surfaces
 - `data-state="open" | "closed"` on triggers and content panels
 - `data-complete` on `Steps.Progress`
-- `--percent` from Ark on the root, consumed by `Steps.Progress`
+- Ark's `--percent` variable on the root, consumed by `Steps.Progress`

@@ -9,6 +9,7 @@ export default function FixedImageCropperDemo() {
       fixedCropArea
       cropShape="circle"
       aspectRatio={1}
+      aria-label="Image cropper"
       initialCrop={{
         x: 112,
         y: 64,
@@ -17,7 +18,7 @@ export default function FixedImageCropperDemo() {
       }}
     >
       <ImageCropper.Viewport>
-        <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
+        <ImageCropper.Image src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
         <ImageCropper.CropArea />
       </ImageCropper.Viewport>
     </ImageCropper>

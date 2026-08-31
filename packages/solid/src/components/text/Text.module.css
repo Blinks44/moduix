@@ -1,0 +1,101 @@
+@layer moduix.components {
+  .root {
+    margin: 0;
+    font-family: var(--moduix-text-font-family, inherit);
+    font-size: var(--moduix-text-font-size-md, var(--moduix-text-md));
+    font-weight: var(--moduix-text-font-weight-regular, var(--moduix-weight-regular));
+    line-height: var(--moduix-text-line-height-md, var(--moduix-line-height-text-md));
+    letter-spacing: var(--moduix-text-letter-spacing, 0);
+    color: var(--moduix-text-default-color, var(--moduix-color-foreground));
+    text-align: start;
+    overflow-wrap: anywhere;
+
+    &[data-size='xs'] {
+      font-size: var(--moduix-text-font-size-xs, var(--moduix-text-xs));
+      line-height: var(--moduix-text-line-height-xs, var(--moduix-line-height-text-xs));
+    }
+
+    &[data-size='sm'] {
+      font-size: var(--moduix-text-font-size-sm, var(--moduix-text-sm));
+      line-height: var(--moduix-text-line-height-sm, var(--moduix-line-height-text-sm));
+    }
+
+    &[data-size='lg'] {
+      font-size: var(--moduix-text-font-size-lg, var(--moduix-text-lg));
+      line-height: var(--moduix-text-line-height-lg, var(--moduix-line-height-text-lg));
+    }
+
+    &[data-size='xl'] {
+      font-size: var(--moduix-text-font-size-xl, var(--moduix-text-xl));
+      line-height: var(--moduix-text-line-height-xl, var(--moduix-line-height-text-xl));
+    }
+
+    &[data-weight='medium'] {
+      font-weight: var(--moduix-text-font-weight-medium, var(--moduix-weight-medium));
+    }
+
+    &[data-weight='semibold'] {
+      font-weight: var(--moduix-text-font-weight-semibold, var(--moduix-weight-semibold));
+    }
+
+    &[data-weight='bold'] {
+      font-weight: var(--moduix-text-font-weight-bold, var(--moduix-weight-bold));
+    }
+
+    &[data-tone='muted'] {
+      color: var(--moduix-text-muted-color, var(--moduix-color-muted-foreground));
+    }
+
+    &[data-tone='subtle'] {
+      color: var(--moduix-text-subtle-color, var(--moduix-color-secondary-foreground));
+    }
+
+    &[data-tone='primary'] {
+      color: var(--moduix-text-primary-color, var(--moduix-color-primary));
+    }
+
+    &[data-tone='destructive'] {
+      color: var(--moduix-text-destructive-color, var(--moduix-color-destructive));
+    }
+
+    &[data-align='left'] {
+      text-align: left;
+    }
+
+    &[data-align='start'] {
+      text-align: start;
+    }
+
+    &[data-align='center'] {
+      text-align: center;
+    }
+
+    &[data-align='right'] {
+      text-align: right;
+    }
+
+    &[data-align='end'] {
+      text-align: end;
+    }
+
+    &[data-align='justify'] {
+      text-align: justify;
+    }
+
+    &[data-truncate] {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &[data-line-clamp] {
+      --_text-line-clamp: initial;
+
+      display: -webkit-box;
+      overflow: hidden;
+      white-space: normal;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: var(--moduix-text-line-clamp, var(--_text-line-clamp));
+    }
+  }
+}

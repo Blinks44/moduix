@@ -1,7 +1,7 @@
 ---
 title: Navigation Menu
 component: navigation-menu
-description: Компонуемое меню для основной навигации - ссылки, раскрывающиеся панели и при необходимости общий анимированный viewport.
+description: Навигационная панель для прямых ссылок и раскрывающихся панелей с возможностью использовать общую область `Viewport` для анимированных переходов.
 ---
 
 import * as NavigationMenuDocs from '@/components/examples/navigation-menu';
@@ -9,19 +9,23 @@ import { ClientOnly } from '@ark-ui/react/client-only';
 
 ## Справочник API
 
-У Ark UI пока нет отдельной страницы документации для Navigation Menu. Компонент следует [исходникам Ark для React](https://github.com/chakra-ui/ark/tree/main/packages/react/src/components/navigation-menu) и сохраняет их набор частей и модель состояния.
+<PrimitiveReference href="https://ark-ui.com/docs/components/navigation-menu" />
 
 ## Выбор подходящего компонента
 
-Используйте `NavigationMenu` для основной навигации продукта или сайта с небольшим числом связанных ссылок и раскрывающихся панелей.
+Используйте `NavigationMenu` для основной навигации по сайту или продукту, если некоторые пункты
+верхнего уровня открывают группы связанных страниц.
 
-- Используйте **`NavigationMenu`**, если пункт верхнего уровня открывает компактную панель со связанными ссылками.
-- Используйте **`Menu`** для контекстных действий, а не для переходов.
-- Используйте **`Tabs`**, если выбранный элемент показывает связанную с ним область содержимого на текущей странице.
+- Выбирайте **`NavigationMenu`**, если пункт верхнего уровня может показать группу связанных ссылок.
+- Выбирайте **`Menu`** для контекстных действий, а не для навигации.
+- Выбирайте **`Tabs`**, если каждый выбранный элемент переключает содержимое в одной области текущей страницы.
 
 ## Базовый пример
 
-Для каждого раскрывающегося раздела используйте `NavigationMenu.List`, `NavigationMenu.Item`, `NavigationMenu.Link` и явную пару `Trigger` и `Content`.
+Используйте `NavigationMenu` вместе с `NavigationMenu.List` и `NavigationMenu.Item`. У каждого
+элемента должно быть уникальное значение `value`. Для группы ссылок поместите
+`NavigationMenu.Trigger` и `NavigationMenu.Content` в один элемент. `NavigationMenu.Link` используйте
+для прямых переходов из верхнего уровня и для ссылок внутри панели.
 
 <ClientOnly>
   <PreviewFrame maxWidth="lg">
@@ -38,63 +42,103 @@ import { ClientOnly } from '@ark-ui/react/client-only';
 ## Анатомия
 
 ```text
-NavigationMenu
+NavigationMenu (NavigationMenu.Root)
 ├─ NavigationMenu.List
-│  ├─ NavigationMenu.Item[value] > NavigationMenu.Link
+│  ├─ NavigationMenu.Item[value]
+│  │  └─ NavigationMenu.Link
 │  └─ NavigationMenu.Item[value]
 │     ├─ NavigationMenu.Trigger
+│     ├─ NavigationMenu.ItemIndicator (необязательно)
 │     └─ NavigationMenu.Content
-│        ├─ NavigationMenu.Indicator > NavigationMenu.Arrow (без viewport)
+│        ├─ NavigationMenu.Indicator > NavigationMenu.Arrow (необязательно без общей области Viewport)
 │        └─ NavigationMenu.Link
 └─ NavigationMenu.ViewportPositioner (необязательно)
-   ├─ NavigationMenu.Indicator > NavigationMenu.Arrow (с viewport)
+   ├─ NavigationMenu.Indicator > NavigationMenu.Arrow (необязательно с общей областью Viewport)
    └─ NavigationMenu.Viewport
 
 NavigationMenu.RootProvider
-└─ то же дерево частей, подключённое к состоянию useNavigationMenu()
+└─ то же дерево частей, подключённое к хранилищу из useNavigationMenu()
 
 NavigationMenu.Context
-└─ расширенный доступ к текущему состоянию навигации через render prop
+└─ расширенный доступ к текущему состоянию навигации через функцию рендера (`render prop`)
 ```
 
 | Часть | Назначение |
 | --- | --- |
-| `NavigationMenu` | Корневой `nav`; управляет открытым значением, задержками, фокусом и направлением. |
-| `RootProvider` / `Context` | Подключают состояние `useNavigationMenu()` или дают доступ к текущему состоянию. |
-| `List` / `Item` | Группируют элементы и связывают обязательное `value`. |
-| `Trigger` / `Content` / `Link` | Открывают панель и рендерят прямые или внутренние ссылки. |
-| `Indicator` / `ItemIndicator` / `Arrow` | Необязательное оформление активного элемента или панели. |
-| `ViewportPositioner` / `Viewport` | Необязательная общая поверхность для открытого содержимого. |
+| `NavigationMenu` | Корневой элемент `nav`, который управляет открытым элементом, задержками, фокусом и ориентацией. |
+| `NavigationMenu.RootProvider` | Подключает части к хранилищу, созданному через `useNavigationMenu()`. |
+| `NavigationMenu.Context` | Передаёт текущее состояние навигации через функцию рендера (`render prop`). |
+| `NavigationMenu.List` | Объединяет элементы навигации верхнего уровня. |
+| `NavigationMenu.Item` | Требует уникальное значение `value` и связывает триггер, содержимое и ссылки элемента. |
+| `NavigationMenu.Trigger` | Кнопка, открывающая и закрывающая раскрывающуюся панель элемента. |
+| `NavigationMenu.Content` | Раскрывающаяся панель элемента. Может отображаться рядом с элементом или внутри общей области `Viewport`. |
+| `NavigationMenu.Link` | Ссылка на прямую страницу или ссылка внутри раскрывающейся панели. |
+| `NavigationMenu.ItemIndicator` | Необязательный визуальный маркер активного элемента. |
+| `NavigationMenu.Indicator` / `NavigationMenu.Arrow` | Необязательный указатель активного элемента в отдельном содержимом или общей области `Viewport`. |
+| `NavigationMenu.ViewportPositioner` | Размещает общую область `Viewport` и необязательный индикатор. |
+| `NavigationMenu.Viewport` | Общая анимированная область для открытого содержимого. |
 
 ## Композиция
 
 ### Рекомендуемая композиция
 
-Явно задавайте составные части Ark в разметке. Задайте стабильное `value` каждому `NavigationMenu.Item`: его `Trigger` и `Content` используют это значение автоматически. `NavigationMenu.Link` подходит и для прямых переходов, и для ссылок внутри раскрывающейся панели.
+Явно задавайте части Ark в разметке. Каждому `NavigationMenu.Item` задайте стабильное уникальное
+значение `value`. Его `Trigger` и `Content` связываются через родительский `Item`, поэтому им не нужно
+повторять `value`. Используйте `NavigationMenu.Link` для прямых переходов и ссылок внутри
+раскрывающейся панели.
 
-Корень принимает свойства Ark `value`, `defaultValue`, `onValueChange(details)`, `openDelay`, `closeDelay`, `orientation`, `disableClickTrigger`, `disableHoverTrigger`, `disablePointerLeaveClose`, `ids`, `lazyMount` и `unmountOnExit`.
+Корневой компонент принимает свойства Ark, например `value`, `defaultValue`, `onValueChange(details)`,
+`openDelay`, `closeDelay`, `orientation`, `disableClickTrigger`, `disableHoverTrigger`,
+`disablePointerLeaveClose`, `ids`, `translations`, `lazyMount`, `unmountOnExit` и `hideMode`.
 
 ### Когда нужна собственная композиция
 
-Используйте `asChild` у `NavigationMenu.Trigger` или `NavigationMenu.Link`, если поведение Ark должно перейти к ссылке роутера или собственному семантическому элементу. Дочерним элементом должен остаться один интерактивный элемент, доступный для фокуса.
+Используйте `asChild` у `NavigationMenu.Trigger` или `NavigationMenu.Link`, если ссылкой должен стать
+компонент маршрутизатора или другой семантический элемент. Дочерний элемент должен оставаться одним
+интерактивным элементом, способным получать фокус, чтобы Ark сохранил клавиатурное управление, фокус
+и ARIA-атрибуты.
 
-Добавьте `NavigationMenu.ViewportPositioner` и `NavigationMenu.Viewport`, когда несколько панелей должны открываться в одной общей анимированной области. Если нужен указатель на активный триггер, поместите один `Indicator` с `Arrow` перед `Viewport` внутри `ViewportPositioner`. Viewport плавно меняет измеренные ширину и высоту при переключении между панелями, а содержимое перемещается в направлении навигации. Без viewport `Content` остаётся рядом со своим элементом как компактная раскрывающаяся панель и может содержать необязательный индикатор.
+Добавляйте `NavigationMenu.ViewportPositioner` и `NavigationMenu.Viewport`, если несколько панелей
+должны открываться в одной анимированной области. Если панель должна указывать на свой триггер,
+поместите `Indicator` с `Arrow` перед `Viewport` внутри `ViewportPositioner`. Общая область `Viewport`
+измеряет каждую панель и анимирует ширину и высоту при переключении триггеров. Без общей области
+`Viewport` `Content` отображается рядом с `Item` как компактная раскрывающаяся панель; при необходимости
+в неё можно добавить собственный `Indicator`.
 
-Используйте `useNavigationMenu()` вместе с `NavigationMenu.RootProvider`, если состояние навигации должно создаваться вне дерева компонентов. Используйте `NavigationMenu.Context` или `useNavigationMenuContext()`, когда это состояние нужно прочитать окружающему интерфейсу.
+Используйте `useNavigationMenu()` вместе с `NavigationMenu.RootProvider`, если состояние навигации нужно
+создать вне дерева компонентов. Передайте результат хука в обязательное свойство `value` компонента
+`NavigationMenu.RootProvider`. Используйте `NavigationMenu.Context` или `useNavigationMenuContext()`, если
+соседним элементам интерфейса нужно получить доступ к этому состоянию.
+
+### Свойства по умолчанию
+
+| Свойство | По умолчанию | Примечание |
+| --- | --- | --- |
+| `NavigationMenu.openDelay` | `200` | Задержка перед открытием панели при наведении. |
+| `NavigationMenu.closeDelay` | `300` | Задержка перед закрытием открытой панели. |
+| `NavigationMenu.orientation` | `horizontal` | Задаёт направление раскладки и клавиатурной навигации. |
+| `NavigationMenu.lazyMount` | `false` | Монтирует содержимое только после первого открытия. |
+| `NavigationMenu.unmountOnExit` | `false` | Удаляет неактивное содержимое из DOM после закрытия. |
+| `NavigationMenu.hideMode` | `display-none` | Скрывает смонтированное содержимое с помощью атрибута `hidden`. В React 19 также доступен режим `activity`. |
+| `NavigationMenu.Link.closeOnClick` | `true` | Закрывает меню после выбора ссылки. |
+| `NavigationMenu.ViewportPositioner.align` | `center` | Выравнивает общую область `Viewport` относительно триггера. |
 
 ### Особенности поведения
 
-- `onValueChange` получает объект `details` от Ark; открытый элемент доступен в `details.value`.
-- `NavigationMenu` рендерит семантический `nav`; Ark управляет ARIA-атрибутами, реакцией на наведение и клик, а также взаимодействием с клавиатуры.
-- `Content` и `Viewport` сохраняют атрибуты присутствия Ark, поэтому `lazyMount` и `unmountOnExit` работают с анимацией закрытия по умолчанию.
-- Обёртка не добавляет иконку триггера и viewport. Рендерьте их только когда этого требует композиция.
-- Стрелка не входит в рекомендуемую базовую композицию и добавляется только при необходимости.
+- `onValueChange` получает объект `details` от Ark. `details.value` содержит значение открытого элемента или пустую строку, если все панели закрыты.
+- По умолчанию наведение указателя мыши или нажатие на триггер открывает его панель. Используйте `disableHoverTrigger`, `disableClickTrigger` и `disablePointerLeaveClose`, чтобы изменить это поведение.
+- `NavigationMenu` создаёт семантический элемент `nav`. Ark управляет ARIA-атрибутами панелей, перемещением фокуса и клавиатурной навигацией между триггерами и панелями.
+- Передайте `current` в `NavigationMenu.Link`, чтобы отметить текущую страницу. Ссылка добавит атрибут `data-current`, который можно использовать в стилях.
+- `Content` и `Viewport` сохраняют атрибуты присутствия Ark, поэтому `lazyMount`, `unmountOnExit` и стандартная анимация закрытия работают вместе.
+- Компонент не добавляет иконку триггера и общую область `Viewport`. Добавляйте их только тогда, когда этого требует композиция.
+- `Indicator` и `Arrow` необязательны и не входят в рекомендуемую базовую композицию.
 
 ## Примеры
 
 ### Управляемое значение
 
-Управляйте открытой панелью, когда состояние навигации нужно и соседнему интерфейсу.
+Управляйте открытым элементом через состояние React, если активная панель должна менять соседнюю часть
+интерфейса. Под примером показано значение текущего открытого элемента.
 
 <ClientOnly>
   <PreviewFrame maxWidth="lg">
@@ -106,8 +150,9 @@ NavigationMenu.Context
 
 ### Viewport
 
-Используйте общий viewport, когда панели отличаются по размеру, но должны появляться в одной поверхности.
-Пример с двухколоночной панелью наглядно показывает анимацию измеренных ширины и высоты при смене триггера.
+Используйте общую область `Viewport`, если панели имеют разный размер, но должны анимироваться в одной
+области. В примере одна панель содержит две колонки, а у разных панелей разная ширина, поэтому при
+переключении триггеров заметно анимируются ширина и высота `Viewport`.
 
 <ClientOnly>
   <PreviewFrame maxWidth="lg">
@@ -119,7 +164,7 @@ NavigationMenu.Context
 
 ### Со стрелкой
 
-Добавьте индикатор со стрелкой, если панель должна визуально указывать на активный триггер.
+Добавьте `Indicator` и `Arrow`, если панель должна указывать на активный триггер.
 
 <ClientOnly>
   <PreviewFrame maxWidth="lg">
@@ -131,27 +176,44 @@ NavigationMenu.Context
 
 ## Стилизация
 
-Стилизуйте `NavigationMenu` через `className`, стабильные атрибуты `data-slot="navigation-menu-*"`, атрибуты Ark `data-scope` и `data-part`, а также публичные CSS-переменные `--moduix-navigation-menu-*` ниже.
+Стилизуйте `NavigationMenu` через `className`, стабильные точки подключения `data-slot="navigation-menu-*"`,
+атрибуты Ark `data-scope` и `data-part`, а также публичные CSS-переменные
+`--moduix-navigation-menu-*`, перечисленные в справочнике ниже.
 
 ### CSS-свойства
 
 <div className="docs-reference">
-  <Tabs values={[{ label: 'CSS Variables', value: 'CSS Variables' }]} className="docs-reference-tabs" contentItemClassName="docs-reference-panel">
+  <Tabs
+    values={[{ label: 'CSS-переменные', value: 'CSS-переменные' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
     <Tab>
       <NavigationMenuDocs.NavigationMenuCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>
 
-### Точки стилизации
+### Точки подключения для стилей
 
-- `NavigationMenu` - ширина корня, цвет текста и позиционирование.
-- `NavigationMenu.List` - интервалы и ориентация элементов верхнего уровня.
-- `NavigationMenu.Trigger` и `NavigationMenu.Link` - элементы навигации, текущее состояние и фокус.
-- `NavigationMenu.Content` - поверхность раскрывающейся панели и её ссылки.
-- `NavigationMenu.Indicator`, `ItemIndicator` и `Arrow` - необязательное оформление активного состояния.
-- `NavigationMenu.ViewportPositioner` и `Viewport` - общая анимированная поверхность панели.
+Настраивайте ту часть, которая отвечает за нужный визуальный элемент:
 
-Основные публичные атрибуты: `data-slot="navigation-menu-root"`, `data-slot="navigation-menu-root-provider"`, `data-slot="navigation-menu-list"`, `data-slot="navigation-menu-item"`, `data-slot="navigation-menu-trigger"`, `data-slot="navigation-menu-content"`, `data-slot="navigation-menu-link"`, `data-slot="navigation-menu-indicator"`, `data-slot="navigation-menu-item-indicator"`, `data-slot="navigation-menu-arrow"`, `data-slot="navigation-menu-viewport-positioner"` и `data-slot="navigation-menu-viewport"`.
+- `NavigationMenu` отвечает за ширину корневого элемента, цвет текста и его расположение.
+- `NavigationMenu.List` отвечает за интервалы между элементами верхнего уровня и их ориентацию.
+- `NavigationMenu.Trigger` и `NavigationMenu.Link` отвечают за элементы навигации, текущее состояние и фокус.
+- `NavigationMenu.Content` отвечает за внешний вид раскрывающихся панелей и ссылок внутри них.
+- `NavigationMenu.Indicator`, `ItemIndicator` и `Arrow` отвечают за необязательные элементы оформления активного состояния.
+- `NavigationMenu.ViewportPositioner` и `Viewport` отвечают за общую анимированную область панели.
 
-Полезные атрибуты Ark: `data-scope="navigation-menu"`, `data-part`, `data-state`, `data-current`, `data-disabled`, `data-orientation` и `data-motion`. Во время работы Ark задаёт переменные `--trigger-x`, `--trigger-y`, `--trigger-width`, `--trigger-height`, `--viewport-x`, `--viewport-y`, `--viewport-width` и `--viewport-height`.
+Основные публичные точки подключения: `data-slot="navigation-menu-root"`,
+`data-slot="navigation-menu-root-provider"`, `data-slot="navigation-menu-list"`,
+`data-slot="navigation-menu-item"`, `data-slot="navigation-menu-trigger"`,
+`data-slot="navigation-menu-content"`, `data-slot="navigation-menu-link"`,
+`data-slot="navigation-menu-indicator"`, `data-slot="navigation-menu-item-indicator"`,
+`data-slot="navigation-menu-arrow"`, `data-slot="navigation-menu-viewport-positioner"` и
+`data-slot="navigation-menu-viewport"`.
+
+Полезные атрибуты Ark: `data-scope="navigation-menu"`, `data-part`, `data-state`, `data-current`,
+`data-disabled`, `data-orientation` и `data-motion`. Во время работы Ark записывает переменные
+`--trigger-x`, `--trigger-y`, `--trigger-width`, `--trigger-height`, `--viewport-x`, `--viewport-y`,
+`--viewport-width` и `--viewport-height`.

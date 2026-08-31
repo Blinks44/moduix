@@ -1,22 +1,27 @@
 ---
 title: Carte avec parallaxe
-description: Une carte moduix à image plein fond, avec une légère inclinaison 3D au survol.
+description: Une recette moduix prête à copier, avec une image de fond décorative et une légère inclinaison 3D.
 ---
 
 import { ParallaxCardPreview } from '@/components/recipes/parallax-card-preview';
 
-# Carte avec parallaxe
+# Carte avec effet parallaxe
 
-Une carte à image plein fond avec une légère inclinaison 3D. `Card.Background` gère la couche décorative,
-et `react-parallax-tilt` le mouvement du pointeur. L’effet reste immobile sans pointeur précis prenant en
-charge le survol ou lorsque la réduction des animations est activée.
+Cette recette associe `Card.Background` de `@moduix/react/card` à `react-parallax-tilt` pour créer une carte
+avec une image couvrant tout le fond et une légère inclinaison 3D au survol du pointeur. Il s’agit d’une
+composition prête à copier, et non d’un composant `ParallaxCard` exporté par `@moduix/react`.
+
+`Card.Background` place l’image derrière le contenu de la carte. Le dégradé et le contraste du texte sont
+définis dans le fichier CSS de l’exemple, afin que vous puissiez les adapter à l’image choisie. L’inclinaison
+ne s’active que sur les appareils dotés d’un pointeur précis prenant en charge le survol. Si ce pointeur
+n’est pas disponible ou si la personne préfère réduire les animations, la carte reste immobile.
 
 <ExampleFrame clientOnly>
   <ParallaxCardPreview />
 </ExampleFrame>
 
 <div className="docs-reference">
-  <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+  <Tabs values={[{ label: 'Composant', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="Component">
 
 ```tsx file="../../../src/components/recipes/parallax-card.tsx"
@@ -38,8 +43,15 @@ charge le survol ou lorsque la réduction des animations est activée.
 
 <ShadcnInstall packageName="card" itemKind="recipe" copiedSource dependencies={['react-parallax-tilt']} />
 
-## Dans une page
+## Utilisation dans une page
 
-Remplacez l’URL de l’image et le texte de la carte par votre contenu. Conservez `alt=""` sur l’image de fond
-décorative ; utilisez `Card.Media` lorsqu’une image a besoin d’un texte alternatif. Le mouvement est uniquement
-décoratif : la carte doit rester lisible et utile sans survol. Utilisez un lien ou un bouton classique pour la destination.
+Copiez le composant et le fichier CSS ci-dessus dans votre application, puis :
+
+- remplacez l’URL de l’image et le texte visible par votre contenu ;
+- laissez `alt=""` sur l’image placée dans `Card.Background`, puisqu’elle est décorative. Si l’image apporte
+  une information, utilisez `Card.Media` et fournissez un texte alternatif ;
+- considérez l’inclinaison comme un effet visuel. La carte doit rester lisible et utilisable sans survol ni
+  animation ;
+- ajoutez un véritable lien ou bouton si la carte déclenche une action. Utilisez `Card.Root asChild` lorsque
+  toute la carte est un seul lien sans contrôle imbriqué, ou `Card.Link` dans `Card.Title` lorsque la carte
+  contient aussi des actions distinctes.

@@ -1,24 +1,23 @@
 ---
 title: Stack
 component: stack
-description: Une petite primitive de mise en page flex alignée sur Ark pour les compositions verticales et horizontales.
+description: Une primitive de mise en page flex légère pour composer des interfaces verticales ou horizontales.
 ---
 
 import * as StackDocs from '@/components/examples/stack';
 
 ## Référence de l’API
 
-Ark UI ne fournit pas de primitive `stack` dédiée. moduix construit ce composant avec la
-[fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations
-d’Ark concernant la [composition](https://ark-ui.com/docs/guides/composition), les
-[styles](https://ark-ui.com/docs/guides/styling) et les [refs](https://ark-ui.com/docs/guides/ref). Le composant
-[Stack](https://chakra-ui.com/docs/components/stack) de Chakra UI inspire uniquement le vocabulaire des propriétés
-de mise en page.
+Ark UI ne propose pas de primitive `Stack` dédiée. moduix implémente ce composant avec la [fabrique
+officielle d’Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) et suit ses recommandations pour la
+[composition](https://ark-ui.com/docs/guides/composition), les [styles](https://ark-ui.com/docs/guides/styling) et
+les [refs](https://ark-ui.com/docs/guides/ref). La documentation de [Stack](https://chakra-ui.com/docs/components/stack)
+de Chakra UI sert uniquement de référence pour les noms des propriétés de mise en page.
 
 ## Exemple de base
 
-Utilisez `Stack` lorsqu’un seul conteneur flex suffit et que la mise en page ne nécessite qu’une direction, un
-espacement et un alignement courant.
+Utilisez `Stack` lorsqu’un seul conteneur flex suffit et qu’il faut simplement définir la direction, l’espacement et
+l’alignement.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/stack/basic.tsx"
@@ -32,9 +31,9 @@ espacement et un alignement courant.
 
 ## Anatomie
 
-`Stack` affiche une seule enveloppe flex racine alignée sur Ark. Elle gère la direction, l’espacement, l’alignement
-courant et quelques facilités responsives, tandis que les règles de mise en page plus larges restent dans le CSS
-local.
+`Stack` rend un seul conteneur flex racine, basé sur le modèle de fabrique d’Ark. Il gère la direction, l’espacement,
+l’alignement, le retour à la ligne et un simple changement de direction responsive. Gardez les règles de mise en page
+plus générales dans votre CSS local.
 
 ```text
 Stack / Stack.Root
@@ -42,62 +41,63 @@ Stack / Stack.Root
    └─ children
 ```
 
-| Partie                 | Rôle                                                                         |
-| ---------------------- | ---------------------------------------------------------------------------- |
-| `Stack` / `Stack.Root` | Enveloppe flex racine pour la direction, l’espacement et l’alignement.       |
+| Partie                 | Rôle                                                                    |
+| ---------------------- | ----------------------------------------------------------------------- |
+| `Stack` / `Stack.Root` | Conteneur flex racine pour la direction, l’espacement, l’alignement et l’écart entre les enfants. |
 
 ## Composition
 
 ### Composition recommandée
 
-Utilisez la forme courte `<Stack>` pour produire normalement un `div`. Utilisez `Stack.Root` uniquement lorsque la
-cohérence avec l’espace de noms des composants multipartites facilite la lecture.
+Utilisez la forme courte `<Stack>` pour rendre normalement un `div`. Utilisez `Stack.Root` lorsque la cohérence de
+l’espace de noms est utile à côté de composants multipartites.
 
 Utilisez `direction`, `gap`, `align`, `justify` et `wrap` pour les mises en page flex courantes. Utilisez `fill`
-lorsqu’une stack imbriquée doit s’étendre en tant qu’élément flex. Composez directement le `Separator` de moduix
-lorsqu’une mise en page nécessite un séparateur visuel. Utilisez `asChild` lorsque la stack doit être rendue sous la
-forme d’un élément sémantique.
+lorsqu’un `Stack` imbriqué doit s’étendre en tant qu’élément flex. Ajoutez directement le `Separator` de moduix comme
+enfant lorsque la mise en page nécessite un séparateur visuel. Utilisez `asChild` lorsque la racine doit être rendue
+sous la forme d’un élément sémantique.
 
 ### Quand créer une composition personnalisée
 
-Passez au CSS local lorsque la mise en page nécessite plusieurs conteneurs flex, plus qu’un simple changement de
-direction mobile/ordinateur, des espacements différents selon les breakpoints, des règles propres aux éléments ou
-des styles plus lisibles dans une feuille de style que dans les propriétés du composant.
+Passez au CSS local si la mise en page nécessite plusieurs conteneurs flex, des espacements différents selon les
+points de rupture, des règles propres aux éléments ou un comportement responsive plus complexe que le simple
+changement de direction mobile/desktop. Le CSS est également préférable lorsque plusieurs propriétés rendent la
+composition difficile à lire.
 
-Utilisez `style` lorsqu’une instance doit remplacer les variables publiques `--moduix-stack-*` ou des propriétés
-flex calculées.
+Utilisez `style` pour remplacer ponctuellement les variables publiques `--moduix-stack-*` ou les propriétés flex
+calculées.
 
 ### Propriétés par défaut
 
-| Propriété   | Par défaut            | Remarques                                                                    |
-| ----------- | --------------------- | ---------------------------------------------------------------------------- |
-| `direction` | `column`              | `row`, `row-reverse`, `column`, `column-reverse` ou objet responsive         |
-| `gap`       | valeur du navigateur  | Longueur CSS (`number` = `px`)                                                |
-| `align`     | valeur du navigateur  | Toute valeur `align-items` valide                                             |
-| `justify`   | valeur du navigateur  | Toute valeur `justify-content` valide                                         |
-| `wrap`      | valeur du navigateur  | Toute valeur `flex-wrap` valide                                               |
-| `fill`      | `initial`             | `true` définit `flex: 1 1 0` ; `false` définit également `initial`           |
-| `asChild`   | `false`               | Composition avec la fabrique Ark et un seul élément enfant sémantique        |
+| Propriété   | Par défaut            | Remarques                                                               |
+| ----------- | --------------------- | ----------------------------------------------------------------------- |
+| `direction` | `column`              | `row`, `row-reverse`, `column`, `column-reverse` ou objet responsive     |
+| `gap`       | valeur du navigateur  | Longueur CSS (`number` = `px`)                                          |
+| `align`     | valeur du navigateur  | Toute valeur `align-items` valide                                       |
+| `justify`   | valeur du navigateur  | Toute valeur `justify-content` valide                                   |
+| `wrap`      | valeur du navigateur  | Toute valeur `flex-wrap` valide                                         |
+| `fill`      | `initial`             | `true` définit `flex: 1 1 0` ; `false` définit `flex: initial`          |
+| `asChild`   | `false`               | Composition avec la fabrique d’Ark et un seul élément enfant sémantique |
 
 ### Comportement
 
-- `Stack` affiche exactement une racine et lui transmet les propriétés DOM de la fabrique Ark.
-- `direction={{ mobile, desktop }}` bascule à `640px` et utilise l’autre valeur comme repli lorsqu’un seul côté est
-  fourni.
+- `Stack` rend exactement une racine et lui transmet les propriétés DOM de la fabrique d’Ark.
+- `direction={{ mobile, desktop }}` utilise la valeur desktop à partir de `640px`. Si une seule valeur est fournie,
+  `Stack` la réutilise aux deux points de rupture.
 - `direction` accepte également `row-reverse` et `column-reverse` pour inverser l’ordre visuel.
-- `fill` affecte la stack en tant qu’élément flex, et non ses enfants.
-- `Separator` est un enfant ordinaire ; marquez les séparateurs décoratifs avec `aria-hidden`.
+- `fill` agit sur le `Stack` en tant qu’élément flex, et non sur ses enfants.
+- `Separator` est un enfant ordinaire. Marquez les séparateurs décoratifs avec `aria-hidden`.
 - `gap`, `align`, `justify` et `wrap` ne sont écrits inline que lorsqu’ils sont fournis.
-- `Stack` expose `data-scope="stack"`, `data-part="root"` et `data-slot="stack-root"` pour des styles conformes aux
+- `Stack` expose `data-scope="stack"`, `data-part="root"` et `data-slot="stack-root"` pour un style conforme aux
   conventions d’Ark.
-- `Stack` n’ajoute ni enveloppes autour des éléments, ni comportement clavier, ni sémantique ARIA, ni hooks de
-  contexte, ni état de provider.
+- `Stack` n’ajoute ni enveloppes autour des éléments, ni comportement clavier, ni sémantique ARIA, ni contexte, ni
+  état géré.
 
 ## Exemples
 
 ### Stack enfant extensible
 
-Utilisez `fill` lorsqu’une stack imbriquée doit occuper l’espace restant dans une ligne flex.
+Utilisez `fill` lorsqu’un `Stack` imbriqué doit occuper l’espace restant dans une ligne flex.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/stack/growing-child-stack.tsx"
@@ -107,8 +107,7 @@ Utilisez `fill` lorsqu’une stack imbriquée doit occuper l’espace restant da
 
 ### Mise en page de chargement
 
-Utilisez `Stack` avec `Skeleton` lorsque l’état de chargement ne nécessite qu’une composition flex et des
-espacements.
+Associez `Stack` et `Skeleton` pour un état de chargement qui ne nécessite qu’une composition flex et de l’espacement.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/stack/loading-layout.tsx"
@@ -118,8 +117,7 @@ espacements.
 
 ### Direction responsive
 
-Utilisez une `direction` responsive lorsque la mise en page doit uniquement passer d’une colonne sur mobile à une
-ligne sur ordinateur.
+Utilisez une `direction` responsive pour passer simplement d’une colonne sur mobile à une ligne sur ordinateur.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/stack/responsive-direction.tsx"
@@ -129,7 +127,7 @@ ligne sur ordinateur.
 
 ### Mise en page en ligne
 
-Utilisez `direction="row"` et les propriétés d’alignement pour les mises en page inline.
+Utilisez `direction="row"` et les propriétés d’alignement pour disposer le contenu sur une ligne.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/stack/row-layout.tsx"
@@ -139,7 +137,7 @@ Utilisez `direction="row"` et les propriétés d’alignement pour les mises en 
 
 ### Élément sémantique
 
-Utilisez `asChild` d’Ark lorsque l’enveloppe de mise en page doit également décrire la structure du document.
+Utilisez `asChild` d’Ark lorsque l’enveloppe de mise en page doit également exprimer la structure du document.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/stack/semantic-element.tsx"
@@ -149,8 +147,8 @@ Utilisez `asChild` d’Ark lorsque l’enveloppe de mise en page doit également
 
 ### Séparateur
 
-Composez directement `Separator` lorsqu’une stack horizontale ou verticale nécessite un séparateur visuel répété
-entre ses enfants. `gap` s’applique à chaque enfant, y compris à chaque séparateur.
+Ajoutez directement `Separator` lorsqu’un `Stack` horizontal ou vertical nécessite un séparateur visuel répété
+entre ses enfants. `gap` s’applique à chaque enfant, y compris aux séparateurs.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/stack/separator.tsx"
@@ -172,9 +170,9 @@ Utilisez `wrap="wrap"` lorsque les éléments doivent passer à la ligne suivant
 
 ### Propriétés CSS
 
-`Stack` expose des variables CSS publiques sur sa racine. Elles utilisent `column` et `initial` comme valeurs de
-repli ; les propriétés `direction` et `fill` écrivent des valeurs inline lorsqu’elles sont fournies, et `style`
-permet de les remplacer pour une instance donnée.
+`Stack` expose des variables CSS publiques sur sa racine. Par défaut, elles prennent les valeurs `column` et
+`initial` ; les propriétés `direction` et `fill` écrivent des valeurs inline lorsqu’elles sont fournies, et `style`
+peut les remplacer pour une instance donnée.
 
 <div className="docs-reference">
   <Tabs
@@ -190,8 +188,8 @@ permet de les remplacer pour une instance donnée.
 
 ### Points d’accroche CSS
 
-- `className` applique les styles à l’unique racine pour la largeur, le padding, les bordures, les arrière-plans et
-  les autres aspects de surface.
+- `className` applique les styles à l’unique racine pour la largeur, les espacements internes, les bordures, les
+  arrière-plans et les autres aspects visuels.
 - `data-scope="stack"` et `data-part="root"` alignent l’enveloppe sur les conventions de style d’Ark.
 - `data-slot="stack-root"` est le sélecteur moduix stable permettant de cibler la racine dans le CSS local.
 - `style` est appliqué en dernier et peut donc remplacer les valeurs calculées de `gap`, `alignItems`,

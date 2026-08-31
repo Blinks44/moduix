@@ -1,7 +1,7 @@
 ---
 title: Steps
 component: steps
-description: Guidez les utilisateurs dans un processus en plusieurs étapes avec l’état et la navigation d’Ark UI.
+description: Guidez les utilisateurs dans un processus en plusieurs étapes avec un état et une navigation accessibles grâce à Ark UI.
 ---
 
 import * as StepsDocs from '@/components/examples/steps';
@@ -14,9 +14,13 @@ import * as StepsDocs from '@/components/examples/steps';
 
 ## Exemple de base
 
-Utilisez `Steps` avec une propriété `count`, une `Steps.List` composée de parties `Steps.Item index={...}`
-indexées à partir de zéro, les panneaux `Steps.Content index={...}` correspondants et les déclencheurs précédent et
-suivant intégrés.
+Utilisez `Steps` avec `count`, une `Steps.List` contenant un `Steps.Item` pour chaque étape, des panneaux
+`Steps.Content` associés aux mêmes index et les boutons de navigation précédent et suivant intégrés. Les index
+commencent à zéro. Avec `count={3}`, utilisez donc les index `0`, `1` et `2`. Lorsque la valeur de l’étape atteint
+`count`, `Steps.CompletedContent` s’affiche.
+
+L’export `Steps` par défaut est le composant racine. Utilisez `Steps.Root` lorsque vous souhaitez préciser le nom
+de cette partie.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/steps/basic.tsx"
@@ -44,76 +48,77 @@ Steps
 └─ Steps.NextTrigger
 
 Steps.RootProvider
-└─ même arbre de parties connecté à un store Steps.useSteps()
+└─ même arbre de parties connecté à l’état créé par Steps.useSteps()
 ```
 
-| Partie                              | Rôle                                                                                       |
-| ----------------------------------- | ------------------------------------------------------------------------------------------ |
-| `Steps`                             | Contrôle l’état des étapes, l’orientation, la navigation linéaire, la validation et les ID. |
-| `Steps.RootProvider`                | Connecte les parties à l’état créé avec `Steps.useSteps()`.                                |
-| `Steps.Progress`                    | Barre de progression facultative qui lit la variable racine `--percent` d’Ark.             |
-| `Steps.List`                        | Tablist qui contient les déclencheurs des étapes.                                           |
-| `Steps.Item`                        | Une étape indexée à partir de zéro avec une propriété `index` obligatoire.                  |
-| `Steps.Trigger`                     | Bouton d’onglet d’une étape ; accepte `asChild` pour un hôte sémantique personnalisé.       |
-| `Steps.Indicator`                   | Repère visuel de l’étape. Affiche par défaut `index + 1`, ou une coche une fois terminée.   |
-| `Steps.Separator`                   | Liaison décorative entre les éléments.                                                      |
-| `Steps.Content`                     | Tabpanel d’une étape, associé par son `index`.                                              |
-| `Steps.CompletedContent`            | Tabpanel affiché lorsque l’étape courante est égale à `count`.                              |
-| `Steps.PrevTrigger` / `NextTrigger` | Boutons reliés aux actions précédente et suivante d’Ark.                                    |
+| Partie                              | Rôle                                                                                   |
+| ----------------------------------- | -------------------------------------------------------------------------------------- |
+| `Steps` / `Steps.Root`              | Gère l’état des étapes, l’orientation, la navigation, la validation et les identifiants. |
+| `Steps.RootProvider`                | Connecte les parties à l’état créé avec `Steps.useSteps()`.                            |
+| `Steps.Progress`                    | Barre visuelle de progression facultative, alimentée par la variable racine Ark `--percent`. |
+| `Steps.List`                        | Liste d’onglets contenant les déclencheurs des étapes.                                 |
+| `Steps.Item`                        | Élément d’étape dont l’index obligatoire commence à zéro.                              |
+| `Steps.Trigger`                     | Déclencheur d’onglet d’une étape ; accepte `asChild` pour un élément sémantique personnalisé. |
+| `Steps.Indicator`                   | Repère visuel de l’étape. Affiche par défaut `index + 1` ou une coche une fois l’étape terminée. |
+| `Steps.Separator`                   | Liaison décorative entre les étapes.                                                  |
+| `Steps.Content`                     | Panneau de contenu d’une étape, associé par son `index`.                              |
+| `Steps.CompletedContent`            | Panneau affiché lorsque la valeur courante de l’étape est égale à `count`.             |
+| `Steps.PrevTrigger` / `NextTrigger` | Boutons reliés aux actions Ark intégrées pour passer à l’étape précédente ou suivante. |
 
-Utilisez `Steps.useSteps()` avec `Steps.RootProvider` pour un état géré à l’extérieur. `useStepsContext`,
-`useStepsItemContext`, `Steps.Context` et `Steps.ItemContext` sont également exportés depuis `@moduix/react` en
-tant qu’API de bas niveau conformes à Ark.
+Utilisez `Steps.useSteps()` avec `Steps.RootProvider` lorsque l’état doit être créé en dehors de l’arbre des
+parties `Steps`. `useStepsContext`, `useStepsItemContext`, `Steps.Context` et `Steps.ItemContext` sont également
+exportés depuis `@moduix/react` comme API de bas niveau conformes à Ark.
 
 ## Composition
 
 ### Composition recommandée
 
-`Steps` possède la machine d’état. Utilisez `count`, `defaultStep`, `step`, `onStepChange(details)`,
-`onStepComplete`, `linear`, `isStepValid`, `isStepSkippable`, `onStepInvalid(details)`, `orientation` et `ids`
-directement sur la racine. Les éléments d’étape et les panneaux utilisent des valeurs `index` commençant à zéro.
+`Steps` gère la machine d’état. Définissez à la racine `count`, `defaultStep`, `step`, `onStepChange(details)`,
+`onStepComplete`, `linear`, `isStepValid`, `isStepSkippable`, `onStepInvalid(details)`, `orientation` et `ids`.
+Utilisez des valeurs `index` commençant à zéro et correspondantes pour chaque élément et panneau. Les étapes actives
+utilisent les index de `0` à `count - 1` ; la valeur `count` représente la fin du parcours.
 
-Utilisez `Steps.RootProvider` avec `Steps.useSteps()` lorsque des contrôles externes ont besoin d’accéder directement
-à `value`, `setStep`, `goToNextStep`, `goToPrevStep`, `resetStep`, `percent` et aux helpers d’état des éléments.
-N’affichez pas `Steps.Root` et `Steps.RootProvider` pour le même store.
+Utilisez `Steps.RootProvider` avec `Steps.useSteps()` lorsque des contrôles situés en dehors de l’arbre `Steps`
+doivent accéder au même état. L’objet renvoyé expose `value`, `setStep`, `goToNextStep`, `goToPrevStep`, `resetStep`,
+`percent` et `getItemState` pour lire l’état des éléments. Ne rendez pas `Steps.Root` et `Steps.RootProvider` pour un
+même état.
 
 ### Quand créer une composition personnalisée
 
-Utilisez `asChild` sur `Steps.Trigger`, `Steps.PrevTrigger` ou `Steps.NextTrigger` lorsque l’élément hôte doit être
-une ancre, un lien de routeur ou un bouton du design system. L’enfant doit rester un unique élément sémantique
-capable de recevoir les propriétés ARIA, clavier et de focus d’Ark.
+Utilisez `asChild` sur `Steps.Trigger`, `Steps.PrevTrigger` ou `Steps.NextTrigger` lorsque le contrôle doit être
+rendu sous forme d’ancre, de lien de routeur ou de bouton de votre design system. Conservez exactement un enfant
+sémantique afin qu’Ark puisse lui transmettre ses attributs ARIA ainsi que ses comportements liés au clavier et au
+focus.
 
-`Steps.Indicator` comprend un ajout de moduix : lorsque ses enfants sont omis, il affiche `index + 1` pour les
-étapes incomplètes ou courantes et l’icône de coche partagée pour les étapes terminées. Fournissez des enfants pour
-contrôler entièrement le repère.
+`Steps.Indicator` comporte un ajout propre à moduix : sans contenu enfant, il affiche `index + 1` pour les étapes
+incomplètes ou courantes et l’icône de coche partagée pour les étapes terminées. Fournissez un contenu pour contrôler
+entièrement le repère.
 
 ### Propriétés par défaut
 
-| Propriété     | Par défaut   | Remarques                                                                                  |
+| Propriété     | Par défaut   | Remarques                                                                                 |
 | ------------- | ------------ | ------------------------------------------------------------------------------------------ |
-| `orientation` | `horizontal` | Orientation de la racine Ark. Utilisez `vertical` pour une navigation d’étapes empilée.    |
-| `linear`      | `false`      | Définissez `true` pour interdire les sauts arbitraires et imposer une progression séquentielle. |
-| `count`       | `1`          | Nombre total d’étapes d’Ark. Dans une vraie interface, transmettez la longueur du tableau visible. |
-| `defaultStep` | `0`          | Étape initiale non contrôlée. `count` représente l’état terminé.                           |
+| `orientation` | `horizontal` | Orientation du composant racine. Utilisez `vertical` pour une navigation d’étapes empilée. |
+| `linear`     | `false`     | Définissez `true` pour imposer un parcours dans l’ordre au lieu d’autoriser les sauts entre étapes. |
+| `count`      | `1`        | Nombre total d’étapes. La valeur `count` représente l’état terminé.                       |
+| `defaultStep` | `0`        | Valeur initiale en mode non contrôlé. Passez `count` pour afficher directement la fin du parcours. |
 
 ### Comportement
 
-- `step`, `defaultStep`, `details.step` et `Steps.Item index` sont des valeurs Ark indexées à partir de zéro.
-- Dans les parcours linéaires, `onStepInvalid(details)` indique le `details.step` bloqué, `details.action` (`'next'` ou `'set'`) et un `details.targetStep` facultatif.
-- `Steps.Content` utilise `role="tabpanel"` et est masqué lorsque son étape n’est pas l’étape courante.
-- `Steps.List` utilise `role="tablist"` avec `aria-orientation` ; les déclencheurs utilisent `role="tab"` et
-  `aria-controls`.
-- `Steps.PrevTrigger` et `Steps.NextTrigger` sont désactivés lorsqu’Ark indique qu’il n’existe pas d’étape précédente
-  ou suivante.
-- `ids` permet de fournir des ID stables à la racine, à la liste, aux déclencheurs et au contenu lorsque la
-  composition environnante en a besoin.
+- `step`, `defaultStep`, `details.step` et `Steps.Item index` sont des valeurs Ark indexées à partir de zéro. Les étapes actives utilisent les index de `0` à `count - 1` ; `count` indique que le parcours est terminé.
+- Dans un parcours linéaire, `onStepInvalid(details)` indique le `details.step` bloqué, l’action `details.action` (`'next'` ou `'set'`) et l’éventuel `details.targetStep`.
+- `Steps.Content` utilise `role="tabpanel"` et est masqué lorsque son étape n’est pas courante. `Steps.CompletedContent` s’affiche lorsque la valeur courante est égale à `count`.
+- `Steps.List` utilise `role="tablist"` avec `aria-orientation` ; les déclencheurs utilisent `role="tab"` et `aria-controls`.
+- `Steps.PrevTrigger` et `Steps.NextTrigger` sont désactivés lorsqu’Ark indique qu’il n’existe pas d’étape précédente ou suivante.
+- `ids` permet de fournir des identifiants stables à la racine, à la liste, aux déclencheurs et au contenu lorsque la composition environnante en a besoin.
+- `Steps.Progress` est une barre visuelle pilotée par la variable Ark `--percent`. Ajoutez un texte visible ou destiné aux lecteurs d’écran si le pourcentage doit être annoncé.
 
 ## Exemples
 
 ### État contrôlé
 
 Contrôlez `step` depuis l’état React lorsque l’étape active doit rester synchronisée avec le routage, la validation
-ou l’interface environnante.
+ou une autre partie de l’interface.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/steps/controlled.tsx"
@@ -123,8 +128,8 @@ ou l’interface environnante.
 
 ### Validation
 
-Utilisez `linear`, `isStepValid` et `onStepInvalid` lorsque l’utilisateur doit terminer l’étape courante avant de
-poursuivre.
+Utilisez `linear`, `isStepValid` et `onStepInvalid` pour empêcher la navigation tant que l’étape courante ne respecte
+pas votre règle de validation.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/steps/validation.tsx"
@@ -134,7 +139,8 @@ poursuivre.
 
 ### Progression
 
-Ajoutez `Steps.Progress` lorsque le parcours doit afficher une barre de progression en plus de la liste des étapes.
+Ajoutez `Steps.Progress` lorsque le parcours doit afficher une barre visuelle de progression à côté de la liste des
+étapes. Ajoutez votre propre statut accessible si cette progression doit être annoncée aux technologies d’assistance.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/steps/progress.tsx"
@@ -142,10 +148,10 @@ Ajoutez `Steps.Progress` lorsque le parcours doit afficher une barre de progress
 ```
 </PreviewFrame>
 
-### Root Provider
+### RootProvider
 
-Utilisez `Steps.useSteps()` avec `Steps.RootProvider` lorsque des contrôles situés hors de l’arbre affiché doivent
-accéder au même store Ark.
+Créez l’état avec `Steps.useSteps()` en dehors de l’arbre des parties affiché, puis transmettez-le à
+`Steps.RootProvider` lorsque des contrôles externes doivent utiliser ce même état.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/steps/root-provider.tsx"
@@ -155,8 +161,8 @@ accéder au même store Ark.
 
 ### Orientation verticale
 
-Définissez `orientation="vertical"` lorsque la liste des étapes doit se trouver à côté du panneau de contenu actif
-sur les écrans larges et au-dessus sur les écrans étroits.
+Définissez `orientation="vertical"` lorsque la liste des étapes doit se trouver à côté du panneau actif sur les
+écrans larges et au-dessus sur les écrans étroits.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/steps/vertical.tsx"
@@ -166,9 +172,9 @@ sur les écrans larges et au-dessus sur les écrans étroits.
 
 ### Personnalisation avancée
 
-Remplacez l’élément bouton par défaut avec `asChild` lorsqu’un déclencheur doit être rendu sous forme d’ancre ou de
-lien de routeur. Conservez un seul enfant sémantique afin qu’il reçoive les comportements ARIA, clavier et de focus
-d’Ark.
+Utilisez `asChild` lorsqu’un déclencheur doit être rendu sous forme d’ancre ou de lien de routeur plutôt que sous
+forme de bouton par défaut. Conservez un seul enfant sémantique afin qu’il reçoive les attributs ARIA et les
+comportements Ark liés au clavier et au focus.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/steps/custom-composition.tsx"
@@ -178,10 +184,10 @@ d’Ark.
 
 ## Styles
 
-Stylisez `Steps` avec `className`, les attributs Ark `data-scope="steps"` / `data-part="..."`, les attributs d’état
-d’Ark, les hooks `data-slot` de moduix et les variables CSS publiques `--moduix-steps-*` présentées ci-dessous.
+Stylisez `Steps` avec `className`, les attributs Ark `data-scope="steps"` et `data-part`, les attributs d’état Ark,
+les hooks `data-slot` de moduix et les variables CSS publiques `--moduix-steps-*` listées ci-dessous.
 
-### Propriétés CSS
+### Variables CSS
 
 <div className="docs-reference">
   <Tabs
@@ -197,13 +203,13 @@ d’Ark, les hooks `data-slot` de moduix et les variables CSS publiques `--modui
 
 ### Points d’accroche CSS
 
-Les hooks publics utiles sont les suivants :
+Les points d’accroche publics utiles sont les suivants :
 
 - `className` sur `Steps`, `Steps.RootProvider`, `Steps.List`, `Steps.Item`, `Steps.Trigger`, `Steps.Indicator`, `Steps.Separator`, `Steps.Content`, `Steps.CompletedContent`, `Steps.PrevTrigger`, `Steps.NextTrigger` et `Steps.Progress`
 - `data-slot="steps-root"`, `steps-root-provider`, `steps-list`, `steps-item`, `steps-trigger`, `steps-indicator`, `steps-separator`, `steps-content`, `steps-completed-content`, `steps-prev-trigger`, `steps-next-trigger` et `steps-progress`
 - `data-scope="steps"` d’Ark et les valeurs `data-part` de chaque partie primitive
-- `data-orientation="horizontal" | "vertical"` sur les parties root/list/item/trigger/content/separator
-- `data-current`, `data-complete` et `data-incomplete` sur les surfaces d’état indicator, separator et trigger
+- `data-orientation="horizontal" | "vertical"` sur les parties root, list, item, trigger, content et separator
+- `data-current`, `data-complete` et `data-incomplete` sur les indicateurs d’état des parties indicator, separator et trigger
 - `data-state="open" | "closed"` sur les déclencheurs et les panneaux de contenu
 - `data-complete` sur `Steps.Progress`
-- `--percent` d’Ark sur la racine, consommée par `Steps.Progress`
+- la variable Ark `--percent` sur la racine, utilisée par `Steps.Progress`

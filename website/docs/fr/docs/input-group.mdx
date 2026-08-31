@@ -1,26 +1,30 @@
 ---
 title: Input Group
 component: input-group
-description: Composition de style Ark pour un champ unique intégrant des compléments, du texte et des actions.
+description: Associez un champ de saisie natif à des préfixes, suffixes, textes et actions intégrés.
 ---
 
 import * as InputGroupDocs from '@/components/examples/input-group';
 
 ## Référence de l’API
 
-Ark UI ne fournit pas de primitive input-group distincte. moduix construit ce composant avec l’[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations d’Ark concernant la [composition](https://ark-ui.com/docs/guides/composition), la [personnalisation des styles](https://ark-ui.com/docs/guides/styling) et les [refs](https://ark-ui.com/docs/guides/ref).
+`InputGroup` est une composition propre à moduix, et non une primitive Ark UI. Il associe des
+éléments de la fabrique Ark aux composants moduix `Input` et `Button`, fondés sur Ark. La composition
+suit les recommandations d’Ark pour la [composition](https://ark-ui.com/docs/guides/composition), les
+[styles](https://ark-ui.com/docs/guides/styling) et la [transmission des refs](https://ark-ui.com/docs/guides/ref).
 
 ## Choisir le bon composant
 
-- Choisissez **`Input`** pour un champ standard sur une seule ligne.
-- Choisissez **`InputGroup`** pour intégrer des préfixes, des suffixes, du texte ou des actions.
-- Choisissez **`Editable`** pour du texte d’abord affiché, puis basculé en mode édition.
-- Choisissez **`PasswordInput`** pour la composition existante avec contrôle de visibilité du mot de passe.
-- Choisissez **`NumberInput`** lorsque le comportement numérique est important.
+- Utilisez **`Input`** pour un champ standard sur une seule ligne.
+- Utilisez **`InputGroup`** lorsque le champ doit intégrer un préfixe, un suffixe ou une action.
+- Utilisez **`PasswordInput`** pour un champ de mot de passe avec un bouton pour afficher ou masquer le mot de passe.
+- Utilisez **`NumberInput`** lorsque le champ doit gérer des valeurs numériques et un pas de modification.
+- Utilisez **`Textarea`** pour du contenu sur plusieurs lignes.
+- Utilisez **`Editable`** lorsqu’un texte doit d’abord être affiché comme une valeur, puis devenir modifiable à la demande.
 
 ## Exemple de base
 
-Composez un champ groupé unique avec uniquement les parties de présentation dont il a besoin.
+Composez un champ de saisie en ajoutant uniquement les parties nécessaires.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/input-group/basic.tsx"
@@ -41,27 +45,35 @@ InputGroup / InputGroup.Root
 └─ InputGroup.Button (optional)
 ```
 
-| Partie                            | Rôle                                                                                   |
-| --------------------------------- | -------------------------------------------------------------------------------------- |
-| `InputGroup` / `InputGroup.Root` | Racine Ark factory pour la mise en page, la bordure, le focus et la taille partagés.    |
-| `InputGroup.Input`               | Champ natif fondé sur Ark et propriétaire de la valeur du formulaire.                  |
-| `InputGroup.Addon`               | Préfixe ou suffixe de présentation avec arrière-plan.                                  |
-| `InputGroup.Text`                | Texte de présentation intégré sans arrière-plan.                                       |
-| `InputGroup.Button`              | Action bouton native avec les réglages visuels du groupe par défaut.                   |
+| Partie                            | Rôle                                                         |
+| --------------------------------- | ------------------------------------------------------------ |
+| `InputGroup` / `InputGroup.Root` | Mise en page, bordure, anneau de focus et contexte de taille partagés. |
+| `InputGroup.Input`               | Élément `<input>` natif qui contient la valeur du formulaire. |
+| `InputGroup.Addon`               | Préfixe ou suffixe avec un fond.                              |
+| `InputGroup.Text`                | Texte intégré sans fond.                                     |
+| `InputGroup.Button`              | Bouton d’action associé au champ.                            |
 
 ## Composition
 
 ### Composition recommandée
 
-Utilisez exactement un `InputGroup.Input`. Placez les compléments, le texte ou les boutons avant ou après celui-ci. Placez la composition dans `Field` lorsqu’elle nécessite un libellé, un texte d’aide ou d’erreur, des identifiants ou un état partagé.
+Utilisez un seul `InputGroup.Input`. Placez `Addon`, `Text` ou `Button` avant ou après le champ.
+Entourez le groupe de `Field` si le champ a besoin d’un libellé, d’un texte d’aide, d’un message
+d’erreur, d’identifiants générés ou d’un état partagé.
 
-`InputGroup.Input` utilise les événements natifs de l’input. Les champs contrôlés utilisent `value` et `onChange(event)`. L’input et le bouton héritent de la propriété `size` de la racine.
+`InputGroup.Input` reste un champ natif. Pour un champ contrôlé, passez `value` et mettez-le à jour
+dans `onChange(event)`. Pour un champ non contrôlé, utilisez `defaultValue`. La propriété `size` de
+la racine est héritée par `InputGroup.Input` et `InputGroup.Button`; les autres parties reprennent
+la même densité visuelle.
 
 ### Quand créer une composition personnalisée
 
-`InputGroup`, `InputGroup.Addon` et `InputGroup.Text` prennent en charge `asChild` d’Ark. L’enfant de la racine doit rester un conteneur ; les enfants du complément et du texte doivent rester des éléments de présentation et accepter les propriétés et la ref transmises.
+La racine, `InputGroup.Addon` et `InputGroup.Text` prennent en charge `asChild` d’Ark. Passez un seul
+enfant avec cette option. L’enfant de la racine doit rester un conteneur de mise en page sémantique.
+Un enfant d’addon ou de texte doit rester non interactif et accepter les props transmises ainsi que la ref.
 
-Utilisez `InputGroup.Button` pour les actions plutôt que de rendre un complément interactif. N’utilisez `role="group"` avec un nom accessible que lorsqu’une composition autonome nécessite réellement une sémantique de groupe.
+Utilisez `InputGroup.Button` pour les actions au lieu de rendre un addon interactif. N’ajoutez
+`role="group"` et un nom accessible que si la composition autonome doit être annoncée comme un groupe.
 
 ### Propriétés par défaut
 
@@ -75,15 +87,17 @@ Utilisez `InputGroup.Button` pour les actions plutôt que de rendre un compléme
 
 ### Comportement
 
-- La ref de l’input pointe vers le véritable `HTMLInputElement`.
-- La racine ne gère ni la valeur, ni la validation, ni les identifiants ARIA, ni les hooks de contexte, ni `HiddenInput`.
-- Les styles `invalid`, `disabled` et `readOnly` de la racine dépendent de l’état de l’input imbriqué.
+- La `ref` de `InputGroup.Input` pointe vers le véritable `HTMLInputElement`.
+- La racine est un conteneur passif. Elle ne gère ni la valeur ni la validation, ne génère pas d’identifiants ARIA, ne fournit pas de hooks de contexte et ne rend pas de `HiddenInput`.
+- L’apparence de la racine pour les états `invalid`, `disabled` et `readOnly` dépend de l’état du champ imbriqué.
+- Les boutons n’héritent pas de `disabled` depuis `Field`; désactivez chaque action séparément si nécessaire.
 
 ## Exemples
 
 ### État désactivé
 
-L’état `disabled` reste porté par l’input natif. Désactivez explicitement les actions associées lorsqu’elles doivent elles aussi devenir indisponibles.
+Placez `disabled` sur le champ natif. Désactivez aussi les boutons associés s’ils doivent être
+indisponibles.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/input-group/disabled.tsx"
@@ -92,7 +106,8 @@ L’état `disabled` reste porté par l’input natif. Désactivez explicitement
 
 ### État du champ
 
-Définissez l’état invalide sur `Field` ; Ark applique l’état et le contrat ARIA à `InputGroup.Input`, tandis que le wrapper réagit à l’état de cet input.
+Définissez `invalid` sur `Field` lorsque la validation échoue. Ark transmet l’état et les attributs
+ARIA nécessaires à `InputGroup.Input`, puis le groupe reflète cet état.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/input-group/field-state.tsx"
@@ -101,7 +116,7 @@ Définissez l’état invalide sur `Field` ; Ark applique l’état et le contra
 
 ### Préfixe et suffixe
 
-Combinez un complément avec arrière-plan et du texte simple lorsque les deux côtés doivent avoir un poids visuel différent.
+Utilisez `Addon` pour un préfixe ou un suffixe avec fond et `Text` pour un texte intégré sans fond.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/input-group/prefix-and-suffix.tsx"
@@ -110,7 +125,8 @@ Combinez un complément avec arrière-plan et du texte simple lorsque les deux c
 
 ### Tailles
 
-Définissez la taille une seule fois sur la racine afin que l’input, le complément, le texte et le bouton restent alignés.
+Définissez `size` une seule fois sur la racine pour que le champ, l’addon, le texte et le bouton
+restent alignés.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/input-group/sizes.tsx"
@@ -119,7 +135,8 @@ Définissez la taille une seule fois sur la racine afin que l’input, le compl�
 
 ### Avec une action
 
-Utilisez le bouton groupé pour une action liée à la valeur de l’input natif.
+Utilisez `InputGroup.Button` pour une action liée à la valeur du champ. Dans cet exemple, le champ
+est contrôlé et `Send` ne devient disponible qu’après la saisie d’une valeur.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/input-group/with-action.tsx"
@@ -128,7 +145,9 @@ Utilisez le bouton groupé pour une action liée à la valeur de l’input natif
 
 ### Personnalisation avancée
 
-Utilisez `asChild` lorsque la racine doit afficher un conteneur personnalisé tout en conservant les styles du groupe et le contexte de taille. Cela remplace le `div` standard ; l’enfant doit donc rester un conteneur de mise en page sémantique.
+Utilisez `asChild` lorsque la racine doit rendre un conteneur personnalisé à la place du `div` par
+défaut. Le groupe conserve ses styles et son contexte de taille, tandis que l’enfant doit rester un
+conteneur de mise en page sémantique.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/input-group/as-child.tsx"
@@ -153,14 +172,13 @@ Utilisez `asChild` lorsque la racine doit afficher un conteneur personnalisé to
 
 ### Points d’accroche CSS
 
-- `data-slot="input-group-root"` et `data-size`
-- `data-scope="input-group"` et `data-part="root" | "addon" | "text"` sur les parties factory
-- `data-slot="input-root"` avec les attributs d’état de l’input Ark Field
+- `data-slot="input-group-root"` et `data-size="xs" | "sm" | "md" | "lg" | "xl"` sur la racine
+- `data-scope="input-group"` et `data-part="root" | "addon" | "text"` sur les parties créées par la fabrique Ark
+- `data-slot="input-root"` et les attributs d’état du champ Ark
 - `data-slot="input-group-addon"`
 - `data-slot="input-group-text"`
-- `data-slot="input-group-button"` sur le bouton d’action groupé
-- les états imbriqués `data-invalid`, `aria-invalid`, `disabled` et `readOnly` via `:has(...)` sur la racine
+- `data-slot="input-group-button"` sur le bouton d’action du groupe
+- les états imbriqués `data-invalid`, `aria-invalid="true"`, `data-disabled`/`:disabled` et `data-readonly`/`:read-only` sont reflétés sur la racine via `:has(...)`
 
-Les crochets propres au composant, `data-slot`, `data-scope`, `data-part` et `data-size` de la racine,
-restent stables lorsqu’on fournit des props consommateur. `className` est toujours fusionné avec les
-styles du composant.
+Les hooks `data-slot`, `data-scope`, `data-part` et `data-size` gérés par le composant restent
+stables même si vous fournissez vos propres propriétés. `className` s’ajoute toujours aux styles du composant.

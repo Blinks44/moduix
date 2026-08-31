@@ -1,7 +1,7 @@
 ---
 title: Signature Pad
 component: signature-pad
-description: An Ark UI signature pad for handwritten pointer and touch input.
+description: A signature pad for capturing handwritten input from a pointer or touch device.
 ---
 
 import * as SignaturePadDocs from '@/components/examples/signature-pad';
@@ -12,8 +12,8 @@ import * as SignaturePadDocs from '@/components/examples/signature-pad';
 
 ## Basic
 
-Use `SignaturePad.Canvas` for the standard drawing surface. It keeps the Ark `Control`, `Segment`,
-`ClearTrigger`, and `Guide` composition intact with moduix's default clear icon.
+For most use cases, start with `SignaturePad.Canvas`. It provides the standard drawing surface with
+Ark's `Control`, `Segment`, `ClearTrigger`, and `Guide` parts, plus moduix's default clear icon.
 
 <style>{SignaturePadDocs.signaturePadExampleCss}</style>
 
@@ -32,51 +32,57 @@ Use `SignaturePad.Canvas` for the standard drawing surface. It keeps the Ark `Co
 ```text
 SignaturePad / SignaturePad.Root
 ├─ SignaturePad.Label
-├─ SignaturePad.Canvas (moduix sugar)
+├─ SignaturePad.Canvas (moduix ready-made composition)
 │  └─ SignaturePad.Control
 │     ├─ SignaturePad.Segment
 │     ├─ SignaturePad.ClearTrigger
 │     └─ SignaturePad.Guide
-└─ native input (automatic)
+└─ hidden native input (automatic)
 
 SignaturePad.RootProvider
 └─ same part tree connected to useSignaturePad()
 ```
 
-| Part                                 | Role                                                        |
-| ------------------------------------ | ----------------------------------------------------------- |
-| `SignaturePad` / `SignaturePad.Root` | Owns paths, drawing options, form name, ids, and callbacks. |
-| `SignaturePad.RootProvider`          | Renders a tree from state returned by `useSignaturePad()`.  |
-| `SignaturePad.Label`                 | Labels the drawing area and native input.                   |
-| `SignaturePad.Canvas`                | Standard drawing surface; forwards control props and refs.  |
-| `SignaturePad.Control`               | Focusable pointer/touch drawing region.                     |
-| `SignaturePad.Segment`               | SVG layer for saved paths and the current in-progress path. |
-| `SignaturePad.ClearTrigger`          | Native button that clears paths; Ark hides it while empty.  |
-| `SignaturePad.Guide`                 | Non-interactive baseline inside the control.                |
+| Part                                 | Role                                                                    |
+| ------------------------------------ | ----------------------------------------------------------------------- |
+| `SignaturePad` / `SignaturePad.Root` | Owns paths, drawing options, form name, ids, and callbacks.              |
+| `SignaturePad.RootProvider`          | Renders the same part tree from state created with `useSignaturePad()`. |
+| `SignaturePad.Label`                 | Associates the visible label with the drawing area and hidden input.    |
+| `SignaturePad.Canvas`                | Ready-made drawing surface that renders the standard parts and forwards `Control` props and ref. |
+| `SignaturePad.Control`               | Focusable pointer and touch drawing area.                               |
+| `SignaturePad.Segment`               | SVG layer for saved strokes and the current in-progress stroke.         |
+| `SignaturePad.ClearTrigger`          | Native button that clears paths; Ark hides it while empty or drawing.   |
+| `SignaturePad.Guide`                 | Non-interactive baseline inside the drawing area.                       |
 
 ## Composition
 
 ### Recommended composition
 
-Use `Label` and `Canvas` for the normal path. `Canvas` keeps Ark's focus target, pointer capture,
-accessible clear button behavior, and SVG rendering while removing repeated drawing-surface markup.
-It forwards `Control` props and its DOM ref.
+Use `Label` and `Canvas` for the standard composition. `Canvas` provides Ark's focus target, pointer
+capture, accessible clear button behavior, and SVG rendering without repeated drawing-surface markup.
+It forwards `Control` props and its DOM ref. `Canvas` uses a fixed child tree, so use the lower-level
+parts when you need a different structure.
 
 ### When to go custom
 
-Use explicit `Control`, `Segment`, `ClearTrigger`, and `Guide` when their structure, icon, or
-`asChild` composition needs customization. Use controlled `paths` when application state needs to
-restore, clear, autosave, or validate the signature outside the Ark tree. Use `RootProvider` when
-controls outside the component need direct access to `paths`, `clear()`, or `getDataUrl()`.
+Use explicit `Control`, `Segment`, `ClearTrigger`, and `Guide` parts when you need to change their
+structure, replace the icon, or use `asChild`. Use controlled `paths` when application state needs
+to restore, clear, autosave, or validate a signature outside the component. Use `RootProvider` with
+`useSignaturePad()` when state must be created outside the rendered tree or external controls need
+direct access to `paths`, `clear()`, or `getDataUrl()`.
 
-Pass `name` when the signature should participate in native form submission. The root serializes
-the current paths and renders the native input automatically. Pass `getFormValue(paths)` when the
-form needs a custom serialization.
+For advanced reads inside the component tree, use `SignaturePad.Context` or
+`useSignaturePadContext()`.
 
-Use `drawing` for stroke-level customization. `drawing.size` changes stroke width,
+Pass `name` when the signature should be included in native form submission. moduix adds a hidden
+native input automatically and serializes the paths as `paths.join(' ')` by default. Pass
+`getFormValue(paths)` when the form needs a different representation.
+
+Use `drawing` to customize each stroke. `drawing.size` changes stroke width,
 `drawing.simulatePressure` controls pressure simulation, and `drawing.fill` sets the stroke color.
-`drawing.fill` accepts any CSS color value, including a CSS custom property reference such as
-`var(--moduix-color-primary)`.
+`drawing.fill` must be a valid CSS color string. Ark does not accept a CSS custom property in this
+option. To use a theme token, omit `fill` and override `--moduix-signature-pad-stroke-color`
+instead.
 
 ### Default props
 
@@ -84,31 +90,36 @@ Use `drawing` for stroke-level customization. `drawing.size` changes stroke widt
 | -------------- | ------------------------------------- | --------------------------------------------------------------- |
 | `defaultPaths` | -                                     | Initial uncontrolled SVG path array.                            |
 | `paths`        | -                                     | Controlled SVG path array. Pair with `onDraw(details)`.         |
-| `drawing`      | `{ size: 2, simulatePressure: false }` | Zag stroke options; `fill` accepts any CSS color value.          |
+| `drawing`      | `{ size: 2, simulatePressure: false }` | Zag stroke options; `fill` must be a valid CSS color string.    |
 | `name`         | -                                     | Native form field name.                                         |
-| `getFormValue` | `paths.join(' ')`                     | Custom serialization for the native form value.                 |
+| `getFormValue` | `paths.join(' ')`                     | Custom serialization for the automatically rendered input.      |
 | `disabled`     | -                                     | Disables drawing and clear trigger interaction.                 |
 | `readOnly`     | -                                     | Prevents drawing and disables the clear trigger.                |
-| `required`     | -                                     | Marks the label and native input as required.                   |
-| `ids`          | -                                     | Stable ids for root, control, hidden input, and label.          |
+| `required`     | -                                     | Marks the label and hidden input as required.                   |
+| `ids`          | -                                     | Stable ids for root, control, hidden input, and label.           |
 | `translations` | Ark defaults                          | Accessible labels for the control and clear trigger.            |
 
-The default drawing control is `17.5rem` by `10rem`, which is approximately `280px` by `160px`
-with the default token scale. Override `--moduix-signature-pad-width`, `--moduix-signature-pad-height`, or the
-more specific `--moduix-signature-pad-control-*` variables to resize the signing area. The default
-minimum height follows the configured control height, so a smaller height remains effective.
+The default drawing control is `17.5rem` by `10rem`, or approximately `280px` by `160px` with the
+default token scale. Override `--moduix-signature-pad-width`, `--moduix-signature-pad-height`, or
+the more specific `--moduix-signature-pad-control-*` variables to resize the signing area. The
+default minimum height follows the configured control height, so a smaller height remains effective.
 
 ### Behavioral notes
 
-Use `defaultPaths` for an initial uncontrolled signature. Use `paths` with `onDraw(details)` when
-the signature must stay in application state. `onDrawEnd(details)` fires after a stroke ends or the
-signature is cleared and exposes `details.getDataUrl(type, quality?)`.
+Use `defaultPaths` for an initial uncontrolled signature. Use `paths` with `onDraw(details)` when the
+signature must stay in application state. `onDraw(details)` runs while drawing and when committed
+paths change. `details.paths` contains committed strokes, while `details.currentPath` contains the
+stroke currently in progress.
 
-Set `name` on the root when native form submission is needed; it renders the native input
-automatically. Pass `getFormValue(paths)` when the form needs a custom serialization. Wrap with
-`Field.Root` when helper text, error text, required state, or disabled state
-should be shared with surrounding form UI. `Field` invalid state controls field messaging and
-descriptions; it does not add `data-invalid` to the signature pad parts.
+`onDrawEnd(details)` fires after a stroke ends or the signature is cleared. Its
+`details.getDataUrl(type, quality?)` method supports `image/png`, `image/jpeg`, and `image/svg+xml`.
+It returns an empty string for an empty signature.
+
+Set `name` on the root when native form submission is needed. The hidden input is rendered
+automatically. Pass `getFormValue(paths)` when the form needs custom serialization. Wrap the pad in
+`Field.Root` when helper text, error text, required state, or disabled state should be shared with
+surrounding form UI. The `Field` invalid state controls field messaging and descriptions; it does not add
+`data-invalid` to the signature pad parts.
 
 `Control` is keyboard-focusable and exposes `role="application"` with
 `aria-roledescription="signature pad"`. Drawing uses pointer and touch input rather than arrow-key
@@ -120,8 +131,8 @@ changed accidentally.
 
 ### Controlled
 
-Control `paths` when the signature must stay synchronized with surrounding state, reset controls, or
-autosave logic.
+Use controlled `paths` to keep the signature in application state and coordinate it with reset
+controls or autosave logic.
 
 <style>{SignaturePadDocs.signaturePadExampleCss}</style>
 
@@ -186,9 +197,9 @@ Use `onDrawEnd` to export the signature and show a preview before saving it.
 
 ### Root Provider
 
-Use `useSignaturePad()` with `RootProvider` when controls outside the component tree need direct
-access to paths, `clear()`, or `getDataUrl()`. Pass root options such as `translations`, `ids`, and
-`drawing` to `useSignaturePad(...)`.
+Create state with `useSignaturePad()` and pass it to `RootProvider` when controls outside the
+rendered tree need direct access to `paths`, `clear()`, or `getDataUrl()`. Pass root options such as
+`translations`, `ids`, and `drawing` to `useSignaturePad(...)`.
 
 <style>{SignaturePadDocs.signaturePadExampleCss}</style>
 
@@ -200,7 +211,8 @@ access to paths, `clear()`, or `getDataUrl()`. Pass root options such as `transl
 
 ### Advanced Customization
 
-Bypass `Canvas` when you need to control the drawing-part tree or provide a custom clear trigger.
+Use the explicit parts instead of `Canvas` when you need to control the drawing-part tree or provide
+a custom clear trigger.
 
 <style>{SignaturePadDocs.signaturePadExampleCss}</style>
 
@@ -243,5 +255,5 @@ attributes:
 
 Ark attributes remain available for targeted styles. `Root`, `Label`, `Control`, `Segment`,
 `Guide`, `ClearTrigger`, and the internal segment paths expose `data-scope="signature-pad"` and
-`data-part`; `data-disabled` appears on root, label, control, and guide, and `data-required`
+`data-part`; `data-disabled` appears on root, label, control, and guide, while `data-required`
 appears on label.

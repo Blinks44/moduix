@@ -1,7 +1,7 @@
 ---
 title: Floating Panel
 component: floating-panel
-description: Fenêtre Ark UI non modale qui peut être déplacée, redimensionnée, réduite et agrandie.
+description: Fenêtre flottante non modale d’Ark UI pour afficher du contenu que l’utilisateur peut déplacer, redimensionner, réduire ou agrandir.
 ---
 
 import * as FloatingPanelDocs from '@/components/examples/floating-panel';
@@ -12,14 +12,16 @@ import * as FloatingPanelDocs from '@/components/examples/floating-panel';
 
 ## Choisir le bon composant
 
-Utilisez `FloatingPanel` pour une surface de travail amovible non modale. Utilisez `Popover` pour un format compact
-contenu lié au déclencheur, `Dialog` pour les scénarios modaux et `Drawer` pour les panneaux attachés aux bords
-avec des gestes ou des points d'ancrage.
+Utilisez `FloatingPanel` pour une fenêtre de travail flottante et non modale, par exemple un inspecteur, un panneau de
+propriétés ou une fenêtre utilitaire. `Popover` convient au contenu compact ancré à un déclencheur. Utilisez `Dialog`
+pour les tâches modales et `Drawer` pour un panneau attaché à un bord de la fenêtre, avec gestion des gestes ou des
+points d’ancrage.
 
 ## Exemple de base
 
-Liez explicitement la structure Ark. `FloatingPanel.Positioner` gère le rectangle mesuré par Ark, et
-`FloatingPanel.Content` est une surface qui peut être glissée et redimensionnée.
+Conservez les parties Ark UI explicites. `FloatingPanel.Positioner` applique la position et la taille calculées par
+Ark, tandis que `FloatingPanel.Content` constitue la surface visible de la fenêtre. L’en-tête sert de zone de
+déplacement et `ResizeTriggerGroup` ajoute les poignées de redimensionnement autour du panneau.
 
 ```tsx preview file="../../en/docs/_snippets/floating-panel/basic.tsx"
 
@@ -34,13 +36,13 @@ Liez explicitement la structure Ark. `FloatingPanel.Positioner` gère le rectang
 ```text
 FloatingPanel / FloatingPanel.Root
 ├─ FloatingPanel.Trigger
-└─ Overlay subtree (automatically portalled)
+└─ Arborescence de la superposition (placée automatiquement dans un portail)
    └─ FloatingPanel.Positioner
       └─ FloatingPanel.Content
          ├─ FloatingPanel.DragTrigger
          │  └─ FloatingPanel.Header
          │     ├─ FloatingPanel.Title
-         │     │  └─ FloatingPanel.DragIndicator (optional)
+         │     │  └─ FloatingPanel.DragIndicator (facultatif)
          │     └─ FloatingPanel.Control
          │        ├─ FloatingPanel.StageTrigger
          │        └─ FloatingPanel.CloseTrigger / CloseIcon
@@ -50,96 +52,106 @@ FloatingPanel / FloatingPanel.Root
 ```
 
 | Partie | Rôle |
-| ----------------------------------------- | ----------------------------------------------------------------------- |
-| `FloatingPanel` / `FloatingPanel.Root` | Contrôle l’état d’ouverture, la position, la taille, le déplacement, le redimensionnement et l’état d’affichage. |
-| `FloatingPanel.Trigger` | Ouvre le panneau ou inverse son état.                                       |
-| `FloatingPanel.Positioner` | Applique les valeurs de position, de taille, de transformation et d'index z Ark.           |
-| `FloatingPanel.Content` | La surface visible d'une fenêtre flottante.                                    |
-| `FloatingPanel.DragTrigger` | Marque la zone de dépôt, généralement autour du titre.               |
-| `FloatingPanel.Header` | Fait partie de l'en-tête Ark et de la disposition recommandée des poignées de déplacement.     |
-| `FloatingPanel.Title` | Cible d’un titre accessible.                                          |
-| `FloatingPanel.Control` | Regroupe les contrôles associés à l’état d’affichage.                      |
-| `FloatingPanel.StageTrigger` | Passe à `default`, `minimized` ou `maximized`.                  |
-| `FloatingPanel.CloseTrigger` / `CloseIcon` | Ferme le panneau.                                                       |
-| `FloatingPanel.Body` | Zone de contenu déroulante.                                     |
-| `FloatingPanel.Footer` | Une zone de pied de page facultative pour les actions secondaires ou le texte d'état. |
-| `FloatingPanel.ResizeTrigger` | Poignée de redimensionnement à axe unique Ark.                              |
-| `FloatingPanel.ResizeTriggerGroup` | Assistant moduix qui rend tous les axes de redimensionnement ou seulement certains. |
-| `FloatingPanel.RootProvider` | Connecte les parties à l'état créé avec `FloatingPanel.useFloatingPanel()`. |
+| ------ | ---- |
+| `FloatingPanel` / `FloatingPanel.Root` | Gère l’état d’ouverture, la position, la taille, le déplacement et le mode de la fenêtre. |
+| `FloatingPanel.Trigger` | Ouvre la fenêtre ou inverse son état. |
+| `FloatingPanel.Positioner` | Applique les valeurs de position, de taille, de transformation et de z-index calculées par Ark UI. |
+| `FloatingPanel.Content` | Surface visible de la fenêtre flottante. |
+| `FloatingPanel.DragTrigger` | Définit la zone de déplacement, généralement l’en-tête. |
+| `FloatingPanel.Header` | Partie d’en-tête Ark UI et conteneur recommandé pour la zone de déplacement. |
+| `FloatingPanel.Title` | Définit le nom accessible de la fenêtre. |
+| `FloatingPanel.Control` | Regroupe les commandes de changement de mode et de fermeture. |
+| `FloatingPanel.StageTrigger` | Passe au mode `default`, `minimized` ou `maximized`. |
+| `FloatingPanel.CloseTrigger` / `CloseIcon` | Ferme la fenêtre. |
+| `FloatingPanel.Body` | Zone principale du contenu, avec défilement. |
+| `FloatingPanel.Footer` | Zone facultative en bas de la fenêtre pour les actions secondaires ou un état. |
+| `FloatingPanel.ResizeTrigger` | Poignée de redimensionnement pour un axe Ark. |
+| `FloatingPanel.ResizeTriggerGroup` | Utilitaire moduix qui affiche toutes les poignées ou seulement celles qui sont sélectionnées. |
+| `FloatingPanel.RootProvider` | Relie les parties à l’état créé avec `FloatingPanel.useFloatingPanel()`. |
 
 `FloatingPanel.DragIndicator`, `FloatingPanel.CloseIcon`, `FloatingPanel.Footer` et
-`FloatingPanel.ResizeTriggerGroup` - assistants de moduix. Ils ne remplacent pas les parties structurelles d’Ark.
+`FloatingPanel.ResizeTriggerGroup` sont des utilitaires moduix. Ils complètent les parties
+structurelles d’Ark UI sans les remplacer.
 
 ## Composition
 
-Root ouvrira automatiquement le portail `Positioner`. Utilisez `portalled={false}` pour le rendu natif et `portalRef`
-pour un conteneur personnalisé ; les parties structurelles restent explicites et disponibles pour le style.
+`FloatingPanel` et `FloatingPanel.RootProvider` configurent l’affichage de `Positioner`, placé dans un portail par
+défaut. Définissez `portalled={false}` pour l’afficher dans l’arbre courant, ou transmettez `portalRef` pour choisir
+un autre conteneur. Les parties structurelles restent explicites et peuvent être stylées séparément.
 
 ### Composition recommandée
 
-Utilisez `FloatingPanel` pour l’état et le comportement. Rendez explicitement `Positioner` et `Content`, puis placez
-`DragTrigger` autour de l’en-tête afin que le déplacement du pointeur commence depuis une zone prévisible.
+Utilisez `FloatingPanel` pour gérer l’état et le comportement. Conservez `Positioner` et `Content` explicites, puis
+entourez `Header` avec `DragTrigger` afin que le déplacement commence dans une zone prévisible. Ajoutez
+`FloatingPanel.Title` pour donner à la fenêtre un nom accessible.
 
-Utilisez `StageTrigger` avec `stage="minimized"`, `stage="maximized"` et `stage="default"` pour les boutons intégrés
-de réduction, d’agrandissement et de restauration avec icônes. Ark masque le déclencheur de restauration tant que le panneau
-n’est ni réduit ni agrandi. Lorsque `asChild` est défini sur un déclencheur ou un contrôle, transmettez un enfant sémantique ;
-les icônes standard de moduix sont ajoutées uniquement à l’hôte de bouton Ark par défaut.
+Utilisez `StageTrigger` avec `stage="minimized"`, `stage="maximized"` et `stage="default"` pour afficher les commandes
+intégrées de réduction, d’agrandissement et de restauration. Ark masque la commande de restauration tant que la
+fenêtre n’est ni réduite ni agrandie. Lorsque `asChild` est défini sur un déclencheur ou un contrôle, transmettez un
+seul enfant sémantique. moduix ajoute les icônes par défaut uniquement lorsque le déclencheur rend le bouton Ark par défaut.
 
-### Quand créer une composition personnalisée
+### Quand personnaliser la composition
 
-Appliquez `className` directement à n’importe quelle partie exportée. Utilisez `asChild` avec exactement un enfant sémantique
-pour personnaliser l’hôte d’un déclencheur, d’un déclencheur de fermeture ou d’un déclencheur d’état d’affichage. Passez `axes` à
-`ResizeTriggerGroup` pour obtenir un sous-ensemble des poignées standard, ou utilisez des parties `ResizeTrigger` individuelles afin
-d’appliquer des styles différents à chaque axe.
+Appliquez `className` directement à n’importe quelle partie exportée. Utilisez `asChild` avec un seul enfant
+sémantique lorsque vous avez besoin d’un déclencheur, d’une commande de fermeture, d’une commande de changement de mode
+ou d’un autre élément personnalisé. Passez `axes` à `ResizeTriggerGroup` pour n’afficher que les poignées nécessaires,
+ou utilisez des parties `ResizeTrigger` individuelles lorsque chaque axe doit avoir son propre emplacement ou style.
 
-Utilisez `FloatingPanel.Context` ou `FloatingPanel.useFloatingPanelContext()` dans l’arbre du panneau, et
-`FloatingPanel.useFloatingPanel()` avec `RootProvider` pour un état externe. Ne combinez pas `Root` et `RootProvider`
-pour une même instance d’état.
+Utilisez `FloatingPanel.Context` ou `FloatingPanel.useFloatingPanelContext()` dans l’arbre du panneau. Si l’état est
+créé en dehors de cet arbre, créez-le avec `FloatingPanel.useFloatingPanel()` et transmettez-le à `RootProvider`. N’utilisez
+pas `Root` et `RootProvider` pour une même instance d’état.
 
 ### Propriétés par défaut
 
-Le contenu de superposition portailisé est monté et démonté paresseusement après l'animation de sortie par défaut. Installer
-`unmountOnExit={false}` pour le sauvegarder après la première ouverture ; définir les deux propriétés de cycle de vie sur `false`
-uniquement lorsque vous avez besoin d'un rendu initial sans attendre.
+La racine moduix monte le contenu placé dans un portail à la première ouverture, puis le retire après l’animation de
+sortie. Définissez `unmountOnExit={false}` pour conserver le contenu monté après cette première ouverture. Définissez
+ces deux propriétés de cycle de vie sur `false` uniquement si le contenu doit être rendu dès le départ.
 
-| Propriété | Par défaut | Remarques |
-| ---------------- | ------------ | ------------------------------------------------------------------------ |
-| `closeOnEscape` | `true` | Ferme le panneau supérieur avec le focus ; définissez `false` pour désactiver.    |
-| `persistRect` | `true` | Conserve le dernier rectangle pendant la fin de l'animation de fermeture.   |
-| `draggable` | Ark | Transmis inchangé ; Ark est par défaut `true`.                |
-| `resizable` | Ark | Transmis inchangé ; Ark est par défaut `true`.                |
-| `strategy` | Ark | Transmis inchangé ; Ark utilise un positionnement fixe par défaut. |
-| propriétés de présence | moduix | `lazyMount` et `unmountOnExit` ont `true` par défaut ; les propriétés restantes sont transmises. |
+| Propriété | Valeur par défaut | Remarques |
+| --------- | ----------------- | --------- |
+| `allowOverflow` | `true` | Autorise la fenêtre à dépasser la limite pendant son déplacement. Avec `getBoundaryEl`, définissez `false` pour la contenir. |
+| `closeOnEscape` | `true` | Ferme la fenêtre ayant le focus et située au premier plan lorsque l’utilisateur appuie sur Escape. |
+| `defaultOpen` | `false` | La fenêtre est fermée lors du premier rendu. |
+| `draggable` | `true` | La fenêtre peut être déplacée. |
+| `gridSize` | `1` | Définit le pas des déplacements au clavier et de la grille d’alignement. |
+| `lazyMount` | `true` | moduix attend la première ouverture pour monter le contenu. |
+| `persistRect` | `true` | Conserve la dernière position et la dernière taille pendant l’animation de sortie. |
+| `resizable` | `true` | La fenêtre peut être redimensionnée. |
+| `strategy` | `fixed` | Ark positionne la fenêtre par rapport à la fenêtre d’affichage. |
+| `unmountOnExit` | `true` | Retire le contenu après l’animation de sortie. |
 
 ### Comportement
 
-- `onOpenChange(details)` fournit `details.open`.
-- `onPositionChange(details)` et `onPositionChangeEnd(details)` fournissent `details.position`.
-- `onSizeChange(details)` et `onSizeChangeEnd(details)` fournissent `details.size`.
-- `onStageChange(details)` fournit l’objet details d’état d’affichage d’Ark.
-- `position` et `size` sont contrôlés indépendamment ; utilisez `defaultPosition` et `defaultSize` pour une initialisation non gérée.
-- `getAnchorPosition(details)` peut obtenir la position de départ à partir du rectangle de déclenchement.
-- `closeOnEscape` vaut `true` par défaut dans `FloatingPanel` ; définissez-le sur `false` pour le désactiver. Ark gère la touche Escape
-  depuis le `Content` supérieur qui possède le focus ; utilisez donc `autoFocus` lorsque le panneau doit recevoir le focus à l’ouverture.
-- `ids`, `translations`, `getBoundaryEl`, `lockAspectRatio` et `gridSize` sont transférés vers Ark sans modifications.
-- `Content` a `role="dialog"`. Lorsqu'il a le focus, les touches fléchées déplacent le panneau vers le `gridSize`
-  en tenant compte de `dir` ; utilisez `initialFocusEl`, `finalFocusEl` et `restoreFocus` pour transférer explicitement le focus.
-- `persistRect` peut être défini sur `false`, mais le `true` par défaut préserve la taille et la position pour les animations de fermeture.
-- Le panneau est non modal : il ne maintient pas le focus et ne bloque pas les interactions externes.
+- `onOpenChange(details)` fournit le nouvel état dans `details.open`.
+- `onPositionChange(details)` et `onPositionChangeEnd(details)` fournissent la position dans `details.position`.
+- `onSizeChange(details)` et `onSizeChangeEnd(details)` fournissent la taille dans `details.size`.
+- `onStageChange(details)` fournit l’objet de détails fourni par Ark correspondant au nouveau mode de la fenêtre.
+- `position` et `size` se contrôlent séparément. Utilisez `defaultPosition` et `defaultSize` pour une initialisation non contrôlée.
+- `getAnchorPosition(details)` peut calculer la position initiale à partir du rectangle du déclencheur.
+- `Content` utilise `role="dialog"`. Ajoutez `Title` ou fournissez un autre nom accessible pour la fenêtre.
+- Utilisez `autoFocus` sur `Content` lorsque la fenêtre doit recevoir le focus dès son ouverture. Utilisez
+  `initialFocusEl`, `finalFocusEl` et `restoreFocus` pour choisir explicitement les cibles du focus.
+- Lorsque `Content` reçoit le focus, les touches fléchées déplacent la fenêtre par incréments de `gridSize` et respectent `dir`.
+- `ids`, `translations`, `getBoundaryEl`, `lockAspectRatio` et `gridSize` sont transmis à Ark sans modification. Les
+  modes disponibles sont `default`, `minimized` et `maximized`.
+- Ark traite la touche Escape depuis le `Content` ayant le focus et situé au premier plan. Définissez
+  `closeOnEscape={false}` pour désactiver ce comportement.
+- La fenêtre est non modale : elle ne piège pas le focus, ne bloque pas le défilement et ne désactive pas les interactions extérieures.
 
 ## Exemples
 
-### Position par rapport à l’ancre
+### Position initiale depuis l’ancre
 
-Utilisez `getAnchorPosition` pour calculer la position de départ du panneau à partir du rectangle de déclenchement.
+Utilisez `getAnchorPosition` pour calculer la position initiale de la fenêtre à partir du rectangle du déclencheur.
 
 ```tsx preview file="../../en/docs/_snippets/floating-panel/anchor-position.tsx"
 
 ```
 
-### Limites
+### Limiter la zone
 
-Spécifiez `allowOverflow={false}` avec `getBoundaryEl` pour limiter le panneau à un conteneur spécifique.
+Transmettez `getBoundaryEl` et définissez `allowOverflow={false}` pour maintenir la fenêtre dans un conteneur précis
+pendant son déplacement.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/floating-panel/boundary.tsx"
@@ -149,7 +161,8 @@ Spécifiez `allowOverflow={false}` avec `getBoundaryEl` pour limiter le panneau 
 
 ### Contexte
 
-Lisez l'API du panneau directement à partir de `FloatingPanel.Context`.
+Utilisez `FloatingPanel.Context` ou `useFloatingPanelContext` pour lire l’état et les méthodes de la fenêtre dans
+l’arbre des composants.
 
 <PreviewFrame maxWidth="xs">
   ```tsx preview file="../../en/docs/_snippets/floating-panel/context.tsx"
@@ -159,7 +172,7 @@ Lisez l'API du panneau directement à partir de `FloatingPanel.Context`.
 
 ### Ouverture contrôlée
 
-Utilisez l’objet details d’Ark pour synchroniser la visibilité du panneau avec l’interface environnante.
+Utilisez `open` avec `onOpenChange` lorsque l’état React doit contrôler la visibilité de la fenêtre.
 
 ```tsx preview file="../../en/docs/_snippets/floating-panel/controlled-open.tsx"
 
@@ -167,7 +180,7 @@ Utilisez l’objet details d’Ark pour synchroniser la visibilité du panneau a
 
 ### Position contrôlée
 
-Contrôlez le `position` lorsqu'une autre partie de l'application a besoin des dernières coordonnées du panneau.
+Contrôlez `position` lorsqu’une autre partie de l’application doit connaître les coordonnées actuelles de la fenêtre.
 
 ```tsx preview file="../../en/docs/_snippets/floating-panel/controlled-position.tsx"
 
@@ -175,7 +188,7 @@ Contrôlez le `position` lorsqu'une autre partie de l'application a besoin des d
 
 ### Taille contrôlée
 
-Contrôlez le `size` lorsque l'interface environnante doit stocker ou afficher les dimensions actuelles du panneau.
+Contrôlez `size` lorsque l’interface doit conserver ou afficher les dimensions actuelles de la fenêtre.
 
 ```tsx preview file="../../en/docs/_snippets/floating-panel/controlled-size.tsx"
 
@@ -183,8 +196,8 @@ Contrôlez le `size` lorsque l'interface environnante doit stocker ou afficher l
 
 ### Fermeture par Escape
 
-`closeOnEscape` est activé par défaut. Ajoutez `autoFocus` à `Content` lorsque Escape doit fonctionner
-immédiatement après avoir ouvert un panneau non modal.
+`closeOnEscape` est activé par défaut. Ajoutez `autoFocus` à `Content` pour que la touche Escape fonctionne dès
+l’ouverture de la fenêtre non modale.
 
 ```tsx preview file="../../en/docs/_snippets/floating-panel/escape-dismiss.tsx"
 
@@ -192,17 +205,18 @@ immédiatement après avoir ouvert un panneau non modal.
 
 ### Montage différé
 
-Utilisez les propriétés de présence d’Ark lorsque le panneau doit être monté uniquement après la première ouverture et démonté après la sortie.
+Utilisez `lazyMount` et `unmountOnExit` lorsque la fenêtre doit être montée à la première ouverture, puis retirée après
+l’animation de sortie.
 
 ```tsx preview file="../../en/docs/_snippets/floating-panel/lazy-mount.tsx"
 
 ```
 
-### Root Provider
+### RootProvider
 
-Utilisez `FloatingPanel.useFloatingPanel` avec `RootProvider` lorsque des commandes en dehors de l'arborescence des panneaux sont nécessaires
-méthodes d'accès telles que `minimize`, `maximize` et `setOpen`. Passez `persistRect: true` pour correspondre
-valeur racine par défaut moduix pour les animations de fermeture.
+Utilisez `FloatingPanel.useFloatingPanel` avec `RootProvider` lorsque des commandes situées en dehors de l’arbre du
+panneau doivent appeler des méthodes telles que `minimize`, `maximize` et `setOpen`. Passez `persistRect: true` pour
+conserver le comportement d’animation de fermeture défini par défaut par la racine moduix.
 
 ```tsx preview file="../../en/docs/_snippets/floating-panel/root-provider.tsx"
 
@@ -210,7 +224,8 @@ valeur racine par défaut moduix pour les animations de fermeture.
 
 ### Personnalisation avancée
 
-Utilisez des parties `ResizeTrigger` distinctes lorsque chaque axe de redimensionnement nécessite son propre emplacement ou ses propres styles.
+Utilisez des parties `ResizeTrigger` distinctes lorsque chaque axe de redimensionnement doit avoir son propre emplacement
+ou style.
 
 ```tsx preview file="../../en/docs/_snippets/floating-panel/advanced-customization.tsx"
 
@@ -236,11 +251,11 @@ Utilisez des parties `ResizeTrigger` distinctes lorsque chaque axe de redimensio
 
 ### Points d’accroche CSS
 
-Les parties Ark conservent leurs valeurs `data-scope="floating-panel"` et `data-part`. moduix ajoute
-`data-slot="floating-panel-*"` aux wrappers rendus. Pour appliquer des styles selon l’état, utilisez
-`data-state="open|closed"`, `data-dragging`, `data-disabled`, `data-stage`, `data-topmost`, `data-behind`, `data-minimized`,
-`data-maximized`, `data-staged` et `data-axis`.
+Les parties Ark conservent `data-scope="floating-panel"` et leurs valeurs `data-part`. moduix ajoute
+`data-slot="floating-panel-*"` aux conteneurs rendus. Utilisez `data-state="open|closed"`, `data-dragging`,
+`data-disabled`, `data-stage`, `data-topmost`, `data-behind`, `data-minimized`, `data-maximized`, `data-staged` et
+`data-axis` sur les parties concernées pour appliquer des styles selon l’état.
 
-`Positioner` fournit `--width`, `--height`, `--x`, `--y`, `--reference-width`,
-`--reference-height`, `--available-width`, `--available-height`, `--z-index` et `--transform-origin`.
-Stockez la logique de dimensionnement et de transformation dans les variables d'exécution Ark plutôt que de dupliquer les dimensions dans le code personnalisé.
+`Positioner` expose `--width`, `--height`, `--x`, `--y`, `--reference-width`, `--reference-height`,
+`--available-width`, `--available-height`, `--z-index` et `--transform-origin`. Utilisez les variables qu’Ark met à jour
+à l’exécution pour le dimensionnement et la transformation au lieu de dupliquer les mesures dans le code de l’application.

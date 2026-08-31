@@ -1,36 +1,37 @@
 ---
 title: Анимации
-description: Рецепты анимации для оверлеев, средств выбора, раскрывающихся блоков и замен в moduix.
+description: Общие токены анимации и рецепты для всплывающих панелей, раскрывающихся блоков и смены содержимого в moduix.
 ---
 
 import * as AnimationDocs from '@/components/examples/animations';
 
 # Анимации
 
-В moduix есть общий контракт анимации для плавающих и модальных поверхностей. Задайте его CSS-переменные один раз,
-чтобы все поддерживаемые всплывающие компоненты использовали одинаковую длительность, кривую и эффекты затухания,
-масштабирования или сдвига. Если одна поверхность должна отличаться, используйте локальные переменные компонента.
+moduix предоставляет общие токены анимации для плавающего и модального содержимого. Задайте их один раз, чтобы
+все поддерживаемые всплывающие панели использовали одну и ту же длительность и кривую, а также одинаковые эффекты
+затухания, масштабирования или сдвига. Если одному компоненту нужна другая анимация, переопределите его локальные переменные.
 
-Атрибуты состояния Ark запускают анимации и сохраняют исчезающую часть в DOM до завершения CSS-анимации.
+Компоненты используют атрибуты `data-state` от Ark, чтобы выбирать анимации появления и исчезновения. Когда
+содержимое закрывается, Ark оставляет его в DOM до завершения анимации исчезновения.
 
-Общие токены `--moduix-duration-*`, `--moduix-ease-*`, `--moduix-transition-*` и `--moduix-scale-*` влияют на
-многие части системы. Используйте `--moduix-popup-motion-*`, если во всём проекте нужно изменить только контент
-всплывающих компонентов.
+Общие токены `--moduix-duration-*`, `--moduix-ease-*`, `--moduix-transition-*` и `--moduix-scale-*` используются
+во многих частях системы. Если во всём проекте нужно изменить только анимацию всплывающего содержимого, используйте
+`--moduix-popup-motion-*`.
 
-Когда в операционной системе включено уменьшение движения, базовые токены длительности сокращаются до `0.01ms`, а
-общие анимации пульсации, затухания, сдвига и вращения отключаются. У компонентов с особым непрерывным движением,
-таких как marquee и неопределённый progress, остаётся собственный вариант для `prefers-reduced-motion`.
+Если в операционной системе включён режим уменьшения движения, общие токены длительности меняются на `0.01ms`, а
+общие анимации пульсации, затухания, сдвига и вращения отключаются. Компоненты с особой непрерывной анимацией,
+например `Marquee` и `Progress` в состоянии `indeterminate`, обрабатывают `prefers-reduced-motion` отдельно.
 
 ## Выберите API анимации
 
-### Анимация всплывающих компонентов
+### Общая анимация всплывающих панелей
 
-Используйте `*-starting-*` для появления и `*-ending-*` для исчезновения. Общие переменные применяются к
-следующим частям контента: `Popover.Content`, `Menu.Content`, `Tooltip.Content`, `HoverCard.Content`,
-`FloatingPanel.Content`, `Dialog.Content`, `CommandPalette.Content`, `Lightbox.Content`, `Tour.Content`,
+Используйте `*-starting-*` для появления и `*-ending-*` для исчезновения. Общие переменные применяются к следующим
+частям с именем `Content`: `Popover.Content`, `Menu.Content`, `Tooltip.Content`, `HoverCard.Content`, `FloatingPanel.Content`,
+`Dialog.Content`, `CommandPalette.Content`, `Lightbox.Content`, `Tour.Content`, `NavigationMenu.Content`,
 `Select.Content`, `Combobox.Content`, `DatePicker.Content` и `ColorPicker.Content`.
 
-Например, так весь поддерживаемый всплывающий контент появляется слева и уходит влево с одной кривой анимации:
+Например, так всё поддерживаемое содержимое появляется слева и уходит влево с одной кривой:
 
 ```css
 :root {
@@ -45,32 +46,40 @@ import * as AnimationDocs from '@/components/examples/animations';
 }
 ```
 
-Для обычных оверлеев, которые рендерятся через портал, задавайте переменные на `:root`. Переменная только на
-локальной обёртке не попадёт к контенту, портализированному в `document.body`; она сработает, если компонент
-отрисовывается с `portalled={false}`.
+Для всплывающих компонентов, которые обычно рендерятся через портал, задавайте переменные на `:root`. Если
+переменная задана только на локальной обёртке, она не попадёт к содержимому, которое рендерится в `document.body`.
+При `portalled={false}` такая переменная сработает и на локальной обёртке.
 
 ### Локальные переопределения
 
-Переменные компонента имеют приоритет над общими значениями. Используйте их для точечного исключения из правила
-всего проекта и добавляйте класс к визуальной части из таблицы. Поверхности, привязанные к якорю, сохраняют
-`transform-origin` Ark, поэтому рецепты с масштабированием по-прежнему раскрываются со стороны триггера.
+Переменные самого компонента имеют приоритет над общими значениями. Используйте их для локального исключения из
+общего правила и добавляйте класс к визуальной части из таблицы. Компоненты, привязанные к триггеру, сохраняют
+`transform-origin` Ark, поэтому рецепты с масштабированием по-прежнему раскрываются в сторону триггера.
 
-| Поверхность | Применяйте класс к | Префикс |
+| Поверхность | Применяйте класс к | Переменные анимации |
 | --- | --- | --- |
-| Popover | `Popover.Content` | `--moduix-popover-content-*` |
-| Menu | `Menu.Content` | `--moduix-menu-popup-*` |
-| Tooltip | `Tooltip.Content` | `--moduix-tooltip-popup-*` |
-| Hover Card | `HoverCard.Content` | `--moduix-hover-card-content-*` |
-| Floating Panel | `FloatingPanel.Content` | `--moduix-floating-panel-*` |
-| Dialog | `Dialog.Content` | `--moduix-dialog-content-*` |
-| Command Palette | `CommandPalette.Content` | `--moduix-command-palette-content-*` |
-| Lightbox | `Lightbox.Content` | `--moduix-lightbox-content-*` |
-| Tour | `Tour.Content` | `--moduix-tour-content-*` |
+| Popover | `Popover.Content` | `--moduix-popover-transition`, `--moduix-popover-content-*` |
+| Menu | `Menu.Content` | `--moduix-menu-transition`, `--moduix-menu-popup-*` |
+| Tooltip | `Tooltip.Content` | `--moduix-tooltip-transition`, `--moduix-tooltip-popup-*` |
+| Hover Card | `HoverCard.Content` | `--moduix-hover-card-transition`, `--moduix-hover-card-content-*` |
+| Floating Panel | `FloatingPanel.Content` | `--moduix-floating-panel-transition`, `--moduix-floating-panel-*` |
+| Dialog | `Dialog.Content` | `--moduix-dialog-transition`, `--moduix-dialog-content-*` |
+| Command Palette | `CommandPalette.Content` | `--moduix-command-palette-transition`, `--moduix-command-palette-content-*` |
+| Lightbox | `Lightbox.Content` | `--moduix-lightbox-transition`, `--moduix-lightbox-content-*` |
+| Tour | `Tour.Content` | `--moduix-tour-transition`, `--moduix-tour-content-*` |
+| Navigation Menu | `NavigationMenu.Content` | `--moduix-navigation-menu-transition`, `--moduix-navigation-menu-content-*` |
+| Select | `Select.Content` | `--moduix-select-transition`, `--moduix-select-content-*` |
+| Combobox | `Combobox.Content` | `--moduix-combobox-transition`, `--moduix-combobox-content-*` |
+| Date Picker | `DatePicker.Content` | `--moduix-date-picker-transition`, `--moduix-date-picker-content-*` |
+| Color Picker | `ColorPicker.Content` | `--moduix-color-picker-transition`, `--moduix-color-picker-content-*` |
 
-`Dialog`, `CommandPalette`, `Lightbox` и `Tour` также предоставляют переменные `*-backdrop-*` на части
-`Backdrop`. Фоны намеренно остаются за пределами общего контракта анимации всплывающих компонентов: они
-принимают только `opacity` и `blur`, тогда как общий контент всплывающих компонентов принимает `opacity`,
-`scale` и `translate-x` или `translate-y`.
+Если `NavigationMenu` использует `Viewport`, общие токены также влияют на размеры области и направленное движение
+содержимого. Для настройки самой области используйте `--moduix-navigation-menu-viewport-*`.
+
+`Dialog`, `CommandPalette`, `Lightbox` и `Tour` также предоставляют переменные `*-backdrop-*` для части `Backdrop`.
+Фоны используют собственную переменную transition и анимируют только `opacity` и `blur`, без общих значений
+масштаба и сдвига. Содержимое всплывающих панелей может анимировать `opacity`, `scale` и `translate-x` или
+`translate-y`. Для размытия используйте CSS-фильтры, например `blur(4px)` или `none`.
 
 ### Анимация состояний
 
@@ -78,28 +87,28 @@ import * as AnimationDocs from '@/components/examples/animations';
 
 | Компонент | Визуальная часть | Поддерживаемая настройка |
 | --- | --- | --- |
-| Accordion | `Accordion.ItemContent` | `--moduix-accordion-item-content-transition`, opacity для открытого и закрытого состояния |
-| Collapsible | `Collapsible.Content` | `--moduix-collapsible-content-transition`, opacity для открытого и закрытого состояния |
+| Accordion | `Accordion.ItemContent` | `--moduix-accordion-item-content-transition`, `--moduix-accordion-item-content-open-opacity`, `--moduix-accordion-item-content-closed-opacity` |
+| Collapsible | `Collapsible.Content` | `--moduix-collapsible-content-transition`, `--moduix-collapsible-content-open-opacity`, `--moduix-collapsible-content-closed-opacity` |
 | Drawer | `Drawer.Content` и `Drawer.Backdrop` | `--moduix-drawer-transition`, `--moduix-drawer-backdrop-transition`; направление и перетаскивание управляют трансформацией |
-| Swap | `Swap.Indicator` | отдельные переменные opacity и scale для появления и исчезновения |
-| Tree View | `TreeView.BranchContent` | `--moduix-tree-view-content-transition-duration` |
+| Swap | `Swap.Indicator` | `--moduix-swap-transition` и отдельные переменные opacity и scale для появления и исчезновения |
+| Tree View | `TreeView.BranchContent` | `--moduix-tree-view-transition`, `--moduix-tree-view-content-transition-duration` |
 
-Toast использует runtime-переменные Ark для раскладки стопки и закрытия. Не меняйте `--x`, `--y`, `--scale`,
-`--height` и `--opacity`: рецепты на этой странице не относятся к API Toast.
+`Toast` использует служебные переменные Ark для размещения уведомлений в стопке и закрытия. Не меняйте `--x`, `--y`,
+`--scale`, `--height` и `--opacity`. Рецепты с этой страницы не относятся к API `Toast`.
 
 ## Готовые рецепты
 
-Выбирайте анимацию по задаче и используйте один рецепт для похожих поверхностей:
+Выбирайте анимацию по назначению и повторяйте один и тот же рецепт для похожих компонентов:
 
 | Задача продукта | Начните с |
 | --- | --- |
-| Спокойное раскрытие без пространственного значения | Затухание |
-| Поверхность появляется с ближайшего края | Сдвиг в соответствующем направлении |
-| Меню или средство выбора, привязанное к якорю, открывается от триггера | Масштабирование или подъём |
+| Спокойное появление без намёка на направление | Затухание |
+| Панель появляется с ближайшего края | Сдвиг в соответствующем направлении |
+| Меню или средство выбора, привязанное к триггеру, открывается от него | Масштабирование или подъём |
 | Короткое дружелюбное подтверждение | Мягкое появление, используйте умеренно |
 
-Задайте эти переменные на `:root`, чтобы применить рецепт ко всем поддерживаемым поверхностям всплывающего
-контента. Для одного исключения используйте соответствующий префикс компонента из таблицы локальных переопределений.
+Задайте эти переменные на `:root`, чтобы применить рецепт ко всему поддерживаемому содержимому всплывающих панелей. Для
+одного исключения используйте переменные компонента из таблицы выше.
 
 ### Затухание
 
@@ -218,14 +227,14 @@ Toast использует runtime-переменные Ark для раскла�
 }
 ```
 
-Используйте этот эффект для намеренного дружелюбного акцента в коротком меню, tooltip или окне подтверждения.
+Используйте этот рецепт, чтобы добавить дружелюбный акцент короткому меню, `Tooltip` или окну подтверждения.
 
-## Рецепты компонентов
+## Рецепты для компонентов
 
-### Стеклянный фокус
+### Эффект стекла
 
-Для модальных фонов добавьте первый класс к `Dialog.Backdrop`, а второй - к `Dialog.Content`. В других семействах
-модальных компонентов замените `dialog` на `command-palette`, `lightbox` или `tour`.
+Для модального фона добавьте первый класс к `Dialog.Backdrop`, а второй к `Dialog.Content`. Для других модальных
+компонентов замените `dialog` на `command-palette`, `lightbox` или `tour`.
 
 ```css
 .glassFocusBackdrop {
@@ -262,7 +271,7 @@ Toast использует runtime-переменные Ark для раскла�
 
 ### Плавное раскрытие
 
-Добавьте этот класс к `Accordion.ItemContent`. Для `Collapsible.Content` используйте префикс
+Добавьте этот класс к `Accordion.ItemContent`. Для `Collapsible.Content` вместо него используйте префикс
 `--moduix-collapsible-content-*`.
 
 ```css
@@ -272,9 +281,10 @@ Toast использует runtime-переменные Ark для раскла�
 }
 ```
 
-### Выразительная замена
+### Выразительная смена
 
-Добавьте класс к `Swap.Indicator`, если уходящий элемент должен отступать, а следующий - появляться энергичнее.
+Добавьте этот класс к `Swap.Indicator`, если уходящий элемент должен мягко отступить, а следующий появиться
+заметнее.
 
 ```css
 .emphasizedSwap {
@@ -292,20 +302,18 @@ Toast использует runtime-переменные Ark для раскла�
   <AnimationDocs.MotionRecipesExample />
 </ExampleFrame>
 
-## Правила
+## Правила использования
 
-- Размещайте локальные переменные анимации компонента на визуальной части, которая отвечает за анимацию;
-  задавайте общие переменные всплывающих компонентов на `:root` для оверлеев, по умолчанию отрисовываемых
-  через портал.
-- Сохраняйте значения появления и исчезновения симметричными, если асимметричная анимация не задумана
-  намеренно.
-- Устанавливайте масштаб `1` для чистой анимации затухания или сдвига.
-- Используйте `--moduix-popup-motion-*` для одного правила контента всплывающих компонентов во всём проекте;
-  используйте локальный префикс компонента только для исключения.
-- Не заменяйте трансформации Drawer или переменные времени выполнения макета Toast: оба согласованы с
-  состоянием взаимодействия и закрытия.
-- Анимация исчезновения работает по умолчанию. Используйте `present`, только если JavaScript должен явно
-  управлять тем, смонтирована ли часть; для обычных CSS-рецептов он не нужен.
+- Размещайте локальные переменные анимации на визуальной части, которая отвечает за анимацию. Общие переменные
+  всплывающих панелей задавайте на `:root`, если оверлей по умолчанию рендерится через портал.
+- Сохраняйте значения для появления и исчезновения симметричными, если асимметрия не задумана специально.
+- Для чистого затухания или сдвига задавайте масштаб `1`.
+- Используйте `--moduix-popup-motion-*` для общего правила во всём проекте. Локальные переменные компонента
+  оставляйте для исключений.
+- Не переопределяйте трансформации `Drawer` и служебные переменные раскладки `Toast`. Они связаны с состоянием
+  взаимодействия и закрытия.
+- Анимация исчезновения работает из коробки. Используйте `present`, только если JavaScript должен явно управлять
+  наличием части в DOM. Обычным CSS-рецептам это не нужно.
 
 ## Связанные материалы
 

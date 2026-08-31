@@ -25,9 +25,9 @@ export default function AspectRatioImageCropperDemo() {
   const [aspectRatio, setAspectRatio] = useState(16 / 9);
   return (
     <div className="cropper-stack">
-      <ImageCropper aspectRatio={aspectRatio}>
+      <ImageCropper aspectRatio={aspectRatio} aria-label="Image cropper">
         <ImageCropper.Viewport>
-          <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
+          <ImageCropper.Image src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
           <ImageCropper.CropArea />
         </ImageCropper.Viewport>
       </ImageCropper>

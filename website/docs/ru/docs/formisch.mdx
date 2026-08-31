@@ -1,57 +1,79 @@
 ---
 title: Formisch
-description: Интегрируйте нативные и составные элементы управления moduix с Formisch и Valibot.
+description: Подключите компоненты moduix к Formisch и Valibot для типобезопасного состояния формы и валидации.
 ---
 
 # Formisch
 
-[Документация Formisch](https://formisch.dev) и [документация Valibot](https://valibot.dev) подробно
-описывают API схем, хранилища и валидации. Здесь показано, как связать их с moduix.
+[Formisch](https://formisch.dev) и [Valibot](https://valibot.dev) подробно описывают схемы,
+хранилище и API валидации. На этой странице показано, как подключить стабильную версию Formisch v1
+к компонентам moduix.
 
-Formisch строит работу вокруг схемы: передайте схему Valibot в `useForm`, а затем отрисовывайте поля
-через компонент `Field` без собственной разметки. Передавайте `field.props` через spread в нативные
-элементы управления и используйте `field.input` вместе с `field.onChange` для составных компонентов Ark.
+Formisch начинает работу со схемы: передайте схему Valibot в `useForm`, а затем отрисуйте каждое поле
+через компонент `Field` без собственной разметки. Передавайте `field.props` нативным элементам
+через spread. Если составной компонент управляет своим значением на корневом элементе, передайте ему
+`field.input`, а его обработчик изменения свяжите с `field.onChange`.
 
 ```bash
 npm install @formisch/react valibot
 ```
 
-## Сопоставление
+## Подключение полей к moduix
 
-| Элемент управления | Подключение Formisch |
-| ------------------ | -------------------- |
-| `Input`, `Textarea`, `Field.Select` | Передайте `field.props` через spread, затем `value={field.input}`, чтобы поле оставалось контролируемым. |
-| `Select`, `Combobox` | Получите `field.input` и передайте данные компонента обратно через `field.onChange`. |
-| `Checkbox` | Передайте `details.checked === true` через `field.onChange`. |
-| Автоматические нативные элементы управления | Храните состояние на корневом элементе компонента; не добавляйте ещё одно скрытое поле ввода. |
+И Formisch, и moduix экспортируют компонент с именем `Field`. Дайте импорту Formisch псевдоним,
+чтобы в одном файле было понятно назначение каждого компонента:
 
-Используйте `Field` из Formisch под именем `FormischField` рядом с `Field` moduix. Схема Valibot
-предоставляет сообщения валидации, а пути к её полям остаются типобезопасными.
+- `Field` Formisch связывает путь в схеме с хранилищем поля.
+- `Field` moduix выводит подпись, сообщение об ошибке и состояние доступности поля.
 
-Formisch предоставляет `form.isSubmitting` во время работы асинхронного обработчика отправки.
-Используйте его, чтобы запретить повторную отправку и обновить текст кнопки, сохраняя текущие значения
-полей видимыми.
+`field.props` содержит имя, ref и обработчики фокуса и потери фокуса нативного поля. `field.input` - это
+его текущее значение, `field.errors` - `null` или массив сообщений, а `field.onChange` программно
+обновляет значение составного компонента.
+
+| Компонент | Подключение к Formisch |
+| --- | --- |
+| `Input`, `Textarea` | Передайте `field.props` через spread и укажите `value={field.input ?? ''}`. |
+| `Select` | Передайте `name={field.props.name}`, управляйте `value` как массивом строк и свяжите `onValueChange` с `field.onChange`. moduix сам отрисует нативный элемент. |
+| `Combobox` | Передайте `name={field.props.name}`, управляйте выбранным `value` и свяжите `onValueChange` с `field.onChange`. Передайте обработчики фокуса в `Combobox.Input`. |
+| `Checkbox` | Передайте `name={field.props.name}`, управляйте `checked` и свяжите `onCheckedChange` с `field.onChange`. moduix сам отрисует нативный элемент. |
+
+Не добавляйте ещё одно скрытое поле для `Select` или `Checkbox`. Их корневые элементы moduix уже
+отрисовывают нативный элемент, нужный для отправки формы и сброса. У `Combobox` имя формы задаётся
+на корневом элементе.
 
 ## Валидация и сброс
 
-Схема Valibot - единственный источник валидации Formisch; resolver не требуется. `validate` выбирает
-первую валидацию (`"submit"`, `"blur"`, `"input"` или `"initial"`), а `revalidate` выбирает, когда
-Formisch валидирует повторно после первого запуска. Пример валидирует при отправке, а затем повторно
-валидирует изменённые значения при вводе: ошибки появляются после первой отправки и исчезают, когда
-пользователь исправляет поле.
+Передайте схему Valibot напрямую в `useForm`: в Formisch v1 не нужен resolver. По умолчанию первая
+проверка выполняется при отправке формы, а после неё значения проверяются повторно при вводе.
+Если нужен другой момент первой проверки, используйте `validate: 'blur'`, `validate: 'input'` или
+`validate: 'initial'`. Параметр `revalidate` меняет момент повторной проверки.
 
-`field.errors` - это `null` или массив сообщений. Используйте этот результат для `Field invalid` и
-отрисовывайте его с помощью `Field.ErrorText`; тот же контекст поля передаёт состояние невалидности
-элементам управления, знающим Ark. `Form` Formisch предотвращает стандартную отправку браузера и
-добавляет `noValidate`, поэтому Formisch управляет потоком валидации. Чтобы восстановить
-`initialInput`, вызовите `reset(form)` Formisch, а не только сброс нативной формы DOM: так сбросится
-и его контролируемое состояние поля.
+Компонент `Form` отменяет стандартную отправку браузера, устанавливает `noValidate` и вызывает
+`onSubmit` только после успешной проверки текущих значений по схеме. Во время асинхронного
+обработчика `form.isSubmitting` равен `true`. Это удобно, чтобы не отправлять форму повторно и
+показать состояние загрузки на кнопке.
 
-## Пример
+Если для обязательного строкового поля не задан `initialInput`, оно начинается с пустой строки
+`''`. Используйте `initialInput` для данных, загруженных с сервера, или когда начальное значение
+нужно задать явно. Управляемому полю нужно передавать значение из `field.input`, иначе вызовы
+`reset` и `setInput` не смогут обновить то, что видит пользователь.
 
-Эта форма использует валидацию Formisch при отправке и повторно валидирует изменённые значения при
-вводе. Нативные `Input` и `Textarea` получают пропсы Formisch напрямую; `Select`, `Combobox` и
-`Checkbox` сопоставляют данные своих колбэков Ark с состоянием поля Formisch.
+`field.errors` содержит сообщения одного поля. Передайте наличие ошибки в `Field invalid`, а первое
+сообщение выведите через `Field.ErrorText`, как в примере ниже. Чтобы вернуть текущие значения к
+начальным, вызывайте `reset` Formisch, а не сбрасывайте только DOM-форму:
+
+```tsx
+import { reset } from '@formisch/react';
+
+reset(form);
+reset(form, { initialInput: { name: '', team: '' } });
+```
+
+## Полный пример
+
+Эта форма проверяется при отправке, а затем повторно при изменении значений. `Input` и `Textarea`
+получают пропсы Formisch напрямую. `Select`, `Combobox` и `Checkbox` хранят значения в своих
+корневых элементах moduix и передают изменения через `field.onChange`.
 
 <style>{`
       .form {
@@ -81,71 +103,88 @@ Formisch валидирует повторно после первого зап�
 
 ## Повторяющиеся поля
 
-Используйте `FieldArray` для отрисовки редактируемого списка и помощники `insert` и `remove` Formisch
-для его изменения. `fieldArray.items` предоставляет стабильные ID для ключей React; индекс нужен только
-в пути к полю текущего элемента. Используйте `Fieldset`, когда списку нужна общая метка или ошибка
-на уровне группы. Этот фрагмент должен находиться внутри `Form`, использующей созданную здесь `form`.
+Используйте `FieldArray` для списка полей, которые пользователь может добавлять и удалять. Его
+массив `items` содержит стабильные идентификаторы для ключей React. Индекс оставляйте в пути
+Formisch, но не используйте его как React key. Ошибку всего массива храните в `fieldArray.errors`;
+если списку нужны общий заголовок или ошибка группы, оберните его в `Fieldset`.
+
+Ниже приведён полный пример: он создаёт форму, отрисовывает массив внутри `Form` и использует
+методы v1 `insert` и `remove`.
 
 ```tsx
-import { Field as FormischField, FieldArray, insert, remove, useForm } from '@formisch/react';
+import { Field as FormischField, FieldArray, Form, insert, remove, useForm } from '@formisch/react';
 import { Button } from '@moduix/react/button';
+import { Fieldset } from '@moduix/react/fieldset';
 import { Field } from '@moduix/react/field';
+import { Input } from '@moduix/react/input';
 import * as v from 'valibot';
 
 const formSchema = v.object({
-  name: v.pipe(v.string(), v.minLength(1, 'Enter a project name.')),
-  emails: v.array(
-    v.object({
-      address: v.pipe(v.string(), v.email('Enter a valid email address.')),
-    }),
+  emails: v.pipe(
+    v.array(
+      v.object({
+        address: v.pipe(v.string(), v.email('Enter a valid email address.')),
+      }),
+    ),
+    v.minLength(1, 'Add at least one email address.'),
   ),
 });
 
-const form = useForm({
-  schema: formSchema,
-  initialInput: { name: '', emails: [{ address: '' }] },
-});
+export default function EmailForm() {
+  const form = useForm({
+    schema: formSchema,
+    initialInput: { emails: [{ address: '' }] },
+  });
 
-<FieldArray of={form} path={['emails']}>
-  {(fieldArray) => (
-    <>
-      {fieldArray.items.map((item, index) => (
-        <FormischField key={item} of={form} path={['emails', index, 'address']}>
-          {(field) => (
-            <Field invalid={field.errors !== null}>
-              <Field.Label>Email {index + 1}</Field.Label>
-              <Input type="email" {...field.props} value={field.input} />
-              <Field.ErrorText>{field.errors?.[0]}</Field.ErrorText>
-              <Button type="button" onClick={() => remove(form, { path: ['emails'], at: index })}>
-                Remove email
-              </Button>
-            </Field>
-          )}
-        </FormischField>
-      ))}
+  return (
+    <Form of={form} onSubmit={(values) => console.log(values)}>
+      <FieldArray of={form} path={['emails']}>
+        {(fieldArray) => (
+          <Fieldset invalid={fieldArray.errors !== null}>
+            <Fieldset.Legend>Email addresses</Fieldset.Legend>
 
-      <Button
-        type="button"
-        onClick={() => insert(form, { path: ['emails'], initialInput: { address: '' } })}
-      >
-        Add email
-      </Button>
-    </>
-  )}
-</FieldArray>;
+            {fieldArray.items.map((item, index) => (
+              <FormischField key={item} of={form} path={['emails', index, 'address']}>
+                {(field) => (
+                  <Field invalid={field.errors !== null}>
+                    <Field.Label>Email {index + 1}</Field.Label>
+                    <Input type="email" {...field.props} value={field.input ?? ''} />
+                    <Field.ErrorText>{field.errors?.[0]}</Field.ErrorText>
+                    <Button
+                      type="button"
+                      onClick={() => remove(form, { path: ['emails'], at: index })}
+                    >
+                      Remove email
+                    </Button>
+                  </Field>
+                )}
+              </FormischField>
+            ))}
+
+            <Fieldset.ErrorText>{fieldArray.errors?.[0]}</Fieldset.ErrorText>
+            <Button
+              type="button"
+              onClick={() => insert(form, { path: ['emails'], initialInput: { address: '' } })}
+            >
+              Add email
+            </Button>
+          </Fieldset>
+        )}
+      </FieldArray>
+    </Form>
+  );
+}
 ```
-
-В приложении, которое импортирует обе библиотеки, дайте `Field` Formisch псевдоним `FormischField`,
-чтобы он отличался от `Field` moduix, как в полной форме выше.
 
 ## Ошибки сервера
 
-Вызывайте `setErrors` после запроса: используйте `path` для сообщения, относящегося к конкретному полю,
-и не указывайте его для сообщения уровня формы. В форме ниже используется та же схема, что и во
-фрагменте с массивом, поэтому `name` - допустимый путь к полю. Перед новой отправкой очищайте ошибки
-предыдущего запроса, затем отрисовывайте ошибки полей тем же сопоставлением `field.errors`, которое
-используется для ошибок Valibot. Для элемента массива путь имеет ту же структуру, например
-`['emails', index, 'address']`.
+Ошибки схемы покрывают то, что можно проверить в браузере. Если сервер отклонил запрос, вызовите
+`setErrors` после него. Для ошибки конкретного поля укажите `path`, а для ошибки всей формы оставьте
+его без значения. Перед новой попыткой очистите ошибки предыдущего запроса.
+
+`form.errors` содержит только ошибки уровня формы. Ошибка поля остаётся в соответствующем
+`field.errors`, поэтому выводите оба вида ошибок там, где пользователь ожидает их увидеть, и не
+стирайте введённые значения.
 
 ```tsx
 import { Form, setErrors } from '@formisch/react';
@@ -172,20 +211,18 @@ import { Form, setErrors } from '@formisch/react';
 </Form>;
 ```
 
-## Поведение
+## Поведение и фокус
 
-- `field.props` предназначен для событий и атрибутов нативного поля ввода. Передайте его через spread
-  в `Input` или `Textarea`, затем укажите `value={field.input}`, чтобы отрисованный элемент управления
-  отражал состояние Formisch.
-- Составные компоненты Ark используют колбэки с данными, а не нативные события изменения. Прочитайте
-  `field.input`, затем преобразуйте данные в значение поля с помощью `field.onChange`, как это делают
-  поля `Select`, `Combobox` и `Checkbox` в примере.
-- Сохраняйте `name`, `form` и специальные параметры формы на корневом элементе moduix для элементов
-  управления, которые автоматически отрисовывают своё нативное поле ввода. Не добавляйте ещё одно
-  скрытое поле ввода для того же поля Formisch.
-- Formisch переводит фокус на первое невалидное нативное поле ввода или textarea через элемент,
-  зарегистрированный `field.props.ref`. `Combobox.Input` может получать `ref`, `autoFocus`, `onFocus`
-  и `onBlur` по отдельности. `Select.Trigger` - кнопка и не входит в тип ref поля ввода Formisch;
-  когда Select может быть первым невалидным элементом управления, переводите фокус на первый
-  отрисованный элемент `[aria-invalid="true"]` из обработчика приложения при неуспешной отправке,
-  а не приводите ref к нужному типу.
+- Передавайте `field.props` в `Input` и `Textarea` через spread, а затем указывайте
+  `value={field.input ?? ''}`, чтобы `initialInput`, `setInput` и `reset` обновляли видимый элемент.
+- Используйте `field.onChange` для компонента, который сам управляет своим значением. Не передавайте
+  объект `details` в нативный обработчик `field.props.onChange`: он ожидает DOM-событие и читает
+  строку из элемента.
+- Храните `name`, `form` и специальные параметры формы на корневом элементе moduix. Корни `Select`
+  и `Checkbox` отвечают за нативные элементы формы, а `Combobox` использует имя корня при отправке.
+- Для `Combobox` передайте `field.props.ref`, `field.props.onFocus` и `field.props.onBlur` в
+  `Combobox.Input`, то есть в элемент, на котором пользователь действительно устанавливает фокус.
+- Обёртки `Select` и `Checkbox` в moduix скрывают свои нативные части внутри компонента. Не приводите
+  `field.props.ref` к типу корневого элемента. Если один из этих компонентов может оказаться первым
+  невалидным элементом и приложению нужен собственный фокус после неудачной отправки, храните ref
+  видимого триггера или элемента управления и переводите фокус на него в обработчике отправки приложения.

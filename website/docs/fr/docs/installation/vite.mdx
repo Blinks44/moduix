@@ -1,23 +1,24 @@
 ---
 title: Vite
-description: "Intégrez moduix à une application React avec Vite : CSS partagé et alias de code source."
+description: Configurez moduix dans une application React avec Vite, comme paquet ou via la CLI shadcn.
 ---
 
 # Vite
 
-Cette configuration convient au modèle standard Vite React ou React + TypeScript.
+Ce guide part du principe que vous disposez déjà d’une application créée à partir du modèle React ou React + TypeScript
+de Vite. Pour démarrer un nouveau projet, consultez d’abord le [guide de démarrage de Vite](https://vite.dev/guide/).
 
-## Installer le paquet
+## Installer moduix en tant que paquet
 
 <PackageManagerTabs command="install @moduix/react @ark-ui/react" />
 
-Importez une seule fois la feuille de style de base dans `src/main.tsx` :
+Importez une seule fois la feuille de style de base depuis `src/main.tsx` :
 
 ```tsx title="src/main.tsx"
 import '@moduix/react/style.css';
 ```
 
-Vous pouvez ensuite importer les composants depuis leurs sous-chemins de paquet :
+Importez ensuite les composants depuis leurs sous-chemins de paquet :
 
 ```tsx title="src/App.tsx"
 import { Button } from '@moduix/react/button';
@@ -29,9 +30,12 @@ export function App() {
 
 ## Installer avec la CLI shadcn
 
-Terminez la [configuration de la CLI shadcn](/docs/quick-start#installer-avec-la-cli-shadcn), puis associez `@/*` à
-`src/*`. Dans le modèle TypeScript standard, cet alias doit figurer dans la configuration racine, celle de
-l’application et celle de Vite.
+Terminez la [configuration de la CLI shadcn](/docs/quick-start#installer-avec-la-cli-shadcn), puis définissez l’alias
+`@/*` vers `src/*`. Dans le modèle TypeScript de Vite, la configuration est répartie entre `tsconfig.json` et
+`tsconfig.app.json`. Ajoutez l’alias dans les deux fichiers et configurez le même alias pour Vite dans
+`vite.config.ts`.
+
+Ajoutez ces propriétés à l’objet `compilerOptions` existant dans `tsconfig.json` :
 
 ```json title="tsconfig.json"
 {
@@ -44,6 +48,8 @@ l’application et celle de Vite.
 }
 ```
 
+Ajoutez les mêmes propriétés à `compilerOptions` dans `tsconfig.app.json` :
+
 ```json title="tsconfig.app.json"
 {
   "compilerOptions": {
@@ -54,6 +60,14 @@ l’application et celle de Vite.
   }
 }
 ```
+
+Ajoutez ensuite l’alias correspondant dans `vite.config.ts`. Vite attend un chemin absolu pour la cible de l’alias :
+dans cet exemple, `@` pointe donc vers le répertoire `src` de l’application.
+
+Cette configuration importe `node:url`. Si votre projet ne contient pas encore les types Node.js, ajoutez-les comme
+dépendance de développement :
+
+<PackageManagerTabs command="install -D @types/node" />
 
 ```ts title="vite.config.ts"
 import { fileURLToPath, URL } from 'node:url';
@@ -70,15 +84,30 @@ export default defineConfig({
 });
 ```
 
-Importez la feuille de style générée dans `src/main.tsx` à la place de celle du paquet :
+Une fois l’alias configuré, ajoutez un composant depuis le registre moduix :
+
+<PackageManagerTabs command="shadcn@latest add @moduix-react/button" dlx />
+
+Dans `src/main.tsx`, remplacez la feuille de style du paquet par la feuille générée. N’importez pas les deux :
 
 ```tsx title="src/main.tsx"
 import '@/lib/moduix/styles/style.css';
 ```
 
-## Vérifier
+Importez le composant généré depuis les sources de votre application :
 
-La configuration est prête lorsqu’un composant stylé s’affiche et que `@/components/moduix/*` est résolu sans erreur
-dans l’éditeur comme à la compilation. Vite ne nécessite pas de frontière client distincte.
+```tsx title="src/App.tsx"
+import { Button } from '@/components/moduix/button';
+
+export function App() {
+  return <Button>Continue</Button>;
+}
+```
+
+## Vérifier la configuration
+
+Lancez le serveur de développement Vite. Avec l’installation du paquet, le bouton importé depuis
+`@moduix/react/button` doit s’afficher avec les styles moduix. Avec la CLI shadcn, l’éditeur et la compilation doivent
+résoudre sans erreur la feuille de style générée et le composant importé depuis `@/components/moduix/button`.
 
 Consultez le [guide Vite](https://vite.dev/guide/) pour la configuration complète du framework.

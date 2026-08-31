@@ -54,7 +54,8 @@ TanStack.
   portalling, and dismissal. Interactive content renders only while pinned.
 - The internal focusable SVG keeps TanStack keyboard navigation and receives the moduix focus ring.
   Do not disable `focusRing` unless the definition provides replacement focus geometry.
-- `@tanstack/charts` is an optional peer dependency. Version 0.14 requires React 19.
+- `@tanstack/charts` is an optional peer dependency. The current moduix peer range is `^0.16.0`,
+  and its React adapter requires React 19.
 
 ## Styling and accessibility
 
@@ -62,9 +63,9 @@ The root and presentational parts expose stable `data-scope="chart"`, `data-part
 hooks. `className` and `style` on `Chart.Plot` apply to the outer TanStack host. moduix maps its
 tooltip shell variables to TanStack's official `--ts-chart-tooltip-*` contract. The compact default
 body exposes `chart-tooltip-body`, `chart-tooltip-title`, `chart-tooltip-rows`,
-`chart-tooltip-row`, `chart-tooltip-swatch`, `chart-tooltip-label`, and `chart-tooltip-value` data
-slots. Use TanStack's `tooltip.className` for custom selectors; do not depend on its
-internal tooltip markup when using `renderTooltipBody`.
+`chart-tooltip-row`, `chart-tooltip-swatch`, `chart-tooltip-label`, `chart-tooltip-value`, and
+`chart-tooltip-text` data slots. Use TanStack's `tooltip.className` for custom selectors; do not
+depend on its internal tooltip markup when using `renderTooltipBody`.
 
 Every plot requires a concise `ariaLabel`. Use `ariaDescription` when the visible title and
 description do not fully explain the data. The root is a `figure` and its header is the first

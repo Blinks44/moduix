@@ -1,23 +1,24 @@
 ---
 title: Vite
-description: Install moduix in a Vite React app with the correct stylesheet and copy-owned source alias.
+description: Set up moduix in a Vite React app as a package or through the shadcn CLI.
 ---
 
 # Vite
 
-Use this setup with the standard Vite React or React + TypeScript template.
+This guide assumes an existing app created from Vite's React or React + TypeScript template. If you are starting a
+new project, follow the [Vite getting started guide](https://vite.dev/guide/) first.
 
-## Package install
+## Install moduix as a package
 
 <PackageManagerTabs command="install @moduix/react @ark-ui/react" />
 
-Import the foundation stylesheet once in `src/main.tsx`:
+Import the foundation stylesheet once from `src/main.tsx`:
 
 ```tsx title="src/main.tsx"
 import '@moduix/react/style.css';
 ```
 
-You can now import components from their package subpaths:
+Then import components from their package subpaths:
 
 ```tsx title="src/App.tsx"
 import { Button } from '@moduix/react/button';
@@ -27,11 +28,13 @@ export function App() {
 }
 ```
 
-## shadcn CLI install
+## Install with the shadcn CLI
 
-Complete the [shadcn CLI setup](/docs/quick-start#install-with-the-shadcn-cli), then map `@/*` to
-`src/*`. The standard TypeScript template needs the alias in the root config, app config, and Vite
-config.
+Complete the [shadcn CLI setup](/docs/quick-start#install-with-the-shadcn-cli), then map `@/*` to `src/*`. Vite's
+TypeScript template splits its configuration across `tsconfig.json` and `tsconfig.app.json`. Add the alias to both
+files and add the matching runtime alias to `vite.config.ts`.
+
+Add these properties to the existing `compilerOptions` object in `tsconfig.json`:
 
 ```json title="tsconfig.json"
 {
@@ -44,6 +47,8 @@ config.
 }
 ```
 
+Add the same properties to `compilerOptions` in `tsconfig.app.json`:
+
 ```json title="tsconfig.app.json"
 {
   "compilerOptions": {
@@ -54,6 +59,14 @@ config.
   }
 }
 ```
+
+Add the corresponding alias to `vite.config.ts`. Vite expects an absolute file-system path for an alias, so this
+example resolves `@` to the app's `src` directory:
+
+This configuration imports `node:url`. If your project does not already include the Node.js types, install them as a
+development dependency:
+
+<PackageManagerTabs command="install -D @types/node" />
 
 ```ts title="vite.config.ts"
 import { fileURLToPath, URL } from 'node:url';
@@ -70,15 +83,30 @@ export default defineConfig({
 });
 ```
 
-Import the generated stylesheet in `src/main.tsx` instead of the package stylesheet:
+Once the alias is configured, add a component from the moduix registry:
+
+<PackageManagerTabs command="shadcn@latest add @moduix-react/button" dlx />
+
+Import the generated foundation stylesheet in `src/main.tsx` instead of the package stylesheet. Do not import both:
 
 ```tsx title="src/main.tsx"
 import '@/lib/moduix/styles/style.css';
 ```
 
+Import the generated component from your application source:
+
+```tsx title="src/App.tsx"
+import { Button } from '@/components/moduix/button';
+
+export function App() {
+  return <Button>Continue</Button>;
+}
+```
+
 ## Verify
 
-The setup is complete when a styled component renders and `@/components/moduix/*` resolves without
-an editor or build error. Vite does not require a separate client boundary.
+Start Vite's development server. With the package install, the button imported from `@moduix/react/button` should
+render with moduix styles. With the shadcn CLI setup, the generated stylesheet and the import from
+`@/components/moduix/button` should resolve in the editor and during the build.
 
 See the [Vite guide](https://vite.dev/guide/) for the framework's complete setup.

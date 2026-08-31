@@ -4,6 +4,7 @@ import { Button } from '@moduix/react/button';
 import { Card } from '@moduix/react/card';
 import { Input } from '@moduix/react/input';
 import { Select } from '@moduix/react/select';
+import { useI18n } from '@rspress/core/runtime';
 import { useState } from 'react';
 import styles from './theme-presets.module.css';
 import '@moduix/react/presets/contrast.css';
@@ -14,50 +15,52 @@ const presets = [
   {
     value: 'calm',
     title: 'Calm',
-    description: 'The balanced moduix foundation. Quiet surfaces and a neutral rhythm.',
+    descriptionKey: 'themePresetCalmDescription',
     controlSize: '36px',
     popupSize: '32px',
   },
   {
     value: 'dense',
     title: 'Dense',
-    description: 'Compact spacing and blue structure for admin and data-heavy interfaces.',
+    descriptionKey: 'themePresetDenseDescription',
     controlSize: '34px',
     popupSize: '30px',
   },
   {
     value: 'soft',
     title: 'Soft',
-    description: 'Rounded surfaces and a warmer violet accent for product workflows.',
+    descriptionKey: 'themePresetSoftDescription',
     controlSize: '40px',
     popupSize: '34px',
   },
   {
     value: 'contrast',
     title: 'Contrast',
-    description: 'Sharper borders and clearer contrast for focused, technical interfaces.',
+    descriptionKey: 'themePresetContrastDescription',
     controlSize: '36px',
     popupSize: '32px',
   },
 ] as const;
 
-const stageCollection = createListCollection({
-  items: [
-    { label: 'Planning', value: 'planning' },
-    { label: 'In review', value: 'review' },
-    { label: 'Ready to ship', value: 'ready' },
-  ],
-});
+const stages = [
+  { value: 'planning', labelKey: 'themePreviewPlanning' },
+  { value: 'review', labelKey: 'themePreviewInReview' },
+  { value: 'ready', labelKey: 'themePreviewReadyToShip' },
+] as const;
 
 function ThemePresets() {
+  const t = useI18n<typeof import('i18n')>();
   const [preset, setPreset] = useState('calm');
   const [mode, setMode] = useState('light');
   const activePreset = presets.find((item) => item.value === preset) ?? presets[0];
+  const stageCollection = createListCollection({
+    items: stages.map((item) => ({ value: item.value, label: t(item.labelKey) })),
+  });
 
   return (
-    <section className={styles.root} aria-label="Theme preset preview">
+    <section className={styles.root} aria-label={t('themePresetPreviewLabel')}>
       <div className={styles.controls}>
-        <div className={styles.presetList} aria-label="Theme presets">
+        <div className={styles.presetList} aria-label={t('themePresetListLabel')}>
           {presets.map((item) => (
             <button
               key={item.value}
@@ -68,19 +71,19 @@ function ThemePresets() {
               onClick={() => setPreset(item.value)}
             >
               <span>{item.title}</span>
-              <small>{item.description}</small>
+              <small>{t(item.descriptionKey)}</small>
             </button>
           ))}
         </div>
 
-        <div className={styles.modeList} aria-label="Preview color mode">
+        <div className={styles.modeList} aria-label={t('themePreviewColorModeLabel')}>
           <button
             type="button"
             data-active={mode === 'light' || undefined}
             aria-pressed={mode === 'light'}
             onClick={() => setMode('light')}
           >
-            Light
+            {t('themePreviewLight')}
           </button>
           <button
             type="button"
@@ -88,7 +91,7 @@ function ThemePresets() {
             aria-pressed={mode === 'dark'}
             onClick={() => setMode('dark')}
           >
-            Dark
+            {t('themePreviewDark')}
           </button>
         </div>
       </div>
@@ -100,17 +103,19 @@ function ThemePresets() {
       >
         <div className={styles.previewHeader}>
           <div>
-            <span>moduix preset</span>
+            <span>{t('themePreviewLabel')}</span>
             <strong>{activePreset.title}</strong>
           </div>
           <div className={styles.previewMeta}>
             <span>
-              Controls <strong>{activePreset.controlSize}</strong>
+              {t('themePreviewControls')} <strong>{activePreset.controlSize}</strong>
             </span>
             <span>
-              Popup rows <strong>{activePreset.popupSize}</strong>
+              {t('themePreviewPopupRows')} <strong>{activePreset.popupSize}</strong>
             </span>
-            <Badge variant="secondary">{mode}</Badge>
+            <Badge variant="secondary">
+              {t(mode === 'light' ? 'themePreviewLight' : 'themePreviewDark')}
+            </Badge>
           </div>
         </div>
 
@@ -118,30 +123,30 @@ function ThemePresets() {
           <Card className={styles.previewCard}>
             <Card.Header>
               <div>
-                <Card.Title>Release workspace</Card.Title>
-                <Card.Description>One visual decision, applied across the system.</Card.Description>
+                <Card.Title>{t('themePreviewReleaseWorkspace')}</Card.Title>
+                <Card.Description>{t('themePreviewOneVisualDecision')}</Card.Description>
               </div>
               <Card.Action>
-                <Badge>Ready</Badge>
+                <Badge>{t('themePreviewReady')}</Badge>
               </Card.Action>
             </Card.Header>
             <Card.Body className={styles.previewBody}>
               <label className={styles.field}>
-                Project name
-                <Input defaultValue="Spring release" />
+                {t('themePreviewProjectName')}
+                <Input defaultValue={t('themePreviewSpringRelease')} />
               </label>
               <Select collection={stageCollection} defaultValue={['review']} portalled={false}>
-                <Select.Label>Stage</Select.Label>
+                <Select.Label>{t('themePreviewStage')}</Select.Label>
                 <Select.Control>
                   <Select.Trigger>
-                    <Select.ValueText placeholder="Select a stage" />
+                    <Select.ValueText placeholder={t('themePreviewSelectStage')} />
                     <Select.Indicator />
                   </Select.Trigger>
                 </Select.Control>
                 <Select.Positioner>
                   <Select.Content>
                     <Select.ItemGroup>
-                      <Select.ItemGroupLabel>Workflow</Select.ItemGroupLabel>
+                      <Select.ItemGroupLabel>{t('themePreviewWorkflow')}</Select.ItemGroupLabel>
                       {stageCollection.items.map((item) => (
                         <Select.Item key={item.value} item={item}>
                           <Select.ItemText>{item.label}</Select.ItemText>
@@ -153,13 +158,13 @@ function ThemePresets() {
                 </Select.Positioner>
               </Select>
               <div className={styles.stats}>
-                <span>12 tasks</span>
-                <span>4 reviewers</span>
+                <span>{t('themePreviewTaskCount')}</span>
+                <span>{t('themePreviewReviewerCount')}</span>
               </div>
             </Card.Body>
             <Card.Footer>
-              <Button>Create workspace</Button>
-              <Button variant="outline">Preview</Button>
+              <Button>{t('themePreviewCreateWorkspace')}</Button>
+              <Button variant="outline">{t('themePreviewPreview')}</Button>
             </Card.Footer>
           </Card>
         </div>

@@ -23,8 +23,8 @@ keys, secondary metadata, or a single disclosure row. Use `Accordion` for coordi
 
 - The public API is the Ark-shaped `Collapsible.*` namespace.
 - `Collapsible.Root` supports Ark props including `open`, `defaultOpen`, `onOpenChange(details)`,
-  `disabled`, `collapsedHeight`, `collapsedWidth`, `lazyMount`, `unmountOnExit`, `ids`, and
-  `onExitComplete`.
+  `disabled`, `collapsedHeight`, `collapsedWidth`, `hideMode`, `lazyMount`, `unmountOnExit`, `ids`,
+  and `onExitComplete`.
 - `Collapsible.RootProvider` accepts the return value from moduix `useCollapsible()`.
 - `Collapsible.Indicator` renders `ChevronDownIcon` when children are omitted.
 - `Collapsible.Body` is an optional inner layout wrapper for padding, gap, and surfaces inside
@@ -89,6 +89,8 @@ Controlled callbacks keep the Ark details object:
 - `Controlled`: `open` and `onOpenChange(details)` are forwarded without remapping.
 - `Disabled`: `disabled` is forwarded and exposed through Ark `data-disabled` hooks.
 - `Lazy Mount`: `lazyMount` and `unmountOnExit` are forwarded.
+- `Hide Mode`: `hideMode` supports the default `display-none` mode and React 19 `activity` mode for
+  mounted closed content.
 - `Nested`: independent `Collapsible.Root` trees can be nested inside content.
 - `Partial Collapse`: `collapsedHeight` and `collapsedWidth` are forwarded; the content animation
   uses Ark `--height`, `--width`, `--collapsed-height`, and `--collapsed-width` measurements.
@@ -173,7 +175,7 @@ Primary CSS variables:
   and descendant-context composition paths, while Ark type aliases remain direct escape hatches.
 - No legacy flat exports, aliases, or converted callback signatures are retained.
 
-## Upstream comparison (reviewed 2026-08-10)
+## Upstream comparison (reviewed 2026-08-30)
 
 | Source                                                               | Finding                                                                                                                             | Decision                                                                                                                                                                   |
 | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

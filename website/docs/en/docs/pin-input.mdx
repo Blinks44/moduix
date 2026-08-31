@@ -1,7 +1,7 @@
 ---
 title: Pin Input
 component: pin-input
-description: Ark UI pin input composition for PINs and short verification codes.
+description: A segmented input for short PINs and verification codes, with automatic focus management and OTP support.
 ---
 
 import * as PinInputDocs from '@/components/examples/pin-input';
@@ -12,17 +12,19 @@ import * as PinInputDocs from '@/components/examples/pin-input';
 
 ## Choosing the right component
 
-Use `PinInput` when a short fixed-length value should be entered across separate one-character
-inputs.
+Use `PinInput` when a short, fixed-length code should be entered one character at a time in separate cells.
 
-- Choose **`PinInput`** for one-time passwords, PINs, backup codes, and invite codes.
-- Choose **`Input`** when one plain text input is enough.
-- Choose **`PasswordInput`** when the value is one secret string with a visibility toggle.
+- Choose **`PinInput`** for one-time codes, PINs, backup codes, and invite codes.
+- Choose **`Input`** when one plain text field is enough.
+- Choose **`PasswordInput`** when the value is a single secret string with a visibility toggle.
 
 ## Basic
 
-Start with the Ark part tree: root state, label, control, `Inputs`, and the native form input. moduix renders that
-input automatically, preserving form submission and reset synchronization. Previews are centered by default.
+Use `<PinInput>` for the standard layout. It is a shorthand for `<PinInput.Root>`. Set `count` explicitly so the
+server-rendered markup and ARIA attributes are predictable.
+
+moduix renders a hidden native form input inside the root. Pass `name` when the value should be submitted with a form,
+and pass `form` as well when the component is not inside that form.
 
 ```tsx preview file="./_snippets/pin-input/basic.tsx"
 
@@ -41,67 +43,78 @@ PinInput / PinInput.Root
 │  ├─ PinInput.Input[index=0]
 │  ├─ PinInput.Input[index=1]
 │  └─ PinInput.Input[index=2]
-└─ native input (automatic)
+└─ hidden native input (automatic)
 ```
 
-| Part                           | Role                                                                  |
-| ------------------------------ | --------------------------------------------------------------------- |
-| `PinInput` / `PinInput.Root`   | Root state machine, count, value array, validation, and form options. |
-| `PinInput.RootProvider`        | Renders a pin input from state returned by `usePinInput`.             |
-| `PinInput.Label`               | Accessible label for the pin input group.                             |
-| `PinInput.Control`             | Wrapper around the visible indexed inputs.                            |
-| `PinInput.Input`               | One visible character input. Pass a zero-based `index`.               |
-| `PinInput.Inputs`              | Renders the standard indexed inputs from the Ark context.             |
-| `PinInput.Separator`           | moduix decorative grouping helper. Not an Ark primitive part.         |
-| `usePinInput` / `RootProvider` | External state ownership and imperative methods.                      |
+| Part                                   | Role                                                                                         |
+| -------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `PinInput` / `PinInput.Root`           | Root state machine, input count, value array, validation, and form options.                  |
+| `PinInput.RootProvider`                | Renders the tree from a state object returned by `usePinInput`.                              |
+| `PinInput.Context`                     | Exposes the current root state to descendants through a render prop.                        |
+| `PinInput.Label`                       | Labels the PIN or code input group.                                                          |
+| `PinInput.Control`                     | Container for the visible indexed inputs.                                                    |
+| `PinInput.Input`                       | One visible character input. Pass a zero-based `index`.                                      |
+| `PinInput.Inputs`                      | Generates one indexed `Input` for each item in the Ark context. Its `className` is applied to each input. |
+| `PinInput.Separator`                   | Decorative moduix helper for grouping. It is not an Ark primitive part.                      |
+| `usePinInput`                          | Creates state for use with `PinInput.RootProvider`.                                          |
+| `usePinInputContext`                    | Reads the current Pin Input state from inside the component tree.                            |
 
 ## Composition
 
 ### Recommended composition
 
-Use the short `<PinInput>` root form, render a visible `Label`, and keep `Control` around `Inputs`. The root always
-renders the native form input, preserving form submission, reset synchronization, and OTP autofill.
+Use the compact `<PinInput>` root, add a visible `Label`, and place `Inputs` inside `Control`. Use `name` when the
+code should be included in form submission.
 
 ### When to go custom
 
-Use explicit indexed `Input` parts for grouped layouts or per-input props. Reach for
-`PinInput.RootProvider` and `usePinInput` when state ownership needs to move outside the rendered
-tree. Keep Ark input indexes continuous across the full code.
+Render indexed `Input` parts and `Separator` explicitly when the code needs groups or individual input props. Use
+`PinInput.RootProvider` and `usePinInput` when state must be created outside the rendered tree. Keep indexes
+zero-based and continuous across the entire composition.
 
 ### Default props
 
-| Prop             | Default        | Notes                                                               |
-| ---------------- | -------------- | ------------------------------------------------------------------- |
-| `count`          | -              | Number of inputs. Pass it for SSR and indexed rendering.            |
-| `type`           | `numeric`      | `numeric`, `alphabetic`, or `alphanumeric`.                         |
-| `placeholder`    | `''` in moduix | Ark defaults to `○`; moduix hides it unless you pass `placeholder`. |
-| `otp`            | `false`        | Adds one-time-code autocomplete behavior when true.                 |
-| `mask`           | `false`        | Masks visible values like password inputs.                          |
-| `blurOnComplete` | `false`        | Blurs the last input after completion.                              |
-| `selectOnFocus`  | -              | Selects a focused input's current value when enabled.               |
-| `pattern`        | -              | Custom regular expression for accepted characters.                  |
-| `defaultValue`   | `[]`           | Uncontrolled value as a string array.                               |
-| `value`          | -              | Controlled value as a string array.                                 |
+| Prop             | Default        | Notes                                                                 |
+| ---------------- | -------------- | --------------------------------------------------------------------- |
+| `count`          | -              | Number of cells. Set it explicitly for predictable SSR and ARIA output. |
+| `type`           | `numeric`      | `numeric`, `alphabetic`, or `alphanumeric`.                           |
+| `placeholder`    | `''` in moduix  | Ark uses `○` by default; moduix uses an empty string unless you pass this prop. |
+| `otp`            | `false`        | Adds `autocomplete="one-time-code"` to the visible inputs.            |
+| `mask`           | `false`        | Masks entered characters like a password input.                       |
+| `blurOnComplete` | `false`        | Blurs the last input after all cells are filled.                      |
+| `selectOnFocus`  | -              | Selects the current value when an input receives focus.               |
+| `autoFocus`      | -              | Focuses the first input when the component mounts.                    |
+| `autoSubmit`     | -              | Submits the owning form after all inputs are filled.                  |
+| `pattern`        | -              | Custom regular expression for accepted characters.                    |
+| `sanitizeValue`  | -              | Cleans pasted values before validation, such as by removing spaces or dashes. |
+| `defaultValue`   | `[]`           | Uncontrolled initial value as a string array.                         |
+| `value`          | -              | Controlled value as a string array.                                   |
 
 ### Behavioral notes
 
-`value` and `defaultValue` are string arrays. `onValueChange(details)` and
-`onValueComplete(details)` expose `details.value` and `details.valueAsString`.
-`onValueInvalid(details)` exposes the rejected `details.value` and `details.index`.
+`value` and `defaultValue` are string arrays. `onValueChange(details)` and `onValueComplete(details)` expose
+`details.value` and `details.valueAsString`. `onValueInvalid(details)` exposes the rejected value in `details.value`
+and its `details.index`.
 
-Use `type` and `pattern` for value validation. `Field.Root` and `Fieldset.Root` can provide
-disabled, invalid, required, and read-only state through Ark context. Ark parts support `asChild`,
-and `ids` can be used when external labels or descriptions need stable element IDs.
+Use `type` for the built-in character sets and `pattern` for a custom regular expression. `sanitizeValue` receives
+pasted text and returns the value to validate.
 
-Set `autoSubmit` only when completing the code should submit its owning form. Keyboard interaction stays Ark-native:
-Arrow keys move between cells, Backspace moves back after clearing, Delete clears the current cell, and pasting fills
-the remaining cells.
+`Field.Root` and `Fieldset.Root` can provide `disabled`, `invalid`, `required`, and `readOnly` through Ark context.
+Pass root options such as `name`, `form`, `ids`, and `translations` to `PinInput`. The root and its parts support
+`asChild`.
+
+Pass `className` to `PinInput.Inputs` when every generated input should share the same class. Use explicit `Input`
+parts when individual inputs need different props or styles.
+
+Set `autoSubmit` only when completing the code should submit its owning form. Keyboard behavior follows Ark: arrow
+keys move between cells, Backspace clears a cell and moves back when needed, Delete clears the current cell, and
+pasting fills the remaining cells.
 
 ## Examples
 
-### Blur On Complete
+### Blur on Complete
 
-Set `blurOnComplete` when focus should leave the final input after all slots are filled.
+Set `blurOnComplete` when focus should leave the final input after all cells are filled.
 
 ```tsx preview file="./_snippets/pin-input/blur-on-complete.tsx"
 
@@ -109,7 +122,7 @@ Set `blurOnComplete` when focus should leave the final input after all slots are
 
 ### Change Events
 
-Control the value array from React state and read the Ark callback detail objects directly.
+Keep the value array in React state and read `details.value` or `details.valueAsString` from the Ark callbacks.
 
 ```tsx preview file="./_snippets/pin-input/change-events.tsx"
 
@@ -117,8 +130,8 @@ Control the value array from React state and read the Ark callback detail object
 
 ### Field
 
-Wrap `PinInput` in `Field` when label, helper text, invalid state, and error text should share Ark
-form accessibility wiring.
+Wrap `PinInput` in `Field` when the label, helper text, error text, and field state should be connected to the
+visible inputs through Ark's form accessibility behavior.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/pin-input/field.tsx"
@@ -129,7 +142,8 @@ form accessibility wiring.
 
 ### Grouped Layout
 
-Bypass `Inputs` when a grouped code needs a separator; keep Ark `Input` indexes continuous.
+Use explicit indexed `Input` parts when a separator divides the code into groups. Keep the indexes continuous even
+though the inputs are rendered in separate groups.
 
 ```tsx preview file="./_snippets/pin-input/grouped-layout.tsx"
 
@@ -137,7 +151,7 @@ Bypass `Inputs` when a grouped code needs a separator; keep Ark `Input` indexes 
 
 ### Masking
 
-Use `mask` when the entered value is sensitive and should be visually obscured.
+Set `mask` when the entered code is sensitive and should not be shown in plain text.
 
 ```tsx preview file="./_snippets/pin-input/masking.tsx"
 
@@ -145,7 +159,8 @@ Use `mask` when the entered value is sensitive and should be visually obscured.
 
 ### OTP Mode
 
-Set `otp` to let Ark apply one-time-code autocomplete behavior for mobile OTP suggestions.
+Set `otp` to add `autocomplete="one-time-code"` to the visible inputs and enable one-time-code suggestions on
+supported mobile browsers.
 
 ```tsx preview file="./_snippets/pin-input/otp-mode.tsx"
 
@@ -153,8 +168,7 @@ Set `otp` to let Ark apply one-time-code autocomplete behavior for mobile OTP su
 
 ### Placeholder
 
-Use `placeholder` to opt into visible placeholder characters for each input. moduix keeps the
-default placeholder empty.
+Pass `placeholder` to show a character in each empty cell. moduix leaves the placeholder empty by default.
 
 ```tsx preview file="./_snippets/pin-input/placeholder.tsx"
 
@@ -162,12 +176,23 @@ default placeholder empty.
 
 ### Advanced Customization
 
-Use `usePinInput` with `RootProvider` when state and imperative methods need to live outside the
-rendered tree. This example bypasses `Inputs` to show the full indexed Ark composition.
+Use `usePinInput` with `RootProvider` when state and imperative methods must be managed outside the rendered tree.
+This example replaces `Inputs` with explicit indexed `Input` parts.
 
 ```tsx preview file="./_snippets/pin-input/root-provider.tsx"
 
 ```
+
+## Accessibility
+
+Ark manages focus transfer, paste distribution, keyboard editing, hidden form data, and one-time-code
+autocomplete. Add a `Label` so the group has an accessible name.
+
+`PinInput.Separator` is decorative by default and renders with `aria-hidden` and `role="presentation"`. Keep
+meaningful text outside the separator.
+
+For native form submission, pass `name` to the root and use `form` when the component belongs to a form elsewhere in
+the document. The root renders the hidden native input automatically.
 
 ## Styling
 
@@ -187,14 +212,10 @@ rendered tree. This example bypasses `Inputs` to show the full indexed Ark compo
 
 ### Styling hooks
 
-- Root and root provider expose `data-slot="pin-input-root"` and `data-slot="pin-input-root-provider"`.
-- Ark parts keep `data-scope="pin-input"` and `data-part="root" | "label" | "control" | "input"`.
+- The root and `RootProvider` expose `data-slot="pin-input-root"` and `data-slot="pin-input-root-provider"`.
+- `Label`, `Control`, `Input`, and the hidden input expose `data-slot="pin-input-label"`,
+  `data-slot="pin-input-control"`, `data-slot="pin-input-input"`, and `data-slot="pin-input-hidden-input"`.
+- Ark parts use `data-scope="pin-input"` and `data-part="root" | "label" | "control" | "input"`.
 - Root state styling uses `data-disabled`, `data-invalid`, `data-complete`, and `data-readonly`.
-- Input state styling uses `data-disabled`, `data-invalid`, `data-complete`, `data-filled`, and
-  `data-index`.
+- Input state styling uses `data-disabled`, `data-invalid`, `data-complete`, `data-filled`, and `data-index`.
 - `PinInput.Separator` exposes `data-slot="pin-input-separator"` and is decorative by default.
-
-## Accessibility
-
-Ark owns focus transfer, paste distribution, keyboard editing, hidden-input form data, and
-autocomplete behavior. The root renders its native form input automatically; configure form participation with root props such as `name` and `form`.

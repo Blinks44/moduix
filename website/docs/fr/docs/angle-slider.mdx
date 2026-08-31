@@ -1,27 +1,30 @@
 ---
 title: Angle Slider
 component: angle-slider
-description: Une commande circulaire pour sélectionner un angle de 0 à 360 degrés.
+description: Contrôle circulaire permettant de choisir un angle compris entre 0 et 360 degrés.
 ---
 
 import * as AngleSliderDocs from '@/components/examples/angle-slider';
 
-## Référence de l’API
+## Référence API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/angle-slider" />
 
 ## Choisir le bon composant
 
-Utilisez `AngleSlider` lorsque les utilisateurs doivent manipuler une direction ou une rotation directement sur un cadran circulaire.
+Utilisez `AngleSlider` lorsque l’utilisateur doit définir une direction ou une rotation à l’aide d’un cadran
+circulaire.
 
-- Choisissez **`AngleSlider`** pour la rotation, le cap, la direction du projecteur ou d'autres valeurs angulaires.
-- Choisissez **`Slider`** lorsque la valeur est mieux comprise sur une plage linéaire.
-- Choisissez **`NumberInput`** lorsque la saisie exacte du diplôme est plus importante qu'une manipulation directe.
+- Choisissez **`AngleSlider`** pour faire pivoter un objet, définir un cap, orienter un projecteur ou régler toute
+  autre valeur angulaire.
+- Choisissez **`Slider`** lorsque la valeur est plus facile à choisir sur une échelle linéaire.
+- Choisissez **`NumberInput`** lorsque la saisie précise d’une valeur en degrés est plus importante qu’une
+  manipulation directe.
 
 ## Exemple de base
 
-Commencez par la plus petite composition utile : `Dial`. Ajoutez un `Label` visible plus tard, ou conservez
-`aria-label` à la racine lorsque le cadran peut être autonome.
+Commencez par la composition minimale avec `Dial`. `AngleSlider` accepte une seule valeur d’angle comprise entre 0
+et 360 degrés. Ajoutez si possible un `Label` visible. Si le cadran n’en a pas, ajoutez `aria-label` à la racine.
 
 <style>{AngleSliderDocs.angleSliderBasicCss}</style>
 
@@ -44,78 +47,85 @@ AngleSlider.Root
 │  ├─ AngleSlider.MarkerGroup
 │  │  └─ AngleSlider.Marker[value]
 │  └─ AngleSlider.Thumb
-└─ AngleSlider.ValueText
+├─ AngleSlider.ValueText
+└─ champ de formulaire natif masqué (ajouté automatiquement)
 ```
 
-| Partie | Rôle |
-| ---------------------------------- | --------------------------------------------------------------------- |
-| `AngleSlider` / `AngleSlider.Root` | Possède un état de curseur incontrôlé ou contrôlé.                         |
-| `AngleSlider.RootProvider` | Connecte l’état Ark appartenant à l’extérieur.                                  |
-| `AngleSlider.Label` | Associe une étiquette visible au curseur.                     |
-| `AngleSlider.Control` | Surface d'interaction du pointeur circulaire.                                 |
-| `AngleSlider.Dial` | Wrapper pratique qui restitue `Control` et `Thumb`.               |
-| `AngleSlider.MarkerGroup` | Contient des marqueurs de référence facultatifs.                                  |
-| `AngleSlider.Marker` | Positionne un marqueur numérique et expose sa relation avec la valeur actuelle. |
-| `AngleSlider.Marks` | Wrapper pratique qui restitue les éléments `MarkerGroup` et `Marker`.    |
-| `AngleSlider.Thumb` | Poignée coulissante focalisable et indicateur d'angle de rotation.                 |
-| `AngleSlider.ValueText` | Renvoie la valeur actuelle sous forme de texte de degré.                             |
+| Partie                             | Rôle                                                                    |
+| ---------------------------------- | ----------------------------------------------------------------------- |
+| `AngleSlider` / `AngleSlider.Root` | Racine stylisée qui gère l’état contrôlé ou non contrôlé du curseur.    |
+| `AngleSlider.RootProvider`         | Relie les parties à l’état Ark créé en dehors de l’arborescence rendue.  |
+| `AngleSlider.Label`                | Associe une étiquette visible au curseur.                               |
+| `AngleSlider.Control`              | Fournit la zone circulaire d’interaction avec le pointeur.              |
+| `AngleSlider.Dial`                 | Associe `Control` et `Thumb` ; accepte des enfants et `thumbClassName`.       |
+| `AngleSlider.MarkerGroup`          | Contient les marqueurs de référence facultatifs.                        |
+| `AngleSlider.Marker`               | Place un marqueur numérique et indique sa relation avec la valeur courante. |
+| `AngleSlider.Marks`                | Composition pratique qui crée les marqueurs à partir d’un tableau `values`. |
+| `AngleSlider.Thumb`                | Poignée pouvant recevoir le focus et indiquant l’angle courant.          |
+| `AngleSlider.ValueText`            | Affiche la valeur actuelle en degrés.                                   |
+
+moduix ajoute automatiquement le champ de formulaire natif masqué lorsque vous utilisez `Root` ou `RootProvider`.
+Vous n’avez pas besoin de rendre `HiddenInput` vous-même.
 
 ## Composition
 
 ### Composition recommandée
 
-Commencez par `Dial`, puis ajoutez uniquement les pièces qui correspondent au travail :
+Commencez par `Dial`, puis ajoutez uniquement les parties dont vous avez besoin :
 
-- ajoutez `Label` ou conservez `aria-label` pour une dénomination accessible
+- ajoutez `Label` ou `aria-label` pour donner au contrôle un nom accessible
 - ajoutez `Marks` lorsque les utilisateurs ont besoin de points de référence autour du cadran
-- ajoutez `ValueText` lorsque l'angle numérique doit rester visible
-- définir `name` quand l'angle doit participer à la soumission du formulaire natif
-- définir `form` lorsque l'entrée native appartient à un formulaire qui ne contient pas le curseur
+- ajoutez `ValueText` lorsque l’angle numérique doit rester visible
+- définissez `name` lorsque l’angle doit être inclus dans les données envoyées par un formulaire natif
+- définissez `form` lorsque le champ natif dépend d’un formulaire situé en dehors de l’arborescence du curseur
 
 ### Quand créer une composition personnalisée
 
-Utilisez des pièces explicites `Control`, `Thumb`, `MarkerGroup` et `Marker` lorsque le cadran doit être personnalisé
-enfants, accessoires par marqueur ou commande non standard. Utiliser `useAngleSlider()` à partir de `@moduix/react`
-avec `AngleSlider.RootProvider` lorsque l'état doit être contrôlé en dehors du sous-arbre du curseur rendu.
-Utilisez `AngleSlider.Context` et `useAngleSliderContext()` de moduix pour les lectures contextuelles. Ne pas rendre
-`Root` et `RootProvider` pour la même instance d'état.
+Utilisez explicitement les parties `Control`, `Thumb`, `MarkerGroup` et `Marker` lorsque vous avez besoin d’enfants
+personnalisés, de props spécifiques à chaque marqueur ou d’un ordre différent. Créez l’état avec `useAngleSlider()`
+depuis `@moduix/react/angle-slider`, puis transmettez-le à `AngleSlider.RootProvider` lorsque cet état doit rester
+accessible en dehors de l’arborescence rendue du curseur. Pour lire cet état dans un composant descendant, utilisez
+`AngleSlider.Context` ou `useAngleSliderContext()` depuis `@moduix/react/angle-slider`. Ne rendez pas `Root` et
+`RootProvider` pour la même instance d’état.
 
-Les pièces Ark DOM prennent en charge `asChild` ; fournir un enfant compatible qui peut préserver son clavier, sa concentration,
-ARIA et comportement du pointeur. `Dial` et `Marks` conservent une composition fixe en plusieurs parties, ils ne
-acceptez `asChild`. Avec `Root` ou `RootProvider`, utilisez un conteneur pouvant contenir les
-rendu des entrées cachées et des parties de curseur. Utilisez `ids` sur `Root` lorsque les éléments composés nécessitent un partage stable
-identifiants de partie. Les refs sont transmises à l’élément DOM affiché par chaque partie Ark enveloppée.
+Les parties DOM d’Ark prennent en charge `asChild`. Fournissez un seul enfant compatible qui conserve la gestion du
+clavier, du focus, de l’ARIA et du pointeur. `Dial` et `Marks` rendent toujours une composition fixe en plusieurs
+parties et ne prennent donc pas en charge `asChild`. Avec `Root` ou `RootProvider`, choisissez un conteneur pouvant
+accueillir l’entrée native masquée et les parties du curseur. Utilisez `ids` sur `Root` lorsque les éléments composés
+ont besoin d’identifiants communs et stables. Les refs sont transmises à l’élément DOM rendu par chaque partie Ark
+enveloppée.
 
 ### Propriétés par défaut
 
-| Accessoire | Par défaut | Remarques |
-| -------------- | ------- | ------------------------------------------ |
-| `defaultValue` | `0` | Angle initial non contrôlé |
-| `step` | `1` | Incrément de valeur du clavier et du pointeur |
-| `disabled` | `false` | Empêche la concentration et l'interaction |
-| `readOnly` | `false` | Conserve la valeur visible mais non modifiable |
-| `invalid` | `false` | Expose un état invalide pour ARIA et le style |
+| Prop                             | Par défaut | Remarques                                            |
+| -------------------------------- | ---------- | ---------------------------------------------------- |
+| `defaultValue`                   | `0`        | Angle initial en mode non contrôlé                   |
+| `step`                           | `1`        | Pas utilisé par le clavier et le pointeur            |
+| `disabled`                       | `false`    | Désactive le focus et les interactions               |
+| `readOnly`                       | `false`    | Laisse la valeur visible, mais empêche sa modification |
+| `invalid`                        | `false`    | Expose l’état invalide à ARIA et aux styles          |
 
 ### Comportement
 
-- `value` est un nombre unique ; Les `onValueChange(details)` et `onValueChangeEnd(details)` préservent Ark
-objets de rappel avec `details.value` et `details.valueAsDegree`.
-- Le pouce prend en charge le comportement du clavier du curseur Ark et le déplacement du pointeur autour du contrôle circulaire.
-- `AngleSlider.Marks` restitue le même DOM de marqueur et les mêmes crochets de style que `MarkerGroup` / explicite
-Composition `Marker`.
-- `Root` et `RootProvider` restituent automatiquement la saisie du formulaire natif. Définir `name` pour le formulaire
-soumission et `form` pour un propriétaire de formulaire externe. La réinitialisation native restaure un `Root` incontrôlé
-à `defaultValue` et un `RootProvider` à la valeur présente lors du montage. Un propriétaire contrôlé
-reste faisant autorité sur la valeur résultante.
-- `ValueText` restitue la chaîne de diplôme d'Ark lorsqu'aucun enfant personnalisé n'est fourni.
-- `data-disabled`, `data-invalid`, `data-readonly`, marqueur `data-state`, `--value`, `--angle`,
-`--marker-value` et `--marker-display-value` restent disponibles pour le style.
+- `value` est un nombre unique. `onValueChange(details)` et `onValueChangeEnd(details)` reçoivent l’objet `details`
+  transmis par Ark. La valeur numérique se trouve dans `details.value` et la chaîne en degrés dans
+  `details.valueAsDegree`.
+- La poignée reprend le comportement clavier du curseur Ark et le déplacement du pointeur autour du contrôle circulaire.
+- `AngleSlider.Marks` rend le même DOM de marqueurs et les mêmes sélecteurs de style que la composition explicite
+  `MarkerGroup` et `Marker`.
+- `Root` et `RootProvider` rendent automatiquement le champ de formulaire natif masqué. Définissez `name` pour
+  inclure l’angle dans les données du formulaire et `form` pour l’associer à un formulaire externe. Une
+  réinitialisation native ramène un `Root` non contrôlé à `defaultValue` et un `RootProvider` à la valeur présente
+  lors de son montage. En mode contrôlé, le code qui gère l’état reste prioritaire.
+- `ValueText` affiche la chaîne en degrés fournie par Ark lorsqu’aucun enfant personnalisé n’est fourni.
+- `data-disabled`, `data-invalid`, `data-readonly`, `data-state` des marqueurs, `--value`, `--angle`,
+  `--marker-value` et `--marker-display-value` restent disponibles pour les styles.
 
 ## Exemples
 
-### État contrôlé
+### Mode contrôlé
 
-Utilisez l'état contrôlé lorsque l'angle doit rester synchronisé avec l'état de l'application.
+Utilisez le mode contrôlé lorsque l’angle doit rester synchronisé avec l’état de l’application.
 
 <style>{AngleSliderDocs.angleSliderControlledCss}</style>
 
@@ -128,7 +138,8 @@ Utilisez l'état contrôlé lorsque l'angle doit rester synchronisé avec l'éta
 
 ### Désactivé
 
-Utilisez `disabled` lorsque le contrôle doit être indisponible et exclu de l’interaction.
+Utilisez `disabled` lorsque le contrôle doit être indisponible, ne plus recevoir le focus et ne plus répondre aux
+interactions.
 
 <style>{AngleSliderDocs.angleSliderDisabledCss}</style>
 
@@ -141,8 +152,9 @@ Utilisez `disabled` lorsque le contrôle doit être indisponible et exclu de l�
 
 ### Dans un formulaire
 
-Ajoutez `name` lorsque l'angle doit participer à la soumission ou à la réinitialisation du formulaire natif. module rend le
-saisie automatique du formulaire natif ; utilisez `form` lorsque le formulaire n'est pas un ancêtre du curseur.
+Ajoutez `name` pour inclure l’angle dans les données envoyées par le formulaire natif. moduix crée automatiquement le
+champ natif masqué et le bouton Reset illustre la réinitialisation native. Utilisez `form` lorsque le formulaire n’est
+pas un ancêtre du curseur.
 
 <style>{AngleSliderDocs.angleSliderFormCss}</style>
 
@@ -153,10 +165,10 @@ saisie automatique du formulaire natif ; utilisez `form` lorsque le formulaire 
 
 </PreviewFrame>
 
-### Invalide
+### Valeur invalide
 
-Utilisez `invalid` lorsque la validation de l'angle sélectionné échoue et que le cadran doit exposer une erreur de style et
-État ARIA sans changer le modèle d’interaction.
+Utilisez `invalid` lorsque la validation de l’angle sélectionné échoue. Le composant reflète alors l’état d’erreur
+dans ses styles et ses attributs ARIA, sans modifier son mode d’interaction.
 
 <style>{AngleSliderDocs.angleSliderInvalidCss}</style>
 
@@ -169,7 +181,8 @@ Utilisez `invalid` lorsque la validation de l'angle sélectionné échoue et que
 
 ### Lecture seule
 
-Utilisez `readOnly` lorsque la valeur actuelle doit rester focalisable et visible sans autoriser les modifications.
+Utilisez `readOnly` lorsque la valeur actuelle doit rester visible et pouvoir recevoir le focus, sans pouvoir être
+modifiée.
 
 <style>{AngleSliderDocs.angleSliderReadOnlyCss}</style>
 
@@ -182,8 +195,8 @@ Utilisez `readOnly` lorsque la valeur actuelle doit rester focalisable et visibl
 
 ### Root Provider
 
-Utilisez `useAngleSlider()` à partir de `@moduix/react` avec `AngleSlider.RootProvider` lorsqu'un autre composant
-a besoin d’un accès direct à la même machine à états. L’état externe reste disponible pour l’interface utilisateur environnante.
+Utilisez `useAngleSlider()` depuis `@moduix/react/angle-slider` avec `AngleSlider.RootProvider` lorsqu’un autre
+composant doit accéder au même état. L’état externe peut alors alimenter le reste de l’interface.
 
 <style>{AngleSliderDocs.angleSliderRootProviderCss}</style>
 
@@ -196,7 +209,7 @@ a besoin d’un accès direct à la même machine à états. L’état externe r
 
 ### Pas
 
-Utilisez `step` pour accrocher l’interaction du pointeur et du clavier à un incrément angulaire discret.
+Utilisez `step` pour faire suivre aux interactions du pointeur et du clavier des incréments angulaires fixes.
 
 <style>{AngleSliderDocs.angleSliderStepCss}</style>
 
@@ -207,11 +220,10 @@ Utilisez `step` pour accrocher l’interaction du pointeur et du clavier à un i
 
 </PreviewFrame>
 
-### Avec des marques
+### Avec des marqueurs
 
-Utilisez `AngleSlider.Marks` lorsque le cadran doit afficher des angles de référence communs sans répéter
-Modèle standard `MarkerGroup` et `Marker`. `AngleSlider.Dial` conserve les `Control` et `Thumb`
-composition en place.
+Utilisez `AngleSlider.Marks` lorsque le cadran doit afficher des angles de référence courants sans répéter la
+composition de `MarkerGroup` et `Marker`. `AngleSlider.Dial` regroupe `Control` et `Thumb` dans une seule composition.
 
 <style>{AngleSliderDocs.angleSliderWithMarksCss}</style>
 
@@ -224,8 +236,8 @@ composition en place.
 
 ### Personnalisation avancée
 
-Contournez `AngleSlider.Dial` et `AngleSlider.Marks` lorsque le cadran nécessite une composition de marqueurs personnalisée ou
-enfants supplémentaires à l'intérieur du contrôle.
+Utilisez les parties explicites à la place de `AngleSlider.Dial` et `AngleSlider.Marks` lorsque le cadran nécessite
+une composition de marqueurs personnalisée ou des enfants supplémentaires dans la zone de contrôle.
 
 <style>{AngleSliderDocs.angleSliderWithMarksCss}</style>
 
@@ -238,26 +250,25 @@ enfants supplémentaires à l'intérieur du contrôle.
 
 ## Styles
 
-Stylisez le composant via `className`, crochets stables `data-slot="angle-slider-*"`, Ark
-Attributs `data-scope="angle-slider"` / `data-part`, attributs d'état et CSS public
-variables ci-dessous.
+Personnalisez l’apparence du composant avec `className`, les sélecteurs stables `data-slot="angle-slider-*"`, les
+attributs Ark `data-scope="angle-slider"` / `data-part`, les attributs d’état et les variables CSS publiques
+ci-dessous.
 
 ### Propriétés CSS
 
 <CssPropertiesSection properties={AngleSliderDocs.angleSliderCssProperties} />
 
-### Points d’accroche CSS
+### Sélecteurs de style
 
-- `data-slot="angle-slider-root"` et `data-slot="angle-slider-root-provider"` possèdent leur propre disposition partagée.
-- `data-slot="angle-slider-control"` possède le cadran et reçoit `data-disabled`, `data-invalid`,
-et `data-readonly`.
-- `data-slot="angle-slider-thumb"` possède l'indicateur rotatif focalisable et peut être ciblé avec
-`:focus-visible`.
+- `data-slot="angle-slider-root"` et `data-slot="angle-slider-root-provider"` fournissent la mise en page commune.
+- `data-slot="angle-slider-control"` style le cadran et reçoit `data-disabled`, `data-invalid` et `data-readonly`.
+- `data-slot="angle-slider-thumb"` identifie l’indicateur rotatif qui peut recevoir le focus et être ciblé avec
+  `:focus-visible`.
 - `data-slot="angle-slider-marker"` expose `data-value` et
-`data-state="under-value | at-value | over-value"`.
-- `AngleSlider.Marks` restitue le même `data-slot="angle-slider-marker-group"` et
-Les crochets `data-slot="angle-slider-marker"` constituent les parties de marqueur explicites.
-- Variables racine Ark `--value` et `--angle` et variables marqueur `--marker-value` et
-Les `--marker-display-value` sont conservés.
-- Les couleurs de survol et de sonnerie active s'appliquent uniquement lorsque le cadran est interactif ; le mouvement du pouce est supprimé
-lorsque l'utilisateur préfère un mouvement réduit.
+  `data-state="under-value | at-value | over-value"`.
+- `AngleSlider.Marks` expose les mêmes sélecteurs `data-slot="angle-slider-marker-group"` et
+  `data-slot="angle-slider-marker"` que les parties de marqueur explicites.
+- Les variables Ark du root `--value` et `--angle`, ainsi que les variables de marqueur `--marker-value` et
+  `--marker-display-value`, restent disponibles.
+- Les couleurs de l’anneau au survol et lors de l’appui s’appliquent uniquement lorsque le cadran est interactif.
+  Les transitions de la poignée sont supprimées lorsque l’utilisateur préfère réduire les mouvements.

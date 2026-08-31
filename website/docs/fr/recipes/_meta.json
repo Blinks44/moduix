@@ -10,7 +10,12 @@
     "label": "Application"
   },
   { "type": "file", "name": "app-header", "label": "En-tête", "tag": "panel-top" },
-  { "type": "file", "name": "sidebar-dashboard", "label": "Tableau latéral", "tag": "panel-left" },
+  {
+    "type": "file",
+    "name": "sidebar-dashboard",
+    "label": "Tableau latéral",
+    "tag": "panel-left"
+  },
   {
     "type": "section-header",
     "label": "Accès"
@@ -21,7 +26,7 @@
   {
     "type": "file",
     "name": "reset-password",
-    "label": "Nouveau mot de passe",
+    "label": "Réinitialisation du mot de passe",
     "tag": "refresh-cw"
   },
   {
@@ -60,6 +65,11 @@
     "type": "section-header",
     "label": "Visuels"
   },
-  { "type": "file", "name": "autoplay-gallery", "label": "Galerie", "tag": "paintbrush" },
+  {
+    "type": "file",
+    "name": "autoplay-gallery",
+    "label": "Galerie à lecture automatique",
+    "tag": "paintbrush"
+  },
   { "type": "file", "name": "parallax-card", "label": "Carte parallaxe", "tag": "orbit" }
 ]

@@ -1,41 +1,42 @@
 ---
 title: Collections
-description: Structures de données et hooks React d’Ark UI pour les listes, les arbres, les données asynchrones et la sélection.
+description: Structures de données et hooks React d’Ark UI pour les listes, les arbres, le chargement asynchrone et la sélection.
 ---
 
 import { Card, Cards } from '@/components/mdx/Components';
 
 # Collections
 
-Les collections Ark UI constituent la couche de données des interfaces à base de listes. Elles décrivent l’identité,
-les libellés, l’état désactivé et l’ordre de parcours des éléments ; les composants moduix affichent l’interaction
-accessible à partir de ces données.
+Les collections sont des structures de données et des hooks pour les interfaces à base de listes. Elles regroupent
+les valeurs et les libellés des éléments, leur état désactivé, la hiérarchie et l’état du chargement asynchrone dans
+un format exploitable par les composants Ark UI. Elles ne rendent pas l’interface elles-mêmes : les composants moduix
+fournissent l’interaction accessible autour de ces données.
 
-Utilisez une collection lorsque les données sont partagées par `Select`, `Combobox`, `Listbox`, `TreeView` ou une
-liste personnalisée. Ces API s’importent directement depuis Ark UI, et les pages associées montrent comment les
-relier aux composants moduix.
+Utilisez une collection avec `Select`, `Combobox`, `Listbox`, `TreeView`, une liste personnalisée ou une arborescence.
+Les utilitaires de collection s’importent directement depuis Ark UI. Les guides ci-dessous montrent comment créer et
+mettre à jour les collections, les relier aux composants moduix et gérer le chargement ou la sélection.
 
 ## Guides
 
 <Cards>
   <Card
     title="Async List"
-    description="Chargez, filtrez, triez et paginez des données de liste distantes."
+    description="Chargez des données depuis un serveur, filtrez-les, triez-les et gérez la pagination."
     href="/docs/async-list"
   />
   <Card
     title="List Collection"
-    description="Modélisez des éléments de tableau, la recherche, le parcours, le regroupement et les mises à jour."
+    description="Créez des collections à partir de tableaux, recherchez et regroupez les éléments, puis mettez-les à jour."
     href="/docs/list-collection"
   />
   <Card
     title="List Selection"
-    description="Gérez la sélection simple, multiple, désactivable et par plage."
+    description="Gérez la sélection simple ou multiple, la désélection et la sélection par plage."
     href="/docs/list-selection"
   />
   <Card
     title="Tree Collection"
-    description="Modélisez les données hiérarchiques, le parcours, le filtrage et les mises à jour d’arbres."
+    description="Créez des collections pour des données hiérarchiques, recherchez les nœuds, parcourez et mettez à jour l’arbre."
     href="/docs/tree-collection"
   />
 </Cards>

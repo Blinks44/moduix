@@ -1,59 +1,81 @@
 ---
 title: Formisch
-description: Intégrez les contrôles natifs et composites de moduix à Formisch et Valibot.
+description: Connectez les composants moduix à Formisch et Valibot pour un état de formulaire et une validation typés.
 ---
 
 # Formisch
 
-La [documentation de Formisch](https://formisch.dev) et la [documentation de
-Valibot](https://valibot.dev) détaillent les API de schéma, de stockage et de validation. Cette page
-explique comment les intégrer à moduix.
+[Formisch](https://formisch.dev) et [Valibot](https://valibot.dev) documentent en détail les API de
+schéma, de stockage et de validation. Cette page explique comment connecter la version stable v1 de
+Formisch aux composants moduix.
 
-Formisch est centré sur le schéma : transmettez un schéma Valibot à `useForm`, puis affichez les
-champs avec son composant `Field` non visuel. Passez `field.props` par spread aux contrôles natifs et
-utilisez `field.input` avec `field.onChange` pour les composants composites Ark.
+Formisch part du schéma : transmettez un schéma Valibot à `useForm`, puis affichez chaque champ avec
+le composant `Field` de Formisch, qui ne génère pas de structure visuelle. Passez `field.props` aux
+éléments natifs. Lorsqu’un composant composite gère sa valeur sur son élément racine, transmettez-lui
+`field.input` et reliez son gestionnaire de changement à `field.onChange`.
 
 ```bash
 npm install @formisch/react valibot
 ```
 
-## Correspondances
+## Relier les champs à moduix
 
-| Contrôle | Intégration à Formisch |
-| -------- | ---------------------- |
-| `Input`, `Textarea`, `Field.Select` | Passez `field.props` par spread, puis `value={field.input}` afin que le champ reste contrôlé. |
-| `Select`, `Combobox` | Lisez `field.input` et transmettez les données du composant à `field.onChange`. |
-| `Checkbox` | Transmettez `details.checked === true` à `field.onChange`. |
-| Contrôles natifs automatiques | Conservez l’état sur l’élément racine du composant ; n’ajoutez pas un autre champ masqué. |
+Formisch et moduix exportent tous deux un composant nommé `Field`. Donnez un alias à l’import de
+Formisch afin que le rôle de chaque composant soit clair dans le même fichier :
 
-Utilisez le `Field` de Formisch sous le nom `FormischField` à côté du `Field` de moduix. Le schéma
-Valibot fournit les messages de validation et les chemins de ses champs restent sûrs au niveau des types.
+- le `Field` de Formisch relie un chemin du schéma à l’état du champ ;
+- le `Field` de moduix affiche le libellé, le message d’erreur et l’état d’accessibilité du champ.
 
-Formisch fournit `form.isSubmitting` pendant l’exécution du gestionnaire de soumission asynchrone.
-Utilisez-le pour empêcher les soumissions répétées et mettre à jour le texte du bouton tout en gardant
-les valeurs courantes visibles.
+`field.props` contient le nom, la ref et les gestionnaires liés au focus d’un champ natif. `field.input`
+est sa valeur actuelle, `field.errors` vaut `null` ou contient un tableau de messages, et
+`field.onChange` met à jour la valeur d’un composant personnalisé.
+
+| Composant | Intégration à Formisch |
+| --- | --- |
+| `Input`, `Textarea` | Passez `field.props` et définissez `value={field.input ?? ''}`. |
+| `Select` | Passez `name={field.props.name}`, contrôlez `value` comme un tableau de chaînes et reliez `onValueChange` à `field.onChange`. moduix génère l’élément natif. |
+| `Combobox` | Passez `name={field.props.name}`, contrôlez la valeur sélectionnée et reliez `onValueChange` à `field.onChange`. Passez les gestionnaires de focus à `Combobox.Input`. |
+| `Checkbox` | Passez `name={field.props.name}`, contrôlez `checked` et reliez `onCheckedChange` à `field.onChange`. moduix génère l’élément natif. |
+
+N’ajoutez pas de champ masqué supplémentaire pour `Select` ou `Checkbox`. Leurs racines moduix
+génèrent déjà l’élément natif nécessaire à la soumission et à la réinitialisation. Pour
+`Combobox`, le nom du champ se définit sur la racine.
 
 ## Validation et réinitialisation
 
-Le schéma Valibot est l’unique source de validation de Formisch ; aucun resolver n’est nécessaire.
-`validate` choisit la première validation (`"submit"`, `"blur"`, `"input"` ou `"initial"`) et
-`revalidate` détermine quand Formisch valide à nouveau après la première exécution. L’exemple valide à
-la soumission, puis revalide les valeurs modifiées pendant la saisie : les erreurs apparaissent après
-la première soumission et disparaissent lorsque l’utilisateur corrige le champ.
+Passez directement le schéma Valibot à `useForm` : Formisch v1 n’a pas besoin de resolver. Par
+défaut, la première validation a lieu à la soumission, puis les valeurs sont revalidées à la saisie.
+Utilisez `validate: 'blur'`, `validate: 'input'` ou `validate: 'initial'` pour choisir un autre
+déclencheur initial. Définissez `revalidate` pour modifier le moment des validations suivantes.
 
-`field.errors` vaut `null` ou contient un tableau de messages. Utilisez ce résultat pour `Field invalid`
-et affichez-le avec `Field.ErrorText` ; le même contexte de champ transmet l’état invalide aux
-contrôles qui connaissent Ark. Le composant `Form` de Formisch empêche la soumission standard du
-navigateur et ajoute `noValidate`, de sorte que Formisch gère le flux de validation. Pour restaurer
-`initialInput`, appelez `reset(form)` de Formisch et ne vous contentez pas de réinitialiser le formulaire
-DOM natif : son état de champ contrôlé sera ainsi réinitialisé lui aussi.
+Le composant `Form` empêche la soumission native du navigateur, définit `noValidate` et n’appelle
+`onSubmit` que lorsque les valeurs courantes respectent le schéma. Pendant l’exécution d’un
+gestionnaire asynchrone, `form.isSubmitting` vaut `true`. Vous pouvez ainsi empêcher les requêtes
+en double et afficher l’état de chargement sur le bouton de soumission.
 
-## Exemple
+Sans `initialInput`, un champ chaîne obligatoire commence par `''`. Utilisez `initialInput` pour des
+données chargées ou lorsque la valeur initiale doit être explicite. Un champ contrôlé doit recevoir
+sa valeur depuis `field.input`, sinon un appel à `reset` ou `setInput` ne pourra pas mettre à jour ce
+que voit l’utilisateur.
 
-Ce formulaire utilise la validation de Formisch à la soumission et revalide les valeurs modifiées à la
-saisie. Les composants natifs `Input` et `Textarea` reçoivent directement les props de Formisch ;
-`Select`, `Combobox` et `Checkbox` font correspondre les données de leurs callbacks Ark à l’état du
-champ Formisch.
+`field.errors` contient les messages d’un champ. Passez sa présence à `Field invalid` et affichez le
+premier message avec `Field.ErrorText`, comme dans l’exemple ci-dessous. Pour restaurer les valeurs
+courantes à leurs valeurs initiales, appelez la méthode `reset` de Formisch au lieu de réinitialiser
+uniquement le formulaire DOM :
+
+```tsx
+import { reset } from '@formisch/react';
+
+reset(form);
+reset(form, { initialInput: { name: '', team: '' } });
+```
+
+## Exemple complet
+
+Ce formulaire valide à la soumission, puis revalide les valeurs modifiées pendant la saisie. `Input`
+et `Textarea` reçoivent directement les props de Formisch. `Select`, `Combobox` et `Checkbox`
+conservent leurs valeurs sur leurs racines moduix et transmettent les changements via
+`field.onChange`.
 
 <style>{`
       .form {
@@ -83,72 +105,90 @@ champ Formisch.
 
 ## Champs répétés
 
-Utilisez `FieldArray` pour afficher une liste modifiable ainsi que les helpers `insert` et `remove` de
-Formisch pour la modifier. `fieldArray.items` fournit des ID stables pour les clés React ; l’index ne
-sert que dans le chemin du champ de l’élément courant. Utilisez `Fieldset` lorsque la liste a besoin
-d’un libellé partagé ou d’une erreur au niveau du groupe. Cet extrait doit se trouver dans un
-composant `Form` utilisant le `form` créé ici.
+Utilisez `FieldArray` pour une liste de champs que l’utilisateur peut ajouter ou supprimer. Son
+tableau `items` contient des identifiants stables à utiliser comme clés React. Gardez l’index dans
+le chemin Formisch, mais ne l’utilisez jamais comme clé React. Placez les erreurs du tableau dans
+`fieldArray.errors` ; utilisez `Fieldset` si la liste a besoin d’une légende commune ou d’une erreur
+de groupe.
+
+L’exemple suivant est complet : il crée le formulaire, affiche le tableau dans `Form` et utilise les
+méthodes v1 `insert` et `remove`.
 
 ```tsx
-import { Field as FormischField, FieldArray, insert, remove, useForm } from '@formisch/react';
+import { Field as FormischField, FieldArray, Form, insert, remove, useForm } from '@formisch/react';
 import { Button } from '@moduix/react/button';
+import { Fieldset } from '@moduix/react/fieldset';
 import { Field } from '@moduix/react/field';
+import { Input } from '@moduix/react/input';
 import * as v from 'valibot';
 
 const formSchema = v.object({
-  name: v.pipe(v.string(), v.minLength(1, 'Enter a project name.')),
-  emails: v.array(
-    v.object({
-      address: v.pipe(v.string(), v.email('Enter a valid email address.')),
-    }),
+  emails: v.pipe(
+    v.array(
+      v.object({
+        address: v.pipe(v.string(), v.email('Enter a valid email address.')),
+      }),
+    ),
+    v.minLength(1, 'Add at least one email address.'),
   ),
 });
 
-const form = useForm({
-  schema: formSchema,
-  initialInput: { name: '', emails: [{ address: '' }] },
-});
+export default function EmailForm() {
+  const form = useForm({
+    schema: formSchema,
+    initialInput: { emails: [{ address: '' }] },
+  });
 
-<FieldArray of={form} path={['emails']}>
-  {(fieldArray) => (
-    <>
-      {fieldArray.items.map((item, index) => (
-        <FormischField key={item} of={form} path={['emails', index, 'address']}>
-          {(field) => (
-            <Field invalid={field.errors !== null}>
-              <Field.Label>Email {index + 1}</Field.Label>
-              <Input type="email" {...field.props} value={field.input} />
-              <Field.ErrorText>{field.errors?.[0]}</Field.ErrorText>
-              <Button type="button" onClick={() => remove(form, { path: ['emails'], at: index })}>
-                Remove email
-              </Button>
-            </Field>
-          )}
-        </FormischField>
-      ))}
+  return (
+    <Form of={form} onSubmit={(values) => console.log(values)}>
+      <FieldArray of={form} path={['emails']}>
+        {(fieldArray) => (
+          <Fieldset invalid={fieldArray.errors !== null}>
+            <Fieldset.Legend>Email addresses</Fieldset.Legend>
 
-      <Button
-        type="button"
-        onClick={() => insert(form, { path: ['emails'], initialInput: { address: '' } })}
-      >
-        Add email
-      </Button>
-    </>
-  )}
-</FieldArray>;
+            {fieldArray.items.map((item, index) => (
+              <FormischField key={item} of={form} path={['emails', index, 'address']}>
+                {(field) => (
+                  <Field invalid={field.errors !== null}>
+                    <Field.Label>Email {index + 1}</Field.Label>
+                    <Input type="email" {...field.props} value={field.input ?? ''} />
+                    <Field.ErrorText>{field.errors?.[0]}</Field.ErrorText>
+                    <Button
+                      type="button"
+                      onClick={() => remove(form, { path: ['emails'], at: index })}
+                    >
+                      Remove email
+                    </Button>
+                  </Field>
+                )}
+              </FormischField>
+            ))}
+
+            <Fieldset.ErrorText>{fieldArray.errors?.[0]}</Fieldset.ErrorText>
+            <Button
+              type="button"
+              onClick={() => insert(form, { path: ['emails'], initialInput: { address: '' } })}
+            >
+              Add email
+            </Button>
+          </Fieldset>
+        )}
+      </FieldArray>
+    </Form>
+  );
+}
 ```
 
-Dans une application qui importe les deux bibliothèques, donnez au `Field` de Formisch l’alias
-`FormischField` afin de le distinguer du `Field` de moduix, comme dans le formulaire complet ci-dessus.
+## Erreurs renvoyées par le serveur
 
-## Erreurs du serveur
+La validation du schéma couvre les erreurs vérifiables dans le navigateur. Si le serveur refuse une
+requête, appelez `setErrors` après la requête. Indiquez `path` pour un message lié à un champ précis
+et omettez-le pour un message au niveau du formulaire. Effacez les erreurs de la requête précédente
+avant de réessayer.
 
-Appelez `setErrors` après la requête : utilisez `path` pour un message lié à un champ précis et
-omettez-le pour un message au niveau du formulaire. Le formulaire ci-dessous utilise le même schéma
-que l’extrait avec le tableau ; `name` est donc un chemin de champ valide. Avant une nouvelle
-soumission, effacez les erreurs de la requête précédente, puis affichez les erreurs de champ avec la
-même correspondance `field.errors` que pour les erreurs Valibot. Le chemin d’un élément de tableau
-suit la même structure, par exemple `['emails', index, 'address']`.
+`form.errors` ne contient que les erreurs au niveau du formulaire. Les erreurs d’un champ restent dans
+le `field.errors` correspondant : affichez chaque type à l’endroit attendu et conservez les valeurs
+saisies par l’utilisateur.
 
 ```tsx
 import { Form, setErrors } from '@formisch/react';
@@ -175,20 +215,20 @@ import { Form, setErrors } from '@formisch/react';
 </Form>;
 ```
 
-## Comportement
+## Comportement et focus
 
-- `field.props` est destiné aux événements et aux attributs du champ natif. Passez-le par spread à
-  `Input` ou `Textarea`, puis définissez `value={field.input}` pour que le contrôle affiché reflète
-  l’état de Formisch.
-- Les composants composites Ark utilisent des callbacks avec des données et non des événements de
-  changement natifs. Lisez `field.input`, puis transformez les données en valeur de champ avec
-  `field.onChange`, comme le font les champs `Select`, `Combobox` et `Checkbox` de l’exemple.
-- Conservez `name`, `form` et les options de formulaire particulières sur l’élément racine moduix des
-  contrôles qui affichent automatiquement leur champ natif. N’ajoutez pas un autre champ masqué pour
-  le même champ Formisch.
-- Formisch place le focus sur le premier champ natif ou textarea non valide au moyen de l’élément
-  enregistré dans `field.props.ref`. `Combobox.Input` peut recevoir séparément `ref`, `autoFocus`,
-  `onFocus` et `onBlur`. `Select.Trigger` est un bouton et ne correspond pas au type de ref d’un champ
-  Formisch ; si le Select peut être le premier contrôle non valide, placez le focus sur le premier
-  élément `[aria-invalid="true"]` affiché depuis le gestionnaire d’échec de soumission de
-  l’application, plutôt que de forcer le type de la ref.
+- Passez `field.props` à `Input` et `Textarea`, puis définissez `value={field.input ?? ''}` afin que
+  `initialInput`, `setInput` et `reset` mettent à jour l’élément visible.
+- Utilisez `field.onChange` pour un composant qui gère lui-même sa valeur. Ne transmettez pas son
+  objet `details` au gestionnaire natif `field.props.onChange` : celui-ci attend un événement DOM et
+  lit une chaîne dans l’élément.
+- Gardez `name`, `form` et les options de formulaire propres au composant sur la racine moduix. Les
+  racines de `Select` et `Checkbox` gèrent leurs éléments natifs, tandis que `Combobox` utilise le nom de sa
+  racine pour la soumission.
+- Pour `Combobox`, transmettez `field.props.ref`, `field.props.onFocus` et `field.props.onBlur` à
+  `Combobox.Input`, c’est-à-dire à l’élément réellement mis au focus par l’utilisateur.
+- Les wrappers moduix `Select` et `Checkbox` gardent leurs parties natives en interne. Ne forcez pas
+  le type de `field.props.ref` pour le passer à leur racine. Si l’un de ces composants peut être le
+  premier contrôle invalide et que l’application doit gérer elle-même le focus après un échec de
+  soumission, conservez une ref vers son trigger ou contrôle visible et donnez-lui le focus dans le
+  gestionnaire de soumission de l’application.

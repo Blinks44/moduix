@@ -30,19 +30,20 @@ puis adaptez les données et le comportement à votre application.
 <Cards>
   <Card
     title="En-tête d’application"
-    description="Une barre d’en-tête compacte avec navigation, notifications et actions liées au compte."
+    description="Un en-tête d’application responsive avec navigation principale, espace de travail actif, recherche et actions liées au compte."
     href="/recipes/app-header"
     preview={<AppHeaderCardPreview />}
   />
   <Card
-    title="Tableau de bord avec barre latérale"
-    description="Une navigation de bureau redimensionnable, avec éléments imbriqués et menu d’espace de travail."
+    title="Tableau de bord avec navigation latérale"
+    description="Une structure d’application pour ordinateur, avec navigation redimensionnable, éléments imbriqués et menu d’espace de travail."
     href="/recipes/sidebar-dashboard"
     preview={<SidebarDashboardCardPreview />}
   />
 </Cards>
 
-La barre d’en-tête convient à cette structure.
+L’en-tête peut être placé au-dessus de la barre latérale lorsque le produit a besoin d’une navigation
+globale et d’une navigation propre à une section.
 
 ## Authentification
 
@@ -73,7 +74,7 @@ La barre d’en-tête convient à cette structure.
   />
   <Card
     title="Code de vérification"
-    description="Saisie d’un code à six chiffres reçu par e-mail, avec remplissage OTP sur mobile et renvoi du code."
+    description="Saisissez un code à six chiffres avec remplissage automatique sur mobile. Connectez la vérification et le renvoi du code à votre serveur."
     href="/recipes/verification-code"
     preview={<VerificationCodeCardPreview />}
   />
@@ -114,8 +115,8 @@ Ces recettes aident à représenter les personnes et les éléments d’identit�
 
 <Cards>
   <Card
-    title="Galerie en lecture automatique"
-    description="Un carrousel de contenu à la une avec navigation latérale, texte flouté sur les diapositives et indicateurs de progression."
+    title="Galerie à lecture automatique"
+    description="Un carrousel à lecture automatique avec diapositives voisines partiellement visibles, texte superposé, navigation par flèches et indicateurs de progression."
     href="/recipes/autoplay-gallery"
     preview={<AutoplayGalleryCardPreview />}
   />

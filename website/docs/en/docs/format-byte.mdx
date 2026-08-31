@@ -1,6 +1,6 @@
 ---
 title: Format Byte
-description: Format byte values as readable file sizes with Ark UI Format.Byte and moduix components.
+description: Format byte values as readable file sizes with Ark UI Format.Byte, locale-aware units, and decimal or binary scaling.
 ---
 
 ## API Reference
@@ -9,8 +9,9 @@ description: Format byte values as readable file sizes with Ark UI Format.Byte a
 
 ## When to use it
 
-Use `Format.Byte` to format a byte count as a readable file size for uploads, downloads, storage quotas, and telemetry.
-Pass the raw number of bytes; Ark selects an appropriate unit such as kB, MB, or GB.
+Use `Format.Byte` when you have a byte count but need to show a readable file size, such as an upload, download,
+storage quota, or telemetry value. Pass the number of bytes in `value`; the formatter chooses an appropriate unit such
+as kB, MB, or GB.
 
 Import `Format` directly from Ark UI:
 
@@ -20,8 +21,8 @@ import { Format } from '@ark-ui/react';
 
 ## Basic
 
-`Format.Byte` renders text only, so place it beside UI that explains what the value means. The example keeps the file
-size close to the export it describes.
+`Format.Byte` returns formatted text without a label or layout. Place it next to a label or status that explains what
+the value represents. The example keeps the file size close to the export it describes.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/format-byte/basic.tsx"
@@ -29,10 +30,11 @@ size close to the export it describes.
   ```
 </PreviewFrame>
 
-## Decimal and binary units
+## Decimal and binary systems
 
-Use `unitSystem="decimal"` when 1 kB means 1000 bytes, and `unitSystem="binary"` when units increase by a factor of
-1024. Make the choice explicit whenever a product distinguishes advertised disk capacity from technical storage values.
+Use `unitSystem="decimal"` when units are scaled in multiples of 1000, and `unitSystem="binary"` when they are scaled
+in multiples of 1024. Make the choice explicit whenever a product distinguishes advertised disk capacity from
+technical storage values.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/format-byte/unit-system.tsx"
@@ -42,8 +44,8 @@ Use `unitSystem="decimal"` when 1 kB means 1000 bytes, and `unitSystem="binary"`
 
 ## Locale and display options
 
-`Format.Byte` reads its locale from `LocaleProvider`. moduix re-exports that provider, so it can be the shared locale
-provider for your interface:
+`Format.Byte` reads its locale from the nearest `LocaleProvider`. Without a provider, Ark uses `en-US`. moduix
+re-exports the provider from `@moduix/react/locale`, so you can place it around the localized part of your interface:
 
 ```tsx
 import { Format } from '@ark-ui/react';
@@ -58,16 +60,18 @@ export function LocalizedFileSize() {
 }
 ```
 
-Use `unit="byte"` or `unit="bit"` to choose between bytes and bits. `unitDisplay="narrow"`, `"short"`, or `"long"`
-controls how the unit is written. Keep the same unit system and display style for related file sizes so they remain
-easy to compare.
+Use `unit="byte"` for a byte count, or `unit="bit"` when `value` is a bit count. `unitDisplay="narrow"`, `"short"`,
+or `"long"` controls how the unit is written. `precision` sets the number of significant digits and defaults to 3.
+`unitSystem` defaults to `decimal`, `unit` to `byte`, and `unitDisplay` to `short`. Unit labels follow the active
+locale. Keep the same unit system, display style, and precision for related file sizes so they remain easy to compare.
 
 ## Using moduix
 
-`Format.Byte` deliberately renders only formatted text. Use moduix `Card`, `Stack`, `Text`, and status components to
-explain what the size represents; do not create a new component just to format a number.
+`Format.Byte` does not add a label, spacing, or other interface elements. Use moduix `Card`, `Stack`, `Text`, and status
+components to explain what the size represents. If you only need formatted text, no additional moduix component is
+required.
 
 ## Ownership
 
-Ark UI handles byte formatting and the `Format.Byte` API. moduix supplies the surrounding interface components and
-re-exports `LocaleProvider`, but does not re-export `Format.Byte`.
+Ark UI owns byte formatting and the `Format.Byte` API. moduix supplies the surrounding interface components and
+re-exports `LocaleProvider` from `@moduix/react/locale`, but does not re-export `Format.Byte`.

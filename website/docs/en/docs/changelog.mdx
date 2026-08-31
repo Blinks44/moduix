@@ -1,63 +1,106 @@
 ---
 title: Changelog
-description: Product releases, breaking changes, and the supported moduix version policy.
+description: Product releases, breaking changes, and moduix's version-support policy.
 ---
 
 import { LocalizationHero } from '@/components/changelog/localization-hero';
 import { V2MigrationHero } from '@/components/changelog/v2-migration-hero';
 import { ChartHero } from '@/components/changelog/chart-hero';
+import { NavigationMenuHero } from '@/components/changelog/navigation-menu-hero';
+import { TableOfContentsHero } from '@/components/changelog/table-of-contents-hero';
 import { ChangelogNewsItem } from '@/components/changelog/hero';
+
+<ChangelogNewsItem>
+  <TableOfContentsHero />
+
+[Table of Contents](/docs/table-of-contents) keeps document navigation in sync with the section in
+view. Pass the headings you want to track: the component highlights the active entry and links
+each item to its matching heading.
+
+### Highlights
+
+- Build the reading area with `Toc.Content` and the navigation with `Toc.Nav`. Each tracked item
+  points to one stable heading ID.
+- Use `Toc.Indicator` or `Toc.Rail` to show hierarchy. Add `Toc.RootProvider` only when controls
+  outside the table of contents need to share its tracking state.
+</ChangelogNewsItem>
+
+<ChangelogNewsItem>
+  <NavigationMenuHero />
+
+[Navigation Menu](/docs/navigation-menu) gives top-level product or site navigation a clear
+structure. Use direct links for destinations and disclosure panels when a destination has related
+links.
+
+### Highlights
+
+- Use `NavigationMenu.Link` for direct destinations and a `NavigationMenu.Trigger` /
+  `NavigationMenu.Content` pair for a group of related links.
+- Add `NavigationMenu.Viewport` when several panels should animate inside one shared surface.
+  Ark UI manages keyboard interaction, focus, and the open value; `Arrow` is optional.
+</ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <ChartHero />
 
-  [Chart](/docs/chart) brings composable, accessible data visualizations to moduix, powered by
-  TanStack Charts. Build line, area, bar, donut, scatter, and heatmap charts with moduix figure,
-  legend, tooltip, and motion defaults while keeping TanStack’s definition API.
+[Chart](/docs/chart) adds an accessible `figure` around TanStack Charts. Define the chart with
+TanStack, then use moduix for the figure header, legend, compact tooltip, and motion defaults.
+The TanStack configuration API remains unchanged.
 
-  ### What’s included
+### Highlights
 
-  - A semantic figure composition with `Chart.Header`, `Chart.Plot`, and `Chart.Legend`.
-  - A compact default tooltip, keyboard navigation, focus styling, and motion that respects reduced-motion preferences.
+- Keep marks, scales, interactions, and callbacks in a TanStack definition, then compose it with
+  `Chart.Header`, `Chart.Plot`, and `Chart.Legend`.
+- TanStack continues to own keyboard navigation and the tooltip lifecycle. The moduix motion preset
+  respects reduced-motion preferences; pass `motion={false}` for a static chart.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <LocalizationHero />
 
-  The new sites offer a complete documentation path in Russian and French, so you can explore a
-  component, copy an example, and follow a recipe without changing language halfway through.
+The entire documentation site is now available in Russian and French. You can explore a component,
+copy an example, and follow a recipe without switching languages halfway through.
 
-  ### What’s included
+### Highlights
 
-  - Published the complete component docs, setup guides, API references, and recipes in both languages.
-  - Kept navigation, page metadata, locale-aware routes, and copyable examples aligned across English, Russian, and French.
+- Component guides, installation instructions, API references, and recipes are available in Russian
+  and French.
+- Navigation, page metadata, locale-aware routes, and copyable examples stay aligned across English,
+  Russian, and French.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <V2MigrationHero />
 
-  v2 is a deliberate major release, not a cosmetic swap. Ark UI now provides the behavior and
-  accessibility foundation for components with a dedicated primitive, while moduix keeps its native
-  CSS and both installation paths.
+v2 is a major release. Components with a matching Ark UI primitive now use Ark UI for state,
+interaction, and accessibility, while moduix keeps its CSS Modules, design tokens, and both
+installation paths.
 
-  ### What changed in v2
+### Highlights
 
-  - Rebuilt component behavior and accessibility on Ark UI primitives.
-  - Aligned public composition, state access, and lower-level props with Ark contracts.
-  - Kept native CSS and both package and copy-owned installation paths.
+- Ark UI provides state, interaction behavior, and accessibility for components with a matching
+  primitive.
+- Public composition and low-level props follow Ark contracts. You can install the package or copy
+  component source into your application, where you control it.
 </ChangelogNewsItem>
 
 ## More updates
 
-### v2.3.0 - August 20, 2026
+### v2.5.0 - August 27, 2026
 
-- Added `Chart`, based on TanStack Charts, with moduix composition and styling defaults.
+- Added a resizable, collapsible `Sidebar` for application navigation.
+- The `AngleSlider` track background no longer changes on hover or press.
+
+### v2.4.0 - August 25, 2026
+
+- Added `JSON Tree View` for displaying nested JSON data.
+- Updated the package dependency versions.
 
 ### v2.2.4 - August 10, 2026
 
-- `DatePicker` now inherits disabled and invalid state from `Field` and `Fieldset`, plus read-only and required state from `Field`.
-- `DatePicker.Field` and `DatePicker.RangeField` keep stable input indexes, so native form values stay predictable.
-- `DateInput` ranges automatically render indexed native inputs while preserving Ark keyboard and accessibility semantics.
+- `DatePicker` now inherits `disabled` and `invalid` state from `Field` and `Fieldset`, plus `readOnly` and `required` state from `Field`.
+- `DatePicker.Field` and `DatePicker.RangeField` keep stable input indexes, so native form values remain predictable.
+- `DateInput` ranges automatically render native inputs with stable indexes while preserving Ark keyboard and accessibility semantics.
 
 ### v2.2.3 - July 24, 2026
 
@@ -66,12 +109,12 @@ import { ChangelogNewsItem } from '@/components/changelog/hero';
 
 ### v2.2.2 - July 24, 2026
 
-- Reorganized package sources and dependency paths so shadcn CLI output remains self-contained.
+- Reorganized package sources and dependency paths so shadcn CLI output stays self-contained.
 
 ### v2.2.1 - July 23, 2026
 
 - Added the detached `island` Drawer variant and kept its backdrop visible between snap points.
-- Added a non-runtime Ark UI variable-reference stylesheet for repository tooling.
+- Added a stylesheet with Ark UI variable references for repository tooling; it adds no runtime code.
 
 ### v2.2.0 - July 22, 2026
 
@@ -84,9 +127,9 @@ import { ChangelogNewsItem } from '@/components/changelog/hero';
 
 ## Version and support policy
 
-moduix follows Semantic Versioning. Major releases may include breaking changes; minor releases add
-backward-compatible features; patch releases contain backward-compatible fixes.
+moduix follows Semantic Versioning. Major releases may include breaking changes, minor releases add
+backward-compatible features, and patch releases contain backward-compatible fixes.
 
-The latest major is actively supported. v2 supports React 18 and 19, and moduix keeps its Ark UI
-integration aligned with current releases. For each major release, this page records affected APIs,
-migration steps, and package or registry implications.
+The latest major release is actively supported. v2 supports React 18 and 19, and its Ark UI
+integration stays compatible with supported releases. For each major release, this page records
+affected APIs, migration steps, and package or registry implications.

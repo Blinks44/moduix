@@ -1,7 +1,7 @@
 ---
 title: Carousel
 component: carousel
-description: A paged carousel with Ark UI composition, autoplay, provider state, and variable-size slides.
+description: A paginated carousel built on Ark UI with autoplay, externally managed state, and variable-width slides.
 ---
 
 import * as CarouselDocs from '@/components/examples/carousel';
@@ -12,9 +12,9 @@ import * as CarouselDocs from '@/components/examples/carousel';
 
 ## Basic
 
-Start with `Carousel`, render `Carousel.ItemGroup`, add a compact `Carousel.Control` for previous
-and next navigation, then use `Carousel.Indicators` and `Carousel.ProgressText` for the standard
-pager UI.
+Start with `Carousel` as the root. Add `Carousel.ItemGroup` for the slide track, place previous and
+next buttons in `Carousel.Control`, and use `Carousel.Indicators` with `Carousel.ProgressText`
+for the default pager.
 
 <style>{CarouselDocs.carouselExampleCss}</style>
 
@@ -37,88 +37,95 @@ Carousel / Carousel.Root
 ├─ Carousel.Control
 │  ├─ Carousel.PrevTrigger
 │  └─ Carousel.NextTrigger
-├─ Carousel.Indicators
-│  └─ Carousel.IndicatorGroup
-│     └─ Carousel.Indicator[index]
+├─ Carousel.IndicatorGroup
+│  └─ Carousel.Indicator[index]
 └─ Carousel.ProgressText
 ```
 
-| Part                         | Role                                                           |
-| ---------------------------- | -------------------------------------------------------------- |
-| `Carousel` / `Carousel.Root` | Owns carousel state, navigation behavior, and item collection. |
-| `Carousel.Control`           | Layout wrapper for navigation triggers and companion controls. |
-| `Carousel.ItemGroup`         | Slide track that owns `Carousel.Item` parts.                   |
-| `Carousel.Item`              | Individual slide at a stable `index`.                          |
-| `Carousel.PrevTrigger`       | Previous-page trigger.                                         |
-| `Carousel.NextTrigger`       | Next-page trigger.                                             |
-| `Carousel.Indicators`        | moduix convenience wrapper for the default page indicators.    |
-| `Carousel.IndicatorGroup`    | Group wrapper for page indicators.                             |
-| `Carousel.Indicator`         | Page indicator trigger for a specific slide/page index.        |
-| `Carousel.ProgressText`      | Current page and total progress text.                          |
+| Part                         | Role                                                               |
+| ---------------------------- | ------------------------------------------------------------------ |
+| `Carousel` / `Carousel.Root` | Owns carousel state, navigation, and the slide collection.         |
+| `Carousel.RootProvider`      | Connects the parts to state created with `useCarousel()`.          |
+| `Carousel.Control`           | Container for navigation buttons and other controls.               |
+| `Carousel.ItemGroup`         | Slide track that contains `Carousel.Item` parts.                   |
+| `Carousel.Item`              | A single slide with a stable `index`.                              |
+| `Carousel.PrevTrigger`       | Button that moves to the previous page.                            |
+| `Carousel.NextTrigger`       | Button that moves to the next page.                                |
+| `Carousel.Indicators`        | moduix convenience component that renders the default page dots.   |
+| `Carousel.IndicatorGroup`    | Container for custom page indicators.                               |
+| `Carousel.Indicator`         | Button that moves to the page with the given index.                 |
+| `Carousel.ProgressText`      | Text showing the current page and the total number of pages.        |
 
-Additional advanced surfaces stay available for advanced flows:
+`Carousel.Indicators` reads `pageSnapPoints` from context and renders one `Carousel.Indicator` per
+page. Use it instead of manually rendering `Carousel.IndicatorGroup` when the default indicators
+are enough. It also accepts `indicatorClassName` for styling the generated indicators.
+
+For advanced compositions, these parts are also available:
 
 - `Carousel.Context`
 - `Carousel.AutoplayTrigger`
 - `Carousel.AutoplayIndicator`
 - `Carousel.RootProvider`
 
-`useCarousel` and `useCarouselContext` are available from `@moduix/react`.
+`Carousel`, `useCarousel`, and `useCarouselContext` are available from `@moduix/react`. The
+component can also be imported from `@moduix/react/carousel`.
 
 ## Composition
 
 ### Recommended composition
 
-Use `Carousel` as the root, render `Carousel.ItemGroup` as the track, keep `Carousel.Control` for
-navigation controls, and reach for `Carousel.Indicators` when the default dot pager is enough.
+Use `Carousel` as the root, `Carousel.ItemGroup` as the slide track, and `Carousel.Control` for
+navigation. Add `Carousel.Indicators` when the default dot indicators are enough.
 
-`Carousel.Control` is usually a toolbar sibling to `Carousel.ItemGroup`.
+`Carousel.Control` is usually a sibling of `Carousel.ItemGroup` and works as a toolbar. For a
+compact inline layout, you can place `Carousel.ItemGroup` inside `Carousel.Control` instead.
 
-`Carousel.Root` remains available as an explicit alias of `Carousel` when the namespace itself is
-what you want to show.
+`Carousel.Root` is an explicit alias for `Carousel`. Use it when you prefer the namespaced form in
+your code.
 
 ### When to go custom
 
-Use `Carousel.Context` plus `Carousel.IndicatorGroup` and `Carousel.Indicator` when you need a
-custom pager layout, thumbnail indicators, or tighter control over `pageSnapPoints`.
+Use `Carousel.Context` with `Carousel.IndicatorGroup` and `Carousel.Indicator` when you need a
+custom pager, thumbnail indicators, or direct access to `pageSnapPoints`.
 
-Use moduix `Carousel.RootProvider` with `useCarousel()` when carousel state must be created
-outside the rendered subtree.
+Use `Carousel.RootProvider` with `useCarousel()` when carousel state must be created outside the
+rendered subtree and shared across composition boundaries.
 
-Use `useCarouselContext()` inside custom child components that need the carousel API without a
-render prop.
+Use `useCarouselContext()` inside custom child components that need the carousel API without
+passing a render function as a child.
 
 Use `Carousel.AutoplayTrigger` and `Carousel.AutoplayIndicator` when autoplay controls should be
-part of the visible UI instead of only a root prop.
+visible in the UI instead of being configured only through a root prop.
 
 ### Default props
 
-| Prop         | Default | Notes                                     |
-| ------------ | ------- | ----------------------------------------- |
-| `slideCount` | -       | Required on `Carousel` / `Carousel.Root`. |
+| Prop         | Default | Notes                                                                                  |
+| ------------ | ------- | -------------------------------------------------------------------------------------- |
+| `slideCount` | -       | Required on `Carousel` / `Carousel.Root`; pass it to `useCarousel()` for `RootProvider`. |
 
 ### Behavioral notes
 
-- `onPageChange(details)` follows Ark shape and exposes the active page as `details.page`.
-- Give `Carousel` or `Carousel.RootProvider` an `aria-label` or `aria-labelledby` so its carousel
+- `onPageChange(details)` uses Ark's callback shape and exposes the active page as `details.page`.
+- Give `Carousel` or `Carousel.RootProvider` an `aria-label` or `aria-labelledby` so the carousel
   landmark has an accessible name.
-- `spacing`, `padding`, `slidesPerPage`, `slidesPerMove`, and `autoSize` follow Ark sizing and
+- `spacing`, `padding`, `slidesPerPage`, `slidesPerMove`, and `autoSize` use Ark's sizing and
   snap-point behavior directly.
-- Vertical carousels stay on the same public surface. Default triggers rotate automatically when the
-  component uses moduix-provided chevrons.
-- Horizontal default triggers mirror automatically when `dir="rtl"`.
+- Vertical carousels use the same public API. The default moduix chevrons rotate automatically,
+  and `--moduix-carousel-height` controls the root height in vertical orientation.
+- With `dir="rtl"`, default horizontal triggers mirror automatically.
 - `Carousel.ProgressText` keeps the numeric `current / total` order readable in RTL carousels.
-- `--moduix-carousel-indicator-size` controls the compact indicator button, so its focus ring follows
-  the dot or current capsule geometry.
-- With `prefers-reduced-motion: reduce`, the track scrolls immediately and moduix control and
-  indicator transitions are disabled.
+- `--moduix-carousel-indicator-size` controls the compact indicator button, so its focus ring
+  follows the dot or current capsule geometry.
+- With `prefers-reduced-motion: reduce`, the track scrolls immediately, and moduix disables
+  transitions for controls and indicators.
 
 ## Examples
 
 ### Autoplay
 
-Use autoplay for passive galleries and pair it with visible controls. Pause it on pointer entry and focus;
-users can restart it with `Carousel.AutoplayTrigger`.
+Use autoplay for galleries that advance on their own, and keep visible controls available. In this
+example, autoplay pauses when the pointer enters the carousel or focus moves inside it. Users can
+start it again with `Carousel.AutoplayTrigger`.
 
 <style>{CarouselDocs.carouselExampleCss}</style>
 
@@ -128,12 +135,26 @@ users can restart it with `Carousel.AutoplayTrigger`.
 ```
 </PreviewFrame>
 
-For a complete gallery with side navigation, slide copy, and filling progress indicators, see the
-[Autoplay gallery recipe](/recipes/autoplay-gallery).
+For a complete gallery with side navigation, slide text, and progress indicators that fill as the
+gallery advances, see the [Autoplay gallery recipe](/recipes/autoplay-gallery).
+
+### Cards
+
+Carousel items can contain any content. Use your own styles to center a card when it should be
+narrower than the slide.
+
+<style>{CarouselDocs.carouselExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/carousel/cards.tsx"
+
+```
+</PreviewFrame>
 
 ### Controlled
 
-Control the current page when carousel state must stay in sync with external navigation, filters, or analytics.
+Use controlled state when the current page needs to stay in sync with external navigation, filters,
+or analytics.
 
 <style>{CarouselDocs.carouselExampleCss}</style>
 
@@ -144,34 +165,10 @@ Control the current page when carousel state must stay in sync with external nav
 
 </PreviewFrame>
 
-### Cards
-
-Carousel items can hold any composition. Center a card with consumer layout styles when it should
-stay narrower than the slide.
-
-<style>{CarouselDocs.carouselExampleCss}</style>
-
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/carousel/cards.tsx"
-
-```
-</PreviewFrame>
-
-### Loop
-
-Turn on `loop` when the carousel should wrap seamlessly from the last slide back to the first.
-
-<style>{CarouselDocs.carouselExampleCss}</style>
-
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/carousel/loop.tsx"
-
-```
-</PreviewFrame>
-
 ### Dynamic
 
-Update `slideCount` alongside the rendered items when slides can be added or removed after the initial render.
+If the number of slides changes after the initial render, update `slideCount` whenever you update
+the rendered items.
 
 <style>{CarouselDocs.carouselExampleCss}</style>
 
@@ -182,9 +179,22 @@ Update `slideCount` alongside the rendered items when slides can be added or rem
 
 </PreviewFrame>
 
-### Mouse Drag
+### Loop
 
-Allow mouse drag when desktop users should be able to scrub through slides with the same gesture model as touch input.
+Set `loop` to make the carousel wrap from the last slide back to the first.
+
+<style>{CarouselDocs.carouselExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/carousel/loop.tsx"
+
+```
+</PreviewFrame>
+
+### Mouse Dragging
+
+Enable mouse dragging so desktop users can move through slides with the same gesture they use on
+touch screens.
 
 <style>{CarouselDocs.carouselExampleCss}</style>
 
@@ -194,9 +204,11 @@ Allow mouse drag when desktop users should be able to scrub through slides with 
 ```
 </PreviewFrame>
 
-### Pause On Hover
+### Pause on Hover
 
-Pause autoplay while the pointer is over the carousel. It resumes when the pointer leaves; focus still pauses it.
+Use this pattern when autoplay should pause while the pointer is over the carousel. The example
+uses `Carousel.Context` with `api.pause()` and `api.play()`, and also pauses while the carousel has
+focus.
 
 <style>{CarouselDocs.carouselExampleCss}</style>
 
@@ -209,7 +221,8 @@ Pause autoplay while the pointer is over the carousel. It resumes when the point
 
 ### Root Provider
 
-Use `Carousel.RootProvider` when the carousel store should be created outside the rendered subtree and reused across composition boundaries.
+Use `Carousel.RootProvider` when carousel state must be created outside the rendered subtree and
+shared across composition boundaries.
 
 <style>{CarouselDocs.carouselExampleCss}</style>
 
@@ -221,7 +234,7 @@ Use `Carousel.RootProvider` when the carousel store should be created outside th
 
 ### Scroll to Slide
 
-Call the carousel API from context when another control should jump directly to a specific slide.
+Use the carousel API from context when another control needs to jump directly to a slide.
 
 <style>{CarouselDocs.carouselExampleCss}</style>
 
@@ -234,7 +247,7 @@ Call the carousel API from context when another control should jump directly to 
 
 ### Slides Per Page
 
-Increase `slidesPerPage` when the layout should preview multiple items at once instead of presenting one full-width panel.
+Increase `slidesPerPage` to show several items at once instead of one full-width panel.
 
 <style>{CarouselDocs.carouselExampleCss}</style>
 
@@ -246,7 +259,8 @@ Increase `slidesPerPage` when the layout should preview multiple items at once i
 
 ### Spacing
 
-Tune `spacing` when adjacent slides need more separation for editorial layouts, product rails, or branded rhythm.
+Increase `spacing` to add room between adjacent slides in editorial layouts, product rails, or
+branded interfaces.
 
 <style>{CarouselDocs.carouselExampleCss}</style>
 
@@ -259,7 +273,8 @@ Tune `spacing` when adjacent slides need more separation for editorial layouts, 
 
 ### Thumbnail Indicators
 
-Render custom indicator content when the pager itself should preview the slides instead of using plain dots.
+Render custom indicator content when the pager should preview the slides with thumbnails instead of
+plain dots.
 
 <style>{CarouselDocs.carouselExampleCss}</style>
 
@@ -271,7 +286,7 @@ Render custom indicator content when the pager itself should preview the slides 
 
 ### Variable Sizes
 
-Enable `autoSize` when slide widths should follow their content rather than a fixed page grid.
+Enable `autoSize` to size slides to their content instead of a fixed page grid.
 
 <style>{CarouselDocs.carouselExampleCss}</style>
 
@@ -284,7 +299,8 @@ Enable `autoSize` when slide widths should follow their content rather than a fi
 
 ### Vertical
 
-Switch to a vertical orientation when the carousel should stack movement and controls on the block axis.
+Switch to a vertical orientation when the carousel and its controls should work along the vertical
+axis.
 
 <style>{CarouselDocs.carouselExampleCss}</style>
 
@@ -296,7 +312,8 @@ Switch to a vertical orientation when the carousel should stack movement and con
 
 ### Advanced Customization
 
-Bypass `Carousel.Indicators` when you need custom `pageSnapPoints` rendering or want to interleave pager UI with other context-driven controls.
+Skip `Carousel.Indicators` when you need to render `pageSnapPoints` yourself or place pager controls
+alongside other context-driven controls.
 
 <style>{CarouselDocs.carouselExampleCss}</style>
 
@@ -309,9 +326,9 @@ Bypass `Carousel.Indicators` when you need custom `pageSnapPoints` rendering or 
 
 ## Styling
 
-Use `className` on exported parts for structural styling changes. For state styling, prefer Ark
-data attributes (`data-part`, `data-orientation`, `data-current`, `data-dragging`) and moduix
-`data-slot` hooks.
+Use `className` on exported parts for structural styling. For state styles, prefer Ark data
+attributes (`data-part`, `data-orientation`, `data-current`, `data-dragging`) and moduix `data-slot`
+hooks.
 
 ### CSS Properties
 
@@ -319,14 +336,14 @@ data attributes (`data-part`, `data-orientation`, `data-current`, `data-dragging
 
 ### Styling hooks
 
-- `data-slot="carousel-root"`, `carousel-control`, `carousel-item-group`, `carousel-item`,
-  `carousel-prev-trigger`, `carousel-next-trigger`, `carousel-indicator-group`,
+- `data-slot="carousel-root"`, `carousel-root-provider`, `carousel-control`, `carousel-item-group`,
+  `carousel-item`, `carousel-prev-trigger`, `carousel-next-trigger`, `carousel-indicator-group`,
   `carousel-indicator`, `carousel-autoplay-trigger`, `carousel-autoplay-indicator`, and
-  `carousel-progress-text` are stable selectors on the exported parts.
-- Ark also exposes `data-scope="carousel"` and `data-part` names on the rendered nodes.
-- `data-orientation="horizontal" | "vertical"` is available on root and structural parts.
-- `Carousel.ItemGroup` exposes `data-dragging` while drag interaction is active.
-- `Carousel.Indicator` exposes `data-current`, and `Carousel.Item` exposes `data-index` and
+  `carousel-progress-text` are stable selectors for the exported parts.
+- Ark also adds `data-scope="carousel"` and `data-part` names to the rendered nodes.
+- `data-orientation="horizontal" | "vertical"` is available on the root and structural parts.
+- `Carousel.ItemGroup` exposes `data-dragging` while a drag interaction is active.
+- `Carousel.Indicator` exposes `data-current`, while `Carousel.Item` exposes `data-index` and
   `data-inview`.
-- `Carousel.Indicator` exposes `data-readonly`, and `Carousel.AutoplayTrigger` exposes
+- `Carousel.Indicator` exposes `data-readonly`, while `Carousel.AutoplayTrigger` exposes
   `data-pressed`.

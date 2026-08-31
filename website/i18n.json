@@ -93,28 +93,33 @@
   },
   "homeDesignFoundations": {
     "en": "Design foundations",
-    "ru": "Основы дизайна",
+    "ru": "Основа библиотеки",
     "fr": "Fondations du design"
   },
   "homeBuiltOnArk": {
-    "en": "Built on Ark UI",
+    "en": "Powered by Ark UI",
     "ru": "На базе Ark UI",
-    "fr": "Construit sur Ark UI"
+    "fr": "Propulsé par Ark UI"
+  },
+  "homeCssModules": {
+    "en": "CSS Modules",
+    "ru": "CSS Modules",
+    "fr": "CSS Modules"
   },
   "homeShadcnInspired": {
     "en": "shadcn-inspired",
-    "ru": "Вдохновлено shadcn",
+    "ru": "В духе shadcn",
     "fr": "Inspiré par shadcn"
   },
   "homeLead": {
-    "en": "Accessible React components with calm defaults, explicit composition, and a token-first CSS foundation you can theme or own.",
-    "ru": "Доступные React-компоненты с продуманными настройками по умолчанию, явной композицией и CSS на токенах — его можно адаптировать под свою тему или полностью взять под контроль.",
-    "fr": "Des composants React accessibles, avec des valeurs par défaut réfléchies, une composition explicite et une base CSS pilotée par des tokens, que vous pouvez personnaliser par thème ou maîtriser directement dans votre projet."
+    "en": "Accessible components with calm defaults and explicit composition. CSS Modules keep component styles scoped, while shared tokens make them easy to theme; your own styles stay in your app.",
+    "ru": "Доступные компоненты с продуманными настройками по умолчанию и явной композицией. CSS Modules изолируют стили компонентов, а общие токены помогают настроить тему привычными средствами; собственные стили остаются в приложении.",
+    "fr": "Des composants accessibles, avec des valeurs par défaut soignées et une composition explicite. Les CSS Modules isolent les styles des composants, tandis que les tokens partagés facilitent la personnalisation du thème ; vos propres styles restent dans l’application."
   },
   "homeGetStarted": {
     "en": "Get started",
-    "ru": "Начать",
-    "fr": "Commencer"
+    "ru": "Начать работу",
+    "fr": "Démarrer"
   },
   "homeComponents": {
     "en": "Components",
@@ -123,23 +128,23 @@
   },
   "homeCompositionInPractice": {
     "en": "Composition in practice",
-    "ru": "Композиция на практике",
-    "fr": "La composition en pratique"
+    "ru": "Композиция в деле",
+    "fr": "La composition en action"
   },
   "homeComponentsTogether": {
-    "en": "A few components, working together.",
-    "ru": "Несколько компонентов, которые работают вместе.",
-    "fr": "Quelques composants qui fonctionnent ensemble."
+    "en": "Components that work together.",
+    "ru": "Компоненты, которые работают вместе",
+    "fr": "Des composants qui s’assemblent naturellement"
   },
   "homeCompositionDescription": {
-    "en": "Search, selection, menus, and a wide table stay small and composable-ready for a product screen rather than a marketing mockup.",
-    "ru": "Поиск, выбор, меню и широкая таблица остаются компактными и хорошо работают вместе — для настоящего продуктового интерфейса, а не маркетингового макета.",
-    "fr": "La recherche, la sélection, les menus et une table large restent compacts et faciles à combiner - prêts pour un écran produit plutôt qu’une maquette marketing."
+    "en": "Search, selection, menus, and a wide data table come together in a compact product screen. Each piece stays easy to compose and replace.",
+    "ru": "Поиск, выбор, меню и широкая таблица собраны в компактный экран продукта. Каждый элемент легко комбинировать и при необходимости заменить.",
+    "fr": "Recherche, sélection, menus et grande table se réunissent dans un écran produit compact. Chaque élément reste facile à composer et à remplacer."
   },
   "homeExploreTable": {
     "en": "Explore the table pattern",
-    "ru": "Изучить паттерн таблицы",
-    "fr": "Découvrir le modèle de tableau"
+    "ru": "Открыть пример таблицы",
+    "fr": "Voir l’exemple de tableau"
   },
   "homeWorkspaceDesignSystem": {
     "en": "Design system",
@@ -157,9 +162,9 @@
     "fr": "Widgets cartographiques"
   },
   "homeSelectWorkspace": {
-    "en": "Select workspace",
-    "ru": "Выберите рабочее пространство",
-    "fr": "Sélectionnez un espace de travail"
+    "en": "Select a workspace",
+    "ru": "Выберите рабочую область",
+    "fr": "Choisir un espace de travail"
   },
   "homeShowcaseActions": {
     "en": "Actions",
@@ -178,8 +183,8 @@
   },
   "homeFastActions": {
     "en": "Fast actions with real states",
-    "ru": "Быстрые действия с актуальными статусами",
-    "fr": "Actions rapides avec de vrais états"
+    "ru": "Быстрые действия и актуальные состояния",
+    "fr": "Actions rapides et états à jour"
   },
   "homePublishUpdate": {
     "en": "Publish update",
@@ -208,8 +213,8 @@
   },
   "homeSecondaryAction": {
     "en": "Secondary path",
-    "ru": "Альтернативное действие",
-    "fr": "Action secondaire"
+    "ru": "Дополнительный сценарий",
+    "fr": "Parcours secondaire"
   },
   "homeOutlineAndGhost": {
     "en": "Outline and ghost",
@@ -218,13 +223,13 @@
   },
   "homeFlowHealth": {
     "en": "Flow health",
-    "ru": "Состояние процесса",
-    "fr": "État du flux"
+    "ru": "Состояние сценария",
+    "fr": "État du parcours"
   },
   "homeToggleAndProgress": {
-    "en": "Toggle and progress in one pass",
-    "ru": "Переключатель и индикатор прогресса в одном интерфейсе",
-    "fr": "Interrupteur et progression dans un même aperçu"
+    "en": "Toggle and progress, side by side",
+    "ru": "Переключатель и прогресс рядом",
+    "fr": "Interrupteur et progression côte à côte"
   },
   "homeAutoReview": {
     "en": "Auto-review before release",
@@ -247,23 +252,23 @@
     "fr": "Révision manuelle uniquement"
   },
   "homeAdvance": {
-    "en": "Advance",
-    "ru": "Продолжить",
-    "fr": "Avancer"
+    "en": "Next step",
+    "ru": "Следующий шаг",
+    "fr": "Étape suivante"
   },
   "homeApprovalFlow": {
     "en": "Approval flow",
-    "ru": "Согласование",
-    "fr": "Flux d’approbation"
+    "ru": "Согласование изменений",
+    "fr": "Validation"
   },
   "homeOpenModal": {
-    "en": "Open the modal directly in the hero",
-    "ru": "Откройте модальное окно прямо в первом экране",
-    "fr": "Ouvrez la modale directement dans l’en-tête"
+    "en": "Open a modal right here",
+    "ru": "Откройте модальное окно прямо здесь",
+    "fr": "Ouvrez une modale ici"
   },
   "homeDialogPreviewDescription": {
-    "en": "The preview stays compact, but the interaction is real and uses the shipped dialog API.",
-    "ru": "Предпросмотр остаётся компактным, но всё в нём работает по-настоящему — через API Dialog из библиотеки.",
+    "en": "The preview is compact, but the interaction is real and uses the shipped Dialog API.",
+    "ru": "Предпросмотр компактный, но взаимодействие работает по-настоящему через API Dialog из библиотеки.",
     "fr": "L’aperçu reste compact, mais l’interaction est réelle et utilise l’API Dialog fournie par la bibliothèque."
   },
   "homeReviewChanges": {
@@ -292,9 +297,9 @@
     "fr": "Approuver"
   },
   "homeInspectApi": {
-    "en": "Inspect API",
-    "ru": "Открыть API",
-    "fr": "Consulter l’API"
+    "en": "View the API",
+    "ru": "Посмотреть API",
+    "fr": "Voir l’API"
   },
   "homeFocusManagement": {
     "en": "Focus management",
@@ -302,9 +307,9 @@
     "fr": "Gestion du focus"
   },
   "homeBuiltIn": {
-    "en": "Built in",
+    "en": "Included",
     "ru": "Встроено",
-    "fr": "Intégrée"
+    "fr": "Intégré"
   },
   "homeShowcaseComposition": {
     "en": "Composition",
@@ -318,28 +323,28 @@
   },
   "homeWorkspacePicker": {
     "en": "Workspace picker",
-    "ru": "Выбор рабочего пространства",
+    "ru": "Выбор рабочей области",
     "fr": "Sélecteur d’espace de travail"
   },
   "homeInteractiveSelect": {
-    "en": "Interactive select with current value",
+    "en": "Interactive select with a live value",
     "ru": "Интерактивный Select с текущим значением",
     "fr": "Select interactif avec valeur actuelle"
   },
   "homeActiveWorkspace": {
     "en": "Active workspace",
-    "ru": "Активное рабочее пространство",
+    "ru": "Текущая рабочая область",
     "fr": "Espace de travail actif"
   },
   "homeSelected": {
     "en": "Selected",
     "ru": "Выбрано",
-    "fr": "Sélectionné"
+    "fr": "Sélection"
   },
   "homePattern": {
-    "en": "Pattern",
-    "ru": "Паттерн",
-    "fr": "Modèle"
+    "en": "Composition",
+    "ru": "Состав",
+    "fr": "Composition"
   },
   "homeFieldTriggerList": {
     "en": "Field, trigger, list",
@@ -353,7 +358,7 @@
   },
   "primitiveReferenceDescription": {
     "en": "For behavior, accessibility guidance, and low-level props, see the Ark UI reference.",
-    "ru": "Описание поведения, требований доступности и низкоуровневых свойств — в документации Ark UI.",
+    "ru": "Описание поведения, требований доступности и низкоуровневых свойств смотрите в документации Ark UI.",
     "fr": "La documentation Ark UI décrit le comportement, l’accessibilité et les propriétés de bas niveau."
   },
   "primitiveReferenceLink": {
@@ -400,6 +405,141 @@
     "en": "Default",
     "ru": "По умолчанию",
     "fr": "Par défaut"
+  },
+  "themePresetPreviewLabel": {
+    "en": "Theme preset preview",
+    "ru": "Предпросмотр пресетов тем",
+    "fr": "Aperçu des préréglages de thème"
+  },
+  "themePresetListLabel": {
+    "en": "Theme presets",
+    "ru": "Пресеты тем",
+    "fr": "Préréglages de thème"
+  },
+  "themePresetCalmDescription": {
+    "en": "The balanced moduix foundation. Quiet surfaces and a neutral rhythm.",
+    "ru": "Сбалансированная основа moduix со спокойными поверхностями и нейтральным ритмом.",
+    "fr": "Le socle moduix équilibré, avec des surfaces discrètes et un rythme neutre."
+  },
+  "themePresetDenseDescription": {
+    "en": "Compact spacing and blue structure for admin and data-heavy interfaces.",
+    "ru": "Компактные интервалы и синяя палитра для админ-панелей и интерфейсов с большим объёмом данных.",
+    "fr": "Un espacement compact et une structure bleue pour les interfaces d’administration riches en données."
+  },
+  "themePresetSoftDescription": {
+    "en": "Rounded surfaces and a warmer violet accent for product workflows.",
+    "ru": "Округлые поверхности и более тёплый фиолетовый акцент для продуктовых сценариев.",
+    "fr": "Des surfaces arrondies et un accent violet plus chaleureux pour les parcours produit."
+  },
+  "themePresetContrastDescription": {
+    "en": "Sharper borders and clearer contrast for focused, technical interfaces.",
+    "ru": "Чёткие границы и усиленный контраст для технических интерфейсов, где важна ясная иерархия.",
+    "fr": "Des bordures plus nettes et un contraste renforcé pour les interfaces techniques qui privilégient la lisibilité."
+  },
+  "themePreviewColorModeLabel": {
+    "en": "Preview color mode",
+    "ru": "Цветовая схема предпросмотра",
+    "fr": "Mode de couleur de l’aperçu"
+  },
+  "themePreviewLight": {
+    "en": "Light",
+    "ru": "Светлая",
+    "fr": "Clair"
+  },
+  "themePreviewDark": {
+    "en": "Dark",
+    "ru": "Тёмная",
+    "fr": "Sombre"
+  },
+  "themePreviewLabel": {
+    "en": "moduix preset",
+    "ru": "Пресет moduix",
+    "fr": "Préréglage moduix"
+  },
+  "themePreviewControls": {
+    "en": "Controls",
+    "ru": "Элементы",
+    "fr": "Contrôles"
+  },
+  "themePreviewPopupRows": {
+    "en": "Popup rows",
+    "ru": "Строки списка",
+    "fr": "Lignes de popup"
+  },
+  "themePreviewReleaseWorkspace": {
+    "en": "Release workspace",
+    "ru": "Рабочая область выпуска",
+    "fr": "Espace de publication"
+  },
+  "themePreviewOneVisualDecision": {
+    "en": "One visual decision, applied across the system.",
+    "ru": "Одно визуальное решение для всей системы.",
+    "fr": "Un choix visuel appliqué à tout le système."
+  },
+  "themePreviewReady": {
+    "en": "Ready",
+    "ru": "Готово",
+    "fr": "Prêt"
+  },
+  "themePreviewProjectName": {
+    "en": "Project name",
+    "ru": "Название проекта",
+    "fr": "Nom du projet"
+  },
+  "themePreviewSpringRelease": {
+    "en": "Spring release",
+    "ru": "Весенний релиз",
+    "fr": "Version de printemps"
+  },
+  "themePreviewStage": {
+    "en": "Stage",
+    "ru": "Этап",
+    "fr": "Étape"
+  },
+  "themePreviewSelectStage": {
+    "en": "Select a stage",
+    "ru": "Выберите этап",
+    "fr": "Sélectionner une étape"
+  },
+  "themePreviewWorkflow": {
+    "en": "Workflow",
+    "ru": "Процесс",
+    "fr": "Processus"
+  },
+  "themePreviewPlanning": {
+    "en": "Planning",
+    "ru": "Планирование",
+    "fr": "Planification"
+  },
+  "themePreviewInReview": {
+    "en": "In review",
+    "ru": "На проверке",
+    "fr": "En vérification"
+  },
+  "themePreviewReadyToShip": {
+    "en": "Ready to ship",
+    "ru": "Готово к выпуску",
+    "fr": "Prêt à publier"
+  },
+  "themePreviewTaskCount": {
+    "en": "12 tasks",
+    "ru": "12 задач",
+    "fr": "12 tâches"
+  },
+  "themePreviewReviewerCount": {
+    "en": "4 reviewers",
+    "ru": "4 проверяющих",
+    "fr": "4 relecteurs"
+  },
+  "themePreviewCreateWorkspace": {
+    "en": "Create workspace",
+    "ru": "Создать рабочую область",
+    "fr": "Créer l’espace de travail"
+  },
+  "themePreviewPreview": {
+    "en": "Preview",
+    "ru": "Предпросмотр",
+    "fr": "Aperçu"
   },
   "tokensOverviewTokenArchitecture": {
     "en": "Token architecture",
@@ -448,8 +588,8 @@
   },
   "tokensOverviewScopedThemes": {
     "en": "Scoped themes",
-    "ru": "Темы с ограниченной областью",
-    "fr": "Thèmes à portée limitée"
+    "ru": "Темы для отдельной области",
+    "fr": "Thèmes locaux"
   },
   "tokensOverviewColors": {
     "en": "Colors",
@@ -493,8 +633,8 @@
   },
   "tokensOverviewTypography": {
     "en": "Font families, sizes, line heights, weights, and tracking tokens.",
-    "ru": "Семейства шрифтов, размеры, межстрочные интервалы, начертания и токены трекинга.",
-    "fr": "Familles de polices, tailles, hauteurs de ligne, graisses et tokens d'approche."
+    "ru": "Семейства шрифтов, размеры, межстрочные интервалы, начертания и межбуквенные интервалы.",
+    "fr": "Familles de polices, tailles, hauteurs de ligne, graisses et espacement des caractères."
   },
   "tokensOverviewFontFamilies": {
     "en": "Font families",
@@ -503,7 +643,7 @@
   },
   "tokensOverviewMotion": {
     "en": "Durations, easing, transition shorthands, and reusable animations.",
-    "ru": "Длительности, сглаживание, сокращения переходов и повторно используемые анимации.",
+    "ru": "Длительности, кривые плавности, сокращённые записи переходов и повторно используемые анимации.",
     "fr": "Durées, fonctions d'accélération, raccourcis de transition et animations réutilisables."
   },
   "tokensOverviewTimingAndTransitionTokens": {
@@ -518,7 +658,7 @@
   },
   "tokensOverviewElevationLayers": {
     "en": "Elevation & Layers",
-    "ru": "Высота и слои",
+    "ru": "Глубина и слои",
     "fr": "Élévation et calques"
   },
   "tokensOverviewTransforms": {
@@ -539,12 +679,317 @@
   "tokensOverviewSharedPopupContentMotion": {
     "en": "Shared popup content motion",
     "ru": "Общая анимация содержимого всплывающих окон",
-    "fr": "Animation partagée du contenu des fenêtres surgissantes"
+    "fr": "Animation partagée du contenu contextuel"
   },
   "tokensOverviewSharedPopupMenuDefaults": {
     "en": "Shared popup menu defaults",
     "ru": "Общие значения меню всплывающих окон",
-    "fr": "Valeurs par défaut partagées des menus surgissants"
+    "fr": "Valeurs par défaut partagées des menus contextuels"
+  },
+  "tokensOverviewColorCanvas": {
+    "en": "Canvas",
+    "ru": "Фон страницы",
+    "fr": "Surface de base"
+  },
+  "tokensOverviewColorCanvasText": {
+    "en": "Canvas text",
+    "ru": "Текст страницы",
+    "fr": "Texte de base"
+  },
+  "tokensOverviewColorRaisedSurface": {
+    "en": "Raised surface",
+    "ru": "Приподнятая поверхность",
+    "fr": "Surface surélevée"
+  },
+  "tokensOverviewColorRaisedText": {
+    "en": "Raised text",
+    "ru": "Текст на приподнятой поверхности",
+    "fr": "Texte sur surface surélevée"
+  },
+  "tokensOverviewColorLayerSurface": {
+    "en": "Layer surface",
+    "ru": "Фон слоя",
+    "fr": "Surface de calque"
+  },
+  "tokensOverviewColorLayerText": {
+    "en": "Layer text",
+    "ru": "Текст слоя",
+    "fr": "Texte de calque"
+  },
+  "tokensOverviewColorPrimaryAction": {
+    "en": "Primary action",
+    "ru": "Основное действие",
+    "fr": "Action principale"
+  },
+  "tokensOverviewColorPrimaryText": {
+    "en": "Primary text",
+    "ru": "Текст основного действия",
+    "fr": "Texte de l’action principale"
+  },
+  "tokensOverviewColorSecondaryFill": {
+    "en": "Secondary fill",
+    "ru": "Вторичный фон",
+    "fr": "Fond secondaire"
+  },
+  "tokensOverviewColorSecondaryText": {
+    "en": "Secondary text",
+    "ru": "Текст на вторичном фоне",
+    "fr": "Texte secondaire"
+  },
+  "tokensOverviewColorSubtleFill": {
+    "en": "Subtle fill",
+    "ru": "Приглушённый фон",
+    "fr": "Fond discret"
+  },
+  "tokensOverviewColorSubtleText": {
+    "en": "Subtle text",
+    "ru": "Приглушённый текст",
+    "fr": "Texte discret"
+  },
+  "tokensOverviewColorHoverFill": {
+    "en": "Hover fill",
+    "ru": "Фон при наведении",
+    "fr": "Fond au survol"
+  },
+  "tokensOverviewColorHoverText": {
+    "en": "Hover text",
+    "ru": "Текст при наведении",
+    "fr": "Texte au survol"
+  },
+  "tokensOverviewColorDanger": {
+    "en": "Danger",
+    "ru": "Опасное действие",
+    "fr": "Action destructive"
+  },
+  "tokensOverviewColorDangerText": {
+    "en": "Danger text",
+    "ru": "Текст опасного действия",
+    "fr": "Texte de l’action destructive"
+  },
+  "tokensOverviewColorSuccess": {
+    "en": "Success",
+    "ru": "Успешное состояние",
+    "fr": "Succès"
+  },
+  "tokensOverviewColorWarning": {
+    "en": "Warning",
+    "ru": "Предупреждение",
+    "fr": "Avertissement"
+  },
+  "tokensOverviewColorBorders": {
+    "en": "Borders",
+    "ru": "Границы",
+    "fr": "Bordures"
+  },
+  "tokensOverviewColorInputBorder": {
+    "en": "Input border",
+    "ru": "Граница поля",
+    "fr": "Bordure des champs"
+  },
+  "tokensOverviewColorFocusRing": {
+    "en": "Focus ring",
+    "ru": "Кольцо фокуса",
+    "fr": "Anneau de focus"
+  },
+  "tokensOverviewColorBackdropBase": {
+    "en": "Backdrop base",
+    "ru": "Базовый фон оверлея",
+    "fr": "Fond de superposition"
+  },
+  "tokensOverviewColorSoftOverlay": {
+    "en": "Soft overlay",
+    "ru": "Мягкий оверлей",
+    "fr": "Superposition légère"
+  },
+  "tokensOverviewColorChart1": {
+    "en": "Chart 1",
+    "ru": "График 1",
+    "fr": "Graphique 1"
+  },
+  "tokensOverviewColorChart2": {
+    "en": "Chart 2",
+    "ru": "График 2",
+    "fr": "Graphique 2"
+  },
+  "tokensOverviewColorChart3": {
+    "en": "Chart 3",
+    "ru": "График 3",
+    "fr": "Graphique 3"
+  },
+  "tokensOverviewColorChart4": {
+    "en": "Chart 4",
+    "ru": "График 4",
+    "fr": "Graphique 4"
+  },
+  "tokensOverviewColorChart5": {
+    "en": "Chart 5",
+    "ru": "График 5",
+    "fr": "Graphique 5"
+  },
+  "tokensOverviewColorSidebarSurface": {
+    "en": "Sidebar surface",
+    "ru": "Фон боковой панели",
+    "fr": "Surface de la barre latérale"
+  },
+  "tokensOverviewColorSidebarText": {
+    "en": "Sidebar text",
+    "ru": "Текст боковой панели",
+    "fr": "Texte de la barre latérale"
+  },
+  "tokensOverviewColorSidebarPrimary": {
+    "en": "Sidebar primary",
+    "ru": "Основной цвет боковой панели",
+    "fr": "Couleur principale de la barre latérale"
+  },
+  "tokensOverviewColorSidebarPrimaryText": {
+    "en": "Sidebar primary text",
+    "ru": "Текст основного цвета боковой панели",
+    "fr": "Texte principal de la barre latérale"
+  },
+  "tokensOverviewColorSidebarAccent": {
+    "en": "Sidebar accent",
+    "ru": "Акцент боковой панели",
+    "fr": "Accent de la barre latérale"
+  },
+  "tokensOverviewColorSidebarAccentText": {
+    "en": "Sidebar accent text",
+    "ru": "Текст акцента боковой панели",
+    "fr": "Texte de l’accent de la barre latérale"
+  },
+  "tokensOverviewColorSidebarBorder": {
+    "en": "Sidebar border",
+    "ru": "Граница боковой панели",
+    "fr": "Bordure de la barre latérale"
+  },
+  "tokensOverviewColorSidebarFocusRing": {
+    "en": "Sidebar focus ring",
+    "ru": "Кольцо фокуса боковой панели",
+    "fr": "Anneau de focus de la barre latérale"
+  },
+  "tokensOverviewLightTheme": {
+    "en": "Light theme",
+    "ru": "Светлая тема",
+    "fr": "Thème clair"
+  },
+  "tokensOverviewDarkTheme": {
+    "en": "Dark theme",
+    "ru": "Тёмная тема",
+    "fr": "Thème sombre"
+  },
+  "tokensOverviewPreview": {
+    "en": "Preview",
+    "ru": "Предпросмотр",
+    "fr": "Aperçu"
+  },
+  "tokensOverviewDialogSurface": {
+    "en": "Dialog surface",
+    "ru": "Поверхность диалога",
+    "fr": "Surface de la boîte de dialogue"
+  },
+  "tokensOverviewPreviewDescription": {
+    "en": "Text, muted copy, border, action, and backdrop tokens in one compact layout.",
+    "ru": "Токены текста, приглушённого текста, границ, действий и фона оверлея в одной компактной композиции.",
+    "fr": "Les tokens du texte, du texte discret, des bordures, des actions et de l’arrière-plan réunis dans une composition compacte."
+  },
+  "tokensOverviewCancel": {
+    "en": "Cancel",
+    "ru": "Отмена",
+    "fr": "Annuler"
+  },
+  "tokensOverviewApply": {
+    "en": "Apply",
+    "ru": "Применить",
+    "fr": "Appliquer"
+  },
+  "tokensOverviewRadius": {
+    "en": "Radius",
+    "ru": "Радиусы",
+    "fr": "Rayons"
+  },
+  "tokensOverviewZIndex": {
+    "en": "Z-index",
+    "ru": "Z-index",
+    "fr": "Z-index"
+  },
+  "tokensOverviewLayeredUi": {
+    "en": "Layered UI",
+    "ru": "Слоистый интерфейс",
+    "fr": "Interface en couches"
+  },
+  "tokensOverviewComponentDefault": {
+    "en": "Component default",
+    "ru": "Значение компонента по умолчанию",
+    "fr": "Valeur par défaut du composant"
+  },
+  "tokensOverviewPopupScaleConsumers": {
+    "en": "Dialog, Popover, Tooltip, Menu, Hover Card, Toast, Navigation Menu",
+    "ru": "Dialog, Popover, Tooltip, Menu, Hover Card, Toast, Navigation Menu",
+    "fr": "Dialog, Popover, Tooltip, Menu, Hover Card, Toast, Navigation Menu"
+  },
+  "tokensOverviewDropdownScaleConsumers": {
+    "en": "Select, Combobox",
+    "ru": "Select, Combobox",
+    "fr": "Select, Combobox"
+  },
+  "tokensOverviewGlobalBackdropColorFallback": {
+    "en": "Global backdrop color fallback",
+    "ru": "Резервный цвет фона оверлея",
+    "fr": "Couleur de secours globale de l’arrière-plan"
+  },
+  "tokensOverviewGlobalBackdropFilterFallback": {
+    "en": "Global backdrop filter fallback",
+    "ru": "Резервный фильтр для фона оверлея",
+    "fr": "Filtre de secours global de l’arrière-plan"
+  },
+  "tokensOverviewPopupContentDuration": {
+    "en": "Content enter and exit duration",
+    "ru": "Длительность появления и скрытия содержимого",
+    "fr": "Durée d’entrée et de sortie du contenu"
+  },
+  "tokensOverviewPopupContentEasing": {
+    "en": "Content enter and exit easing",
+    "ru": "Плавность появления и скрытия содержимого",
+    "fr": "Fonction d’accélération à l’entrée et à la sortie du contenu"
+  },
+  "tokensOverviewPopupEntryOpacity": {
+    "en": "Opacity when entering",
+    "ru": "Непрозрачность при появлении",
+    "fr": "Opacité à l’entrée"
+  },
+  "tokensOverviewPopupEntryScale": {
+    "en": "Scale when entering",
+    "ru": "Масштаб при появлении",
+    "fr": "Échelle à l’entrée"
+  },
+  "tokensOverviewPopupEntryHorizontalOffset": {
+    "en": "Horizontal offset when entering",
+    "ru": "Горизонтальное смещение при появлении",
+    "fr": "Décalage horizontal à l’entrée"
+  },
+  "tokensOverviewPopupEntryVerticalOffset": {
+    "en": "Vertical offset when entering",
+    "ru": "Вертикальное смещение при появлении",
+    "fr": "Décalage vertical à l’entrée"
+  },
+  "tokensOverviewPopupExitOpacity": {
+    "en": "Opacity when exiting",
+    "ru": "Непрозрачность при скрытии",
+    "fr": "Opacité à la sortie"
+  },
+  "tokensOverviewPopupExitScale": {
+    "en": "Scale when exiting",
+    "ru": "Масштаб при скрытии",
+    "fr": "Échelle à la sortie"
+  },
+  "tokensOverviewPopupExitHorizontalOffset": {
+    "en": "Horizontal offset when exiting",
+    "ru": "Горизонтальное смещение при скрытии",
+    "fr": "Décalage horizontal à la sortie"
+  },
+  "tokensOverviewPopupExitVerticalOffset": {
+    "en": "Vertical offset when exiting",
+    "ru": "Вертикальное смещение при скрытии",
+    "fr": "Décalage vertical à la sortie"
   },
   "ownershipLayersBehavior": {
     "en": "Behavior",
@@ -552,14 +997,19 @@
     "fr": "Comportement"
   },
   "ownershipLayersPresentation": {
-    "en": "Presentation",
-    "ru": "Представление",
-    "fr": "Présentation"
+    "en": "Styling",
+    "ru": "Стилизация",
+    "fr": "Styles"
   },
   "ownershipLayersOwnership": {
     "en": "Ownership",
-    "ru": "Владение",
-    "fr": "Propriété"
+    "ru": "Контроль",
+    "fr": "Contrôle"
+  },
+  "ownershipLayersStyling": {
+    "en": "CSS Modules + tokens",
+    "ru": "CSS Modules + токены",
+    "fr": "CSS Modules + tokens"
   },
   "ownershipLayersPackageSource": {
     "en": "Package or source",
@@ -577,14 +1027,14 @@
     "fr": "Un système, trois couches claires"
   },
   "ownershipLayersSummary": {
-    "en": "Ark UI owns interaction behavior, moduix supplies the styled component layer, and your application owns the final theme and composition.",
-    "ru": "Ark UI владеет поведением взаимодействий, moduix предоставляет слой стилизованных компонентов, а вашему приложению принадлежат итоговая тема и композиция.",
-    "fr": "Ark UI gère le comportement des interactions, moduix fournit la couche de composants stylés et votre application possède le thème et la composition finaux."
+    "en": "Ark UI owns interaction behavior, moduix supplies styled components through CSS Modules and tokens, and your application owns the final theme and composition.",
+    "ru": "Ark UI отвечает за поведение компонентов, moduix предоставляет стилизованные компоненты на CSS Modules и токенах, а приложение управляет итоговой темой и композицией.",
+    "fr": "Ark UI gère le comportement des interactions, moduix fournit des composants stylés avec des CSS Modules et des tokens, et votre application garde la main sur le thème et la composition finaux."
   },
   "ownershipLayersTokenFirstStyling": {
     "en": "Token-first styling",
     "ru": "Стилизация на основе токенов",
-    "fr": "Style fondé sur les tokens"
+    "fr": "Styles pilotés par des tokens"
   },
   "ownershipLayersThemeable": {
     "en": "themeable",
@@ -593,78 +1043,93 @@
   },
   "ownershipLayersNote": {
     "en": "Global semantic tokens establish the visual language; shared family tokens keep related controls aligned; component variables remain available for deliberate exceptions.",
-    "ru": "Глобальные семантические токены задают визуальный язык; общие токены семейства согласуют связанные элементы управления; переменные компонентов остаются доступны для осознанных исключений.",
-    "fr": "Les tokens sémantiques globaux définissent le langage visuel ; les tokens de famille partagés alignent les contrôles apparentés ; les variables de composant permettent les exceptions délibérées."
+    "ru": "Глобальные семантические токены задают визуальный язык. Общие токены семейства удерживают связанные элементы управления в одной системе. Переменные компонентов позволяют сделать осознанное исключение.",
+    "fr": "Les tokens sémantiques globaux définissent le langage visuel. Les tokens de famille partagés gardent les contrôles associés cohérents. Les variables de composant permettent des exceptions ciblées."
   },
   "chartHeroDate": {
     "en": "August 20, 2026",
     "ru": "20 августа 2026 г.",
     "fr": "20 août 2026"
   },
-  "chartHeroTitle": {
-    "en": "Chart joins moduix",
-    "ru": "Chart появился в moduix",
-    "fr": "Chart rejoint moduix"
+  "changelogNewComponent": {
+    "en": "New component",
+    "ru": "Новый компонент",
+    "fr": "Nouveau composant"
   },
-  "chartHeroCardDescription": {
-    "en": "Powered by TanStack Charts",
-    "ru": "На базе TanStack Charts",
-    "fr": "Propulsé par TanStack Charts"
+  "changelogDocumentationUpdate": {
+    "en": "Documentation update",
+    "ru": "Обновление документации",
+    "fr": "Mise à jour de la documentation"
+  },
+  "changelogMajorRelease": {
+    "en": "Major release",
+    "ru": "Мажорный релиз",
+    "fr": "Version majeure"
   },
   "chartHeroSummary": {
-    "en": "Composable, accessible charts powered by TanStack Charts.",
-    "ru": "Компонуемые и доступные графики на базе TanStack Charts.",
-    "fr": "Des graphiques composables et accessibles, propulsés par TanStack Charts."
+    "en": "Accessible, composable charts powered by TanStack Charts.",
+    "ru": "Доступные графики на базе TanStack Charts, которые можно собрать под свой сценарий.",
+    "fr": "Des graphiques accessibles et composables, basés sur TanStack Charts."
+  },
+  "navigationMenuHeroDate": {
+    "en": "August 25, 2026",
+    "ru": "25 августа 2026 г.",
+    "fr": "25 août 2026"
+  },
+  "navigationMenuHeroSummary": {
+    "en": "Build accessible product navigation with direct links, disclosure panels, and an optional shared viewport.",
+    "ru": "Создавайте доступную навигацию по сайту или продукту с прямыми ссылками, раскрывающимися панелями и общей областью для их анимации.",
+    "fr": "Créez une navigation accessible pour un site ou un produit avec des liens directs, des panneaux déroulants et, si nécessaire, une zone d’animation commune."
+  },
+  "tableOfContentsHeroDate": {
+    "en": "August 27, 2026",
+    "ru": "27 августа 2026 г.",
+    "fr": "27 août 2026"
+  },
+  "tableOfContentsHeroSummary": {
+    "en": "Keep an accessible table of contents in sync with the section your reader is viewing.",
+    "ru": "Создавайте доступное оглавление, синхронизированное с разделом, который сейчас читает пользователь.",
+    "fr": "Un sommaire accessible qui reste synchronisé avec la section consultée."
   },
   "localizationHeroDate": {
     "en": "August 10, 2026",
     "ru": "10 августа 2026 г.",
     "fr": "10 août 2026"
   },
-  "localizationHeroTitle": {
-    "en": "Full documentation in Russian and French",
-    "ru": "Полная документация на русском и французском",
-    "fr": "Documentation complète en français et en russe"
-  },
   "localizationHeroLanguages": {
-    "en": "Russian · French",
-    "ru": "Русский · Французский",
-    "fr": "Russe · Français"
+    "en": "Russian, French",
+    "ru": "Русский, Французский",
+    "fr": "Russe, Français"
   },
   "localizationHeroSummary": {
     "en": "Russian and French are here. More translations are next.",
-    "ru": "Документация на русском и французском уже доступна. Далее - другие языки.",
-    "fr": "La documentation en français et en russe est disponible. D’autres langues suivront."
+    "ru": "Документация на русском и французском уже доступна. Позже появятся и другие языки.",
+    "fr": "Les traductions française et russe sont disponibles. D’autres langues suivront."
   },
   "v2MigrationHeroDate": {
     "en": "July 19, 2026",
     "ru": "19 июля 2026 г.",
     "fr": "19 juillet 2026"
   },
-  "v2MigrationHeroTitle": {
-    "en": "A new component foundation",
-    "ru": "Новая основа для компонентов",
-    "fr": "Une nouvelle base pour les composants"
-  },
   "v2MigrationHeroSummary": {
-    "en": "A deliberate Ark UI foundation for accessible components.",
-    "ru": "Продуманная основа на базе Ark UI для доступных компонентов.",
-    "fr": "Une base Ark UI pensée pour créer des composants accessibles."
+    "en": "An Ark UI foundation for accessible components.",
+    "ru": "Основа на Ark UI для доступных компонентов.",
+    "fr": "Une base Ark UI pour des composants accessibles."
   },
   "tokensOverviewSemanticVariables": {
     "en": "Components read semantic variables while themes override the raw palette.",
-    "ru": "Компоненты читают семантические переменные, а темы переопределяют исходную палитру.",
-    "fr": "Les composants lisent les variables sémantiques tandis que les thèmes remplacent la palette brute."
+    "ru": "Компоненты используют семантические переменные, а темы переопределяют исходную палитру.",
+    "fr": "Les composants utilisent les variables sémantiques, tandis que les thèmes redéfinissent la palette de base."
   },
   "tokensOverviewCentralizedBackdrop": {
     "en": "Global backdrop color and blur stay centralized, and component-level variables can still opt out.",
-    "ru": "Глобальные цвет и размытие фона остаются централизованными, а переменные уровня компонента по-прежнему могут от них отказаться.",
-    "fr": "La couleur et le flou globaux de l'arrière-plan restent centralisés, et les variables de composant peuvent toujours s'en écarter."
+    "ru": "Цвет и размытие фона задаются централизованно, а переменные уровня компонента по-прежнему позволяют переопределить их.",
+    "fr": "La couleur et le flou de l’arrière-plan sont définis à un seul endroit, mais chaque composant peut toujours les redéfinir."
   },
   "tokensOverviewParentScope": {
     "en": "Any parent scope can change density, motion, or color for a focused area.",
-    "ru": "Любая родительская область может изменить плотность, анимацию или цвет для выделенной зоны.",
-    "fr": "Toute portée parente peut modifier la densité, le mouvement ou la couleur d'une zone ciblée."
+    "ru": "В любом родительском контейнере можно изменить плотность, анимацию или цвет отдельной области.",
+    "fr": "Un conteneur parent peut modifier la densité, les animations ou les couleurs de la zone qu’il contient."
   },
   "tokensOverviewColorThemeValues": {
     "en": "Light and dark theme values plus semantic aliases.",
@@ -678,8 +1143,8 @@
   },
   "tokensOverviewRadiusAndBorders": {
     "en": "Radius derives from one root value; borders stay simple.",
-    "ru": "Скругление выводится из одного корневого значения; границы остаются простыми.",
-    "fr": "Les rayons dérivent d'une valeur racine unique ; les bordures restent simples."
+    "ru": "Радиусы вычисляются из одного корневого значения; границы остаются простыми.",
+    "fr": "Les rayons sont calculés à partir d’une valeur racine unique ; les bordures restent simples."
   },
   "tokensOverviewElevation": {
     "en": "Shadows, transforms, and z-index tokens for overlays.",
@@ -688,13 +1153,13 @@
   },
   "tokensOverviewOverlayDefaults": {
     "en": "Backdrop, popup, and popup-motion defaults are reused across overlay families, with local component tokens layered on top.",
-    "ru": "Значения по умолчанию для фона, всплывающих окон и их анимации используются всеми семействами оверлеев, а поверх них располагаются локальные токены компонентов.",
-    "fr": "Les valeurs par défaut d'arrière-plan, de fenêtre surgissante et de mouvement sont réutilisées par les familles de superpositions, avec des tokens locaux de composant par-dessus."
+    "ru": "Значения по умолчанию для фона, всплывающих окон и их анимации используются всеми семействами оверлеев, а отдельные компоненты могут дополнить их своими токенами.",
+    "fr": "Les valeurs par défaut de l’arrière-plan, des fenêtres contextuelles et de leurs animations sont partagées par les familles de superpositions ; chaque composant peut ensuite appliquer ses tokens locaux."
   },
   "frameworkAstroDescription": {
     "en": "Interactive React islands in Astro.",
-    "ru": "Интерактивные React-острова в Astro.",
-    "fr": "Îlots React interactifs dans Astro."
+    "ru": "Интерактивные React-острова для Astro.",
+    "fr": "Îlots React interactifs pour Astro."
   },
   "frameworkNextDescription": {
     "en": "App Router and React Server Components.",
@@ -703,23 +1168,23 @@
   },
   "frameworkReactRouterDescription": {
     "en": "Framework mode and data mode apps.",
-    "ru": "Приложения в режиме фреймворка и в режиме данных.",
-    "fr": "Applications en mode framework et en mode données."
+    "ru": "Приложения в режимах framework и data.",
+    "fr": "Applications en mode framework ou en mode data."
   },
   "frameworkRsbuildDescription": {
     "en": "React apps powered by Rspack.",
     "ru": "React-приложения на базе Rspack.",
-    "fr": "Applications React propulsées par Rspack."
+    "fr": "Applications React basées sur Rspack."
   },
   "frameworkTanStackStartDescription": {
     "en": "Full-stack React on Vite.",
-    "ru": "Полнофункциональный React на Vite.",
-    "fr": "React full stack sur Vite."
+    "ru": "Full-stack-приложения на React и Vite.",
+    "fr": "Applications React full-stack sur Vite."
   },
   "frameworkViteDescription": {
     "en": "Standard React apps and SPAs.",
-    "ru": "Стандартные React-приложения и SPA.",
-    "fr": "Applications React et SPA standard."
+    "ru": "Обычные React-приложения и SPA.",
+    "fr": "Applications React classiques et SPA."
   },
   "frameworkSupportGroupLabel": {
     "en": "Framework support",
@@ -735,6 +1200,11 @@
     "en": "Planned",
     "ru": "Запланировано",
     "fr": "Prévu"
+  },
+  "frameworkSupportInProgress": {
+    "en": "In progress",
+    "ru": "В разработке",
+    "fr": "En cours"
   },
   "copyMarkdownText": {
     "en": "Copy Markdown",

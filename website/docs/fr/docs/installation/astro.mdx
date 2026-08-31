@@ -1,24 +1,34 @@
 ---
 title: Astro
-description: "Intégrez moduix à Astro sous forme d’îlots React interactifs, avec un CSS partagé et des directives client."
+description: Utilisez les composants React moduix dans Astro comme des îlots interactifs, avec une feuille de style partagée et des directives client.
 ---
 
 # Astro
 
-moduix est une bibliothèque React. Dans Astro, affichez les composants interactifs avec l’intégration React officielle,
-puis hydratez chaque îlot au moyen d’une directive client Astro.
+moduix est une bibliothèque de composants React. Astro rend les composants React en HTML statique par défaut. Ajoutez
+une directive Astro `client:*` lorsqu’un composant doit devenir interactif dans le navigateur.
 
-## Ajouter l'intégration React
+## Ajouter React à Astro
+
+Depuis la racine de votre projet, exécutez :
 
 ```bash
 npx astro add react
 ```
 
-## Installer le paquet
+Cette commande installe et configure l’intégration officielle `@astrojs/react` d’Astro.
+
+## Installer moduix
+
+Installez `@moduix/react` et sa dépendance peer `@ark-ui/react` :
 
 <PackageManagerTabs command="install @moduix/react @ark-ui/react" />
 
-Importez une seule fois la feuille de style de base depuis votre layout partagé :
+`@moduix/react` prend en charge React 18 et 19 et attend que `react`, `react-dom` et `@ark-ui/react` soient installés
+dans votre projet. La commande `astro add react` configure généralement React et `react-dom`. Si vous avez installé
+`@astrojs/react` manuellement, vérifiez que ces paquets sont présents avant de continuer.
+
+Importez une seule fois la feuille de style de base dans un composant de mise en page partagé :
 
 ```astro title="src/layouts/Layout.astro"
 ---
@@ -30,7 +40,7 @@ import '@moduix/react/style.css';
 </html>
 ```
 
-Créez un composant React, puis hydratez-le depuis une page Astro :
+Créez un composant React et importez-le directement dans une page Astro :
 
 ```tsx title="src/components/ContinueButton.tsx"
 import { Button } from '@moduix/react/button';
@@ -40,6 +50,8 @@ export function ContinueButton() {
 }
 ```
 
+Ajoutez `client:load` pour le rendre interactif dès le chargement de la page :
+
 ```astro title="src/pages/index.astro"
 ---
 import { ContinueButton } from '../components/ContinueButton';
@@ -48,19 +60,23 @@ import { ContinueButton } from '../components/ContinueButton';
 <ContinueButton client:load />
 ```
 
-Choisissez la directive la moins précoce adaptée à l’interaction. Un rendu statique côté serveur ne suffit pas pour
-`Dialog`, `Menu`, `Select` et les autres composants interactifs.
+Sans directive `client:*`, Astro rend le composant en HTML statique et n’envoie pas son JavaScript au navigateur.
+Choisissez la directive selon le moment où le composant doit devenir interactif : `client:load` convient aux contrôles
+visibles immédiatement, `client:idle` lorsque l’interaction peut attendre que le navigateur soit disponible et
+`client:visible` pour les composants qui peuvent attendre leur entrée dans la fenêtre d’affichage. Un rendu statique côté
+serveur ne suffit pas pour `Dialog`, `Menu`, `Select` et les autres composants interactifs.
 
 ## Installer avec la CLI shadcn
 
-Terminez la [configuration de la CLI shadcn](/docs/quick-start#installer-avec-la-cli-shadcn), associez `@/*` à
-`src/*` dans `tsconfig.json`, puis importez `@/lib/moduix/styles/style.css` depuis le layout partagé. Les composants
-React générés requièrent toujours une directive client Astro à l’endroit où ils sont utilisés.
+Terminez la [configuration de la CLI shadcn](/docs/quick-start#installer-avec-la-cli-shadcn). Dans `tsconfig.json`,
+associez l’alias `@/*` à `src/*` et importez `@/lib/moduix/styles/style.css` depuis le composant de mise en page partagé.
+Dans une page Astro, importez directement le composant React généré et ajoutez-lui une directive `client:*`. Astro
+n’accepte une directive client que sur un composant de framework importé directement dans un fichier `.astro`.
 
 ## Vérifier
 
-La configuration est prête lorsque l’îlot est stylé avant l’hydratation et devient interactif après l’exécution de la
-directive client.
+La page doit contenir le HTML stylé rendu côté serveur avant l’hydratation, puis le composant doit réagir une fois sa
+directive client exécutée.
 
-Consultez le [guide d'intégration React d'Astro](https://docs.astro.build/en/guides/integrations-guide/react/)
-pour toutes les options de moteur de rendu et d'hydratation.
+Consultez le [guide Astro sur les frameworks front-end](https://docs.astro.build/en/guides/framework-components/) pour
+connaître les directives client disponibles. Pour une configuration manuelle de React, consultez le [guide d’intégration de `@astrojs/react`](https://docs.astro.build/en/guides/integrations-guide/react/).

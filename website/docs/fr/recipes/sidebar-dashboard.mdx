@@ -1,23 +1,32 @@
 ---
-title: Tableau de bord
-description: Une structure de tableau de bord pour ordinateur, avec navigation moduix réductible et redimensionnable.
+title: Tableau de bord avec navigation latérale
+description: Une structure de tableau de bord prête à copier, avec navigation latérale redimensionnable et repliable, éléments imbriqués et menu d’espace de travail.
 ---
 
 import { SidebarDashboardPreview } from '@/components/recipes/sidebar-dashboard-preview';
 
-# Tableau de bord
+# Tableau de bord avec navigation latérale
 
-Créez un espace de travail pour ordinateur avec une barre latérale réductible et redimensionnable,
-ainsi qu’une vue d’ensemble simple des indicateurs clés. `Sidebar` gère la réduction, le
-redimensionnement au clavier et les infobulles lorsque la navigation est réduite. L’élément Projects
-illustre aussi une navigation imbriquée, et le pied de page contient un menu d’espace de travail.
+Utilisez cette recette comme point de départ pour l’interface de bureau de votre application. Elle
+associe `Sidebar`, `Collapsible` et `Menu` pour proposer une navigation redimensionnable, un groupe
+Projects que l’on peut déplier et un menu d’espace de travail dans la partie basse de la barre
+latérale. La zone principale contient un aperçu simple avec des cartes de statistiques, afin de
+montrer où placer le contenu de votre application.
+
+Vous pouvez redimensionner la barre latérale en faisant glisser le séparateur ou à l’aide du clavier.
+`Sidebar.Trigger` replie et déplie le panneau, tandis que `Sidebar.Tooltip` conserve les libellés de
+navigation lorsque la barre se réduit à une rangée d’icônes.
+
+Il s’agit d’une composition prête à copier, et non d’un composant `SidebarDashboard` exporté par
+`@moduix/react`. Copiez le composant et le CSS ci-dessous, puis remplacez les liens, libellés et
+données de démonstration.
 
 <ExampleFrame clientOnly>
   <SidebarDashboardPreview />
 </ExampleFrame>
 
 <div className="docs-reference">
-  <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+  <Tabs values={[{ label: 'Composant', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="Component">
 
 ```tsx file="../../../src/components/recipes/sidebar-dashboard.tsx"
@@ -39,13 +48,32 @@ illustre aussi une navigation imbriquée, et le pied de page contient un menu d�
 
 <ShadcnInstall packageName={['button', 'card', 'collapsible', 'menu', 'sidebar']} itemKind="recipe" copiedSource dependencies={['lucide-react']} />
 
-## Dans une route
+## Adapter la recette à l’application
 
-Remplacez les liens, les libellés et le contenu de démonstration par vos routes et vos données. Cette
-recette est pensée pour ordinateur ; adaptez la navigation responsive, les menus du compte et les
-notifications à votre application.
+Remplacez les ancres `#overview`, `#website` et les autres liens de démonstration par les routes de
+votre application. Si votre routeur fournit un composant de lien, utilisez-le avec
+`Sidebar.NavigationButton` ou `Sidebar.NavigationSubButton` et la prop `asChild` pour lui laisser
+gérer la navigation. Marquez la destination active avec `aria-current="page"`.
 
-Marquez la destination active avec `aria-current="page"`. Si le composant Link de votre routeur gère
-la navigation, passez-le via `asChild`. Ne mémorisez la largeur réduite que si elle est utile aux
-personnes qui reviennent ; lisez le stockage du navigateur après l’hydratation et gardez un état par
-défaut utilisable sans lui.
+Conservez `Sidebar.Tooltip` autour des boutons de navigation afin que leurs libellés restent
+accessibles dans la barre repliée. Utilisez `Collapsible` pour les groupes imbriqués et `Menu` pour
+les actions de l’espace de travail. Reliez le bouton `New project` au véritable parcours de création
+d’un projet, puis remplacez les statistiques et le texte de démonstration de la zone principale par
+les données de votre application.
+
+## Comportement adaptatif
+
+Cette recette vise une mise en page pour ordinateur. `Sidebar` ne fournit pas de tiroir mobile et ne
+choisit pas de modèle de navigation adaptatif à votre place. Sur les petits écrans, composez un
+`Drawer` ou un autre panneau superposé avec la structure de navigation adaptée à votre application.
+La feuille de style de l’exemple se contente de passer les cartes de statistiques sur une colonne
+sous `40rem`.
+
+## Mémoriser la largeur de la barre
+
+Par défaut, la recette utilise la largeur du panneau et ne la mémorise pas entre les visites. Si
+votre application doit conserver la largeur du panneau sur ordinateur, contrôlez `Sidebar` avec
+`size`, mettez à jour cette valeur via `onResize(details)` pendant le redimensionnement et
+enregistrez la valeur finale reçue dans `onResizeEnd(details)`. Dans une application SSR, lisez le
+stockage du navigateur après l’hydratation et gardez une valeur par défaut utilisable au premier
+rendu.

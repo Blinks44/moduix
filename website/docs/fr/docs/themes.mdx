@@ -1,6 +1,6 @@
 ---
 title: Thèmes
-description: Partez d’un préréglage de tokens moduix, puis conservez le CSS dans votre projet.
+description: Commencez par un préréglage moduix, puis adaptez ses tokens CSS à votre produit.
 ---
 
 import { ThemePresets } from '@/components/docs/theme-presets';
@@ -8,50 +8,60 @@ import { ClientOnly } from '@ark-ui/react/client-only';
 
 # Thèmes
 
-Les thèmes moduix sont de simples couches CSS de tokens. `Calm` offre une base équilibrée ; `Dense`,
-`Soft` et `Contrast` proposent d’autres directions visuelles. Un préréglage peut modifier la palette,
-les rayons, l’espacement, la densité des contrôles et les ombres, sans modifier les API des composants
-ni ajouter de runtime de thème.
+Les thèmes moduix sont des couches de tokens CSS. `Calm` correspond aux valeurs par défaut du
+socle ; `Dense`, `Soft` et `Contrast` sont des préréglages facultatifs pour d’autres directions
+visuelles. Un préréglage peut modifier la palette, les rayons, l’espacement, la densité des
+contrôles et les ombres sans changer l’API des composants ni dépendre d’un moteur de thème distinct.
 
 <ClientOnly fallback={<ThemePresets />}>
   <ThemePresets />
 </ClientOnly>
 
-## Choisissez un préréglage
+## Choisir un préréglage
 
-| Préréglage | Contrôles / lignes de liste | Idéal pour |
-| --- | --- | --- |
-| Calm | 36px / 32px | La plupart des interfaces produit, avec un rythme neutre et des surfaces apaisées. |
-| Dense | 34px / 30px | Les outils riches en données, lorsque la densité d’information à l’écran compte. |
-| Soft | 40px / 34px | Les interfaces spacieuses ou tactiles, avec une direction visuelle plus chaleureuse. |
-| Contrast | 36px / 32px | Les interfaces qui ont besoin de bordures plus nettes et d’un focus bien distinct. |
+| Préréglage | Contrôle principal / ligne de popup | Bon point de départ pour                                                             |
+| ---------- | ----------------------------------- | ------------------------------------------------------------------------------------ |
+| Calm       | 36px / 32px                         | La plupart des interfaces produit : rythme neutre et surfaces discrètes.            |
+| Dense      | 34px / 30px                         | Les outils d’administration riches en données, où chaque information compte.        |
+| Soft       | 40px / 34px                         | Les parcours spacieux ou tactiles, avec des surfaces arrondies et un accent plus chaleureux. |
+| Contrast   | 36px / 32px                         | Les interfaces qui ont besoin de bordures nettes et d’une séparation claire du focus. |
 
-La démo utilise de vrais contrôles moduix. Ouvrez le Select et naviguez entre les champs au clavier
-pour comparer la densité des déclencheurs, la hauteur des lignes de liste, les libellés, les surfaces
-et le comportement du focus. Les noms des préréglages décrivent une direction visuelle, sans garantir
-l’accessibilité. Avant la mise en production, testez avec votre contenu et les surcharges de votre
-application le contraste du texte, la visibilité du focus, le zoom et la taille des cibles.
+Les valeurs du tableau correspondent à la hauteur par défaut du contrôle principal et des lignes de
+popup de chaque préréglage. L’aperçu utilise de vrais composants moduix. Utilisez les boutons du
+préréglage et du mode de couleur, puis ouvrez le Select et parcourez ses champs au clavier pour
+comparer la hauteur des contrôles et des lignes de popup, les libellés, les surfaces et les styles
+de focus.
+
+Les noms des préréglages indiquent une direction visuelle, mais ne constituent pas une garantie
+d’accessibilité. Avant la mise en production, testez avec votre contenu et les surcharges de votre
+application le contraste du texte, la visibilité du focus, le zoom et la taille des cibles
+interactives.
 
 ## Comment fonctionnent les couches
 
-Le fichier de styles de base définit le contrat complet des tokens et les valeurs par défaut `Calm`.
-Un préréglage redéfinit une partie de ce contrat ; l’application ne modifie ensuite que les décisions
-liées à votre marque. Les composants utilisent des alias sémantiques et propres aux composants : une
-modification de la palette ou de la densité se propage donc aux contrôles associés, au lieu de devenir
-une série de règles ponctuelles.
+La feuille de styles du socle définit le contrat complet des tokens et les valeurs par défaut de
+`Calm`. Un préréglage redéfinit certaines valeurs, puis votre application peut ne modifier que les
+choix qui lui appartiennent. Les composants utilisent des alias sémantiques et propres aux
+composants : une modification de la palette ou de la densité se propage aux contrôles associés,
+au lieu de devenir une série de règles ponctuelles.
 
 ```text
 foundation tokens → optional preset → application overrides → component aliases
 ```
 
-Le CSS de chaque préréglage reste compact, lisible et facile à retirer. Consultez [Tokens](/docs/tokens)
-pour voir quelles variables font partie de l’API publique de thématisation.
+Les fichiers CSS des préréglages ne contiennent que leurs redéfinitions, ce qui les rend faciles à
+inspecter et à retirer. Consultez [Tokens](/docs/tokens) pour voir quelles variables font partie de
+l’API publique de thématisation.
 
-## Utilisation avec le paquet npm
+## Utiliser le paquet npm
 
-Importez d’abord le socle, puis un préréglage. Ajoutez `data-moduix-theme` sur `<html>` pour que les
-composants rendus dans un portail héritent des mêmes tokens. Définissez
-`data-moduix-color-scheme="dark"` sur cet élément pour la palette sombre de moduix.
+Importez le socle une fois, puis un préréglage. Si les utilisateurs peuvent passer d’un préréglage
+à l’autre, chargez à l’avance le CSS de chacun d’eux. `Calm` utilise les valeurs du socle et ne
+possède pas de fichier `calm.css`.
+
+Ajoutez `data-moduix-theme` sur `<html>` afin que les composants rendus dans un portail utilisent les
+mêmes tokens que le reste du document. Définissez `data-moduix-color-scheme="dark"` sur cet élément
+pour activer le mode sombre de moduix ; vous pouvez omettre l’attribut en mode clair.
 
 ```tsx
 import '@moduix/react/style.css';
@@ -62,17 +72,17 @@ import '@moduix/react/presets/soft.css';
 <html data-moduix-theme="soft" data-moduix-color-scheme="dark"></html>
 ```
 
-Choisissez l'un de ces chemins à la place de `soft.css` :
+Pour utiliser un autre préréglage, remplacez `soft.css` par l’un de ces chemins :
 
 ```text
 @moduix/react/presets/dense.css
 @moduix/react/presets/contrast.css
 ```
 
-## Utilisation avec le registre
+## Utiliser le registre
 
-Installez un préréglage dont vous gardez le code source dans le projet, puis importez son CSS généré
-après le fichier de styles de base.
+Installez un préréglage depuis le registre moduix hébergé. La CLI copie son CSS source dans votre
+projet ; importez ensuite ce fichier après la feuille de styles du socle.
 
 ```bash
 npx shadcn@latest add @moduix-react/theme-dense
@@ -87,28 +97,33 @@ import '@/lib/moduix/presets/dense.css';
 <html data-moduix-theme="dense"></html>
 ```
 
-Remplacez `dense` par `soft` ou `contrast` pour utiliser un autre préréglage.
+Remplacez `dense` par `soft` ou `contrast` pour utiliser un autre préréglage. Si les utilisateurs
+peuvent changer de préréglage, installez et importez chacun de ceux qu’ils peuvent sélectionner.
 
 ## Changer de thème à l’exécution
 
-Conservez le thème choisi sur l’élément document, afin que le contenu ordinaire et les overlays dans
-un portail reçoivent les mêmes tokens. Ne mémorisez son nom que si votre produit doit retenir ce choix.
+Le changement de thème modifie uniquement l’attribut `data-moduix-theme`. Conservez le nom choisi
+sur l’élément racine du document afin que le contenu ordinaire et les overlays rendus dans un portail reçoivent
+les mêmes tokens. Ne mémorisez ce nom que si votre produit doit retenir le choix de l’utilisateur.
 
 ```tsx
-function setTheme(theme: 'calm' | 'dense' | 'soft' | 'contrast') {
+type Theme = 'calm' | 'dense' | 'soft' | 'contrast';
+
+function setTheme(theme: Theme) {
   document.documentElement.dataset.moduixTheme = theme;
   localStorage.setItem('moduix-theme', theme);
 }
 ```
 
-Appliquez la valeur enregistrée avant le rendu de l’application pour éviter un changement de thème
-visible au démarrage.
+La valeur `calm` conserve les valeurs du socle. Le CSS de chaque autre préréglage disponible doit
+déjà être chargé. Appliquez la valeur enregistrée avant le premier rendu pour éviter un changement
+de thème visible au démarrage.
 
 ## Personnaliser un préréglage
 
-Le préréglage n’est qu’une couche de variables CSS. Redéfinissez-le dans votre propre fichier de
-styles, chargé après le préréglage. Modifiez les tokens sémantiques pour les décisions à l’échelle du
-système, et les alias de composants uniquement pour les exceptions choisies en connaissance de cause.
+Un préréglage n’est qu’une couche de variables CSS. Chargez votre propre feuille de styles après le
+préréglage et redéfinissez les valeurs à modifier. Préférez les tokens sémantiques pour les choix à
+l’échelle du produit et les alias de composants pour les exceptions ciblées.
 
 ```css
 [data-moduix-theme='soft'] {
@@ -119,11 +134,12 @@ système, et les alias de composants uniquement pour les exceptions choisies en 
 
 ## Créer un thème personnalisé
 
-Créez un fichier de styles chargé après le socle et définissez le nom du thème sur `<html>`. Commencez
-par les tokens qui déterminent votre direction visuelle : les tokens omis conservent leurs valeurs de
-base. N’ajoutez des tokens de taille ou d’espacement que si votre thème modifie volontairement la
-densité. Utilisez un préréglage comme référence si vous souhaitez remplacer toute la palette,
-l’espacement et les ombres.
+Si les préréglages fournis ne conviennent pas, créez une feuille de styles chargée après le socle et
+utilisez une nouvelle valeur pour `data-moduix-theme`. Commencez par les tokens qui définissent
+votre direction visuelle. Les tokens que vous ne précisez pas conservent les valeurs du socle.
+N’ajoutez des tokens de taille ou d’espacement que si votre thème modifie volontairement la densité.
+Utilisez un préréglage comme référence si vous souhaitez remplacer toute la palette, l’espacement
+et les ombres.
 
 ```tsx
 import '@moduix/react/style.css';

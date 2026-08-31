@@ -1,7 +1,7 @@
 ---
 title: Fieldset
 component: fieldset
-description: Regroupement de contrôles associés avec la sémantique, les descriptions, les erreurs et l’état partagé d’un groupe de champs Ark UI.
+description: Regroupez des contrôles de formulaire associés sous une même légende tout en conservant la sémantique native de fieldset et un état partagé. Les textes d’aide et d’erreur sont reliés au groupe pour rester accessibles aux technologies d’assistance.
 ---
 
 import * as FieldsetDocs from '@/components/examples/fieldset';
@@ -12,13 +12,15 @@ import * as FieldsetDocs from '@/components/examples/fieldset';
 
 ## Choisir le bon composant
 
-Utilisez `Fieldset` pour plusieurs contrôles associés avec une seule légende. Utilisez `Field` pour un
-contrôle avec sa propre étiquette, description et message de validation.
+Utilisez `Fieldset` lorsque plusieurs contrôles associés doivent former un groupe avec une légende commune, par exemple
+pour des coordonnées ou des préférences de notification. Utilisez `Field` lorsqu’un seul contrôle a besoin de son propre
+libellé, texte d’aide et message de validation.
 
 ## Exemple de base
 
-Composez `Fieldset`, `Fieldset.Legend`, le texte explicatif ou d’erreur facultatif et les contrôles associés.
-`Fieldset.Root` reste disponible sous forme d'alias correspondant à Ark.
+Créez un groupe avec `Fieldset`, `Fieldset.Legend`, les contrôles associés et, si nécessaire, un texte d’aide ou un message
+d’erreur. La syntaxe courte `<Fieldset>` est équivalente à `<Fieldset.Root>`. La forme `.Root` reste disponible pour
+conserver la compatibilité avec l’API Ark.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/fieldset/basic.tsx"
@@ -40,56 +42,60 @@ Fieldset.Root | Fieldset.RootProvider
 └─ Fieldset.ErrorText (optional)
 ```
 
-| Partie | Rôle |
-| ---------------------------- | ------------------------------------------------------------------------ |
-| `Fieldset` / `Fieldset.Root` | Crée un état et rend le `fieldset` natif.                   |
-| `Fieldset.RootProvider` | Rend l’état `useFieldset` créé en externe.                         |
-| `Fieldset.Legend` | `legend` natif et nom de groupe disponible.                                |
-| `Fieldset.HelperText` | Description associée à la racine via `aria-describedby`.                   |
-| `Fieldset.ErrorText` | Message de validation dans une région live polie, affiché uniquement avec `invalid`. |
+| Partie                        | Rôle                                                                                              |
+| ----------------------------- | ------------------------------------------------------------------------------------------------- |
+| `Fieldset` / `Fieldset.Root`  | Crée l’état et rend un élément `fieldset` natif.                                                  |
+| `Fieldset.RootProvider`       | Rend un `fieldset` natif avec l’état créé par `useFieldset`.                                      |
+| `Fieldset.Context`            | Expose l’état courant du groupe aux descendants sans rendre d’élément DOM supplémentaire.       |
+| `Fieldset.Legend`             | Élément `legend` natif qui fournit le nom accessible du groupe.                                   |
+| `Fieldset.HelperText`         | Description associée à la racine via `aria-describedby`.                                         |
+| `Fieldset.ErrorText`          | Message de validation annoncé via `aria-live="polite"` et rendu uniquement quand `invalid` vaut `true`. |
 
 ## Composition
 
 ### Composition recommandée
 
-Laissez un `Fieldset.Legend` visible à l’intérieur de la racine. Transférez directement les `disabled`, `invalid` et `id`
-à la racine. Ark associe la légende, le texte d’aide présent et le texte d’erreur actif au groupe de champs.
+Gardez une seule `Fieldset.Legend` visible dans la racine, de préférence avant les contrôles. Passez `disabled`, `invalid` et
+`id` directement à la racine. Ark utilise la légende comme nom accessible du groupe et relie le texte d’aide ainsi que le
+message d’erreur actif au fieldset via `aria-describedby`.
 
-La racine, le fournisseur, la légende, le texte explicatif et le texte d'erreur transmettent les références à leurs éléments DOM rendus.
-Utilisez `asChild` avec un enfant sémantique lorsque l'hôte utilisateur doit être propriétaire de la partie.
+`Fieldset.Root`, `Fieldset.RootProvider`, `Fieldset.Legend`, `Fieldset.HelperText` et `Fieldset.ErrorText` transmettent leur
+`ref` aux éléments DOM qu’ils rendent. Utilisez `asChild` avec un seul enfant sémantique lorsque vous devez remplacer l’élément
+HTML rendu par une partie.
 
 ### Quand créer une composition personnalisée
 
-Utilisez `useFieldset` depuis `@moduix/react` avec `Fieldset.RootProvider` lorsque l’état est créé en dehors de
-l’arbre rendu. Utilisez `useFieldsetContext()` ou `Fieldset.Context` dans un enfant qui doit lire cet état.
-N’imbriquez pas le provider dans `Fieldset.Root` pour une même instance d’état.
+Utilisez `useFieldset` de `@moduix/react` avec `Fieldset.RootProvider` lorsque l’état doit être créé en dehors de l’arbre JSX
+ou partagé avec des contrôles voisins et des composants réutilisables. Utilisez `useFieldsetContext()` ou passez une fonction
+de rendu à `Fieldset.Context` dans un descendant qui doit lire cet état. N’utilisez pas `Fieldset.Root` avec `Fieldset.RootProvider`
+pour une même instance d’état.
 
 ### Propriétés par défaut
 
-| Surfaces | Propriété | Par défaut |
+| Partie | Propriété | Par défaut |
 | ----------------- | --------- | ------------ |
 | `Fieldset.Root`   | `disabled` | `false`     |
 | `Fieldset.Root`   | `invalid`  | `false`     |
 
 ### Comportement
 
-- `Fieldset.Legend` rend le `legend` natif, par opposition au wrapper hérité supprimé.
-- Le navigateur désactive les contrôles natifs à l’intérieur d’un groupe de champs désactivé.
-- Les descendants `Field` d’Ark héritent de l’état désactivé du groupe de champs. Définissez `invalid` sur les composants `Field` imbriqués
-  lorsque des contrôles individuels nécessitent un état invalide.
-- `Fieldset.ErrorText` n'est pas dans le DOM tant que `invalid` n'est pas vrai.
-- Les longues légendes, le texte explicatif et le texte d’erreur reviennent à la ligne dans le groupe de champs au lieu de déborder.
+- `Fieldset.Legend` rend un `legend` natif, et non un conteneur supplémentaire.
+- Le navigateur désactive les contrôles natifs contenus dans un `fieldset` avec `disabled`.
+- Les composants `Field` d’Ark placés dans le `fieldset` héritent de son état `disabled`. Définissez `invalid` sur les composants
+  `Field` imbriqués lorsque des contrôles individuels doivent aussi afficher leur propre état invalide.
+- `Fieldset.ErrorText` n’est pas présent dans le DOM tant que `invalid` ne vaut pas `true`.
+- Les longues légendes, le texte d’aide et les messages d’erreur passent à la ligne dans le `fieldset` sans déborder de son conteneur.
 - `useFieldsetContext()` et `Fieldset.Context` fournissent aux descendants le même état Ark que `useFieldset`.
-- Fieldset ne possède pas de valeur, de navigation au clavier, de rappel ou de `HiddenInput`.
-- L'ancien `render` et les exportations plates telles que `FieldsetLegend` ne sont pas pris en charge ; utiliser `asChild`
-  et des parties de l'espace de noms.
+- Fieldset ne gère ni valeur, ni navigation au clavier, ni fonction de rappel, ni `HiddenInput` qui lui soit propre.
+- La prop obsolète `render` et les exports plats tels que `FieldsetLegend` ne sont pas pris en charge. Utilisez `asChild` et les
+  parties du namespace à la place.
 
 ## Exemples
 
 ### Checkbox
 
-Utilisez la légende du groupe de champs comme nom commun pour le jeu de contrôles Ark de case à cocher associé. Chaque case à cocher racine
-rend automatiquement son entrée native pour la soumission du formulaire et le comportement de réinitialisation.
+Utilisez la légende du fieldset pour donner un nom à un groupe de cases à cocher associées. Chaque `Checkbox` rend automatiquement
+son `input` natif, de sorte que sa valeur est incluse dans la soumission et la réinitialisation du formulaire.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/fieldset/checkbox.tsx"
@@ -99,8 +105,8 @@ rend automatiquement son entrée native pour la soumission du formulaire et le c
 
 ### État désactivé
 
-Définissez `disabled` sur la racine pour désactiver les enfants natifs et transmettre l’état désactivé
-aux contrôles compatibles Ark qui utilisent le contexte de groupe de champs.
+Définissez `disabled` sur la racine. Le navigateur désactive les contrôles natifs, et les contrôles compatibles avec Ark récupèrent
+le même état depuis le contexte du fieldset.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/fieldset/disabled.tsx"
@@ -110,7 +116,8 @@ aux contrôles compatibles Ark qui utilisent le contexte de groupe de champs.
 
 ### Field
 
-Imbriquez des composants `Field` lorsque chaque contrôle nécessite également sa propre étiquette ou description.
+Imbriquez des composants `Field` lorsque chaque contrôle a besoin de son propre libellé, texte d’aide ou message d’erreur, en
+plus de la légende commune.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/fieldset/field.tsx"
@@ -120,7 +127,8 @@ Imbriquez des composants `Field` lorsque chaque contrôle nécessite également 
 
 ### Input avec Select
 
-Regroupez le sélecteur de code de pays et la saisie du numéro de téléphone sous une seule légende lorsque les deux contrôles représentent une même valeur logique.
+Associez un `Select` pour le code pays et un `Input` pour le numéro de téléphone sous une même légende lorsqu’ils forment
+ensemble un seul numéro de téléphone.
 
 <style>{FieldsetDocs.fieldsetPhoneInputCss}</style>
 
@@ -132,8 +140,8 @@ Regroupez le sélecteur de code de pays et la saisie du numéro de téléphone s
 
 ### État invalide
 
-Définissez `invalid` sur Fieldset pour la validation au niveau du groupe. Définissez `invalid` sur les composants imbriqués de `Field`,
-lorsque des contrôles individuels nécessitent également des styles et un état ARIA non valides.
+Définissez `invalid` sur `Fieldset` pour marquer le groupe comme invalide et afficher son message d’erreur. Définissez aussi `invalid` sur les
+composants `Field` imbriqués lorsque des contrôles individuels doivent afficher leur propre style d’erreur et leurs attributs ARIA.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/fieldset/invalid.tsx"
@@ -143,8 +151,8 @@ lorsque des contrôles individuels nécessitent également des styles et un éta
 
 ### Personnalisation avancée
 
-Créez l’état du groupe de champs en dehors de l’arbre rendu avec `useFieldset` de moduix lorsqu’il doit être géré de manière cohérente
-contrôles adjacents ou enfants réutilisables.
+Utilisez `useFieldset` avec `Fieldset.RootProvider` pour créer l’état du fieldset en dehors de l’arbre JSX et le partager avec
+des contrôles voisins ou des descendants réutilisables.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/fieldset/root-provider.tsx"
@@ -170,7 +178,7 @@ contrôles adjacents ou enfants réutilisables.
 
 ### Points d’accroche CSS
 
-Chaque partie DOM possède un `data-scope="fieldset"` Ark et un `data-part` correspondant à l'anatomie. Racine et légende
-fournir `data-disabled` et `data-invalid` ; moduix ajoute également des hooks `data-slot="fieldset-*"`.
-Utilisez `className` pour les remplacements locaux et les variables `--moduix-fieldset-*` pour la personnalisation au niveau du thème,
-en particulier l’espacement interne de la légende et les tokens de bordure de la racine.
+Chaque partie DOM possède les attributs Ark `data-scope="fieldset"` et `data-part` correspondant à l’anatomie. La racine et
+la légende exposent `data-disabled` et `data-invalid` ; moduix ajoute également les attributs `data-slot="fieldset-*"`.
+Utilisez `className` pour les ajustements locaux et les variables `--moduix-fieldset-*` pour personnaliser le thème, notamment
+l’espacement de la légende et les variables de bordure de la racine.

@@ -1,39 +1,39 @@
 ---
 title: Animations
-description: Recettes d’animation pour les overlays, les sélecteurs, les éléments dépliables et les substitutions dans moduix.
+description: Variables CSS de mouvement partagées et recettes par composant pour les panneaux flottants, les éléments dépliables et les transitions dans moduix.
 ---
 
 import * as AnimationDocs from '@/components/examples/animations';
 
 # Animations
 
-moduix définit un contrat d’animation commun pour les surfaces flottantes et modales. Configurez ses variables CSS
-une seule fois pour que tous les composants pris en charge partagent la même durée, la même courbe et les mêmes
-effets de fondu, d’échelle ou de déplacement. Si une surface doit se distinguer, utilisez ses variables locales.
+moduix fournit des variables CSS de mouvement communes pour le contenu flottant et modal. Définissez-les une seule
+fois pour appliquer la même durée, la même courbe et les mêmes effets de fondu, d’échelle ou de déplacement à tous
+les panneaux flottants pris en charge. Lorsqu’un composant doit avoir un mouvement différent, utilisez ses variables locales.
 
-Les attributs d’état Ark déclenchent les animations et conservent la partie sortante dans le DOM jusqu’à la fin de son
-animation CSS.
+Les composants utilisent les attributs `data-state` d’Ark pour choisir les animations d’entrée et de sortie. Lorsqu’un
+contenu se ferme, Ark le conserve dans le DOM jusqu’à la fin de son animation de sortie.
 
-Les tokens partagés `--moduix-duration-*`, `--moduix-ease-*`, `--moduix-transition-*` et
-`--moduix-scale-*` influencent de nombreuses parties du système. Utilisez `--moduix-popup-motion-*` lorsque
-seul le contenu des composants flottants doit changer dans tout le projet.
+Les tokens partagés `--moduix-duration-*`, `--moduix-ease-*`, `--moduix-transition-*` et `--moduix-scale-*`
+servent dans de nombreuses parties du système. Utilisez `--moduix-popup-motion-*` lorsque seul le contenu flottant
+doit changer dans tout le projet.
 
-Lorsque l’utilisateur demande une réduction des mouvements dans le système d’exploitation, les tokens de durée de
-base passent à `0.01ms` et les animations partagées de pulsation, de fondu, de déplacement et de rotation sont
-désactivées. Les composants à mouvement continu, comme Marquee et Progress indéterminé, conservent leur propre repli
-pour `prefers-reduced-motion`.
+Quand la réduction des mouvements est activée dans le système d’exploitation, les tokens de durée partagés passent à
+`0.01ms` et les animations communes de pulsation, de fondu, de déplacement et de rotation sont désactivées. Les
+composants dont le mouvement est spécifique, comme `Marquee` et `Progress` indéterminé, gardent leur propre gestion
+de `prefers-reduced-motion`.
 
 ## Choisir l’API d’animation
 
-### Animation des popups
+### Animation partagée des panneaux flottants
 
-Utilisez `*-starting-*` pour l’entrée et `*-ending-*` pour la sortie. Les variables partagées s’appliquent
-aux parties de contenu suivantes : `Popover.Content`, `Menu.Content`, `Tooltip.Content`, `HoverCard.Content`,
+Utilisez `*-starting-*` pour l’entrée et `*-ending-*` pour la sortie. Les variables partagées s’appliquent aux
+parties `Content` suivantes : `Popover.Content`, `Menu.Content`, `Tooltip.Content`, `HoverCard.Content`,
 `FloatingPanel.Content`, `Dialog.Content`, `CommandPalette.Content`, `Lightbox.Content`, `Tour.Content`,
-`Select.Content`, `Combobox.Content`, `DatePicker.Content` et `ColorPicker.Content`.
+`NavigationMenu.Content`, `Select.Content`, `Combobox.Content`, `DatePicker.Content` et `ColorPicker.Content`.
 
-Par exemple, ce réglage fait entrer tout le contenu flottant pris en charge depuis la gauche et le fait sortir vers la
-gauche avec la même courbe d’animation :
+Par exemple, ce réglage fait entrer tout le contenu pris en charge depuis la gauche et le fait repartir vers la gauche
+avec la même courbe :
 
 ```css
 :root {
@@ -48,32 +48,42 @@ gauche avec la même courbe d’animation :
 }
 ```
 
-Pour les overlays habituellement rendus dans un portail, définissez les variables sur `:root`. Une variable définie
-sur un wrapper local n’atteint pas le contenu rendu dans `document.body` ; elle fonctionne avec un composant rendu
-avec `portalled={false}`.
+Pour les panneaux rendus habituellement dans un portail, définissez les variables sur `:root`. Une variable placée
+uniquement sur un conteneur local n’atteint pas le contenu rendu dans `document.body`. Elle fonctionne avec un
+composant rendu avec `portalled={false}`.
 
 ### Redéfinitions locales
 
-Les variables du composant ont priorité sur les valeurs partagées. Utilisez-les pour une exception ponctuelle à la
-règle du projet et ajoutez une classe à la partie visuelle indiquée dans le tableau. Les surfaces ancrées conservent
-leur `transform-origin` Ark : les recettes fondées sur l’échelle s’ouvrent donc toujours depuis le déclencheur.
+Les variables propres au composant prennent le pas sur les valeurs partagées. Utilisez-les pour une exception locale
+à la règle du projet et ajoutez une classe à la partie visuelle indiquée dans le tableau. Les panneaux ancrés
+conservent le `transform-origin` d’Ark : les recettes fondées sur l’échelle s’ouvrent toujours depuis le déclencheur.
 
-| Surface | Appliquer la classe à | Préfixe |
+| Surface | Appliquer la classe à | Variables de mouvement |
 | --- | --- | --- |
-| Popover | `Popover.Content` | `--moduix-popover-content-*` |
-| Menu | `Menu.Content` | `--moduix-menu-popup-*` |
-| Tooltip | `Tooltip.Content` | `--moduix-tooltip-popup-*` |
-| Hover Card | `HoverCard.Content` | `--moduix-hover-card-content-*` |
-| Floating Panel | `FloatingPanel.Content` | `--moduix-floating-panel-*` |
-| Dialog | `Dialog.Content` | `--moduix-dialog-content-*` |
-| Command Palette | `CommandPalette.Content` | `--moduix-command-palette-content-*` |
-| Lightbox | `Lightbox.Content` | `--moduix-lightbox-content-*` |
-| Tour | `Tour.Content` | `--moduix-tour-content-*` |
+| Popover | `Popover.Content` | `--moduix-popover-transition`, `--moduix-popover-content-*` |
+| Menu | `Menu.Content` | `--moduix-menu-transition`, `--moduix-menu-popup-*` |
+| Tooltip | `Tooltip.Content` | `--moduix-tooltip-transition`, `--moduix-tooltip-popup-*` |
+| Hover Card | `HoverCard.Content` | `--moduix-hover-card-transition`, `--moduix-hover-card-content-*` |
+| Floating Panel | `FloatingPanel.Content` | `--moduix-floating-panel-transition`, `--moduix-floating-panel-*` |
+| Dialog | `Dialog.Content` | `--moduix-dialog-transition`, `--moduix-dialog-content-*` |
+| Command Palette | `CommandPalette.Content` | `--moduix-command-palette-transition`, `--moduix-command-palette-content-*` |
+| Lightbox | `Lightbox.Content` | `--moduix-lightbox-transition`, `--moduix-lightbox-content-*` |
+| Tour | `Tour.Content` | `--moduix-tour-transition`, `--moduix-tour-content-*` |
+| Navigation Menu | `NavigationMenu.Content` | `--moduix-navigation-menu-transition`, `--moduix-navigation-menu-content-*` |
+| Select | `Select.Content` | `--moduix-select-transition`, `--moduix-select-content-*` |
+| Combobox | `Combobox.Content` | `--moduix-combobox-transition`, `--moduix-combobox-content-*` |
+| Date Picker | `DatePicker.Content` | `--moduix-date-picker-transition`, `--moduix-date-picker-content-*` |
+| Color Picker | `ColorPicker.Content` | `--moduix-color-picker-transition`, `--moduix-color-picker-content-*` |
 
-`Dialog`, `CommandPalette`, `Lightbox` et `Tour` exposent également des variables `*-backdrop-*` sur la
-partie `Backdrop`. Les arrière-plans restent volontairement hors du contrat commun d’animation des popups :
-ils acceptent seulement `opacity` et `blur`, tandis que le contenu flottant partagé accepte `opacity`,
-`scale` et `translate-x` ou `translate-y`.
+Avec un `Viewport`, `NavigationMenu` utilise aussi les tokens partagés pour le dimensionnement de la zone et le
+mouvement directionnel de son contenu. Pour personnaliser la zone elle-même, utilisez
+`--moduix-navigation-menu-viewport-*`.
+
+`Dialog`, `CommandPalette`, `Lightbox` et `Tour` exposent également des variables `*-backdrop-*` sur leur partie
+`Backdrop`. Les arrière-plans utilisent leur propre variable de transition et n’animent que `opacity` et `blur` ; ils
+n’utilisent pas les valeurs partagées d’échelle ou de déplacement. Le contenu partagé des panneaux peut animer
+`opacity`, `scale` et `translate-x` ou `translate-y`. Pour le flou, utilisez des filtres CSS comme `blur(4px)` ou
+`none`.
 
 ### Animation des états
 
@@ -81,28 +91,29 @@ Ces composants ont leur propre système d’animation et n’acceptent donc pas 
 
 | Composant | Partie visuelle | Personnalisation prise en charge |
 | --- | --- | --- |
-| Accordion | `Accordion.ItemContent` | `--moduix-accordion-item-content-transition`, opacité des états ouvert et fermé |
-| Collapsible | `Collapsible.Content` | `--moduix-collapsible-content-transition`, opacité des états ouvert et fermé |
+| Accordion | `Accordion.ItemContent` | `--moduix-accordion-item-content-transition`, `--moduix-accordion-item-content-open-opacity`, `--moduix-accordion-item-content-closed-opacity` |
+| Collapsible | `Collapsible.Content` | `--moduix-collapsible-content-transition`, `--moduix-collapsible-content-open-opacity`, `--moduix-collapsible-content-closed-opacity` |
 | Drawer | `Drawer.Content` et `Drawer.Backdrop` | `--moduix-drawer-transition`, `--moduix-drawer-backdrop-transition` ; la direction et le glissement contrôlent la transformation |
-| Swap | `Swap.Indicator` | variables d’opacité et d’échelle distinctes pour l’entrée et la sortie |
-| Tree View | `TreeView.BranchContent` | `--moduix-tree-view-content-transition-duration` |
+| Swap | `Swap.Indicator` | `--moduix-swap-transition` et variables distinctes d’opacité et d’échelle pour l’entrée et la sortie |
+| Tree View | `TreeView.BranchContent` | `--moduix-tree-view-transition`, `--moduix-tree-view-content-transition-duration` |
 
-Toast utilise les variables d’exécution Ark pour la disposition de la pile et la fermeture. Ne modifiez pas `--x`,
-`--y`, `--scale`, `--height` ni `--opacity` : les recettes de cette page ne font pas partie de l’API de Toast.
+`Toast` utilise les variables de mise en page d’Ark pour empiler les notifications et les fermer. Ne modifiez pas
+`--x`, `--y`, `--scale`, `--height` ni `--opacity`. Les recettes de cette page ne font pas partie de l’API de
+`Toast`.
 
 ## Recettes prêtes à l’emploi
 
-Choisissez une animation selon son objectif, puis utilisez la même recette pour les surfaces similaires :
+Choisissez une animation en fonction de son objectif, puis réutilisez la même recette pour des panneaux similaires :
 
 | Objectif du produit | Point de départ |
 | --- | --- |
-| Une apparition calme sans signification spatiale | Fondu |
-| Une surface apparaît depuis le bord le plus proche | Déplacement dans la direction correspondante |
-| Un menu ou un sélecteur ancré s’ouvre depuis son déclencheur | Échelle ou élévation |
-| Une confirmation brève et conviviale | Apparition douce, à utiliser avec modération |
+| Apparition discrète, sans signification spatiale | Fondu |
+| Un panneau apparaît depuis un bord proche | Déplacement dans la direction correspondante |
+| Un menu ou un sélecteur ancré s’ouvre depuis son déclencheur | Échelle ou remontée |
+| Une confirmation courte et conviviale | Apparition douce, à utiliser avec modération |
 
-Définissez ces variables sur `:root` pour appliquer la recette à toutes les surfaces de contenu flottant prises en
-charge. Pour une exception ponctuelle, utilisez le préfixe correspondant dans le tableau des redéfinitions locales.
+Définissez ces variables sur `:root` pour appliquer la recette à tout le contenu des panneaux flottants pris en
+charge. Pour une exception, utilisez les variables du composant correspondant dans le tableau ci-dessus.
 
 ### Fondu
 
@@ -180,7 +191,7 @@ charge. Pour une exception ponctuelle, utilisez le préfixe correspondant dans l
 }
 ```
 
-### Élévation
+### Remontée
 
 ```css
 :root {
@@ -221,14 +232,14 @@ charge. Pour une exception ponctuelle, utilisez le préfixe correspondant dans l
 }
 ```
 
-Utilisez-la pour apporter une touche conviviale assumée à un menu court, un Tooltip ou une surface de confirmation.
+Utilisez cette recette pour donner une touche conviviale à un menu court, un `Tooltip` ou un message de confirmation.
 
-## Recettes propres aux composants
+## Recettes par composant
 
-### Focus vitré
+### Focus avec effet de verre
 
-Pour les arrière-plans modaux, ajoutez la première classe à `Dialog.Backdrop` et la seconde à `Dialog.Content`. Pour
-la famille modale correspondante, remplacez `dialog` par `command-palette`, `lightbox` ou `tour`.
+Pour un arrière-plan modal, ajoutez la première classe à `Dialog.Backdrop` et la seconde à `Dialog.Content`. Pour
+les autres familles modales, remplacez `dialog` par `command-palette`, `lightbox` ou `tour`.
 
 ```css
 .glassFocusBackdrop {
@@ -250,10 +261,10 @@ la famille modale correspondante, remplacez `dialog` par `command-palette`, `lig
 }
 ```
 
-### Échelle douce
+### Mise à l’échelle douce
 
-Cette recette applique une échelle douce au contenu d’un sélecteur. Ajoutez la classe à `Select.Content`. Pour
-`Combobox`, `ColorPicker` ou `DatePicker`, remplacez le préfixe `select` par `combobox`, `color-picker` ou
+Cette recette applique une mise à l’échelle douce au contenu d’un sélecteur. Ajoutez la classe à `Select.Content`.
+Pour `Combobox`, `ColorPicker` ou `DatePicker`, remplacez le préfixe `select` par `combobox`, `color-picker` ou
 `date-picker`.
 
 ```css
@@ -264,9 +275,9 @@ Cette recette applique une échelle douce au contenu d’un sélecteur. Ajoutez 
 }
 ```
 
-### Déploiement détendu
+### Ouverture souple
 
-Ajoutez cette classe à `Accordion.ItemContent`. Pour `Collapsible.Content`, utilisez plutôt le préfixe
+Ajoutez cette classe à `Accordion.ItemContent`. Pour `Collapsible.Content`, utilisez à la place le préfixe
 `--moduix-collapsible-content-*`.
 
 ```css
@@ -276,10 +287,10 @@ Ajoutez cette classe à `Accordion.ItemContent`. Pour `Collapsible.Content`, uti
 }
 ```
 
-### Substitution marquée
+### Transition accentuée
 
-Ajoutez la classe à `Swap.Indicator` lorsque l’élément sortant doit se retirer et que le suivant apparaît avec plus
-d’énergie.
+Ajoutez cette classe à `Swap.Indicator` lorsque l’élément sortant doit s’effacer et que le suivant doit apparaître
+avec plus d’énergie.
 
 ```css
 .emphasizedSwap {
@@ -297,18 +308,18 @@ d’énergie.
   <AnimationDocs.MotionRecipesExample />
 </ExampleFrame>
 
-## Règles
+## Règles d’utilisation
 
-- Placez les variables d’animation locales du composant sur la partie visuelle qui s’anime ; définissez les
-  variables partagées des popups sur `:root` pour les overlays rendus par défaut dans un portail.
-- Gardez les valeurs d’entrée et de sortie symétriques, sauf si l’asymétrie est intentionnelle.
-- Définissez l’échelle à `1` pour une animation de fondu ou de déplacement pure.
-- Utilisez `--moduix-popup-motion-*` pour une règle de contenu flottant commune à tout le projet ; réservez
-  le préfixe local du composant aux exceptions.
-- Ne remplacez ni les transformations de Drawer ni les variables d’exécution de mise en page de Toast :
-  elles sont toutes synchronisées avec l’interaction et la fermeture.
-- L’animation de sortie fonctionne par défaut. Utilisez `present` uniquement si JavaScript doit contrôler
-  explicitement le montage de la partie ; les recettes CSS ordinaires n’en ont pas besoin.
+- Placez les variables de mouvement locales sur la partie visuelle qui porte l’animation. Définissez les variables
+  partagées des panneaux flottants sur `:root` pour les panneaux rendus par défaut dans un portail.
+- Gardez les valeurs d’entrée et de sortie symétriques, sauf si une asymétrie est volontaire.
+- Pour un fondu ou un déplacement sans mise à l’échelle, définissez l’échelle à `1`.
+- Utilisez `--moduix-popup-motion-*` pour une règle commune à tout le projet. Réservez les variables locales du
+  composant aux exceptions.
+- Ne remplacez pas les transformations de `Drawer` ni les variables de mise en page gérées par Ark pour `Toast`.
+  Elles sont synchronisées avec l’interaction et la fermeture.
+- L’animation de sortie fonctionne par défaut. N’utilisez `present` que lorsque JavaScript doit contrôler
+  explicitement le montage d’une partie. Les recettes CSS ordinaires n’en ont pas besoin.
 
 ## Ressources associées
 

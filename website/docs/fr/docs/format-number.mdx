@@ -1,6 +1,6 @@
 ---
 title: Format Number
-description: Affichez nombres, devises, pourcentages et métriques compactes avec Ark UI Format.Number et moduix.
+description: Formatez les nombres, les devises, les pourcentages, les unités et les grands nombres en notation compacte avec Format.Number d’Ark UI et moduix.
 ---
 
 ## Référence de l’API
@@ -9,9 +9,9 @@ description: Affichez nombres, devises, pourcentages et métriques compactes ave
 
 ## Quand l’utiliser
 
-Utilisez `Format.Number` pour afficher un nombre selon les conventions de la locale : séparateurs de milliers,
-devises, pourcentages, unités ou notation compacte. Le composant sert uniquement à l’affichage ; pour une valeur
-modifiable, utilisez `NumberInput` de moduix.
+`Format.Number` sert à afficher des valeurs numériques non modifiables. Il respecte les conventions de la locale active
+pour les séparateurs, les devises, les pourcentages, les unités et la notation compacte. Pour une valeur modifiable,
+utilisez le composant `NumberInput` de moduix.
 
 Importez `Format` directement depuis Ark UI :
 
@@ -21,8 +21,11 @@ import { Format } from '@ark-ui/react';
 
 ## Exemple de base
 
-Placez la valeur formatée près d’un élément qui lui donne du sens. Le composant rend du texte, tandis que `Card` et
-`Stack` apportent le libellé et la hiérarchie visuelle.
+Passez un nombre à `value`. Sans option de formatage, le composant suit le comportement par défaut de
+`Intl.NumberFormat` pour la locale active. Sans `LocaleProvider`, Ark utilise `en-US`.
+
+`Format.Number` ne rend que du texte. Placez-le près d’un libellé ou d’un autre élément qui explique le sens de la
+valeur. Dans cet exemple, `Card` et `Stack` fournissent le contexte et la hiérarchie visuelle.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/format-number/basic.tsx"
@@ -32,9 +35,9 @@ Placez la valeur formatée près d’un élément qui lui donne du sens. Le comp
 
 ## Devise, pourcentage et notation compacte
 
-`Format.Number` accepte les options standard de `Intl.NumberFormat`. Pour une devise, utilisez `style="currency"`
-avec son code ; pour un pourcentage, passez une fraction avec `style="percent"` ; `notation="compact"` convient aux
-indicateurs d’un tableau de bord.
+`Format.Number` accepte les options standard de `Intl.NumberFormat`. Pour un montant, utilisez `style="currency"` et
+définissez `currency` avec le code de la devise. Pour un pourcentage, utilisez `style="percent"`. Utilisez
+`notation="compact"` lorsque l’espace est limité, notamment dans un tableau de bord.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/format-number/common-styles.tsx"
@@ -42,13 +45,14 @@ indicateurs d’un tableau de bord.
   ```
 </PreviewFrame>
 
-Une valeur de pourcentage est une fraction : passez `0.0642` pour 6,42 %, et non `6.42`. Utilisez
-`minimumFractionDigits` et `maximumFractionDigits` lorsque les valeurs doivent avoir la même précision.
+Pour 6,42 %, passez la fraction `0.0642` ; `6.42` sera formaté comme 642 %. Pour conserver les deux décimales,
+définissez `maximumFractionDigits={2}`. Utilisez `minimumFractionDigits` et
+`maximumFractionDigits` si le nombre de décimales doit rester constant.
 
 ## Locale et unités
 
-`Format.Number` récupère la locale depuis `LocaleProvider`. moduix réexporte ce fournisseur : utilisez-le pour
-définir la locale une seule fois dans toute l’interface.
+`Format.Number` récupère la locale depuis `LocaleProvider`. moduix réexporte ce fournisseur depuis
+`@moduix/react/locale`. Utilisez-le autour de la partie de l’interface qui partage cette locale.
 
 ```tsx
 import { Format } from '@ark-ui/react';
@@ -63,17 +67,19 @@ export function LocalizedPrice() {
 }
 ```
 
-Pour les mesures, utilisez `style="unit"` avec une `unit` prise en charge, comme `kilometer`, `celsius` ou
-`megabyte`. `unitDisplay` contrôle la forme d’affichage de l’unité.
+Pour formater une mesure, utilisez `style="unit"` avec une valeur `unit` prise en charge, comme `kilometer`, `celsius`
+ou `megabyte`. Définissez `unitDisplay` sur `"narrow"`, `"short"` ou `"long"` pour choisir la forme d’affichage de
+l’unité.
 
 ## Utilisation avec moduix
 
-Placez `Format.Number` près du libellé, du statut ou de l’indicateur qu’il décrit. Utilisez les composants moduix
-`Card`, `Stack`, `Text` et ceux dédiés à l’affichage des données pour la hiérarchie ; ne créez pas de composant juste
-pour appeler un formateur. Pour les montants modifiables, `NumberInput` gère le formatage et l’analyse avec son API
-`formatOptions`.
+Placez `Format.Number` près du libellé, du statut ou de l’indicateur auquel la valeur se rapporte. Utilisez les
+composants moduix `Card`, `Stack`, `Text` et ceux dédiés à l’affichage des données pour structurer l’interface. Il n’est
+pas nécessaire de créer un composant uniquement pour appeler le formateur. Pour les montants modifiables, utilisez
+`NumberInput` : sa prop `formatOptions` contrôle le format d’affichage et l’interprétation de la saisie.
 
 ## Responsabilités
 
-Ark UI gère le formatage des nombres et l’API `Format.Number`. moduix fournit les composants d’interface qui
-l’accompagnent et réexporte `LocaleProvider`, mais ne réexporte pas `Format.Number`.
+Ark UI fournit `Format.Number` et la logique de formatage des nombres. moduix réexporte `LocaleProvider` et fournit les
+composants qui structurent l’interface. `Format.Number` n’est pas réexporté par moduix : importez donc `Format` depuis
+Ark UI.

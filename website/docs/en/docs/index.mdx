@@ -1,6 +1,6 @@
 ---
 title: Introduction
-description: What moduix is, how it is built, and which ownership model fits your project.
+description: How moduix is built, how its styles reach your app, and which ownership model fits your project.
 ---
 
 import { OwnershipLayers } from '@/components/docs/ownership-layers';
@@ -8,45 +8,45 @@ import { Card, Cards } from '@/components/mdx/Components';
 
 # moduix
 
-moduix is a styled React component system built on [Ark UI](https://ark-ui.com/). It combines
-Ark's accessible interaction primitives with calm defaults, explicit composition, and a CSS token
-foundation designed for product interfaces.
+moduix is a styled component library built on [Ark UI](https://ark-ui.com/). It pairs Ark's
+accessible interaction primitives with considered defaults, explicit composition, and CSS Modules
+backed by shared design tokens.
 
-If you want to try it now, choose an installation method in [Quick start](/docs/quick-start), render
-a Button, and return here when you need the broader system model.
+To try it now, choose an installation method in [Quick start](/docs/quick-start), render a Button,
+and return here when you want to understand the broader system.
 
-The visual language and source-delivery experience are
-[inspired by shadcn/ui](https://ui.shadcn.com/): components should look considered out of the box,
-and their source should remain understandable and easy to adapt in your application.
+The visual language and source-ownership model are [inspired by shadcn/ui](https://ui.shadcn.com/):
+components should look considered out of the box, and their source should remain understandable and
+easy to adapt in your application.
 
 ## Choose how you own it
 
-Choose the npm package for package-managed updates. Choose the shadcn registry when you want
-the component source, styles, and supporting utilities inside your repository.
+Choose the npm package when you want updates through your package manager. Choose the shadcn registry
+when you want the component source, styles, and supporting utilities inside your repository.
 
 | Workflow                   | Imports                 | Best fit                                                               |
 | -------------------------- | ----------------------- | ---------------------------------------------------------------------- |
 | npm package                | `@moduix/react/*`       | Centralized updates and the smallest amount of application-owned code. |
 | Copy-owned shadcn registry | `@/components/moduix/*` | Direct source ownership and deliberate local changes.                 |
 
-Both workflows ship the same component contracts and token system. [Quick start](/docs/quick-start)
-covers the complete setup for each path.
+Both workflows expose the same component contracts, CSS Modules styling, and token system.
+[Quick start](/docs/quick-start) covers the complete setup for each path.
 
 <OwnershipLayers />
 
 ## What Ark-backed means
 
-Complex components preserve the Ark UI model: named parts, controlled and uncontrolled state,
+Complex components keep the Ark UI model visible: named parts, controlled and uncontrolled state,
 callback detail objects, context providers, `asChild` composition, native form controls, and state
-attributes. moduix adds styles, defaults, convenience composition, and stable `data-slot` hooks
-without hiding the primitive structure you need for advanced product work.
+attributes. moduix adds component styles, considered defaults, convenience composition, and stable
+`data-slot` hooks without hiding the primitive structure you need for advanced product work.
 
 Ark UI remains the source of truth for interaction behavior and accessibility. moduix is the
-opinionated product layer on top.
+opinionated product layer that sits on top.
 
 ## What shadcn-inspired means
 
-The inspiration is practical rather than cosmetic:
+The influence is practical rather than cosmetic:
 
 - polished defaults that feel coherent before customization;
 - readable composition instead of configuration-heavy wrappers;
@@ -55,13 +55,31 @@ The inspiration is practical rather than cosmetic:
 - documentation that teaches the common path first and keeps escape hatches visible.
 
 moduix does not require Tailwind CSS and does not replace Ark anatomy with shadcn-specific wrapper
-contracts. Native CSS and CSS Modules remain the styling foundation.
+contracts. Its own component styles use CSS Modules and shared CSS tokens.
+
+## How styling works
+
+moduix uses CSS Modules for component styles. CSS Modules are regular CSS files with locally scoped
+class names, so a component's selectors do not leak into the rest of your application.
+
+The npm package delivers each component's styles alongside the component entry point you import. The
+shadcn registry copies the same component source and `.module.css` files into your repository. Both
+workflows use the same styling contract:
+
+- import `style.css` once for shared tokens and base layer styles;
+- use `className` on the root or named parts for local selectors;
+- target stable `data-slot` and Ark state attributes when a state-specific rule is needed;
+- override `--moduix-*` variables for themes and shared visual decisions.
+
+Your application can still use regular CSS, Tailwind CSS, or another styling tool for layout and
+application-owned styles. You do not need to add a utility framework or a CSS-in-JS runtime just to
+use moduix. If you want to edit the component CSS itself, use the copy-owned registry workflow.
 
 ## The styling contract
 
-The default density uses `36px` primary controls and `32px` popup rows through `--moduix-size-md` and
-`--moduix-size-sm`. Inputs, buttons, select and combobox triggers, date controls, pagination, menu items,
-and related patterns share the same scale.
+The default density uses `36px` primary controls and `32px` popup rows through `--moduix-size-md`
+and `--moduix-size-sm`. Inputs, buttons, select and combobox triggers, date controls, pagination,
+menu items, and related patterns share the same scale.
 
 Colors, spacing, radii, typography, focus rings, motion, shadows, and component-specific decisions
 are expressed as CSS custom properties. Override a semantic token to change the whole system, a

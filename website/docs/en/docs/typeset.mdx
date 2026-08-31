@@ -1,22 +1,26 @@
 ---
 title: Typeset
 component: typeset
-description: A CSS-first reading rhythm for semantic HTML, rendered Markdown, and streaming content.
+description: Style semantic HTML, rendered Markdown, and streaming content with a scoped reading rhythm.
 ---
 
 import * as TypesetDocs from '@/components/examples/typeset';
 
 ## API Reference
 
-Ark UI does not ship a dedicated typesetting primitive. moduix builds `Typeset` with the
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), so its root and optional
-scroll wrapper preserve standard HTML props, `asChild`, and refs to their rendered elements.
+`Typeset` applies a consistent reading rhythm to the semantic HTML inside its boundary. It does not
+render or parse Markdown, sanitize content, or decide the content width. Your application remains
+responsible for those decisions.
+
+moduix builds `Typeset` with the
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory). `Typeset` and
+`Typeset.Scroll` therefore accept native `div` props, refs, and `asChild` composition.
 
 ## Basic
 
-Use the short `<Typeset>` root for rendered HTML. Add `asChild` when the container itself should
-be semantic, such as an `article` or `section`. Use plain `<ul>` and `<ol>` elements: Typeset adds
-the bullets, numbering, nested markers, and reading rhythm without utility classes.
+Wrap HTML that your renderer has already produced in `<Typeset>`. Use `asChild` only when the outer
+container needs to be semantic, such as an `article` or `section`. Keep lists as native `<ul>` and
+`<ol>` elements: Typeset provides their markers and spacing without utility classes.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/typeset/basic.tsx"
@@ -46,37 +50,38 @@ Typeset
 
 ### Recommended composition
 
-Keep Markdown parsing, sanitization, rendering, and reading measure in the application. `Typeset`
-only supplies the scoped visual rhythm and deliberately does not set a reading width. Use
-`Typeset.Scroll` around a wide table or another block that should scroll horizontally.
+Parse, sanitize, render, and size Markdown in your application. `Typeset` only styles descendants
+inside its root and intentionally has no width prop. Wrap a wide table or another block in
+`Typeset.Scroll` when horizontal scrolling is the better result.
 
 ### When to go custom
 
-Use semantic HTML directly when a rendered subtree needs a different visual contract, then add
-`.not-typeset` or `data-not-typeset` to exclude it and all of its descendants. Give every
-user-facing `Typeset.Scroll` an `aria-label` or `aria-labelledby`; moduix then gives that named
-wrapper the `region` role. You can also pass a custom `role` or `tabIndex`.
+If a subtree needs its own visual treatment, use semantic HTML directly, then add `.not-typeset` or
+`data-not-typeset` to exclude that element and all of its descendants. Give every user-facing
+`Typeset.Scroll` an `aria-label` or `aria-labelledby`. moduix adds `role="region"` when the scroller
+has an accessible name, unless you provide another role. You can also set a custom `tabIndex`.
 
 ### Default props
 
 | Part | Default | Notes |
 | --- | --- | --- |
-| `Typeset` | `div` | Use `asChild` with exactly one semantic child to render another container. |
-| `Typeset.Scroll` | `div`, `tabIndex={0}` | The focusable default makes an overflowing static table reachable by keyboard. Give a user-facing scroller an accessible name; it adds `role="region"`. |
+| `Typeset` | `div` | Use `asChild` with exactly one semantic child to render a different container. |
+| `Typeset.Scroll` | `div`, `tabIndex={0}` | The default focus makes a wide static table reachable with the keyboard. Add an accessible name to a user-facing scroller to give it `role="region"`. |
 
 ### Behavioral notes
 
-`Typeset` has no state machine, controlled state, keyboard behavior, form integration, or hidden
-inputs. `Typeset.Scroll` is the exception: it is keyboard-focusable by default so the browser can
-scroll a wide static block. Its styles use `margin-block-start` and avoid `:last-child`, `:has()`,
-and `:empty`, so appending a streaming Markdown block does not restyle earlier blocks.
+The `Typeset` root does not manage state, keyboard interactions, form controls, or hidden inputs.
+`Typeset.Scroll` is keyboard-focusable by default so the browser can scroll a wide static block.
+Styles add space before rendered blocks and avoid `:last-child`, `:has()`, and `:empty`, so appending
+streamed content does not change the layout of earlier blocks.
 
 ## Examples
 
 ### Excluding application surfaces
 
-Add `.not-typeset` or `data-not-typeset` to a nested subtree with its own visual contract. Both
-exclude the marked element and everything inside it, including a nested `Typeset` root.
+Exclude a nested subtree when it has its own visual treatment, such as an embedded control or card.
+Both `.not-typeset` and `data-not-typeset` exclude the marked element and everything inside it,
+including a nested `Typeset` root.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/typeset/excluded-subtree.tsx"
@@ -86,7 +91,7 @@ exclude the marked element and everything inside it, including a nested `Typeset
 
 ### Markdown extensions
 
-Task lists, disclosures, definition lists, and GFM footnotes use the same tokens and one-direction
+Task lists, expandable `details` blocks, definition lists, and GFM footnotes use the same tokens and
 block spacing as the core HTML elements.
 
 <PreviewFrame maxWidth="lg">
@@ -97,7 +102,8 @@ block spacing as the core HTML elements.
 
 ### Reading rhythm
 
-Use CSS variables to create roomier or denser presets without adding component props.
+Set CSS variables when a section needs a roomier or denser reading rhythm without adding component
+props.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/typeset/reading-rhythm.tsx"
@@ -107,10 +113,8 @@ Use CSS variables to create roomier or denser presets without adding component p
 
 ### Scrollable table
 
-Wrap a table generated by the renderer in `Typeset.Scroll` when it should scroll instead of
-squeezing into a narrow container. Give the scroller an accessible name that identifies its
-contents. The example's table keeps a meaningful minimum width, while `PreviewFrame` keeps the
-documentation preview centred and responsive.
+Wrap a table produced by your renderer in `Typeset.Scroll` when it should remain wide and scroll in a
+narrow container. Give the scroller an accessible name that identifies the table it contains.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/typeset/scrollable-table.tsx"
@@ -120,8 +124,8 @@ documentation preview centred and responsive.
 
 ### Streaming content
 
-Use a tighter rhythm for chat messages. New blocks contribute only their own spacing as the stream
-grows.
+Use a tighter rhythm for chat-like streams. Each new block contributes its own spacing, so existing
+content stays in place as the stream grows.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/typeset/streaming-content.tsx"
@@ -145,10 +149,10 @@ grows.
   </Tabs>
 </div>
 
-The three rhythm controls are `--moduix-typeset-size`, `--moduix-typeset-leading`, and `--moduix-typeset-flow`. Font
-variables are optional; colors, borders, and radius come straight from the active moduix theme.
-Element rules live in the `moduix.components` layer and use low-specificity `:where()` selectors, so
-normal application CSS can override individual elements without `!important`.
+Use `--moduix-typeset-size`, `--moduix-typeset-leading`, and `--moduix-typeset-flow` to control the
+reading rhythm. Font variables are optional; colors, borders, and radius come from the active moduix
+theme. Element rules live in the `moduix.components` layer and use low-specificity `:where()`
+selectors, so normal application CSS can override individual elements without `!important`.
 
 ### Styling hooks
 

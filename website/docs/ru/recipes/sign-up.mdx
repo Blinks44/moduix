@@ -1,21 +1,23 @@
 ---
 title: Регистрация
-description: Форма создания учётной записи, построенная на React-компонентах moduix.
+description: Готовая к копированию форма регистрации, собранная из React-компонентов moduix.
 ---
 
 import { SignUpPreview } from '@/components/recipes/sign-up-preview';
 
 # Регистрация
 
-В форме есть нативная валидация имени, электронной почты, паролей и принятия условий. Аутентификацию и
-проверку совпадения паролей нужно подключить самостоятельно в обработчике `onSubmit`.
+Используйте этот рецепт как основу для экрана регистрации. В нём сочетаются `Card`, `Field`, `Input`,
+`Checkbox` и `Button`. Браузер проверяет заполнение обязательных полей, формат адреса электронной почты и
+наличие согласия с условиями. Рецепт не содержит интеграции с сервисом аутентификации и не сравнивает два
+пароля, поэтому добавьте эту логику в обработчик `onSubmit`.
 
 <ExampleFrame clientOnly>
   <SignUpPreview />
 </ExampleFrame>
 
 <div className="docs-reference">
-  <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+  <Tabs values={[{ label: 'Компонент', value: 'Component' }, { label: 'Стили', value: 'Styles' }]} className="docs-tabs">
     <Tab value="Component">
 
 ```tsx file="../../../src/components/recipes/sign-up.tsx"
@@ -37,13 +39,62 @@ import { SignUpPreview } from '@/components/recipes/sign-up-preview';
 
 <ShadcnInstall packageName={['button', 'card', 'checkbox', 'field', 'input']} itemKind="recipe" copiedSource />
 
-## В маршруте
+## Использование в маршруте
 
-Рендерите `SignUp` в маршруте, который отвечает за регистрацию, и передайте ему реальный обработчик
-отправки формы. Замените ссылки `/terms`, `/privacy` и `/sign-in` маршрутами своего приложения.
+Скопируйте исходный код рецепта и CSS из вкладок выше, затем импортируйте `SignUp` из скопированного
+файла. Браузер проверяет нативные ограничения до вызова `onSubmit`. В обработчике сравните два пароля
+и отправьте данные формы на сервер регистрации.
 
-Показывайте требования к паролю до отправки формы и проверяйте те же требования на сервере. Пока создаётся
-учётная запись, блокируйте повторную отправку. Ошибки сервера, относящиеся к конкретному полю - например,
-занятый адрес электронной почты, - привязывайте к этому полю. Для ошибок сети и непредвиденных сбоев используйте
-общее сообщение формы. После успешной регистрации выполните следующий шаг, предусмотренный продуктом: начните
-сессию, подтвердите адрес электронной почты или покажите страницу подтверждения.
+```tsx
+import type { FormEvent } from 'react';
+import { SignUp } from '@/components/sign-up';
+
+export function SignUpRoute() {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const password = formData.get('password');
+    const confirmation = formData.get('confirm-password');
+
+    if (password !== confirmation) {
+      const confirmationInput = form.elements.namedItem('confirm-password');
+
+      if (confirmationInput instanceof HTMLInputElement) {
+        confirmationInput.setCustomValidity('Passwords do not match.');
+        confirmationInput.reportValidity();
+        confirmationInput.setCustomValidity('');
+      }
+
+      return;
+    }
+
+    await fetch('/api/sign-up', {
+      method: 'POST',
+      body: formData,
+    });
+  }
+
+  return <SignUp onSubmit={handleSubmit} />;
+}
+```
+
+У полей есть имена `name`, `email`, `password`, `confirm-password` и `terms`, поэтому по этим ключам
+их значения можно получить из `FormData`. Замените `/api/sign-up` и путь импорта на значения из своего
+приложения.
+
+## Перед запуском
+
+Исходный код рецепта намеренно оставлен небольшим. Добавьте в него поведение и отображение ошибок,
+которые нужны вашему приложению:
+
+- Показывайте требования к паролю и при необходимости добавьте к скопированным полям ограничения
+  `minLength` или `pattern`. Те же правила обязательно проверяйте на сервере.
+- На время запроса блокируйте повторную отправку формы. Если запрос завершился ошибкой, сохраняйте
+  введённые значения, чтобы пользователь мог исправить их и повторить попытку.
+- Показывайте ошибку сервера рядом с соответствующим полем. Ошибки сети и непредвиденные сбои выводите
+  на уровне формы в элементе с `role="alert"` и оставляйте возможность повторить запрос.
+- Замените `/terms`, `/privacy` и `/sign-in` маршрутами своего приложения.
+- После успешной регистрации выполните следующий шаг сценария: авторизуйте пользователя, попросите его
+  подтвердить адрес электронной почты или перенаправьте на страницу подтверждения.

@@ -1,7 +1,7 @@
 ---
 title: Hover Card
 component: hover-card
-description: Composition Hover Card d’Ark UI pour afficher des aperçus complémentaires au survol ou à la prise de focus.
+description: Composant Hover Card basé sur Ark UI qui affiche des aperçus complémentaires au survol ou lorsque le déclencheur reçoit le focus.
 ---
 
 import * as HoverCardDocs from '@/components/examples/hover-card';
@@ -10,9 +10,18 @@ import * as HoverCardDocs from '@/components/examples/hover-card';
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/hover-card" />
 
+## Choisir le bon composant
+
+Utilisez `Tooltip` pour les indications courtes et non interactives. Choisissez `Popover` lorsque
+la fenêtre flottante doit contenir davantage d’informations ou des actions. Utilisez `HoverCard`
+si le déclencheur doit afficher un aperçu complémentaire, par exemple celui d’un profil ou d’un
+article.
+
 ## Exemple de base
 
-Utilisez une arborescence explicite des parties Ark : placez `HoverCard.Trigger` à côté du contenu survolé, puis affichez le positioner et le content. La composition standard est un simple popup sans flèche.
+Composez la carte à partir des parties Ark explicites. `HoverCard.Trigger` ouvre la carte, tandis
+que `HoverCard.Positioner` et `HoverCard.Content` définissent son contenu flottant. La composition
+de base n’inclut pas de flèche.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/hover-card/basic.tsx"
@@ -27,64 +36,103 @@ Utilisez une arborescence explicite des parties Ark : placez `HoverCard.Trigger`
 ## Anatomie
 
 ```text
-HoverCard
+HoverCard / HoverCard.Root
 ├─ HoverCard.Trigger
-└─ Overlay subtree (automatically portalled)
+└─ Sous-arbre flottant (rendu automatiquement dans un portail)
    └─ HoverCard.Positioner
       └─ HoverCard.Content
          ├─ HoverCard.Arrow
          │  └─ HoverCard.ArrowTip
-         └─ content
+         └─ contenu
 
 HoverCard.RootProvider
-└─ same part tree connected to a moduix useHoverCard() store
+└─ même arborescence reliée à l’état useHoverCard() de moduix
 ```
 
-| Partie                   | Rôle                                                                                                       |
-| ------------------------ | ---------------------------------------------------------------------------------------------------------- |
-| `HoverCard`              | État racine, délais, positionnement, ids, présence et interaction extérieure.                              |
-| `HoverCard.RootProvider` | Affiche l’arborescence Hover Card à partir de l’état renvoyé par `useHoverCard` de moduix.                  |
-| `HoverCard.Trigger`      | Cible du survol et du focus. Utilisez `asChild` pour les liens ou les éléments hôtes personnalisés.         |
-| `HoverCard.Positioner`   | Couche flottante fournissant les variables CSS de positionnement Ark.                                      |
-| `HoverCard.Content`      | Surface visible de la fenêtre contextuelle et dismissable layer.                                           |
-| `HoverCard.Arrow`        | Wrapper de la flèche positionnée. Contient `HoverCard.ArrowTip` par défaut.                                 |
-| `HoverCard.ArrowTip`     | Pointe de la flèche, personnalisable avec les variables de flèche Ark.                                     |
+| Partie                         | Rôle                                                                            |
+| ------------------------------ | ------------------------------------------------------------------------------- |
+| `HoverCard` / `HoverCard.Root` | Gère l’état, le cycle de vie, les délais, le positionnement, les identifiants et les interactions extérieures. |
+| `HoverCard.RootProvider`       | Relie les parties à l’état créé avec `useHoverCard()`.                         |
+| `HoverCard.Context`            | Expose l’état courant aux descendants via une fonction de rendu.               |
+| `HoverCard.Trigger`            | Élément interactif qui ouvre la carte au survol ou au focus. Utilisez `asChild` pour en faire un lien ou un autre élément sémantique. |
+| `HoverCard.Positioner`         | Élément de positionnement flottant qui expose les variables CSS de positionnement d’Ark. |
+| `HoverCard.Content`            | Surface visible de la carte, qui se ferme lors d’une interaction extérieure.   |
+| `HoverCard.Arrow`              | Enveloppe facultative de la flèche positionnée, qui rend `HoverCard.ArrowTip` par défaut. |
+| `HoverCard.ArrowTip`           | Pointe de la flèche, stylée avec les variables de flèche d’Ark.                |
 
-`HoverCard.Root` reste un alias de compatibilité ; dans le code applicatif, utilisez la forme racine courte `HoverCard`.
+`HoverCard` est la forme courte de la racine et `HoverCard.Root` son alias dans l’espace de noms.
+Dans le code de l’application, utilisez la forme courte.
 
 ## Composition
 
-La racine place automatiquement `HoverCard.Positioner` dans un portail. Définissez `portalled={false}` pour l’afficher dans le flux, ou transmettez `portalRef` pour choisir un conteneur personnalisé. Gardez les parties structurelles explicites afin que le positionnement, le contenu et la flèche restent composables séparément.
+Par défaut, la racine place automatiquement `HoverCard.Positioner` dans un portail. Définissez
+`portalled={false}` pour le conserver dans l’arbre DOM courant, ou passez `portalRef` pour choisir
+un autre conteneur de portail. Gardez les parties structurelles explicites afin de pouvoir configurer
+et styler séparément `HoverCard.Positioner`, le contenu et la flèche.
+
+### Composition recommandée
+
+Dans la plupart des cas, utilisez `HoverCard` avec `HoverCard.Trigger`, `HoverCard.Positioner` et
+`HoverCard.Content`. Ajoutez `HoverCard.Arrow` uniquement lorsque la fenêtre flottante doit pointer
+visuellement vers son déclencheur.
 
 ### Quand créer une composition personnalisée
 
-Utilisez `asChild` sur `HoverCard.Trigger` pour un vrai lien ou un bouton sémantique personnalisé. Affichez directement `HoverCard.ArrowTip` uniquement pour modifier son balisage. Utilisez `HoverCard.RootProvider` avec `useHoverCard()` de moduix lorsque l’état doit être partagé hors de l’arborescence affichée, et `HoverCard.Context` ou `useHoverCardContext()` pour lire l’état à l’intérieur.
+Utilisez `asChild` sur `HoverCard.Trigger` lorsque le déclencheur doit être un lien ou un autre
+élément sémantique. Son enfant doit être unique, pouvoir recevoir le focus et conserver le
+comportement du déclencheur. Utilisez `HoverCard.RootProvider` avec `useHoverCard()` lorsque l’état
+doit être partagé avec des contrôles situés en dehors de l’arborescence de la carte. Utilisez
+`HoverCard.Context` ou `useHoverCardContext()` pour lire l’état dans cette arborescence. Rendez
+`HoverCard.ArrowTip` directement uniquement lorsque vous devez personnaliser son balisage.
 
 ### Propriétés par défaut
 
-Par défaut, le contenu de l’overlay placé dans un portail est monté paresseusement, puis démonté après l’animation de fermeture. Définissez `unmountOnExit={false}` pour le conserver après la première ouverture ; ne définissez les deux propriétés de cycle de vie sur `false` que si un rendu initial immédiat est nécessaire.
+Par défaut, le contenu rendu dans un portail est monté à la première ouverture, puis retiré après
+son animation de fermeture. Définissez `unmountOnExit={false}` pour le conserver après cette
+première ouverture. Ne définissez les deux propriétés de cycle de vie sur `false` que si le contenu
+doit être rendu dès le départ.
 
-| Propriété              | Valeur par défaut | Remarques                                                                           |
-| ---------------------- | ----------------- | ----------------------------------------------------------------------------------- |
-| `closeDelay`           | `300`             | Délai en ms entre la sortie du pointeur du trigger ou du content et la fermeture.    |
-| `openDelay`            | `600`             | Délai en ms entre l’entrée du pointeur sur le trigger et l’ouverture.                |
-| `lazyMount`            | `true`            | Diffère le montage du contenu jusqu’à la première ouverture.                         |
-| `unmountOnExit`        | `true`            | Retire le contenu après l’animation de fermeture.                                    |
-| `skipAnimationOnMount` | `false`           | Autorise l’animation d’apparition initiale par défaut.                               |
+| Propriété              | Valeur par défaut | Remarques                                                                    |
+| ---------------------- | ----------------- | ----------------------------------------------------------------------------- |
+| `openDelay`            | `600`             | Délai avant l’ouverture lorsque le déclencheur est survolé ou reçoit le focus. |
+| `closeDelay`           | `300`             | Délai avant la fermeture lorsque le pointeur quitte le déclencheur ou le contenu. |
+| `lazyMount`            | `true`            | Monte le contenu seulement après sa première ouverture.                      |
+| `unmountOnExit`        | `true`            | Retire le contenu après son animation de fermeture.                          |
+| `skipAnimationOnMount` | `false`           | Conserve l’animation d’apparition initiale.                                  |
+| `portalled`            | `true`            | Place `HoverCard.Positioner` dans un portail.                                |
+| `portalRef`            | `-`               | Cible un conteneur de portail personnalisé.                                  |
+| `positioning`          | `-`               | Options de positionnement d’Ark.                                             |
+| `ids`                  | `-`               | Identifiants stables du déclencheur, du contenu, de `HoverCard.Positioner` et de la flèche. |
+| `defaultOpen`          | `-`               | État initial ouvert en mode non contrôlé.                                    |
+| `open`                 | `-`               | État ouvert contrôlé.                                                        |
+| `disabled`             | `false`           | Désactive les interactions avec la carte.                                    |
 
 ### Comportement
 
-`onOpenChange` reçoit des objets `details` d’Ark, par exemple `{ open }` ; utilisez `details.open`. Pour plusieurs triggers, utilisez `Trigger value` avec `onTriggerValueChange`. `ids` permet de fixer les ids du trigger, du content, du positioner et de la flèche afin de composer l’accessibilité. Les propriétés de présence Ark, notamment `present`, `immediate` et `onExitComplete`, sont transmises telles quelles.
-
-Hover Card désactive l’animation du trigger et du contenu lorsque l’utilisateur préfère réduire les animations. Un long mot insécable revient à la ligne dans le contenu au lieu de déborder de la carte.
-
-Les hover cards sont réservées aux aperçus complémentaires. Toute information nécessaire à la compréhension ou à l’accomplissement d’une tâche doit rester accessible sans ouvrir la carte.
+- `onOpenChange(details)` reçoit un objet tel que `{ open }`. Lisez le nouvel état dans
+  `details.open`.
+- Lorsque plusieurs déclencheurs partagent un même contenu, donnez une `value` à chacun et utilisez
+  `onTriggerValueChange(details)`. Le déclencheur actif est disponible dans `details.value`.
+- `HoverCard.RootProvider`, `HoverCard.Context`, `useHoverCard` et `useHoverCardContext` sont
+  disponibles pour les besoins avancés liés à l’état. Créez l’état avec `useHoverCard()` lorsqu’il
+  doit vivre en dehors de l’arborescence rendue, puis transmettez-le à `RootProvider` via sa
+  propriété `value`.
+- Les propriétés de présence d’Ark, notamment `present`, `immediate` et `onExitComplete`, sont
+  transmises sans modification.
+- `HoverCard.Trigger` reçoit les styles de déclencheur par défaut de moduix uniquement lorsque
+  `asChild` n’est pas utilisé. Avec `asChild`, l’élément enfant contrôle ses propres styles.
+- Les animations du déclencheur et du contenu sont désactivées lorsque l’utilisateur préfère réduire
+  les animations. Les longues chaînes sans séparateur sont renvoyées à la ligne dans le contenu au
+  lieu de déborder de la carte.
+- Réservez ce composant aux aperçus complémentaires. Toute information nécessaire pour comprendre ou
+  accomplir une tâche doit rester disponible sans ouvrir la carte.
 
 ## Exemples
 
 ### Contexte
 
-Utilisez `HoverCard.Context` pour lire l’état à l’intérieur sans modifier l’arborescence visible des parties.
+Utilisez `HoverCard.Context` pour lire l’état dans l’arborescence de la carte sans modifier sa
+structure visible.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/hover-card/context.tsx"
@@ -94,7 +142,7 @@ Utilisez `HoverCard.Context` pour lire l’état à l’intérieur sans modifier
 
 ### État contrôlé
 
-Contrôlez l’état d’ouverture avec `open` et `onOpenChange(details)`.
+Contrôlez l’ouverture de la carte avec `open` et `onOpenChange(details)`.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/hover-card/controlled.tsx"
@@ -104,7 +152,7 @@ Contrôlez l’état d’ouverture avec `open` et `onOpenChange(details)`.
 
 ### Délai
 
-Réglez les délais de survol avec `openDelay` et `closeDelay` sur le composant racine.
+Ajustez les délais d’ouverture et de fermeture avec `openDelay` et `closeDelay` sur la racine.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/hover-card/delay.tsx"
@@ -114,7 +162,10 @@ Réglez les délais de survol avec `openDelay` et `closeDelay` sur le composant 
 
 ### Dialogue
 
-Affichez la hover card dans le flux, à l’intérieur d’un dialogue, lorsqu’elle doit rester dans la couche d’overlay de celui-ci. Le focus initial du dialogue peut ouvrir le trigger de la hover card qui reçoit le focus après `openDelay` ; définissez `initialFocusEl` sur un autre élément si l’aperçu doit rester fermé jusqu’au survol ou au focus.
+Rendez la carte directement dans un dialogue lorsqu’elle doit rester dans sa couche de superposition.
+Le focus initial du dialogue peut se placer sur son déclencheur et ouvrir la carte après `openDelay`.
+Définissez `initialFocusEl` sur un autre élément si l’aperçu doit rester
+fermé jusqu’au survol ou à la réception du focus.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/hover-card/dialog.tsx"
@@ -124,7 +175,8 @@ Affichez la hover card dans le flux, à l’intérieur d’un dialogue, lorsqu�
 
 ### État désactivé
 
-Définissez `disabled` pour empêcher l’ouverture de la carte tout en conservant le contenu visible du trigger.
+Définissez `disabled` pour empêcher l’ouverture de la carte tout en conservant le contenu visible du
+déclencheur.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/hover-card/disabled.tsx"
@@ -132,9 +184,10 @@ Définissez `disabled` pour empêcher l’ouverture de la carte tout en conserva
   ```
 </PreviewFrame>
 
-### Plusieurs triggers
+### Plusieurs déclencheurs
 
-Partagez une même surface de contenu entre plusieurs valeurs de trigger à l’aide de `Trigger value` et de `onTriggerValueChange(details)`.
+Donnez une `value` à chaque déclencheur et utilisez `onTriggerValueChange(details)` pour partager
+un même contenu entre plusieurs déclencheurs.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/hover-card/multiple-triggers.tsx"
@@ -144,7 +197,7 @@ Partagez une même surface de contenu entre plusieurs valeurs de trigger à l’
 
 ### Positionnement
 
-Transmettez les options de positionnement Ark via la propriété `positioning`.
+Transmettez les options de positionnement d’Ark via la propriété `positioning`.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/hover-card/positioning.tsx"
@@ -154,7 +207,8 @@ Transmettez les options de positionnement Ark via la propriété `positioning`.
 
 ### Root Provider
 
-Créez l’état avec `useHoverCard()` de moduix lorsque des contrôles ou une autre interface située hors de la carte doivent le lire ou le modifier.
+Utilisez `useHoverCard()` avec `HoverCard.RootProvider` lorsque des contrôles ou d’autres éléments
+de l’interface situés en dehors de l’arborescence de la carte doivent lire son état ou le modifier.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/hover-card/root-provider.tsx"
@@ -162,10 +216,10 @@ Créez l’état avec `useHoverCard()` de moduix lorsque des contrôles ou une a
   ```
 </PreviewFrame>
 
-### Avec flèche
+### Avec une flèche
 
-Ajoutez `HoverCard.Arrow` dans `HoverCard.Content` lorsque le popup a besoin d’un repère visuel. Le
-composant affiche `HoverCard.ArrowTip` par défaut.
+Ajoutez `HoverCard.Arrow` dans `HoverCard.Content` lorsque la fenêtre flottante doit pointer
+visuellement vers son déclencheur. L’enveloppe rend `HoverCard.ArrowTip` par défaut.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/hover-card/with-arrow.tsx"
@@ -177,10 +231,28 @@ composant affiche `HoverCard.ArrowTip` par défaut.
 
 ### Propriétés CSS
 
-<CssPropertiesSection properties={HoverCardDocs.hoverCardCssProperties} />
+<div className="not-prose">
+  <Tabs
+    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab value="CSS Variables">
+      <HoverCardDocs.HoverCardCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
 
-### Points d’accroche CSS
+### Ciblage des styles
 
-Chaque partie affichée accepte `className` ; moduix ajoute également les sélecteurs `data-slot="hover-card-*"` au trigger, au positioner, au content, à la flèche et à sa pointe. `HoverCard` et `HoverCard.RootProvider` fournissent l’état sans afficher d’élément DOM : ils n’ont donc pas de point d’accroche CSS. Ark fournit `data-scope="hover-card"` et `data-part` sur ses parties. Pour les styles dépendant de l’état, utilisez `data-state="open|closed"`, `data-placement`, `data-side`, `data-value`, `data-current`, `data-nested` et `data-has-nested`.
+Chaque partie rendue accepte `className`. Moduix ajoute également des attributs
+`data-slot="hover-card-*"` au déclencheur, à `HoverCard.Positioner`, au contenu, à la flèche et à sa pointe.
+`HoverCard` et `HoverCard.RootProvider` fournissent uniquement l’état et ne rendent aucun élément
+DOM : ils n’ont donc pas de point d’accroche CSS propre. Ark ajoute `data-scope="hover-card"` et
+`data-part` à ses parties. Pour adapter les styles à l’état, ciblez `data-state="open|closed"`,
+`data-placement`, `data-side`, `data-value`, `data-current`, `data-nested` et `data-has-nested`.
 
-`HoverCard.Positioner` fournit `--reference-width`, `--reference-height`, `--available-width`, `--available-height`, `--x`, `--y`, `--z-index` et `--transform-origin`. `HoverCard.Content` fournit `--layer-index` et `--nested-layer-count` ; `HoverCard.Arrow` fournit `--arrow-size`, `--arrow-size-half`, `--arrow-background` et `--arrow-offset`.
+`HoverCard.Positioner` expose `--reference-width`, `--reference-height`, `--available-width`,
+`--available-height`, `--x`, `--y`, `--z-index` et `--transform-origin`. `HoverCard.Content`
+expose `--layer-index` et `--nested-layer-count`. `HoverCard.Arrow` expose `--arrow-size`,
+`--arrow-size-half`, `--arrow-background` et `--arrow-offset`.

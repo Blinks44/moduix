@@ -50,6 +50,6 @@
     "type": "section-header",
     "label": "Visuals"
   },
-  { "type": "file", "name": "autoplay-gallery", "label": "Gallery", "tag": "paintbrush" },
+  { "type": "file", "name": "autoplay-gallery", "label": "Autoplay gallery", "tag": "paintbrush" },
   { "type": "file", "name": "parallax-card", "label": "Parallax card", "tag": "orbit" }
 ]

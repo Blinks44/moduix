@@ -1,17 +1,20 @@
 ---
 title: List Selection
-description: Manage single, multiple, deselectable, and range selection for custom list interfaces.
+description: Manage single, multiple, deselectable, range, and modifier-key selection in custom list interfaces.
 ---
 
 # List Selection
 
-## API
+## API reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/collections/list-selection" />
 
-`useListSelection` adds selection state to a `ListCollection`. Use it for custom lists that do not
-already have selection behavior. `Select`, `Combobox`, and `Listbox` manage their own selection and
-normally do not need this hook.
+The `useListSelection` hook tracks selected values in a `ListCollection`. Use it when you are
+building a custom list and need selection state without adopting a ready-made collection
+component. `Select`, `Combobox`, and `Listbox` already manage selection, so you normally do not
+need this hook with them.
+
+Import the collection helpers from Ark UI:
 
 ```tsx
 import { createListCollection, useListSelection } from '@ark-ui/react/collection';
@@ -23,68 +26,82 @@ import { createListCollection, useListSelection } from '@ark-ui/react/collection
 
 ```
 
-This basic example shows single selection. The hook manages selection values only. Your UI still
-owns semantic roles, keyboard interaction, focus, and accessible labels. Prefer `Listbox` when you
-need standard listbox behavior.
+This example uses buttons for a short list of independent options. The hook tracks selected values,
+while your UI controls rendering, semantic roles, focus, keyboard interaction, and accessible
+labels.
 
-The button example is appropriate because each option is an independent toggle action. Do not add
-`role="listbox"` to custom markup unless you also implement the complete listbox keyboard and focus
-model. For a conventional option picker, use [Listbox](/docs/listbox) and let it own that behavior.
+Buttons work well here because each option is an independent action, and `aria-pressed` exposes its
+selected state. Do not add `role="listbox"` to custom markup unless you also implement the complete
+listbox keyboard and focus model. For a conventional option picker, use [Listbox](/docs/listbox),
+which provides listbox semantics and keyboard behavior.
 
 ## Configuration
 
-| Prop                      | Purpose                                        | Default    |
-| ------------------------- | ---------------------------------------------- | ---------- |
-| `collection`              | Collection whose values can be selected.       | required   |
-| `selectionMode`           | `'single'`, `'multiple'`, or `'none'`.         | `'single'` |
-| `deselectable`            | Allows the current selection to be deselected. | `true`     |
-| `initialSelectedValues`   | Initial uncontrolled selection values.         | `[]`       |
-| `resetOnCollectionChange` | Clears selection when the collection changes.  | `false`    |
+| Prop                      | Description                                                               | Default    |
+| ------------------------- | ------------------------------------------------------------------------- | ---------- |
+| `collection`              | Collection that provides the values that can be selected.                 | required   |
+| `selectionMode`           | `'single'`, `'multiple'`, `'extended'`, or `'none'`.                      | `'single'` |
+| `deselectable`            | Whether selecting the current value again can clear the selection.        | `true`     |
+| `initialSelectedValues`   | Initial values for uncontrolled selection.                                | `[]`       |
+| `resetOnCollectionChange` | Whether to clear the selection when the collection changes.              | `false`    |
 
-`initialSelectedValues` is read as initial state. Use `setSelectedValues` when selection must
-change after mount.
+`initialSelectedValues` is used only when the selection is created. Use `setSelectedValues` to
+change the selection after mount. Use `extended` when your interaction layer maps modifier keys to
+`select(value, true)`; the hook does not implement pointer or keyboard events for you.
 
 ## State
 
-| Value                | Meaning                                              |
-| -------------------- | ---------------------------------------------------- |
-| `selectedValues`     | Selected values in selection order.                  |
-| `isEmpty`            | No values are selected.                              |
-| `firstSelectedValue` | First selected value in collection order, or `null`. |
-| `lastSelectedValue`  | Last selected value in collection order, or `null`.  |
+| Value                | Description                                            |
+| -------------------- | ------------------------------------------------------ |
+| `selectedValues`     | Array of currently selected values.                    |
+| `isEmpty`            | Whether no values are selected.                        |
+| `firstSelectedValue` | First selected value in collection order, or `null`.   |
+| `lastSelectedValue`  | Last selected value in collection order, or `null`.    |
 
-## Queries
+## Query methods
 
-| Method              | Purpose                                                      |
+| Method              | Description                                                  |
 | ------------------- | ------------------------------------------------------------ |
 | `isSelected(value)` | Checks whether a value is selected.                          |
-| `canSelect(value)`  | Checks mode, disabled state, and whether selection is valid. |
+| `canSelect(value)`  | Checks whether selection is allowed by the current mode.   |
 | `isAllSelected()`   | Checks whether every collection item is selected.            |
 | `isSomeSelected()`  | Checks whether at least one collection item is selected.     |
 
-Use `canSelect` before exposing custom selection actions that are not already disabled in the UI.
+Use `canSelect` before exposing a custom selection action when `selectionMode` may be `'none'`.
 
 ## Actions
 
-| Method                             | Purpose                                                 |
-| ---------------------------------- | ------------------------------------------------------- |
-| `select(value, forceToggle?)`      | Select a value according to the current mode.           |
-| `deselect(value)`                  | Remove one selected value.                              |
-| `toggle(value)`                    | Toggle one value.                                       |
-| `replace(value)`                   | Replace selection with one value, or clear with `null`. |
-| `extend(anchorValue, targetValue)` | Select the collection range between two values.         |
-| `setSelectedValues(values)`        | Replace selection with explicit values.                 |
-| `clear()`                          | Clear the current selection.                            |
-| `resetSelection()`                 | Recreate an empty selection with the current settings.  |
+| Method                             | Description                                                      |
+| ---------------------------------- | ---------------------------------------------------------------- |
+| `select(value, forceToggle?)`      | Selects a value according to the current mode.                    |
+| `deselect(value)`                  | Removes one selected value.                                     |
+| `toggle(value)`                    | Toggles one value between selected and unselected.              |
+| `replace(value)`                   | Replaces the selection with one value. Passing `null` leaves it unchanged. |
+| `extend(anchorValue, targetValue)` | Extends the selection between two values in collection order.    |
+| `setSelectedValues(values)`        | Sets the selection to the values you provide, subject to the current mode. |
+| `clear()`                          | Clears selected values when `deselectable` is `true`.             |
+| `resetSelection()`                 | Clears the selection and recreates it with the current settings. |
+
+`clear()` respects `deselectable`. Use `resetSelection()` when you need an empty selection even when
+`deselectable` is `false`.
 
 ## Multiple selection
 
 ```tsx
+import { createListCollection, useListSelection } from '@ark-ui/react/collection';
 import { Button } from '@moduix/react/button';
+
+const teams = createListCollection({
+  items: [
+    { label: 'Platform', value: 'platform' },
+    { label: 'Product', value: 'product' },
+    { label: 'Design', value: 'design' },
+  ],
+});
 
 function TeamSelectionActions() {
   const selection = useListSelection({
-    collection,
+    collection: teams,
     selectionMode: 'multiple',
     initialSelectedValues: ['platform'],
   });
@@ -95,7 +112,7 @@ function TeamSelectionActions() {
       return;
     }
 
-    selection.setSelectedValues(collection.getValues());
+    selection.setSelectedValues(teams.getValues());
   }
 
   return (
@@ -106,25 +123,36 @@ function TeamSelectionActions() {
 }
 ```
 
-Disabled values cannot be selected through `select` or `toggle`. When setting values directly,
-filter external input against `selection.canSelect` if it is not already trusted.
+Set `selectionMode` to `'multiple'` when users should be able to select several values at once. The
+example uses `isAllSelected()` to choose between clearing the selection and selecting every value.
+
+The hook only tracks selection state, so it does not disable your controls. Disable them from the
+collection's item state, as the basic example does. When calling `setSelectedValues` with external
+values, validate them with `collection.has` and `collection.getItemDisabled` if disabled items should
+be excluded.
 
 ## Range selection
 
-Store an anchor value in your interaction layer, then extend from that anchor:
+Keep the anchor value in your interaction layer, then call `extend` when the user selects a range:
 
 ```tsx
 import { useRef } from 'react';
+import { useListSelection, type ListCollection } from '@ark-ui/react/collection';
 
-function useRangeSelection() {
+type Team = {
+  label: string;
+  value: string;
+};
+
+function useRangeSelection(collection: ListCollection<Team>) {
   const selection = useListSelection({
     collection,
     selectionMode: 'multiple',
   });
   const anchorRef = useRef<string | null>(null);
 
-  function handleSelect(value: string, extend: boolean) {
-    if (extend && anchorRef.current) {
+  function handleSelect(value: string, withRange: boolean) {
+    if (withRange && anchorRef.current) {
       selection.extend(anchorRef.current, value);
       return;
     }
@@ -137,18 +165,18 @@ function useRangeSelection() {
 }
 ```
 
-For mouse interfaces, `extend` commonly maps to Shift-click. Keyboard range selection additionally
-requires focus management and Shift+Arrow handling; use a collection component when those
-interactions match an established ARIA pattern.
+Map `withRange` to Shift-click or another range gesture. Keyboard range selection also requires
+focus management and Shift+Arrow handling. If you need a standard ARIA listbox, use [Listbox](/docs/listbox)
+and let it manage those interactions.
 
 ## Collection changes
 
-Set `resetOnCollectionChange: true` when a new collection represents a different dataset and old
-values must never carry over.
+Set `resetOnCollectionChange: true` when a new collection represents a different dataset and the old
+selection must not carry over.
 
-Keep the default `false` when filtering only hides items temporarily and the selection should
-survive the filter. If removed values must be pruned selectively, derive the valid values and call
-`setSelectedValues`:
+Keep the default `false` when filtering temporarily hides items and the selection should survive the
+filter. If the collection removes values that must no longer be selected, filter the selected values
+and pass the result to `setSelectedValues`:
 
 ```tsx
 const validValues = selection.selectedValues.filter((value) => collection.has(value));
@@ -156,4 +184,5 @@ const validValues = selection.selectedValues.filter((value) => collection.has(va
 selection.setSelectedValues(validValues);
 ```
 
-Run this synchronization in an event or effect when the collection changes, not during render.
+Run this synchronization in an event handler or effect when the collection changes, not during
+render.

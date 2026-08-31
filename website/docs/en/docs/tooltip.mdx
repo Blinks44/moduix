@@ -1,7 +1,7 @@
 ---
 title: Tooltip
 component: tooltip
-description: A label that provides information on hover or focus.
+description: A short, supplementary label that appears when its trigger is hovered or focused.
 ---
 
 import * as TooltipDocs from '@/components/examples/tooltip';
@@ -12,17 +12,18 @@ import * as TooltipDocs from '@/components/examples/tooltip';
 
 ## Choosing the right component
 
-Use `Tooltip` for short, non-essential labels or hints that appear on hover or focus.
+Use `Tooltip` for short, non-essential information that appears on hover or focus.
 
-- Choose **`Tooltip`** for compact labels and short contextual hints.
-- Choose **`Popover`** when the popup needs richer layout, actions, or interactive content.
-- Choose **`HoverCard`** when the popup should expose a richer preview surface tied to a trigger.
+- Choose **`Tooltip`** for brief labels and contextual hints without interaction.
+- Choose **`Popover`** when the popup needs richer content, actions, or form controls.
+- Choose **`HoverCard`** when the popup should show a supplementary preview tied to its trigger.
 
 ## Basic
 
-Start with `Tooltip`, `Tooltip.Trigger`, and `Tooltip.Body`. `Tooltip.Body` is the narrow shortcut
-for the common `Tooltip.Positioner + Tooltip.Content` path. Keep an accessible name on the trigger
-itself: tooltips do not replace `aria-label` or visible text.
+Use `Tooltip.Trigger` for the element that opens the tooltip and `Tooltip.Body` for its content.
+`Tooltip.Body` is a convenience wrapper around `Tooltip.Positioner` and `Tooltip.Content`.
+Give the trigger an accessible name of its own. Tooltip content is supplemental and does not replace
+visible text or an `aria-label`.
 
 <PreviewFrame contentWidth="fit-content">
   ```tsx preview file="./_snippets/tooltip/basic.tsx"
@@ -39,19 +40,19 @@ itself: tooltips do not replace `aria-label` or visible text.
 ```text
 Tooltip / Tooltip.Root
 ├─ Tooltip.Trigger
-└─ Overlay subtree (automatically portalled)
+└─ Overlay subtree (automatically rendered in a portal)
    └─ Tooltip.Positioner
       └─ Tooltip.Content
          └─ content
 ```
 
-Add `Tooltip.Arrow` and `Tooltip.ArrowTip` inside the content when the popup should point back to
-the trigger. `Tooltip.Arrow` renders `Tooltip.ArrowTip` by default.
+Add `Tooltip.Arrow` as the first child of the content when the popup should point to its trigger.
+`Tooltip.Arrow` renders `Tooltip.ArrowTip` by default.
 
 ```text
 Tooltip / Tooltip.Root
 ├─ Tooltip.Trigger
-└─ Overlay subtree (automatically portalled)
+└─ Overlay subtree (automatically rendered in a portal)
    └─ Tooltip.Positioner
       └─ Tooltip.Content
          ├─ Tooltip.Arrow
@@ -59,105 +60,108 @@ Tooltip / Tooltip.Root
          └─ content
 ```
 
-| Part                       | Role                                                                                        |
-| -------------------------- | ------------------------------------------------------------------------------------------- |
-| `Tooltip` / `Tooltip.Root` | Root state, controlled/uncontrolled open state, delays, positioning options, and lifecycle. |
-| `Tooltip.RootProvider`     | Renders a tooltip from a `useTooltip()` state object owned outside the tree.                |
-| `Tooltip.Body`             | Convenience wrapper that renders `Tooltip.Positioner` and `Tooltip.Content` together.       |
-| `Tooltip.Trigger`          | Interactive anchor element that opens the tooltip on hover or focus.                        |
-| `Tooltip.DisabledTrigger`  | Focusable wrapper for one disabled native control that still needs an explanation.          |
-| `Tooltip.Positioner`       | Floating layout layer that consumes Ark positioning options and runtime CSS variables.      |
-| `Tooltip.Content`          | Visible tooltip surface.                                                                    |
-| `Tooltip.Arrow`            | Optional arrow wrapper.                                                                     |
-| `Tooltip.ArrowTip`         | Arrow tip element; rendered by default from `Tooltip.Arrow`.                                |
+| Part | Role |
+| --- | --- |
+| `Tooltip` / `Tooltip.Root` | Owns tooltip state, opening and closing, delays, positioning, and lifecycle. |
+| `Tooltip.RootProvider` | Renders a tooltip from a `useTooltip()` state object created outside the tree. |
+| `Tooltip.Context` | Exposes current tooltip state through a render prop for custom descendants. |
+| `Tooltip.Body` | Convenience wrapper that renders `Tooltip.Positioner` and `Tooltip.Content` together. |
+| `Tooltip.Trigger` | Interactive element that opens the tooltip on hover or focus. |
+| `Tooltip.DisabledTrigger` | Focusable wrapper for one disabled native control that still needs an explanation. |
+| `Tooltip.Positioner` | Positions the content and exposes Ark positioning variables. |
+| `Tooltip.Content` | Visible tooltip surface. |
+| `Tooltip.Arrow` | Optional positioned arrow wrapper that renders `Tooltip.ArrowTip` by default. |
+| `Tooltip.ArrowTip` | Arrow tip element. |
 
 ## Composition
 
-The root portals `Positioner` automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; structural parts remain explicit and styleable.
+By default, the root renders `Positioner` in a portal. Set `portalled={false}` to keep it in the
+current DOM tree, or pass `portalRef` to choose a custom portal container. The structural parts
+remain explicit and styleable.
 
 ### Recommended composition
 
-Use `Tooltip.Trigger` with `Tooltip.Body` for the common path. `Tooltip.Body` keeps the root-level
-positioning API intact and renders `Tooltip.Positioner` with `Tooltip.Content` for you. moduix also
-keeps the explicit Ark parts available when you need full structural control.
+For most tooltips, use `Tooltip.Trigger` with `Tooltip.Body`. This keeps the positioning API on the
+root while expanding the content into `Tooltip.Positioner` and `Tooltip.Content`. The explicit Ark
+parts remain available when you need to control that structure yourself.
 
-If you're moving from shadcn, `Tooltip.Body` is the closest equivalent to the common
-`TooltipContent` step, while the explicit Ark parts stay available for advanced structure.
+When migrating from shadcn, `Tooltip.Body` is the closest moduix equivalent to the usual
+`TooltipContent` step.
 
 ### When to go custom
 
-Use `asChild` on `Tooltip.Trigger` when the trigger should be a moduix `Button`, link, or another
-semantic control. The child must remain a single focusable element that can support the trigger
+Use `asChild` on `Tooltip.Trigger` when the trigger should render as a moduix `Button`, a link, or
+another semantic control. The child must remain one focusable element that supports the trigger
 interaction.
 
-Use `Tooltip.DisabledTrigger` for one disabled native control that needs a short explanation. Give
-the wrapper an accessible name; it keeps the disabled child non-interactive while making the tooltip
-available to pointer and keyboard users.
+Use `Tooltip.DisabledTrigger` around exactly one disabled native control that needs a short
+explanation. Give the wrapper its own accessible name. The wrapper can receive focus while the
+disabled child remains non-interactive, so the explanation is still available to keyboard and
+pointer users.
 
-Use `positioning` on `Tooltip` for placement, strategy, offset, collision behavior, and the rest of
-Ark's floating options. Use explicit `Tooltip.Positioner` and `Tooltip.Content` when you need
-positioner-specific styling, inline context consumers that should own the content part, or a lower
-level Ark-shaped structure. Use `ids` when separate tooltip parts need stable shared IDs.
+Use `positioning` on `Tooltip` for placement, strategy, offset, collision handling, and other Ark
+positioning options. Use explicit `Tooltip.Positioner` and `Tooltip.Content` when you need
+positioner-specific styling or lower-level control of the Ark-shaped structure. Use `ids` when
+separate tooltip parts need stable shared IDs.
 
 ### Default props
 
-The portalled overlay content lazily mounts and unmounts after its exit animation by default. Set
-`unmountOnExit={false}` to retain it after first open; set both lifecycle props to `false` only when
-eager initial rendering is needed.
+The portalled content mounts lazily and is removed after its exit animation by default. Set
+`unmountOnExit={false}` to keep it mounted after the first open. Set both lifecycle props to
+`false` only when the content must render eagerly.
 
-| Prop                   | Default | Notes                                                             |
-| ---------------------- | ------- | ----------------------------------------------------------------- |
-| `openDelay`            | `400`   | Delay before opening on hover or focus.                           |
-| `closeDelay`           | `150`   | Delay before closing after hover or focus leaves.                 |
-| `closeOnClick`         | `true`  | Closes when the trigger is clicked.                               |
-| `closeOnEscape`        | `true`  | Closes when Escape is pressed.                                    |
-| `closeOnPointerDown`   | `true`  | Closes on pointer down.                                           |
-| `closeOnScroll`        | `true`  | Closes on scroll.                                                 |
-| `interactive`          | `false` | Keeps the tooltip open while hovering content when set to `true`. |
-| `lazyMount`            | `true`  | Defers mounting until the tooltip first opens.                    |
-| `unmountOnExit`        | `true`  | Unmounts content after its exit animation.                        |
-| `skipAnimationOnMount` | `false` | Allows the first presence animation unless explicitly skipped.    |
+| Prop | Default | Notes |
+| --- | --- | --- |
+| `openDelay` | `400` | Delay before opening on hover or focus. |
+| `closeDelay` | `150` | Delay before closing after hover or focus leaves. |
+| `closeOnClick` | `true` | Closes the tooltip when the trigger is clicked. |
+| `closeOnEscape` | `true` | Closes the tooltip when Escape is pressed. |
+| `closeOnPointerDown` | `true` | Closes the tooltip on pointer down. |
+| `closeOnScroll` | `true` | Closes the tooltip when the user scrolls. |
+| `interactive` | `false` | Keeps the tooltip open while its content is hovered. |
+| `lazyMount` | `true` | Mounts the content only after the first open. |
+| `unmountOnExit` | `true` | Removes the content after its exit animation. |
+| `skipAnimationOnMount` | `false` | Keeps the first presence animation enabled. |
+| `portalled` | `true` | Renders the positioner in a portal. |
+| `portalRef` | `-` | Targets a custom portal container. |
+| `positioning` | `-` | Ark positioning options. |
+| `ids` | `-` | Stable IDs for tooltip parts. |
+| `defaultOpen` | `-` | Initial open state for uncontrolled usage. |
+| `open` | `-` | Controlled open state. |
+| `disabled` | `false` | Disables tooltip interactions. |
 
 ### Behavioral notes
 
-- Controlled state uses Ark's `open` and `onOpenChange(details)` shape. Read `details.open`.
-- `defaultOpen` provides uncontrolled initial state, while `disabled` turns off tooltip
+- `onOpenChange(details)` receives an object. Read the next open state from `details.open`.
+- `defaultOpen` sets the initial state for uncontrolled usage. `disabled` turns off tooltip
   interaction without changing the trigger's own semantics.
 - Ark presence props such as `present`, `immediate`, `onExitComplete`, `lazyMount`, and
   `unmountOnExit` pass through unchanged.
-- `Tooltip.RootProvider`, `useTooltip`, and `useTooltipContext` are available from `@moduix/react`
-  for external or inline advanced state access.
-- `Tooltip.Trigger` receives the moduix trigger skin only when `asChild` is not used. With
-  `asChild`, styling belongs to the child element.
-- `Tooltip.DisabledTrigger` is a focused wrapper around one disabled direct child. Use it instead
-  of duplicating a `span`, `tabIndex`, and pointer-events override in every disabled-button tooltip.
-- `Tooltip.Body` forwards content props and children to `Tooltip.Content`. It does not introduce a
-  new DOM part or a separate positioning prop surface.
+- `Tooltip.RootProvider`, `Tooltip.Context`, `useTooltip`, and `useTooltipContext` are available
+  from `@moduix/react` for advanced state access. Use the provider and `useTooltip` when state is
+  created outside the rendered tooltip tree.
+- `Tooltip.Trigger` receives the moduix trigger styling only when `asChild` is not used. With
+  `asChild`, the child element owns its styling.
+- `Tooltip.DisabledTrigger` is intended for one disabled direct child. Use it instead of repeating
+  a focusable `span`, `tabIndex`, and pointer-events override for every disabled control.
+- `Tooltip.Body` forwards its props, children, and ref to `Tooltip.Content`. It does not add a DOM
+  part or a separate positioning API.
 - `Tooltip.Content` owns the visible surface and z-index. `Tooltip.Positioner` owns floating
-  layout and exposes Ark variables such as `--available-width`, `--available-height`, and
+  positioning and exposes Ark variables such as `--available-width`, `--available-height`, and
   `--transform-origin`.
-- Ark emits `data-state="open" | "closed"` on trigger and content; `data-value`, `data-current`,
-  and `data-expanded` on trigger; and placement attributes such as `data-placement` and
-  `data-side` on content.
-- Tooltip transitions and content animations are disabled when the user requests reduced motion.
-- Tooltip content wraps long unbroken strings, but long or interactive content belongs in Popover or
-  HoverCard rather than a scrollable tooltip.
+- Ark emits `data-state="open" | "closed"` on the trigger and content. With trigger values, it also
+  emits `data-value`, `data-current`, and `data-expanded` on the trigger. Content exposes placement
+  attributes such as `data-placement` and `data-side`.
+- Trigger transitions and content animations are disabled when the user prefers reduced motion.
+- Tooltip content wraps long unbroken strings. Use `Popover` or `HoverCard` for long or interactive
+  content instead of turning a tooltip into a scrollable surface.
 
 ## Examples
 
-### Controlled
-
-Control open state with `open` and `onOpenChange(details)`.
-
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="./_snippets/tooltip/controlled.tsx"
-
-  ```
-</PreviewFrame>
-
 ### Context
 
-Use moduix `useTooltipContext()` when content needs inline access to the current tooltip state.
+Use `useTooltipContext()` inside a descendant that needs the current tooltip state. Use
+`Tooltip.Context` when a render prop makes the custom composition clearer.
 
 <PreviewFrame contentWidth="fit-content">
   ```tsx preview file="./_snippets/tooltip/context.tsx"
@@ -165,9 +169,19 @@ Use moduix `useTooltipContext()` when content needs inline access to the current
   ```
 </PreviewFrame>
 
+### Controlled
+
+Control whether the tooltip is open with `open` and `onOpenChange(details)`.
+
+<PreviewFrame contentWidth="fit-content">
+  ```tsx preview file="./_snippets/tooltip/controlled.tsx"
+
+  ```
+</PreviewFrame>
+
 ### Delay
 
-Use `openDelay` and `closeDelay` on the root to tune hover and focus timing.
+Set `openDelay` and `closeDelay` on the root to adjust hover and focus timing.
 
 <PreviewFrame contentWidth="fit-content">
   ```tsx preview file="./_snippets/tooltip/delay.tsx"
@@ -178,7 +192,7 @@ Use `openDelay` and `closeDelay` on the root to tune hover and focus timing.
 ### Disabled Trigger
 
 Use `Tooltip.DisabledTrigger` when a disabled native control still needs a short explanation. It
-keeps a focusable trigger around the disabled child without replacing the explicit Ark composition.
+keeps a focusable wrapper around the disabled child without changing the child's disabled state.
 
 <PreviewFrame contentWidth="fit-content">
   ```tsx preview file="./_snippets/tooltip/disabled-trigger.tsx"
@@ -188,8 +202,8 @@ keeps a focusable trigger around the disabled child without replacing the explic
 
 ### Multiple Triggers
 
-Use trigger `value` and `onTriggerValueChange(details)` to drive one tooltip from several
-triggers.
+Give each trigger a `value` and use `onTriggerValueChange(details)` to share one tooltip across
+several triggers.
 
 <PreviewFrame contentWidth="fit-content">
   ```tsx preview file="./_snippets/tooltip/multiple-triggers.tsx"
@@ -209,8 +223,8 @@ Pass Ark positioning options to `Tooltip`, including placement and offset values
 
 ### Root Provider
 
-Use moduix `useTooltip()` with `Tooltip.RootProvider` when tooltip state must be owned outside the
-rendered tooltip subtree.
+Use `useTooltip()` with `Tooltip.RootProvider` when the tooltip state is created outside the
+rendered tooltip tree.
 
 <PreviewFrame contentWidth="fit-content">
   ```tsx preview file="./_snippets/tooltip/root-provider.tsx"
@@ -220,8 +234,9 @@ rendered tooltip subtree.
 
 ### With Arrow
 
-Render `Tooltip.Arrow` as the first child of `Tooltip.Content` when the surface needs a pointer.
-The wrapper renders `Tooltip.ArrowTip` for the default arrow shape.
+Add `Tooltip.Arrow` as the first child of the tooltip content when it needs a visual pointer. With
+`Tooltip.Body`, place it directly inside `Tooltip.Body`; the wrapper supplies the default
+`Tooltip.ArrowTip`.
 
 <PreviewFrame contentWidth="fit-content">
   ```tsx preview file="./_snippets/tooltip/with-arrow.tsx"
@@ -231,9 +246,9 @@ The wrapper renders `Tooltip.ArrowTip` for the default arrow shape.
 
 ### Within Fixed Containers
 
-Use `positioning.strategy: "fixed"` for triggers in fixed or sticky interface regions. Focus the
-trigger, then scroll this panel: `closeOnScroll={false}` keeps the tooltip open so its alignment can
-be inspected while the sticky trigger moves.
+Use `positioning.strategy: "fixed"` when the trigger is inside a fixed or sticky interface region.
+This example sets `closeOnScroll={false}` so you can focus the trigger and scroll the panel while
+checking the tooltip's alignment.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/tooltip/within-fixed-containers.tsx"
@@ -243,7 +258,8 @@ be inspected while the sticky trigger moves.
 
 ### Advanced Customization
 
-Bypass `Tooltip.Body` when the positioner or content needs independent composition or styling.
+Use the explicit `Tooltip.Positioner` and `Tooltip.Content` parts when they need independent
+composition or styling.
 
 <PreviewFrame contentWidth="fit-content">
   ```tsx preview file="./_snippets/tooltip/advanced-customization.tsx"
@@ -269,22 +285,22 @@ Bypass `Tooltip.Body` when the positioner or content needs independent compositi
 
 ### Styling hooks
 
-Use the part that owns the visual concern:
+Style the part that owns the visual concern:
 
-- `Tooltip.Body` does not create its own DOM node; style `Tooltip.Positioner` and
-  `Tooltip.Content` when you switch to the explicit path.
-- `Tooltip.Trigger` for trigger chrome, hover/open feedback, and focus styling.
-- `Tooltip.DisabledTrigger` for the disabled-control wrapper and its direct disabled child.
-- `Tooltip.Positioner` for floating layout constraints.
-- `Tooltip.Content` for popup surface overrides.
-- `Tooltip.Arrow` and `Tooltip.ArrowTip` for arrow size, background, and stroke.
+- `Tooltip.Body` does not create a DOM node. When you use the explicit composition, style
+  `Tooltip.Positioner` and `Tooltip.Content` separately.
+- `Tooltip.Trigger` controls trigger chrome, hover and open feedback, and focus styling.
+- `Tooltip.DisabledTrigger` controls the disabled-control wrapper and its direct disabled child.
+- `Tooltip.Positioner` controls floating layout constraints.
+- `Tooltip.Content` controls the popup surface.
+- `Tooltip.Arrow` and `Tooltip.ArrowTip` control the arrow size, background, and stroke.
 
 The main public hooks are `data-slot="tooltip-trigger"`, `data-slot="tooltip-positioner"`,
-`data-slot="tooltip-content"`, `data-slot="tooltip-disabled-trigger"`, `data-slot="tooltip-arrow"`, and
-`data-slot="tooltip-arrow-tip"`.
+`data-slot="tooltip-content"`, `data-slot="tooltip-disabled-trigger"`,
+`data-slot="tooltip-arrow"`, and `data-slot="tooltip-arrow-tip"`.
 
-Ark also adds `data-scope="tooltip"`, `data-part`, `data-state="open" | "closed"`,
-`data-value`, `data-current`, `data-expanded`, `data-instant`, `data-placement`, and `data-side`
-on the relevant parts. The positioner exposes runtime CSS variables including
-`--available-width`, `--available-height`, `--reference-width`, `--reference-height`, `--x`,
-`--y`, `--z-index`, and `--transform-origin`.
+Ark also adds `data-scope="tooltip"`, `data-part`, `data-state="open" | "closed"`, `data-value`,
+`data-current`, `data-expanded`, `data-instant`, `data-placement`, and `data-side` to the relevant
+parts. The positioner exposes runtime CSS variables including `--available-width`,
+`--available-height`, `--reference-width`, `--reference-height`, `--x`, `--y`, `--z-index`, and
+`--transform-origin`.

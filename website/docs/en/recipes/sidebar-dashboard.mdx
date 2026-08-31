@@ -1,15 +1,23 @@
 ---
-title: Dashboard
-description: A desktop dashboard shell with collapsible and resizable moduix navigation.
+title: Sidebar dashboard
+description: A copy-ready dashboard layout with a collapsible, resizable sidebar, nested navigation, and a workspace menu.
 ---
 
 import { SidebarDashboardPreview } from '@/components/recipes/sidebar-dashboard-preview';
 
-# Dashboard
+# Sidebar dashboard
 
-Start a desktop workspace with a resizable navigation sidebar and a simple dashboard overview.
-`Sidebar` owns the collapse, keyboard resize, and collapsed-nav tooltips. The Projects item also
-demonstrates nested navigation, and the footer includes a workspace menu.
+Use this recipe as a starting point for a desktop application shell. It combines `Sidebar`,
+`Collapsible`, and `Menu` to provide resizable navigation, an expandable Projects group, and a
+workspace menu in the sidebar footer. The main area includes a small overview with metric cards so
+you can see where your application content belongs.
+
+You can resize the sidebar by dragging the divider or using the keyboard. `Sidebar.Trigger`
+collapses and expands the panel, while `Sidebar.Tooltip` keeps navigation labels available when the
+sidebar is reduced to its icon rail.
+
+This is a copy-ready composition, not a `SidebarDashboard` component exported by `@moduix/react`.
+Copy the component and CSS below, then replace the example links, labels, and dashboard data.
 
 <ExampleFrame clientOnly>
   <SidebarDashboardPreview />
@@ -38,11 +46,28 @@ demonstrates nested navigation, and the footer includes a workspace menu.
 
 <ShadcnInstall packageName={['button', 'card', 'collapsible', 'menu', 'sidebar']} itemKind="recipe" copiedSource dependencies={['lucide-react']} />
 
-## In a route
+## Adapt it to your app
 
-Replace the example anchors, labels, and dashboard content with your routes and data. This recipe is
-desktop-first; adapt responsive navigation, account menus, and notifications to your application.
+Replace the `#overview`, `#website`, and other example anchors with routes from your application. If
+your router provides a link component, use it with `Sidebar.NavigationButton` or
+`Sidebar.NavigationSubButton` and the `asChild` prop so the router owns navigation. Mark the active
+destination with `aria-current="page"`.
 
-Mark the active destination with `aria-current="page"` and use router links through `asChild` where
-the router must own navigation. Persist the collapsed width only when that preference helps returning
-users; read browser storage after hydration and keep the default usable without it.
+Keep `Sidebar.Tooltip` around icon navigation buttons so their labels remain available in the
+collapsed rail. Use `Collapsible` for nested navigation groups and `Menu` for workspace actions.
+Connect the `New project` button to the flow that creates a project, and replace the static metrics
+and message in the main area with data from your application.
+
+## Responsive behavior
+
+This recipe starts with a desktop layout. `Sidebar` does not provide a mobile drawer or choose a
+responsive navigation pattern for you. For smaller screens, compose `Drawer` or another overlay
+with the navigation model that fits your application. The example CSS only changes the metric cards
+to one column below `40rem`.
+
+## Persist the sidebar width
+
+The example uses the default sidebar size and does not save it between visits. If your application
+needs a persistent desktop width, control `Sidebar` with `size`, update it from `onResize(details)`
+during a resize, and save the settled value from `onResizeEnd(details)`. In an SSR application,
+read browser storage after hydration and keep a usable default for the first render.

@@ -78,11 +78,13 @@
   {
     "type": "file",
     "name": "avatar",
+    "label": "Avatar",
     "tag": "component"
   },
   {
     "type": "file",
     "name": "badge",
+    "label": "Badge",
     "tag": "component"
   },
   {

@@ -6,6 +6,7 @@
     "build": "turbo run build",
     "build:docs": "turbo run build -F moduix-docs",
     "build:react": "turbo run build -F @moduix/react",
+    "build:solid": "turbo run build -F @moduix/solid",
     "build:registry": "shadcn registry validate registry/registry.json && rm -rf website/docs/public/r/react && shadcn build registry/registry.json --output website/docs/public/r/react && oxfmt",
     "check:package": "publint packages/react && attw --pack packages/react --entrypoints ./button ./locale --profile esm-only",
     "changeset": "changeset",
@@ -13,6 +14,10 @@
     "changeset:release": "pnpm run build:react && changeset publish",
     "deploy:docs": "turbo run deploy -F moduix-docs",
     "dev:docs": "turbo run dev -F moduix-docs...",
+    "dev:playgrounds": "pnpm --parallel --filter @moduix/playground-react --filter @moduix/playground-solid storybook",
+    "dev:playground:react": "pnpm --filter @moduix/playground-react storybook",
+    "dev:playground:solid": "pnpm --filter @moduix/playground-solid storybook",
+    "dev:solid": "turbo run dev -F @moduix/solid",
     "dev:storybook": "turbo run storybook -F @moduix/react",
     "fmt:check": "oxfmt --check",
     "fmt:fix": "oxfmt",
@@ -27,12 +32,12 @@
     "@arethetypeswrong/cli": "^0.18.5",
     "@changesets/cli": "^2.31.1",
     "husky": "^9.1.7",
-    "lint-staged": "^17.3.0",
+    "lint-staged": "^17.4.1",
     "oxfmt": "^0.65.0",
     "oxlint": "^1.80.0",
     "publint": "^0.3.24",
     "shadcn": "^4.19.0",
-    "turbo": "^2.10.11"
+    "turbo": "^2.10.12"
   },
   "engines": {
     "node": ">=24",

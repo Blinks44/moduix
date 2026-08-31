@@ -5,7 +5,7 @@ export function OwnershipLayers() {
   const t = useI18n<typeof import('i18n')>();
   const layers = [
     { label: t('ownershipLayersBehavior'), value: 'Ark UI' },
-    { label: t('ownershipLayersPresentation'), value: 'moduix CSS' },
+    { label: t('ownershipLayersPresentation'), value: t('ownershipLayersStyling') },
     { label: t('ownershipLayersOwnership'), value: t('ownershipLayersPackageSource') },
   ];
 

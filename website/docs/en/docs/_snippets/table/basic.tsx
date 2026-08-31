@@ -34,10 +34,12 @@ export default function TableDemo() {
       <Table>
         <Table.Header>
           <Table.Row>
-            <Table.ColumnHeader>Invoice</Table.ColumnHeader>
-            <Table.ColumnHeader>Status</Table.ColumnHeader>
-            <Table.ColumnHeader>Method</Table.ColumnHeader>
-            <Table.ColumnHeader numeric>Amount</Table.ColumnHeader>
+            <Table.ColumnHeader scope="col">Invoice</Table.ColumnHeader>
+            <Table.ColumnHeader scope="col">Status</Table.ColumnHeader>
+            <Table.ColumnHeader scope="col">Method</Table.ColumnHeader>
+            <Table.ColumnHeader numeric scope="col">
+              Amount
+            </Table.ColumnHeader>
           </Table.Row>
         </Table.Header>
         <Table.Body>

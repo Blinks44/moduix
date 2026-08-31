@@ -1,32 +1,32 @@
 ---
 title: Textarea
 component: textarea
-description: A native multi-line input with Field integration and moduix styling.
+description: A native multiline text input with Field integration and moduix styling.
 ---
 
 import * as TextareaDocs from '@/components/examples/textarea';
 
 ## API Reference
 
-Ark UI does not ship a dedicated textarea component. moduix styles and re-exports
-[Ark Field.Textarea](https://ark-ui.com/docs/components/field), preserving its native textarea API,
-`autoresize`, ref forwarding, `asChild`, and Field state inheritance.
+Ark UI does not ship a dedicated `Textarea` primitive. moduix builds this component on
+[Ark's `Field.Textarea`](https://ark-ui.com/docs/components/field), preserving the native
+`textarea` API, `autoresize`, ref forwarding, `asChild`, and Field state inheritance.
 
 ## Choosing the right component
 
-Use `Textarea` when the value is plain text, can span multiple lines, and should keep the native
-browser textarea behavior.
+Use `Textarea` for plain text that can span multiple lines and should behave like a native browser
+`textarea`.
 
 - Choose **`Input`** for short single-line values such as names, URLs, or compact filters.
-- Choose **`Textarea`** for notes, comments, descriptions, and other longer free-form text.
-- Choose **`Editable`** for preview-first text that switches into edit mode.
-- Choose **`Field` + `Textarea`** when labels, descriptions, and validation should stay
-  declarative.
+- Choose **`Textarea`** for notes, comments, descriptions, and other longer free-form content.
+- Choose **`Editable`** when text is shown first and edited on demand.
+- Choose **`Field` + `Textarea`** when the control needs a declarative label, description, required
+  state, or validation.
 
 ## Basic
 
-Start with `Textarea` inside `Field`. This is the recommended path for ordinary forms, settings,
-and issue or note entry.
+Place `Textarea` inside `Field` when the control needs an accessible label or supporting text. This
+is the recommended setup for comments, notes, issue descriptions, and similar content.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/textarea/basic.tsx"
@@ -40,39 +40,39 @@ and issue or note entry.
 
 ## Anatomy
 
-The public structure is intentionally small:
+The public structure has one component part:
 
 ```text
 Field (optional wrapper)
 └─ Textarea
 ```
 
-| Part       | Role                                                       |
-| ---------- | ---------------------------------------------------------- |
-| `Textarea` | Native textarea element with moduix styles and field data. |
+| Part       | Role                                                  |
+| ---------- | ----------------------------------------------------- |
+| `Textarea` | Native `textarea` with moduix styles and Field state. |
 
-`Textarea` does not add wrapper shells, sub-parts, provider/context hooks, hidden inputs, or
-textarea-specific slot props.
+`Textarea` does not export an additional wrapper, compound subcomponents, provider or context hooks,
+hidden inputs, or a label or character-counter API.
 
 ## Composition
 
 ### Recommended composition
 
-Stay with `Textarea` for normal multi-line text entry.
+Keep `Textarea` as the control for ordinary multiline text entry.
 
-Use `Textarea` directly for native props such as `rows`, `name`, `placeholder`, `maxLength`,
-`readOnly`, `disabled`, `required`, `value`, and `defaultValue`.
+Use it directly with native props such as `rows`, `name`, `placeholder`, `maxLength`, `readOnly`,
+`disabled`, `required`, `value`, `defaultValue`, and `form`.
 
-Wrap it with `Field`, `Field.Label`, `Field.HelperText`, and `Field.ErrorText` when the input should
-share declarative labels, helper text, and validation messaging.
+Wrap it with `Field`, `Field.Label`, `Field.HelperText`, and `Field.ErrorText` when it needs a
+declarative label, helper text, or validation message. When you use `Textarea` outside `Field`, give
+it an accessible name with a native `<label>` or `aria-label`.
 
 ### When to go custom
 
-There is no lower-level `Textarea` composition path beyond the styled textarea root. `Field.Textarea`
-remains available as an Ark-shaped escape hatch, but prefer `Textarea` so multiline controls share
-the same moduix styling contract everywhere.
+Use `Field.Textarea` only when you need the lower-level `Field` namespace. For ordinary forms,
+prefer `Textarea` so multiline controls share the same moduix styling contract.
 
-Use `Editable` instead of composing custom read-only/editing controls around `Textarea`.
+Use `Editable` for interfaces where text is displayed first and then edited.
 
 ### Default props
 
@@ -82,22 +82,22 @@ Use `Editable` instead of composing custom read-only/editing controls around `Te
 
 ### Behavioral notes
 
-- Use `value` with native `onChange` for controlled text.
-- Use `name` plus regular form submission when the value only needs to be read from `FormData`.
-- Native form reset restores an uncontrolled `defaultValue`; add `form` to associate the textarea with
-  a form outside its DOM subtree.
-- The ref points to the real `HTMLTextAreaElement`; use `asChild` only with one semantic textarea
-  host that can receive the merged props and ref.
-- Use Ark `autoresize` when the field should grow with content. Ark disables manual resizing while
-  it is enabled, so `--moduix-textarea-resize` applies only when `autoresize` is false.
-- Use `Editable` for inline edit/read-only flows with preview text, edit triggers, and commit or
-  cancel controls.
+- Use `value` and native `onChange` to control the value from React state.
+- Set `name` to include the textarea in native form submission, then read its value from `FormData`.
+- A native form reset restores an uncontrolled textarea to `defaultValue`. Use `form` to associate
+  it with a form outside the textarea's DOM subtree.
+- The forwarded ref points to the real `HTMLTextAreaElement`. With `asChild`, provide one semantic
+  textarea host that can receive the merged props and ref.
+- Set `autoresize` when the textarea should grow with its content. Ark disables manual resizing
+  while it is enabled, so `--moduix-textarea-resize` applies only when `autoresize` is false.
+- Use `Editable` for inline flows with preview text, edit triggers, and commit or cancel controls.
 
 ## Examples
 
-### Auto Resize
+### Auto-resize
 
-Use Ark `autoresize` when the textarea should grow with its content.
+Set `autoresize` when the textarea should grow as the user types. Ark disables manual resizing while
+this option is enabled.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/textarea/auto-resize.tsx"
@@ -105,9 +105,9 @@ Use Ark `autoresize` when the textarea should grow with its content.
 ```
 </PreviewFrame>
 
-### Controlled
+### Controlled value
 
-Use `value` and native `onChange` when content should stay in React state.
+Use `value` and native `onChange` when React state should control the content.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/textarea/controlled.tsx"
@@ -115,9 +115,10 @@ Use `value` and native `onChange` when content should stay in React state.
 ```
 </PreviewFrame>
 
-### Disabled and Readonly
+### Disabled and read-only
 
-Set `disabled` or `readOnly` based on interaction requirements.
+Use `disabled` when the user must not interact with the control. Use `readOnly` when they can read
+and select the value but must not edit it.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/textarea/disabled-and-readonly.tsx"
@@ -125,10 +126,10 @@ Set `disabled` or `readOnly` based on interaction requirements.
 ```
 </PreviewFrame>
 
-### Field Validation
+### Field validation
 
-Put invalid state on `Field`; Ark applies `aria-invalid` and `data-invalid` to the textarea and
-connects the error text.
+Set `invalid` on `Field`. Ark adds `aria-invalid` and `data-invalid` to the textarea and connects
+its error text.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/textarea/field-validation.tsx"
@@ -136,10 +137,10 @@ connects the error text.
 ```
 </PreviewFrame>
 
-### Native Attributes
+### Native attributes and form submission
 
-Use native textarea props for sizing, browser behavior, and form submission. The preview submits
-the current `FormData` value to make native form participation explicit.
+Use native textarea props such as `rows`, `maxLength`, and `spellCheck` for browser behavior. This
+example also submits the form and reads the current value from `FormData`.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/textarea/native-attributes.tsx"
@@ -149,8 +150,8 @@ the current `FormData` value to make native form participation explicit.
 
 ## Styling
 
-Style `Textarea` through `className`, `data-slot="textarea-root"`, and the public `--moduix-textarea-*`
-variables documented by the public CSS API.
+Style the control with `className`, `data-slot="textarea-root"`, and the public
+`--moduix-textarea-*` variables documented by the CSS API.
 
 ### CSS Properties
 
@@ -168,10 +169,10 @@ variables documented by the public CSS API.
 
 ### Styling hooks
 
-Use the textarea root for the visual control itself and the surrounding `Field` for layout or text
-around it.
+Use the `Textarea` root for the control's appearance and the surrounding `Field` for layout and
+supporting text.
 
-- `Textarea` root for border, background, placeholder, resize behavior, and focus ring
+- `Textarea` root for the border, background, placeholder, resize behavior, and focus ring
 - `Field` wrapper for width, max width, spacing, label layout, description, and validation text
 - `data-slot="textarea-root"` for stable targeting in scoped styles
 - `data-autoresize` when `autoresize` is enabled

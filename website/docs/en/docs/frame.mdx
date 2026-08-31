@@ -1,6 +1,6 @@
 ---
 title: Frame
-description: Render isolated iframe previews with Ark UI Frame and moduix components.
+description: Render React content in an isolated iframe with Ark UI Frame.
 ---
 
 ## API Reference
@@ -9,11 +9,11 @@ description: Render isolated iframe previews with Ark UI Frame and moduix compon
 
 ## When to use it
 
-Use `Frame` to render a preview or embedded experience your application controls in an iframe, while keeping its
-document separate from the surrounding interface. It accepts native iframe attributes and renders React children inside
-the frame.
+Use `Frame` when React content should render in an iframe owned by your application, such as a live preview, editor
+canvas, or embedded workspace. The iframe has a separate document, so its DOM and styles stay separate from the host
+page. `Frame` forwards native iframe attributes and renders its React children inside the iframe.
 
-Import `Frame` directly from Ark UI:
+`Frame` comes from Ark UI, not moduix:
 
 ```tsx
 import { Frame } from '@ark-ui/react';
@@ -21,8 +21,8 @@ import { Frame } from '@ark-ui/react';
 
 ## Basic
 
-Always provide a descriptive `title` for people using assistive technology. Set a deliberate initial size: the example
-fills the available width and keeps a comfortable preview height.
+Always provide a descriptive `title` for people using assistive technology. Set an explicit initial size. In this
+example, the iframe fills the available width and starts at a comfortable height for the preview.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/frame/basic.tsx"
@@ -30,13 +30,14 @@ fills the available width and keeps a comfortable preview height.
   ```
 </PreviewFrame>
 
-`Frame` also gives nested Ark components the iframe document automatically. This keeps DOM queries, portals, and focus
-behavior in the correct environment when the preview contains Ark UI components.
+`Frame` also passes the iframe document to nested Ark components. DOM queries, portals, and focus management then use
+the correct document when the preview contains Ark UI components. You can place components such as `Button`, `Dialog`,
+or `Popover` directly inside `Frame`.
 
-## Styles in the frame
+## Styles inside the iframe
 
-An iframe has its own document, so host-page styles do not automatically apply to its contents. Pass React nodes
-through `head` to add styles, fonts, or metadata to the iframe document.
+An iframe has its own document, so styles from the host page do not automatically apply to its contents. Pass React
+nodes through the `head` prop to add styles, fonts, or metadata to the iframe document.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/frame/head.tsx"
@@ -44,11 +45,69 @@ through `head` to add styles, fonts, or metadata to the iframe document.
   ```
 </PreviewFrame>
 
-Use the `onMount` and `onUnmount` callbacks to set up or clean up resources that belong to the embedded experience.
+The `head` content is inserted into the iframe's `<head>`. If you render moduix components inside the iframe, load the
+styles they need there as well. The host page's CSS does not cross the iframe boundary.
+
+## Lifecycle callbacks
+
+Use `onMount` and `onUnmount` to set up and release resources that belong to the embedded experience. The callbacks do
+not receive arguments. For example, use a ref to access the iframe document when you need to add an application-owned
+script:
+
+```tsx
+import { useRef } from 'react';
+import { Frame } from '@ark-ui/react';
+
+export function ScriptedPreview() {
+  const frameRef = useRef<HTMLIFrameElement>(null);
+
+  return (
+    <Frame
+      ref={frameRef}
+      title="Interactive preview"
+      onMount={() => {
+        const frameDocument = frameRef.current?.contentDocument;
+        if (!frameDocument) return;
+
+        const script = frameDocument.createElement('script');
+        script.textContent = 'document.body.dataset.ready = "true";';
+        frameDocument.body.append(script);
+      }}
+      onUnmount={() => {
+        // Release application-owned listeners and other resources here.
+      }}
+    >
+      <main>Interactive preview</main>
+    </Frame>
+  );
+}
+```
+
+Only inject scripts that your application controls. For styles and metadata, prefer the `head` prop.
+
+## Content size
+
+`Frame` observes the rendered content and exposes its size on the iframe as the `--width` and `--height` CSS
+custom properties. The values are in pixels and update when the content resizes. Use them when the iframe should grow
+with its content:
+
+```tsx
+<Frame
+  title="Release preview"
+  style={{
+    blockSize: 'var(--height, 10rem)',
+    inlineSize: '100%',
+  }}
+>
+  <main>Release preview</main>
+</Frame>
+```
+
+Keep an explicit height, as in the Basic example, when the preview should stay within a fixed area.
 
 ## srcDoc and security
 
-Use `srcDoc` when the frame should start from a complete HTML document instead of React children:
+Use `srcDoc` when the iframe should start from a complete HTML document instead of React children:
 
 ```tsx
 import { Frame } from '@ark-ui/react';
@@ -60,16 +119,21 @@ export function StaticPreview() {
 }
 ```
 
-Treat `srcDoc` as HTML your application controls. For untrusted content, use the native `sandbox` attribute with only
-the permissions the preview needs. Do not combine `allow-scripts` and `allow-same-origin` for untrusted content: that
-can let it remove its own sandbox restrictions.
+Treat `srcDoc` as HTML your application controls. For untrusted content, use the native `sandbox` attribute and grant
+only the permissions the preview needs. Do not combine `allow-scripts` and `allow-same-origin` for untrusted content:
+that combination can let the content remove its own sandbox restrictions.
 
 ## Using moduix
 
-Use moduix `Card`, `Stack`, and status components around `Frame` to give an embedded preview a label and context. Keep
-the iframe’s own styles self-contained; its document does not inherit host-page styles.
+`Frame` is an Ark UI utility and is not re-exported by moduix. Use moduix components such as `Card`, `Stack`, or
+`Badge` around `Frame` when the preview needs a label, layout, or status. The examples above keep that outer interface
+in the host document and render the preview itself inside the iframe.
+
+If moduix components belong inside the iframe, provide their styles through `head` or another stylesheet URL that the
+iframe can load. Keep the iframe content self-contained.
 
 ## Ownership
 
-Ark UI handles the `Frame` component and its iframe lifecycle. moduix supplies the surrounding interface components but
-does not re-export `Frame`.
+Ark UI provides the `Frame` component, iframe lifecycle, environment handling for nested Ark components, and content
+size variables. moduix provides the surrounding interface components and documents how to compose them with `Frame`,
+but it does not re-export `Frame`.

@@ -1,4 +1,5 @@
 import type { CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 export const hoverCardCssProperties: CssPropertyInput[] = [
   ['--moduix-hover-card-arrow-size', 'var(--moduix-spacing-2-5)', 'Controls the Ark arrow size.'],
@@ -130,3 +131,15 @@ export const hoverCardCssProperties: CssPropertyInput[] = [
   ['--moduix-hover-card-trigger-underline-offset', '2px', 'Controls trigger underline offset.'],
   ['--moduix-hover-card-width', 'auto', 'Controls the content width.'],
 ];
+
+export function HoverCardCssPropertiesPanel() {
+  return (
+    <CSSPropertiesReferenceTable properties={hoverCardCssProperties.map(normalizeCssProperty)} />
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property))
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  return property;
+}

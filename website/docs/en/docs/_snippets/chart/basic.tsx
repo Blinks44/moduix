@@ -22,15 +22,17 @@ const definition = defineChart({
       radius: 6,
     }),
   ],
-  x: {
-    scale: scaleBand,
-    axis: { label: 'Month' },
-  },
-  y: {
-    scale: scaleLinear,
-    nice: true,
-    grid: true,
-    axis: { label: 'Revenue ($k)' },
+  scales: {
+    x: {
+      scale: scaleBand,
+      axis: { label: 'Month' },
+    },
+    y: {
+      scale: scaleLinear,
+      nice: true,
+      grid: true,
+      axis: { label: 'Revenue ($k)' },
+    },
   },
   color: {
     domain: ['Revenue'],

@@ -1,7 +1,7 @@
 ---
 title: QR Code
 component: qr-code
-description: Primitive de QR code Ark UI avec rendu SVG, superpositions et téléchargement d’image.
+description: Un composant de code QR fondé sur Ark UI qui produit un SVG, prend en charge les superpositions et permet de télécharger le code comme image.
 ---
 
 import * as QrCodeDocs from '@/components/examples/qr-code';
@@ -12,7 +12,9 @@ import * as QrCodeDocs from '@/components/examples/qr-code';
 
 ## Exemple de base
 
-Utilisez `QrCode` comme élément racine Ark, puis affichez explicitement `Frame` et `Pattern`. L’élément racine conserve la valeur encodée, tandis que `Frame` affiche le SVG généré.
+Pour le cas courant, utilisez `QrCode`. Passez le contenu à encoder dans `defaultValue`, puis affichez
+explicitement `QrCode.Frame` et `QrCode.Pattern` pour rendre le SVG généré. Donnez un nom accessible
+à `QrCode.Frame` lorsque le code QR transmet une information.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/qr-code/basic.tsx"
@@ -37,56 +39,82 @@ QrCode.RootProvider
 └─ même arborescence de parties, connectée à useQrCode() de @moduix/react
 ```
 
-| Partie                    | Rôle                                                                           |
-| ------------------------- | ------------------------------------------------------------------------------ |
-| `QrCode` / `QrCode.Root`  | État de la valeur, options de génération, identifiants et variables CSS.       |
-| `QrCode.RootProvider`     | Affiche l’arbre du QR code depuis l’état renvoyé par `useQrCode()` de moduix.  |
-| `QrCode.Frame`            | Cadre SVG généré par Ark.                                                      |
-| `QrCode.Pattern`          | Chemin SVG représentant les modules du QR code.                               |
-| `QrCode.Overlay`          | Contenu personnalisé centré au-dessus du QR code.                              |
-| `QrCode.DownloadTrigger`  | Bouton qui télécharge le cadre actuel du QR code sous forme d’image.           |
+| Partie                    | Rôle                                                                    |
+| ------------------------- | ----------------------------------------------------------------------- |
+| `QrCode` / `QrCode.Root` | Gère la valeur encodée et les options de génération, et fournit l’état du QR code. |
+| `QrCode.RootProvider`    | Relie les parties à un objet d’état créé avec `useQrCode()` en dehors de l’arbre.      |
+| `QrCode.Frame`           | Élément SVG qui contient le code QR généré.                             |
+| `QrCode.Pattern`         | Chemin SVG qui dessine les modules du code QR.                          |
+| `QrCode.Overlay`         | Contenu centré affiché par-dessus le code QR.                           |
+| `QrCode.DownloadTrigger` | Bouton qui télécharge le code QR actuel sous forme d’image.             |
 
 ## Composition
 
 ### Composition recommandée
 
-Conservez la structure Ark explicite : `QrCode`, `QrCode.Frame` et `QrCode.Pattern`. `QrCode.Root` reste disponible comme alias explicite correspondant à Ark. N’ajoutez `QrCode.Overlay` que si la correction d’erreurs du QR code suffit pour la zone masquée.
+`QrCode` est la forme abrégée de `QrCode.Root`. Utilisez l’un ou l’autre en gardant `QrCode.Frame`
+et `QrCode.Pattern` explicites. Utilisez `defaultValue` pour un code QR non contrôlé. Si la valeur
+provient de l’état de l’application, utilisez plutôt `value` avec `onValueChange(details)`.
+
+Ajoutez `QrCode.Overlay` uniquement si la zone masquée reste assez petite pour que le code soit lisible.
+Pour une superposition, définissez `encoding={{ ecc: 'H' }}` et testez le code final avec les scanners
+utilisés par vos utilisateurs.
 
 ### Quand créer une composition personnalisée
 
-Utilisez `encoding` pour les options de génération du QR code, notamment `encoding={{ ecc: 'H' }}` lors de l’ajout d’une superposition. Utilisez `QrCode.DownloadTrigger` lorsque les utilisateurs ont besoin d’un fichier image généré. Utilisez `useQrCode()` de `@moduix/react` avec `QrCode.RootProvider` lorsque des contrôles situés en dehors de l’arbre doivent accéder à l’API du QR code actuel.
+Utilisez `QrCode.RootProvider` lorsque l’état du code QR doit être créé en dehors de l’arbre rendu ou
+lorsque des contrôles externes doivent accéder à l’API du code QR. Créez l’état avec `useQrCode()` depuis
+`@moduix/react/qr-code`, puis transmettez-le à `RootProvider`. Utilisez `QrCode.Context` ou
+`useQrCodeContext()` lorsqu’un descendant a besoin de la valeur actuelle ou de l’API du code QR.
+N’utilisez pas `QrCode` et `QrCode.RootProvider` avec le même objet d’état.
 
-Utilisez `asChild` sur les parties Ark lorsque vous remplacez l’élément hôte. Conservez un seul enfant de remplacement et assurez-vous qu’il reste sémantique. Utilisez `ids` si l’arbre personnalisé a besoin d’identifiants stables pour l’élément racine ou le cadre.
+Utilisez `asChild` sur une partie Ark uniquement lorsqu’un autre élément doit porter le nœud DOM rendu.
+Conservez un enfant unique et sémantique. Utilisez `ids` lorsqu’une composition personnalisée a besoin
+d’identifiants stables pour la racine ou le cadre.
 
-### Propriétés par défaut
+### Propriétés courantes
 
-| Propriété      | Par défaut | Notes                                                                            |
-| -------------- | ----------- | -------------------------------------------------------------------------------- |
-| `defaultValue` | -           | Valeur encodée initiale non contrôlée.                                           |
-| `value`        | -           | Valeur encodée contrôlée.                                                        |
-| `encoding`     | -           | Options de génération du QR code, comme `ecc` et `boostEcc`.                     |
-| `pixelSize`    | -           | Taille de pixel transmise au générateur Ark/Zag.                                 |
-| `id`           | -           | Identifiant machine stable transmis à Ark.                                       |
-| `ids`          | -           | Identifiants stables pour `root` et `frame`.                                     |
-| `fileName`     | -           | Requis pour `DownloadTrigger`.                                                   |
-| `mimeType`     | -           | Requis pour `DownloadTrigger`, par exemple `image/png` ou `image/svg+xml`.       |
-| `quality`      | -           | Qualité facultative de l’image téléchargée.                                      |
+Le tableau réunit les propriétés dont la plupart des utilisateurs ont besoin. Chaque partie accepte
+également les attributs DOM correspondants, notamment `className` et `asChild` lorsque ces propriétés
+sont prises en charge. Consultez la référence pour voir toute l’API Ark.
+
+| Partie          | Propriété       | Rôle                                                                  |
+| --------------- | --------------- | --------------------------------------------------------------------- |
+| Root            | `defaultValue`  | Valeur initiale pour un usage non contrôlé.                           |
+| Root            | `value`         | Valeur contrôlée à encoder.                                           |
+| Root            | `onValueChange` | Reçoit l’objet `details` d’origine d’Ark. Lisez la nouvelle valeur dans `details.value`. |
+| Root            | `encoding`      | Options du générateur, notamment `ecc` et `boostEcc`.                 |
+| Root            | `pixelSize`     | Taille de pixel transmise au générateur de code QR.                   |
+| Root            | `id`            | Identifiant stable de la machine transmis à Ark.                      |
+| Root            | `ids`           | Identifiants stables de la racine et du cadre.                        |
+| RootProvider    | `value`         | Objet d’état obligatoire renvoyé par `useQrCode()`.                   |
+| DownloadTrigger | `fileName`      | Nom obligatoire du fichier téléchargé.                                |
+| DownloadTrigger | `mimeType`      | Type d’image obligatoire, par exemple `image/png` ou `image/svg+xml`.  |
+| DownloadTrigger | `quality`       | Qualité facultative transmise au générateur.                           |
 
 ### Comportement
 
-Utilisez `value` avec `onValueChange(details)` lorsque l’URL ou le texte encodé doit rester synchronisé avec l’état environnant. La signature du callback correspond à l’objet `details` d’Ark d’origine.
+En mode contrôlé, `onValueChange(details)` synchronise la valeur avec l’état du code QR. Il utilise
+l’objet `details` d’origine d’Ark, donc lisez la nouvelle valeur encodée dans `details.value`.
 
-`useQrCode()` de `@moduix/react` permet de créer l’état du QR code en dehors de l’arbre affiché. Utilisez `QrCode.Context` ou `useQrCodeContext()` de moduix pour lire l’état du QR code dans un descendant.
+`QrCode.Context` et `useQrCodeContext()` fournissent aux descendants l’API du code QR le plus proche.
+Cette API comprend la `value` actuelle, `setValue` et `getDataUrl()` pour générer une URL de données.
 
-Le QR code n’a pas de navigation dédiée avec les flèches, de roving focus ni de champ de saisie masqué. `DownloadTrigger` est un bouton natif : il conserve donc l’activation au clavier et le comportement de focus d’un bouton.
+Le code QR n’est pas un contrôle de formulaire et n’ajoute pas de champ masqué. Il ne fournit pas non
+plus de navigation spécifique avec les flèches ni de déplacement du focus entre ses parties.
+`QrCode.DownloadTrigger` est un bouton natif : il conserve le focus, l’activation au clavier et le
+comportement `disabled` habituels d’un bouton.
 
-Le SVG est un rendu visuel. Lorsque le QR code transmet une information, ajoutez `role="img"` et `aria-label` à `QrCode.Frame`. Utilisez un texte adjacent ou `aria-hidden="true"` lorsque le QR code duplique une information.
+Le SVG est un contenu visuel. Lorsque le code QR transmet une information, ajoutez `role="img"` et
+`aria-label` à `QrCode.Frame`. S’il répète un texte adjacent, conservez ce texte et ajoutez
+`aria-hidden="true"` à `QrCode.Frame`.
 
 ## Exemples
 
 ### État contrôlé
 
-Contrôlez `value` lorsque le QR code doit rester synchronisé avec une sélection externe ou l’interface environnante.
+Contrôlez `value` lorsque le code QR doit suivre une destination sélectionnée ou un autre état de
+l’application.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/qr-code/controlled.tsx"
@@ -96,7 +124,8 @@ Contrôlez `value` lorsque le QR code doit rester synchronisé avec une sélecti
 
 ### Téléchargement
 
-Ajoutez `DownloadTrigger` lorsque les utilisateurs doivent enregistrer le QR code généré sous forme d’image.
+Ajoutez `QrCode.DownloadTrigger` lorsque les utilisateurs doivent enregistrer le code généré sous forme
+d’image. Définissez `fileName` et `mimeType` sur le déclencheur.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/qr-code/download.tsx"
@@ -106,7 +135,14 @@ Ajoutez `DownloadTrigger` lorsque les utilisateurs doivent enregistrer le QR cod
 
 ### Correction d’erreurs
 
-Définissez `encoding.ecc` pour choisir le niveau de correction d’erreurs du QR code. Les niveaux élevés sont utiles lorsqu’une superposition recouvre le QR code ou lorsque celui-ci doit résister à davantage de détériorations.
+Utilisez `encoding.ecc` pour choisir la quantité de données endommagées que le code QR peut récupérer.
+Les niveaux élevés sont utiles lorsqu’une superposition recouvre une partie du code ou lorsque celui-ci
+risque d’être rayé ou déformé.
+
+- `L` : récupère jusqu’à 7 % des données endommagées.
+- `M` : récupère jusqu’à 15 %.
+- `Q` : récupère jusqu’à 25 %.
+- `H` : récupère jusqu’à 30 %.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/qr-code/error-correction.tsx"
@@ -116,7 +152,8 @@ Définissez `encoding.ecc` pour choisir le niveau de correction d’erreurs du Q
 
 ### Remplissage
 
-Personnalisez la couleur du SVG avec `className`, des styles en ligne ou `--moduix-qr-code-fill`.
+Les modules du code QR utilisent `currentColor` par défaut. Modifiez le remplissage du SVG avec
+`style`, une classe ou la variable `--moduix-qr-code-fill`.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/qr-code/fill.tsx"
@@ -126,7 +163,8 @@ Personnalisez la couleur du SVG avec `className`, des styles en ligne ou `--modu
 
 ### Champ de saisie
 
-Contrôlez le QR code depuis un champ de texte lorsque les utilisateurs doivent saisir ou modifier le contenu encodé.
+Liez `value` à un champ de texte lorsque les utilisateurs doivent saisir ou modifier le contenu encodé
+dans le code QR. Donnez à `QrCode.Frame` un nom accessible qui explique ce que représente le code.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/qr-code/input.tsx"
@@ -136,7 +174,9 @@ Contrôlez le QR code depuis un champ de texte lorsque les utilisateurs doivent 
 
 ### Superposition
 
-Utilisez `QrCode.Overlay` pour un logo compact ou une marque textuelle. Associez-la à un niveau élevé de correction d’erreurs afin que le code reste lisible.
+Utilisez `QrCode.Overlay` pour un petit logo ou une marque textuelle. Définissez un niveau élevé de
+correction d’erreurs et gardez la superposition assez petite pour que les scanners puissent toujours
+lire le code.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/qr-code/overlay.tsx"
@@ -146,7 +186,8 @@ Utilisez `QrCode.Overlay` pour un logo compact ou une marque textuelle. Associez
 
 ### Root Provider
 
-Utilisez `useQrCode()` de moduix avec `QrCode.RootProvider` lorsque l’état est créé en dehors de l’arbre affiché.
+Créez l’état du code QR avec `useQrCode()` lorsqu’il doit être partagé avec des contrôles situés en
+dehors de l’arbre du code QR, puis transmettez cet état à `QrCode.RootProvider`.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/qr-code/root-provider.tsx"
@@ -156,7 +197,10 @@ Utilisez `useQrCode()` de moduix avec `QrCode.RootProvider` lorsque l’état es
 
 ## Styles
 
-Remplacez la taille du QR code, le remplissage, la superposition et les styles du déclencheur de téléchargement au moyen des variables CSS et des classes des parties. Ark définit également des variables d’exécution sur l’élément racine pour les dimensions du cadre généré.
+Moduix ajoute des styles fondés sur des tokens pour la taille et l’espacement du code QR, son remplissage,
+sa superposition et son déclencheur de téléchargement. Utilisez `className` pour les styles propres au
+composant et les attributs `data-slot` stables pour les sélecteurs partagés. Le panneau CSS Variables
+présente l’ensemble des variables publiques.
 
 ### Propriétés CSS
 
@@ -172,6 +216,9 @@ Remplacez la taille du QR code, le remplissage, la superposition et les styles d
   </Tabs>
 </div>
 
+Ark définit également à l’exécution `--qrcode-pixel-size`, `--qrcode-width` et `--qrcode-height` sur la
+racine. Ces variables décrivent le cadre généré et peuvent servir à intégrer des styles personnalisés.
+
 ### Points d’accroche CSS
 
 - `QrCode.Root` -> `data-slot="qr-code-root"`
@@ -180,5 +227,4 @@ Remplacez la taille du QR code, le remplissage, la superposition et les styles d
 - `QrCode.Pattern` -> `data-slot="qr-code-pattern"`
 - `QrCode.Overlay` -> `data-slot="qr-code-overlay"`
 - `QrCode.DownloadTrigger` -> `data-slot="qr-code-download-trigger"`
-- Hooks Ark : `data-scope="qr-code"`, `data-part="root|frame|pattern|overlay|download-trigger"`,
-  ainsi que les variables CSS d’exécution `--qrcode-pixel-size`, `--qrcode-width` et `--qrcode-height`.
+- Attributs Ark : `data-scope="qr-code"` et `data-part="root|frame|pattern|overlay|download-trigger"`

@@ -1,17 +1,26 @@
 ---
 title: List Collection
-description: Créez et gérez des collections basées sur des tableaux pour Select, Combobox, Listbox et vos propres listes.
+description: Créez et mettez à jour des collections construites à partir de tableaux pour Select, Combobox, Listbox et vos interfaces personnalisées.
 ---
 
 # List Collection
 
-## Référence de l’API
+Une `ListCollection` est une structure de données construite à partir d'un tableau d'éléments. Elle
+ne rend pas de liste et ne fournit ni la sélection ni le comportement au clavier. Utilisez-la comme
+source de données pour `Select`, `Combobox` et `Listbox`, ou pour construire votre propre interface.
+
+Cette page fait partie de la documentation moduix, mais `ListCollection` est un utilitaire d'Ark UI.
+Elle n'est pas réexportée par `@moduix/react`.
+
+## Référence de l'API
 
 <PrimitiveReference href="https://ark-ui.com/docs/collections/list-collection" />
 
-Une collection de liste associe à chaque élément une valeur de chaîne stable, un texte affiché, un état désactivé et des opérations respectant l'ordre de la collection. C'est la source de données habituelle de `Select`, `Combobox` et `Listbox`.
+Une collection associe chaque élément à une valeur et à un texte d'affichage. Elle peut aussi
+indiquer les éléments désactivés, regrouper les éléments, rechercher par texte, parcourir les
+valeurs et créer une nouvelle collection sans modifier l'originale.
 
-Importez les utilitaires de collection directement depuis Ark UI :
+Importez les utilitaires directement depuis Ark UI :
 
 ```tsx
 import { createListCollection, useListCollection } from '@ark-ui/react/collection';
@@ -19,21 +28,23 @@ import { createListCollection, useListCollection } from '@ark-ui/react/collectio
 
 ## Créer une collection
 
-Pour les éléments avec `label` et `value`, Ark déduit le mappage requis :
+Lorsque les éléments possèdent les propriétés `label` et `value`, Ark les utilise automatiquement. La
+propriété optionnelle `disabled` est également prise en compte :
 
 ```tsx
-const teams = [
-  { label: 'Platform', value: 'platform' },
-  { label: 'Product', value: 'product' },
-  { label: 'Design', value: 'design', disabled: true },
+const fruits = [
+  { label: 'Apple', value: 'apple' },
+  { label: 'Banana', value: 'banana' },
+  { label: 'Blueberry', value: 'blueberry' },
 ];
 
 const collection = createListCollection({
-  items: teams,
+  items: fruits,
 });
 ```
 
-Transmettez le même objet de collection au composant et affichez ses éléments :
+Passez la collection à un composant basé sur Ark et affichez ses éléments à partir de
+`collection.items`. L'exemple exécutable ci-dessous reprend le même principe avec `Select`.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/select/basic.tsx"
@@ -41,11 +52,15 @@ Transmettez le même objet de collection au composant et affichez ses éléments
 
 </PreviewFrame>
 
-Conservez une collection statique en dehors du composant lorsque ses éléments ne changent pas. Si les éléments proviennent de props, d'un état ou d'une requête, mémorisez la collection ou utilisez `useListCollection` afin que son identité ne change que lorsque les données changent.
+Conservez une collection statique en dehors du composant lorsque ses éléments ne changent pas. Si
+les éléments viennent de props, de l'état React ou d'une requête, utilisez `useMemo` autour de
+`createListCollection` pour ne créer une nouvelle collection que lorsque les éléments changent.
+Utilisez `useListCollection` lorsque le filtrage ou les mises à jour font partie de l'état React.
 
 ## Éléments personnalisés
 
-Définissez les mappages de valeur, de texte et d'état désactivé lorsque vos données utilisent d'autres clés que celles d'Ark par défaut :
+Si vos données utilisent d'autres noms de propriétés, indiquez à la collection comment obtenir la
+valeur, le texte affiché et l'état désactivé :
 
 ```tsx
 type Team = {
@@ -67,37 +82,40 @@ const collection = createListCollection<Team>({
 });
 ```
 
-Les valeurs exposées par les composants de collection sont toujours des chaînes. Convertissez les identifiants numériques à la frontière de l'application si nécessaire.
+Les valeurs de la collection sont des chaînes. Convertissez les identifiants numériques lorsque
+vous adaptez vos données métier à la collection. Par défaut, `itemToValue`, `itemToString` et
+`isItemDisabled` lisent respectivement `value`, `label` et `disabled`.
 
-| Option | Objectif |
-| ---------------- | ------------------------------------------------------------------------- |
-| `items` | Source itérable. |
-| `itemToValue` | Renvoie la valeur de chaîne stable pour un élément. La valeur par défaut est `item.value`. |
-| `itemToString` | Renvoie le texte affiché et utilisé pour la recherche. La valeur par défaut est `item.label`. |
-| `isItemDisabled` | Indique si un élément est désactivé. La valeur par défaut est `item.disabled`. |
-| `groupBy` | Renvoie une clé de groupe pour chaque élément. |
-| `groupSort` | Trie les clés de groupe avec un comparateur, un ordre explicite, `'asc'` ou `'desc'`. |
+| Option           | Rôle                                                                  |
+| ---------------- | --------------------------------------------------------------------- |
+| `items`          | Éléments à inclure. Accepte tout itérable.                            |
+| `itemToValue`    | Renvoie la valeur chaîne utilisée par la collection et ses composants. |
+| `itemToString`   | Renvoie le texte affiché et utilisé pour la recherche.                |
+| `isItemDisabled` | Indique si un élément est désactivé.                                  |
+| `groupBy`        | Renvoie une clé de groupe pour chaque élément.                        |
+| `groupSort`      | Trie les groupes avec un comparateur, un ordre explicite, `'asc'` ou `'desc'`. |
 
-## Lire et interroger
+## Lire et rechercher
 
-Les sections suivantes servent de référence. La plupart des usages de Select et Combobox n'ont besoin que de `items`, `find`, `stringify` et des options de mappage ci-dessus ; utilisez les API de parcours et de mutation uniquement lorsque l'interaction du produit l'exige réellement.
+Utilisez ces méthodes pour consulter les éléments et passer des objets aux valeurs chaîne, et
+inversement.
 
-| API | Résultat |
-| ----------------------------------- | -------------------------------------------------------------- |
-| `collection.items` | Éléments actuels dans l'ordre de la collection. |
-| `collection.size` | Nombre d'éléments. |
-| `getValues(items?)` | Valeurs de chaîne pour tous les éléments fournis. |
-| `find(value)` / `findMany(values)` | Éléments pour une ou plusieurs valeurs. |
-| `at(index)` | Élément à un index, ou `null`. |
-| `indexOf(value)` | Indice de collection, ou `-1`. |
-| `has(value)` / `hasItem(item)` | Indique si une valeur ou un élément est présent. |
-| `getItemValue(item)` | Valeur de chaîne normalisée. |
-| `stringifyItem(item)` | Texte affiché pour un élément. |
-| `stringify(value)` | Texte affiché pour une valeur. |
-| `stringifyItems(items, separator?)` | Texte joint pour plusieurs éléments. |
-| `stringifyMany(values, separator?)` | Texte joint pour plusieurs valeurs. |
-| `getItemDisabled(item)` | État désactivé normalisé. |
-| `group()` | Tuples `[groupKey, items]` utilisant les options de regroupement configurées. |
+| API                                 | Résultat                                                         |
+| ----------------------------------- | ---------------------------------------------------------------- |
+| `collection.items`                  | Éléments dans l'ordre courant de la collection.                  |
+| `collection.size`                   | Nombre d'éléments.                                               |
+| `getValues(items?)`                 | Valeurs de tous les éléments ou des éléments fournis.            |
+| `find(value)` / `findMany(values)`  | L'élément d'une valeur ou les éléments de plusieurs valeurs.     |
+| `at(index)`                         | Élément à l'index indiqué, ou `null`.                            |
+| `indexOf(value)`                    | Index dans la collection, ou `-1` si la valeur est introuvable.  |
+| `has(value)` / `hasItem(item)`      | Indique si une valeur ou un élément est présent.                 |
+| `getItemValue(item)`                | Valeur chaîne normalisée de l'élément.                            |
+| `stringifyItem(item)`               | Texte d'affichage d'un élément.                                   |
+| `stringify(value)`                  | Texte d'affichage d'une valeur.                                  |
+| `stringifyItems(items, separator?)` | Texte d'affichage de plusieurs éléments, assemblé avec le séparateur. |
+| `stringifyMany(values, separator?)` | Texte d'affichage de plusieurs valeurs, assemblé avec le séparateur.  |
+| `getItemDisabled(item)`             | État désactivé normalisé de l'élément.                            |
+| `group()`                           | Paires `[groupKey, items]` selon les options de regroupement.     |
 
 ```tsx
 collection.find('product'); // { label: 'Product', value: 'product' }
@@ -105,9 +123,10 @@ collection.stringify('product'); // 'Product'
 collection.has('unknown'); // false
 ```
 
-## Navigation
+## Parcourir la collection
 
-Utilisez ces API pour parcourir les valeurs et obtenir des plages dans l'ordre de la collection.
+Utilisez ces propriétés et méthodes pour parcourir les éléments disponibles ou trier des valeurs
+selon l'ordre de la collection :
 
 ```tsx
 collection.firstValue; // 'platform'
@@ -118,11 +137,19 @@ collection.getValueRange('platform', 'product'); // ['platform', 'product']
 collection.sort(['design', 'platform']); // ['platform', 'design']
 ```
 
-`firstValue`, `lastValue`, `getNextValue`, `getPreviousValue` et `getValueRange` ignorent les éléments désactivés. Les méthodes suivante et précédente acceptent un pas facultatif et un indicateur `clamp`. Sans `clamp`, dépasser une extrémité renvoie `null`.
+`firstValue`, `lastValue`, `getNextValue`, `getPreviousValue` et `getValueRange` ignorent les
+éléments désactivés. Les méthodes de déplacement vers l'élément suivant ou précédent acceptent un
+`step` facultatif et un indicateur `clamp`. Lorsque `clamp` est désactivé, dépasser une extrémité
+renvoie `null`.
+`getValueRange` renvoie les valeurs dans l'ordre de la collection, quel que soit l'ordre des bornes.
 
-`compareValue(a, b)` compare deux valeurs selon l'ordre de la collection. `isEqual(other)` compare les éléments des collections. La collection est itérable ; `toString()` et `toJSON()` fournissent respectivement une identité compacte et une représentation synthétique.
+`compareValue(a, b)` compare deux valeurs selon l'ordre de la collection. `isEqual(other)` compare
+les tableaux d'éléments de deux collections. Une collection peut être parcourue avec `for...of`.
+`toString()` renvoie une représentation compacte de ses éléments, tandis que `toJSON()` renvoie sa
+taille ainsi que ses première et dernière valeurs.
 
-La méthode `search(query, options)` prend en charge la recherche incrémentale. Elle nécessite un état de recherche persistant, la valeur actuelle et un délai facultatif :
+La méthode `search(query, options)` recherche par préfixe pour les interfaces de saisie au clavier
+et ignore les éléments désactivés. Conservez l'état de recherche entre les appels :
 
 ```tsx
 const searchState = { keysSoFar: '', timer: -1 };
@@ -134,9 +161,13 @@ const nextValue = collection.search('p', {
 });
 ```
 
+Dans un composant React, placez `searchState` dans un `useRef` afin qu'il survive aux nouveaux
+rendus.
+
 ## Mises à jour immuables
 
-Les méthodes de mise à jour renvoient une nouvelle collection. Affectez ou stockez le résultat ; la collection d'origine reste inchangée.
+Les méthodes de mise à jour renvoient une nouvelle collection. Conservez le résultat si vous voulez
+garder la modification ; la collection d'origine reste inchangée.
 
 ```tsx
 const nextCollection = collection
@@ -145,52 +176,59 @@ const nextCollection = collection
   .reorder(0, 1);
 ```
 
-| API | Fonctionnement |
-| ---------------------------------------- | ----------------------------------------- |
-| `copy(items?)` / `setItems(items)` | Copie la collection ou remplace tous les éléments. |
-| `update(value, item)` | Remplace un élément existant. |
-| `upsert(value, item, mode?)` | Met à jour un élément, l'ajoute à la fin ou l'insère au début. |
-| `insert(index, ...items)` | Insère des éléments à un index. |
-| `insertBefore(value, ...items)` | Insère des éléments avant une valeur. |
-| `insertAfter(value, ...items)` | Insère des éléments après une valeur. |
-| `prepend(...items)` / `append(...items)` | Ajoute des éléments à une extrémité. |
-| `filter(predicate)` | Renvoie une collection filtrée. |
-| `remove(...itemsOrValues)` | Supprime des éléments ou des valeurs. |
-| `move(value, index)` | Déplace une valeur vers un index. |
-| `moveBefore(value, ...values)` | Déplace les valeurs avant une autre valeur. |
-| `moveAfter(value, ...values)` | Déplace les valeurs après une autre valeur. |
-| `reorder(from, to)` | Déplace un élément entre des index numériques. |
+| API                                      | Fonctionnement                                      |
+| ---------------------------------------- | --------------------------------------------------- |
+| `copy(items?)` / `setItems(items)`       | Copie la collection ou remplace tous les éléments.  |
+| `update(value, item)`                    | Remplace un élément existant.                       |
+| `upsert(value, item, mode?)`             | Met à jour un élément ou l'ajoute à une extrémité. |
+| `insert(index, ...items)`                | Insère des éléments à l'index indiqué.              |
+| `insertBefore(value, ...items)`          | Insère des éléments avant une valeur.               |
+| `insertAfter(value, ...items)`           | Insère des éléments après une valeur.               |
+| `prepend(...items)` / `append(...items)` | Ajoute des éléments au début ou à la fin.           |
+| `filter(predicate)`                      | Renvoie une collection contenant les éléments retenus. |
+| `remove(...itemsOrValues)`               | Supprime des éléments ou des valeurs.               |
+| `move(value, index)`                     | Déplace une valeur vers un index.                   |
+| `moveBefore(value, ...values)`           | Déplace les valeurs fournies avant une valeur cible. |
+| `moveAfter(value, ...values)`            | Déplace les valeurs fournies après une valeur cible. |
+| `reorder(from, to)`                      | Déplace un élément entre deux index numériques.    |
+
+`upsert` accepte `mode: 'append' | 'prepend'` lorsque la valeur n'existe pas.
 
 ## État React
 
-Utilisez `useListCollection` lorsque le filtrage ou les mises à jour de collection doivent déclencher un rendu React :
-
-```tsx
-function useTeams() {
-  return useListCollection({
-    initialItems: teams,
-    filter: (itemText, filterText) =>
-      itemText.toLocaleLowerCase().includes(filterText.toLocaleLowerCase()),
-    limit: 20,
-  });
-}
-```
-
-Le hook renvoie la `collection` active ainsi que `filter`, `set`, `reset`, `clear`, `insert`, `insertBefore`, `insertAfter`, `remove`, `move`, `moveBefore`, `moveAfter`, `reorder`, `append`, `prepend`, `update` et `upsert`. `filter('')` restaure les éléments non filtrés ; `reset()` restaure `initialItems`.
-
-Pour une correspondance sensible aux paramètres régionaux, utilisez `useFilter` d'Ark :
+Utilisez `useListCollection` lorsque le filtrage ou les mises à jour de la collection doivent
+suivre l'état React :
 
 ```tsx
 import { useFilter } from '@ark-ui/react/locale';
+import { useListCollection } from '@ark-ui/react/collection';
 
-function useFilteredTeams() {
+const teams = [
+  { label: 'Platform', value: 'platform' },
+  { label: 'Product', value: 'product' },
+  { label: 'Design', value: 'design' },
+];
+
+function useTeams() {
   const { contains } = useFilter({ sensitivity: 'base' });
 
   return useListCollection({
     initialItems: teams,
     filter: contains,
+    limit: 20,
   });
 }
 ```
 
-Conservez un `createListCollection` statique en dehors du composant lorsque les éléments ne changent jamais. Utilisez le hook uniquement lorsque React doit gérer le filtrage ou les mutations.
+Le hook renvoie la `collection` active et les méthodes de filtrage et de mise à jour :
+`filter`, `set`, `reset`, `clear`, `insert`, `insertBefore`, `insertAfter`, `remove`, `move`,
+`moveBefore`, `moveAfter`, `reorder`, `append`, `prepend`, `update` et `upsert`.
+
+Appelez `filter('')` pour réafficher tous les éléments. Appelez `reset()` pour restaurer
+`initialItems`. La fonction `filter` reçoit le texte d'affichage d'un élément et le texte du filtre.
+Pour effectuer une recherche adaptée à la langue, utilisez une fonction telle que `contains`,
+renvoyée par `useFilter` d'Ark UI, comme dans l'exemple ci-dessus.
+
+Conservez une `createListCollection` statique en dehors du composant lorsque les éléments ne
+changent jamais. Utilisez le hook lorsque React doit gérer le filtrage ou les modifications de la
+collection.

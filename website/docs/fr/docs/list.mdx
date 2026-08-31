@@ -1,22 +1,32 @@
 ---
 title: List
 component: list
-description: Un conteneur de liste sémantique avec une composition de type Ark, les tokens d’espacement moduix et le style natif des marqueurs.
+description: Liste sémantique avec espacement, typographie, tonalité et marqueurs natifs personnalisables.
 ---
 
 import * as ListDocs from '@/components/examples/list';
 
 ## Référence de l’API
 
-Ark UI ne fournit pas de primitive de liste dédiée. moduix construit ce composant avec l’outil officiel
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) et suit les recommandations d’Ark concernant la
-[composition](https://ark-ui.com/docs/guides/composition), les [styles](https://ark-ui.com/docs/guides/styling) et les
-[ref](https://ark-ui.com/docs/guides/ref).
+Ark UI ne fournit pas de primitive dédiée pour les listes. moduix s’appuie sur Ark factory pour composer des éléments
+natifs `ul`, `ol` et `li`. Consultez les guides d’Ark sur la [composition](https://ark-ui.com/docs/guides/composition),
+les [styles](https://ark-ui.com/docs/guides/styling) et la [transmission des refs](https://ark-ui.com/docs/guides/ref)
+pour connaître le modèle sous-jacent.
+
+## Choisir le bon composant
+
+Utilisez `List` pour du contenu statique regroupé, par exemple des étapes, des caractéristiques ou des métadonnées.
+Le composant conserve la sémantique native de `ul` et `ol`, tout en gérant l’espacement, la typographie, la tonalité
+et les marqueurs.
+
+Si l’utilisateur doit parcourir la liste au clavier et sélectionner une ou plusieurs options, utilisez
+[Listbox](/docs/listbox). `Listbox` gère le focus, la collection et la sélection.
 
 ## Exemple de base
 
-Commencez par `List` et `List.Item`. C’est l’approche recommandée lorsque vous avez besoin de la sémantique native d’une liste et des tokens
-moduix pour l’espacement, la typographie et les marqueurs.
+`List` rend un élément `<ul>` sémantique par défaut. Utilisez `List.Item` si vous avez besoin de son slot stable et
+de ses points d’accroche CSS, ou passez directement des éléments `<li>` natifs si ce wrapper ne vous est pas utile.
+La racine `List` gère l’espacement, la typographie, la tonalité et les marqueurs.
 
 ```tsx preview file="../../en/docs/_snippets/list/basic.tsx"
 
@@ -28,7 +38,7 @@ moduix pour l’espacement, la typographie et les marqueurs.
 
 ## Anatomie
 
-La composition habituelle côté utilisateur reste concise :
+La composition courante est simple :
 
 ```text
 List / List.Root
@@ -37,49 +47,66 @@ List / List.Root
 
 | Partie               | Rôle                                                                                              |
 | -------------------- | ------------------------------------------------------------------------------------------------- |
-| `List` / `List.Root` | Racine sémantique de la liste qui contrôle le marqueur, l’espacement, la taille et le ton.       |
-| `List.Item`          | Partie facultative de type Ark pour disposer d’un slot `li` stable et de la prise en charge de `asChild`. |
+| `List` / `List.Root` | Racine sémantique de la liste, qui rend `ul` ou `ol` et contrôle les marqueurs, l’espacement, la taille et la tonalité. |
+| `List.Item`          | Partie facultative qui rend `li`, transmet les attributs natifs et la ref, et prend en charge `asChild`.             |
 
 ## Composition
 
 ### Composition recommandée
 
-Utilisez `<List>` pour un contenu non ordonné, et `as="ol"` lorsqu’une sémantique ordonnée est nécessaire.
-N’utilisez `asChild` que pour remplacer `List` par un unique élément sémantique `<ul>` ou `<ol>`, ou
-`List.Item` par un unique élément sémantique `<li>`.
+Utilisez `<List>` pour une liste non ordonnée et `<List as="ol">` pour une liste ordonnée. Les propriétés natives
+de `ol`, comme `start`, `reversed` et `type`, sont transmises à la racine. Utilisez `List.Item` si vous avez besoin
+de ses points d’accroche stables ou de `asChild`. Sinon, de simples éléments `li` suffisent.
 
 ### Quand créer une composition personnalisée
 
-`List` ne fournit ni machine à états interne, ni utilitaires de structure imbriquée, ni API de rendu des marqueurs.
-Pour le style courant des éléments, utilisez `className` et le CSS natif, par exemple `li::marker`.
-Réservez `asChild` aux composants appartenant au code appelant qui transmettent la ref et les props et
-rendent l’hôte sémantique requis.
+Utilisez `asChild` uniquement avec un composant qui rend un seul élément sémantique et lui transmet les props et la ref
+reçues. Pour la racine, cet élément doit rester `ul` ou `ol` ; pour un élément de liste, `li`.
 
-Conservez les éléments comme enfants `li` directs. L’espacement intégré et le style des marqueurs ne s’appliquent
-qu’aux éléments directs de la liste.
+`List` ne fournit ni machine à états, ni utilitaires pour les listes imbriquées, ni API dédiée au rendu des marqueurs.
+Pour les styles courants, utilisez `className` et le CSS natif, notamment `li::marker`.
+
+Les éléments doivent rester des enfants directs de la liste. L’espacement intégré et le style des marqueurs ne
+s’appliquent qu’à ces éléments.
 
 ### Propriétés par défaut
 
-| Prop      | Valeur par défaut    | Remarques                                                                                       |
-| --------- | -------------------- | ----------------------------------------------------------------------------------------------- |
-| `gap`     | `sm`                 | Espacement entre les éléments directs de la liste.                                              |
-| `size`    | `md`                 | Token de taille typographique.                                                                  |
-| `tone`    | `default`            | Chemin de couleur sémantique pour le texte et les marqueurs.                                    |
-| `marker`  | `auto` sémantique    | `disc` pour `ul`, marqueurs de liste ordonnée du navigateur pour `ol`, ou `none`.               |
-| `as`      | `ul`                 | Bascule l’hôte natif de la liste entre `ul` et `ol`.                                            |
-| `asChild` | `false`              | Remplace l’hôte sémantique par l’unique élément enfant fourni par le code appelant.             |
+Les propriétés ci-dessous concernent la racine `List`. `List.Item` accepte les props natives de `li`, ainsi que
+`className` et `asChild`.
+
+| Prop      | Valeur par défaut        | Remarques                                                                                                 |
+| --------- | ------------------------ | --------------------------------------------------------------------------------------------------------- |
+| `gap`     | `sm`                     | Espacement entre les éléments directs de la liste.                                                         |
+| `size`    | `md`                     | Taille du texte dans l’échelle typographique.                                                             |
+| `tone`    | `default`                | Couleur sémantique du texte et des marqueurs.                                                             |
+| `marker`  | `auto` (mode sémantique) | `auto` est le mode par défaut, il n’est pas nécessaire de le passer. Il utilise `disc` pour `ul` et les marqueurs natifs du navigateur pour `ol`. Les valeurs `disc`, `decimal` et `none` imposent le style du marqueur. |
+| `as`      | `ul`                     | Rend la racine avec l’élément natif `ul` ou `ol`.                                                          |
+| `asChild` | `false`                  | Utilise un enfant fourni par votre code comme élément sémantique rendu de la liste.                       |
 
 ### Comportement
 
-- Les props de liste ordonnée telles que `start`, `reversed` et `type` sont disponibles avec `as="ol"`.
-- Utilisez `marker="none"` pour masquer les marqueurs tout en conservant la sémantique de liste. Dans ce cas, `List` ajoute `role="list"`, sauf si vous remplacez explicitement `role`.
-- `List.Item` est facultatif. Utilisez de simples éléments `li` lorsque le slot d’élément exporté n’apporte aucun avantage.
+- Les attributs natifs de la racine sont transmis à l’élément `ul` ou `ol` rendu, et ceux de l’élément de liste sont transmis à `List.Item`.
+- La ref transmise pointe vers la racine ou l’élément de liste rendu.
+- Utilisez `marker="none"` pour masquer les marqueurs tout en conservant la sémantique de liste. Dans ce cas, `List` ajoute
+  `role="list"`, sauf si vous fournissez explicitement une autre valeur pour `role`.
+- L’espacement de la racine repose sur `gap` de Flexbox, avec une direction en colonne par défaut. Si votre CSS change la direction
+  ou active le retour à la ligne, `gap` suit cette disposition.
+- `List.Item` est facultatif. Utilisez de simples éléments `li` si cette partie exportée ne vous est pas utile.
 
 ## Exemples
 
+### Racine personnalisée
+
+Utilisez `List asChild` lorsqu’un composant de votre application doit rendre lui-même l’élément sémantique de la liste.
+Il doit transmettre les props et la ref reçues à un unique `<ul>` ou `<ol>`.
+
+```tsx preview file="../../en/docs/_snippets/list/root-as-child.tsx"
+
+```
+
 ### Sans marqueurs
 
-Utilisez `marker="none"` lorsqu’une sémantique de liste est nécessaire sans marqueurs visibles.
+Utilisez `marker="none"` si vous avez besoin de la sémantique d’une liste sans marqueurs visibles.
 
 ```tsx preview file="../../en/docs/_snippets/list/markerless.tsx"
 
@@ -87,7 +114,7 @@ Utilisez `marker="none"` lorsqu’une sémantique de liste est nécessaire sans 
 
 ### Éléments natifs
 
-Utilisez des éléments `li` natifs lorsque vous n’avez pas besoin du slot `List.Item` exporté.
+Utilisez des éléments `li` natifs si vous n’avez pas besoin de la partie exportée `List.Item`.
 
 ```tsx preview file="../../en/docs/_snippets/list/native-items.tsx"
 
@@ -95,15 +122,15 @@ Utilisez des éléments `li` natifs lorsque vous n’avez pas besoin du slot `Li
 
 ### Liste ordonnée
 
-Utilisez `as="ol"` pour rendre une liste ordonnée tout en conservant le contrat de style de la racine moduix.
+Utilisez `as="ol"` pour rendre une liste ordonnée tout en conservant les styles appliqués par la racine moduix.
 
 ```tsx preview file="../../en/docs/_snippets/list/ordered.tsx"
 
 ```
 
-### Ton
+### Tonalité
 
-Utilisez `tone` lorsque la liste doit hériter d’une couleur de texte sémantique.
+Utilisez `tone` pour appliquer une couleur sémantique au texte et aux marqueurs de la liste.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/list/tone.tsx"
@@ -113,28 +140,19 @@ Utilisez `tone` lorsque la liste doit hériter d’une couleur de texte sémanti
 
 ### Personnalisation avancée
 
-N’utilisez `List.Item asChild` que lorsqu’un composant personnalisé doit contrôler l’élément `<li>` rendu.
-Ce composant doit transmettre la ref et les props et conserver l’hôte `<li>` ; dans les autres cas, utilisez
+Utilisez `List.Item asChild` lorsqu’un composant personnalisé doit rendre lui-même l’élément `<li>`. Il doit
+transmettre les props et la ref reçues et conserver l’élément sémantique `<li>`. Dans les autres cas, utilisez
 directement `List.Item className`.
 
 ```tsx preview file="../../en/docs/_snippets/list/custom-composition.tsx"
 
 ```
 
-### Racine personnalisée
-
-Utilisez `List asChild` lorsqu’un composant du code appelant doit rendre l’hôte sémantique de la liste.
-Il doit transmettre la ref et les props à un unique élément `<ul>` ou `<ol>`.
-
-```tsx preview file="../../en/docs/_snippets/list/root-as-child.tsx"
-
-```
-
 ## Styles
 
-Appliquez des styles à `List` avec `className`, les hooks `data-*` de type Ark exportés, le sélecteur natif `li::marker`
-et les variables CSS publiques `--moduix-list-*` répertoriées ci-dessous. Cette liste de variables correspond à
-l’API CSS publique.
+Appliquez des styles à `List` avec `className`, les attributs `data-*` alignés sur Ark, le sélecteur natif
+`li::marker` et les variables CSS publiques `--moduix-list-*` répertoriées ci-dessous. Cette liste couvre l’API CSS
+publique.
 
 ### Propriétés CSS
 
@@ -152,12 +170,12 @@ l’API CSS publique.
 
 ### Points d’accroche CSS
 
-`List` expose une surface de style volontairement réduite :
+`List` expose les points d’accroche CSS publics suivants :
 
 - racine : `data-scope="list"`, `data-part="root"`, `data-slot="list-root"`
 - élément : `data-scope="list"`, `data-part="item"`, `data-slot="list-item"`
-- `data-gap="xs" | "sm" | "md" | "lg" | "xl" | "2xl"` pour les styles dépendant de l’espacement
-- `data-marker="auto" | "disc" | "decimal" | "none"` pour les styles dépendant du marqueur
-- `data-size="xs" | "sm" | "md" | "lg" | "xl"` pour les styles de taille typographique
-- `data-tone="default" | "muted" | "subtle" | "primary" | "destructive"` pour les chemins de couleur sémantiques
+- `data-gap="xs" | "sm" | "md" | "lg" | "xl" | "2xl"` pour cibler les styles liés à l’espacement
+- `data-marker="auto" | "disc" | "decimal" | "none"` pour cibler les styles liés aux marqueurs
+- `data-size="xs" | "sm" | "md" | "lg" | "xl"` pour cibler les styles liés à la taille typographique
+- `data-tone="default" | "muted" | "subtle" | "primary" | "destructive"` pour les couleurs sémantiques
 - le sélecteur natif `li::marker` pour remplacer la couleur ou l’épaisseur du marqueur

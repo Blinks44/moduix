@@ -21,15 +21,17 @@ const definition = defineChart({
       radius: 6,
     }),
   ],
-  x: {
-    scale: scaleLinear,
-    nice: true,
-    grid: true,
-    axis: { label: 'Active users (k)' },
-  },
-  y: {
-    scale: scaleBand,
-    axis: { label: 'Product' },
+  scales: {
+    x: {
+      scale: scaleLinear,
+      nice: true,
+      grid: true,
+      axis: { label: 'Active users (k)' },
+    },
+    y: {
+      scale: scaleBand,
+      axis: { label: 'Product' },
+    },
   },
   color: {
     domain: ['Active users'],

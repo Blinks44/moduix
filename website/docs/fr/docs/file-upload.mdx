@@ -1,7 +1,7 @@
 ---
 title: File Upload
 component: file-upload
-description: Composition Ark UI de téléversement de fichiers pour sélectionner, déposer, valider et prévisualiser des fichiers.
+description: Composant Ark UI pour sélectionner, valider et prévisualiser des fichiers, avec prise en charge du glisser-déposer.
 ---
 
 import * as FileUploadDocs from '@/components/examples/file-upload';
@@ -10,11 +10,15 @@ import * as FileUploadDocs from '@/components/examples/file-upload';
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/file-upload" />
 
+`FileUpload` est disponible depuis `@moduix/react/file-upload`. Le composant ainsi que les hooks `useFileUpload` et
+`useFileUploadContext` sont également exportés par `@moduix/react`.
+
 ## Exemple de base
 
-Utilisez `FileUpload` comme racine, rendez `Label`, ajoutez `Trigger` ou `Dropzone`, puis affichez les
-fichiers acceptés avec `Items`. La racine rend automatiquement l’input de formulaire natif. `Items` affiche une
-vignette seulement lorsque le navigateur fournit un type MIME `image/*` ; sinon, l’aperçu générique est utilisé.
+Commencez par utiliser `FileUpload` comme composant racine. Ajoutez un `Label`, puis utilisez `Trigger` pour un contrôle
+compact ou `Dropzone` pour le glisser-déposer. Placez `Items` dans `ItemGroup` pour afficher les fichiers acceptés. Le
+composant racine génère automatiquement l’input natif masqué. `Items` affiche une vignette uniquement lorsque le fichier
+possède un type MIME `image/*` ; les autres fichiers utilisent un aperçu générique.
 
 <style>{FileUploadDocs.fileUploadExampleCss}</style>
 
@@ -33,9 +37,10 @@ vignette seulement lorsque le navigateur fournit un type MIME `image/*` ; sinon
 ```text
 FileUpload / FileUpload.Root
 ├─ FileUpload.Label
-├─ FileUpload.Dropzone
+├─ FileUpload.Dropzone (facultatif)
 │  ├─ FileUpload.DropzoneIcon
 │  └─ FileUpload.Trigger
+├─ FileUpload.Trigger (sans `Dropzone`)
 ├─ FileUpload.ItemGroup[type]
 │  ├─ FileUpload.Items
 │  └─ FileUpload.Context
@@ -48,77 +53,82 @@ FileUpload / FileUpload.Root
 │        ├─ FileUpload.ItemSizeText
 │        └─ FileUpload.ItemDeleteTrigger
 ├─ FileUpload.ClearTrigger
-└─ native input (automatic)
+└─ champ de fichier natif masqué (automatique)
 ```
 
 | Partie | Rôle |
 | -------------------------------- | ------------------------------------------------------------------------ |
-| `FileUpload` / `FileUpload.Root` | Gère l’état des fichiers, la validation, le glisser-déposer, l’insertion et l’intégration des formulaires. |
-| `FileUpload.RootProvider` | Rend l’arbre de téléversement à partir de l’état renvoyé par `useFileUpload` d’Ark. |
-| `FileUpload.Label` | Libellé accessible pour l’input masqué et les contrôles de téléversement.       |
-| `FileUpload.Dropzone` | Cible de dépôt des fichiers. Utilisez `disableClick` avec un déclencheur imbriqué. |
-| `FileUpload.DropzoneIcon` | Élément décoratif avec une icône de téléversement pour la zone de dépôt.         |
-| `FileUpload.Trigger` | Un bouton qui ouvre le sélecteur de fichiers natif.                            |
-| `FileUpload.ItemGroup` | Un wrapper de liste pour les fichiers acceptés ou rejetés.                      |
-| `FileUpload.Items` | Cartes d’images ou lignes de fichiers avec aperçus, métadonnées et suppression. |
-| `FileUpload.Context` | Contexte avec prop de rendu compatible Ark pour des lignes de fichiers personnalisées. |
-| `FileUpload.Item` | Ligne de fichier. Transmettez l'objet actuel `file`.                           |
-| `FileUpload.ItemPreview` | Emplacement d’aperçu conditionnel correspondant au type MIME.                     |
-| `FileUpload.ItemPreviewImage` | Aperçu de l'image à l'intérieur du `ItemPreview`.                                |
-| `FileUpload.ItemPreviewIcon` | Icône de fichier universelle pour secours dans `ItemPreview`.                 |
-| `FileUpload.ItemName` | Texte du nom de fichier.                                                       |
-| `FileUpload.ItemMetadata` | Type de fichier et taille localisée ; passez le `file` actuel.              |
-| `FileUpload.ItemSizeText` | Texte de taille de fichier localisé.                                      |
-| `FileUpload.ItemDeleteTrigger` | Supprime un fichier. Par défaut, il utilise l’icône de corbeille moduix.       |
-| `FileUpload.ClearTrigger` | Efface les fichiers sélectionnés. Par défaut, il utilise l'icône de fermeture moduix. |
+| `FileUpload` / `FileUpload.Root` | Gère l’état des fichiers, la validation, le glisser-déposer, le collage et l’intégration aux formulaires. |
+| `FileUpload.RootProvider` | Relie l’arbre du composant à l’état renvoyé par le hook `useFileUpload`. |
+| `FileUpload.Label` | Libellé accessible pour le champ de fichier masqué et les contrôles de téléversement. |
+| `FileUpload.Dropzone` | Zone de dépôt. Passez `disableClick` si elle contient un `Trigger` imbriqué, afin de ne pas ouvrir deux fois le sélecteur. |
+| `FileUpload.DropzoneIcon` | Icône de téléversement décorative pour une `Dropzone`. |
+| `FileUpload.Trigger` | Bouton qui ouvre le sélecteur de fichiers natif. |
+| `FileUpload.ItemGroup` | Liste des fichiers acceptés ou rejetés. |
+| `FileUpload.Items` | Composant prêt à l’emploi qui affiche des cartes pour les images et des lignes pour les autres fichiers, avec aperçu, métadonnées et suppression. |
+| `FileUpload.Context` | Contexte compatible avec Ark et basé sur une fonction de rendu pour créer des lignes personnalisées. |
+| `FileUpload.Item` | Ligne de fichier. Transmettez-lui l’objet `file` courant. |
+| `FileUpload.ItemPreview` | Emplacement d’aperçu affiché selon le type MIME du fichier. |
+| `FileUpload.ItemPreviewImage` | Aperçu d’image à l’intérieur de `ItemPreview`. |
+| `FileUpload.ItemPreviewIcon` | Icône de fichier générique pour un aperçu de secours dans `ItemPreview`. |
+| `FileUpload.ItemName` | Nom du fichier. |
+| `FileUpload.ItemMetadata` | Type du fichier et taille formatée selon la locale. Passez-lui l’objet `file` courant. |
+| `FileUpload.ItemSizeText` | Taille du fichier formatée selon la locale. |
+| `FileUpload.ItemDeleteTrigger` | Supprime un fichier. Utilise par défaut l’icône de corbeille moduix. |
+| `FileUpload.ClearTrigger` | Efface les fichiers sélectionnés. Utilise par défaut l’icône de fermeture moduix. |
 
 ## Composition
 
 ### Composition recommandée
 
-Gardez l'arborescence des parties d’Ark visible. Utilisez le `Trigger` pour les commandes de chargement compactes et le `Dropzone`
-pour les surfaces de traînée. Si `Trigger` est imbriqué dans `Dropzone`, passez `disableClick` dans `Dropzone`,
-afin que le sélecteur de fichiers natif ne s'ouvre pas deux fois.
+Gardez l’arbre explicite des parties Ark dans votre balisage. Utilisez `Trigger` seul pour un contrôle compact et
+`Dropzone` pour une zone de glisser-déposer. Si `Trigger` est imbriqué dans `Dropzone`, passez `disableClick` à
+`Dropzone` afin que le sélecteur de fichiers natif ne s’ouvre qu’une seule fois.
 
-La racine rend toujours l’input de formulaire natif. Utilisez `Items` pour les lignes compactes des fichiers acceptés. Lisez
-les fichiers acceptés depuis `FileUpload.Context.acceptedFiles` et les fichiers rejetés depuis `FileUpload.Context.rejectedFiles`
-lorsque des lignes personnalisées sont nécessaires.
+Le composant racine génère toujours le champ de fichier natif masqué. Utilisez `Items` dans `ItemGroup` pour une liste compacte de
+fichiers acceptés. Si vous créez des lignes personnalisées, lisez les fichiers acceptés depuis
+`FileUpload.Context.acceptedFiles` et les fichiers rejetés depuis `FileUpload.Context.rejectedFiles`.
 
-Importez `FileUpload.Context`, `useFileUpload()` et `useFileUploadContext()` depuis `@moduix/react` lorsqu’un accès avancé à l’état est nécessaire.
-Il s’agit de réexportations directes d’Ark : les objets des callbacks et les contrats d’état restent donc inchangés.
+Utilisez `FileUpload.Context`, `useFileUpload()` et `useFileUploadContext()` lorsque vous avez besoin d’un accès avancé à
+l’état. Le contexte et les hooks sont réexportés directement par Ark : les objets `details` des callbacks et le contrat
+d’état restent donc inchangés.
 
 ### Quand créer une composition personnalisée
 
-`Items` rend les fichiers image sous forme de cartes verticales compactes et les autres fichiers sous forme de lignes horizontales avec leurs métadonnées.
-Utilisez la composition explicite `Context` pour créer des lignes personnalisées. `ItemPreview.type` est un prédicat avec expression régulière,
-et non une liste de priorités : rendez exactement un aperçu pour le fichier actuel. Par exemple, utilisez
-`file.type.startsWith("image/")` pour sélectionner `ItemPreviewImage` ; sinon rendez `ItemPreviewIcon` puis composez
-`ItemName`, `ItemMetadata file={file}` et `ItemDeleteTrigger`. Utilisez `asChild` uniquement lorsque l'élément enfant est
-le seul élément sémantique capable de préserver le comportement souhaité d'un bouton, d'une étiquette ou d'une entrée.
+`Items` affiche les images sous forme de cartes verticales compactes et les autres fichiers sous forme de lignes horizontales
+accompagnées de leurs métadonnées. Utilisez la composition explicite de `Context` pour créer des lignes personnalisées.
+`ItemPreview.type` sert de prédicat fondé sur une expression régulière, pas de liste de règles prioritaires ; affichez donc
+un seul aperçu par fichier. Par exemple, utilisez `file.type.startsWith("image/")` pour sélectionner `ItemPreviewImage`.
+Pour les autres fichiers, affichez `ItemPreviewIcon`, puis composez `ItemName`, `ItemMetadata file={file}` et
+`ItemDeleteTrigger`. Utilisez `asChild` uniquement si l’enfant est un seul élément sémantique qui conserve le comportement
+requis d’un bouton, d’un libellé ou d’un champ de saisie.
 
 ### Propriétés par défaut
 
 | Propriété | Par défaut | Remarques |
 | --------------------- | ------------ | ----------------------------------------------------------------- |
-| `allowDrop` | `true` | Permet le glisser-déposer dans `Dropzone`.                            |
-| `maxFiles` | `1` | Augmentez ou supprimez cette limite pour téléverser plusieurs fichiers et dossiers. |
-| `minFileSize` | `0` | Taille minimale du fichier reçu en octets.                   |
-| `maxFileSize` | `∞` | La taille maximale du fichier reçu en octets.                  |
-| `preventDocumentDrop` | `true` | Empêche la navigation accidentelle lors de la réinitialisation hors de la cible.            |
-| `locale` | `en-US` | Utilisé pour formater la taille du fichier.                    |
+| `allowDrop` | `true` | Autorise le glisser-déposer sur `Dropzone`. |
+| `maxFiles` | `1` | Augmentez cette valeur ou supprimez la limite pour accepter plusieurs fichiers ou dossiers entiers. |
+| `minFileSize` | `0` | Taille minimale du fichier accepté, en octets. |
+| `maxFileSize` | `∞` | Taille maximale du fichier accepté, en octets. |
+| `preventDocumentDrop` | `true` | Empêche une navigation accidentelle lorsqu’un fichier est déposé en dehors de la zone cible. |
+| `locale` | `en-US` | Paramètre régional utilisé pour formater la taille des fichiers. |
 
 ### Comportement
 
-`acceptedFiles`, `defaultAcceptedFiles` et `onFileChange(details)` conservent l'état géré et non géré d’Ark.
-`onFileAccept(details)` et `onFileReject(details)` conservent les objets details d’Ark. `Field.Root` et `Fieldset.Root` peuvent
-fournir les états désactivé, invalide, obligatoire et en lecture seule. Utilisez `ids` lorsque des libellés ou des descriptions individuels
-nécessitent des associations d’accessibilité stables.
+`acceptedFiles`, `defaultAcceptedFiles` et `onFileChange(details)` suivent le modèle d’état contrôlé ou non contrôlé d’Ark.
+`onFileChange` est appelé lorsque la valeur change, qu’un fichier soit accepté ou rejeté. Les callbacks
+`onFileAccept(details)` et `onFileReject(details)` reçoivent les objets `details` d’origine transmis par Ark, notamment
+les erreurs associées aux fichiers rejetés. `Field.Root` et `Fieldset.Root` peuvent fournir les états `disabled`, `invalid`,
+`required` et `readOnly`. Utilisez `ids` lorsque des libellés ou des descriptions distincts ont besoin d’associations
+d’accessibilité stables.
 
 ## Exemples
 
 ### Types de fichiers acceptés
 
-Limitez la sélection et la validation du glissement avec `accept`. Ark prend en charge les types et les extensions MIME.
+Utilisez `accept` pour restreindre à la fois le sélecteur de fichiers natif et la validation du glisser-déposer. Vous pouvez
+indiquer des types MIME ou des extensions de fichiers.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/file-upload/accepted-file-types.tsx"
@@ -126,9 +136,9 @@ Limitez la sélection et la validation du glissement avec `accept`. Ark prend en
 
 </PreviewFrame>
 
-### Déclencheur d’effacement
+### Effacer la liste de fichiers
 
-Utilisez `ClearTrigger` pour effacer tous les fichiers reçus en une seule fois.
+Utilisez `ClearTrigger` pour supprimer tous les fichiers acceptés en une seule action.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/file-upload/clear-trigger.tsx"
@@ -138,7 +148,8 @@ Utilisez `ClearTrigger` pour effacer tous les fichiers reçus en une seule fois.
 
 ### État contrôlé
 
-Gérez `acceptedFiles` lorsque les fichiers sélectionnés doivent être cohérents avec un état externe ou des scripts en plusieurs étapes.
+Contrôlez `acceptedFiles` lorsque les fichiers sélectionnés doivent rester synchronisés avec l’état de l’application ou un
+parcours en plusieurs étapes. Mettez la valeur à jour depuis `onFileChange(details)`.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/file-upload/controlled.tsx"
@@ -148,7 +159,9 @@ Gérez `acceptedFiles` lorsque les fichiers sélectionnés doivent être cohére
 
 ### Téléversement d’un dossier
 
-Utilisez `directory` pour téléverser un dossier. Les navigateurs compatibles fournissent les chemins relatifs dans `file.webkitRelativePath`.
+Utilisez `directory` pour laisser l’utilisateur sélectionner un dossier. Dans les navigateurs compatibles, le chemin relatif
+de chaque fichier est disponible via `file.webkitRelativePath`. Définissez `maxFiles` à une valeur suffisamment élevée, ou
+omettez-la si le nombre de fichiers est inconnu.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/file-upload/directory-upload.tsx"
@@ -158,7 +171,8 @@ Utilisez `directory` pour téléverser un dossier. Les navigateurs compatibles f
 
 ### Dropzone
 
-Utilisez `Dropzone` pour le téléversement par glisser-déposer. Conservez le `Trigger` imbriqué pour permettre l’accès au clavier et via le sélecteur de fichiers.
+Utilisez `Dropzone` pour le téléversement par glisser-déposer. Gardez un `Trigger` imbriqué afin que les utilisateurs puissent
+aussi ouvrir le sélecteur au clavier.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/file-upload/dropzone.tsx"
@@ -168,7 +182,8 @@ Utilisez `Dropzone` pour le téléversement par glisser-déposer. Conservez le `
 
 ### Gestion des erreurs
 
-Utilisez `onFileReject(details)` pour les commentaires sur les applications et laissez les contraintes de validation à la racine.
+Utilisez `onFileReject(details)` pour afficher un message adapté à l’application. Définissez les contraintes intégrées,
+comme `accept`, `maxFiles` et `maxFileSize`, sur le composant racine. Ajoutez `validate(file, details)` pour vos propres contrôles.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/file-upload/error-handling.tsx"
@@ -178,9 +193,9 @@ Utilisez `onFileReject(details)` pour les commentaires sur les applications et l
 
 ### Aperçus des fichiers
 
-Cet exemple commence par une image SVG et un PDF, de sorte que les dispositions de la carte image et des lignes de fichiers sont immédiatement visibles.
-Les blocs d'aperçu de ligne de fichier ont une taille de 2,5 rem par défaut et les noms longs sont tronqués sur une seule ligne. Supprimez tout
-à partir d’éléments, ou ajoutez des fichiers depuis votre appareil pour tester les mêmes mises en page avec vos propres fichiers.
+Cet exemple contient déjà une image SVG et un PDF, ce qui permet de voir immédiatement les deux mises en page. Le bloc
+d’aperçu des lignes de fichiers mesure par défaut 2,5rem sur 2,5rem, et les noms longs restent sur une seule ligne. Supprimez
+l’un des éléments ou ajoutez vos propres fichiers pour tester ces deux présentations.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/file-upload/file-previews.tsx"
@@ -190,8 +205,8 @@ Les blocs d'aperçu de ligne de fichier ont une taille de 2,5 rem par défaut et
 
 ### Utilisation dans un formulaire
 
-Transmettez `name` à la racine. Il rendra automatiquement l'entrée native du formulaire, donc la soumission et la réinitialisation du formulaire natif
-inclure le fichier d’entrée.
+Passez `name` au composant racine. Il génère automatiquement le champ de fichier natif masqué ; les fichiers sélectionnés
+sont ainsi pris en compte lors de la soumission et de la réinitialisation du formulaire.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/file-upload/form-usage.tsx"
@@ -201,7 +216,7 @@ inclure le fichier d’entrée.
 
 ### Fichiers initiaux
 
-Utilisez `defaultAcceptedFiles` lorsque le téléversement doit commencer avec des fichiers existants, puis gérer son état de manière autonome.
+Utilisez `defaultAcceptedFiles` pour précharger des fichiers, puis laissez le composant gérer la sélection.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/file-upload/initial-files.tsx"
@@ -209,9 +224,11 @@ Utilisez `defaultAcceptedFiles` lorsque le téléversement doit commencer avec d
 
 </PreviewFrame>
 
-### Capture multimédia
+### Capture avec l’appareil photo
 
-Utilisez `capture` avec la valeur `accept` sur une image ou une vidéo pour inviter les navigateurs mobiles à ouvrir la caméra.
+Utilisez `capture` avec une valeur `accept` correspondant à une image ou une vidéo pour suggérer aux navigateurs mobiles
+d’ouvrir l’appareil photo. Définissez-le sur `"user"` ou `"environment"` pour suggérer la caméra avant ou arrière. Il
+s’agit d’une indication pour le navigateur, pas d’une garantie que l’appareil photo s’ouvrira.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/file-upload/media-capture.tsx"
@@ -221,7 +238,8 @@ Utilisez `capture` avec la valeur `accept` sur une image ou une vidéo pour invi
 
 ### Fichiers rejetés
 
-Rendez `rejectedFiles` dans un groupe distinct `ItemGroup type="rejected"` lorsque les utilisateurs ont besoin de voir les erreurs de validation.
+Affichez `rejectedFiles` dans un groupe distinct `ItemGroup type="rejected"` lorsque les utilisateurs doivent voir pourquoi
+la validation a échoué.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/file-upload/rejected-files.tsx"
@@ -229,10 +247,11 @@ Rendez `rejectedFiles` dans un groupe distinct `ItemGroup type="rejected"` lorsq
 
 </PreviewFrame>
 
-### Root Provider et collage
+### Root Provider et collage de fichiers
 
-Utilisez `useFileUpload` de moduix avec `RootProvider` lorsque l’état ou les méthodes doivent vivre en dehors
-de l’arbre de téléversement rendu.
+Utilisez `useFileUpload` avec `RootProvider` lorsque l’état ou les méthodes doivent être gérés en dehors de l’arbre de
+téléversement affiché. Dans cet exemple, `setClipboardFiles` transmet à l’état du composant les fichiers collés dans une
+zone de texte.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/file-upload/root-provider-and-paste.tsx"
@@ -242,7 +261,7 @@ de l’arbre de téléversement rendu.
 
 ### Transformation des fichiers
 
-Utilisez `transformFiles(files)` pour le traitement asynchrone avant que les fichiers n’entrent dans l’état accepté.
+Utilisez `transformFiles(files)` pour traiter les fichiers de manière asynchrone avant de les ajouter à l’état `acceptedFiles`.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/file-upload/transform-files.tsx"
@@ -250,9 +269,10 @@ Utilisez `transformFiles(files)` pour le traitement asynchrone avant que les fic
 
 </PreviewFrame>
 
-### Avec Field
+### Intégration avec Field
 
-Placez le téléversement dans `Field.Root` lorsque le texte explicatif, le texte d'erreur, l'état obligatoire ou invalide fait référence à un champ de formulaire.
+Placez le téléversement dans `Field.Root` lorsque le champ de formulaire doit inclure un texte d’aide ou un message d’erreur,
+ou indiquer qu’il est obligatoire ou invalide.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/file-upload/with-field.tsx"
@@ -262,8 +282,9 @@ Placez le téléversement dans `Field.Root` lorsque le texte explicatif, le text
 
 ### Personnalisation avancée
 
-N'utilisez pas `Items` lorsque les lignes personnalisées nécessitent des aperçus de type MIME, des métadonnées supplémentaires ou une mise en page différente.
-La composition explicite avec `FileUpload.Context` expose l’état d’Ark et choisit un aperçu d’image ou une solution de repli pour le fichier.
+Remplacez `Items` par vos propres lignes lorsque vous avez besoin d’aperçus selon le type MIME, de métadonnées supplémentaires
+ou d’une autre disposition. La composition explicite avec `FileUpload.Context` vous permet de conserver l’accès à l’état Ark
+et de choisir un aperçu d’image ou un aperçu de secours pour chaque fichier.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/file-upload/advanced-customization.tsx"
@@ -291,7 +312,7 @@ La composition explicite avec `FileUpload.Context` expose l’état d’Ark et c
 
 ### Points d’accroche CSS
 
-Utilisez des emplacements moduix stables tels que `[data-slot="file-upload-dropzone"]`,
+Utilisez des slots moduix stables, comme `[data-slot="file-upload-dropzone"]`,
 `[data-slot="file-upload-item"]` et `[data-slot="file-upload-item-delete-trigger"]`.
-Ark fournit également `data-scope="file-upload"`, `data-part` pour les attributs spécifiques aux parties et à l'état :
+Ark expose également `data-scope="file-upload"`, `data-part` pour les parties et les attributs d’état tels que
 `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-dragging` et `data-type`.

@@ -1,7 +1,7 @@
 ---
 title: Timer
 component: timer
-description: A stopwatch or countdown timer with explicit Ark controls.
+description: A timer for tracking elapsed or remaining time with explicit controls.
 ---
 
 import * as TimerDocs from '@/components/examples/timer';
@@ -12,13 +12,13 @@ import * as TimerDocs from '@/components/examples/timer';
 
 ## Basic
 
-`Timer.Segments` is the shortest path for a conventional colon-separated display. It defaults to
-hours, minutes, and seconds; pass `types` for another set. Use the explicit Ark-style parts when
-unit labels, custom separators, or per-item styling are needed.
+`Timer.Segments` is the quickest way to render a conventional time display separated by colons. By default, it
+shows hours, minutes, and seconds. Pass `types` to choose a different set of units. Use the individual parts when
+you need unit labels, custom separators, or per-item styling.
 
-`Timer.Segments` also accepts `Timer.Area` attributes such as `className`, `id`, and ARIA attributes,
-and forwards its ref. It owns the generated children, so use `Timer.Area` instead when `asChild` or
-custom children are required.
+`Timer.Segments` accepts all `Timer.Area` props except `children` and `asChild`, and forwards the area ref. Because
+it creates the items and separators itself, use `Timer.Area` when you need to replace its host element or provide
+custom children.
 
 <style>{TimerDocs.timerExampleCss}</style>
 
@@ -43,43 +43,42 @@ Timer.Root
    └─ Timer.ActionTrigger
 
 Timer.RootProvider
-└─ same part tree connected to Ark useTimer()
+└─ same part tree connected to state from `useTimer()`
 
 Timer.Segments
-└─ Timer.Area with Timer.Item and Timer.Separator parts
+└─ Timer.Area with Timer.Item and Timer.Separator
 ```
 
 | Part                   | Role                                                                    |
 | ---------------------- | ----------------------------------------------------------------------- |
 | `Timer` / `Timer.Root` | Owns the Ark timer state, ids, interval, and callbacks.                 |
 | `Timer.RootProvider`   | Connects parts to timer state created with Ark `useTimer()`.            |
-| `Timer.Segments`       | Renders conventional time units with a separator.                       |
+| `Timer.Segments`       | Builds standard time units and separators.                              |
 | `Timer.Area`           | Groups the visible time parts.                                          |
-| `Timer.Item`           | Renders a formatted time unit such as `hours`, `minutes`, or `seconds`. |
-| `Timer.Separator`      | Renders separators between time units.                                  |
+| `Timer.Item`           | Displays one formatted time unit such as `hours`, `minutes`, or `seconds`. |
+| `Timer.Separator`      | Displays a separator between time units.                                |
 | `Timer.Control`        | Groups action triggers.                                                 |
-| `Timer.ActionTrigger`  | Dispatches `start`, `pause`, `resume`, `reset`, or `restart`.           |
+| `Timer.ActionTrigger`  | Dispatches the `start`, `pause`, `resume`, `reset`, or `restart` action. |
 
 ## Composition
 
 ### Recommended composition
 
-`Timer` is the short root form. It is equivalent to `Timer.Root`; use `Timer.Segments` for the
-default hours, minutes, and seconds display without manually repeating items and separators.
-Pass `types` when another unit set is needed.
+`Timer` is the abbreviated root component and is equivalent to `Timer.Root`. Use `Timer.Segments` for the default
+hours, minutes, and seconds display without repeating items and separators by hand. Pass `types` when you need a
+different set of units.
 
-Use `targetMs` for a stopwatch that stops at a target time. Use `startMs` when the initial elapsed
-or remaining time should not be zero. Use `countdown` with `startMs` for a countdown timer.
+Use `targetMs` to set the value at which the timer completes. Use `startMs` to set the initial elapsed or remaining
+time. For a countdown, combine `countdown` with `startMs` to start from a specified duration.
 
 ### When to go custom
 
-Use `Timer.RootProvider` with `useTimer()` when the timer API must be created outside the rendered
-subtree. Use `Timer.Context` or `useTimerContext()` when nearby UI needs access to
-`running`, `paused`, `time`, `formattedTime`, `progressPercent`, or the programmatic `start()`,
-`pause()`, `resume()`, `reset()`, and `restart()` methods.
+Use `Timer.RootProvider` with `useTimer()` when you need to create the timer API separately from the markup that
+consumes it. Use `Timer.Context` or `useTimerContext()` when other UI needs access to `running`, `paused`, `time`,
+`formattedTime`, `progressPercent`, or the programmatic `start()`, `pause()`, `resume()`, `reset()`, and `restart()`
+methods.
 
-Use `interval` for sub-second displays. Keep the interval as coarse as the UI allows; the default
-Ark interval is `1000`.
+Use `interval` for sub-second updates. Keep it as large as the UI allows; Ark defaults to `1000` milliseconds.
 
 ### Default props
 
@@ -87,38 +86,37 @@ Ark interval is `1000`.
 | ----------------- | --------- | ------------------------------------------------------------------- |
 | `autoStart`       | `false`   | Starts the timer on mount.                                          |
 | `countdown`       | `false`   | Counts down instead of up.                                          |
-| `startMs`         | `0`       | Initial duration in milliseconds.                                   |
-| `targetMs`        | -         | Target duration in milliseconds.                                    |
+| `startMs`         | `0`       | Initial elapsed or remaining time in milliseconds.                   |
+| `targetMs`        | -         | Completion boundary in milliseconds.                                |
 | `interval`        | `1000`    | Tick interval in milliseconds.                                      |
-| `ids`             | generated | Overrides the root and area ids.                                    |
-| `translations`    | built in  | Customizes the accessible area label through `areaLabel`.           |
-| `onTick(details)` | -         | Receives the current value, numeric time, and formatted time parts. |
-| `onComplete()`    | -         | Runs when the timer reaches its target.                             |
+| `ids`             | generated | Overrides the generated root and area ids.                           |
+| `translations`    | built in  | Sets the accessible area label, including through `areaLabel`.       |
+| `onTick(details)` | -         | Runs after each timer tick.                                           |
+| `onComplete()`    | -         | Runs when the timer reaches its completion boundary.                  |
 
 ### Behavioral notes
 
-`Timer.ActionTrigger` renders a button by default, so keyboard activation follows native button
-behavior. Ark hides state-dependent start, pause, resume, and reset actions when they are not
-available; `restart` remains available when rendered. Timer does not use roving focus or composite
-keyboard navigation.
+`Timer.ActionTrigger` renders a button by default, so keyboard activation follows native button semantics. Ark hides
+the state-dependent `start`, `pause`, `resume`, and `reset` actions when they are unavailable; `restart` remains
+available when rendered. The timer does not implement composite keyboard navigation or automatic focus movement
+between controls.
 
-The wrapped Ark parts-`Timer.Root`, `Timer.RootProvider`, `Timer.Area`, `Timer.Item`,
-`Timer.Separator`, `Timer.Control`, and `Timer.ActionTrigger`-support `asChild` through Ark
-polymorphic composition. Keep replacement children semantic, especially for `Timer.ActionTrigger`.
-`Timer.Segments` intentionally does not support `asChild` because it owns the generated area and
-children.
+The Ark parts exposed by moduix, including `Timer.Root`, `Timer.RootProvider`, `Timer.Area`, `Timer.Item`,
+`Timer.Separator`, `Timer.Control`, and `Timer.ActionTrigger`, support `asChild` through Ark's polymorphic
+composition. Keep replacement elements semantic, especially for `Timer.ActionTrigger`. `Timer.Segments`
+intentionally does not support `asChild` because it owns the generated area and children.
 
-`Timer.Item` preserves Ark `data-scope="timer"`, `data-part="item"`, `data-type`, and `--value`.
-`Timer.Segments` is limited to standard items and separators; unit labels remain explicit
-composition around `Timer.Item`. moduix adds centered root layout, a responsive wrapping time area,
-stable `data-slot` hooks, SVG icon sizing inside action triggers, and CSS defaults without changing
+`Timer.Item` preserves Ark's `data-scope="timer"`, `data-part="item"`, `data-type`, and `--value` attributes.
+`Timer.Segments` is limited to standard items and separators, so unit labels remain an explicit composition around
+`Timer.Item`. moduix adds a centered root layout, a time area that wraps when needed,
+stable `data-slot` selectors, SVG icon sizing inside action triggers, and CSS defaults without changing
 the Ark timer machine.
 
 ## Examples
 
 ### Countdown
 
-Set `countdown` and `startMs` when the display should decrement toward zero.
+Set `countdown` and `startMs` when the display should count down to zero.
 
 <style>{TimerDocs.timerExampleCss}</style>
 
@@ -130,7 +128,7 @@ Set `countdown` and `startMs` when the display should decrement toward zero.
 
 ### Events
 
-Use `onTick` and `onComplete` for side effects that should follow the Ark timer lifecycle.
+Use `onTick` and `onComplete` for side effects tied to the timer lifecycle.
 
 <style>{TimerDocs.timerExampleCss}</style>
 
@@ -142,7 +140,7 @@ Use `onTick` and `onComplete` for side effects that should follow the Ark timer 
 
 ### Interval
 
-Use `interval` with a `milliseconds` item when the UI needs sub-second updates.
+Use a shorter `interval` with a `milliseconds` item when the UI needs sub-second updates.
 
 <style>{TimerDocs.timerExampleCss}</style>
 
@@ -154,7 +152,7 @@ Use `interval` with a `milliseconds` item when the UI needs sub-second updates.
 
 ### Pomodoro
 
-Switch between work and break durations from `onComplete` when a timer cycle should advance.
+Use `onComplete` to switch between work and break durations when the timer should advance to the next cycle.
 
 <style>{TimerDocs.timerExampleCss}</style>
 
@@ -166,8 +164,8 @@ Switch between work and break durations from `onComplete` when a timer cycle sho
 
 ### Advanced Customization
 
-Create the timer with `useTimer()` when state and methods need to be read outside the visible part
-tree. This is also the path for unit labels and other custom item composition.
+Use `useTimer()` when the timer state and methods must also be available outside the rendered part tree. This is
+also the right composition for unit labels and other custom item layouts.
 
 <style>{TimerDocs.timerExampleCss}</style>
 
@@ -179,8 +177,8 @@ tree. This is also the path for unit labels and other custom item composition.
 
 ## Styling
 
-Use `className` on exported parts for structural overrides and CSS variables for visual defaults.
-Ark attributes remain available for part-specific styling.
+Use `className` on exported parts for structural overrides and CSS variables for visual defaults. Ark attributes remain
+available for part-specific styling.
 
 ### CSS Properties
 
@@ -200,7 +198,7 @@ Ark attributes remain available for part-specific styling.
 
 - `data-slot="timer-root"`, `timer-root-provider`, `timer-area`, `timer-item`,
   `timer-separator`, `timer-control`, and `timer-action-trigger`.
-- Ark anatomy hooks: `data-scope="timer"` and
+- Ark anatomy attributes: `data-scope="timer"` and
   `data-part="root|area|item|separator|control|action-trigger"`.
 - `Timer.Item` exposes `data-type` and Ark's `--value` runtime variable.
-- Ark applies `hidden` to action triggers that do not match the current timer state.
+- Ark adds `hidden` to action triggers that are unavailable in the current timer state.

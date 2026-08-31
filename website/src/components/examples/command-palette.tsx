@@ -532,21 +532,6 @@ export const commandPaletteOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--moduix-command-palette-radius', 'var(--moduix-radius-lg)', 'Controls palette corner radius.'],
   [
-    '--moduix-command-palette-scrollbar-margin',
-    'var(--moduix-spacing-1)',
-    'Customizes command palette scrollbar margin.',
-  ],
-  [
-    '--moduix-command-palette-scrollbar-size',
-    'var(--moduix-spacing-1-5)',
-    'Customizes command palette scrollbar size.',
-  ],
-  [
-    '--moduix-command-palette-scrollbar-thumb-bg',
-    'var(--moduix-color-border)',
-    'Customizes command palette scrollbar thumb bg.',
-  ],
-  [
     '--moduix-command-palette-selected-color',
     'var(--moduix-command-palette-highlight-color)',
     'Customizes command palette selected color.',

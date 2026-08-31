@@ -1,24 +1,26 @@
 ---
 title: TanStack Start
-description: "Подключите moduix к TanStack Start: общий CSS, гидратируемые компоненты и алиас для исходного кода."
+description: "Подключите moduix к TanStack Start: установите пакет или добавьте компоненты через shadcn CLI, подключите глобальные стили и проверьте гидратацию."
 ---
 
 # TanStack Start
 
-TanStack Start не зависит от конкретного сборщика и гидратирует компоненты маршрутов на клиенте. Поэтому компоненты
-moduix работают в обычном дереве маршрутов без директивы `use client`. Поддерживаются и Vite, и Rsbuild.
+Эта инструкция предполагает, что приложение TanStack Start уже создано. TanStack Start сначала рендерит дерево
+маршрутов на сервере, а затем гидратирует его в браузере. moduix работает и с Vite, и с Rsbuild. В стандартной
+конфигурации без React Server Components директива `use client` не нужна.
 
-## Установите пакет
+## Установить как пакет
 
 <PackageManagerTabs command="install @moduix/react @ark-ui/react" />
 
-Добавьте базовую таблицу стилей в глобальную таблицу стилей, уже загружаемую корневым маршрутом:
+Один раз импортируйте базовые стили в корневом маршруте. В стандартном проекте TanStack Start корневой маршрут
+находится в `src/routes/__root.tsx`:
 
-```css title="src/styles.css"
-@import '@moduix/react/style.css';
+```tsx title="src/routes/__root.tsx"
+import '@moduix/react/style.css';
 ```
 
-Используйте компонент в маршруте:
+Используйте компонент moduix в маршруте:
 
 ```tsx title="src/routes/index.tsx"
 import { createFileRoute } from '@tanstack/react-router';
@@ -33,23 +35,40 @@ function Home() {
 }
 ```
 
-## Установка через shadcn CLI
+## Установить через shadcn CLI
 
-Завершите [настройку shadcn CLI](/docs/quick-start#установить-через-shadcn-cli). Если стартовый шаблон уже связывает
-`@/*` с `src/*`, оставьте этот алиас. В противном случае добавьте алиасы для TypeScript и используемого сборщика из
-[настройки Vite](/docs/installation/vite#установка-через-shadcn-cli) или
-[Rsbuild](/docs/installation/rsbuild#установка-через-shadcn-cli).
+Выберите этот способ, если хотите хранить исходный код компонентов и стили в своём репозитории. Сначала завершите
+[настройку shadcn CLI](/docs/quick-start#установить-через-shadcn-cli).
 
-Замените импорт CSS пакета на сгенерированную таблицу стилей:
+По умолчанию TanStack Start не настраивает алиасы путей. Если стартовый шаблон уже связывает `@/*` с `src/*`,
+оставьте этот алиас. В противном случае добавьте его в корневой `tsconfig.json`:
 
-```css title="src/styles.css"
-@import '@/lib/moduix/styles/style.css';
+```json title="tsconfig.json"
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
 ```
 
-## Проверка
+Затем настройте тот же алиас в сборщике. Для Vite используйте [руководство TanStack Start по алиасам путей](https://tanstack.com/start/latest/docs/framework/react/guide/path-aliases).
+Rsbuild автоматически читает `paths` из корневого `tsconfig.json`.
 
-Настройка завершена, когда серверная страница гидратируется без расхождений, а интерактивный компонент отвечает
-после гидратации. Как и в остальных частях TanStack Start, не выполняйте в серверном рендеринге код, предназначенный
-только для браузера.
+Замените импорт стилей пакета в корневом маршруте на сгенерированные стили. Не подключайте обе таблицы стилей:
 
-Полная настройка фреймворка приведена в [быстром старте TanStack Start](https://tanstack.com/start/latest/docs/framework/react/quick-start).
+```tsx title="src/routes/__root.tsx"
+import '@/lib/moduix/styles/style.css';
+```
+
+## Проверьте интеграцию
+
+Запустите сервер разработки и откройте `/`. Интеграция настроена правильно, если при первой отрисовке применяются
+стили moduix, страница проходит гидратацию без расхождений, а кнопка реагирует на нажатия. Не обращайтесь к API
+браузера и не выводите значения, которые могут отличаться на сервере и в браузере, в коде, выполняемом во время
+серверного рендеринга.
+
+Полную настройку TanStack Start см. в руководствах [«Начало работы»](https://tanstack.com/start/latest/docs/framework/react/getting-started)
+и [«Создание проекта с нуля»](https://tanstack.com/start/latest/docs/framework/react/build-from-scratch).

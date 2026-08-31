@@ -2,9 +2,8 @@ import { Tooltip } from '@moduix/react/tooltip';
 import { useI18n } from '@rspress/core/runtime';
 import styles from './framework-support.module.css';
 
-const upcomingFrameworks = [
+const plannedFrameworks = [
   { name: 'Vue', icon: <VueIcon /> },
-  { name: 'Solid', icon: <SolidIcon /> },
   { name: 'Svelte', icon: <SvelteIcon /> },
 ];
 
@@ -17,7 +16,21 @@ export function FrameworkSupport() {
         <ReactIcon />
       </div>
 
-      {upcomingFrameworks.map(({ name, icon }) => (
+      <Tooltip openDelay={100} closeDelay={0} positioning={{ placement: 'top' }}>
+        <Tooltip.Trigger
+          type="button"
+          className={`${styles.upcoming} ${styles.inProgress}`}
+          aria-label={t('frameworkSupportInProgress')}
+        >
+          <SolidIcon />
+          <span className={styles.progressMarker} aria-hidden="true" />
+        </Tooltip.Trigger>
+        <Tooltip.Positioner>
+          <Tooltip.Content>{t('frameworkSupportInProgress')}</Tooltip.Content>
+        </Tooltip.Positioner>
+      </Tooltip>
+
+      {plannedFrameworks.map(({ name, icon }) => (
         <Tooltip key={name} openDelay={100} closeDelay={0} positioning={{ placement: 'top' }}>
           <Tooltip.Trigger
             type="button"

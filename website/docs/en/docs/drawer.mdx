@@ -1,7 +1,7 @@
 ---
 title: Drawer
 component: drawer
-description: An accessible edge panel with swipe gestures, snap points, and stack coordination.
+description: An accessible panel that slides in from the edge of the screen for navigation and forms, with swipe gestures, snap points, and nested drawers.
 ---
 
 import * as DrawerDocs from '@/components/examples/drawer';
@@ -12,15 +12,15 @@ import * as DrawerDocs from '@/components/examples/drawer';
 
 ## Choosing the right component
 
-Use `Drawer` for an edge-attached panel that benefits from swipe gestures, snap points, or a
-mobile bottom-sheet interaction. Use `Dialog` when the surface should remain centered and does not
-need drag behavior.
+Use `Drawer` for a panel that slides in from the edge of the viewport. It works well for navigation,
+forms, mobile bottom sheets, and workflows where users need to drag the panel or move between snap
+points. Choose `Dialog` for a centered surface that does not need to be dragged.
 
 ## Basic
 
-Compose the Ark structural parts explicitly. This example opens at a compact snap point and can be
-dragged to full height. `Drawer.Content` is the real interactive surface; `Drawer.Positioner`
-aligns it and `Drawer.Backdrop` provides the modal layer.
+Compose the drawer from Ark's structural parts. This example opens at a compact snap point, then lets
+the user drag it to full height. `Drawer.Content` is the interactive surface, `Drawer.Positioner`
+places it, and `Drawer.Backdrop` provides the modal layer.
 
 ```tsx preview file="./_snippets/drawer/basic.tsx"
 
@@ -46,45 +46,49 @@ Drawer.Root
       └─ Drawer.CloseTrigger
 ```
 
-| Part                      | Role                                                |
-| ------------------------- | --------------------------------------------------- |
-| `Drawer` / `Drawer.Root`  | Owns drawer state, snap points, and swipe behavior. |
-| `Drawer.Trigger`          | Opens the drawer.                                   |
-| `Drawer.Backdrop`         | Modal backdrop layer.                               |
-| `Drawer.Positioner`       | Floating positioner for drawer content.             |
-| `Drawer.Content`          | Drawer surface container.                           |
-| `Drawer.Grabber`          | Drag handle container for swipe interactions.       |
-| `Drawer.GrabberIndicator` | Visual indicator inside the grabber handle.         |
-| `Drawer.CloseTrigger`     | Closes the drawer.                                  |
-| `Drawer.SwipeArea`        | Optional edge region for swipe-to-open.             |
-| `Drawer.Stack`            | Coordinates nested and indented drawers.            |
-| `Drawer.Indent`           | Surface that recedes while a stacked drawer opens.  |
-| `Drawer.IndentBackground` | Background behind an indented surface.              |
-| `Drawer.Header`           | Optional layout helper for the title area.          |
-| `Drawer.Body`             | Optional flexible content region.                   |
-| `Drawer.Footer`           | Optional layout helper for actions.                 |
-| `Drawer.CloseIcon`        | Styled close control.                               |
-| `Drawer.RootProvider`     | Connects parts to state created with `useDrawer()`. |
+| Part                      | Role                                                 |
+| ------------------------- | ---------------------------------------------------- |
+| `Drawer` / `Drawer.Root`  | Controls state, snap points, and swipe behavior.     |
+| `Drawer.Trigger`          | Opens the drawer.                                    |
+| `Drawer.Backdrop`         | Modal backdrop layer.                                |
+| `Drawer.Positioner`       | Positions the drawer content.                        |
+| `Drawer.Content`          | Interactive surface of the drawer.                  |
+| `Drawer.Grabber`          | Container for the drag handle.                      |
+| `Drawer.GrabberIndicator` | Visual indicator inside the drag handle.             |
+| `Drawer.CloseTrigger`     | Closes the drawer.                                   |
+| `Drawer.SwipeArea`        | Optional edge region that opens the drawer on swipe. |
+| `Drawer.Stack`            | Coordinates nested drawers and indented surfaces.    |
+| `Drawer.Indent`           | Surface that moves back when a stacked drawer opens. |
+| `Drawer.IndentBackground` | Background behind an indented surface.               |
+| `Drawer.Header`           | Optional layout helper for the header.               |
+| `Drawer.Body`             | Optional flexible content area.                      |
+| `Drawer.Footer`           | Optional layout helper for actions.                  |
+| `Drawer.CloseIcon`        | Styled close control.                                |
+| `Drawer.RootProvider`     | Connects parts to state created with `useDrawer()`.  |
 
-`Drawer.Header`, `Drawer.Body`, `Drawer.Footer`, and `Drawer.CloseIcon` are optional moduix layout
-and visual helpers. They do not replace or hide Ark structural parts.
+`Drawer.Header`, `Drawer.Body`, `Drawer.Footer`, and `Drawer.CloseIcon` are optional moduix helpers for
+layout and visual defaults. They do not replace or hide Ark structural parts.
+
+`Drawer` and `Drawer.Root` are equivalent root components. Use the shorter `<Drawer>` form in application code;
+`Drawer.Root` is useful when you prefer the namespaced form.
 
 ## Composition
 
-The root portals `Backdrop` and `Positioner` automatically. A portalled drawer uses the viewport,
-so the preview size only affects its trigger. Use `portalled={false}` for inline rendering and
-`portalRef` for a custom container; structural parts remain explicit and styleable.
+The root component automatically renders `Backdrop` and `Positioner` through a portal. Because a
+portalled drawer is positioned against the viewport, the preview size affects only the trigger. Set
+`portalled={false}` to render it inline, or pass `portalRef` to use a custom container. The structural
+parts remain explicit and can be styled.
 
 ### Recommended composition
 
-Use `Drawer` for state and behavior. Render `Backdrop`, `Positioner`, and `Content` explicitly,
-then place `Grabber` and `GrabberIndicator` inside the content when dragging should have a visible
-handle.
+Use `Drawer` as the root when it should own state and behavior. Render `Backdrop`, `Positioner`, and
+`Content` explicitly, then place `Grabber` and `GrabberIndicator` inside `Content` when the drawer
+should have a visible drag handle.
 
-Use `asChild` to compose `Drawer.Trigger` or `Drawer.CloseTrigger` with `Button`. The child must be
-a single semantic focusable element.
+Use `asChild` to compose `Drawer.Trigger` or `Drawer.CloseTrigger` with `Button`. The child must be a
+single semantic element that can receive focus.
 
-Callbacks preserve Ark detail objects:
+Ark callbacks receive a `details` object:
 
 - `onOpenChange(details)` → `details.open`
 - `onSnapPointChange(details)` → `details.snapPoint`
@@ -92,66 +96,70 @@ Callbacks preserve Ark detail objects:
 
 ### When to go custom
 
-Apply `className` directly to any exported part. For externally owned state, import `useDrawer`
-from `@moduix/react` and pair that state with `Drawer.RootProvider`. Do not combine `Drawer` and
-`Drawer.RootProvider` for the same instance. `useDrawerContext`, `useDrawerStackContext`, and
-`Drawer.Context` are also available from `@moduix/react` for advanced composition.
+Apply `className` directly to any exported part. If state needs to live outside the drawer tree, import
+`useDrawer` from `@moduix/react` and pass its return value to `Drawer.RootProvider`. Do not use
+`Drawer` and `Drawer.RootProvider` for the same state instance. For advanced composition,
+`@moduix/react` also exports `useDrawerContext`, `useDrawerStackContext`, and `Drawer.Context`.
 
-Wrap coordinated indent surfaces in `Drawer.Stack`, then render `Drawer.IndentBackground` and
-`Drawer.Indent`.
+Wrap the surfaces that should indent together in `Drawer.Stack`, then render `Drawer.IndentBackground`
+and `Drawer.Indent`.
 
 ### Default props
 
-The portalled overlay content lazily mounts and unmounts after its exit animation by default. Set
-`unmountOnExit={false}` to retain it after first open; set both lifecycle props to `false` only when
-eager initial rendering is needed.
+By default, portalled overlay content mounts lazily and unmounts after its exit animation. Set
+`unmountOnExit={false}` to keep it mounted after the first open. Set both lifecycle props to `false`
+only when you need the content rendered immediately on initial load.
 
 | Prop                     | Default    | Notes                                                  |
 | ------------------------ | ---------- | ------------------------------------------------------ |
-| `modal`                  | `true`     | Hides page content and blocks outside interaction.     |
-| `swipeDirection`         | `"down"`   | Opens from the bottom by default.                      |
-| `snapPoints`             | `[1]`      | Uses a full-size drawer unless snap points are set.    |
-| `closeOnEscape`          | `true`     | Keeps Ark Escape dismissal enabled.                    |
-| `closeOnInteractOutside` | `true`     | Closes when a modal drawer receives outside input.     |
-| `preventDragOnScroll`    | `true`     | Avoids starting a drag from scrollable descendants.    |
-| `preventScroll`          | `true`     | Prevents background scroll while open.                 |
-| `restoreFocus`           | `true`     | Returns focus to the previous active element.          |
-| `trapFocus`              | `true`     | Keeps focus inside modal drawer content.               |
-| `lazyMount`              | `true`     | moduix default, different from Ark's `false`.          |
-| `unmountOnExit`          | `true`     | moduix default, different from Ark's `false`.          |
-| `Content draggable`      | `true`     | The grabber still drags when content is not draggable. |
-| `closeThreshold`         | `0.25`     | Swipe distance ratio required to dismiss the drawer.   |
-| `snapToSequentialPoints` | `false`    | Moves through snap points one step at a time.          |
-| `swipeVelocityThreshold` | `700`      | Swipe velocity threshold for closing.                  |
-| `role`                   | `"dialog"` | Set to `"alertdialog"` for urgent blocking content.    |
+| `modal`                  | `true`     | Hides page content and blocks interaction outside.      |
+| `swipeDirection`         | `"down"`   | Opens from the bottom by default.                       |
+| `snapPoints`             | `[1]`      | Uses the full drawer height when no snap points exist.  |
+| `closeOnEscape`          | `true`     | Keeps Ark Escape-to-close behavior enabled.             |
+| `closeOnInteractOutside` | `true`     | Closes a modal drawer after outside interaction.        |
+| `preventDragOnScroll`    | `true`     | Prevents dragging from starting in scrollable content.  |
+| `preventScroll`          | `true`     | Stops background scrolling while the drawer is open.    |
+| `restoreFocus`           | `true`     | Returns focus to the element active before opening.    |
+| `trapFocus`              | `true`     | Keeps focus inside modal drawer content.                |
+| `lazyMount`              | `true`     | moduix default; Ark's default is `false`.               |
+| `unmountOnExit`          | `true`     | moduix default; Ark's default is `false`.               |
+| `Drawer.Content draggable` | `true`     | Dragging from the content is enabled. Set it to `false` to keep the grabber as the drag handle. |
+| `closeThreshold`         | `0.25`     | Swipe distance ratio needed to close the drawer.        |
+| `snapToSequentialPoints` | `false`    | Moves through snap points one at a time.                |
+| `swipeVelocityThreshold` | `700`      | Swipe velocity threshold for closing.                   |
+| `role`                   | `"dialog"` | Use `"alertdialog"` for urgent blocking content.       |
 
 ### Behavioral notes
 
-- Public direction values are logical: `up`, `down`, `start`, and `end`. Ark exposes resolved
-  physical `left` or `right` values through `data-swipe-direction` for styling.
-- `Content draggable={false}` disables dragging from content while keeping the grabber draggable.
-- `Content variant="island"` adds a viewport inset, rounds every content corner, and removes the
-  overdrag bleed for a detached drawer surface.
+- Direction values are logical: `up`, `down`, `start`, and `end`. For styling, Ark exposes the
+  resolved physical `left` or `right` values through `data-swipe-direction`.
+- `Drawer.Content draggable={false}` disables dragging from the content while keeping the grabber draggable.
+- `Drawer.Content variant="island"` adds an inset from the viewport, rounds every content corner, and removes
+  the bleed extension used during overdrag.
 - `data-no-drag` prevents a drag gesture from starting inside a specific subtree.
-- The modal backdrop remains fully visible while dragging between snap points and fades after the
-  drawer begins closing.
-- `ids` customizes accessibility IDs for cross-part composition.
+- The modal backdrop stays fully visible while the drawer moves between snap points, then fades when
+  closing begins.
+- `ids` sets accessibility IDs when composing parts across separate trees.
+- `Drawer.CloseIcon` uses `Close drawer` as its default accessible label. Pass your own `aria-label`
+  when the context requires different wording.
+- `Drawer.Content` forwards its ref to the dialog surface, which is useful for measuring it or moving
+  focus there imperatively.
 - `stack` accepts an external Ark drawer stack store for app-level stack visuals.
-- `immediate` and `skipAnimationOnMount` tune Ark presence timing when custom animation control is
-  needed.
-- `present`, `lazyMount`, `unmountOnExit`, and `onExitComplete` control render lifecycle.
-  moduix defaults `lazyMount` and `unmountOnExit` to `true` so exit animations can finish without
-  rendering hidden drawers on initial page load.
-- When `prefers-reduced-motion: reduce` matches, entry, exit, and stack animations take 1ms while
-  preserving Ark lifecycle completion.
-- Ark preserves dialog focus trapping, Escape handling, title/description associations, and focus
+- `immediate` and `skipAnimationOnMount` control when Ark mounts and unmounts the drawer while you
+  manage the animation yourself.
+- `present`, `lazyMount`, `unmountOnExit`, and `onExitComplete` control the render lifecycle. moduix
+  defaults `lazyMount` and `unmountOnExit` to `true`, so exit animations can finish without rendering
+  hidden drawers on initial page load.
+- When `prefers-reduced-motion: reduce` matches, entry, exit, and stack animations run for 1ms while
+  Ark still completes its lifecycle.
+- Ark preserves dialog focus trapping, Escape handling, title and description associations, and focus
   restoration.
 
 ## Examples
 
 ### Controlled
 
-Read `details.open` from the Ark callback instead of expecting a boolean callback argument.
+Read `details.open` from the Ark callback. The callback receives a details object, not a boolean directly.
 
 ```tsx preview file="./_snippets/drawer/controlled.tsx"
 
@@ -159,9 +167,8 @@ Read `details.open` from the Ark callback instead of expecting a boolean callbac
 
 ### Drag Controls
 
-Apply `data-no-drag` to interactive regions that must not initiate a drag while the rest of the
-content remains draggable. Set `draggable={false}` separately when only the grabber should move
-the drawer.
+Add `data-no-drag` to interactive regions that must not start a drag while leaving the rest of the
+content draggable. Set `draggable={false}` when the drawer should move only from the grabber.
 
 ```tsx preview file="./_snippets/drawer/drag-controls.tsx"
 
@@ -169,8 +176,8 @@ the drawer.
 
 ### Floating Grabber
 
-Position `Drawer.Grabber` above the surface when the handle should appear as a separate control.
-The inline style below keeps a 10px gap from the drawer edge.
+Place `Drawer.Grabber` above the surface when the handle should appear as a separate control. The
+inline style in this example leaves a 10px gap between the handle and the drawer edge.
 
 ```tsx preview file="./_snippets/drawer/floating-grabber.tsx"
 
@@ -178,8 +185,7 @@ The inline style below keeps a 10px gap from the drawer edge.
 
 ### Indent Background
 
-`Drawer.Stack` coordinates `IndentBackground` and `Indent` using Ark stack state and swipe
-progress.
+`Drawer.Stack` uses Ark stack state and swipe progress to move `IndentBackground` and `Indent` together.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/drawer/indent-background.tsx"
@@ -190,8 +196,8 @@ progress.
 
 ### Island
 
-Set `variant="island"` on `Drawer.Content` when a compact drawer should float inside the viewport
-instead of visually continuing beyond its opening edge.
+Set `variant="island"` on `Drawer.Content` when a compact drawer should sit inside the viewport with
+an inset instead of extending visually past the edge where it opens.
 
 ```tsx preview file="./_snippets/drawer/island.tsx"
 
@@ -199,8 +205,8 @@ instead of visually continuing beyond its opening edge.
 
 ### Multiple Triggers
 
-Assign each trigger a `value` to share one drawer across a list. The callback identifies which
-trigger is current.
+Give each trigger a `value` to reuse one drawer for a list. The callback tells you which trigger is
+active.
 
 ```tsx preview file="./_snippets/drawer/multiple-triggers.tsx"
 
@@ -208,9 +214,9 @@ trigger is current.
 
 ### Nested
 
-Render nested drawers with separate Ark `useDrawer` instances and moduix `Drawer.RootProvider`
-trees so each surface keeps its own open state and focus lifecycle. The parent surface recedes
-behind the active drawer while leaving a visible edge.
+Use separate Ark `useDrawer` instances and separate moduix `Drawer.RootProvider` trees for nested
+drawers. Each drawer then keeps its own open state and focus lifecycle. The parent surface moves back
+behind the active drawer while leaving an edge visible.
 
 ```tsx preview file="./_snippets/drawer/nested.tsx"
 
@@ -218,12 +224,12 @@ behind the active drawer while leaving a visible edge.
 
 ### Non-Modal
 
-Set `modal={false}` when the page must remain interactive and scrollable while the drawer is open.
-For touch devices, make `Content` non-draggable and use the Header as `Grabber`: it prevents one
-vertical gesture from moving both the drawer and the page. Put `data-no-drag` on every interactive
-Header control, such as the close button. If the whole content must be draggable instead, set
-`preventScroll` to `true`; outside controls stay interactive, but background scrolling is locked
-while the drawer is open.
+Set `modal={false}` when the page must remain interactive and scrollable while the drawer is open. On
+touch devices, disable dragging on `Content` and use `Header` as `Grabber`. This keeps one vertical
+gesture from moving both the drawer and the page. Add `data-no-drag` to every interactive control in
+`Header`, such as the close button. If the whole content should be draggable instead, set
+`preventScroll={true}`. Outside controls remain interactive, but background scrolling is locked while
+the drawer is open.
 
 ```tsx preview file="./_snippets/drawer/non-modal.tsx"
 
@@ -231,8 +237,8 @@ while the drawer is open.
 
 ### Root Provider
 
-Use the moduix `useDrawer` export when buttons outside the component tree must open the drawer or
-change snap points.
+Use the moduix `useDrawer` export when buttons outside the drawer tree need to open it or change its
+snap points.
 
 ```tsx preview file="./_snippets/drawer/root-provider.tsx"
 
@@ -240,8 +246,8 @@ change snap points.
 
 ### Scrollable
 
-Keep long content in `Drawer.Body`, and use `ScrollArea` when the drawer should own a dedicated
-scroll container while the grabber and header stay fixed.
+Put long content in `Drawer.Body`. Use `ScrollArea` when the drawer should have a dedicated scroll
+container while the grabber and header stay fixed.
 
 ```tsx preview file="./_snippets/drawer/scrollable.tsx"
 
@@ -249,7 +255,7 @@ scroll container while the grabber and header stay fixed.
 
 ### Snap Points
 
-Define intermediate positions on the root and choose the initial position with `defaultSnapPoint`.
+Set intermediate positions on the root and choose the initial position with `defaultSnapPoint`.
 
 ```tsx preview file="./_snippets/drawer/snap-points.tsx"
 
@@ -257,8 +263,8 @@ Define intermediate positions on the root and choose the initial position with `
 
 ### Swipe Direction
 
-Use logical `start` and `end` values for side drawers so the same code works in LTR and RTL. Use
-`up` for a top drawer and `down` for a bottom drawer.
+Use logical `start` and `end` values for side drawers so the same code works in LTR and RTL. Use `up`
+for a top drawer and `down` for a bottom drawer.
 
 ```tsx preview file="./_snippets/drawer/swipe-direction.tsx"
 
@@ -266,8 +272,8 @@ Use logical `start` and `end` values for side drawers so the same code works in 
 
 ### Advanced Customization
 
-Bypass the optional `Header`, `Body`, `Footer`, and `CloseIcon` helpers when a custom layout needs
-the full low-level Drawer anatomy.
+Skip the optional `Header`, `Body`, `Footer`, and `CloseIcon` helpers when a custom layout needs the
+full low-level Drawer anatomy.
 
 ```tsx preview file="./_snippets/drawer/advanced-customization.tsx"
 
@@ -291,7 +297,7 @@ the full low-level Drawer anatomy.
 
 ### Styling hooks
 
-- moduix slots: `drawer-trigger`, `drawer-backdrop`, `drawer-positioner`, `drawer-content`,
+- moduix `data-slot` values: `drawer-trigger`, `drawer-backdrop`, `drawer-positioner`, `drawer-content`,
   `drawer-grabber`, `drawer-grabber-indicator`, `drawer-title`, `drawer-description`,
   `drawer-close-trigger`, `drawer-close-icon`, `drawer-swipe-area`, `drawer-indent`,
   `drawer-indent-background`, `drawer-header`, `drawer-body`, and `drawer-footer`.

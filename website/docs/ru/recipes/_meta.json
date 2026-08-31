@@ -10,7 +10,12 @@
     "label": "Приложение"
   },
   { "type": "file", "name": "app-header", "label": "Шапка", "tag": "panel-top" },
-  { "type": "file", "name": "sidebar-dashboard", "label": "Сайдбар", "tag": "panel-left" },
+  {
+    "type": "file",
+    "name": "sidebar-dashboard",
+    "label": "Сайдбар",
+    "tag": "panel-left"
+  },
   {
     "type": "section-header",
     "label": "Доступ"
@@ -19,7 +24,12 @@
   { "type": "file", "name": "sign-up", "label": "Регистрация", "tag": "list-checks" },
   { "type": "file", "name": "forgot-password", "label": "Забыли пароль", "tag": "key-round" },
   { "type": "file", "name": "reset-password", "label": "Сброс пароля", "tag": "refresh-cw" },
-  { "type": "file", "name": "verification-code", "label": "Код проверки", "tag": "badge-check" },
+  {
+    "type": "file",
+    "name": "verification-code",
+    "label": "Код подтверждения",
+    "tag": "badge-check"
+  },
   {
     "type": "section-header",
     "label": "Данные"
@@ -40,6 +50,11 @@
     "type": "section-header",
     "label": "Визуальное"
   },
-  { "type": "file", "name": "autoplay-gallery", "label": "Галерея", "tag": "paintbrush" },
+  {
+    "type": "file",
+    "name": "autoplay-gallery",
+    "label": "Галерея с автопрокруткой",
+    "tag": "paintbrush"
+  },
   { "type": "file", "name": "parallax-card", "label": "Параллакс-карта", "tag": "orbit" }
 ]

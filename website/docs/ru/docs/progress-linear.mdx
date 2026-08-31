@@ -1,7 +1,7 @@
 ---
 title: Progress Linear
 component: progress-linear
-description: Линейный индикатор прогресса с известным или неопределённым значением.
+description: Линейный индикатор прогресса для задач, ход выполнения которых известен или неизвестен.
 ---
 
 import * as ProgressLinearDocs from '@/components/examples/progress-linear';
@@ -12,11 +12,14 @@ import * as ProgressLinearDocs from '@/components/examples/progress-linear';
 
 ## Выбор подходящего компонента
 
-Выбирайте `ProgressLinear`, когда пользователь должен сравнивать прогресс с хорошо заметной дорожкой. Выбирайте `ProgressCircular` для компактных поверхностей статуса в строке.
+Используйте `ProgressLinear`, когда пользователю нужно видеть ход выполнения на линейной полосе.
+Для компактного индикатора в карточке, на панели инструментов или в другом ограниченном пространстве
+подойдёт `ProgressCircular`.
 
 ## Базовый пример
 
-Используйте `ProgressLinear` с явными частями `Label`, `ValueText`, `Track` и `Range`.
+Соберите индикатор из явных частей `Label`, `ValueText`, `Track` и `Range`. Задайте для `Track`
+доступное имя, которое описывает задачу.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/progress-linear/basic.tsx"
@@ -31,70 +34,96 @@ import * as ProgressLinearDocs from '@/components/examples/progress-linear';
 ## Анатомия
 
 ```text
-ProgressLinear.Root
+ProgressLinear / ProgressLinear.Root
 ├─ ProgressLinear.Label
 ├─ ProgressLinear.ValueText
-└─ ProgressLinear.Track
-   └─ ProgressLinear.Range
+├─ ProgressLinear.Track
+│  └─ ProgressLinear.Range
+└─ ProgressLinear.View
 
 ProgressLinear.RootProvider
 └─ same part tree connected to ProgressLinear.useProgress()
 ```
 
-| Часть                                     | Назначение                                                              |
-| ----------------------------------------- | ----------------------------------------------------------------------- |
-| `ProgressLinear` / `ProgressLinear.Root`  | Управляет состоянием прогресса, форматированием и идентификаторами.     |
-| `ProgressLinear.RootProvider`             | Подключает части к состоянию, созданному `ProgressLinear.useProgress()`. |
-| `ProgressLinear.Context`                  | Доступ к текущему состоянию прогресса через render prop.                |
-| `ProgressLinear.Label`                    | Видимая метка индикатора прогресса.                                     |
-| `ProgressLinear.ValueText`                | Видимый форматированный текст значения; для пользовательской строки Ark используйте `Context`. |
-| `ProgressLinear.Track`                    | Линейная дорожка с ролью индикатора и атрибутами ARIA-значения.         |
-| `ProgressLinear.Range`                    | Заполненный диапазон, отражающий текущий процент.                       |
-| `ProgressLinear.View`                     | Условное представление для `indeterminate`, `loading` или `complete`.  |
+| Часть                                     | Назначение                                                                    |
+| ----------------------------------------- | ----------------------------------------------------------------------------- |
+| `ProgressLinear` / `ProgressLinear.Root`  | Хранит состояние прогресса и передаёт Ark форматирование, идентификаторы и другие свойства. |
+| `ProgressLinear.RootProvider`             | Подключает части к хранилищу, которое возвращает `ProgressLinear.useProgress()`. |
+| `ProgressLinear.Context`                  | Передаёт текущее состояние прогресса функции, переданной как дочерний элемент. |
+| `ProgressLinear.Label`                    | Видимая подпись задачи. Она автоматически не становится доступным именем `Track`. |
+| `ProgressLinear.ValueText`                | Показывает отформатированный процент и сообщает об изменениях. Через `Context` можно вывести свой текст. |
+| `ProgressLinear.Track`                   | Основа полосы прогресса. Ark добавляет ей роль и ARIA-атрибуты значения.       |
+| `ProgressLinear.Range`                   | Заполненная часть, отражающая текущий прогресс.                               |
+| `ProgressLinear.View`                    | Показывает содержимое, только когда его `state` совпадает с текущим состоянием прогресса. |
 
 ## Композиция
 
 ### Рекомендуемая композиция
 
-`ProgressLinear` - краткая корневая форма. Она эквивалентна `ProgressLinear.Root`, а дочерние части остаются явными, чтобы отрисованная анатомия соответствовала Ark UI.
+Для обычного сценария используйте `ProgressLinear` или `ProgressLinear.Root` как корневой элемент.
+`ProgressLinear` - это сокращённая запись `ProgressLinear.Root`. Видимые части остаются явными,
+поэтому вы сами управляете структурой разметки.
 
-Используйте `defaultValue` для неуправляемого прогресса, `value` вместе с `onValueChange(details)` для управляемого, а `defaultValue={null}` или `value={null}` - для неопределённого прогресса.
+Используйте `defaultValue` для неуправляемого прогресса. В управляемом режиме передайте `value` и
+`onValueChange(details)`, если приложение хранит текущее значение. Установите
+`defaultValue={null}` или `value={null}`, когда задача выполняется, но её прогресс неизвестен.
+
+`ProgressLinear.RootProvider` заменяет корневой элемент, когда состояние создано через
+`ProgressLinear.useProgress()`. Не используйте `Root` вместе с `RootProvider`.
 
 ### Когда нужна собственная композиция
 
-Используйте `ProgressLinear.RootProvider` вместе с `ProgressLinear.useProgress()`, когда состояние прогресса должно быть создано за пределами отрисованного поддерева.
+Используйте `ProgressLinear.RootProvider` вместе с `ProgressLinear.useProgress()`, если состояние
+должен создать или контролировать родительский компонент либо другая часть приложения.
 
-Используйте `translations.value(details)`, чтобы создать пользовательскую строку значения Ark. Чтобы
-показать её, передайте `state.valueAsString` из `ProgressLinear.Context` в `ValueText`; для имени
-задачи сохраните `aria-label` или `aria-labelledby` на `Track`. Это заменяет устаревшую схему с
-`getAriaValueText` и дочерней функцией рендеринга.
+Используйте `translations.value(details)`, если сгенерированное доступное имя должно подробнее
+описывать задачу. Ark использует возвращённую строку как сгенерированный `aria-label` для `Track`.
+Стандартный `ValueText` при этом по-прежнему показывает отформатированный процент. Если свой текст
+должен быть виден в интерфейсе, выведите `state.valueAsString` через `ProgressLinear.Context`.
+Явно заданные `aria-label` или `aria-labelledby` на `Track` имеют приоритет.
 
-Используйте `ids`, когда метке, дорожке или окружающей раскладке нужны стабильные явные идентификаторы в более пользовательском дереве. Используйте `ProgressLinear.View`, когда вспомогательный UI должен переключаться вместе с состоянием прогресса Ark, а не дублировать проверки состояния вне компонента. Используйте `ProgressLinear.Context` или `ProgressLinear.useProgressContext()` для доступа к состоянию ниже корня или провайдера. Прямые импорты Ark остаются запасным вариантом для поверхностей, намеренно находящихся вне API moduix.
+Используйте `ids`, если нестандартной композиции нужны стабильные явные идентификаторы для подписи,
+полосы или окружающей разметки. Используйте `ProgressLinear.View`, если вспомогательный текст или
+интерфейс должен переключаться вместе с состоянием прогресса Ark, а не через дублирование проверок.
+Используйте `ProgressLinear.Context` или `ProgressLinear.useProgressContext()`, если пользовательскому
+интерфейсу нужен доступ к состоянию внутри корня или провайдера. Прямые импорты Ark нужны только
+для интеграций, которые нельзя построить на API moduix.
 
 ### Свойства по умолчанию
 
-| Свойство         | По умолчанию           | Примечания                                                        |
-| ---------------- | ---------------------- | ----------------------------------------------------------------- |
-| `defaultValue`   | `50`                   | Начальное неуправляемое значение.                                 |
-| `min`            | `0`                    | Нижняя граница для процента и ARIA-значения.                      |
-| `max`            | `100`                  | Верхняя граница для процента и ARIA-значения.                     |
-| `formatOptions`  | `{ style: 'percent' }` | Управляет форматированием `ValueText`.                            |
-| `locale`         | `'en-US'`              | Локаль, используемая `Intl.NumberFormat`.                         |
-| `orientation`    | `'horizontal'`         | Ориентация Ark. Используйте `vertical` с заданной высотой.        |
+| Свойство         | По умолчанию           | Примечания                                             |
+| ---------------- | ---------------------- | ------------------------------------------------------ |
+| `defaultValue`   | `50`                   | Начальное значение неуправляемого прогресса.           |
+| `min`            | `0`                    | Минимум для процента и ARIA-значений.                  |
+| `max`            | `100`                  | Максимум для процента и ARIA-значений.                 |
+| `formatOptions`  | `{ style: 'percent' }` | Параметры форматирования `ValueText`.                 |
+| `locale`         | `'en-US'`              | Локаль, передаваемая в `Intl.NumberFormat`.            |
+| `orientation`    | `'horizontal'`         | Для `vertical` задайте высоту.                         |
 
 ### Особенности поведения
 
-`ProgressLinear.Track` получает роль индикатора прогресса и атрибуты ARIA-значения от Ark. Корневой элемент хранит состояние прогресса и предоставляет `data-state="indeterminate|loading|complete"`. Ark задаёт `data-orientation` на корне, метке, дорожке и диапазоне, чтобы горизонтальные и вертикальные стили могли использовать одно дерево частей.
+`ProgressLinear.Track` получает от Ark `role="progressbar"`, `aria-valuemin`, `aria-valuemax` и
+`aria-valuenow`. Корневой элемент предоставляет `data-state="indeterminate|loading|complete"` и
+`data-orientation`. Для неопределённого прогресса атрибут `aria-valuenow` не добавляется.
 
-Все экспортируемые части поддерживают `asChild` через полиморфную композицию Ark. Сохраняйте семантику заменяющих потомков и семантику индикатора прогресса на дорожке.
+`ProgressLinear.Label` даёт видимый контекст, но автоматически не задаёт доступное имя для `Track`.
+По умолчанию полоса получает сгенерированное имя на основе значения из `translations.value(details)`.
+Чтобы задать имя задачи явно, передайте на `Track` `aria-label` или `aria-labelledby`.
+`ProgressLinear.ValueText` сообщает об изменениях через `aria-live="polite"`.
 
-`ProgressLinear.ValueText` объявляет изменения через `aria-live="polite"`. `ProgressLinear.Label` предоставляет видимый текст, а `ProgressLinear.Track` нужен собственный `aria-label` или `aria-labelledby` для доступного имени, специфичного для задачи. В RTL определённый диапазон заполняется от начала строки, а движение неопределённого прогресса меняет направление.
+Все отрисовываемые части поддерживают `asChild` благодаря полиморфной композиции Ark. Сохраняйте
+семантику заменяемых элементов и роль `progressbar` у `Track`. Прогресс носит информационный
+характер, поэтому компонент не поддерживает клавиатурное взаимодействие и управление фокусом.
+
+Ark добавляет `data-orientation` к корню, подписи, полосе и заполненной части. В RTL заполнение
+начинается с начала строки, а направление анимации неопределённого прогресса меняется на обратное.
 
 ## Примеры
 
 ### Управляемое состояние
 
-Храните `value` в состоянии React, когда прогресс отражает состояние другого элемента управления или внешней задачи.
+Храните `value` в состоянии React, если прогресс должен синхронно меняться вместе с другим элементом
+управления или внешней задачей.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/progress-linear/controlled.tsx"
@@ -104,7 +133,8 @@ ProgressLinear.RootProvider
 
 ### Неопределённый прогресс
 
-Передайте `defaultValue={null}` или `value={null}`, когда прогресс выполняется, но завершение неизвестно.
+Установите `defaultValue={null}` или `value={null}`, когда задача выполняется, но пока нельзя
+определить, сколько уже сделано.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/progress-linear/indeterminate.tsx"
@@ -114,7 +144,7 @@ ProgressLinear.RootProvider
 
 ### Начальное значение
 
-Используйте `defaultValue`, чтобы задать начальное неуправляемое значение прогресса.
+Используйте `defaultValue`, чтобы задать начальное значение неуправляемого прогресса.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/progress-linear/initial-value.tsx"
@@ -124,7 +154,8 @@ ProgressLinear.RootProvider
 
 ### Минимум и максимум
 
-Используйте `min` и `max`, когда значение не использует диапазон по умолчанию от `0` до `100`.
+Используйте `min` и `max`, если диапазон прогресса отличается от стандартного диапазона от `0` до
+`100`.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/progress-linear/min-max.tsx"
@@ -134,7 +165,8 @@ ProgressLinear.RootProvider
 
 ### Представления состояния
 
-Используйте `ProgressLinear.View`, когда вспомогательный текст или UI должны переключаться вместе с состоянием прогресса Ark, а не дублировать проверки состояния вне компонента.
+Используйте `ProgressLinear.View`, если вспомогательный текст или интерфейс должен меняться вместе
+с состоянием прогресса Ark.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/progress-linear/state-views.tsx"
@@ -144,8 +176,8 @@ ProgressLinear.RootProvider
 
 ### Текст значения
 
-Используйте `Context` с `translations.value(details)`, когда видимому тексту значения нужна
-формулировка, специфичная для задачи.
+Используйте `ProgressLinear.Context` с `translations.value(details)`, если отображаемому значению
+нужна формулировка, связанная с конкретной задачей.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/progress-linear/value-text.tsx"
@@ -155,7 +187,9 @@ ProgressLinear.RootProvider
 
 ### Вертикальная ориентация
 
-Установите `orientation="vertical"`, когда дорожка должна заполняться вверх, а не слева направо.
+Установите `orientation="vertical"`, когда заполненная часть должна расти снизу вверх. В
+вертикальном режиме высота по умолчанию составляет `12rem`. Если макету нужна другая высота,
+переопределите `--moduix-progress-linear-height`.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/progress-linear/vertical.tsx"
@@ -165,7 +199,8 @@ ProgressLinear.RootProvider
 
 ### Расширенная настройка
 
-Создайте хранилище прогресса с `ProgressLinear.useProgress()` за пределами отрисованного дерева, когда состоянием должен владеть другой компонент. Это обходит обычную настройку состояния корня, сохраняя то же дерево частей moduix.
+Создайте состояние прогресса с помощью `ProgressLinear.useProgress()` в родительском компоненте,
+а затем подключите его к частям компонента через `ProgressLinear.RootProvider`.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/progress-linear/root-provider.tsx"
@@ -175,7 +210,12 @@ ProgressLinear.RootProvider
 
 ## Стилизация
 
-Используйте `className` на экспортируемых частях для структурных изменений стилизации. Для стилизации состояния предпочитайте атрибуты данных Ark и хуки `data-slot` moduix.
+Используйте `className` на экспортируемых частях для структурной стилизации. Для стилей, зависящих
+от состояния, используйте атрибуты данных Ark и хуки `data-slot` moduix.
+
+Корневая часть имеет ширину `12rem` по умолчанию. В вертикальном режиме высота также составляет
+`12rem`. Используйте публичные переменные `--moduix-progress-linear-*`, чтобы подстроить компонент
+под свой макет.
 
 ### CSS-свойства
 
@@ -193,5 +233,8 @@ ProgressLinear.RootProvider
 
 ### Хуки стилизации
 
-- `data-slot="progress-linear-root"`, `progress-linear-root-provider`, `progress-linear-label`, `progress-linear-value-text`, `progress-linear-track`, `progress-linear-range` и `progress-linear-view`.
-- Хуки Ark: `data-scope="progress"`, `data-part`, `data-state="indeterminate|loading|complete"`, `data-orientation="horizontal|vertical"`, `data-value` и `data-max`.
+- `data-slot="progress-linear-root"`, `progress-linear-root-provider`, `progress-linear-label`,
+  `progress-linear-value-text`, `progress-linear-track`, `progress-linear-range` и
+  `progress-linear-view`.
+- Атрибуты Ark: `data-scope="progress"`, `data-part`, `data-state="indeterminate|loading|complete"`,
+  `data-orientation="horizontal|vertical"`, `data-value` и `data-max`.

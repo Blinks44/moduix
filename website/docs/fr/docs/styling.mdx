@@ -1,47 +1,47 @@
 ---
-title: Styles
-description: Stylisez les composants moduix avec CSS Modules, Panda CSS ou Tailwind CSS.
+title: Styliser les composants
+description: Découvrez comment styliser les composants moduix avec CSS Modules, Panda CSS, Tailwind CSS ou du CSS classique.
 ---
 
 import { Accordion } from '@moduix/react/accordion';
 import styles from '@/components/examples/styling.module.css';
 
-# Styles
+# Styliser les composants
 
-moduix fournit les styles des composants et une base CSS commune, sans imposer d’outil de création de styles. Utilisez
-CSS Modules, Panda CSS, Tailwind CSS ou toute autre stratégie déjà adoptée par votre application. L’API des
-composants reste identique.
+moduix fournit les styles de ses composants ainsi qu’une base CSS commune, sans imposer d’outil particulier. Vous pouvez
+conserver l’approche déjà utilisée par votre application : CSS Modules, Panda CSS, Tailwind CSS, CSS classique ou toute
+autre solution. L’API des composants reste la même dans tous les cas.
 
-Importez une seule fois la feuille de styles de base au point d’entrée de l’application :
+Importez la feuille de styles de base une seule fois depuis le point d’entrée de l’application :
 
 ```tsx
 import '@moduix/react/style.css';
 ```
 
-Panda CSS et Tailwind CSS ne font pas partie des dépendances de moduix ni de ce site de documentation. Dans les
-exemples ci-dessous, le même `ProjectChecklist` est stylisé avec chaque outil ; seule la syntaxe change. Ces snippets
-s’adressent aux applications dans lesquelles l’outil correspondant est déjà configuré.
+moduix n’installe pas Panda CSS ni Tailwind CSS pour vous. Les exemples ci-dessous appliquent chaque outil à la même
+composition `ProjectChecklist` : seule la syntaxe de style change. Ils supposent que l’outil correspondant est déjà
+configuré dans votre application.
 
-## Choisir une redéfinition
+## Choisir où effectuer la modification
 
-| Objectif | Méthode recommandée |
+| Objectif | Surface recommandée |
 | --- | --- |
 | Adopter une direction visuelle complète | Un [preset de thème](/docs/themes) préparé |
-| Modifier une couleur, une taille, un rayon ou un espacement dans tout le système | Un token primitif ou sémantique de la section [Tokens](/docs/tokens) |
-| Harmoniser une famille de contrôles ou de lignes de composants flottants | Un token de famille partagé, comme `--moduix-popup-item-min-height` |
-| Distinguer volontairement un composant | Un alias `--<component>-*` documenté |
-| Styliser une composition propre au produit | `className` sur la partie rendue, de préférence avec du CSS local |
+| Modifier une couleur, une taille, un rayon ou un espacement à l’échelle du système | Un token primitif ou sémantique de la section [Tokens](/docs/tokens) |
+| Harmoniser une famille de contrôles ou de lignes dans des composants flottants | Un token partagé par une famille, comme `--moduix-popup-item-min-height` |
+| Modifier volontairement un seul composant | Un alias `--moduix-<component>-*` documenté |
+| Styliser une composition propre au produit | `className` sur chaque partie à modifier, de préférence avec du CSS local |
 
-Ce tableau maintient des thèmes compacts et un style prévisible des composants. Préférez un token de haut niveau si
-la décision doit s’appliquer largement ; rapprochez-vous de la partie rendue lorsque la portée devient locale.
+Choisissez le niveau le plus élevé qui correspond à la portée de la décision. Utilisez un token si la modification doit
+s’appliquer à plusieurs composants. Descendez jusqu’à une partie rendue si elle ne concerne qu’une composition.
 
 ## Styliser les parties
 
-Commencez par placer `className` sur la partie responsable du changement visuel. L’anatomie du composant reste ainsi
-visible et les styles restent locaux au produit. Sur cette même partie, utilisez les attributs d’état Ark documentés
-pour les états et les variables CSS publiques lorsque le composant expose la valeur à modifier.
+Ajoutez `className` à la partie qui porte le changement visuel. L’anatomie du composant reste ainsi explicite et la règle
+reste limitée au composant de votre produit. Pour les états, combinez cette classe avec les attributs Ark `data-*`
+documentés sur la même partie. Utilisez une variable CSS publique lorsque le composant expose la valeur à modifier.
 
-Le panneau ci-dessous utilise CSS Modules et stylise directement toutes les parties exportées d’Accordion.
+L’exemple ci-dessous utilise CSS Modules et applique les styles directement aux parties exportées d’Accordion.
 
 <section className={styles.example}>
   <Accordion className={styles.accordion} collapsible defaultValue={['outcome']}>
@@ -95,8 +95,8 @@ Le panneau ci-dessous utilise CSS Modules et stylise directement toutes les part
 
 ## CSS Modules
 
-CSS Modules est l’option de base sans dépendance. Dans ce `ProjectChecklist`, les styles restent directement liés aux
-parties qu’ils ciblent.
+CSS Modules constituent le point de départ sans dépendance. Dans ce `ProjectChecklist`, chaque classe est appliquée
+directement à la partie qu’elle met en forme.
 
 <div className="docs-reference">
   <Tabs values={[{ label: 'ProjectChecklist.tsx', value: 'ProjectChecklist.tsx' }, { label: 'ProjectChecklist.module.css', value: 'ProjectChecklist.module.css' }]} className="docs-tabs">
@@ -120,9 +120,9 @@ parties qu’ils ciblent.
 
 ### Parties masquées
 
-Lorsqu’un wrapper du produit possède la composition sans exposer une partie à ses appelants, utilisez un `data-slot`
-stable. Vous pourrez ainsi personnaliser le déclencheur interne sans dépendre de l’ordre du DOM ni de noms de classes
-générés :
+Si un composant de votre produit gère la composition sans exposer l’une de ses parties internes comme prop, ciblez cette
+partie avec son `data-slot` stable. Vous pouvez ainsi styliser un déclencheur interne sans dépendre de l’ordre du DOM ni
+de noms de classes générés :
 
 ```css
 .root {
@@ -136,14 +136,14 @@ générés :
 }
 ```
 
-Il s’agit d’une solution de dernier recours, pas d’un remplacement de `className`. Pour les parties rendues
-automatiquement dans un portail, comme `Dialog.Content` ou `Tooltip.Content`, ajoutez `className` directement à la
-partie placée dans le portail.
+Utilisez cette technique en dernier recours, pas comme remplacement de `className`. Les parties telles que
+`Dialog.Content` et `Tooltip.Content` sont rendues par défaut dans un portail. Placez donc `className` sur la partie
+elle-même ou appliquez ses variables au conteneur du portail.
 
 ## Panda CSS
 
-Dans une application où Panda est déjà configuré, générez des classes pour les mêmes parties de `ProjectChecklist`.
-Les noms de tokens ci-dessous appartiennent au thème Panda, pas à moduix.
+Si votre application utilise déjà Panda CSS, générez des classes pour les mêmes parties de `ProjectChecklist`. Les noms
+de tokens de cet exemple viennent de votre thème Panda, pas de moduix.
 
 ```tsx
 import { Accordion } from '@moduix/react/accordion';
@@ -237,8 +237,8 @@ export function ProjectChecklist() {
 
 ## Tailwind CSS
 
-Dans une application qui utilise déjà Tailwind, appliquez les utilitaires et les variantes d’état aux mêmes parties
-de `ProjectChecklist`. Aucun plugin ni aucune configuration Tailwind spécifique à moduix n’est nécessaire.
+Si votre application utilise déjà Tailwind CSS, appliquez les utilitaires et les variantes d’état aux mêmes parties de
+`ProjectChecklist`. Aucun plugin ni aucune configuration Tailwind spécifique à moduix n’est nécessaire.
 
 ```tsx
 import { Accordion } from '@moduix/react/accordion';
@@ -274,15 +274,15 @@ export function ProjectChecklist() {
 }
 ```
 
-## Résolution des problèmes
+## Résoudre les problèmes
 
 | Symptôme | Vérification la plus probable |
 | --- | --- |
-| Une variable n’a aucun effet | Vérifiez qu’elle figure sur la page du composant et que votre règle est chargée après `style.css`. |
-| Un composant flottant ignore une valeur définie dans un wrapper | Le composant peut être rendu dans un portail ; placez la valeur sur sa partie, sa racine ou le conteneur du portail. |
-| Un sélecteur d’état ne correspond jamais | Vérifiez l’attribut Ark documenté : `data-state`, `data-disabled` ou un autre. |
+| Une variable n’a aucun effet | Vérifiez qu’elle est documentée sur la page du composant et que votre redéfinition est chargée après `style.css`. |
+| Un composant flottant ignore une valeur définie sur son conteneur | Il est peut-être rendu dans un portail. Placez la variable sur sa partie, sa racine ou le conteneur du portail. |
+| Le sélecteur d’état ne correspond jamais | Inspectez l’attribut Ark exact, par exemple `data-state` ou `data-disabled`. |
 | La classe atteint la racine, mais pas la partie | Placez `className` sur la partie exportée qui contrôle la propriété visuelle. |
-| Une classe utilitaire est supplantée par le CSS du composant | Utilisez une variable CSS documentée ou une classe locale avec un ordre de cascade maîtrisé. |
+| Une classe utilitaire est supplantée par le CSS du composant | Préférez une variable CSS documentée ou vérifiez l’ordre de cascade de votre classe locale. |
 
 Avant d’augmenter la spécificité d’un sélecteur, utilisez les outils de développement du navigateur pour inspecter la
 partie rendue, son `data-slot`, ses attributs d’état et les propriétés personnalisées calculées.
@@ -290,5 +290,5 @@ partie rendue, son `data-slot`, ses attributs d’état et les propriétés pers
 ## Ressources associées
 
 - [Tokens](/docs/tokens) présente la base CSS commune et les variables publiques.
-- [Modèles de composition](/docs/composition-patterns) explique comment conserver des wrappers de produit
-  ciblés.
+- [Modèles de composition](/docs/composition-patterns) explique comment limiter les composants d’encapsulation propres
+  au produit.

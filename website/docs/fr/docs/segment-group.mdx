@@ -1,10 +1,11 @@
 ---
 title: Segment Group
 component: segment-group
-description: Une composition segment-group Ark UI pour sélectionner une valeur dans un ensemble compact et visible.
+description: Un contrôle segmenté compact basé sur Ark UI pour choisir une valeur parmi un petit ensemble visible.
 ---
 
 import * as SegmentGroupDocs from '@/components/examples/segment-group';
+import { CssPropertiesSection } from '@/components/mdx/Components';
 
 ## Référence de l’API
 
@@ -12,16 +13,19 @@ import * as SegmentGroupDocs from '@/components/examples/segment-group';
 
 ## Choisir le bon composant
 
-Utilisez `SegmentGroup` lorsque l’utilisateur choisit une valeur dans un petit ensemble visible.
+Utilisez `SegmentGroup` lorsque l’utilisateur choisit une valeur dans un petit ensemble visible en
+même temps.
 
-- Choisissez **`Tabs`** lorsque la sélection change le panneau de contenu visible.
-- Choisissez **`ToggleGroup`** lorsque les éléments se comportent comme des boutons de barre d’outils et peuvent accepter plusieurs valeurs actives.
-- Choisissez **`RadioGroup`** lorsque le contrôle de formulaire doit conserver l’apparence de boutons radio.
-- Choisissez **`SegmentGroup`** lorsque la valeur reste comparable à celle d’un bouton radio, mais que l’interface nécessite un contrôle segmenté compact.
+- Choisissez **`Tabs`** lorsque la sélection doit également modifier un panneau de contenu visible.
+- Choisissez **`ToggleGroup`** lorsque les éléments se comportent comme des boutons de barre d’outils et que plusieurs valeurs peuvent être actives.
+- Choisissez **`RadioGroup`** lorsque le contrôle doit conserver l’apparence familière des boutons radio.
+- Choisissez **`SegmentGroup`** lorsque l’interaction ressemble à celle d’un groupe de boutons radio, mais que l’interface doit rester compacte et segmentée.
 
 ## Exemple de base
 
-Utilisez `SegmentGroup.Items` pour une liste compacte de segments textuels standard. Il affiche les parties Ark item, text et control, ainsi que le champ de saisie masqué de chaque entrée.
+Utilisez `SegmentGroup.Items` lorsque chaque segment n’a besoin que d’un libellé textuel. Le composant
+crée pour chaque entrée les parties Ark `item`, `text` et `control`, ainsi qu’un champ de formulaire
+natif synchronisé.
 
 <style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
 
@@ -39,68 +43,92 @@ Utilisez `SegmentGroup.Items` pour une liste compacte de segments textuels stand
 
 ```text
 SegmentGroup / SegmentGroup.Root
-├─ SegmentGroup.Label (optional)
+├─ SegmentGroup.Label (facultatif)
 ├─ SegmentGroup.Indicator
 └─ SegmentGroup.Item[value]
    ├─ SegmentGroup.ItemText
    ├─ SegmentGroup.ItemControl
-   └─ the native form input
+   └─ champ de formulaire natif
 
 SegmentGroup.RootProvider
-└─ same item tree connected to a moduix useSegmentGroup() store
+└─ même arborescence d’éléments reliée à un store moduix useSegmentGroup()
 
 SegmentGroup.Context / SegmentGroup.ItemContext
-└─ advanced render-prop access to Ark state
+└─ accès avancé à l’état Ark via render prop
 ```
 
-| Partie                                 | Rôle                                                                                      |
-| -------------------------------------- | ----------------------------------------------------------------------------------------- |
-| `SegmentGroup` / `SegmentGroup.Root`   | Gère l’état d’une valeur, la navigation au clavier et les formulaires.                   |
-| `SegmentGroup.RootProvider`            | Connecte les parties à l’état créé par `useSegmentGroup()` de moduix.                    |
-| `SegmentGroup.Context`                 | Donne un accès avancé à l’état racine actuel par render prop.                            |
-| `SegmentGroup.ItemContext`             | Donne un accès avancé à l’état actuel de l’élément par render prop.                      |
-| `SegmentGroup.Label`                   | Libellé accessible facultatif du groupe.                                                  |
-| `SegmentGroup.Indicator`               | Met en évidence l’élément actif à partir des mesures et variables CSS d’Ark.             |
-| `SegmentGroup.Items`                   | Moteur de rendu recommandé pour les segments textuels standard.                          |
-| `SegmentGroup.Item`                    | Segment sélectionnable unique ; affiche un `label` par défaut.                           |
-| `SegmentGroup.ItemText`                | Texte visible du segment.                                                                 |
-| `SegmentGroup.ItemControl`             | Partie control d’Ark, masquée visuellement par les styles moduix par défaut.              |
+| Partie                                | Rôle                                                                  |
+| ------------------------------------- | --------------------------------------------------------------------- |
+| `SegmentGroup` / `SegmentGroup.Root`  | Gère la valeur sélectionnée, la navigation au clavier et les formulaires. |
+| `SegmentGroup.RootProvider`            | Relie les parties à l’état créé avec `useSegmentGroup()` de moduix.   |
+| `SegmentGroup.Context`                 | Donne un accès avancé à l’état racine via render prop.                |
+| `SegmentGroup.ItemContext`             | Donne un accès avancé à l’état de l’élément courant via render prop.  |
+| `SegmentGroup.Label`                   | Libellé accessible facultatif du groupe.                              |
+| `SegmentGroup.Indicator`               | Positionne la mise en évidence de l’élément actif avec les variables CSS d’Ark. |
+| `SegmentGroup.Items`                   | Méthode recommandée pour afficher des segments textuels standard.     |
+| `SegmentGroup.Item`                    | Segment sélectionnable ; rend un `label` par défaut.                  |
+| `SegmentGroup.ItemText`                | Libellé visible du segment.                                           |
+| `SegmentGroup.ItemControl`             | Partie Ark utilisée pour l’état de l’élément, masquée par les styles moduix. |
 
 ## Composition
 
 ### Composition recommandée
 
-Dans le cas courant, utilisez la forme racine courte `<SegmentGroup>` avec `SegmentGroup.Items`. Affichez `Indicator` avant les éléments afin que la mise en évidence mesurée se place derrière le segment sélectionné. `Items` conserve un champ de saisie natif dans chaque élément généré pour la soumission et la réinitialisation des formulaires natifs.
+Dans le cas courant, utilisez la forme racine courte `<SegmentGroup>` avec `SegmentGroup.Items`.
+Placez `SegmentGroup.Indicator` avant les éléments afin que la mise en évidence mesurée apparaisse
+derrière le segment sélectionné. `Items` conserve un champ de formulaire natif dans chaque élément
+créé, ce qui permet la soumission et la réinitialisation d’un formulaire natif.
 
-### Quand créer une composition personnalisée
+### Quand utiliser une composition personnalisée
 
-Utilisez `SegmentGroup.Item` lorsque les segments nécessitent un contenu personnalisé, des classes propres à chaque élément ou `asChild`. L’enfant de `asChild` doit malgré tout être un unique `label` sémantique. Utilisez `SegmentGroup.RootProvider` avec `useSegmentGroup()` de `@moduix/react` lorsque des contrôles environnants doivent appeler des méthodes telles que `setValue`, `clearValue` ou `focus`. Pour un rendu personnalisé fondé sur l’état, importez `SegmentGroup.Context`, `SegmentGroup.ItemContext`, `useSegmentGroupContext` ou `useSegmentGroupItemContext` depuis `@moduix/react`.
+Utilisez `SegmentGroup.Item` lorsqu’un segment nécessite un contenu personnalisé, sa propre classe ou
+`asChild`. L’enfant direct de `asChild` doit rester un unique `label` sémantique. Utilisez
+`SegmentGroup.RootProvider` avec `useSegmentGroup()` depuis `@moduix/react` lorsque des contrôles
+situés en dehors de l’arborescence des segments doivent appeler des méthodes comme `setValue`,
+`clearValue` ou `focus`. Pour créer un rendu personnalisé piloté par l’état, utilisez
+`SegmentGroup.Context`, `SegmentGroup.ItemContext`, `useSegmentGroupContext` ou
+`useSegmentGroupItemContext` depuis `@moduix/react`.
 
-`ItemHiddenInput` est volontairement interne à moduix. `SegmentGroup.Item` affiche toujours exactement un champ radio natif synchronisé, y compris avec `asChild` ; ne composez pas une seconde fois l’élément `ItemHiddenInput` d’Ark.
+`ItemHiddenInput` est interne à moduix. Chaque `SegmentGroup.Item` rend déjà exactement un champ natif de type radio
+natif synchronisé, y compris avec `asChild`. N’ajoutez pas une seconde fois `ItemHiddenInput` d’Ark.
 
 ### Propriétés par défaut
 
-| Propriété       | Valeur par défaut | Remarques                                                                                 |
-| --------------- | ----------------- | ----------------------------------------------------------------------------------------- |
-| `defaultValue`  | -                 | Valeur initiale non contrôlée.                                                            |
-| `value`         | -                 | Valeur sélectionnée contrôlée.                                                            |
-| `orientation`   | `horizontal`      | moduix utilise l’orientation horizontale par défaut ; définissez explicitement `vertical`. |
-| `disabled`      | `false`           | Désactive l’ensemble du groupe lorsqu’elle est définie sur la racine.                    |
-| `readOnly`      | `false`           | Empêche les modifications tout en laissant la valeur consultable.                        |
-| `required`      | `false`           | Rend les champs masqués obligatoires dans les formulaires natifs.                         |
-| `invalid`       | `false`           | Ajoute les attributs d’état invalide d’Ark pour le style et ARIA.                         |
+| Propriété       | Valeur par défaut | Remarques                                                               |
+| --------------- | ----------------- | ----------------------------------------------------------------------- |
+| `defaultValue`  | non définie      | Valeur initiale d’un groupe non contrôlé.                              |
+| `value`         | non définie      | Valeur sélectionnée d’un groupe contrôlé.                               |
+| `orientation`   | `horizontal`     | Valeur par défaut de moduix ; définissez `vertical` pour un groupe vertical. |
+| `disabled`      | `false`           | Désactive tout le groupe lorsqu’elle est définie sur la racine.         |
+| `readOnly`      | `false`           | Empêche les modifications tout en laissant la valeur visible.          |
+| `required`      | `false`           | Rend les champs natifs obligatoires lors de la validation du formulaire. |
+| `invalid`       | `false`           | Ajoute les attributs d’état invalide d’Ark pour le style et ARIA.       |
 
 ### Comportement
 
-`onValueChange(details)` conserve la signature de rappel d’Ark. Lisez `details.value` pour obtenir la valeur sélectionnée. Ark gère le roving focus, la navigation avec les flèches, le focus, les états disabled/read-only/invalid/required, les identifiants, la soumission du formulaire et la synchronisation de sa réinitialisation.
+`onValueChange(details)` conserve la forme du rappel d’Ark. La valeur sélectionnée se trouve dans
+`details.value`. Ark gère la valeur sélectionnée, le déplacement du focus, la navigation avec les
+flèches, les états `disabled`, `readOnly`, `invalid` et `required`, ainsi que la soumission et la
+réinitialisation du formulaire.
 
-`Root`, `RootProvider`, `Label`, `Item`, `ItemControl`, `ItemText` et `Indicator` transmettent leur ref aux parties DOM Ark correspondantes. Enveloppez le groupe dans `Field` ou `Fieldset` lorsque leur état partagé doit s’appliquer : `Field` fournit les états disabled, invalid, required et read-only, tandis que `Fieldset` fournit disabled et invalid. Utilisez `ids` lorsque des libellés ou contrôles composites nécessitent des identifiants d’accessibilité déterministes.
+La touche <kbd>Tab</kbd> place le focus sur l’élément sélectionné ou, si aucune valeur n’est
+sélectionnée, sur le premier élément. Les touches fléchées déplacent le focus et sélectionnent
+l’élément suivant ou précédent. La touche <kbd>Espace</kbd> sélectionne l’élément qui a le focus.
+Définissez `name` sur la racine pour inclure la valeur sélectionnée dans les données natives de
+`FormData`.
+
+`Root`, `RootProvider`, `Label`, `Item`, `ItemControl`, `ItemText` et `Indicator` transmettent leurs
+refs aux parties DOM correspondantes d’Ark. Utilisez `Field` ou `Fieldset` lorsque leur état partagé
+doit s’appliquer au groupe : `Field` transmet les états `disabled`, `invalid`, `required` et
+`readOnly`, tandis que `Fieldset` transmet `disabled` et `invalid`. Utilisez `ids` lorsque des
+libellés ou contrôles composés ont besoin d’identifiants d’accessibilité déterministes.
 
 ## Exemples
 
 ### Montage conditionnel
 
-Les groupes de segments peuvent être montés conditionnellement ; Ark recalcule la géométrie des éléments destinée à l’indicateur après l’apparition du groupe.
+Les groupes de segments peuvent être montés conditionnellement. Lorsqu’il apparaît, Ark recalcule la
+géométrie des éléments utilisée par l’indicateur.
 
 <style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
 
@@ -112,7 +140,8 @@ Les groupes de segments peuvent être montés conditionnellement ; Ark recalcule
 
 ### État contrôlé
 
-Contrôlez la valeur sélectionnée depuis l’état React et mettez-la à jour depuis `details.value`.
+Conservez la valeur sélectionnée dans l’état React et mettez-la à jour avec `details.value` dans
+`onValueChange`.
 
 <style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
 
@@ -122,11 +151,11 @@ Contrôlez la valeur sélectionnée depuis l’état React et mettez-la à jour 
   ```
 </PreviewFrame>
 
-### Élément désactivé
+### Élément et groupe désactivés
 
-Définissez `disabled` sur un élément lorsqu’un seul segment est indisponible, ou sur la racine pour
-désactiver tout le groupe. Le style désactivé de la racine atténue le groupe une seule fois, sans
-cumuler l’opacité de chaque élément.
+Définissez `disabled` sur un élément lorsqu’un seul segment doit être indisponible. Définissez-le sur
+la racine pour désactiver tout le groupe. Le style désactivé de la racine réduit une seule fois
+l’opacité du groupe, sans la cumuler avec celle de chaque élément.
 
 <style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
 
@@ -138,7 +167,9 @@ cumuler l’opacité de chaque élément.
 
 ### Field
 
-Enveloppez le groupe dans `Field` lorsque son champ natif automatique doit être accompagné d’un texte d’aide ou d’un message d’erreur. Ark hérite des états disabled, invalid, required et read-only du champ.
+Enveloppez le groupe dans `Field` lorsque son champ natif automatique doit être accompagné d’un texte
+d’aide ou d’un message d’erreur. Ark hérite des états `disabled`, `invalid`, `required` et `readOnly`
+du champ.
 
 <style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
 
@@ -150,7 +181,8 @@ Enveloppez le groupe dans `Field` lorsque son champ natif automatique doit être
 
 ### Soumission du formulaire
 
-Transmettez `name` à l’élément racine pour inclure la valeur sélectionnée dans les données du formulaire natif. `SegmentGroup.Items` ajoute un champ de formulaire natif à chaque élément généré.
+Transmettez `name` à la racine pour inclure la valeur sélectionnée dans les données du formulaire
+natif. `SegmentGroup.Items` ajoute un champ de formulaire natif à chaque élément créé.
 
 <style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
 
@@ -162,7 +194,8 @@ Transmettez `name` à l’élément racine pour inclure la valeur sélectionnée
 
 ### État invalide
 
-Définissez `invalid` sur l’élément racine lorsque la validation échoue. Associez-le à `required` et `name` lorsque le groupe participe à la validation native du formulaire.
+Définissez `invalid` sur la racine lorsque la validation échoue. Associez-le à `required` et `name`
+lorsque le groupe participe à la validation native du formulaire.
 
 <style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
 
@@ -174,7 +207,8 @@ Définissez `invalid` sur l’élément racine lorsque la validation échoue. As
 
 ### Root Provider
 
-Utilisez `useSegmentGroup()` avec `RootProvider` lorsque l’état doit être mis à la disposition de contrôles situés hors de l’arborescence des segments.
+Utilisez `useSegmentGroup()` avec `RootProvider` lorsque des contrôles situés en dehors de
+l’arborescence des segments doivent accéder au même état.
 
 <style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
 
@@ -186,7 +220,8 @@ Utilisez `useSegmentGroup()` avec `RootProvider` lorsque l’état doit être mi
 
 ### Orientation verticale
 
-Définissez `orientation="vertical"` lorsque le comportement des touches fléchées et la disposition doivent suivre une liste verticale.
+Définissez `orientation="vertical"` lorsque le groupe doit utiliser une disposition verticale et
+une navigation verticale avec les touches fléchées.
 
 <style>{SegmentGroupDocs.segmentGroupVerticalCss}</style>
 
@@ -198,7 +233,8 @@ Définissez `orientation="vertical"` lorsque le comportement des touches fléch�
 
 ### Personnalisation avancée
 
-N’utilisez pas `SegmentGroup.Items` et préférez `SegmentGroup.Item asChild` lorsque la disposition personnalisée du libellé doit posséder le nœud DOM de l’élément.
+Utilisez `SegmentGroup.Item asChild` à la place de `SegmentGroup.Items` lorsque la disposition
+personnalisée du libellé doit posséder le nœud DOM de l’élément.
 
 <style>{SegmentGroupDocs.segmentGroupAsChildCss}</style>
 
@@ -210,25 +246,24 @@ N’utilisez pas `SegmentGroup.Items` et préférez `SegmentGroup.Item asChild` 
 
 ## Styles
 
-Stylisez `SegmentGroup` avec `className`, les hooks stables `data-slot="segment-group-*"`, les attributs Ark `data-scope`, `data-part` et `data-state`, ainsi que les variables CSS publiques `--moduix-segment-group-*` décrites ci-dessous.
+Stylisez `SegmentGroup` avec `className`, les hooks stables `data-slot="segment-group-*"`, les
+attributs Ark `data-scope`, `data-part` et d’état, ainsi que les variables CSS publiques
+`--moduix-segment-group-*` listées ci-dessous.
 
 ### Propriétés CSS
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <SegmentGroupDocs.SegmentGroupCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={SegmentGroupDocs.segmentGroupOverrideCssProperties} />
 
-### Points d’accroche CSS
+### Hooks de style
 
-- Hooks d’anatomie Ark : `data-scope="segment-group"` et `data-part` sur root, label, indicator, item, item text, item control et hidden input.
-- Hooks d’état Ark : `data-state="checked" | "unchecked"`, `data-orientation`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-active` et `data-focus-visible`.
-- Hooks moduix : `data-slot="segment-group-root"`, `segment-group-root-provider`, `segment-group-label`, `segment-group-indicator`, `segment-group-item`, `segment-group-item-text`, `segment-group-item-control` et `segment-group-item-hidden-input`.
-- Les dimensions de l’indicateur utilisent les variables d’exécution Ark `--left`, `--top`, `--width` et `--height`. Son déplacement utilise `--transition-duration` et `--transition-timing-function` d’Ark, tandis que les valeurs par défaut de moduix correspondent à `--moduix-segment-group-indicator-transition-duration` et `--moduix-segment-group-indicator-transition-timing-function`.
+- Hooks d’anatomie Ark : `data-scope="segment-group"` et `data-part` sur la racine, le libellé,
+  l’indicateur, l’élément, le texte de l’élément, son contrôle et le champ masqué.
+- Hooks d’état Ark : `data-state="checked" | "unchecked"`, `data-orientation`, `data-disabled`,
+  `data-readonly`, `data-invalid`, `data-required`, `data-active` et `data-focus-visible`.
+- Hooks moduix : `data-slot="segment-group-root"`, `segment-group-root-provider`,
+  `segment-group-label`, `segment-group-indicator`, `segment-group-item`,
+  `segment-group-item-text`, `segment-group-item-control` et `segment-group-item-hidden-input`.
+- L’indicateur utilise les variables d’exécution Ark `--left`, `--top`, `--width` et `--height`
+  pour sa taille. Son animation utilise `--transition-duration` et `--transition-timing-function`,
+  avec les valeurs par défaut de moduix définies par `--moduix-segment-group-indicator-transition-duration`
+  et `--moduix-segment-group-indicator-transition-timing-function`.

@@ -1,24 +1,34 @@
 ---
 title: Astro
-description: Install moduix as interactive React islands in Astro with global CSS and client directives.
+description: Use moduix React components as interactive islands in Astro with shared styles and client directives.
 ---
 
 # Astro
 
-moduix is a React library. In Astro, render interactive components through the official React
-integration and hydrate each island with an Astro client directive.
+moduix is a React component library. Astro renders React components as static HTML by default. Add an Astro `client:*`
+directive when a component needs to become interactive in the browser.
 
-## Add the React integration
+## Add React to Astro
+
+From your project root, run:
 
 ```bash
 npx astro add react
 ```
 
-## Package install
+This command installs and configures Astro's official `@astrojs/react` integration.
+
+## Install moduix
+
+Install `@moduix/react` and its Ark UI peer dependency:
 
 <PackageManagerTabs command="install @moduix/react @ark-ui/react" />
 
-Import the foundation stylesheet once from your shared layout:
+`@moduix/react` supports React 18 and 19 and expects `react`, `react-dom`, and `@ark-ui/react` to be installed in your
+project. The `astro add react` command normally sets up `react` and `react-dom`. If you installed `@astrojs/react`
+manually, make sure those packages are present before continuing.
+
+Import the base stylesheet once in a shared layout:
 
 ```astro title="src/layouts/Layout.astro"
 ---
@@ -30,7 +40,7 @@ import '@moduix/react/style.css';
 </html>
 ```
 
-Create a React component, then hydrate it from an Astro page:
+Create a React component and import it directly into an Astro page:
 
 ```tsx title="src/components/ContinueButton.tsx"
 import { Button } from '@moduix/react/button';
@@ -40,6 +50,8 @@ export function ContinueButton() {
 }
 ```
 
+Add `client:load` to make it interactive as soon as the page loads:
+
 ```astro title="src/pages/index.astro"
 ---
 import { ContinueButton } from '../components/ContinueButton';
@@ -48,19 +60,23 @@ import { ContinueButton } from '../components/ContinueButton';
 <ContinueButton client:load />
 ```
 
-Use the least eager directive that fits the interaction. A static server-only render is not enough
-for Dialog, Menu, Select, and other interactive components.
+Without a `client:*` directive, Astro renders the component as static HTML without sending its client-side JavaScript.
+Choose the directive based on when the component needs to become interactive: use `client:load` for immediately visible
+controls, `client:idle` when interaction can wait until the browser is idle, and `client:visible` for components that
+can wait until they enter the viewport. A static server render is not enough for `Dialog`, `Menu`, `Select`, or other
+interactive components.
 
-## shadcn CLI install
+## Install with the shadcn CLI
 
-Complete the [shadcn CLI setup](/docs/quick-start#install-with-the-shadcn-cli), map `@/*` to `src/*`
-in `tsconfig.json`, and import `@/lib/moduix/styles/style.css` from the shared layout. Generated
-React components still need an Astro client directive where they are used.
+Complete the [shadcn CLI setup](/docs/quick-start#install-with-the-shadcn-cli). In `tsconfig.json`, map `@/*` to
+`src/*` and import `@/lib/moduix/styles/style.css` from the shared layout. In an Astro page, import the generated React
+component directly and add a `client:*` directive to it. Astro only accepts a client directive on a framework
+component that is imported directly into a `.astro` file.
 
 ## Verify
 
-The setup is complete when the island is styled before hydration and responds after its client
-directive runs.
+The page should contain styled server-rendered markup before hydration, and the component should respond after its
+client directive runs.
 
-See Astro's [React integration guide](https://docs.astro.build/en/guides/integrations-guide/react/)
-for all renderer and hydration options.
+See Astro's [front-end framework guide](https://docs.astro.build/en/guides/framework-components/) for the available
+client directives. For manual React integration setup, see the [@astrojs/react integration guide](https://docs.astro.build/en/guides/integrations-guide/react/).

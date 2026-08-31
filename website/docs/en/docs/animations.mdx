@@ -1,26 +1,27 @@
 ---
 title: Animations
-description: Motion recipes for overlays, pickers, disclosures, and swaps in moduix.
+description: Shared motion tokens and component recipes for overlays, disclosures, and swaps in moduix.
 ---
 
 import * as AnimationDocs from '@/components/examples/animations';
 
 # Animations
 
-moduix has a shared popup-motion contract for the library's floating and modal content surfaces.
-Set its CSS variables once to give every supported popup the same duration, easing, fade, scale, or
-slide motion. Component-local motion variables remain available when one surface needs to differ.
+moduix provides shared motion tokens for floating and modal content. Define them once to give every
+supported overlay the same duration, easing, fade, scale, or slide behavior. When one component needs
+different motion, override its component-level variables instead.
 
-Ark state attributes trigger the animations and keep an exiting part mounted until its CSS animation
-completes.
+The components use Ark `data-state` attributes to select entry and exit keyframes. When content closes,
+Ark keeps it mounted until its exit animation finishes.
 
-Shared `--moduix-duration-*`, `--moduix-ease-*`, `--moduix-transition-*`, and `--moduix-scale-*` tokens affect many parts of
-the system. Use `--moduix-popup-motion-*` when only popup content should change across the project.
+Shared `--moduix-duration-*`, `--moduix-ease-*`, `--moduix-transition-*`, and `--moduix-scale-*` tokens
+affect many parts of the system. Use `--moduix-popup-motion-*` when only overlay content should change
+across the project.
 
-When the operating system requests reduced motion, the foundation reduces shared duration tokens
-to `0.01ms` and disables the shared pulse, fade, slide, and spin animations. Components with
-specialized continuous motion, such as marquee and indeterminate progress, keep their own
-`prefers-reduced-motion` fallback.
+When the operating system requests reduced motion, the foundation changes shared duration tokens to
+`0.01ms` and disables the shared pulse, fade, slide, and spin animations. Components with specialized
+continuous motion, such as Marquee and indeterminate Progress, keep their own
+`prefers-reduced-motion` behavior.
 
 ## Choose the motion API
 
@@ -29,8 +30,8 @@ specialized continuous motion, such as marquee and indeterminate progress, keep 
 Use `*-starting-*` for entry and `*-ending-*` for exit. The shared variables apply to the following
 content parts: `Popover.Content`, `Menu.Content`, `Tooltip.Content`, `HoverCard.Content`,
 `FloatingPanel.Content`, `Dialog.Content`, `CommandPalette.Content`, `Lightbox.Content`,
-`Tour.Content`, `Select.Content`, `Combobox.Content`, `DatePicker.Content`, and
-`ColorPicker.Content`.
+`Tour.Content`, `NavigationMenu.Content`, `Select.Content`, `Combobox.Content`, `DatePicker.Content`,
+and `ColorPicker.Content`.
 
 For example, this makes all supported popup content enter from and exit toward the left with one
 timing curve:
@@ -54,41 +55,49 @@ not reach content portalled to `document.body`; it does work for a component ren
 
 ### Component-local overrides
 
-Component variables take precedence over the shared fallback. Use them for the one exception to a
-project-wide rule, and put the class on the visual part in the table. Anchored surfaces retain Ark's
-transform origin, so their scale-based recipes still open from the trigger side.
+Component-level variables take precedence over the shared fallback. Use them for a local exception to
+a project-wide rule, and put the class on the visual part listed in the table. Anchored surfaces retain
+Ark's transform origin, so scale-based recipes still open from the trigger side.
 
-| Surface         | Apply the class to       | Prefix                               |
-| --------------- | ------------------------ | ------------------------------------ |
-| Popover         | `Popover.Content`        | `--moduix-popover-content-*`         |
-| Menu            | `Menu.Content`           | `--moduix-menu-popup-*`              |
-| Tooltip         | `Tooltip.Content`        | `--moduix-tooltip-popup-*`           |
-| Hover Card      | `HoverCard.Content`      | `--moduix-hover-card-content-*`      |
-| Floating Panel  | `FloatingPanel.Content`  | `--moduix-floating-panel-*`          |
-| Dialog          | `Dialog.Content`         | `--moduix-dialog-content-*`          |
-| Command Palette | `CommandPalette.Content` | `--moduix-command-palette-content-*` |
-| Lightbox        | `Lightbox.Content`       | `--moduix-lightbox-content-*`        |
-| Tour            | `Tour.Content`           | `--moduix-tour-content-*`            |
+| Surface         | Apply the class to       | Motion variables                                                            |
+| --------------- | ------------------------ | --------------------------------------------------------------------------- |
+| Popover         | `Popover.Content`        | `--moduix-popover-transition`, `--moduix-popover-content-*`                |
+| Menu            | `Menu.Content`           | `--moduix-menu-transition`, `--moduix-menu-popup-*`                        |
+| Tooltip         | `Tooltip.Content`        | `--moduix-tooltip-transition`, `--moduix-tooltip-popup-*`                  |
+| Hover Card      | `HoverCard.Content`      | `--moduix-hover-card-transition`, `--moduix-hover-card-content-*`          |
+| Floating Panel  | `FloatingPanel.Content`  | `--moduix-floating-panel-transition`, `--moduix-floating-panel-*`          |
+| Dialog          | `Dialog.Content`         | `--moduix-dialog-transition`, `--moduix-dialog-content-*`                  |
+| Command Palette | `CommandPalette.Content` | `--moduix-command-palette-transition`, `--moduix-command-palette-content-*` |
+| Lightbox        | `Lightbox.Content`       | `--moduix-lightbox-transition`, `--moduix-lightbox-content-*`              |
+| Tour            | `Tour.Content`           | `--moduix-tour-transition`, `--moduix-tour-content-*`                     |
+| Navigation Menu | `NavigationMenu.Content` | `--moduix-navigation-menu-transition`, `--moduix-navigation-menu-content-*` |
+| Select          | `Select.Content`         | `--moduix-select-transition`, `--moduix-select-content-*`                 |
+| Combobox        | `Combobox.Content`       | `--moduix-combobox-transition`, `--moduix-combobox-content-*`              |
+| Date Picker     | `DatePicker.Content`     | `--moduix-date-picker-transition`, `--moduix-date-picker-content-*`       |
+| Color Picker    | `ColorPicker.Content`    | `--moduix-color-picker-transition`, `--moduix-color-picker-content-*`      |
+
+When `NavigationMenu` uses a `Viewport`, the shared tokens also affect viewport sizing and directional
+content motion. Use `--moduix-navigation-menu-viewport-*` when you need to customize the viewport itself.
 
 `Dialog`, `CommandPalette`, `Lightbox`, and `Tour` also expose `*-backdrop-*` variables on their
-`Backdrop` part. Backdrops deliberately stay outside the shared popup-motion contract: they accept
-only `opacity` and `blur`, while shared popup content accepts `opacity`, `scale`, and `translate-x`
-or `translate-y`.
+`Backdrop` part. Backdrops use their own transition variable and animate only `opacity` and `blur`; they
+do not use shared scale or translate values. Shared popup content can animate `opacity`, `scale`, and
+`translate-x` or `translate-y`. Backdrop blur values use CSS filters such as `blur(4px)` or `none`.
 
 ### State motion
 
 These components keep separate motion systems and do not accept `--moduix-popup-motion-*`:
 
-| Component   | Visual part                            | Supported customization                                                                                   |
-| ----------- | -------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| Accordion   | `Accordion.ItemContent`                | `--moduix-accordion-item-content-transition`, open and closed opacity                                     |
-| Collapsible | `Collapsible.Content`                  | `--moduix-collapsible-content-transition`, open and closed opacity                                        |
-| Drawer      | `Drawer.Content` and `Drawer.Backdrop` | `--moduix-drawer-transition`, `--moduix-drawer-backdrop-transition`; direction and drag own the transform |
-| Swap        | `Swap.Indicator`                       | separate enter and exit opacity and scale variables                                                       |
-| Tree View   | `TreeView.BranchContent`               | `--moduix-tree-view-content-transition-duration`                                                          |
+| Component   | Visual part                            | Supported customization                                                                                                                   |
+| ----------- | -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Accordion   | `Accordion.ItemContent`                | `--moduix-accordion-item-content-transition`, `--moduix-accordion-item-content-open-opacity`, `--moduix-accordion-item-content-closed-opacity` |
+| Collapsible | `Collapsible.Content`                  | `--moduix-collapsible-content-transition`, `--moduix-collapsible-content-open-opacity`, `--moduix-collapsible-content-closed-opacity`          |
+| Drawer      | `Drawer.Content` and `Drawer.Backdrop` | `--moduix-drawer-transition`, `--moduix-drawer-backdrop-transition`; direction and drag own the transform                                      |
+| Swap        | `Swap.Indicator`                       | `--moduix-swap-transition` and separate enter/exit opacity and scale variables                                                               |
+| Tree View   | `TreeView.BranchContent`               | `--moduix-tree-view-transition`, `--moduix-tree-view-content-transition-duration`                                                             |
 
 Toast uses Ark runtime layout variables for stacking and dismissal. Keep its `--x`, `--y`, `--scale`,
-`--height`, and `--opacity` values intact; the recipes on this page are not a Toast API.
+`--height`, and `--opacity` values intact. The recipes on this page are not a Toast API.
 
 ## Ready recipes
 
@@ -101,8 +110,8 @@ Choose motion by purpose, then keep one consistent recipe for similar surfaces:
 | Anchored menu or picker opening from trigger| Zoom or Lift                        |
 | Short, friendly confirmation                | Soft Pop, used sparingly            |
 
-Put these variables on `:root` to apply the recipe to all supported popup content surfaces. For
-one exception, use the matching component prefix from the component-local table instead.
+Put these variables on `:root` to apply the recipe to all supported popup content. For one exception,
+use the matching component variables from the table above.
 
 ### Fade
 
@@ -302,8 +311,8 @@ arrive with more energy.
   variables on `:root` for default portalled overlays.
 - Keep entry and exit values symmetric unless asymmetric motion is intentional.
 - Set scale to `1` for pure fade or slide motion.
-- Use `--moduix-popup-motion-*` for one popup-content rule across the project; use a component-local
-  prefix only for the exception.
+- Use `--moduix-popup-motion-*` for one rule covering popup content across the project; use component-local
+  variables only for the exception.
 - Do not replace Drawer transforms or Toast runtime layout variables: both are coordinated with
   interaction and dismissal state.
 - Exit animation works by default. Use `present` only when JavaScript must explicitly own whether a

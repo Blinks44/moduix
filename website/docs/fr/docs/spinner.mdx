@@ -1,23 +1,24 @@
 ---
 title: Spinner
 component: spinner
-description: Un indicateur de chargement compact avec une sémantique de statut, plusieurs tailles et un indicateur personnalisé facultatif.
+description: Un indicateur de chargement compact avec un statut accessible, plusieurs tailles et un contenu personnalisé facultatif.
 ---
 
 import * as SpinnerDocs from '@/components/examples/spinner';
 
 ## Référence de l’API
 
-Ark UI ne fournit pas de primitive spinner dédiée. moduix construit ce composant avec la
-[fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations
-d’Ark concernant la [composition](https://ark-ui.com/docs/guides/composition), les
-[styles](https://ark-ui.com/docs/guides/styling) et les [refs](https://ark-ui.com/docs/guides/ref).
+Ark UI ne propose pas de composant Spinner dédié. moduix construit `Spinner` avec la fabrique `ark.span` d’Ark UI
+et expose une API réduite centrée sur une seule racine. Le composant suit les recommandations d’Ark pour la
+[composition](https://ark-ui.com/docs/guides/composition), le [style](https://ark-ui.com/docs/guides/styling) et le
+[transfert de `ref`](https://ark-ui.com/docs/guides/ref).
 
 ## Exemple de base
 
-Utilisez `Spinner` pour les états d’attente compacts dans les boutons, les lignes de statut inline et les petits
-états vides. La variante par défaut annonce automatiquement le chargement avec `role="status"` et la valeur de
-repli `aria-label="Loading"`.
+Utilisez `Spinner` pour les états de chargement de courte durée dans les boutons, les lignes de statut et les petits
+blocs vides. Par défaut, le composant signale le chargement aux technologies d’assistance avec `role="status"` et
+le libellé de secours `aria-label="Loading"`. Ce libellé est la chaîne anglaise `Loading` ; dans une interface non
+anglophone, fournissez un `aria-label` localisé ou utilisez `aria-labelledby`.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/spinner/basic.tsx"
@@ -31,68 +32,80 @@ repli `aria-label="Loading"`.
 
 ## Anatomie
 
-Le parcours standard pour les consommateurs est court :
+`Spinner` n’expose qu’une racine publique. En mode standard, moduix ajoute une enveloppe interne pour l’indicateur
+et un anneau par défaut. Ce sont des nœuds DOM et des points d’accroche CSS, pas des composants React exportés.
+Un contenu personnalisé passé via `children` remplace l’anneau ; `asChild` remplace la racine et laisse l’enfant fournir la structure
+de l’indicateur.
 
 ```text
-Spinner
-└─ spinner-indicator
-   └─ spinner-ring (indicateur par défaut uniquement)
+Spinner / Spinner.Root
+└─ root[data-scope="spinner"][data-part="root"][data-slot="spinner-root"][data-size]
+   └─ indicator[data-scope="spinner"][data-part="indicator"][data-slot="spinner-indicator"]
+      └─ ring[data-scope="spinner"][data-part="ring"][data-slot="spinner-ring"] (par défaut uniquement)
 ```
 
 | Partie              | Rôle                                                                                                        |
 | ------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `Spinner`           | Élément racine de statut. Accepte `size`, `decorative`, `asChild` et les propriétés natives de `span`.     |
-| `spinner-indicator` | Enveloppe interne rotative qui gère la taille et l’animation de rotation.                                   |
-| `spinner-ring`      | Indicateur circulaire par défaut. Il n’est affiché qu’en l’absence de `children` personnalisés.            |
+| `Spinner` / `Spinner.Root` | Racine publique. Accepte `size`, `decorative`, `asChild`, `children` et les propriétés natives de `span`. |
+| indicator                  | Enveloppe interne rotative qui gère la taille et l’animation de l’indicateur.                     |
+| ring                       | Anneau par défaut interne. Il n’est pas rendu lorsqu’un contenu personnalisé est fourni via `children`. |
 
 ## Composition
 
 ### Composition recommandée
 
-Conservez l’anneau par défaut lorsqu’un indicateur de chargement compact suffit.
+Dans la plupart des cas, la forme courte `<Spinner />` suffit. Elle rend l’anneau par défaut et expose le statut
+de chargement sans balisage supplémentaire.
 
 - Utilisez `size` pour ajuster la densité.
 - Utilisez `decorative` si un texte visible adjacent annonce déjà le chargement.
 - Utilisez `aria-label` ou `aria-labelledby` si le statut nécessite un nom plus précis que `"Loading"`.
+- Affichez `Spinner` selon l’état de chargement de votre application. Le composant ne démarre ni n’arrête l’opération
+  représentée et n’en gère pas l’état.
 
 ### Quand créer une composition personnalisée
 
-`Spinner` est un composant à racine unique. Utilisez `children` pour remplacer l’anneau par défaut tout en
-conservant la racine, la taille et l’enveloppe rotative standard de l’indicateur.
+Passez votre contenu via `children` lorsque l’anneau par défaut ne convient pas, mais que la racine, la taille et
+l’enveloppe rotative standard doivent rester en place.
 
-Utilisez `asChild` lorsque l’élément racine lui-même doit être fourni par le consommateur. Dans ce mode, Ark fusionne
-les propriétés de la racine avec l’unique élément enfant, qui possède donc son propre contenu visuel.
-
-L’enfant de `asChild` ne doit pas être interactif. Il sert d’hôte visuel au spinner, et non de bouton ou de lien.
+Utilisez `asChild` uniquement lorsqu’un autre composant doit fournir l’élément DOM qui servira de racine. Fournissez un
+seul enfant non interactif. Dans ce mode, l’enveloppe et l’anneau intégrés ne sont pas rendus : l’enfant doit donc
+fournir lui-même le balisage de l’indicateur visuel.
 
 ### Propriétés par défaut
 
-| Propriété     | Par défaut  | Remarques                                                                                      |
-| ------------- | ----------- | ---------------------------------------------------------------------------------------------- |
-| `size`        | `'md'`      | Accepte `'inherit' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`. `inherit` utilise `1em`.       |
-| `decorative`  | `false`     | Masque la racine par défaut aux technologies d’assistance ; avec `asChild`, conserve la sémantique de l’enfant. |
-| `asChild`     | `false`     | Fusionne les propriétés de la racine avec l’unique élément enfant.                             |
-| `aria-label`  | `'Loading'` | Appliqué par défaut lorsque le spinner n’est pas décoratif.                                    |
+| Propriété         | Par défaut   | Remarques                                                                                                  |
+| ----------------- | ------------ | ---------------------------------------------------------------------------------------------------------- |
+| `size`            | `'md'`       | Accepte `'inherit' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`. `inherit` utilise `1em`.                      |
+| `decorative`      | `false`      | Définit `role="presentation"` et `aria-hidden="true"` sur la racine standard ; avec `asChild`, conserve la sémantique de l’enfant. |
+| `asChild`         | `false`      | Transmet les propriétés de la racine à l’unique élément enfant.                                           |
+| `aria-label`      | `'Loading'`  | Utilisé lorsque `Spinner` n’est pas décoratif et que `aria-labelledby` n’est pas fourni.                   |
+| `aria-labelledby` | non défini   | Permet de nommer le statut avec un texte visible situé ailleurs dans la page.                             |
 
 ### Comportement
 
-- La racine par défaut est un `span` avec `data-scope="spinner"`, `data-part="root"`, `data-slot="spinner-root"` et `data-size`.
+- Par défaut, la racine est un `span` avec `data-scope="spinner"`, `data-part="root"`, `data-slot="spinner-root"`
+  et `data-size`.
 - `Spinner.Root` est un alias de compatibilité de `Spinner` ; utilisez `Spinner` dans le nouveau code.
-- Les spinners non décoratifs sont affichés avec `role="status"`.
-- `decorative={true}` masque la racine par défaut aux technologies d’assistance. Avec `asChild`, il
-  retire plutôt le statut et les propriétés de libellé de Spinner tout en préservant la sémantique de l’enfant.
-- `Spinner` possède cette sémantique et ses hooks `data-scope`, `data-part`, `data-slot` et `data-size` ; les propriétés
-  natives ne peuvent donc pas les remplacer.
+- Un `Spinner` non décoratif utilise `role="status"`.
+- `decorative={true}` masque la racine standard aux technologies d’assistance. Avec `asChild`, le composant n’ajoute
+  ni son rôle ni ses attributs de libellé ; l’enfant personnalisé conserve donc sa propre sémantique.
+- Spinner contrôle la sémantique du statut ainsi que les attributs `data-scope`, `data-part`, `data-slot` et `data-size`.
+  Des propriétés natives contradictoires ne remplacent pas ces valeurs.
 - L’enveloppe rotative utilise `data-scope="spinner"`, `data-part="indicator"` et `data-slot="spinner-indicator"`.
-- Les `children` personnalisés remplacent uniquement l’anneau par défaut. L’enveloppe continue de gérer la taille et la rotation.
-- Avec `asChild`, l’enfant fourni par le consommateur devient la racine et doit afficher lui-même l’indicateur visuel nécessaire.
-- Spinner conserve l’animation de chargement avec `prefers-reduced-motion`, car le mouvement constitue un indice visuel du chargement.
+- Un contenu personnalisé passé via `children` remplace uniquement l’anneau par défaut. L’enveloppe intégrée continue de gérer la taille
+  et la rotation.
+- Avec `asChild`, l’enfant fourni par le consommateur devient la racine et doit fournir lui-même le contenu de l’indicateur visuel.
+- `size="inherit"` définit une taille de `1em` ; les autres valeurs sont écrites dans `data-size` de la racine.
+- Spinner conserve son animation de chargement lorsque `prefers-reduced-motion: reduce` est actif, car l’animation est
+  l’indice visuel du chargement.
 
 ## Exemples
 
 ### Indicateur personnalisé
 
-Transmettez des `children` personnalisés lorsque l’anneau par défaut doit être remplacé, mais que le comportement de taille et de statut doit être conservé.
+Passez un contenu personnalisé via `children` lorsque l’anneau par défaut doit être remplacé, tout en conservant le
+comportement standard de taille et de statut.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/spinner/custom-indicator.tsx"
@@ -100,9 +113,20 @@ Transmettez des `children` personnalisés lorsque l’anneau par défaut doit ê
   ```
 </PreviewFrame>
 
-### Texte de chargement inline
+### Dans un bouton
 
-Utilisez `decorative` lorsqu’un texte visible à côté du spinner indique déjà ce qui se passe.
+Gardez `Spinner` décoratif lorsque le texte du bouton décrit déjà l’action. Dans l’exemple, `aria-busy` est placé sur
+le bouton et l’état courant est affiché dessous uniquement pour la démonstration.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/spinner/button.tsx"
+
+  ```
+</PreviewFrame>
+
+### Texte de chargement
+
+Utilisez `decorative` lorsqu’un texte visible à côté de `Spinner` explique déjà ce qui se passe.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/spinner/inline-loading-text.tsx"
@@ -120,21 +144,10 @@ Utilisez les petites tailles dans les contrôles compacts et les grandes tailles
   ```
 </PreviewFrame>
 
-### Dans un bouton
+### Racine personnalisée
 
-Associez un spinner décoratif à un libellé d’action visible. Dans l’aperçu, le statut est centré sous le bouton et
-sert uniquement au retour d’information de la documentation.
-
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/spinner/button.tsx"
-
-  ```
-</PreviewFrame>
-
-### Personnalisation avancée
-
-Utilisez `asChild` uniquement lorsque vous devez remplacer l’hôte racine lui-même. Ce mode contourne l’hôte racine
-par défaut : l’unique enfant reçoit ses attributs et son nom de classe, et doit afficher lui-même un indicateur visuel.
+Utilisez `asChild` lorsqu’un autre composant doit posséder l’élément racine. L’enfant reçoit les attributs et le nom
+de classe de la racine Spinner et doit rendre lui-même l’indicateur visuel.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/spinner/as-child.tsx"
@@ -144,14 +157,14 @@ par défaut : l’unique enfant reçoit ses attributs et son nom de classe, et d
 
 ## Styles
 
-Stylisez `Spinner` avec `className`, les sélecteurs Ark `data-scope` / `data-part`, les hooks stables `data-slot`,
-`data-size` et les variables publiques `--moduix-spinner-*` décrites dans l’API CSS.
+Appliquez des styles à `Spinner` avec `className`, les sélecteurs Ark `data-scope` / `data-part`, les points d’accroche
+`data-slot` stables, `data-size` et les variables publiques `--moduix-spinner-*` décrites dans l’API CSS.
 
 ### Propriétés CSS
 
 <div className="docs-reference">
   <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
     className="docs-reference-tabs"
     contentItemClassName="docs-reference-panel"
   >
@@ -166,8 +179,9 @@ Stylisez `Spinner` avec `className`, les sélecteurs Ark `data-scope` / `data-pa
 - `[data-scope="spinner"][data-part="root"]` cible la racine selon les conventions d’Ark.
 - `[data-scope="spinner"][data-part="indicator"]` cible l’enveloppe interne rotative.
 - `[data-scope="spinner"][data-part="ring"]` cible uniquement l’anneau par défaut.
-- `data-slot="spinner-root"` est le sélecteur stable de moduix pour la racine exportée.
+- `data-slot="spinner-root"` est le sélecteur stable de moduix pour la racine rendue.
 - `data-slot="spinner-indicator"` est le sélecteur stable de moduix pour l’enveloppe interne rotative.
 - `data-slot="spinner-ring"` cible uniquement l’anneau par défaut.
 - `Spinner` écrit `data-size="inherit" | "xs" | "sm" | "md" | "lg" | "xl"` sur la racine.
-- `className` est appliqué uniquement à la racine. Ciblez l’indicateur ou l’anneau avec des sélecteurs descendants si nécessaire.
+- `className` s’applique à la racine rendue. Avec `asChild`, il s’applique donc à l’unique enfant. Ciblez l’indicateur
+  ou l’anneau avec des sélecteurs descendants si nécessaire.

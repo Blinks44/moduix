@@ -1,19 +1,20 @@
 ---
 title: Frame
-description: Affichez des aperçus isolés dans une iframe avec Ark UI Frame et les composants moduix.
+description: Affichez du contenu React dans une iframe isolée avec Frame d’Ark UI.
 ---
 
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/frame" />
 
-## Quand l’utiliser
+## Quand utiliser `Frame`
 
-Utilisez `Frame` pour afficher dans une iframe un aperçu ou une expérience intégrée que votre application contrôle. Le
-document de l’iframe reste séparé de l’interface environnante. Le composant accepte les attributs natifs d’iframe et
-rend les enfants React dans le cadre.
+Utilisez `Frame` lorsque du contenu React doit être rendu dans une iframe contrôlée par votre application, par exemple
+pour un aperçu en direct, un canevas d’éditeur ou un espace de travail intégré. L’iframe possède son propre document :
+son DOM et ses styles restent séparés de ceux de la page hôte. `Frame` transmet les attributs natifs de l’iframe et
+rend ses enfants React dans ce document.
 
-Importez `Frame` directement depuis Ark UI :
+`Frame` est fourni par Ark UI, et non par moduix :
 
 ```tsx
 import { Frame } from '@ark-ui/react';
@@ -21,9 +22,9 @@ import { Frame } from '@ark-ui/react';
 
 ## Exemple de base
 
-Indiquez toujours un `title` descriptif pour les personnes qui utilisent des technologies d’assistance. Donnez à
-l’iframe une taille initiale explicite : l’exemple occupe toute la largeur disponible et conserve une hauteur
-confortable pour l’aperçu.
+Indiquez toujours un `title` descriptif pour les personnes qui utilisent un lecteur d’écran ou une autre technologie
+d’assistance. Définissez aussi une taille initiale explicite. Dans cet exemple, l’iframe occupe toute la largeur
+disponible et commence avec une hauteur confortable pour l’aperçu.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/frame/basic.tsx"
@@ -31,13 +32,15 @@ confortable pour l’aperçu.
   ```
 </PreviewFrame>
 
-`Frame` fournit aussi automatiquement le document de l’iframe aux composants Ark imbriqués. Les requêtes DOM, les
-portails et la gestion du focus restent ainsi dans le bon environnement lorsque l’aperçu contient des composants Ark UI.
+`Frame` transmet automatiquement le document de l’iframe aux composants Ark imbriqués. Les requêtes DOM, les portails
+et la gestion du focus s’effectuent ainsi dans le bon document lorsque l’aperçu contient des composants Ark UI. Vous
+pouvez placer directement dans `Frame` des composants comme `Button`, `Dialog` ou `Popover`.
 
-## Styles dans le cadre
+## Styles dans l’iframe
 
 Une iframe possède son propre document : les styles de la page hôte ne s’appliquent pas automatiquement à son contenu.
-Passez des nœuds React dans `head` pour ajouter des styles, des polices ou des métadonnées au document de l’iframe.
+Passez des nœuds React via la prop `head` pour ajouter des styles, des polices ou des métadonnées au document de
+l’iframe.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/frame/head.tsx"
@@ -45,11 +48,69 @@ Passez des nœuds React dans `head` pour ajouter des styles, des polices ou des 
   ```
 </PreviewFrame>
 
-Utilisez les rappels `onMount` et `onUnmount` pour initialiser ou nettoyer les ressources de l’expérience intégrée.
+Le contenu de `head` est inséré dans le `<head>` de l’iframe. Si vous rendez des composants moduix dans l’iframe,
+chargez également les styles dont ils ont besoin. Les styles de la page hôte ne traversent pas la limite de l’iframe.
 
-## srcDoc et sécurité
+## Callbacks du cycle de vie
 
-Utilisez `srcDoc` lorsque le cadre doit démarrer à partir d’un document HTML complet plutôt que d’enfants React :
+Utilisez `onMount` et `onUnmount` pour initialiser puis libérer les ressources propres à l’expérience intégrée. Ces
+callbacks ne reçoivent aucun argument. Par exemple, utilisez une `ref` pour accéder au document de l’iframe et y ajouter
+un script contrôlé par votre application :
+
+```tsx
+import { useRef } from 'react';
+import { Frame } from '@ark-ui/react';
+
+export function ScriptedPreview() {
+  const frameRef = useRef<HTMLIFrameElement>(null);
+
+  return (
+    <Frame
+      ref={frameRef}
+      title="Interactive preview"
+      onMount={() => {
+        const frameDocument = frameRef.current?.contentDocument;
+        if (!frameDocument) return;
+
+        const script = frameDocument.createElement('script');
+        script.textContent = 'document.body.dataset.ready = "true";';
+        frameDocument.body.append(script);
+      }}
+      onUnmount={() => {
+        // Release application-owned listeners and other resources here.
+      }}
+    >
+      <main>Interactive preview</main>
+    </Frame>
+  );
+}
+```
+
+N’injectez que des scripts contrôlés par votre application. Pour les styles et les métadonnées, préférez la prop `head`.
+
+## Dimensions du contenu
+
+`Frame` observe la taille du contenu rendu et l’expose sur l’iframe via les propriétés CSS personnalisées `--width` et
+`--height`. Les valeurs sont exprimées en pixels et sont mises à jour lorsque le contenu change de taille. Utilisez-les
+si l’iframe doit s’adapter à son contenu :
+
+```tsx
+<Frame
+  title="Release preview"
+  style={{
+    blockSize: 'var(--height, 10rem)',
+    inlineSize: '100%',
+  }}
+>
+  <main>Release preview</main>
+</Frame>
+```
+
+Conservez une hauteur explicite, comme dans l’exemple de base, lorsque l’aperçu doit rester dans une zone fixe.
+
+## `srcDoc` et sécurité
+
+Utilisez `srcDoc` lorsque l’iframe doit démarrer à partir d’un document HTML complet plutôt que d’enfants React :
 
 ```tsx
 import { Frame } from '@ark-ui/react';
@@ -61,16 +122,22 @@ export function StaticPreview() {
 }
 ```
 
-Considérez `srcDoc` comme du HTML contrôlé par votre application. Pour du contenu non fiable, utilisez l’attribut natif
-`sandbox` et n’accordez à l’aperçu que les permissions nécessaires. Ne combinez pas `allow-scripts` et
-`allow-same-origin` pour un contenu non fiable : il pourrait alors supprimer ses propres restrictions de sandbox.
+Considérez la valeur de `srcDoc` comme du HTML entièrement contrôlé par votre application. Pour du contenu non fiable,
+utilisez l’attribut natif `sandbox` et n’accordez à l’aperçu que les permissions nécessaires. N’associez pas
+`allow-scripts` et `allow-same-origin` pour du contenu non fiable : cette combinaison pourrait permettre au contenu de
+supprimer ses propres restrictions de sandbox.
 
-## Utilisation avec moduix
+## Utiliser `Frame` avec moduix
 
-Utilisez les composants moduix `Card`, `Stack` et de statut autour de `Frame` pour donner un titre et un contexte à
-l’aperçu intégré. Les styles de l’iframe doivent rester autonomes : elle n’hérite pas de ceux de la page hôte.
+`Frame` est un utilitaire d’Ark UI et n’est pas réexporté par moduix. Utilisez des composants moduix comme `Card`, `Stack`
+ou `Badge` autour de `Frame` lorsque l’aperçu a besoin d’un titre, d’une mise en page ou d’un statut. Les exemples
+précédents placent cette interface extérieure dans le document hôte et rendent l’aperçu lui-même dans l’iframe.
+
+Si des composants moduix doivent être rendus dans l’iframe, fournissez également leurs styles via `head` ou via une URL
+de feuille de style que l’iframe peut charger. Le contenu de l’iframe doit rester autonome.
 
 ## Responsabilités
 
-Ark UI gère le composant `Frame` et le cycle de vie de l’iframe. moduix fournit les composants d’interface qui
-l’accompagnent, mais ne réexporte pas `Frame`.
+Ark UI fournit le composant `Frame`, gère le cycle de vie de l’iframe, l’environnement des composants Ark imbriqués et
+les propriétés de taille du contenu. moduix fournit les composants d’interface qui l’entourent et explique comment les
+composer avec `Frame`, mais ne réexporte pas `Frame`.

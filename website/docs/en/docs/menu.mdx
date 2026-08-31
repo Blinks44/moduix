@@ -1,7 +1,7 @@
 ---
 title: Menu
 component: menu
-description: A trigger-anchored menu for actions, links, choices, nested commands, and context menus.
+description: A trigger-based menu for actions, links, selectable options, nested commands, and context menus.
 ---
 
 import * as MenuDocs from '@/components/examples/menu';
@@ -10,18 +10,11 @@ import * as MenuDocs from '@/components/examples/menu';
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/menu" />
 
-## Choosing the right component
-
-Use `Menu` for trigger-anchored command lists, context menus, lightweight selections, and nested
-actions.
-
-- Choose **`Menu`** for overflow actions, row actions, and command lists opened from a button or
-  context trigger.
-
 ## Basic
 
-Start with the Ark part tree: `Menu`, `Menu.Trigger`, `Menu.Positioner`, and `Menu.Content`.
-Items use stable `value` identifiers for selection and typeahead.
+Use the standard composition for a menu opened by a button, custom trigger, or context trigger. The root manages
+keyboard navigation, typeahead, focus, and dismissal. Give every item a stable `value` so selection and typeahead
+continue to work when the list changes.
 
 <style>{MenuDocs.menuExampleCss}</style>
 
@@ -38,112 +31,138 @@ Items use stable `value` identifiers for selection and typeahead.
 ## Anatomy
 
 ```text
-Menu
+Menu / Menu.Root
 ├─ Menu.Trigger
+│  ├─ Menu.TriggerIcon
 │  └─ Menu.Indicator
 ├─ Menu.ContextTrigger
-├─ Overlay subtree (automatically portalled)
-│  └─ Menu.Positioner
-│     └─ Menu.Content
-│        ├─ Menu.Arrow
-│        │  └─ Menu.ArrowTip
-│        ├─ Menu.Item
-│        ├─ Menu.CheckboxItem
-│        │  ├─ Menu.ItemIndicator
-│        │  └─ Menu.ItemText
-│        ├─ Menu.RadioItemGroup
-│        │  └─ Menu.RadioItem
-│        ├─ Menu.ItemGroup
-│        │  └─ Menu.ItemGroupLabel
-│        └─ Menu
-│           └─ Menu.TriggerItem
+└─ Overlay subtree (automatically portalled)
+   └─ Menu.Positioner
+      └─ Menu.Content
+         ├─ Menu.Arrow
+         │  └─ Menu.ArrowTip
+         ├─ Menu.Item
+         │  ├─ Menu.ItemText
+         │  │  ├─ Menu.ItemTextIcon
+         │  │  └─ Menu.ItemTextLabel
+         │  └─ Menu.ItemShortcut
+         ├─ Menu.CheckboxItem
+         │  └─ Menu.ItemIndicator
+         ├─ Menu.RadioItemGroup
+         │  └─ Menu.RadioItem
+         ├─ Menu.ItemGroup
+         │  └─ Menu.ItemGroupLabel
+         ├─ Menu.Separator
+         └─ Menu
+            └─ Menu.TriggerItem
+               └─ Menu.TriggerItemIcon
 ```
 
-| Part                  | Role                                                        |
-| --------------------- | ----------------------------------------------------------- |
-| `Menu` / `Menu.Root`  | Ark root for open state, positioning, typeahead, dismissal. |
-| `Menu.RootProvider`   | Renders a menu from a `useMenu` state instance.             |
-| `Menu.Trigger`        | Button trigger; use `asChild` for a custom host.            |
-| `Menu.Indicator`      | Ark state-aware trigger indicator.                          |
-| `Menu.ContextTrigger` | Right-click and long-press trigger for context menus.       |
-| `Menu.Positioner`     | Floating layer positioner.                                  |
-| `Menu.Content`        | Popup surface with menu role and item collection.           |
-| `Menu.Item`           | Command row.                                                |
-| `Menu.CheckboxItem`   | Boolean option item.                                        |
-| `Menu.RadioItemGroup` | Exclusive value group for radio items.                      |
-| `Menu.RadioItem`      | Exclusive option item.                                      |
-| `Menu.TriggerItem`    | Row that opens a nested `Menu`.                             |
-| `Menu.ItemIndicator`  | Check indicator for checkbox and radio rows.                |
+| Part | Role |
+| --- | --- |
+| `Menu` / `Menu.Root` | Root that manages open state, positioning, typeahead, focus, and dismissal. |
+| `Menu.RootProvider` | Connects a menu to a state instance created with `useMenu`. |
+| `Menu.Trigger` | Button that opens the menu. Use `asChild` to provide another semantic element. |
+| `Menu.TriggerIcon` | Wrapper for a trigger icon. It renders the default chevron when no child is provided. |
+| `Menu.Indicator` | State-aware trigger indicator, usually rendered as a chevron. |
+| `Menu.ContextTrigger` | Trigger for right-click and long-press context menus. |
+| `Menu.Positioner` | Positions the floating menu layer. |
+| `Menu.Content` | Popup surface with the menu role and its item collection. |
+| `Menu.Arrow` / `Menu.ArrowTip` | Optional visual anchor for the popup. |
+| `Menu.Item` | Standard command item. |
+| `Menu.CheckboxItem` | Item with an independent boolean state. |
+| `Menu.RadioItemGroup` / `Menu.RadioItem` | Group and items for choosing one value. |
+| `Menu.ItemIndicator` | Selection indicator for checkbox and radio items. |
+| `Menu.ItemText` and text helpers | Helpers for composing item text with icons and labels. |
+| `Menu.ItemShortcut` | Wrapper for a keyboard shortcut or other trailing hint. |
+| `Menu.ItemGroup` / `Menu.ItemGroupLabel` | Group and label for related items. |
+| `Menu.Separator` | Divider between groups of items. |
+| `Menu.TriggerItem` / `Menu.TriggerItemIcon` | Item and icon for opening a nested menu. |
+| `Menu.ItemContext` | Provides item state to content rendered inside an item. |
 
 ## Composition
 
-The root portals `Positioner` automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; structural parts remain explicit and styleable.
+`Menu` automatically portals `Menu.Positioner`. Set `portalled={false}` to render the menu in its current container,
+or pass `portalRef` to use a specific portal container. `Menu.Positioner` and `Menu.Content` stay explicit, so you can
+style and compose them independently.
 
 ### Recommended composition
 
-Keep popup structure explicit. `Menu.Content` is the actual Ark content part; it no longer hides
-`Menu.Positioner`.
+Keep the popup structure visible in your code. `Menu.Content` is the Ark content part, while `Menu.Positioner` is the
+separate positioning part.
 
 ```tsx
-<Menu positioning={{ placement: 'bottom-start', gutter: 8 }}>
-  <Menu.Trigger asChild>
-    <Button>
-      Actions
-      <Menu.Indicator />
-    </Button>
-  </Menu.Trigger>
-  <Menu.Positioner>
-    <Menu.Content className="menu-content">
-      <Menu.Item value="edit">Edit</Menu.Item>
-    </Menu.Content>
-  </Menu.Positioner>
-</Menu>
+import { Button } from '@moduix/react/button';
+import { Menu } from '@moduix/react/menu';
+
+export function ActionsMenu() {
+  return (
+    <Menu positioning={{ placement: 'bottom-start', gutter: 8 }}>
+      <Menu.Trigger asChild>
+        <Button>
+          Actions
+          <Menu.Indicator />
+        </Button>
+      </Menu.Trigger>
+      <Menu.Positioner>
+        <Menu.Content>
+          <Menu.Item value="edit">Edit</Menu.Item>
+        </Menu.Content>
+      </Menu.Positioner>
+    </Menu>
+  );
+}
 ```
 
 ### When to go custom
 
-Use `asChild` when a trigger, item, or content must render as another semantic element. Supply one
-semantic child so Ark can apply the correct ARIA, focus, and keyboard behavior. For links, put
-`asChild` on `Menu.Item`; for a custom popup host, put it on `Menu.Content`.
+Use `asChild` when a trigger, item, or content part should render as another semantic element. Pass exactly one
+semantic child so Ark can merge its ARIA attributes, event handlers, and ref. For links, put `asChild` on `Menu.Item`
+so the anchor itself receives menu behavior. For a custom popup host, put it on `Menu.Content`.
 
-Nested menus are regular `Menu` roots inside the parent content. The nested root uses
-`Menu.TriggerItem`, then its own `Menu.Positioner` and `Menu.Content`.
+A nested menu is a regular `Menu` root inside the parent content. Give it a `Menu.TriggerItem`, followed by its own
+`Menu.Positioner` and `Menu.Content`.
 
 ### Default props
 
-The portalled overlay content lazily mounts and unmounts after its exit animation by default. Set
-`unmountOnExit={false}` to retain it after first open; set both lifecycle props to `false` only when
-eager initial rendering is needed.
+Moduix mounts popup content on first open and removes it after the exit animation by default. Set
+`unmountOnExit={false}` to keep the content mounted after it has opened once. Set both `lazyMount={false}` and
+`unmountOnExit={false}` only when the content must be rendered immediately and stay mounted.
 
-| Surface                           | Default | Notes                                                  |
-| --------------------------------- | ------- | ------------------------------------------------------ |
-| `Menu` / `Menu.Root`              | -       | No additional behavioral defaults; Ark defaults apply. |
-| `Menu.CheckboxItem` / `RadioItem` | `start` | `indicator` controls the indicator column position.    |
+| Prop or surface | Default | Notes |
+| --- | --- | --- |
+| `lazyMount` | `true` | Defers mounting the popup until the first open. |
+| `unmountOnExit` | `true` | Removes the popup after its exit animation. |
+| `closeOnSelect` | `true` | Ark default. Set it to `false` when users should make several selections before closing the menu. |
+| `loopFocus` | `false` | Ark default. Keyboard focus does not wrap from the last item to the first. |
+| `typeahead` | `true` | Ark default. Printable characters move the highlight to a matching item. |
+| `Menu.CheckboxItem` / `Menu.RadioItem` `indicator` | `start` | Moduix-only prop that controls the indicator column. Use `end` or `none` when needed. |
 
 ### Behavioral notes
 
-- `lazyMount` and `unmountOnExit` default to `true` in moduix. `open`, `defaultOpen`,
-  `onOpenChange(details)`, `highlightedValue`, `onHighlightChange(details)`, `onSelect(details)`,
-  `closeOnSelect`, `ids`, and `present` pass through to Ark without additional moduix defaults.
-- Use `value`, not a custom `id`, for menu item identity.
+- Control the menu with `open`, `defaultOpen`, and `onOpenChange(details)`. The callback receives Ark's detail object.
+- Use `value` for item identity. Use `valueText` when the text shown in an item should differ from the string used by typeahead. Do not assign arbitrary `id` values to items because Ark generates and uses those IDs internally.
+- Use `highlightedValue` and `onHighlightChange(details)` to control or observe the highlighted item. Use `present` only when the mounted content needs an externally controlled lifecycle.
+- `onSelect(details)` on the root runs for every selected item. Item-level `onSelect` handlers are also available.
 - `Menu.CheckboxItem.onCheckedChange` receives the next boolean checked state.
-- `Menu.RadioItemGroup.onValueChange` receives `details.value`.
-- `Menu.RootProvider` must be used with a `useMenu` instance instead of rendering a second `Menu`
-  root for the same state.
-- `Menu.Context`, `useMenuContext`, and `useMenuItemContext` expose the Ark state to descendants
-  when advanced composition needs it.
-- Roots portal `Menu.Positioner` automatically. Use `portalled={false}` to keep a menu within a
-  dialog or scroll container, and pair it with `positioning={{ strategy: 'fixed', hideWhenDetached: true }}`
-  when the container scrolls.
+- `Menu.RadioItemGroup.onValueChange` receives a detail object; read the selected value from `details.value`.
+- For multiple triggers, use `triggerValue`, `defaultTriggerValue`, and `onTriggerValueChange(details)` when the active trigger needs to be controlled or observed.
+- Use `Menu.RootProvider` with a `useMenu` instance when code outside the rendered tree needs the menu API. Do not
+  render a second root for the same state instance.
+- `Menu.Context`, `useMenuContext`, `Menu.ItemContext`, and `useMenuItemContext` expose state for advanced composition.
+- The root portals `Menu.Positioner` automatically. Use `portalled={false}` inside a dialog or scroll container. When
+  that container scrolls, add `positioning={{ strategy: 'fixed', hideWhenDetached: true }}`.
+- `Menu.ContextTrigger` opens on right-click and on a long press of roughly 700 ms for touch and pen input.
 - Open and close animations respect `prefers-reduced-motion`.
-- `Menu.Indicator` mirrors Ark's indicator part. `Menu.TriggerIcon`, `Menu.TriggerItemIcon`,
-  `Menu.ItemShortcut`, and item text helpers are moduix leaf sugar only.
+- Moduix adds `tone="destructive"` for destructive actions and helper components such as `Menu.TriggerIcon`,
+  `Menu.TriggerItemIcon`, `Menu.ItemTextContent`, `Menu.ItemTextIcon`, `Menu.ItemTextLabel`, and `Menu.ItemShortcut`.
 
 ## Examples
 
 ### Checkbox Items
 
-Checkbox items keep boolean state while preserving menu navigation and typeahead.
+Use checkbox items for independent boolean options. Set `closeOnSelect={false}` when users should change several
+options before closing the menu.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/menu/checkbox-items.tsx"
@@ -153,18 +172,18 @@ Checkbox items keep boolean state while preserving menu navigation and typeahead
 
 ### Context Menu
 
-Use `Menu.ContextTrigger` for right-click and long-press context menus.
+Use `Menu.ContextTrigger` when actions should appear after a right-click. On touch and pen input, a long press opens
+the menu as well.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/menu/context-menu.tsx"
 
 ```
-
 </PreviewFrame>
 
 ### Controlled
 
-Control `open` with `onOpenChange(details)` when another control needs to drive the menu.
+Control `open` with React state when another control needs to open or close the menu.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/menu/controlled.tsx"
@@ -174,18 +193,17 @@ Control `open` with `onOpenChange(details)` when another control needs to drive 
 
 ### Grouping
 
-Use `Menu.ItemGroup` and `Menu.ItemGroupLabel` to organize related menu rows.
+Use `Menu.ItemGroup` and `Menu.ItemGroupLabel` to organize related items, and `Menu.Separator` to separate groups.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/menu/grouping.tsx"
 
 ```
-
 </PreviewFrame>
 
 ### Indicator Placement
 
-moduix adds `indicator="start" | "end" | "none"` on checkbox and radio rows for layout control.
+Set `indicator="start"`, `"end"`, or `"none"` on checkbox and radio items to choose the indicator position.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/menu/indicator-placement.tsx"
@@ -195,19 +213,18 @@ moduix adds `indicator="start" | "end" | "none"` on checkbox and radio rows for 
 
 ### Item Context
 
-Use `Menu.ItemContext` for inline access to item state such as `highlighted`.
+Use `Menu.ItemContext` when the content of an item needs to react to its state, such as whether it is highlighted.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/menu/item-context.tsx"
 
 ```
-
 </PreviewFrame>
 
 ### Lazy Mounted Context Menu
 
-Context menu content mounts only while the menu is used by default. Set `unmountOnExit={false}`
-when its subtree must persist after the first open.
+By default, context-menu content mounts on first open and unmounts after the exit animation. Set
+`unmountOnExit={false}` when the subtree must remain mounted after the menu closes.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/menu/lazy-mounted-context-menu.tsx"
@@ -217,19 +234,19 @@ when its subtree must persist after the first open.
 
 ### Links
 
-Use `Menu.Item asChild` for anchors so the link itself receives menu semantics.
+Use `Menu.Item asChild` and make the anchor the item itself. This lets the link receive the menu item's ARIA
+attributes, keyboard behavior, and focus handling.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/menu/links.tsx"
 
 ```
-
 </PreviewFrame>
 
 ### Menu in Dialog
 
-Keep the popup inside a dialog or scroll container with `portalled={false}`. Use fixed positioning
-and `hideWhenDetached` when the container scrolls.
+Set `portalled={false}` to keep the popup inside a dialog or scroll container. When the container can scroll, use
+fixed positioning with `hideWhenDetached` so the menu is hidden after it leaves the visible area.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/menu/menu-in-dialog.tsx"
@@ -239,18 +256,18 @@ and `hideWhenDetached` when the container scrolls.
 
 ### Multiple Triggers
 
-Pass a `value` to each `Menu.Trigger` when one menu is shared across multiple trigger elements.
+Share one menu across several triggers by giving each `Menu.Trigger` a distinct `value`. The menu repositions itself
+relative to the trigger that opened it.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/menu/multiple-triggers.tsx"
 
 ```
-
 </PreviewFrame>
 
 ### Nested
 
-Render a nested `Menu` and open it from `Menu.TriggerItem`.
+Render a child `Menu` inside the parent content and open it with `Menu.TriggerItem`.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/menu/nested.tsx"
@@ -260,18 +277,18 @@ Render a nested `Menu` and open it from `Menu.TriggerItem`.
 
 ### Radio Items
 
-Use `Menu.RadioItemGroup` for one selected value inside a menu.
+Use `Menu.RadioItemGroup` when users must choose one value from a set of options. Set `closeOnSelect={false}` if the
+menu should stay open while they change the selection.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/menu/radio-items.tsx"
 
 ```
-
 </PreviewFrame>
 
 ### Root Provider
 
-Use `useMenu` and `Menu.RootProvider` when code outside the rendered tree needs access to the menu API.
+Use `useMenu` and `Menu.RootProvider` when code outside the rendered tree needs to read or update the menu state.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/menu/root-provider.tsx"
@@ -281,18 +298,19 @@ Use `useMenu` and `Menu.RootProvider` when code outside the rendered tree needs 
 
 ### Select Event
 
-Use root `onSelect(details)` when the menu should react to any item selection.
+Use `onSelect(details)` on the root when one handler should respond to every item selection. Read the selected item's
+`value` from `details.value`.
 
 <PreviewFrame maxWidth="xs">
   ```tsx preview file="./_snippets/menu/select-event.tsx"
 
 ```
-
 </PreviewFrame>
 
 ### With Arrow
 
-Add `Menu.Arrow` and `Menu.ArrowTip` inside `Menu.Content` when the popup needs a visual anchor.
+Add `Menu.Arrow` and `Menu.ArrowTip` directly inside `Menu.Content` when the popup needs a visual connection to its
+trigger.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/menu/with-arrow.tsx"
@@ -302,14 +320,13 @@ Add `Menu.Arrow` and `Menu.ArrowTip` inside `Menu.Content` when the popup needs 
 
 ### Advanced Customization
 
-Use leaf helpers for common menu content, then drop down to the Ark structural parts for a fully
-custom item or link host.
+Use the helper components for common item layouts, then compose the Ark parts directly when an item or link needs a
+custom structure.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/menu/advanced-customization.tsx"
 
 ```
-
 </PreviewFrame>
 
 ## Styling
@@ -332,11 +349,20 @@ custom item or link host.
 
 ### Styling hooks
 
+Use Ark state attributes to style the menu and its items:
+
 - Ark attributes: `[data-scope='menu']`, `[data-part='trigger']`, `[data-part='indicator']`,
-  `[data-part='content']`, `[data-part='item']`,
-  `[data-type='checkbox' | 'radio']`, `[data-state='open' | 'closed' | 'checked' | 'unchecked']`,
-  `[data-current]`, `[data-highlighted]`, `[data-disabled]`, `[data-placement]`, and `[data-side]`.
-- Ark variables: `--reference-width`, `--available-width`, `--available-height`,
-  `--transform-origin`, `--layer-index`, `--arrow-size`, and `--arrow-background`.
-- moduix hooks: `data-slot="menu-trigger"`, `menu-content`, `menu-item`, `menu-checkbox-item`,
-  `menu-radio-item`, `menu-trigger-item`, `menu-item-indicator`, and `menu-item-shortcut`.
+  `[data-part='content']`, `[data-part='item']`, `[data-type='checkbox' | 'radio']`,
+  `[data-state='open' | 'closed' | 'checked' | 'unchecked']`, `[data-current]`, `[data-highlighted]`,
+  `[data-disabled]`, `[data-placement]`, and `[data-side]`.
+- Moduix attributes: `[data-slot='menu-trigger']`, `[data-slot='menu-trigger-icon']`,
+  `[data-slot='menu-indicator']`, `[data-slot='menu-context-trigger']`, `[data-slot='menu-positioner']`,
+  `[data-slot='menu-content']`, `[data-slot='menu-arrow']`, `[data-slot='menu-arrow-tip']`,
+  `[data-slot='menu-item']`, `[data-slot='menu-trigger-item']`, `[data-slot='menu-trigger-item-icon']`,
+  `[data-slot='menu-separator']`, `[data-slot='menu-item-group']`, `[data-slot='menu-item-group-label']`,
+  `[data-slot='menu-radio-item-group']`, `[data-slot='menu-radio-item']`, `[data-slot='menu-checkbox-item']`,
+  `[data-slot='menu-item-indicator']`, `[data-slot='menu-item-text']`, `[data-slot='menu-item-text-content']`,
+  `[data-slot='menu-item-text-icon']`, `[data-slot='menu-item-text-label']`, `[data-slot='menu-item-shortcut']`,
+  and `[data-indicator-position='start' | 'end' | 'none']`.
+- Positioning variables: `--reference-width`, `--available-width`, `--available-height`, `--transform-origin`,
+  `--layer-index`, `--arrow-size`, and `--arrow-background`.

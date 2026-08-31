@@ -1,7 +1,7 @@
 ---
 title: Field
 component: field
-description: Contexte de champ Ark UI pour les libellés, le texte d’aide, les erreurs et l’état du contrôle de formulaire.
+description: Contexte de champ qui relie un contrôle de formulaire à son libellé, à son texte d’aide, à son message d’erreur et à son état partagé.
 ---
 
 import * as FieldDocs from '@/components/examples/field';
@@ -12,16 +12,17 @@ import * as FieldDocs from '@/components/examples/field';
 
 ## Choisir le bon composant
 
-Utilisez `Field` lorsqu'un contrôle nécessite une étiquette visible, un texte explicatif, un texte d'erreur
-ou l'état général des `disabled`, `invalid`, `required` et `readOnly`.
+Utilisez `Field` lorsqu’un contrôle de formulaire a besoin d’un libellé accessible, d’un texte d’aide,
+d’un message d’erreur ou d’un état partagé `disabled`, `invalid`, `required` ou `readOnly`.
 
-- Sélectionnez **`Field`** pour un seul champ et son libellé ou texte explicatif.
-- Sélectionnez **`Fieldset`** lorsque plusieurs champs associés nécessitent une légende commune.
-- Utilisez un contrôle distinct lorsque les relations ARIA au niveau du champ ou l'état partagé ne sont pas requis.
+- Choisissez **`Field`** pour un contrôle et son libellé ou ses textes descriptifs.
+- Choisissez **`Fieldset`** lorsque plusieurs contrôles associés doivent partager une même légende.
+- Utilisez le contrôle seul lorsque les relations ARIA au niveau du champ et l’état partagé ne sont pas nécessaires.
 
 ## Exemple de base
 
-Commencez par `Field`, `Field.Label`, un contrôle moduix et un texte d’aide ou d’erreur facultatif.
+Utilisez `Field` comme conteneur d’un contrôle de formulaire. Placez `Field.Label` avant le contrôle,
+puis ajoutez un texte d’aide ou d’erreur lorsque l’utilisateur a besoin d’informations supplémentaires.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/field/basic.tsx"
@@ -35,7 +36,9 @@ Commencez par `Field`, `Field.Label`, un contrôle moduix et un texte d’aide o
 
 ## Anatomie
 
-`Field` suit les composants d’Ark UI et conserve leurs noms dans l’API publique de moduix.
+L’espace de noms public `Field` reprend les noms de parties d’Ark UI. Utilisez les parties `Field.*` pour
+une composition Ark explicite. Pour les formulaires courants, préférez les composants moduix correspondants,
+comme `Input`, `Textarea` ou `NativeSelect`.
 
 ```text
 Field
@@ -46,55 +49,72 @@ Field
 └─ Field.RequiredIndicator
 ```
 
-| Partie | Rôle |
-| ------------------------- | -------------------------------------------------------------------------- |
-| `Field` / `Field.Root` | Contexte racine et norme `<div role="group">`.                    |
-| `Field.RootProvider` | Racine qui opère sur une instance de `useField()` créée en dehors de l'arborescence.       |
-| `Field.Context` | Accès à l’état actuel du champ sans effectuer de rendu.                   |
-| `Field.Label` | Une étiquette associée à l’ID du contrôle actuel.           |
-| `Field.Input` | Entrée native de bas niveau dans le style Ark. De préférence `Input`.       |
-| `Field.Textarea` | Zone de texte de bas niveau dans le style Ark. De préférence `Textarea`.         |
-| `Field.Select` | Sélection native associée aux propriétés ARIA et d'état de champ.             |
-| `Field.HelperText` | Texte explicatif inclus dans `aria-describedby`.                         |
-| `Field.ErrorText` | Texte d’erreur rendu uniquement lorsque `Field` possède l’état `invalid`.     |
-| `Field.RequiredIndicator` | Marqueur visuel obligatoire avec `fallback` en option.              |
-| `Field.Item` | Contexte de champ pour un contrôle groupé via `value` ; sa ref pointe vers le wrapper de ligne. |
+| Partie                    | Rôle                                                                                                  |
+| ------------------------ | ----------------------------------------------------------------------------------------------------- |
+| `Field` / `Field.Root`   | Contexte racine. Il rend par défaut un `<div role="group">`.                                         |
+| `Field.RootProvider`     | Racine qui utilise un objet d’état `useField()` créé en dehors de l’arbre de rendu.                  |
+| `Field.Context`          | Permet de lire l’état courant du champ sans ajouter d’élément au DOM.                                |
+| `Field.Label`            | Libellé accessible associé au contrôle courant.                                                        |
+| `Field.Input`            | Champ natif de bas niveau. Pour un champ standard, préférez `Input`.                               |
+| `Field.Textarea`         | Zone de texte native de bas niveau. Pour le composant standard, préférez `Textarea`.               |
+| `Field.Select`           | Select natif de bas niveau. Pour un select standard, préférez `NativeSelect`.                       |
+| `Field.HelperText`       | Texte d’aide associé au contrôle via `aria-describedby`.                                               |
+| `Field.ErrorText`        | Message d’erreur rendu lorsque la racine est dans l’état `invalid`.                                  |
+| `Field.RequiredIndicator` | Marqueur visuel d’un champ obligatoire. Utilisez `fallback` pour remplacer le marqueur par défaut. |
+| `Field.Item`             | Contexte imbriqué pour un contrôle groupé identifié par `value` ; sa ref pointe vers le wrapper de ligne local. |
 
 ## Composition
 
 ### Composition recommandée
 
-Conservez un libellé visible à la racine, rendez exactement un contrôle moduix principal, comme `Input`,
-`Textarea` ou `NativeSelect`, et ajoutez un texte d’aide ou d’erreur si une description ou un retour de validation est nécessaire.
+Gardez un seul libellé visible dans la racine et placez ensuite un contrôle moduix principal, par exemple
+`Input`, `Textarea` ou `NativeSelect`. Ajoutez un texte d’aide ou d’erreur lorsque l’utilisateur a besoin
+d’une description ou d’un message de validation.
+
+Les contrôles qui possèdent leur propre racine composée, comme `Checkbox`, `RadioGroup` ou `Select`,
+peuvent également être placés dans `Field`. Ils conservent leurs propres propriétés d’état : transmettez
+`required`, `invalid`, `disabled` ou `readOnly` à la racine enfant lorsque le contrôle gère cet état.
 
 ### Quand créer une composition personnalisée
 
-Utilisez `Field.Item value` avec la racine `target` lorsque le champ contient plusieurs contrôles natifs,
-et le libellé doit pointer vers l’un d’eux. `Field.Input`, `Field.Textarea` et `Field.Select` restent disponibles pour
-une composition avancée dans le style Ark, mais le code d’application ordinaire doit utiliser les composants moduix dédiés.
+Utilisez `Field.Item value` avec la prop `target` de la racine lorsqu’un champ contient plusieurs contrôles
+natifs et que le libellé racine doit cibler l’un d’eux. `Field.Input`, `Field.Textarea` et `Field.Select`
+restent disponibles pour une composition bas niveau basée sur Ark, mais le code applicatif doit en général
+préférer les contrôles moduix dédiés.
+
+Pour un contrôle personnalisé qui ne consomme pas le contexte Ark Field, utilisez `Field.Context` ou
+`useFieldContext` depuis `@moduix/react` pour lire l’état du champ et relier ses identifiants et ses attributs ARIA.
 
 ### Propriétés par défaut
 
-| Surfaces | Par défaut | Remarques |
-| ------------------------ | ------------ | --------------------------------------------------------- |
-| `Field` / `Field.Root` | - | Aucun comportement supplémentaire ; les valeurs par défaut d’Ark s’appliquent. |
+| Propriété  | Valeur par défaut | Remarques                                                                                             |
+| ---------- | ----------------- | ----------------------------------------------------------------------------------------------------- |
+| `disabled` | `false`           | Marque le champ comme désactivé et se propage aux parties de champ compatibles.                      |
+| `invalid`  | `false`           | Contrôle `Field.ErrorText` ; transmettez aussi cette propriété à un contrôle composé qui gère sa propre validation. |
+| `readOnly` | `false`           | Marque le champ en lecture seule et se propage aux parties compatibles.                              |
+| `required` | `false`           | Marque le champ comme obligatoire. `Field.RequiredIndicator` reste un enfant explicite.             |
+| `target`   | -                 | Valeur `value` du `Field.Item` que le libellé racine doit cibler.                                     |
 
 ### Comportement
 
-- `Field.ErrorText` n'est pas dans le DOM sauf si la racine a `invalid`.
-- Les longues étiquettes, le texte explicatif et le texte d’erreur reviennent à la ligne dans le champ au lieu de déborder.
-- `Field.RootProvider` doit recevoir l'état de `useField()` importé de `@moduix/react`,
-  et ne doit pas être imbriqué dans `Field.Root` pour la même instance de champ.
-- Utilisez `Field.Context` ou `useFieldContext` de `@moduix/react` lorsqu’un contrôle personnalisé a besoin de l’état actuel du champ. Un import direct depuis Ark n’est nécessaire que pour les API de bas niveau non exportées par moduix.
-- `Field.Item` transmet sa ref au wrapper de ligne moduix rendu autour de ses enfants.
-- `Field` ne rend pas d’input masqué : les composants composés tels que `Checkbox` et `RadioGroup` possèdent leurs propres parties de formulaire natives.
+- `Field.ErrorText` n’est pas présent dans le DOM tant que la racine n’est pas dans l’état `invalid`.
+- Le champ ne valide pas les valeurs. L’application ou la bibliothèque de formulaires décide quand `invalid` doit être
+  défini à `true`.
+- Les libellés, textes d’aide et messages d’erreur longs passent à la ligne dans le champ sans déborder de son conteneur.
+- Passez à `Field.RootProvider` la valeur renvoyée par `useField()` depuis `@moduix/react`. N’utilisez pas
+  `Field.Root` et `Field.RootProvider` pour une même instance de champ.
+- Utilisez `Field.Context` ou `useFieldContext` depuis `@moduix/react` lorsqu’un contrôle personnalisé a besoin de
+  l’état courant du champ. Les props Ark comme `ids`, `target` et `asChild` restent disponibles sur les parties concernées.
+- `Field.Item` transmet sa ref au wrapper de ligne que moduix rend autour de ses enfants.
+- Les contrôles composés comme `Checkbox` et `RadioGroup` gèrent eux-mêmes leurs éléments natifs de formulaire. Field
+  ne rend pas d’input caché.
 
 ## Exemples
 
 ### Checkbox
 
-Utilisez `Field` avec `Checkbox` lorsque le champ fournit un texte d’aide, un texte d’erreur ou un état obligatoire
-à un unique contrôle de case à cocher.
+Utilisez `Field` autour d’une case à cocher lorsqu’elle a besoin d’un texte d’aide ou d’un message d’erreur au niveau
+du champ. Transmettez à `Checkbox` ses propres propriétés d’état et de formulaire.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/field/checkbox.tsx"
@@ -102,9 +122,10 @@ Utilisez `Field` avec `Checkbox` lorsque le champ fournit un texte d’aide, un 
 
 </PreviewFrame>
 
-### État invalide contrôlé
+### État `invalid` contrôlé
 
-Dérivez `invalid` de l’état local lorsque le champ doit se mettre à jour au fil de la saisie.
+Calculez `invalid` à partir de l’état local lorsque la validation doit se mettre à jour pendant la saisie. Le message
+d’erreur n’apparaît que lorsque le champ est invalide.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/field/controlled-invalid.tsx"
@@ -114,7 +135,7 @@ Dérivez `invalid` de l’état local lorsque le champ doit se mettre à jour au
 
 ### État désactivé
 
-Définissez `disabled` à la racine pour transmettre l’état désactivé aux parties Ark du champ.
+Définissez `disabled` sur la racine pour transmettre cet état aux parties Ark du champ qui le prennent en charge.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/field/disabled.tsx"
@@ -124,7 +145,8 @@ Définissez `disabled` à la racine pour transmettre l’état désactivé aux p
 
 ### État invalide
 
-Définissez `invalid` à la racine lorsque la validation est contrôlée par l'état de l'application ou la bibliothèque de formulaires.
+Définissez `invalid` sur la racine lorsque l’état de l’application ou une bibliothèque de formulaires pilote la validation.
+Transmettez aussi cette propriété à la racine d’un contrôle composé lorsque celui-ci gère son propre état invalide.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/field/invalid.tsx"
@@ -134,7 +156,7 @@ Définissez `invalid` à la racine lorsque la validation est contrôlée par l'�
 
 ### Select natif
 
-Utilisez `NativeSelect` pour un select natif du navigateur relié au libellé, à l’état et à la description du champ.
+Utilisez `NativeSelect` pour un select natif du navigateur. `Field` le relie au libellé, à l’état et à la description du champ.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/field/native-select.tsx"
@@ -142,21 +164,10 @@ Utilisez `NativeSelect` pour un select natif du navigateur relié au libellé, �
 
 </PreviewFrame>
 
-### Zone de texte
-
-Utilisez `Textarea` pour le texte multiligne tout en conservant les associations du champ avec le libellé,
-la description et l’état.
-
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/field/textarea.tsx"
-  ```
-
-</PreviewFrame>
-
 ### RadioGroup
 
-Utilisez `Field` avec `RadioGroup` lorsqu'une seule étiquette de champ, un texte explicatif ou un message d'erreur doit décrire
-l'ensemble des options, plutôt que des entrées radio natives individuelles.
+Utilisez `Field` avec `RadioGroup` lorsqu’un même libellé, texte d’aide ou message d’erreur doit décrire l’ensemble des
+choix, plutôt que chaque bouton radio. Transmettez les propriétés d’état propres au groupe à `RadioGroup`.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/field/radiogroup.tsx"
@@ -166,7 +177,7 @@ l'ensemble des options, plutôt que des entrées radio natives individuelles.
 
 ### Lecture seule
 
-Définissez `readOnly` à la racine lorsque la valeur du contrôle peut être copiée mais ne peut pas être modifiée.
+Définissez `readOnly` sur la racine lorsque les utilisateurs peuvent copier la valeur du contrôle, mais pas la modifier.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/field/read-only.tsx"
@@ -176,7 +187,9 @@ Définissez `readOnly` à la racine lorsque la valeur du contrôle peut être co
 
 ### Select
 
-Utilisez le composant `Select` lorsqu’un contrôle natif ne suffit pas et qu’une recherche ou une interface d’options personnalisée est nécessaire.
+Utilisez le `Select` composé lorsqu’un select natif ne suffit pas et qu’une liste d’options ou une interface de sélection
+personnalisée est nécessaire. Utilisez `Combobox` lorsque l’utilisateur doit saisir du texte pour rechercher ou créer une
+valeur. Comme `Select` gère son propre état, transmettez-lui `required`, `invalid`, `disabled` ou `readOnly` lorsque nécessaire.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/field/select.tsx"
@@ -184,9 +197,20 @@ Utilisez le composant `Select` lorsqu’un contrôle natif ne suffit pas et qu�
 
 </PreviewFrame>
 
+### Zone de texte
+
+Utilisez `Textarea` pour la saisie multiligne tout en conservant les associations du champ avec le libellé, la description
+et l’état.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/field/textarea.tsx"
+  ```
+
+</PreviewFrame>
+
 ### Personnalisation avancée
 
-Utilisez `Field.Item` avec une racine `target` lorsqu'une étiquette doit pointer vers un contrôle au sein d'une ligne de groupe.
+Utilisez `Field.Item` avec la prop `target` de la racine lorsqu’un seul libellé doit cibler un contrôle dans un groupe.
 
 <style>{`.inlineControls { display: grid; grid-template-columns: minmax(6rem, max-content) minmax(0, 1fr); gap: var(--moduix-spacing-2); }`}</style>
 
@@ -196,7 +220,7 @@ Utilisez `Field.Item` avec une racine `target` lorsqu'une étiquette doit pointe
 
 </PreviewFrame>
 
-Utilisez `useField` avec `Field.RootProvider` lorsque l’état doit être créé en dehors de l’arbre rendu.
+Utilisez `useField` avec `Field.RootProvider` lorsque l’état du champ doit être créé en dehors de l’arbre de rendu.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/field/root-provider.tsx"
@@ -206,8 +230,8 @@ Utilisez `useField` avec `Field.RootProvider` lorsque l’état doit être cré�
 
 ## Styles
 
-Stylisez `Field` avec `className`, les attributs Ark `data-scope="field"` / `data-part="..."`,
-les hooks moduix `data-slot="field-*"` et les variables CSS publiques `--moduix-field-*` ci-dessous.
+Personnalisez `Field` avec `className`, les attributs Ark `data-scope="field"` et `data-part="..."`,
+les points d’accroche moduix `data-slot="field-*"` et les variables CSS publiques `--moduix-field-*` ci-dessous.
 
 ### Propriétés CSS
 
@@ -225,7 +249,7 @@ les hooks moduix `data-slot="field-*"` et les variables CSS publiques `--moduix-
 
 ### Points d’accroche CSS
 
-Ark ajoute `data-disabled`, `data-invalid`, `data-readonly` et `data-required` aux parties correspondantes.
-`Field.ErrorText` est rendu uniquement lorsque le contexte du champ courant est invalide. L’identifiant du texte d’aide
-est inclus dans `aria-describedby` du contrôle, et celui du texte d’erreur actif dans `aria-errormessage`.
-Chaque partie DOM conserve également le hook stable `data-slot="field-*"`.
+Ark ajoute `data-disabled`, `data-invalid`, `data-readonly` et `data-required` aux parties concernées.
+`Field.ErrorText` existe uniquement lorsque le contexte du champ courant est invalide. L’identifiant du texte d’aide
+est inclus dans `aria-describedby` du contrôle, et celui du message d’erreur actif dans `aria-errormessage`. Chaque
+partie DOM conserve également un point d’accroche stable `data-slot="field-*"`.

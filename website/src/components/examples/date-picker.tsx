@@ -205,7 +205,6 @@ const datePickerOverrideCssProperties: CssPropertyInput[] = [
     'Controls input action button size.',
   ],
   ['--moduix-date-picker-bg', 'var(--moduix-color-background)', 'Controls input background.'],
-  ['--date-picker-bg-hover', 'var(--moduix-color-accent)', 'Controls input hover background.'],
   [
     '--moduix-date-picker-border-color',
     'var(--moduix-color-border)',
@@ -396,11 +395,6 @@ const datePickerOverrideCssProperties: CssPropertyInput[] = [
     '--moduix-date-picker-select-bg',
     'var(--moduix-color-background)',
     'Controls native select background.',
-  ],
-  [
-    '--date-picker-select-bg-hover',
-    'var(--moduix-color-accent)',
-    'Controls native select hover background.',
   ],
   [
     '--moduix-date-picker-select-border-color',

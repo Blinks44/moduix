@@ -19,28 +19,28 @@ export default function AppSidebar() {
         <Sidebar.Content>
           <Sidebar.Group>
             <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
-            <Sidebar.Menu>
-              <Sidebar.MenuItem>
+            <Sidebar.NavigationList>
+              <Sidebar.NavigationItem>
                 <Sidebar.Tooltip content="Overview">
-                  <Sidebar.MenuButton asChild active>
+                  <Sidebar.NavigationButton asChild active>
                     <a href="/overview">
                       <Gauge />
                       <Sidebar.Label>Overview</Sidebar.Label>
                     </a>
-                  </Sidebar.MenuButton>
+                  </Sidebar.NavigationButton>
                 </Sidebar.Tooltip>
-              </Sidebar.MenuItem>
-              <Sidebar.MenuItem>
+              </Sidebar.NavigationItem>
+              <Sidebar.NavigationItem>
                 <Sidebar.Tooltip content="Documents">
-                  <Sidebar.MenuButton asChild>
+                  <Sidebar.NavigationButton asChild>
                     <a href="/documents">
                       <FileText />
                       <Sidebar.Label>Documents</Sidebar.Label>
                     </a>
-                  </Sidebar.MenuButton>
+                  </Sidebar.NavigationButton>
                 </Sidebar.Tooltip>
-              </Sidebar.MenuItem>
-            </Sidebar.Menu>
+              </Sidebar.NavigationItem>
+            </Sidebar.NavigationList>
           </Sidebar.Group>
         </Sidebar.Content>
       </Sidebar.Panel>

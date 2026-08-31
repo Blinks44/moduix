@@ -25,7 +25,7 @@ export function V2MigrationHero() {
     <ChangelogHero
       id="v200--july-19-2026"
       eyebrow={t('v2MigrationHeroDate')}
-      title={t('v2MigrationHeroTitle')}
+      title={t('changelogMajorRelease')}
       summary={t('v2MigrationHeroSummary')}
     >
       <ChangelogHeroCard label="Base UI">

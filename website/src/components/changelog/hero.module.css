@@ -50,7 +50,7 @@
   position: relative;
   z-index: 1;
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   align-items: stretch;
   justify-content: center;
   gap: clamp(0.35rem, 2vw, 1rem);
@@ -60,9 +60,10 @@
 
 .product {
   display: grid;
-  flex: 1 1 0;
-  min-width: 0;
-  min-height: 7rem;
+  flex: 0 0 180px;
+  width: 180px;
+  min-height: 140px;
+  box-sizing: border-box;
   place-items: center;
   gap: 0.5rem;
   padding: clamp(0.5rem, 2vw, 0.75rem);
@@ -73,7 +74,7 @@
 }
 
 .content > :only-child {
-  flex: 0 1 18rem;
+  flex-basis: 180px;
 }
 
 .product > svg {
@@ -85,11 +86,6 @@
 .productLabel {
   font-size: clamp(0.75rem, 3vw, 0.95rem);
   font-weight: 700;
-}
-
-.productDescription {
-  color: var(--rp-c-text-2);
-  font-size: clamp(0.7rem, 2vw, 0.8rem);
 }
 
 .arrow {
@@ -111,4 +107,19 @@
 
 .newsItem {
   margin-bottom: clamp(3rem, 8vw, 5rem);
+}
+
+@media (max-width: 32rem) {
+  .content {
+    display: grid;
+  }
+
+  .product {
+    justify-self: center;
+  }
+
+  .arrow {
+    justify-self: center;
+    transform: rotate(90deg);
+  }
 }
