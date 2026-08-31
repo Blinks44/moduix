@@ -17,8 +17,8 @@ Skills are intentionally narrow and composable:
 - `changeset-workflow` — an explicitly requested `.changeset` entry.
 - `css-authoring` — CSS, CSS Modules, selectors, and public CSS-variable contracts.
 - `js-react-conventions` — React and TypeScript implementation conventions.
-- `ui-component-workflow` — shipped component behavior, API, stories, exports, and registry synchronization.
-- `react-to-solid` — port shipped React components to native Solid equivalents with behavioral, DOM, and styling parity.
+- `ui-component-workflow` — shipped component behavior, API, stories, exports, registry synchronization, and checks of existing Solid counterparts.
+- `react-to-solid` — port and synchronize native Solid equivalents, tests, and paired React/Solid playground stories.
 - `local-component-docs` — maintainers' markdown beside a component source file.
 - `upstream-library-docs` — current Ark UI, Chakra UI, and shadcn research.
 - `rstest-best-practices` — Rstest configuration and test design.

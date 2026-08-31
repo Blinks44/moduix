@@ -1,6 +1,6 @@
 ---
 name: react-to-solid
-description: Port existing moduix components from packages/react to packages/solid while preserving their public, behavioral, accessibility, DOM, and styling contracts. Use only for React-to-Solid component migrations, not Vue ports or framework-neutral foundation work.
+description: Port and synchronize moduix components from packages/react to packages/solid while preserving their public, behavioral, accessibility, DOM, styling, test, and playground-story contracts. Use only for React-to-Solid component work, not Vue ports or framework-neutral foundation work.
 ---
 
 # React to Solid
@@ -10,10 +10,11 @@ introducing a shared component runtime, generated TSX, or React-compatibility la
 
 ## Sources of truth
 
-Read the React component implementation, CSS Module, test, story, local markdown, exports, and any
-internal helpers it uses. Treat the shipped code and tests as the executable contract; use the local
-markdown to identify intentional moduix behavior. Resolve contradictions before porting rather than
-silently choosing one source.
+Read the React component implementation, CSS Module, test, package story, local markdown, exports,
+and any internal helpers it uses. Treat the shipped code and tests as the executable contract; use
+the local markdown to identify intentional moduix behavior. When synchronizing an existing port,
+also read its Solid implementation, tests, and playground story before editing. Resolve
+contradictions rather than silently choosing one source.
 
 Read the current Ark Solid component page or guide whenever an Ark primitive, factory, provider,
 context, ref, presence behavior, or callback contract is involved. Do not infer the Solid API from
@@ -93,6 +94,28 @@ Configure the Solid package to copy the same foundation styles and presets into 
 not create a published foundation runtime dependency unless that packaging decision is requested
 separately.
 
+## Playground stories
+
+Every component port includes framework-native stories in both technical playgrounds:
+
+- copy the React package story and its story CSS Module from
+  `packages/react/stories/components/<component>` to
+  `playgrounds/react/stories/<component>`;
+- create the matching Solid story and story CSS Module in
+  `playgrounds/solid/stories/<component>`.
+
+Keep the Storybook title, exported story names, scenario data, layout, visual states, and demo CSS
+equivalent. The React playground story should differ from the package story only where its local
+Storybook type imports or source aliases require it. Translate the Solid story to native Solid
+syntax and reactivity; do not introduce a cross-framework story abstraction or import story code
+across playgrounds.
+
+Keep the React and Solid playground scenario sets symmetric. Do not silently drop a story because
+it needs another component: port the dependency first or report the scenario and component port as
+deferred. Do not add Storybook interaction tests, `play` functions, documentation, or addons as part
+of a port. The playgrounds are for manual visual and interaction comparison; Rstest owns automated
+behavioral coverage.
+
 ## Per-component workflow
 
 1. Inventory the React exports, parts, props, defaults, CSS hooks, tests, stories, documentation, and
@@ -104,13 +127,17 @@ separately.
 5. Copy and compare the CSS Module, then inspect the rendered anatomy and state attributes.
 6. Port the React tests assertion-for-assertion by behavior using Solid testing utilities. Adapt only
    framework mechanics; do not weaken or delete contract assertions to make the port pass.
-7. Add component-local and package exports only after implementation and declarations build.
-8. Run the Solid component tests and build, then the repository validation required by `AGENTS.md`.
+7. Copy the package React story into the React playground and create its scenario-equivalent Solid
+   story. Keep their story CSS Modules and exported scenario names aligned.
+8. Add component-local and package exports only after implementation and declarations build.
+9. Run the Solid component tests and build. Start both playgrounds and compare matching React and
+   Solid stories, then run the repository validation required by `AGENTS.md`.
 
 If `packages/solid` does not exist, create only the minimal bundleless ESM Rslib package needed for
 the requested component. Align the Ark Solid version with the Ark React line, keep `solid-js` and Ark
 as peers, copy foundation output like the React package, and use the repository's Rslib and Rstest
-skills. Do not scaffold documentation, a registry, Storybook, or every future export unless requested.
+skills. Use the existing technical playgrounds for stories; do not scaffold package-local Storybook,
+documentation, a registry, or every future export unless requested.
 
 ## Completion criteria
 
@@ -119,6 +146,7 @@ A port is complete only when:
 - no React runtime or React type import remains in the Solid implementation;
 - the intended public exports and namespaced parts match the React contract;
 - existing React behavior tests have Solid equivalents and pass;
+- the React and Solid playgrounds contain the same component scenarios and demo styling;
 - DOM anatomy, accessibility, states, callback details, refs, and composition are equivalent;
 - CSS Modules are identical unless a necessary difference is documented;
 - the Solid package build and declaration output succeed;

@@ -1,0 +1,13 @@
+@layer moduix.storybook {
+  .demoRoot {
+    width: 100%;
+    max-width: 22rem;
+  }
+
+  .state {
+    margin-top: var(--moduix-spacing-3);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "@moduix/playground-solid",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "storybook": "storybook dev -p 7008 --no-open",
+    "tsc:check": "tsc -p tsconfig.json"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "solid-js": "^1.9.15",
+    "storybook": "^10.5.10",
+    "storybook-solidjs-vite": "^10.7.1",
+    "typescript": "~6.0.3",
+    "vite": "^7.1.11",
+    "vite-plugin-solid": "^2.11.14"
+  }
+}
