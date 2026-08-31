@@ -322,8 +322,8 @@ function DatePickerSelectControl() {
     <Select.Control>
       <Select.Trigger>
         <Select.ValueText />
-        <Select.Indicator />
       </Select.Trigger>
+      <Select.Indicator />
     </Select.Control>
   );
 }

@@ -18,8 +18,8 @@ export default function SelectFieldDemo() {
         <Select.Control>
           <Select.Trigger>
             <Select.ValueText placeholder="Select priority" />
-            <Select.Indicator />
           </Select.Trigger>
+          <Select.Indicator />
         </Select.Control>
         <Select.Positioner>
           <Select.Content>

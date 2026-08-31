@@ -51,8 +51,8 @@ export default function MonthYearSelectDatePickerDemo() {
                       <Select.Control>
                         <Select.Trigger>
                           <Select.ValueText />
-                          <Select.Indicator />
                         </Select.Trigger>
+                        <Select.Indicator />
                       </Select.Control>
                       <Select.Positioner>
                         <Select.Content>
@@ -79,8 +79,8 @@ export default function MonthYearSelectDatePickerDemo() {
                       <Select.Control>
                         <Select.Trigger>
                           <Select.ValueText />
-                          <Select.Indicator />
                         </Select.Trigger>
+                        <Select.Indicator />
                       </Select.Control>
                       <Select.Positioner>
                         <Select.Content>

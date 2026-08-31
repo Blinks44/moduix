@@ -36,16 +36,15 @@ explicit popup composition, native form behavior, and `RootProvider` / context h
   `nativeFormControl="input"` for virtualized collections; it emits one lightweight hidden input
   per selected value instead of an option for every collection item while retaining form reset and
   fieldset disabled synchronization.
-- `Select.Field` renders the standard control, value text, and an indicator inside the trigger; pass `clearLabel` to add a labeled clear action or `indicator` to replace the default chevron.
+- `Select.Field` renders the standard control, value text, and an indicator; pass `clearLabel` to add a labeled clear action or `indicator` to replace the default chevron.
 - Consumers must pass a `collection`; items render with `Select.Item item={item}`.
 - `value` and `defaultValue` are string arrays, including single selection.
 - `onValueChange(details)` exposes Ark `details.value` and `details.items`.
 - `Select.Indicator` and `Select.ItemIndicator` render moduix default icons when children are
   omitted. `Select.ClearTrigger` composes Ark clearing behavior with the shared
   `CloseButton.Root` by default.
-- Keep `Select.Indicator` inside `Select.Trigger` so the trigger owns chevron activation and
-  hover. In the standard control, render `Select.ClearTrigger` directly under `Select.Control`,
-  after `Select.Trigger`.
+- Keep `Select.Indicator` directly under `Select.Control`, after `Select.ClearTrigger`. This follows
+  Ark anatomy and leaves the trigger button with phrasing-content children only.
 - When `Select.ClearTrigger` is omitted or hidden, the trigger automatically reduces its end
   padding so it only reserves space for the indicator.
 - Use `Select.Context`, `Select.ItemContext`, `Select.useSelectContext`, and
@@ -219,6 +218,9 @@ DOM until first open and is removed after its exit animation. Set `unmountOnExit
 content after the first open; set both props to `false` only when eager initial rendering is needed.
 
 ## Local changelog
+
+- 2026-08-31: Moved the standard indicator directly under `Select.Control` to match Ark anatomy and
+  preserve valid trigger-button markup.
 
 - 2026-08-12: Added reduced-motion styling and release-gate coverage for keyboard selection,
   accessible clearing, portal placement, forwarded refs, component states, and long content.

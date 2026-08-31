@@ -122,6 +122,10 @@ deferred. Do not add Storybook interaction tests, `play` functions, documentatio
 of a port. The playgrounds are for manual visual and interaction comparison; Rstest owns automated
 behavioral coverage.
 
+Keep component entries in both playground sidebars alphabetically ordered through the shared Storybook
+`storySort` configuration. Keep each playground visibly labelled with its framework (`React` or `Solid`)
+in the preview, so manual parity checks always identify the active runtime.
+
 ## Per-component workflow
 
 1. Inventory the React exports, parts, props, defaults, CSS hooks, tests, stories, documentation, and

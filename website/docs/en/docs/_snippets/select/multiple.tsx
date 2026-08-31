@@ -37,8 +37,8 @@ export default function SelectMultipleDemo() {
       <Select.Control>
         <Select.Trigger>
           <Select.ValueText placeholder="Select languages" />
-          <Select.Indicator />
         </Select.Trigger>
+        <Select.Indicator />
         <Select.ClearTrigger aria-label="Clear selection" />
       </Select.Control>
       <Select.Positioner>

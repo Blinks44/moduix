@@ -57,6 +57,17 @@ test('keeps default values and native form values Ark-shaped', () => {
   expect(screen.getByRole('button', { name: 'Clear fruit' })).toBeVisible();
 });
 
+test('keeps the default indicator outside the trigger button', () => {
+  const { container } = render(<FruitSelect />);
+
+  const control = container.querySelector<HTMLElement>('[data-slot="select-control"]')!;
+  const trigger = screen.getByRole('combobox', { name: 'Fruit' });
+  const indicator = container.querySelector<HTMLElement>('[data-slot="select-indicator"]')!;
+
+  expect(control).toContainElement(indicator);
+  expect(trigger).not.toContainElement(indicator);
+});
+
 test('selects with the keyboard and clears through the accessible action', async () => {
   const { container } = render(
     <form>

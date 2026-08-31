@@ -154,7 +154,15 @@
   }
 
   .control:has(.clearTrigger:not([hidden])) .trigger {
-    padding-inline-end: var(--moduix-select-trigger-padding-x-end, 4.25rem);
+    padding-inline-end: var(
+      --moduix-select-trigger-padding-x-end,
+      calc(
+        var(--moduix-select-action-offset-right, var(--moduix-spacing-2)) +
+          (var(--moduix-select-action-size, var(--moduix-size-xs)) * 2) +
+          var(--moduix-select-action-gap, var(--moduix-spacing-0-5)) +
+          var(--moduix-select-trigger-padding-x-start, var(--moduix-spacing-3-5))
+      )
+    );
   }
 
   .valueText {
@@ -196,30 +204,20 @@
       cursor: default;
     }
 
-    &[hidden] {
-      display: none;
-    }
-  }
-
-  .indicator {
     pointer-events: none;
-  }
 
-  .trigger > .indicator {
-    pointer-events: auto;
-  }
+    .control > & {
+      position: absolute;
+      top: 50%;
+      inset-inline-end: var(--moduix-select-action-offset-right, var(--moduix-spacing-2));
+      transform: translateY(-50%);
+    }
 
-  .trigger > .indicator {
-    position: absolute;
-    top: 50%;
-    inset-inline-end: var(--moduix-select-action-offset-right, var(--moduix-spacing-2));
-    transform: translateY(-50%);
-  }
-
-  .trigger > .indicator:not(:is([data-disabled], [disabled])):hover {
-    @media (hover: hover) {
-      background-color: var(--moduix-select-action-bg-hover, var(--moduix-color-muted));
-      color: var(--moduix-select-action-color-hover, var(--moduix-color-foreground));
+    .trigger:not(:is([data-disabled], [disabled])):hover ~ & {
+      @media (hover: hover) {
+        background-color: var(--moduix-select-action-bg-hover, var(--moduix-color-muted));
+        color: var(--moduix-select-action-color-hover, var(--moduix-color-foreground));
+      }
     }
   }
 
@@ -243,10 +241,6 @@
     );
 
     pointer-events: auto;
-
-    &[hidden] {
-      display: none;
-    }
   }
 
   .control > .clearTrigger {
@@ -267,7 +261,6 @@
 
   .content {
     box-sizing: border-box;
-    z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
     display: flex;
     min-width: var(--reference-width);
     max-width: var(--available-width);

@@ -1,0 +1,1 @@
+export { Avatar, useAvatar, useAvatarContext } from './Avatar.js';

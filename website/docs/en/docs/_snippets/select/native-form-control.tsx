@@ -28,8 +28,8 @@ export default function NativeFormControlSelectDemo() {
         <Select.Control>
           <Select.Trigger>
             <Select.ValueText placeholder="Select theme" />
-            <Select.Indicator />
           </Select.Trigger>
+          <Select.Indicator />
           <Select.ClearTrigger aria-label="Clear selection" />
         </Select.Control>
         <Select.Positioner>

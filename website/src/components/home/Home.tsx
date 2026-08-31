@@ -255,8 +255,8 @@ function HomeShowcase() {
               <Select.Control>
                 <Select.Trigger>
                   <Select.ValueText placeholder={t('homeSelectWorkspace')} />
-                  <Select.Indicator />
                 </Select.Trigger>
+                <Select.Indicator />
               </Select.Control>
 
               <Select.Positioner>

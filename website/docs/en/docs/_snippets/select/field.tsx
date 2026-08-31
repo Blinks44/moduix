@@ -32,8 +32,8 @@ export default function SelectFieldDemo() {
         <Select.Control>
           <Select.Trigger>
             <Select.ValueText placeholder="Select framework" />
-            <Select.Indicator />
           </Select.Trigger>
+          <Select.Indicator />
           <Select.ClearTrigger aria-label="Clear selection" />
         </Select.Control>
         <Select.Positioner>

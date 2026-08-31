@@ -63,8 +63,8 @@ export default function NativeForm() {
               <Select.Control>
                 <Select.Trigger>
                   <Select.ValueText placeholder="Choose a team" />
-                  <Select.Indicator />
                 </Select.Trigger>
+                <Select.Indicator />
               </Select.Control>
               <Select.Positioner>
                 <Select.Content>

@@ -53,8 +53,8 @@ export default function SelectLazyMountDemo() {
       <Select.Control>
         <Select.Trigger>
           <Select.ValueText placeholder="Select an option" />
-          <Select.Indicator />
         </Select.Trigger>
+        <Select.Indicator />
         <Select.ClearTrigger aria-label="Clear selection" />
       </Select.Control>
       <Select.Positioner>
