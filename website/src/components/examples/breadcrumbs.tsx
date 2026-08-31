@@ -11,7 +11,6 @@ export const breadcrumbsCssProperties: CssPropertyInput[] = [
     'var(--moduix-color-muted-foreground)',
     'Controls ellipsis color.',
   ],
-  ['--moduix-breadcrumbs-ellipsis-radius', 'var(--moduix-radius-sm)', 'Controls ellipsis radius.'],
   ['--moduix-breadcrumbs-ellipsis-size', 'var(--moduix-spacing-4)', 'Controls ellipsis size.'],
   [
     '--moduix-breadcrumbs-focus-ring-color',

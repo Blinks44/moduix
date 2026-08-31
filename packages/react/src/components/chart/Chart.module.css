@@ -17,7 +17,6 @@
 
   .plot {
     min-width: 0;
-    border-radius: var(--moduix-chart-plot-radius, var(--moduix-radius-md));
     color: var(--moduix-chart-axis-color, var(--moduix-color-muted-foreground));
 
     --ts-chart-tooltip-background: var(--moduix-chart-tooltip-bg, var(--moduix-color-popover));
@@ -60,7 +59,6 @@
 
   .title {
     margin: 0;
-    color: currentColor;
     font-size: var(--moduix-text-lg);
     font-weight: var(--moduix-weight-semibold);
     line-height: var(--moduix-line-height-text-lg);

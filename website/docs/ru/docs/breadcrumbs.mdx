@@ -229,8 +229,7 @@ Breadcrumbs / Breadcrumbs.Root
 
 ## Стилизация
 
-У каждой экспортируемой части есть атрибуты `data-scope="breadcrumbs"` и `data-part` в стиле Ark, а также стабильные
-селекторы `data-slot` от moduix. Публичные переменные `--moduix-breadcrumbs-*` отвечают за разметку, типографику,
+У каждой экспортируемой части есть стабильный селектор `data-slot` от moduix. Публичные переменные `--moduix-breadcrumbs-*` отвечают за разметку, типографику,
 кольцо фокуса, разделители и размер многоточия.
 
 ### CSS-свойства
@@ -239,9 +238,6 @@ Breadcrumbs / Breadcrumbs.Root
 
 ### Селекторы для стилизации
 
-- Атрибут `data-scope="breadcrumbs"` присутствует на каждой экспортируемой части.
-- Значения `data-part="root"`, `list`, `item`, `link`, `page`, `separator` и `ellipsis` соответствуют контракту Ark factory,
-  который использует этот компонент.
 - Значения `data-slot="breadcrumbs-root"`, `breadcrumbs-list`, `breadcrumbs-item`, `breadcrumbs-link`, `breadcrumbs-page`,
   `breadcrumbs-separator` и `breadcrumbs-ellipsis` служат стабильными селекторами moduix.
 - `Breadcrumbs.Link`, `Breadcrumbs.Page` и `Breadcrumbs.Ellipsis` используют общий горизонтальный внутренний отступ из

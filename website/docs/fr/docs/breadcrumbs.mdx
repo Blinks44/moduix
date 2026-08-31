@@ -230,8 +230,7 @@ framework, un séparateur personnalisé et un libellé de page actuelle enrichi 
 
 ## Styles
 
-Chaque partie exportée expose les attributs `data-scope="breadcrumbs"` et `data-part` du modèle Ark, ainsi que les sélecteurs
-`data-slot` stables de moduix. Les variables publiques `--moduix-breadcrumbs-*` contrôlent la mise en page, la typographie,
+Chaque partie exportée expose un sélecteur `data-slot` stable de moduix. Les variables publiques `--moduix-breadcrumbs-*` contrôlent la mise en page, la typographie,
 l’anneau de focus, les séparateurs et la taille des points de suspension.
 
 ### Propriétés CSS
@@ -240,9 +239,6 @@ l’anneau de focus, les séparateurs et la taille des points de suspension.
 
 ### Sélecteurs de style
 
-- L’attribut `data-scope="breadcrumbs"` est présent sur chaque partie exportée.
-- Les valeurs `data-part="root"`, `list`, `item`, `link`, `page`, `separator` et `ellipsis` suivent le contrat Ark factory
-  utilisé par ce composant.
 - Les valeurs `data-slot="breadcrumbs-root"`, `breadcrumbs-list`, `breadcrumbs-item`, `breadcrumbs-link`, `breadcrumbs-page`,
   `breadcrumbs-separator` et `breadcrumbs-ellipsis` constituent des sélecteurs moduix stables.
 - `Breadcrumbs.Link`, `Breadcrumbs.Page` et `Breadcrumbs.Ellipsis` partagent l’espacement intérieur horizontal défini par

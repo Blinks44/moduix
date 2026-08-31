@@ -230,8 +230,7 @@ separator, and a current-page label with extra markup.
 
 ## Styling
 
-Each exported part exposes Ark-style `data-scope="breadcrumbs"` and `data-part` attributes, along with
-stable moduix `data-slot` hooks. Public `--moduix-breadcrumbs-*` variables control layout, typography,
+Each exported part exposes a stable moduix `data-slot` hook. Public `--moduix-breadcrumbs-*` variables control layout, typography,
 the focus ring, separators, and ellipsis sizing.
 
 ### CSS Properties
@@ -240,9 +239,6 @@ the focus ring, separators, and ellipsis sizing.
 
 ### Styling hooks
 
-- `data-scope="breadcrumbs"` is present on every exported part.
-- `data-part="root"`, `list`, `item`, `link`, `page`, `separator`, and `ellipsis` follow the Ark factory
-  contract used by this component.
 - `data-slot="breadcrumbs-root"`, `breadcrumbs-list`, `breadcrumbs-item`, `breadcrumbs-link`,
   `breadcrumbs-page`, `breadcrumbs-separator`, and `breadcrumbs-ellipsis` remain stable moduix
   selectors.
