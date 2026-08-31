@@ -23,6 +23,10 @@
       "types": "./dist/components/alert/index.d.ts",
       "import": "./dist/components/alert/index.js"
     },
+    "./angle-slider": {
+      "types": "./dist/components/angle-slider/index.d.ts",
+      "import": "./dist/components/angle-slider/index.js"
+    },
     "./button": {
       "types": "./dist/components/button/index.d.ts",
       "import": "./dist/components/button/index.js"
