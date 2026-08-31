@@ -1,0 +1,60 @@
+{
+  "name": "@moduix/solid",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Private development package for the Solid implementation of moduix.",
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./accordion": {
+      "types": "./dist/components/accordion/index.d.ts",
+      "import": "./dist/components/accordion/index.js"
+    },
+    "./text": {
+      "types": "./dist/components/text/index.d.ts",
+      "import": "./dist/components/text/index.js"
+    },
+    "./presets/*": "./dist/presets/*",
+    "./styles/*": "./dist/styles/*",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "rslib",
+    "dev": "rslib --watch --no-clean",
+    "test": "rstest run --passWithNoTests",
+    "test:watch": "rstest --watch",
+    "tsc:check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1"
+  },
+  "devDependencies": {
+    "@ark-ui/solid": "^5.39.1",
+    "@rsbuild/core": "^2.2.0",
+    "@rsbuild/plugin-babel": "^2.1.0",
+    "@rsbuild/plugin-solid": "^1.2.2",
+    "@rslib/core": "^0.23.2",
+    "@rstest/adapter-rslib": "^0.11.10",
+    "@rstest/core": "^0.11.10",
+    "@solidjs/testing-library": "^0.8.10",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.10.0",
+    "@types/node": "^24.13.3",
+    "happy-dom": "^20.11.8",
+    "solid-js": "^1.9.15",
+    "typescript": "~6.0.3"
+  },
+  "peerDependencies": {
+    "@ark-ui/solid": "^5.37.2",
+    "solid-js": "^1.9.0"
+  }
+}

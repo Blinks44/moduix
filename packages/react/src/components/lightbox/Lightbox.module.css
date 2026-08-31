@@ -136,7 +136,6 @@
   .gallery {
     --moduix-carousel-gap: var(--moduix-lightbox-gallery-gap, var(--moduix-spacing-4));
     justify-self: center;
-    width: auto;
     max-width: min(
       var(--moduix-lightbox-gallery-max-width, 72rem),
       calc(100vw - var(--moduix-lightbox-positioner-padding, var(--moduix-spacing-4)) * 2)
