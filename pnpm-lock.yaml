@@ -44,6 +44,9 @@ importers:
       '@unpic/react':
         specifier: ^1.0.2
         version: 1.0.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      '@zag-js/hotkeys':
+        specifier: 1.43.3
+        version: 1.43.3
       clsx:
         specifier: ^2.1.1
         version: 2.1.1

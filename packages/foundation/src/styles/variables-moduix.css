@@ -408,6 +408,7 @@
   --moduix-chart-focus-ring-offset: initial; /* var(--moduix-focus-ring-offset) */
   --moduix-chart-focus-ring-width: initial; /* var(--moduix-focus-ring-width, var(--moduix-border-width-md)) */
   --moduix-chart-gap: initial; /* var(--moduix-spacing-5) */
+  --moduix-chart-legend-indicator-color: initial; /* var(--moduix-color-muted-foreground) */
   --moduix-chart-padding: initial; /* var(--moduix-spacing-5) */
   --moduix-chart-plot-radius: initial; /* var(--moduix-radius-md) */
   --moduix-chart-radius: initial; /* var(--moduix-radius-lg) */
@@ -527,7 +528,7 @@
 
   /* Collapsible */
   --moduix-collapsible-body-gap: initial; /* var(--moduix-spacing-2) */
-  --moduix-collapsible-body-padding: initial; /* var(--moduix-spacing-2) */
+  --moduix-collapsible-body-padding: initial; /* 0 */
   --moduix-collapsible-color: initial; /* var(--moduix-color-foreground) */
   --moduix-collapsible-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
   --moduix-collapsible-focus-ring-color: initial; /* var(--moduix-color-ring) */
@@ -550,7 +551,7 @@
   --moduix-collapsible-trigger-font-size: initial; /* var(--moduix-text-sm) */
   --moduix-collapsible-trigger-gap: initial; /* var(--moduix-spacing-2) */
   --moduix-collapsible-trigger-line-height: initial; /* var(--moduix-line-height-text-sm) */
-  --moduix-collapsible-trigger-padding-x: initial; /* var(--moduix-spacing-2) */
+  --moduix-collapsible-trigger-padding-x: initial; /* 0 */
   --moduix-collapsible-trigger-padding-y: initial; /* var(--moduix-spacing-1) */
   --moduix-collapsible-trigger-radius: initial; /* 0 */
   --moduix-collapsible-trigger-transition: initial; /* var(--moduix-transition-default) */

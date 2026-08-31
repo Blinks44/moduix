@@ -83,7 +83,7 @@ CommandPalette.RootProvider
 | `CommandPalette.Combobox` | Racine Ark Combobox qui gère la recherche et la sélection des commandes. |
 | `CommandPalette.Control` | Regroupe le champ de recherche et le bouton d’effacement. |
 | `CommandPalette.Input` | Champ de saisie Ark Combobox. |
-| `CommandPalette.Search` | Barre de recherche prête à l’emploi qui regroupe `Control`, `Input` et `ClearTrigger`. Elle ajoute aussi un nom accessible par défaut au champ. Utilisez `controlProps` et `clearTriggerProps` pour personnaliser ces parties internes. |
+| `CommandPalette.Search` | Barre de recherche prête à l’emploi qui regroupe `Control`, `Input` et `ClearTrigger`. Elle ajoute aussi un nom accessible par défaut au champ. Utilisez les parties explicites lorsqu’elles nécessitent une configuration individuelle. |
 | `CommandPalette.ClearTrigger` | Efface la requête et reste masqué lorsque le champ est vide. |
 | `CommandPalette.List` | Liste des résultats Ark Combobox enveloppée dans un `ScrollArea` moduix. |
 | `CommandPalette.Empty` | Message affiché lorsque la collection filtrée ne contient aucun résultat. |
@@ -145,8 +145,7 @@ Il n’existe pas dans le DOM avant la première ouverture et il est supprimé a
 | --- | --- | --- |
 | `CommandPalette.portalled` | `true` | Place `Backdrop` et `Positioner` dans un portail. Définissez `false` pour un rendu dans l’arbre courant. |
 | `CommandPalette.portalRef` | `-` | Définit le conteneur personnalisé du contenu placé dans le portail. |
-| `CommandPalette.shortcut` | `false` | Transmettez `alt+k` ou une autre combinaison prise en charge pour activer le raccourci. |
-| `CommandPalette.shortcutTarget` | `document` | Utilisé uniquement lorsque `shortcut` est activé. `null` désactive l’enregistrement du gestionnaire. |
+| `CommandPalette.shortcut` | `false` | Transmettez `mod+k` ou un autre raccourci compatible avec [Ark Hotkeys](https://ark-ui.com/docs/utilities/hotkeys) pour l’activer. |
 | `CommandPalette.lazyMount` | `true` | Diffère la création du DOM du dialogue jusqu’à l’ouverture de la palette. |
 | `CommandPalette.unmountOnExit` | `true` | Conserve le contenu pendant l’animation de sortie, puis le supprime. |
 | `CommandPalette.Combobox.open` | `true` | Maintient la liste des résultats visible tant que le dialogue est monté. |
@@ -158,14 +157,10 @@ Il n’existe pas dans le DOM avant la première ouverture et il est supprimé a
 ### Comportement
 
 Le raccourci global est désactivé par défaut, car une application peut afficher plusieurs palettes de commandes. Il
-doit contenir exactement un modificateur et une touche, par exemple `mod+k`, `ctrl+1`, `meta+k` ou `alt+k`. Les alias
-pris en charge sont `mod`, `ctrl` / `control`, `meta` / `cmd` / `command` et `alt` / `option`. `mod` correspond à Meta
-comme à Control : le même réglage fonctionne donc sur toutes les plateformes. La touche Shift n’est pas prise en charge.
-
-Le gestionnaire ignore les événements `keydown` répétés, les événements de composition IME et les cibles éditables
-telles que `input`, `textarea`, `select` et les éléments portant l’attribut `contenteditable` lorsque la palette est
-fermée. Si elle est ouverte, le même raccourci la ferme. `alt+k` est recommandé dans la documentation, car la recherche
-du site utilise `Cmd+K`.
+utilise `@zag-js/hotkeys`, l’utilitaire de raccourcis utilisé par Ark, pour analyser la syntaxe. Le composant gère le
+nettoyage du listener sur `document` et la suppression des répétitions. Utilisez `mod+k` pour associer Command sur macOS
+et Control sur les autres plateformes. Il ignore les champs modifiables tant que la palette est fermée ; lorsqu’elle est
+ouverte, le même raccourci ferme la palette.
 
 Dans la palette, les touches fléchées déplacent la surbrillance, `Home` et `End` vont au premier ou au dernier élément,
 `Enter` sélectionne l’élément en surbrillance et `Escape` ferme le dialogue. `CommandPalette.ClearTrigger` efface

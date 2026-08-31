@@ -9,17 +9,18 @@ import {
 import { Dialog as DialogPrimitive, useDialog, useDialogContext } from '@ark-ui/react/dialog';
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
+import { isHotKey } from '@zag-js/hotkeys';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
 import { forwardRef, useEffect } from 'react';
-import { CheckIcon } from '@/lib/moduix/icons/ui';
+import { CheckIcon, CloseIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import {
   OverlayPortal,
   OverlayPortalProvider,
   type OverlayPortalProps,
 } from '@/lib/moduix/overlayPortal';
-import { CloseButton } from '../close-button';
+import closeButtonStyles from '../close-button/CloseButton.module.css';
 import { Kbd } from '../kbd';
 import { ScrollArea } from '../scroll-area';
 import styles from './CommandPalette.module.css';
@@ -29,71 +30,13 @@ const DEFAULT_SEARCH_INPUT_LABEL = 'Search commands';
 
 type CommandPaletteRootProps = ComponentProps<typeof DialogPrimitive.Root> & {
   shortcut?: false | string;
-  shortcutTarget?: Document | HTMLElement | null;
 } & OverlayPortalProps;
 
 type CommandPaletteRootProviderProps = ComponentProps<typeof DialogPrimitive.RootProvider> &
   OverlayPortalProps;
 
-type CommandPaletteSearchProps = ComponentProps<typeof ComboboxPrimitive.Input> & {
-  controlProps?: ComponentProps<typeof ComboboxPrimitive.Control>;
-  clearTriggerProps?: ComponentProps<typeof CloseButton.Root>;
-};
-
-function isShortcutMatch(event: KeyboardEvent, shortcut: string) {
-  const parts = shortcut
-    .toLowerCase()
-    .split('+')
-    .map((part) => part.trim())
-    .filter(Boolean);
-  const [modifier, key] = parts;
-
-  if (!modifier || !key || parts.length !== 2 || event.shiftKey) {
-    return false;
-  }
-
-  const eventKey = event.key.toLowerCase();
-  const eventCode =
-    event.code.startsWith('Key') || event.code.startsWith('Digit')
-      ? event.code.slice(event.code.startsWith('Key') ? 3 : 5).toLowerCase()
-      : event.code.toLowerCase();
-
-  if (eventKey !== key && eventCode !== key) {
-    return false;
-  }
-
-  if (modifier === 'mod') {
-    return (event.metaKey || event.ctrlKey) && !event.altKey;
-  }
-
-  if (modifier === 'ctrl' || modifier === 'control') {
-    return event.ctrlKey && !event.metaKey && !event.altKey;
-  }
-
-  if (modifier === 'meta' || modifier === 'cmd' || modifier === 'command') {
-    return event.metaKey && !event.ctrlKey && !event.altKey;
-  }
-
-  if (modifier === 'alt' || modifier === 'option') {
-    return event.altKey && !event.metaKey && !event.ctrlKey;
-  }
-
-  return false;
-}
-
-function isEditableTarget(target: EventTarget | null) {
-  if (!(target instanceof Element)) {
-    return false;
-  }
-
-  return (
-    target.closest('input, textarea, select, [contenteditable], [contenteditable="true"]') !== null
-  );
-}
-
 function CommandPaletteRoot({
   shortcut = false,
-  shortcutTarget,
   lazyMount = true,
   unmountOnExit = true,
   immediate,
@@ -108,18 +51,19 @@ function CommandPaletteRoot({
   const dialog = useDialog(props);
 
   useEffect(() => {
-    if (!shortcut || shortcutTarget === null) {
+    if (!shortcut) {
       return;
     }
 
-    const target = shortcutTarget ?? document;
     const handleKeyDown = (event: KeyboardEvent) => {
       if (
         event.defaultPrevented ||
         event.repeat ||
         event.isComposing ||
-        !isShortcutMatch(event, shortcut) ||
-        (!dialog.open && isEditableTarget(event.target))
+        !isHotKey(shortcut, event, {
+          enableOnContentEditable: dialog.open,
+          enableOnFormTags: dialog.open,
+        })
       ) {
         return;
       }
@@ -128,10 +72,9 @@ function CommandPaletteRoot({
       dialog.setOpen(!dialog.open);
     };
 
-    const eventListener = handleKeyDown as EventListener;
-    target.addEventListener('keydown', eventListener);
-    return () => target.removeEventListener('keydown', eventListener);
-  }, [dialog, shortcut, shortcutTarget]);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [dialog, shortcut]);
 
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
@@ -367,43 +310,34 @@ const CommandPaletteInput = forwardRef<
 
 const CommandPaletteSearch = forwardRef<
   ComponentRef<typeof ComboboxPrimitive.Input>,
-  CommandPaletteSearchProps
+  ComponentProps<typeof ComboboxPrimitive.Input>
 >(function CommandPaletteSearch(
-  {
-    'aria-label': ariaLabel,
-    'aria-labelledby': ariaLabelledBy,
-    clearTriggerProps,
-    controlProps,
-    ...props
-  },
+  { 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledBy, ...props },
   ref,
 ) {
   return (
-    <CommandPaletteControl {...controlProps}>
+    <CommandPaletteControl>
       <CommandPaletteInput
         ref={ref}
         aria-label={ariaLabel ?? (ariaLabelledBy == null ? DEFAULT_SEARCH_INPUT_LABEL : undefined)}
         aria-labelledby={ariaLabelledBy}
         {...props}
       />
-      <CommandPaletteClearTrigger {...clearTriggerProps} />
+      <CommandPaletteClearTrigger />
     </CommandPaletteControl>
   );
 });
 
 const CommandPaletteClearTrigger = forwardRef<
-  ComponentRef<typeof CloseButton.Root>,
-  ComponentProps<typeof CloseButton.Root>
+  ComponentRef<typeof ComboboxPrimitive.ClearTrigger>,
+  ComponentProps<typeof ComboboxPrimitive.ClearTrigger>
 >(function CommandPaletteClearTrigger(
   {
     asChild,
     className,
     children,
-    disabled,
     onClick,
     onPointerDown,
-    tabIndex,
-    'aria-controls': ariaControls,
     'aria-label': ariaLabel,
     'aria-labelledby': ariaLabelledBy,
     ...props
@@ -412,51 +346,44 @@ const CommandPaletteClearTrigger = forwardRef<
 ) {
   return (
     <ComboboxPrimitive.Context>
-      {(combobox) => {
-        const inputProps = combobox.getInputProps();
-        const isInvalid =
-          inputProps['aria-invalid'] === true || inputProps['aria-invalid'] === 'true';
+      {(combobox) => (
+        <ComboboxPrimitive.ClearTrigger
+          ref={ref}
+          asChild={asChild}
+          {...props}
+          data-slot="command-palette-clear-trigger"
+          hidden={combobox.inputValue.length === 0}
+          aria-label={
+            ariaLabel ??
+            (!asChild && children == null && ariaLabelledBy == null
+              ? DEFAULT_CLEAR_TRIGGER_LABEL
+              : undefined)
+          }
+          aria-labelledby={ariaLabelledBy}
+          className={clsx(
+            closeButtonStyles.root,
+            styles.clearTrigger,
+            normalizeClassName(className),
+          )}
+          onClick={(event) => {
+            onClick?.(event);
 
-        return (
-          <CloseButton.Root
-            ref={ref}
-            asChild={asChild}
-            {...props}
-            disabled={disabled ?? combobox.disabled}
-            data-scope="combobox"
-            data-part="clear-trigger"
-            data-slot="command-palette-clear-trigger"
-            data-invalid={isInvalid ? '' : undefined}
-            hidden={combobox.inputValue.length === 0}
-            tabIndex={tabIndex ?? -1}
-            aria-controls={ariaControls ?? inputProps.id}
-            aria-label={
-              ariaLabel ??
-              (!asChild && children == null && ariaLabelledBy == null
-                ? DEFAULT_CLEAR_TRIGGER_LABEL
-                : undefined)
+            if (!event.defaultPrevented) {
+              combobox.setInputValue('');
             }
-            aria-labelledby={ariaLabelledBy}
-            className={clsx(styles.clearTrigger, normalizeClassName(className))}
-            onPointerDown={(event) => {
-              onPointerDown?.(event);
+          }}
+          onPointerDown={(event) => {
+            onPointerDown?.(event);
 
-              if (event.button === 0) {
-                event.preventDefault();
-              }
-            }}
-            onClick={(event) => {
-              onClick?.(event);
-
-              if (!event.defaultPrevented) {
-                combobox.setInputValue('');
-              }
-            }}
-          >
-            {children}
-          </CloseButton.Root>
-        );
-      }}
+            if (event.button === 0) {
+              event.preventDefault();
+              combobox.setInputValue('');
+            }
+          }}
+        >
+          {children ?? <CloseIcon />}
+        </ComboboxPrimitive.ClearTrigger>
+      )}
     </ComboboxPrimitive.Context>
   );
 });

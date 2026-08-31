@@ -48,7 +48,7 @@
     border: 0;
     border-radius: var(--moduix-collapsible-trigger-radius, 0);
     padding-block: var(--moduix-collapsible-trigger-padding-y, var(--moduix-spacing-1));
-    padding-inline: var(--moduix-collapsible-trigger-padding-x, var(--moduix-spacing-2));
+    padding-inline: var(--moduix-collapsible-trigger-padding-x, 0);
     background-color: var(--moduix-collapsible-trigger-bg, transparent);
     color: var(
       --moduix-collapsible-trigger-color,
@@ -132,8 +132,6 @@
   }
 
   .content {
-    --collapsed-height: 0;
-
     box-sizing: border-box;
     overflow: hidden;
     color: var(--moduix-collapsible-content-color, var(--moduix-color-muted-foreground));
@@ -169,7 +167,7 @@
     display: grid;
     gap: var(--moduix-collapsible-body-gap, var(--moduix-spacing-2));
     min-width: 0;
-    padding: var(--moduix-collapsible-body-padding, var(--moduix-spacing-2));
+    padding: var(--moduix-collapsible-body-padding, 0);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -179,7 +177,6 @@
     }
 
     .content[data-state] {
-      animation-delay: 0ms;
       animation-duration: 1ms;
     }
   }

@@ -42,6 +42,11 @@ export const chartCssProperties: CssProperty[] = [
     description: 'Controls spacing between `Chart.Root` children.',
   },
   {
+    name: '--moduix-chart-legend-indicator-color',
+    defaultValue: 'var(--moduix-color-muted-foreground)',
+    description: 'Controls the `Chart.LegendItem` indicator color.',
+  },
+  {
     name: '--moduix-chart-padding',
     defaultValue: 'var(--moduix-spacing-5)',
     description: 'Controls `Chart.Root` inset.',

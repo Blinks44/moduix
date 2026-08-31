@@ -83,7 +83,7 @@ CommandPalette.RootProvider
 | `CommandPalette.Combobox` | Ark Combobox root for search state and command selection. |
 | `CommandPalette.Control` | Wraps the search input and clear button. |
 | `CommandPalette.Input` | Ark Combobox input. |
-| `CommandPalette.Search` | Convenience search row that renders `Control`, `Input`, and `ClearTrigger`. It also adds a default accessible label to the input. Use `controlProps` and `clearTriggerProps` to customize the inner parts. |
+| `CommandPalette.Search` | Convenience search row that renders `Control`, `Input`, and `ClearTrigger`. It also adds a default accessible label to the input. Render the explicit parts when their individual configuration is needed. |
 | `CommandPalette.ClearTrigger` | Clears the search input and stays hidden while it is empty. |
 | `CommandPalette.List` | Ark Combobox listbox wrapped in a moduix `ScrollArea`. |
 | `CommandPalette.Empty` | Message shown when the filtered collection has no results. |
@@ -143,8 +143,7 @@ initial rendering is needed.
 | --- | --- | --- |
 | `CommandPalette.portalled` | `true` | Portals `Backdrop` and `Positioner`. Set to `false` for inline rendering. |
 | `CommandPalette.portalRef` | `-` | Sends portalled content to a custom container. |
-| `CommandPalette.shortcut` | `false` | Pass `alt+k` or another supported modifier and key to enable the toggle listener. |
-| `CommandPalette.shortcutTarget` | `document` | Used only when `shortcut` is enabled. Set to `null` to skip listener registration. |
+| `CommandPalette.shortcut` | `false` | Pass `mod+k` or another [Ark Hotkeys](https://ark-ui.com/docs/utilities/hotkeys)-compatible shortcut to enable the toggle listener. |
 | `CommandPalette.lazyMount` | `true` | Defers dialog DOM creation until the palette is opened. |
 | `CommandPalette.unmountOnExit` | `true` | Keeps the content mounted during the exit animation, then removes it. |
 | `CommandPalette.Combobox.open` | `true` | Keeps the listbox visible while the dialog is mounted. |
@@ -155,15 +154,10 @@ initial rendering is needed.
 
 ### Behavioral notes
 
-The global shortcut is opt-in because an application may mount more than one command palette. It must
-contain exactly one modifier and one key, for example `mod+k`, `ctrl+1`, `meta+k`, or `alt+k`. Supported
-modifier aliases are `mod`, `ctrl` / `control`, `meta` / `cmd` / `command`, and `alt` / `option`.
-`mod` matches either Meta or Control, so the same setting works across platforms. Shift is not supported.
-
-The listener ignores repeated keydown events, IME composition, and editable targets such as `input`,
-`textarea`, `select`, and `contenteditable` while the palette is closed. When the palette is open, the
-same shortcut closes it. `alt+k` is the recommended docs shortcut because the documentation search uses
-`Cmd+K`.
+The global shortcut is opt-in because an application may mount more than one command palette. Its syntax
+is parsed by `@zag-js/hotkeys`, the hotkey utility used by Ark. The component owns document-listener
+cleanup and repeated-key suppression. Use `mod+k` for platform-aware Command/Control bindings.
+It ignores editable targets while the palette is closed; when the palette is open, the same shortcut closes it.
 
 Inside the palette, Arrow keys move the highlighted item, Home and End jump to the first or last item,
 Enter selects the highlighted item, and Escape closes the dialog. `CommandPalette.ClearTrigger` clears

@@ -6,7 +6,7 @@ export const collapsibleExampleCss = `
     flex-direction: column;
     gap: var(--moduix-spacing-1);
     margin: 0;
-    padding-inline-start: var(--moduix-spacing-2);
+    padding-inline-start: 0;
   }
 
   .collapsible-example-layout {
@@ -68,13 +68,13 @@ export const collapsibleCustomCompositionCss = `
     flex-direction: column;
     gap: var(--moduix-spacing-1);
     margin: 0;
-    padding-inline-start: var(--moduix-spacing-2);
+    padding-inline-start: 0;
   }
 `;
 
 export const collapsibleOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-collapsible-body-gap', 'var(--moduix-spacing-2)', 'Controls body content gap.'],
-  ['--moduix-collapsible-body-padding', 'var(--moduix-spacing-2)', 'Controls body padding.'],
+  ['--moduix-collapsible-body-padding', '0', 'Controls body padding.'],
   ['--moduix-collapsible-color', 'var(--moduix-color-foreground)', 'Controls root text color.'],
   [
     '--moduix-collapsible-disabled-opacity',
@@ -157,11 +157,7 @@ export const collapsibleOverrideCssProperties: CssPropertyInput[] = [
     'var(--moduix-line-height-text-sm)',
     'Controls trigger line height.',
   ],
-  [
-    '--moduix-collapsible-trigger-padding-x',
-    'var(--moduix-spacing-2)',
-    'Controls trigger horizontal padding.',
-  ],
+  ['--moduix-collapsible-trigger-padding-x', '0', 'Controls trigger horizontal padding.'],
   [
     '--moduix-collapsible-trigger-padding-y',
     'var(--moduix-spacing-1)',

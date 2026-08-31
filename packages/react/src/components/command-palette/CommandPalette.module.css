@@ -56,7 +56,6 @@
     position: fixed;
     z-index: calc(var(--moduix-z-backdrop) + var(--layer-index, 0));
     inset: 0;
-    min-height: 100dvh;
     background-color: var(
       --moduix-command-palette-backdrop-bg,
       var(--moduix-backdrop-bg, var(--moduix-color-overlay))
@@ -172,14 +171,14 @@
   }
 
   .clearTrigger {
-    --moduix-close-button-size: var(--moduix-command-palette-clear-size, var(--moduix-size-sm));
+    --moduix-close-button-size: var(--moduix-command-palette-clear-size, var(--moduix-spacing-6));
     --moduix-close-button-radius: var(
       --moduix-command-palette-clear-radius,
       var(--moduix-radius-md)
     );
     --moduix-close-button-icon-size: var(
       --moduix-command-palette-icon-size,
-      var(--moduix-spacing-4)
+      var(--moduix-spacing-3)
     );
     --moduix-close-button-bg: transparent;
     --moduix-close-button-bg-hover: var(
@@ -258,6 +257,7 @@
 
   .input {
     box-sizing: border-box;
+    flex: 1 1 auto;
     width: 100%;
     min-width: 0;
     height: var(--moduix-command-palette-input-control-height, auto);
@@ -418,16 +418,8 @@
     user-select: none;
 
     &[data-highlighted] {
+      background-color: var(--moduix-command-palette-highlight-bg, var(--moduix-color-accent));
       color: var(--moduix-command-palette-highlight-color, var(--moduix-color-foreground));
-
-      &::before {
-        content: '';
-        position: absolute;
-        z-index: -1;
-        inset: 0;
-        border-radius: inherit;
-        background-color: var(--moduix-command-palette-highlight-bg, var(--moduix-color-accent));
-      }
     }
 
     &[data-state='checked'] {
@@ -615,6 +607,13 @@
         --moduix-command-palette-content-ending-scale,
         var(--moduix-popup-motion-ending-scale, var(--moduix-scale-popup))
       );
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .backdrop,
+    .content {
+      animation: none;
     }
   }
 }

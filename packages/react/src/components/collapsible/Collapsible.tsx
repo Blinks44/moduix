@@ -91,8 +91,6 @@ const CollapsibleBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'d
     return (
       <ark.div
         ref={ref}
-        data-scope="collapsible"
-        data-part="body"
         data-slot="collapsible-body"
         className={clsx(styles.body, normalizeClassName(className))}
         {...props}
