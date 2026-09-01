@@ -3,6 +3,7 @@ import { useFilter } from '@ark-ui/react/locale';
 import { Combobox } from '@moduix/react/combobox';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/combobox/component-controlled.module.css';
 
 const fruits = [
   { label: 'Apple', value: 'apple' },
@@ -20,14 +21,7 @@ export default function ControlledComboboxDemo() {
   const [value, setValue] = useState(['mango']);
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        gap: 'var(--moduix-spacing-3)',
-      }}
-    >
+    <div className={styles.stack}>
       <Combobox
         collection={collection}
         value={value}
@@ -41,7 +35,7 @@ export default function ControlledComboboxDemo() {
           <Combobox.Trigger aria-label="Open options" />
         </Combobox.Control>
         <Combobox.Positioner>
-          <Combobox.Content>
+          <Combobox.Content className={styles.content}>
             <Combobox.Empty>No fruits found.</Combobox.Empty>
             <Combobox.List>
               {collection.items.map((item) => (

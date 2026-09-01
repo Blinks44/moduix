@@ -1,5 +1,6 @@
 import { Button } from '@moduix/react/button';
 import { Collapsible, useCollapsibleContext } from '@moduix/react/collapsible';
+import styles from '@/components/examples/collapsible/collapsible-context.module.css';
 
 function CloseDetailsButton() {
   const collapsible = useCollapsibleContext();
@@ -13,7 +14,7 @@ function CloseDetailsButton() {
 
 export default function ContextCollapsibleDemo() {
   return (
-    <Collapsible defaultOpen>
+    <Collapsible className={styles.root} defaultOpen>
       <Collapsible.Trigger>
         Account details
         <Collapsible.Indicator />

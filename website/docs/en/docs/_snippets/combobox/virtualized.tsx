@@ -4,6 +4,7 @@ import { Combobox } from '@moduix/react/combobox';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { useState } from 'react';
 import { flushSync } from 'react-dom';
+import styles from '@/components/examples/combobox/component-virtualized.module.css';
 
 const results = Array.from({ length: 1000 }, (_, index) => ({
   label: `Result ${String(index + 1).padStart(4, '0')}`,
@@ -43,11 +44,11 @@ export default function VirtualizedComboboxDemo() {
         <Combobox.Trigger aria-label="Open options" onClick={reset} />
       </Combobox.Control>
       <Combobox.Positioner>
-        <Combobox.Content className="virtualContent">
+        <Combobox.Content className={`${styles.content} ${styles.virtualContent}`}>
           <Combobox.Empty>No results found.</Combobox.Empty>
-          <div ref={setScrollElement} className="virtualScroller">
+          <div ref={setScrollElement} className={styles.virtualScroller}>
             <Combobox.List
-              className="virtualList"
+              className={styles.virtualList}
               style={{ height: virtualizer.getTotalSize(), width: '100%' }}
             >
               {virtualizer.getVirtualItems().map((virtualItem) => {
@@ -59,7 +60,7 @@ export default function VirtualizedComboboxDemo() {
                     item={item}
                     aria-setsize={collection.size}
                     aria-posinset={virtualItem.index + 1}
-                    className="virtualItem"
+                    className={styles.virtualItem}
                     style={{
                       position: 'absolute',
                       top: 0,

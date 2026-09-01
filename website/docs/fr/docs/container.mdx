@@ -4,7 +4,12 @@ component: container
 description: Un composant de mise en page adaptatif pour conserver une largeur de contenu lisible et des espacements horizontaux fluides.
 ---
 
-import * as ContainerDocs from '@/components/examples/container';
+import * as ContainerDocs from '@/components/examples/container/container';
+import ContainerBasic from '../../en/docs/_snippets/container/basic.tsx';
+import ContainerFullWidth from '../../en/docs/_snippets/container/full-width.tsx';
+import ContainerGutters from '../../en/docs/_snippets/container/gutters.tsx';
+import ContainerSemanticElement from '../../en/docs/_snippets/container/semantic-element.tsx';
+import ContainerWithBleed from '../../en/docs/_snippets/container/with-bleed.tsx';
 
 ## Référence de l’API
 
@@ -19,11 +24,26 @@ Importez `Container` depuis `@moduix/react/container` lorsque vous avez besoin d
 à lire. Le composant ajoute des espacements intérieurs horizontaux adaptatifs et laisse la gestion des espacements
 verticaux à la mise en page qui l’entoure.
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/container/basic.tsx"
+<ExampleFrame variant="component">
+  <ContainerBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/container/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/container/container-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -98,44 +118,101 @@ Pour les besoins courants, il suffit de choisir l’une des options suivantes :
 
 Utilisez `size="full"` pour qu’une section occupe toute la largeur de son parent tout en conservant un espacement latéral adaptatif.
 
-<PreviewFrame>
-```tsx preview file="../../en/docs/_snippets/container/full-width.tsx"
+<ExampleFrame variant="component">
+  <ContainerFullWidth />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/container/full-width.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/container/container-full-width.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Espacements latéraux
 
 Utilisez `gutter` pour choisir la taille des espacements intérieurs horizontaux adaptatifs.
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/container/gutters.tsx"
+<ExampleFrame variant="component">
+  <ContainerGutters />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/container/gutters.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/container/container-gutters.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Élément sémantique
 
 Utilisez `asChild` lorsque l’enveloppe de mise en page doit également décrire la structure du document.
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/container/semantic-element.tsx"
+<ExampleFrame variant="component">
+  <ContainerSemanticElement />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/container/semantic-element.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/container/container-semantic-element.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Avec Bleed
 
 Conservez une largeur de texte limitée et laissez uniquement l’enfant plus large dépasser cette limite.
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/container/with-bleed.tsx"
+<ExampleFrame variant="component">
+  <ContainerWithBleed />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/container/with-bleed.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/container/container-with-bleed.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

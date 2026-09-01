@@ -1,4 +1,5 @@
 import { Collapsible } from '@moduix/react/collapsible';
+import styles from '@/components/examples/collapsible/collapsible-partial-collapse.module.css';
 
 const paragraphs = [
   'Ark UI is a headless component library for building accessible, high-quality UI components for React, Solid, Vue, and Svelte.',
@@ -8,7 +9,7 @@ const paragraphs = [
 
 export default function PartialCollapseCollapsibleDemo() {
   return (
-    <Collapsible collapsedHeight="3rem">
+    <Collapsible className={styles.root} collapsedHeight="3rem">
       <Collapsible.Trigger>
         Read more
         <Collapsible.Indicator />

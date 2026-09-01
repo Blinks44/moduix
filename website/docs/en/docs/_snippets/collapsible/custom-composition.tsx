@@ -1,22 +1,23 @@
 import { Collapsible } from '@moduix/react/collapsible';
 import { ChevronDown as ChevronDownIcon } from 'lucide-react';
+import styles from '@/components/examples/collapsible/collapsible-custom-composition.module.css';
 
 const recoveryKeys = ['alien-bean-pasta', 'wild-irish-burrito', 'horse-battery-staple'];
 
 export default function CustomCompositionCollapsibleDemo() {
   return (
-    <Collapsible>
+    <Collapsible className={styles.root}>
       <Collapsible.Trigger asChild>
-        <button type="button" className="collapsible-custom-trigger">
+        <button type="button" className={styles.customTrigger}>
           Styled recovery keys
-          <Collapsible.Indicator className="collapsible-custom-indicator">
+          <Collapsible.Indicator className={styles.customIndicator}>
             <ChevronDownIcon />
           </Collapsible.Indicator>
         </button>
       </Collapsible.Trigger>
       <Collapsible.Content>
-        <Collapsible.Body className="collapsible-custom-content-body">
-          <ul className="collapsible-keys-list">
+        <Collapsible.Body className={styles.customContentBody}>
+          <ul className={styles.keysList}>
             {recoveryKeys.map((key) => (
               <li key={key}>{key}</li>
             ))}

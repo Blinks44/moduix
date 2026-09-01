@@ -1,0 +1,9 @@
+.content {
+  min-width: var(--reference-width);
+  transform-origin: var(--transform-origin);
+}
+
+.content :global([data-slot='combobox-item'][data-highlighted]) {
+  background: var(--moduix-combobox-highlight-bg, var(--moduix-color-accent));
+  color: var(--moduix-combobox-highlight-color, var(--moduix-color-accent-foreground));
+}

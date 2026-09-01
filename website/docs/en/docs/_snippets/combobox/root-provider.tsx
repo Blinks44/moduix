@@ -1,5 +1,6 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import { Combobox, useCombobox } from '@moduix/react/combobox';
+import styles from '@/components/examples/combobox/component-root-provider.module.css';
 
 const jobTitles = [
   { label: 'Designer', value: 'designer' },
@@ -21,7 +22,7 @@ export default function RootProviderComboboxDemo() {
         <Combobox.Trigger aria-label="Open options" />
       </Combobox.Control>
       <Combobox.Positioner>
-        <Combobox.Content>
+        <Combobox.Content className={styles.content}>
           <Combobox.List>
             {collection.items.map((item) => (
               <Combobox.Option key={item.value} item={item}>

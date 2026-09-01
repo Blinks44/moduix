@@ -3,8 +3,8 @@ import { useFilter } from '@ark-ui/react/locale';
 import { Button } from '@moduix/react/button';
 import { CommandPalette } from '@moduix/react/command-palette';
 import { useState } from 'react';
-import { commandPaletteItems } from '@/components/examples/command-palette-items';
-import styles from '@/components/examples/command-palette.module.css';
+import { commandPaletteItems } from '@/components/examples/command-palette/command-palette-items';
+import styles from '@/components/examples/command-palette/command-palette-controlled-open-state.module.css';
 
 export default function ControlledCommandPalette() {
   const [open, setOpen] = useState(false);

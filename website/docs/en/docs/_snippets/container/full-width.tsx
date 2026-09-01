@@ -1,6 +1,7 @@
 import { Container } from '@moduix/react/container';
 import { Heading } from '@moduix/react/heading';
 import { Text } from '@moduix/react/text';
+import styles from '@/components/examples/container/container-full-width.module.css';
 
 const fullWidthContent = {
   title: 'Full-width section',
@@ -10,15 +11,7 @@ const fullWidthContent = {
 
 export default function ContainerFullWidthDemo() {
   return (
-    <Container
-      size="full"
-      gutter="lg"
-      style={{
-        paddingBlock: 'var(--moduix-spacing-4)',
-        borderBlock: 'var(--moduix-border-width-sm) dashed var(--moduix-color-border)',
-        backgroundColor: 'var(--moduix-color-muted)',
-      }}
-    >
+    <Container size="full" gutter="lg" className={styles.root}>
       <Heading as="h3" size="lg">
         {fullWidthContent.title}
       </Heading>

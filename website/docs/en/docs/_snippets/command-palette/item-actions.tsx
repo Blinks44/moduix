@@ -3,9 +3,9 @@ import { useFilter } from '@ark-ui/react/locale';
 import { Button } from '@moduix/react/button';
 import { CommandPalette } from '@moduix/react/command-palette';
 import { useState } from 'react';
-import { commandPaletteItems } from '@/components/examples/command-palette-items';
+import { commandPaletteItems } from '@/components/examples/command-palette/command-palette-items';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/command-palette.module.css';
+import styles from '@/components/examples/command-palette/command-palette-item-actions.module.css';
 
 export default function CommandPaletteActionsDemo() {
   const [lastAction, setLastAction] = useState('No command executed yet.');

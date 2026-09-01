@@ -4,7 +4,12 @@ component: command-palette
 description: Une palette de commandes dans une boîte de dialogue, avec recherche et raccourcis clavier pour un accès rapide.
 ---
 
-import * as CommandPaletteDocs from '@/components/examples/command-palette';
+import * as CommandPaletteDocs from '@/components/examples/command-palette/command-palette';
+import CommandPaletteBasic from '../../en/docs/_snippets/command-palette/basic.tsx';
+import AdvancedCommandPalette from '../../en/docs/_snippets/command-palette/advanced-customization.tsx';
+import ControlledCommandPalette from '../../en/docs/_snippets/command-palette/controlled-open-state.tsx';
+import CommandPaletteShortcutDemo from '../../en/docs/_snippets/command-palette/enable-the-global-shortcut.tsx';
+import CommandPaletteActionsDemo from '../../en/docs/_snippets/command-palette/item-actions.tsx';
 
 ## Référence de l’API
 
@@ -21,11 +26,26 @@ le conteneur de positionnement, le contenu et la zone principale. Placez `Comman
 transmettez-lui une collection et affichez les commandes filtrées dans `CommandPalette.List`. `CommandPalette.Search`
 ajoute le champ de saisie et un bouton d’effacement, visible dès qu’une requête est saisie.
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/command-palette/basic.tsx"
+<ExampleFrame variant="component">
+  <CommandPaletteBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/command-palette/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/command-palette/command-palette-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -175,33 +195,78 @@ Dans la palette, les touches fléchées déplacent la surbrillance, `Home` et `E
 Utilisez la prop contrôlée `open` lorsque le reste de l’interface doit également décider si la palette est visible.
 L’exemple réinitialise le filtre externe de la collection à la fermeture de la palette.
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/command-palette/controlled-open-state.tsx"
+<ExampleFrame variant="component">
+  <ControlledCommandPalette />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/command-palette/controlled-open-state.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/command-palette/command-palette-controlled-open-state.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Activation du raccourci global
 
 Définissez `shortcut="alt+k"` pour enregistrer un raccourci global qui ouvre et ferme la palette. C’est le seul aperçu
 de la page qui enregistre `Alt+K`.
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/command-palette/enable-the-global-shortcut.tsx"
+<ExampleFrame variant="component">
+  <CommandPaletteShortcutDemo />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/command-palette/enable-the-global-shortcut.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/command-palette/command-palette-enable-the-global-shortcut.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Actions des éléments
 
 Gérez `onSelect(details)` pour exécuter une commande. Avec la valeur par défaut de `closeOnSelect`, la palette se ferme
 après l’exécution de l’action sélectionnée.
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/command-palette/item-actions.tsx"
+<ExampleFrame variant="component">
+  <CommandPaletteActionsDemo />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/command-palette/item-actions.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/command-palette/command-palette-item-actions.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Personnalisation avancée
 
@@ -209,11 +274,26 @@ Utilisez les parties explicites lorsque la palette nécessite un en-tête ou une
 L’exemple conserve le comportement d’Ark Dialog et d’Ark Combobox, tout en remplaçant les composants utilitaires
 `Panel` et `Search` par une composition explicite.
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/command-palette/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <AdvancedCommandPalette />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/command-palette/advanced-customization.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/command-palette/command-palette-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

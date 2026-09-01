@@ -1,6 +1,7 @@
 import { Button } from '@moduix/react/button';
 import { ColorPicker, parseColor } from '@moduix/react/color-picker';
 import { Dialog } from '@moduix/react/dialog';
+import styles from '@/components/examples/color-picker/color-picker-inside-dialog.module.css';
 
 export default function InsideDialogColorPickerDemo() {
   return (
@@ -16,7 +17,7 @@ export default function InsideDialogColorPickerDemo() {
           <Dialog.Description>
             The color picker stays inside the dialog stacking context.
           </Dialog.Description>
-          <div className="color-picker-dialog-body">
+          <div className={styles.dialogBody}>
             <ColorPicker portalled={false} defaultValue={parseColor('#eb5e41')}>
               <ColorPicker.Label>Color</ColorPicker.Label>
               <ColorPicker.Control>

@@ -4,7 +4,24 @@ component: color-picker
 description: An Ark UI-based color picker for choosing colors, editing color channels, and selecting swatches.
 ---
 
-import * as ColorPickerDocs from '@/components/examples/color-picker';
+import * as ColorPickerDocs from '@/components/examples/color-picker/color-picker';
+import ColorPickerAdvancedCustomization from './_snippets/color-picker/advanced-customization.tsx';
+import ColorPickerBasic from './_snippets/color-picker/basic.tsx';
+import ColorPickerCompactTrigger from './_snippets/color-picker/compact-trigger.tsx';
+import ColorPickerControlled from './_snippets/color-picker/controlled.tsx';
+import ColorPickerDisabled from './_snippets/color-picker/disabled.tsx';
+import ColorPickerFieldState from './_snippets/color-picker/field-state.tsx';
+import ColorPickerFormUsage from './_snippets/color-picker/form-usage.tsx';
+import ColorPickerFormatViews from './_snippets/color-picker/format-views.tsx';
+import ColorPickerInline from './_snippets/color-picker/inline.tsx';
+import ColorPickerInsideDialog from './_snippets/color-picker/inside-dialog.tsx';
+import ColorPickerInputOnly from './_snippets/color-picker/input-only.tsx';
+import ColorPickerOpenControlled from './_snippets/color-picker/open-controlled.tsx';
+import ColorPickerRootProvider from './_snippets/color-picker/root-provider.tsx';
+import ColorPickerSliderOnly from './_snippets/color-picker/slider-only.tsx';
+import ColorPickerSwatchOnly from './_snippets/color-picker/swatch-only.tsx';
+import ColorPickerSwatches from './_snippets/color-picker/swatches.tsx';
+import ColorPickerValueSwatch from './_snippets/color-picker/value-swatch.tsx';
 
 ## API Reference
 
@@ -21,13 +38,26 @@ Start with a compact field that combines a root, one channel input, the trigger'
 explicit popup content, and the picker's default internal parts. The component also renders a hidden
 native input. Pass `name` when the color should be submitted with a form.
 
-<style>{ColorPickerDocs.colorPickerExampleCss}</style>
+<ExampleFrame variant="component">
+  <ColorPickerBasic />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/color-picker/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/color-picker/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/color-picker/color-picker-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -155,78 +185,130 @@ props to `false` only when eager initial rendering is needed.
 Use this compact composition when users need the color area and channel sliders but do not need
 typed channel input.
 
-<style>{ColorPickerDocs.colorPickerInlineCss}</style>
+<ExampleFrame variant="component">
+  <ColorPickerSliderOnly />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/color-picker/slider-only.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/color-picker/slider-only.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Compact Trigger
 
 Use `data-fit-content` on `ColorPicker.Trigger` when a content-sized button is more useful than a
 square swatch, such as when replacing a button-based color field.
 
-<style>{ColorPickerDocs.colorPickerInlineCss}</style>
+<ExampleFrame variant="component">
+  <ColorPickerCompactTrigger />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/color-picker/compact-trigger.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/color-picker/compact-trigger.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/color-picker/color-picker-compact-trigger.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Controlled
 
 Use controlled state when the selected color must stay in sync with application state.
 
-<style>{ColorPickerDocs.colorPickerExampleCss}</style>
+<ExampleFrame variant="component">
+  <ColorPickerControlled />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/color-picker/controlled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/color-picker/controlled.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Disabled
 
 Use `disabled` on the root when every color picker part should become non-interactive while keeping
 the current color visible.
 
-<style>{ColorPickerDocs.colorPickerExampleCss}</style>
+<ExampleFrame variant="component">
+  <ColorPickerDisabled />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/color-picker/disabled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/color-picker/disabled.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Field State
 
 Use root form-state props such as `required` and `invalid` when the picker is rendered inside a
 field container and should expose the same state through Ark data attributes.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/color-picker/field-state.tsx"
+<ExampleFrame variant="component">
+  <ColorPickerFieldState />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/color-picker/field-state.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/color-picker/color-picker-field-state.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Form Usage
 
 Use `name` on `ColorPicker`; it renders its native form input automatically.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/color-picker/form-usage.tsx"
+<ExampleFrame variant="component">
+  <ColorPickerFormUsage />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/color-picker/form-usage.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Format Views
 
@@ -235,137 +317,245 @@ input groups without changing the picker structure. `FormatSelect` keeps Ark's n
 control, while its collapsed trigger is styled like the moduix Select field and consistently
 presents the RGBA, HSLA, and HSBA options. The browser controls the options popup.
 
-<style>{ColorPickerDocs.colorPickerInlineCss}</style>
+<ExampleFrame variant="component">
+  <ColorPickerFormatViews />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/color-picker/format-views.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/color-picker/format-views.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/color-picker/color-picker-format-views.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Inline
 
 Use `inline` in settings panels where the color tools should stay visible without a popup trigger.
 
-<style>{ColorPickerDocs.colorPickerInlineCss}</style>
+<ExampleFrame variant="component">
+  <ColorPickerInline />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/color-picker/inline.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/color-picker/inline.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/color-picker/color-picker-inline.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Input Only
 
 Use channel inputs with a passive swatch when typed color entry is important and a popup would add
 unnecessary complexity to the interface.
 
-<style>{ColorPickerDocs.colorPickerInlineCss}</style>
+<ExampleFrame variant="component">
+  <ColorPickerInputOnly />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/color-picker/input-only.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/color-picker/input-only.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/color-picker/color-picker-input-only.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Inside Dialog
 
 When a picker appears inside a modal dialog, render its popup without a portal so it shares the
 dialog's stacking context and stays interactive above the dialog surface.
 
-<style>{ColorPickerDocs.colorPickerDialogCss}</style>
+<ExampleFrame variant="component">
+  <ColorPickerInsideDialog />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/color-picker/inside-dialog.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/color-picker/inside-dialog.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/color-picker/color-picker-inside-dialog.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Open Controlled
 
 Use controlled `open` state when another control or workflow owns the popup's visibility.
 
-<style>{ColorPickerDocs.colorPickerExampleCss}</style>
+<ExampleFrame variant="component">
+  <ColorPickerOpenControlled />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/color-picker/open-controlled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/color-picker/open-controlled.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/color-picker/color-picker-open-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### RootProvider
 
 Use moduix `useColorPicker` with `RootProvider` when the color picker state must be created outside
 the rendered tree and shared with nearby controls.
 
-<style>{ColorPickerDocs.colorPickerExampleCss}</style>
+<ExampleFrame variant="component">
+  <ColorPickerRootProvider />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/color-picker/root-provider.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/color-picker/root-provider.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/color-picker/color-picker-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Swatch Only
 
 Use swatch-only composition when a preset palette is enough and the area, sliders, and inputs are
 unnecessary.
 
-<style>{ColorPickerDocs.colorPickerInlineCss}</style>
+<ExampleFrame variant="component">
+  <ColorPickerSwatchOnly />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/color-picker/swatch-only.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/color-picker/swatch-only.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/color-picker/color-picker-swatch-only.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Swatches
 
 Use popup swatches when the picker should offer a curated set of colors alongside freeform editing.
 `closeOnSelect` follows Ark behavior and closes the popup after a swatch is chosen.
 
-<style>{ColorPickerDocs.colorPickerExampleCss}</style>
+<ExampleFrame variant="component">
+  <ColorPickerSwatches />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/color-picker/swatches.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/color-picker/swatches.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Value Swatch
 
 Use `ValueSwatch` and `ValueText` when nearby UI needs to show the selected color without opening
 the full picker.
 
-<style>{ColorPickerDocs.colorPickerValueSwatchCss}</style>
+<ExampleFrame variant="component">
+  <ColorPickerValueSwatch />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/color-picker/value-swatch.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/color-picker/value-swatch.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/color-picker/color-picker-value-swatch.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Use explicit parts and children when the default composition needs a different visual arrangement.
 
-<style>{ColorPickerDocs.colorPickerExampleCss}</style>
+<ExampleFrame variant="component">
+  <ColorPickerAdvancedCustomization />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/color-picker/advanced-customization.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/color-picker/advanced-customization.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

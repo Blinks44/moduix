@@ -1,6 +1,7 @@
 import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
 import { Combobox } from '@moduix/react/combobox';
+import styles from '@/components/examples/combobox/component-limit-results.module.css';
 
 const cities = [
   'New York',
@@ -36,7 +37,7 @@ export default function LimitComboboxDemo() {
         <Combobox.Trigger aria-label="Open options" />
       </Combobox.Control>
       <Combobox.Positioner>
-        <Combobox.Content>
+        <Combobox.Content className={styles.content}>
           <Combobox.Empty>No cities found.</Combobox.Empty>
           <Combobox.List>
             {collection.items.map((item) => (

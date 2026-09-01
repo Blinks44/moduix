@@ -1,0 +1,20 @@
+.root {
+  width: min(220px, 100%);
+  align-self: center;
+}
+
+.nestedContent > p {
+  margin: 0 0 var(--moduix-spacing-2);
+}
+
+.nestedRoot {
+  width: 100%;
+}
+
+.keysList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--moduix-spacing-1);
+  margin: 0;
+  padding-inline-start: 0;
+}

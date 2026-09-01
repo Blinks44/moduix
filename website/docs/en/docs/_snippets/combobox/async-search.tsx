@@ -1,6 +1,7 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import { Combobox } from '@moduix/react/combobox';
 import { useEffect, useMemo, useState } from 'react';
+import styles from '@/components/examples/combobox/component-async-search.module.css';
 
 const fruits = [
   { label: 'Apple', value: 'apple' },
@@ -51,7 +52,7 @@ export default function AsyncSearchComboboxDemo() {
         <Combobox.Trigger aria-label="Open options" />
       </Combobox.Control>
       <Combobox.Positioner>
-        <Combobox.Content>
+        <Combobox.Content className={styles.content}>
           {!query ? <Combobox.Status>Start typing to search…</Combobox.Status> : null}
           {loading ? <Combobox.Status>Searching…</Combobox.Status> : null}
           {!loading && query ? <Combobox.Empty>No results found.</Combobox.Empty> : null}

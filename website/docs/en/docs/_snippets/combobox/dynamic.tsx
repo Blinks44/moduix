@@ -1,5 +1,6 @@
 import { useListCollection } from '@ark-ui/react/collection';
 import { Combobox } from '@moduix/react/combobox';
+import styles from '@/components/examples/combobox/component-dynamic.module.css';
 
 const domains = ['gmail.com', 'outlook.com', 'proton.me'];
 
@@ -26,7 +27,7 @@ export default function DynamicComboboxDemo() {
         <Combobox.Trigger aria-label="Open options" />
       </Combobox.Control>
       <Combobox.Positioner>
-        <Combobox.Content>
+        <Combobox.Content className={styles.content}>
           <Combobox.List>
             {collection.items.map((item) => (
               <Combobox.Option key={item} item={item}>

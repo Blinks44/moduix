@@ -1,16 +1,4 @@
-import type { CssPropertyInput } from '../mdx/reference';
-
-export const comboboxExampleCss = `
-[data-slot='combobox-content'] {
-  min-width: var(--reference-width);
-  transform-origin: var(--transform-origin);
-}
-
-[data-slot='combobox-item'][data-highlighted] {
-  background: var(--moduix-combobox-highlight-bg, var(--moduix-color-accent));
-  color: var(--moduix-combobox-highlight-color, var(--moduix-color-accent-foreground));
-}
-`;
+import type { CssPropertyInput } from '../../mdx/reference';
 
 export const comboboxOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-combobox-action-bg', 'transparent', 'Controls action background.'],

@@ -4,7 +4,18 @@ component: collapsible
 description: A disclosure control for showing and hiding one content region.
 ---
 
-import * as CollapsibleDocs from '@/components/examples/collapsible';
+import * as CollapsibleDocs from '@/components/examples/collapsible/collapsible';
+import CollapsibleBasic from './_snippets/collapsible/basic.tsx';
+import CollapsibleContext from './_snippets/collapsible/context.tsx';
+import CollapsibleControlled from './_snippets/collapsible/controlled.tsx';
+import CollapsibleDefaultOpen from './_snippets/collapsible/default-open.tsx';
+import CollapsibleDisabled from './_snippets/collapsible/disabled.tsx';
+import CollapsibleLazyMount from './_snippets/collapsible/lazy-mount.tsx';
+import CollapsibleNested from './_snippets/collapsible/nested.tsx';
+import CollapsiblePartialCollapse from './_snippets/collapsible/partial-collapse.tsx';
+import CollapsiblePartialCollapseWidth from './_snippets/collapsible/partial-collapse-width.tsx';
+import CollapsibleRootProvider from './_snippets/collapsible/root-provider.tsx';
+import CollapsibleCustomComposition from './_snippets/collapsible/custom-composition.tsx';
 
 ## API Reference
 
@@ -21,13 +32,26 @@ Use `Collapsible` with `Trigger`, the optional `Indicator`, and `Content` to sho
 content region. Put the content inside `Collapsible.Body` when you need the recommended inner
 wrapper for spacing and layout.
 
-<style>{CollapsibleDocs.collapsibleExampleCss}</style>
+<ExampleFrame variant="component">
+  <CollapsibleBasic />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="xs">
-  ```tsx preview file="./_snippets/collapsible/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/collapsible/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/collapsible/collapsible-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -114,78 +138,152 @@ custom children when you need a different indicator.
 Use `useCollapsibleContext()` inside a descendant when it needs to read state or close the disclosure
 programmatically.
 
-<PreviewFrame maxWidth="xs">
-  ```tsx preview file="./_snippets/collapsible/context.tsx"
+<ExampleFrame variant="component">
+  <CollapsibleContext />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/collapsible/context.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/collapsible/collapsible-context.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Controlled
 
 Use `open` with the Ark `onOpenChange(details)` callback when another part of your UI owns the state.
 
-<style>{CollapsibleDocs.collapsibleExampleCss}</style>
+<ExampleFrame variant="component">
+  <CollapsibleControlled />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="xs">
-  ```tsx preview file="./_snippets/collapsible/controlled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/collapsible/controlled.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/collapsible/collapsible-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Default Open
 
 Set `defaultOpen` to start an uncontrolled disclosure in the open state.
 
-<style>{CollapsibleDocs.collapsibleExampleCss}</style>
+<ExampleFrame variant="component">
+  <CollapsibleDefaultOpen />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="xs">
-  ```tsx preview file="./_snippets/collapsible/default-open.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/collapsible/default-open.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/collapsible/collapsible-default-open.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Disabled
 
 Set `disabled` on the root to prevent users from opening or closing the disclosure.
 
-<style>{CollapsibleDocs.collapsibleExampleCss}</style>
+<ExampleFrame variant="component">
+  <CollapsibleDisabled />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="xs">
-  ```tsx preview file="./_snippets/collapsible/disabled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/collapsible/disabled.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/collapsible/collapsible-disabled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Lazy Mount
 
 Set `lazyMount` to mount content only after its first opening. Add `unmountOnExit` to remove it from
 the DOM after it closes.
 
-<style>{CollapsibleDocs.collapsibleExampleCss}</style>
+<ExampleFrame variant="component">
+  <CollapsibleLazyMount />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="xs">
-  ```tsx preview file="./_snippets/collapsible/lazy-mount.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/collapsible/lazy-mount.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/collapsible/collapsible-lazy-mount.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Nested
 
 Nest independent roots when a revealed section contains another optional detail.
 
-<style>{CollapsibleDocs.collapsibleExampleCss}</style>
+<ExampleFrame variant="component">
+  <CollapsibleNested />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="xs">
-  ```tsx preview file="./_snippets/collapsible/nested.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/collapsible/nested.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/collapsible/collapsible-nested.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Partial Collapse
 
@@ -193,53 +291,103 @@ Use `collapsedHeight` or `collapsedWidth` to keep part of the content visible wh
 Interactive elements in that area become inert until the disclosure opens, so keep actions that must
 stay available outside `Collapsible.Content`.
 
-<style>{CollapsibleDocs.collapsibleExampleCss}</style>
+<ExampleFrame variant="component">
+  <CollapsiblePartialCollapse />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="xs">
-  ```tsx preview file="./_snippets/collapsible/partial-collapse.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/collapsible/partial-collapse.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/collapsible/collapsible-partial-collapse.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Partial Width
 
 Use `collapsedWidth` when a horizontal preview is more useful than a height-limited preview.
 
-<PreviewFrame maxWidth="xs">
-  ```tsx preview file="./_snippets/collapsible/partial-collapse-width.tsx"
+<ExampleFrame variant="component">
+  <CollapsiblePartialCollapseWidth />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/collapsible/partial-collapse-width.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/collapsible/collapsible-partial-collapse-width.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Create the state with `useCollapsible()` and pass it to `Collapsible.RootProvider` when code outside
 the rendered component tree needs access to the state.
 
-<style>{CollapsibleDocs.collapsibleExampleCss}</style>
+<ExampleFrame variant="component">
+  <CollapsibleRootProvider />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="xs">
-  ```tsx preview file="./_snippets/collapsible/root-provider.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/collapsible/root-provider.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/collapsible/collapsible-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Use `asChild` to apply the trigger behavior to a button you own. This skips the default
 `Collapsible.Trigger` styling while preserving Ark behavior and state attributes.
 
-<style>{CollapsibleDocs.collapsibleCustomCompositionCss}</style>
+<ExampleFrame variant="component">
+  <CollapsibleCustomComposition />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="xs">
-  ```tsx preview file="./_snippets/collapsible/custom-composition.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/collapsible/custom-composition.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/collapsible/collapsible-custom-composition.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

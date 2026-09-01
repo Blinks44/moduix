@@ -1,5 +1,6 @@
 import { ColorPicker, parseColor } from '@moduix/react/color-picker';
 import { useState } from 'react';
+import styles from '@/components/examples/color-picker/color-picker-format-views.module.css';
 
 export default function FormatColorPickerDemo() {
   const [format, setFormat] = useState<'rgba' | 'hsla' | 'hsba'>('rgba');
@@ -11,26 +12,26 @@ export default function FormatColorPickerDemo() {
       format={format}
       onFormatChange={(details) => setFormat(details.format)}
     >
-      <div className="color-picker-value-row">
+      <div className={styles.valueRow}>
         <ColorPicker.Label>Format</ColorPicker.Label>
         <ColorPicker.FormatSelect aria-label="Color format" />
       </div>
       <ColorPicker.Area />
       <ColorPicker.View format="rgba">
-        <div className="color-picker-input-row">
+        <div className={styles.inputRow}>
           <ColorPicker.ChannelInput channel="hex" />
           <ColorPicker.ChannelInput channel="alpha" />
         </div>
       </ColorPicker.View>
       <ColorPicker.View format="hsla">
-        <div className="color-picker-input-row">
+        <div className={styles.inputRow}>
           <ColorPicker.ChannelInput channel="hue" />
           <ColorPicker.ChannelInput channel="saturation" />
           <ColorPicker.ChannelInput channel="lightness" />
         </div>
       </ColorPicker.View>
       <ColorPicker.View format="hsba">
-        <div className="color-picker-input-row">
+        <div className={styles.inputRow}>
           <ColorPicker.ChannelInput channel="hue" />
           <ColorPicker.ChannelInput channel="saturation" />
           <ColorPicker.ChannelInput channel="brightness" />

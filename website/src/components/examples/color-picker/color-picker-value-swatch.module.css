@@ -1,0 +1,14 @@
+.root {
+  inline-size: fit-content;
+  align-items: center;
+}
+
+.valueSwatch {
+  position: relative;
+  display: grid;
+  width: 4rem;
+  height: 4rem;
+  overflow: hidden;
+  border-radius: var(--moduix-radius-md);
+  box-shadow: inset 0 0 0 var(--moduix-border-width-sm) var(--moduix-color-border);
+}

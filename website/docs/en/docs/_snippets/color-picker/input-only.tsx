@@ -1,4 +1,5 @@
 import { ColorPicker, parseColor } from '@moduix/react/color-picker';
+import styles from '@/components/examples/color-picker/color-picker-input-only.module.css';
 
 export default function InputOnlyColorPickerDemo() {
   return (
@@ -6,7 +7,7 @@ export default function InputOnlyColorPickerDemo() {
       <ColorPicker.Label>Hex color</ColorPicker.Label>
       <ColorPicker.Control>
         <ColorPicker.ChannelInput channel="hex" />
-        <div className="color-picker-control-swatch">
+        <div className={styles.controlSwatch}>
           <ColorPicker.TransparencyGrid />
           <ColorPicker.ValueSwatch />
         </div>

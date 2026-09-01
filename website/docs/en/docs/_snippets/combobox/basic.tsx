@@ -1,6 +1,7 @@
 import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
 import { Combobox } from '@moduix/react/combobox';
+import styles from '@/components/examples/combobox/component-basic.module.css';
 
 const fruits = [
   { label: 'Apple', value: 'apple' },
@@ -24,7 +25,7 @@ export default function ComboboxDemo() {
         <Combobox.Trigger aria-label="Open options" />
       </Combobox.Control>
       <Combobox.Positioner>
-        <Combobox.Content>
+        <Combobox.Content className={styles.content}>
           <Combobox.Empty>No fruits found.</Combobox.Empty>
           <Combobox.List>
             {collection.items.map((item) => (

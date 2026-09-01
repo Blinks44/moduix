@@ -1,0 +1,23 @@
+.root {
+  width: min(220px, 100%);
+  align-self: center;
+}
+
+.layout {
+  display: flex;
+  inline-size: 100%;
+  flex-direction: column;
+  gap: var(--moduix-spacing-2);
+}
+
+.layout > [data-preview-meta] {
+  align-self: center;
+}
+
+.keysList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--moduix-spacing-1);
+  margin: 0;
+  padding-inline-start: 0;
+}

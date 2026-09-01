@@ -4,7 +4,12 @@ component: container
 description: Адаптивный компонент для читабельной ширины содержимого и гибких горизонтальных отступов.
 ---
 
-import * as ContainerDocs from '@/components/examples/container';
+import * as ContainerDocs from '@/components/examples/container/container';
+import ContainerBasic from '../../en/docs/_snippets/container/basic.tsx';
+import ContainerFullWidth from '../../en/docs/_snippets/container/full-width.tsx';
+import ContainerGutters from '../../en/docs/_snippets/container/gutters.tsx';
+import ContainerSemanticElement from '../../en/docs/_snippets/container/semantic-element.tsx';
+import ContainerWithBleed from '../../en/docs/_snippets/container/with-bleed.tsx';
 
 ## Справочник API
 
@@ -19,11 +24,26 @@ import * as ContainerDocs from '@/components/examples/container';
 с удобной для чтения шириной. Компонент добавляет адаптивные горизонтальные отступы и оставляет настройку
 вертикальных интервалов внешней разметке.
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/container/basic.tsx"
+<ExampleFrame variant="component">
+  <ContainerBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/container/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/container/container-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -99,44 +119,101 @@ Container / Container.Root
 
 Используйте `size="full"`, чтобы секция занимала всю ширину родителя и при этом сохраняла адаптивные отступы по краям.
 
-<PreviewFrame>
-```tsx preview file="../../en/docs/_snippets/container/full-width.tsx"
+<ExampleFrame variant="component">
+  <ContainerFullWidth />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/container/full-width.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/container/container-full-width.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Отступы по краям
 
 С помощью `gutter` можно выбрать размер адаптивных горизонтальных отступов.
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/container/gutters.tsx"
+<ExampleFrame variant="component">
+  <ContainerGutters />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/container/gutters.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/container/container-gutters.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Семантический элемент
 
 Используйте `asChild`, когда обёртка компоновки также должна описывать структуру документа.
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/container/semantic-element.tsx"
+<ExampleFrame variant="component">
+  <ContainerSemanticElement />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/container/semantic-element.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/container/container-semantic-element.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### С Bleed
 
 Ограничьте ширину основного текста, а более широкому дочернему блоку разрешите выйти за пределы колонки.
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/container/with-bleed.tsx"
+<ExampleFrame variant="component">
+  <ContainerWithBleed />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/container/with-bleed.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/container/container-with-bleed.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

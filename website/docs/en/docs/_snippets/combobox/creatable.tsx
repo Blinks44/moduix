@@ -3,6 +3,7 @@ import { useFilter } from '@ark-ui/react/locale';
 import { Combobox } from '@moduix/react/combobox';
 import { useState } from 'react';
 import { flushSync } from 'react-dom';
+import styles from '@/components/examples/combobox/component-creatable.module.css';
 
 const createOptionValue = '__create-option__';
 
@@ -79,7 +80,7 @@ export default function CreatableComboboxDemo() {
         <Combobox.Trigger aria-label="Open options" />
       </Combobox.Control>
       <Combobox.Positioner>
-        <Combobox.Content>
+        <Combobox.Content className={styles.content}>
           <Combobox.List>
             {collection.items.map((item) => (
               <Combobox.Item key={item.value} item={item}>

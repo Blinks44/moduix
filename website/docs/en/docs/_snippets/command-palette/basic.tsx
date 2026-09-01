@@ -8,7 +8,7 @@ import {
   Plus as PlusIcon,
   Star as StarIcon,
 } from 'lucide-react';
-import styles from '@/components/examples/command-palette.module.css';
+import styles from '@/components/examples/command-palette/command-palette-basic.module.css';
 
 const commandItems = [
   {

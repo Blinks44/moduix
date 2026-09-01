@@ -1,6 +1,7 @@
 import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
 import { Combobox } from '@moduix/react/combobox';
+import styles from '@/components/examples/combobox/component-inline-autocomplete.module.css';
 
 const seaCreatures = [
   { label: 'Whale', value: 'whale' },
@@ -31,7 +32,7 @@ export default function InlineAutocompleteComboboxDemo() {
         <Combobox.Trigger aria-label="Open options" />
       </Combobox.Control>
       <Combobox.Positioner>
-        <Combobox.Content>
+        <Combobox.Content className={styles.content}>
           <Combobox.Empty>No creatures found.</Combobox.Empty>
           <Combobox.List>
             {collection.items.map((item) => (

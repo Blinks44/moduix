@@ -2,12 +2,13 @@ import { Button } from '@moduix/react/button';
 import { ColorPicker, parseColor } from '@moduix/react/color-picker';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/color-picker/color-picker-open-controlled.module.css';
 
 export default function OpenControlledColorPickerDemo() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="color-picker-demo-layout">
+    <div className={styles.root}>
       <ColorPicker
         defaultValue={parseColor('#14b8a6')}
         open={open}

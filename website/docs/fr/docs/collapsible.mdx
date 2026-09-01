@@ -4,7 +4,18 @@ component: collapsible
 description: Un composant qui permet de déplier ou de replier une seule zone de contenu.
 ---
 
-import * as CollapsibleDocs from '@/components/examples/collapsible';
+import * as CollapsibleDocs from '@/components/examples/collapsible/collapsible';
+import CollapsibleBasic from '../../en/docs/_snippets/collapsible/basic.tsx';
+import CollapsibleContext from '../../en/docs/_snippets/collapsible/context.tsx';
+import CollapsibleControlled from '../../en/docs/_snippets/collapsible/controlled.tsx';
+import CollapsibleDefaultOpen from '../../en/docs/_snippets/collapsible/default-open.tsx';
+import CollapsibleDisabled from '../../en/docs/_snippets/collapsible/disabled.tsx';
+import CollapsibleLazyMount from '../../en/docs/_snippets/collapsible/lazy-mount.tsx';
+import CollapsibleNested from '../../en/docs/_snippets/collapsible/nested.tsx';
+import CollapsiblePartialCollapse from '../../en/docs/_snippets/collapsible/partial-collapse.tsx';
+import CollapsiblePartialCollapseWidth from '../../en/docs/_snippets/collapsible/partial-collapse-width.tsx';
+import CollapsibleRootProvider from '../../en/docs/_snippets/collapsible/root-provider.tsx';
+import CollapsibleCustomComposition from '../../en/docs/_snippets/collapsible/custom-composition.tsx';
 
 ## Référence de l’API
 
@@ -21,13 +32,26 @@ Utilisez `Collapsible` avec `Trigger`, `Content` et, si besoin, `Indicator` pour
 seule zone de contenu. Placez le contenu dans `Collapsible.Body` lorsque vous avez besoin du conteneur
 interne recommandé pour les espacements et la mise en page.
 
-<style>{CollapsibleDocs.collapsibleExampleCss}</style>
+<ExampleFrame variant="component">
+  <CollapsibleBasic />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="xs">
-```tsx preview file="../../en/docs/_snippets/collapsible/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/collapsible/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/collapsible/collapsible-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -116,79 +140,153 @@ le bas. Fournissez-lui un contenu personnalisé si nécessaire.
 Utilisez `useCollapsibleContext()` dans un composant descendant lorsqu’il doit lire l’état ou fermer
 la zone par programmation.
 
-<PreviewFrame maxWidth="xs">
-```tsx preview file="../../en/docs/_snippets/collapsible/context.tsx"
+<ExampleFrame variant="component">
+  <CollapsibleContext />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/collapsible/context.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/collapsible/collapsible-context.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### État contrôlé
 
 Utilisez `open` avec le callback Ark `onOpenChange(details)` lorsqu’une autre partie de l’interface
 gère l’état.
 
-<style>{CollapsibleDocs.collapsibleExampleCss}</style>
+<ExampleFrame variant="component">
+  <CollapsibleControlled />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="xs">
-```tsx preview file="../../en/docs/_snippets/collapsible/controlled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/collapsible/controlled.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/collapsible/collapsible-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Ouvert par défaut
 
 Définissez `defaultOpen` pour qu’un composant non contrôlé soit ouvert dès son rendu initial.
 
-<style>{CollapsibleDocs.collapsibleExampleCss}</style>
+<ExampleFrame variant="component">
+  <CollapsibleDefaultOpen />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="xs">
-```tsx preview file="../../en/docs/_snippets/collapsible/default-open.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/collapsible/default-open.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/collapsible/collapsible-default-open.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### État désactivé
 
 Ajoutez `disabled` à la racine pour empêcher l’utilisateur d’ouvrir ou de fermer la zone.
 
-<style>{CollapsibleDocs.collapsibleExampleCss}</style>
+<ExampleFrame variant="component">
+  <CollapsibleDisabled />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="xs">
-```tsx preview file="../../en/docs/_snippets/collapsible/disabled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/collapsible/disabled.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/collapsible/collapsible-disabled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Montage différé
 
 Activez `lazyMount` pour ne monter le contenu qu’à sa première ouverture. Ajoutez `unmountOnExit` pour
 le retirer du DOM après sa fermeture.
 
-<style>{CollapsibleDocs.collapsibleExampleCss}</style>
+<ExampleFrame variant="component">
+  <CollapsibleLazyMount />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="xs">
-```tsx preview file="../../en/docs/_snippets/collapsible/lazy-mount.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/collapsible/lazy-mount.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/collapsible/collapsible-lazy-mount.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Imbriqué
 
 Imbriquez des racines indépendantes lorsqu’une section ouverte contient un autre niveau de détails facultatif.
 
-<style>{CollapsibleDocs.collapsibleExampleCss}</style>
+<ExampleFrame variant="component">
+  <CollapsibleNested />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="xs">
-```tsx preview file="../../en/docs/_snippets/collapsible/nested.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/collapsible/nested.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/collapsible/collapsible-nested.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Repli partiel
 
@@ -196,39 +294,77 @@ Utilisez `collapsedHeight` ou `collapsedWidth` pour laisser une partie du conten
 est fermée. Les éléments interactifs de cette partie deviennent inertes (`inert`) tant que la zone est
 repliée. Placez donc les actions qui doivent rester disponibles en dehors de `Collapsible.Content`.
 
-<style>{CollapsibleDocs.collapsibleExampleCss}</style>
+<ExampleFrame variant="component">
+  <CollapsiblePartialCollapse />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="xs">
-```tsx preview file="../../en/docs/_snippets/collapsible/partial-collapse.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/collapsible/partial-collapse.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/collapsible/collapsible-partial-collapse.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Largeur partielle
 
 Utilisez `collapsedWidth` lorsqu’un aperçu horizontal est plus utile qu’un aperçu limité en hauteur.
 
-<PreviewFrame maxWidth="xs">
-```tsx preview file="../../en/docs/_snippets/collapsible/partial-collapse-width.tsx"
+<ExampleFrame variant="component">
+  <CollapsiblePartialCollapseWidth />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/collapsible/partial-collapse-width.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/collapsible/collapsible-partial-collapse-width.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Créez l’état avec `useCollapsible()` et transmettez-le à `Collapsible.RootProvider` lorsque du code
 extérieur à l’arborescence rendue doit y accéder.
 
-<style>{CollapsibleDocs.collapsibleExampleCss}</style>
+<ExampleFrame variant="component">
+  <CollapsibleRootProvider />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="xs">
-```tsx preview file="../../en/docs/_snippets/collapsible/root-provider.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/collapsible/root-provider.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/collapsible/collapsible-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Personnalisation avancée
 
@@ -236,14 +372,26 @@ Utilisez `asChild` pour appliquer le comportement du déclencheur à un bouton d
 Les styles par défaut de `Collapsible.Trigger` ne sont alors pas appliqués, mais le comportement Ark et
 les attributs d’état sont conservés.
 
-<style>{CollapsibleDocs.collapsibleCustomCompositionCss}</style>
+<ExampleFrame variant="component">
+  <CollapsibleCustomComposition />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="xs">
-```tsx preview file="../../en/docs/_snippets/collapsible/custom-composition.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/collapsible/custom-composition.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/collapsible/collapsible-custom-composition.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

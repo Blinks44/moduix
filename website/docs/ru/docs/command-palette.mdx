@@ -4,7 +4,12 @@ component: command-palette
 description: Палитра команд в диалоге с поиском и сочетаниями клавиш для быстрого доступа.
 ---
 
-import * as CommandPaletteDocs from '@/components/examples/command-palette';
+import * as CommandPaletteDocs from '@/components/examples/command-palette/command-palette';
+import CommandPaletteBasic from '../../en/docs/_snippets/command-palette/basic.tsx';
+import AdvancedCommandPalette from '../../en/docs/_snippets/command-palette/advanced-customization.tsx';
+import ControlledCommandPalette from '../../en/docs/_snippets/command-palette/controlled-open-state.tsx';
+import CommandPaletteShortcutDemo from '../../en/docs/_snippets/command-palette/enable-the-global-shortcut.tsx';
+import CommandPaletteActionsDemo from '../../en/docs/_snippets/command-palette/item-actions.tsx';
 
 ## Справочник API
 
@@ -21,11 +26,26 @@ import * as CommandPaletteDocs from '@/components/examples/command-palette';
 отфильтрованные команды в `CommandPalette.List`. `CommandPalette.Search` добавляет поле ввода и кнопку очистки,
 которая появляется после ввода запроса.
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/command-palette/basic.tsx"
+<ExampleFrame variant="component">
+  <CommandPaletteBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/command-palette/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/command-palette/command-palette-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -173,33 +193,78 @@ document-listener и подавляет повторные нажатия. Ис�
 Используйте управляемое свойство `open`, если остальному интерфейсу тоже нужно управлять видимостью палитры. В этом
 примере внешний фильтр коллекции сбрасывается при закрытии палитры.
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/command-palette/controlled-open-state.tsx"
+<ExampleFrame variant="component">
+  <ControlledCommandPalette />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/command-palette/controlled-open-state.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/command-palette/command-palette-controlled-open-state.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Включение глобального сочетания клавиш
 
 Задайте `shortcut="alt+k"`, чтобы зарегистрировать глобальное сочетание для открытия и закрытия палитры. Это
 единственный пример на странице, в котором регистрируется `Alt+K`.
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/command-palette/enable-the-global-shortcut.tsx"
+<ExampleFrame variant="component">
+  <CommandPaletteShortcutDemo />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/command-palette/enable-the-global-shortcut.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/command-palette/command-palette-enable-the-global-shortcut.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Действия элемента
 
 Обрабатывайте `onSelect(details)`, чтобы запускать команду. При значении `closeOnSelect` по умолчанию палитра
 закрывается после выполнения выбранного действия.
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/command-palette/item-actions.tsx"
+<ExampleFrame variant="component">
+  <CommandPaletteActionsDemo />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/command-palette/item-actions.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/command-palette/command-palette-item-actions.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
@@ -207,11 +272,26 @@ document-listener и подавляет повторные нажатия. Ис�
 примере сохраняется поведение Ark Dialog и Combobox, а готовые помощники `Panel` и `Search` заменяются явной
 разметкой.
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/command-palette/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <AdvancedCommandPalette />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/command-palette/advanced-customization.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/command-palette/command-palette-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

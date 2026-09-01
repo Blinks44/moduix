@@ -1,0 +1,16 @@
+.content {
+  min-width: var(--reference-width);
+  transform-origin: var(--transform-origin);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--moduix-spacing-3);
+}
+
+.content :global([data-slot='combobox-item'][data-highlighted]) {
+  background: var(--moduix-combobox-highlight-bg, var(--moduix-color-accent));
+  color: var(--moduix-combobox-highlight-color, var(--moduix-color-accent-foreground));
+}

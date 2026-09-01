@@ -1,9 +1,10 @@
 import { ColorPicker, parseColor } from '@moduix/react/color-picker';
 import { Field } from '@moduix/react/field';
+import styles from '@/components/examples/color-picker/color-picker-field-state.module.css';
 
 export default function FieldStateColorPickerDemo() {
   return (
-    <Field>
+    <Field className={styles.root}>
       <ColorPicker name="accent" required invalid defaultValue={parseColor('#eb5e41')}>
         <ColorPicker.Label>Accent color</ColorPicker.Label>
         <ColorPicker.Control>

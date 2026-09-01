@@ -2,6 +2,7 @@ import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
 import { Combobox } from '@moduix/react/combobox';
 import { useState } from 'react';
+import styles from '@/components/examples/combobox/component-multiple.module.css';
 
 const fruits = [
   { label: 'Apple', value: 'apple' },
@@ -28,10 +29,10 @@ export default function MultipleComboboxDemo() {
       multiple
     >
       <Combobox.Label>Fruits</Combobox.Label>
-      <div className="tags">
-        {selectedItems.length === 0 ? <span className="note">None selected</span> : null}
+      <div className={styles.tags}>
+        {selectedItems.length === 0 ? <span className={styles.note}>None selected</span> : null}
         {selectedItems.map((item) => (
-          <span key={item.value} className="tag">
+          <span key={item.value} className={styles.tag}>
             {item.label}
           </span>
         ))}
@@ -41,7 +42,7 @@ export default function MultipleComboboxDemo() {
         <Combobox.Trigger aria-label="Open options" />
       </Combobox.Control>
       <Combobox.Positioner>
-        <Combobox.Content>
+        <Combobox.Content className={styles.content}>
           <Combobox.Empty>No fruits found.</Combobox.Empty>
           <Combobox.List>
             {collection.items.map((item) => (

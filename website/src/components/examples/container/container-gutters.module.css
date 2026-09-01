@@ -1,0 +1,12 @@
+.stack {
+  display: flex;
+  width: min(48rem, 100%);
+  flex-direction: column;
+  gap: var(--moduix-spacing-4);
+}
+
+.container {
+  padding-block: var(--moduix-spacing-4);
+  border-block: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
+  background-color: var(--moduix-color-muted);
+}

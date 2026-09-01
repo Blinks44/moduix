@@ -1,6 +1,7 @@
 import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
 import { Combobox } from '@moduix/react/combobox';
+import styles from '@/components/examples/combobox/component-custom-objects-and-grouping.module.css';
 
 const countries = [
   { country: 'Canada', code: 'CA', continent: 'North America' },
@@ -34,7 +35,7 @@ export default function GroupedComboboxDemo() {
         <Combobox.Trigger aria-label="Open options" />
       </Combobox.Control>
       <Combobox.Positioner>
-        <Combobox.Content>
+        <Combobox.Content className={styles.content}>
           <Combobox.Empty>No countries found.</Combobox.Empty>
           {collection.group().map(([continent, items]) => (
             <Combobox.ItemGroup key={continent}>

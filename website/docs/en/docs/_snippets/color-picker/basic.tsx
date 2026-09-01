@@ -1,4 +1,5 @@
 import { ColorPicker, parseColor } from '@moduix/react/color-picker';
+import styles from '@/components/examples/color-picker/color-picker-basic.module.css';
 
 const swatches = ['#0f172a', '#2563eb', '#16a34a', '#f97316'];
 
@@ -13,7 +14,7 @@ export default function ColorPickerDemo() {
       <ColorPicker.Positioner>
         <ColorPicker.Content>
           <ColorPicker.Area />
-          <div className="color-picker-slider-group">
+          <div className={styles.sliderGroup}>
             <ColorPicker.EyeDropperTrigger aria-label="Pick color from screen" />
             <ColorPicker.Sliders />
           </div>

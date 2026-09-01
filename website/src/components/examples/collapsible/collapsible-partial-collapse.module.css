@@ -1,0 +1,4 @@
+.root {
+  width: min(220px, 100%);
+  align-self: center;
+}
