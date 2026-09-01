@@ -4,7 +4,16 @@ component: clipboard
 description: Ark-based primitives for displaying, editing, and copying text values.
 ---
 
-import * as ClipboardDocs from '@/components/examples/clipboard';
+import AsChildClipboardDemo from './_snippets/clipboard/as-child.tsx';
+import ClipboardBasic from './_snippets/clipboard/basic.tsx';
+import ContextClipboardDemo from './_snippets/clipboard/context.tsx';
+import ClipboardStatusDemo from './_snippets/clipboard/copy-status.tsx';
+import CustomCopyTextClipboardDemo from './_snippets/clipboard/custom-copy-text.tsx';
+import DisabledClipboardDemo from './_snippets/clipboard/disabled.tsx';
+import RootProviderClipboardDemo from './_snippets/clipboard/root-provider.tsx';
+import TimeoutClipboardDemo from './_snippets/clipboard/timeout.tsx';
+import ValueTextClipboardDemo from './_snippets/clipboard/value-text.tsx';
+import * as ClipboardDocs from '@/components/examples/clipboard/clipboard';
 
 Use `Clipboard` when users need to copy a text value. The value can be editable, read-only, or
 rendered as ordinary text, depending on which parts you use.
@@ -20,13 +29,26 @@ the value in a field, and set `readOnly` when they should not edit it. `Clipboar
 copy button. `Clipboard.Indicator` and `Clipboard.CopyText` provide the default icon and text for
 the idle and copied states.
 
-<style>{ClipboardDocs.clipboardExampleCss}</style>
+<ExampleFrame variant="component">
+  <ClipboardBasic />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/clipboard/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/clipboard/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/clipboard/component-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -121,87 +143,207 @@ Read the clipboard state from nested content with `Clipboard.Context`, or use
 `useClipboardContext()` in a child component. The context exposes `copied`, `value`, `setValue`, and
 `copy`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/clipboard/context.tsx"
+<ExampleFrame variant="component">
+  <ContextClipboardDemo />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/clipboard/context.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/clipboard/component-context.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Copy Status
 
 Use `onStatusChange(details)` when another part of the interface should react to a successful copy.
 The example keeps a count based on `details.copied`.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/clipboard/copy-status.tsx"
+<ExampleFrame variant="component">
+  <ClipboardStatusDemo />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/clipboard/copy-status.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/clipboard/component-copy-status.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Custom copy text
 
 Pass your own children or `copied` content to `Clipboard.CopyText` when the button needs labels that
 match your product.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/clipboard/custom-copy-text.tsx"
+<ExampleFrame variant="component">
+  <CustomCopyTextClipboardDemo />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/clipboard/custom-copy-text.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/clipboard/component-custom-copy-text.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Disabled
 
 Pass `disabled` to both the input and the trigger when users may view the value but must not edit or
 copy it.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/clipboard/disabled.tsx"
+<ExampleFrame variant="component">
+  <DisabledClipboardDemo />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/clipboard/disabled.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/clipboard/component-disabled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Create the store with `Clipboard.useClipboard()` and pass it to `Clipboard.RootProvider` when state
 needs to be shared or created separately from the rendered component tree.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/clipboard/root-provider.tsx"
+<ExampleFrame variant="component">
+  <RootProviderClipboardDemo />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/clipboard/root-provider.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/clipboard/component-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Timeout
 
 Set `timeout` when the copied state should remain visible for longer or shorter than the default
 three seconds.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/clipboard/timeout.tsx"
+<ExampleFrame variant="component">
+  <TimeoutClipboardDemo />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/clipboard/timeout.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/clipboard/component-timeout.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Value Text
 
 Use `Clipboard.ValueText` when the value should appear as text instead of inside an input field.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/clipboard/value-text.tsx"
+<ExampleFrame variant="component">
+  <ValueTextClipboardDemo />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/clipboard/value-text.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/clipboard/component-value-text.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Use `asChild` to let your own input and button elements render the Clipboard parts while preserving
 the component's state and behavior.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/clipboard/as-child.tsx"
+<ExampleFrame variant="component">
+  <AsChildClipboardDemo />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/clipboard/as-child.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/clipboard/component-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

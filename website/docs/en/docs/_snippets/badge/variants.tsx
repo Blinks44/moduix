@@ -1,5 +1,5 @@
 import { Badge } from '@moduix/react/badge';
-import styles from '@/components/examples/badge-variants.module.css';
+import styles from '@/components/examples/badge/badge-variants.module.css';
 
 const variants = ['default', 'secondary', 'destructive', 'outline', 'ghost', 'link'] as const;
 

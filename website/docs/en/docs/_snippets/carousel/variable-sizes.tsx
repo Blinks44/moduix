@@ -1,4 +1,5 @@
 import { Carousel } from '@moduix/react/carousel';
+import styles from '@/components/examples/carousel/carousel-variable-sizes.module.css';
 
 const slides = [
   {
@@ -30,21 +31,27 @@ const slides = [
 export default function VariableSizeCarousel() {
   return (
     <Carousel
+      className={styles.root}
       aria-label="Variable size gallery"
       autoSize
       slideCount={slides.length}
       spacing="var(--moduix-spacing-3)"
       padding="var(--moduix-spacing-4)"
     >
-      <Carousel.Control>
+      <Carousel.Control className={styles.control}>
         <Carousel.PrevTrigger />
         <Carousel.NextTrigger />
       </Carousel.Control>
 
-      <Carousel.ItemGroup aria-label="Variable size gallery">
+      <Carousel.ItemGroup className={styles.itemGroup} aria-label="Variable size gallery">
         {slides.map((slide, index) => (
           <Carousel.Item key={slide.id} index={index} snapAlign="center">
-            <img src={slide.src} alt={slide.alt} style={{ width: slide.width }} />
+            <img
+              className={styles.image}
+              src={slide.src}
+              alt={slide.alt}
+              style={{ width: slide.width }}
+            />
           </Carousel.Item>
         ))}
       </Carousel.ItemGroup>

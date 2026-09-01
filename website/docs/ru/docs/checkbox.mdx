@@ -4,7 +4,25 @@ component: checkbox
 description: Компонент флажка для отдельных вариантов и групп с множественным выбором.
 ---
 
-import * as CheckboxDocs from '@/components/examples/checkbox';
+import * as CheckboxDocs from '@/components/examples/checkbox/checkbox';
+import CheckboxBasic from '../../en/docs/_snippets/checkbox/basic.tsx';
+import CheckboxControlled from '../../en/docs/_snippets/checkbox/controlled.tsx';
+import CheckboxControlledGroup from '../../en/docs/_snippets/checkbox/controlled-group.tsx';
+import CheckboxCustomIndicator from '../../en/docs/_snippets/checkbox/custom-indicator.tsx';
+import CheckboxDefaultChecked from '../../en/docs/_snippets/checkbox/default-checked.tsx';
+import CheckboxDisabled from '../../en/docs/_snippets/checkbox/disabled.tsx';
+import CheckboxGroup from '../../en/docs/_snippets/checkbox/group.tsx';
+import CheckboxGroupWithFieldset from '../../en/docs/_snippets/checkbox/group-with-fieldset.tsx';
+import CheckboxGroupWithForm from '../../en/docs/_snippets/checkbox/group-with-form.tsx';
+import CheckboxIndeterminate from '../../en/docs/_snippets/checkbox/indeterminate.tsx';
+import CheckboxInvalidGroup from '../../en/docs/_snippets/checkbox/invalid-group.tsx';
+import CheckboxMaxSelected from '../../en/docs/_snippets/checkbox/max-selected.tsx';
+import CheckboxReadOnly from '../../en/docs/_snippets/checkbox/read-only.tsx';
+import CheckboxRootProvider from '../../en/docs/_snippets/checkbox/root-provider.tsx';
+import CheckboxSelectAll from '../../en/docs/_snippets/checkbox/select-all.tsx';
+import CheckboxSizes from '../../en/docs/_snippets/checkbox/sizes.tsx';
+import CheckboxWithField from '../../en/docs/_snippets/checkbox/with-field.tsx';
+import CheckboxWithForm from '../../en/docs/_snippets/checkbox/with-form.tsx';
 
 Используйте `Checkbox`, когда пользователь может выбрать один или несколько независимых вариантов
 в форме, настройках или списке фильтров. Если нужно выбрать только один вариант, используйте
@@ -20,9 +38,19 @@ import * as CheckboxDocs from '@/components/examples/checkbox';
 встроенные иконки выбранного и неопределённого состояния. Добавьте `Checkbox.Label`, чтобы показать
 подпись. Нативное поле формы moduix добавляет автоматически.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/basic.tsx"
+<ExampleFrame variant="component">
+  <CheckboxBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/basic.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -120,148 +148,339 @@ Checkbox.Group
 Используйте управляемый флажок, если его значение хранится в состоянии React или зависит от других
 частей интерфейса.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/controlled.tsx"
+<ExampleFrame variant="component">
+  <CheckboxControlled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/controlled.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/checkbox/checkbox-controlled.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Управляемая группа
 
 Используйте управляемую группу, если выбранные варианты влияют на фильтры, сводки или действия.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/controlled-group.tsx"
+<ExampleFrame variant="component">
+  <CheckboxControlledGroup />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/controlled-group.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Пользовательский индикатор
 
 Замените встроенную галочку собственной иконкой, сохранив поведение `Checkbox` и его доступность.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/custom-indicator.tsx"
+<ExampleFrame variant="component">
+  <CheckboxCustomIndicator />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/custom-indicator.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Выбрано по умолчанию
 
 Используйте `defaultChecked`, если нужно задать начальное значение, а дальше флажок может сам
 управлять своим состоянием.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/default-checked.tsx"
+<ExampleFrame variant="component">
+  <CheckboxDefaultChecked />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/default-checked.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Отключённое состояние
 
 Используйте `disabled` для недоступного варианта, с которым нельзя взаимодействовать.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/disabled.tsx"
+<ExampleFrame variant="component">
+  <CheckboxDisabled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/disabled.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Группа
 
 Используйте `Checkbox.Group`, когда несколько флажков используют общий массив выбранных значений.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/group.tsx"
+<ExampleFrame variant="component">
+  <CheckboxGroup />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/group.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Группа с Fieldset
 
 Используйте `Fieldset`, когда группа флажков образует одно поле формы и ей нужна общая легенда.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/checkbox/group-with-fieldset.tsx"
+<ExampleFrame variant="component">
+  <CheckboxGroupWithFieldset />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/group-with-fieldset.tsx"
 ```
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Группа с формой
 
 Поместите `Checkbox.Group` в форму, если нужно получить все выбранные значения в `FormData`. Чтобы
 прочитать их, используйте `FormData.getAll(name)`.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/group-with-form.tsx"
+<ExampleFrame variant="component">
+  <CheckboxGroupWithForm />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/group-with-form.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/checkbox/checkbox-group-with-form.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Неопределённое состояние
 
 Используйте `checked="indeterminate"`, если флажок показывает частичный выбор. Такой вариант часто
 нужен для команды «Выбрать всё».
 
-```tsx preview file="../../en/docs/_snippets/checkbox/indeterminate.tsx"
+<ExampleFrame variant="component">
+  <CheckboxIndeterminate />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/indeterminate.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Недопустимая группа
 
 Установите `invalid` у группы, если проверяется весь выбор целиком.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/invalid-group.tsx"
+<ExampleFrame variant="component">
+  <CheckboxInvalidGroup />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/invalid-group.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Максимум выбранных
 
 Используйте `maxSelectedValues`, чтобы ограничить количество вариантов, выбранных одновременно.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/max-selected.tsx"
+<ExampleFrame variant="component">
+  <CheckboxMaxSelected />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/max-selected.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Только для чтения
 
 Используйте `readOnly`, чтобы показать значение, но запретить пользователю его менять.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/read-only.tsx"
+<ExampleFrame variant="component">
+  <CheckboxReadOnly />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/read-only.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Используйте `Checkbox.RootProvider`, если состояние флажка должно находиться вне дерева компонента.
 Импортируйте `useCheckbox` из `@moduix/react/checkbox`.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/root-provider.tsx"
+<ExampleFrame variant="component">
+  <CheckboxRootProvider />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/root-provider.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/checkbox/checkbox-root-provider.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Выбрать всё
 
 Свяжите родительский флажок с управляемой группой, чтобы одним элементом выбрать или снять все
 варианты.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/select-all.tsx"
+<ExampleFrame variant="component">
+  <CheckboxSelectAll />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/select-all.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/checkbox/checkbox-select-all.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Размеры
 
 Используйте свойство `size`, чтобы размер флажка соответствовал окружающей форме или экрану настроек.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/sizes.tsx"
+<ExampleFrame variant="component">
+  <CheckboxSizes />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/sizes.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### С Field
 
 Используйте `Field`, если флажку нужны поясняющий текст, сообщение о проверке или общее состояние
 поля.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/checkbox/with-field.tsx"
+<ExampleFrame variant="component">
+  <CheckboxWithField />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/with-field.tsx"
 ```
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### С формой
 
 Передайте `name` и `value` в `Checkbox.Root`, чтобы автоматически созданное нативное поле попало в
 `FormData`.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/with-form.tsx"
+<ExampleFrame variant="component">
+  <CheckboxWithForm />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/with-form.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/checkbox/checkbox-with-form.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

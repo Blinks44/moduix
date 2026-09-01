@@ -1,6 +1,6 @@
 import { Bleed } from '@moduix/react/bleed';
 import { Text } from '@moduix/react/text';
-import styles from '@/components/examples/bleed-custom-styling.module.css';
+import styles from '@/components/examples/bleed/bleed-custom-styling.module.css';
 
 const content = {
   shell: 'Nested shell content stays constrained.',

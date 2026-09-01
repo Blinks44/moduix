@@ -1,5 +1,5 @@
 import { Badge } from '@moduix/react/badge';
-import styles from '@/components/examples/badge-with-dot.module.css';
+import styles from '@/components/examples/badge/badge-with-dot.module.css';
 
 const statuses = [
   { label: 'Online', variant: 'default' },

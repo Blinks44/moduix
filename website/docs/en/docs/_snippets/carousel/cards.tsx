@@ -1,6 +1,7 @@
 import { Button } from '@moduix/react/button';
 import { Card } from '@moduix/react/card';
 import { Carousel } from '@moduix/react/carousel';
+import styles from '@/components/examples/carousel/carousel-cards.module.css';
 
 const destinations = [
   {
@@ -28,24 +29,24 @@ const destinations = [
 
 export default function CardCarousel() {
   return (
-    <Carousel aria-label="Featured destinations" slideCount={destinations.length}>
-      <Carousel.ItemGroup>
+    <Carousel
+      className={styles.root}
+      aria-label="Featured destinations"
+      slideCount={destinations.length}
+    >
+      <Carousel.ItemGroup className={styles.itemGroup}>
         {destinations.map((destination, index) => (
           <Carousel.Item key={destination.id} index={index}>
-            <Card style={{ width: '80%', height: '100%', marginInline: 'auto' }}>
+            <Card className={styles.card}>
               <Card.Media>
-                <img
-                  src={destination.image}
-                  alt=""
-                  style={{ display: 'block', width: '100%', height: '12rem', objectFit: 'cover' }}
-                />
+                <img className={styles.cardImage} src={destination.image} alt="" />
               </Card.Media>
               <Card.Header>
                 <Card.Title>{destination.title}</Card.Title>
                 <Card.Description>{destination.description}</Card.Description>
               </Card.Header>
-              <Card.Footer style={{ marginTop: 'auto' }}>
-                <Button style={{ marginTop: 'var(--moduix-spacing-3)' }} variant="outline">
+              <Card.Footer className={styles.cardFooter}>
+                <Button className={styles.cardButton} variant="outline">
                   Explore
                 </Button>
               </Card.Footer>
@@ -54,7 +55,7 @@ export default function CardCarousel() {
         ))}
       </Carousel.ItemGroup>
 
-      <Carousel.Control>
+      <Carousel.Control className={styles.control}>
         <Carousel.PrevTrigger />
         <Carousel.Indicators />
         <Carousel.NextTrigger />

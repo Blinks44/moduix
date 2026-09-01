@@ -1,5 +1,6 @@
 import { Checkbox } from '@moduix/react/checkbox';
 import { useState } from 'react';
+import styles from '@/components/examples/checkbox/checkbox-select-all.module.css';
 
 const options = [
   { value: 'react', label: 'React' },
@@ -14,7 +15,7 @@ export default function CheckboxSelectAllDemo() {
   const indeterminate = value.length > 0 && value.length < allValues.length;
 
   return (
-    <div style={{ display: 'grid', gap: 'var(--moduix-spacing-2)' }}>
+    <div className={styles.root}>
       <Checkbox
         checked={indeterminate ? 'indeterminate' : allSelected}
         onCheckedChange={(details) => setValue(details.checked === true ? allValues : [])}

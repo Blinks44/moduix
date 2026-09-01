@@ -1,6 +1,6 @@
 import { Bleed } from '@moduix/react/bleed';
 import { Text } from '@moduix/react/text';
-import styles from '@/components/examples/bleed-inline-amounts.module.css';
+import styles from '@/components/examples/bleed/bleed-inline-amounts.module.css';
 
 const inlineAmounts = [
   { label: 'Small inline bleed', value: 'sm' },

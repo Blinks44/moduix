@@ -1,5 +1,5 @@
 import { Avatar } from '@moduix/react/avatar';
-import styles from '@/components/examples/avatar-sizes-and-fallback-only.module.css';
+import styles from '@/components/examples/avatar/avatar-sizes-and-fallback-only.module.css';
 
 const avatarSizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
 

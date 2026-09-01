@@ -1,6 +1,7 @@
 import { Button } from '@moduix/react/button';
 import { Carousel } from '@moduix/react/carousel';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/carousel/carousel-advanced-customization.module.css';
 
 const slides = [
   {
@@ -33,15 +34,16 @@ const slides = [
 export default function AdvancedCustomizationCarousel() {
   return (
     <Carousel
+      className={styles.root}
       aria-label="Advanced customization gallery"
       slideCount={slides.length}
       slidesPerPage={2}
       spacing="var(--moduix-spacing-3)"
     >
-      <Carousel.ItemGroup aria-label="Advanced customization gallery">
+      <Carousel.ItemGroup className={styles.itemGroup} aria-label="Advanced customization gallery">
         {slides.map((slide, index) => (
           <Carousel.Item key={slide.id} index={index}>
-            <img src={slide.src} alt={slide.alt} />
+            <img className={styles.image} src={slide.src} alt={slide.alt} />
           </Carousel.Item>
         ))}
       </Carousel.ItemGroup>
@@ -49,7 +51,7 @@ export default function AdvancedCustomizationCarousel() {
       <Carousel.Context>
         {(api) => (
           <>
-            <Carousel.Control>
+            <Carousel.Control className={styles.control}>
               <Carousel.PrevTrigger />
               <Carousel.IndicatorGroup>
                 {api.pageSnapPoints.map((_, index) => (

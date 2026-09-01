@@ -1,0 +1,7 @@
+.root {
+  width: min(28rem, 100%);
+}
+
+.action {
+  align-self: start;
+}

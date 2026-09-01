@@ -4,7 +4,11 @@ component: close-button
 description: Un bouton sans libellé, représenté par une icône, pour fermer des notifications, des cartes, des panneaux superposés et d’autres surfaces d’interface.
 ---
 
-import * as CloseButtonDocs from '@/components/examples/close-button';
+import * as CloseButtonDocs from '@/components/examples/close-button/close-button';
+import CloseButtonAsChild from '../../en/docs/_snippets/close-button/as-child.tsx';
+import CloseButtonBasic from '../../en/docs/_snippets/close-button/basic.tsx';
+import CloseButtonCustomChildren from '../../en/docs/_snippets/close-button/custom-children.tsx';
+import CloseButtonDisabled from '../../en/docs/_snippets/close-button/disabled-state.tsx';
 
 ## Référence de l’API
 
@@ -17,11 +21,26 @@ ou une autre surface d’interface. Reliez son gestionnaire `onClick` à l’ét
 Le composant rend un bouton sémantique, lui attribue un nom accessible par défaut et affiche l’icône `CloseIcon`,
 mais il ne gère pas lui-même l’état de la surface.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/close-button/basic.tsx"
+<ExampleFrame variant="component">
+  <CloseButtonBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/close-button/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/close-button/close-button-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -88,27 +107,78 @@ retour du focus.
 Utilisez `asChild` pour conserver un bouton sémantique existant comme élément rendu, tout en lui appliquant les styles
 et les attributs `data-*` de `CloseButton`. Définissez `type="button"` sur l’enfant et fournissez-y l’icône.
 
-```tsx preview file="../../en/docs/_snippets/close-button/as-child.tsx"
+<ExampleFrame variant="component">
+  <CloseButtonAsChild />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/close-button/as-child.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/close-button/close-button-as-child.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Contenu personnalisé
 
 Passez votre propre contenu à `children` pour remplacer l’icône par défaut tout en conservant le contrat du bouton
 racine. L’exemple utilise une simple croix décorative avec `aria-hidden="true"`.
 
-```tsx preview file="../../en/docs/_snippets/close-button/custom-children.tsx"
+<ExampleFrame variant="component">
+  <CloseButtonCustomChildren />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/close-button/custom-children.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/close-button/close-button-custom-children.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### État désactivé
 
 Utilisez l’attribut natif `disabled` lorsque le bouton ne doit pas recevoir le focus. Utilisez
 `aria-disabled="true"` lorsqu’il doit rester focusable sans pouvoir être activé.
 
-```tsx preview file="../../en/docs/_snippets/close-button/disabled-state.tsx"
+<ExampleFrame variant="component">
+  <CloseButtonDisabled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/close-button/disabled-state.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/close-button/close-button-disabled-state.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

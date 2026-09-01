@@ -4,7 +4,25 @@ component: checkbox
 description: A composable checkbox for individual options and multi-select groups.
 ---
 
-import * as CheckboxDocs from '@/components/examples/checkbox';
+import * as CheckboxDocs from '@/components/examples/checkbox/checkbox';
+import CheckboxBasic from './_snippets/checkbox/basic.tsx';
+import CheckboxControlled from './_snippets/checkbox/controlled.tsx';
+import CheckboxControlledGroup from './_snippets/checkbox/controlled-group.tsx';
+import CheckboxCustomIndicator from './_snippets/checkbox/custom-indicator.tsx';
+import CheckboxDefaultChecked from './_snippets/checkbox/default-checked.tsx';
+import CheckboxDisabled from './_snippets/checkbox/disabled.tsx';
+import CheckboxGroup from './_snippets/checkbox/group.tsx';
+import CheckboxGroupWithFieldset from './_snippets/checkbox/group-with-fieldset.tsx';
+import CheckboxGroupWithForm from './_snippets/checkbox/group-with-form.tsx';
+import CheckboxIndeterminate from './_snippets/checkbox/indeterminate.tsx';
+import CheckboxInvalidGroup from './_snippets/checkbox/invalid-group.tsx';
+import CheckboxMaxSelected from './_snippets/checkbox/max-selected.tsx';
+import CheckboxReadOnly from './_snippets/checkbox/read-only.tsx';
+import CheckboxRootProvider from './_snippets/checkbox/root-provider.tsx';
+import CheckboxSelectAll from './_snippets/checkbox/select-all.tsx';
+import CheckboxSizes from './_snippets/checkbox/sizes.tsx';
+import CheckboxWithField from './_snippets/checkbox/with-field.tsx';
+import CheckboxWithForm from './_snippets/checkbox/with-form.tsx';
 
 Use `Checkbox` when people need to select one or more independent options in a form, settings panel,
 or filter list. Use `RadioGroup` when only one option can be selected. Use `Switch` when a setting
@@ -20,9 +38,19 @@ Compose a checkbox from Ark's parts. In most cases, leave `Checkbox.Control` emp
 built-in checked and indeterminate icons. Add `Checkbox.Label` for the visible text. moduix adds the
 native form input automatically.
 
-```tsx preview file="./_snippets/checkbox/basic.tsx"
+<ExampleFrame variant="component">
+  <CheckboxBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/checkbox/basic.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -116,148 +144,339 @@ focused checkbox.
 
 Use a controlled checkbox when another part of your UI owns its value.
 
-```tsx preview file="./_snippets/checkbox/controlled.tsx"
+<ExampleFrame variant="component">
+  <CheckboxControlled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/checkbox/controlled.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/checkbox/checkbox-controlled.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Controlled Group
 
 Use a controlled group when selected options drive filters, summaries, or actions.
 
-```tsx preview file="./_snippets/checkbox/controlled-group.tsx"
+<ExampleFrame variant="component">
+  <CheckboxControlledGroup />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/checkbox/controlled-group.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Custom Indicator
 
 Replace the built-in checkmark with your own icon while keeping Ark's checkbox behavior and
 accessibility semantics.
 
-```tsx preview file="./_snippets/checkbox/custom-indicator.tsx"
+<ExampleFrame variant="component">
+  <CheckboxCustomIndicator />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/checkbox/custom-indicator.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Default Checked
 
 Use `defaultChecked` when the checkbox needs an initial value and can manage its own state after
 rendering.
 
-```tsx preview file="./_snippets/checkbox/default-checked.tsx"
+<ExampleFrame variant="component">
+  <CheckboxDefaultChecked />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/checkbox/default-checked.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Disabled
 
 Use `disabled` when an option is unavailable and must not be interactive.
 
-```tsx preview file="./_snippets/checkbox/disabled.tsx"
+<ExampleFrame variant="component">
+  <CheckboxDisabled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/checkbox/disabled.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Group
 
 Use `Checkbox.Group` when several checkboxes share an array of selected values.
 
-```tsx preview file="./_snippets/checkbox/group.tsx"
+<ExampleFrame variant="component">
+  <CheckboxGroup />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/checkbox/group.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Group With Fieldset
 
 Use `Fieldset` when the group represents one form field and needs a shared legend.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/checkbox/group-with-fieldset.tsx"
+<ExampleFrame variant="component">
+  <CheckboxGroupWithFieldset />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/checkbox/group-with-fieldset.tsx"
 ```
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Group With Form
 
 Put `Checkbox.Group` inside a form when you need all selected values in `FormData`. Read them with
 `FormData.getAll(name)`.
 
-```tsx preview file="./_snippets/checkbox/group-with-form.tsx"
+<ExampleFrame variant="component">
+  <CheckboxGroupWithForm />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/checkbox/group-with-form.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/checkbox/checkbox-group-with-form.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Indeterminate
 
 Use `checked="indeterminate"` when a checkbox represents a partial selection. This is common for a
 Select all control.
 
-```tsx preview file="./_snippets/checkbox/indeterminate.tsx"
+<ExampleFrame variant="component">
+  <CheckboxIndeterminate />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/checkbox/indeterminate.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Invalid Group
 
 Set `invalid` on the group when validation applies to the selection as a whole.
 
-```tsx preview file="./_snippets/checkbox/invalid-group.tsx"
+<ExampleFrame variant="component">
+  <CheckboxInvalidGroup />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/checkbox/invalid-group.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Max Selected
 
 Use `maxSelectedValues` to limit how many options can be selected at once.
 
-```tsx preview file="./_snippets/checkbox/max-selected.tsx"
+<ExampleFrame variant="component">
+  <CheckboxMaxSelected />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/checkbox/max-selected.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Read Only
 
 Use `readOnly` to show a value without allowing users to change it.
 
-```tsx preview file="./_snippets/checkbox/read-only.tsx"
+<ExampleFrame variant="component">
+  <CheckboxReadOnly />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/checkbox/read-only.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Use `Checkbox.RootProvider` when checkbox state needs to live outside the rendered tree. Import
 `useCheckbox` from `@moduix/react/checkbox`.
 
-```tsx preview file="./_snippets/checkbox/root-provider.tsx"
+<ExampleFrame variant="component">
+  <CheckboxRootProvider />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/checkbox/root-provider.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/checkbox/checkbox-root-provider.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Select All
 
 Combine a parent checkbox with a controlled group when one control should select or clear every
 option.
 
-```tsx preview file="./_snippets/checkbox/select-all.tsx"
+<ExampleFrame variant="component">
+  <CheckboxSelectAll />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/checkbox/select-all.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/checkbox/checkbox-select-all.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Sizes
 
 Use moduix `size` to match the checkbox density to the surrounding form or settings screen.
 
-```tsx preview file="./_snippets/checkbox/sizes.tsx"
+<ExampleFrame variant="component">
+  <CheckboxSizes />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/checkbox/sizes.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### With Field
 
 Use `Field` when a checkbox needs helper text, validation messages, or shared field state.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/checkbox/with-field.tsx"
+<ExampleFrame variant="component">
+  <CheckboxWithField />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/checkbox/with-field.tsx"
 ```
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### With Form
 
 Pass `name` and `value` to `Checkbox.Root` to include the checkbox's automatic native input in
 `FormData`.
 
-```tsx preview file="./_snippets/checkbox/with-form.tsx"
+<ExampleFrame variant="component">
+  <CheckboxWithForm />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/checkbox/with-form.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/checkbox/checkbox-with-form.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

@@ -1,4 +1,5 @@
 import { Carousel } from '@moduix/react/carousel';
+import styles from '@/components/examples/carousel/carousel-basic.module.css';
 
 const slides = [
   {
@@ -20,16 +21,16 @@ const slides = [
 
 export default function TravelCarousel() {
   return (
-    <Carousel aria-label="Travel gallery" slideCount={slides.length}>
-      <Carousel.ItemGroup aria-label="Travel gallery">
+    <Carousel className={styles.root} aria-label="Travel gallery" slideCount={slides.length}>
+      <Carousel.ItemGroup className={styles.itemGroup} aria-label="Travel gallery">
         {slides.map((slide, index) => (
           <Carousel.Item key={slide.id} index={index}>
-            <img src={slide.src} alt={slide.alt} />
+            <img className={styles.image} src={slide.src} alt={slide.alt} />
           </Carousel.Item>
         ))}
       </Carousel.ItemGroup>
 
-      <Carousel.Control>
+      <Carousel.Control className={styles.control}>
         <Carousel.PrevTrigger />
         <Carousel.NextTrigger />
       </Carousel.Control>

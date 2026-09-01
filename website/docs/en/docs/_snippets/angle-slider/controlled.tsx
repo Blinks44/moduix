@@ -1,6 +1,6 @@
 import { AngleSlider } from '@moduix/react/angle-slider';
 import { useState } from 'react';
-import styles from '@/components/examples/angle-slider-controlled.module.css';
+import styles from '@/components/examples/angle-slider/angle-slider-controlled.module.css';
 
 const initialValue = 210;
 const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];

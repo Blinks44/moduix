@@ -1,8 +1,9 @@
 import { Clipboard } from '@moduix/react/clipboard';
+import styles from '@/components/examples/clipboard/component-custom-copy-text.module.css';
 
 export default function CustomCopyTextClipboardDemo() {
   return (
-    <Clipboard defaultValue="workspace-secret">
+    <Clipboard className={styles.root} defaultValue="workspace-secret">
       <Clipboard.Label>Override copy labels</Clipboard.Label>
       <Clipboard.Control>
         <Clipboard.Input readOnly />

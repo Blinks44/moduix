@@ -1,4 +1,5 @@
 import { Carousel } from '@moduix/react/carousel';
+import styles from '@/components/examples/carousel/carousel-vertical.module.css';
 
 const slides = [
   {
@@ -30,16 +31,21 @@ const slides = [
 
 export default function VerticalCarousel() {
   return (
-    <Carousel aria-label="Vertical gallery" orientation="vertical" slideCount={slides.length}>
-      <Carousel.ItemGroup aria-label="Vertical gallery">
+    <Carousel
+      className={styles.root}
+      aria-label="Vertical gallery"
+      orientation="vertical"
+      slideCount={slides.length}
+    >
+      <Carousel.ItemGroup className={styles.itemGroup} aria-label="Vertical gallery">
         {slides.map((slide, index) => (
           <Carousel.Item key={slide.id} index={index}>
-            <img src={slide.src} alt={slide.alt} />
+            <img className={styles.image} src={slide.src} alt={slide.alt} />
           </Carousel.Item>
         ))}
       </Carousel.ItemGroup>
 
-      <Carousel.Control>
+      <Carousel.Control className={styles.control}>
         <Carousel.PrevTrigger />
         <Carousel.Indicators />
         <Carousel.NextTrigger />

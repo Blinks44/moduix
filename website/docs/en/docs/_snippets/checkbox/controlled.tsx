@@ -1,18 +1,13 @@
 import { Checkbox } from '@moduix/react/checkbox';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/checkbox/checkbox-controlled.module.css';
 
 export default function ControlledCheckboxDemo() {
   const [checked, setChecked] = useState(true);
 
   return (
-    <div
-      style={{
-        display: 'inline-flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-      }}
-    >
+    <div className={styles.root}>
       <Checkbox
         checked={checked}
         onCheckedChange={(details) => setChecked(details.checked === true)}

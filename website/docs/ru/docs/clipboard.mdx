@@ -4,7 +4,16 @@ component: clipboard
 description: Компоненты на базе Ark для отображения, редактирования и копирования текста.
 ---
 
-import * as ClipboardDocs from '@/components/examples/clipboard';
+import AsChildClipboardDemo from '../../en/docs/_snippets/clipboard/as-child.tsx';
+import ClipboardBasic from '../../en/docs/_snippets/clipboard/basic.tsx';
+import ContextClipboardDemo from '../../en/docs/_snippets/clipboard/context.tsx';
+import ClipboardStatusDemo from '../../en/docs/_snippets/clipboard/copy-status.tsx';
+import CustomCopyTextClipboardDemo from '../../en/docs/_snippets/clipboard/custom-copy-text.tsx';
+import DisabledClipboardDemo from '../../en/docs/_snippets/clipboard/disabled.tsx';
+import RootProviderClipboardDemo from '../../en/docs/_snippets/clipboard/root-provider.tsx';
+import TimeoutClipboardDemo from '../../en/docs/_snippets/clipboard/timeout.tsx';
+import ValueTextClipboardDemo from '../../en/docs/_snippets/clipboard/value-text.tsx';
+import * as ClipboardDocs from '@/components/examples/clipboard/clipboard';
 
 Используйте `Clipboard`, когда пользователю нужно скопировать текст. В зависимости от выбранных
 частей значение можно редактировать, оставить только для чтения или вывести как обычный текст.
@@ -20,13 +29,26 @@ import * as ClipboardDocs from '@/components/examples/clipboard';
 `Clipboard.Trigger` служит кнопкой копирования. `Clipboard.Indicator` и `Clipboard.CopyText` выводят
 стандартные иконки и подписи moduix для обычного состояния и состояния после копирования.
 
-<style>{ClipboardDocs.clipboardExampleCss}</style>
+<ExampleFrame variant="component">
+  <ClipboardBasic />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/clipboard/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/clipboard/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/clipboard/component-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -122,44 +144,104 @@ moduix, сохранив явные части Clipboard в разметке.
 `useClipboardContext()` во вложенном компоненте. Контекст предоставляет `copied`, `value`, `setValue`
 и `copy`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/clipboard/context.tsx"
+<ExampleFrame variant="component">
+  <ContextClipboardDemo />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/clipboard/context.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/clipboard/component-context.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Статус копирования
 
 Используйте `onStatusChange(details)`, если другая часть интерфейса должна реагировать на успешное
 копирование. В примере счётчик увеличивается, когда `details.copied` равно `true`.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/clipboard/copy-status.tsx"
+<ExampleFrame variant="component">
+  <ClipboardStatusDemo />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/clipboard/copy-status.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/clipboard/component-copy-status.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Свой текст копирования
 
 Передайте собственный текст в `Clipboard.CopyText` или задайте проп `copied`, если кнопке нужны
 подписи, соответствующие вашему продукту.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/clipboard/custom-copy-text.tsx"
+<ExampleFrame variant="component">
+  <CustomCopyTextClipboardDemo />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/clipboard/custom-copy-text.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/clipboard/component-custom-copy-text.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Отключённое состояние
 
 Передайте `disabled` и полю, и кнопке, если пользователь может видеть значение, но не должен его
 изменять или копировать.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/clipboard/disabled.tsx"
+<ExampleFrame variant="component">
+  <DisabledClipboardDemo />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/clipboard/disabled.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/clipboard/component-disabled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
@@ -167,44 +249,104 @@ moduix, сохранив явные части Clipboard в разметке.
 `Clipboard.RootProvider`, если состояние нужно разделить между компонентами или создать отдельно
 от дерева компонентов.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/clipboard/root-provider.tsx"
+<ExampleFrame variant="component">
+  <RootProviderClipboardDemo />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/clipboard/root-provider.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/clipboard/component-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Задержка
 
 Укажите `timeout`, если состояние после копирования должно отображаться дольше или меньше стандартных
 трёх секунд.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/clipboard/timeout.tsx"
+<ExampleFrame variant="component">
+  <TimeoutClipboardDemo />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/clipboard/timeout.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/clipboard/component-timeout.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Текст значения
 
 Используйте `Clipboard.ValueText`, если значение должно отображаться как текст, а не внутри поля
 ввода.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/clipboard/value-text.tsx"
+<ExampleFrame variant="component">
+  <ValueTextClipboardDemo />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/clipboard/value-text.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/clipboard/component-value-text.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
 Используйте `asChild`, чтобы передать свои элементы поля и кнопки для отрисовки частей Clipboard,
 сохранив состояние и поведение компонента.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/clipboard/as-child.tsx"
+<ExampleFrame variant="component">
+  <AsChildClipboardDemo />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/clipboard/as-child.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/clipboard/component-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

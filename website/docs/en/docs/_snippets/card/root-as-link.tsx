@@ -1,4 +1,5 @@
 import { Card } from '@moduix/react/card';
+import styles from '@/components/examples/card/card-root-as-link.module.css';
 
 const report = {
   href: '/reports/release-health',
@@ -9,7 +10,7 @@ const report = {
 
 export default function LinkedCardDemo() {
   return (
-    <Card asChild>
+    <Card className={styles.root} asChild>
       <a href={report.href}>
         <Card.Header>
           <Card.Title>{report.title}</Card.Title>

@@ -1,5 +1,6 @@
 import { Button } from '@moduix/react/button';
 import { Card } from '@moduix/react/card';
+import styles from '@/components/examples/card/card-basic.module.css';
 
 const content = {
   title: 'Release health',
@@ -9,7 +10,7 @@ const content = {
 
 export default function CardDemo() {
   return (
-    <Card>
+    <Card className={styles.root}>
       <Card.Header>
         <Card.Title>{content.title}</Card.Title>
         <Card.Description>{content.description}</Card.Description>

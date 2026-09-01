@@ -4,6 +4,7 @@ import { barY, defineChart } from '@tanstack/charts';
 import { scaleBand } from '@tanstack/charts/scales/band';
 import { scaleLinear } from '@tanstack/charts/scales/linear';
 import { tooltip } from '@tanstack/charts/tooltip';
+import styles from '@/components/examples/chart/chart-advanced-customization.module.css';
 
 const revenue = [
   { month: 'Jan', value: 42 },
@@ -39,14 +40,7 @@ export default function AdvancedCustomizationChartDemo() {
     <Chart.Root asChild>
       <section aria-labelledby="dashboard-revenue-title">
         <Chart.Header asChild>
-          <header
-            style={{
-              display: 'flex',
-              alignItems: 'start',
-              justifyContent: 'space-between',
-              gap: 'var(--moduix-spacing-4)',
-            }}
-          >
+          <header className={styles.header}>
             <div>
               <Chart.Title asChild>
                 <h2 id="dashboard-revenue-title">Monthly revenue</h2>
@@ -63,7 +57,7 @@ export default function AdvancedCustomizationChartDemo() {
           height={320}
           ariaLabel="Monthly revenue"
           renderTooltipBody={({ defaultBody, dismiss, pinned }) => (
-            <div style={{ display: 'grid', gap: 'var(--moduix-spacing-3)' }}>
+            <div className={styles.tooltip}>
               {defaultBody}
               {pinned ? (
                 <Button size="sm" variant="outline" onClick={dismiss}>

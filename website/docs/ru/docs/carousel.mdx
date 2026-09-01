@@ -4,7 +4,23 @@ component: carousel
 description: Карусель с постраничной навигацией на базе Ark UI. Поддерживает автопрокрутку, внешнее управление состоянием и слайды разной ширины.
 ---
 
-import * as CarouselDocs from '@/components/examples/carousel';
+import * as CarouselDocs from '@/components/examples/carousel/carousel';
+import AdvancedCustomizationCarousel from '../../en/docs/_snippets/carousel/advanced-customization.tsx';
+import AutoplayCarousel from '../../en/docs/_snippets/carousel/autoplay.tsx';
+import TravelCarousel from '../../en/docs/_snippets/carousel/basic.tsx';
+import CardCarousel from '../../en/docs/_snippets/carousel/cards.tsx';
+import ControlledCarousel from '../../en/docs/_snippets/carousel/controlled.tsx';
+import DynamicSlidesCarousel from '../../en/docs/_snippets/carousel/dynamic.tsx';
+import LoopCarousel from '../../en/docs/_snippets/carousel/loop.tsx';
+import MouseDragCarousel from '../../en/docs/_snippets/carousel/mouse-drag.tsx';
+import PauseOnHoverCarousel from '../../en/docs/_snippets/carousel/pause-on-hover.tsx';
+import RootProviderCarousel from '../../en/docs/_snippets/carousel/root-provider.tsx';
+import ScrollToCarousel from '../../en/docs/_snippets/carousel/scroll-to-slide.tsx';
+import SlidesPerPageCarousel from '../../en/docs/_snippets/carousel/slides-per-page.tsx';
+import SpacingCarousel from '../../en/docs/_snippets/carousel/spacing.tsx';
+import ThumbnailIndicatorCarousel from '../../en/docs/_snippets/carousel/thumbnail-indicators.tsx';
+import VariableSizeCarousel from '../../en/docs/_snippets/carousel/variable-sizes.tsx';
+import VerticalCarousel from '../../en/docs/_snippets/carousel/vertical.tsx';
 
 ## Справочник API
 
@@ -16,13 +32,27 @@ import * as CarouselDocs from '@/components/examples/carousel';
 поместите кнопки перехода в компактный `Carousel.Control`, а стандартные индикаторы и счётчик страниц
 выведите с помощью `Carousel.Indicators` и `Carousel.ProgressText`.
 
-<style>{CarouselDocs.carouselExampleCss}</style>
+<ExampleFrame variant="component">
+  <TravelCarousel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/carousel/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/carousel/basic.tsx"
 
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/carousel/carousel-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -131,13 +161,27 @@ Carousel / Carousel.Root
 видимые элементы управления. В этом примере автопрокрутка останавливается, когда указатель наводят на
 карусель или фокус попадает внутрь неё. Возобновить её можно через `Carousel.AutoplayTrigger`.
 
-<style>{CarouselDocs.carouselExampleCss}</style>
+<ExampleFrame variant="component">
+  <AutoplayCarousel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/carousel/autoplay.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/carousel/autoplay.tsx"
 
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/carousel/carousel-autoplay.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 Полный пример галереи с боковой навигацией, текстом на слайдах и индикаторами прогресса, которые заполняются
 по мере переключения, смотрите в [рецепте галереи с автопрокруткой](/recipes/autoplay-gallery).
@@ -147,66 +191,134 @@ Carousel / Carousel.Root
 Внутри элементов карусели можно размещать любой контент. Если карточка должна быть уже области слайда,
 задайте ей собственные стили и выровняйте её по центру.
 
-<style>{CarouselDocs.carouselExampleCss}</style>
+<ExampleFrame variant="component">
+  <CardCarousel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/carousel/cards.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/carousel/cards.tsx"
 
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/carousel/carousel-cards.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Управляемое состояние
 
 Используйте управляемое состояние, если текущую страницу нужно синхронизировать с внешней навигацией,
 фильтрами или аналитикой.
 
-<style>{CarouselDocs.carouselExampleCss}</style>
+<ExampleFrame variant="component">
+  <ControlledCarousel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/carousel/controlled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/carousel/controlled.tsx"
 
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/carousel/carousel-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Динамическое изменение
 
 Если количество слайдов меняется после первоначального рендера, обновляйте `slideCount` одновременно
 со списком отображаемых элементов.
 
-<style>{CarouselDocs.carouselExampleCss}</style>
+<ExampleFrame variant="component">
+  <DynamicSlidesCarousel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/carousel/dynamic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/carousel/dynamic.tsx"
 
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/carousel/carousel-dynamic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Зацикливание
 
 Задайте `loop`, чтобы после последнего слайда карусель переходила к первому.
 
-<style>{CarouselDocs.carouselExampleCss}</style>
+<ExampleFrame variant="component">
+  <LoopCarousel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/carousel/loop.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/carousel/loop.tsx"
 
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/carousel/carousel-loop.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Перетаскивание мышью
 
 Включите перетаскивание мышью, чтобы на компьютере можно было листать слайды тем же жестом, что и
 на сенсорном экране.
 
-<style>{CarouselDocs.carouselExampleCss}</style>
+<ExampleFrame variant="component">
+  <MouseDragCarousel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/carousel/mouse-drag.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/carousel/mouse-drag.tsx"
 
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/carousel/carousel-mouse-drag.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Пауза при наведении
 
@@ -214,118 +326,239 @@ Carousel / Carousel.Root
 В примере через `Carousel.Context` вызываются `api.pause()` и `api.play()`. При попадании фокуса внутрь
 карусели автопрокрутка также приостанавливается.
 
-<style>{CarouselDocs.carouselExampleCss}</style>
+<ExampleFrame variant="component">
+  <PauseOnHoverCarousel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/carousel/pause-on-hover.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/carousel/pause-on-hover.tsx"
 
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/carousel/carousel-pause-on-hover.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Используйте `Carousel.RootProvider`, если состояние карусели нужно создать вне дерева компонентов и
 передать в несколько частей композиции.
 
-<style>{CarouselDocs.carouselExampleCss}</style>
+<ExampleFrame variant="component">
+  <RootProviderCarousel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/carousel/root-provider.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/carousel/root-provider.tsx"
 
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/carousel/carousel-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Переход к слайду
 
 Используйте API карусели через контекст, если другой элемент управления должен сразу перейти к определённому
 слайду.
 
-<style>{CarouselDocs.carouselExampleCss}</style>
+<ExampleFrame variant="component">
+  <ScrollToCarousel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/carousel/scroll-to-slide.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/carousel/scroll-to-slide.tsx"
 
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/carousel/carousel-scroll-to-slide.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Слайдов на странице
 
 Увеличьте `slidesPerPage`, чтобы показывать несколько элементов одновременно, а не одну панель на всю ширину.
 
-<style>{CarouselDocs.carouselExampleCss}</style>
+<ExampleFrame variant="component">
+  <SlidesPerPageCarousel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/carousel/slides-per-page.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/carousel/slides-per-page.tsx"
 
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/carousel/carousel-slides-per-page.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Интервалы
 
 Увеличьте `spacing`, чтобы добавить расстояние между соседними слайдами в редакционных макетах, лентах
 товаров и интерфейсах с фирменным оформлением.
 
-<style>{CarouselDocs.carouselExampleCss}</style>
+<ExampleFrame variant="component">
+  <SpacingCarousel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/carousel/spacing.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/carousel/spacing.tsx"
 
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/carousel/carousel-spacing.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Индикаторы-миниатюры
 
 Выведите собственное содержимое индикаторов, если вместо обычных точек нужно показывать миниатюры слайдов.
 
-<style>{CarouselDocs.carouselExampleCss}</style>
+<ExampleFrame variant="component">
+  <ThumbnailIndicatorCarousel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/carousel/thumbnail-indicators.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/carousel/thumbnail-indicators.tsx"
 
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/carousel/carousel-thumbnail-indicators.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Переменные размеры
 
 Включите `autoSize`, чтобы ширина слайдов зависела от их содержимого, а не от фиксированной сетки страниц.
 
-<style>{CarouselDocs.carouselExampleCss}</style>
+<ExampleFrame variant="component">
+  <VariableSizeCarousel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/carousel/variable-sizes.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/carousel/variable-sizes.tsx"
 
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/carousel/carousel-variable-sizes.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Вертикальная ориентация
 
 Переключитесь на вертикальную ориентацию, если карусель и её элементы управления должны работать по вертикали.
 
-<style>{CarouselDocs.carouselExampleCss}</style>
+<ExampleFrame variant="component">
+  <VerticalCarousel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/carousel/vertical.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/carousel/vertical.tsx"
 
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/carousel/carousel-vertical.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
 Не используйте `Carousel.Indicators`, если нужно самостоятельно вывести `pageSnapPoints` или разместить
 индикаторы рядом с другими элементами управления, работающими через контекст.
 
-<style>{CarouselDocs.carouselExampleCss}</style>
+<ExampleFrame variant="component">
+  <AdvancedCustomizationCarousel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/carousel/advanced-customization.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/carousel/advanced-customization.tsx"
 
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/carousel/carousel-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

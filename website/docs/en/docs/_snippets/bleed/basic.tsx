@@ -1,6 +1,6 @@
 import { Bleed } from '@moduix/react/bleed';
 import { Text } from '@moduix/react/text';
-import styles from '@/components/examples/bleed-basic.module.css';
+import styles from '@/components/examples/bleed/bleed-basic.module.css';
 
 const content = {
   before: 'Container content stays constrained.',

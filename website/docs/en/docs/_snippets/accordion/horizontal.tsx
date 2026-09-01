@@ -1,5 +1,5 @@
 import { Accordion } from '@moduix/react/accordion';
-import styles from '@/components/examples/accordion-horizontal.module.css';
+import styles from '@/components/examples/accordion/accordion-horizontal.module.css';
 
 const items = [
   {

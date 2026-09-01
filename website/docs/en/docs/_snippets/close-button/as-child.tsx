@@ -1,4 +1,5 @@
 import { CloseButton } from '@moduix/react/close-button';
+import styles from '@/components/examples/close-button/close-button-as-child.module.css';
 
 function CircleXIcon() {
   return (
@@ -7,7 +8,7 @@ function CircleXIcon() {
       fill="none"
       aria-hidden="true"
       stroke="currentColor"
-      style={{ width: '1rem', height: '1rem' }}
+      className={styles.icon}
     >
       <circle cx="12" cy="12" r="10" />
       <path d="m15 9-6 6" />

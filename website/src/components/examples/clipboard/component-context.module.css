@@ -1,0 +1,9 @@
+.root {
+  width: min(24rem, 100%);
+}
+
+.stack {
+  display: grid;
+  gap: var(--moduix-spacing-2);
+  justify-items: center;
+}

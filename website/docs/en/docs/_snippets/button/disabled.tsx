@@ -1,5 +1,5 @@
 import { Button } from '@moduix/react/button';
-import styles from '@/components/examples/button-disabled.module.css';
+import styles from '@/components/examples/button/button-disabled.module.css';
 
 const labels = {
   button: 'Disabled',

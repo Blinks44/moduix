@@ -1,4 +1,5 @@
 import { Card } from '@moduix/react/card';
+import styles from '@/components/examples/card/card-variants.module.css';
 
 const variants = ['elevated', 'outline', 'subtle'] as const;
 const descriptions = {
@@ -9,9 +10,9 @@ const descriptions = {
 
 export default function CardVariantsDemo() {
   return (
-    <div style={{ display: 'grid', inlineSize: '100%', gap: 'var(--moduix-spacing-4)' }}>
+    <div className={styles.root}>
       {variants.map((variant) => (
-        <Card key={variant} variant={variant} style={{ width: '100%' }}>
+        <Card className={styles.card} key={variant} variant={variant}>
           <Card.Header>
             <Card.Title>{variant}</Card.Title>
             <Card.Description>{descriptions[variant]}</Card.Description>

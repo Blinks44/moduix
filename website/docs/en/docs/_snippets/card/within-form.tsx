@@ -1,6 +1,7 @@
 import { Button } from '@moduix/react/button';
 import { Card } from '@moduix/react/card';
 import { Input } from '@moduix/react/input';
+import styles from '@/components/examples/card/card-within-form.module.css';
 
 const copy = {
   title: 'Create account',
@@ -13,15 +14,15 @@ const fields = [
 
 export default function CardFormDemo() {
   return (
-    <Card asChild>
+    <Card className={styles.root} asChild>
       <form>
         <Card.Header>
           <Card.Title>{copy.title}</Card.Title>
           <Card.Description>{copy.description}</Card.Description>
         </Card.Header>
-        <Card.Body style={{ display: 'grid', gap: 'var(--moduix-spacing-3)' }}>
+        <Card.Body className={styles.body}>
           {fields.map((field) => (
-            <label key={field.name} style={{ display: 'grid', gap: 'var(--moduix-spacing-1)' }}>
+            <label className={styles.field} key={field.name}>
               {field.label}
               <Input name={field.name} />
             </label>

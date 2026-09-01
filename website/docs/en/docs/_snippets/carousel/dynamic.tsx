@@ -3,6 +3,7 @@ import { Carousel } from '@moduix/react/carousel';
 import { Plus as PlusIcon } from 'lucide-react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/carousel/carousel-dynamic.module.css';
 
 const slides = [
   {
@@ -51,21 +52,22 @@ export default function DynamicSlidesCarousel() {
   };
 
   return (
-    <div className="carouselStack">
+    <div className={styles.stack}>
       <Carousel
+        className={styles.root}
         aria-label="Dynamic gallery"
         slideCount={visibleSlides.length}
         page={page}
         onPageChange={(details) => setPage(details.page)}
       >
-        <Carousel.ItemGroup aria-label="Dynamic gallery">
+        <Carousel.ItemGroup className={styles.itemGroup} aria-label="Dynamic gallery">
           {visibleSlides.map((slide, index) => (
             <Carousel.Item key={slide.id} index={index}>
-              <img src={slide.src} alt={slide.alt} />
+              <img className={styles.image} src={slide.src} alt={slide.alt} />
             </Carousel.Item>
           ))}
         </Carousel.ItemGroup>
-        <Carousel.Control>
+        <Carousel.Control className={styles.control}>
           <Carousel.PrevTrigger />
           <Carousel.Indicators />
           <Carousel.NextTrigger />

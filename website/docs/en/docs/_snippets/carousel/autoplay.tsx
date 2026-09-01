@@ -1,4 +1,5 @@
 import { Carousel } from '@moduix/react/carousel';
+import styles from '@/components/examples/carousel/carousel-autoplay.module.css';
 
 const slides = [
   {
@@ -31,6 +32,7 @@ const slides = [
 export default function AutoplayCarousel() {
   return (
     <Carousel
+      className={styles.root}
       aria-label="Autoplay gallery"
       autoplay={{ delay: 3500 }}
       loop
@@ -39,15 +41,23 @@ export default function AutoplayCarousel() {
       <Carousel.Context>
         {(api) => (
           <>
-            <Carousel.ItemGroup onFocus={() => api.pause()} onPointerEnter={() => api.pause()}>
+            <Carousel.ItemGroup
+              className={styles.itemGroup}
+              onFocus={() => api.pause()}
+              onPointerEnter={() => api.pause()}
+            >
               {slides.map((slide, index) => (
                 <Carousel.Item key={slide.id} index={index}>
-                  <img src={slide.src} alt={slide.alt} />
+                  <img className={styles.image} src={slide.src} alt={slide.alt} />
                 </Carousel.Item>
               ))}
             </Carousel.ItemGroup>
 
-            <Carousel.Control onFocus={() => api.pause()} onPointerEnter={() => api.pause()}>
+            <Carousel.Control
+              className={styles.control}
+              onFocus={() => api.pause()}
+              onPointerEnter={() => api.pause()}
+            >
               <Carousel.AutoplayTrigger>
                 <Carousel.AutoplayIndicator fallback="Play">Pause</Carousel.AutoplayIndicator>
               </Carousel.AutoplayTrigger>

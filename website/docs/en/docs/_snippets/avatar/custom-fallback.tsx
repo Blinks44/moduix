@@ -1,6 +1,6 @@
 import { Avatar } from '@moduix/react/avatar';
 import { Computer as ComputerIcon } from 'lucide-react';
-import styles from '@/components/examples/avatar-custom-fallback.module.css';
+import styles from '@/components/examples/avatar/avatar-custom-fallback.module.css';
 
 const fallbackLabel = 'Workstation account';
 

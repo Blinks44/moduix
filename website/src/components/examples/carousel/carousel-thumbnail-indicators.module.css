@@ -1,0 +1,57 @@
+.root {
+  inline-size: min(32rem, 100%);
+}
+
+.itemGroup {
+  border-radius: var(--moduix-radius-xl);
+}
+
+.control {
+  justify-content: center;
+}
+
+.image {
+  display: block;
+  inline-size: 100%;
+  block-size: 21rem;
+  object-fit: cover;
+  border-radius: var(--moduix-radius-xl);
+}
+
+.thumbnailGroup {
+  flex-wrap: wrap;
+}
+
+.thumbnailIndicator {
+  overflow: hidden;
+  inline-size: 5rem;
+  block-size: 3rem;
+  padding: 0;
+  border: var(--moduix-border-width-sm) solid transparent;
+  border-radius: var(--moduix-radius-lg);
+  background: transparent;
+  opacity: 0.65;
+  transition:
+    border-color var(--moduix-transition-fast),
+    opacity var(--moduix-transition-fast),
+    transform var(--moduix-transition-fast);
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &[data-current] {
+    inline-size: 5rem;
+    border-color: var(--moduix-color-primary);
+    background: transparent;
+    opacity: 1;
+    transform: translateY(-1px);
+  }
+}
+
+.thumbnailImage {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}

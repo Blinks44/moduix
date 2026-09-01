@@ -1,5 +1,5 @@
 import { Badge } from '@moduix/react/badge';
-import styles from '@/components/examples/badge-custom-styling.module.css';
+import styles from '@/components/examples/badge/badge-custom-styling.module.css';
 
 export default function BadgeCustomStylingDemo() {
   return (

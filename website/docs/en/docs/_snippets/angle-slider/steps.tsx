@@ -1,5 +1,5 @@
 import { AngleSlider } from '@moduix/react/angle-slider';
-import styles from '@/components/examples/angle-slider-steps.module.css';
+import styles from '@/components/examples/angle-slider/angle-slider-steps.module.css';
 
 const initialValue = 60;
 const step = 15;

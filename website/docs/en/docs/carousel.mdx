@@ -4,7 +4,23 @@ component: carousel
 description: A paginated carousel built on Ark UI with autoplay, externally managed state, and variable-width slides.
 ---
 
-import * as CarouselDocs from '@/components/examples/carousel';
+import * as CarouselDocs from '@/components/examples/carousel/carousel';
+import AdvancedCustomizationCarousel from './_snippets/carousel/advanced-customization.tsx';
+import AutoplayCarousel from './_snippets/carousel/autoplay.tsx';
+import TravelCarousel from './_snippets/carousel/basic.tsx';
+import CardCarousel from './_snippets/carousel/cards.tsx';
+import ControlledCarousel from './_snippets/carousel/controlled.tsx';
+import DynamicSlidesCarousel from './_snippets/carousel/dynamic.tsx';
+import LoopCarousel from './_snippets/carousel/loop.tsx';
+import MouseDragCarousel from './_snippets/carousel/mouse-drag.tsx';
+import PauseOnHoverCarousel from './_snippets/carousel/pause-on-hover.tsx';
+import RootProviderCarousel from './_snippets/carousel/root-provider.tsx';
+import ScrollToCarousel from './_snippets/carousel/scroll-to-slide.tsx';
+import SlidesPerPageCarousel from './_snippets/carousel/slides-per-page.tsx';
+import SpacingCarousel from './_snippets/carousel/spacing.tsx';
+import ThumbnailIndicatorCarousel from './_snippets/carousel/thumbnail-indicators.tsx';
+import VariableSizeCarousel from './_snippets/carousel/variable-sizes.tsx';
+import VerticalCarousel from './_snippets/carousel/vertical.tsx';
 
 ## API Reference
 
@@ -16,13 +32,27 @@ Start with `Carousel` as the root. Add `Carousel.ItemGroup` for the slide track,
 next buttons in `Carousel.Control`, and use `Carousel.Indicators` with `Carousel.ProgressText`
 for the default pager.
 
-<style>{CarouselDocs.carouselExampleCss}</style>
+<ExampleFrame variant="component">
+  <TravelCarousel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/carousel/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/carousel/basic.tsx"
 
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/carousel/carousel-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -127,13 +157,27 @@ Use autoplay for galleries that advance on their own, and keep visible controls 
 example, autoplay pauses when the pointer enters the carousel or focus moves inside it. Users can
 start it again with `Carousel.AutoplayTrigger`.
 
-<style>{CarouselDocs.carouselExampleCss}</style>
+<ExampleFrame variant="component">
+  <AutoplayCarousel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/carousel/autoplay.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/carousel/autoplay.tsx"
 
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/carousel/carousel-autoplay.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 For a complete gallery with side navigation, slide text, and progress indicators that fill as the
 gallery advances, see the [Autoplay gallery recipe](/recipes/autoplay-gallery).
@@ -143,66 +187,134 @@ gallery advances, see the [Autoplay gallery recipe](/recipes/autoplay-gallery).
 Carousel items can contain any content. Use your own styles to center a card when it should be
 narrower than the slide.
 
-<style>{CarouselDocs.carouselExampleCss}</style>
+<ExampleFrame variant="component">
+  <CardCarousel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/carousel/cards.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/carousel/cards.tsx"
 
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/carousel/carousel-cards.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Controlled
 
 Use controlled state when the current page needs to stay in sync with external navigation, filters,
 or analytics.
 
-<style>{CarouselDocs.carouselExampleCss}</style>
+<ExampleFrame variant="component">
+  <ControlledCarousel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="./_snippets/carousel/controlled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/carousel/controlled.tsx"
 
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/carousel/carousel-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Dynamic
 
 If the number of slides changes after the initial render, update `slideCount` whenever you update
 the rendered items.
 
-<style>{CarouselDocs.carouselExampleCss}</style>
+<ExampleFrame variant="component">
+  <DynamicSlidesCarousel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="./_snippets/carousel/dynamic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/carousel/dynamic.tsx"
 
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/carousel/carousel-dynamic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Loop
 
 Set `loop` to make the carousel wrap from the last slide back to the first.
 
-<style>{CarouselDocs.carouselExampleCss}</style>
+<ExampleFrame variant="component">
+  <LoopCarousel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/carousel/loop.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/carousel/loop.tsx"
 
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/carousel/carousel-loop.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Mouse Dragging
 
 Enable mouse dragging so desktop users can move through slides with the same gesture they use on
 touch screens.
 
-<style>{CarouselDocs.carouselExampleCss}</style>
+<ExampleFrame variant="component">
+  <MouseDragCarousel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/carousel/mouse-drag.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/carousel/mouse-drag.tsx"
 
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/carousel/carousel-mouse-drag.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Pause on Hover
 
@@ -210,119 +322,240 @@ Use this pattern when autoplay should pause while the pointer is over the carous
 uses `Carousel.Context` with `api.pause()` and `api.play()`, and also pauses while the carousel has
 focus.
 
-<style>{CarouselDocs.carouselExampleCss}</style>
+<ExampleFrame variant="component">
+  <PauseOnHoverCarousel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="./_snippets/carousel/pause-on-hover.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/carousel/pause-on-hover.tsx"
 
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/carousel/carousel-pause-on-hover.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Use `Carousel.RootProvider` when carousel state must be created outside the rendered subtree and
 shared across composition boundaries.
 
-<style>{CarouselDocs.carouselExampleCss}</style>
+<ExampleFrame variant="component">
+  <RootProviderCarousel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/carousel/root-provider.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/carousel/root-provider.tsx"
 
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/carousel/carousel-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Scroll to Slide
 
 Use the carousel API from context when another control needs to jump directly to a slide.
 
-<style>{CarouselDocs.carouselExampleCss}</style>
+<ExampleFrame variant="component">
+  <ScrollToCarousel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="./_snippets/carousel/scroll-to-slide.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/carousel/scroll-to-slide.tsx"
 
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/carousel/carousel-scroll-to-slide.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Slides Per Page
 
 Increase `slidesPerPage` to show several items at once instead of one full-width panel.
 
-<style>{CarouselDocs.carouselExampleCss}</style>
+<ExampleFrame variant="component">
+  <SlidesPerPageCarousel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/carousel/slides-per-page.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/carousel/slides-per-page.tsx"
 
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/carousel/carousel-slides-per-page.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Spacing
 
 Increase `spacing` to add room between adjacent slides in editorial layouts, product rails, or
 branded interfaces.
 
-<style>{CarouselDocs.carouselExampleCss}</style>
+<ExampleFrame variant="component">
+  <SpacingCarousel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="./_snippets/carousel/spacing.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/carousel/spacing.tsx"
 
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/carousel/carousel-spacing.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Thumbnail Indicators
 
 Render custom indicator content when the pager should preview the slides with thumbnails instead of
 plain dots.
 
-<style>{CarouselDocs.carouselExampleCss}</style>
+<ExampleFrame variant="component">
+  <ThumbnailIndicatorCarousel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/carousel/thumbnail-indicators.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/carousel/thumbnail-indicators.tsx"
 
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/carousel/carousel-thumbnail-indicators.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Variable Sizes
 
 Enable `autoSize` to size slides to their content instead of a fixed page grid.
 
-<style>{CarouselDocs.carouselExampleCss}</style>
+<ExampleFrame variant="component">
+  <VariableSizeCarousel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="./_snippets/carousel/variable-sizes.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/carousel/variable-sizes.tsx"
 
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/carousel/carousel-variable-sizes.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Vertical
 
 Switch to a vertical orientation when the carousel and its controls should work along the vertical
 axis.
 
-<style>{CarouselDocs.carouselExampleCss}</style>
+<ExampleFrame variant="component">
+  <VerticalCarousel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/carousel/vertical.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/carousel/vertical.tsx"
 
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/carousel/carousel-vertical.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Skip `Carousel.Indicators` when you need to render `pageSnapPoints` yourself or place pager controls
 alongside other context-driven controls.
 
-<style>{CarouselDocs.carouselExampleCss}</style>
+<ExampleFrame variant="component">
+  <AdvancedCustomizationCarousel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="./_snippets/carousel/advanced-customization.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/carousel/advanced-customization.tsx"
 
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/carousel/carousel-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

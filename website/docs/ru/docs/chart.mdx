@@ -4,7 +4,16 @@ component: chart
 description: Создавайте доступные адаптивные графики с TanStack Charts и оформляйте их с помощью figure, легенды, подсказки и анимации moduix.
 ---
 
-import * as ChartDocs from '@/components/examples/chart';
+import * as ChartDocs from '@/components/examples/chart/chart';
+import ChartAdvancedCustomization from '../../en/docs/_snippets/chart/advanced-customization.tsx';
+import ChartAnimatedArea from '../../en/docs/_snippets/chart/animated-area.tsx';
+import ChartBasic from '../../en/docs/_snippets/chart/basic.tsx';
+import ChartDonut from '../../en/docs/_snippets/chart/donut.tsx';
+import ChartHeatmap from '../../en/docs/_snippets/chart/heatmap.tsx';
+import ChartHorizontalBars from '../../en/docs/_snippets/chart/horizontal-bars.tsx';
+import ChartColors from '../../en/docs/_snippets/chart/line-colors.tsx';
+import ChartScatter from '../../en/docs/_snippets/chart/scatter.tsx';
+import ChartStackedBars from '../../en/docs/_snippets/chart/stacked-bars.tsx';
 
 ## Справочник API
 
@@ -22,11 +31,20 @@ import * as ChartDocs from '@/components/examples/chart';
 графика видимые заголовок, описание и легенду, а для пользователей вспомогательных технологий
 задайте короткое доступное имя в `ariaLabel`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/chart/basic.tsx"
+<ExampleFrame variant="component">
+  <ChartBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/chart/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -135,22 +153,40 @@ Chart / Chart.Root
 
 В этом примере TanStack отвечает за область, линию, точки, группировку фокуса и анимацию подсказки.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/chart/animated-area.tsx"
+<ExampleFrame variant="component">
+  <ChartAnimatedArea />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/chart/animated-area.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Цвета графика
 
 Используйте токены цветов moduix в цветовой шкале TanStack. CSS-переменные можно использовать как
 цвета SVG, и они автоматически учитывают активную тему.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/chart/line-colors.tsx"
+<ExampleFrame variant="component">
+  <ChartColors />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/chart/line-colors.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Кольцевая диаграмма
 
@@ -158,55 +194,100 @@ Chart / Chart.Root
 Та же композиция с `Chart.Plot`, анимацией, фокусом, подсказкой и легендой работает и для таких
 диаграмм, которые не основаны на декартовых осях.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/chart/donut.tsx"
+<ExampleFrame variant="component">
+  <ChartDonut />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/chart/donut.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Тепловая карта
 
 Сочетайте `cell` с полосовыми шкалами по обеим осям, чтобы получить компактную матрицу категорий.
 Цветовой канал превращает уровень каждой ячейки в цвет из текущей темы.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/chart/heatmap.tsx"
+<ExampleFrame variant="component">
+  <ChartHeatmap />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/chart/heatmap.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Горизонтальные столбцы
 
 Используйте `barX`, если подписи категорий длинные или рейтинг удобнее читать сверху вниз. Числовое
 значение откладывается по оси x, а категория - по оси y.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/chart/horizontal-bars.tsx"
+<ExampleFrame variant="component">
+  <ChartHorizontalBars />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/chart/horizontal-bars.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Точечная диаграмма
 
 Используйте `dot`, чтобы сравнить две числовые величины. Цветом можно добавить категориальное
 измерение, не меняя соотношение значений по осям x и y.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/chart/scatter.tsx"
+<ExampleFrame variant="component">
+  <ChartScatter />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/chart/scatter.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Столбцы с накоплением
 
 Для столбцов с несколькими сериями используйте цветовой канал TanStack и раскладку `stack()`.
 `focus: 'group-x'` объединяет подсказку и клавиатурный фокус по кварталу.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/chart/stacked-bars.tsx"
+<ExampleFrame variant="component">
+  <ChartStackedBars />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/chart/stacked-bars.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
@@ -220,11 +301,26 @@ Chart / Chart.Root
 собственной обёртки: TanStack продолжит управлять её положением и выводом через портал. Интерактивные
 элементы добавляйте только в закреплённую подсказку.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/chart/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <ChartAdvancedCustomization />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/chart/advanced-customization.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/chart/chart-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

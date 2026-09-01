@@ -1,6 +1,6 @@
 import { AspectRatio } from '@moduix/react/aspect-ratio';
 import { Card } from '@moduix/react/card';
-import styles from '@/components/examples/aspect-ratio-card-grid.module.css';
+import styles from '@/components/examples/aspect-ratio/aspect-ratio-card-grid.module.css';
 
 const stories = [
   {

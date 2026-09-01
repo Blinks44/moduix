@@ -1,5 +1,6 @@
 import { Clipboard } from '@moduix/react/clipboard';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/clipboard/component-root-provider.module.css';
 
 export default function RootProviderClipboardDemo() {
   const clipboard = Clipboard.useClipboard({
@@ -7,7 +8,7 @@ export default function RootProviderClipboardDemo() {
   });
 
   return (
-    <div className="clipboard-preview-stack">
+    <div className={styles.stack}>
       <Clipboard.RootProvider value={clipboard}>
         <Clipboard.Label>Provider-driven clipboard</Clipboard.Label>
         <Clipboard.Control>

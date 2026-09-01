@@ -1,4 +1,5 @@
 import { Carousel } from '@moduix/react/carousel';
+import styles from '@/components/examples/carousel/carousel-slides-per-page.module.css';
 
 const slides = [
   {
@@ -31,20 +32,21 @@ const slides = [
 export default function SlidesPerPageCarousel() {
   return (
     <Carousel
+      className={styles.root}
       aria-label="Two-up gallery"
       slideCount={slides.length}
       slidesPerPage={2}
       spacing="var(--moduix-spacing-3)"
     >
-      <Carousel.Control>
+      <Carousel.Control className={styles.control}>
         <Carousel.PrevTrigger />
         <Carousel.NextTrigger />
       </Carousel.Control>
 
-      <Carousel.ItemGroup aria-label="Two-up gallery">
+      <Carousel.ItemGroup className={styles.itemGroup} aria-label="Two-up gallery">
         {slides.map((slide, index) => (
           <Carousel.Item key={slide.id} index={index}>
-            <img src={slide.src} alt={slide.alt} />
+            <img className={styles.image} src={slide.src} alt={slide.alt} />
           </Carousel.Item>
         ))}
       </Carousel.ItemGroup>

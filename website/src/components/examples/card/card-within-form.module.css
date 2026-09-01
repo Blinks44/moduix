@@ -1,0 +1,13 @@
+.root {
+  width: min(28rem, 100%);
+}
+
+.body {
+  display: grid;
+  gap: var(--moduix-spacing-3);
+}
+
+.field {
+  display: grid;
+  gap: var(--moduix-spacing-1);
+}

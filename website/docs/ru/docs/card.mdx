@@ -4,7 +4,19 @@ component: card
 description: Гибкий компонент для группировки содержимого по одной теме.
 ---
 
-import * as CardDocs from '@/components/examples/card';
+import * as CardDocs from '@/components/examples/card/card';
+import CardAdvancedCustomization from '../../en/docs/_snippets/card/advanced-customization.tsx';
+import CardBasic from '../../en/docs/_snippets/card/basic.tsx';
+import CardHeaderAction from '../../en/docs/_snippets/card/header-action.tsx';
+import CardHorizontal from '../../en/docs/_snippets/card/horizontal.tsx';
+import CardOverlayLink from '../../en/docs/_snippets/card/overlay-link.tsx';
+import CardRootAsLink from '../../en/docs/_snippets/card/root-as-link.tsx';
+import CardSizes from '../../en/docs/_snippets/card/sizes.tsx';
+import CardVariants from '../../en/docs/_snippets/card/variants.tsx';
+import CardWithAvatar from '../../en/docs/_snippets/card/with-avatar.tsx';
+import CardWithBackground from '../../en/docs/_snippets/card/with-background.tsx';
+import CardWithImage from '../../en/docs/_snippets/card/with-image.tsx';
+import CardWithinForm from '../../en/docs/_snippets/card/within-form.tsx';
 
 ## Справочник API
 
@@ -20,11 +32,26 @@ import * as CardDocs from '@/components/examples/card';
 Если вы знакомы с shadcn/ui, структура будет привычной. В moduix `Card.Body` выполняет роль `CardContent`
 из shadcn, а остальные части также находятся в пространстве имён `Card`.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/card/basic.tsx"
+<ExampleFrame variant="component">
+  <CardBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/card/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -116,119 +143,280 @@ Card.Root
 
 Используйте `Card.Action`, чтобы разместить компактный статус или элемент управления в конце заголовка.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/card/header-action.tsx"
+<ExampleFrame variant="component">
+  <CardHeaderAction />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/card/header-action.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-header-action.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Горизонтальная компоновка
 
 Горизонтальную карточку можно собрать с помощью CSS-раскладки приложения. Для этого у Card нет специального
 параметра.
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/card/horizontal.tsx"
+<ExampleFrame variant="component">
+  <CardHorizontal />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/card/horizontal.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-horizontal.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Ссылка с расширенной областью клика
 
 Используйте `Card.Link`, если карточка должна вести на другую страницу и содержать отдельные действия.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/card/overlay-link.tsx"
+<ExampleFrame variant="component">
+  <CardOverlayLink />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/card/overlay-link.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-overlay-link.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Корневой элемент как ссылка
 
 Используйте `asChild`, если вся карточка должна быть одной ссылкой и не содержит вложенных элементов управления.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/card/root-as-link.tsx"
+<ExampleFrame variant="component">
+  <CardRootAsLink />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/card/root-as-link.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-root-as-link.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Размеры
 
 Выберите `sm`, `md` или `lg`, чтобы изменить внутренние отступы карточки и размер заголовка.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/card/sizes.tsx"
+<ExampleFrame variant="component">
+  <CardSizes />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/card/sizes.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-sizes.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Варианты
 
 Используйте варианты, чтобы обозначить иерархию поверхностей.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/card/variants.tsx"
+<ExampleFrame variant="component">
+  <CardVariants />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/card/variants.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-variants.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### С аватаром
 
 Поместите аватар или другое профильное медиа в заголовок, если карточка представляет человека или другую сущность.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/card/with-avatar.tsx"
+<ExampleFrame variant="component">
+  <CardWithAvatar />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/card/with-avatar.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-with-avatar.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### С фоновым изображением
 
 Используйте `Card.Background` для декоративного изображения за содержимым всей карточки. Наложение и контраст
 текста настройте в стилях приложения.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/card/with-background.tsx"
+<ExampleFrame variant="component">
+  <CardWithBackground />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/card/with-background.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-with-background.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### С изображением
 
 Используйте `Card.Media` для изображения или другого медиа в верхней части карточки, которое должно занимать всю её
 ширину с единым скруглением верхних углов.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/card/with-image.tsx"
+<ExampleFrame variant="component">
+  <CardWithImage />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/card/with-image.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-with-image.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### В форме
 
 Сделайте корневой компонент формой, если карточка объединяет связанные поля и действия.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/card/within-form.tsx"
+<ExampleFrame variant="component">
+  <CardWithinForm />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/card/within-form.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-within-form.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
 Не используйте `Card.Media`, если нужно самостоятельно оформить медиа и настроить карточку через низкоуровневые
 точки стилизации.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/card/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <CardAdvancedCustomization />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/card/advanced-customization.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

@@ -1,0 +1,47 @@
+.root {
+  width: min(28rem, 100%);
+  --moduix-card-bg: color-mix(in oklab, var(--moduix-color-card) 94%, var(--moduix-color-primary));
+  --moduix-card-border-color: color-mix(
+    in oklab,
+    var(--moduix-color-primary) 35%,
+    var(--moduix-color-border)
+  );
+  --moduix-card-radius: var(--moduix-radius-md);
+  --moduix-card-shadow: var(--moduix-shadow-md);
+}
+
+.media {
+  overflow: hidden;
+  border-start-start-radius: var(--moduix-card-radius);
+  border-start-end-radius: var(--moduix-card-radius);
+}
+
+.image {
+  aspect-ratio: 16 / 9;
+  display: block;
+  width: 100%;
+  object-fit: cover;
+}
+
+.metric {
+  display: grid;
+  gap: var(--moduix-spacing-2);
+  color: var(--moduix-color-foreground);
+  font-size: var(--moduix-text-2xl);
+  font-weight: var(--moduix-weight-semibold);
+  line-height: var(--moduix-line-height-text-2xl);
+}
+
+.progress {
+  height: 0.5rem;
+  overflow: hidden;
+  border-radius: var(--moduix-radius-full);
+  background-color: var(--moduix-color-muted);
+}
+
+.progressValue {
+  width: 64%;
+  height: 100%;
+  border-radius: inherit;
+  background-color: var(--moduix-color-primary);
+}

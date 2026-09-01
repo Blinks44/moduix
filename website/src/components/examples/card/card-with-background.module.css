@@ -1,0 +1,23 @@
+.root {
+  width: min(28rem, 100%);
+  min-height: 20rem;
+  border: 0;
+  background: var(--moduix-color-muted);
+  color: #fff;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgb(0 0 0 / 4%) 24%, rgb(0 0 0 / 78%) 100%);
+}
+
+.header {
+  margin-top: auto;
+  padding-block: var(--moduix-spacing-6);
+  color: inherit;
+}
+
+.description {
+  color: rgb(255 255 255 / 80%);
+}

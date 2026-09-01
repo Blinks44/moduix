@@ -1,5 +1,5 @@
 import { Badge } from '@moduix/react/badge';
-import styles from '@/components/examples/badge-long-labels.module.css';
+import styles from '@/components/examples/badge/badge-long-labels.module.css';
 
 const label = 'Ready for stakeholder review after legal approval for production release';
 

@@ -1,5 +1,6 @@
 import { Carousel } from '@moduix/react/carousel';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/carousel/carousel-pause-on-hover.module.css';
 
 const slides = [
   {
@@ -31,22 +32,30 @@ const slides = [
 
 export default function PauseOnHoverCarousel() {
   return (
-    <Carousel aria-label="Pause on hover gallery" autoplay loop slideCount={slides.length}>
+    <Carousel
+      className={styles.root}
+      aria-label="Pause on hover gallery"
+      autoplay
+      loop
+      slideCount={slides.length}
+    >
       <Carousel.Context>
         {(api) => (
           <>
             <Carousel.ItemGroup
+              className={styles.itemGroup}
               onFocus={() => api.pause()}
               onPointerEnter={() => api.pause()}
               onPointerLeave={() => api.play()}
             >
               {slides.map((slide, index) => (
                 <Carousel.Item key={slide.id} index={index}>
-                  <img src={slide.src} alt={slide.alt} />
+                  <img className={styles.image} src={slide.src} alt={slide.alt} />
                 </Carousel.Item>
               ))}
             </Carousel.ItemGroup>
             <Carousel.Control
+              className={styles.control}
               onFocus={() => api.pause()}
               onPointerEnter={() => api.pause()}
               onPointerLeave={() => api.play()}

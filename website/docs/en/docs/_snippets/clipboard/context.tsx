@@ -1,9 +1,10 @@
 import { Clipboard } from '@moduix/react/clipboard';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/clipboard/component-context.module.css';
 
 export default function ContextClipboardDemo() {
   return (
-    <Clipboard defaultValue="https://moduix.dev/docs/clipboard">
+    <Clipboard className={styles.root} defaultValue="https://moduix.dev/docs/clipboard">
       <Clipboard.Control>
         <Clipboard.ValueText />
         <Clipboard.Trigger>
@@ -13,7 +14,7 @@ export default function ContextClipboardDemo() {
       </Clipboard.Control>
       <Clipboard.Context>
         {(clipboard) => (
-          <div className="clipboard-preview-stack">
+          <div className={styles.stack}>
             <PreviewMeta>
               <output>Copied: {String(clipboard.copied)}</output>
             </PreviewMeta>

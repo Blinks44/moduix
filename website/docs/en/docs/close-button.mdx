@@ -4,7 +4,11 @@ component: close-button
 description: An icon-only button for dismissing notifications, cards, overlays, and other UI surfaces.
 ---
 
-import * as CloseButtonDocs from '@/components/examples/close-button';
+import * as CloseButtonDocs from '@/components/examples/close-button/close-button';
+import CloseButtonAsChild from './_snippets/close-button/as-child.tsx';
+import CloseButtonBasic from './_snippets/close-button/basic.tsx';
+import CloseButtonCustomChildren from './_snippets/close-button/custom-children.tsx';
+import CloseButtonDisabled from './_snippets/close-button/disabled-state.tsx';
 
 ## API Reference
 
@@ -19,11 +23,26 @@ Use `CloseButton` to add a close control to a notification, card, overlay, or an
 `onClick` handler to the state that hides or removes that surface. The component renders a semantic button,
 provides a default accessible name, and shows a `CloseIcon`, but it does not manage the surface's state.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/close-button/basic.tsx"
+<ExampleFrame variant="component">
+  <CloseButtonBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/close-button/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/close-button/close-button-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -90,27 +109,78 @@ focus behavior.
 Use `asChild` when an existing semantic button must be the rendered element while receiving
 CloseButton's styles and data attributes. Set `type="button"` on the child and provide the icon there.
 
-```tsx preview file="./_snippets/close-button/as-child.tsx"
+<ExampleFrame variant="component">
+  <CloseButtonAsChild />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/close-button/as-child.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/close-button/close-button-as-child.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Custom content
 
 Pass custom content through `children` to replace the default icon while keeping the root button contract.
 The example uses a simple X-shaped mark and keeps it decorative with `aria-hidden="true"`.
 
-```tsx preview file="./_snippets/close-button/custom-children.tsx"
+<ExampleFrame variant="component">
+  <CloseButtonCustomChildren />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/close-button/custom-children.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/close-button/close-button-custom-children.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Disabled state
 
 Use native `disabled` when the button should not be focusable. Use `aria-disabled="true"` when it should
 remain focusable but must not activate.
 
-```tsx preview file="./_snippets/close-button/disabled-state.tsx"
+<ExampleFrame variant="component">
+  <CloseButtonDisabled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/close-button/disabled-state.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/close-button/close-button-disabled-state.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

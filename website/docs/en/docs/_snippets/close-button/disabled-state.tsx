@@ -1,13 +1,14 @@
 import { CloseButton } from '@moduix/react/close-button';
+import styles from '@/components/examples/close-button/close-button-disabled-state.module.css';
 
 export default function CloseButtonDisabledDemo() {
   return (
-    <div style={{ display: 'grid', gap: 'var(--moduix-spacing-2)' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--moduix-spacing-2)' }}>
+    <div className={styles.root}>
+      <div className={styles.row}>
         <CloseButton disabled aria-label="Close unavailable message" />
         <span>Native disabled</span>
       </div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--moduix-spacing-2)' }}>
+      <div className={styles.row}>
         <CloseButton aria-disabled="true" aria-label="Close unavailable notification" />
         <span>ARIA disabled</span>
       </div>

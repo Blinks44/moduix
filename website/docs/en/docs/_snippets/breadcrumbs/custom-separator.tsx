@@ -1,6 +1,6 @@
 import { Breadcrumbs } from '@moduix/react/breadcrumbs';
 import { Minus as SeparatorMarkIcon } from 'lucide-react';
-import styles from '@/components/examples/breadcrumbs-custom-separator.module.css';
+import styles from '@/components/examples/breadcrumbs/breadcrumbs-custom-separator.module.css';
 
 const items = [
   { href: '/', label: 'Home' },

@@ -1,4 +1,5 @@
 import { CloseButton } from '@moduix/react/close-button';
+import styles from '@/components/examples/close-button/close-button-custom-children.module.css';
 
 export default function CloseButtonCustomChildrenDemo() {
   return (
@@ -8,7 +9,7 @@ export default function CloseButtonCustomChildrenDemo() {
         fill="none"
         aria-hidden="true"
         stroke="currentColor"
-        style={{ width: '1rem', height: '1rem' }}
+        className={styles.icon}
       >
         <path d="m7 7 10 10" />
         <path d="m17 7-10 10" />

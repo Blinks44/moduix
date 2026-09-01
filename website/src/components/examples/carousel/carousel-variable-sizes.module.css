@@ -1,0 +1,18 @@
+.root {
+  inline-size: min(32rem, 100%);
+}
+
+.itemGroup {
+  border-radius: var(--moduix-radius-xl);
+}
+
+.control {
+  justify-content: center;
+}
+
+.image {
+  display: block;
+  block-size: 21rem;
+  object-fit: cover;
+  border-radius: var(--moduix-radius-xl);
+}

@@ -4,7 +4,25 @@ component: checkbox
 description: Un composant de case à cocher pour les options individuelles et les groupes à sélection multiple.
 ---
 
-import * as CheckboxDocs from '@/components/examples/checkbox';
+import * as CheckboxDocs from '@/components/examples/checkbox/checkbox';
+import CheckboxBasic from '../../en/docs/_snippets/checkbox/basic.tsx';
+import CheckboxControlled from '../../en/docs/_snippets/checkbox/controlled.tsx';
+import CheckboxControlledGroup from '../../en/docs/_snippets/checkbox/controlled-group.tsx';
+import CheckboxCustomIndicator from '../../en/docs/_snippets/checkbox/custom-indicator.tsx';
+import CheckboxDefaultChecked from '../../en/docs/_snippets/checkbox/default-checked.tsx';
+import CheckboxDisabled from '../../en/docs/_snippets/checkbox/disabled.tsx';
+import CheckboxGroup from '../../en/docs/_snippets/checkbox/group.tsx';
+import CheckboxGroupWithFieldset from '../../en/docs/_snippets/checkbox/group-with-fieldset.tsx';
+import CheckboxGroupWithForm from '../../en/docs/_snippets/checkbox/group-with-form.tsx';
+import CheckboxIndeterminate from '../../en/docs/_snippets/checkbox/indeterminate.tsx';
+import CheckboxInvalidGroup from '../../en/docs/_snippets/checkbox/invalid-group.tsx';
+import CheckboxMaxSelected from '../../en/docs/_snippets/checkbox/max-selected.tsx';
+import CheckboxReadOnly from '../../en/docs/_snippets/checkbox/read-only.tsx';
+import CheckboxRootProvider from '../../en/docs/_snippets/checkbox/root-provider.tsx';
+import CheckboxSelectAll from '../../en/docs/_snippets/checkbox/select-all.tsx';
+import CheckboxSizes from '../../en/docs/_snippets/checkbox/sizes.tsx';
+import CheckboxWithField from '../../en/docs/_snippets/checkbox/with-field.tsx';
+import CheckboxWithForm from '../../en/docs/_snippets/checkbox/with-form.tsx';
 
 Utilisez `Checkbox` lorsque l’utilisateur peut sélectionner une ou plusieurs options indépendantes
 dans un formulaire, un panneau de réglages ou une liste de filtres. Utilisez `RadioGroup` lorsqu’un
@@ -20,9 +38,19 @@ Composez une case à cocher avec les parties Ark. Dans la plupart des cas, laiss
 vide pour utiliser les icônes intégrées de moduix pour les états coché et indéterminé. Ajoutez
 `Checkbox.Label` pour afficher le libellé. moduix ajoute automatiquement le champ natif du formulaire.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/basic.tsx"
+<ExampleFrame variant="component">
+  <CheckboxBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/basic.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -120,153 +148,344 @@ cocher qui a le focus, appuyez sur <kbd>Espace</kbd>.
 
 Utilisez une case à cocher contrôlée lorsque sa valeur est gérée par une autre partie de l’interface.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/controlled.tsx"
+<ExampleFrame variant="component">
+  <CheckboxControlled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/controlled.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/checkbox/checkbox-controlled.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Groupe contrôlé
 
 Utilisez un groupe contrôlé lorsque les options sélectionnées influencent des filtres, des
 récapitulatifs ou des actions.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/controlled-group.tsx"
+<ExampleFrame variant="component">
+  <CheckboxControlledGroup />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/controlled-group.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Indicateur personnalisé
 
 Remplacez la coche intégrée par votre propre icône tout en conservant le comportement et
 l’accessibilité d’Ark.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/custom-indicator.tsx"
+<ExampleFrame variant="component">
+  <CheckboxCustomIndicator />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/custom-indicator.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Cochée par défaut
 
 Utilisez `defaultChecked` lorsque la case à cocher doit avoir une valeur initiale, puis laissez-la
 gérer elle-même son état.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/default-checked.tsx"
+<ExampleFrame variant="component">
+  <CheckboxDefaultChecked />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/default-checked.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### État désactivé
 
 Utilisez `disabled` pour une option indisponible avec laquelle l’utilisateur ne peut pas interagir.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/disabled.tsx"
+<ExampleFrame variant="component">
+  <CheckboxDisabled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/disabled.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Groupe
 
 Utilisez `Checkbox.Group` lorsque plusieurs cases à cocher partagent un tableau de valeurs
 sélectionnées.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/group.tsx"
+<ExampleFrame variant="component">
+  <CheckboxGroup />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/group.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Groupe avec Fieldset
 
 Utilisez `Fieldset` lorsque le groupe représente un seul champ de formulaire et a besoin d’une
 légende commune.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/checkbox/group-with-fieldset.tsx"
+<ExampleFrame variant="component">
+  <CheckboxGroupWithFieldset />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/group-with-fieldset.tsx"
 ```
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Groupe dans un formulaire
 
 Placez `Checkbox.Group` dans un formulaire lorsque vous devez récupérer toutes les valeurs
 sélectionnées dans `FormData`. Lisez-les avec `FormData.getAll(name)`.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/group-with-form.tsx"
+<ExampleFrame variant="component">
+  <CheckboxGroupWithForm />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/group-with-form.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/checkbox/checkbox-group-with-form.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### État indéterminé
 
 Utilisez `checked="indeterminate"` lorsqu’une case à cocher représente une sélection partielle. C’est
 fréquent pour une commande « Tout sélectionner ».
 
-```tsx preview file="../../en/docs/_snippets/checkbox/indeterminate.tsx"
+<ExampleFrame variant="component">
+  <CheckboxIndeterminate />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/indeterminate.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Groupe invalide
 
 Définissez `invalid` sur le groupe lorsque la validation porte sur l’ensemble de la sélection.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/invalid-group.tsx"
+<ExampleFrame variant="component">
+  <CheckboxInvalidGroup />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/invalid-group.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Nombre maximal de sélections
 
 Utilisez `maxSelectedValues` pour limiter le nombre d’options sélectionnées simultanément.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/max-selected.tsx"
+<ExampleFrame variant="component">
+  <CheckboxMaxSelected />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/max-selected.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Lecture seule
 
 Utilisez `readOnly` pour afficher une valeur sans permettre à l’utilisateur de la modifier.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/read-only.tsx"
+<ExampleFrame variant="component">
+  <CheckboxReadOnly />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/read-only.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Utilisez `Checkbox.RootProvider` lorsque l’état de la case à cocher doit être géré en dehors de
 l’arbre rendu. Importez `useCheckbox` depuis `@moduix/react/checkbox`.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/root-provider.tsx"
+<ExampleFrame variant="component">
+  <CheckboxRootProvider />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/root-provider.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/checkbox/checkbox-root-provider.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Tout sélectionner
 
 Associez une case à cocher parente à un groupe contrôlé pour permettre à un seul élément de
 sélectionner ou de désélectionner toutes les options.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/select-all.tsx"
+<ExampleFrame variant="component">
+  <CheckboxSelectAll />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/select-all.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/checkbox/checkbox-select-all.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Tailles
 
 Utilisez la propriété `size` pour adapter la taille de la case à cocher au formulaire ou à l’écran de
 réglages.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/sizes.tsx"
+<ExampleFrame variant="component">
+  <CheckboxSizes />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/sizes.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Avec Field
 
 Utilisez `Field` lorsqu’une case à cocher a besoin d’un texte d’aide, de messages de validation ou
 d’un état de champ partagé.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/checkbox/with-field.tsx"
+<ExampleFrame variant="component">
+  <CheckboxWithField />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/with-field.tsx"
 ```
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Dans un formulaire
 
 Transmettez `name` et `value` à `Checkbox.Root` pour inclure son champ natif créé automatiquement
 dans `FormData`.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/with-form.tsx"
+<ExampleFrame variant="component">
+  <CheckboxWithForm />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/checkbox/with-form.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/checkbox/checkbox-with-form.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

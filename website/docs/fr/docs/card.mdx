@@ -4,7 +4,19 @@ component: card
 description: Un composant flexible pour regrouper le contenu lié à un même sujet.
 ---
 
-import * as CardDocs from '@/components/examples/card';
+import * as CardDocs from '@/components/examples/card/card';
+import CardAdvancedCustomization from '../../en/docs/_snippets/card/advanced-customization.tsx';
+import CardBasic from '../../en/docs/_snippets/card/basic.tsx';
+import CardHeaderAction from '../../en/docs/_snippets/card/header-action.tsx';
+import CardHorizontal from '../../en/docs/_snippets/card/horizontal.tsx';
+import CardOverlayLink from '../../en/docs/_snippets/card/overlay-link.tsx';
+import CardRootAsLink from '../../en/docs/_snippets/card/root-as-link.tsx';
+import CardSizes from '../../en/docs/_snippets/card/sizes.tsx';
+import CardVariants from '../../en/docs/_snippets/card/variants.tsx';
+import CardWithAvatar from '../../en/docs/_snippets/card/with-avatar.tsx';
+import CardWithBackground from '../../en/docs/_snippets/card/with-background.tsx';
+import CardWithImage from '../../en/docs/_snippets/card/with-image.tsx';
+import CardWithinForm from '../../en/docs/_snippets/card/within-form.tsx';
 
 ## Référence de l’API
 
@@ -17,11 +29,26 @@ Utilisez `<Card />` comme racine, puis ajoutez les parties nécessaires de l’e
 Si vous connaissez shadcn/ui, la structure vous sera familière. moduix utilise `Card.Body` là où shadcn utilise
 `CardContent` ; les autres parties restent sous l’espace de noms `Card`.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/card/basic.tsx"
+<ExampleFrame variant="component">
+  <CardBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/card/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -114,119 +141,280 @@ ARIA.
 
 Utilisez `Card.Action` pour placer un statut compact ou un contrôle à la fin de l’en-tête.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/card/header-action.tsx"
+<ExampleFrame variant="component">
+  <CardHeaderAction />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/card/header-action.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-header-action.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Disposition horizontale
 
 Créez une carte horizontale avec le CSS de mise en page de votre application. Card n’a pas de prop dédiée pour cette
 mise en page.
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/card/horizontal.tsx"
+<ExampleFrame variant="component">
+  <CardHorizontal />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/card/horizontal.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-horizontal.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Lien à zone cliquable étendue
 
 Utilisez `Card.Link` lorsque la carte doit proposer une navigation et des actions distinctes.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/card/overlay-link.tsx"
+<ExampleFrame variant="component">
+  <CardOverlayLink />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/card/overlay-link.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-overlay-link.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Élément racine sous forme de lien
 
 Utilisez `asChild` lorsque toute la carte doit être un seul lien et ne contient aucun contrôle imbriqué.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/card/root-as-link.tsx"
+<ExampleFrame variant="component">
+  <CardRootAsLink />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/card/root-as-link.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-root-as-link.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Tailles
 
 Choisissez `sm`, `md` ou `lg` pour modifier l’espacement intérieur de la carte et la taille du titre.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/card/sizes.tsx"
+<ExampleFrame variant="component">
+  <CardSizes />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/card/sizes.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-sizes.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Variantes
 
 Utilisez les variantes pour exprimer la hiérarchie visuelle des surfaces.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/card/variants.tsx"
+<ExampleFrame variant="component">
+  <CardVariants />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/card/variants.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-variants.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Avec un avatar
 
 Placez un avatar ou un autre élément de profil dans l’en-tête lorsque la carte représente une personne ou une autre entité.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/card/with-avatar.tsx"
+<ExampleFrame variant="component">
+  <CardWithAvatar />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/card/with-avatar.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-with-avatar.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Avec une image de fond
 
 Utilisez `Card.Background` pour un média décoratif placé derrière le contenu de la carte. Ajoutez le calque et les
 styles de contraste du texte dans votre application.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/card/with-background.tsx"
+<ExampleFrame variant="component">
+  <CardWithBackground />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/card/with-background.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-with-background.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Avec une image
 
 Utilisez `Card.Media` pour un média placé en tête qui doit occuper toute la largeur de la carte avec un arrondi
 uniforme des angles supérieurs.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/card/with-image.tsx"
+<ExampleFrame variant="component">
+  <CardWithImage />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/card/with-image.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-with-image.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Dans un formulaire
 
 Faites de la racine un formulaire lorsque la carte regroupe des champs et des actions associés.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/card/within-form.tsx"
+<ExampleFrame variant="component">
+  <CardWithinForm />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/card/within-form.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-within-form.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Personnalisation avancée
 
 Laissez `Card.Media` de côté si vous devez contrôler entièrement la présentation du média et styliser la carte
 avec des points d’extension bas niveau.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/card/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <CardAdvancedCustomization />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/card/advanced-customization.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

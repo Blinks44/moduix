@@ -1,6 +1,6 @@
 import { Accordion } from '@moduix/react/accordion';
 import { Slider } from '@moduix/react/slider';
-import styles from '@/components/examples/accordion-with-slider.module.css';
+import styles from '@/components/examples/accordion/accordion-with-slider.module.css';
 
 const items = [
   {

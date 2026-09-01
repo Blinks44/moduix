@@ -1,5 +1,6 @@
 import { Badge } from '@moduix/react/badge';
 import { Card } from '@moduix/react/card';
+import styles from '@/components/examples/card/card-header-action.module.css';
 
 const incident = {
   title: 'Incident response',
@@ -10,11 +11,11 @@ const incident = {
 
 export default function CardActionDemo() {
   return (
-    <Card>
+    <Card className={styles.root}>
       <Card.Header>
         <Card.Title>{incident.title}</Card.Title>
         <Card.Description>{incident.description}</Card.Description>
-        <Card.Action style={{ alignSelf: 'start' }}>
+        <Card.Action className={styles.action}>
           <Badge variant="secondary">{incident.status}</Badge>
         </Card.Action>
       </Card.Header>

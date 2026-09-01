@@ -1,6 +1,6 @@
 import { Bleed } from '@moduix/react/bleed';
 import { Text } from '@moduix/react/text';
-import styles from '@/components/examples/bleed-block-bleed.module.css';
+import styles from '@/components/examples/bleed/bleed-block-bleed.module.css';
 
 const content = {
   before: 'Container padding above.',

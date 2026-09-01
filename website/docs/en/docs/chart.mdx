@@ -4,7 +4,16 @@ component: chart
 description: Build accessible, responsive charts with TanStack Charts and moduix's figure, tooltip, legend, and motion defaults.
 ---
 
-import * as ChartDocs from '@/components/examples/chart';
+import * as ChartDocs from '@/components/examples/chart/chart';
+import ChartAdvancedCustomization from './_snippets/chart/advanced-customization.tsx';
+import ChartAnimatedArea from './_snippets/chart/animated-area.tsx';
+import ChartBasic from './_snippets/chart/basic.tsx';
+import ChartDonut from './_snippets/chart/donut.tsx';
+import ChartHeatmap from './_snippets/chart/heatmap.tsx';
+import ChartHorizontalBars from './_snippets/chart/horizontal-bars.tsx';
+import ChartColors from './_snippets/chart/line-colors.tsx';
+import ChartScatter from './_snippets/chart/scatter.tsx';
+import ChartStackedBars from './_snippets/chart/stacked-bars.tsx';
 
 ## API Reference
 
@@ -21,11 +30,20 @@ and TanStack's React adapter requires React 19.
 Create a TanStack definition and pass it to `Chart.Plot`. Add a visible title, description, and
 legend around the plot, then provide a concise `ariaLabel` for assistive technology.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/chart/basic.tsx"
+<ExampleFrame variant="component">
+  <ChartBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/chart/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -131,77 +149,140 @@ controls only when `pinned` is true.
 
 Area, line, points, grouped focus, and tooltip motion all remain native TanStack behavior.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/chart/animated-area.tsx"
+<ExampleFrame variant="component">
+  <ChartAnimatedArea />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/chart/animated-area.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Chart colors
 
 Use moduix chart tokens in the TanStack color scale. CSS custom properties work as SVG paint values
 and automatically follow the active theme.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/chart/line-colors.tsx"
+<ExampleFrame variant="component">
+  <ChartColors />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/chart/line-colors.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Donut chart
 
 Compose TanStack's opt-in `pie`, `polar`, and `radialArc` primitives for part-to-whole data. The
 same composition of `Chart.Plot`, motion, focus, tooltip, and legend works outside Cartesian charts.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/chart/donut.tsx"
+<ExampleFrame variant="component">
+  <ChartDonut />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/chart/donut.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Heatmap
 
 Use `cell` with band scales on both axes to build a compact categorical matrix. A color channel
 turns each cell's level into a theme-aware paint value.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/chart/heatmap.tsx"
+<ExampleFrame variant="component">
+  <ChartHeatmap />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/chart/heatmap.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Horizontal bars
 
 Use `barX` when category labels are long or the ranking should read from top to bottom. The numeric
 value belongs on x and the category belongs on y.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/chart/horizontal-bars.tsx"
+<ExampleFrame variant="component">
+  <ChartHorizontalBars />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/chart/horizontal-bars.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Scatter plot
 
 Use `dot` to compare two quantitative values. Color can carry one additional categorical dimension
 without changing the x and y relationship.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/chart/scatter.tsx"
+<ExampleFrame variant="component">
+  <ChartScatter />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/chart/scatter.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Stacked bars
 
 Use a TanStack color channel and the `stack()` layout for multi-series bars. `focus: 'group-x'`
 keeps the tooltip and keyboard focus grouped by quarter.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/chart/stacked-bars.tsx"
+<ExampleFrame variant="component">
+  <ChartStackedBars />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/chart/stacked-bars.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
@@ -214,11 +295,26 @@ element, and use `renderTooltipBody` to extend the tooltip. Render `defaultBody`
 wrapper while TanStack continues to position and portal it. Add interactive controls only to a
 pinned tooltip.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/chart/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <ChartAdvancedCustomization />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/chart/advanced-customization.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/chart/chart-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

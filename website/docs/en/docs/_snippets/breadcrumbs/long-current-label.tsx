@@ -1,5 +1,5 @@
 import { Breadcrumbs } from '@moduix/react/breadcrumbs';
-import styles from '@/components/examples/breadcrumbs-long-current-label.module.css';
+import styles from '@/components/examples/breadcrumbs/breadcrumbs-long-current-label.module.css';
 
 const currentPage =
   'Go lang developer to production team with cross-functional ownership and platform support';

@@ -1,7 +1,7 @@
 import { Breadcrumbs } from '@moduix/react/breadcrumbs';
 import { Minus as SeparatorMarkIcon } from 'lucide-react';
 import type { ComponentProps } from 'react';
-import styles from '@/components/examples/breadcrumbs-advanced-customization.module.css';
+import styles from '@/components/examples/breadcrumbs/breadcrumbs-advanced-customization.module.css';
 
 function AppLink(props: ComponentProps<'a'>) {
   return <a data-framework-link className={styles.link} {...props} />;

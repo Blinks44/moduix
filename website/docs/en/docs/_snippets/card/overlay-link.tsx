@@ -1,5 +1,6 @@
 import { Button } from '@moduix/react/button';
 import { Card } from '@moduix/react/card';
+import styles from '@/components/examples/card/card-overlay-link.module.css';
 
 const incident = {
   href: '/incidents/response',
@@ -10,7 +11,7 @@ const incident = {
 
 export default function OverlayLinkCardDemo() {
   return (
-    <Card>
+    <Card className={styles.root}>
       <Card.Header>
         <Card.Title>
           <Card.Link href={incident.href}>{incident.title}</Card.Link>

@@ -1,6 +1,6 @@
 import { Button } from '@moduix/react/button';
 import { ArrowUpRight as ArrowUpRightIcon, Plus as PlusIcon, Star as StarIcon } from 'lucide-react';
-import styles from '@/components/examples/button-icons.module.css';
+import styles from '@/components/examples/button/button-icons.module.css';
 
 const labels = {
   create: 'Create Item',

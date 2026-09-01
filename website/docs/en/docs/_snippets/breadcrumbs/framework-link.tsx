@@ -1,6 +1,6 @@
 import { Breadcrumbs } from '@moduix/react/breadcrumbs';
 import { Fragment, type ComponentProps } from 'react';
-import styles from '@/components/examples/breadcrumbs-framework-link.module.css';
+import styles from '@/components/examples/breadcrumbs/breadcrumbs-framework-link.module.css';
 
 const pathItems = [
   { href: '/', label: 'Home' },

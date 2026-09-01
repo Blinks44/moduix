@@ -1,5 +1,6 @@
 import { CloseButton } from '@moduix/react/close-button';
 import { useState } from 'react';
+import styles from '@/components/examples/close-button/close-button-basic.module.css';
 
 export default function CloseButtonDemo() {
   const [isVisible, setIsVisible] = useState(true);
@@ -9,29 +10,14 @@ export default function CloseButtonDemo() {
   }
 
   return (
-    <div
-      style={{
-        position: 'relative',
-        inlineSize: '100%',
-        padding: 'var(--moduix-spacing-4)',
-        border: 'var(--moduix-border-width-sm) solid var(--moduix-color-border)',
-        borderRadius: 'var(--moduix-radius-lg)',
-        backgroundColor: 'var(--moduix-color-popover)',
-        color: 'var(--moduix-color-popover-foreground)',
-        boxShadow: 'var(--moduix-shadow-sm)',
-      }}
-    >
+    <div className={styles.root}>
       <CloseButton
         aria-label="Dismiss notification"
+        className={styles.closeButton}
         onClick={() => setIsVisible(false)}
-        style={{
-          position: 'absolute',
-          insetBlockStart: 'var(--moduix-spacing-2)',
-          insetInlineEnd: 'var(--moduix-spacing-2)',
-        }}
       />
-      <p style={{ margin: 0, fontWeight: 'var(--moduix-weight-semibold)' }}>Draft saved</p>
-      <p style={{ margin: 'var(--moduix-spacing-1) 0 0' }}>The notification can be dismissed.</p>
+      <p className={styles.title}>Draft saved</p>
+      <p className={styles.description}>The notification can be dismissed.</p>
     </div>
   );
 }

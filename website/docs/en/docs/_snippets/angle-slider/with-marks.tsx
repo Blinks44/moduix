@@ -1,5 +1,5 @@
 import { AngleSlider } from '@moduix/react/angle-slider';
-import styles from '@/components/examples/angle-slider-with-marks.module.css';
+import styles from '@/components/examples/angle-slider/angle-slider-with-marks.module.css';
 
 const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];
 

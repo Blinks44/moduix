@@ -1,5 +1,5 @@
 import { Button } from '@moduix/react/button';
-import styles from '@/components/examples/button-variants.module.css';
+import styles from '@/components/examples/button/button-variants.module.css';
 
 const variants = [
   'default',

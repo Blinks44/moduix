@@ -2,6 +2,7 @@ import { Button } from '@moduix/react/button';
 import { Checkbox } from '@moduix/react/checkbox';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/checkbox/checkbox-group-with-form.module.css';
 
 const options = [
   { value: 'react', label: 'React' },
@@ -14,12 +15,7 @@ export default function CheckboxGroupWithFormDemo() {
 
   return (
     <form
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: 'var(--moduix-spacing-3)',
-      }}
+      className={styles.root}
       onSubmit={(event) => {
         event.preventDefault();
         setSubmitted(

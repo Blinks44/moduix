@@ -1,7 +1,7 @@
 import { Button } from '@moduix/react/button';
 import { useRef } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/button-ref.module.css';
+import styles from '@/components/examples/button/button-ref.module.css';
 
 const labels = {
   target: 'Focus target',

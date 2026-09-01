@@ -1,5 +1,6 @@
 import { Button } from '@moduix/react/button';
 import { Card } from '@moduix/react/card';
+import styles from '@/components/examples/card/card-with-image.module.css';
 
 const product = {
   title: 'Warehouse capacity',
@@ -12,13 +13,9 @@ const product = {
 
 export default function CardWithImageDemo() {
   return (
-    <Card>
+    <Card className={styles.root}>
       <Card.Media>
-        <img
-          style={{ aspectRatio: '16 / 9', display: 'block', width: '100%', objectFit: 'cover' }}
-          src={product.image}
-          alt={product.imageAlt}
-        />
+        <img className={styles.image} src={product.image} alt={product.imageAlt} />
       </Card.Media>
       <Card.Header>
         <Card.Title>{product.title}</Card.Title>

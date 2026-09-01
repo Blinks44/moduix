@@ -1,5 +1,6 @@
 import { Carousel } from '@moduix/react/carousel';
 import { useState } from 'react';
+import styles from '@/components/examples/carousel/carousel-controlled.module.css';
 
 const slides = [
   {
@@ -34,19 +35,20 @@ export default function ControlledCarousel() {
 
   return (
     <Carousel
+      className={styles.root}
       aria-label="Controlled gallery"
       slideCount={slides.length}
       page={page}
       onPageChange={(details) => setPage(details.page)}
     >
-      <Carousel.ItemGroup aria-label="Controlled gallery">
+      <Carousel.ItemGroup className={styles.itemGroup} aria-label="Controlled gallery">
         {slides.map((slide, index) => (
           <Carousel.Item key={slide.id} index={index}>
-            <img src={slide.src} alt={slide.alt} />
+            <img className={styles.image} src={slide.src} alt={slide.alt} />
           </Carousel.Item>
         ))}
       </Carousel.ItemGroup>
-      <Carousel.Control>
+      <Carousel.Control className={styles.control}>
         <Carousel.PrevTrigger />
         <Carousel.NextTrigger />
       </Carousel.Control>

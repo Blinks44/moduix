@@ -1,5 +1,5 @@
 import { AngleSlider } from '@moduix/react/angle-slider';
-import styles from '@/components/examples/angle-slider-basic.module.css';
+import styles from '@/components/examples/angle-slider/angle-slider-basic.module.css';
 
 export default function AngleSliderDemo() {
   return (

@@ -4,7 +4,19 @@ component: card
 description: A flexible component for grouping content about a single subject.
 ---
 
-import * as CardDocs from '@/components/examples/card';
+import * as CardDocs from '@/components/examples/card/card';
+import CardAdvancedCustomization from './_snippets/card/advanced-customization.tsx';
+import CardBasic from './_snippets/card/basic.tsx';
+import CardHeaderAction from './_snippets/card/header-action.tsx';
+import CardHorizontal from './_snippets/card/horizontal.tsx';
+import CardOverlayLink from './_snippets/card/overlay-link.tsx';
+import CardRootAsLink from './_snippets/card/root-as-link.tsx';
+import CardSizes from './_snippets/card/sizes.tsx';
+import CardVariants from './_snippets/card/variants.tsx';
+import CardWithAvatar from './_snippets/card/with-avatar.tsx';
+import CardWithBackground from './_snippets/card/with-background.tsx';
+import CardWithImage from './_snippets/card/with-image.tsx';
+import CardWithinForm from './_snippets/card/within-form.tsx';
 
 ## API Reference
 
@@ -20,11 +32,26 @@ Use `<Card />` as the root, then add the parts you need from the `Card` namespac
 If you know shadcn/ui, the structure should feel familiar. moduix uses `Card.Body` where shadcn uses
 `CardContent`; the other parts remain under the `Card` namespace.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/card/basic.tsx"
+<ExampleFrame variant="component">
+  <CardBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/card/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -115,118 +142,278 @@ relationships.
 
 Use `Card.Action` for a compact status or control at the end of the header.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/card/header-action.tsx"
+<ExampleFrame variant="component">
+  <CardHeaderAction />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/card/header-action.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-header-action.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Horizontal
 
 Use your application's layout CSS to create a horizontal card. Card has no presentation-specific prop
 for this layout.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/card/horizontal.tsx"
+<ExampleFrame variant="component">
+  <CardHorizontal />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/card/horizontal.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-horizontal.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Overlay Link
 
 Use `Card.Link` when the card needs navigation and separate actions.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/card/overlay-link.tsx"
+<ExampleFrame variant="component">
+  <CardOverlayLink />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/card/overlay-link.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-overlay-link.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root as Link
 
 Use `asChild` when the entire card is one link and contains no nested controls.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="./_snippets/card/root-as-link.tsx"
+<ExampleFrame variant="component">
+  <CardRootAsLink />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/card/root-as-link.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-root-as-link.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Sizes
 
 Choose `sm`, `md`, or `lg` to change the card's padding and title scale.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/card/sizes.tsx"
+<ExampleFrame variant="component">
+  <CardSizes />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/card/sizes.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-sizes.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Variants
 
 Use the variants to communicate the hierarchy between surfaces.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="./_snippets/card/variants.tsx"
+<ExampleFrame variant="component">
+  <CardVariants />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/card/variants.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-variants.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### With Avatar
 
 Place profile media in the header when the card represents a person or entity.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/card/with-avatar.tsx"
+<ExampleFrame variant="component">
+  <CardWithAvatar />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/card/with-avatar.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-with-avatar.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### With Background
 
 Use `Card.Background` for decorative media behind the whole card. Add the overlay and text-contrast
 styles in your application.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="./_snippets/card/with-background.tsx"
+<ExampleFrame variant="component">
+  <CardWithBackground />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/card/with-background.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-with-background.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### With Image
 
 Use `Card.Media` for leading media that should span the card width with consistent clipping.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="./_snippets/card/with-image.tsx"
+<ExampleFrame variant="component">
+  <CardWithImage />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/card/with-image.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-with-image.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Within Form
 
 Use the root as a form when the card groups related fields and actions.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/card/within-form.tsx"
+<ExampleFrame variant="component">
+  <CardWithinForm />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/card/within-form.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-within-form.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Leave out `Card.Media` when you need custom media framing and want to style the card with lower-level hooks.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="./_snippets/card/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <CardAdvancedCustomization />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/card/advanced-customization.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/card/card-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

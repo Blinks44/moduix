@@ -17,6 +17,8 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const imageUrl = 'https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80';
+const customImageUrl =
+  'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=128&h=128&dpr=2&q=80';
 
 const decorativeSvgProps: Record<string, string> = {
   'aria-hidden': 'true',
@@ -185,7 +187,7 @@ export const CustomImage: Story = {
   render: () => (
     <Avatar>
       <Avatar.Fallback name="Alex T." />
-      <AvatarCustomImage src={imageUrl} alt="Alex T." />
+      <AvatarCustomImage src={customImageUrl} alt="Alex T." />
     </Avatar>
   ),
 };
