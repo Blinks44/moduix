@@ -2,6 +2,7 @@ import { Button } from '@moduix/react/button';
 import { Card } from '@moduix/react/card';
 import { Drawer } from '@moduix/react/drawer';
 import { useState } from 'react';
+import styles from '@/components/examples/drawer/drawer-controlled.module.css';
 
 const initialOpen = false;
 const snapPoints = [0.18, 1];
@@ -26,8 +27,8 @@ export default function ControlledDrawerDemo() {
               <Drawer.CloseIcon />
               <Drawer.Description>Open: {String(open)}</Drawer.Description>
             </Drawer.Header>
-            <Drawer.Body style={{ display: 'flex', flex: 1 }}>
-              <Card size="sm" style={{ flex: 1, backgroundColor: 'var(--moduix-color-muted)' }}>
+            <Drawer.Body className={styles.body}>
+              <Card size="sm" className={styles.card}>
                 <Card.Body>The trigger and close controls both update the same state.</Card.Body>
               </Card>
             </Drawer.Body>

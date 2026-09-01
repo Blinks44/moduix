@@ -1,5 +1,6 @@
 import { Empty } from '@moduix/react/empty';
 import { Map as MapIcon } from 'lucide-react';
+import styles from '@/components/examples/empty/empty-without-actions.module.css';
 
 const emptyState = {
   title: 'No saved places',
@@ -7,7 +8,7 @@ const emptyState = {
 };
 export default function SavedPlacesEmptyState() {
   return (
-    <Empty>
+    <Empty className={styles.root}>
       <Empty.Icon>
         <MapIcon aria-hidden />
       </Empty.Icon>

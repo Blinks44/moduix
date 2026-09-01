@@ -1,0 +1,5 @@
+.todayRow {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--moduix-spacing-3);
+}

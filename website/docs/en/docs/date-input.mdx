@@ -4,7 +4,20 @@ component: date-input
 description: A segmented date input built on Ark UI for single dates and ranges, with locale-aware editing and native form submission.
 ---
 
-import * as DateInputDocs from '@/components/examples/date-input';
+import * as DateInputDocs from '@/components/examples/date-input/date-input';
+import DateInputAdvancedCustomization from './_snippets/date-input/advanced-customization.tsx';
+import DateInputBasic from './_snippets/date-input/basic.tsx';
+import DateInputControlled from './_snippets/date-input/controlled.tsx';
+import DateInputDisabledAndReadOnly from './_snippets/date-input/disabled-and-read-only.tsx';
+import DateInputFieldState from './_snippets/date-input/field-state.tsx';
+import DateInputGranularity from './_snippets/date-input/granularity.tsx';
+import DateInputLeadingZeros from './_snippets/date-input/leading-zeros.tsx';
+import DateInputLocale from './_snippets/date-input/locale.tsx';
+import DateInputMinMaxAndUnavailableDates from './_snippets/date-input/min-max-and-unavailable-dates.tsx';
+import DateInputRange from './_snippets/date-input/range.tsx';
+import DateInputRightToLeft from './_snippets/date-input/right-to-left.tsx';
+import DateInputRootProvider from './_snippets/date-input/root-provider.tsx';
+import DateInputTimeOnly from './_snippets/date-input/time-only.tsx';
 
 ## API Reference
 
@@ -23,13 +36,26 @@ Render `DateInput.Segments` inside `DateInput.Control` to get a locale-aware gro
 UI handles segment order, keyboard editing, focus, placeholders, and form synchronization. moduix adds
 the styled parts and automatic native form inputs, keeping the common composition small.
 
-<style>{DateInputDocs.dateInputExampleCss}</style>
+<ExampleFrame variant="component">
+  <DateInputBasic />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/date-input/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/date-input/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/date-input/date-input-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -121,164 +147,308 @@ description needs stable, shared IDs.
 
 Pass the selected date array to `value` and update it from `details.value` in `onValueChange`.
 
-<style>{DateInputDocs.dateInputExampleCss}</style>
+<ExampleFrame variant="component">
+  <DateInputControlled />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/date-input/controlled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/date-input/controlled.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/date-input/date-input-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Disabled and read-only
 
 Use `disabled` to prevent interaction. Use `readOnly` when the value should remain focusable but not
 editable.
 
-<style>{DateInputDocs.dateInputExampleCss}</style>
+<ExampleFrame variant="component">
+  <DateInputDisabledAndReadOnly />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/date-input/disabled-and-read-only.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/date-input/disabled-and-read-only.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/date-input/date-input-disabled-and-read-only.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Field state
 
 Wrap `DateInput` in `Field` to provide surrounding form text. Pass `required`, `disabled`, or `invalid`
 directly to `DateInput` when Ark state attributes should appear on the date input itself.
 
-<style>{DateInputDocs.dateInputExampleCss}</style>
+<ExampleFrame variant="component">
+  <DateInputFieldState />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/date-input/field-state.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/date-input/field-state.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/date-input/date-input-field-state.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Granularity
 
 Set `granularity` to include time segments in the input.
 
-<style>{DateInputDocs.dateInputExampleCss}</style>
+<ExampleFrame variant="component">
+  <DateInputGranularity />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/date-input/granularity.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/date-input/granularity.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/date-input/date-input-granularity.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Leading zeros
 
 Set `shouldForceLeadingZeros={false}` when numeric segments should not include leading zeros.
 
-<style>{DateInputDocs.dateInputExampleCss}</style>
+<ExampleFrame variant="component">
+  <DateInputLeadingZeros />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/date-input/leading-zeros.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/date-input/leading-zeros.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/date-input/date-input-leading-zeros.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Locale
 
 Set `locale`, `timeZone`, `hourCycle`, or `granularity` on the root when segment order and labels
 should follow regional conventions.
 
-<style>{DateInputDocs.dateInputExampleCss}</style>
+<ExampleFrame variant="component">
+  <DateInputLocale />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/date-input/locale.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/date-input/locale.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/date-input/date-input-locale.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Minimum, maximum, and unavailable dates
 
 Use `min`, `max`, and `isDateUnavailable` to mark entered dates outside business rules as invalid.
 
-<style>{DateInputDocs.dateInputExampleCss}</style>
+<ExampleFrame variant="component">
+  <DateInputMinMaxAndUnavailableDates />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/date-input/min-max-and-unavailable-dates.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/date-input/min-max-and-unavailable-dates.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/date-input/date-input-min-max-and-unavailable-dates.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Range
 
 Use `selectionMode="range"` and pass `index` to each segment group. moduix automatically renders
 the indexed native inputs.
 
-<style>{DateInputDocs.dateInputExampleCss}</style>
+<ExampleFrame variant="component">
+  <DateInputRange />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/date-input/range.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/date-input/range.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/date-input/date-input-range.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Right to left
 
 Set `dir="rtl"` with an RTL locale to keep the locale's segment order and direction.
 
-<style>{DateInputDocs.dateInputExampleCss}</style>
+<ExampleFrame variant="component">
+  <DateInputRightToLeft />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/date-input/right-to-left.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/date-input/right-to-left.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/date-input/date-input-right-to-left.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Use `useDateInput()` from `@moduix/react` with `DateInput.RootProvider` when state actions need to
 be available outside the rendered root tree.
 
-<style>{DateInputDocs.dateInputExampleCss}</style>
+<ExampleFrame variant="component">
+  <DateInputRootProvider />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/date-input/root-provider.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/date-input/root-provider.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/date-input/date-input-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Time only
 
 Use a formatter configured for time only with minute or second granularity when the date is not part
 of the value users edit.
 
-<style>{DateInputDocs.dateInputExampleCss}</style>
+<ExampleFrame variant="component">
+  <DateInputTimeOnly />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/date-input/time-only.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/date-input/time-only.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/date-input/date-input-time-only.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced customization
 
 Use the full segment composition when rendering needs to vary based on Ark segment data.
 `DateInput.Segments` remains the default path for standard rendering.
 
-<style>{DateInputDocs.dateInputExampleCss}</style>
+<ExampleFrame variant="component">
+  <DateInputAdvancedCustomization />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/date-input/advanced-customization.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/date-input/advanced-customization.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/date-input/date-input-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

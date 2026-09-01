@@ -1,8 +1,9 @@
 import { Editable } from '@moduix/react/editable';
+import styles from '@/components/examples/editable/editable-disabled-and-read-only.module.css';
 
 export default function EditableStatesDemo() {
   return (
-    <div style={{ display: 'grid', gap: 'var(--moduix-spacing-3)' }}>
+    <div className={styles.root}>
       <Editable disabled defaultValue="Managed by your workspace">
         <Editable.Label>Disabled name</Editable.Label>
         <Editable.Area>

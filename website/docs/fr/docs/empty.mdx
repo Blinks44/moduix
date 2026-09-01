@@ -4,7 +4,11 @@ component: empty
 description: Composant pour les écrans sans résultats, sans données ou affichés lors de la première utilisation.
 ---
 
-import * as EmptyDocs from '@/components/examples/empty';
+import * as EmptyDocs from '@/components/examples/empty/empty';
+import EmptyAdvancedCustomization from '../../en/docs/_snippets/empty/advanced-customization.tsx';
+import EmptyBasic from '../../en/docs/_snippets/empty/basic.tsx';
+import EmptyWithoutActions from '../../en/docs/_snippets/empty/without-actions.tsx';
+import EmptyWithoutIcon from '../../en/docs/_snippets/empty/without-icon.tsx';
 
 ## Référence de l’API
 
@@ -21,11 +25,29 @@ au même niveau que `Empty.Content`. Vous pouvez ainsi les placer dans l’ordre
 Commencez par `<Empty />` et ajoutez les parties du composant dont vous avez besoin. Ajoutez
 `Empty.Icon` et `Empty.Actions` uniquement si l’état vide a besoin d’un repère visuel ou d’une action claire.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/empty/basic.tsx"
+<ExampleFrame variant="component">
+  <EmptyBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/empty/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/empty/empty-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -102,23 +124,57 @@ Si la structure par défaut ne convient pas, assemblez directement les parties d
 
 N’ajoutez pas `Empty.Actions` lorsque l’état est informatif et ne nécessite aucune action immédiate.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/empty/without-actions.tsx"
+<ExampleFrame variant="component">
+  <EmptyWithoutActions />
+</ExampleFrame>
 
-  ```
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
 
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/empty/without-actions.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/empty/empty-without-actions.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Sans icône
 
 L’icône est facultative : un état vide composé uniquement de texte peut donc rester compact.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/empty/without-icon.tsx"
+<ExampleFrame variant="component">
+  <EmptyWithoutIcon />
+</ExampleFrame>
 
-  ```
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
 
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/empty/without-icon.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/empty/empty-without-icon.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Personnalisation avancée
 
@@ -127,12 +183,29 @@ tel que `section`. Utilisez-la sur `Empty.Title` lorsque le titre doit avoir un 
 `Empty.Description` est rendu sous la forme d’un `div`, il peut contenir des paragraphes, des liens et
 d’autres éléments de type bloc.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/empty/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <EmptyAdvancedCustomization />
+</ExampleFrame>
 
-  ```
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
 
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/empty/advanced-customization.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/empty/empty-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

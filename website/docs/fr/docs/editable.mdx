@@ -4,7 +4,16 @@ component: editable
 description: "Modification de texte directement dans l’interface avec Ark UI : aperçu, saisie, commandes et prise en charge des formulaires natifs."
 ---
 
-import * as EditableDocs from '@/components/examples/editable';
+import * as EditableDocs from '@/components/examples/editable/editable';
+import EditableAdvancedCustomization from '../../en/docs/_snippets/editable/advanced-customization.tsx';
+import EditableBasic from '../../en/docs/_snippets/editable/basic.tsx';
+import EditableControlled from '../../en/docs/_snippets/editable/controlled.tsx';
+import EditableField from '../../en/docs/_snippets/editable/field.tsx';
+import EditableForm from '../../en/docs/_snippets/editable/form.tsx';
+import EditableGuides from '../../en/docs/_snippets/editable/guides.tsx';
+import EditableRootProvider from '../../en/docs/_snippets/editable/root-provider.tsx';
+import EditableStates from '../../en/docs/_snippets/editable/disabled-and-read-only.tsx';
+import EditableTextarea from '../../en/docs/_snippets/editable/textarea.tsx';
 
 ## Référence de l’API
 
@@ -25,11 +34,20 @@ avec les boutons de modification, de validation et d’annulation. moduix ajoute
 `data-slot` et les icônes intégrées des boutons. Par défaut, un double-clic permet de passer en mode de
 modification, ce qui limite les changements accidentels.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/editable/basic.tsx"
+<ExampleFrame variant="component">
+  <EditableBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/editable/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -112,22 +130,45 @@ Définissez `translations.input` pour fournir au champ un nom accessible adapté
 
 Utilisez `value` et `onValueChange` lorsque l’état de l’application doit piloter la valeur.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/editable/controlled.tsx"
+<ExampleFrame variant="component">
+  <EditableControlled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/editable/controlled.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Field
 
 Utilisez `Editable` dans `Field` lorsque l’état de validation ou le message d’erreur doivent s’afficher en dehors du composant.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/editable/field.tsx"
+<ExampleFrame variant="component">
+  <EditableField />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/editable/field.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/editable/editable-field.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Options Ark
 
@@ -136,11 +177,20 @@ automatique, la longueur maximale, des espaces réservés différents selon le m
 des commandes. Cet exemple définit `activationMode` sur `click` pour montrer comment remplacer le double-clic
 utilisé par défaut dans moduix.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/editable/guides.tsx"
+<ExampleFrame variant="component">
+  <EditableGuides />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/editable/guides.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
@@ -149,23 +199,52 @@ l’arbre du composant doivent accéder à l’état et aux méthodes d’`Edita
 `activationMode: 'dblclick'` au hook pour conserver le comportement d’activation par défaut du composant
 racine moduix. Pour cette instance d’état, le provider remplace `Editable.Root`.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/editable/root-provider.tsx"
+<ExampleFrame variant="component">
+  <EditableRootProvider />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/editable/root-provider.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/editable/editable-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Textarea
 
 Utilisez `Editable.Input` avec `asChild` et un élément natif `<textarea>` pour le contenu multiligne.
-L’exemple fixe la taille de la textarea avec des styles en ligne afin que le code copié puisse être utilisé tel quel.
+L’exemple fixe la taille de la textarea afin que le code copié puisse être utilisé tel quel.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/editable/textarea.tsx"
+<ExampleFrame variant="component">
+  <EditableTextarea />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/editable/textarea.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/editable/editable-textarea.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Personnalisation avancée
 
@@ -173,32 +252,70 @@ Accédez directement à `Editable.Context` lorsqu’une disposition personnalis�
 modification. Cet exemple n’utilise pas `Editable.Controls` et affiche une indication clavier pendant
 la modification.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/editable/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <EditableAdvancedCustomization />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/editable/advanced-customization.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Désactivé et en lecture seule
 
 Utilisez `disabled` lorsque le champ doit être indisponible. Utilisez `readOnly` lorsque la valeur doit rester visible sans pouvoir être modifiée.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/editable/disabled-and-read-only.tsx"
+<ExampleFrame variant="component">
+  <EditableStates />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/editable/disabled-and-read-only.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/editable/editable-disabled-and-read-only.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Dans un formulaire
 
 Passez `name` pour inclure la valeur actuelle dans l’envoi natif du formulaire.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/editable/form.tsx"
+<ExampleFrame variant="component">
+  <EditableForm />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/editable/form.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/editable/editable-form.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

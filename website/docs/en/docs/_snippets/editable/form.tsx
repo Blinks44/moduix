@@ -2,6 +2,7 @@ import { Button } from '@moduix/react/button';
 import { Editable } from '@moduix/react/editable';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/editable/editable-form.module.css';
 
 export default function EditableFormDemo() {
   const [submitted, setSubmitted] = useState('Nothing submitted');
@@ -12,7 +13,7 @@ export default function EditableFormDemo() {
         event.preventDefault();
         setSubmitted(String(new FormData(event.currentTarget).get('title') ?? ''));
       }}
-      style={{ display: 'grid', gap: 'var(--moduix-spacing-3)' }}
+      className={styles.root}
     >
       <Editable defaultValue="Layer name" name="title">
         <Editable.Label>Layer name</Editable.Label>

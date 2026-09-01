@@ -4,7 +4,16 @@ component: editable
 description: "Редактирование текста прямо в интерфейсе с помощью Ark UI: режимы просмотра и ввода, кнопки управления и поддержка нативных форм."
 ---
 
-import * as EditableDocs from '@/components/examples/editable';
+import * as EditableDocs from '@/components/examples/editable/editable';
+import EditableAdvancedCustomization from '../../en/docs/_snippets/editable/advanced-customization.tsx';
+import EditableBasic from '../../en/docs/_snippets/editable/basic.tsx';
+import EditableControlled from '../../en/docs/_snippets/editable/controlled.tsx';
+import EditableField from '../../en/docs/_snippets/editable/field.tsx';
+import EditableForm from '../../en/docs/_snippets/editable/form.tsx';
+import EditableGuides from '../../en/docs/_snippets/editable/guides.tsx';
+import EditableRootProvider from '../../en/docs/_snippets/editable/root-provider.tsx';
+import EditableStates from '../../en/docs/_snippets/editable/disabled-and-read-only.tsx';
+import EditableTextarea from '../../en/docs/_snippets/editable/textarea.tsx';
 
 ## Справочник API
 
@@ -25,11 +34,20 @@ import * as EditableDocs from '@/components/examples/editable';
 и встроенные иконки для кнопок. По умолчанию пользователь переходит в режим редактирования двойным
 щелчком, что помогает избежать случайных изменений.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/editable/basic.tsx"
+<ExampleFrame variant="component">
+  <EditableBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/editable/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -112,22 +130,45 @@ Editable.RootProvider
 
 Используйте `value` и `onValueChange`, если значение должно храниться в состоянии приложения.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/editable/controlled.tsx"
+<ExampleFrame variant="component">
+  <EditableControlled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/editable/controlled.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Field
 
 Поместите `Editable` в `Field`, если состояние валидации или сообщение об ошибке должны отображаться за пределами компонента.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/editable/field.tsx"
+<ExampleFrame variant="component">
+  <EditableField />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/editable/field.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/editable/editable-field.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Возможности Ark
 
@@ -136,11 +177,20 @@ Editable.RootProvider
 элементов управления. В этом примере `activationMode` изменён на `click`, чтобы показать, как заменить
 двойной щелчок, используемый в moduix по умолчанию.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/editable/guides.tsx"
+<ExampleFrame variant="component">
+  <EditableGuides />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/editable/guides.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
@@ -149,23 +199,52 @@ Editable.RootProvider
 `activationMode: 'dblclick'`, чтобы сохранить режим активации, установленный по умолчанию у корневого
 компонента. Для этого экземпляра состояния `RootProvider` заменяет `Editable.Root`.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/editable/root-provider.tsx"
+<ExampleFrame variant="component">
+  <EditableRootProvider />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/editable/root-provider.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/editable/editable-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Textarea
 
 Используйте `Editable.Input` с `asChild` и нативным `<textarea>` для многострочного текста. В примере
-размер textarea задан встроенными стилями, поэтому скопированный фрагмент можно использовать сразу.
+размер textarea задан так, чтобы скопированный фрагмент можно было использовать сразу.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/editable/textarea.tsx"
+<ExampleFrame variant="component">
+  <EditableTextarea />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/editable/textarea.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/editable/editable-textarea.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
@@ -173,33 +252,71 @@ Editable.RootProvider
 В этом примере `Editable.Controls` не используется: вместо него во время редактирования показывается подсказка
 с сочетаниями клавиш.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/editable/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <EditableAdvancedCustomization />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/editable/advanced-customization.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Отключённое состояние и режим только для чтения
 
 Используйте `disabled`, когда поле должно быть недоступно для взаимодействия. Используйте `readOnly`, когда значение
 должно оставаться видимым, но недоступным для редактирования.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/editable/disabled-and-read-only.tsx"
+<ExampleFrame variant="component">
+  <EditableStates />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/editable/disabled-and-read-only.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/editable/editable-disabled-and-read-only.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### В форме
 
 Передайте `name`, чтобы включить текущее значение в отправку нативной формы.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/editable/form.tsx"
+<ExampleFrame variant="component">
+  <EditableForm />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/editable/form.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/editable/editable-form.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

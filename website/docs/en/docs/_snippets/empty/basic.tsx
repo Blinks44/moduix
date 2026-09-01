@@ -1,6 +1,7 @@
 import { Button } from '@moduix/react/button';
 import { Empty } from '@moduix/react/empty';
 import { Computer as ComputerIcon } from 'lucide-react';
+import styles from '@/components/examples/empty/empty-basic.module.css';
 
 const emptyState = {
   title: 'No deployments yet',
@@ -10,7 +11,7 @@ const emptyState = {
 };
 export default function EmptyDemo() {
   return (
-    <Empty>
+    <Empty className={styles.root}>
       <Empty.Icon>
         <ComputerIcon aria-hidden />
       </Empty.Icon>

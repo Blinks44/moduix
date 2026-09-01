@@ -4,7 +4,16 @@ component: editable
 description: Inline text editing with Ark UI, preview and input states, edit controls, and native form support.
 ---
 
-import * as EditableDocs from '@/components/examples/editable';
+import * as EditableDocs from '@/components/examples/editable/editable';
+import EditableAdvancedCustomization from './_snippets/editable/advanced-customization.tsx';
+import EditableBasic from './_snippets/editable/basic.tsx';
+import EditableControlled from './_snippets/editable/controlled.tsx';
+import EditableField from './_snippets/editable/field.tsx';
+import EditableForm from './_snippets/editable/form.tsx';
+import EditableGuides from './_snippets/editable/guides.tsx';
+import EditableRootProvider from './_snippets/editable/root-provider.tsx';
+import EditableStates from './_snippets/editable/disabled-and-read-only.tsx';
+import EditableTextarea from './_snippets/editable/textarea.tsx';
 
 ## API Reference
 
@@ -24,11 +33,20 @@ and `Editable.Preview`. Add `Editable.Controls` for the standard edit, submit, a
 The moduix wrapper adds styles, `data-slot` hooks, and default trigger icons. By default, users
 enter edit mode with a double-click, which helps prevent accidental changes.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/editable/basic.tsx"
+<ExampleFrame variant="component">
+  <EditableBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/editable/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -111,22 +129,45 @@ Set `translations.input` to provide a context-specific accessible name for the i
 
 Use `value` and `onValueChange` when application state should be the source of truth for the value.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/editable/controlled.tsx"
+<ExampleFrame variant="component">
+  <EditableControlled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/editable/controlled.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Field
 
 Wrap `Editable` in `Field` when validation state or an error message should appear outside the component.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="./_snippets/editable/field.tsx"
+<ExampleFrame variant="component">
+  <EditableField />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/editable/field.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/editable/editable-field.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Ark options
 
@@ -134,11 +175,20 @@ The root accepts common Ark options such as activation mode, auto-resize, maximu
 mode-specific placeholders, and localized control labels. This example sets `activationMode` to
 `click` to show how to replace moduix's default double-click activation.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/editable/guides.tsx"
+<ExampleFrame variant="component">
+  <EditableGuides />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/editable/guides.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
@@ -147,56 +197,123 @@ need access to `Editable` state and methods. Pass `activationMode: 'dblclick'` t
 the root component's default activation behavior. The provider replaces `Editable.Root` for this
 state instance.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="./_snippets/editable/root-provider.tsx"
+<ExampleFrame variant="component">
+  <EditableRootProvider />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/editable/root-provider.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/editable/editable-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Textarea
 
 Use `Editable.Input asChild` with a native `<textarea>` for multiline content. The example sets the
-textarea size inline, so the copied snippet works as-is.
+textarea size so the copied snippet works as-is.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/editable/textarea.tsx"
+<ExampleFrame variant="component">
+  <EditableTextarea />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/editable/textarea.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/editable/editable-textarea.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Use `Editable.Context` directly when a custom state-dependent layout needs access to the current
 edit state. The example skips `Editable.Controls` and shows keyboard instructions while editing.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="./_snippets/editable/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <EditableAdvancedCustomization />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/editable/advanced-customization.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Disabled and read-only
 
 Use `disabled` when the field should be unavailable for interaction. Use `readOnly` when the value
 should remain visible but must not be editable.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/editable/disabled-and-read-only.tsx"
+<ExampleFrame variant="component">
+  <EditableStates />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/editable/disabled-and-read-only.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/editable/editable-disabled-and-read-only.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### In a form
 
 Pass `name` to include the current value in a native form submission.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/editable/form.tsx"
+<ExampleFrame variant="component">
+  <EditableForm />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/editable/form.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/editable/editable-form.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

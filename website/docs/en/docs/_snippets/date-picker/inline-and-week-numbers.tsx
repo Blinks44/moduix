@@ -1,9 +1,10 @@
 import { parseDate } from '@ark-ui/react/date-picker';
 import { DatePicker } from '@moduix/react/date-picker';
+import styles from '@/components/examples/date-picker/date-picker-inline-and-week-numbers.module.css';
 
 export default function InlineDatePickerDemo() {
   return (
-    <div className="date-picker-inline-preview">
+    <div className={styles.root}>
       <DatePicker
         inline
         selectionMode="multiple"

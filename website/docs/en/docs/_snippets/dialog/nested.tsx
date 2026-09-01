@@ -1,5 +1,6 @@
 import { Button } from '@moduix/react/button';
 import { Dialog, useDialog } from '@moduix/react/dialog';
+import styles from '@/components/examples/dialog/dialog-nested.module.css';
 
 export default function NestedDialogDemo() {
   const parent = useDialog();
@@ -12,10 +13,7 @@ export default function NestedDialogDemo() {
         <Dialog.Positioner>
           <Dialog.Content>
             <Dialog.Title>Parent dialog</Dialog.Title>
-            <Button
-              style={{ marginTop: 'var(--moduix-spacing-4)' }}
-              onClick={() => child.setOpen(true)}
-            >
+            <Button className={styles.openNestedButton} onClick={() => child.setOpen(true)}>
               Open nested
             </Button>
           </Dialog.Content>

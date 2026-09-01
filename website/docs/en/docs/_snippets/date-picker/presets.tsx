@@ -1,4 +1,5 @@
 import { DatePicker } from '@moduix/react/date-picker';
+import styles from '@/components/examples/date-picker/date-picker-presets.module.css';
 
 export default function PresetDatePickerDemo() {
   return (
@@ -7,7 +8,7 @@ export default function PresetDatePickerDemo() {
       <DatePicker.RangeField />
       <DatePicker.Positioner>
         <DatePicker.Content>
-          <div className="date-picker-presets">
+          <div className={styles.presets}>
             <DatePicker.PresetTrigger value="last7Days">Last 7 days</DatePicker.PresetTrigger>
             <DatePicker.PresetTrigger value="last30Days">Last 30 days</DatePicker.PresetTrigger>
           </div>

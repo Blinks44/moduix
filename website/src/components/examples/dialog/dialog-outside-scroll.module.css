@@ -1,0 +1,18 @@
+.positioner {
+  place-items: start center;
+}
+
+.content {
+  max-height: none;
+  margin-block: var(--moduix-spacing-8);
+}
+
+.body {
+  display: grid;
+  gap: var(--moduix-spacing-4);
+  padding-inline-end: var(--moduix-spacing-3);
+}
+
+.paragraph {
+  margin: 0;
+}

@@ -1,9 +1,10 @@
 import { DatePicker } from '@moduix/react/date-picker';
 import { Field } from '@moduix/react/field';
+import styles from '@/components/examples/date-picker/date-picker-field-state.module.css';
 
 export default function FieldDatePickerDemo() {
   return (
-    <div className="date-picker-field-preview">
+    <div className={styles.root}>
       <Field invalid>
         <DatePicker required invalid>
           <DatePicker.Label>Deadline</DatePicker.Label>

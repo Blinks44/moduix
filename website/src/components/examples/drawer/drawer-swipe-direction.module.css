@@ -1,0 +1,15 @@
+.root {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--moduix-spacing-2);
+}
+
+.body {
+  display: flex;
+  flex: 1;
+}
+
+.card {
+  flex: 1;
+  background-color: var(--moduix-color-muted);
+}

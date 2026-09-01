@@ -1,0 +1,8 @@
+.root {
+  display: grid;
+  gap: var(--moduix-spacing-3);
+}
+
+.root > .meta[data-preview-meta] {
+  inline-size: 100%;
+}

@@ -1,0 +1,15 @@
+.content {
+  --moduix-date-picker-content-width: 37.5rem;
+  --moduix-date-picker-content-max-width: calc(100vw - 2rem);
+}
+
+.months {
+  display: flex;
+  gap: var(--moduix-spacing-3);
+  overflow-x: auto;
+}
+
+.table {
+  width: max-content;
+  flex: 0 0 auto;
+}

@@ -1,6 +1,7 @@
 import { Button } from '@moduix/react/button';
 import { Card } from '@moduix/react/card';
 import { Drawer } from '@moduix/react/drawer';
+import styles from '@/components/examples/drawer/drawer-floating-grabber.module.css';
 
 export default function FloatingGrabberDrawerDemo() {
   return (
@@ -11,15 +12,7 @@ export default function FloatingGrabberDrawerDemo() {
       <Drawer.Backdrop />
       <Drawer.Positioner>
         <Drawer.Content>
-          <Drawer.Grabber
-            style={{
-              position: 'absolute',
-              zIndex: 1,
-              insetBlockStart: 0,
-              insetInline: 0,
-              transform: 'translateY(calc(-100% - 10px))',
-            }}
-          >
+          <Drawer.Grabber className={styles.grabber}>
             <Drawer.GrabberIndicator />
           </Drawer.Grabber>
           <Drawer.Header>
@@ -27,8 +20,8 @@ export default function FloatingGrabberDrawerDemo() {
             <Drawer.CloseIcon />
             <Drawer.Description>The handle sits 10px above the drawer edge.</Drawer.Description>
           </Drawer.Header>
-          <Drawer.Body style={{ display: 'flex', flex: 1 }}>
-            <Card size="sm" style={{ flex: 1, backgroundColor: 'var(--moduix-color-muted)' }}>
+          <Drawer.Body className={styles.body}>
+            <Card size="sm" className={styles.card}>
               <Card.Body>
                 Use this treatment when the handle should read as a separate control.
               </Card.Body>

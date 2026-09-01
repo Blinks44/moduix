@@ -1,0 +1,9 @@
+.body {
+  display: flex;
+  flex: 1;
+}
+
+.card {
+  flex: 1;
+  background-color: var(--moduix-color-muted);
+}

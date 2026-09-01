@@ -4,7 +4,11 @@ component: empty
 description: Компонент для экранов без результатов или данных, а также для первого запуска.
 ---
 
-import * as EmptyDocs from '@/components/examples/empty';
+import * as EmptyDocs from '@/components/examples/empty/empty';
+import EmptyAdvancedCustomization from '../../en/docs/_snippets/empty/advanced-customization.tsx';
+import EmptyBasic from '../../en/docs/_snippets/empty/basic.tsx';
+import EmptyWithoutActions from '../../en/docs/_snippets/empty/without-actions.tsx';
+import EmptyWithoutIcon from '../../en/docs/_snippets/empty/without-icon.tsx';
 
 ## Справочник API
 
@@ -22,11 +26,29 @@ Ark по [композиции](https://ark-ui.com/react/docs/guides/composition
 Начните с `<Empty />` и добавьте нужные части компонента. Добавляйте `Empty.Icon` и `Empty.Actions`
 только если к пустому состоянию нужна визуальная подсказка или понятное действие.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/empty/basic.tsx"
+<ExampleFrame variant="component">
+  <EmptyBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/empty/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/empty/empty-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -103,23 +125,57 @@ Empty / Empty.Root
 
 Не добавляйте `Empty.Actions`, если состояние носит информационный характер и не требует немедленного действия.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/empty/without-actions.tsx"
+<ExampleFrame variant="component">
+  <EmptyWithoutActions />
+</ExampleFrame>
 
-  ```
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
 
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/empty/without-actions.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/empty/empty-without-actions.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Без иконки
 
 Иконка необязательна, поэтому состояние только с текстом остаётся компактным.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/empty/without-icon.tsx"
+<ExampleFrame variant="component">
+  <EmptyWithoutIcon />
+</ExampleFrame>
 
-  ```
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
 
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/empty/without-icon.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/empty/empty-without-icon.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
@@ -128,12 +184,29 @@ Empty / Empty.Root
 `Empty.Title`. Компонент рендерит `Empty.Description` как `div`, поэтому в нём можно размещать абзацы,
 ссылки и другую блочную разметку.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/empty/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <EmptyAdvancedCustomization />
+</ExampleFrame>
 
-  ```
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
 
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/empty/advanced-customization.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/empty/empty-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

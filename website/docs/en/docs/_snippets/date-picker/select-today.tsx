@@ -1,5 +1,6 @@
 import { Button } from '@moduix/react/button';
 import { DatePicker } from '@moduix/react/date-picker';
+import styles from '@/components/examples/date-picker/date-picker-select-today.module.css';
 
 export default function SelectTodayDatePickerDemo() {
   return (
@@ -12,7 +13,7 @@ export default function SelectTodayDatePickerDemo() {
             <DatePicker.DayTable />
             <DatePicker.Context>
               {(datePicker) => (
-                <div className="date-picker-today-row">
+                <div className={styles.todayRow}>
                   <Button size="sm" variant="secondary" onClick={() => datePicker.selectToday()}>
                     Today
                   </Button>

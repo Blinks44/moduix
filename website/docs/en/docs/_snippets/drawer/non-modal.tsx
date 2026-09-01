@@ -2,6 +2,7 @@ import { Button } from '@moduix/react/button';
 import { Card } from '@moduix/react/card';
 import { Drawer } from '@moduix/react/drawer';
 import { ScrollArea } from '@moduix/react/scroll-area';
+import styles from '@/components/examples/drawer/drawer-non-modal.module.css';
 
 const modal = false;
 const snapPoints = [0.18, 1];
@@ -32,15 +33,9 @@ export default function NonModalDrawerDemo() {
       </Drawer.Trigger>
       <Drawer.Positioner>
         <Drawer.Content draggable={false}>
-          <Drawer.Grabber
-            style={{
-              flexDirection: 'column',
-              alignItems: 'stretch',
-              gap: 'var(--moduix-spacing-2)',
-            }}
-          >
-            <Drawer.GrabberIndicator style={{ alignSelf: 'center' }} />
-            <Drawer.Header style={{ width: '100%' }}>
+          <Drawer.Grabber className={styles.grabber}>
+            <Drawer.GrabberIndicator className={styles.grabberIndicator} />
+            <Drawer.Header className={styles.header}>
               <Drawer.Title>Non-modal drawer</Drawer.Title>
               <Drawer.CloseIcon data-no-drag />
               <Drawer.Description>
@@ -48,24 +43,14 @@ export default function NonModalDrawerDemo() {
               </Drawer.Description>
             </Drawer.Header>
           </Drawer.Grabber>
-          <Drawer.Body style={{ flex: 1, minHeight: 0, overflow: 'hidden' }}>
-            <ScrollArea style={{ height: '100%', minHeight: 0 }}>
-              <ScrollArea.Viewport
-                style={{
-                  height: '100%',
-                  minHeight: 0,
-                  paddingInlineEnd: 'var(--moduix-spacing-2)',
-                }}
-              >
-                <ScrollArea.Content style={{ display: 'grid', gap: 'var(--moduix-spacing-3)' }}>
+          <Drawer.Body className={styles.body}>
+            <ScrollArea className={styles.scrollArea}>
+              <ScrollArea.Viewport className={styles.viewport}>
+                <ScrollArea.Content className={styles.content}>
                   {paragraphs.map((paragraph) => (
-                    <Card
-                      key={paragraph}
-                      size="sm"
-                      style={{ backgroundColor: 'var(--moduix-color-muted)' }}
-                    >
+                    <Card key={paragraph} size="sm" className={styles.card}>
                       <Card.Body>
-                        <p style={{ margin: 0 }}>{paragraph}</p>
+                        <p className={styles.paragraph}>{paragraph}</p>
                       </Card.Body>
                     </Card>
                   ))}

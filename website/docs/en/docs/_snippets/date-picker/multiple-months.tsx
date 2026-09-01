@@ -1,5 +1,6 @@
 import { parseDate } from '@ark-ui/react/date-picker';
 import { DatePicker } from '@moduix/react/date-picker';
+import styles from '@/components/examples/date-picker/date-picker-multiple-months.module.css';
 
 export default function MultipleMonthsDatePickerDemo() {
   return (
@@ -7,14 +8,14 @@ export default function MultipleMonthsDatePickerDemo() {
       <DatePicker.Label>Planning window</DatePicker.Label>
       <DatePicker.Field />
       <DatePicker.Positioner>
-        <DatePicker.Content className="date-picker-multiple-months-content">
+        <DatePicker.Content className={styles.content}>
           <DatePicker.ViewControl>
             <DatePicker.PrevTrigger />
             <DatePicker.RangeText />
             <DatePicker.NextTrigger />
           </DatePicker.ViewControl>
-          <div className="date-picker-multiple-months">
-            <DatePicker.DayTable className="date-picker-multiple-months-table" showHeader={false} />
+          <div className={styles.months}>
+            <DatePicker.DayTable className={styles.table} showHeader={false} />
             <DatePicker.Context>
               {(datePicker) => {
                 const offset = datePicker.getOffset({
@@ -22,7 +23,7 @@ export default function MultipleMonthsDatePickerDemo() {
                 });
                 return (
                   <DatePicker.DayTable
-                    className="date-picker-multiple-months-table"
+                    className={styles.table}
                     offset={offset}
                     showHeader={false}
                   />

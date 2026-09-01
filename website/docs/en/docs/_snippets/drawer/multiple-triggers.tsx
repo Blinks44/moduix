@@ -3,6 +3,7 @@ import { Button } from '@moduix/react/button';
 import { Card } from '@moduix/react/card';
 import { Drawer } from '@moduix/react/drawer';
 import { useState } from 'react';
+import styles from '@/components/examples/drawer/drawer-multiple-triggers.module.css';
 
 const users = [
   {
@@ -28,7 +29,7 @@ export default function MultipleTriggersDrawerDemo() {
   };
   return (
     <Drawer swipeDirection="end" onTriggerValueChange={handleTriggerValueChange}>
-      <div style={{ display: 'grid', justifyItems: 'center', gap: 'var(--moduix-spacing-2)' }}>
+      <div className={styles.triggers}>
         {users.map((user) => (
           <Drawer.Trigger key={user.id} value={user.id} asChild>
             <Button variant="outline">Edit {user.name}</Button>
@@ -44,8 +45,8 @@ export default function MultipleTriggersDrawerDemo() {
             <Drawer.Description>{activeUser?.email}</Drawer.Description>
           </Drawer.Header>
           {activeUser ? (
-            <Drawer.Body style={{ display: 'flex', flex: 1 }}>
-              <Card size="sm" style={{ flex: 1, backgroundColor: 'var(--moduix-color-muted)' }}>
+            <Drawer.Body className={styles.body}>
+              <Card size="sm" className={styles.card}>
                 <Card.Body>Selected: {activeUser.name}</Card.Body>
               </Card>
             </Drawer.Body>

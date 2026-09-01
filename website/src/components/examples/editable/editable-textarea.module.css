@@ -1,0 +1,13 @@
+.root {
+  --moduix-editable-area-width: 100%;
+  --moduix-editable-control-align: start;
+}
+
+.area {
+  align-items: flex-start;
+}
+
+.textarea {
+  min-height: 6rem;
+  white-space: pre-wrap;
+}

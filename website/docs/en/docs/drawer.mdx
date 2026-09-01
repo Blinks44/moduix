@@ -4,7 +4,21 @@ component: drawer
 description: An accessible panel that slides in from the edge of the screen for navigation and forms, with swipe gestures, snap points, and nested drawers.
 ---
 
-import * as DrawerDocs from '@/components/examples/drawer';
+import * as DrawerDocs from '@/components/examples/drawer/drawer';
+import DrawerAdvancedCustomization from './_snippets/drawer/advanced-customization.tsx';
+import DrawerBasic from './_snippets/drawer/basic.tsx';
+import DrawerControlled from './_snippets/drawer/controlled.tsx';
+import DrawerDragControls from './_snippets/drawer/drag-controls.tsx';
+import DrawerFloatingGrabber from './_snippets/drawer/floating-grabber.tsx';
+import DrawerIndentBackground from './_snippets/drawer/indent-background.tsx';
+import DrawerIsland from './_snippets/drawer/island.tsx';
+import DrawerMultipleTriggers from './_snippets/drawer/multiple-triggers.tsx';
+import DrawerNested from './_snippets/drawer/nested.tsx';
+import DrawerNonModal from './_snippets/drawer/non-modal.tsx';
+import DrawerRootProvider from './_snippets/drawer/root-provider.tsx';
+import DrawerScrollable from './_snippets/drawer/scrollable.tsx';
+import DrawerSnapPoints from './_snippets/drawer/snap-points.tsx';
+import DrawerSwipeDirection from './_snippets/drawer/swipe-direction.tsx';
 
 ## API Reference
 
@@ -22,9 +36,26 @@ Compose the drawer from Ark's structural parts. This example opens at a compact 
 the user drag it to full height. `Drawer.Content` is the interactive surface, `Drawer.Positioner`
 places it, and `Drawer.Backdrop` provides the modal layer.
 
-```tsx preview file="./_snippets/drawer/basic.tsx"
+<ExampleFrame variant="component">
+  <DrawerBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/drawer/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/drawer/drawer-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -161,56 +192,155 @@ only when you need the content rendered immediately on initial load.
 
 Read `details.open` from the Ark callback. The callback receives a details object, not a boolean directly.
 
-```tsx preview file="./_snippets/drawer/controlled.tsx"
+<ExampleFrame variant="component">
+  <DrawerControlled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/drawer/controlled.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/drawer/drawer-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Drag Controls
 
 Add `data-no-drag` to interactive regions that must not start a drag while leaving the rest of the
 content draggable. Set `draggable={false}` when the drawer should move only from the grabber.
 
-```tsx preview file="./_snippets/drawer/drag-controls.tsx"
+<ExampleFrame variant="component">
+  <DrawerDragControls />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/drawer/drag-controls.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/drawer/drawer-drag-controls.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Floating Grabber
 
 Place `Drawer.Grabber` above the surface when the handle should appear as a separate control. The
-inline style in this example leaves a 10px gap between the handle and the drawer edge.
+styling in this example leaves a 10px gap between the handle and the drawer edge.
 
-```tsx preview file="./_snippets/drawer/floating-grabber.tsx"
+<ExampleFrame variant="component">
+  <DrawerFloatingGrabber />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/drawer/floating-grabber.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/drawer/drawer-floating-grabber.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Indent Background
 
 `Drawer.Stack` uses Ark stack state and swipe progress to move `IndentBackground` and `Indent` together.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/drawer/indent-background.tsx"
+<ExampleFrame variant="component">
+  <DrawerIndentBackground />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/drawer/indent-background.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/drawer/drawer-indent-background.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Island
 
 Set `variant="island"` on `Drawer.Content` when a compact drawer should sit inside the viewport with
 an inset instead of extending visually past the edge where it opens.
 
-```tsx preview file="./_snippets/drawer/island.tsx"
+<ExampleFrame variant="component">
+  <DrawerIsland />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/drawer/island.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/drawer/drawer-island.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Multiple Triggers
 
 Give each trigger a `value` to reuse one drawer for a list. The callback tells you which trigger is
 active.
 
-```tsx preview file="./_snippets/drawer/multiple-triggers.tsx"
+<ExampleFrame variant="component">
+  <DrawerMultipleTriggers />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/drawer/multiple-triggers.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/drawer/drawer-multiple-triggers.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Nested
 
@@ -218,9 +348,26 @@ Use separate Ark `useDrawer` instances and separate moduix `Drawer.RootProvider`
 drawers. Each drawer then keeps its own open state and focus lifecycle. The parent surface moves back
 behind the active drawer while leaving an edge visible.
 
-```tsx preview file="./_snippets/drawer/nested.tsx"
+<ExampleFrame variant="component">
+  <DrawerNested />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/drawer/nested.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/drawer/drawer-nested.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Non-Modal
 
@@ -231,53 +378,155 @@ gesture from moving both the drawer and the page. Add `data-no-drag` to every in
 `preventScroll={true}`. Outside controls remain interactive, but background scrolling is locked while
 the drawer is open.
 
-```tsx preview file="./_snippets/drawer/non-modal.tsx"
+<ExampleFrame variant="component">
+  <DrawerNonModal />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/drawer/non-modal.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/drawer/drawer-non-modal.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Use the moduix `useDrawer` export when buttons outside the drawer tree need to open it or change its
 snap points.
 
-```tsx preview file="./_snippets/drawer/root-provider.tsx"
+<ExampleFrame variant="component">
+  <DrawerRootProvider />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/drawer/root-provider.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/drawer/drawer-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Scrollable
 
 Put long content in `Drawer.Body`. Use `ScrollArea` when the drawer should have a dedicated scroll
 container while the grabber and header stay fixed.
 
-```tsx preview file="./_snippets/drawer/scrollable.tsx"
+<ExampleFrame variant="component">
+  <DrawerScrollable />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/drawer/scrollable.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/drawer/drawer-scrollable.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Snap Points
 
 Set intermediate positions on the root and choose the initial position with `defaultSnapPoint`.
 
-```tsx preview file="./_snippets/drawer/snap-points.tsx"
+<ExampleFrame variant="component">
+  <DrawerSnapPoints />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/drawer/snap-points.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/drawer/drawer-snap-points.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Swipe Direction
 
 Use logical `start` and `end` values for side drawers so the same code works in LTR and RTL. Use `up`
 for a top drawer and `down` for a bottom drawer.
 
-```tsx preview file="./_snippets/drawer/swipe-direction.tsx"
+<ExampleFrame variant="component">
+  <DrawerSwipeDirection />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/drawer/swipe-direction.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/drawer/drawer-swipe-direction.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Skip the optional `Header`, `Body`, `Footer`, and `CloseIcon` helpers when a custom layout needs the
 full low-level Drawer anatomy.
 
-```tsx preview file="./_snippets/drawer/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <DrawerAdvancedCustomization />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/drawer/advanced-customization.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/drawer/drawer-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

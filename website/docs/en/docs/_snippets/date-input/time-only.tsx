@@ -1,5 +1,6 @@
 import { CalendarDateTime, DateFormatter } from '@internationalized/date';
 import { DateInput } from '@moduix/react/date-input';
+import styles from '@/components/examples/date-input/date-input-time-only.module.css';
 
 const formatter = new DateFormatter('en-US', {
   hour: '2-digit',
@@ -10,6 +11,7 @@ const formatter = new DateFormatter('en-US', {
 export default function TimeOnlyDateInputDemo() {
   return (
     <DateInput
+      className={styles.root}
       granularity="minute"
       hourCycle={24}
       formatter={formatter}

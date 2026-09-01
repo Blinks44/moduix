@@ -1,6 +1,7 @@
 import { Button } from '@moduix/react/button';
 import { Dialog } from '@moduix/react/dialog';
 import { ScrollArea } from '@moduix/react/scroll-area';
+import styles from '@/components/examples/dialog/dialog-inside-scroll.module.css';
 
 const sections = [
   {
@@ -34,23 +35,14 @@ export default function DialogScrollDemo() {
       <Dialog.Positioner>
         <Dialog.Content>
           <Dialog.Title>Terms of service</Dialog.Title>
-          <ScrollArea style={{ height: '16rem', marginTop: 'var(--moduix-spacing-4)' }}>
+          <ScrollArea className={styles.scrollArea}>
             <ScrollArea.Viewport>
               <ScrollArea.Content>
-                <div
-                  style={{
-                    display: 'grid',
-                    gap: 'var(--moduix-spacing-4)',
-                    paddingInlineEnd: 'var(--moduix-spacing-3)',
-                  }}
-                >
+                <div className={styles.content}>
                   {sections.map((section) => (
-                    <section
-                      key={section.title}
-                      style={{ display: 'grid', gap: 'var(--moduix-spacing-1)' }}
-                    >
-                      <h3 style={{ margin: 0 }}>{section.title}</h3>
-                      <p style={{ margin: 0 }}>{section.body}</p>
+                    <section key={section.title} className={styles.section}>
+                      <h3 className={styles.heading}>{section.title}</h3>
+                      <p className={styles.paragraph}>{section.body}</p>
                     </section>
                   ))}
                 </div>

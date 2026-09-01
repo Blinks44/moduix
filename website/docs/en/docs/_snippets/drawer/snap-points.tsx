@@ -1,6 +1,7 @@
 import { Button } from '@moduix/react/button';
 import { Card } from '@moduix/react/card';
 import { Drawer } from '@moduix/react/drawer';
+import styles from '@/components/examples/drawer/drawer-snap-points.module.css';
 
 const snapPoints = [0.25, 0.5, 1];
 export default function SnapPointsDrawerDemo() {
@@ -20,8 +21,8 @@ export default function SnapPointsDrawerDemo() {
             <Drawer.CloseIcon />
             <Drawer.Description>Drag between the configured snap points.</Drawer.Description>
           </Drawer.Header>
-          <Drawer.Body style={{ display: 'flex', flex: 1 }}>
-            <Card size="sm" style={{ flex: 1, backgroundColor: 'var(--moduix-color-muted)' }}>
+          <Drawer.Body className={styles.body}>
+            <Card size="sm" className={styles.card}>
               <Card.Body>25% · 50% · 100%</Card.Body>
             </Card>
           </Drawer.Body>

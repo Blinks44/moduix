@@ -1,11 +1,12 @@
 import { Button } from '@moduix/react/button';
 import { Card } from '@moduix/react/card';
 import { Drawer } from '@moduix/react/drawer';
+import styles from '@/components/examples/drawer/drawer-swipe-direction.module.css';
 
 const direction = 'end' as const;
 export default function SwipeDirectionDrawerDemo() {
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--moduix-spacing-2)' }}>
+    <div className={styles.root}>
       <Drawer swipeDirection={direction}>
         <Drawer.Trigger asChild>
           <Button>Open right drawer</Button>
@@ -18,8 +19,8 @@ export default function SwipeDirectionDrawerDemo() {
               <Drawer.CloseIcon />
               <Drawer.Description>Logical end resolves to the right in LTR.</Drawer.Description>
             </Drawer.Header>
-            <Drawer.Body style={{ display: 'flex', flex: 1 }}>
-              <Card size="sm" style={{ flex: 1, backgroundColor: 'var(--moduix-color-muted)' }}>
+            <Drawer.Body className={styles.body}>
+              <Card size="sm" className={styles.card}>
                 <Card.Body>The same logical direction resolves correctly in RTL.</Card.Body>
               </Card>
             </Drawer.Body>
@@ -39,8 +40,8 @@ export default function SwipeDirectionDrawerDemo() {
               <Drawer.CloseIcon />
               <Drawer.Description>Swipe up to dismiss this drawer.</Drawer.Description>
             </Drawer.Header>
-            <Drawer.Body style={{ display: 'flex', flex: 1 }}>
-              <Card size="sm" style={{ flex: 1, backgroundColor: 'var(--moduix-color-muted)' }}>
+            <Drawer.Body className={styles.body}>
+              <Card size="sm" className={styles.card}>
                 <Card.Body>Check this direction on a mobile viewport.</Card.Body>
               </Card>
             </Drawer.Body>

@@ -2,6 +2,7 @@ import { Button } from '@moduix/react/button';
 import { Card } from '@moduix/react/card';
 import { Drawer } from '@moduix/react/drawer';
 import { ScrollArea } from '@moduix/react/scroll-area';
+import styles from '@/components/examples/drawer/drawer-scrollable.module.css';
 
 const scrollSections = [
   {
@@ -71,18 +72,12 @@ export default function ScrollableDrawerDemo() {
             <Drawer.Title>Scrollable drawer</Drawer.Title>
             <Drawer.CloseIcon />
           </Drawer.Header>
-          <Drawer.Body style={{ flex: 1, minHeight: 0, overflow: 'hidden' }}>
-            <ScrollArea style={{ height: '100%', minHeight: 0 }}>
-              <ScrollArea.Viewport
-                style={{ height: '100%', paddingInlineEnd: 'var(--moduix-spacing-2)' }}
-              >
-                <ScrollArea.Content style={{ display: 'grid', gap: '1rem' }}>
+          <Drawer.Body className={styles.body}>
+            <ScrollArea className={styles.scrollArea}>
+              <ScrollArea.Viewport className={styles.viewport}>
+                <ScrollArea.Content className={styles.content}>
                   {scrollSections.map((section) => (
-                    <Card
-                      key={section.title}
-                      size="sm"
-                      style={{ backgroundColor: 'var(--moduix-color-muted)' }}
-                    >
+                    <Card key={section.title} size="sm" className={styles.card}>
                       <Card.Body>
                         <strong>{section.title}</strong>
                         <p>{section.body}</p>

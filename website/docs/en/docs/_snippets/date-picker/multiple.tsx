@@ -1,10 +1,11 @@
 import { parseDate } from '@ark-ui/react/date-picker';
 import { DatePicker } from '@moduix/react/date-picker';
+import styles from '@/components/examples/date-picker/date-picker-multiple.module.css';
 
 export default function MultipleDatePickerDemo() {
   return (
     <DatePicker
-      className="date-picker-multiple-root"
+      className={styles.root}
       selectionMode="multiple"
       defaultValue={[parseDate('2026-06-22'), parseDate('2026-06-24')]}
       maxSelectedDates={3}
@@ -13,14 +14,14 @@ export default function MultipleDatePickerDemo() {
       <DatePicker.Control>
         <DatePicker.Context>
           {(datePicker) => (
-            <div className="date-picker-selected-dates">
+            <div className={styles.selectedDates}>
               {datePicker.value.length > 0 ? (
                 datePicker.value.map((date, index) => (
-                  <span key={date.toString()} className="date-picker-selected-date">
+                  <span key={date.toString()} className={styles.selectedDate}>
                     {date.toString()}
                     <button
                       type="button"
-                      className="date-picker-selected-date-remove"
+                      className={styles.remove}
                       onClick={() =>
                         datePicker.setValue(
                           datePicker.value.filter((_, itemIndex) => itemIndex !== index),
@@ -32,7 +33,7 @@ export default function MultipleDatePickerDemo() {
                   </span>
                 ))
               ) : (
-                <span className="date-picker-selected-dates-placeholder">Select dates</span>
+                <span className={styles.placeholder}>Select dates</span>
               )}
             </div>
           )}

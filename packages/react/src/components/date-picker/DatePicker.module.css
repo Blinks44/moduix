@@ -55,6 +55,10 @@
     gap: var(--moduix-date-picker-root-gap, var(--moduix-spacing-1));
     color: var(--moduix-date-picker-color, var(--moduix-color-foreground));
 
+    &:has(.input[data-index='1']) {
+      width: var(--moduix-date-picker-width, 24rem);
+    }
+
     &:is([data-disabled], [data-readonly]) {
       opacity: var(--moduix-date-picker-disabled-opacity, var(--moduix-opacity-disabled));
     }

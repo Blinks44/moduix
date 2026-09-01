@@ -1,6 +1,7 @@
 import { Button } from '@moduix/react/button';
 import { Card } from '@moduix/react/card';
 import { Drawer } from '@moduix/react/drawer';
+import styles from '@/components/examples/drawer/drawer-basic.module.css';
 
 const snapPoints = [0.45, 1];
 const notifications = [
@@ -26,8 +27,8 @@ export default function DrawerDemo() {
             <Drawer.CloseIcon />
             <Drawer.Description>Three updates need your attention.</Drawer.Description>
           </Drawer.Header>
-          <Drawer.Body style={{ display: 'flex', flex: 1 }}>
-            <Card size="sm" style={{ flex: 1, backgroundColor: 'var(--moduix-color-muted)' }}>
+          <Drawer.Body className={styles.body}>
+            <Card size="sm" className={styles.card}>
               <Card.Body>
                 <ul>
                   {notifications.map((notification) => (

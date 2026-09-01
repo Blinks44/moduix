@@ -1,0 +1,8 @@
+.content {
+  gap: var(--moduix-spacing-4);
+}
+
+.card {
+  flex: 1;
+  background-color: var(--moduix-color-muted);
+}

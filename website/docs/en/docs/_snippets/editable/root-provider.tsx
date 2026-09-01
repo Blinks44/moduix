@@ -1,6 +1,7 @@
 import { Button } from '@moduix/react/button';
 import { Editable, useEditable } from '@moduix/react/editable';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/editable/editable-root-provider.module.css';
 
 export default function RootProviderEditableDemo() {
   const editable = useEditable({
@@ -8,7 +9,7 @@ export default function RootProviderEditableDemo() {
     defaultValue: 'Root provider value',
   });
   return (
-    <div style={{ display: 'grid', gap: 'var(--moduix-spacing-3)' }}>
+    <div className={styles.root}>
       <Editable.RootProvider value={editable}>
         <Editable.Label>External state</Editable.Label>
         <Editable.Area>
@@ -17,7 +18,7 @@ export default function RootProviderEditableDemo() {
         </Editable.Area>
         <Editable.Controls />
       </Editable.RootProvider>
-      <PreviewMeta style={{ inlineSize: '100%' }}>
+      <PreviewMeta className={styles.meta}>
         <Button type="button" size="sm" onClick={() => editable.edit()}>
           Edit
         </Button>

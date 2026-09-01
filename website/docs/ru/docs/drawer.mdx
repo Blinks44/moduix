@@ -4,7 +4,21 @@ component: drawer
 description: Доступная панель, которая выезжает от края экрана и подходит для навигации и форм. Поддерживает свайпы, точки привязки и вложенные панели.
 ---
 
-import * as DrawerDocs from '@/components/examples/drawer';
+import * as DrawerDocs from '@/components/examples/drawer/drawer';
+import DrawerAdvancedCustomization from '../../en/docs/_snippets/drawer/advanced-customization.tsx';
+import DrawerBasic from '../../en/docs/_snippets/drawer/basic.tsx';
+import DrawerControlled from '../../en/docs/_snippets/drawer/controlled.tsx';
+import DrawerDragControls from '../../en/docs/_snippets/drawer/drag-controls.tsx';
+import DrawerFloatingGrabber from '../../en/docs/_snippets/drawer/floating-grabber.tsx';
+import DrawerIndentBackground from '../../en/docs/_snippets/drawer/indent-background.tsx';
+import DrawerIsland from '../../en/docs/_snippets/drawer/island.tsx';
+import DrawerMultipleTriggers from '../../en/docs/_snippets/drawer/multiple-triggers.tsx';
+import DrawerNested from '../../en/docs/_snippets/drawer/nested.tsx';
+import DrawerNonModal from '../../en/docs/_snippets/drawer/non-modal.tsx';
+import DrawerRootProvider from '../../en/docs/_snippets/drawer/root-provider.tsx';
+import DrawerScrollable from '../../en/docs/_snippets/drawer/scrollable.tsx';
+import DrawerSnapPoints from '../../en/docs/_snippets/drawer/snap-points.tsx';
+import DrawerSwipeDirection from '../../en/docs/_snippets/drawer/swipe-direction.tsx';
 
 ## Справочник API
 
@@ -22,9 +36,26 @@ import * as DrawerDocs from '@/components/examples/drawer';
 можно перетащить на полную высоту. `Drawer.Content` отвечает за интерактивную область, `Drawer.Positioner` размещает
 её, а `Drawer.Backdrop` добавляет модальный фон.
 
-```tsx preview file="../../en/docs/_snippets/drawer/basic.tsx"
+<ExampleFrame variant="component">
+  <DrawerBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/drawer/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/drawer/drawer-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -160,57 +191,156 @@ Drawer.Root
 
 Читайте `details.open` в обработчике Ark. Колбэк получает объект `details`, а не логическое значение напрямую.
 
-```tsx preview file="../../en/docs/_snippets/drawer/controlled.tsx"
+<ExampleFrame variant="component">
+  <DrawerControlled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/drawer/controlled.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/drawer/drawer-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Элементы управления перетаскиванием
 
 Добавьте `data-no-drag` к интерактивным областям, которые не должны запускать перетаскивание, а остальное содержимое
 оставьте перетаскиваемым. Задайте `draggable={false}`, если панель должна двигаться только за ручку.
 
-```tsx preview file="../../en/docs/_snippets/drawer/drag-controls.tsx"
+<ExampleFrame variant="component">
+  <DrawerDragControls />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/drawer/drag-controls.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/drawer/drawer-drag-controls.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Плавающий Grabber
 
 Разместите `Drawer.Grabber` над панелью, если ручка должна выглядеть отдельным элементом управления. Стиль в примере
 оставляет между ручкой и краем панели расстояние 10 px.
 
-```tsx preview file="../../en/docs/_snippets/drawer/floating-grabber.tsx"
+<ExampleFrame variant="component">
+  <DrawerFloatingGrabber />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/drawer/floating-grabber.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/drawer/drawer-floating-grabber.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Фон отступа
 
 `Drawer.Stack` использует состояние стека Ark и прогресс свайпа, чтобы согласованно перемещать `IndentBackground` и
 `Indent`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/drawer/indent-background.tsx"
+<ExampleFrame variant="component">
+  <DrawerIndentBackground />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/drawer/indent-background.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/drawer/drawer-indent-background.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Island
 
 Задайте `variant="island"` для `Drawer.Content`, если компактная панель должна оставаться с отступом от краёв окна,
 а не доходить до края, от которого она открывается.
 
-```tsx preview file="../../en/docs/_snippets/drawer/island.tsx"
+<ExampleFrame variant="component">
+  <DrawerIsland />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/drawer/island.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/drawer/drawer-island.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Несколько триггеров
 
 Назначьте каждому триггеру `value`, чтобы использовать одну панель для всего списка. Колбэк сообщит, какой триггер
 активен.
 
-```tsx preview file="../../en/docs/_snippets/drawer/multiple-triggers.tsx"
+<ExampleFrame variant="component">
+  <DrawerMultipleTriggers />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/drawer/multiple-triggers.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/drawer/drawer-multiple-triggers.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Вложенные панели
 
@@ -218,9 +348,26 @@ Drawer.Root
 moduix. Так каждая панель сохраняет собственное состояние открытия и жизненный цикл фокуса. Родительская поверхность
 отодвигается за активную панель, оставляя видимый край.
 
-```tsx preview file="../../en/docs/_snippets/drawer/nested.tsx"
+<ExampleFrame variant="component">
+  <DrawerNested />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/drawer/nested.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/drawer/drawer-nested.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Немодальный режим
 
@@ -231,53 +378,155 @@ moduix. Так каждая панель сохраняет собственно
 перетаскиваемым и включите `preventScroll={true}`. Элементы управления за пределами панели останутся доступными, но
 прокрутка страницы будет заблокирована на время её открытия.
 
-```tsx preview file="../../en/docs/_snippets/drawer/non-modal.tsx"
+<ExampleFrame variant="component">
+  <DrawerNonModal />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/drawer/non-modal.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/drawer/drawer-non-modal.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Используйте экспорт `useDrawer` из moduix, когда кнопки вне дерева панели должны открывать её или менять её точки
 привязки.
 
-```tsx preview file="../../en/docs/_snippets/drawer/root-provider.tsx"
+<ExampleFrame variant="component">
+  <DrawerRootProvider />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/drawer/root-provider.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/drawer/drawer-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Прокручиваемая панель
 
 Поместите длинное содержимое в `Drawer.Body`. Используйте `ScrollArea`, когда панели нужен отдельный контейнер
 прокрутки, а ручка и заголовок должны оставаться на месте.
 
-```tsx preview file="../../en/docs/_snippets/drawer/scrollable.tsx"
+<ExampleFrame variant="component">
+  <DrawerScrollable />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/drawer/scrollable.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/drawer/drawer-scrollable.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Точки привязки
 
 Задайте промежуточные положения на корневом компоненте и выберите начальное положение с помощью `defaultSnapPoint`.
 
-```tsx preview file="../../en/docs/_snippets/drawer/snap-points.tsx"
+<ExampleFrame variant="component">
+  <DrawerSnapPoints />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/drawer/snap-points.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/drawer/drawer-snap-points.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Направление свайпа
 
 Используйте логические значения `start` и `end` для боковых панелей, чтобы один и тот же код работал в LTR и RTL. Для
 верхней панели используйте `up`, а для нижней задайте `down`.
 
-```tsx preview file="../../en/docs/_snippets/drawer/swipe-direction.tsx"
+<ExampleFrame variant="component">
+  <DrawerSwipeDirection />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/drawer/swipe-direction.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/drawer/drawer-swipe-direction.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
 Не используйте необязательные помощники `Header`, `Body`, `Footer` и `CloseIcon`, если строите собственную разметку
 на основе полной низкоуровневой анатомии Drawer.
 
-```tsx preview file="../../en/docs/_snippets/drawer/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <DrawerAdvancedCustomization />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/drawer/advanced-customization.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/drawer/drawer-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

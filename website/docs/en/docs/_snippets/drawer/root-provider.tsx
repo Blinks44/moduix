@@ -2,6 +2,7 @@ import { Button } from '@moduix/react/button';
 import { Card } from '@moduix/react/card';
 import { Drawer, useDrawer } from '@moduix/react/drawer';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/drawer/drawer-root-provider.module.css';
 
 const snapPoints = [0.25, 0.5, 1];
 export default function RootProviderDrawerDemo() {
@@ -21,8 +22,8 @@ export default function RootProviderDrawerDemo() {
               <Drawer.CloseIcon />
               <Drawer.Description>Control the drawer from outside its tree.</Drawer.Description>
             </Drawer.Header>
-            <Drawer.Body style={{ display: 'flex', flex: 1 }}>
-              <Card size="sm" style={{ flex: 1, backgroundColor: 'var(--moduix-color-muted)' }}>
+            <Drawer.Body className={styles.body}>
+              <Card size="sm" className={styles.card}>
                 <Card.Body>State lives outside the drawer tree.</Card.Body>
               </Card>
             </Drawer.Body>

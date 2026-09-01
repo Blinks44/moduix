@@ -3,6 +3,7 @@ import { CalendarDateTime, DateFormatter } from '@internationalized/date';
 import { DateInput } from '@moduix/react/date-input';
 import { DatePicker } from '@moduix/react/date-picker';
 import { useState } from 'react';
+import styles from '@/components/examples/date-picker/date-picker-with-time.module.css';
 
 const timeFormatter = new DateFormatter('en-US', {
   hour: '2-digit',
@@ -28,7 +29,7 @@ export default function DatePickerWithTimeDemo() {
     ]);
   };
   return (
-    <div className="date-picker-date-time">
+    <div className={styles.root}>
       <DatePicker value={value} onValueChange={handleDateChange}>
         <DatePicker.Label>Appointment</DatePicker.Label>
         <DatePicker.Field />
@@ -103,7 +104,7 @@ export default function DatePickerWithTimeDemo() {
         </DatePicker.Positioner>
       </DatePicker>
       <DateInput
-        className="date-picker-time-input"
+        className={styles.timeInput}
         formatter={timeFormatter}
         granularity="minute"
         hourCycle={24}

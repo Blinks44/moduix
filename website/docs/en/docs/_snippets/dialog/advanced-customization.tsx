@@ -1,5 +1,6 @@
 import { Button } from '@moduix/react/button';
 import { Dialog } from '@moduix/react/dialog';
+import styles from '@/components/examples/dialog/dialog-advanced-customization.module.css';
 
 export default function AdvancedCustomizationDialogDemo() {
   return (
@@ -15,7 +16,7 @@ export default function AdvancedCustomizationDialogDemo() {
             Compose the Ark parts directly when the layout helpers do not fit.
           </Dialog.Description>
           <Dialog.CloseTrigger asChild>
-            <Button style={{ marginTop: 'var(--moduix-spacing-4)' }} variant="outline">
+            <Button className={styles.closeButton} variant="outline">
               Close
             </Button>
           </Dialog.CloseTrigger>

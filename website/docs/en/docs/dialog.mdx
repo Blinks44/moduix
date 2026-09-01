@@ -4,7 +4,20 @@ component: dialog
 description: A modal window for focused tasks such as forms, confirmations, and details.
 ---
 
-import { DialogCssPropertiesPanel } from '@/components/examples/dialog';
+import { DialogCssPropertiesPanel } from '@/components/examples/dialog/dialog';
+import DialogAdvancedCustomization from './_snippets/dialog/advanced-customization.tsx';
+import DialogAlertDialog from './_snippets/dialog/alert-dialog.tsx';
+import DialogBasic from './_snippets/dialog/basic.tsx';
+import DialogConfirmation from './_snippets/dialog/confirmation.tsx';
+import DialogControlled from './_snippets/dialog/controlled.tsx';
+import DialogInsideScroll from './_snippets/dialog/inside-scroll.tsx';
+import DialogMountingAndFocusLifecycle from './_snippets/dialog/mounting-and-focus-lifecycle.tsx';
+import DialogMultipleTriggers from './_snippets/dialog/multiple-triggers.tsx';
+import DialogNested from './_snippets/dialog/nested.tsx';
+import DialogNonModal from './_snippets/dialog/non-modal.tsx';
+import DialogOpenFromMenu from './_snippets/dialog/open-from-menu.tsx';
+import DialogOutsideScroll from './_snippets/dialog/outside-scroll.tsx';
+import DialogRootProvider from './_snippets/dialog/root-provider-and-ark-context-hooks.tsx';
 
 ## API Reference
 
@@ -21,11 +34,20 @@ support dragging.
 Use `Dialog` as the root and compose its structural parts explicitly. `Dialog.Backdrop` is the
 modal background, `Dialog.Positioner` places the dialog, and `Dialog.Content` contains its surface.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/dialog/basic.tsx"
+<ExampleFrame variant="component">
+  <DialogBasic />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/dialog/basic.tsx"
 
 ```
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -148,107 +170,212 @@ The first two defaults come from moduix. The remaining defaults are inherited fr
 Use `role="alertdialog"` for decisions with serious consequences. Include a clear cancel action
 and a separate action that confirms the decision.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/dialog/alert-dialog.tsx"
+<ExampleFrame variant="component">
+  <DialogAlertDialog />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/dialog/alert-dialog.tsx"
 
 ```
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Confirmation
 
 Intercept the parent dialog's close request when a form contains unsaved changes and ask whether the
 user wants to discard them.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/dialog/confirmation.tsx"
+<ExampleFrame variant="component">
+  <DialogConfirmation />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/dialog/confirmation.tsx"
 
 ```
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Controlled
 
 Keep `open` in React state and read `details.open` from `onOpenChange` to synchronize the dialog
 with the rest of the application.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/dialog/controlled.tsx"
+<ExampleFrame variant="component">
+  <DialogControlled />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/dialog/controlled.tsx"
 
 ```
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Inside Scroll
 
 Make only the main content scrollable when the title and actions should remain visible.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/dialog/inside-scroll.tsx"
+<ExampleFrame variant="component">
+  <DialogInsideScroll />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/dialog/inside-scroll.tsx"
 
 ```
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/dialog/dialog-inside-scroll.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Mounting and Focus Lifecycle
 
 Use `lazyMount` and `unmountOnExit` for the presence lifecycle. Use `initialFocusEl` and
 `finalFocusEl` when focus should move to specific elements on open and close.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/dialog/mounting-and-focus-lifecycle.tsx"
+<ExampleFrame variant="component">
+  <DialogMountingAndFocusLifecycle />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/dialog/mounting-and-focus-lifecycle.tsx"
 
 ```
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Multiple Triggers
 
 Share one dialog between several triggers by giving each trigger a `value` and handling
 `onTriggerValueChange(details)`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/dialog/multiple-triggers.tsx"
+<ExampleFrame variant="component">
+  <DialogMultipleTriggers />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/dialog/multiple-triggers.tsx"
 
 ```
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Nested
 
 Use separate `useDialog()` stores for nested dialogs. Ark UI manages the layer stack, and moduix
 uses the resulting state to make the parent recede while the nested dialog is open.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/dialog/nested.tsx"
+<ExampleFrame variant="component">
+  <DialogNested />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/dialog/nested.tsx"
 
 ```
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/dialog/dialog-nested.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Non-Modal
 
 Set `modal={false}` and omit the backdrop when users should still be able to interact with the page
 outside the dialog.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/dialog/non-modal.tsx"
+<ExampleFrame variant="component">
+  <DialogNonModal />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/dialog/non-modal.tsx"
 
 ```
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Open from Menu
 
 Control `open` from a menu item when a contextual action should open a confirmation dialog.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/dialog/open-from-menu.tsx"
+<ExampleFrame variant="component">
+  <DialogOpenFromMenu />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/dialog/open-from-menu.tsx"
 
 ```
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Outside Scroll
 
 Let `Dialog.Positioner` scroll the whole dialog when long content should keep its natural height.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/dialog/outside-scroll.tsx"
+<ExampleFrame variant="component">
+  <DialogOutsideScroll />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/dialog/outside-scroll.tsx"
 
 ```
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/dialog/dialog-outside-scroll.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
@@ -256,22 +383,45 @@ Create the state with `useDialog()` when controls live outside the dialog. Conne
 `Dialog.RootProvider`, then read it with `Dialog.Context` or `useDialogContext()` in reusable
 components.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/dialog/root-provider-and-ark-context-hooks.tsx"
+<ExampleFrame variant="component">
+  <DialogRootProvider />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/dialog/root-provider-and-ark-context-hooks.tsx"
 
 ```
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Skip `Header`, `Body`, `Footer`, and `CloseIcon` when a custom layout needs direct control over every
 Ark dialog part.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/dialog/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <DialogAdvancedCustomization />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/dialog/advanced-customization.tsx"
 
 ```
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/dialog/dialog-advanced-customization.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

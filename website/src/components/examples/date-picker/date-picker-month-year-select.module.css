@@ -1,0 +1,29 @@
+.control {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--moduix-spacing-2);
+}
+
+.selects,
+.nav {
+  align-items: center;
+  gap: var(--moduix-spacing-1);
+}
+
+.selects {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr) minmax(4.5rem, 0.7fr);
+}
+
+.nav {
+  display: inline-flex;
+}
+
+.monthSelect,
+.yearSelect {
+  --moduix-select-width: 100%;
+  --moduix-select-control-height: var(--moduix-date-picker-select-height, 2rem);
+  min-width: 0;
+}

@@ -1,0 +1,32 @@
+.stage {
+  --moduix-drawer-max-height: 100%;
+
+  position: relative;
+  isolation: isolate;
+  min-height: 22rem;
+  overflow: hidden;
+  background: var(--moduix-color-foreground);
+}
+
+.indent {
+  display: grid;
+  min-height: 22rem;
+  place-items: center;
+  padding: var(--moduix-spacing-6);
+  background: var(--moduix-color-background);
+}
+
+.backdrop,
+.positioner {
+  position: absolute;
+}
+
+.body {
+  display: flex;
+  flex: 1;
+}
+
+.card {
+  flex: 1;
+  background-color: var(--moduix-color-muted);
+}

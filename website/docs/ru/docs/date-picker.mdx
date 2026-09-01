@@ -4,7 +4,26 @@ component: date-picker
 description: Компонент выбора даты на базе Ark UI с календарём во всплывающем окне или на странице, выбором диапазона и нескольких дат.
 ---
 
-import * as DatePickerDocs from '@/components/examples/date-picker';
+import DatePickerAdvancedCustomization from '../../en/docs/_snippets/date-picker/advanced-customization.tsx';
+import DatePickerBasic from '../../en/docs/_snippets/date-picker/basic.tsx';
+import DatePickerControlled from '../../en/docs/_snippets/date-picker/controlled.tsx';
+import DatePickerDefaultView from '../../en/docs/_snippets/date-picker/default-view-and-fixed-weeks.tsx';
+import DatePickerFieldState from '../../en/docs/_snippets/date-picker/field-state.tsx';
+import DatePickerForm from '../../en/docs/_snippets/date-picker/form.tsx';
+import DatePickerInline from '../../en/docs/_snippets/date-picker/inline-and-week-numbers.tsx';
+import DatePickerLocale from '../../en/docs/_snippets/date-picker/locale-and-format.tsx';
+import DatePickerMinMax from '../../en/docs/_snippets/date-picker/min-max-and-unavailable.tsx';
+import DatePickerMonthPicker from '../../en/docs/_snippets/date-picker/month-picker.tsx';
+import DatePickerMonthYearSelect from '../../en/docs/_snippets/date-picker/month-year-select.tsx';
+import DatePickerMultiple from '../../en/docs/_snippets/date-picker/multiple.tsx';
+import DatePickerMultipleMonths from '../../en/docs/_snippets/date-picker/multiple-months.tsx';
+import DatePickerPresets from '../../en/docs/_snippets/date-picker/presets.tsx';
+import DatePickerRange from '../../en/docs/_snippets/date-picker/range.tsx';
+import DatePickerRootProvider from '../../en/docs/_snippets/date-picker/root-provider.tsx';
+import DatePickerSelectToday from '../../en/docs/_snippets/date-picker/select-today.tsx';
+import DatePickerWithTime from '../../en/docs/_snippets/date-picker/with-time.tsx';
+import DatePickerYearPicker from '../../en/docs/_snippets/date-picker/year-picker.tsx';
+import * as DatePickerDocs from '@/components/examples/date-picker/date-picker';
 
 ## Справочник API
 
@@ -22,13 +41,20 @@ import * as DatePickerDocs from '@/components/examples/date-picker';
 готовые части. Используйте `DatePicker.Field` для стандартного поля с вводом и действиями, а
 `DatePicker.DayTable` для таблицы дней.
 
-<style>{DatePickerDocs.datePickerExampleCss}</style>
+<ExampleFrame variant="component">
+  <DatePickerBasic />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/date-picker/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/date-picker/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -143,8 +169,9 @@ DatePicker
 получить `details.value`, `details.valueAsString` и `details.view`: выбранное значение, его отформатированное
 представление и текущую панель. Импортируйте `DatePicker.Context`, `useDatePicker` и `useDatePickerContext` из
 `@moduix/react`; при необходимости импортируйте `parseDate` и типы дат из `@ark-ui/react/date-picker`.
-Стандартная ширина корневого компонента и всплывающего окна составляет `18.75rem` (300 px). Если нужна более широкая
-композиция, переопределите `--moduix-date-picker-width` или `--moduix-date-picker-content-width`. Поскольку содержимое
+Стандартная ширина корневого компонента и всплывающего окна составляет `18.75rem` (300 px), а для диапазона используется
+ширина `24rem` (384 px), чтобы иконки действий не перекрывали значения дат. Если нужна более широкая композиция,
+переопределите `--moduix-date-picker-width` или `--moduix-date-picker-content-width`. Поскольку содержимое
 окна рендерится в портале, задавайте переменные его размера на `DatePicker.Content` или другом элементе внутри дерева
 всплывающего календаря, а не только на `DatePicker`.
 
@@ -172,96 +199,163 @@ DatePicker
 
 Управляйте массивом выбранных дат, обновляя его из `details.value`.
 
-<style>{DatePickerDocs.datePickerExampleCss}</style>
+<ExampleFrame variant="component">
+  <DatePickerControlled />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/date-picker/controlled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/date-picker/controlled.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/date-picker/date-picker-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Представление по умолчанию и фиксированное число недель
 
 Используйте `defaultView`, чтобы открывать календарь на нужной панели. Добавьте `fixedWeeks`, чтобы панель дней
 сохраняла высоту в шесть строк при переходе между месяцами.
 
-<style>{DatePickerDocs.datePickerExampleCss}</style>
+<ExampleFrame variant="component">
+  <DatePickerDefaultView />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/date-picker/default-view-and-fixed-weeks.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/date-picker/default-view-and-fixed-weeks.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Состояние поля
 
 `DatePicker` получает состояние поля из Ark. Задавайте `invalid`, `disabled`, `readOnly` и `required` на корневом
 компоненте, если не оборачиваете его в `Field`.
 
-<style>{DatePickerDocs.datePickerExampleCss}</style>
+<ExampleFrame variant="component">
+  <DatePickerFieldState />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/date-picker/field-state.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/date-picker/field-state.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/date-picker/date-picker-field-state.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Форма
 
 Передайте `name`, чтобы включить выбранную дату в отправку нативной формы. Если не задать плейсхолдер и подписи
 действий, `DatePicker.Field` возьмёт их локализованные варианты из Ark UI.
 
-<style>{DatePickerDocs.datePickerExampleCss}</style>
+<ExampleFrame variant="component">
+  <DatePickerForm />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/date-picker/form.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/date-picker/form.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/date-picker/date-picker-form.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Встроенный календарь и номера недель
 
 Задайте `inline`, чтобы календарь оставался в потоке документа. В этом режиме размещайте `Content` непосредственно
 внутри корневого компонента, без `Positioner`.
 
-<style>{DatePickerDocs.datePickerExampleCss}</style>
+<ExampleFrame variant="component">
+  <DatePickerInline />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/date-picker/inline-and-week-numbers.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/date-picker/inline-and-week-numbers.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/date-picker/date-picker-inline-and-week-numbers.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Локаль и формат
 
 `locale`, `startOfWeek`, `format` и `parse` передаются в Ark UI без изменений.
 
-<style>{DatePickerDocs.datePickerExampleCss}</style>
+<ExampleFrame variant="component">
+  <DatePickerLocale />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/date-picker/locale-and-format.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/date-picker/locale-and-format.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Минимальная дата, максимальная дата и недоступные даты
 
 Используйте `min`, `max` и `isDateUnavailable` для правил валидации, которые должны применяться и к полю, и к
 ячейкам календаря.
 
-<style>{DatePickerDocs.datePickerExampleCss}</style>
+<ExampleFrame variant="component">
+  <DatePickerMinMax />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/date-picker/min-max-and-unavailable.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/date-picker/min-max-and-unavailable.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Выбор месяца и года
 
@@ -269,28 +363,46 @@ Ark предоставляет нативные части `DatePicker.MonthSele
 на `Select` из moduix и `DatePicker.Context`. Заголовок выглядит так же, как в остальных компонентах библиотеки, и
 при этом обновляет дату, на которой сфокусирован календарь Ark.
 
-<style>{DatePickerDocs.datePickerExampleCss}</style>
+<ExampleFrame variant="component">
+  <DatePickerMonthYearSelect />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/date-picker/month-year-select.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/date-picker/month-year-select.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/date-picker/date-picker-month-year-select.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Выбор месяца
 
 Если пользователи выбирают только месяц, задайте `defaultView="month"` и `minView="month"`. Используйте `format` и
 `parse`, если поле должно принимать строку в формате «месяц/год».
 
-<style>{DatePickerDocs.datePickerExampleCss}</style>
+<ExampleFrame variant="component">
+  <DatePickerMonthPicker />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/date-picker/month-picker.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/date-picker/month-picker.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Несколько дат
 
@@ -298,27 +410,51 @@ Ark предоставляет нативные части `DatePicker.MonthSele
 `maxSelectedDates`. Ark не помещает несколько значений в одно текстовое поле. Отображайте выбранные даты отдельными
 чипами через `DatePicker.Context` и вызывайте `datePicker.setValue()`, когда пользователь удаляет чип.
 
-<style>{DatePickerDocs.datePickerExampleCss}</style>
+<ExampleFrame variant="component">
+  <DatePickerMultiple />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/date-picker/multiple.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/date-picker/multiple.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/date-picker/date-picker-multiple.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Несколько месяцев
 
 Задайте `numOfMonths`, чтобы одновременно показывать несколько месяцев и пользователям было проще выбрать даты.
 
-<style>{DatePickerDocs.datePickerExampleCss}</style>
+<ExampleFrame variant="component">
+  <DatePickerMultipleMonths />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/date-picker/multiple-months.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/date-picker/multiple-months.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/date-picker/date-picker-multiple-months.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Предустановки
 
@@ -326,14 +462,26 @@ Ark предоставляет нативные части `DatePicker.MonthSele
 пользовательский массив `DateValue[]`. Используйте режим диапазона с двумя индексированными полями, чтобы выбранная
 предустановка показывала обе даты.
 
-<style>{DatePickerDocs.datePickerExampleCss}</style>
+<ExampleFrame variant="component">
+  <DatePickerPresets />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/date-picker/presets.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/date-picker/presets.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/date-picker/date-picker-presets.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Диапазон
 
@@ -341,55 +489,97 @@ Ark предоставляет нативные части `DatePicker.MonthSele
 первого и последнего дня и форматированием поля. Для диапазона нужны два индексированных поля: для начальной и
 конечной даты.
 
-<style>{DatePickerDocs.datePickerExampleCss}</style>
+<ExampleFrame variant="component">
+  <DatePickerRange />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/date-picker/range.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/date-picker/range.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Используйте `useDatePicker()` из `@moduix/react` вместе с `DatePicker.RootProvider`, когда состояние календаря нужно
 разделить с элементами управления за пределами дерева компонента.
 
-<style>{DatePickerDocs.datePickerExampleCss}</style>
+<ExampleFrame variant="component">
+  <DatePickerRootProvider />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/date-picker/root-provider.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/date-picker/root-provider.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/date-picker/date-picker-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Выбор сегодняшней даты
 
 Используйте `DatePicker.Context`, если соседняя кнопка должна вызывать методы Ark, например `selectToday()`.
 
-<style>{DatePickerDocs.datePickerExampleCss}</style>
+<ExampleFrame variant="component">
+  <DatePickerSelectToday />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/date-picker/select-today.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/date-picker/select-today.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/date-picker/date-picker-select-today.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Дата и время
 
 Чтобы сохранить время в выбранном значении, используйте объекты `CalendarDateTime`. Скомпонуйте календарь с
 `DateInput`, настроенным на ввод минут, чтобы оба элемента редактировали одно значение.
 
-<style>{DatePickerDocs.datePickerExampleCss}</style>
+<ExampleFrame variant="component">
+  <DatePickerWithTime />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/date-picker/with-time.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/date-picker/with-time.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/date-picker/date-picker-with-time.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Выбор года
 
@@ -397,28 +587,40 @@ Ark предоставляет нативные части `DatePicker.MonthSele
 используется `RangeText` вместо `ViewTrigger`, поскольку год уже является самым старшим доступным представлением.
 В примере изначально выбран 2026 год, а поле показывает только год.
 
-<style>{DatePickerDocs.datePickerExampleCss}</style>
+<ExampleFrame variant="component">
+  <DatePickerYearPicker />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/date-picker/year-picker.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/date-picker/year-picker.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
 Используйте полную композицию Ark, если сетку календаря нужно отрисовать по-своему. В этом случае
 `DatePicker.Field` и `DatePicker.DayTable` не используются, но состояние Ark и стилизованные части остаются доступны.
 
-<style>{DatePickerDocs.datePickerExampleCss}</style>
+<ExampleFrame variant="component">
+  <DatePickerAdvancedCustomization />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/date-picker/advanced-customization.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/date-picker/advanced-customization.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

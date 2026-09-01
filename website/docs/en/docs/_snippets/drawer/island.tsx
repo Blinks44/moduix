@@ -1,6 +1,7 @@
 import { Button } from '@moduix/react/button';
 import { Card } from '@moduix/react/card';
 import { Drawer } from '@moduix/react/drawer';
+import styles from '@/components/examples/drawer/drawer-island.module.css';
 
 export default function IslandDrawerDemo() {
   return (
@@ -16,8 +17,8 @@ export default function IslandDrawerDemo() {
             <Drawer.CloseIcon />
             <Drawer.Description>This drawer floats inside the viewport edge.</Drawer.Description>
           </Drawer.Header>
-          <Drawer.Body style={{ display: 'flex', flex: 1 }}>
-            <Card size="sm" style={{ flex: 1, backgroundColor: 'var(--moduix-color-muted)' }}>
+          <Drawer.Body className={styles.body}>
+            <Card size="sm" className={styles.card}>
               <Card.Body>Choose an action without leaving your current context.</Card.Body>
             </Card>
           </Drawer.Body>

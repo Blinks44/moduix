@@ -1,5 +1,6 @@
 import { Button } from '@moduix/react/button';
 import { Empty } from '@moduix/react/empty';
+import styles from '@/components/examples/empty/empty-without-icon.module.css';
 
 const emptyState = {
   title: 'No results found',
@@ -8,7 +9,7 @@ const emptyState = {
 };
 export default function SearchResultsEmptyState() {
   return (
-    <Empty>
+    <Empty className={styles.root}>
       <Empty.Content>
         <Empty.Title>{emptyState.title}</Empty.Title>
         <Empty.Description>{emptyState.description}</Empty.Description>

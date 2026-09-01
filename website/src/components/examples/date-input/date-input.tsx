@@ -1,40 +1,5 @@
-import type { CssProperty } from '../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../mdx/reference';
-
-export const dateInputExampleCss = `
-  .date-input-demo {
-    display: grid;
-    gap: var(--moduix-spacing-3);
-  }
-
-  .date-input-state-grid {
-    display: grid;
-    gap: var(--moduix-spacing-3);
-  }
-
-  .date-input-range-control {
-    gap: var(--moduix-spacing-2);
-  }
-
-  .date-input-custom-control {
-    --moduix-date-input-bg: var(--moduix-color-muted);
-    --moduix-date-input-border-color: var(--moduix-color-primary);
-    --moduix-date-input-focus-ring-color: var(--moduix-color-primary);
-  }
-
-  .date-input-custom-segment {
-    --moduix-date-input-segment-bg-focus: color-mix(in oklab, var(--moduix-color-primary) 14%, transparent);
-    --moduix-date-input-segment-color-focus: var(--moduix-color-foreground);
-  }
-
-  .date-input-day-segment {
-    --moduix-date-input-segment-bg-focus: color-mix(in oklab, var(--moduix-color-primary) 18%, transparent);
-    --moduix-date-input-segment-color-focus: var(--moduix-color-primary);
-
-    font-weight: var(--moduix-weight-semibold);
-  }
-
-`;
+import type { CssProperty } from '../../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
 const dateInputOverrideCssProperties: CssProperty[] = [
   {

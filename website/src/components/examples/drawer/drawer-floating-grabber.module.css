@@ -1,0 +1,17 @@
+.grabber {
+  position: absolute;
+  z-index: 1;
+  inset-block-start: 0;
+  inset-inline: 0;
+  transform: translateY(calc(-100% - 10px));
+}
+
+.body {
+  display: flex;
+  flex: 1;
+}
+
+.card {
+  flex: 1;
+  background-color: var(--moduix-color-muted);
+}

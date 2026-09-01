@@ -4,6 +4,7 @@ import { DatePicker } from '@moduix/react/date-picker';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/date-picker/date-picker-form.module.css';
 
 export default function DatePickerFormDemo() {
   const [submitted, setSubmitted] = useState('Nothing submitted');
@@ -14,7 +15,7 @@ export default function DatePickerFormDemo() {
   };
 
   return (
-    <form className="date-picker-preview" onSubmit={handleSubmit}>
+    <form className={styles.root} onSubmit={handleSubmit}>
       <DatePicker
         defaultValue={[parseDate('2026-06-22')]}
         maxView="day"

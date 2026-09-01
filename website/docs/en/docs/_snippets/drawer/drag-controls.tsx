@@ -1,6 +1,7 @@
 import { Button } from '@moduix/react/button';
 import { Card } from '@moduix/react/card';
 import { Drawer } from '@moduix/react/drawer';
+import styles from '@/components/examples/drawer/drawer-drag-controls.module.css';
 
 const snapPoints = [0.18, 1];
 export default function DragControlsDrawerDemo() {
@@ -22,8 +23,8 @@ export default function DragControlsDrawerDemo() {
               Content dragging is disabled; the grabber remains draggable.
             </Drawer.Description>
           </Drawer.Header>
-          <Drawer.Body style={{ display: 'flex', flex: 1 }}>
-            <Card size="sm" style={{ flex: 1, backgroundColor: 'var(--moduix-color-muted)' }}>
+          <Drawer.Body className={styles.body}>
+            <Card size="sm" className={styles.card}>
               <Card.Body>
                 <Button data-no-drag variant="outline">
                   Interactive no-drag region

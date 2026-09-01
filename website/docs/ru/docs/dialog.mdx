@@ -4,7 +4,20 @@ component: dialog
 description: Модальное окно для форм, подтверждений и других задач, требующих внимания.
 ---
 
-import { DialogCssPropertiesPanel } from '@/components/examples/dialog';
+import { DialogCssPropertiesPanel } from '@/components/examples/dialog/dialog';
+import DialogAdvancedCustomization from '../../en/docs/_snippets/dialog/advanced-customization.tsx';
+import DialogAlertDialog from '../../en/docs/_snippets/dialog/alert-dialog.tsx';
+import DialogBasic from '../../en/docs/_snippets/dialog/basic.tsx';
+import DialogConfirmation from '../../en/docs/_snippets/dialog/confirmation.tsx';
+import DialogControlled from '../../en/docs/_snippets/dialog/controlled.tsx';
+import DialogInsideScroll from '../../en/docs/_snippets/dialog/inside-scroll.tsx';
+import DialogMountingAndFocusLifecycle from '../../en/docs/_snippets/dialog/mounting-and-focus-lifecycle.tsx';
+import DialogMultipleTriggers from '../../en/docs/_snippets/dialog/multiple-triggers.tsx';
+import DialogNested from '../../en/docs/_snippets/dialog/nested.tsx';
+import DialogNonModal from '../../en/docs/_snippets/dialog/non-modal.tsx';
+import DialogOpenFromMenu from '../../en/docs/_snippets/dialog/open-from-menu.tsx';
+import DialogOutsideScroll from '../../en/docs/_snippets/dialog/outside-scroll.tsx';
+import DialogRootProvider from '../../en/docs/_snippets/dialog/root-provider-and-ark-context-hooks.tsx';
 
 ## Справочник API
 
@@ -21,11 +34,20 @@ import { DialogCssPropertiesPanel } from '@/components/examples/dialog';
 Используйте `Dialog` как корневой компонент и явно соберите его структурные части. `Dialog.Backdrop` отвечает за фон
 модального окна, `Dialog.Positioner` размещает диалог, а `Dialog.Content` содержит его поверхность.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/dialog/basic.tsx"
+<ExampleFrame variant="component">
+  <DialogBasic />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/dialog/basic.tsx"
 
 ```
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -147,129 +169,257 @@ Dialog.Context
 Используйте `role="alertdialog"` для решений с серьёзными последствиями. Добавьте понятное действие отмены и отдельную
 кнопку для подтверждения решения.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/dialog/alert-dialog.tsx"
+<ExampleFrame variant="component">
+  <DialogAlertDialog />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/dialog/alert-dialog.tsx"
 
 ```
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Подтверждение
 
 Перехватывайте запрос на закрытие родительского диалога, если в форме есть несохранённые изменения и нужно спросить,
 хочет ли пользователь их отменить.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/dialog/confirmation.tsx"
+<ExampleFrame variant="component">
+  <DialogConfirmation />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/dialog/confirmation.tsx"
 
 ```
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Управляемое состояние
 
 Храните `open` в состоянии React и читайте `details.open` из `onOpenChange`, чтобы синхронизировать диалог с остальной
 частью приложения.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/dialog/controlled.tsx"
+<ExampleFrame variant="component">
+  <DialogControlled />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/dialog/controlled.tsx"
 
 ```
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Прокрутка содержимого
 
 Сделайте прокручиваемым только основное содержимое, если заголовок и действия должны оставаться на месте.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/dialog/inside-scroll.tsx"
+<ExampleFrame variant="component">
+  <DialogInsideScroll />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/dialog/inside-scroll.tsx"
 
 ```
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/dialog/dialog-inside-scroll.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Монтирование и жизненный цикл фокуса
 
 Используйте `lazyMount` и `unmountOnExit` для управления жизненным циклом содержимого. Задайте `initialFocusEl` и
 `finalFocusEl`, если при открытии и закрытии фокус должен переходить на определённые элементы.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/dialog/mounting-and-focus-lifecycle.tsx"
+<ExampleFrame variant="component">
+  <DialogMountingAndFocusLifecycle />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/dialog/mounting-and-focus-lifecycle.tsx"
 
 ```
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Несколько триггеров
 
 Используйте один диалог для нескольких триггеров: задайте каждому `value` и обработайте
 `onTriggerValueChange(details)`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/dialog/multiple-triggers.tsx"
+<ExampleFrame variant="component">
+  <DialogMultipleTriggers />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/dialog/multiple-triggers.tsx"
 
 ```
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Вложенные диалоги
 
 Создайте отдельное хранилище `useDialog()` для каждого вложенного диалога. Ark UI управляет стеком слоёв, а moduix
 отодвигает родительский диалог, пока вложенный открыт.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/dialog/nested.tsx"
+<ExampleFrame variant="component">
+  <DialogNested />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/dialog/nested.tsx"
 
 ```
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/dialog/dialog-nested.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Немодальный режим
 
 Задайте `modal={false}` и не добавляйте фон, если пользователи должны продолжать взаимодействовать со страницей за
 пределами диалога.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/dialog/non-modal.tsx"
+<ExampleFrame variant="component">
+  <DialogNonModal />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/dialog/non-modal.tsx"
 
 ```
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Открытие из меню
 
 Управляйте `open` из элемента меню, если контекстное действие должно открыть диалог подтверждения.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/dialog/open-from-menu.tsx"
+<ExampleFrame variant="component">
+  <DialogOpenFromMenu />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/dialog/open-from-menu.tsx"
 
 ```
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Прокрутка всего диалога
 
 Разрешите `Dialog.Positioner` прокручивать весь диалог, если длинное содержимое должно сохранять естественную высоту.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/dialog/outside-scroll.tsx"
+<ExampleFrame variant="component">
+  <DialogOutsideScroll />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/dialog/outside-scroll.tsx"
 
 ```
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/dialog/dialog-outside-scroll.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Создайте состояние через `useDialog()`, если элементы управления находятся вне диалога. Подключите его с помощью
 `Dialog.RootProvider`, а затем читайте через `Dialog.Context` или `useDialogContext()` в переиспользуемых компонентах.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/dialog/root-provider-and-ark-context-hooks.tsx"
+<ExampleFrame variant="component">
+  <DialogRootProvider />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/dialog/root-provider-and-ark-context-hooks.tsx"
 
 ```
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
 Не используйте `Header`, `Body`, `Footer` и `CloseIcon`, если собственной разметке нужен прямой контроль над каждой
 частью диалога Ark.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/dialog/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <DialogAdvancedCustomization />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/dialog/advanced-customization.tsx"
 
 ```
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/dialog/dialog-advanced-customization.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

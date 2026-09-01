@@ -1,6 +1,7 @@
 import { Button } from '@moduix/react/button';
 import { Card } from '@moduix/react/card';
 import { Drawer, useDrawer } from '@moduix/react/drawer';
+import styles from '@/components/examples/drawer/drawer-nested.module.css';
 
 const items = ['Passkeys enabled', 'Two-factor authentication on', '3 signed-in devices'];
 const snapPoints = [0.42, 1];
@@ -28,8 +29,8 @@ export default function NestedDrawerDemo() {
               <Drawer.CloseIcon />
               <Drawer.Description>Review account preferences.</Drawer.Description>
             </Drawer.Header>
-            <Drawer.Body style={{ display: 'flex', flex: 1 }}>
-              <Card size="sm" style={{ flex: 1, backgroundColor: 'var(--moduix-color-muted)' }}>
+            <Drawer.Body className={styles.body}>
+              <Card size="sm" className={styles.card}>
                 <Card.Body>
                   <Button variant="outline" onClick={() => securityDrawer.setOpen(true)}>
                     Security settings
@@ -51,8 +52,8 @@ export default function NestedDrawerDemo() {
               <Drawer.CloseIcon />
               <Drawer.Description>Nested drawers keep their own focus state.</Drawer.Description>
             </Drawer.Header>
-            <Drawer.Body style={{ display: 'flex', flex: 1 }}>
-              <Card size="sm" style={{ flex: 1, backgroundColor: 'var(--moduix-color-muted)' }}>
+            <Drawer.Body className={styles.body}>
+              <Card size="sm" className={styles.card}>
                 <Card.Body>
                   <ul>
                     {items.map((item) => (

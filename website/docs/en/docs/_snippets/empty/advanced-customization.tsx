@@ -1,5 +1,6 @@
 import { Button } from '@moduix/react/button';
 import { Empty } from '@moduix/react/empty';
+import styles from '@/components/examples/empty/empty-advanced-customization.module.css';
 
 const emptyState = {
   title: 'Create your first project',
@@ -8,7 +9,7 @@ const emptyState = {
 
 export default function ProjectEmptyState() {
   return (
-    <Empty asChild>
+    <Empty asChild className={styles.root}>
       <section aria-labelledby="projects-empty-title">
         <Empty.Content>
           <Empty.Title asChild>

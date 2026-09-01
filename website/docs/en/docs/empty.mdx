@@ -4,7 +4,11 @@ component: empty
 description: A composable empty-state component for no-results, no-data, and first-run screens.
 ---
 
-import * as EmptyDocs from '@/components/examples/empty';
+import * as EmptyDocs from '@/components/examples/empty/empty';
+import EmptyAdvancedCustomization from './_snippets/empty/advanced-customization.tsx';
+import EmptyBasic from './_snippets/empty/basic.tsx';
+import EmptyWithoutActions from './_snippets/empty/without-actions.tsx';
+import EmptyWithoutIcon from './_snippets/empty/without-icon.tsx';
 
 ## API Reference
 
@@ -22,11 +26,29 @@ exposes optional `Empty.Icon` and `Empty.Actions` as root-level parts alongside
 Start with `<Empty />` and add its namespaced parts. Add `Empty.Icon` and `Empty.Actions` only when
 the state benefits from a visual cue or a clear next step.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/empty/basic.tsx"
+<ExampleFrame variant="component">
+  <EmptyBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
+
+```tsx file="./_snippets/empty/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/empty/empty-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -103,23 +125,57 @@ Use normal JSX composition when the default structure needs to change:
 
 Leave out `Empty.Actions` when the state is informational and does not need an immediate action.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/empty/without-actions.tsx"
+<ExampleFrame variant="component">
+  <EmptyWithoutActions />
+</ExampleFrame>
 
-  ```
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
 
-</PreviewFrame>
+```tsx file="./_snippets/empty/without-actions.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/empty/empty-without-actions.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Without an icon
 
 The icon is optional, so a text-only empty state can stay compact.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/empty/without-icon.tsx"
+<ExampleFrame variant="component">
+  <EmptyWithoutIcon />
+</ExampleFrame>
 
-  ```
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
 
-</PreviewFrame>
+```tsx file="./_snippets/empty/without-icon.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/empty/empty-without-icon.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced customization
 
@@ -127,12 +183,29 @@ Use the `asChild` prop on `Empty` when the empty state needs to render as a sema
 as `section`. Use it on `Empty.Title` when the heading needs a different level. Because
 `Empty.Description` renders as a `div`, it can contain paragraphs, links, and other block content.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/empty/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <EmptyAdvancedCustomization />
+</ExampleFrame>
 
-  ```
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
 
-</PreviewFrame>
+```tsx file="./_snippets/empty/advanced-customization.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/empty/empty-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

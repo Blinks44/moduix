@@ -2,6 +2,7 @@ import { createListCollection } from '@ark-ui/react/collection';
 import { parseDate } from '@ark-ui/react/date-picker';
 import { DatePicker } from '@moduix/react/date-picker';
 import { Select } from '@moduix/react/select';
+import styles from '@/components/examples/date-picker/date-picker-month-year-select.module.css';
 
 const monthItems = [
   { label: 'January', value: '1' },
@@ -27,7 +28,7 @@ export default function MonthYearSelectDatePickerDemo() {
       <DatePicker.Field />
       <DatePicker.Positioner>
         <DatePicker.Content>
-          <DatePicker.ViewControl className="date-picker-month-year-control">
+          <DatePicker.ViewControl className={styles.control}>
             <DatePicker.Context>
               {(datePicker) => {
                 const yearItems = Array.from({ length: 12 }, (_, index) => {
@@ -37,9 +38,9 @@ export default function MonthYearSelectDatePickerDemo() {
                 const years = createListCollection({ items: yearItems });
 
                 return (
-                  <div className="date-picker-month-year-selects">
+                  <div className={styles.selects}>
                     <Select
-                      className="date-picker-month-select"
+                      className={styles.monthSelect}
                       collection={months}
                       value={[String(datePicker.focusedValue.month)]}
                       onValueChange={(details) => {
@@ -68,7 +69,7 @@ export default function MonthYearSelectDatePickerDemo() {
                       </Select.Positioner>
                     </Select>
                     <Select
-                      className="date-picker-year-select"
+                      className={styles.yearSelect}
                       collection={years}
                       value={[String(datePicker.focusedValue.year)]}
                       onValueChange={(details) => {
@@ -99,7 +100,7 @@ export default function MonthYearSelectDatePickerDemo() {
                 );
               }}
             </DatePicker.Context>
-            <div className="date-picker-month-year-nav">
+            <div className={styles.nav}>
               <DatePicker.PrevTrigger />
               <DatePicker.NextTrigger />
             </div>

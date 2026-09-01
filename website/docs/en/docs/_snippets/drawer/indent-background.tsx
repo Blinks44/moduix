@@ -1,26 +1,18 @@
 import { Button } from '@moduix/react/button';
 import { Card } from '@moduix/react/card';
 import { Drawer } from '@moduix/react/drawer';
-import { type CSSProperties } from 'react';
+import styles from '@/components/examples/drawer/drawer-indent-background.module.css';
 
 const copy = {
   trigger: 'Open indented drawer',
   title: 'Indent effect',
 };
 const snapPoints = [0.18, 1];
-const stageStyle = {
-  '--moduix-drawer-max-height': '100%',
-  position: 'relative',
-  isolation: 'isolate',
-  minHeight: '22rem',
-  overflow: 'hidden',
-  background: 'var(--moduix-color-foreground)',
-} as CSSProperties;
 
 export default function IndentDrawerDemo() {
   return (
     <Drawer.Stack>
-      <div style={stageStyle}>
+      <div className={styles.stage}>
         <Drawer.IndentBackground />
         <Drawer
           modal={false}
@@ -28,21 +20,13 @@ export default function IndentDrawerDemo() {
           snapPoints={snapPoints}
           defaultSnapPoint={snapPoints[0]}
         >
-          <Drawer.Indent
-            style={{
-              display: 'grid',
-              minHeight: '22rem',
-              placeItems: 'center',
-              padding: 'var(--moduix-spacing-6)',
-              background: 'var(--moduix-color-background)',
-            }}
-          >
+          <Drawer.Indent className={styles.indent}>
             <Drawer.Trigger asChild>
               <Button>{copy.trigger}</Button>
             </Drawer.Trigger>
           </Drawer.Indent>
-          <Drawer.Backdrop style={{ position: 'absolute' }} />
-          <Drawer.Positioner style={{ position: 'absolute' }}>
+          <Drawer.Backdrop className={styles.backdrop} />
+          <Drawer.Positioner className={styles.positioner}>
             <Drawer.Content>
               <Drawer.Grabber>
                 <Drawer.GrabberIndicator />
@@ -51,8 +35,8 @@ export default function IndentDrawerDemo() {
                 <Drawer.Title>{copy.title}</Drawer.Title>
                 <Drawer.CloseIcon />
               </Drawer.Header>
-              <Drawer.Body style={{ display: 'flex', flex: 1 }}>
-                <Card size="sm" style={{ flex: 1, backgroundColor: 'var(--moduix-color-muted)' }}>
+              <Drawer.Body className={styles.body}>
+                <Card size="sm" className={styles.card}>
                   <Card.Body>The background and surface move together.</Card.Body>
                 </Card>
               </Drawer.Body>

@@ -1,0 +1,10 @@
+.stack {
+  display: grid;
+  width: fit-content;
+  gap: var(--moduix-spacing-3);
+  justify-items: center;
+}
+
+.root {
+  width: fit-content;
+}
