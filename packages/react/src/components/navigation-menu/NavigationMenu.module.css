@@ -31,8 +31,13 @@
     position: relative;
   }
 
-  .root:has(> .viewportPositioner > .viewport) .item {
+  .root:has(> .viewportPositioner > .viewport) .item,
+  .list:has(> .indicator) .item {
     position: static;
+  }
+
+  .list:has(> .indicator) .content[data-state='closed'] {
+    animation: none;
   }
 
   .trigger,
@@ -132,8 +137,12 @@
       var(--moduix-navigation-menu-content-max-width, 20rem),
       calc(100vw - var(--moduix-spacing-6))
     );
+    max-block-size: min(
+      var(--moduix-navigation-menu-content-max-height, 24rem),
+      calc(100dvh - var(--moduix-spacing-6))
+    );
     flex-direction: column;
-    overflow: visible;
+    overflow: auto;
     outline: var(--moduix-navigation-menu-content-border-width, var(--moduix-border-width-sm)) solid
       var(--moduix-navigation-menu-content-border-color, var(--moduix-color-border));
     border-radius: var(--moduix-navigation-menu-content-radius, var(--moduix-radius-md));
@@ -173,18 +182,6 @@
     }
   }
 
-  .contentViewport {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    max-block-size: min(
-      var(--moduix-navigation-menu-content-max-height, 24rem),
-      calc(100dvh - var(--moduix-spacing-6))
-    );
-    flex-direction: column;
-    overflow: auto;
-  }
-
   .content .link {
     justify-content: flex-start;
     margin-inline: var(--moduix-popup-highlight-inset-x, var(--moduix-spacing-1));
@@ -220,6 +217,7 @@
   }
 
   .list > .indicator {
+    z-index: calc(var(--moduix-navigation-menu-content-z-index, var(--moduix-z-popup)) + 1);
     inset-block-start: auto;
     inset-block-end: calc(
       -1 * var(--moduix-navigation-menu-indicator-size, var(--moduix-spacing-2-5))
@@ -227,10 +225,11 @@
   }
 
   .arrow {
+    --arrow-size: var(--moduix-navigation-menu-arrow-size, var(--moduix-spacing-2-5));
     position: relative;
     inset-block-start: var(--moduix-spacing-1);
-    inline-size: var(--moduix-navigation-menu-arrow-size, var(--moduix-spacing-2-5));
-    block-size: var(--moduix-navigation-menu-arrow-size, var(--moduix-spacing-2-5));
+    inline-size: var(--arrow-size);
+    block-size: var(--arrow-size);
     border-block-start: var(
         --moduix-navigation-menu-content-border-width,
         var(--moduix-border-width-sm)
@@ -278,19 +277,6 @@
       inset-inline-start: 100%;
       translate: 0 0;
     }
-
-    > .indicator {
-      z-index: 1;
-      inset-block-start: calc(
-        var(--moduix-navigation-menu-viewport-offset, var(--moduix-spacing-2)) -
-          var(--moduix-navigation-menu-indicator-size, var(--moduix-spacing-2-5))
-      );
-      translate: calc(var(--trigger-x, 0px) - var(--viewport-x, 0px)) 0;
-    }
-
-    &[data-orientation='horizontal'] > .indicator {
-      overflow: hidden;
-    }
   }
 
   .viewport {
@@ -306,7 +292,10 @@
       var(--moduix-navigation-menu-viewport-max-height, 32rem),
       calc(100dvh - var(--moduix-spacing-6))
     );
-    margin-block-start: var(--moduix-navigation-menu-viewport-offset, var(--moduix-spacing-2));
+    margin-block-start: var(
+      --moduix-navigation-menu-viewport-offset,
+      var(--moduix-navigation-menu-indicator-size, var(--moduix-spacing-2-5))
+    );
     overflow: hidden;
     outline: var(--moduix-navigation-menu-content-border-width, var(--moduix-border-width-sm)) solid
       var(--moduix-navigation-menu-content-border-color, var(--moduix-color-border));
@@ -359,17 +348,14 @@
       position: absolute;
       inset: 0 auto auto 0;
       margin: 0;
+      max-block-size: none;
       outline: 0;
       border-radius: 0;
       background: transparent;
       box-shadow: none;
+      overflow: visible;
       transform-origin: center;
       will-change: translate, opacity;
-    }
-
-    & .contentViewport {
-      max-block-size: none;
-      z-index: 2;
     }
 
     & .content[data-state] {

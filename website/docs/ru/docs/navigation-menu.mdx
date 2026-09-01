@@ -50,10 +50,9 @@ NavigationMenu (NavigationMenu.Root)
 │     ├─ NavigationMenu.Trigger
 │     ├─ NavigationMenu.ItemIndicator (необязательно)
 │     └─ NavigationMenu.Content
-│        ├─ NavigationMenu.Indicator > NavigationMenu.Arrow (необязательно без общей области Viewport)
 │        └─ NavigationMenu.Link
+│  └─ NavigationMenu.Indicator > NavigationMenu.Arrow (необязательно)
 └─ NavigationMenu.ViewportPositioner (необязательно)
-   ├─ NavigationMenu.Indicator > NavigationMenu.Arrow (необязательно с общей областью Viewport)
    └─ NavigationMenu.Viewport
 
 NavigationMenu.RootProvider
@@ -74,8 +73,8 @@ NavigationMenu.Context
 | `NavigationMenu.Content` | Раскрывающаяся панель элемента. Может отображаться рядом с элементом или внутри общей области `Viewport`. |
 | `NavigationMenu.Link` | Ссылка на прямую страницу или ссылка внутри раскрывающейся панели. |
 | `NavigationMenu.ItemIndicator` | Необязательный визуальный маркер активного элемента. |
-| `NavigationMenu.Indicator` / `NavigationMenu.Arrow` | Необязательный указатель активного элемента в отдельном содержимом или общей области `Viewport`. |
-| `NavigationMenu.ViewportPositioner` | Размещает общую область `Viewport` и необязательный индикатор. |
+| `NavigationMenu.Indicator` | Необязательный маркер активного триггера; размещайте его внутри `List`. Используйте `Arrow` с общей областью `Viewport`. |
+| `NavigationMenu.ViewportPositioner` | Размещает общую область `Viewport`. |
 | `NavigationMenu.Viewport` | Общая анимированная область для открытого содержимого. |
 
 ## Композиция
@@ -99,11 +98,10 @@ NavigationMenu.Context
 и ARIA-атрибуты.
 
 Добавляйте `NavigationMenu.ViewportPositioner` и `NavigationMenu.Viewport`, если несколько панелей
-должны открываться в одной анимированной области. Если панель должна указывать на свой триггер,
-поместите `Indicator` с `Arrow` перед `Viewport` внутри `ViewportPositioner`. Общая область `Viewport`
-измеряет каждую панель и анимирует ширину и высоту при переключении триггеров. Без общей области
-`Viewport` `Content` отображается рядом с `Item` как компактная раскрывающаяся панель; при необходимости
-в неё можно добавить собственный `Indicator`.
+должны открываться в одной анимированной области. Поместите необязательный `Indicator` внутри `List`;
+вместе с общей областью `Viewport` он может содержать `Arrow`, указывающую на активный триггер. Общая
+область `Viewport` измеряет каждую панель и анимирует ширину и высоту при переключении триггеров. Без
+общей области `Viewport` `Content` отображается рядом с `Item` как компактная раскрывающаяся панель.
 
 Используйте `useNavigationMenu()` вместе с `NavigationMenu.RootProvider`, если состояние навигации нужно
 создать вне дерева компонентов. Передайте результат хука в обязательное свойство `value` компонента
@@ -131,7 +129,7 @@ NavigationMenu.Context
 - Передайте `current` в `NavigationMenu.Link`, чтобы отметить текущую страницу. Ссылка добавит атрибут `data-current`, который можно использовать в стилях.
 - `Content` и `Viewport` сохраняют атрибуты присутствия Ark, поэтому `lazyMount`, `unmountOnExit` и стандартная анимация закрытия работают вместе.
 - Компонент не добавляет иконку триггера и общую область `Viewport`. Добавляйте их только тогда, когда этого требует композиция.
-- `Indicator` и `Arrow` необязательны и не входят в рекомендуемую базовую композицию.
+- `Indicator` необязателен и не входит в рекомендуемую базовую композицию. Используйте `Arrow` только с общей областью `Viewport`.
 
 ## Примеры
 
@@ -157,18 +155,6 @@ NavigationMenu.Context
 <ClientOnly>
   <PreviewFrame maxWidth="lg">
     ```tsx preview file="../../en/docs/_snippets/navigation-menu/viewport.tsx"
-
-    ```
-  </PreviewFrame>
-</ClientOnly>
-
-### Со стрелкой
-
-Добавьте `Indicator` и `Arrow`, если панель должна указывать на активный триггер.
-
-<ClientOnly>
-  <PreviewFrame maxWidth="lg">
-    ```tsx preview file="../../en/docs/_snippets/navigation-menu/with-arrow.tsx"
 
     ```
   </PreviewFrame>
@@ -202,7 +188,7 @@ NavigationMenu.Context
 - `NavigationMenu.List` отвечает за интервалы между элементами верхнего уровня и их ориентацию.
 - `NavigationMenu.Trigger` и `NavigationMenu.Link` отвечают за элементы навигации, текущее состояние и фокус.
 - `NavigationMenu.Content` отвечает за внешний вид раскрывающихся панелей и ссылок внутри них.
-- `NavigationMenu.Indicator`, `ItemIndicator` и `Arrow` отвечают за необязательные элементы оформления активного состояния.
+- `NavigationMenu.Indicator` и `ItemIndicator` отвечают за необязательные элементы оформления активного состояния; используйте `Arrow` с общей областью `Viewport`.
 - `NavigationMenu.ViewportPositioner` и `Viewport` отвечают за общую анимированную область панели.
 
 Основные публичные точки подключения: `data-slot="navigation-menu-root"`,

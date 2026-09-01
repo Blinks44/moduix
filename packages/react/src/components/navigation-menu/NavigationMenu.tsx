@@ -7,7 +7,7 @@ import {
 } from '@ark-ui/react/navigation-menu';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
-import { Children, forwardRef, isValidElement } from 'react';
+import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './NavigationMenu.module.css';
 
@@ -85,39 +85,14 @@ const NavigationMenuTrigger = forwardRef<
 const NavigationMenuContent = forwardRef<
   ComponentRef<typeof NavigationMenuPrimitive.Content>,
   ComponentProps<typeof NavigationMenuPrimitive.Content>
->(function NavigationMenuContent({ asChild, className, children, ...props }, ref) {
-  if (asChild) {
-    return (
-      <NavigationMenuPrimitive.Content
-        ref={ref}
-        asChild
-        data-slot="navigation-menu-content"
-        className={clsx(styles.content, normalizeClassName(className))}
-        {...props}
-      >
-        {children}
-      </NavigationMenuPrimitive.Content>
-    );
-  }
-
-  const childrenArray = Children.toArray(children);
-  const indicators = childrenArray.filter(
-    (child) => isValidElement(child) && child.type === NavigationMenuIndicator,
-  );
-  const content = childrenArray.filter(
-    (child) => !isValidElement(child) || child.type !== NavigationMenuIndicator,
-  );
-
+>(function NavigationMenuContent({ className, ...props }, ref) {
   return (
     <NavigationMenuPrimitive.Content
       ref={ref}
       data-slot="navigation-menu-content"
       className={clsx(styles.content, normalizeClassName(className))}
       {...props}
-    >
-      {indicators}
-      <div className={styles.contentViewport}>{content}</div>
-    </NavigationMenuPrimitive.Content>
+    />
   );
 });
 

@@ -50,10 +50,9 @@ NavigationMenu (NavigationMenu.Root)
 │     ├─ NavigationMenu.Trigger
 │     ├─ NavigationMenu.ItemIndicator (facultatif)
 │     └─ NavigationMenu.Content
-│        ├─ NavigationMenu.Indicator > NavigationMenu.Arrow (facultatif sans zone Viewport partagée)
 │        └─ NavigationMenu.Link
+│  └─ NavigationMenu.Indicator > NavigationMenu.Arrow (facultatif)
 └─ NavigationMenu.ViewportPositioner (facultatif)
-   ├─ NavigationMenu.Indicator > NavigationMenu.Arrow (facultatif avec une zone Viewport partagée)
    └─ NavigationMenu.Viewport
 
 NavigationMenu.RootProvider
@@ -74,8 +73,8 @@ NavigationMenu.Context
 | `NavigationMenu.Content` | Panneau dépliable de l’élément. Il peut s’afficher à côté de l’élément ou dans une zone `Viewport` partagée. |
 | `NavigationMenu.Link` | Lien vers une destination directe ou lien à l’intérieur d’un panneau dépliable. |
 | `NavigationMenu.ItemIndicator` | Marqueur visuel facultatif de l’élément actif. |
-| `NavigationMenu.Indicator` / `NavigationMenu.Arrow` | Repère facultatif qui pointe vers l’élément actif dans un contenu autonome ou une zone `Viewport` partagée. |
-| `NavigationMenu.ViewportPositioner` | Positionne une zone `Viewport` partagée et son indicateur facultatif. |
+| `NavigationMenu.Indicator` | Repère facultatif du déclencheur actif ; placez-le dans `List`. Utilisez `Arrow` avec une zone `Viewport` partagée. |
+| `NavigationMenu.ViewportPositioner` | Positionne une zone `Viewport` partagée. |
 | `NavigationMenu.Viewport` | Zone animée partagée pour le contenu actuellement ouvert. |
 
 ## Composition
@@ -99,11 +98,11 @@ interactif pouvant recevoir le focus afin qu’Ark conserve les comportements cl
 attributs ARIA.
 
 Ajoutez `NavigationMenu.ViewportPositioner` et `NavigationMenu.Viewport` lorsque plusieurs panneaux
-doivent s’ouvrir dans une même zone animée. Si le panneau actif doit pointer vers son déclencheur,
-placez un `Indicator` avec un `Arrow` avant le `Viewport` dans `ViewportPositioner`. La zone `Viewport`
+doivent s’ouvrir dans une même zone animée. Placez un `Indicator` facultatif dans `List` ; avec une zone
+`Viewport` partagée, il peut contenir un `Arrow` qui indique le déclencheur actif. La zone `Viewport`
 mesure chaque panneau et anime sa largeur et sa hauteur lorsque vous passez d’un déclencheur à l’autre.
 Sans zone `Viewport` partagée, `Content` s’affiche à côté de son `Item` sous la forme d’un panneau
-dépliable compact et peut contenir son propre `Indicator`.
+dépliable compact.
 
 Utilisez `useNavigationMenu()` avec `NavigationMenu.RootProvider` lorsque l’état de navigation doit être
 créé en dehors de l’arbre des composants rendus. Transmettez le résultat du hook à la prop `value`,
@@ -131,7 +130,7 @@ obligatoire sur `NavigationMenu.RootProvider`. Utilisez `NavigationMenu.Context`
 - Définissez `current` sur `NavigationMenu.Link` pour marquer la destination courante. Le lien expose l’attribut `data-current`, utilisable pour le style.
 - `Content` et `Viewport` conservent les attributs de présence d’Ark. `lazyMount`, `unmountOnExit` et l’animation de sortie par défaut fonctionnent donc ensemble.
 - Le composant n’ajoute ni icône de déclencheur ni zone `Viewport` partagée. Ajoutez-les uniquement lorsque votre composition en a besoin.
-- `Indicator` et `Arrow` sont facultatifs et ne font pas partie de la composition de base recommandée.
+- `Indicator` est facultatif et ne fait pas partie de la composition de base recommandée. Utilisez `Arrow` uniquement avec une zone `Viewport` partagée.
 
 ## Exemples
 
@@ -158,18 +157,6 @@ d’un déclencheur à l’autre.
 <ClientOnly>
   <PreviewFrame maxWidth="lg">
     ```tsx preview file="../../en/docs/_snippets/navigation-menu/viewport.tsx"
-
-    ```
-  </PreviewFrame>
-</ClientOnly>
-
-### Avec une flèche
-
-Ajoutez un `Indicator` et un `Arrow` lorsqu’un panneau doit pointer vers son déclencheur actif.
-
-<ClientOnly>
-  <PreviewFrame maxWidth="lg">
-    ```tsx preview file="../../en/docs/_snippets/navigation-menu/with-arrow.tsx"
 
     ```
   </PreviewFrame>
@@ -203,7 +190,7 @@ Ciblez la partie responsable de l’aspect que vous souhaitez modifier :
 - `NavigationMenu.List` pour l’espacement et l’orientation des éléments de premier niveau
 - `NavigationMenu.Trigger` et `NavigationMenu.Link` pour les contrôles de navigation, l’état courant et le focus
 - `NavigationMenu.Content` pour l’apparence des panneaux dépliables et de leurs liens
-- `NavigationMenu.Indicator`, `ItemIndicator` et `Arrow` pour les décorations facultatives de l’état actif
+- `NavigationMenu.Indicator` et `ItemIndicator` pour les décorations facultatives de l’état actif ; utilisez `Arrow` avec une zone `Viewport` partagée
 - `NavigationMenu.ViewportPositioner` et `Viewport` pour une zone de panneau partagée et animée
 
 Les principaux points d’accroche publics sont `data-slot="navigation-menu-root"`,
