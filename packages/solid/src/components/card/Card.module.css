@@ -158,14 +158,11 @@
     border-start-start-radius: inherit;
     border-start-end-radius: inherit;
 
-    & > :where(img, picture, video, canvas, svg, iframe) {
+    & > :where(img, picture, video, canvas, svg, iframe),
+    & > picture > img {
       display: block;
       width: 100%;
       max-width: 100%;
-    }
-
-    & > picture > img {
-      display: block;
     }
   }
 
