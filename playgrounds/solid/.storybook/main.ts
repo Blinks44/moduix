@@ -14,6 +14,10 @@ const config = {
     mergeConfig(viteConfig, {
       resolve: {
         alias: [
+          {
+            find: '@/lib/moduix',
+            replacement: fromHere('../../../packages/solid/src/internal'),
+          },
           { find: '@', replacement: fromHere('../../../packages/solid/src') },
           {
             find: '@foundation',

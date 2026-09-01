@@ -134,7 +134,21 @@ function ClipboardCopyText(props: ComponentProps<typeof ClipboardPrimitive.Indic
   );
 }
 
-const Clipboard = Object.assign(ClipboardRoot, {
+type ClipboardComponent = typeof ClipboardRoot & {
+  Root: typeof ClipboardRoot;
+  RootProvider: typeof ClipboardRootProvider;
+  Context: typeof ClipboardPrimitive.Context;
+  Label: typeof ClipboardLabel;
+  Control: typeof ClipboardControl;
+  Input: typeof ClipboardInput;
+  Trigger: typeof ClipboardTrigger;
+  Indicator: typeof ClipboardIndicator;
+  CopyText: typeof ClipboardCopyText;
+  ValueText: typeof ClipboardValueText;
+  useClipboard: typeof useClipboard;
+};
+
+const Clipboard: ClipboardComponent = Object.assign(ClipboardRoot, {
   Root: ClipboardRoot,
   RootProvider: ClipboardRootProvider,
   Context: ClipboardPrimitive.Context,

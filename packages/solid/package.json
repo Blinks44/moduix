@@ -111,6 +111,15 @@
       "types": "./dist/components/textarea/index.d.ts",
       "import": "./dist/components/textarea/index.js"
     },
+    "./locale": {
+      "types": "./dist/locale.d.ts",
+      "import": "./dist/locale.js"
+    },
+    "./style.css": "./dist/styles/style.css",
+    "./reset.css": "./dist/styles/reset.css",
+    "./presets/contrast.css": "./dist/presets/contrast.css",
+    "./presets/dense.css": "./dist/presets/dense.css",
+    "./presets/soft.css": "./dist/presets/soft.css",
     "./presets/*": "./dist/presets/*",
     "./styles/*": "./dist/styles/*",
     "./package.json": "./package.json"
