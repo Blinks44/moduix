@@ -2,7 +2,6 @@ import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import { forwardRef, type ComponentRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Card.module.css';
 
 type CardRootProps = HTMLArkProps<'div'> & {
@@ -22,7 +21,7 @@ const CardRoot = forwardRef<ComponentRef<typeof ark.div>, CardRootProps>(functio
       data-slot="card-root"
       data-size={size}
       data-variant={variant}
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -36,7 +35,7 @@ const CardHeader = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>
         data-scope="card"
         data-part="header"
         data-slot="card-header"
-        className={clsx(styles.header, normalizeClassName(className))}
+        className={clsx(styles.header, className)}
         {...props}
       />
     );
@@ -53,7 +52,7 @@ const CardBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(f
       data-scope="card"
       data-part="body"
       data-slot="card-body"
-      className={clsx(styles.body, normalizeClassName(className))}
+      className={clsx(styles.body, className)}
       {...props}
     />
   );
@@ -69,7 +68,7 @@ const CardMedia = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(
       data-scope="card"
       data-part="media"
       data-slot="card-media"
-      className={clsx(styles.media, normalizeClassName(className))}
+      className={clsx(styles.media, className)}
       {...props}
     />
   );
@@ -83,7 +82,7 @@ const CardBackground = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'di
         data-scope="card"
         data-part="background"
         data-slot="card-background"
-        className={clsx(styles.background, normalizeClassName(className))}
+        className={clsx(styles.background, className)}
         {...props}
       />
     );
@@ -98,7 +97,7 @@ const CardFooter = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>
         data-scope="card"
         data-part="footer"
         data-slot="card-footer"
-        className={clsx(styles.footer, normalizeClassName(className))}
+        className={clsx(styles.footer, className)}
         {...props}
       />
     );
@@ -115,7 +114,7 @@ const CardTitle = forwardRef<ComponentRef<typeof ark.h3>, HTMLArkProps<'h3'>>(fu
       data-scope="card"
       data-part="title"
       data-slot="card-title"
-      className={clsx(styles.title, normalizeClassName(className))}
+      className={clsx(styles.title, className)}
       {...props}
     />
   );
@@ -129,7 +128,7 @@ const CardDescription = forwardRef<ComponentRef<typeof ark.p>, HTMLArkProps<'p'>
         data-scope="card"
         data-part="description"
         data-slot="card-description"
-        className={clsx(styles.description, normalizeClassName(className))}
+        className={clsx(styles.description, className)}
         {...props}
       />
     );
@@ -144,7 +143,7 @@ const CardAction = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>
         data-scope="card"
         data-part="action"
         data-slot="card-action"
-        className={clsx(styles.action, normalizeClassName(className))}
+        className={clsx(styles.action, className)}
         {...props}
       />
     );
@@ -161,7 +160,7 @@ const CardLink = forwardRef<ComponentRef<typeof ark.a>, HTMLArkProps<'a'>>(funct
       data-scope="card"
       data-part="link"
       data-slot="card-link"
-      className={clsx(styles.link, normalizeClassName(className))}
+      className={clsx(styles.link, className)}
       {...props}
     />
   );

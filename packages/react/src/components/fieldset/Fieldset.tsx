@@ -8,7 +8,6 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Fieldset.module.css';
 
 const FieldsetRoot = forwardRef<
@@ -19,7 +18,7 @@ const FieldsetRoot = forwardRef<
     <FieldsetPrimitive.Root
       ref={ref}
       data-slot="fieldset-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -33,7 +32,7 @@ const FieldsetRootProvider = forwardRef<
     <FieldsetPrimitive.RootProvider
       ref={ref}
       data-slot="fieldset-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -47,7 +46,7 @@ const FieldsetLegend = forwardRef<
     <FieldsetPrimitive.Legend
       ref={ref}
       data-slot="fieldset-legend"
-      className={clsx(styles.legend, normalizeClassName(className))}
+      className={clsx(styles.legend, className)}
       {...props}
     />
   );
@@ -61,7 +60,7 @@ const FieldsetHelperText = forwardRef<
     <FieldsetPrimitive.HelperText
       ref={ref}
       data-slot="fieldset-helper-text"
-      className={clsx(styles.helperText, normalizeClassName(className))}
+      className={clsx(styles.helperText, className)}
       {...props}
     />
   );
@@ -75,7 +74,7 @@ const FieldsetErrorText = forwardRef<
     <FieldsetPrimitive.ErrorText
       ref={ref}
       data-slot="fieldset-error-text"
-      className={clsx(styles.errorText, normalizeClassName(className))}
+      className={clsx(styles.errorText, className)}
       {...props}
     />
   );

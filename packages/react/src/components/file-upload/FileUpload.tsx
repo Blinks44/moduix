@@ -11,7 +11,6 @@ import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import { Children, cloneElement, forwardRef } from 'react';
 import { CloseIcon, FileIcon, TrashIcon, UploadIcon } from '@/lib/moduix/icons/ui';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import { CloseButton } from '../close-button';
 import styles from './FileUpload.module.css';
 
@@ -24,7 +23,7 @@ const FileUploadRoot = forwardRef<
       ref={ref}
       asChild={asChild}
       data-slot="file-upload-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     >
       {withHiddenInput(children, asChild)}
@@ -41,7 +40,7 @@ const FileUploadRootProvider = forwardRef<
       ref={ref}
       asChild={asChild}
       data-slot="file-upload-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     >
       {withHiddenInput(children, asChild)}
@@ -57,7 +56,7 @@ const FileUploadLabel = forwardRef<
     <FileUploadPrimitive.Label
       ref={ref}
       data-slot="file-upload-label"
-      className={clsx(styles.label, normalizeClassName(className))}
+      className={clsx(styles.label, className)}
       {...props}
     />
   );
@@ -71,7 +70,7 @@ const FileUploadDropzone = forwardRef<
     <FileUploadPrimitive.Dropzone
       ref={ref}
       data-slot="file-upload-dropzone"
-      className={clsx(styles.dropzone, normalizeClassName(className))}
+      className={clsx(styles.dropzone, className)}
       {...props}
     />
   );
@@ -82,7 +81,7 @@ function FileUploadDropzoneIcon({ className, children, ...props }: HTMLArkProps<
     <ark.span
       aria-hidden="true"
       data-slot="file-upload-dropzone-icon"
-      className={clsx(styles.dropzoneIcon, normalizeClassName(className))}
+      className={clsx(styles.dropzoneIcon, className)}
       {...props}
     >
       {children ?? <UploadIcon />}
@@ -98,7 +97,7 @@ const FileUploadTrigger = forwardRef<
     <FileUploadPrimitive.Trigger
       ref={ref}
       data-slot="file-upload-trigger"
-      className={clsx(styles.trigger, normalizeClassName(className))}
+      className={clsx(styles.trigger, className)}
       {...props}
     />
   );
@@ -129,7 +128,7 @@ const FileUploadItemGroup = forwardRef<
     <FileUploadPrimitive.ItemGroup
       ref={ref}
       data-slot="file-upload-item-group"
-      className={clsx(styles.itemGroup, normalizeClassName(className))}
+      className={clsx(styles.itemGroup, className)}
       {...props}
     />
   );
@@ -143,7 +142,7 @@ const FileUploadItem = forwardRef<
     <FileUploadPrimitive.Item
       ref={ref}
       data-slot="file-upload-item"
-      className={clsx(styles.item, normalizeClassName(className))}
+      className={clsx(styles.item, className)}
       {...props}
     />
   );
@@ -157,7 +156,7 @@ const FileUploadItemPreview = forwardRef<
     <FileUploadPrimitive.ItemPreview
       ref={ref}
       data-slot="file-upload-item-preview"
-      className={clsx(styles.itemPreview, normalizeClassName(className))}
+      className={clsx(styles.itemPreview, className)}
       {...props}
     />
   );
@@ -171,7 +170,7 @@ const FileUploadItemPreviewImage = forwardRef<
     <FileUploadPrimitive.ItemPreviewImage
       ref={ref}
       data-slot="file-upload-item-preview-image"
-      className={clsx(styles.itemPreviewImage, normalizeClassName(className))}
+      className={clsx(styles.itemPreviewImage, className)}
       {...props}
     />
   );
@@ -181,7 +180,7 @@ function FileUploadItemPreviewIcon({ className, ...props }: ComponentProps<'svg'
   return (
     <FileIcon
       data-slot="file-upload-item-preview-icon"
-      className={clsx(styles.itemPreviewIcon, normalizeClassName(className))}
+      className={clsx(styles.itemPreviewIcon, className)}
       {...props}
     />
   );
@@ -205,7 +204,7 @@ const FileUploadItemName = forwardRef<
     <FileUploadPrimitive.ItemName
       ref={ref}
       data-slot="file-upload-item-name"
-      className={clsx(styles.itemName, normalizeClassName(className))}
+      className={clsx(styles.itemName, className)}
       {...props}
     />
   );
@@ -219,7 +218,7 @@ const FileUploadItemSizeText = forwardRef<
     <FileUploadPrimitive.ItemSizeText
       ref={ref}
       data-slot="file-upload-item-size-text"
-      className={clsx(styles.itemSizeText, normalizeClassName(className))}
+      className={clsx(styles.itemSizeText, className)}
       {...props}
     />
   );
@@ -233,7 +232,7 @@ function FileUploadItemMetadata({
   return (
     <ark.div
       data-slot="file-upload-item-metadata"
-      className={clsx(styles.itemMetadata, normalizeClassName(className))}
+      className={clsx(styles.itemMetadata, className)}
       {...props}
     >
       <ark.span>{getFileTypeLabel(file)}</ark.span>
@@ -250,7 +249,7 @@ const FileUploadItemDeleteTrigger = forwardRef<
     <FileUploadPrimitive.ItemDeleteTrigger
       ref={ref}
       data-slot="file-upload-item-delete-trigger"
-      className={clsx(styles.itemDeleteTrigger, normalizeClassName(className))}
+      className={clsx(styles.itemDeleteTrigger, className)}
       {...props}
     >
       {children ?? <TrashIcon />}
@@ -297,7 +296,7 @@ const FileUploadClearTrigger = forwardRef<
   const triggerClassName = clsx(
     styles.clearTrigger,
     children != null && styles.clearTriggerWithContent,
-    normalizeClassName(className),
+    className,
   );
 
   if (asChild) {

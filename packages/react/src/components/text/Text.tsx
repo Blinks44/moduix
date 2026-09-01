@@ -3,7 +3,6 @@ import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import type { ComponentRef, CSSProperties, Ref } from 'react';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Text.module.css';
 
 const elements = {
@@ -70,7 +69,7 @@ const TextRoot = forwardRef<HTMLElement, TextProps>(function TextRoot(
       data-align={align}
       data-truncate={truncate ? '' : undefined}
       data-line-clamp={resolvedLineClamp === undefined ? undefined : ''}
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       style={lineClampStyle}
     />
   );

@@ -14,7 +14,6 @@ import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
 import { forwardRef, useEffect } from 'react';
 import { CheckIcon, CloseIcon } from '@/lib/moduix/icons/ui';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -120,7 +119,7 @@ const CommandPaletteTrigger = forwardRef<
       ref={ref}
       asChild={asChild}
       data-slot="command-palette-trigger"
-      className={clsx(!asChild && styles.trigger, normalizeClassName(className))}
+      className={clsx(!asChild && styles.trigger, className)}
       {...props}
     />
   );
@@ -135,7 +134,7 @@ const CommandPaletteBackdrop = forwardRef<
       <DialogPrimitive.Backdrop
         ref={ref}
         data-slot="command-palette-backdrop"
-        className={clsx(styles.backdrop, normalizeClassName(className))}
+        className={clsx(styles.backdrop, className)}
         {...props}
       />
     </OverlayPortal>
@@ -151,7 +150,7 @@ const CommandPalettePositioner = forwardRef<
       <DialogPrimitive.Positioner
         ref={ref}
         data-slot="command-palette-positioner"
-        className={clsx(styles.positioner, normalizeClassName(className))}
+        className={clsx(styles.positioner, className)}
         {...props}
       />
     </OverlayPortal>
@@ -166,7 +165,7 @@ const CommandPaletteContent = forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       data-slot="command-palette-content"
-      className={clsx(styles.content, normalizeClassName(className))}
+      className={clsx(styles.content, className)}
       {...props}
     />
   );
@@ -196,7 +195,7 @@ const CommandPaletteTitle = forwardRef<
     <DialogPrimitive.Title
       ref={ref}
       data-slot="command-palette-title"
-      className={clsx(styles.title, normalizeClassName(className))}
+      className={clsx(styles.title, className)}
       {...props}
     />
   );
@@ -210,7 +209,7 @@ const CommandPaletteDescription = forwardRef<
     <DialogPrimitive.Description
       ref={ref}
       data-slot="command-palette-description"
-      className={clsx(styles.description, normalizeClassName(className))}
+      className={clsx(styles.description, className)}
       {...props}
     />
   );
@@ -222,7 +221,7 @@ const CommandPaletteHeader = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
       <ark.div
         ref={ref}
         data-slot="command-palette-header"
-        className={clsx(styles.header, normalizeClassName(className))}
+        className={clsx(styles.header, className)}
         {...props}
       />
     );
@@ -235,7 +234,7 @@ const CommandPaletteBody = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
       <ark.div
         ref={ref}
         data-slot="command-palette-body"
-        className={clsx(styles.body, normalizeClassName(className))}
+        className={clsx(styles.body, className)}
         {...props}
       />
     );
@@ -268,7 +267,7 @@ const CommandPaletteCombobox = forwardRef(function CommandPaletteCombobox<T exte
     <ComboboxPrimitive.Root
       ref={ref}
       data-slot="command-palette-combobox"
-      className={clsx(styles.combobox, normalizeClassName(className))}
+      className={clsx(styles.combobox, className)}
       open={open}
       inputBehavior={inputBehavior}
       selectionBehavior={selectionBehavior}
@@ -288,7 +287,7 @@ const CommandPaletteControl = forwardRef<
     <ComboboxPrimitive.Control
       ref={ref}
       data-slot="command-palette-control"
-      className={clsx(styles.control, normalizeClassName(className))}
+      className={clsx(styles.control, className)}
       {...props}
     />
   );
@@ -302,7 +301,7 @@ const CommandPaletteInput = forwardRef<
     <ComboboxPrimitive.Input
       ref={ref}
       data-slot="command-palette-input"
-      className={clsx(styles.input, normalizeClassName(className))}
+      className={clsx(styles.input, className)}
       {...props}
     />
   );
@@ -360,11 +359,7 @@ const CommandPaletteClearTrigger = forwardRef<
               : undefined)
           }
           aria-labelledby={ariaLabelledBy}
-          className={clsx(
-            closeButtonStyles.root,
-            styles.clearTrigger,
-            normalizeClassName(className),
-          )}
+          className={clsx(closeButtonStyles.root, styles.clearTrigger, className)}
           onClick={(event) => {
             onClick?.(event);
 
@@ -396,7 +391,7 @@ const CommandPaletteList = forwardRef<
     <ComboboxPrimitive.Content
       ref={ref}
       data-slot="command-palette-list"
-      className={clsx(styles.list, normalizeClassName(className))}
+      className={clsx(styles.list, className)}
       {...props}
     >
       <ScrollArea data-slot="command-palette-scroll-area" className={styles.scrollArea}>
@@ -424,7 +419,7 @@ const CommandPaletteEmpty = forwardRef<
     <ComboboxPrimitive.Empty
       ref={ref}
       data-slot="command-palette-empty"
-      className={clsx(styles.empty, normalizeClassName(className))}
+      className={clsx(styles.empty, className)}
       {...props}
     />
   );
@@ -438,7 +433,7 @@ const CommandPaletteItemGroup = forwardRef<
     <ComboboxPrimitive.ItemGroup
       ref={ref}
       data-slot="command-palette-item-group"
-      className={clsx(styles.itemGroup, normalizeClassName(className))}
+      className={clsx(styles.itemGroup, className)}
       {...props}
     />
   );
@@ -452,7 +447,7 @@ const CommandPaletteItemGroupLabel = forwardRef<
     <ComboboxPrimitive.ItemGroupLabel
       ref={ref}
       data-slot="command-palette-item-group-label"
-      className={clsx(styles.itemGroupLabel, normalizeClassName(className))}
+      className={clsx(styles.itemGroupLabel, className)}
       {...props}
     />
   );
@@ -466,7 +461,7 @@ const CommandPaletteItem = forwardRef<
     <ComboboxPrimitive.Item
       ref={ref}
       data-slot="command-palette-item"
-      className={clsx(styles.item, normalizeClassName(className))}
+      className={clsx(styles.item, className)}
       {...props}
     />
   );
@@ -480,7 +475,7 @@ const CommandPaletteItemText = forwardRef<
     <ComboboxPrimitive.ItemText
       ref={ref}
       data-slot="command-palette-item-text"
-      className={clsx(styles.itemText, normalizeClassName(className))}
+      className={clsx(styles.itemText, className)}
       {...props}
     />
   );
@@ -494,7 +489,7 @@ const CommandPaletteItemIndicator = forwardRef<
     <ComboboxPrimitive.ItemIndicator
       ref={ref}
       data-slot="command-palette-item-indicator"
-      className={clsx(styles.itemIndicator, normalizeClassName(className))}
+      className={clsx(styles.itemIndicator, className)}
       {...props}
     >
       {children ?? <CheckIcon />}
@@ -508,7 +503,7 @@ const CommandPaletteItemIcon = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>
       <ark.span
         ref={ref}
         data-slot="command-palette-item-icon"
-        className={clsx(styles.itemIcon, normalizeClassName(className))}
+        className={clsx(styles.itemIcon, className)}
         {...props}
       />
     );
@@ -521,7 +516,7 @@ const CommandPaletteItemLabel = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>
       <ark.span
         ref={ref}
         data-slot="command-palette-item-label"
-        className={clsx(styles.itemLabel, normalizeClassName(className))}
+        className={clsx(styles.itemLabel, className)}
         {...props}
       />
     );
@@ -534,7 +529,7 @@ const CommandPaletteItemDescription = forwardRef<HTMLSpanElement, HTMLArkProps<'
       <ark.span
         ref={ref}
         data-slot="command-palette-item-description"
-        className={clsx(styles.itemDescription, normalizeClassName(className))}
+        className={clsx(styles.itemDescription, className)}
         {...props}
       />
     );
@@ -547,7 +542,7 @@ const CommandPaletteItemMeta = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>
       <ark.span
         ref={ref}
         data-slot="command-palette-item-meta"
-        className={clsx(styles.itemMeta, normalizeClassName(className))}
+        className={clsx(styles.itemMeta, className)}
         {...props}
       />
     );
@@ -561,7 +556,7 @@ const CommandPaletteSeparator = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
         ref={ref}
         role="separator"
         data-slot="command-palette-separator"
-        className={clsx(styles.separator, normalizeClassName(className))}
+        className={clsx(styles.separator, className)}
         {...props}
       />
     );
@@ -574,7 +569,7 @@ const CommandPaletteFooter = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
       <ark.div
         ref={ref}
         data-slot="command-palette-footer"
-        className={clsx(styles.footer, normalizeClassName(className))}
+        className={clsx(styles.footer, className)}
         {...props}
       />
     );
@@ -583,11 +578,7 @@ const CommandPaletteFooter = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
 
 function CommandPaletteKbd({ className, ...props }: ComponentProps<typeof Kbd.Root>) {
   return (
-    <Kbd.Root
-      data-slot="command-palette-kbd"
-      className={clsx(styles.kbd, normalizeClassName(className))}
-      {...props}
-    />
+    <Kbd.Root data-slot="command-palette-kbd" className={clsx(styles.kbd, className)} {...props} />
   );
 }
 

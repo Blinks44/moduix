@@ -12,7 +12,6 @@ import { svgChartRenderer } from '@tanstack/charts/svg/renderer';
 import { clsx } from 'clsx';
 import type { CSSProperties } from 'react';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Chart.module.css';
 
 const defaultChartRenderer = createMotionRenderer({
@@ -34,7 +33,7 @@ const ChartRoot = forwardRef<HTMLElement, HTMLArkProps<'figure'>>(function Chart
       data-scope="chart"
       data-part="root"
       data-slot="chart-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -110,7 +109,7 @@ const ChartPlot = function ChartPlot<
       {...props}
       renderer={renderer ?? (motion ? defaultChartRenderer : svgChartRenderer)}
       renderTooltipBody={renderTooltipBody ?? renderDefaultTooltipBody}
-      className={clsx(styles.plot, normalizeClassName(className))}
+      className={clsx(styles.plot, className)}
     />
   );
 };
@@ -125,7 +124,7 @@ const ChartHeader = forwardRef<HTMLElement, HTMLArkProps<'figcaption'>>(function
       data-scope="chart"
       data-part="header"
       data-slot="chart-header"
-      className={clsx(styles.header, normalizeClassName(className))}
+      className={clsx(styles.header, className)}
       {...props}
     />
   );
@@ -141,7 +140,7 @@ const ChartTitle = forwardRef<HTMLHeadingElement, HTMLArkProps<'h3'>>(function C
       data-scope="chart"
       data-part="title"
       data-slot="chart-title"
-      className={clsx(styles.title, normalizeClassName(className))}
+      className={clsx(styles.title, className)}
       {...props}
     />
   );
@@ -155,7 +154,7 @@ const ChartDescription = forwardRef<HTMLParagraphElement, HTMLArkProps<'p'>>(
         data-scope="chart"
         data-part="description"
         data-slot="chart-description"
-        className={clsx(styles.description, normalizeClassName(className))}
+        className={clsx(styles.description, className)}
         {...props}
       />
     );
@@ -172,7 +171,7 @@ const ChartLegend = forwardRef<HTMLUListElement, HTMLArkProps<'ul'>>(function Ch
       data-scope="chart"
       data-part="legend"
       data-slot="chart-legend"
-      className={clsx(styles.legend, normalizeClassName(className))}
+      className={clsx(styles.legend, className)}
       {...props}
     />
   );
@@ -190,7 +189,7 @@ const ChartLegendItem = forwardRef<
       data-scope="chart"
       data-part="legend-item"
       data-slot="chart-legend-item"
-      className={clsx(styles.legendItem, normalizeClassName(className))}
+      className={clsx(styles.legendItem, className)}
       style={
         color
           ? ({ '--moduix-chart-legend-indicator-color': color, ...style } as CSSProperties)

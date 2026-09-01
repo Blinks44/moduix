@@ -1,7 +1,6 @@
 import { Avatar as AvatarPrimitive, useAvatar, useAvatarContext } from '@ark-ui/react/avatar';
 import { clsx } from 'clsx';
 import { forwardRef, type ComponentProps, type ComponentRef, type ReactNode } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Avatar.module.css';
 
 type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -68,7 +67,7 @@ const AvatarRoot = forwardRef<ComponentRef<typeof AvatarPrimitive.Root>, AvatarR
         ref={ref}
         data-slot="avatar-root"
         data-size={size}
-        className={clsx(styles.root, normalizeClassName(className))}
+        className={clsx(styles.root, className)}
         {...props}
       />
     );
@@ -84,7 +83,7 @@ const AvatarRootProvider = forwardRef<
       ref={ref}
       data-slot="avatar-root-provider"
       data-size={size}
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -98,7 +97,7 @@ const AvatarImage = forwardRef<
     <AvatarPrimitive.Image
       ref={ref}
       data-slot="avatar-image"
-      className={clsx(styles.image, normalizeClassName(className))}
+      className={clsx(styles.image, className)}
       {...props}
     />
   );
@@ -112,7 +111,7 @@ const AvatarFallback = forwardRef<
     <AvatarPrimitive.Fallback
       ref={ref}
       data-slot="avatar-fallback"
-      className={clsx(styles.fallback, normalizeClassName(className))}
+      className={clsx(styles.fallback, className)}
       {...props}
     >
       {getFallbackContent(children, name)}

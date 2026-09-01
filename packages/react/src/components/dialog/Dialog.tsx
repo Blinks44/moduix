@@ -5,7 +5,6 @@ import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -61,7 +60,7 @@ const DialogTrigger = forwardRef<
       ref={ref}
       asChild={asChild}
       data-slot="dialog-trigger"
-      className={clsx(!asChild && styles.trigger, normalizeClassName(className))}
+      className={clsx(!asChild && styles.trigger, className)}
       {...props}
     />
   );
@@ -76,7 +75,7 @@ const DialogBackdrop = forwardRef<
       <DialogPrimitive.Backdrop
         ref={ref}
         data-slot="dialog-backdrop"
-        className={clsx(styles.backdrop, normalizeClassName(className))}
+        className={clsx(styles.backdrop, className)}
         {...props}
       />
     </OverlayPortal>
@@ -92,7 +91,7 @@ const DialogPositioner = forwardRef<
       <DialogPrimitive.Positioner
         ref={ref}
         data-slot="dialog-positioner"
-        className={clsx(styles.positioner, normalizeClassName(className))}
+        className={clsx(styles.positioner, className)}
         {...props}
       />
     </OverlayPortal>
@@ -107,7 +106,7 @@ const DialogContent = forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       data-slot="dialog-content"
-      className={clsx(styles.content, normalizeClassName(className))}
+      className={clsx(styles.content, className)}
       {...props}
     />
   );
@@ -121,7 +120,7 @@ const DialogTitle = forwardRef<
     <DialogPrimitive.Title
       ref={ref}
       data-slot="dialog-title"
-      className={clsx(styles.title, normalizeClassName(className))}
+      className={clsx(styles.title, className)}
       {...props}
     />
   );
@@ -135,7 +134,7 @@ const DialogDescription = forwardRef<
     <DialogPrimitive.Description
       ref={ref}
       data-slot="dialog-description"
-      className={clsx(styles.description, normalizeClassName(className))}
+      className={clsx(styles.description, className)}
       {...props}
     />
   );
@@ -150,7 +149,7 @@ const DialogCloseTrigger = forwardRef<
       ref={ref}
       asChild={asChild}
       data-slot="dialog-close-trigger"
-      className={clsx(!asChild && styles.closeTrigger, normalizeClassName(className))}
+      className={clsx(!asChild && styles.closeTrigger, className)}
       {...props}
     />
   );
@@ -169,7 +168,7 @@ const DialogCloseIcon = forwardRef<
         ref={ref}
         data-slot="dialog-close-icon"
         aria-label={ariaLabel}
-        className={clsx(styles.closeIcon, normalizeClassName(className))}
+        className={clsx(styles.closeIcon, className)}
       >
         {children}
       </CloseButton.Root>
@@ -183,7 +182,7 @@ const DialogHeader = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'
       <ark.div
         ref={ref}
         data-slot="dialog-header"
-        className={clsx(styles.header, normalizeClassName(className))}
+        className={clsx(styles.header, className)}
         {...props}
       />
     );
@@ -196,7 +195,7 @@ const DialogBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>
       <ark.div
         ref={ref}
         data-slot="dialog-body"
-        className={clsx(styles.body, normalizeClassName(className))}
+        className={clsx(styles.body, className)}
         {...props}
       />
     );
@@ -209,7 +208,7 @@ const DialogFooter = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'
       <ark.div
         ref={ref}
         data-slot="dialog-footer"
-        className={clsx(styles.footer, normalizeClassName(className))}
+        className={clsx(styles.footer, className)}
         {...props}
       />
     );

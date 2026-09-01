@@ -4,7 +4,6 @@ import { Tooltip as TooltipPrimitive, useTooltip, useTooltipContext } from '@ark
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentPropsWithoutRef, ComponentRef } from 'react';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -57,7 +56,7 @@ const TooltipTrigger = forwardRef<
       ref={ref}
       data-slot="tooltip-trigger"
       asChild={asChild}
-      className={clsx(!asChild && styles.trigger, normalizeClassName(className))}
+      className={clsx(!asChild && styles.trigger, className)}
       {...props}
     />
   );
@@ -71,7 +70,7 @@ const TooltipDisabledTrigger = forwardRef<HTMLSpanElement, ComponentPropsWithout
           ref={ref}
           data-slot="tooltip-disabled-trigger"
           tabIndex={tabIndex}
-          className={clsx(styles.disabledTrigger, normalizeClassName(className))}
+          className={clsx(styles.disabledTrigger, className)}
           {...props}
         />
       </TooltipPrimitive.Trigger>
@@ -88,7 +87,7 @@ const TooltipPositioner = forwardRef<
       <TooltipPrimitive.Positioner
         ref={ref}
         data-slot="tooltip-positioner"
-        className={clsx(styles.positioner, normalizeClassName(className))}
+        className={clsx(styles.positioner, className)}
         {...props}
       />
     </OverlayPortal>
@@ -103,7 +102,7 @@ const TooltipContent = forwardRef<
     <TooltipPrimitive.Content
       ref={ref}
       data-slot="tooltip-content"
-      className={clsx(styles.content, normalizeClassName(className))}
+      className={clsx(styles.content, className)}
       {...props}
     />
   );
@@ -128,7 +127,7 @@ const TooltipArrow = forwardRef<
     <TooltipPrimitive.Arrow
       ref={ref}
       data-slot="tooltip-arrow"
-      className={clsx(styles.arrow, normalizeClassName(className))}
+      className={clsx(styles.arrow, className)}
       {...props}
     >
       {children ?? <TooltipArrowTip />}
@@ -144,7 +143,7 @@ const TooltipArrowTip = forwardRef<
     <TooltipPrimitive.ArrowTip
       ref={ref}
       data-slot="tooltip-arrow-tip"
-      className={clsx(styles.arrowTip, normalizeClassName(className))}
+      className={clsx(styles.arrowTip, className)}
       {...props}
     />
   );

@@ -10,7 +10,6 @@ import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Collapsible.module.css';
 
 const CollapsibleRoot = forwardRef<
@@ -21,7 +20,7 @@ const CollapsibleRoot = forwardRef<
     <CollapsiblePrimitive.Root
       ref={ref}
       data-slot="collapsible-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -35,7 +34,7 @@ const CollapsibleRootProvider = forwardRef<
     <CollapsiblePrimitive.RootProvider
       ref={ref}
       data-slot="collapsible-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -50,7 +49,7 @@ const CollapsibleTrigger = forwardRef<
       ref={ref}
       asChild={asChild}
       data-slot="collapsible-trigger"
-      className={clsx(!asChild && styles.trigger, normalizeClassName(className))}
+      className={clsx(!asChild && styles.trigger, className)}
       {...props}
     />
   );
@@ -64,7 +63,7 @@ const CollapsibleIndicator = forwardRef<
     <CollapsiblePrimitive.Indicator
       ref={ref}
       data-slot="collapsible-indicator"
-      className={clsx(styles.indicator, normalizeClassName(className))}
+      className={clsx(styles.indicator, className)}
       {...props}
     >
       {children ?? <ChevronDownIcon />}
@@ -80,7 +79,7 @@ const CollapsibleContent = forwardRef<
     <CollapsiblePrimitive.Content
       ref={ref}
       data-slot="collapsible-content"
-      className={clsx(styles.content, normalizeClassName(className))}
+      className={clsx(styles.content, className)}
       {...props}
     />
   );
@@ -92,7 +91,7 @@ const CollapsibleBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'d
       <ark.div
         ref={ref}
         data-slot="collapsible-body"
-        className={clsx(styles.body, normalizeClassName(className))}
+        className={clsx(styles.body, className)}
         {...props}
       />
     );

@@ -11,7 +11,6 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import { Children, cloneElement, forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './SegmentGroup.module.css';
 
 type SegmentGroupMachineProps = Parameters<typeof useSegmentGroupPrimitive>[0];
@@ -77,7 +76,7 @@ const SegmentGroupRoot = forwardRef<
       ref={ref}
       value={segmentGroup}
       data-slot="segment-group-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -91,7 +90,7 @@ const SegmentGroupRootProvider = forwardRef<
     <SegmentGroupPrimitive.RootProvider
       ref={ref}
       data-slot="segment-group-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -105,7 +104,7 @@ const SegmentGroupLabel = forwardRef<
     <SegmentGroupPrimitive.Label
       ref={ref}
       data-slot="segment-group-label"
-      className={clsx(styles.label, normalizeClassName(className))}
+      className={clsx(styles.label, className)}
       {...props}
     />
   );
@@ -120,7 +119,7 @@ const SegmentGroupItem = forwardRef<
       ref={ref}
       asChild={asChild}
       data-slot="segment-group-item"
-      className={clsx(styles.item, normalizeClassName(className))}
+      className={clsx(styles.item, className)}
       {...props}
     >
       {withItemHiddenInput(children, asChild)}
@@ -136,7 +135,7 @@ const SegmentGroupItemControl = forwardRef<
     <SegmentGroupPrimitive.ItemControl
       ref={ref}
       data-slot="segment-group-item-control"
-      className={clsx(styles.itemControl, normalizeClassName(className))}
+      className={clsx(styles.itemControl, className)}
       {...props}
     />
   );
@@ -150,7 +149,7 @@ const SegmentGroupItemText = forwardRef<
     <SegmentGroupPrimitive.ItemText
       ref={ref}
       data-slot="segment-group-item-text"
-      className={clsx(styles.itemText, normalizeClassName(className))}
+      className={clsx(styles.itemText, className)}
       {...props}
     />
   );
@@ -183,7 +182,7 @@ const SegmentGroupIndicator = forwardRef<
     <SegmentGroupPrimitive.Indicator
       ref={ref}
       data-slot="segment-group-indicator"
-      className={clsx(styles.indicator, normalizeClassName(className))}
+      className={clsx(styles.indicator, className)}
       {...props}
     />
   );

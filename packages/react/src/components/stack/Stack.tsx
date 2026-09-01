@@ -2,7 +2,6 @@ import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import { forwardRef, type CSSProperties, type ForwardedRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Stack.module.css';
 
 type StackDirection = 'row' | 'row-reverse' | 'column' | 'column-reverse';
@@ -37,7 +36,7 @@ const StackRoot = forwardRef<HTMLElement, StackRootProps>(function StackRoot(
       data-scope="stack"
       data-part="root"
       data-slot="stack-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       style={
         {
           '--moduix-stack-direction-desktop': desktopDirection,

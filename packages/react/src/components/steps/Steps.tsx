@@ -10,7 +10,6 @@ import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { CheckIcon } from '@/lib/moduix/icons/ui';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Steps.module.css';
 
 const StepsRoot = forwardRef<
@@ -21,7 +20,7 @@ const StepsRoot = forwardRef<
     <StepsPrimitive.Root
       ref={ref}
       data-slot="steps-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -35,7 +34,7 @@ const StepsRootProvider = forwardRef<
     <StepsPrimitive.RootProvider
       ref={ref}
       data-slot="steps-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -49,7 +48,7 @@ const StepsList = forwardRef<
     <StepsPrimitive.List
       ref={ref}
       data-slot="steps-list"
-      className={clsx(styles.list, normalizeClassName(className))}
+      className={clsx(styles.list, className)}
       {...props}
     />
   );
@@ -63,7 +62,7 @@ const StepsItem = forwardRef<
     <StepsPrimitive.Item
       ref={ref}
       data-slot="steps-item"
-      className={clsx(styles.item, normalizeClassName(className))}
+      className={clsx(styles.item, className)}
       {...props}
     />
   );
@@ -77,7 +76,7 @@ const StepsTrigger = forwardRef<
     <StepsPrimitive.Trigger
       ref={ref}
       data-slot="steps-trigger"
-      className={clsx(styles.trigger, normalizeClassName(className))}
+      className={clsx(styles.trigger, className)}
       {...props}
     />
   );
@@ -93,7 +92,7 @@ const StepsIndicator = forwardRef<
     <StepsPrimitive.Indicator
       ref={ref}
       data-slot="steps-indicator"
-      className={clsx(styles.indicator, normalizeClassName(className))}
+      className={clsx(styles.indicator, className)}
       {...props}
     >
       {children ?? (item.completed ? <CheckIcon /> : item.index + 1)}
@@ -109,7 +108,7 @@ const StepsSeparator = forwardRef<
     <StepsPrimitive.Separator
       ref={ref}
       data-slot="steps-separator"
-      className={clsx(styles.separator, normalizeClassName(className))}
+      className={clsx(styles.separator, className)}
       {...props}
     />
   );
@@ -123,7 +122,7 @@ const StepsContent = forwardRef<
     <StepsPrimitive.Content
       ref={ref}
       data-slot="steps-content"
-      className={clsx(styles.content, normalizeClassName(className))}
+      className={clsx(styles.content, className)}
       {...props}
     />
   );
@@ -137,7 +136,7 @@ const StepsCompletedContent = forwardRef<
     <StepsPrimitive.CompletedContent
       ref={ref}
       data-slot="steps-completed-content"
-      className={clsx(styles.completedContent, normalizeClassName(className))}
+      className={clsx(styles.completedContent, className)}
       {...props}
     />
   );
@@ -151,7 +150,7 @@ const StepsPrevTrigger = forwardRef<
     <StepsPrimitive.PrevTrigger
       ref={ref}
       data-slot="steps-prev-trigger"
-      className={clsx(styles.prevTrigger, normalizeClassName(className))}
+      className={clsx(styles.prevTrigger, className)}
       {...props}
     />
   );
@@ -165,7 +164,7 @@ const StepsNextTrigger = forwardRef<
     <StepsPrimitive.NextTrigger
       ref={ref}
       data-slot="steps-next-trigger"
-      className={clsx(styles.nextTrigger, normalizeClassName(className))}
+      className={clsx(styles.nextTrigger, className)}
       {...props}
     />
   );
@@ -179,7 +178,7 @@ const StepsProgress = forwardRef<
     <StepsPrimitive.Progress
       ref={ref}
       data-slot="steps-progress"
-      className={clsx(styles.progress, normalizeClassName(className))}
+      className={clsx(styles.progress, className)}
       {...props}
     />
   );

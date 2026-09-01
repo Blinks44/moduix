@@ -2,7 +2,6 @@ import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Kbd.module.css';
 
 const KbdRoot = forwardRef<HTMLElement, HTMLArkProps<'kbd'>>(function KbdRoot(
@@ -15,7 +14,7 @@ const KbdRoot = forwardRef<HTMLElement, HTMLArkProps<'kbd'>>(function KbdRoot(
       data-scope="kbd"
       data-part="root"
       data-slot="kbd-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -32,7 +31,7 @@ const KbdGroupPart = forwardRef<HTMLElement, HTMLArkProps<'span'>>(function KbdG
       data-scope="kbd"
       data-part="group"
       data-slot="kbd-group"
-      className={clsx(styles.group, normalizeClassName(className))}
+      className={clsx(styles.group, className)}
       {...props}
     />
   );

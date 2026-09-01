@@ -8,7 +8,6 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './NavigationMenu.module.css';
 
 const NavigationMenuRoot = forwardRef<
@@ -19,7 +18,7 @@ const NavigationMenuRoot = forwardRef<
     <NavigationMenuPrimitive.Root
       ref={ref}
       data-slot="navigation-menu-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -33,7 +32,7 @@ const NavigationMenuRootProvider = forwardRef<
     <NavigationMenuPrimitive.RootProvider
       ref={ref}
       data-slot="navigation-menu-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -47,7 +46,7 @@ const NavigationMenuList = forwardRef<
     <NavigationMenuPrimitive.List
       ref={ref}
       data-slot="navigation-menu-list"
-      className={clsx(styles.list, normalizeClassName(className))}
+      className={clsx(styles.list, className)}
       {...props}
     />
   );
@@ -61,7 +60,7 @@ const NavigationMenuItem = forwardRef<
     <NavigationMenuPrimitive.Item
       ref={ref}
       data-slot="navigation-menu-item"
-      className={clsx(styles.item, normalizeClassName(className))}
+      className={clsx(styles.item, className)}
       {...props}
     />
   );
@@ -76,7 +75,7 @@ const NavigationMenuTrigger = forwardRef<
       ref={ref}
       asChild={asChild}
       data-slot="navigation-menu-trigger"
-      className={clsx(!asChild && styles.trigger, normalizeClassName(className))}
+      className={clsx(!asChild && styles.trigger, className)}
       {...props}
     />
   );
@@ -90,7 +89,7 @@ const NavigationMenuContent = forwardRef<
     <NavigationMenuPrimitive.Content
       ref={ref}
       data-slot="navigation-menu-content"
-      className={clsx(styles.content, normalizeClassName(className))}
+      className={clsx(styles.content, className)}
       {...props}
     />
   );
@@ -104,7 +103,7 @@ const NavigationMenuLink = forwardRef<
     <NavigationMenuPrimitive.Link
       ref={ref}
       data-slot="navigation-menu-link"
-      className={clsx(styles.link, normalizeClassName(className))}
+      className={clsx(styles.link, className)}
       {...props}
     />
   );
@@ -118,7 +117,7 @@ const NavigationMenuIndicator = forwardRef<
     <NavigationMenuPrimitive.Indicator
       ref={ref}
       data-slot="navigation-menu-indicator"
-      className={clsx(styles.indicator, normalizeClassName(className))}
+      className={clsx(styles.indicator, className)}
       {...props}
     />
   );
@@ -132,7 +131,7 @@ const NavigationMenuItemIndicator = forwardRef<
     <NavigationMenuPrimitive.ItemIndicator
       ref={ref}
       data-slot="navigation-menu-item-indicator"
-      className={clsx(styles.itemIndicator, normalizeClassName(className))}
+      className={clsx(styles.itemIndicator, className)}
       {...props}
     />
   );
@@ -146,7 +145,7 @@ const NavigationMenuArrow = forwardRef<
     <NavigationMenuPrimitive.Arrow
       ref={ref}
       data-slot="navigation-menu-arrow"
-      className={clsx(styles.arrow, normalizeClassName(className))}
+      className={clsx(styles.arrow, className)}
       {...props}
     />
   );
@@ -160,7 +159,7 @@ const NavigationMenuViewportPositioner = forwardRef<
     <NavigationMenuPrimitive.ViewportPositioner
       ref={ref}
       data-slot="navigation-menu-viewport-positioner"
-      className={clsx(styles.viewportPositioner, normalizeClassName(className))}
+      className={clsx(styles.viewportPositioner, className)}
       {...props}
     />
   );
@@ -174,7 +173,7 @@ const NavigationMenuViewport = forwardRef<
     <NavigationMenuPrimitive.Viewport
       ref={ref}
       data-slot="navigation-menu-viewport"
-      className={clsx(styles.viewport, normalizeClassName(className))}
+      className={clsx(styles.viewport, className)}
       {...props}
     />
   );

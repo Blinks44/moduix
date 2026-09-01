@@ -9,7 +9,6 @@ import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { MinusIcon, PlusIcon } from '@/lib/moduix/icons/ui';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './NumberInput.module.css';
 
 const NumberInputRoot = forwardRef<
@@ -20,7 +19,7 @@ const NumberInputRoot = forwardRef<
     <NumberInputPrimitive.Root
       ref={ref}
       data-slot="number-input-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -34,7 +33,7 @@ const NumberInputRootProvider = forwardRef<
     <NumberInputPrimitive.RootProvider
       ref={ref}
       data-slot="number-input-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -48,7 +47,7 @@ const NumberInputLabel = forwardRef<
     <NumberInputPrimitive.Label
       ref={ref}
       data-slot="number-input-label"
-      className={clsx(styles.label, normalizeClassName(className))}
+      className={clsx(styles.label, className)}
       {...props}
     />
   );
@@ -62,7 +61,7 @@ const NumberInputScrubber = forwardRef<
     <NumberInputPrimitive.Scrubber
       ref={ref}
       data-slot="number-input-scrubber"
-      className={clsx(styles.scrubber, normalizeClassName(className))}
+      className={clsx(styles.scrubber, className)}
       {...props}
     />
   );
@@ -76,7 +75,7 @@ const NumberInputControl = forwardRef<
     <NumberInputPrimitive.Control
       ref={ref}
       data-slot="number-input-control"
-      className={clsx(styles.control, normalizeClassName(className))}
+      className={clsx(styles.control, className)}
       {...props}
     />
   );
@@ -90,7 +89,7 @@ const NumberInputDecrementTrigger = forwardRef<
     <NumberInputPrimitive.DecrementTrigger
       ref={ref}
       data-slot="number-input-decrement-trigger"
-      className={clsx(styles.decrementTrigger, normalizeClassName(className))}
+      className={clsx(styles.decrementTrigger, className)}
       {...props}
     >
       {children ?? <MinusIcon />}
@@ -106,7 +105,7 @@ const NumberInputInput = forwardRef<
     <NumberInputPrimitive.Input
       ref={ref}
       data-slot="number-input-input"
-      className={clsx(styles.input, normalizeClassName(className))}
+      className={clsx(styles.input, className)}
       {...props}
     />
   );
@@ -120,7 +119,7 @@ const NumberInputIncrementTrigger = forwardRef<
     <NumberInputPrimitive.IncrementTrigger
       ref={ref}
       data-slot="number-input-increment-trigger"
-      className={clsx(styles.incrementTrigger, normalizeClassName(className))}
+      className={clsx(styles.incrementTrigger, className)}
       {...props}
     >
       {children ?? <PlusIcon />}
@@ -136,7 +135,7 @@ const NumberInputValueText = forwardRef<
     <NumberInputPrimitive.ValueText
       ref={ref}
       data-slot="number-input-value-text"
-      className={clsx(styles.valueText, normalizeClassName(className))}
+      className={clsx(styles.valueText, className)}
       {...props}
     />
   );

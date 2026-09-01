@@ -5,7 +5,6 @@ import { Popover as PopoverPrimitive, usePopover, usePopoverContext } from '@ark
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -71,7 +70,7 @@ const PopoverAnchor = forwardRef<
     <PopoverPrimitive.Anchor
       ref={ref}
       data-slot="popover-anchor"
-      className={normalizeClassName(className)}
+      className={className}
       {...props}
     />
   );
@@ -86,7 +85,7 @@ const PopoverTrigger = forwardRef<
       ref={ref}
       data-slot="popover-trigger"
       asChild={asChild}
-      className={clsx(!asChild && styles.trigger, normalizeClassName(className))}
+      className={clsx(!asChild && styles.trigger, className)}
       {...props}
     />
   );
@@ -100,7 +99,7 @@ const PopoverIndicator = forwardRef<
     <PopoverPrimitive.Indicator
       ref={ref}
       data-slot="popover-indicator"
-      className={normalizeClassName(className)}
+      className={className}
       {...props}
     />
   );
@@ -115,7 +114,7 @@ const PopoverPositioner = forwardRef<
       <PopoverPrimitive.Positioner
         ref={ref}
         data-slot="popover-positioner"
-        className={clsx(styles.positioner, normalizeClassName(className))}
+        className={clsx(styles.positioner, className)}
         {...props}
       />
     </OverlayPortal>
@@ -130,7 +129,7 @@ const PopoverContent = forwardRef<
     <PopoverPrimitive.Content
       ref={ref}
       data-slot="popover-content"
-      className={clsx(styles.content, normalizeClassName(className))}
+      className={clsx(styles.content, className)}
       {...props}
     />
   );
@@ -144,7 +143,7 @@ const PopoverArrow = forwardRef<
     <PopoverPrimitive.Arrow
       ref={ref}
       data-slot="popover-arrow"
-      className={clsx(styles.arrow, normalizeClassName(className))}
+      className={clsx(styles.arrow, className)}
       {...props}
     >
       {children ?? <PopoverArrowTip />}
@@ -160,7 +159,7 @@ const PopoverArrowTip = forwardRef<
     <PopoverPrimitive.ArrowTip
       ref={ref}
       data-slot="popover-arrow-tip"
-      className={clsx(styles.arrowTip, normalizeClassName(className))}
+      className={clsx(styles.arrowTip, className)}
       {...props}
     />
   );
@@ -174,7 +173,7 @@ const PopoverTitle = forwardRef<
     <PopoverPrimitive.Title
       ref={ref}
       data-slot="popover-title"
-      className={clsx(styles.title, normalizeClassName(className))}
+      className={clsx(styles.title, className)}
       {...props}
     />
   );
@@ -188,7 +187,7 @@ const PopoverDescription = forwardRef<
     <PopoverPrimitive.Description
       ref={ref}
       data-slot="popover-description"
-      className={clsx(styles.description, normalizeClassName(className))}
+      className={clsx(styles.description, className)}
       {...props}
     />
   );
@@ -203,7 +202,7 @@ const PopoverCloseTrigger = forwardRef<
       ref={ref}
       data-slot="popover-close-trigger"
       asChild={asChild}
-      className={clsx(!asChild && styles.closeTrigger, normalizeClassName(className))}
+      className={clsx(!asChild && styles.closeTrigger, className)}
       {...props}
     />
   );
@@ -222,7 +221,7 @@ const PopoverCloseIcon = forwardRef<
         ref={ref}
         data-slot="popover-close-icon"
         aria-label={ariaLabel}
-        className={clsx(styles.closeIcon, normalizeClassName(className))}
+        className={clsx(styles.closeIcon, className)}
       >
         {children}
       </CloseButton.Root>
@@ -236,7 +235,7 @@ const PopoverHeader = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div
       <ark.div
         ref={ref}
         data-slot="popover-header"
-        className={clsx(styles.header, normalizeClassName(className))}
+        className={clsx(styles.header, className)}
         {...props}
       />
     );
@@ -249,7 +248,7 @@ const PopoverBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>
       <ark.div
         ref={ref}
         data-slot="popover-body"
-        className={clsx(styles.body, normalizeClassName(className))}
+        className={clsx(styles.body, className)}
         {...props}
       />
     );
@@ -262,7 +261,7 @@ const PopoverFooter = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div
       <ark.div
         ref={ref}
         data-slot="popover-footer"
-        className={clsx(styles.footer, normalizeClassName(className))}
+        className={clsx(styles.footer, className)}
         {...props}
       />
     );

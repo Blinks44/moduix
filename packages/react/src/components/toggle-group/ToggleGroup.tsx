@@ -8,7 +8,6 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { createContext, forwardRef, useContext } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import type { ToggleSize, ToggleVariant } from '../toggle/Toggle';
 import toggleStyles from '../toggle/Toggle.module.css';
 import styles from './ToggleGroup.module.css';
@@ -50,7 +49,7 @@ const ToggleGroupRoot = forwardRef<
         data-slot="toggle-group-root"
         data-variant={variant}
         data-size={size}
-        className={clsx(styles.root, normalizeClassName(className))}
+        className={clsx(styles.root, className)}
       />
     </ToggleGroupStyleContext.Provider>
   );
@@ -68,7 +67,7 @@ const ToggleGroupRootProvider = forwardRef<
         data-slot="toggle-group-root-provider"
         data-variant={variant}
         data-size={size}
-        className={clsx(styles.root, normalizeClassName(className))}
+        className={clsx(styles.root, className)}
       />
     </ToggleGroupStyleContext.Provider>
   );
@@ -87,7 +86,7 @@ const ToggleGroupItem = forwardRef<
       data-slot="toggle-group-item"
       data-variant={variant ?? inherited.variant}
       data-size={size ?? inherited.size}
-      className={clsx(toggleStyles.root, styles.item, normalizeClassName(className))}
+      className={clsx(toggleStyles.root, styles.item, className)}
     />
   );
 });

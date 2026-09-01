@@ -6,12 +6,6 @@
   "dependencies": ["clsx"],
   "files": [
     {
-      "path": "packages/react/src/internal/normalizeClassName.ts",
-      "content": "export const normalizeClassName = (className: unknown): string | undefined =>\n  typeof className === 'string' ? className : undefined;",
-      "type": "registry:lib",
-      "target": "@lib/moduix/normalizeClassName.ts"
-    },
-    {
       "path": "packages/foundation/src/styles/animations.css",
       "content": "@keyframes moduix-pulse {\n  50% {\n    opacity: 0.3;\n  }\n}\n\n@keyframes moduix-fade-in {\n  from {\n    opacity: 0;\n  }\n}\n\n@keyframes moduix-fade-out {\n  from {\n    opacity: 1;\n  }\n  to {\n    opacity: 0;\n  }\n}\n\n@keyframes moduix-slide-up {\n  from {\n    transform: translateY(4px);\n    opacity: 0;\n  }\n}\n\n@keyframes moduix-slide-down {\n  from {\n    transform: translateY(-4px);\n    opacity: 0;\n  }\n}\n\n@keyframes moduix-spin {\n  to {\n    transform: rotate(360deg);\n  }\n}\n\n:root {\n  --moduix-animation-pulse: moduix-pulse 2.5s ease-in-out infinite;\n  --moduix-animation-fade-in: moduix-fade-in var(--moduix-duration-normal) var(--moduix-ease-out);\n  --moduix-animation-fade-out: moduix-fade-out var(--moduix-duration-normal) var(--moduix-ease-in);\n  --moduix-animation-slide-up: moduix-slide-up var(--moduix-duration-normal) var(--moduix-ease-out);\n  --moduix-animation-slide-down: moduix-slide-down var(--moduix-duration-normal)\n    var(--moduix-ease-out);\n  --moduix-animation-spin: moduix-spin 0.75s linear infinite;\n}\n\n@media (prefers-reduced-motion: reduce) {\n  :root {\n    --moduix-animation-pulse: none;\n    --moduix-animation-fade-in: none;\n    --moduix-animation-fade-out: none;\n    --moduix-animation-slide-up: none;\n    --moduix-animation-slide-down: none;\n    --moduix-animation-spin: none;\n  }\n}",
       "type": "registry:file",

@@ -2,7 +2,6 @@ import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import { forwardRef, type ComponentRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import { CloseButton } from '../close-button';
 import styles from './Tag.module.css';
 
@@ -32,7 +31,7 @@ const TagRoot = forwardRef<HTMLSpanElement, TagRootProps>(function TagRoot(
       data-slot="tag-root"
       data-size={size}
       data-variant={variant}
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
     />
   );
 });
@@ -48,7 +47,7 @@ const TagLabel = forwardRef<HTMLSpanElement, TagLabelProps>(function TagLabel(
       data-scope="tag"
       data-part="label"
       data-slot="tag-label"
-      className={clsx(styles.label, normalizeClassName(className))}
+      className={clsx(styles.label, className)}
     />
   );
 });
@@ -64,7 +63,7 @@ const TagStartElement = forwardRef<HTMLSpanElement, TagStartElementProps>(functi
       data-scope="tag"
       data-part="start-element"
       data-slot="tag-start-element"
-      className={clsx(styles.startElement, normalizeClassName(className))}
+      className={clsx(styles.startElement, className)}
     />
   );
 });
@@ -80,7 +79,7 @@ const TagEndElement = forwardRef<HTMLSpanElement, TagEndElementProps>(function T
       data-scope="tag"
       data-part="end-element"
       data-slot="tag-end-element"
-      className={clsx(styles.endElement, normalizeClassName(className))}
+      className={clsx(styles.endElement, className)}
     />
   );
 });
@@ -110,7 +109,7 @@ const TagCloseTrigger = forwardRef<ComponentRef<typeof CloseButton.Root>, TagClo
           (!asChild && children == null && ariaLabelledBy == null ? DEFAULT_CLOSE_LABEL : undefined)
         }
         aria-labelledby={ariaLabelledBy}
-        className={clsx(styles.closeTrigger, normalizeClassName(className))}
+        className={clsx(styles.closeTrigger, className)}
       >
         {children}
       </CloseButton.Root>

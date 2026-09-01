@@ -5,7 +5,6 @@ import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, RefObject } from 'react';
 import { forwardRef, useEffect } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -118,7 +117,7 @@ const LightboxTrigger = forwardRef<
     <DialogPrimitive.Trigger
       ref={ref}
       data-slot="lightbox-trigger"
-      className={clsx(styles.trigger, normalizeClassName(className))}
+      className={clsx(styles.trigger, className)}
       {...props}
     />
   );
@@ -133,7 +132,7 @@ const LightboxBackdrop = forwardRef<
       <DialogPrimitive.Backdrop
         ref={ref}
         data-slot="lightbox-backdrop"
-        className={clsx(styles.backdrop, normalizeClassName(className))}
+        className={clsx(styles.backdrop, className)}
         {...props}
       />
     </OverlayPortal>
@@ -149,7 +148,7 @@ const LightboxPositioner = forwardRef<
       <DialogPrimitive.Positioner
         ref={ref}
         data-slot="lightbox-positioner"
-        className={clsx(styles.positioner, normalizeClassName(className))}
+        className={clsx(styles.positioner, className)}
         {...props}
       />
     </OverlayPortal>
@@ -164,7 +163,7 @@ const LightboxContent = forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       data-slot="lightbox-content"
-      className={clsx(styles.content, normalizeClassName(className))}
+      className={clsx(styles.content, className)}
       {...props}
     />
   );
@@ -178,7 +177,7 @@ const LightboxTitle = forwardRef<
     <DialogPrimitive.Title
       ref={ref}
       data-slot="lightbox-title"
-      className={clsx(styles.title, normalizeClassName(className))}
+      className={clsx(styles.title, className)}
       {...props}
     />
   );
@@ -192,7 +191,7 @@ const LightboxDescription = forwardRef<
     <DialogPrimitive.Description
       ref={ref}
       data-slot="lightbox-description"
-      className={clsx(styles.description, normalizeClassName(className))}
+      className={clsx(styles.description, className)}
       {...props}
     />
   );
@@ -206,7 +205,7 @@ const LightboxCloseTrigger = forwardRef<
     <DialogPrimitive.CloseTrigger
       ref={ref}
       data-slot="lightbox-close-trigger"
-      className={normalizeClassName(className)}
+      className={className}
       {...props}
     />
   );
@@ -228,7 +227,7 @@ const LightboxCloseIcon = forwardRef<
         data-slot="lightbox-close-icon"
         data-state={dialog.open ? 'open' : 'closed'}
         aria-label={ariaLabel}
-        className={clsx(styles.closeIcon, normalizeClassName(className))}
+        className={clsx(styles.closeIcon, className)}
       >
         {children}
       </CloseButton.Root>
@@ -255,7 +254,7 @@ const LightboxImage = forwardRef<HTMLImageElement, LightboxImageProps>(function 
       ref={ref}
       data-slot="lightbox-image"
       data-close-on-click={closeOnClick ? '' : undefined}
-      className={clsx(styles.image, normalizeClassName(className))}
+      className={clsx(styles.image, className)}
       onClick={handleClick}
       {...props}
     />
@@ -268,7 +267,7 @@ const LightboxGallery = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'d
       <ark.div
         ref={ref}
         data-slot="lightbox-gallery"
-        className={clsx(styles.gallery, normalizeClassName(className))}
+        className={clsx(styles.gallery, className)}
         {...props}
       />
     );
@@ -281,7 +280,7 @@ const LightboxHeader = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'di
       <ark.div
         ref={ref}
         data-slot="lightbox-header"
-        className={clsx(styles.header, normalizeClassName(className))}
+        className={clsx(styles.header, className)}
         {...props}
       />
     );
@@ -294,7 +293,7 @@ const LightboxBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'
       <ark.div
         ref={ref}
         data-slot="lightbox-body"
-        className={clsx(styles.body, normalizeClassName(className))}
+        className={clsx(styles.body, className)}
         {...props}
       />
     );
@@ -307,7 +306,7 @@ const LightboxFooter = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'di
       <ark.div
         ref={ref}
         data-slot="lightbox-footer"
-        className={clsx(styles.footer, normalizeClassName(className))}
+        className={clsx(styles.footer, className)}
         {...props}
       />
     );

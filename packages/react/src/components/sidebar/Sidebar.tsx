@@ -6,7 +6,6 @@ import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, MouseEvent } from 'react';
 import { createContext, forwardRef, useContext } from 'react';
 import { ChevronLeftIcon } from '@/lib/moduix/icons/ui';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import { Input } from '../input';
 import { Separator } from '../separator';
 import { Splitter, type SplitterPanelData, useSplitterContext } from '../splitter';
@@ -85,7 +84,7 @@ const SidebarRoot = forwardRef<ComponentRef<typeof Splitter.Root>, SidebarRootPr
           orientation="horizontal"
           data-side={side}
           data-slot="sidebar-root"
-          className={clsx(styles.root, normalizeClassName(className))}
+          className={clsx(styles.root, className)}
         />
       </SidebarConfigContext.Provider>
     );
@@ -119,7 +118,7 @@ const SidebarPanel = forwardRef<ComponentRef<typeof Splitter.Panel>, SidebarPane
         data-side={config.side}
         data-slot="sidebar-panel"
         data-state={collapsed ? 'collapsed' : 'expanded'}
-        className={clsx(styles.panel, normalizeClassName(className))}
+        className={clsx(styles.panel, className)}
       />
     );
   },
@@ -136,7 +135,7 @@ const SidebarInset = forwardRef<ComponentRef<typeof Splitter.Panel>, SidebarPane
         id="content"
         data-side={side}
         data-slot="sidebar-inset"
-        className={clsx(styles.inset, normalizeClassName(className))}
+        className={clsx(styles.inset, className)}
       />
     );
   },
@@ -161,7 +160,7 @@ const SidebarResizeTrigger = forwardRef<
       aria-label={ariaLabel}
       data-side={side}
       data-slot="sidebar-resize-trigger"
-      className={clsx(styles.resizeTrigger, normalizeClassName(className))}
+      className={clsx(styles.resizeTrigger, className)}
     >
       {children}
     </Splitter.ResizeTrigger>
@@ -202,7 +201,7 @@ const SidebarTrigger = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>(
         data-side={config.side}
         data-slot="sidebar-trigger"
         data-state={collapsed ? 'collapsed' : 'expanded'}
-        className={clsx(styles.trigger, normalizeClassName(className))}
+        className={clsx(styles.trigger, className)}
         onClick={handleClick}
         {...props}
       >
@@ -222,7 +221,7 @@ const SidebarLabel = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(function 
       data-scope="sidebar"
       data-part="label"
       data-slot="sidebar-label"
-      className={clsx(styles.label, normalizeClassName(className))}
+      className={clsx(styles.label, className)}
       {...props}
     />
   );
@@ -238,7 +237,7 @@ const SidebarHeader = forwardRef<HTMLElement, HTMLArkProps<'header'>>(function S
       data-scope="sidebar"
       data-part="header"
       data-slot="sidebar-header"
-      className={clsx(styles.header, normalizeClassName(className))}
+      className={clsx(styles.header, className)}
       {...props}
     />
   );
@@ -254,7 +253,7 @@ const SidebarContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function 
       data-scope="sidebar"
       data-part="content"
       data-slot="sidebar-content"
-      className={clsx(styles.content, normalizeClassName(className))}
+      className={clsx(styles.content, className)}
       {...props}
     />
   );
@@ -270,7 +269,7 @@ const SidebarExpandedContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
         data-scope="sidebar"
         data-part="expanded-content"
         data-slot="sidebar-expanded-content"
-        className={normalizeClassName(className)}
+        className={className}
         {...props}
         hidden={collapsed}
       />
@@ -288,7 +287,7 @@ const SidebarCollapsedContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
         data-scope="sidebar"
         data-part="collapsed-content"
         data-slot="sidebar-collapsed-content"
-        className={normalizeClassName(className)}
+        className={className}
         {...props}
         hidden={!collapsed}
       />
@@ -306,7 +305,7 @@ const SidebarFooter = forwardRef<HTMLElement, HTMLArkProps<'footer'>>(function S
       data-scope="sidebar"
       data-part="footer"
       data-slot="sidebar-footer"
-      className={clsx(styles.footer, normalizeClassName(className))}
+      className={clsx(styles.footer, className)}
       {...props}
     />
   );
@@ -322,7 +321,7 @@ const SidebarGroup = forwardRef<HTMLElement, HTMLArkProps<'section'>>(function S
       data-scope="sidebar"
       data-part="group"
       data-slot="sidebar-group"
-      className={clsx(styles.group, normalizeClassName(className))}
+      className={clsx(styles.group, className)}
       {...props}
     />
   );
@@ -336,7 +335,7 @@ const SidebarGroupLabel = forwardRef<HTMLHeadingElement, HTMLArkProps<'h3'>>(
         data-scope="sidebar"
         data-part="group-label"
         data-slot="sidebar-group-label"
-        className={clsx(styles.groupLabel, normalizeClassName(className))}
+        className={clsx(styles.groupLabel, className)}
         {...props}
       />
     );
@@ -352,7 +351,7 @@ const SidebarGroupAction = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>
         data-scope="sidebar"
         data-part="group-action"
         data-slot="sidebar-group-action"
-        className={clsx(styles.groupAction, normalizeClassName(className))}
+        className={clsx(styles.groupAction, className)}
         {...props}
       />
     );
@@ -367,7 +366,7 @@ const SidebarGroupContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
         data-scope="sidebar"
         data-part="group-content"
         data-slot="sidebar-group-content"
-        className={clsx(styles.groupContent, normalizeClassName(className))}
+        className={clsx(styles.groupContent, className)}
         {...props}
       />
     );
@@ -382,7 +381,7 @@ const SidebarNavigationList = forwardRef<HTMLUListElement, HTMLArkProps<'ul'>>(
         data-scope="sidebar"
         data-part="navigation-list"
         data-slot="sidebar-navigation-list"
-        className={clsx(styles.menu, normalizeClassName(className))}
+        className={clsx(styles.menu, className)}
         {...props}
       />
     );
@@ -397,7 +396,7 @@ const SidebarNavigationItem = forwardRef<HTMLLIElement, HTMLArkProps<'li'>>(
         data-scope="sidebar"
         data-part="navigation-item"
         data-slot="sidebar-navigation-item"
-        className={clsx(styles.menuItem, normalizeClassName(className))}
+        className={clsx(styles.menuItem, className)}
         {...props}
       />
     );
@@ -431,7 +430,7 @@ const SidebarNavigationButton = forwardRef<
       data-slot="sidebar-navigation-button"
       data-active={active ? '' : undefined}
       data-size={size}
-      className={clsx(styles.menuButton, normalizeClassName(className))}
+      className={clsx(styles.menuButton, className)}
       {...props}
     />
   );
@@ -446,7 +445,7 @@ const SidebarNavigationAction = forwardRef<HTMLButtonElement, HTMLArkProps<'butt
         data-scope="sidebar"
         data-part="navigation-action"
         data-slot="sidebar-navigation-action"
-        className={clsx(styles.menuAction, normalizeClassName(className))}
+        className={clsx(styles.menuAction, className)}
         {...props}
       />
     );
@@ -461,7 +460,7 @@ const SidebarNavigationBadge = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
         data-scope="sidebar"
         data-part="navigation-badge"
         data-slot="sidebar-navigation-badge"
-        className={clsx(styles.menuBadge, normalizeClassName(className))}
+        className={clsx(styles.menuBadge, className)}
         {...props}
       />
     );
@@ -476,7 +475,7 @@ const SidebarNavigationSubList = forwardRef<HTMLUListElement, HTMLArkProps<'ul'>
         data-scope="sidebar"
         data-part="navigation-sub-list"
         data-slot="sidebar-navigation-sub-list"
-        className={clsx(styles.menuSub, normalizeClassName(className))}
+        className={clsx(styles.menuSub, className)}
         {...props}
       />
     );
@@ -491,7 +490,7 @@ const SidebarNavigationSubItem = forwardRef<HTMLLIElement, HTMLArkProps<'li'>>(
         data-scope="sidebar"
         data-part="navigation-sub-item"
         data-slot="sidebar-navigation-sub-item"
-        className={clsx(styles.menuSubItem, normalizeClassName(className))}
+        className={clsx(styles.menuSubItem, className)}
         {...props}
       />
     );
@@ -515,7 +514,7 @@ const SidebarNavigationSubButton = forwardRef<
       data-part="navigation-sub-button"
       data-slot="sidebar-navigation-sub-button"
       data-active={active ? '' : undefined}
-      className={clsx(styles.menuSubButton, normalizeClassName(className))}
+      className={clsx(styles.menuSubButton, className)}
       {...props}
     >
       {typeof children === 'string' ? (
@@ -563,7 +562,7 @@ const SidebarInput = forwardRef<ComponentRef<typeof Input.Root>, ComponentProps<
       <Input.Root
         ref={ref}
         data-slot="sidebar-input"
-        className={clsx(styles.input, normalizeClassName(className))}
+        className={clsx(styles.input, className)}
         {...props}
       />
     );
@@ -578,7 +577,7 @@ const SidebarSeparator = forwardRef<
     <Separator.Root
       ref={ref}
       data-slot="sidebar-separator"
-      className={clsx(styles.separator, normalizeClassName(className))}
+      className={clsx(styles.separator, className)}
       {...props}
     />
   );

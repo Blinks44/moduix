@@ -8,7 +8,6 @@ import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './JsonTreeView.module.css';
 
 const JsonTreeViewRoot = forwardRef<
@@ -18,7 +17,7 @@ const JsonTreeViewRoot = forwardRef<
   return (
     <JsonTreeViewPrimitive.Root
       ref={ref}
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
       data-slot="json-tree-view-root"
     />
@@ -32,7 +31,7 @@ const JsonTreeViewRootProvider = forwardRef<
   return (
     <JsonTreeViewPrimitive.RootProvider
       ref={ref}
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
       data-slot="json-tree-view-root-provider"
     />
@@ -47,7 +46,7 @@ const JsonTreeViewTree = forwardRef<
     <JsonTreeViewPrimitive.Tree
       ref={ref}
       arrow={arrow ?? <ChevronRightIcon aria-hidden="true" />}
-      className={clsx(styles.tree, normalizeClassName(className))}
+      className={clsx(styles.tree, className)}
       {...props}
       data-slot="json-tree-view-tree"
     />

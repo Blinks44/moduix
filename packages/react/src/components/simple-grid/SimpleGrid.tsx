@@ -3,7 +3,6 @@ import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import type { CSSProperties } from 'react';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 
 type SimpleGridRootProps = HTMLArkProps<'div'> & {
   columns?: number;
@@ -66,7 +65,7 @@ const SimpleGridRoot = forwardRef<HTMLDivElement, SimpleGridRootProps>(function 
       data-scope="simple-grid"
       data-part="root"
       data-slot="simple-grid-root"
-      className={clsx(normalizeClassName(className))}
+      className={clsx(className)}
       style={rootStyle}
     />
   );

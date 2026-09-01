@@ -11,7 +11,6 @@ import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import { Children, cloneElement, forwardRef } from 'react';
 import { CheckIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Checkbox.module.css';
 
 type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -28,7 +27,7 @@ const CheckboxRoot = forwardRef<ComponentRef<typeof CheckboxPrimitive.Root>, Roo
         asChild={asChild}
         data-slot="checkbox-root"
         data-size={size}
-        className={clsx(styles.root, normalizeClassName(className))}
+        className={clsx(styles.root, className)}
         {...props}
       >
         {withHiddenInput(children, asChild)}
@@ -47,7 +46,7 @@ const CheckboxRootProvider = forwardRef<
       asChild={asChild}
       data-slot="checkbox-root-provider"
       data-size={size}
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     >
       {withHiddenInput(children, asChild)}
@@ -67,7 +66,7 @@ const CheckboxIndicator = forwardRef<
     <CheckboxPrimitive.Indicator
       ref={ref}
       data-slot="checkbox-indicator"
-      className={clsx(styles.indicator, normalizeClassName(className))}
+      className={clsx(styles.indicator, className)}
       indeterminate={indeterminate}
       {...props}
     >
@@ -88,7 +87,7 @@ const CheckboxControl = forwardRef<
     <CheckboxPrimitive.Control
       ref={ref}
       data-slot="checkbox-control"
-      className={clsx(styles.control, normalizeClassName(className))}
+      className={clsx(styles.control, className)}
       {...props}
     >
       {children ?? (
@@ -139,7 +138,7 @@ const CheckboxLabel = forwardRef<
     <CheckboxPrimitive.Label
       ref={ref}
       data-slot="checkbox-label"
-      className={clsx(styles.label, normalizeClassName(className))}
+      className={clsx(styles.label, className)}
       {...props}
     />
   );
@@ -153,7 +152,7 @@ const CheckboxGroup = forwardRef<
     <CheckboxPrimitive.Group
       ref={ref}
       data-slot="checkbox-group"
-      className={clsx(styles.group, normalizeClassName(className))}
+      className={clsx(styles.group, className)}
       {...props}
     />
   );

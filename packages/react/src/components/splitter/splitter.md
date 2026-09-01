@@ -113,7 +113,7 @@ An `asChild` resize trigger requires exactly one interactive host and does not r
 
 ## Defaults and styling
 
-Every styled part accepts `className`, merged with moduix defaults through `clsx` and `normalizeClassName`. The CSS module uses flat selectors, Ark data attributes, and stable `data-slot` hooks.
+Every styled part accepts `className`, merged with moduix defaults through `clsx`. The CSS module uses flat selectors, Ark data attributes, and stable `data-slot` hooks.
 
 The root defaults to inline `width: var(--moduix-splitter-width, 100%)` and `height: var(--moduix-splitter-height, 28rem)` plus a card background, an outer border, rounded corners, clipping, and a small shadow. Panels get `min-height: 12.5rem`, padding, `overflow: auto`, and a flat card background so adjacent panels sit flush. Vertical splitters reset panel min height through `--moduix-splitter-panel-min-height-vertical` so top/bottom panels can resize inside the fixed root height. The resize trigger keeps a `1px` layout divider while its visible line is `0.5px`; its transparent hit area overlaps the divider. Hover strengthens the line, indicator border, and shadow. Pointer dragging strengthens the line and indicator; keyboard `:focus-visible` keeps the idle line and draws a focus ring around the indicator instead. `ResizeTriggerIndicator` is centered absolutely over the divider and renders as a narrow rounded handle with a background fill, stable border, and shadow.
 

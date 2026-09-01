@@ -2,7 +2,6 @@ import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Table.module.css';
 
 type TableRootProps = HTMLArkProps<'table'> & {
@@ -63,7 +62,7 @@ const TableRoot = forwardRef<HTMLTableElement, TableRootProps>(function TableRoo
       data-sticky-header={stickyHeader || undefined}
       data-striped={striped || undefined}
       data-variant={variant}
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -80,7 +79,7 @@ const TableScrollArea = forwardRef<HTMLDivElement, TableScrollAreaProps>(functio
       data-scope="table"
       data-part="scroll-area"
       data-slot="table-scroll-area"
-      className={clsx(styles.scrollArea, normalizeClassName(className))}
+      className={clsx(styles.scrollArea, className)}
       {...props}
     />
   );
@@ -98,7 +97,7 @@ const TableCaption = forwardRef<HTMLTableCaptionElement, TableCaptionProps>(func
       data-part="caption"
       data-side={side}
       data-slot="table-caption"
-      className={clsx(styles.caption, normalizeClassName(className))}
+      className={clsx(styles.caption, className)}
       {...props}
     />
   );
@@ -113,7 +112,7 @@ const TableColumnGroup = forwardRef<HTMLTableColElement, TableColumnGroupProps>(
         data-scope="table"
         data-part="column-group"
         data-slot="table-column-group"
-        className={normalizeClassName(className)}
+        className={className}
         {...props}
       />
     );
@@ -132,7 +131,7 @@ const TableColumn = forwardRef<HTMLTableColElement, TableColumnProps>(function T
       data-part="column"
       data-slot="table-column"
       width={htmlWidth ?? width}
-      className={normalizeClassName(className)}
+      className={className}
       {...props}
     />
   );
@@ -149,7 +148,7 @@ const TableHeader = forwardRef<HTMLTableSectionElement, TableHeaderProps>(functi
       data-scope="table"
       data-part="header"
       data-slot="table-header"
-      className={clsx(styles.header, normalizeClassName(className))}
+      className={clsx(styles.header, className)}
       {...props}
     />
   );
@@ -166,7 +165,7 @@ const TableBody = forwardRef<HTMLTableSectionElement, TableBodyProps>(function T
       data-scope="table"
       data-part="body"
       data-slot="table-body"
-      className={clsx(styles.body, normalizeClassName(className))}
+      className={clsx(styles.body, className)}
       {...props}
     />
   );
@@ -183,7 +182,7 @@ const TableFooter = forwardRef<HTMLTableSectionElement, TableFooterProps>(functi
       data-scope="table"
       data-part="footer"
       data-slot="table-footer"
-      className={clsx(styles.footer, normalizeClassName(className))}
+      className={clsx(styles.footer, className)}
       {...props}
     />
   );
@@ -200,7 +199,7 @@ const TableRow = forwardRef<HTMLTableRowElement, TableRowProps>(function TableRo
       data-scope="table"
       data-part="row"
       data-slot="table-row"
-      className={clsx(styles.row, normalizeClassName(className))}
+      className={clsx(styles.row, className)}
       {...props}
     />
   );
@@ -216,11 +215,7 @@ const TableColumnHeader = forwardRef<HTMLTableCellElement, TableColumnHeaderProp
         data-part="column-header"
         data-numeric={numeric || undefined}
         data-slot="table-column-header"
-        className={clsx(
-          styles.columnHeader,
-          numeric && styles.numeric,
-          normalizeClassName(className),
-        )}
+        className={clsx(styles.columnHeader, numeric && styles.numeric, className)}
         {...props}
       />
     );
@@ -239,7 +234,7 @@ const TableCell = forwardRef<HTMLTableCellElement, TableCellProps>(function Tabl
       data-part="cell"
       data-numeric={numeric || undefined}
       data-slot="table-cell"
-      className={clsx(styles.cell, numeric && styles.numeric, normalizeClassName(className))}
+      className={clsx(styles.cell, numeric && styles.numeric, className)}
       {...props}
     />
   );
@@ -264,7 +259,7 @@ const TableEmpty = forwardRef<HTMLTableCellElement, TableEmptyProps>(function Ta
         data-part="empty"
         data-slot="table-empty"
         colSpan={colSpan}
-        className={clsx(styles.cell, styles.empty, normalizeClassName(className))}
+        className={clsx(styles.cell, styles.empty, className)}
         {...props}
       >
         {children}

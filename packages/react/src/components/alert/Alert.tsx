@@ -2,7 +2,6 @@ import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import { forwardRef, type ComponentRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Alert.module.css';
 
 type AlertStatus = 'info' | 'success' | 'warning' | 'error';
@@ -23,7 +22,7 @@ const AlertRoot = forwardRef<ComponentRef<typeof ark.div>, AlertRootProps>(funct
       data-part="root"
       data-slot="alert-root"
       data-status={status}
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     >
       {children}
@@ -40,7 +39,7 @@ const AlertIndicator = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'s
         data-part="indicator"
         data-slot="alert-indicator"
         aria-hidden="true"
-        className={clsx(styles.indicator, normalizeClassName(className))}
+        className={clsx(styles.indicator, className)}
         {...props}
       />
     );
@@ -55,7 +54,7 @@ const AlertContent = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'
         data-scope="alert"
         data-part="content"
         data-slot="alert-content"
-        className={clsx(styles.content, normalizeClassName(className))}
+        className={clsx(styles.content, className)}
         {...props}
       />
     );
@@ -72,7 +71,7 @@ const AlertTitle = forwardRef<ComponentRef<typeof ark.p>, HTMLArkProps<'p'>>(fun
       data-scope="alert"
       data-part="title"
       data-slot="alert-title"
-      className={clsx(styles.title, normalizeClassName(className))}
+      className={clsx(styles.title, className)}
       {...props}
     />
   );
@@ -86,7 +85,7 @@ const AlertDescription = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'
         data-scope="alert"
         data-part="description"
         data-slot="alert-description"
-        className={clsx(styles.description, normalizeClassName(className))}
+        className={clsx(styles.description, className)}
         {...props}
       />
     );
@@ -101,7 +100,7 @@ const AlertActions = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'
         data-scope="alert"
         data-part="actions"
         data-slot="alert-actions"
-        className={clsx(styles.actions, normalizeClassName(className))}
+        className={clsx(styles.actions, className)}
         {...props}
       />
     );

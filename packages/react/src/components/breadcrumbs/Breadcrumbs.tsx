@@ -3,7 +3,6 @@ import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import { Fragment, forwardRef, type ComponentRef, type Key, type ReactNode } from 'react';
 import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Breadcrumbs.module.css';
 
 type BreadcrumbsPathItem = {
@@ -24,7 +23,7 @@ const BreadcrumbsRoot = forwardRef<ComponentRef<typeof ark.nav>, HTMLArkProps<'n
         aria-label={ariaLabel}
         {...props}
         data-slot="breadcrumbs-root"
-        className={clsx(styles.root, normalizeClassName(className))}
+        className={clsx(styles.root, className)}
       />
     );
   },
@@ -37,7 +36,7 @@ const BreadcrumbsList = forwardRef<ComponentRef<typeof ark.ol>, HTMLArkProps<'ol
         ref={ref}
         {...props}
         data-slot="breadcrumbs-list"
-        className={clsx(styles.list, normalizeClassName(className))}
+        className={clsx(styles.list, className)}
       />
     );
   },
@@ -50,7 +49,7 @@ const BreadcrumbsItem = forwardRef<ComponentRef<typeof ark.li>, HTMLArkProps<'li
         ref={ref}
         {...props}
         data-slot="breadcrumbs-item"
-        className={clsx(styles.item, normalizeClassName(className))}
+        className={clsx(styles.item, className)}
       />
     );
   },
@@ -63,7 +62,7 @@ const BreadcrumbsLink = forwardRef<ComponentRef<typeof ark.a>, HTMLArkProps<'a'>
         ref={ref}
         {...props}
         data-slot="breadcrumbs-link"
-        className={clsx(styles.link, normalizeClassName(className))}
+        className={clsx(styles.link, className)}
       />
     );
   },
@@ -77,7 +76,7 @@ const BreadcrumbsPage = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'
         {...props}
         data-slot="breadcrumbs-page"
         aria-current="page"
-        className={clsx(styles.page, normalizeClassName(className))}
+        className={clsx(styles.page, className)}
       />
     );
   },
@@ -116,7 +115,7 @@ const BreadcrumbsSeparator = forwardRef<ComponentRef<typeof ark.li>, HTMLArkProp
         {...props}
         data-slot="breadcrumbs-separator"
         aria-hidden="true"
-        className={clsx(styles.separator, normalizeClassName(className))}
+        className={clsx(styles.separator, className)}
       >
         {children ?? <ChevronRightIcon className={styles.separatorIcon} />}
       </ark.li>
@@ -132,7 +131,7 @@ const BreadcrumbsEllipsis = forwardRef<ComponentRef<typeof ark.span>, HTMLArkPro
         {...props}
         data-slot="breadcrumbs-ellipsis"
         aria-hidden="true"
-        className={clsx(styles.ellipsis, normalizeClassName(className))}
+        className={clsx(styles.ellipsis, className)}
       >
         {children}
       </ark.span>

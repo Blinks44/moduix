@@ -65,9 +65,9 @@ Select / Select.Root
 ├─ Select.Label
 ├─ Select.Control / Select.Field
 │  ├─ Select.Trigger
-│  │  ├─ Select.ValueText
-│  │  └─ Select.Indicator
-│  └─ Select.ClearTrigger
+│  │  └─ Select.ValueText
+│  ├─ Select.ClearTrigger
+│  └─ Select.Indicator
 ├─ Overlay subtree (automatically portalled)
 │  └─ Select.Positioner
 │     └─ Select.Content

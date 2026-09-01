@@ -33,11 +33,6 @@
       "docs": "Required: import the installed style.css once in your app entry. The optional reset is a separate registry item and must be imported before style.css.",
       "files": [
         {
-          "path": "packages/react/src/internal/normalizeClassName.ts",
-          "target": "@lib/moduix/normalizeClassName.ts",
-          "type": "registry:lib"
-        },
-        {
           "path": "packages/foundation/src/styles/animations.css",
           "target": "@lib/moduix/styles/animations.css",
           "type": "registry:file"

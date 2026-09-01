@@ -4,7 +4,6 @@ import { Tabs as TabsPrimitive, useTabs, useTabsContext } from '@ark-ui/react/ta
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Tabs.module.css';
 
 type TabsVariant = 'default' | 'line';
@@ -20,7 +19,7 @@ const TabsRoot = forwardRef<
       ref={ref}
       data-slot="tabs-root"
       data-variant={resolvedVariant}
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       orientation={orientation}
       {...props}
     />
@@ -43,7 +42,7 @@ const TabsRootProvider = forwardRef<
       ref={ref}
       data-slot="tabs-root-provider"
       data-variant={resolvedVariant}
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       value={value}
       {...props}
     />
@@ -58,7 +57,7 @@ const TabsList = forwardRef<
     <TabsPrimitive.List
       ref={ref}
       data-slot="tabs-list"
-      className={clsx(styles.list, normalizeClassName(className))}
+      className={clsx(styles.list, className)}
       {...props}
     />
   );
@@ -72,7 +71,7 @@ const TabsTrigger = forwardRef<
     <TabsPrimitive.Trigger
       ref={ref}
       data-slot="tabs-trigger"
-      className={clsx(styles.trigger, normalizeClassName(className))}
+      className={clsx(styles.trigger, className)}
       {...props}
     />
   );
@@ -86,7 +85,7 @@ const TabsIndicator = forwardRef<
     <TabsPrimitive.Indicator
       ref={ref}
       data-slot="tabs-indicator"
-      className={clsx(styles.indicator, normalizeClassName(className))}
+      className={clsx(styles.indicator, className)}
       {...props}
     />
   );
@@ -100,7 +99,7 @@ const TabsContent = forwardRef<
     <TabsPrimitive.Content
       ref={ref}
       data-slot="tabs-content"
-      className={clsx(styles.content, normalizeClassName(className))}
+      className={clsx(styles.content, className)}
       {...props}
     />
   );

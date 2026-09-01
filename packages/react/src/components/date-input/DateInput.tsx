@@ -9,7 +9,6 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import { Children, cloneElement, forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './DateInput.module.css';
 
 const DateInputRoot = forwardRef<
@@ -20,7 +19,7 @@ const DateInputRoot = forwardRef<
     <DateInputPrimitive.Root
       ref={ref}
       data-slot="date-input-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       asChild={asChild}
       {...props}
     >
@@ -37,7 +36,7 @@ const DateInputRootProvider = forwardRef<
     <DateInputPrimitive.RootProvider
       ref={ref}
       data-slot="date-input-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       asChild={asChild}
       {...props}
     >
@@ -54,7 +53,7 @@ const DateInputLabel = forwardRef<
     <DateInputPrimitive.Label
       ref={ref}
       data-slot="date-input-label"
-      className={clsx(styles.label, normalizeClassName(className))}
+      className={clsx(styles.label, className)}
       {...props}
     />
   );
@@ -68,7 +67,7 @@ const DateInputControl = forwardRef<
     <DateInputPrimitive.Control
       ref={ref}
       data-slot="date-input-control"
-      className={clsx(styles.control, normalizeClassName(className))}
+      className={clsx(styles.control, className)}
       {...props}
     />
   );
@@ -82,7 +81,7 @@ const DateInputSegmentGroup = forwardRef<
     <DateInputPrimitive.SegmentGroup
       ref={ref}
       data-slot="date-input-segment-group"
-      className={clsx(styles.segmentGroup, normalizeClassName(className))}
+      className={clsx(styles.segmentGroup, className)}
       {...props}
     />
   );
@@ -96,7 +95,7 @@ const DateInputSegment = forwardRef<
     <DateInputPrimitive.Segment
       ref={ref}
       data-slot="date-input-segment"
-      className={clsx(styles.segment, normalizeClassName(className))}
+      className={clsx(styles.segment, className)}
       {...props}
     />
   );
@@ -169,7 +168,7 @@ function DateInputSeparator({
       data-slot="date-input-separator"
       aria-hidden={ariaHidden}
       role={role}
-      className={clsx(styles.separator, normalizeClassName(className))}
+      className={clsx(styles.separator, className)}
       {...props}
     />
   );

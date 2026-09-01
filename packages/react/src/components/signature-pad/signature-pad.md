@@ -109,7 +109,7 @@ Data attributes from Ark:
 
 ## Defaults and styling
 
-Every styled part accepts `className`, merged with moduix defaults through `clsx` and `normalizeClassName`. Component CSS uses flat CSS Module selectors and Ark data attributes. Disabled opacity is applied once at the root so nested labels, guides, and the default clear action remain legible.
+Every styled part accepts `className`, merged with moduix defaults through `clsx`. Component CSS uses flat CSS Module selectors and Ark data attributes. Disabled opacity is applied once at the root so nested labels, guides, and the default clear action remain legible.
 
 The default drawing control is `17.5rem` by `10rem`, which is approximately `280px` by `160px` with the default token scale. Its default minimum height follows the configured control height, so reducing either public height variable also reduces the usable drawing area. The default shadow is `var(--moduix-shadow-sm)`.
 

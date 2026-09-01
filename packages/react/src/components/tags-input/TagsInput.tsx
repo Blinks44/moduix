@@ -9,7 +9,6 @@ import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import { Children, cloneElement, forwardRef, useEffect, useRef } from 'react';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import { CloseButton } from '../close-button';
 import styles from './TagsInput.module.css';
 
@@ -22,7 +21,7 @@ const TagsInputRoot = forwardRef<
       ref={ref}
       asChild={asChild}
       data-slot="tags-input-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     >
       {withHiddenInput(children, asChild)}
@@ -39,7 +38,7 @@ const TagsInputRootProvider = forwardRef<
       ref={ref}
       asChild={asChild}
       data-slot="tags-input-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     >
       {withHiddenInput(children, asChild)}
@@ -55,7 +54,7 @@ const TagsInputLabel = forwardRef<
     <TagsInputPrimitive.Label
       ref={ref}
       data-slot="tags-input-label"
-      className={clsx(styles.label, normalizeClassName(className))}
+      className={clsx(styles.label, className)}
       {...props}
     />
   );
@@ -69,7 +68,7 @@ const TagsInputControl = forwardRef<
     <TagsInputPrimitive.Control
       ref={ref}
       data-slot="tags-input-control"
-      className={clsx(styles.control, normalizeClassName(className))}
+      className={clsx(styles.control, className)}
       {...props}
     />
   );
@@ -83,7 +82,7 @@ const TagsInputItem = forwardRef<
     <TagsInputPrimitive.Item
       ref={ref}
       data-slot="tags-input-item"
-      className={clsx(styles.item, normalizeClassName(className))}
+      className={clsx(styles.item, className)}
       {...props}
     />
   );
@@ -97,7 +96,7 @@ const TagsInputItemPreview = forwardRef<
     <TagsInputPrimitive.ItemPreview
       ref={ref}
       data-slot="tags-input-item-preview"
-      className={clsx(styles.itemPreview, normalizeClassName(className))}
+      className={clsx(styles.itemPreview, className)}
       {...props}
     />
   );
@@ -111,7 +110,7 @@ const TagsInputItemText = forwardRef<
     <TagsInputPrimitive.ItemText
       ref={ref}
       data-slot="tags-input-item-text"
-      className={clsx(styles.itemText, normalizeClassName(className))}
+      className={clsx(styles.itemText, className)}
       {...props}
     />
   );
@@ -125,7 +124,7 @@ const TagsInputItemDeleteTrigger = forwardRef<
     <TagsInputPrimitive.ItemDeleteTrigger
       ref={ref}
       data-slot="tags-input-item-delete-trigger"
-      className={clsx(styles.itemDeleteTrigger, normalizeClassName(className))}
+      className={clsx(styles.itemDeleteTrigger, className)}
       {...props}
     >
       {children ?? <CloseIcon />}
@@ -141,7 +140,7 @@ const TagsInputItemInput = forwardRef<
     <TagsInputPrimitive.ItemInput
       ref={ref}
       data-slot="tags-input-item-input"
-      className={clsx(styles.itemInput, normalizeClassName(className))}
+      className={clsx(styles.itemInput, className)}
       {...props}
     />
   );
@@ -155,7 +154,7 @@ const TagsInputInput = forwardRef<
     <TagsInputPrimitive.Input
       ref={ref}
       data-slot="tags-input-input"
-      className={clsx(styles.input, normalizeClassName(className))}
+      className={clsx(styles.input, className)}
       {...props}
     />
   );
@@ -175,7 +174,7 @@ const TagsInputClearTrigger = forwardRef<
   },
   ref,
 ) {
-  const triggerClassName = clsx(styles.clearTrigger, normalizeClassName(className));
+  const triggerClassName = clsx(styles.clearTrigger, className);
   const clearTriggerLabel = useTagsInputContext().getClearTriggerProps()['aria-label'];
 
   if (asChild) {

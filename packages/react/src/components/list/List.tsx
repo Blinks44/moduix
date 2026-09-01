@@ -3,7 +3,6 @@ import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import type { ForwardedRef } from 'react';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './List.module.css';
 
 type ListMarker = 'disc' | 'decimal' | 'none';
@@ -37,7 +36,7 @@ const ListRoot = forwardRef<HTMLUListElement | HTMLOListElement, ListRootProps>(
     'data-marker': markerValue,
     'data-size': size,
     'data-tone': tone,
-    className: clsx(styles.root, normalizeClassName(className)),
+    className: clsx(styles.root, className),
   };
 
   if (as === 'ol') {
@@ -59,7 +58,7 @@ const ListItem = forwardRef<HTMLLIElement, HTMLArkProps<'li'>>(function ListItem
       data-scope="list"
       data-part="item"
       data-slot="list-item"
-      className={normalizeClassName(className)}
+      className={className}
     />
   );
 });

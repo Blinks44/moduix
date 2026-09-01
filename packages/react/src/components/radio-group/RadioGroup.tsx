@@ -9,7 +9,6 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import { Children, cloneElement, forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './RadioGroup.module.css';
 
 type RadioGroupItemControlSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -32,7 +31,7 @@ const RadioGroupRoot = forwardRef<
     <RadioGroupPrimitive.Root
       ref={ref}
       data-slot="radio-group-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -46,7 +45,7 @@ const RadioGroupRootProvider = forwardRef<
     <RadioGroupPrimitive.RootProvider
       ref={ref}
       data-slot="radio-group-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -60,7 +59,7 @@ const RadioGroupLabel = forwardRef<
     <RadioGroupPrimitive.Label
       ref={ref}
       data-slot="radio-group-label"
-      className={clsx(styles.label, normalizeClassName(className))}
+      className={clsx(styles.label, className)}
       {...props}
     />
   );
@@ -75,7 +74,7 @@ const RadioGroupItem = forwardRef<
       ref={ref}
       asChild={asChild}
       data-slot="radio-group-item"
-      className={clsx(styles.item, normalizeClassName(className))}
+      className={clsx(styles.item, className)}
       {...props}
     >
       {withItemHiddenInput(children, asChild)}
@@ -104,7 +103,7 @@ const RadioGroupItemControl = forwardRef<
       ref={ref}
       data-slot="radio-group-item-control"
       data-size={size}
-      className={clsx(styles.itemControl, normalizeClassName(className))}
+      className={clsx(styles.itemControl, className)}
       {...props}
     />
   );
@@ -118,7 +117,7 @@ const RadioGroupItemText = forwardRef<
     <RadioGroupPrimitive.ItemText
       ref={ref}
       data-slot="radio-group-item-text"
-      className={clsx(styles.itemText, normalizeClassName(className))}
+      className={clsx(styles.itemText, className)}
       {...props}
     />
   );
@@ -151,7 +150,7 @@ const RadioGroupIndicator = forwardRef<
     <RadioGroupPrimitive.Indicator
       ref={ref}
       data-slot="radio-group-indicator"
-      className={clsx(styles.indicator, normalizeClassName(className))}
+      className={clsx(styles.indicator, className)}
       {...props}
     />
   );

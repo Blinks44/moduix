@@ -4,7 +4,6 @@ import { Field as FieldPrimitive, useField, useFieldContext } from '@ark-ui/reac
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Field.module.css';
 
 type FieldItemProps = ComponentProps<'div'> & ComponentProps<typeof FieldPrimitive.Item>;
@@ -17,7 +16,7 @@ const FieldRoot = forwardRef<
     <FieldPrimitive.Root
       ref={ref}
       data-slot="field-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -31,7 +30,7 @@ const FieldRootProvider = forwardRef<
     <FieldPrimitive.RootProvider
       ref={ref}
       data-slot="field-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -43,12 +42,7 @@ const FieldItem = forwardRef<HTMLDivElement, FieldItemProps>(function FieldItem(
 ) {
   return (
     <FieldPrimitive.Item value={value}>
-      <div
-        ref={ref}
-        data-slot="field-item"
-        className={clsx(styles.item, normalizeClassName(className))}
-        {...props}
-      >
+      <div ref={ref} data-slot="field-item" className={clsx(styles.item, className)} {...props}>
         {children}
       </div>
     </FieldPrimitive.Item>
@@ -63,7 +57,7 @@ const FieldLabel = forwardRef<
     <FieldPrimitive.Label
       ref={ref}
       data-slot="field-label"
-      className={clsx(styles.label, normalizeClassName(className))}
+      className={clsx(styles.label, className)}
       {...props}
     />
   );
@@ -77,7 +71,7 @@ const FieldInput = forwardRef<
     <FieldPrimitive.Input
       ref={ref}
       data-slot="field-input"
-      className={clsx(styles.control, normalizeClassName(className))}
+      className={clsx(styles.control, className)}
       {...props}
     />
   );
@@ -91,7 +85,7 @@ const FieldTextarea = forwardRef<
     <FieldPrimitive.Textarea
       ref={ref}
       data-slot="field-textarea"
-      className={clsx(styles.control, styles.textarea, normalizeClassName(className))}
+      className={clsx(styles.control, styles.textarea, className)}
       {...props}
     />
   );
@@ -105,7 +99,7 @@ const FieldSelect = forwardRef<
     <FieldPrimitive.Select
       ref={ref}
       data-slot="field-select"
-      className={clsx(styles.control, normalizeClassName(className))}
+      className={clsx(styles.control, className)}
       {...props}
     />
   );
@@ -119,7 +113,7 @@ const FieldHelperText = forwardRef<
     <FieldPrimitive.HelperText
       ref={ref}
       data-slot="field-helper-text"
-      className={clsx(styles.helperText, normalizeClassName(className))}
+      className={clsx(styles.helperText, className)}
       {...props}
     />
   );
@@ -133,7 +127,7 @@ const FieldErrorText = forwardRef<
     <FieldPrimitive.ErrorText
       ref={ref}
       data-slot="field-error-text"
-      className={clsx(styles.errorText, normalizeClassName(className))}
+      className={clsx(styles.errorText, className)}
       {...props}
     />
   );
@@ -147,7 +141,7 @@ const FieldRequiredIndicator = forwardRef<
     <FieldPrimitive.RequiredIndicator
       ref={ref}
       data-slot="field-required-indicator"
-      className={clsx(styles.requiredIndicator, normalizeClassName(className))}
+      className={clsx(styles.requiredIndicator, className)}
       {...props}
     />
   );

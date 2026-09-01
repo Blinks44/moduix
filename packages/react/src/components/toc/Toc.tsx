@@ -9,7 +9,6 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Toc.module.css';
 
 const railBaseOffset = 0;
@@ -34,7 +33,7 @@ const TocRoot = forwardRef<
       ref={ref}
       autoScroll={autoScroll}
       data-slot="toc-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -49,7 +48,7 @@ const TocRootProvider = forwardRef<
       ref={ref}
       value={value}
       data-slot="toc-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       style={{ ...value.getRootProps().style, ...style }}
       {...props}
     />
@@ -64,7 +63,7 @@ const TocContent = forwardRef<
     <TocPrimitive.Content
       ref={ref}
       data-slot="toc-content"
-      className={clsx(styles.content, normalizeClassName(className))}
+      className={clsx(styles.content, className)}
       {...props}
     />
   );
@@ -78,7 +77,7 @@ const TocNav = forwardRef<
     <TocPrimitive.Nav
       ref={ref}
       data-slot="toc-nav"
-      className={clsx(styles.nav, normalizeClassName(className))}
+      className={clsx(styles.nav, className)}
       {...props}
     />
   );
@@ -92,7 +91,7 @@ const TocTitle = forwardRef<
     <TocPrimitive.Title
       ref={ref}
       data-slot="toc-title"
-      className={clsx(styles.title, normalizeClassName(className))}
+      className={clsx(styles.title, className)}
       {...props}
     />
   );
@@ -106,7 +105,7 @@ const TocList = forwardRef<
     <TocPrimitive.List
       ref={ref}
       data-slot="toc-list"
-      className={clsx(styles.list, normalizeClassName(className))}
+      className={clsx(styles.list, className)}
       {...props}
     />
   );
@@ -120,7 +119,7 @@ const TocItem = forwardRef<
     <TocPrimitive.Item
       ref={ref}
       data-slot="toc-item"
-      className={clsx(styles.item, normalizeClassName(className))}
+      className={clsx(styles.item, className)}
       {...props}
     />
   );
@@ -134,7 +133,7 @@ const TocLink = forwardRef<
     <TocPrimitive.Link
       ref={ref}
       data-slot="toc-link"
-      className={clsx(styles.link, normalizeClassName(className))}
+      className={clsx(styles.link, className)}
       {...props}
     />
   );
@@ -148,7 +147,7 @@ const TocIndicator = forwardRef<
     <TocPrimitive.Indicator
       ref={ref}
       data-slot="toc-indicator"
-      className={clsx(styles.indicator, normalizeClassName(className))}
+      className={clsx(styles.indicator, className)}
       {...props}
     />
   );
@@ -175,7 +174,7 @@ const TocRail = forwardRef<SVGSVGElement, TocRailProps>(function TocRail(
       ref={ref}
       aria-hidden="true"
       data-slot="toc-rail"
-      className={clsx(styles.rail, normalizeClassName(className))}
+      className={clsx(styles.rail, className)}
       style={{
         width,
         height:

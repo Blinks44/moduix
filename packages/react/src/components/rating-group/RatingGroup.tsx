@@ -10,7 +10,6 @@ import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import { Children, cloneElement, forwardRef } from 'react';
 import { RatingStarIcon } from '@/lib/moduix/icons/ui';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './RatingGroup.module.css';
 
 type RatingGroupSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -35,7 +34,7 @@ const RatingGroupRoot = forwardRef<
       asChild={asChild}
       data-slot="rating-group-root"
       data-size={size}
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     >
       {withHiddenInput(children, asChild)}
@@ -53,7 +52,7 @@ const RatingGroupRootProvider = forwardRef<
       asChild={asChild}
       data-slot="rating-group-root-provider"
       data-size={size}
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     >
       {withHiddenInput(children, asChild)}
@@ -69,7 +68,7 @@ const RatingGroupLabel = forwardRef<
     <RatingGroupPrimitive.Label
       ref={ref}
       data-slot="rating-group-label"
-      className={clsx(styles.label, normalizeClassName(className))}
+      className={clsx(styles.label, className)}
       {...props}
     />
   );
@@ -83,7 +82,7 @@ const RatingGroupControl = forwardRef<
     <RatingGroupPrimitive.Control
       ref={ref}
       data-slot="rating-group-control"
-      className={clsx(styles.control, normalizeClassName(className))}
+      className={clsx(styles.control, className)}
       {...props}
     />
   );
@@ -97,7 +96,7 @@ const RatingGroupItem = forwardRef<
     <RatingGroupPrimitive.Item
       ref={ref}
       data-slot="rating-group-item"
-      className={clsx(styles.item, normalizeClassName(className))}
+      className={clsx(styles.item, className)}
       {...props}
     />
   );
@@ -113,7 +112,7 @@ const RatingGroupItemIndicator = forwardRef<HTMLSpanElement, RatingGroupItemIndi
         data-slot="rating-group-item-indicator"
         data-half={half ? '' : undefined}
         data-highlighted={highlighted ? '' : undefined}
-        className={clsx(styles.itemIndicator, normalizeClassName(className))}
+        className={clsx(styles.itemIndicator, className)}
         {...props}
       >
         {children ?? (

@@ -8,7 +8,6 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import { Children, cloneElement, forwardRef, useEffect, useRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './AngleSlider.module.css';
 
 const AngleSliderRoot = forwardRef<
@@ -22,7 +21,7 @@ const AngleSliderRoot = forwardRef<
     <AngleSliderPrimitive.Root
       ref={ref}
       data-slot="angle-slider-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       asChild={asChild}
       defaultValue={defaultValue}
       value={value}
@@ -46,7 +45,7 @@ const AngleSliderLabel = forwardRef<
     <AngleSliderPrimitive.Label
       ref={ref}
       data-slot="angle-slider-label"
-      className={clsx(styles.label, normalizeClassName(className))}
+      className={clsx(styles.label, className)}
       {...props}
     />
   );
@@ -62,7 +61,7 @@ const AngleSliderRootProvider = forwardRef<
     <AngleSliderPrimitive.RootProvider
       ref={ref}
       data-slot="angle-slider-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       asChild={asChild}
       value={value}
       {...props}
@@ -126,7 +125,7 @@ const AngleSliderControl = forwardRef<
     <AngleSliderPrimitive.Control
       ref={ref}
       data-slot="angle-slider-control"
-      className={clsx(styles.control, normalizeClassName(className))}
+      className={clsx(styles.control, className)}
       {...props}
     />
   );
@@ -140,7 +139,7 @@ const AngleSliderThumb = forwardRef<
     <AngleSliderPrimitive.Thumb
       ref={ref}
       data-slot="angle-slider-thumb"
-      className={clsx(styles.thumb, normalizeClassName(className))}
+      className={clsx(styles.thumb, className)}
       {...props}
     />
   );
@@ -154,7 +153,7 @@ const AngleSliderMarkerGroup = forwardRef<
     <AngleSliderPrimitive.MarkerGroup
       ref={ref}
       data-slot="angle-slider-marker-group"
-      className={clsx(styles.markerGroup, normalizeClassName(className))}
+      className={clsx(styles.markerGroup, className)}
       {...props}
     />
   );
@@ -168,7 +167,7 @@ const AngleSliderMarker = forwardRef<
     <AngleSliderPrimitive.Marker
       ref={ref}
       data-slot="angle-slider-marker"
-      className={clsx(styles.marker, normalizeClassName(className))}
+      className={clsx(styles.marker, className)}
       {...props}
     />
   );
@@ -215,7 +214,7 @@ const AngleSliderValueText = forwardRef<
     <AngleSliderPrimitive.ValueText
       ref={ref}
       data-slot="angle-slider-value-text"
-      className={clsx(styles.valueText, normalizeClassName(className))}
+      className={clsx(styles.valueText, className)}
       {...props}
     />
   );

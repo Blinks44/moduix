@@ -10,7 +10,6 @@ import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import { Children, cloneElement, forwardRef, useEffect, useRef } from 'react';
 import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './PinInput.module.css';
 
 const PinInputRoot = forwardRef<
@@ -22,7 +21,7 @@ const PinInputRoot = forwardRef<
       ref={ref}
       asChild={asChild}
       data-slot="pin-input-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       count={count}
       placeholder={placeholder}
       {...props}
@@ -41,7 +40,7 @@ const PinInputRootProvider = forwardRef<
       ref={ref}
       asChild={asChild}
       data-slot="pin-input-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     >
       {withHiddenInput(children, asChild)}
@@ -57,7 +56,7 @@ const PinInputLabel = forwardRef<
     <PinInputPrimitive.Label
       ref={ref}
       data-slot="pin-input-label"
-      className={clsx(styles.label, normalizeClassName(className))}
+      className={clsx(styles.label, className)}
       {...props}
     />
   );
@@ -71,7 +70,7 @@ const PinInputControl = forwardRef<
     <PinInputPrimitive.Control
       ref={ref}
       data-slot="pin-input-control"
-      className={clsx(styles.control, normalizeClassName(className))}
+      className={clsx(styles.control, className)}
       {...props}
     />
   );
@@ -85,7 +84,7 @@ const PinInputInput = forwardRef<
     <PinInputPrimitive.Input
       ref={ref}
       data-slot="pin-input-input"
-      className={clsx(styles.input, normalizeClassName(className))}
+      className={clsx(styles.input, className)}
       {...props}
     />
   );
@@ -155,7 +154,7 @@ function PinInputSeparator({
       data-slot="pin-input-separator"
       aria-hidden={ariaHidden}
       role={role}
-      className={clsx(styles.separator, normalizeClassName(className))}
+      className={clsx(styles.separator, className)}
       {...props}
     >
       {children ?? <SeparatorMarkIcon />}

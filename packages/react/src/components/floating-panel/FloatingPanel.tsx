@@ -11,7 +11,6 @@ import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { GripIcon, MaximizeIcon, MinusIcon, RestoreIcon } from '@/lib/moduix/icons/ui';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -86,7 +85,7 @@ const FloatingPanelTrigger = forwardRef<
       ref={ref}
       asChild={asChild}
       data-slot="floating-panel-trigger"
-      className={clsx(!asChild && styles.trigger, normalizeClassName(className))}
+      className={clsx(!asChild && styles.trigger, className)}
       {...props}
     />
   );
@@ -101,7 +100,7 @@ const FloatingPanelPositioner = forwardRef<
       <FloatingPanelPrimitive.Positioner
         ref={ref}
         data-slot="floating-panel-positioner"
-        className={clsx(styles.positioner, normalizeClassName(className))}
+        className={clsx(styles.positioner, className)}
         {...props}
       />
     </OverlayPortal>
@@ -116,7 +115,7 @@ const FloatingPanelContent = forwardRef<
     <FloatingPanelPrimitive.Content
       ref={ref}
       data-slot="floating-panel-content"
-      className={clsx(styles.content, normalizeClassName(className))}
+      className={clsx(styles.content, className)}
       {...props}
     />
   );
@@ -130,7 +129,7 @@ const FloatingPanelDragTrigger = forwardRef<
     <FloatingPanelPrimitive.DragTrigger
       ref={ref}
       data-slot="floating-panel-drag-trigger"
-      className={clsx(styles.dragTrigger, normalizeClassName(className))}
+      className={clsx(styles.dragTrigger, className)}
       {...props}
     />
   );
@@ -144,7 +143,7 @@ const FloatingPanelHeader = forwardRef<
     <FloatingPanelPrimitive.Header
       ref={ref}
       data-slot="floating-panel-header"
-      className={clsx(styles.header, normalizeClassName(className))}
+      className={clsx(styles.header, className)}
       {...props}
     />
   );
@@ -158,7 +157,7 @@ const FloatingPanelTitle = forwardRef<
     <FloatingPanelPrimitive.Title
       ref={ref}
       data-slot="floating-panel-title"
-      className={clsx(styles.title, normalizeClassName(className))}
+      className={clsx(styles.title, className)}
       {...props}
     />
   );
@@ -172,7 +171,7 @@ const FloatingPanelControl = forwardRef<
     <FloatingPanelPrimitive.Control
       ref={ref}
       data-slot="floating-panel-control"
-      className={clsx(styles.control, normalizeClassName(className))}
+      className={clsx(styles.control, className)}
       {...props}
     />
   );
@@ -193,7 +192,7 @@ const FloatingPanelStageTrigger = forwardRef<
       asChild={asChild}
       stage={stage}
       data-slot="floating-panel-stage-trigger"
-      className={clsx(!asChild && styles.controlButton, normalizeClassName(className))}
+      className={clsx(!asChild && styles.controlButton, className)}
       aria-label={ariaLabel}
       {...props}
     >
@@ -214,7 +213,7 @@ const FloatingPanelCloseTrigger = forwardRef<
       ref={ref}
       asChild={asChild}
       data-slot="floating-panel-close-trigger"
-      className={clsx(!asChild && styles.controlButton, normalizeClassName(className))}
+      className={clsx(!asChild && styles.controlButton, className)}
       {...props}
     />
   );
@@ -233,7 +232,7 @@ const FloatingPanelCloseIcon = forwardRef<
         ref={ref}
         data-slot="floating-panel-close-icon"
         aria-label={ariaLabel}
-        className={clsx(styles.controlButton, normalizeClassName(className))}
+        className={clsx(styles.controlButton, className)}
       >
         {children}
       </CloseButton.Root>
@@ -249,7 +248,7 @@ const FloatingPanelBody = forwardRef<
     <FloatingPanelPrimitive.Body
       ref={ref}
       data-slot="floating-panel-body"
-      className={clsx(styles.body, normalizeClassName(className))}
+      className={clsx(styles.body, className)}
       {...props}
     />
   );
@@ -267,7 +266,7 @@ const FloatingPanelFooter = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProp
         {...props}
         data-slot="floating-panel-footer"
         data-minimized={dataMinimized}
-        className={clsx(styles.footer, normalizeClassName(className))}
+        className={clsx(styles.footer, className)}
       />
     );
   },
@@ -281,7 +280,7 @@ const FloatingPanelResizeTrigger = forwardRef<
     <FloatingPanelPrimitive.ResizeTrigger
       ref={ref}
       data-slot="floating-panel-resize-trigger"
-      className={clsx(styles.resizeTrigger, normalizeClassName(className))}
+      className={clsx(styles.resizeTrigger, className)}
       {...props}
     />
   );
@@ -308,7 +307,7 @@ const FloatingPanelDragIndicator = forwardRef<HTMLSpanElement, ComponentProps<'s
         ref={ref}
         aria-hidden="true"
         data-slot="floating-panel-drag-indicator"
-        className={clsx(styles.dragIndicator, normalizeClassName(className))}
+        className={clsx(styles.dragIndicator, className)}
         {...props}
       >
         {children ?? <GripIcon />}

@@ -10,7 +10,6 @@ import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import { Children, cloneElement, createContext, forwardRef, useContext } from 'react';
 import { RotateCcwIcon } from '@/lib/moduix/icons/ui';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import { CloseButton } from '../close-button';
 import styles from './SignaturePad.module.css';
 
@@ -32,7 +31,7 @@ const SignaturePadRoot = forwardRef<
       <SignaturePadPrimitive.Root
         ref={ref}
         data-slot="signature-pad-root"
-        className={clsx(styles.root, normalizeClassName(className))}
+        className={clsx(styles.root, className)}
         asChild={asChild}
         {...props}
       >
@@ -53,7 +52,7 @@ const SignaturePadRootProvider = forwardRef<
       <SignaturePadPrimitive.RootProvider
         ref={ref}
         data-slot="signature-pad-root-provider"
-        className={clsx(styles.root, normalizeClassName(className))}
+        className={clsx(styles.root, className)}
         asChild={asChild}
         {...props}
       >
@@ -71,7 +70,7 @@ const SignaturePadLabel = forwardRef<
     <SignaturePadPrimitive.Label
       ref={ref}
       data-slot="signature-pad-label"
-      className={clsx(styles.label, normalizeClassName(className))}
+      className={clsx(styles.label, className)}
       {...props}
     />
   );
@@ -85,7 +84,7 @@ const SignaturePadControl = forwardRef<
     <SignaturePadPrimitive.Control
       ref={ref}
       data-slot="signature-pad-control"
-      className={clsx(styles.control, normalizeClassName(className))}
+      className={clsx(styles.control, className)}
       {...props}
     />
   );
@@ -99,7 +98,7 @@ const SignaturePadSegment = forwardRef<
     <SignaturePadPrimitive.Segment
       ref={ref}
       data-slot="signature-pad-segment"
-      className={clsx(styles.segment, normalizeClassName(className))}
+      className={clsx(styles.segment, className)}
       {...props}
     />
   );
@@ -113,7 +112,7 @@ const SignaturePadGuide = forwardRef<
     <SignaturePadPrimitive.Guide
       ref={ref}
       data-slot="signature-pad-guide"
-      className={clsx(styles.guide, normalizeClassName(className))}
+      className={clsx(styles.guide, className)}
       {...props}
     />
   );
@@ -134,7 +133,7 @@ const SignaturePadClearTrigger = forwardRef<
   ref,
 ) {
   const readOnly = useContext(SignaturePadReadOnlyContext);
-  const triggerClassName = clsx(styles.clearTrigger, normalizeClassName(className));
+  const triggerClassName = clsx(styles.clearTrigger, className);
 
   if (asChild) {
     return (

@@ -8,7 +8,6 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './ScrollArea.module.css';
 
 type ModuixScrollAreaRootProps = ComponentProps<typeof ScrollAreaPrimitive.Root> & {
@@ -31,7 +30,7 @@ const ScrollAreaRoot = forwardRef<
       data-slot="scroll-area-root"
       data-fade={fade ? '' : undefined}
       data-variant={variant}
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
     />
   );
 });
@@ -47,7 +46,7 @@ const ScrollAreaRootProvider = forwardRef<
       data-slot="scroll-area-root-provider"
       data-fade={fade ? '' : undefined}
       data-variant={variant}
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
     />
   );
 });
@@ -61,7 +60,7 @@ const ScrollAreaViewport = forwardRef<
       ref={ref}
       {...props}
       data-slot="scroll-area-viewport"
-      className={clsx(styles.viewport, normalizeClassName(className))}
+      className={clsx(styles.viewport, className)}
     />
   );
 });
@@ -75,7 +74,7 @@ const ScrollAreaContent = forwardRef<
       ref={ref}
       {...props}
       data-slot="scroll-area-content"
-      className={clsx(styles.content, normalizeClassName(className))}
+      className={clsx(styles.content, className)}
     />
   );
 });
@@ -89,7 +88,7 @@ const ScrollAreaScrollbar = forwardRef<
       ref={ref}
       {...props}
       data-slot="scroll-area-scrollbar"
-      className={clsx(styles.scrollbar, normalizeClassName(className))}
+      className={clsx(styles.scrollbar, className)}
     />
   );
 });
@@ -103,7 +102,7 @@ const ScrollAreaThumb = forwardRef<
       ref={ref}
       {...props}
       data-slot="scroll-area-thumb"
-      className={clsx(styles.thumb, normalizeClassName(className))}
+      className={clsx(styles.thumb, className)}
     />
   );
 });
@@ -117,7 +116,7 @@ const ScrollAreaCorner = forwardRef<
       ref={ref}
       {...props}
       data-slot="scroll-area-corner"
-      className={clsx(styles.corner, normalizeClassName(className))}
+      className={clsx(styles.corner, className)}
     />
   );
 });

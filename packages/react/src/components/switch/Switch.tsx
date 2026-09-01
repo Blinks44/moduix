@@ -9,7 +9,6 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import { Children, cloneElement, forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Switch.module.css';
 
 type SwitchSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -26,7 +25,7 @@ const SwitchRoot = forwardRef<ComponentRef<typeof SwitchPrimitive.Root>, SwitchR
         asChild={asChild}
         data-slot="switch-root"
         data-size={size}
-        className={clsx(styles.root, normalizeClassName(className))}
+        className={clsx(styles.root, className)}
         {...props}
       >
         {withHiddenInput(children, asChild)}
@@ -45,7 +44,7 @@ const SwitchRootProvider = forwardRef<
       asChild={asChild}
       data-slot="switch-root-provider"
       data-size={size}
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     >
       {withHiddenInput(children, asChild)}
@@ -61,7 +60,7 @@ const SwitchControl = forwardRef<
     <SwitchPrimitive.Control
       ref={ref}
       data-slot="switch-control"
-      className={clsx(styles.control, normalizeClassName(className))}
+      className={clsx(styles.control, className)}
       {...props}
     >
       {children ?? <SwitchThumb />}
@@ -77,7 +76,7 @@ const SwitchThumb = forwardRef<
     <SwitchPrimitive.Thumb
       ref={ref}
       data-slot="switch-thumb"
-      className={clsx(styles.thumb, normalizeClassName(className))}
+      className={clsx(styles.thumb, className)}
       {...props}
     />
   );
@@ -91,7 +90,7 @@ const SwitchLabel = forwardRef<
     <SwitchPrimitive.Label
       ref={ref}
       data-slot="switch-label"
-      className={clsx(styles.label, normalizeClassName(className))}
+      className={clsx(styles.label, className)}
       {...props}
     />
   );

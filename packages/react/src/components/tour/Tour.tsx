@@ -13,7 +13,6 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -49,7 +48,7 @@ const TourBackdrop = forwardRef<
       <TourPrimitive.Backdrop
         ref={ref}
         data-slot="tour-backdrop"
-        className={clsx(styles.backdrop, normalizeClassName(className))}
+        className={clsx(styles.backdrop, className)}
         {...props}
       />
     </OverlayPortal>
@@ -65,7 +64,7 @@ const TourSpotlight = forwardRef<
       <TourPrimitive.Spotlight
         ref={ref}
         data-slot="tour-spotlight"
-        className={clsx(styles.spotlight, normalizeClassName(className))}
+        className={clsx(styles.spotlight, className)}
         {...props}
       />
     </OverlayPortal>
@@ -81,7 +80,7 @@ const TourPositioner = forwardRef<
       <TourPrimitive.Positioner
         ref={ref}
         data-slot="tour-positioner"
-        className={clsx(styles.positioner, normalizeClassName(className))}
+        className={clsx(styles.positioner, className)}
         {...props}
       />
     </OverlayPortal>
@@ -96,7 +95,7 @@ const TourContent = forwardRef<
     <TourPrimitive.Content
       ref={ref}
       data-slot="tour-content"
-      className={clsx(styles.content, normalizeClassName(className))}
+      className={clsx(styles.content, className)}
       {...props}
     />
   );
@@ -110,7 +109,7 @@ const TourArrow = forwardRef<
     <TourPrimitive.Arrow
       ref={ref}
       data-slot="tour-arrow"
-      className={clsx(styles.arrow, normalizeClassName(className))}
+      className={clsx(styles.arrow, className)}
       {...props}
     >
       {children ?? <TourArrowTip />}
@@ -126,7 +125,7 @@ const TourArrowTip = forwardRef<
     <TourPrimitive.ArrowTip
       ref={ref}
       data-slot="tour-arrow-tip"
-      className={clsx(styles.arrowTip, normalizeClassName(className))}
+      className={clsx(styles.arrowTip, className)}
       {...props}
     />
   );
@@ -140,7 +139,7 @@ const TourTitle = forwardRef<
     <TourPrimitive.Title
       ref={ref}
       data-slot="tour-title"
-      className={clsx(styles.title, normalizeClassName(className))}
+      className={clsx(styles.title, className)}
       {...props}
     />
   );
@@ -154,7 +153,7 @@ const TourDescription = forwardRef<
     <TourPrimitive.Description
       ref={ref}
       data-slot="tour-description"
-      className={clsx(styles.description, normalizeClassName(className))}
+      className={clsx(styles.description, className)}
       {...props}
     />
   );
@@ -168,7 +167,7 @@ const TourProgressText = forwardRef<
     <TourPrimitive.ProgressText
       ref={ref}
       data-slot="tour-progress-text"
-      className={clsx(styles.progressText, normalizeClassName(className))}
+      className={clsx(styles.progressText, className)}
       {...props}
     />
   );
@@ -179,12 +178,7 @@ const TourBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(f
   ref,
 ) {
   return (
-    <ark.div
-      ref={ref}
-      data-slot="tour-body"
-      className={clsx(styles.body, normalizeClassName(className))}
-      {...props}
-    />
+    <ark.div ref={ref} data-slot="tour-body" className={clsx(styles.body, className)} {...props} />
   );
 });
 
@@ -197,7 +191,7 @@ const TourCloseTrigger = forwardRef<
       ref={ref}
       asChild={asChild}
       data-slot="tour-close-trigger"
-      className={clsx(!asChild && styles.closeTrigger, normalizeClassName(className))}
+      className={clsx(!asChild && styles.closeTrigger, className)}
       {...props}
     />
   );
@@ -216,7 +210,7 @@ const TourCloseIcon = forwardRef<
         ref={ref}
         data-slot="tour-close-icon"
         aria-label={ariaLabel}
-        className={clsx(styles.closeIcon, normalizeClassName(className))}
+        className={clsx(styles.closeIcon, className)}
       >
         {children}
       </CloseButton.Root>
@@ -232,7 +226,7 @@ const TourControl = forwardRef<
     <TourPrimitive.Control
       ref={ref}
       data-slot="tour-control"
-      className={clsx(styles.control, normalizeClassName(className))}
+      className={clsx(styles.control, className)}
       {...props}
     />
   );
@@ -247,7 +241,7 @@ const TourActionTrigger = forwardRef<
       ref={ref}
       asChild={asChild}
       data-slot="tour-action-trigger"
-      className={clsx(!asChild && styles.actionTrigger, normalizeClassName(className))}
+      className={clsx(!asChild && styles.actionTrigger, className)}
       {...props}
     />
   );
