@@ -10,7 +10,7 @@
   gap: var(--moduix-spacing-4);
   padding: var(--moduix-spacing-4);
   border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
-  background-color: var(--color-bg);
+  background-color: var(--moduix-color-background);
 }
 
 .customSurface {
@@ -21,6 +21,6 @@
   align-items: center;
   padding: var(--moduix-spacing-4);
   background-color: var(--moduix-color-accent);
-  color: var(--moduix-color-accent-contrast);
+  color: var(--moduix-color-accent-foreground);
   text-align: center;
 }
