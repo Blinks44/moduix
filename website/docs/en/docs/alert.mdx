@@ -5,6 +5,12 @@ description: Inline messages for status updates, validation results, and system 
 ---
 
 import * as AlertDocs from '@/components/examples/alert';
+import AlertBasic from './_snippets/alert/basic.tsx';
+import AlertCustomComposition from './_snippets/alert/custom-composition.tsx';
+import AlertCustomHeading from './_snippets/alert/custom-heading.tsx';
+import AlertError from './_snippets/alert/error.tsx';
+import AlertStatuses from './_snippets/alert/statuses.tsx';
+import AlertWithIcon from './_snippets/alert/with-icon.tsx';
 
 ## API Reference
 
@@ -33,11 +39,20 @@ flow.
 For a standard inline message, use the short `<Alert>` root form with `Alert.Title` and
 `Alert.Description`. Add `Alert.Indicator` when an icon helps people scan the message.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/alert/basic.tsx"
+<ExampleFrame variant="component">
+  <AlertBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/alert/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -122,62 +137,110 @@ If the document outline calls for a different heading element, use `Alert.Title 
 
 Use `asChild` on `Alert.Title` when the alert title needs to participate in the page's heading hierarchy.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/alert/custom-heading.tsx"
+<ExampleFrame variant="component">
+  <AlertCustomHeading />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/alert/custom-heading.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Error
 
 Set `status="error"` when the message needs an assertive announcement and stronger visual emphasis.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/alert/error.tsx"
+<ExampleFrame variant="component">
+  <AlertError />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/alert/error.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Statuses
 
 Use the four statuses to distinguish informational, successful, warning, and error messages. Add
 `Alert.Indicator` with the icon of your choice when the visual cue is useful.
 
-<style>{AlertDocs.alertStatusesCss}</style>
+<ExampleFrame variant="component">
+  <AlertStatuses />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/alert/statuses.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/alert/statuses.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/alert.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### With Icon
 
 Place a moduix icon or custom SVG inside `Alert.Indicator`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/alert/with-icon.tsx"
+<ExampleFrame variant="component">
+  <AlertWithIcon />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/alert/with-icon.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Use `Alert.Content` and `Alert.Actions` when the message needs recovery or follow-up controls. Keep
 dismissal state in the component that renders the alert when a local alert should be hidden.
 
-<style>{AlertDocs.alertCustomCompositionCss}</style>
+<ExampleFrame variant="component">
+  <AlertCustomComposition />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/alert/custom-composition.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/alert/custom-composition.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/alert.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

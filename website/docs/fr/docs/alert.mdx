@@ -5,6 +5,12 @@ description: Messages intégrés à la page pour les mises à jour de statut, la
 ---
 
 import * as AlertDocs from '@/components/examples/alert';
+import AlertBasic from '../../en/docs/_snippets/alert/basic.tsx';
+import AlertCustomComposition from '../../en/docs/_snippets/alert/custom-composition.tsx';
+import AlertCustomHeading from '../../en/docs/_snippets/alert/custom-heading.tsx';
+import AlertError from '../../en/docs/_snippets/alert/error.tsx';
+import AlertStatuses from '../../en/docs/_snippets/alert/statuses.tsx';
+import AlertWithIcon from '../../en/docs/_snippets/alert/with-icon.tsx';
 
 ## Référence de l’API
 
@@ -34,11 +40,20 @@ Pour un message intégré courant, utilisez la forme courte `<Alert>` avec `Aler
 `Alert.Description`. Ajoutez `Alert.Indicator` lorsqu’une icône aide à comprendre plus rapidement le
 type de message.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/alert/basic.tsx"
+<ExampleFrame variant="component">
+  <AlertBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/alert/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -127,49 +142,85 @@ Si la hiérarchie des titres du document exige un autre élément, utilisez `Ale
 Utilisez `asChild` sur `Alert.Title` lorsque le titre de l’alerte doit s’inscrire dans la hiérarchie
 des titres de la page.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/alert/custom-heading.tsx"
+<ExampleFrame variant="component">
+  <AlertCustomHeading />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/alert/custom-heading.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Erreur
 
 Définissez `status="error"` lorsque le message doit être annoncé avec une priorité élevée et bénéficier
 d’un accent visuel plus marqué.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/alert/error.tsx"
+<ExampleFrame variant="component">
+  <AlertError />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/alert/error.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Statuts
 
 Utilisez les quatre statuts pour distinguer les messages d’information, de réussite, d’avertissement et
 d’erreur. Ajoutez `Alert.Indicator` avec l’icône de votre choix lorsque ce repère visuel est utile.
 
-<style>{AlertDocs.alertStatusesCss}</style>
+<ExampleFrame variant="component">
+  <AlertStatuses />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/alert/statuses.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/alert/statuses.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/alert.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Avec icône
 
 Placez une icône moduix ou un SVG personnalisé dans `Alert.Indicator`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/alert/with-icon.tsx"
+<ExampleFrame variant="component">
+  <AlertWithIcon />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/alert/with-icon.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Personnalisation avancée
 
@@ -177,14 +228,26 @@ Utilisez `Alert.Content` et `Alert.Actions` lorsque le message doit proposer des
 un problème ou poursuivre le parcours. Gérez l’état de fermeture dans le composant qui affiche
 l’alerte si vous devez pouvoir la masquer localement.
 
-<style>{AlertDocs.alertCustomCompositionCss}</style>
+<ExampleFrame variant="component">
+  <AlertCustomComposition />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/alert/custom-composition.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/alert/custom-composition.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/alert.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

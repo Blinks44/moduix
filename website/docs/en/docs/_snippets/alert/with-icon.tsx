@@ -8,7 +8,7 @@ const alert = {
 
 export default function AlertWithIconDemo() {
   return (
-    <Alert status="info" className="alert-demo">
+    <Alert status="info">
       <Alert.Indicator>
         <InfoIcon />
       </Alert.Indicator>

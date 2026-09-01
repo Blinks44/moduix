@@ -2,6 +2,7 @@ import { Alert } from '@moduix/react/alert';
 import { Button } from '@moduix/react/button';
 import { Info as InfoIcon } from 'lucide-react';
 import { useState } from 'react';
+import styles from '@/components/examples/alert.module.css';
 
 const alert = {
   title: 'Storage is almost full',
@@ -17,7 +18,7 @@ export default function AlertActionsDemo() {
   if (!visible) return null;
 
   return (
-    <Alert status="warning" className="alert-custom">
+    <Alert status="warning" className={styles.custom}>
       <Alert.Indicator>
         <InfoIcon />
       </Alert.Indicator>

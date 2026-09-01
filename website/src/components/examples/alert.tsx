@@ -1,23 +1,5 @@
 import type { CssPropertyInput } from '../mdx/reference';
 
-export const alertStatusesCss = `
-  .alert-stack {
-    display: grid;
-    inline-size: 100%;
-    gap: var(--moduix-spacing-3);
-  }
-`;
-
-export const alertCustomCompositionCss = `
-  .alert-custom {
-    --moduix-alert-warning-bg: color-mix(in oklab, var(--moduix-color-primary) 12%, var(--moduix-color-background));
-    --moduix-alert-warning-border-color: color-mix(in oklab, var(--moduix-color-primary) 38%, transparent);
-    --moduix-alert-warning-indicator-color: var(--moduix-color-primary);
-    --moduix-alert-radius: var(--moduix-radius-md);
-    --moduix-alert-shadow: var(--moduix-shadow-sm);
-  }
-`;
-
 export const alertCssProperties: CssPropertyInput[] = [
   [
     '--moduix-alert-actions-gap',

@@ -7,7 +7,7 @@ const alert = {
 
 export default function AlertHeadingDemo() {
   return (
-    <Alert status="info" className="alert-demo">
+    <Alert status="info">
       <Alert.Title asChild>
         <h2>{alert.title}</h2>
       </Alert.Title>

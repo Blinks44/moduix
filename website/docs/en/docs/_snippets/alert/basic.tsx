@@ -7,7 +7,7 @@ const alert = {
 
 export default function AlertDemo() {
   return (
-    <Alert className="alert-demo">
+    <Alert>
       <Alert.Title>{alert.title}</Alert.Title>
       <Alert.Description>{alert.description}</Alert.Description>
     </Alert>

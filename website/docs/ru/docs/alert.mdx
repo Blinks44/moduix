@@ -5,6 +5,12 @@ description: Встроенные сообщения о статусе, резу
 ---
 
 import * as AlertDocs from '@/components/examples/alert';
+import AlertBasic from '../../en/docs/_snippets/alert/basic.tsx';
+import AlertCustomComposition from '../../en/docs/_snippets/alert/custom-composition.tsx';
+import AlertCustomHeading from '../../en/docs/_snippets/alert/custom-heading.tsx';
+import AlertError from '../../en/docs/_snippets/alert/error.tsx';
+import AlertStatuses from '../../en/docs/_snippets/alert/statuses.tsx';
+import AlertWithIcon from '../../en/docs/_snippets/alert/with-icon.tsx';
 
 ## Справочник API
 
@@ -33,11 +39,20 @@ import * as AlertDocs from '@/components/examples/alert';
 Для обычного встроенного сообщения используйте короткую запись `<Alert>` с `Alert.Title` и
 `Alert.Description`. Добавьте `Alert.Indicator`, если значок помогает быстрее понять тип сообщения.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/alert/basic.tsx"
+<ExampleFrame variant="component">
+  <AlertBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/alert/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -126,23 +141,39 @@ Alert / Alert.Root
 Используйте `asChild` в `Alert.Title`, если заголовок сообщения должен занять определённый уровень
 в иерархии заголовков страницы.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/alert/custom-heading.tsx"
+<ExampleFrame variant="component">
+  <AlertCustomHeading />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/alert/custom-heading.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Ошибка
 
 Задайте `status="error"`, если сообщение нужно объявить сразу и визуально выделить сильнее.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/alert/error.tsx"
+<ExampleFrame variant="component">
+  <AlertError />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/alert/error.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Статусы
 
@@ -150,25 +181,45 @@ Alert / Alert.Root
 предупреждения и ошибки. Добавьте `Alert.Indicator` с подходящей иконкой, если визуальный ориентир
 помогает быстрее понять сообщение.
 
-<style>{AlertDocs.alertStatusesCss}</style>
+<ExampleFrame variant="component">
+  <AlertStatuses />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/alert/statuses.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/alert/statuses.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/alert.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### С иконкой
 
 Поместите иконку moduix или собственную SVG-иконку внутрь `Alert.Indicator`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/alert/with-icon.tsx"
+<ExampleFrame variant="component">
+  <AlertWithIcon />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/alert/with-icon.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
@@ -176,14 +227,26 @@ Alert / Alert.Root
 исправления проблемы и дальнейших действий. Если локальное сообщение нужно скрывать, храните
 состояние его видимости в компоненте, который выводит `Alert`.
 
-<style>{AlertDocs.alertCustomCompositionCss}</style>
+<ExampleFrame variant="component">
+  <AlertCustomComposition />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/alert/custom-composition.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/alert/custom-composition.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/alert.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 
