@@ -5,6 +5,13 @@ description: Компактная метка для краткой информ�
 ---
 
 import * as BadgeDocs from '@/components/examples/badge';
+import BadgeBasic from '../../en/docs/_snippets/badge/basic.tsx';
+import BadgeCustomStyling from '../../en/docs/_snippets/badge/custom-styling.tsx';
+import BadgeLink from '../../en/docs/_snippets/badge/link.tsx';
+import BadgeLongLabels from '../../en/docs/_snippets/badge/long-labels.tsx';
+import BadgeVariants from '../../en/docs/_snippets/badge/variants.tsx';
+import BadgeWithDot from '../../en/docs/_snippets/badge/with-dot.tsx';
+import BadgeWithIcon from '../../en/docs/_snippets/badge/with-icon.tsx';
 
 ## Справочник API
 
@@ -26,11 +33,20 @@ import * as BadgeDocs from '@/components/examples/badge';
 Начните с обычного `<Badge>`. По умолчанию компонент отображается как `span` и не добавляет интерактивного поведения. Укажите `variant`,
 чтобы выбрать готовое оформление, и добавляйте `Badge.Dot`, только если статусу нужен визуальный индикатор.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/badge/basic.tsx"
+<ExampleFrame variant="component">
+  <BadgeBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/badge/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -102,100 +118,148 @@ Badge / Badge.Root
 
 Если готовый вариант почти подходит, но требует небольшой правки, настройте бейдж с помощью класса или CSS-переменных.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/badge/custom-styling.tsx"
+<ExampleFrame variant="component">
+  <BadgeCustomStyling />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/badge/custom-styling.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/badge-custom-styling.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Ссылка
 
 Используйте `variant="link"` вместе с `asChild`, когда бейдж должен быть ссылкой в строке метаданных. Дочерний
 элемент останется настоящей ссылкой и сохранит свою нативную семантику.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/badge/link.tsx"
+<ExampleFrame variant="component">
+  <BadgeLink />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/badge/link.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Длинные подписи
 
 По умолчанию бейджи обрезают длинный текст. Добавьте `title`, чтобы полное значение можно было увидеть при наведении
 курсора. На сенсорных устройствах выбирайте подпись, которая помещается в доступное пространство.
 
-<style>{`
-      .badge-demo-constrained {
-        inline-size: 100%;
-      }
-    `}</style>
+<ExampleFrame variant="component">
+  <BadgeLongLabels />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/badge/long-labels.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/badge/long-labels.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/badge-long-labels.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Варианты
 
 Используйте готовые варианты для распространённых стилей.
 
-<style>{`
-      .badge-demo-row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: var(--moduix-spacing-2);
-      }
-    `}</style>
+<ExampleFrame variant="component">
+  <BadgeVariants />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/badge/variants.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/badge/variants.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/badge-variants.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### С точкой
 
 Добавьте `Badge.Dot`, когда рядом с подписью нужен индикатор статуса. Смысл статуса должен оставаться в видимом тексте,
 поскольку точка декоративна.
 
-<style>{`
-      .badge-demo-row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: var(--moduix-spacing-2);
-      }
-    `}</style>
+<ExampleFrame variant="component">
+  <BadgeWithDot />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/badge/with-dot.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/badge/with-dot.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/badge-with-dot.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### С иконкой
 
 Разместите дочернюю SVG-иконку рядом с подписью, если метаданным нужен дополнительный визуальный сигнал.
 
-<style>{`
-      .badge-demo-row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: var(--moduix-spacing-2);
-      }
-    `}</style>
+<ExampleFrame variant="component">
+  <BadgeWithIcon />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/badge/with-icon.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/badge/with-icon.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/badge-with-icon.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

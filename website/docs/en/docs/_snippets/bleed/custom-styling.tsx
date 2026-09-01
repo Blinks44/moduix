@@ -1,5 +1,6 @@
 import { Bleed } from '@moduix/react/bleed';
 import { Text } from '@moduix/react/text';
+import styles from '@/components/examples/bleed-custom-styling.module.css';
 
 const content = {
   shell: 'Nested shell content stays constrained.',
@@ -8,10 +9,10 @@ const content = {
 
 export default function BleedCustomStylingDemo() {
   return (
-    <div className="bleed-demo-shell">
-      <div className="bleed-demo-shell-content">
+    <div className={styles.shell}>
+      <div className={styles.shellContent}>
         <Text tone="muted">{content.shell}</Text>
-        <Bleed className="bleed-demo-custom-surface">
+        <Bleed className={styles.customSurface}>
           <Text weight="semibold">{content.surface}</Text>
         </Bleed>
       </div>

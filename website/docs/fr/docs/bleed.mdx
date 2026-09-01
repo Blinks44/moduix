@@ -5,6 +5,11 @@ description: Composant de mise en page qui permet à certains contenus de dépas
 ---
 
 import * as BleedDocs from '@/components/examples/bleed';
+import BleedBasic from '../../en/docs/_snippets/bleed/basic.tsx';
+import BleedBlockBleed from '../../en/docs/_snippets/bleed/block-bleed.tsx';
+import BleedCustomStyling from '../../en/docs/_snippets/bleed/custom-styling.tsx';
+import BleedInlineAmounts from '../../en/docs/_snippets/bleed/inline-amounts.tsx';
+import BleedSemanticElement from '../../en/docs/_snippets/bleed/semantic-element.tsx';
 
 ## Référence de l’API
 
@@ -22,32 +27,26 @@ conteneur.
 La valeur par défaut `inline="full"` permet à un bloc média, une bannière ou un élément décoratif de section
 d’atteindre les bords de la fenêtre tout en restant dans le flux normal du document.
 
-<style>{`
-      .bleed-demo-container {
-        display: flex;
-        inline-size: 100%;
-        flex-direction: column;
-        gap: var(--moduix-spacing-4);
-        padding: var(--moduix-spacing-4);
-        border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
-      }
+<ExampleFrame variant="component">
+  <BleedBasic />
+</ExampleFrame>
 
-      .bleed-demo-surface {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: var(--moduix-spacing-4);
-        background-color: var(--moduix-color-muted);
-        text-align: center;
-      }
-    `}</style>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/bleed/basic.tsx"
-
+```tsx file="../../en/docs/_snippets/bleed/basic.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/bleed-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -114,145 +113,104 @@ de la fenêtre.
 
 Ajoutez `block` lorsque la surface doit dépasser l’espacement intérieur du conteneur également sur l’axe de bloc.
 
-<style>{`
-      .bleed-demo-padded-container {
-        display: flex;
-        inline-size: 100%;
-        flex-direction: column;
-        gap: var(--moduix-spacing-4);
-        padding: var(--moduix-spacing-6);
-        border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
-      }
+<ExampleFrame variant="component">
+  <BleedBlockBleed />
+</ExampleFrame>
 
-      .bleed-demo-panel {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: var(--moduix-spacing-4);
-        background-color: var(--moduix-color-muted);
-        text-align: center;
-      }
-    `}</style>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/bleed/block-bleed.tsx"
-
+```tsx file="../../en/docs/_snippets/bleed/block-bleed.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/bleed-block-bleed.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Styles personnalisés
 
 Surchargez localement `--moduix-bleed-inline-full` et `--moduix-bleed-inline-full-size` lorsqu’une enveloppe imbriquée
 doit s’adapter à sa propre zone de contenu plutôt qu’à la fenêtre.
 
-<style>{`
-      .bleed-demo-shell {
-        inline-size: 100%;
-        padding: var(--moduix-spacing-6);
-        background-color: var(--moduix-color-muted);
-      }
+<ExampleFrame variant="component">
+  <BleedCustomStyling />
+</ExampleFrame>
 
-      .bleed-demo-shell-content {
-        display: flex;
-        flex-direction: column;
-        gap: var(--moduix-spacing-4);
-        padding: var(--moduix-spacing-4);
-        border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
-        background-color: var(--color-bg);
-      }
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-      .bleed-demo-custom-surface {
-        --moduix-bleed-inline-full: calc(var(--moduix-spacing-4) * -1);
-        --moduix-bleed-inline-full-size: calc(100% + var(--moduix-spacing-8));
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: var(--moduix-spacing-4);
-        background-color: var(--moduix-color-accent);
-        color: var(--moduix-color-accent-contrast);
-        text-align: center;
-      }
-    `}</style>
-
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/bleed/custom-styling.tsx"
-
+```tsx file="../../en/docs/_snippets/bleed/custom-styling.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/bleed-custom-styling.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Débordement sur l’axe en ligne
 
 Utilisez `inline` pour contrôler le dépassement du contenu sur l’axe en ligne. L’exemple compare les valeurs fixes
 `sm` et `lg` avec `full`, qui s’étend jusqu’à la fenêtre.
 
-<style>{`
-      .bleed-demo-container {
-        display: flex;
-        inline-size: 100%;
-        flex-direction: column;
-        gap: var(--moduix-spacing-4);
-        padding: var(--moduix-spacing-4);
-        border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
-      }
+<ExampleFrame variant="component">
+  <BleedInlineAmounts />
+</ExampleFrame>
 
-      .bleed-demo-panel {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: var(--moduix-spacing-4);
-        background-color: var(--moduix-color-muted);
-        text-align: center;
-      }
-    `}</style>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/bleed/inline-amounts.tsx"
-
+```tsx file="../../en/docs/_snippets/bleed/inline-amounts.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/bleed-inline-amounts.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Élément sémantique
 
 Utilisez `asChild` lorsque le contenu doit utiliser un élément sémantique plus précis. Dans cet exemple, l’élément
 `figure` devient la racine de `Bleed`.
 
-<style>{`
-      .bleed-demo-container {
-        display: flex;
-        inline-size: 100%;
-        flex-direction: column;
-        gap: var(--moduix-spacing-4);
-        padding: var(--moduix-spacing-4);
-        border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
-      }
+<ExampleFrame variant="component">
+  <BleedSemanticElement />
+</ExampleFrame>
 
-      .bleed-demo-figure {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: var(--moduix-spacing-3);
-        padding: var(--moduix-spacing-4);
-        background-color: var(--moduix-color-muted);
-        text-align: center;
-      }
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-      .bleed-demo-media {
-        inline-size: 100%;
-        min-height: 8rem;
-        border-radius: var(--moduix-radius-md);
-        background: linear-gradient(135deg, rgb(0 0 0 / 0.14), transparent 45%), var(--moduix-color-accent);
-      }
-    `}</style>
-
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/bleed/semantic-element.tsx"
-
+```tsx file="../../en/docs/_snippets/bleed/semantic-element.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/bleed-semantic-element.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

@@ -5,6 +5,14 @@ description: Un bouton stylisé pour les actions, construit avec le modèle de c
 ---
 
 import * as ButtonDocs from '@/components/examples/button';
+import ButtonAsChildLink from '../../en/docs/_snippets/button/as-child-link.tsx';
+import ButtonBasic from '../../en/docs/_snippets/button/basic.tsx';
+import ButtonDisabled from '../../en/docs/_snippets/button/disabled.tsx';
+import ButtonIcons from '../../en/docs/_snippets/button/icons.tsx';
+import ButtonPendingState from '../../en/docs/_snippets/button/pending-state.tsx';
+import ButtonRef from '../../en/docs/_snippets/button/ref.tsx';
+import ButtonSizes from '../../en/docs/_snippets/button/sizes.tsx';
+import ButtonVariants from '../../en/docs/_snippets/button/variants.tsx';
 
 ## Référence de l’API
 
@@ -18,9 +26,20 @@ Ark UI ne fournit pas de primitive `button` dédiée. moduix construit ce compos
 Pour la plupart des actions, utilisez la forme courte `<Button>...</Button>`. Vous pouvez aussi utiliser
 `Button.Root`, qui expose la même API dans un espace de noms.
 
-```tsx preview file="../../en/docs/_snippets/button/basic.tsx"
+<ExampleFrame variant="component">
+  <ButtonBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/button/basic.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -95,26 +114,71 @@ natif `disabled` n’est pas ajouté à cet élément.
 
 Utilisez `disabled` avec les boutons natifs et les éléments utilisés avec `asChild`.
 
-```tsx preview file="../../en/docs/_snippets/button/disabled.tsx"
+<ExampleFrame variant="component">
+  <ButtonDisabled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/button/disabled.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/button-disabled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Icônes
 
 Les icônes peuvent se placer avant ou après le texte. Leur ordre dans le JSX et le `gap` de l’élément racine Button déterminent la disposition.
 
-```tsx preview file="../../en/docs/_snippets/button/icons.tsx"
+<ExampleFrame variant="component">
+  <ButtonIcons />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/button/icons.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/button-icons.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Lien avec `asChild`
 
 Utilisez `asChild` pour la navigation afin que l’élément `<a>` conserve sa sémantique de lien tout en
 recevant les styles du bouton.
 
-```tsx preview file="../../en/docs/_snippets/button/as-child-link.tsx"
+<ExampleFrame variant="component">
+  <ButtonAsChildLink />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/button/as-child-link.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### État de chargement
 
@@ -122,33 +186,95 @@ Utilisez `loading` pour signaler l’état de chargement tout en gardant le libe
 de vie asynchrone sous le contrôle de votre application. Avec `asChild`, cette propriété bloque également
 l’activation au clic.
 
-```tsx preview file="../../en/docs/_snippets/button/pending-state.tsx"
+<ExampleFrame variant="component">
+  <ButtonPendingState />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/button/pending-state.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Ref
 
 La ref transmise pointe vers l’élément racine rendu ; vous pouvez l’utiliser pour lui donner le focus par programmation ou le mesurer.
 
-```tsx preview file="../../en/docs/_snippets/button/ref.tsx"
+<ExampleFrame variant="component">
+  <ButtonRef />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/button/ref.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/button-ref.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Tailles
 
 Les boutons avec texte et les boutons composés uniquement d’une icône utilisent la même API racine.
 
-```tsx preview file="../../en/docs/_snippets/button/sizes.tsx"
+<ExampleFrame variant="component">
+  <ButtonSizes />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/button/sizes.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/button-sizes.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Variantes
 
 Utilisez les variantes pour exprimer la priorité et l’intention de l’action.
 
-```tsx preview file="../../en/docs/_snippets/button/variants.tsx"
+<ExampleFrame variant="component">
+  <ButtonVariants />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/button/variants.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/button-variants.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

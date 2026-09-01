@@ -1,5 +1,6 @@
 import { Button } from '@moduix/react/button';
 import { Star as StarIcon } from 'lucide-react';
+import styles from '@/components/examples/button-sizes.module.css';
 
 const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
 const iconSizes = [
@@ -10,14 +11,7 @@ const iconSizes = [
 
 export default function ButtonSizesDemo() {
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-        gap: 'var(--moduix-spacing-3)',
-      }}
-    >
+    <div className={styles.root}>
       {sizes.map((size) => (
         <Button key={size} size={size}>
           {size}

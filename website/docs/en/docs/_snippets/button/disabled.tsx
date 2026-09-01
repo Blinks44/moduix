@@ -1,4 +1,5 @@
 import { Button } from '@moduix/react/button';
+import styles from '@/components/examples/button-disabled.module.css';
 
 const labels = {
   button: 'Disabled',
@@ -7,14 +8,7 @@ const labels = {
 
 export default function ButtonDisabledDemo() {
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-        gap: 'var(--moduix-spacing-3)',
-      }}
-    >
+    <div className={styles.root}>
       <Button disabled>{labels.button}</Button>
       <Button asChild disabled variant="outline">
         <a href="#button">{labels.link}</a>

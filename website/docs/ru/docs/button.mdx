@@ -5,6 +5,14 @@ description: Стилизованная кнопка для запуска де�
 ---
 
 import * as ButtonDocs from '@/components/examples/button';
+import ButtonAsChildLink from '../../en/docs/_snippets/button/as-child-link.tsx';
+import ButtonBasic from '../../en/docs/_snippets/button/basic.tsx';
+import ButtonDisabled from '../../en/docs/_snippets/button/disabled.tsx';
+import ButtonIcons from '../../en/docs/_snippets/button/icons.tsx';
+import ButtonPendingState from '../../en/docs/_snippets/button/pending-state.tsx';
+import ButtonRef from '../../en/docs/_snippets/button/ref.tsx';
+import ButtonSizes from '../../en/docs/_snippets/button/sizes.tsx';
+import ButtonVariants from '../../en/docs/_snippets/button/variants.tsx';
 
 ## Справочник API
 
@@ -18,9 +26,20 @@ import * as ButtonDocs from '@/components/examples/button';
 Для большинства действий используйте короткую запись `<Button>...</Button>`. Для записи через
 пространство имён используйте `Button.Root`.
 
-```tsx preview file="../../en/docs/_snippets/button/basic.tsx"
+<ExampleFrame variant="component">
+  <ButtonBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/button/basic.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -91,25 +110,70 @@ Button.Root
 
 Используйте `disabled` для нативных кнопок и элементов, переданных через `asChild`.
 
-```tsx preview file="../../en/docs/_snippets/button/disabled.tsx"
+<ExampleFrame variant="component">
+  <ButtonDisabled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/button/disabled.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/button-disabled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Иконки
 
 Иконки могут стоять до или после текста. Их порядок в JSX и значение `gap` у корневого элемента Button определяют расположение элементов.
 
-```tsx preview file="../../en/docs/_snippets/button/icons.tsx"
+<ExampleFrame variant="component">
+  <ButtonIcons />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/button/icons.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/button-icons.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Ссылка с `asChild`
 
 Используйте `asChild` для навигации, чтобы элемент `<a>` сохранил семантику ссылки и получил стили кнопки.
 
-```tsx preview file="../../en/docs/_snippets/button/as-child-link.tsx"
+<ExampleFrame variant="component">
+  <ButtonAsChildLink />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/button/as-child-link.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Состояние загрузки
 
@@ -117,34 +181,96 @@ Button.Root
 жизненный цикл при этом остаются под контролем приложения. На элементах, переданных через `asChild`,
 этот проп также блокирует активацию по клику.
 
-```tsx preview file="../../en/docs/_snippets/button/pending-state.tsx"
+<ExampleFrame variant="component">
+  <ButtonPendingState />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/button/pending-state.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Ref
 
 Переданный ref указывает на отрисованный корневой элемент. Это позволяет программно установить на нём
 фокус или измерить его.
 
-```tsx preview file="../../en/docs/_snippets/button/ref.tsx"
+<ExampleFrame variant="component">
+  <ButtonRef />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/button/ref.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/button-ref.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Размеры
 
 Для текстовых кнопок и кнопок только со значком используется один и тот же API корневого элемента.
 
-```tsx preview file="../../en/docs/_snippets/button/sizes.tsx"
+<ExampleFrame variant="component">
+  <ButtonSizes />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/button/sizes.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/button-sizes.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Варианты
 
 Используйте варианты, чтобы показать приоритет и назначение действия.
 
-```tsx preview file="../../en/docs/_snippets/button/variants.tsx"
+<ExampleFrame variant="component">
+  <ButtonVariants />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/button/variants.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/button-variants.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

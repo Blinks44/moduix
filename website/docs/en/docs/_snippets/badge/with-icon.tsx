@@ -1,5 +1,6 @@
 import { Badge } from '@moduix/react/badge';
 import { ChevronRight as ChevronRightIcon } from 'lucide-react';
+import styles from '@/components/examples/badge-with-icon.module.css';
 
 const labels = {
   release: 'Release',
@@ -9,7 +10,7 @@ const labels = {
 
 export default function BadgeWithIconDemo() {
   return (
-    <div className="badge-demo-row">
+    <div className={styles.root}>
       <Badge variant="default">
         <Badge.Label>{labels.release}</Badge.Label>
         <ChevronRightIcon />

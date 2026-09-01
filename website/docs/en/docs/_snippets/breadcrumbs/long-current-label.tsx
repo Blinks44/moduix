@@ -1,11 +1,12 @@
 import { Breadcrumbs } from '@moduix/react/breadcrumbs';
+import styles from '@/components/examples/breadcrumbs-long-current-label.module.css';
 
 const currentPage =
   'Go lang developer to production team with cross-functional ownership and platform support';
 
 export default function BreadcrumbsLongLabelDemo() {
   return (
-    <Breadcrumbs className="breadcrumbs-long-label">
+    <Breadcrumbs className={styles.root}>
       <Breadcrumbs.Path
         items={[
           { href: '/', label: 'Home' },

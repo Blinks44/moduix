@@ -5,6 +5,11 @@ description: Компонент для выхода отдельных блок�
 ---
 
 import * as BleedDocs from '@/components/examples/bleed';
+import BleedBasic from '../../en/docs/_snippets/bleed/basic.tsx';
+import BleedBlockBleed from '../../en/docs/_snippets/bleed/block-bleed.tsx';
+import BleedCustomStyling from '../../en/docs/_snippets/bleed/custom-styling.tsx';
+import BleedInlineAmounts from '../../en/docs/_snippets/bleed/inline-amounts.tsx';
+import BleedSemanticElement from '../../en/docs/_snippets/bleed/semantic-element.tsx';
 
 ## Справочник API
 
@@ -21,32 +26,26 @@ import * as BleedDocs from '@/components/examples/bleed';
 Значение `inline="full"` по умолчанию позволяет медиаблоку, баннеру или декоративному элементу секции растянуться
 до краёв окна браузера и при этом остаться в обычном потоке документа.
 
-<style>{`
-      .bleed-demo-container {
-        display: flex;
-        inline-size: 100%;
-        flex-direction: column;
-        gap: var(--moduix-spacing-4);
-        padding: var(--moduix-spacing-4);
-        border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
-      }
+<ExampleFrame variant="component">
+  <BleedBasic />
+</ExampleFrame>
 
-      .bleed-demo-surface {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: var(--moduix-spacing-4);
-        background-color: var(--moduix-color-muted);
-        text-align: center;
-      }
-    `}</style>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/bleed/basic.tsx"
-
+```tsx file="../../en/docs/_snippets/bleed/basic.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/bleed-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -112,145 +111,104 @@ Bleed.Root
 
 Добавьте `block`, если поверхности нужно выйти за внутренние отступы контейнера и по блочной оси.
 
-<style>{`
-      .bleed-demo-padded-container {
-        display: flex;
-        inline-size: 100%;
-        flex-direction: column;
-        gap: var(--moduix-spacing-4);
-        padding: var(--moduix-spacing-6);
-        border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
-      }
+<ExampleFrame variant="component">
+  <BleedBlockBleed />
+</ExampleFrame>
 
-      .bleed-demo-panel {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: var(--moduix-spacing-4);
-        background-color: var(--moduix-color-muted);
-        text-align: center;
-      }
-    `}</style>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/bleed/block-bleed.tsx"
-
+```tsx file="../../en/docs/_snippets/bleed/block-bleed.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/bleed-block-bleed.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Настройка для вложенного контейнера
 
 Локально переопределите `--moduix-bleed-inline-full` и `--moduix-bleed-inline-full-size`, если вложенная оболочка
 должна растянуть `Bleed` до границ своей области, а не до краёв окна браузера.
 
-<style>{`
-      .bleed-demo-shell {
-        inline-size: 100%;
-        padding: var(--moduix-spacing-6);
-        background-color: var(--moduix-color-muted);
-      }
+<ExampleFrame variant="component">
+  <BleedCustomStyling />
+</ExampleFrame>
 
-      .bleed-demo-shell-content {
-        display: flex;
-        flex-direction: column;
-        gap: var(--moduix-spacing-4);
-        padding: var(--moduix-spacing-4);
-        border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
-        background-color: var(--color-bg);
-      }
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-      .bleed-demo-custom-surface {
-        --moduix-bleed-inline-full: calc(var(--moduix-spacing-4) * -1);
-        --moduix-bleed-inline-full-size: calc(100% + var(--moduix-spacing-8));
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: var(--moduix-spacing-4);
-        background-color: var(--moduix-color-accent);
-        color: var(--moduix-color-accent-contrast);
-        text-align: center;
-      }
-    `}</style>
-
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/bleed/custom-styling.tsx"
-
+```tsx file="../../en/docs/_snippets/bleed/custom-styling.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/bleed-custom-styling.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Значения по строчной оси
 
 Задайте `inline`, чтобы управлять выходом содержимого за пределы контейнера по строчной оси. В примере сравниваются
 фиксированные значения `sm` и `lg` с выходом `full` до краёв окна браузера.
 
-<style>{`
-      .bleed-demo-container {
-        display: flex;
-        inline-size: 100%;
-        flex-direction: column;
-        gap: var(--moduix-spacing-4);
-        padding: var(--moduix-spacing-4);
-        border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
-      }
+<ExampleFrame variant="component">
+  <BleedInlineAmounts />
+</ExampleFrame>
 
-      .bleed-demo-panel {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: var(--moduix-spacing-4);
-        background-color: var(--moduix-color-muted);
-        text-align: center;
-      }
-    `}</style>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/bleed/inline-amounts.tsx"
-
+```tsx file="../../en/docs/_snippets/bleed/inline-amounts.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/bleed-inline-amounts.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Семантический элемент
 
 Используйте `asChild`, если содержимому нужен более подходящий семантический элемент. В этом примере элемент
 `figure` становится корневым элементом `Bleed`.
 
-<style>{`
-      .bleed-demo-container {
-        display: flex;
-        inline-size: 100%;
-        flex-direction: column;
-        gap: var(--moduix-spacing-4);
-        padding: var(--moduix-spacing-4);
-        border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
-      }
+<ExampleFrame variant="component">
+  <BleedSemanticElement />
+</ExampleFrame>
 
-      .bleed-demo-figure {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: var(--moduix-spacing-3);
-        padding: var(--moduix-spacing-4);
-        background-color: var(--moduix-color-muted);
-        text-align: center;
-      }
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-      .bleed-demo-media {
-        inline-size: 100%;
-        min-height: 8rem;
-        border-radius: var(--moduix-radius-md);
-        background: linear-gradient(135deg, rgb(0 0 0 / 0.14), transparent 45%), var(--moduix-color-accent);
-      }
-    `}</style>
-
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/bleed/semantic-element.tsx"
-
+```tsx file="../../en/docs/_snippets/bleed/semantic-element.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/bleed-semantic-element.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

@@ -5,6 +5,13 @@ description: A compact label for brief metadata such as status, category, versio
 ---
 
 import * as BadgeDocs from '@/components/examples/badge';
+import BadgeBasic from './_snippets/badge/basic.tsx';
+import BadgeCustomStyling from './_snippets/badge/custom-styling.tsx';
+import BadgeLink from './_snippets/badge/link.tsx';
+import BadgeLongLabels from './_snippets/badge/long-labels.tsx';
+import BadgeVariants from './_snippets/badge/variants.tsx';
+import BadgeWithDot from './_snippets/badge/with-dot.tsx';
+import BadgeWithIcon from './_snippets/badge/with-icon.tsx';
 
 ## API Reference
 
@@ -26,11 +33,20 @@ for a control that lets the user select or edit a value.
 Start with a plain `<Badge>`. The component renders a presentational `span` by default. Set `variant`
 to choose a built-in style, and add `Badge.Dot` only when the status benefits from a visual indicator.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/badge/basic.tsx"
+<ExampleFrame variant="component">
+  <BadgeBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/badge/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -107,100 +123,148 @@ There is no `size` prop; adjust the dimensions through the public CSS variables.
 Use a class or inline CSS variables when a built-in variant is close to what you need but still needs
 a small adjustment.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/badge/custom-styling.tsx"
+<ExampleFrame variant="component">
+  <BadgeCustomStyling />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/badge/custom-styling.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/badge-custom-styling.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Link
 
 Use `variant="link"` with `asChild` when a badge needs to be a link in a metadata row. The child
 element remains a real link and keeps its native semantics.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/badge/link.tsx"
+<ExampleFrame variant="component">
+  <BadgeLink />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/badge/link.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Long Labels
 
 Badges truncate long labels by default. Add `title` to expose the full label on pointer hover. On
 touch-first interfaces, choose a label that fits the available space.
 
-<style>{`
-      .badge-demo-constrained {
-        inline-size: 100%;
-      }
-    `}</style>
+<ExampleFrame variant="component">
+  <BadgeLongLabels />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/badge/long-labels.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/badge/long-labels.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/badge-long-labels.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Variants
 
 Use the built-in variants for common styles.
 
-<style>{`
-      .badge-demo-row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: var(--moduix-spacing-2);
-      }
-    `}</style>
+<ExampleFrame variant="component">
+  <BadgeVariants />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/badge/variants.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/badge/variants.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/badge-variants.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### With Dot
 
 Add `Badge.Dot` when the label needs a status indicator that stays visually connected to it. Keep the
 status meaning in the visible text because the dot is decorative.
 
-<style>{`
-      .badge-demo-row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: var(--moduix-spacing-2);
-      }
-    `}</style>
+<ExampleFrame variant="component">
+  <BadgeWithDot />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/badge/with-dot.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/badge/with-dot.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/badge-with-dot.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### With Icon
 
 Place a direct child SVG icon next to the label when the metadata needs another visual cue.
 
-<style>{`
-      .badge-demo-row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: var(--moduix-spacing-2);
-      }
-    `}</style>
+<ExampleFrame variant="component">
+  <BadgeWithIcon />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/badge/with-icon.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/badge/with-icon.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/badge-with-icon.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

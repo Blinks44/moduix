@@ -1,4 +1,5 @@
 import { Button } from '@moduix/react/button';
+import styles from '@/components/examples/button-variants.module.css';
 
 const variants = [
   'default',
@@ -12,15 +13,7 @@ const variants = [
 
 export default function ButtonVariantsDemo() {
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: 'var(--moduix-spacing-3)',
-      }}
-    >
+    <div className={styles.root}>
       {variants.map((variant) => (
         <Button key={variant} variant={variant}>
           {variant}

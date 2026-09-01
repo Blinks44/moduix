@@ -1,5 +1,6 @@
 import { Breadcrumbs } from '@moduix/react/breadcrumbs';
 import { Minus as SeparatorMarkIcon } from 'lucide-react';
+import styles from '@/components/examples/breadcrumbs-custom-separator.module.css';
 
 const items = [
   { href: '/', label: 'Home' },
@@ -7,17 +8,12 @@ const items = [
   { label: 'Go Developer' },
 ] as const;
 
-const separatorIconStyle = {
-  width: '0.75rem',
-  height: '0.25rem',
-};
-
 export default function BreadcrumbsSeparatorDemo() {
   return (
     <Breadcrumbs>
       <Breadcrumbs.Path
         items={items}
-        separator={<SeparatorMarkIcon className="separator-icon" style={separatorIconStyle} />}
+        separator={<SeparatorMarkIcon className={styles.separatorIcon} />}
       />
     </Breadcrumbs>
   );

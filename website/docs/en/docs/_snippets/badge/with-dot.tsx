@@ -1,4 +1,5 @@
 import { Badge } from '@moduix/react/badge';
+import styles from '@/components/examples/badge-with-dot.module.css';
 
 const statuses = [
   { label: 'Online', variant: 'default' },
@@ -8,7 +9,7 @@ const statuses = [
 
 export default function BadgeWithDotDemo() {
   return (
-    <div className="badge-demo-row">
+    <div className={styles.root}>
       {statuses.map((status) => (
         <Badge key={status.label} variant={status.variant}>
           <Badge.Dot />

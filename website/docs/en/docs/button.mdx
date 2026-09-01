@@ -5,6 +5,14 @@ description: A styled button for actions, built with Ark's factory composition m
 ---
 
 import * as ButtonDocs from '@/components/examples/button';
+import ButtonAsChildLink from './_snippets/button/as-child-link.tsx';
+import ButtonBasic from './_snippets/button/basic.tsx';
+import ButtonDisabled from './_snippets/button/disabled.tsx';
+import ButtonIcons from './_snippets/button/icons.tsx';
+import ButtonPendingState from './_snippets/button/pending-state.tsx';
+import ButtonRef from './_snippets/button/ref.tsx';
+import ButtonSizes from './_snippets/button/sizes.tsx';
+import ButtonVariants from './_snippets/button/variants.tsx';
 
 ## API Reference
 
@@ -18,9 +26,20 @@ Ark UI does not provide a dedicated `button` primitive. moduix builds this compo
 For most actions, use the short `<Button>...</Button>` form. `Button.Root` is the equivalent
 namespaced form.
 
-```tsx preview file="./_snippets/button/basic.tsx"
+<ExampleFrame variant="component">
+  <ButtonBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/button/basic.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -90,59 +109,166 @@ activation. They do not add a native `disabled` attribute to the custom element.
 
 Use `disabled` with native buttons and elements used with `asChild`.
 
-```tsx preview file="./_snippets/button/disabled.tsx"
+<ExampleFrame variant="component">
+  <ButtonDisabled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/button/disabled.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/button-disabled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Icons
 
 Icons can appear before or after the label. Their order in JSX and the Button root's gap determine the
 layout.
 
-```tsx preview file="./_snippets/button/icons.tsx"
+<ExampleFrame variant="component">
+  <ButtonIcons />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/button/icons.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/button-icons.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Link with `asChild`
 
 Use `asChild` for navigation so the anchor keeps its link semantics while using button styles.
 
-```tsx preview file="./_snippets/button/as-child-link.tsx"
+<ExampleFrame variant="component">
+  <ButtonAsChildLink />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/button/as-child-link.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Loading State
 
 Use `loading` to set the busy state while keeping the label, spinner, and async lifecycle explicit in
 your application code. It also prevents click activation on elements used with `asChild`.
 
-```tsx preview file="./_snippets/button/pending-state.tsx"
+<ExampleFrame variant="component">
+  <ButtonPendingState />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/button/pending-state.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Ref
 
 The forwarded ref points to the rendered root and can be used to focus or measure it programmatically.
 
-```tsx preview file="./_snippets/button/ref.tsx"
+<ExampleFrame variant="component">
+  <ButtonRef />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/button/ref.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/button-ref.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Sizes
 
 Text and icon-only buttons use the same root API.
 
-```tsx preview file="./_snippets/button/sizes.tsx"
+<ExampleFrame variant="component">
+  <ButtonSizes />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/button/sizes.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/button-sizes.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Variants
 
 Use variants to communicate an action's priority and intent.
 
-```tsx preview file="./_snippets/button/variants.tsx"
+<ExampleFrame variant="component">
+  <ButtonVariants />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/button/variants.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/button-variants.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

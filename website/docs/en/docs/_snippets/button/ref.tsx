@@ -1,6 +1,7 @@
 import { Button } from '@moduix/react/button';
 import { useRef } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/button-ref.module.css';
 
 const labels = {
   target: 'Focus target',
@@ -11,13 +12,7 @@ export default function ButtonRefDemo() {
   const buttonRef = useRef(null as HTMLButtonElement | null);
 
   return (
-    <div
-      style={{
-        display: 'grid',
-        justifyItems: 'center',
-        gap: 'var(--moduix-spacing-3)',
-      }}
-    >
+    <div className={styles.root}>
       <Button ref={buttonRef}>{labels.target}</Button>
       <PreviewMeta>
         <Button size="sm" variant="outline" onClick={() => buttonRef.current?.focus()}>

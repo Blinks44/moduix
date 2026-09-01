@@ -5,6 +5,13 @@ description: Un badge compact pour afficher de brèves informations comme un sta
 ---
 
 import * as BadgeDocs from '@/components/examples/badge';
+import BadgeBasic from '../../en/docs/_snippets/badge/basic.tsx';
+import BadgeCustomStyling from '../../en/docs/_snippets/badge/custom-styling.tsx';
+import BadgeLink from '../../en/docs/_snippets/badge/link.tsx';
+import BadgeLongLabels from '../../en/docs/_snippets/badge/long-labels.tsx';
+import BadgeVariants from '../../en/docs/_snippets/badge/variants.tsx';
+import BadgeWithDot from '../../en/docs/_snippets/badge/with-dot.tsx';
+import BadgeWithIcon from '../../en/docs/_snippets/badge/with-icon.tsx';
 
 ## Référence de l’API
 
@@ -25,11 +32,20 @@ pas un contrôle qui permet à l’utilisateur de sélectionner ou de modifier u
 Commencez par un `<Badge>` simple. Par défaut, le composant rend un `span` de présentation. Définissez `variant` pour
 choisir un style intégré et ajoutez `Badge.Dot` uniquement lorsqu’un statut a besoin d’un indicateur visuel.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/badge/basic.tsx"
+<ExampleFrame variant="component">
+  <BadgeBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/badge/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -101,100 +117,148 @@ Il n’existe pas de prop `size` : ajustez les dimensions avec les variables CSS
 Lorsqu’une variante intégrée est proche du résultat souhaité mais nécessite encore un léger ajustement, utilisez une classe
 ou définissez des variables CSS directement sur le badge.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/badge/custom-styling.tsx"
+<ExampleFrame variant="component">
+  <BadgeCustomStyling />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/badge/custom-styling.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/badge-custom-styling.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Lien
 
 Utilisez `variant="link"` avec `asChild` lorsque le badge doit devenir un lien dans une ligne de métadonnées. L’élément
 enfant reste un véritable lien et conserve sa sémantique native.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/badge/link.tsx"
+<ExampleFrame variant="component">
+  <BadgeLink />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/badge/link.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Libellés longs
 
 Par défaut, les badges tronquent les libellés longs. Ajoutez `title` pour rendre le libellé complet visible au survol. Dans
 les interfaces tactiles, choisissez un libellé qui tient dans l’espace disponible.
 
-<style>{`
-      .badge-demo-constrained {
-        inline-size: 100%;
-      }
-    `}</style>
+<ExampleFrame variant="component">
+  <BadgeLongLabels />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/badge/long-labels.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/badge/long-labels.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/badge-long-labels.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Variantes
 
 Utilisez les variantes intégrées pour les styles courants.
 
-<style>{`
-      .badge-demo-row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: var(--moduix-spacing-2);
-      }
-    `}</style>
+<ExampleFrame variant="component">
+  <BadgeVariants />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/badge/variants.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/badge/variants.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/badge-variants.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Avec un point
 
 Ajoutez `Badge.Dot` lorsque le libellé a besoin d’un indicateur d’état qui reste visuellement associé. Le texte visible doit
 porter le sens du statut, car le point est décoratif.
 
-<style>{`
-      .badge-demo-row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: var(--moduix-spacing-2);
-      }
-    `}</style>
+<ExampleFrame variant="component">
+  <BadgeWithDot />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/badge/with-dot.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/badge/with-dot.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/badge-with-dot.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Avec une icône
 
 Placez une icône SVG enfant directe à côté du libellé lorsque les métadonnées ont besoin d’un repère visuel supplémentaire.
 
-<style>{`
-      .badge-demo-row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: var(--moduix-spacing-2);
-      }
-    `}</style>
+<ExampleFrame variant="component">
+  <BadgeWithIcon />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/badge/with-icon.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/badge/with-icon.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/badge-with-icon.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

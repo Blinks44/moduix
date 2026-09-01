@@ -5,6 +5,12 @@ description: Navigation sémantique en fil d’Ariane, avec une composition expl
 ---
 
 import * as BreadcrumbsDocs from '@/components/examples/breadcrumbs';
+import BreadcrumbsAdvancedCustomization from '../../en/docs/_snippets/breadcrumbs/advanced-customization.tsx';
+import BreadcrumbsBasic from '../../en/docs/_snippets/breadcrumbs/basic.tsx';
+import BreadcrumbsCollapsedPath from '../../en/docs/_snippets/breadcrumbs/collapsed-path.tsx';
+import BreadcrumbsCustomSeparator from '../../en/docs/_snippets/breadcrumbs/custom-separator.tsx';
+import BreadcrumbsFrameworkLink from '../../en/docs/_snippets/breadcrumbs/framework-link.tsx';
+import BreadcrumbsLongCurrentLabel from '../../en/docs/_snippets/breadcrumbs/long-current-label.tsx';
 
 ## Référence de l’API
 
@@ -18,12 +24,20 @@ et de gestion des [ref](https://ark-ui.com/docs/guides/ref).
 Utilisez `Breadcrumbs.Path` lorsque vous disposez déjà des segments du chemin à afficher. Le composant génère la liste
 ordonnée, les éléments, les liens, la page actuelle et les séparateurs à partir d’un simple tableau `items`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/breadcrumbs/basic.tsx"
+<ExampleFrame variant="component">
+  <BreadcrumbsBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/breadcrumbs/basic.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -107,81 +121,77 @@ Utilisez les parties explicites de Breadcrumbs avec `Menu` lorsque des segments 
 révélés à la demande. Le déclencheur et le contenu du menu gèrent l’interaction ; cet exemple utilise donc les parties
 explicites plutôt que `Breadcrumbs.Path`.
 
-<style>{`
-      .collapsed-menu-trigger {
-        min-width: auto;
-        min-height: auto;
-        padding: 0;
-        border: none;
-        background: transparent;
-        color: inherit;
-        cursor: pointer;
-        border-radius: var(--moduix-radius-sm);
-        transition: var(--moduix-transition-default);
-      }
+<ExampleFrame variant="component">
+  <BreadcrumbsCollapsedPath />
+</ExampleFrame>
 
-      @media (hover: hover) {
-        .collapsed-menu-trigger:hover {
-          color: var(--moduix-color-foreground);
-          background: color-mix(in srgb, var(--moduix-color-muted) 70%, transparent);
-        }
-      }
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-      .collapsed-menu-trigger:focus-visible {
-        outline: none;
-        box-shadow: 0 0 0 var(--moduix-border-width-sm) var(--moduix-color-ring);
-      }
-
-      .collapsed-menu-content {
-        --moduix-menu-popup-min-width: 8rem;
-        --moduix-menu-item-font-size: var(--moduix-text-xs);
-        --moduix-menu-item-padding-x-start: 0.5rem;
-        --moduix-menu-item-padding-x-end: 0.5rem;
-        --moduix-menu-item-padding-y: 0.25rem;
-      }
-    `}</style>
-
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/breadcrumbs/collapsed-path.tsx"
-
+```tsx file="../../en/docs/_snippets/breadcrumbs/collapsed-path.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/breadcrumbs-collapsed-path.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Séparateur personnalisé
 
 Avec `Breadcrumbs.Path`, remplacez le chevron par défaut par une icône ou un symbole lorsque le même séparateur doit apparaître
 dans tous les intervalles visibles.
 
-<style>{`
-      .separator-icon {
-        color: currentColor;
-      }
-    `}</style>
+<ExampleFrame variant="component">
+  <BreadcrumbsCustomSeparator />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/breadcrumbs/custom-separator.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/breadcrumbs/custom-separator.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/breadcrumbs-custom-separator.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Lien du routeur
 
 Utilisez `asChild` d’Ark pour intégrer un lien fourni par le routeur du framework utilisé par l’application.
 
-<style>{`
-      [data-framework-link] {
-        text-decoration: none;
-      }
-    `}</style>
+<ExampleFrame variant="component">
+  <BreadcrumbsFrameworkLink />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/breadcrumbs/framework-link.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/breadcrumbs/framework-link.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/breadcrumbs-framework-link.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Libellé long de la page actuelle
 
@@ -189,44 +199,52 @@ Passez un nœud React comme dernier libellé de `Breadcrumbs.Path` lorsque la pa
 supplémentaires, par exemple `title`. Les éléments parents peuvent eux aussi rétrécir ; les longs libellés intermédiaires
 risquent donc moins de faire déborder le fil d’Ariane.
 
-<style>{`
-      .breadcrumbs-long-label {
-        --moduix-breadcrumbs-item-max-width: 12rem;
-      }
-    `}</style>
+<ExampleFrame variant="component">
+  <BreadcrumbsLongCurrentLabel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/breadcrumbs/long-current-label.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/breadcrumbs/long-current-label.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/breadcrumbs-long-current-label.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Personnalisation avancée
 
 Utilisez les parties explicites plutôt que `Breadcrumbs.Path` lorsqu’un même fil combine des liens fournis par le routeur du
 framework, un séparateur personnalisé et un libellé de page actuelle enrichi par du balisage.
 
-<style>{`
-      [data-framework-link] {
-        text-decoration: none;
-      }
+<ExampleFrame variant="component">
+  <BreadcrumbsAdvancedCustomization />
+</ExampleFrame>
 
-      .separator-icon {
-        color: currentColor;
-      }
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-      .breadcrumbs-long-label {
-        --moduix-breadcrumbs-item-max-width: 12rem;
-      }
-    `}</style>
-
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/breadcrumbs/advanced-customization.tsx"
-
+```tsx file="../../en/docs/_snippets/breadcrumbs/advanced-customization.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/breadcrumbs-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

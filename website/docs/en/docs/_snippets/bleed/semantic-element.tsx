@@ -1,5 +1,6 @@
 import { Bleed } from '@moduix/react/bleed';
 import { Text } from '@moduix/react/text';
+import styles from '@/components/examples/bleed-semantic-element.module.css';
 
 const content = {
   caption: 'Full-width media with a constrained parent.',
@@ -7,10 +8,10 @@ const content = {
 
 export default function BleedSemanticDemo() {
   return (
-    <div className="bleed-demo-container">
-      <Bleed asChild className="bleed-demo-figure">
+    <div className={styles.root}>
+      <Bleed asChild className={styles.figure}>
         <figure>
-          <div className="bleed-demo-media" />
+          <div className={styles.media} />
           <Text tone="muted" size="sm">
             {content.caption}
           </Text>

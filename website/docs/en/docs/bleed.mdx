@@ -5,6 +5,11 @@ description: Layout primitive that lets selected content extend beyond a constra
 ---
 
 import * as BleedDocs from '@/components/examples/bleed';
+import BleedBasic from './_snippets/bleed/basic.tsx';
+import BleedBlockBleed from './_snippets/bleed/block-bleed.tsx';
+import BleedCustomStyling from './_snippets/bleed/custom-styling.tsx';
+import BleedInlineAmounts from './_snippets/bleed/inline-amounts.tsx';
+import BleedSemanticElement from './_snippets/bleed/semantic-element.tsx';
 
 ## API Reference
 
@@ -21,32 +26,26 @@ only a media block, background, divider, or banner should extend beyond the cont
 The default `inline="full"` makes media, banners, and section decorations reach the viewport edges while
 remaining in the normal document flow.
 
-<style>{`
-      .bleed-demo-container {
-        display: flex;
-        inline-size: 100%;
-        flex-direction: column;
-        gap: var(--moduix-spacing-4);
-        padding: var(--moduix-spacing-4);
-        border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
-      }
+<ExampleFrame variant="component">
+  <BleedBasic />
+</ExampleFrame>
 
-      .bleed-demo-surface {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: var(--moduix-spacing-4);
-        background-color: var(--moduix-color-muted);
-        text-align: center;
-      }
-    `}</style>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/bleed/basic.tsx"
-
+```tsx file="./_snippets/bleed/basic.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/bleed-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -111,145 +110,104 @@ needs the content to extend to its own boundaries rather than the viewport.
 
 Add `block` when a surface should extend through the container's block-axis padding as well as its inline-axis padding.
 
-<style>{`
-      .bleed-demo-padded-container {
-        display: flex;
-        inline-size: 100%;
-        flex-direction: column;
-        gap: var(--moduix-spacing-4);
-        padding: var(--moduix-spacing-6);
-        border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
-      }
+<ExampleFrame variant="component">
+  <BleedBlockBleed />
+</ExampleFrame>
 
-      .bleed-demo-panel {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: var(--moduix-spacing-4);
-        background-color: var(--moduix-color-muted);
-        text-align: center;
-      }
-    `}</style>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/bleed/block-bleed.tsx"
-
+```tsx file="./_snippets/bleed/block-bleed.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/bleed-block-bleed.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Custom Styling
 
 Override `--moduix-bleed-inline-full` and `--moduix-bleed-inline-full-size` locally when a nested shell
 should size the bleed to its own content area instead of the viewport.
 
-<style>{`
-      .bleed-demo-shell {
-        inline-size: 100%;
-        padding: var(--moduix-spacing-6);
-        background-color: var(--moduix-color-muted);
-      }
+<ExampleFrame variant="component">
+  <BleedCustomStyling />
+</ExampleFrame>
 
-      .bleed-demo-shell-content {
-        display: flex;
-        flex-direction: column;
-        gap: var(--moduix-spacing-4);
-        padding: var(--moduix-spacing-4);
-        border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
-        background-color: var(--color-bg);
-      }
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-      .bleed-demo-custom-surface {
-        --moduix-bleed-inline-full: calc(var(--moduix-spacing-4) * -1);
-        --moduix-bleed-inline-full-size: calc(100% + var(--moduix-spacing-8));
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: var(--moduix-spacing-4);
-        background-color: var(--moduix-color-accent);
-        color: var(--moduix-color-accent-contrast);
-        text-align: center;
-      }
-    `}</style>
-
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/bleed/custom-styling.tsx"
-
+```tsx file="./_snippets/bleed/custom-styling.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/bleed-custom-styling.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Inline Amounts
 
 Set `inline` to control how far content extends along the inline axis. This example compares the fixed
 `sm` and `lg` values with `full`, which reaches the viewport.
 
-<style>{`
-      .bleed-demo-container {
-        display: flex;
-        inline-size: 100%;
-        flex-direction: column;
-        gap: var(--moduix-spacing-4);
-        padding: var(--moduix-spacing-4);
-        border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
-      }
+<ExampleFrame variant="component">
+  <BleedInlineAmounts />
+</ExampleFrame>
 
-      .bleed-demo-panel {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: var(--moduix-spacing-4);
-        background-color: var(--moduix-color-muted);
-        text-align: center;
-      }
-    `}</style>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/bleed/inline-amounts.tsx"
-
+```tsx file="./_snippets/bleed/inline-amounts.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/bleed-inline-amounts.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Semantic Element
 
 Use `asChild` when the content should use a more specific semantic element. In this example, the `figure`
 element becomes the `Bleed` root.
 
-<style>{`
-      .bleed-demo-container {
-        display: flex;
-        inline-size: 100%;
-        flex-direction: column;
-        gap: var(--moduix-spacing-4);
-        padding: var(--moduix-spacing-4);
-        border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
-      }
+<ExampleFrame variant="component">
+  <BleedSemanticElement />
+</ExampleFrame>
 
-      .bleed-demo-figure {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: var(--moduix-spacing-3);
-        padding: var(--moduix-spacing-4);
-        background-color: var(--moduix-color-muted);
-        text-align: center;
-      }
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-      .bleed-demo-media {
-        inline-size: 100%;
-        min-height: 8rem;
-        border-radius: var(--moduix-radius-md);
-        background: linear-gradient(135deg, rgb(0 0 0 / 0.14), transparent 45%), var(--moduix-color-accent);
-      }
-    `}</style>
-
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/bleed/semantic-element.tsx"
-
+```tsx file="./_snippets/bleed/semantic-element.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/bleed-semantic-element.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

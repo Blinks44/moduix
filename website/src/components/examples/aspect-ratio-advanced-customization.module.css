@@ -1,0 +1,11 @@
+.root {
+  inline-size: 100%;
+}
+
+.figure {
+  margin: 0;
+}
+
+.image {
+  object-fit: cover;
+}

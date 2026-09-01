@@ -5,6 +5,12 @@ description: Семантическая навигация по иерархии
 ---
 
 import * as BreadcrumbsDocs from '@/components/examples/breadcrumbs';
+import BreadcrumbsAdvancedCustomization from '../../en/docs/_snippets/breadcrumbs/advanced-customization.tsx';
+import BreadcrumbsBasic from '../../en/docs/_snippets/breadcrumbs/basic.tsx';
+import BreadcrumbsCollapsedPath from '../../en/docs/_snippets/breadcrumbs/collapsed-path.tsx';
+import BreadcrumbsCustomSeparator from '../../en/docs/_snippets/breadcrumbs/custom-separator.tsx';
+import BreadcrumbsFrameworkLink from '../../en/docs/_snippets/breadcrumbs/framework-link.tsx';
+import BreadcrumbsLongCurrentLabel from '../../en/docs/_snippets/breadcrumbs/long-current-label.tsx';
 
 ## Справочник API
 
@@ -18,12 +24,20 @@ Ark UI не предоставляет отдельного примитива �
 Используйте `Breadcrumbs.Path`, если у вас уже есть список сегментов пути. На основе небольшого массива `items`
 компонент создаёт упорядоченный список, элементы, ссылки, текущую страницу и разделители.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/breadcrumbs/basic.tsx"
+<ExampleFrame variant="component">
+  <BreadcrumbsBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/breadcrumbs/basic.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -106,81 +120,77 @@ Breadcrumbs / Breadcrumbs.Root
 Взаимодействием управляют триггер и содержимое меню, поэтому в примере используются отдельные части, а не
 `Breadcrumbs.Path`.
 
-<style>{`
-      .collapsed-menu-trigger {
-        min-width: auto;
-        min-height: auto;
-        padding: 0;
-        border: none;
-        background: transparent;
-        color: inherit;
-        cursor: pointer;
-        border-radius: var(--moduix-radius-sm);
-        transition: var(--moduix-transition-default);
-      }
+<ExampleFrame variant="component">
+  <BreadcrumbsCollapsedPath />
+</ExampleFrame>
 
-      @media (hover: hover) {
-        .collapsed-menu-trigger:hover {
-          color: var(--moduix-color-foreground);
-          background: color-mix(in srgb, var(--moduix-color-muted) 70%, transparent);
-        }
-      }
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-      .collapsed-menu-trigger:focus-visible {
-        outline: none;
-        box-shadow: 0 0 0 var(--moduix-border-width-sm) var(--moduix-color-ring);
-      }
-
-      .collapsed-menu-content {
-        --moduix-menu-popup-min-width: 8rem;
-        --moduix-menu-item-font-size: var(--moduix-text-xs);
-        --moduix-menu-item-padding-x-start: 0.5rem;
-        --moduix-menu-item-padding-x-end: 0.5rem;
-        --moduix-menu-item-padding-y: 0.25rem;
-      }
-    `}</style>
-
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/breadcrumbs/collapsed-path.tsx"
-
+```tsx file="../../en/docs/_snippets/breadcrumbs/collapsed-path.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/breadcrumbs-collapsed-path.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Пользовательский разделитель
 
 Используйте `Breadcrumbs.Path`, если во всех видимых промежутках нужен один и тот же значок или символ вместо шеврона
 по умолчанию.
 
-<style>{`
-      .separator-icon {
-        color: currentColor;
-      }
-    `}</style>
+<ExampleFrame variant="component">
+  <BreadcrumbsCustomSeparator />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/breadcrumbs/custom-separator.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/breadcrumbs/custom-separator.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/breadcrumbs-custom-separator.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Ссылка из роутера
 
 Используйте Ark `asChild`, чтобы встроить в `Breadcrumbs` ссылку, которую создаёт роутер приложения.
 
-<style>{`
-      [data-framework-link] {
-        text-decoration: none;
-      }
-    `}</style>
+<ExampleFrame variant="component">
+  <BreadcrumbsFrameworkLink />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/breadcrumbs/framework-link.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/breadcrumbs/framework-link.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/breadcrumbs-framework-link.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Длинная метка текущей страницы
 
@@ -188,44 +198,52 @@ Breadcrumbs / Breadcrumbs.Root
 например `title`. Предшествующие сегменты тоже могут сжиматься, поэтому длинные промежуточные подписи с меньшей
 вероятностью приведут к переполнению цепочки.
 
-<style>{`
-      .breadcrumbs-long-label {
-        --moduix-breadcrumbs-item-max-width: 12rem;
-      }
-    `}</style>
+<ExampleFrame variant="component">
+  <BreadcrumbsLongCurrentLabel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/breadcrumbs/long-current-label.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/breadcrumbs/long-current-label.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/breadcrumbs-long-current-label.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
 Используйте отдельные части вместо `Breadcrumbs.Path`, если в одной цепочке нужно сочетать ссылки из роутера приложения,
 свой разделитель и текущую страницу с дополнительной разметкой.
 
-<style>{`
-      [data-framework-link] {
-        text-decoration: none;
-      }
+<ExampleFrame variant="component">
+  <BreadcrumbsAdvancedCustomization />
+</ExampleFrame>
 
-      .separator-icon {
-        color: currentColor;
-      }
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-      .breadcrumbs-long-label {
-        --moduix-breadcrumbs-item-max-width: 12rem;
-      }
-    `}</style>
-
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/breadcrumbs/advanced-customization.tsx"
-
+```tsx file="../../en/docs/_snippets/breadcrumbs/advanced-customization.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/breadcrumbs-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

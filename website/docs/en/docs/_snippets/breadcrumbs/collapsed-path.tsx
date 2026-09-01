@@ -1,5 +1,6 @@
 import { Breadcrumbs } from '@moduix/react/breadcrumbs';
 import { Menu } from '@moduix/react/menu';
+import styles from '@/components/examples/breadcrumbs-collapsed-path.module.css';
 
 const collapsedItems = [
   { href: '/docs', label: 'Docs' },
@@ -18,16 +19,12 @@ export default function BreadcrumbsCollapsedDemo() {
         <Breadcrumbs.Item>
           <Menu positioning={{ placement: 'bottom-start' }}>
             <Menu.Trigger asChild>
-              <button
-                type="button"
-                aria-label="Show hidden path items"
-                className="collapsed-menu-trigger"
-              >
+              <button type="button" aria-label="Show hidden path items" className={styles.trigger}>
                 <Breadcrumbs.Ellipsis />
               </button>
             </Menu.Trigger>
             <Menu.Positioner>
-              <Menu.Content className="collapsed-menu-content">
+              <Menu.Content className={styles.content}>
                 {collapsedItems.map((item) => (
                   <Menu.Item key={item.href} value={item.href} asChild>
                     <a href={item.href}>{item.label}</a>

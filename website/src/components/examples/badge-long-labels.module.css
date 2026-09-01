@@ -1,0 +1,8 @@
+.root {
+  inline-size: 12rem;
+  max-inline-size: 100%;
+}
+
+.label {
+  inline-size: 100%;
+}

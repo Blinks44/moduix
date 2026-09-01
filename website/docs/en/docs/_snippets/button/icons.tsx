@@ -1,5 +1,6 @@
 import { Button } from '@moduix/react/button';
 import { ArrowUpRight as ArrowUpRightIcon, Plus as PlusIcon, Star as StarIcon } from 'lucide-react';
+import styles from '@/components/examples/button-icons.module.css';
 
 const labels = {
   create: 'Create Item',
@@ -9,14 +10,7 @@ const labels = {
 
 export default function ButtonIconsDemo() {
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-        gap: 'var(--moduix-spacing-3)',
-      }}
-    >
+    <div className={styles.root}>
       <Button>
         <PlusIcon />
         {labels.create}
