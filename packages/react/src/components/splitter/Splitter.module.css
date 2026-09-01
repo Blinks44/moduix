@@ -2,20 +2,14 @@
   .root {
     position: relative;
     box-sizing: border-box;
-    display: flex;
     min-width: var(--moduix-splitter-min-width, 0);
     min-height: var(--moduix-splitter-min-height, 0);
-    overflow: hidden;
     border: var(--moduix-splitter-border-width, var(--moduix-border-width-sm)) solid
       var(--moduix-splitter-border-color, var(--moduix-color-border));
     border-radius: var(--moduix-splitter-radius, var(--moduix-radius-md));
     background-color: var(--moduix-splitter-bg, var(--moduix-color-card));
     color: var(--moduix-splitter-color, var(--moduix-color-foreground));
     box-shadow: var(--moduix-splitter-shadow, var(--moduix-shadow-sm));
-
-    &[data-orientation='vertical'] {
-      flex-direction: column;
-    }
 
     &[data-dragging] {
       cursor: col-resize;
@@ -53,7 +47,6 @@
     z-index: 1;
     box-sizing: border-box;
     display: flex;
-    flex: 0 0 var(--moduix-splitter-resize-trigger-line-size, 1px);
     align-items: center;
     justify-content: center;
     width: var(--moduix-splitter-resize-trigger-line-size, 1px);
@@ -64,7 +57,6 @@
     appearance: none;
     cursor: col-resize;
     outline: 0;
-    touch-action: none;
     transition: opacity var(--moduix-splitter-transition, var(--moduix-transition-default));
 
     &::before {
@@ -77,9 +69,8 @@
         var(--moduix-color-border)
       );
       content: '';
-      transition:
-        background-color var(--moduix-splitter-transition, var(--moduix-transition-default)),
-        opacity var(--moduix-splitter-transition, var(--moduix-transition-default));
+      transition: background-color
+        var(--moduix-splitter-transition, var(--moduix-transition-default));
     }
 
     &::after {
