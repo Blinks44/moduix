@@ -1,8 +1,9 @@
 import { PasswordInput } from '@moduix/react/password-input';
+import styles from '@/components/examples/password-input/password-input-autocomplete.module.css';
 
 export default function PasswordInputAutocompleteDemo() {
   return (
-    <PasswordInput autoComplete="new-password" name="new-password">
+    <PasswordInput className={styles.root} autoComplete="new-password" name="new-password">
       <PasswordInput.Label>New password</PasswordInput.Label>
       <PasswordInput.Control>
         <PasswordInput.Input placeholder="Create a password" />

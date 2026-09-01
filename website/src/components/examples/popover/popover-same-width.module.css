@@ -1,0 +1,8 @@
+.trigger {
+  inline-size: min(20rem, 100%);
+}
+
+.content {
+  width: var(--reference-width);
+  min-width: 0;
+}

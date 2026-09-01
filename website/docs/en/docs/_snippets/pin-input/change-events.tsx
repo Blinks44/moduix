@@ -1,17 +1,12 @@
 import { PinInput } from '@moduix/react/pin-input';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/pin-input/pin-input-change-events.module.css';
 
 export default function ChangeEventsPinInput() {
   const [value, setValue] = useState([] as string[]);
   return (
-    <div
-      style={{
-        display: 'grid',
-        justifyItems: 'center',
-        gap: 'var(--moduix-spacing-4)',
-      }}
-    >
+    <div className={styles.root}>
       <PinInput
         count={6}
         type="alphanumeric"

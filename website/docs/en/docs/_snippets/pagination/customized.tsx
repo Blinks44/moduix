@@ -1,9 +1,10 @@
 import { Pagination } from '@moduix/react/pagination';
+import styles from '@/components/examples/pagination/pagination-customized.module.css';
 
 export default function CustomizedPaginationDemo() {
   return (
     <Pagination
-      className="pagination-demo"
+      className={styles.root}
       count={400}
       pageSize={20}
       siblingCount={3}

@@ -4,7 +4,16 @@ component: pin-input
 description: A segmented input for short PINs and verification codes, with automatic focus management and OTP support.
 ---
 
-import * as PinInputDocs from '@/components/examples/pin-input';
+import * as PinInputDocs from '@/components/examples/pin-input/pin-input';
+import PinInputBasic from './_snippets/pin-input/basic.tsx';
+import PinInputBlurOnComplete from './_snippets/pin-input/blur-on-complete.tsx';
+import PinInputChangeEvents from './_snippets/pin-input/change-events.tsx';
+import PinInputField from './_snippets/pin-input/field.tsx';
+import PinInputGroupedLayout from './_snippets/pin-input/grouped-layout.tsx';
+import PinInputMasking from './_snippets/pin-input/masking.tsx';
+import PinInputOtpMode from './_snippets/pin-input/otp-mode.tsx';
+import PinInputPlaceholder from './_snippets/pin-input/placeholder.tsx';
+import PinInputRootProvider from './_snippets/pin-input/root-provider.tsx';
 
 ## API Reference
 
@@ -26,9 +35,20 @@ server-rendered markup and ARIA attributes are predictable.
 moduix renders a hidden native form input inside the root. Pass `name` when the value should be submitted with a form,
 and pass `form` as well when the component is not inside that form.
 
-```tsx preview file="./_snippets/pin-input/basic.tsx"
+<ExampleFrame variant="component">
+  <PinInputBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/pin-input/basic.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -116,72 +136,175 @@ pasting fills the remaining cells.
 
 Set `blurOnComplete` when focus should leave the final input after all cells are filled.
 
-```tsx preview file="./_snippets/pin-input/blur-on-complete.tsx"
+<ExampleFrame variant="component">
+  <PinInputBlurOnComplete />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/pin-input/blur-on-complete.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Change Events
 
 Keep the value array in React state and read `details.value` or `details.valueAsString` from the Ark callbacks.
 
-```tsx preview file="./_snippets/pin-input/change-events.tsx"
+<ExampleFrame variant="component">
+  <PinInputChangeEvents />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/pin-input/change-events.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/pin-input/pin-input-change-events.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Field
 
 Wrap `PinInput` in `Field` when the label, helper text, error text, and field state should be connected to the
 visible inputs through Ark's form accessibility behavior.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/pin-input/field.tsx"
+<ExampleFrame variant="component">
+  <PinInputField />
+</ExampleFrame>
 
-  ```
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-</PreviewFrame>
+```tsx file="./_snippets/pin-input/field.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/pin-input/pin-input-field.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Grouped Layout
 
 Use explicit indexed `Input` parts when a separator divides the code into groups. Keep the indexes continuous even
 though the inputs are rendered in separate groups.
 
-```tsx preview file="./_snippets/pin-input/grouped-layout.tsx"
+<ExampleFrame variant="component">
+  <PinInputGroupedLayout />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/pin-input/grouped-layout.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Masking
 
 Set `mask` when the entered code is sensitive and should not be shown in plain text.
 
-```tsx preview file="./_snippets/pin-input/masking.tsx"
+<ExampleFrame variant="component">
+  <PinInputMasking />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/pin-input/masking.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### OTP Mode
 
 Set `otp` to add `autocomplete="one-time-code"` to the visible inputs and enable one-time-code suggestions on
 supported mobile browsers.
 
-```tsx preview file="./_snippets/pin-input/otp-mode.tsx"
+<ExampleFrame variant="component">
+  <PinInputOtpMode />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/pin-input/otp-mode.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Placeholder
 
 Pass `placeholder` to show a character in each empty cell. moduix leaves the placeholder empty by default.
 
-```tsx preview file="./_snippets/pin-input/placeholder.tsx"
+<ExampleFrame variant="component">
+  <PinInputPlaceholder />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/pin-input/placeholder.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Use `usePinInput` with `RootProvider` when state and imperative methods must be managed outside the rendered tree.
 This example replaces `Inputs` with explicit indexed `Input` parts.
 
-```tsx preview file="./_snippets/pin-input/root-provider.tsx"
+<ExampleFrame variant="component">
+  <PinInputRootProvider />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/pin-input/root-provider.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/pin-input/pin-input-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Accessibility
 

@@ -4,7 +4,20 @@ component: number-input
 description: A numeric input built on Ark UI with increment and decrement controls, formatting, validation, and optional drag-to-change interaction.
 ---
 
-import * as NumberInputDocs from '@/components/examples/number-input';
+import * as NumberInputDocs from '@/components/examples/number-input/number-input';
+import NumberInputBasic from './_snippets/number-input/basic.tsx';
+import NumberInputControlled from './_snippets/number-input/controlled.tsx';
+import NumberInputDisabledAndReadOnly from './_snippets/number-input/disabled-and-read-only.tsx';
+import NumberInputField from './_snippets/number-input/field.tsx';
+import NumberInputFormatting from './_snippets/number-input/formatting.tsx';
+import NumberInputMinAndMax from './_snippets/number-input/min-and-max.tsx';
+import NumberInputMouseWheel from './_snippets/number-input/mouse-wheel.tsx';
+import NumberInputFormSubmission from './_snippets/number-input/form-submission.tsx';
+import NumberInputPrecision from './_snippets/number-input/precision.tsx';
+import NumberInputRootProvider from './_snippets/number-input/root-provider.tsx';
+import NumberInputScrubbing from './_snippets/number-input/scrubbing.tsx';
+import NumberInputValueText from './_snippets/number-input/value-text.tsx';
+import NumberInputCustomIcons from './_snippets/number-input/custom-icons.tsx';
 
 ## API Reference
 
@@ -14,11 +27,20 @@ import * as NumberInputDocs from '@/components/examples/number-input';
 
 Use `NumberInput` with `NumberInput.Field` for a standard input with increment and decrement controls.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="./_snippets/number-input/basic.tsx"
+<ExampleFrame variant="component">
+  <NumberInputBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/number-input/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -123,42 +145,96 @@ when users should be able to change the value by dragging.
 
 Keep controlled state as a string and use `details.value` in `onValueChange`.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="./_snippets/number-input/controlled.tsx"
+<ExampleFrame variant="component">
+  <NumberInputControlled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/number-input/controlled.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/number-input/number-input-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Disabled and read-only
 
 Use `disabled` to prevent all interaction. Use `readOnly` when the value should remain selectable
 but must not be editable.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="./_snippets/number-input/disabled-and-read-only.tsx"
+<ExampleFrame variant="component">
+  <NumberInputDisabledAndReadOnly />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/number-input/disabled-and-read-only.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/number-input/number-input-disabled-and-read-only.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Field
 
 Use `Field` when form state, helper text, error text, and accessibility metadata should be shared.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="./_snippets/number-input/field.tsx"
+<ExampleFrame variant="component">
+  <NumberInputField />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/number-input/field.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/number-input/number-input-field.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Formatting
 
 Pass `formatOptions` to format the visible value with `Intl.NumberFormat`.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="./_snippets/number-input/formatting.tsx"
+<ExampleFrame variant="component">
+  <NumberInputFormatting />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/number-input/formatting.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Min and Max
 
@@ -166,21 +242,39 @@ Use `min`, `max`, and `step` to define the range and increment for keyboard, tri
 changes. The value is clamped on blur by default. Set `clampValueOnBlur={false}` when an out-of-range
 typed value should remain visible after the input loses focus.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="./_snippets/number-input/min-and-max.tsx"
+<ExampleFrame variant="component">
+  <NumberInputMinAndMax />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/number-input/min-and-max.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Mouse Wheel
 
 Set `allowMouseWheel` when changing the value with the mouse wheel is intentional for the workflow.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="./_snippets/number-input/mouse-wheel.tsx"
+<ExampleFrame variant="component">
+  <NumberInputMouseWheel />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/number-input/mouse-wheel.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Native form submission
 
@@ -188,67 +282,143 @@ Set `name` to submit the visible text spinbutton through a native form. Render a
 through `NumberInput.Context` only when the form needs the parsed numeric representation instead of
 the displayed string.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="./_snippets/number-input/form-submission.tsx"
+<ExampleFrame variant="component">
+  <NumberInputFormSubmission />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/number-input/form-submission.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/number-input/number-input-form-submission.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Precision
 
 Use `formatOptions` with `Intl.NumberFormatOptions` when the visible value needs a fixed number of
 fraction digits.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="./_snippets/number-input/precision.tsx"
+<ExampleFrame variant="component">
+  <NumberInputPrecision />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/number-input/precision.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Use `useNumberInput()` with `NumberInput.RootProvider` when state must be created outside the
 rendered part tree.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="./_snippets/number-input/root-provider.tsx"
+<ExampleFrame variant="component">
+  <NumberInputRootProvider />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/number-input/root-provider.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/number-input/number-input-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Scrubbing
 
 Drag `NumberInput.Scrubber` left or right to change the value.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="./_snippets/number-input/scrubbing.tsx"
+<ExampleFrame variant="component">
+  <NumberInputScrubbing />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/number-input/scrubbing.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/number-input/number-input-scrubbing.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Value text
 
 Use `NumberInput.ValueText` when the formatted value should also be visible outside the editable
 input.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="./_snippets/number-input/value-text.tsx"
+<ExampleFrame variant="component">
+  <NumberInputValueText />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/number-input/value-text.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Compose the low-level parts instead of `NumberInput.Field` when the trigger icons or input styling
 must be customized. Pass `translations` when custom trigger content needs localized accessible labels.
 
-<style>{NumberInputDocs.numberInputAdvancedCustomizationCss}</style>
+<ExampleFrame variant="component">
+  <NumberInputCustomIcons />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="./_snippets/number-input/custom-icons.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/number-input/custom-icons.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/number-input/number-input-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

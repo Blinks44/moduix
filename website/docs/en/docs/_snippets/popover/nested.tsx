@@ -1,5 +1,6 @@
 import { Button } from '@moduix/react/button';
 import { Popover } from '@moduix/react/popover';
+import styles from '@/components/examples/popover/popover-nested.module.css';
 
 export default function NestedPopoverDemo() {
   return (
@@ -13,7 +14,7 @@ export default function NestedPopoverDemo() {
             <Popover.Title>Settings</Popover.Title>
             <Popover.Description>Nested popovers keep independent state.</Popover.Description>
           </Popover.Header>
-          <Popover.Body style={{ marginBlockStart: 'var(--moduix-spacing-3)' }}>
+          <Popover.Body className={styles.body}>
             <Popover
               portalled={false}
               positioning={{

@@ -2,14 +2,15 @@ import { ProgressCircular } from '@moduix/react/progress-circular';
 import { Slider } from '@moduix/react/slider';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/progress-circular/component-controlled.module.css';
 
 export default function ControlledProgressCircularDemo() {
   const [value, setValue] = useState(42 as number | null);
   return (
-    <div className="progress-circular-stack">
+    <div className={styles.stack}>
       <ProgressCircular value={value} onValueChange={(details) => setValue(details.value)}>
         <ProgressCircular.Label>Upload status</ProgressCircular.Label>
-        <div className="progress-circular-circle-container">
+        <div className={styles.circleContainer}>
           <ProgressCircular.Ring aria-label="Upload status" />
           <ProgressCircular.ValueText />
         </div>
@@ -17,7 +18,7 @@ export default function ControlledProgressCircularDemo() {
       <PreviewMeta>
         <output>Progress: {value ?? 'loading'}%</output>
         <Slider
-          className="progress-circular-slider"
+          className={styles.slider}
           min={0}
           max={100}
           value={[value ?? 0]}

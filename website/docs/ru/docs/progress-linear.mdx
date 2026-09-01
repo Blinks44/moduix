@@ -4,7 +4,16 @@ component: progress-linear
 description: Линейный индикатор прогресса для задач, ход выполнения которых известен или неизвестен.
 ---
 
-import * as ProgressLinearDocs from '@/components/examples/progress-linear';
+import * as ProgressLinearDocs from '@/components/examples/progress-linear/progress-linear';
+import ProgressLinearBasic from '../../en/docs/_snippets/progress-linear/basic.tsx';
+import ProgressLinearControlled from '../../en/docs/_snippets/progress-linear/controlled.tsx';
+import ProgressLinearIndeterminate from '../../en/docs/_snippets/progress-linear/indeterminate.tsx';
+import ProgressLinearInitialValue from '../../en/docs/_snippets/progress-linear/initial-value.tsx';
+import ProgressLinearMinMax from '../../en/docs/_snippets/progress-linear/min-max.tsx';
+import ProgressLinearStateViews from '../../en/docs/_snippets/progress-linear/state-views.tsx';
+import ProgressLinearValueText from '../../en/docs/_snippets/progress-linear/value-text.tsx';
+import ProgressLinearVertical from '../../en/docs/_snippets/progress-linear/vertical.tsx';
+import ProgressLinearRootProvider from '../../en/docs/_snippets/progress-linear/root-provider.tsx';
 
 ## Справочник API
 
@@ -21,11 +30,20 @@ import * as ProgressLinearDocs from '@/components/examples/progress-linear';
 Соберите индикатор из явных частей `Label`, `ValueText`, `Track` и `Range`. Задайте для `Track`
 доступное имя, которое описывает задачу.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/progress-linear/basic.tsx"
+<ExampleFrame variant="component">
+  <ProgressLinearBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/progress-linear/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -125,65 +143,119 @@ Ark добавляет `data-orientation` к корню, подписи, пол�
 Храните `value` в состоянии React, если прогресс должен синхронно меняться вместе с другим элементом
 управления или внешней задачей.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/progress-linear/controlled.tsx"
+<ExampleFrame variant="component">
+  <ProgressLinearControlled />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/progress-linear/controlled.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Неопределённый прогресс
 
 Установите `defaultValue={null}` или `value={null}`, когда задача выполняется, но пока нельзя
 определить, сколько уже сделано.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/progress-linear/indeterminate.tsx"
+<ExampleFrame variant="component">
+  <ProgressLinearIndeterminate />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/progress-linear/indeterminate.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Начальное значение
 
 Используйте `defaultValue`, чтобы задать начальное значение неуправляемого прогресса.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/progress-linear/initial-value.tsx"
+<ExampleFrame variant="component">
+  <ProgressLinearInitialValue />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/progress-linear/initial-value.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Минимум и максимум
 
 Используйте `min` и `max`, если диапазон прогресса отличается от стандартного диапазона от `0` до
 `100`.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/progress-linear/min-max.tsx"
+<ExampleFrame variant="component">
+  <ProgressLinearMinMax />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/progress-linear/min-max.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Представления состояния
 
 Используйте `ProgressLinear.View`, если вспомогательный текст или интерфейс должен меняться вместе
 с состоянием прогресса Ark.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/progress-linear/state-views.tsx"
+<ExampleFrame variant="component">
+  <ProgressLinearStateViews />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/progress-linear/state-views.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Текст значения
 
 Используйте `ProgressLinear.Context` с `translations.value(details)`, если отображаемому значению
 нужна формулировка, связанная с конкретной задачей.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/progress-linear/value-text.tsx"
+<ExampleFrame variant="component">
+  <ProgressLinearValueText />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/progress-linear/value-text.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Вертикальная ориентация
 
@@ -191,22 +263,40 @@ Ark добавляет `data-orientation` к корню, подписи, пол�
 вертикальном режиме высота по умолчанию составляет `12rem`. Если макету нужна другая высота,
 переопределите `--moduix-progress-linear-height`.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/progress-linear/vertical.tsx"
+<ExampleFrame variant="component">
+  <ProgressLinearVertical />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/progress-linear/vertical.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
 Создайте состояние прогресса с помощью `ProgressLinear.useProgress()` в родительском компоненте,
 а затем подключите его к частям компонента через `ProgressLinear.RootProvider`.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/progress-linear/root-provider.tsx"
+<ExampleFrame variant="component">
+  <ProgressLinearRootProvider />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/progress-linear/root-provider.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

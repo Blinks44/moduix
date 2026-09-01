@@ -4,7 +4,21 @@ component: popover
 description: Доступное всплывающее окно на базе Ark UI, которое открывается по триггеру и позиционируется относительно него или отдельного якоря.
 ---
 
-import * as PopoverDocs from '@/components/examples/popover';
+import * as PopoverDocs from '@/components/examples/popover/popover';
+import PopoverAdvancedCustomization from '../../en/docs/_snippets/popover/advanced-customization.tsx';
+import PopoverAnchor from '../../en/docs/_snippets/popover/anchor.tsx';
+import PopoverBasic from '../../en/docs/_snippets/popover/basic.tsx';
+import PopoverCloseBehavior from '../../en/docs/_snippets/popover/close-behavior.tsx';
+import PopoverContext from '../../en/docs/_snippets/popover/context.tsx';
+import PopoverControlled from '../../en/docs/_snippets/popover/controlled.tsx';
+import PopoverLazyMount from '../../en/docs/_snippets/popover/lazy-mount.tsx';
+import PopoverModal from '../../en/docs/_snippets/popover/modal.tsx';
+import PopoverMultipleTriggers from '../../en/docs/_snippets/popover/multiple-triggers.tsx';
+import PopoverNested from '../../en/docs/_snippets/popover/nested.tsx';
+import PopoverPlacement from '../../en/docs/_snippets/popover/placement.tsx';
+import PopoverRootProvider from '../../en/docs/_snippets/popover/root-provider.tsx';
+import PopoverSameWidth from '../../en/docs/_snippets/popover/same-width.tsx';
+import PopoverWithArrow from '../../en/docs/_snippets/popover/with-arrow.tsx';
 
 ## Справочник API
 
@@ -21,11 +35,20 @@ import * as PopoverDocs from '@/components/examples/popover';
 В этом примере части Ark указаны явно. Настройте позиционирование на корневом компоненте, а
 `asChild` используйте, если триггером должна быть ваша кнопка.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/popover/basic.tsx"
+<ExampleFrame variant="component">
+  <PopoverBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/popover/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -170,55 +193,112 @@ DOM-дереве.
 
 Используйте `Anchor`, когда другой элемент должен задавать точку отсчёта для позиционирования.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/popover/anchor.tsx"
+<ExampleFrame variant="component">
+  <PopoverAnchor />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/popover/anchor.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/popover/popover-anchor.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Поведение закрытия
 
 Отключайте закрытие при взаимодействии за пределами окна или по Escape, только если в сценарии
 есть явное действие для закрытия.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/popover/close-behavior.tsx"
+<ExampleFrame variant="component">
+  <PopoverCloseBehavior />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/popover/close-behavior.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Контекст
 
 Используйте `usePopoverContext()` внутри потомка, которому нужно текущее состояние окна.
 `Popover.Context` подойдёт, когда для пользовательской композиции удобнее render prop.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/popover/context.tsx"
+<ExampleFrame variant="component">
+  <PopoverContext />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/popover/context.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Управляемое состояние
 
 Храните `open` в состоянии React и читайте `details.open` из `onOpenChange`, чтобы синхронизировать
 окно с остальным интерфейсом.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/popover/controlled.tsx"
+<ExampleFrame variant="component">
+  <PopoverControlled />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/popover/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/popover/popover-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Отложенное монтирование
 
 Используйте `lazyMount` и `unmountOnExit`, когда содержимое должно существовать в DOM только во
 время работы с окном.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/popover/lazy-mount.tsx"
+<ExampleFrame variant="component">
+  <PopoverLazyMount />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/popover/lazy-mount.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Модальный режим
 
@@ -226,75 +306,168 @@ DOM-дереве.
 и скрывает внешнее содержимое от вспомогательных технологий. С помощью `initialFocusEl` можно выбрать
 элемент, который получит фокус первым.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/popover/modal.tsx"
+<ExampleFrame variant="component">
+  <PopoverModal />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/popover/modal.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/popover/popover-modal.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Несколько триггеров
 
 Чтобы несколько триггеров использовали одно содержимое, задайте каждому `value` и реагируйте на
 активное значение.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/popover/multiple-triggers.tsx"
+<ExampleFrame variant="component">
+  <PopoverMultipleTriggers />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/popover/multiple-triggers.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/popover/popover-multiple-triggers.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Вложенный Popover
 
 Вложенные Popover имеют независимое состояние. Используйте `portalled={false}`, чтобы вложенное
 окно оставалось внутри родительского оверлея и учитывалось в его структуре слоёв.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/popover/nested.tsx"
+<ExampleFrame variant="component">
+  <PopoverNested />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/popover/nested.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/popover/popover-nested.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Позиционирование
 
 Передавайте параметры позиционирования Ark через свойство `positioning` корневого компонента.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/popover/placement.tsx"
+<ExampleFrame variant="component">
+  <PopoverPlacement />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/popover/placement.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Используйте `usePopover()` с `Popover.RootProvider`, когда внешним элементам управления нужно
 читать состояние окна или изменять его.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/popover/root-provider.tsx"
+<ExampleFrame variant="component">
+  <PopoverRootProvider />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/popover/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/popover/popover-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Одинаковая ширина
 
 Установите `positioning.sameWidth` и используйте в содержимом переменную Ark `--reference-width`.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/popover/same-width.tsx"
+<ExampleFrame variant="component">
+  <PopoverSameWidth />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/popover/same-width.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/popover/popover-same-width.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Со стрелкой
 
 Добавьте `Popover.Arrow`, если окну нужен визуальный указатель на элемент-якорь. Обёртка по
 умолчанию выводит `ArrowTip` со стилями moduix.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/popover/with-arrow.tsx"
+<ExampleFrame variant="component">
+  <PopoverWithArrow />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/popover/with-arrow.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
@@ -302,11 +475,26 @@ DOM-дереве.
 недостаточно вспомогательных частей moduix. Стрелка необязательна, поэтому не добавляйте её, если визуальный
 указатель на элемент-якорь не нужен.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/popover/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <PopoverAdvancedCustomization />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/popover/advanced-customization.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/popover/popover-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

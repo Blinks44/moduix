@@ -1,18 +1,5 @@
-import type { CssProperty } from '../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../mdx/reference';
-
-export const numberInputAdvancedCustomizationCss = `
-  .number-input-custom-button {
-    --moduix-number-input-button-bg: var(--moduix-color-muted);
-    --moduix-number-input-button-bg-hover: var(--moduix-color-accent);
-    --moduix-number-input-icon-size: 1rem;
-  }
-
-  .number-input-custom-input {
-    --moduix-number-input-input-width: 7rem;
-    --moduix-number-input-input-font-size: var(--moduix-text-lg);
-  }
-`;
+import type { CssProperty } from '../../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
 const numberInputOverrideCssProperties: CssProperty[] = [
   {

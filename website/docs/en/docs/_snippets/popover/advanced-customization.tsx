@@ -1,5 +1,6 @@
 import { Button } from '@moduix/react/button';
 import { Popover } from '@moduix/react/popover';
+import styles from '@/components/examples/popover/popover-advanced-customization.module.css';
 
 export default function AdvancedCustomizationPopoverDemo() {
   return (
@@ -13,14 +14,7 @@ export default function AdvancedCustomizationPopoverDemo() {
       </Popover.Trigger>
       <Popover.Positioner>
         <Popover.Content>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: 'var(--moduix-spacing-3)',
-            }}
-          >
+          <div className={styles.header}>
             <Popover.Title>Custom layout</Popover.Title>
             <Popover.CloseIcon />
           </div>

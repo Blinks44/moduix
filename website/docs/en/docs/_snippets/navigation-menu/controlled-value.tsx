@@ -2,21 +2,13 @@ import { NavigationMenu } from '@moduix/react/navigation-menu';
 import { ChevronDownIcon } from 'lucide-react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/navigation-menu/navigation-menu-controlled-value.module.css';
 
 export default function ControlledNavigationMenuDemo() {
   const [value, setValue] = useState<string | undefined>();
 
   return (
-    <div
-      style={{
-        alignContent: 'center',
-        display: 'grid',
-        gap: '1rem',
-        inlineSize: '100%',
-        justifyItems: 'center',
-        minBlockSize: '21rem',
-      }}
-    >
+    <div className={styles.root}>
       <NavigationMenu
         value={value}
         onValueChange={(details) => setValue(details.value ?? undefined)}

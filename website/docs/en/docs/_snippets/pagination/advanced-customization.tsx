@@ -1,8 +1,9 @@
 import { Pagination } from '@moduix/react/pagination';
+import styles from '@/components/examples/pagination/pagination-advanced-customization.module.css';
 
 export default function AdvancedCustomizationPaginationDemo() {
   return (
-    <Pagination className="pagination-demo" count={200} pageSize={10} siblingCount={2}>
+    <Pagination className={styles.root} count={200} pageSize={10} siblingCount={2}>
       <Pagination.PrevTrigger />
       <Pagination.Context>
         {(pagination) =>

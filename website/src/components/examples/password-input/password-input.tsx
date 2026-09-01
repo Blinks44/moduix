@@ -1,4 +1,4 @@
-import { CSSPropertiesReferenceTable, type CssProperty } from '../mdx/reference';
+import { CSSPropertiesReferenceTable, type CssProperty } from '../../mdx/reference';
 
 const passwordInputOverrideCssProperties: CssProperty[] = [
   {

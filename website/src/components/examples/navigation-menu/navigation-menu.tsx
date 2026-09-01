@@ -1,5 +1,5 @@
-import type { CssPropertyInput } from '../mdx/reference';
-import { CSSPropertiesReferenceTable, normalizeCssProperties } from '../mdx/reference';
+import type { CssPropertyInput } from '../../mdx/reference';
+import { CSSPropertiesReferenceTable, normalizeCssProperties } from '../../mdx/reference';
 
 const navigationMenuOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-navigation-menu-arrow-size', 'var(--moduix-spacing-2-5)', 'Controls arrow size.'],

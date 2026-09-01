@@ -4,7 +4,18 @@ component: pagination
 description: Accessible page navigation for lists, tables, search results, and other paginated content.
 ---
 
-import * as PaginationDocs from '@/components/examples/pagination';
+import * as PaginationDocs from '@/components/examples/pagination/pagination';
+import PaginationAdvancedCustomization from './_snippets/pagination/advanced-customization.tsx';
+import PaginationBasic from './_snippets/pagination/basic.tsx';
+import PaginationContext from './_snippets/pagination/context.tsx';
+import PaginationControlled from './_snippets/pagination/controlled.tsx';
+import PaginationCustomized from './_snippets/pagination/customized.tsx';
+import PaginationDataSlicing from './_snippets/pagination/data-slicing.tsx';
+import PaginationLink from './_snippets/pagination/link.tsx';
+import PaginationPageRange from './_snippets/pagination/page-range.tsx';
+import PaginationPageSizeControl from './_snippets/pagination/page-size-control.tsx';
+import PaginationRootProvider from './_snippets/pagination/root-provider.tsx';
+import PaginationWithEdges from './_snippets/pagination/with-edges.tsx';
 
 ## API Reference
 
@@ -15,11 +26,24 @@ import * as PaginationDocs from '@/components/examples/pagination';
 Use `Pagination` as the root component. `Pagination.Items` renders the page buttons and ellipses for
 the current page range.
 
-<style>{PaginationDocs.paginationBasicCss}</style>
+<ExampleFrame variant="component">
+  <PaginationBasic />
+</ExampleFrame>
 
-```tsx preview file="./_snippets/pagination/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/pagination/basic.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/pagination/pagination-basic.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -104,98 +128,210 @@ one semantic child, such as an anchor.
 
 Pass the active page with `page` and update it in `onPageChange(details)`.
 
-<style>{PaginationDocs.paginationControlledCss}</style>
+<ExampleFrame variant="component">
+  <PaginationControlled />
+</ExampleFrame>
 
-```tsx preview file="./_snippets/pagination/controlled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/pagination/controlled.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/pagination/pagination-controlled.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Context
 
 Use `Pagination.Context` to place custom controls next to the page list and call helpers such as
 `goToFirstPage()` and `goToLastPage()`.
 
-<style>{PaginationDocs.paginationContextCss}</style>
+<ExampleFrame variant="component">
+  <PaginationContext />
+</ExampleFrame>
 
-```tsx preview file="./_snippets/pagination/context.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/pagination/context.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Client-Side Data
 
 Use `pagination.slice(data)` from context to render only the part of an already-loaded array that
 belongs to the current page.
 
-<style>{PaginationDocs.paginationDataSlicingCss}</style>
+<ExampleFrame variant="component">
+  <PaginationDataSlicing />
+</ExampleFrame>
 
-```tsx preview file="./_snippets/pagination/data-slicing.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/pagination/data-slicing.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/pagination/pagination-data-slicing.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Link Navigation
 
 Use `type="link"` with `getPageUrl(details)` and `asChild` anchors when changing pages should
 navigate to a real URL.
 
-<style>{PaginationDocs.paginationLinkCss}</style>
+<ExampleFrame variant="component">
+  <PaginationLink />
+</ExampleFrame>
 
-```tsx preview file="./_snippets/pagination/link.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/pagination/link.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/pagination/pagination-link.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Page Range
 
 Use `pagination.pageRange` to show which items are visible on the current page.
 
-<style>{PaginationDocs.paginationPageRangeCss}</style>
+<ExampleFrame variant="component">
+  <PaginationPageRange />
+</ExampleFrame>
 
-```tsx preview file="./_snippets/pagination/page-range.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/pagination/page-range.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/pagination/pagination-page-range.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Items Per Page
 
 Call `pagination.setPageSize(nextSize)` from context when a separate control changes the number of
 items per page.
 
-<style>{PaginationDocs.paginationPageSizeControlExampleCss}</style>
+<ExampleFrame variant="component">
+  <PaginationPageSizeControl />
+</ExampleFrame>
 
-```tsx preview file="./_snippets/pagination/page-size-control.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/pagination/page-size-control.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/pagination/pagination-page-size-control.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Create state with `Pagination.usePagination()` and pass it to `Pagination.RootProvider` when the
 state owner lives outside the rendered pagination tree.
 
-<style>{PaginationDocs.paginationRootProviderCss}</style>
+<ExampleFrame variant="component">
+  <PaginationRootProvider />
+</ExampleFrame>
 
-```tsx preview file="./_snippets/pagination/root-provider.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/pagination/root-provider.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/pagination/pagination-root-provider.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Translations
 
 Use `translations` to customize accessible labels. Adjust the visible page window with
 `siblingCount`, `boundaryCount`, and the page-size props.
 
-<style>{PaginationDocs.paginationTranslationsCss}</style>
+<ExampleFrame variant="component">
+  <PaginationCustomized />
+</ExampleFrame>
 
-```tsx preview file="./_snippets/pagination/customized.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/pagination/customized.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/pagination/pagination-customized.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### First and Last Page Controls
 
 Add `Pagination.FirstTrigger` and `Pagination.LastTrigger` when users need shortcuts to the first
 and last page.
 
-<style>{PaginationDocs.paginationWithEdgesCss}</style>
+<ExampleFrame variant="component">
+  <PaginationWithEdges />
+</ExampleFrame>
 
-```tsx preview file="./_snippets/pagination/with-edges.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/pagination/with-edges.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/pagination/pagination-with-edges.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
@@ -203,11 +339,24 @@ Use `Pagination.Context` instead of `Pagination.Items` when page buttons or elli
 content. Pass each page object to `Pagination.Item` unchanged so Ark can keep its state and
 accessibility behavior.
 
-<style>{PaginationDocs.paginationAdvancedCustomizationCss}</style>
+<ExampleFrame variant="component">
+  <PaginationAdvancedCustomization />
+</ExampleFrame>
 
-```tsx preview file="./_snippets/pagination/advanced-customization.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/pagination/advanced-customization.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/pagination/pagination-advanced-customization.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

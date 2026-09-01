@@ -1,17 +1,10 @@
 import { NavigationMenu } from '@moduix/react/navigation-menu';
 import { ChevronDownIcon } from 'lucide-react';
+import styles from '@/components/examples/navigation-menu/navigation-menu-basic.module.css';
 
 export default function NavigationMenuDemo() {
   return (
-    <div
-      style={{
-        alignItems: 'center',
-        display: 'flex',
-        inlineSize: '100%',
-        justifyContent: 'center',
-        minBlockSize: '21rem',
-      }}
-    >
+    <div className={styles.root}>
       <NavigationMenu>
         <NavigationMenu.List>
           <NavigationMenu.Item value="home">

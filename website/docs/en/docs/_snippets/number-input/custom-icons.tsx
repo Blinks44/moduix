@@ -1,5 +1,6 @@
 import { NumberInput } from '@moduix/react/number-input';
 import { ChevronDown as ChevronDownIcon, ChevronUp as ChevronUpIcon } from 'lucide-react';
+import styles from '@/components/examples/number-input/number-input-advanced-customization.module.css';
 
 export default function CustomIconsNumberInputDemo() {
   return (
@@ -9,11 +10,11 @@ export default function CustomIconsNumberInputDemo() {
     >
       <NumberInput.Label>Floors</NumberInput.Label>
       <NumberInput.Control>
-        <NumberInput.DecrementTrigger className="number-input-custom-button">
+        <NumberInput.DecrementTrigger className={styles.button}>
           <ChevronDownIcon />
         </NumberInput.DecrementTrigger>
-        <NumberInput.Input className="number-input-custom-input" />
-        <NumberInput.IncrementTrigger className="number-input-custom-button">
+        <NumberInput.Input className={styles.input} />
+        <NumberInput.IncrementTrigger className={styles.button}>
           <ChevronUpIcon />
         </NumberInput.IncrementTrigger>
       </NumberInput.Control>

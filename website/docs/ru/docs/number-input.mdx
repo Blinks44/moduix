@@ -4,7 +4,20 @@ component: number-input
 description: Поле для ввода чисел на базе Ark UI с кнопками изменения значения, форматированием, валидацией и необязательным перетаскиванием.
 ---
 
-import * as NumberInputDocs from '@/components/examples/number-input';
+import * as NumberInputDocs from '@/components/examples/number-input/number-input';
+import NumberInputBasic from '../../en/docs/_snippets/number-input/basic.tsx';
+import NumberInputControlled from '../../en/docs/_snippets/number-input/controlled.tsx';
+import NumberInputDisabledAndReadOnly from '../../en/docs/_snippets/number-input/disabled-and-read-only.tsx';
+import NumberInputField from '../../en/docs/_snippets/number-input/field.tsx';
+import NumberInputFormatting from '../../en/docs/_snippets/number-input/formatting.tsx';
+import NumberInputMinAndMax from '../../en/docs/_snippets/number-input/min-and-max.tsx';
+import NumberInputMouseWheel from '../../en/docs/_snippets/number-input/mouse-wheel.tsx';
+import NumberInputFormSubmission from '../../en/docs/_snippets/number-input/form-submission.tsx';
+import NumberInputPrecision from '../../en/docs/_snippets/number-input/precision.tsx';
+import NumberInputRootProvider from '../../en/docs/_snippets/number-input/root-provider.tsx';
+import NumberInputScrubbing from '../../en/docs/_snippets/number-input/scrubbing.tsx';
+import NumberInputValueText from '../../en/docs/_snippets/number-input/value-text.tsx';
+import NumberInputCustomIcons from '../../en/docs/_snippets/number-input/custom-icons.tsx';
 
 ## Справочник API
 
@@ -14,11 +27,20 @@ import * as NumberInputDocs from '@/components/examples/number-input';
 
 Используйте `NumberInput` вместе с `NumberInput.Field`, чтобы получить стандартное поле с кнопками увеличения и уменьшения значения.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/number-input/basic.tsx"
+<ExampleFrame variant="component">
+  <NumberInputBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/number-input/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -124,43 +146,97 @@ NumberInput.RootProvider
 
 Храните управляемое состояние в виде строки и используйте `details.value` в `onValueChange`.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/number-input/controlled.tsx"
+<ExampleFrame variant="component">
+  <NumberInputControlled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/number-input/controlled.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/number-input/number-input-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Отключённое состояние и только для чтения
 
 Используйте `disabled`, чтобы полностью отключить взаимодействие. Используйте `readOnly`, если значение должно
 оставаться доступным для выделения, но не должно редактироваться.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/number-input/disabled-and-read-only.tsx"
+<ExampleFrame variant="component">
+  <NumberInputDisabledAndReadOnly />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/number-input/disabled-and-read-only.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/number-input/number-input-disabled-and-read-only.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Field
 
 Используйте `Field`, чтобы связать состояние поля формы со вспомогательным текстом, сообщением об ошибке и настройками
 доступности.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/number-input/field.tsx"
+<ExampleFrame variant="component">
+  <NumberInputField />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/number-input/field.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/number-input/number-input-field.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Форматирование
 
 Передайте `formatOptions`, чтобы отформатировать видимое значение с помощью `Intl.NumberFormat`.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/number-input/formatting.tsx"
+<ExampleFrame variant="component">
+  <NumberInputFormatting />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/number-input/formatting.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Минимум и максимум
 
@@ -168,21 +244,39 @@ NumberInput.RootProvider
 перетаскивании. По умолчанию значение ограничивается при потере фокуса. Установите `clampValueOnBlur={false}`, если
 введённое значение вне диапазона должно оставаться видимым после потери фокуса.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/number-input/min-and-max.tsx"
+<ExampleFrame variant="component">
+  <NumberInputMinAndMax />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/number-input/min-and-max.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Колесо мыши
 
 Включите `allowMouseWheel`, если в вашем сценарии значение должно изменяться колёсиком мыши.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/number-input/mouse-wheel.tsx"
+<ExampleFrame variant="component">
+  <NumberInputMouseWheel />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/number-input/mouse-wheel.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Нативная отправка формы
 
@@ -190,54 +284,117 @@ NumberInput.RootProvider
 нативный input через `NumberInput.Context`, только если форме нужно числовое представление значения, а не отображаемая
 строка.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/number-input/form-submission.tsx"
+<ExampleFrame variant="component">
+  <NumberInputFormSubmission />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/number-input/form-submission.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/number-input/number-input-form-submission.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Точность
 
 Используйте `formatOptions` с `Intl.NumberFormatOptions`, если для отображаемого значения нужно фиксированное число
 знаков после запятой.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/number-input/precision.tsx"
+<ExampleFrame variant="component">
+  <NumberInputPrecision />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/number-input/precision.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Используйте `useNumberInput()` с `NumberInput.RootProvider`, если состояние нужно создать вне дерева компонентов, в
 котором отображаются части компонента.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/number-input/root-provider.tsx"
+<ExampleFrame variant="component">
+  <NumberInputRootProvider />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/number-input/root-provider.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/number-input/number-input-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Изменение перетаскиванием
 
 Перетаскивайте `NumberInput.Scrubber` влево или вправо, чтобы изменить значение.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/number-input/scrubbing.tsx"
+<ExampleFrame variant="component">
+  <NumberInputScrubbing />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/number-input/scrubbing.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/number-input/number-input-scrubbing.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Текст значения
 
 Используйте `NumberInput.ValueText`, если форматированное значение нужно дополнительно показывать за пределами
 редактируемого поля.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/number-input/value-text.tsx"
+<ExampleFrame variant="component">
+  <NumberInputValueText />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/number-input/value-text.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
@@ -245,13 +402,26 @@ NumberInput.RootProvider
 поля. Передайте `translations`, если пользовательское содержимое кнопок требует локализованных подписей для
 вспомогательных технологий.
 
-<style>{NumberInputDocs.numberInputAdvancedCustomizationCss}</style>
+<ExampleFrame variant="component">
+  <NumberInputCustomIcons />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/number-input/custom-icons.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/number-input/custom-icons.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/number-input/number-input-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

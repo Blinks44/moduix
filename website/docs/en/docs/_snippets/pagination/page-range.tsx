@@ -1,13 +1,14 @@
 import { Pagination } from '@moduix/react/pagination';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/pagination/pagination-page-range.module.css';
 
 export default function PaginationPageRangeDemo() {
   return (
     <Pagination count={200} pageSize={10}>
       <Pagination.Context>
         {(pagination) => (
-          <div className="pagination-stack">
-            <div className="pagination-row">
+          <div className={styles.stack}>
+            <div className={styles.row}>
               <Pagination.PrevTrigger />
               <Pagination.Items />
               <Pagination.NextTrigger />

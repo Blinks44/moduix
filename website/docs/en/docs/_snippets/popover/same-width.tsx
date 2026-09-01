@@ -1,5 +1,6 @@
 import { Button } from '@moduix/react/button';
 import { Popover } from '@moduix/react/popover';
+import styles from '@/components/examples/popover/popover-same-width.module.css';
 
 export default function SameWidthPopoverDemo() {
   return (
@@ -10,10 +11,10 @@ export default function SameWidthPopoverDemo() {
       }}
     >
       <Popover.Trigger asChild>
-        <Button style={{ inlineSize: 'min(20rem, 100%)' }}>Match this trigger width</Button>
+        <Button className={styles.trigger}>Match this trigger width</Button>
       </Popover.Trigger>
       <Popover.Positioner>
-        <Popover.Content style={{ width: 'var(--reference-width)', minWidth: 0 }}>
+        <Popover.Content className={styles.content}>
           <Popover.Title>Matched width</Popover.Title>
           <Popover.Description>
             The content uses Ark's reference width measurement.

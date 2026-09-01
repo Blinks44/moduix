@@ -1,5 +1,6 @@
 import { Field } from '@moduix/react/field';
 import { NativeSelect } from '@moduix/react/native-select';
+import styles from '@/components/examples/native-select/native-select-field-integration.module.css';
 
 const frameworkOptions = [
   {
@@ -23,7 +24,7 @@ const frameworkOptions = [
 
 export default function NativeSelectFieldDemo() {
   return (
-    <Field.Root invalid required>
+    <Field.Root className={styles.root} invalid required>
       <Field.Label>Framework</Field.Label>
       <NativeSelect defaultValue="" name="framework">
         {frameworkOptions.map((option) => (

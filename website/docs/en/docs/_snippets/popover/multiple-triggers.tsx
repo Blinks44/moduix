@@ -1,5 +1,6 @@
 import { Popover } from '@moduix/react/popover';
 import { useState } from 'react';
+import styles from '@/components/examples/popover/popover-multiple-triggers.module.css';
 
 const actions = [
   {
@@ -27,14 +28,7 @@ export default function MultipleTriggersDemo() {
         setActiveItem(actions.find((item) => item.id === details.value) ?? null);
       }}
     >
-      <div
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'center',
-          gap: 'var(--moduix-spacing-2)',
-        }}
-      >
+      <div className={styles.root}>
         {actions.map((item) => (
           <Popover.Trigger key={item.id} value={item.id}>
             {item.label}

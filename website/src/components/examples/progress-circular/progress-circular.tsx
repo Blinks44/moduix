@@ -1,51 +1,5 @@
-import type { CssPropertyInput } from '../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../mdx/reference';
-
-const progressCircularCircleExampleCss = `
-  .progress-circular-circle-container {
-    position: relative;
-    display: inline-grid;
-    place-items: center;
-  }
-
-  .progress-circular-circle-container [data-slot="progress-circular-circle"] {
-    grid-area: 1 / 1;
-  }
-
-  .progress-circular-circle-container [data-slot="progress-circular-value-text"] {
-    grid-area: 1 / 1;
-  }
-
-  .progress-circular-indeterminate {
-    --moduix-progress-circular-range-indeterminate-bg: var(--moduix-color-chart-4);
-  }
-`;
-
-export const progressCircularBasicExampleCss = progressCircularCircleExampleCss;
-
-export const progressCircularControlledExampleCss = `
-  .progress-circular-stack {
-    display: grid;
-    justify-items: center;
-    gap: var(--moduix-spacing-4);
-  }
-
-  .progress-circular-slider {
-    width: 12rem;
-  }
-
-  ${progressCircularCircleExampleCss}
-`;
-
-export const progressCircularStateViewsExampleCss = `
-  ${progressCircularCircleExampleCss}
-
-  .progress-circular-state {
-    color: var(--moduix-color-muted-foreground);
-    font-size: var(--moduix-text-sm);
-    line-height: var(--moduix-line-height-text-sm);
-  }
-`;
+import type { CssPropertyInput } from '../../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
 const progressCircularCssProperties: CssPropertyInput[] = [
   [

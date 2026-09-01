@@ -1,0 +1,8 @@
+.root {
+  align-content: center;
+  display: grid;
+  gap: 1rem;
+  inline-size: 100%;
+  justify-items: center;
+  min-block-size: 21rem;
+}

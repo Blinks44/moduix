@@ -1,4 +1,5 @@
 import { Pagination } from '@moduix/react/pagination';
+import styles from '@/components/examples/pagination/pagination-data-slicing.module.css';
 
 const users = [
   {
@@ -68,16 +69,16 @@ export default function PaginationDataSlicingDemo() {
     <Pagination count={users.length} pageSize={4}>
       <Pagination.Context>
         {(pagination) => (
-          <div className="pagination-stack">
-            <div className="pagination-users">
+          <div className={styles.stack}>
+            <div className={styles.users}>
               {pagination.slice(users).map((user) => (
-                <div key={user.id} className="pagination-user">
+                <div key={user.id} className={styles.user}>
                   <strong>{user.name}</strong>
-                  <span className="pagination-muted">{user.email}</span>
+                  <span className={styles.muted}>{user.email}</span>
                 </div>
               ))}
             </div>
-            <div className="pagination-row">
+            <div className={styles.row}>
               <Pagination.PrevTrigger />
               {pagination.pages.map((page, index) =>
                 page.type === 'page' ? (

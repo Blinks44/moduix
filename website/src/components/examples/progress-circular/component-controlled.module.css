@@ -1,0 +1,20 @@
+.stack {
+  display: grid;
+  justify-items: center;
+  gap: var(--moduix-spacing-4);
+}
+
+.slider {
+  width: 12rem;
+}
+
+.circleContainer {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+}
+
+.circleContainer [data-slot='progress-circular-circle'],
+.circleContainer [data-slot='progress-circular-value-text'] {
+  grid-area: 1 / 1;
+}

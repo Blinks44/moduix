@@ -4,7 +4,16 @@ component: pin-input
 description: Компонент для ввода коротких PIN-кодов и кодов подтверждения по отдельным ячейкам, с автоматическим переводом фокуса и поддержкой OTP.
 ---
 
-import * as PinInputDocs from '@/components/examples/pin-input';
+import * as PinInputDocs from '@/components/examples/pin-input/pin-input';
+import PinInputBasic from '../../en/docs/_snippets/pin-input/basic.tsx';
+import PinInputBlurOnComplete from '../../en/docs/_snippets/pin-input/blur-on-complete.tsx';
+import PinInputChangeEvents from '../../en/docs/_snippets/pin-input/change-events.tsx';
+import PinInputField from '../../en/docs/_snippets/pin-input/field.tsx';
+import PinInputGroupedLayout from '../../en/docs/_snippets/pin-input/grouped-layout.tsx';
+import PinInputMasking from '../../en/docs/_snippets/pin-input/masking.tsx';
+import PinInputOtpMode from '../../en/docs/_snippets/pin-input/otp-mode.tsx';
+import PinInputPlaceholder from '../../en/docs/_snippets/pin-input/placeholder.tsx';
+import PinInputRootProvider from '../../en/docs/_snippets/pin-input/root-provider.tsx';
 
 ## Справочник API
 
@@ -26,9 +35,20 @@ import * as PinInputDocs from '@/components/examples/pin-input';
 moduix автоматически добавляет в корневой элемент скрытое нативное поле формы. Передайте `name`, чтобы значение
 попало в отправляемую форму. Если компонент находится вне дерева этой формы, укажите также `form`.
 
-```tsx preview file="../../en/docs/_snippets/pin-input/basic.tsx"
+<ExampleFrame variant="component">
+  <PinInputBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/pin-input/basic.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -116,73 +136,176 @@ PinInput / PinInput.Root
 
 Укажите `blurOnComplete`, если после заполнения всех ячеек фокус должен покинуть последнее поле.
 
-```tsx preview file="../../en/docs/_snippets/pin-input/blur-on-complete.tsx"
+<ExampleFrame variant="component">
+  <PinInputBlurOnComplete />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/pin-input/blur-on-complete.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### События изменения
 
 Храните массив значений в состоянии React и читайте `details.value` или `details.valueAsString` из колбэков Ark.
 
-```tsx preview file="../../en/docs/_snippets/pin-input/change-events.tsx"
+<ExampleFrame variant="component">
+  <PinInputChangeEvents />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/pin-input/change-events.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/pin-input/pin-input-change-events.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Field
 
 Поместите `PinInput` внутрь `Field`, если подпись, вспомогательный текст, сообщение об ошибке и состояние поля
 должны быть связаны с видимыми ячейками благодаря механизмам доступности Ark для форм.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/pin-input/field.tsx"
+<ExampleFrame variant="component">
+  <PinInputField />
+</ExampleFrame>
 
-  ```
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/pin-input/field.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/pin-input/pin-input-field.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Сгруппированная раскладка
 
 Используйте явные части `Input` с индексами, если разделитель должен разделить код на группы. Сохраняйте
 непрерывную последовательность индексов, даже если поля отображаются в разных группах.
 
-```tsx preview file="../../en/docs/_snippets/pin-input/grouped-layout.tsx"
+<ExampleFrame variant="component">
+  <PinInputGroupedLayout />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/pin-input/grouped-layout.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Маскирование
 
 Включите `mask`, если введённый код нельзя показывать открыто.
 
-```tsx preview file="../../en/docs/_snippets/pin-input/masking.tsx"
+<ExampleFrame variant="component">
+  <PinInputMasking />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/pin-input/masking.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Режим OTP
 
 Включите `otp`, чтобы добавить видимым полям `autocomplete="one-time-code"` и включить подсказки одноразовых
 кодов в поддерживаемых мобильных браузерах.
 
-```tsx preview file="../../en/docs/_snippets/pin-input/otp-mode.tsx"
+<ExampleFrame variant="component">
+  <PinInputOtpMode />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/pin-input/otp-mode.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Символ-заполнитель
 
 Передайте `placeholder`, чтобы показывать символ в каждой пустой ячейке. По умолчанию moduix оставляет заполнитель
 пустым.
 
-```tsx preview file="../../en/docs/_snippets/pin-input/placeholder.tsx"
+<ExampleFrame variant="component">
+  <PinInputPlaceholder />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/pin-input/placeholder.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
 Используйте `usePinInput` с `RootProvider`, когда состоянием и императивными методами нужно управлять за пределами
 дерева компонентов. В этом примере `Inputs` заменён явными частями `Input` с индексами.
 
-```tsx preview file="../../en/docs/_snippets/pin-input/root-provider.tsx"
+<ExampleFrame variant="component">
+  <PinInputRootProvider />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/pin-input/root-provider.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/pin-input/pin-input-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Доступность
 

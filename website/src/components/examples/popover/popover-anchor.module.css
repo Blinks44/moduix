@@ -1,0 +1,6 @@
+.root {
+  display: grid;
+  inline-size: min(20rem, 100%);
+  justify-items: center;
+  gap: var(--moduix-spacing-2);
+}

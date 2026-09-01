@@ -1,9 +1,10 @@
 import { Field } from '@moduix/react/field';
 import { NumberInput } from '@moduix/react/number-input';
+import styles from '@/components/examples/number-input/number-input-field.module.css';
 
 export default function NumberInputFieldDemo() {
   return (
-    <Field invalid style={{ justifyItems: 'center', textAlign: 'center' }}>
+    <Field className={styles.root} invalid>
       <NumberInput min={1} max={10} required>
         <NumberInput.Label>Items</NumberInput.Label>
         <NumberInput.Field />

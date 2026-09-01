@@ -4,7 +4,18 @@ component: pagination
 description: Доступная навигация по страницам для списков, таблиц, результатов поиска и других данных с пагинацией.
 ---
 
-import * as PaginationDocs from '@/components/examples/pagination';
+import * as PaginationDocs from '@/components/examples/pagination/pagination';
+import PaginationAdvancedCustomization from '../../en/docs/_snippets/pagination/advanced-customization.tsx';
+import PaginationBasic from '../../en/docs/_snippets/pagination/basic.tsx';
+import PaginationContext from '../../en/docs/_snippets/pagination/context.tsx';
+import PaginationControlled from '../../en/docs/_snippets/pagination/controlled.tsx';
+import PaginationCustomized from '../../en/docs/_snippets/pagination/customized.tsx';
+import PaginationDataSlicing from '../../en/docs/_snippets/pagination/data-slicing.tsx';
+import PaginationLink from '../../en/docs/_snippets/pagination/link.tsx';
+import PaginationPageRange from '../../en/docs/_snippets/pagination/page-range.tsx';
+import PaginationPageSizeControl from '../../en/docs/_snippets/pagination/page-size-control.tsx';
+import PaginationRootProvider from '../../en/docs/_snippets/pagination/root-provider.tsx';
+import PaginationWithEdges from '../../en/docs/_snippets/pagination/with-edges.tsx';
 
 ## Справочник API
 
@@ -15,11 +26,24 @@ import * as PaginationDocs from '@/components/examples/pagination';
 Используйте `Pagination` как корневой компонент. `Pagination.Items` выводит кнопки страниц и многоточия
 для текущего диапазона.
 
-<style>{PaginationDocs.paginationBasicCss}</style>
+<ExampleFrame variant="component">
+  <PaginationBasic />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/pagination/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/pagination/basic.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/pagination/pagination-basic.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -104,98 +128,210 @@ Pagination.RootProvider
 
 Передайте текущую страницу через `page` и обновляйте её в `onPageChange(details)`.
 
-<style>{PaginationDocs.paginationControlledCss}</style>
+<ExampleFrame variant="component">
+  <PaginationControlled />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/pagination/controlled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/pagination/controlled.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/pagination/pagination-controlled.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Контекст
 
 Используйте `Pagination.Context`, чтобы разместить собственные элементы управления рядом со списком
 страниц и вызывать методы навигации, например `goToFirstPage()` или `goToLastPage()`.
 
-<style>{PaginationDocs.paginationContextCss}</style>
+<ExampleFrame variant="component">
+  <PaginationContext />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/pagination/context.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/pagination/context.tsx"
 ```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Постраничный вывод данных на клиенте
 
 Используйте `pagination.slice(data)` из контекста, чтобы на текущей странице показывать только нужную
 часть уже загруженного массива.
 
-<style>{PaginationDocs.paginationDataSlicingCss}</style>
+<ExampleFrame variant="component">
+  <PaginationDataSlicing />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/pagination/data-slicing.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/pagination/data-slicing.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/pagination/pagination-data-slicing.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Навигация по ссылкам
 
 Используйте `type="link"`, `getPageUrl(details)` и якоря с `asChild`, если переход между страницами
 должен менять URL и выполнять настоящую навигацию.
 
-<style>{PaginationDocs.paginationLinkCss}</style>
+<ExampleFrame variant="component">
+  <PaginationLink />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/pagination/link.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/pagination/link.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/pagination/pagination-link.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Диапазон элементов
 
 Используйте `pagination.pageRange`, чтобы показать, какие элементы видны на текущей странице.
 
-<style>{PaginationDocs.paginationPageRangeCss}</style>
+<ExampleFrame variant="component">
+  <PaginationPageRange />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/pagination/page-range.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/pagination/page-range.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/pagination/pagination-page-range.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Число элементов на странице
 
 Вызывайте `pagination.setPageSize(nextSize)` из контекста, когда отдельный элемент управления меняет
 число элементов на странице.
 
-<style>{PaginationDocs.paginationPageSizeControlExampleCss}</style>
+<ExampleFrame variant="component">
+  <PaginationPageSizeControl />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/pagination/page-size-control.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/pagination/page-size-control.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/pagination/pagination-page-size-control.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Создайте состояние через `Pagination.usePagination()` и передайте его в `Pagination.RootProvider`,
 если это состояние нужно использовать за пределами дерева с пагинацией.
 
-<style>{PaginationDocs.paginationRootProviderCss}</style>
+<ExampleFrame variant="component">
+  <PaginationRootProvider />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/pagination/root-provider.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/pagination/root-provider.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/pagination/pagination-root-provider.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Локализация
 
 Передайте `translations`, чтобы настроить подписи для средств доступности. Параметры `siblingCount`,
 `boundaryCount` и параметры, задающие число элементов на странице, позволяют изменить видимый диапазон страниц.
 
-<style>{PaginationDocs.paginationTranslationsCss}</style>
+<ExampleFrame variant="component">
+  <PaginationCustomized />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/pagination/customized.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/pagination/customized.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/pagination/pagination-customized.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Кнопки первой и последней страницы
 
 Добавьте `Pagination.FirstTrigger` и `Pagination.LastTrigger`, если пользователям нужны быстрые
 переходы к первой и последней странице.
 
-<style>{PaginationDocs.paginationWithEdgesCss}</style>
+<ExampleFrame variant="component">
+  <PaginationWithEdges />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/pagination/with-edges.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/pagination/with-edges.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/pagination/pagination-with-edges.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
@@ -203,11 +339,24 @@ Pagination.RootProvider
 нестандартное содержимое. Передавайте каждый объект страницы в `Pagination.Item` без изменений, чтобы
 сохранить состояние и доступность Ark.
 
-<style>{PaginationDocs.paginationAdvancedCustomizationCss}</style>
+<ExampleFrame variant="component">
+  <PaginationAdvancedCustomization />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/pagination/advanced-customization.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/pagination/advanced-customization.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/pagination/pagination-advanced-customization.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

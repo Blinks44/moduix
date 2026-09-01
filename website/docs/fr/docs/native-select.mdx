@@ -4,7 +4,11 @@ component: native-select
 description: Un élément `<select>` natif stylisé pour les listes d’options simples, dont la sélection est gérée par le navigateur.
 ---
 
-import * as NativeSelectDocs from '@/components/examples/native-select';
+import * as NativeSelectDocs from '@/components/examples/native-select/native-select';
+import NativeSelectBasic from '../../en/docs/_snippets/native-select/basic.tsx';
+import NativeSelectControlled from '../../en/docs/_snippets/native-select/controlled.tsx';
+import NativeSelectField from '../../en/docs/_snippets/native-select/field-integration.tsx';
+import NativeSelectMultiple from '../../en/docs/_snippets/native-select/multiple-selection.tsx';
 
 ## Référence de l’API
 
@@ -24,11 +28,20 @@ les API de collection, des options riches, une action d’effacement ou le contr
 
 Ajoutez des éléments natifs `option` ou `optgroup` comme enfants et passez les mêmes propriétés qu’à un élément HTML `<select>`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/native-select/basic.tsx"
+<ExampleFrame variant="component">
+  <NativeSelectBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/native-select/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -103,33 +116,69 @@ gérer la sélection.
 Utilisez `value` et `onChange` lorsque React doit contrôler la valeur courante. Lisez la nouvelle valeur
 dans `event.target.value` et transmettez-la via `value`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/native-select/controlled.tsx"
+<ExampleFrame variant="component">
+  <NativeSelectControlled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/native-select/controlled.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Champ de formulaire
 
 Utilisez `Field.Root` lorsque le `<select>` a besoin d’un libellé visible, d’un texte d’aide, d’un message d’erreur
 ou d’un état de champ partagé. `Field` relie ces éléments au contrôle natif.
 
-<PreviewFrame maxWidth="sm" contentWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/native-select/field-integration.tsx"
+<ExampleFrame variant="component">
+  <NativeSelectField />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/native-select/field-integration.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/native-select/native-select-field-integration.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Sélection multiple
 
 Passez les propriétés natives `multiple` et `size` pour afficher une liste à sélection multiple. Le navigateur
 gère directement les options sélectionnées et les interactions au clavier.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/native-select/multiple-selection.tsx"
+<ExampleFrame variant="component">
+  <NativeSelectMultiple />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/native-select/multiple-selection.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

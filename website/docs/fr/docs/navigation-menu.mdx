@@ -4,8 +4,10 @@ component: navigation-menu
 description: Barre de navigation pour les liens directs et les panneaux dépliables, avec la possibilité d’utiliser une zone `Viewport` partagée pour les transitions animées.
 ---
 
-import * as NavigationMenuDocs from '@/components/examples/navigation-menu';
-import { ClientOnly } from '@ark-ui/react/client-only';
+import * as NavigationMenuDocs from '@/components/examples/navigation-menu/navigation-menu';
+import NavigationMenuBasic from '../../en/docs/_snippets/navigation-menu/basic.tsx';
+import NavigationMenuControlledValue from '../../en/docs/_snippets/navigation-menu/controlled-value.tsx';
+import NavigationMenuViewport from '../../en/docs/_snippets/navigation-menu/viewport.tsx';
 
 ## Référence de l’API
 
@@ -27,13 +29,26 @@ Utilisez `NavigationMenu` avec `NavigationMenu.List` et `NavigationMenu.Item`. A
 `NavigationMenu.Content` dans le même élément. Utilisez `NavigationMenu.Link` pour les destinations
 directes du premier niveau et pour les liens à l’intérieur d’un panneau.
 
-<ClientOnly>
-  <PreviewFrame maxWidth="lg">
-    ```tsx preview file="../../en/docs/_snippets/navigation-menu/basic.tsx"
+<ExampleFrame clientOnly variant="component">
+  <NavigationMenuBasic />
+</ExampleFrame>
 
-    ```
-  </PreviewFrame>
-</ClientOnly>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/navigation-menu/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/navigation-menu/navigation-menu-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -139,13 +154,26 @@ obligatoire sur `NavigationMenu.RootProvider`. Utilisez `NavigationMenu.Context`
 Contrôlez l’élément ouvert avec un état React lorsque le panneau actif doit également piloter une partie
 voisine de l’interface. La sortie sous l’exemple affiche la valeur de l’élément actuellement ouvert.
 
-<ClientOnly>
-  <PreviewFrame maxWidth="lg">
-    ```tsx preview file="../../en/docs/_snippets/navigation-menu/controlled-value.tsx"
+<ExampleFrame clientOnly variant="component">
+  <NavigationMenuControlledValue />
+</ExampleFrame>
 
-    ```
-  </PreviewFrame>
-</ClientOnly>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/navigation-menu/controlled-value.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/navigation-menu/navigation-menu-controlled-value.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Viewport
 
@@ -154,13 +182,26 @@ s’animer dans une même zone. Cet exemple utilise un panneau à deux colonnes 
 différentes, afin de rendre visibles les animations de largeur et de hauteur de `Viewport` lors du passage
 d’un déclencheur à l’autre.
 
-<ClientOnly>
-  <PreviewFrame maxWidth="lg">
-    ```tsx preview file="../../en/docs/_snippets/navigation-menu/viewport.tsx"
+<ExampleFrame clientOnly variant="component">
+  <NavigationMenuViewport />
+</ExampleFrame>
 
-    ```
-  </PreviewFrame>
-</ClientOnly>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/navigation-menu/viewport.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/navigation-menu/navigation-menu-viewport.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

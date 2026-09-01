@@ -4,8 +4,10 @@ component: navigation-menu
 description: Навигационная панель для прямых ссылок и раскрывающихся панелей с возможностью использовать общую область `Viewport` для анимированных переходов.
 ---
 
-import * as NavigationMenuDocs from '@/components/examples/navigation-menu';
-import { ClientOnly } from '@ark-ui/react/client-only';
+import * as NavigationMenuDocs from '@/components/examples/navigation-menu/navigation-menu';
+import NavigationMenuBasic from '../../en/docs/_snippets/navigation-menu/basic.tsx';
+import NavigationMenuControlledValue from '../../en/docs/_snippets/navigation-menu/controlled-value.tsx';
+import NavigationMenuViewport from '../../en/docs/_snippets/navigation-menu/viewport.tsx';
 
 ## Справочник API
 
@@ -27,13 +29,26 @@ import { ClientOnly } from '@ark-ui/react/client-only';
 `NavigationMenu.Trigger` и `NavigationMenu.Content` в один элемент. `NavigationMenu.Link` используйте
 для прямых переходов из верхнего уровня и для ссылок внутри панели.
 
-<ClientOnly>
-  <PreviewFrame maxWidth="lg">
-    ```tsx preview file="../../en/docs/_snippets/navigation-menu/basic.tsx"
+<ExampleFrame clientOnly variant="component">
+  <NavigationMenuBasic />
+</ExampleFrame>
 
-    ```
-  </PreviewFrame>
-</ClientOnly>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/navigation-menu/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/navigation-menu/navigation-menu-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -138,13 +153,26 @@ NavigationMenu.Context
 Управляйте открытым элементом через состояние React, если активная панель должна менять соседнюю часть
 интерфейса. Под примером показано значение текущего открытого элемента.
 
-<ClientOnly>
-  <PreviewFrame maxWidth="lg">
-    ```tsx preview file="../../en/docs/_snippets/navigation-menu/controlled-value.tsx"
+<ExampleFrame clientOnly variant="component">
+  <NavigationMenuControlledValue />
+</ExampleFrame>
 
-    ```
-  </PreviewFrame>
-</ClientOnly>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/navigation-menu/controlled-value.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/navigation-menu/navigation-menu-controlled-value.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Viewport
 
@@ -152,13 +180,26 @@ NavigationMenu.Context
 области. В примере одна панель содержит две колонки, а у разных панелей разная ширина, поэтому при
 переключении триггеров заметно анимируются ширина и высота `Viewport`.
 
-<ClientOnly>
-  <PreviewFrame maxWidth="lg">
-    ```tsx preview file="../../en/docs/_snippets/navigation-menu/viewport.tsx"
+<ExampleFrame clientOnly variant="component">
+  <NavigationMenuViewport />
+</ExampleFrame>
 
-    ```
-  </PreviewFrame>
-</ClientOnly>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/navigation-menu/viewport.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/navigation-menu/navigation-menu-viewport.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

@@ -4,7 +4,14 @@ component: progress-circular
 description: Круговой индикатор для отображения определённого или неопределённого прогресса.
 ---
 
-import * as ProgressCircularDocs from '@/components/examples/progress-circular';
+import * as ProgressCircularDocs from '@/components/examples/progress-circular/progress-circular';
+import ProgressCircularBasic from '../../en/docs/_snippets/progress-circular/basic.tsx';
+import ControlledProgressCircular from '../../en/docs/_snippets/progress-circular/controlled.tsx';
+import IndeterminateProgressCircular from '../../en/docs/_snippets/progress-circular/indeterminate.tsx';
+import MinMaxProgressCircular from '../../en/docs/_snippets/progress-circular/min-max.tsx';
+import RootProviderProgressCircular from '../../en/docs/_snippets/progress-circular/root-provider.tsx';
+import StateViewsProgressCircular from '../../en/docs/_snippets/progress-circular/state-views.tsx';
+import ValueTextProgressCircular from '../../en/docs/_snippets/progress-circular/value-text.tsx';
 
 ## Справочник API
 
@@ -23,13 +30,26 @@ import * as ProgressCircularDocs from '@/components/examples/progress-circular';
 внешний контейнер размещает текст значения в центре круга. Укажите для `Ring` атрибут `aria-label`
 с названием задачи. Метка должна соответствовать видимому тексту.
 
-<style>{ProgressCircularDocs.progressCircularBasicExampleCss}</style>
+<ExampleFrame variant="component">
+  <ProgressCircularBasic />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/progress-circular/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/progress-circular/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/progress-circular/component-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -127,39 +147,78 @@ Ark также задаёт SVG-переменные радиуса, длины 
 Храните `value` в состоянии React, когда прогресс должен быть синхронизирован с другим элементом
 управления или внешней задачей.
 
-<style>{ProgressCircularDocs.progressCircularControlledExampleCss}</style>
+<ExampleFrame variant="component">
+  <ControlledProgressCircular />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/progress-circular/controlled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/progress-circular/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/progress-circular/component-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Неопределённый прогресс
 
 Установите `defaultValue={null}` или `value={null}`, когда задача выполняется, но её прогресс пока
 нельзя измерить.
 
-<style>{ProgressCircularDocs.progressCircularBasicExampleCss}</style>
+<ExampleFrame variant="component">
+  <IndeterminateProgressCircular />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/progress-circular/indeterminate.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/progress-circular/indeterminate.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/progress-circular/component-indeterminate.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Минимум и максимум
 
 Используйте `min` и `max`, чтобы отображать значения в диапазоне, отличном от стандартного диапазона
 от `0` до `100`.
 
-<style>{ProgressCircularDocs.progressCircularBasicExampleCss}</style>
+<ExampleFrame variant="component">
+  <MinMaxProgressCircular />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/progress-circular/min-max.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/progress-circular/min-max.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/progress-circular/component-min-max.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Текст значения
 
@@ -167,11 +226,20 @@ Ark также задаёт SVG-переменные радиуса, длины 
 формулировка, связанная с конкретной задачей. Передайте `progress.valueAsString` в качестве
 дочернего элемента `ValueText`, чтобы видимый текст совпадал с доступным текстом значения.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/progress-circular/value-text.tsx"
+<ExampleFrame variant="component">
+  <ValueTextProgressCircular />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/progress-circular/value-text.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
@@ -183,26 +251,52 @@ Ark также задаёт SVG-переменные радиуса, длины 
 Создайте состояние через `ProgressCircular.useProgress()` и передайте его в `RootProvider`, если
 другому компоненту нужно читать или изменять прогресс за пределами отрисованного дерева.
 
-<style>{ProgressCircularDocs.progressCircularBasicExampleCss}</style>
+<ExampleFrame variant="component">
+  <RootProviderProgressCircular />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/progress-circular/root-provider.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/progress-circular/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/progress-circular/component-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 #### Представления состояния
 
 Используйте `ProgressCircular.View`, если вспомогательный текст или интерфейс должны меняться вместе
 с состоянием прогресса Ark. Так проверки состояния остаются внутри компонента.
 
-<style>{ProgressCircularDocs.progressCircularStateViewsExampleCss}</style>
+<ExampleFrame variant="component">
+  <StateViewsProgressCircular />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/progress-circular/state-views.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/progress-circular/state-views.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/progress-circular/component-state-views.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

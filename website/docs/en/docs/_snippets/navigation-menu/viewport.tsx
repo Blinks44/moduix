@@ -1,17 +1,10 @@
 import { NavigationMenu } from '@moduix/react/navigation-menu';
 import { ChevronDownIcon } from 'lucide-react';
+import styles from '@/components/examples/navigation-menu/navigation-menu-viewport.module.css';
 
 export default function ViewportNavigationMenuDemo() {
   return (
-    <div
-      style={{
-        alignItems: 'center',
-        display: 'flex',
-        inlineSize: '100%',
-        justifyContent: 'center',
-        minBlockSize: '21rem',
-      }}
-    >
+    <div className={styles.root}>
       <NavigationMenu>
         <NavigationMenu.List>
           <NavigationMenu.Item value="products">
@@ -19,8 +12,8 @@ export default function ViewportNavigationMenuDemo() {
               Products
               <ChevronDownIcon />
             </NavigationMenu.Trigger>
-            <NavigationMenu.Content style={{ width: '20rem' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' }}>
+            <NavigationMenu.Content className={styles.productsContent}>
+              <div className={styles.productsLinks}>
                 <NavigationMenu.Link href="#analytics">Analytics</NavigationMenu.Link>
                 <NavigationMenu.Link href="#automation">Automation</NavigationMenu.Link>
                 <NavigationMenu.Link href="#integrations">Integrations</NavigationMenu.Link>
@@ -33,7 +26,7 @@ export default function ViewportNavigationMenuDemo() {
               Company
               <ChevronDownIcon />
             </NavigationMenu.Trigger>
-            <NavigationMenu.Content style={{ width: '14rem' }}>
+            <NavigationMenu.Content className={styles.companyContent}>
               <NavigationMenu.Link href="#about">About</NavigationMenu.Link>
               <NavigationMenu.Link href="#careers">Careers</NavigationMenu.Link>
               <NavigationMenu.Link href="#contact">Contact</NavigationMenu.Link>
@@ -44,7 +37,7 @@ export default function ViewportNavigationMenuDemo() {
               Resources
               <ChevronDownIcon />
             </NavigationMenu.Trigger>
-            <NavigationMenu.Content style={{ width: '7rem' }}>
+            <NavigationMenu.Content className={styles.resourcesContent}>
               <NavigationMenu.Link href="#blog">Blog</NavigationMenu.Link>
               <NavigationMenu.Link href="#customers">Customer stories</NavigationMenu.Link>
               <NavigationMenu.Link href="#support">Support</NavigationMenu.Link>

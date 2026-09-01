@@ -1,0 +1,16 @@
+.circleContainer {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+}
+
+.circleContainer [data-slot='progress-circular-circle'],
+.circleContainer [data-slot='progress-circular-value-text'] {
+  grid-area: 1 / 1;
+}
+
+.state {
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-sm);
+  line-height: var(--moduix-line-height-text-sm);
+}

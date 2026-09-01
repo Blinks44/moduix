@@ -1,0 +1,35 @@
+.stack {
+  display: grid;
+  gap: var(--moduix-spacing-3);
+  justify-items: start;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--moduix-spacing-3);
+}
+
+.muted {
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-sm);
+  line-height: var(--moduix-line-height-text-sm);
+}
+
+.users {
+  display: grid;
+  gap: var(--moduix-spacing-2);
+  width: 24rem;
+  max-width: 100%;
+}
+
+.user {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--moduix-spacing-3);
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-md);
+  padding: var(--moduix-spacing-3);
+  background: var(--moduix-color-muted);
+}

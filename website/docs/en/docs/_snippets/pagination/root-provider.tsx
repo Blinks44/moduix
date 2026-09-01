@@ -1,4 +1,5 @@
 import { Pagination } from '@moduix/react/pagination';
+import styles from '@/components/examples/pagination/pagination-root-provider.module.css';
 
 export default function RootProviderPaginationDemo() {
   const pagination = Pagination.usePagination({
@@ -7,11 +8,11 @@ export default function RootProviderPaginationDemo() {
     siblingCount: 2,
   });
   return (
-    <div className="pagination-stack">
+    <div className={styles.stack}>
       <button type="button" onClick={() => pagination.goToNextPage()}>
         Next page
       </button>
-      <Pagination.RootProvider className="pagination-demo" value={pagination}>
+      <Pagination.RootProvider className={styles.root} value={pagination}>
         <Pagination.PrevTrigger />
         <Pagination.Items />
         <Pagination.NextTrigger />

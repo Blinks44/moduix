@@ -4,7 +4,11 @@ component: native-select
 description: A styled native `<select>` for simple option lists that keeps the browser in control of selection.
 ---
 
-import * as NativeSelectDocs from '@/components/examples/native-select';
+import * as NativeSelectDocs from '@/components/examples/native-select/native-select';
+import NativeSelectBasic from './_snippets/native-select/basic.tsx';
+import NativeSelectControlled from './_snippets/native-select/controlled.tsx';
+import NativeSelectField from './_snippets/native-select/field-integration.tsx';
+import NativeSelectMultiple from './_snippets/native-select/multiple-selection.tsx';
 
 ## API Reference
 
@@ -25,11 +29,20 @@ of the popup.
 Add native `option` or `optgroup` elements as children and pass the same props you would pass to an
 HTML `<select>`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/native-select/basic.tsx"
+<ExampleFrame variant="component">
+  <NativeSelectBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/native-select/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -107,33 +120,69 @@ to manage selection.
 Use `value` and `onChange` when React owns the current value. Read `event.target.value` from the native
 event and pass the new value back through `value`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/native-select/controlled.tsx"
+<ExampleFrame variant="component">
+  <NativeSelectControlled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/native-select/controlled.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Field
 
 Use `Field.Root` when the select needs a visible label, helper text, error message, or shared field
 state. Field connects that content to the native control.
 
-<PreviewFrame maxWidth="sm" contentWidth="fit-content">
-  ```tsx preview file="./_snippets/native-select/field-integration.tsx"
+<ExampleFrame variant="component">
+  <NativeSelectField />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
+
+```tsx file="./_snippets/native-select/field-integration.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/native-select/native-select-field-integration.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Multiple
 
 Pass the native `multiple` and `size` props to render a multi-select list. The browser manages the
 selected options and their keyboard interaction.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/native-select/multiple-selection.tsx"
+<ExampleFrame variant="component">
+  <NativeSelectMultiple />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/native-select/multiple-selection.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

@@ -2,17 +2,12 @@ import { Button } from '@moduix/react/button';
 import { Popover } from '@moduix/react/popover';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/popover/popover-controlled.module.css';
 
 export default function ControlledPopoverDemo() {
   const [open, setOpen] = useState(false);
   return (
-    <div
-      style={{
-        display: 'grid',
-        justifyItems: 'center',
-        gap: 'var(--moduix-spacing-3)',
-      }}
-    >
+    <div className={styles.root}>
       <Popover open={open} onOpenChange={(details) => setOpen(details.open)}>
         <Popover.Trigger asChild>
           <Button>Open controlled popover</Button>
@@ -31,7 +26,7 @@ export default function ControlledPopoverDemo() {
           </Popover.Content>
         </Popover.Positioner>
       </Popover>
-      <PreviewMeta style={{ justifySelf: 'center' }}>
+      <PreviewMeta>
         <output>Open: {open ? 'yes' : 'no'}</output>
       </PreviewMeta>
     </div>

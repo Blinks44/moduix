@@ -1,5 +1,5 @@
-import type { CssProperty } from '../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../mdx/reference';
+import type { CssProperty } from '../../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
 const nativeSelectCssProperties: CssProperty[] = [
   {

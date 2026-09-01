@@ -4,7 +4,21 @@ component: popover
 description: An accessible popover for compact interactive content, anchored to a trigger or another reference element.
 ---
 
-import * as PopoverDocs from '@/components/examples/popover';
+import * as PopoverDocs from '@/components/examples/popover/popover';
+import PopoverAdvancedCustomization from './_snippets/popover/advanced-customization.tsx';
+import PopoverAnchor from './_snippets/popover/anchor.tsx';
+import PopoverBasic from './_snippets/popover/basic.tsx';
+import PopoverCloseBehavior from './_snippets/popover/close-behavior.tsx';
+import PopoverContext from './_snippets/popover/context.tsx';
+import PopoverControlled from './_snippets/popover/controlled.tsx';
+import PopoverLazyMount from './_snippets/popover/lazy-mount.tsx';
+import PopoverModal from './_snippets/popover/modal.tsx';
+import PopoverMultipleTriggers from './_snippets/popover/multiple-triggers.tsx';
+import PopoverNested from './_snippets/popover/nested.tsx';
+import PopoverPlacement from './_snippets/popover/placement.tsx';
+import PopoverRootProvider from './_snippets/popover/root-provider.tsx';
+import PopoverSameWidth from './_snippets/popover/same-width.tsx';
+import PopoverWithArrow from './_snippets/popover/with-arrow.tsx';
 
 ## API Reference
 
@@ -20,11 +34,20 @@ non-interactive hints. Use `Dialog` for larger workflows that need the user's fu
 Use the explicit Ark parts shown here. Set positioning on the root and use `asChild` when your own
 button should render the trigger.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/popover/basic.tsx"
+<ExampleFrame variant="component">
+  <PopoverBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/popover/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -163,55 +186,112 @@ By default, popover content mounts on the first open and is removed after its ex
 
 Use `Anchor` when a different element should provide the positioning reference.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/popover/anchor.tsx"
+<ExampleFrame variant="component">
+  <PopoverAnchor />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/popover/anchor.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/popover/popover-anchor.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Close Behavior
 
 Disable dismissal on outside interaction or Escape only when the workflow provides an explicit
 close action.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/popover/close-behavior.tsx"
+<ExampleFrame variant="component">
+  <PopoverCloseBehavior />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/popover/close-behavior.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Context
 
 Use `usePopoverContext()` inside a descendant that needs the current popover state. Use
 `Popover.Context` when a render prop makes the composition clearer.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/popover/context.tsx"
+<ExampleFrame variant="component">
+  <PopoverContext />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/popover/context.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Controlled
 
 Keep `open` in React state and read `details.open` from `onOpenChange` to synchronize the popover
 with the rest of the application.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/popover/controlled.tsx"
+<ExampleFrame variant="component">
+  <PopoverControlled />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/popover/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/popover/popover-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Lazy Mount
 
 Use `lazyMount` and `unmountOnExit` when the content should be mounted only while the popover is
 in use.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/popover/lazy-mount.tsx"
+<ExampleFrame variant="component">
+  <PopoverLazyMount />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/popover/lazy-mount.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Modal
 
@@ -219,75 +299,168 @@ Use modal mode when the interaction should keep the user inside the popover. It 
 hides outside content from assistive technology. Use `initialFocusEl` to choose the first focus
 target.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/popover/modal.tsx"
+<ExampleFrame variant="component">
+  <PopoverModal />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/popover/modal.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/popover/popover-modal.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Multiple Triggers
 
 Share one content area across several triggers by giving each trigger a `value` and reacting to
 the active value.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/popover/multiple-triggers.tsx"
+<ExampleFrame variant="component">
+  <PopoverMultipleTriggers />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/popover/multiple-triggers.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/popover/popover-multiple-triggers.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Nested
 
 Nested popovers keep independent state. Render the nested popover with `portalled={false}` so it
 stays inside the parent overlay and participates in its layer structure.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/popover/nested.tsx"
+<ExampleFrame variant="component">
+  <PopoverNested />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/popover/nested.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/popover/popover-nested.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Placement
 
 Pass Ark positioning options through the root's `positioning` prop.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/popover/placement.tsx"
+<ExampleFrame variant="component">
+  <PopoverPlacement />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/popover/placement.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Use `usePopover()` with `Popover.RootProvider` when controls outside the popover tree need to read
 or update its state.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/popover/root-provider.tsx"
+<ExampleFrame variant="component">
+  <PopoverRootProvider />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/popover/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/popover/popover-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Same Width
 
 Set `positioning.sameWidth` and use Ark's `--reference-width` variable on the content.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/popover/same-width.tsx"
+<ExampleFrame variant="component">
+  <PopoverSameWidth />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/popover/same-width.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/popover/popover-same-width.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### With Arrow
 
 Add `Popover.Arrow` when the popover needs a visual pointer to its reference element. The wrapper
 renders the default moduix-styled `ArrowTip`.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/popover/with-arrow.tsx"
+<ExampleFrame variant="component">
+  <PopoverWithArrow />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/popover/with-arrow.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
@@ -295,11 +468,26 @@ Compose the Ark parts directly when the popover needs a compact custom header or
 that does not fit the moduix helpers. The arrow is optional, so omit it when the panel does not
 need a visual pointer.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/popover/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <PopoverAdvancedCustomization />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/popover/advanced-customization.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/popover/popover-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

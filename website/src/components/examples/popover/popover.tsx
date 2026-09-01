@@ -1,5 +1,5 @@
-import type { CssPropertyInput } from '../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../mdx/reference';
+import type { CssPropertyInput } from '../../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
 const popoverOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-popover-arrow-size', 'var(--moduix-spacing-2-5)', 'Controls the Ark arrow size.'],

@@ -1,5 +1,5 @@
-import type { CssPropertyInput } from '../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../mdx/reference';
+import type { CssPropertyInput } from '../../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
 const progressLinearCssProperties: CssPropertyInput[] = [
   ['--moduix-progress-linear-color', 'var(--moduix-color-foreground)', 'Controls root text color.'],

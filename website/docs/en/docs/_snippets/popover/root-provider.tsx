@@ -1,6 +1,7 @@
 import { Button } from '@moduix/react/button';
 import { Popover, usePopover } from '@moduix/react/popover';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/popover/popover-root-provider.module.css';
 
 export default function RootProviderDemo() {
   const popover = usePopover({
@@ -10,13 +11,7 @@ export default function RootProviderDemo() {
     },
   });
   return (
-    <div
-      style={{
-        display: 'grid',
-        justifyItems: 'center',
-        gap: 'var(--moduix-spacing-3)',
-      }}
-    >
+    <div className={styles.root}>
       <Popover.RootProvider value={popover}>
         <Popover.Trigger asChild>
           <Button>Open from trigger</Button>
@@ -35,7 +30,7 @@ export default function RootProviderDemo() {
           </Popover.Content>
         </Popover.Positioner>
       </Popover.RootProvider>
-      <PreviewMeta style={{ justifySelf: 'center' }}>
+      <PreviewMeta>
         <output>Open: {popover.open ? 'yes' : 'no'}</output>
         <Button size="sm" onClick={() => popover.setOpen(!popover.open)}>
           Toggle externally

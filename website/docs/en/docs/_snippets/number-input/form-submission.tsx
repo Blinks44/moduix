@@ -2,13 +2,14 @@ import { Button } from '@moduix/react/button';
 import { NumberInput } from '@moduix/react/number-input';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/number-input/number-input-form-submission.module.css';
 
 export default function NumberInputFormSubmissionDemo() {
   const [submittedValue, setSubmittedValue] = useState('Not submitted');
 
   return (
     <form
-      style={{ display: 'grid', gap: '0.75rem', justifyItems: 'center' }}
+      className={styles.root}
       onSubmit={(event) => {
         event.preventDefault();
         setSubmittedValue(String(new FormData(event.currentTarget).get('quantity')));
