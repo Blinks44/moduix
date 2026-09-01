@@ -63,9 +63,21 @@
       "types": "./dist/components/checkbox/index.d.ts",
       "import": "./dist/components/checkbox/index.js"
     },
+    "./clipboard": {
+      "types": "./dist/components/clipboard/index.d.ts",
+      "import": "./dist/components/clipboard/index.js"
+    },
     "./close-button": {
       "types": "./dist/components/close-button/index.d.ts",
       "import": "./dist/components/close-button/index.js"
+    },
+    "./color-picker": {
+      "types": "./dist/components/color-picker/index.d.ts",
+      "import": "./dist/components/color-picker/index.js"
+    },
+    "./collapsible": {
+      "types": "./dist/components/collapsible/index.d.ts",
+      "import": "./dist/components/collapsible/index.js"
     },
     "./field": {
       "types": "./dist/components/field/index.d.ts",
