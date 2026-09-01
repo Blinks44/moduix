@@ -4,7 +4,23 @@ component: file-upload
 description: Ark UI file upload component for file selection, drag-and-drop, validation, and previews.
 ---
 
-import * as FileUploadDocs from '@/components/examples/file-upload';
+import * as FileUploadDocs from '@/components/examples/file-upload/file-upload';
+import FileUploadAcceptedFileTypes from './_snippets/file-upload/accepted-file-types.tsx';
+import FileUploadAdvancedCustomization from './_snippets/file-upload/advanced-customization.tsx';
+import FileUploadBasic from './_snippets/file-upload/basic.tsx';
+import FileUploadClearTrigger from './_snippets/file-upload/clear-trigger.tsx';
+import FileUploadControlled from './_snippets/file-upload/controlled.tsx';
+import FileUploadDirectoryUpload from './_snippets/file-upload/directory-upload.tsx';
+import FileUploadDropzone from './_snippets/file-upload/dropzone.tsx';
+import FileUploadErrorHandling from './_snippets/file-upload/error-handling.tsx';
+import FileUploadFilePreviews from './_snippets/file-upload/file-previews.tsx';
+import FileUploadFormUsage from './_snippets/file-upload/form-usage.tsx';
+import FileUploadInitialFiles from './_snippets/file-upload/initial-files.tsx';
+import FileUploadMediaCapture from './_snippets/file-upload/media-capture.tsx';
+import FileUploadRejectedFiles from './_snippets/file-upload/rejected-files.tsx';
+import FileUploadRootProviderAndPaste from './_snippets/file-upload/root-provider-and-paste.tsx';
+import FileUploadTransformFiles from './_snippets/file-upload/transform-files.tsx';
+import FileUploadWithField from './_snippets/file-upload/with-field.tsx';
 
 ## API Reference
 
@@ -20,13 +36,26 @@ drag-and-drop. Put `Items` inside `ItemGroup` to show accepted files. The root r
 automatically. `Items` uses an image thumbnail only when the file has an `image/*` MIME type; otherwise it uses the
 generic file preview.
 
-<style>{FileUploadDocs.fileUploadExampleCss}</style>
+<ExampleFrame variant="component">
+  <FileUploadBasic />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/file-upload/basic.tsx"
-  ```
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-</PreviewFrame>
+```tsx file="./_snippets/file-upload/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/file-upload/file-upload-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -126,64 +155,154 @@ state. Use `ids` when separate labels or descriptions need stable accessibility 
 
 Use `accept` to restrict both the native file picker and drop validation. Pass MIME types or file extensions.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/file-upload/accepted-file-types.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FileUploadAcceptedFileTypes />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/file-upload/accepted-file-types.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/file-upload/file-upload-accepted-file-types.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Clear Trigger
 
 Use `ClearTrigger` to remove all accepted files at once.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/file-upload/clear-trigger.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FileUploadClearTrigger />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/file-upload/clear-trigger.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/file-upload/file-upload-clear-trigger.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Controlled
 
 Control `acceptedFiles` when selected files need to stay in sync with external state or a multi-step flow. Update the
 value from `onFileChange(details)`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/file-upload/controlled.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FileUploadControlled />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/file-upload/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/file-upload/file-upload-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Directory Upload
 
 Use `directory` to let users select a folder. Supported browsers expose each file's relative path through
 `file.webkitRelativePath`. Set `maxFiles` high enough for the folder or omit it when the number of files is unknown.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/file-upload/directory-upload.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FileUploadDirectoryUpload />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/file-upload/directory-upload.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/file-upload/file-upload-directory-upload.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Dropzone
 
 Use `Dropzone` for drag-and-drop uploads. Keep a nested `Trigger` so users can also open the picker with the keyboard.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/file-upload/dropzone.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FileUploadDropzone />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/file-upload/dropzone.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/file-upload/file-upload-dropzone.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Error Handling
 
 Use `onFileReject(details)` to show application-specific feedback. Keep built-in constraints such as `accept`,
 `maxFiles`, and `maxFileSize` on the root. Add `validate(file, details)` for application-specific checks.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/file-upload/error-handling.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FileUploadErrorHandling />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/file-upload/error-handling.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/file-upload/file-upload-error-handling.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### File Previews
 
@@ -191,32 +310,77 @@ This example starts with an SVG image and a PDF, so you can see both layouts imm
 2.5rem square by default, and long names stay on one line. Remove either item or add files from your device to try
 the same layouts with your own files.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/file-upload/file-previews.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FileUploadFilePreviews />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx pure file="./_snippets/file-upload/file-previews.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/file-upload/file-upload-file-previews.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Form Usage
 
 Pass `name` to the root. It renders the hidden native file input automatically, so native form submission and reset
 include the selected files.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/file-upload/form-usage.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FileUploadFormUsage />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/file-upload/form-usage.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/file-upload/file-upload-form-usage.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Initial Files
 
 Use `defaultAcceptedFiles` to preload files and then let the component manage the selection.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/file-upload/initial-files.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FileUploadInitialFiles />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/file-upload/initial-files.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/file-upload/file-upload-initial-files.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Media Capture
 
@@ -224,52 +388,127 @@ Use `capture` with an image or video `accept` value to suggest opening the camer
 `"user"` or `"environment"` to suggest the front or rear camera. This is a hint to the browser, not a guarantee that
 the camera will open.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/file-upload/media-capture.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FileUploadMediaCapture />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/file-upload/media-capture.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/file-upload/file-upload-media-capture.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Rejected Files
 
 Render `rejectedFiles` in a separate `ItemGroup type="rejected"` when users need to see why files were rejected.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/file-upload/rejected-files.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FileUploadRejectedFiles />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/file-upload/rejected-files.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/file-upload/file-upload-rejected-files.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider and Pasting Files
 
 Use `useFileUpload` with `RootProvider` when state or methods need to live outside the rendered upload tree. In this
 example, `setClipboardFiles` forwards files pasted into a text area to the upload state.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/file-upload/root-provider-and-paste.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FileUploadRootProviderAndPaste />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/file-upload/root-provider-and-paste.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/file-upload/file-upload-root-provider-and-paste.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Transform Files
 
 Use `transformFiles(files)` to process files asynchronously before adding them to accepted state.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/file-upload/transform-files.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FileUploadTransformFiles />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/file-upload/transform-files.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/file-upload/file-upload-transform-files.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### With Field
 
 Wrap the upload in `Field.Root` when helper text, an error message, required state, or invalid state belongs to a form field.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/file-upload/with-field.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FileUploadWithField />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/file-upload/with-field.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/file-upload/file-upload-with-field.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
@@ -277,11 +516,26 @@ Use custom rows instead of `Items` when you need MIME-specific previews, extra m
 explicit `FileUpload.Context` composition keeps Ark state visible and lets you choose one image or fallback preview
 for each file.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/file-upload/advanced-customization.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FileUploadAdvancedCustomization />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/file-upload/advanced-customization.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/file-upload/file-upload-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

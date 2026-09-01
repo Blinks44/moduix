@@ -1,0 +1,10 @@
+.root {
+  width: fit-content;
+  max-width: 100%;
+}
+
+.inlineControls {
+  display: grid;
+  grid-template-columns: minmax(6rem, max-content) minmax(0, 1fr);
+  gap: var(--moduix-spacing-2);
+}

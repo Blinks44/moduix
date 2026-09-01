@@ -4,7 +4,11 @@ component: image
 description: "Images responsives avec détection automatique des CDN. Unpic génère les attributs srcset et sizes."
 ---
 
-import * as ImageDocs from '@/components/examples/image';
+import * as ImageDocs from '@/components/examples/image/component';
+import ImageArtDirection from '../../en/docs/_snippets/image/art-direction.tsx';
+import ImageBasic from '../../en/docs/_snippets/image/basic.tsx';
+import ImageFixed from '../../en/docs/_snippets/image/fixed.tsx';
+import ImageFullWidth from '../../en/docs/_snippets/image/full-width.tsx';
 
 ## Référence de l’API
 
@@ -20,11 +24,20 @@ mode `layout="constrained"`, indiquez `width` et `height`. Unpic génère un `sr
 différentes tailles d’écran lorsqu’il reconnaît le fournisseur. Dans le cas contraire, il conserve l’URL source telle quelle.
 Le navigateur réserve l’espace nécessaire avant le chargement de l’image.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image/basic.tsx"
+<ExampleFrame variant="component">
+  <ImageBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/image/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -109,33 +122,66 @@ sur les petits écrans. La première source destinée aux grands écrans demande
 requête média, sert de solution de remplacement aux navigateurs qui ne prennent pas l’AVIF en charge. `Image.Source`
 doit rester dans un élément natif `<picture>`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image/art-direction.tsx"
+<ExampleFrame variant="component">
+  <ImageArtDirection />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/image/art-direction.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/image/image-art-direction.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Taille fixe
 
 Utilisez `layout="fixed"` lorsque l’image doit conserver des dimensions exactes en pixels CSS. Vérifiez que son conteneur
 parent dispose de suffisamment d’espace : une image fixe ne se réduit pas pour tenir dans un conteneur plus étroit.
 
-<PreviewFrame maxWidth="xs">
-  ```tsx preview file="../../en/docs/_snippets/image/fixed.tsx"
+<ExampleFrame variant="component">
+  <ImageFixed />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/image/fixed.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Pleine largeur
 
 Utilisez `layout="fullWidth"` pour une image principale ou une section média qui doit occuper toute la largeur de son
 conteneur. Indiquez `height` si la hauteur du cadrage doit rester fixe.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image/full-width.tsx"
+<ExampleFrame variant="component">
+  <ImageFullWidth />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/image/full-width.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

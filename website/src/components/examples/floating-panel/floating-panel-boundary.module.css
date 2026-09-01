@@ -1,0 +1,11 @@
+.root {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: min(100%, 32rem);
+  min-height: 20rem;
+  border: 1px dashed var(--moduix-color-border);
+  border-radius: var(--moduix-radius-md);
+  padding: var(--moduix-spacing-3);
+}

@@ -4,7 +4,12 @@ component: kbd
 description: Компактный компонент для обозначения сочетаний клавиш, команд и отдельных клавиш в интерфейсе.
 ---
 
-import * as KbdDocs from '@/components/examples/kbd';
+import * as KbdDocs from '@/components/examples/kbd/kbd';
+import KbdBasic from '../../en/docs/_snippets/kbd/basic.tsx';
+import KbdCompactDensity from '../../en/docs/_snippets/kbd/compact-density.tsx';
+import KbdCustomElement from '../../en/docs/_snippets/kbd/custom-element.tsx';
+import KbdShortcutList from '../../en/docs/_snippets/kbd/shortcut-list.tsx';
+import KbdSingleKey from '../../en/docs/_snippets/kbd/single-key.tsx';
 
 ## Справочник API
 
@@ -15,15 +20,26 @@ import * as KbdDocs from '@/components/examples/kbd';
 
 Используйте `Kbd`, чтобы показать одну клавишу. Для сочетания из нескольких клавиш поместите клавиши и текстовые разделители в `Kbd.Group`.
 
-<style>{`
-      .kbd-demo-shortcut {
-        display: inline-flex;
-      }
-    `}</style>
+<ExampleFrame variant="component">
+  <KbdBasic />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/kbd/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/kbd/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/kbd/kbd-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -75,65 +91,89 @@ Kbd.Group
 Используйте локальные CSS-переменные, если в отдельной части интерфейса нужны более компактные клавиши. Для этого не
 нужно добавлять новые свойства компонента.
 
-<style>{`
-      .kbd-demo-row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: var(--moduix-spacing-2);
-      }
+<ExampleFrame variant="component">
+  <KbdCompactDensity />
+</ExampleFrame>
 
-      .kbd-demo-dense {
-        --moduix-kbd-height: 1.25rem;
-        --moduix-kbd-min-width: 1.25rem;
-        --moduix-kbd-padding-x: var(--moduix-spacing-1);
-      }
-    `}</style>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-```tsx preview file="../../en/docs/_snippets/kbd/compact-density.tsx"
-
+```tsx file="../../en/docs/_snippets/kbd/compact-density.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/kbd/kbd-compact-density.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Пользовательский элемент
 
 Используйте `asChild`, если другой компонент уже выводит семантический элемент `<kbd>` и к нему нужно применить стили Kbd.
 
-```tsx preview file="../../en/docs/_snippets/kbd/custom-element.tsx"
+<ExampleFrame variant="component">
+  <KbdCustomElement />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/kbd/custom-element.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Список сочетаний
 
 Объедините `Kbd.Group` с поясняющим текстом, чтобы показать список доступных сочетаний клавиш.
 
-<style>{`
-      .kbd-demo-shortcut-list {
-        display: grid;
-        gap: var(--moduix-spacing-3);
-      }
+<ExampleFrame variant="component">
+  <KbdShortcutList />
+</ExampleFrame>
 
-      .kbd-demo-shortcut-row {
-        display: grid;
-        grid-template-columns: max-content 1fr;
-        align-items: center;
-        gap: var(--moduix-spacing-3);
-        color: var(--moduix-color-muted-foreground);
-        font-size: var(--moduix-text-sm);
-        line-height: var(--moduix-line-height-text-sm);
-      }
-    `}</style>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-```tsx preview file="../../en/docs/_snippets/kbd/shortcut-list.tsx"
-
+```tsx file="../../en/docs/_snippets/kbd/shortcut-list.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/kbd/kbd-shortcut-list.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Одна клавиша
 
 Используйте `Kbd` напрямую, если нужно показать одну клавишу, например `Esc`.
 
-```tsx preview file="../../en/docs/_snippets/kbd/single-key.tsx"
+<ExampleFrame variant="component">
+  <KbdSingleKey />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/kbd/single-key.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

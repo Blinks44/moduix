@@ -1,11 +1,12 @@
 import { FileUpload } from '@moduix/react/file-upload';
+import styles from '@/components/examples/file-upload/file-upload-clear-trigger.module.css';
 
 const maxFiles = 3;
 export default function ClearTriggerFileUploadDemo() {
   return (
-    <FileUpload className="file-upload-simple-demo" maxFiles={maxFiles}>
+    <FileUpload className={styles.root} maxFiles={maxFiles}>
       <FileUpload.Label>Attachments</FileUpload.Label>
-      <div className="file-upload-actions">
+      <div className={styles.actions}>
         <FileUpload.Trigger>Choose files</FileUpload.Trigger>
         <FileUpload.ClearTrigger>Clear files</FileUpload.ClearTrigger>
       </div>

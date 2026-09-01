@@ -3,6 +3,7 @@ import { Field } from '@moduix/react/field';
 import { Fieldset } from '@moduix/react/fieldset';
 import { Input } from '@moduix/react/input';
 import { Select } from '@moduix/react/select';
+import styles from '@/components/examples/fieldset/fieldset-input-with-select.module.css';
 
 const countryCodes = createListCollection({
   items: [
@@ -26,11 +27,11 @@ const countryCodes = createListCollection({
 });
 export default function PhoneInput() {
   return (
-    <Fieldset className="fieldset">
+    <Fieldset className={styles.root}>
       <Fieldset.Legend>Mobile number</Fieldset.Legend>
-      <div className="phone-input">
+      <div className={styles.phoneInput}>
         <Select
-          className="country-code"
+          className={styles.countryCode}
           collection={countryCodes}
           defaultValue={['+1']}
           name="countryCode"

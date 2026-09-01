@@ -1,0 +1,18 @@
+.root {
+  width: min(28rem, 100%);
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-lg);
+  padding: var(--moduix-spacing-4);
+  background-color: color-mix(
+    in oklab,
+    var(--moduix-color-muted) 32%,
+    var(--moduix-color-background)
+  );
+}
+
+.error {
+  margin: 0;
+  color: var(--moduix-color-destructive);
+  font-size: var(--moduix-text-xs);
+  line-height: var(--moduix-line-height-text-xs);
+}

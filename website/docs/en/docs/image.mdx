@@ -4,7 +4,11 @@ component: image
 description: Responsive images with automatic CDN detection and Unpic-generated srcset and sizes attributes.
 ---
 
-import * as ImageDocs from '@/components/examples/image';
+import * as ImageDocs from '@/components/examples/image/component';
+import ImageArtDirection from './_snippets/image/art-direction.tsx';
+import ImageBasic from './_snippets/image/basic.tsx';
+import ImageFixed from './_snippets/image/fixed.tsx';
+import ImageFullWidth from './_snippets/image/full-width.tsx';
 
 ## API Reference
 
@@ -20,11 +24,20 @@ Use `Image` with a URL from a supported image CDN or any regular image URL. For 
 generates responsive `srcset` and `sizes` attributes. Otherwise, it keeps the source URL unchanged.
 The browser reserves space for the image before it loads.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/image/basic.tsx"
+<ExampleFrame variant="component">
+  <ImageBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/image/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -109,33 +122,66 @@ Use `Image.Source` to show a wider office view on larger screens and a portrait 
 screens. The first large-screen source requests AVIF; the next source provides a fallback for
 browsers that do not support AVIF. `Image.Source` must stay inside a native `<picture>` element.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/image/art-direction.tsx"
+<ExampleFrame variant="component">
+  <ImageArtDirection />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/image/art-direction.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/image/image-art-direction.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Fixed
 
 Use `layout="fixed"` when the image must keep exact dimensions in CSS pixels. Make sure its parent
 has enough room, since fixed images do not shrink to fit a narrower container.
 
-<PreviewFrame maxWidth="xs">
-  ```tsx preview file="./_snippets/image/fixed.tsx"
+<ExampleFrame variant="component">
+  <ImageFixed />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/image/fixed.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Full Width
 
 Use `layout="fullWidth"` for a hero image or media strip that should fill its container's width.
 Supply `height` when the crop height must remain fixed.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/image/full-width.tsx"
+<ExampleFrame variant="component">
+  <ImageFullWidth />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/image/full-width.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

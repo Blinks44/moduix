@@ -1,4 +1,5 @@
 import { FileUpload } from '@moduix/react/file-upload';
+import styles from '@/components/examples/file-upload/file-upload-initial-files.module.css';
 
 const initialFiles = [
   new File(['Welcome to moduix'], 'README.md', {
@@ -7,7 +8,7 @@ const initialFiles = [
 ];
 export default function InitialFilesUploadDemo() {
   return (
-    <FileUpload className="file-upload-simple-demo" defaultAcceptedFiles={initialFiles}>
+    <FileUpload className={styles.root} defaultAcceptedFiles={initialFiles}>
       <FileUpload.Label>Attachments</FileUpload.Label>
       <FileUpload.Trigger>Choose files</FileUpload.Trigger>
       <FileUpload.ItemGroup>

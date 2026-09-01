@@ -1,4 +1,4 @@
-import type { CssPropertyInput } from '../mdx/reference';
+import type { CssPropertyInput } from '../../mdx/reference';
 
 export const kbdOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-kbd-bg', 'var(--moduix-color-muted)', 'Controls key background color.'],

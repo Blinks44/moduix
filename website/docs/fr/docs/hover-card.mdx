@@ -4,7 +4,17 @@ component: hover-card
 description: Composant Hover Card basé sur Ark UI qui affiche des aperçus complémentaires au survol ou lorsque le déclencheur reçoit le focus.
 ---
 
-import * as HoverCardDocs from '@/components/examples/hover-card';
+import * as HoverCardDocs from '@/components/examples/hover-card/hover-card';
+import BasicHoverCard from '../../en/docs/_snippets/hover-card/basic.tsx';
+import ContextHoverCard from '../../en/docs/_snippets/hover-card/context.tsx';
+import ControlledHoverCard from '../../en/docs/_snippets/hover-card/controlled.tsx';
+import DelayHoverCard from '../../en/docs/_snippets/hover-card/delay.tsx';
+import DialogHoverCard from '../../en/docs/_snippets/hover-card/dialog.tsx';
+import DisabledHoverCard from '../../en/docs/_snippets/hover-card/disabled.tsx';
+import MultipleTriggersHoverCard from '../../en/docs/_snippets/hover-card/multiple-triggers.tsx';
+import PositioningHoverCard from '../../en/docs/_snippets/hover-card/positioning.tsx';
+import RootProviderHoverCard from '../../en/docs/_snippets/hover-card/root-provider.tsx';
+import HoverCardWithArrow from '../../en/docs/_snippets/hover-card/with-arrow.tsx';
 
 ## Référence de l’API
 
@@ -23,11 +33,26 @@ Composez la carte à partir des parties Ark explicites. `HoverCard.Trigger` ouvr
 que `HoverCard.Positioner` et `HoverCard.Content` définissent son contenu flottant. La composition
 de base n’inclut pas de flèche.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/hover-card/basic.tsx"
+<ExampleFrame variant="component">
+  <BasicHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/hover-card/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hover-card/hover-card-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -134,31 +159,76 @@ doit être rendu dès le départ.
 Utilisez `HoverCard.Context` pour lire l’état dans l’arborescence de la carte sans modifier sa
 structure visible.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/hover-card/context.tsx"
+<ExampleFrame variant="component">
+  <ContextHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/hover-card/context.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hover-card/hover-card-context.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### État contrôlé
 
 Contrôlez l’ouverture de la carte avec `open` et `onOpenChange(details)`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/hover-card/controlled.tsx"
+<ExampleFrame variant="component">
+  <ControlledHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/hover-card/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hover-card/hover-card-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Délai
 
 Ajustez les délais d’ouverture et de fermeture avec `openDelay` et `closeDelay` sur la racine.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/hover-card/delay.tsx"
+<ExampleFrame variant="component">
+  <DelayHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/hover-card/delay.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hover-card/hover-card-delay.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Dialogue
 
@@ -167,65 +237,155 @@ Le focus initial du dialogue peut se placer sur son déclencheur et ouvrir la ca
 Définissez `initialFocusEl` sur un autre élément si l’aperçu doit rester
 fermé jusqu’au survol ou à la réception du focus.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/hover-card/dialog.tsx"
+<ExampleFrame variant="component">
+  <DialogHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/hover-card/dialog.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hover-card/hover-card-dialog.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### État désactivé
 
 Définissez `disabled` pour empêcher l’ouverture de la carte tout en conservant le contenu visible du
 déclencheur.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/hover-card/disabled.tsx"
+<ExampleFrame variant="component">
+  <DisabledHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/hover-card/disabled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hover-card/hover-card-disabled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Plusieurs déclencheurs
 
 Donnez une `value` à chaque déclencheur et utilisez `onTriggerValueChange(details)` pour partager
 un même contenu entre plusieurs déclencheurs.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/hover-card/multiple-triggers.tsx"
+<ExampleFrame variant="component">
+  <MultipleTriggersHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/hover-card/multiple-triggers.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hover-card/hover-card-multiple-triggers.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Positionnement
 
 Transmettez les options de positionnement d’Ark via la propriété `positioning`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/hover-card/positioning.tsx"
+<ExampleFrame variant="component">
+  <PositioningHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/hover-card/positioning.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hover-card/hover-card-positioning.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Utilisez `useHoverCard()` avec `HoverCard.RootProvider` lorsque des contrôles ou d’autres éléments
 de l’interface situés en dehors de l’arborescence de la carte doivent lire son état ou le modifier.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/hover-card/root-provider.tsx"
+<ExampleFrame variant="component">
+  <RootProviderHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/hover-card/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hover-card/hover-card-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Avec une flèche
 
 Ajoutez `HoverCard.Arrow` dans `HoverCard.Content` lorsque la fenêtre flottante doit pointer
 visuellement vers son déclencheur. L’enveloppe rend `HoverCard.ArrowTip` par défaut.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/hover-card/with-arrow.tsx"
+<ExampleFrame variant="component">
+  <HoverCardWithArrow />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/hover-card/with-arrow.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hover-card/hover-card-with-arrow.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

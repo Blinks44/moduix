@@ -4,7 +4,17 @@ component: hover-card
 description: An Ark UI hover card for supplementary previews opened when its trigger is hovered or focused.
 ---
 
-import * as HoverCardDocs from '@/components/examples/hover-card';
+import * as HoverCardDocs from '@/components/examples/hover-card/hover-card';
+import BasicHoverCard from './_snippets/hover-card/basic.tsx';
+import ContextHoverCard from './_snippets/hover-card/context.tsx';
+import ControlledHoverCard from './_snippets/hover-card/controlled.tsx';
+import DelayHoverCard from './_snippets/hover-card/delay.tsx';
+import DialogHoverCard from './_snippets/hover-card/dialog.tsx';
+import DisabledHoverCard from './_snippets/hover-card/disabled.tsx';
+import MultipleTriggersHoverCard from './_snippets/hover-card/multiple-triggers.tsx';
+import PositioningHoverCard from './_snippets/hover-card/positioning.tsx';
+import RootProviderHoverCard from './_snippets/hover-card/root-provider.tsx';
+import HoverCardWithArrow from './_snippets/hover-card/with-arrow.tsx';
 
 ## API Reference
 
@@ -22,11 +32,26 @@ Compose the card from explicit Ark parts. `HoverCard.Trigger` opens the card, wh
 `HoverCard.Positioner` and `HoverCard.Content` define its floating content. The basic composition
 does not include an arrow.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/hover-card/basic.tsx"
+<ExampleFrame variant="component">
+  <BasicHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/hover-card/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hover-card/hover-card-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -128,31 +153,76 @@ Portalled content mounts on first open and is removed after its exit animation b
 Use `HoverCard.Context` to read state inside the card tree without changing its visible part
 structure.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/hover-card/context.tsx"
+<ExampleFrame variant="component">
+  <ContextHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/hover-card/context.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hover-card/hover-card-context.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Controlled
 
 Control whether the card is open with `open` and `onOpenChange(details)`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/hover-card/controlled.tsx"
+<ExampleFrame variant="component">
+  <ControlledHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/hover-card/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hover-card/hover-card-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Delay
 
 Set `openDelay` and `closeDelay` on the root to adjust hover and focus timing.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/hover-card/delay.tsx"
+<ExampleFrame variant="component">
+  <DelayHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/hover-card/delay.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hover-card/hover-card-delay.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Dialog
 
@@ -160,64 +230,154 @@ Render a hover card inline inside a dialog when it must stay in the dialog's ove
 dialog's initial focus can land on the Hover Card trigger and open the card after `openDelay`; set
 `initialFocusEl` to another element when the preview should remain closed until hover or focus.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/hover-card/dialog.tsx"
+<ExampleFrame variant="component">
+  <DialogHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/hover-card/dialog.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hover-card/hover-card-dialog.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Disabled
 
 Set `disabled` to prevent the card from opening while keeping the trigger visible.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/hover-card/disabled.tsx"
+<ExampleFrame variant="component">
+  <DisabledHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/hover-card/disabled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hover-card/hover-card-disabled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Multiple Triggers
 
 Give each trigger a `value` and use `onTriggerValueChange(details)` to share one content area
 across several triggers.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/hover-card/multiple-triggers.tsx"
+<ExampleFrame variant="component">
+  <MultipleTriggersHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/hover-card/multiple-triggers.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hover-card/hover-card-multiple-triggers.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Positioning
 
 Pass Ark positioning options through the `positioning` prop.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/hover-card/positioning.tsx"
+<ExampleFrame variant="component">
+  <PositioningHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/hover-card/positioning.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hover-card/hover-card-positioning.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Use `useHoverCard()` with `HoverCard.RootProvider` when controls or other UI outside the card tree
 need to read or update its state.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/hover-card/root-provider.tsx"
+<ExampleFrame variant="component">
+  <RootProviderHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/hover-card/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hover-card/hover-card-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### With Arrow
 
 Add `HoverCard.Arrow` inside `HoverCard.Content` when the popup needs a visual pointer to its
 trigger. The wrapper renders `HoverCard.ArrowTip` by default.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/hover-card/with-arrow.tsx"
+<ExampleFrame variant="component">
+  <HoverCardWithArrow />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/hover-card/with-arrow.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hover-card/hover-card-with-arrow.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

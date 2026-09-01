@@ -1,6 +1,7 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import { Field } from '@moduix/react/field';
 import { Select } from '@moduix/react/select';
+import styles from '@/components/examples/field/field-select.module.css';
 
 const priorities = createListCollection({
   items: [
@@ -12,7 +13,7 @@ const priorities = createListCollection({
 
 export default function SelectFieldDemo() {
   return (
-    <Field>
+    <Field className={styles.root}>
       <Select collection={priorities} required name="priority">
         <Select.Label>Priority</Select.Label>
         <Select.Control>

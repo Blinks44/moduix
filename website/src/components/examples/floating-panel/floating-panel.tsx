@@ -1,5 +1,5 @@
-import type { CssPropertyInput } from '../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../mdx/reference';
+import type { CssPropertyInput } from '../../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
 const floatingPanelOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-floating-panel-behind-opacity', '0.55', 'Opacity when another panel is topmost.'],

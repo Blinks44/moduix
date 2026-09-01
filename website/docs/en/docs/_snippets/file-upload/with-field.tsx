@@ -1,11 +1,12 @@
 import { Field } from '@moduix/react/field';
 import { FileUpload } from '@moduix/react/file-upload';
+import styles from '@/components/examples/file-upload/file-upload-with-field.module.css';
 
 const name = 'attachments';
 const maxFiles = 3;
 export default function FileUploadWithFieldDemo() {
   return (
-    <Field.Root className="file-upload-simple-demo" required>
+    <Field.Root className={styles.root} required>
       <FileUpload name={name} maxFiles={maxFiles}>
         <FileUpload.Label>Required attachments</FileUpload.Label>
         <FileUpload.Trigger>Choose files</FileUpload.Trigger>

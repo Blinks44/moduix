@@ -1,19 +1,5 @@
-import type { CssPropertyInput } from '../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../mdx/reference';
-
-export const imageCropperExampleCss = `
-.cropper-stack {
-  display: grid;
-  justify-items: center;
-  gap: var(--moduix-spacing-3);
-}
-
-.cropper-toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--moduix-spacing-1);
-}
-`;
+import type { CssPropertyInput } from '../../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
 const imageCropperOverrideCssProperties: CssPropertyInput[] = [
   [

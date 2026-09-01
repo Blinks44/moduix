@@ -2,6 +2,7 @@ import { Button } from '@moduix/react/button';
 import { FileUpload } from '@moduix/react/file-upload';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/file-upload/file-upload-form-usage.module.css';
 
 const name = 'project-assets';
 const maxFiles = 3;
@@ -10,13 +11,13 @@ export default function FileUploadFormDemo() {
 
   return (
     <form
-      className="file-upload-stack"
+      className={styles.stack}
       onSubmit={(event) => {
         event.preventDefault();
         setSubmitted(`${new FormData(event.currentTarget).getAll(name).length} file(s) submitted`);
       }}
     >
-      <FileUpload className="file-upload-simple-demo" name={name} maxFiles={maxFiles}>
+      <FileUpload className={styles.root} name={name} maxFiles={maxFiles}>
         <FileUpload.Label>Project assets</FileUpload.Label>
         <FileUpload.Trigger>Choose files</FileUpload.Trigger>
         <FileUpload.ItemGroup>

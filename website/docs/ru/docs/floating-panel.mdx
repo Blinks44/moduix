@@ -4,7 +4,18 @@ component: floating-panel
 description: Немодальное плавающее окно Ark UI для содержимого, которое можно перемещать, изменять в размере, сворачивать и разворачивать.
 ---
 
-import * as FloatingPanelDocs from '@/components/examples/floating-panel';
+import * as FloatingPanelDocs from '@/components/examples/floating-panel/floating-panel';
+import FloatingPanelAdvancedCustomization from '../../en/docs/_snippets/floating-panel/advanced-customization.tsx';
+import FloatingPanelAnchorPosition from '../../en/docs/_snippets/floating-panel/anchor-position.tsx';
+import FloatingPanelBasic from '../../en/docs/_snippets/floating-panel/basic.tsx';
+import FloatingPanelBoundary from '../../en/docs/_snippets/floating-panel/boundary.tsx';
+import FloatingPanelContext from '../../en/docs/_snippets/floating-panel/context.tsx';
+import FloatingPanelControlledOpen from '../../en/docs/_snippets/floating-panel/controlled-open.tsx';
+import FloatingPanelControlledPosition from '../../en/docs/_snippets/floating-panel/controlled-position.tsx';
+import FloatingPanelControlledSize from '../../en/docs/_snippets/floating-panel/controlled-size.tsx';
+import FloatingPanelEscapeDismiss from '../../en/docs/_snippets/floating-panel/escape-dismiss.tsx';
+import FloatingPanelLazyMount from '../../en/docs/_snippets/floating-panel/lazy-mount.tsx';
+import FloatingPanelRootProvider from '../../en/docs/_snippets/floating-panel/root-provider.tsx';
 
 ## Справочник API
 
@@ -22,9 +33,20 @@ import * as FloatingPanelDocs from '@/components/examples/floating-panel';
 а `FloatingPanel.Content` представляет видимую поверхность окна. Заголовок становится областью перетаскивания,
 а `ResizeTriggerGroup` добавляет ручки изменения размера по краям панели.
 
-```tsx preview file="../../en/docs/_snippets/floating-panel/basic.tsx"
+<ExampleFrame variant="component">
+  <FloatingPanelBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/floating-panel/basic.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -142,73 +164,163 @@ FloatingPanel / FloatingPanel.Root
 
 Используйте `getAnchorPosition`, чтобы вычислить начальную позицию панели по прямоугольнику триггера.
 
-```tsx preview file="../../en/docs/_snippets/floating-panel/anchor-position.tsx"
+<ExampleFrame variant="component">
+  <FloatingPanelAnchorPosition />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/floating-panel/anchor-position.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Ограничение контейнером
 
 Передайте `getBoundaryEl` и установите `allowOverflow={false}`, чтобы панель оставалась внутри определённого контейнера
 во время перетаскивания.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/floating-panel/boundary.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FloatingPanelBoundary />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/floating-panel/boundary.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/floating-panel/floating-panel-boundary.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Контекст
 
 Используйте `FloatingPanel.Context` или `useFloatingPanelContext`, чтобы получать состояние и методы панели внутри
 дерева компонентов.
 
-<PreviewFrame maxWidth="xs">
-  ```tsx preview file="../../en/docs/_snippets/floating-panel/context.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FloatingPanelContext />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/floating-panel/context.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Управляемое открытие
 
 Используйте `open` вместе с `onOpenChange`, если состояние React должно управлять видимостью панели.
 
-```tsx preview file="../../en/docs/_snippets/floating-panel/controlled-open.tsx"
+<ExampleFrame variant="component">
+  <FloatingPanelControlledOpen />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/floating-panel/controlled-open.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Управляемая позиция
 
 Управляйте `position`, если другой части приложения нужны текущие координаты панели.
 
-```tsx preview file="../../en/docs/_snippets/floating-panel/controlled-position.tsx"
+<ExampleFrame variant="component">
+  <FloatingPanelControlledPosition />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/floating-panel/controlled-position.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Управляемый размер
 
 Управляйте `size`, если интерфейсу нужно сохранять или показывать текущие размеры панели.
 
-```tsx preview file="../../en/docs/_snippets/floating-panel/controlled-size.tsx"
+<ExampleFrame variant="component">
+  <FloatingPanelControlledSize />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/floating-panel/controlled-size.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Закрытие по Escape
 
 `closeOnEscape` включён по умолчанию. Добавьте `autoFocus` к `Content`, чтобы Escape работал сразу после открытия
 немодальной панели.
 
-```tsx preview file="../../en/docs/_snippets/floating-panel/escape-dismiss.tsx"
+<ExampleFrame variant="component">
+  <FloatingPanelEscapeDismiss />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/floating-panel/escape-dismiss.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Ленивое монтирование
 
 Используйте `lazyMount` и `unmountOnExit`, если панель должна монтироваться при первом открытии и удаляться после
 анимации закрытия.
 
-```tsx preview file="../../en/docs/_snippets/floating-panel/lazy-mount.tsx"
+<ExampleFrame variant="component">
+  <FloatingPanelLazyMount />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/floating-panel/lazy-mount.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### RootProvider
 
@@ -216,17 +328,39 @@ FloatingPanel / FloatingPanel.Root
 нужны методы `minimize`, `maximize` и `setOpen`. Передайте `persistRect: true`, чтобы сохранить поведение анимации
 закрытия, заданное по умолчанию в корневом компоненте moduix.
 
-```tsx preview file="../../en/docs/_snippets/floating-panel/root-provider.tsx"
+<ExampleFrame variant="component">
+  <FloatingPanelRootProvider />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/floating-panel/root-provider.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
 Используйте отдельные части `ResizeTrigger`, если для каждой оси нужны свои расположение или оформление.
 
-```tsx preview file="../../en/docs/_snippets/floating-panel/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <FloatingPanelAdvancedCustomization />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/floating-panel/advanced-customization.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

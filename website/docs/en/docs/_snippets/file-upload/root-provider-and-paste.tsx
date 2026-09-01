@@ -1,5 +1,6 @@
 import { FileUpload, useFileUpload } from '@moduix/react/file-upload';
 import { Textarea } from '@moduix/react/textarea';
+import styles from '@/components/examples/file-upload/file-upload-root-provider-and-paste.module.css';
 
 const maxFiles = 3;
 const accept = 'image/*';
@@ -9,7 +10,7 @@ export default function RootProviderPasteUploadDemo() {
     accept,
   });
   return (
-    <FileUpload.RootProvider className="file-upload-simple-demo" value={fileUpload}>
+    <FileUpload.RootProvider className={styles.root} value={fileUpload}>
       <FileUpload.Label>Images</FileUpload.Label>
       <Textarea
         placeholder="Paste an image here"

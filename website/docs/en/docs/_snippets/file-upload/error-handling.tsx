@@ -1,6 +1,7 @@
 import { FileUpload } from '@moduix/react/file-upload';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/file-upload/file-upload-error-handling.module.css';
 
 const accept = 'image/*';
 const maxFiles = 2;
@@ -10,7 +11,7 @@ export default function ErrorHandlingFileUploadDemo() {
   return (
     <>
       <FileUpload
-        className="file-upload-simple-demo"
+        className={styles.root}
         accept={accept}
         maxFiles={maxFiles}
         maxFileSize={maxFileSize}
@@ -37,7 +38,7 @@ export default function ErrorHandlingFileUploadDemo() {
               rejectedFiles.map(({ file, errors }) => (
                 <FileUpload.Item key={file.name} file={file}>
                   <FileUpload.ItemName />
-                  <p className="file-upload-error">{errors.join(', ')}</p>
+                  <p className={styles.error}>{errors.join(', ')}</p>
                   <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
                 </FileUpload.Item>
               ))

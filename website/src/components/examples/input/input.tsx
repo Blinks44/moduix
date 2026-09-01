@@ -1,5 +1,5 @@
-import type { CssPropertyInput } from '../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../mdx/reference';
+import type { CssPropertyInput } from '../../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
 const inputOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-input-bg', 'var(--moduix-color-background)', 'Controls the input background color.'],

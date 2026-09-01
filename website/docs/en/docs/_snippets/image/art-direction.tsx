@@ -1,8 +1,9 @@
 import { Image } from '@moduix/react/image';
+import styles from '@/components/examples/image/image-art-direction.module.css';
 
 export default function ArtDirectedImageDemo() {
   return (
-    <picture>
+    <picture className={styles.root}>
       <Image.Source
         media="(min-width: 48rem)"
         type="image/avif"

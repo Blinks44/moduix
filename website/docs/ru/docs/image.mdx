@@ -4,7 +4,11 @@ component: image
 description: "Адаптивные изображения с автоматическим определением CDN. Unpic генерирует атрибуты srcset и sizes."
 ---
 
-import * as ImageDocs from '@/components/examples/image';
+import * as ImageDocs from '@/components/examples/image/component';
+import ImageArtDirection from '../../en/docs/_snippets/image/art-direction.tsx';
+import ImageBasic from '../../en/docs/_snippets/image/basic.tsx';
+import ImageFixed from '../../en/docs/_snippets/image/fixed.tsx';
+import ImageFullWidth from '../../en/docs/_snippets/image/full-width.tsx';
 
 ## Справочник API
 
@@ -18,11 +22,20 @@ import * as ImageDocs from '@/components/examples/image';
 `width` и `height`. Если Unpic распознаёт провайдера, он генерирует адаптивные атрибуты `srcset` и `sizes`. Для остальных
 URL Unpic сохраняет исходный адрес без изменений. Браузер заранее резервирует место под изображение до его загрузки.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image/basic.tsx"
+<ExampleFrame variant="component">
+  <ImageBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/image/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -107,11 +120,26 @@ picture (native)
 изображение в портретной ориентации. Первый источник для больших экранов запрашивает AVIF. Следующий источник с тем же медиазапросом
 служит запасным вариантом для браузеров без поддержки AVIF. `Image.Source` должен находиться внутри нативного `<picture>`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image/art-direction.tsx"
+<ExampleFrame variant="component">
+  <ImageArtDirection />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/image/art-direction.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/image/image-art-direction.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Фиксированный размер
 
@@ -119,22 +147,40 @@ picture (native)
 родительском контейнере достаточно места: фиксированное изображение не уменьшится, чтобы поместиться в более узкий
 контейнер.
 
-<PreviewFrame maxWidth="xs">
-  ```tsx preview file="../../en/docs/_snippets/image/fixed.tsx"
+<ExampleFrame variant="component">
+  <ImageFixed />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/image/fixed.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### На всю ширину
 
 Используйте `layout="fullWidth"` для главного изображения или медиа-блока, который должен занять всю ширину контейнера.
 Передайте `height`, если высота кадрирования должна оставаться фиксированной.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image/full-width.tsx"
+<ExampleFrame variant="component">
+  <ImageFullWidth />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/image/full-width.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

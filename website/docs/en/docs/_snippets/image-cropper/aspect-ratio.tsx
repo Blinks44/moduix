@@ -2,6 +2,7 @@ import { Button } from '@moduix/react/button';
 import { ImageCropper } from '@moduix/react/image-cropper';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/image-cropper/image-cropper-aspect-ratio.module.css';
 
 const sampleImage =
   'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=640&h=400&q=90';
@@ -24,7 +25,7 @@ const aspectRatios = [
 export default function AspectRatioImageCropperDemo() {
   const [aspectRatio, setAspectRatio] = useState(16 / 9);
   return (
-    <div className="cropper-stack">
+    <div className={styles.stack}>
       <ImageCropper aspectRatio={aspectRatio} aria-label="Image cropper">
         <ImageCropper.Viewport>
           <ImageCropper.Image src={sampleImage} alt="Landscape" crossOrigin="anonymous" />

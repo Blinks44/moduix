@@ -4,9 +4,19 @@ component: image-cropper
 description: Composant permettant de recadrer et de transformer des images, avec prise en charge du zoom, de la rotation et du rapport d’aspect.
 ---
 
-import * as ImageCropperDocs from '@/components/examples/image-cropper';
-
-<style>{ImageCropperDocs.imageCropperExampleCss}</style>
+import * as ImageCropperDocs from '@/components/examples/image-cropper/image-cropper';
+import ImageCropperAdvancedCustomization from '../../en/docs/_snippets/image-cropper/advanced-customization.tsx';
+import ImageCropperAspectRatio from '../../en/docs/_snippets/image-cropper/aspect-ratio.tsx';
+import ImageCropperBasic from '../../en/docs/_snippets/image-cropper/basic.tsx';
+import ImageCropperCircleCrop from '../../en/docs/_snippets/image-cropper/circle-crop.tsx';
+import ImageCropperControlledZoom from '../../en/docs/_snippets/image-cropper/controlled-zoom.tsx';
+import ImageCropperCropPreview from '../../en/docs/_snippets/image-cropper/crop-preview.tsx';
+import ImageCropperEvents from '../../en/docs/_snippets/image-cropper/events.tsx';
+import ImageCropperFixedCropArea from '../../en/docs/_snippets/image-cropper/fixed-crop-area.tsx';
+import ImageCropperInitialCrop from '../../en/docs/_snippets/image-cropper/initial-crop.tsx';
+import ImageCropperMinAndMaxSize from '../../en/docs/_snippets/image-cropper/min-and-max-size.tsx';
+import ImageCropperRootProvider from '../../en/docs/_snippets/image-cropper/root-provider.tsx';
+import ImageCropperRotationFlipAndReset from '../../en/docs/_snippets/image-cropper/rotation-flip-and-reset.tsx';
 
 ## Référence de l’API
 
@@ -18,11 +28,20 @@ Utilisez `ImageCropper` avec `Viewport`, `Image` et `CropArea`. Passez l’URL d
 `ImageCropper.Image`. `CropArea` ajoute la zone de sélection, les lignes de la grille et les poignées
 de redimensionnement.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/basic.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/image-cropper/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 Si vous appelez `getCroppedImage()` pour une image provenant d’une autre origine, le serveur de
 l’image doit autoriser CORS et `ImageCropper.Image` doit recevoir `crossOrigin="anonymous"`. Les
@@ -112,21 +131,45 @@ et `details.flip`.
 Définissez `aspectRatio` pour conserver un rapport largeur-hauteur précis. Modifiez-le depuis l’état
 React lorsque l’utilisateur choisit un format de sortie.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/aspect-ratio.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperAspectRatio />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/image-cropper/aspect-ratio.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/image-cropper/image-cropper-aspect-ratio.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Recadrage circulaire
 
 Utilisez `cropShape="circle"` avec `aspectRatio={1}` pour les avatars et les images de profil.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/circle-crop.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperCircleCrop />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/image-cropper/circle-crop.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Zoom contrôlé
 
@@ -134,11 +177,26 @@ Utilisez `zoom` en mode contrôlé avec `onZoomChange` lorsque des boutons ou un
 l’interface doivent modifier ou afficher le niveau de zoom. Limitez la plage avec `minZoom` et
 `maxZoom`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/controlled-zoom.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperControlledZoom />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/image-cropper/controlled-zoom.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/image-cropper/image-cropper-controlled-zoom.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Aperçu du recadrage
 
@@ -147,65 +205,137 @@ Appelez `getCroppedImage()` sur une instance de `useImageCropper` pour créer le
 élément `img`. Utilisez `getCropData()` si vous avez seulement besoin des coordonnées du recadrage
 et des données de transformation.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/crop-preview.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperCropPreview />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/image-cropper/crop-preview.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/image-cropper/image-cropper-crop-preview.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Événements
 
 Abonnez-vous à `onCropChange` et `onZoomChange` pour afficher les données actuelles du recadrage ou
 les synchroniser avec d’autres éléments de l’interface.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/events.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperEvents />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/image-cropper/events.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/image-cropper/image-cropper-events.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Zone de recadrage fixe
 
 Activez `fixedCropArea` lorsque la zone doit conserver la même taille et la même position pendant que
 l’utilisateur déplace l’image derrière elle.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/fixed-crop-area.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperFixedCropArea />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/image-cropper/fixed-crop-area.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Recadrage initial
 
 Définissez `initialCrop` pour ouvrir le composant avec un rectangle de recadrage prédéfini, exprimé
 en coordonnées de la zone d’affichage et en pixels.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/initial-crop.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperInitialCrop />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/image-cropper/initial-crop.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Taille minimale et maximale
 
 Limitez la taille de la zone avec `minWidth`, `minHeight`, `maxWidth` et `maxHeight`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/min-and-max-size.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperMinAndMaxSize />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/image-cropper/min-and-max-size.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Utilisez `RootProvider` avec une instance de `useImageCropper` lorsqu’une barre d’outils ou un autre
 élément de l’interface doit piloter le recadrage en dehors de son arbre de composants.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/root-provider.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperRootProvider />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/image-cropper/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/image-cropper/image-cropper-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Rotation, retournement et réinitialisation
 
@@ -213,11 +343,26 @@ Utilisez `ImageCropper.Context` pour relier une barre d’outils aux actions de 
 retournement et de réinitialisation. Dans cet exemple, la rotation et le retournement sont contrôlés
 depuis l’état React.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/rotation-flip-and-reset.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperRotationFlipAndReset />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/image-cropper/rotation-flip-and-reset.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/image-cropper/image-cropper-rotation-flip-and-reset.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Personnalisation avancée
 
@@ -225,11 +370,20 @@ Remplacez `CropArea` par les parties explicites `Selection`, `Grid` et `Handle` 
 nécessite une structure différente ou des enfants personnalisés. `Grid` requiert `axis` et `Handle`
 requiert `position`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperAdvancedCustomization />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/image-cropper/advanced-customization.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

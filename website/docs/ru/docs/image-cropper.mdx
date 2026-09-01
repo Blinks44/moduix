@@ -4,9 +4,19 @@ component: image-cropper
 description: Компонент для кадрирования и преобразования изображений с поддержкой масштабирования, поворота и соотношения сторон.
 ---
 
-import * as ImageCropperDocs from '@/components/examples/image-cropper';
-
-<style>{ImageCropperDocs.imageCropperExampleCss}</style>
+import * as ImageCropperDocs from '@/components/examples/image-cropper/image-cropper';
+import ImageCropperAdvancedCustomization from '../../en/docs/_snippets/image-cropper/advanced-customization.tsx';
+import ImageCropperAspectRatio from '../../en/docs/_snippets/image-cropper/aspect-ratio.tsx';
+import ImageCropperBasic from '../../en/docs/_snippets/image-cropper/basic.tsx';
+import ImageCropperCircleCrop from '../../en/docs/_snippets/image-cropper/circle-crop.tsx';
+import ImageCropperControlledZoom from '../../en/docs/_snippets/image-cropper/controlled-zoom.tsx';
+import ImageCropperCropPreview from '../../en/docs/_snippets/image-cropper/crop-preview.tsx';
+import ImageCropperEvents from '../../en/docs/_snippets/image-cropper/events.tsx';
+import ImageCropperFixedCropArea from '../../en/docs/_snippets/image-cropper/fixed-crop-area.tsx';
+import ImageCropperInitialCrop from '../../en/docs/_snippets/image-cropper/initial-crop.tsx';
+import ImageCropperMinAndMaxSize from '../../en/docs/_snippets/image-cropper/min-and-max-size.tsx';
+import ImageCropperRootProvider from '../../en/docs/_snippets/image-cropper/root-provider.tsx';
+import ImageCropperRotationFlipAndReset from '../../en/docs/_snippets/image-cropper/rotation-flip-and-reset.tsx';
 
 ## Справочник API
 
@@ -18,11 +28,20 @@ import * as ImageCropperDocs from '@/components/examples/image-cropper';
 `ImageCropper.Image`. Компонент `CropArea` сам добавит область кадрирования, линии сетки и маркеры
 изменения размера.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/basic.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/image-cropper/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 Если вы вызываете `getCroppedImage()` для изображения с другого домена, сервер изображения должен
 разрешать CORS, а в `ImageCropper.Image` нужно передать `crossOrigin="anonymous"`. В примерах это
@@ -112,32 +131,71 @@ Ark `translations`. В управляемом режиме обратные вы
 Задайте `aspectRatio`, чтобы сохранять фиксированное соотношение ширины и высоты области. Если
 пользователь выбирает формат результата, меняйте это свойство из состояния React.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/aspect-ratio.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperAspectRatio />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/image-cropper/aspect-ratio.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/image-cropper/image-cropper-aspect-ratio.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Круглое кадрирование
 
 Используйте `cropShape="circle"` вместе с `aspectRatio={1}` для аватаров и изображений профиля.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/circle-crop.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperCircleCrop />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/image-cropper/circle-crop.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Управляемый масштаб
 
 Используйте управляемые `zoom` и `onZoomChange`, если кнопки или другая часть интерфейса должны
 изменять или показывать текущий масштаб. Ограничьте диапазон с помощью `minZoom` и `maxZoom`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/controlled-zoom.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperControlledZoom />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/image-cropper/controlled-zoom.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/image-cropper/image-cropper-controlled-zoom.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Предварительный просмотр кадра
 
@@ -146,76 +204,163 @@ Ark `translations`. В управляемом режиме обратные вы
 элемента `img`. Используйте `getCropData()`, если нужны только координаты кадрирования и данные
 о преобразованиях.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/crop-preview.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperCropPreview />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/image-cropper/crop-preview.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/image-cropper/image-cropper-crop-preview.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### События
 
 Подпишитесь на `onCropChange` и `onZoomChange`, чтобы показывать текущие данные кадрирования или
 синхронизировать их с другими элементами интерфейса.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/events.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperEvents />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/image-cropper/events.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/image-cropper/image-cropper-events.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Фиксированная область кадрирования
 
 Включите `fixedCropArea`, если область кадрирования должна сохранять размер и положение, пока
 пользователь панорамирует изображение под ней.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/fixed-crop-area.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperFixedCropArea />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/image-cropper/fixed-crop-area.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Начальная область кадрирования
 
 Передайте `initialCrop`, чтобы открыть компонент с заранее заданным прямоугольником кадрирования в
 координатах области просмотра и пикселях.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/initial-crop.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperInitialCrop />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/image-cropper/initial-crop.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Минимальный и максимальный размер
 
 Ограничьте размер области кадрирования с помощью `minWidth`, `minHeight`, `maxWidth` и `maxHeight`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/min-and-max-size.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperMinAndMaxSize />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/image-cropper/min-and-max-size.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Используйте `RootProvider` с экземпляром `useImageCropper`, если панель инструментов или другой
 сценарий должны управлять кадрированием за пределами дерева его компонентов.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/root-provider.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperRootProvider />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/image-cropper/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/image-cropper/image-cropper-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Поворот, отражение и сброс
 
 Используйте `ImageCropper.Context`, чтобы подключить к панели инструментов действия масштабирования,
 поворота, отражения и сброса. В этом примере состояние поворота и отражения контролируется из React.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/rotation-flip-and-reset.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperRotationFlipAndReset />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/image-cropper/rotation-flip-and-reset.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/image-cropper/image-cropper-rotation-flip-and-reset.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
@@ -223,11 +368,20 @@ Ark `translations`. В управляемом режиме обратные вы
 нужна другая структура или собственные дочерние элементы. Для `Grid` требуется `axis`, а для
 `Handle` требуется `position`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperAdvancedCustomization />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/image-cropper/advanced-customization.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

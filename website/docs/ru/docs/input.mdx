@@ -4,7 +4,16 @@ component: input
 description: Стилизованный однострочный `<input>` на основе Field.Input из Ark UI с нативными событиями и стилями moduix.
 ---
 
-import * as InputDocs from '@/components/examples/input';
+import * as InputDocs from '@/components/examples/input/input';
+import InputAsChild from '../../en/docs/_snippets/input/as-child.tsx';
+import InputBasic from '../../en/docs/_snippets/input/basic.tsx';
+import InputControlled from '../../en/docs/_snippets/input/controlled.tsx';
+import InputFieldState from '../../en/docs/_snippets/input/field-state.tsx';
+import InputFile from '../../en/docs/_snippets/input/file-input.tsx';
+import InputNativeAttributes from '../../en/docs/_snippets/input/native-attributes.tsx';
+import InputSizes from '../../en/docs/_snippets/input/sizes.tsx';
+import InputStandalone from '../../en/docs/_snippets/input/standalone-input.tsx';
+import InputStates from '../../en/docs/_snippets/input/disabled-and-readonly.tsx';
 
 ## Справочник API
 
@@ -26,11 +35,20 @@ import * as InputDocs from '@/components/examples/input';
 
 Поместите `Input` в `Field`, если полю нужны метка, пояснение или сообщение об ошибке. `Field` свяжет эти элементы с полем, автоматически создаст нужные идентификаторы и передаст его состояние.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/basic.tsx"
+<ExampleFrame variant="component">
+  <InputBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/input/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -95,11 +113,20 @@ Field (необязательная оболочка)
 Используйте этот вариант, когда React должен управлять текущим значением. Читайте новое значение из
 нативного события `onChange(event)` и передавайте его обратно через `value`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/controlled.tsx"
+<ExampleFrame variant="component">
+  <InputControlled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/input/controlled.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Отключённое поле и режим только для чтения
 
@@ -108,22 +135,46 @@ Field (необязательная оболочка)
 свойства непосредственно на `Input`. Если метка, поясняющий текст и поле должны иметь одно
 состояние, задавайте свойства на `Field`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/disabled-and-readonly.tsx"
+<ExampleFrame variant="component">
+  <InputStates />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/input/disabled-and-readonly.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/input/input-disabled-and-readonly.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Валидация поля
 
 Задавайте `invalid` на `Field`, когда значение не проходит проверку. Ark добавит к `Input`
 `aria-invalid` и `data-invalid` и свяжет его с текстом ошибки.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/field-state.tsx"
+<ExampleFrame variant="component">
+  <InputFieldState />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/input/field-state.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Выбор файла
 
@@ -131,11 +182,20 @@ Field (необязательная оболочка)
 `FileUpload`, если приложение должно хранить выбранные файлы в состоянии, показывать область
 перетаскивания или управлять процессом загрузки.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/file-input.tsx"
+<ExampleFrame variant="component">
+  <InputFile />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/input/file-input.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Нативные атрибуты
 
@@ -143,22 +203,46 @@ Field (необязательная оболочка)
 автозаполнением и отправкой формы. Задавайте `htmlSize` для ширины в символах, а `size` для
 изменения визуального размера.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/native-attributes.tsx"
+<ExampleFrame variant="component">
+  <InputNativeAttributes />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/input/native-attributes.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Размеры
 
 Свойство moduix `size` управляет визуальным размером. Оно не связано с `htmlSize`, которое задаёт
 нативную ширину в символах.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/sizes.tsx"
+<ExampleFrame variant="component">
+  <InputSizes />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/input/sizes.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/input/input-sizes.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Автономное поле
 
@@ -167,11 +251,20 @@ Field (необязательная оболочка)
 контекста `Field` идентификаторы не создаются автоматически, а поясняющий текст и сообщение об
 ошибке не связываются с полем.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/standalone-input.tsx"
+<ExampleFrame variant="component">
+  <InputStandalone />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/input/standalone-input.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
@@ -179,11 +272,20 @@ Field (необязательная оболочка)
 Передавайте один семантически корректный элемент, который может получить фокус, объединённые
 свойства и `ref`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/as-child.tsx"
+<ExampleFrame variant="component">
+  <InputAsChild />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/input/as-child.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

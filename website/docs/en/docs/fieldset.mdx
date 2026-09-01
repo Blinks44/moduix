@@ -4,7 +4,14 @@ component: fieldset
 description: Group related form controls under one legend while preserving native fieldset semantics and shared state. Helper text and error messages are connected to the group so assistive technologies can announce them.
 ---
 
-import * as FieldsetDocs from '@/components/examples/fieldset';
+import * as FieldsetDocs from '@/components/examples/fieldset/fieldset';
+import FieldsetBasic from './_snippets/fieldset/basic.tsx';
+import FieldsetCheckbox from './_snippets/fieldset/checkbox.tsx';
+import FieldsetDisabled from './_snippets/fieldset/disabled.tsx';
+import FieldsetField from './_snippets/fieldset/field.tsx';
+import FieldsetInputWithSelect from './_snippets/fieldset/input-with-select.tsx';
+import FieldsetInvalid from './_snippets/fieldset/invalid.tsx';
+import FieldsetRootProvider from './_snippets/fieldset/root-provider.tsx';
 
 ## API Reference
 
@@ -22,11 +29,26 @@ Build a group with `Fieldset`, `Fieldset.Legend`, the related controls, and opti
 text. The shorter `<Fieldset>` syntax is equivalent to `<Fieldset.Root>`. The `.Root` form remains
 available for compatibility with Ark's namespace API.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/fieldset/basic.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldsetBasic />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/fieldset/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/fieldset/fieldset-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -98,68 +120,156 @@ with `Fieldset.RootProvider` for the same state instance.
 Use the legend to name a group of related checkbox controls. Each `Checkbox` renders its native input
 automatically, so its value participates in form submission and form reset as expected.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/fieldset/checkbox.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldsetCheckbox />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/fieldset/checkbox.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/fieldset/fieldset-checkbox.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Disabled
 
 Set `disabled` on the root. The browser disables native controls, and Ark-aware controls read the same
 state from the fieldset context.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/fieldset/disabled.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldsetDisabled />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/fieldset/disabled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/fieldset/fieldset-disabled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Field
 
 Nest `Field` components when each control needs its own label, helper text, or error message in addition
 to the shared legend.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/fieldset/field.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldsetField />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/fieldset/field.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/fieldset/fieldset-field.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Input with Select
 
 Combine a country-code `Select` and a phone-number `Input` under one legend when together they make up
 one phone number.
 
-<style>{FieldsetDocs.fieldsetPhoneInputCss}</style>
+<ExampleFrame variant="component">
+  <FieldsetInputWithSelect />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/fieldset/input-with-select.tsx"
-  ```
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-</PreviewFrame>
+```tsx file="./_snippets/fieldset/input-with-select.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/fieldset/fieldset-input-with-select.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Invalid
 
 Set `invalid` on `Fieldset` to mark the group as invalid and show its group-level error. Set `invalid`
 on nested `Field` components as well when individual controls need their own invalid styling and ARIA state.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/fieldset/invalid.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldsetInvalid />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/fieldset/invalid.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/fieldset/fieldset-invalid.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Use `useFieldset` with `Fieldset.RootProvider` to create fieldset state outside the JSX tree and share
 it with sibling controls or reusable descendants.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/fieldset/root-provider.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldsetRootProvider />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/fieldset/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/fieldset/fieldset-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

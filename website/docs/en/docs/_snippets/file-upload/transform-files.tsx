@@ -1,4 +1,5 @@
 import { FileUpload } from '@moduix/react/file-upload';
+import styles from '@/components/examples/file-upload/file-upload-transform-files.module.css';
 
 const accept = 'image/*';
 async function transformFiles(files: File[]) {
@@ -11,7 +12,7 @@ async function transformFiles(files: File[]) {
 }
 export default function TransformFilesUploadDemo() {
   return (
-    <FileUpload className="file-upload-simple-demo" accept={accept} transformFiles={transformFiles}>
+    <FileUpload className={styles.root} accept={accept} transformFiles={transformFiles}>
       <FileUpload.Label>Images</FileUpload.Label>
       <FileUpload.Trigger>Choose images</FileUpload.Trigger>
       <FileUpload.ItemGroup>

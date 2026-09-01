@@ -4,7 +4,18 @@ component: floating-panel
 description: A non-modal Ark UI window for content users can drag, resize, minimize, and maximize.
 ---
 
-import * as FloatingPanelDocs from '@/components/examples/floating-panel';
+import * as FloatingPanelDocs from '@/components/examples/floating-panel/floating-panel';
+import FloatingPanelAdvancedCustomization from './_snippets/floating-panel/advanced-customization.tsx';
+import FloatingPanelAnchorPosition from './_snippets/floating-panel/anchor-position.tsx';
+import FloatingPanelBasic from './_snippets/floating-panel/basic.tsx';
+import FloatingPanelBoundary from './_snippets/floating-panel/boundary.tsx';
+import FloatingPanelContext from './_snippets/floating-panel/context.tsx';
+import FloatingPanelControlledOpen from './_snippets/floating-panel/controlled-open.tsx';
+import FloatingPanelControlledPosition from './_snippets/floating-panel/controlled-position.tsx';
+import FloatingPanelControlledSize from './_snippets/floating-panel/controlled-size.tsx';
+import FloatingPanelEscapeDismiss from './_snippets/floating-panel/escape-dismiss.tsx';
+import FloatingPanelLazyMount from './_snippets/floating-panel/lazy-mount.tsx';
+import FloatingPanelRootProvider from './_snippets/floating-panel/root-provider.tsx';
 
 ## API Reference
 
@@ -22,9 +33,20 @@ Keep the Ark UI parts explicit. `FloatingPanel.Positioner` applies the position 
 by Ark, while `FloatingPanel.Content` is the visible window surface. The header acts as the drag
 handle, and `ResizeTriggerGroup` adds the resize handles around the panel.
 
-```tsx preview file="./_snippets/floating-panel/basic.tsx"
+<ExampleFrame variant="component">
+  <FloatingPanelBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/floating-panel/basic.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -146,73 +168,163 @@ to `false` only when eager initial rendering is needed.
 
 Use `getAnchorPosition` to calculate the panel's initial position from the trigger rectangle.
 
-```tsx preview file="./_snippets/floating-panel/anchor-position.tsx"
+<ExampleFrame variant="component">
+  <FloatingPanelAnchorPosition />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/floating-panel/anchor-position.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Boundary
 
 Set `allowOverflow={false}` with `getBoundaryEl` to keep the panel inside a specific container while
 it is being dragged.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/floating-panel/boundary.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FloatingPanelBoundary />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/floating-panel/boundary.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/floating-panel/floating-panel-boundary.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Context
 
 Use `FloatingPanel.Context` or `useFloatingPanelContext` to read the panel state and methods inside
 the component tree.
 
-<PreviewFrame maxWidth="xs">
-  ```tsx preview file="./_snippets/floating-panel/context.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FloatingPanelContext />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/floating-panel/context.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Controlled Open
 
 Use `open` with `onOpenChange` when React state should control the panel's visibility.
 
-```tsx preview file="./_snippets/floating-panel/controlled-open.tsx"
+<ExampleFrame variant="component">
+  <FloatingPanelControlledOpen />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/floating-panel/controlled-open.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Controlled Position
 
 Control `position` when another part of the application needs the panel's current coordinates.
 
-```tsx preview file="./_snippets/floating-panel/controlled-position.tsx"
+<ExampleFrame variant="component">
+  <FloatingPanelControlledPosition />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/floating-panel/controlled-position.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Controlled Size
 
 Control `size` when the surrounding UI needs to store or display the panel's current dimensions.
 
-```tsx preview file="./_snippets/floating-panel/controlled-size.tsx"
+<ExampleFrame variant="component">
+  <FloatingPanelControlledSize />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/floating-panel/controlled-size.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Escape Dismiss
 
 `closeOnEscape` is enabled by default. Add `autoFocus` to `Content` when Escape should work
 immediately after the non-modal panel opens.
 
-```tsx preview file="./_snippets/floating-panel/escape-dismiss.tsx"
+<ExampleFrame variant="component">
+  <FloatingPanelEscapeDismiss />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/floating-panel/escape-dismiss.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Lazy Mount
 
 Use `lazyMount` and `unmountOnExit` when the panel should mount on first open and unmount after the
 exit animation.
 
-```tsx preview file="./_snippets/floating-panel/lazy-mount.tsx"
+<ExampleFrame variant="component">
+  <FloatingPanelLazyMount />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/floating-panel/lazy-mount.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### RootProvider
 
@@ -220,17 +332,39 @@ Use `FloatingPanel.useFloatingPanel` with `RootProvider` when controls outside t
 methods such as `minimize`, `maximize`, and `setOpen`. Pass `persistRect: true` to keep the same
 close-animation behavior as the moduix root default.
 
-```tsx preview file="./_snippets/floating-panel/root-provider.tsx"
+<ExampleFrame variant="component">
+  <FloatingPanelRootProvider />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/floating-panel/root-provider.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Use individual `ResizeTrigger` parts when each resize axis needs its own placement or styling.
 
-```tsx preview file="./_snippets/floating-panel/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <FloatingPanelAdvancedCustomization />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/floating-panel/advanced-customization.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

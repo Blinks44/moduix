@@ -1,5 +1,6 @@
 import { HoverCard } from '@moduix/react/hover-card';
 import { useState } from 'react';
+import styles from '@/components/examples/hover-card/hover-card-multiple-triggers.module.css';
 
 const profiles = [
   {
@@ -16,28 +17,6 @@ const profiles = [
   },
 ];
 
-function HoverCardPreview({ description, title }: { description: string; title: string }) {
-  return (
-    <div style={{ display: 'grid', gap: 'var(--moduix-spacing-2)', width: '14rem' }}>
-      <img
-        alt="Sunlit workspace with a laptop and plants"
-        src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=640&q=80"
-        style={{
-          aspectRatio: '16 / 9',
-          borderRadius: 'var(--moduix-radius-md)',
-          display: 'block',
-          objectFit: 'cover',
-          width: '100%',
-        }}
-      />
-      <div style={{ display: 'grid', gap: 'var(--moduix-spacing-1)' }}>
-        <strong>{title}</strong>
-        <p style={{ color: 'var(--moduix-color-muted-foreground)', margin: 0 }}>{description}</p>
-      </div>
-    </div>
-  );
-}
-
 export default function MultipleTriggersHoverCard() {
   const [activeProfile, setActiveProfile] = useState(profiles[0]);
 
@@ -51,15 +30,7 @@ export default function MultipleTriggersHoverCard() {
         Reviewed by{' '}
         {profiles.map((profile, index) => (
           <span key={profile.id}>
-            <HoverCard.Trigger
-              value={profile.id}
-              style={{
-                backgroundColor: 'var(--moduix-color-muted)',
-                borderRadius: 'var(--moduix-radius-sm)',
-                paddingInline: 'var(--moduix-spacing-1)',
-                textDecoration: 'none',
-              }}
-            >
+            <HoverCard.Trigger value={profile.id} className={styles.trigger}>
               {profile.username}
             </HoverCard.Trigger>
             {index < profiles.length - 1 ? ' and ' : null}
@@ -68,7 +39,17 @@ export default function MultipleTriggersHoverCard() {
       </p>
       <HoverCard.Positioner>
         <HoverCard.Content>
-          <HoverCardPreview description={activeProfile.description} title={activeProfile.name} />
+          <div className={styles.preview}>
+            <img
+              alt="Sunlit workspace with a laptop and plants"
+              src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=640&q=80"
+              className={styles.image}
+            />
+            <div className={styles.details}>
+              <strong>{activeProfile.name}</strong>
+              <p className={styles.description}>{activeProfile.description}</p>
+            </div>
+          </div>
         </HoverCard.Content>
       </HoverCard.Positioner>
     </HoverCard>

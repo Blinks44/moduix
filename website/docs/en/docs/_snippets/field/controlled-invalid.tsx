@@ -1,12 +1,13 @@
 import { Field } from '@moduix/react/field';
 import { Input } from '@moduix/react/input';
 import { useState } from 'react';
+import styles from '@/components/examples/field/field-controlled-invalid.module.css';
 
 export default function ControlledInvalidFieldDemo() {
   const [value, setValue] = useState('');
   const invalid = value.length > 0 && value.length < 3;
   return (
-    <Field invalid={invalid}>
+    <Field className={styles.root} invalid={invalid}>
       <Field.Label>Username</Field.Label>
       <Input
         value={value}

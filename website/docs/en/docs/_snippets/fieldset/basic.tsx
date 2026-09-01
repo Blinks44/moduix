@@ -1,10 +1,11 @@
 import { Field } from '@moduix/react/field';
 import { Fieldset } from '@moduix/react/fieldset';
 import { Input } from '@moduix/react/input';
+import styles from '@/components/examples/fieldset/fieldset-basic.module.css';
 
 export default function ContactDetails() {
   return (
-    <Fieldset className="fieldset">
+    <Fieldset className={styles.root}>
       <Fieldset.Legend>Contact details</Fieldset.Legend>
       <Field>
         <Field.Label>Name</Field.Label>

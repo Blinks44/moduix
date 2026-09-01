@@ -4,7 +4,16 @@ component: input
 description: Champ de saisie natif sur une ligne, fondé sur Field.Input d’Ark UI, avec les événements natifs et les styles moduix.
 ---
 
-import * as InputDocs from '@/components/examples/input';
+import * as InputDocs from '@/components/examples/input/input';
+import InputAsChild from '../../en/docs/_snippets/input/as-child.tsx';
+import InputBasic from '../../en/docs/_snippets/input/basic.tsx';
+import InputControlled from '../../en/docs/_snippets/input/controlled.tsx';
+import InputFieldState from '../../en/docs/_snippets/input/field-state.tsx';
+import InputFile from '../../en/docs/_snippets/input/file-input.tsx';
+import InputNativeAttributes from '../../en/docs/_snippets/input/native-attributes.tsx';
+import InputSizes from '../../en/docs/_snippets/input/sizes.tsx';
+import InputStandalone from '../../en/docs/_snippets/input/standalone-input.tsx';
+import InputStates from '../../en/docs/_snippets/input/disabled-and-readonly.tsx';
 
 ## Référence de l’API
 
@@ -25,11 +34,20 @@ Utilisez `Field` lorsque le champ doit être relié à un libellé, à un texte 
 
 Placez `Input` dans `Field` lorsque vous avez besoin d’un libellé, d’un texte d’aide ou d’un message d’erreur. `Field` relie ces éléments au champ, génère les identifiants nécessaires et lui transmet son état.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/basic.tsx"
+<ExampleFrame variant="component">
+  <InputBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/input/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -85,11 +103,20 @@ Si l’élément n’est pas compatible avec un champ de saisie, préférez le c
 Utilisez cet exemple lorsque l’état React doit piloter la valeur courante. Lisez la nouvelle valeur
 dans l’événement natif `onChange(event)` et transmettez-la via `value`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/controlled.tsx"
+<ExampleFrame variant="component">
+  <InputControlled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/input/controlled.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Désactivé et en lecture seule
 
@@ -98,22 +125,46 @@ lorsqu’il peut consulter et sélectionner la valeur, sans pouvoir la modifier.
 directement sur `Input` pour un seul contrôle, ou sur `Field` lorsque le libellé, le texte associé et
 le champ doivent partager le même état.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/disabled-and-readonly.tsx"
+<ExampleFrame variant="component">
+  <InputStates />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/input/disabled-and-readonly.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/input/input-disabled-and-readonly.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Validation du champ
 
 Définissez `invalid` sur `Field` lorsque la validation échoue. Ark ajoute `aria-invalid` et
 `data-invalid` à `Input` et l’associe au message d’erreur.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/field-state.tsx"
+<ExampleFrame variant="component">
+  <InputFieldState />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/input/field-state.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Sélection de fichier
 
@@ -121,11 +172,20 @@ Dans un formulaire simple, `Input` suffit pour proposer le sélecteur de fichier
 `FileUpload` lorsque l’application doit conserver les fichiers sélectionnés dans son état, afficher
 une zone de dépôt ou gérer le processus de téléversement.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/file-input.tsx"
+<ExampleFrame variant="component">
+  <InputFile />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/input/file-input.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Attributs natifs
 
@@ -133,22 +193,46 @@ Utilisez les attributs natifs pour les comportements du navigateur, comme la val
 de saisie, l’autocomplétion et l’envoi du formulaire. Utilisez `htmlSize` pour définir une largeur
 en caractères et `size` pour modifier la taille visuelle.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/native-attributes.tsx"
+<ExampleFrame variant="component">
+  <InputNativeAttributes />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/input/native-attributes.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Tailles
 
 La propriété `size` de moduix contrôle la taille visuelle. `htmlSize` est indépendante et définit la
 largeur native exprimée en caractères.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/sizes.tsx"
+<ExampleFrame variant="component">
+  <InputSizes />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/input/sizes.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/input/input-sizes.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Champ autonome
 
@@ -157,11 +241,20 @@ largeur native exprimée en caractères.
 toujours, mais sans contexte `Field`, les identifiants ne sont pas générés automatiquement et les
 textes d’aide ou d’erreur ne sont pas associés au champ.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/standalone-input.tsx"
+<ExampleFrame variant="component">
+  <InputStandalone />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/input/standalone-input.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Personnalisation avancée
 
@@ -169,11 +262,20 @@ Utilisez `asChild` uniquement lorsqu’un autre nœud DOM doit être rendu à la
 champ. Fournissez un seul élément sémantique et focusable, capable de recevoir les propriétés
 fusionnées et la `ref`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/as-child.tsx"
+<ExampleFrame variant="component">
+  <InputAsChild />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/input/as-child.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

@@ -4,7 +4,12 @@ component: kbd
 description: Un composant compact pour afficher des raccourcis clavier, des commandes et des libellés de touches dans l’interface.
 ---
 
-import * as KbdDocs from '@/components/examples/kbd';
+import * as KbdDocs from '@/components/examples/kbd/kbd';
+import KbdBasic from '../../en/docs/_snippets/kbd/basic.tsx';
+import KbdCompactDensity from '../../en/docs/_snippets/kbd/compact-density.tsx';
+import KbdCustomElement from '../../en/docs/_snippets/kbd/custom-element.tsx';
+import KbdShortcutList from '../../en/docs/_snippets/kbd/shortcut-list.tsx';
+import KbdSingleKey from '../../en/docs/_snippets/kbd/single-key.tsx';
 
 ## Référence de l’API
 
@@ -15,15 +20,26 @@ Ark UI ne fournit pas de primitive dédiée à l’affichage des touches. `Kbd` 
 Utilisez `Kbd` pour afficher une touche. Pour un raccourci composé de plusieurs touches, placez les touches et leurs
 séparateurs textuels dans `Kbd.Group`.
 
-<style>{`
-      .kbd-demo-shortcut {
-        display: inline-flex;
-      }
-    `}</style>
+<ExampleFrame variant="component">
+  <KbdBasic />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/kbd/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/kbd/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/kbd/kbd-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -75,66 +91,90 @@ de Kbd. Fournissez exactement un enfant et conservez la sémantique de la touche
 Utilisez des variables CSS locales lorsque vous souhaitez réduire les touches dans une zone précise de l’interface, sans ajouter
 de props au composant.
 
-<style>{`
-      .kbd-demo-row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: var(--moduix-spacing-2);
-      }
+<ExampleFrame variant="component">
+  <KbdCompactDensity />
+</ExampleFrame>
 
-      .kbd-demo-dense {
-        --moduix-kbd-height: 1.25rem;
-        --moduix-kbd-min-width: 1.25rem;
-        --moduix-kbd-padding-x: var(--moduix-spacing-1);
-      }
-    `}</style>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-```tsx preview file="../../en/docs/_snippets/kbd/compact-density.tsx"
-
+```tsx file="../../en/docs/_snippets/kbd/compact-density.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/kbd/kbd-compact-density.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Élément personnalisé
 
 Utilisez `asChild` lorsqu’un autre composant rend déjà l’élément sémantique `<kbd>` et que vous souhaitez lui appliquer les styles
 de Kbd.
 
-```tsx preview file="../../en/docs/_snippets/kbd/custom-element.tsx"
+<ExampleFrame variant="component">
+  <KbdCustomElement />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/kbd/custom-element.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Liste de raccourcis
 
 Associez `Kbd.Group` à un texte explicatif pour présenter plusieurs raccourcis disponibles.
 
-<style>{`
-      .kbd-demo-shortcut-list {
-        display: grid;
-        gap: var(--moduix-spacing-3);
-      }
+<ExampleFrame variant="component">
+  <KbdShortcutList />
+</ExampleFrame>
 
-      .kbd-demo-shortcut-row {
-        display: grid;
-        grid-template-columns: max-content 1fr;
-        align-items: center;
-        gap: var(--moduix-spacing-3);
-        color: var(--moduix-color-muted-foreground);
-        font-size: var(--moduix-text-sm);
-        line-height: var(--moduix-line-height-text-sm);
-      }
-    `}</style>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-```tsx preview file="../../en/docs/_snippets/kbd/shortcut-list.tsx"
-
+```tsx file="../../en/docs/_snippets/kbd/shortcut-list.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/kbd/kbd-shortcut-list.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Touche unique
 
 Utilisez `Kbd` directement pour afficher une seule touche, par exemple `Esc`.
 
-```tsx preview file="../../en/docs/_snippets/kbd/single-key.tsx"
+<ExampleFrame variant="component">
+  <KbdSingleKey />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/kbd/single-key.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

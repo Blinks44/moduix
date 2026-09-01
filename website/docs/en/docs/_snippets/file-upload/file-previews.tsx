@@ -1,4 +1,5 @@
 import { FileUpload } from '@moduix/react/file-upload';
+import styles from '@/components/examples/file-upload/file-upload-file-previews.module.css';
 
 const previewFiles = [
   new File(
@@ -13,7 +14,7 @@ const previewFiles = [
 
 export default function FileUploadPreviewDemo() {
   return (
-    <FileUpload defaultAcceptedFiles={previewFiles} maxFiles={4}>
+    <FileUpload className={styles.root} defaultAcceptedFiles={previewFiles} maxFiles={4}>
       <FileUpload.Label>Project attachments</FileUpload.Label>
       <FileUpload.Trigger>Add files</FileUpload.Trigger>
       <FileUpload.ItemGroup>

@@ -1,0 +1,33 @@
+.root {
+  width: min(28rem, 100%);
+}
+
+.dropzoneContent {
+  display: grid;
+  justify-items: center;
+  gap: var(--moduix-spacing-1);
+}
+
+.dropzoneContent [data-slot='file-upload-trigger'] {
+  margin-top: var(--moduix-spacing-2);
+}
+
+.dropzoneTitle {
+  color: var(--moduix-color-foreground);
+  font-size: var(--moduix-text-sm);
+  font-weight: var(--moduix-weight-medium);
+  line-height: var(--moduix-line-height-text-sm);
+}
+
+.dropzoneDescription {
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-xs);
+  line-height: var(--moduix-line-height-text-xs);
+}
+
+.error {
+  margin: 0;
+  color: var(--moduix-color-destructive);
+  font-size: var(--moduix-text-xs);
+  line-height: var(--moduix-line-height-text-xs);
+}

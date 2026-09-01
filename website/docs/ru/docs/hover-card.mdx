@@ -4,7 +4,17 @@ component: hover-card
 description: Компонент Hover Card на базе Ark UI для дополнительных предпросмотров, открывающихся при наведении или получении фокуса.
 ---
 
-import * as HoverCardDocs from '@/components/examples/hover-card';
+import * as HoverCardDocs from '@/components/examples/hover-card/hover-card';
+import BasicHoverCard from '../../en/docs/_snippets/hover-card/basic.tsx';
+import ContextHoverCard from '../../en/docs/_snippets/hover-card/context.tsx';
+import ControlledHoverCard from '../../en/docs/_snippets/hover-card/controlled.tsx';
+import DelayHoverCard from '../../en/docs/_snippets/hover-card/delay.tsx';
+import DialogHoverCard from '../../en/docs/_snippets/hover-card/dialog.tsx';
+import DisabledHoverCard from '../../en/docs/_snippets/hover-card/disabled.tsx';
+import MultipleTriggersHoverCard from '../../en/docs/_snippets/hover-card/multiple-triggers.tsx';
+import PositioningHoverCard from '../../en/docs/_snippets/hover-card/positioning.tsx';
+import RootProviderHoverCard from '../../en/docs/_snippets/hover-card/root-provider.tsx';
+import HoverCardWithArrow from '../../en/docs/_snippets/hover-card/with-arrow.tsx';
 
 ## Справочник API
 
@@ -22,11 +32,26 @@ import * as HoverCardDocs from '@/components/examples/hover-card';
 `HoverCard.Positioner` и `HoverCard.Content` задают её всплывающее содержимое. В базовой
 композиции стрелка не используется.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/hover-card/basic.tsx"
+<ExampleFrame variant="component">
+  <BasicHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/hover-card/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hover-card/hover-card-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -132,31 +157,76 @@ HoverCard.RootProvider
 Используйте `HoverCard.Context`, чтобы читать состояние внутри дерева карточки, не меняя его
 видимую структуру.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/hover-card/context.tsx"
+<ExampleFrame variant="component">
+  <ContextHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/hover-card/context.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hover-card/hover-card-context.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Управляемое состояние
 
 Управляйте открытием карточки с помощью `open` и `onOpenChange(details)`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/hover-card/controlled.tsx"
+<ExampleFrame variant="component">
+  <ControlledHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/hover-card/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hover-card/hover-card-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Задержка
 
 Настройте время открытия и закрытия с помощью `openDelay` и `closeDelay` у корневого компонента.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/hover-card/delay.tsx"
+<ExampleFrame variant="component">
+  <DelayHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/hover-card/delay.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hover-card/hover-card-delay.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Диалог
 
@@ -165,65 +235,155 @@ HoverCard.RootProvider
 карточка откроется после `openDelay`. Укажите в `initialFocusEl` другой элемент, если предпросмотр
 должен оставаться закрытым до наведения или получения фокуса.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/hover-card/dialog.tsx"
+<ExampleFrame variant="component">
+  <DialogHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/hover-card/dialog.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hover-card/hover-card-dialog.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Отключённое состояние
 
 Установите `disabled`, чтобы запретить открытие карточки, но оставить видимое содержимое
 триггера.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/hover-card/disabled.tsx"
+<ExampleFrame variant="component">
+  <DisabledHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/hover-card/disabled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hover-card/hover-card-disabled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Несколько триггеров
 
 Назначьте каждому триггеру `value` и используйте `onTriggerValueChange(details)`, чтобы несколько
 триггеров работали с одним всплывающим содержимым.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/hover-card/multiple-triggers.tsx"
+<ExampleFrame variant="component">
+  <MultipleTriggersHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/hover-card/multiple-triggers.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hover-card/hover-card-multiple-triggers.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Позиционирование
 
 Передавайте параметры позиционирования Ark через свойство `positioning`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/hover-card/positioning.tsx"
+<ExampleFrame variant="component">
+  <PositioningHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/hover-card/positioning.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hover-card/hover-card-positioning.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Используйте `useHoverCard()` с `HoverCard.RootProvider`, когда элементам управления или другим
 частям интерфейса за пределами дерева карточки нужно читать её состояние или изменять его.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/hover-card/root-provider.tsx"
+<ExampleFrame variant="component">
+  <RootProviderHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/hover-card/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hover-card/hover-card-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Со стрелкой
 
 Добавьте `HoverCard.Arrow` внутрь `HoverCard.Content`, если нужно визуально связать всплывающее
 окно с триггером. Обёртка по умолчанию выводит `HoverCard.ArrowTip`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/hover-card/with-arrow.tsx"
+<ExampleFrame variant="component">
+  <HoverCardWithArrow />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/hover-card/with-arrow.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hover-card/hover-card-with-arrow.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

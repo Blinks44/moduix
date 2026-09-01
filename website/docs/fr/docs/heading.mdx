@@ -4,7 +4,13 @@ component: heading
 description: Composant sémantique pour les titres, basé sur la fabrique Ark et les tokens typographiques de moduix.
 ---
 
-import * as HeadingDocs from '@/components/examples/heading';
+import * as HeadingDocs from '@/components/examples/heading/heading';
+import HeadingBasic from '../../en/docs/_snippets/heading/basic.tsx';
+import HeadingLevels from '../../en/docs/_snippets/heading/heading-levels.tsx';
+import SemanticLevelAndVisualSize from '../../en/docs/_snippets/heading/semantic-level-and-visual-size.tsx';
+import HeadingVisualSizes from '../../en/docs/_snippets/heading/visual-sizes.tsx';
+import HeadingWeights from '../../en/docs/_snippets/heading/weights.tsx';
+import CustomHostHeading from '../../en/docs/_snippets/heading/custom-host.tsx';
 
 ## Référence de l’API
 
@@ -19,11 +25,20 @@ Par défaut, `Heading` rend un `h1`. Utilisez-le pour les titres du document et 
 en fonction de sa place dans la structure du document. Définissez `size` séparément lorsque l’importance visuelle
 doit différer du niveau sémantique.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/heading/basic.tsx"
+<ExampleFrame variant="component">
+  <HeadingBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/heading/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -94,53 +109,98 @@ de document.
 Utilisez `as` pour choisir un niveau de `h2` à `h6`. Lorsque `size` n’est pas défini, la taille visuelle
 dépend de l’élément de titre rendu.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/heading/heading-levels.tsx"
+<ExampleFrame variant="component">
+  <HeadingLevels />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/heading/heading-levels.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Niveau sémantique et taille visuelle
 
 Séparez la hiérarchie du document de l’importance visuelle. Utilisez `as` pour le niveau sémantique et
 `size` pour la taille visuelle.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/heading/semantic-level-and-visual-size.tsx"
+<ExampleFrame variant="component">
+  <SemanticLevelAndVisualSize />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/heading/semantic-level-and-visual-size.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Tailles visuelles
 
 Utilisez `size` lorsque plusieurs titres partagent le même niveau sémantique mais doivent avoir une importance visuelle différente.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/heading/visual-sizes.tsx"
+<ExampleFrame variant="component">
+  <HeadingVisualSizes />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/heading/visual-sizes.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Graisse
 
 Utilisez `weight` pour choisir l’une des graisses typographiques intégrées.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/heading/weights.tsx"
+<ExampleFrame variant="component">
+  <HeadingWeights />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/heading/weights.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Personnalisation avancée
 
 Utilisez `asChild` lorsqu’un autre élément sémantique de titre doit porter le nœud DOM rendu. Pour les cas
 courants avec `h1` à `h6`, utilisez plutôt `as`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/heading/custom-host.tsx"
+<ExampleFrame variant="component">
+  <CustomHostHeading />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/heading/custom-host.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

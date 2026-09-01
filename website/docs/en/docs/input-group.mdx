@@ -4,7 +4,14 @@ component: input-group
 description: Compose a native input with inline addons, text, or actions.
 ---
 
-import * as InputGroupDocs from '@/components/examples/input-group';
+import * as InputGroupDocs from '@/components/examples/input-group/input-group';
+import InputGroupAsChild from './_snippets/input-group/as-child.tsx';
+import InputGroupBasic from './_snippets/input-group/basic.tsx';
+import InputGroupDisabled from './_snippets/input-group/disabled.tsx';
+import InputGroupFieldState from './_snippets/input-group/field-state.tsx';
+import InputGroupPrefixAndSuffix from './_snippets/input-group/prefix-and-suffix.tsx';
+import InputGroupSizes from './_snippets/input-group/sizes.tsx';
+import InputGroupWithAction from './_snippets/input-group/with-action.tsx';
 
 ## API Reference
 
@@ -26,10 +33,26 @@ and [refs](https://ark-ui.com/docs/guides/ref).
 
 Build a grouped input with only the parts the field needs.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/input-group/basic.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <InputGroupBasic />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/input-group/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/input-group/input-group-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -98,58 +121,154 @@ an accessible name only when the standalone composition needs group semantics.
 Set `disabled` on the native input. Disable related buttons separately when they should be
 unavailable too.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/input-group/disabled.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <InputGroupDisabled />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/input-group/disabled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/input-group/input-group-disabled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Field State
 
 Set `invalid` on `Field` when validation fails. Ark passes the state and required ARIA attributes to
 `InputGroup.Input`, and the group reflects the input state.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/input-group/field-state.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <InputGroupFieldState />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/input-group/field-state.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/input-group/input-group-field-state.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Prefix and Suffix
 
 Use `Addon` for a filled prefix or suffix and `Text` for inline text without a fill.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/input-group/prefix-and-suffix.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <InputGroupPrefixAndSuffix />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/input-group/prefix-and-suffix.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/input-group/input-group-prefix-and-suffix.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Sizes
 
 Set `size` once on the root to keep the input, addon, text, and button aligned.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/input-group/sizes.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <InputGroupSizes />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/input-group/sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/input-group/input-group-sizes.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### With Action
 
 Use `InputGroup.Button` for an action tied to the input value. This example keeps the input
 controlled and enables `Send` only after a value is entered.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/input-group/with-action.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <InputGroupWithAction />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/input-group/with-action.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/input-group/input-group-with-action.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Use `asChild` when the root must render a custom container instead of the default `div`. The group
 keeps its styling and size context, and the child must remain a semantic layout container.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/input-group/as-child.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <InputGroupAsChild />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/input-group/as-child.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/input-group/input-group-as-child.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

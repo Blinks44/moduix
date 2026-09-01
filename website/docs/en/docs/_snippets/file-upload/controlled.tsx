@@ -1,6 +1,7 @@
 import { FileUpload } from '@moduix/react/file-upload';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/file-upload/file-upload-controlled.module.css';
 
 const initialFiles = [
   new File(['Welcome to moduix'], 'README.md', {
@@ -12,7 +13,7 @@ export default function ControlledFileUploadDemo() {
   return (
     <>
       <FileUpload
-        className="file-upload-simple-demo"
+        className={styles.root}
         acceptedFiles={files}
         onFileChange={(details) => setFiles(details.acceptedFiles)}
       >

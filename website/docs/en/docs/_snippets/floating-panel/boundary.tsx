@@ -1,25 +1,13 @@
 import { Button } from '@moduix/react/button';
 import { FloatingPanel } from '@moduix/react/floating-panel';
 import { useRef } from 'react';
+import styles from '@/components/examples/floating-panel/floating-panel-boundary.module.css';
 
 export default function BoundaryFloatingPanelDemo() {
   const boundaryRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div
-      ref={boundaryRef}
-      style={{
-        position: 'relative',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        inlineSize: '100%',
-        minHeight: 320,
-        border: '1px dashed var(--moduix-color-border)',
-        borderRadius: 'var(--moduix-radius-md)',
-        padding: 'var(--moduix-spacing-3)',
-      }}
-    >
+    <div ref={boundaryRef} className={styles.root}>
       <FloatingPanel
         allowOverflow={false}
         defaultSize={{ width: 300, height: 220 }}

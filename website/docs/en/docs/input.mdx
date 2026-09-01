@@ -4,7 +4,16 @@ component: input
 description: A styled native single-line input built on Ark Field.Input, with native events and moduix styling.
 ---
 
-import * as InputDocs from '@/components/examples/input';
+import * as InputDocs from '@/components/examples/input/input';
+import InputAsChild from './_snippets/input/as-child.tsx';
+import InputBasic from './_snippets/input/basic.tsx';
+import InputControlled from './_snippets/input/controlled.tsx';
+import InputFieldState from './_snippets/input/field-state.tsx';
+import InputFile from './_snippets/input/file-input.tsx';
+import InputNativeAttributes from './_snippets/input/native-attributes.tsx';
+import InputSizes from './_snippets/input/sizes.tsx';
+import InputStandalone from './_snippets/input/standalone-input.tsx';
+import InputStates from './_snippets/input/disabled-and-readonly.tsx';
 
 ## API Reference
 
@@ -30,11 +39,20 @@ Use `Field` when the control needs a label, helper or error text, generated ids,
 Place `Input` inside `Field` when you need a label, helper text, or an error message. `Field`
 connects that content to the control, generates the necessary ids, and provides its state.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/input/basic.tsx"
+<ExampleFrame variant="component">
+  <InputBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/input/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -95,11 +113,20 @@ primitive instead of forcing it through `Input`.
 Use this pattern when React owns the current value. Read the next value from the native
 `onChange(event)` and pass it back through `value`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/input/controlled.tsx"
+<ExampleFrame variant="component">
+  <InputControlled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/input/controlled.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Disabled and read-only
 
@@ -107,55 +134,112 @@ Use `disabled` when the user must not interact with the control. Use `readOnly` 
 and select the value but must not edit it. Set them directly on `Input` for one control, or on
 `Field` when the label, supporting text, and input should share the same state.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/input/disabled-and-readonly.tsx"
+<ExampleFrame variant="component">
+  <InputStates />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/input/disabled-and-readonly.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/input/input-disabled-and-readonly.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Field validation
 
 Set `invalid` on `Field` when validation fails. Ark adds `aria-invalid` and `data-invalid` to the
 input and connects it to the error text.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/input/field-state.tsx"
+<ExampleFrame variant="component">
+  <InputFieldState />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/input/field-state.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### File input
 
 `Input` is enough for a native file chooser in a simple form. Use `FileUpload` when the application
 needs to keep selected files in state, show a dropzone, or manage an upload flow.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/input/file-input.tsx"
+<ExampleFrame variant="component">
+  <InputFile />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/input/file-input.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Native attributes
 
 Use native attributes for browser behavior such as validation, input mode, autocomplete, and form
 submission. Use `htmlSize` for a character-based width and `size` for visual density.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/input/native-attributes.tsx"
+<ExampleFrame variant="component">
+  <InputNativeAttributes />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/input/native-attributes.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Sizes
 
 The moduix `size` prop controls visual density. It is separate from `htmlSize`, which controls the
 native character-based width.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/input/sizes.tsx"
+<ExampleFrame variant="component">
+  <InputSizes />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/input/sizes.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/input/input-sizes.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Standalone input
 
@@ -163,22 +247,40 @@ native character-based width.
 `<label>`, `aria-label`, or `aria-labelledby`. Native props still work, but without `Field` context,
 ids are not generated automatically and helper or error text is not connected to the control.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/input/standalone-input.tsx"
+<ExampleFrame variant="component">
+  <InputStandalone />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/input/standalone-input.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Use `asChild` only when another DOM node must be rendered as the input. Keep one semantic,
 focusable input element that can receive the merged props and `ref`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/input/as-child.tsx"
+<ExampleFrame variant="component">
+  <InputAsChild />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/input/as-child.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

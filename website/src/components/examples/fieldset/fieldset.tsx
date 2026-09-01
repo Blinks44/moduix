@@ -1,18 +1,5 @@
-import type { CssPropertyInput } from '../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../mdx/reference';
-
-export const fieldsetPhoneInputCss = `
-  .phone-input {
-    display: grid;
-    grid-template-columns: minmax(0, 6rem) minmax(0, 1fr);
-    gap: var(--moduix-spacing-2);
-  }
-
-  .country-code {
-    --moduix-select-width: 100%;
-    --moduix-select-root-gap: var(--moduix-field-gap, var(--moduix-spacing-1));
-  }
-`;
+import type { CssPropertyInput } from '../../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
 const fieldsetOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-fieldset-border-color', 'transparent', 'Controls the root border color.'],

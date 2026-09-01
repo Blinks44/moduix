@@ -1,10 +1,11 @@
 import { Field } from '@moduix/react/field';
 import { Fieldset } from '@moduix/react/fieldset';
 import { Input } from '@moduix/react/input';
+import styles from '@/components/examples/fieldset/fieldset-invalid.module.css';
 
 export default function InvalidFieldset() {
   return (
-    <Fieldset className="fieldset" invalid>
+    <Fieldset className={styles.root} invalid>
       <Fieldset.Legend>Account information</Fieldset.Legend>
       <Fieldset.ErrorText>Please fix the errors below to continue.</Fieldset.ErrorText>
       <Field invalid>

@@ -1,13 +1,14 @@
 import { Field } from '@moduix/react/field';
 import { InputGroup } from '@moduix/react/input-group';
 import { useState } from 'react';
+import styles from '@/components/examples/input-group/input-group-with-action.module.css';
 
 const initialInviteEmail = '';
 
 export default function InputGroupWithActionDemo() {
   const [value, setValue] = useState(initialInviteEmail);
   return (
-    <Field>
+    <Field className={styles.root}>
       <Field.Label>Invite by email</Field.Label>
       <InputGroup>
         <InputGroup.Input

@@ -1,19 +1,18 @@
 import { FileUpload } from '@moduix/react/file-upload';
+import styles from '@/components/examples/file-upload/file-upload-media-capture.module.css';
 
 const capture = 'environment';
 const accept = 'image/*';
 const maxFiles = 1;
 export default function MediaCaptureUploadDemo() {
   return (
-    <FileUpload accept={accept} capture={capture} maxFiles={maxFiles}>
+    <FileUpload className={styles.root} accept={accept} capture={capture} maxFiles={maxFiles}>
       <FileUpload.Label>Photo</FileUpload.Label>
       <FileUpload.Dropzone disableClick>
         <FileUpload.DropzoneIcon />
-        <div className="file-upload-dropzone-content">
-          <span className="file-upload-dropzone-title">Drop an image or open the camera</span>
-          <span className="file-upload-dropzone-description">
-            One image from the environment camera
-          </span>
+        <div className={styles.dropzoneContent}>
+          <span className={styles.dropzoneTitle}>Drop an image or open the camera</span>
+          <span className={styles.dropzoneDescription}>One image from the environment camera</span>
           <FileUpload.Trigger>Open camera</FileUpload.Trigger>
         </div>
       </FileUpload.Dropzone>

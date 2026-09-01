@@ -1,9 +1,10 @@
 import { FileUpload } from '@moduix/react/file-upload';
+import styles from '@/components/examples/file-upload/file-upload-directory-upload.module.css';
 
 const maxFiles = 20;
 export default function DirectoryUploadDemo() {
   return (
-    <FileUpload className="file-upload-simple-demo" directory maxFiles={maxFiles}>
+    <FileUpload className={styles.root} directory maxFiles={maxFiles}>
       <FileUpload.Label>Folder</FileUpload.Label>
       <FileUpload.Trigger>Choose folder</FileUpload.Trigger>
       <FileUpload.ItemGroup>

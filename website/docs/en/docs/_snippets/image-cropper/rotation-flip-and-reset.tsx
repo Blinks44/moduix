@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/image-cropper/image-cropper-rotation-flip-and-reset.module.css';
 
 const sampleImage =
   'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=640&h=400&q=90';
@@ -21,7 +22,7 @@ export default function TransformImageCropperDemo() {
     vertical: false,
   });
   return (
-    <div className="cropper-stack">
+    <div className={styles.stack}>
       <ImageCropper
         aria-label="Image cropper"
         rotation={rotation}
@@ -31,7 +32,7 @@ export default function TransformImageCropperDemo() {
       >
         <ImageCropper.Context>
           {(context) => (
-            <div className="cropper-toolbar">
+            <div className={styles.toolbar}>
               <Button
                 size="sm"
                 type="button"

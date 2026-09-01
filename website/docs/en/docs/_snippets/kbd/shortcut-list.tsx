@@ -1,5 +1,6 @@
 import { Kbd } from '@moduix/react/kbd';
 import { Fragment } from 'react';
+import styles from '@/components/examples/kbd/kbd-shortcut-list.module.css';
 
 const shortcuts = [
   {
@@ -21,9 +22,9 @@ const shortcuts = [
 
 export default function KbdShortcutListDemo() {
   return (
-    <div className="kbd-demo-shortcut-list">
+    <div className={styles.root}>
       {shortcuts.map((shortcut) => (
-        <div key={shortcut.label} className="kbd-demo-shortcut-row">
+        <div key={shortcut.label} className={styles.row}>
           <Kbd.Group aria-label={shortcut.label}>
             {shortcut.keys.map((key, index) => (
               <Fragment key={key}>

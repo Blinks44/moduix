@@ -4,7 +4,14 @@ component: fieldset
 description: Объединяйте связанные элементы формы под одним заголовком, сохраняя нативную семантику fieldset и общее состояние группы. Поясняющий текст и сообщения об ошибках связаны с группой и доступны вспомогательным технологиям.
 ---
 
-import * as FieldsetDocs from '@/components/examples/fieldset';
+import * as FieldsetDocs from '@/components/examples/fieldset/fieldset';
+import FieldsetBasic from '../../en/docs/_snippets/fieldset/basic.tsx';
+import FieldsetCheckbox from '../../en/docs/_snippets/fieldset/checkbox.tsx';
+import FieldsetDisabled from '../../en/docs/_snippets/fieldset/disabled.tsx';
+import FieldsetField from '../../en/docs/_snippets/fieldset/field.tsx';
+import FieldsetInputWithSelect from '../../en/docs/_snippets/fieldset/input-with-select.tsx';
+import FieldsetInvalid from '../../en/docs/_snippets/fieldset/invalid.tsx';
+import FieldsetRootProvider from '../../en/docs/_snippets/fieldset/root-provider.tsx';
 
 ## Справочник API
 
@@ -22,11 +29,26 @@ import * as FieldsetDocs from '@/components/examples/fieldset';
 сообщения об ошибке. Короткая запись `<Fieldset>` равнозначна `<Fieldset.Root>`. Форма с `.Root` остаётся доступной для
 совместимости с API Ark.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/fieldset/basic.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldsetBasic />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/fieldset/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/fieldset/fieldset-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -97,45 +119,103 @@ Fieldset.Root | Fieldset.RootProvider
 Используйте заголовок fieldset, чтобы задать общее имя группе связанных флажков. Каждый `Checkbox` автоматически выводит
 нативный input, поэтому его значение участвует в отправке и сбросе формы.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/fieldset/checkbox.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldsetCheckbox />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/fieldset/checkbox.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/fieldset/fieldset-checkbox.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Отключённое состояние
 
 Установите `disabled` у корневого компонента. Браузер отключит нативные элементы управления, а совместимые с Ark компоненты
 получат это состояние из контекста `fieldset`.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/fieldset/disabled.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldsetDisabled />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/fieldset/disabled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/fieldset/fieldset-disabled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Field
 
 Используйте вложенные компоненты `Field`, если для каждого элемента управления нужно отдельно задать метку, поясняющий текст
 или сообщение об ошибке в дополнение к общему заголовку группы.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/fieldset/field.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldsetField />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/fieldset/field.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/fieldset/fieldset-field.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Input с Select
 
 Объедините `Select` с кодом страны и `Input` для номера телефона под одним заголовком, если вместе они составляют один номер.
 
-<style>{FieldsetDocs.fieldsetPhoneInputCss}</style>
+<ExampleFrame variant="component">
+  <FieldsetInputWithSelect />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/fieldset/input-with-select.tsx"
-  ```
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/fieldset/input-with-select.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/fieldset/fieldset-input-with-select.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Недопустимое состояние
 
@@ -143,22 +223,52 @@ Fieldset.Root | Fieldset.RootProvider
 `invalid` также у вложенных компонентов `Field`, если отдельным элементам управления нужны собственные невалидные стили и
 ARIA-состояние.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/fieldset/invalid.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldsetInvalid />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/fieldset/invalid.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/fieldset/fieldset-invalid.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
 Создайте состояние fieldset вне JSX-дерева с помощью `useFieldset` и передайте его в `Fieldset.RootProvider`, если им должны
 пользоваться соседние элементы управления или повторно используемые компоненты.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/fieldset/root-provider.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldsetRootProvider />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/fieldset/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/fieldset/fieldset-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

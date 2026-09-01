@@ -4,7 +4,19 @@ component: field
 description: Field context that connects one form control to its label, helper text, error message, and shared state.
 ---
 
-import * as FieldDocs from '@/components/examples/field';
+import * as FieldDocs from '@/components/examples/field/field';
+import FieldBasic from './_snippets/field/basic.tsx';
+import FieldCheckbox from './_snippets/field/checkbox.tsx';
+import FieldControlledInvalid from './_snippets/field/controlled-invalid.tsx';
+import FieldDisabled from './_snippets/field/disabled.tsx';
+import FieldInvalid from './_snippets/field/invalid.tsx';
+import FieldItemTarget from './_snippets/field/item-target.tsx';
+import FieldNativeSelect from './_snippets/field/native-select.tsx';
+import FieldRadioGroup from './_snippets/field/radiogroup.tsx';
+import FieldReadOnly from './_snippets/field/read-only.tsx';
+import FieldRootProvider from './_snippets/field/root-provider.tsx';
+import FieldSelect from './_snippets/field/select.tsx';
+import FieldTextarea from './_snippets/field/textarea.tsx';
 
 ## API Reference
 
@@ -24,11 +36,26 @@ Use `Field` when one form control needs an accessible label, helper text, an err
 Use `Field` as the wrapper for one form control. Put `Field.Label` before the control, then add
 helper or error text when the user needs more information.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/field/basic.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldBasic />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/field/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/field/field-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -117,54 +144,129 @@ For a custom control that does not consume Ark Field context, use `Field.Context
 Use `Field` around a checkbox when it needs field-level helper or error text. Pass the checkbox's own
 state and form props to `Checkbox`.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/field/checkbox.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldCheckbox />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/field/checkbox.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/field/field-checkbox.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Controlled invalid state
 
 Derive `invalid` from local state when validation should update as the user types. The error text
 appears only while the field is invalid.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/field/controlled-invalid.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldControlledInvalid />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/field/controlled-invalid.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/field/field-controlled-invalid.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Disabled
 
 Set `disabled` on the root to pass the disabled state to the supported Ark field parts.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/field/disabled.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldDisabled />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/field/disabled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/field/field-disabled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Invalid
 
 Set `invalid` on the root when application state or a form library controls validation. Pass it to a
 compound child root as well when that component owns its invalid state.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/field/invalid.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldInvalid />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/field/invalid.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/field/field-invalid.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Native Select
 
 Use `NativeSelect` for a browser-native select. `Field` connects it to the field label, state, and
 description.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/field/native-select.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldNativeSelect />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/field/native-select.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/field/field-native-select.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### RadioGroup
 
@@ -172,21 +274,51 @@ Use `Field` with `RadioGroup` when one field-level label, helper text, or error 
 the whole set of choices rather than individual radio items. Pass the group's own state props to
 `RadioGroup`.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/field/radiogroup.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldRadioGroup />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/field/radiogroup.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/field/field-radiogroup.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Read Only
 
 Set `readOnly` on the root when users can copy the control's value but cannot edit it.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/field/read-only.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldReadOnly />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/field/read-only.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/field/field-read-only.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Select
 
@@ -194,43 +326,101 @@ Use the composed `Select` when a native select is not enough and you need a cust
 selection UI. Use `Combobox` when users need to type to find or create a value. Because `Select` owns
 its state, pass `required`, `invalid`, `disabled`, or `readOnly` to `Select` when needed.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/field/select.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldSelect />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/field/select.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/field/field-select.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Textarea
 
 Use `Textarea` for multi-line input while keeping the field's label, description, and state
 connections.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/field/textarea.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldTextarea />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/field/textarea.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/field/field-textarea.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Use `Field.Item` with the root `target` prop when one label should target a control inside a group.
 
-<style>{`.inlineControls { display: grid; grid-template-columns: minmax(6rem, max-content) minmax(0, 1fr); gap: var(--moduix-spacing-2); }`}</style>
+<ExampleFrame variant="component">
+  <FieldItemTarget />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/field/item-target.tsx"
-  ```
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-</PreviewFrame>
+```tsx file="./_snippets/field/item-target.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/field/field-item-target.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 Use `useField` with `Field.RootProvider` when the field state must be created outside the rendered
 tree.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/field/root-provider.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldRootProvider />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/field/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/field/field-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 
