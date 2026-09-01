@@ -65,9 +65,6 @@
   border-radius: var(--moduix-radius-full);
   background: var(--moduix-color-foreground);
   translate: none;
-  transition:
-    left var(--moduix-tabs-line-indicator-transition, var(--moduix-transition-default)),
-    width var(--moduix-tabs-line-indicator-transition, var(--moduix-transition-default));
 }
 
 .inlineContent {

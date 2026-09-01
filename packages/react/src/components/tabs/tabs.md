@@ -118,8 +118,10 @@ Every visual part accepts `className` and receives a stable `data-slot`. moduix 
 the existing compact visual identity through `--moduix-tabs-*` variables, design tokens, border radii, and
 motion tokens.
 
-`variant="default"` renders a SegmentGroup-like filled indicator surface with `radius-md`,
-`shadow-sm`, and explicit movement transitions when `Tabs.Indicator` is present.
+`variant="default"` renders a SegmentGroup-like filled indicator surface with `radius-md`
+and `shadow-sm` when `Tabs.Indicator` is present. Its movement uses Ark's
+`--transition-duration` and `--transition-timing-function` contract, exposed through separate
+moduix variables for the filled and line variants.
 `variant="line"` switches the same Ark indicator part to an edge line treatment for horizontal tabs.
 Vertical tabs keep the filled treatment even when `line` is passed.
 
@@ -146,6 +148,8 @@ The root defaults to a column layout and switches to row layout for `orientation
 
 ## Local changelog
 
+- 2026-09-01: Replaced ineffective indicator transition shorthands with per-variant duration and
+  timing-function variables that Ark applies at runtime.
 - 2026-08-13: Kept `Tabs.RootProvider`'s public `data-variant` aligned with `Tabs` for vertical
   state stores, and added regression coverage for that fallback and manual activation.
 - 2026-07-31: Stabilized the root width, constrained the vertical list on narrow viewports, limited

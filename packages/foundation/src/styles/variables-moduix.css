@@ -3126,11 +3126,13 @@
   --moduix-tabs-indicator-radius: initial; /* var(--moduix-radius-md) */
   --moduix-tabs-indicator-shadow: initial; /* var(--moduix-shadow-sm) */
   --moduix-tabs-indicator-size: initial; /* var(--moduix-spacing-8) */
-  --moduix-tabs-indicator-transition: initial; /* var(--moduix-transition-default) */
+  --moduix-tabs-indicator-transition-duration: initial; /* var(--moduix-duration-normal) */
+  --moduix-tabs-indicator-transition-timing-function: initial; /* var(--moduix-ease-in-out) */
   --moduix-tabs-line-indicator-bg: initial; /* var(--moduix-tabs-tab-color-active, var(--moduix-color-foreground)) */
   --moduix-tabs-line-indicator-radius: initial; /* var(--moduix-radius-full) */
   --moduix-tabs-line-indicator-size: initial; /* var(--moduix-spacing-0-5) */
-  --moduix-tabs-line-indicator-transition: initial; /* var(--moduix-transition-default) */
+  --moduix-tabs-line-indicator-transition-duration: initial; /* var(--moduix-duration-normal) */
+  --moduix-tabs-line-indicator-transition-timing-function: initial; /* var(--moduix-ease-in-out) */
   --moduix-tabs-list-bg: initial; /* var(--moduix-color-muted) */
   --moduix-tabs-list-border-color: initial; /* var(--moduix-color-border) */
   --moduix-tabs-list-border-width: initial; /* var(--moduix-border-width-sm) */

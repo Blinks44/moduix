@@ -130,6 +130,15 @@
   }
 
   .indicator {
+    --transition-duration: var(
+      --moduix-tabs-indicator-transition-duration,
+      var(--moduix-duration-normal)
+    );
+    --transition-timing-function: var(
+      --moduix-tabs-indicator-transition-timing-function,
+      var(--moduix-ease-in-out)
+    );
+
     position: absolute;
     z-index: 0;
     top: 50%;
@@ -140,13 +149,17 @@
     background-color: var(--moduix-tabs-indicator-bg, var(--moduix-color-background));
     box-shadow: var(--moduix-tabs-indicator-shadow, var(--moduix-shadow-sm));
     translate: 0 -50%;
-    transition:
-      width var(--moduix-tabs-indicator-transition, var(--moduix-transition-default)),
-      height var(--moduix-tabs-indicator-transition, var(--moduix-transition-default)),
-      top var(--moduix-tabs-indicator-transition, var(--moduix-transition-default)),
-      left var(--moduix-tabs-indicator-transition, var(--moduix-transition-default));
 
     .root[data-variant='line']:not([data-orientation='vertical']) & {
+      --transition-duration: var(
+        --moduix-tabs-line-indicator-transition-duration,
+        var(--moduix-duration-normal)
+      );
+      --transition-timing-function: var(
+        --moduix-tabs-line-indicator-transition-timing-function,
+        var(--moduix-ease-in-out)
+      );
+
       top: auto;
       bottom: 0;
       height: var(--moduix-tabs-line-indicator-size, var(--moduix-spacing-0-5));
@@ -157,11 +170,6 @@
       );
       translate: none;
       box-shadow: none;
-      transition:
-        width var(--moduix-tabs-line-indicator-transition, var(--moduix-transition-default)),
-        height var(--moduix-tabs-line-indicator-transition, var(--moduix-transition-default)),
-        top var(--moduix-tabs-line-indicator-transition, var(--moduix-transition-default)),
-        left var(--moduix-tabs-line-indicator-transition, var(--moduix-transition-default));
     }
 
     &[data-orientation='vertical'] {

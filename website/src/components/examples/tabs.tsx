@@ -59,9 +59,14 @@ const tabsOverrideCssProperties: CssPropertyInput[] = [
     'Controls the filled indicator thickness.',
   ],
   [
-    '--moduix-tabs-indicator-transition',
-    'var(--moduix-transition-default)',
-    'Controls the filled indicator movement transition.',
+    '--moduix-tabs-indicator-transition-duration',
+    'var(--moduix-duration-normal)',
+    'Controls the filled indicator movement duration.',
+  ],
+  [
+    '--moduix-tabs-indicator-transition-timing-function',
+    'var(--moduix-ease-in-out)',
+    'Controls the filled indicator movement timing function.',
   ],
   [
     '--moduix-tabs-line-indicator-bg',
@@ -79,9 +84,14 @@ const tabsOverrideCssProperties: CssPropertyInput[] = [
     'Controls the line indicator thickness.',
   ],
   [
-    '--moduix-tabs-line-indicator-transition',
-    'var(--moduix-transition-default)',
-    'Controls the line indicator movement transition.',
+    '--moduix-tabs-line-indicator-transition-duration',
+    'var(--moduix-duration-normal)',
+    'Controls the line indicator movement duration.',
+  ],
+  [
+    '--moduix-tabs-line-indicator-transition-timing-function',
+    'var(--moduix-ease-in-out)',
+    'Controls the line indicator movement timing function.',
   ],
   ['--moduix-tabs-list-bg', 'var(--moduix-color-muted)', 'Controls the tab list background color.'],
   [
