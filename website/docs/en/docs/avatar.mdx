@@ -5,6 +5,14 @@ description: A compact representation of a user or entity with Ark UI-managed im
 ---
 
 import * as AvatarDocs from '@/components/examples/avatar';
+import AvatarBasic from './_snippets/avatar/basic.tsx';
+import AvatarCustomComposition from './_snippets/avatar/custom-composition.tsx';
+import AvatarCustomFallback from './_snippets/avatar/custom-fallback.tsx';
+import AvatarCustomImage from './_snippets/avatar/custom-image.tsx';
+import AvatarDefaultFallback from './_snippets/avatar/default-fallback.tsx';
+import AvatarEvents from './_snippets/avatar/events.tsx';
+import AvatarRootProvider from './_snippets/avatar/root-provider.tsx';
+import AvatarSizesAndFallbackOnly from './_snippets/avatar/sizes-and-fallback-only.tsx';
 
 ## API Reference
 
@@ -15,13 +23,20 @@ import * as AvatarDocs from '@/components/examples/avatar';
 Use `Avatar`, `Avatar.Fallback`, and `Avatar.Image` together. Keep `Avatar.Fallback` in the tree so
 Ark UI can switch between the fallback and the image as the loading state changes.
 
-<style>{AvatarDocs.avatarExampleCss}</style>
+<ExampleFrame variant="component">
+  <AvatarBasic />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/avatar/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/avatar/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -100,91 +115,175 @@ When `size` is omitted, Avatar uses the `md` visual tokens without setting `data
 Fallback content can be an icon or another compact identity marker. Add an accessible name when
 the fallback itself conveys information that is not available in nearby text.
 
-<style>{AvatarDocs.avatarFallbackCss}</style>
+<ExampleFrame variant="component">
+  <AvatarCustomFallback />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/avatar/custom-fallback.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/avatar/custom-fallback.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/avatar-custom-fallback.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Custom Image
 
 Use `useAvatarContext()` from moduix when a framework image component or custom renderer needs to
 participate in Ark's loading lifecycle.
 
-<style>{AvatarDocs.avatarCustomImageCss}</style>
+<ExampleFrame variant="component">
+  <AvatarCustomImage />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/avatar/custom-image.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/avatar/custom-image.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/avatar-custom-image.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Default Fallback
 
 Leave `Avatar.Fallback` empty to use the built-in decorative User icon. Provide the accessible name
 on the surrounding link or button when the avatar is interactive.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/avatar/default-fallback.tsx"
+<ExampleFrame variant="component">
+  <AvatarDefaultFallback />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/avatar/default-fallback.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Events
 
 Use `onStatusChange(details)` when surrounding UI needs to react to the image lifecycle.
 
-<style>{AvatarDocs.avatarExampleCss}</style>
+<ExampleFrame variant="component">
+  <AvatarEvents />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/avatar/events.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/avatar/events.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/avatar-events.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Create state with `useAvatar` from moduix when controls outside the avatar need to coordinate with
 it, then render `Avatar.RootProvider` instead of `Avatar.Root`.
 
-<style>{AvatarDocs.avatarExampleCss}</style>
+<ExampleFrame variant="component">
+  <AvatarRootProvider />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/avatar/root-provider.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/avatar/root-provider.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/avatar-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Sizes and Fallback Only
 
 The moduix `size` shortcut maps common design-token sizes onto either root component. A fallback-only
 avatar is valid when no image source exists.
 
-<style>{AvatarDocs.avatarExampleCss}</style>
+<ExampleFrame variant="component">
+  <AvatarSizesAndFallbackOnly />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/avatar/sizes-and-fallback-only.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/avatar/sizes-and-fallback-only.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/avatar-sizes-and-fallback-only.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Use `asChild` when the avatar itself is the interactive element. This bypasses the default root DOM
 node while keeping Ark state, fallback behavior, and part composition explicit.
 
-<style>{AvatarDocs.avatarCompositionCss}</style>
+<ExampleFrame variant="component">
+  <AvatarCustomComposition />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/avatar/custom-composition.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/avatar/custom-composition.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/avatar-custom-composition.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

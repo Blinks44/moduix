@@ -1,4 +1,5 @@
 import { AspectRatio } from '@moduix/react/aspect-ratio';
+import styles from '@/components/examples/aspect-ratio-embedded-content.module.css';
 
 const embed = {
   ratio: 16 / 9,
@@ -8,7 +9,7 @@ const embed = {
 
 export default function AspectRatioEmbedDemo() {
   return (
-    <AspectRatio ratio={embed.ratio} className="aspect-ratio-demo">
+    <AspectRatio ratio={embed.ratio} className={styles.root}>
       <iframe
         src={embed.src}
         title={embed.title}

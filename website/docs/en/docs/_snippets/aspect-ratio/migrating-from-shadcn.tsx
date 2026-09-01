@@ -1,4 +1,5 @@
 import { AspectRatio } from '@moduix/react/aspect-ratio';
+import styles from '@/components/examples/aspect-ratio-migrating-from-shadcn.module.css';
 
 const image = {
   src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80',
@@ -7,9 +8,9 @@ const image = {
 
 export default function AspectRatioMigrationDemo() {
   return (
-    <AspectRatio ratio={16 / 9} className="aspect-ratio-demo">
+    <AspectRatio ratio={16 / 9} className={styles.root}>
       {/* Swap this <img> for next/image with fill in a Next.js app. */}
-      <img src={image.src} alt={image.alt} className="aspect-ratio-demo__fill-image" />
+      <img src={image.src} alt={image.alt} className={styles.image} />
     </AspectRatio>
   );
 }

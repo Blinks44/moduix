@@ -5,6 +5,11 @@ description: Place les médias et les contenus intégrés dans un cadre adaptati
 ---
 
 import * as AspectRatioDocs from '@/components/examples/aspect-ratio';
+import AspectRatioAdvancedCustomization from '../../en/docs/_snippets/aspect-ratio/advanced-customization.tsx';
+import AspectRatioBasic from '../../en/docs/_snippets/aspect-ratio/basic.tsx';
+import AspectRatioCardGrid from '../../en/docs/_snippets/aspect-ratio/card-grid.tsx';
+import AspectRatioEmbeddedContent from '../../en/docs/_snippets/aspect-ratio/embedded-content.tsx';
+import AspectRatioMigration from '../../en/docs/_snippets/aspect-ratio/migrating-from-shadcn.tsx';
 
 ## Référence de l’API
 
@@ -23,13 +28,26 @@ Les enfants directs `img`, `video`, `iframe`, `canvas` et `svg` remplissent auto
 enfants ne sont pas dimensionnés automatiquement : appliquez-leur les styles nécessaires. Définissez `object-fit`
 sur les images et les vidéos pour choisir entre le recadrage et l’affichage complet du contenu dans le cadre.
 
-<style>{AspectRatioDocs.aspectRatioBasicCss}</style>
+<ExampleFrame variant="component">
+  <AspectRatioBasic />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/aspect-ratio/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/aspect-ratio/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/aspect-ratio-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -107,55 +125,104 @@ pour les contenus intégrés comme les `iframe`.
 Utilisez le même rapport pour les médias de cartes afin de les aligner, même si les images sources ont des
 dimensions différentes.
 
-<style>{AspectRatioDocs.aspectRatioGridCss}</style>
+<ExampleFrame variant="component">
+  <AspectRatioCardGrid />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/aspect-ratio/card-grid.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/aspect-ratio/card-grid.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/aspect-ratio-card-grid.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Contenu intégré
 
 Entourez une vidéo ou un autre contenu intégré avec `AspectRatio` pour conserver un cadre stable pendant le
 chargement du contenu externe.
 
-<style>{AspectRatioDocs.aspectRatioEmbedCss}</style>
+<ExampleFrame variant="component">
+  <AspectRatioEmbeddedContent />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/aspect-ratio/embedded-content.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/aspect-ratio/embedded-content.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/aspect-ratio-embedded-content.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Migration depuis shadcn
 
 Si vous migrez depuis shadcn, placez les classes de largeur et de rayon directement sur `AspectRatio` plutôt que
 sur un conteneur extérieur. La même racine fonctionne avec `Image` de Next.js et sa propriété `fill`.
 
-<style>{AspectRatioDocs.aspectRatioMigrationCss}</style>
+<ExampleFrame variant="component">
+  <AspectRatioMigration />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/aspect-ratio/migrating-from-shadcn.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/aspect-ratio/migrating-from-shadcn.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/aspect-ratio-migrating-from-shadcn.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Personnalisation avancée
 
 Utilisez `asChild` lorsqu’un élément sémantique, comme `figure`, doit devenir la racine rendue. Ark transmet les
 propriétés du composant à son unique enfant.
 
-<style>{AspectRatioDocs.aspectRatioBasicCss}</style>
+<ExampleFrame variant="component">
+  <AspectRatioAdvancedCustomization />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/aspect-ratio/advanced-customization.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/aspect-ratio/advanced-customization.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/aspect-ratio-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

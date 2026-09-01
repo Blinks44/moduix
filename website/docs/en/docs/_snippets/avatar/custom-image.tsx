@@ -1,5 +1,6 @@
 import { Avatar, useAvatarContext } from '@moduix/react/avatar';
 import type { ImgHTMLAttributes } from 'react';
+import styles from '@/components/examples/avatar-custom-image.module.css';
 
 const avatarImage =
   'https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80';
@@ -15,7 +16,7 @@ function AvatarCustomImage({ alt, src }: AvatarCustomImageProps) {
       {...imageProps}
       src={src}
       alt={alt}
-      className="docs-avatar-custom-image"
+      className={styles.image}
       style={{ visibility: hidden ? 'hidden' : 'visible' }}
     />
   );

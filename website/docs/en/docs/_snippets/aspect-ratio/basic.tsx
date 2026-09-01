@@ -1,4 +1,5 @@
 import { AspectRatio } from '@moduix/react/aspect-ratio';
+import styles from '@/components/examples/aspect-ratio-basic.module.css';
 
 const image = {
   src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80',
@@ -7,8 +8,8 @@ const image = {
 
 export default function AspectRatioDemo() {
   return (
-    <AspectRatio ratio={16 / 9} className="aspect-ratio-demo">
-      <img src={image.src} alt={image.alt} className="aspect-ratio-demo__image" />
+    <AspectRatio ratio={16 / 9} className={styles.root}>
+      <img src={image.src} alt={image.alt} className={styles.image} />
     </AspectRatio>
   );
 }

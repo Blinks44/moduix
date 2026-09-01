@@ -1,4 +1,5 @@
 import { AspectRatio } from '@moduix/react/aspect-ratio';
+import styles from '@/components/examples/aspect-ratio-advanced-customization.module.css';
 
 const media = {
   ratio: 16 / 9,
@@ -8,9 +9,9 @@ const media = {
 
 export default function AspectRatioAsChildDemo() {
   return (
-    <AspectRatio ratio={media.ratio} className="aspect-ratio-demo" asChild>
-      <figure className="aspect-ratio-demo__figure">
-        <img src={media.src} alt={media.alt} className="aspect-ratio-demo__image" />
+    <AspectRatio ratio={media.ratio} className={styles.root} asChild>
+      <figure className={styles.figure}>
+        <img src={media.src} alt={media.alt} className={styles.image} />
       </figure>
     </AspectRatio>
   );

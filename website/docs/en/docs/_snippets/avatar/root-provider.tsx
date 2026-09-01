@@ -2,6 +2,7 @@ import { Avatar, useAvatar } from '@moduix/react/avatar';
 import { Button } from '@moduix/react/button';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/avatar-root-provider.module.css';
 
 const avatarImages = [
   'https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80',
@@ -13,7 +14,7 @@ export default function AvatarRootProviderDemo() {
   const avatar = useAvatar();
 
   return (
-    <div className="docs-avatar-provider">
+    <div className={styles.root}>
       <Avatar.RootProvider value={avatar}>
         <Avatar.Fallback name="Alex T." />
         <Avatar.Image src={avatarImages[imageIndex]} alt="Alex T." />

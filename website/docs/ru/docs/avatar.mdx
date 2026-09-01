@@ -5,6 +5,14 @@ description: Компактное представление пользоват�
 ---
 
 import * as AvatarDocs from '@/components/examples/avatar';
+import AvatarBasic from '../../en/docs/_snippets/avatar/basic.tsx';
+import AvatarCustomComposition from '../../en/docs/_snippets/avatar/custom-composition.tsx';
+import AvatarCustomFallback from '../../en/docs/_snippets/avatar/custom-fallback.tsx';
+import AvatarCustomImage from '../../en/docs/_snippets/avatar/custom-image.tsx';
+import AvatarDefaultFallback from '../../en/docs/_snippets/avatar/default-fallback.tsx';
+import AvatarEvents from '../../en/docs/_snippets/avatar/events.tsx';
+import AvatarRootProvider from '../../en/docs/_snippets/avatar/root-provider.tsx';
+import AvatarSizesAndFallbackOnly from '../../en/docs/_snippets/avatar/sizes-and-fallback-only.tsx';
 
 ## Справочник API
 
@@ -15,13 +23,20 @@ import * as AvatarDocs from '@/components/examples/avatar';
 Используйте `Avatar`, `Avatar.Fallback` и `Avatar.Image` вместе. Не убирайте `Avatar.Fallback` из дерева,
 чтобы Ark UI мог переключаться между ним и изображением при изменении состояния загрузки.
 
-<style>{AvatarDocs.avatarExampleCss}</style>
+<ExampleFrame variant="component">
+  <AvatarBasic />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/avatar/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/avatar/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -103,79 +118,150 @@ Avatar.Root | Avatar.RootProvider
 Резервным содержимым может быть иконка или другое компактное обозначение пользователя. Задайте доступное
 имя, если по этому содержимому нужно понять что-то, чего нет в окружающем тексте.
 
-<style>{AvatarDocs.avatarFallbackCss}</style>
+<ExampleFrame variant="component">
+  <AvatarCustomFallback />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/avatar/custom-fallback.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/avatar/custom-fallback.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/avatar-custom-fallback.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Пользовательское изображение
 
 Используйте `useAvatarContext()` из moduix, если компонент изображения из фреймворка или пользовательский
 рендерер должен подключиться к жизненному циклу загрузки, которым управляет Ark.
 
-<style>{AvatarDocs.avatarCustomImageCss}</style>
+<ExampleFrame variant="component">
+  <AvatarCustomImage />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/avatar/custom-image.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/avatar/custom-image.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/avatar-custom-image.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Резервная иконка по умолчанию
 
 Оставьте `Avatar.Fallback` без дочернего содержимого, чтобы отобразить встроенную декоративную иконку
 пользователя. Если аватар интерактивный, задайте доступное имя окружающей ссылке или кнопке.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/avatar/default-fallback.tsx"
+<ExampleFrame variant="component">
+  <AvatarDefaultFallback />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/avatar/default-fallback.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### События
 
 Используйте `onStatusChange(details)`, если интерфейсу вокруг аватара нужно реагировать на результат
 загрузки изображения.
 
-<style>{AvatarDocs.avatarExampleCss}</style>
+<ExampleFrame variant="component">
+  <AvatarEvents />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/avatar/events.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/avatar/events.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/avatar-events.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Создайте состояние с помощью `useAvatar` из moduix, если внешним элементам управления нужно работать с
 аватаром. Передайте его в `Avatar.RootProvider` вместо `Avatar.Root`.
 
-<style>{AvatarDocs.avatarExampleCss}</style>
+<ExampleFrame variant="component">
+  <AvatarRootProvider />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/avatar/root-provider.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/avatar/root-provider.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/avatar-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Размеры и аватар без изображения
 
 Свойство `size` в moduix задаёт один из распространённых размеров дизайн-токенов для любого корневого
 компонента. Аватар только с резервным содержимым подходит, если источника изображения нет.
 
-<style>{AvatarDocs.avatarExampleCss}</style>
+<ExampleFrame variant="component">
+  <AvatarSizesAndFallbackOnly />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/avatar/sizes-and-fallback-only.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/avatar/sizes-and-fallback-only.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/avatar-sizes-and-fallback-only.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
@@ -183,13 +269,26 @@ Avatar.Root | Avatar.RootProvider
 добавит стандартный корневой DOM-узел, но сохранит состояние Ark, поведение резервного содержимого и явную
 композицию частей.
 
-<style>{AvatarDocs.avatarCompositionCss}</style>
+<ExampleFrame variant="component">
+  <AvatarCustomComposition />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/avatar/custom-composition.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/avatar/custom-composition.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/avatar-custom-composition.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 
