@@ -1,5 +1,6 @@
 import { Accordion, useAccordion } from '@moduix/react/accordion';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/accordion.module.css';
 
 const items = [
   {
@@ -25,7 +26,7 @@ export default function RootProviderAccordionDemo() {
 
   return (
     <>
-      <Accordion.RootProvider value={accordion}>
+      <Accordion.RootProvider className={styles.root} value={accordion}>
         {items.map((item) => (
           <Accordion.Item key={item.value} value={item.value}>
             <Accordion.ItemTrigger>

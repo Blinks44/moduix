@@ -1,4 +1,5 @@
 import { Accordion } from '@moduix/react/accordion';
+import styles from '@/components/examples/accordion.module.css';
 
 const items = [
   {
@@ -21,7 +22,7 @@ const items = [
 
 export default function LazyMountAccordionDemo() {
   return (
-    <Accordion lazyMount unmountOnExit>
+    <Accordion className={styles.root} lazyMount unmountOnExit>
       {items.map((item) => (
         <Accordion.Item key={item.value} value={item.value}>
           <Accordion.ItemTrigger>

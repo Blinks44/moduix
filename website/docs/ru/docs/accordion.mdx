@@ -5,6 +5,15 @@ description: Раскрывающийся список связанных раз
 ---
 
 import * as AccordionDocs from '@/components/examples/accordion';
+import AccordionBasic from '../../en/docs/_snippets/accordion/basic.tsx';
+import AccordionCollapsible from '../../en/docs/_snippets/accordion/collapsible.tsx';
+import AccordionControlled from '../../en/docs/_snippets/accordion/controlled.tsx';
+import AccordionDisabledItem from '../../en/docs/_snippets/accordion/disabled-item.tsx';
+import AccordionHorizontal from '../../en/docs/_snippets/accordion/horizontal.tsx';
+import AccordionLazyMount from '../../en/docs/_snippets/accordion/lazy-mount.tsx';
+import AccordionMultiple from '../../en/docs/_snippets/accordion/multiple.tsx';
+import AccordionRootProvider from '../../en/docs/_snippets/accordion/root-provider.tsx';
+import AccordionWithSlider from '../../en/docs/_snippets/accordion/with-slider.tsx';
 
 ## Справочник API
 
@@ -26,11 +35,26 @@ import * as AccordionDocs from '@/components/examples/accordion';
 `Accordion` является рекомендуемым корневым компонентом. Используйте `Accordion.Root`, если хотите
 явно обозначить корневую часть в композиции.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/accordion/basic.tsx"
+<ExampleFrame variant="component">
+  <AccordionBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/accordion/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/accordion.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -144,78 +168,180 @@ Accordion.RootProvider
 
 Включите `collapsible`, чтобы открытый элемент можно было закрыть, не открывая другой.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/accordion/collapsible.tsx"
+<ExampleFrame variant="component">
+  <AccordionCollapsible />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/accordion/collapsible.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/accordion.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Управляемое состояние
 
 Управляйте `value` через состояние React, если открытые элементы должны синхронизироваться с
 маршрутизацией, фильтрами или другими частями интерфейса.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/accordion/controlled.tsx"
+<ExampleFrame variant="component">
+  <AccordionControlled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/accordion/controlled.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/accordion.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Отключённый элемент
 
 Задайте элементу `disabled`, если он должен оставаться видимым в списке, но быть недоступным для взаимодействия.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/accordion/disabled-item.tsx"
+<ExampleFrame variant="component">
+  <AccordionDisabledItem />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/accordion/disabled-item.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/accordion.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Горизонтальный вариант
 
 Установите `orientation="horizontal"`, чтобы расположить аккордеон в ряд и включить горизонтальную
 навигацию с клавиатуры.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/accordion/horizontal.tsx"
+<ExampleFrame variant="component">
+  <AccordionHorizontal />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/accordion/horizontal.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/accordion.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Ленивое монтирование
 
 Сочетайте `lazyMount` и `unmountOnExit`, если скрытое содержимое панели дорого рендерить и его нужно
 удалять из DOM после закрытия.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/accordion/lazy-mount.tsx"
+<ExampleFrame variant="component">
+  <AccordionLazyMount />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/accordion/lazy-mount.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/accordion.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Несколько открытых элементов
 
 Установите `multiple`, если одновременно должны оставаться открытыми несколько разделов.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/accordion/multiple.tsx"
+<ExampleFrame variant="component">
+  <AccordionMultiple />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/accordion/multiple.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/accordion.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Используйте `useAccordion()` из `@moduix/react` вместе с `Accordion.RootProvider`, если состояние
 нужно создать вне дерева аккордеона. Не добавляйте к нему `Accordion` или `Accordion.Root`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/accordion/root-provider.tsx"
+<ExampleFrame variant="component">
+  <AccordionRootProvider />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/accordion/root-provider.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/accordion.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
@@ -223,13 +349,26 @@ Accordion.RootProvider
 Оставляйте структуру частей каждого примитива явной, чтобы нужный компонент сам обрабатывал клавиатуру
 и управлял скрытыми полями формы.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/accordion/with-slider.tsx"
+<ExampleFrame variant="component">
+  <AccordionWithSlider />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/accordion/with-slider.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
 
+```css file="../../../src/components/examples/accordion.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 ## Стилизация
 
 Используйте `className` у экспортируемых частей для структурных стилей. Для стилей, зависящих от

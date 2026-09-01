@@ -1,4 +1,5 @@
 import { Accordion } from '@moduix/react/accordion';
+import styles from '@/components/examples/accordion.module.css';
 
 const items = [
   {
@@ -21,7 +22,7 @@ const items = [
 
 export default function DisabledItemAccordionDemo() {
   return (
-    <Accordion defaultValue={['what-is-ark-ui']}>
+    <Accordion className={styles.root} defaultValue={['what-is-ark-ui']}>
       {items.map((item) => (
         <Accordion.Item
           key={item.value}

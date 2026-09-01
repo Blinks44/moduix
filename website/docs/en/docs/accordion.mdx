@@ -5,6 +5,15 @@ description: An expandable list of related sections with keyboard navigation and
 ---
 
 import * as AccordionDocs from '@/components/examples/accordion';
+import AccordionBasic from './_snippets/accordion/basic.tsx';
+import AccordionCollapsible from './_snippets/accordion/collapsible.tsx';
+import AccordionControlled from './_snippets/accordion/controlled.tsx';
+import AccordionDisabledItem from './_snippets/accordion/disabled-item.tsx';
+import AccordionHorizontal from './_snippets/accordion/horizontal.tsx';
+import AccordionLazyMount from './_snippets/accordion/lazy-mount.tsx';
+import AccordionMultiple from './_snippets/accordion/multiple.tsx';
+import AccordionRootProvider from './_snippets/accordion/root-provider.tsx';
+import AccordionWithSlider from './_snippets/accordion/with-slider.tsx';
 
 ## API Reference
 
@@ -25,11 +34,26 @@ plus icon.
 Use `Accordion` as the root in most cases. `Accordion.Root` is an alias for the same root when you
 want to make that part explicit in your composition.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/accordion/basic.tsx"
+<ExampleFrame variant="component">
+  <AccordionBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/accordion/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/accordion.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -140,67 +164,154 @@ panel motion to an effectively instant animation while preserving Ark's lifecycl
 
 Set `collapsible` when the open item should be able to close without opening another item.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/accordion/collapsible.tsx"
+<ExampleFrame variant="component">
+  <AccordionCollapsible />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/accordion/collapsible.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/accordion.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Controlled
 
 Manage `value` with React state when open items need to stay in sync with routing, filters, or
 surrounding UI.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="./_snippets/accordion/controlled.tsx"
+<ExampleFrame variant="component">
+  <AccordionControlled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/accordion/controlled.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/accordion.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Disabled Item
 
 Set `disabled` on an item when it should remain visible in the list but unavailable for interaction.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/accordion/disabled-item.tsx"
+<ExampleFrame variant="component">
+  <AccordionDisabledItem />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/accordion/disabled-item.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/accordion.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Horizontal
 
 Set `orientation="horizontal"` to lay out the accordion in a row and use horizontal keyboard
 navigation.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="./_snippets/accordion/horizontal.tsx"
+<ExampleFrame variant="component">
+  <AccordionHorizontal />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/accordion/horizontal.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/accordion.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Lazy Mount
 
 Combine `lazyMount` and `unmountOnExit` when hidden panel content is expensive to render and should
 be removed from the DOM after it closes.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/accordion/lazy-mount.tsx"
+<ExampleFrame variant="component">
+  <AccordionLazyMount />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/accordion/lazy-mount.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/accordion.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Multiple
 
 Set `multiple` when several sections should stay open at the same time.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="./_snippets/accordion/multiple.tsx"
+<ExampleFrame variant="component">
+  <AccordionMultiple />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/accordion/multiple.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/accordion.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
@@ -208,23 +319,52 @@ Use `useAccordion()` from `@moduix/react` with `Accordion.RootProvider` when the
 created outside the rendered accordion tree. Do not render `Accordion` or `Accordion.Root` for the
 same store.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/accordion/root-provider.tsx"
+<ExampleFrame variant="component">
+  <AccordionRootProvider />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/accordion/root-provider.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/accordion.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Accordion content can contain another Ark-based composite widget, such as `Slider`. Keep each
 primitive's part tree explicit so the right component owns keyboard handling and hidden form inputs.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="./_snippets/accordion/with-slider.tsx"
+<ExampleFrame variant="component">
+  <AccordionWithSlider />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/accordion/with-slider.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/accordion.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

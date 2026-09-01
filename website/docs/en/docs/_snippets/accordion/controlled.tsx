@@ -1,5 +1,6 @@
 import { Accordion } from '@moduix/react/accordion';
 import { useState } from 'react';
+import styles from '@/components/examples/accordion.module.css';
 
 const items = [
   {
@@ -24,7 +25,11 @@ export default function ControlledAccordionDemo() {
   const [value, setValue] = useState(['getting-started'] as string[]);
 
   return (
-    <Accordion value={value} onValueChange={(details) => setValue(details.value)}>
+    <Accordion
+      className={styles.root}
+      value={value}
+      onValueChange={(details) => setValue(details.value)}
+    >
       {items.map((item) => (
         <Accordion.Item key={item.value} value={item.value}>
           <Accordion.ItemTrigger>

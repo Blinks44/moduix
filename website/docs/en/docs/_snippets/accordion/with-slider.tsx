@@ -1,5 +1,6 @@
 import { Accordion } from '@moduix/react/accordion';
 import { Slider } from '@moduix/react/slider';
+import styles from '@/components/examples/accordion.module.css';
 
 const items = [
   {
@@ -22,7 +23,7 @@ const items = [
 
 export default function WithSliderAccordionDemo() {
   return (
-    <Accordion defaultValue={['what-is-ark-ui']}>
+    <Accordion className={styles.root} defaultValue={['what-is-ark-ui']}>
       {items.map((item) => (
         <Accordion.Item key={item.value} value={item.value}>
           <Accordion.ItemTrigger>
