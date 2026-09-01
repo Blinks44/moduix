@@ -1,6 +1,6 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import { Listbox } from '@moduix/react/listbox';
-import styles from '@/components/examples/listbox.module.css';
+import styles from '@/components/examples/listbox/listbox-grouping.module.css';
 
 const regions = createListCollection({
   items: [

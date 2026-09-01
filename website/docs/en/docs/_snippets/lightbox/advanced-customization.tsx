@@ -1,4 +1,5 @@
 import { Lightbox } from '@moduix/react/lightbox';
+import styles from '@/components/examples/lightbox/lightbox-advanced-customization.module.css';
 
 const image = {
   src: 'https://images.unsplash.com/photo-1473116763249-2faaef81ccda?auto=format&fit=crop&w=1800&q=90',
@@ -8,11 +9,11 @@ const image = {
 export default function AdvancedCustomizationLightboxDemo() {
   return (
     <Lightbox>
-      <Lightbox.Trigger className="lightbox-button">Open styled lightbox</Lightbox.Trigger>
-      <Lightbox.Backdrop className="lightbox-custom-backdrop" />
+      <Lightbox.Trigger className={styles.button}>Open styled lightbox</Lightbox.Trigger>
+      <Lightbox.Backdrop className={styles.customBackdrop} />
       <Lightbox.Positioner>
-        <Lightbox.CloseIcon className="lightbox-custom-close" />
-        <Lightbox.Content className="lightbox-custom-content" aria-label={image.alt}>
+        <Lightbox.CloseIcon className={styles.customClose} />
+        <Lightbox.Content className={styles.customContent} aria-label={image.alt}>
           <Lightbox.Image src={image.src} alt={image.alt} />
         </Lightbox.Content>
       </Lightbox.Positioner>

@@ -1,5 +1,6 @@
 import { Lightbox } from '@moduix/react/lightbox';
 import { useState } from 'react';
+import styles from '@/components/examples/lightbox/lightbox-controlled.module.css';
 
 const images = [
   {
@@ -29,7 +30,7 @@ export default function ControlledLightboxDemo() {
   const [open, setOpen] = useState(false);
   return (
     <Lightbox open={open} onOpenChange={(details) => setOpen(details.open)}>
-      <Lightbox.Trigger className="lightbox-button">Open controlled lightbox</Lightbox.Trigger>
+      <Lightbox.Trigger className={styles.button}>Open controlled lightbox</Lightbox.Trigger>
       <Lightbox.Backdrop />
       <Lightbox.Positioner>
         <Lightbox.CloseIcon />

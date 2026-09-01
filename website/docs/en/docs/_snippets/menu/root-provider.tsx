@@ -1,12 +1,13 @@
 import { Button } from '@moduix/react/button';
 import { Menu, useMenu } from '@moduix/react/menu';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/menu/menu-root-provider.module.css';
 
 export default function RootProviderMenuDemo() {
   const menu = useMenu();
   return (
     <div>
-      <div className="menu-trigger-row">
+      <div className={styles.triggerRow}>
         <Menu.RootProvider value={menu}>
           <Menu.Trigger asChild>
             <Button>
@@ -15,7 +16,7 @@ export default function RootProviderMenuDemo() {
             </Button>
           </Menu.Trigger>
           <Menu.Positioner>
-            <Menu.Content className="menu-content">
+            <Menu.Content className={styles.content}>
               <Menu.Item value="cut">Cut</Menu.Item>
               <Menu.Item value="copy">Copy</Menu.Item>
               <Menu.Item value="paste">Paste</Menu.Item>

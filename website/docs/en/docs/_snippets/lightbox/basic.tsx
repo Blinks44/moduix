@@ -1,4 +1,5 @@
 import { Lightbox } from '@moduix/react/lightbox';
+import styles from '@/components/examples/lightbox/lightbox-basic.module.css';
 
 const images = [
   {
@@ -28,7 +29,7 @@ export default function LightboxDemo() {
   return (
     <Lightbox>
       <Lightbox.Trigger asChild>
-        <button type="button" className="lightbox-trigger">
+        <button type="button" className={styles.trigger}>
           <img src={images[0].thumbnail} alt={images[0].alt} />
         </button>
       </Lightbox.Trigger>

@@ -4,7 +4,17 @@ component: lightbox
 description: Prévisualisation d’images dans une fenêtre modale basée sur le dialogue Ark UI.
 ---
 
-import * as LightboxDocs from '@/components/examples/lightbox';
+import * as LightboxDocs from '@/components/examples/lightbox/lightbox';
+import LightboxAdvancedCustomization from '../../en/docs/_snippets/lightbox/advanced-customization.tsx';
+import LightboxBasic from '../../en/docs/_snippets/lightbox/basic.tsx';
+import LightboxBindCmsContent from '../../en/docs/_snippets/lightbox/bind-cms-content.tsx';
+import LightboxClickToCloseImage from '../../en/docs/_snippets/lightbox/click-to-close-image.tsx';
+import LightboxControlled from '../../en/docs/_snippets/lightbox/controlled.tsx';
+import LightboxFocusAndIds from '../../en/docs/_snippets/lightbox/focus-and-ids.tsx';
+import LightboxGallery from '../../en/docs/_snippets/lightbox/gallery.tsx';
+import LightboxMultipleTriggers from '../../en/docs/_snippets/lightbox/multiple-triggers.tsx';
+import LightboxNonModal from '../../en/docs/_snippets/lightbox/non-modal.tsx';
+import LightboxRootProviderAndContext from '../../en/docs/_snippets/lightbox/root-provider-and-context.tsx';
 
 ## Référence de l’API
 
@@ -29,11 +39,26 @@ Composez explicitement la structure de dialogue Ark UI avec `Lightbox`, `Lightbo
 `Lightbox.Backdrop`, `Lightbox.Positioner` et `Lightbox.Content`. Avec `asChild`, fournissez un
 seul élément sémantique comme déclencheur.
 
-<style>{LightboxDocs.lightboxBasicCss}</style>
+<ExampleFrame variant="component">
+  <LightboxBasic />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/lightbox/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/lightbox/lightbox-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -164,33 +189,78 @@ lien sémantique comme élément ciblé par `selector` afin que son activation a
 qui ouvre la Lightbox. Si votre serveur renvoie déjà un tableau d’images structuré, préférez la
 composition `Lightbox.Gallery + Carousel` présentée plus haut.
 
-<style>{LightboxDocs.lightboxBindCmsContentCss}</style>
+<ExampleFrame variant="component">
+  <LightboxBindCmsContent />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/bind-cms-content.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/lightbox/bind-cms-content.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/lightbox/lightbox-bind-cms-content.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Fermer en cliquant sur l’image
 
 Utilisez `Lightbox.Image closeOnClick` si un clic sur l’image doit fermer la fenêtre. L’icône de
 fermeture reste disponible et conserve le comportement de fermeture d’Ark UI.
 
-<style>{LightboxDocs.lightboxClickToCloseImageCss}</style>
+<ExampleFrame variant="component">
+  <LightboxClickToCloseImage />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/click-to-close-image.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/lightbox/click-to-close-image.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/lightbox/lightbox-click-to-close-image.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### État contrôlé
 
 Utilisez la fonction `onOpenChange(details)` d’Ark lorsque l’état de la Lightbox doit être synchronisé
 avec React.
 
-<style>{LightboxDocs.lightboxControlledCss}</style>
+<ExampleFrame variant="component">
+  <LightboxControlled />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/controlled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/lightbox/controlled.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/lightbox/lightbox-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Focus et identifiants
 
@@ -199,11 +269,26 @@ explicites ou des identifiants stables pour des relations d’accessibilité gé
 La cible vers laquelle le focus revient est mise en évidence après la fermeture pour rendre ce passage
 visible.
 
-<style>{LightboxDocs.lightboxFocusAndIdsCss}</style>
+<ExampleFrame variant="component">
+  <LightboxFocusAndIds />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/focus-and-ids.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/lightbox/focus-and-ids.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/lightbox/lightbox-focus-and-ids.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Galerie
 
@@ -212,34 +297,52 @@ courante de `Carousel` dans l’état React, puis placez `Carousel` dans `Lightb
 `Lightbox.Trigger.value` pour choisir la diapositive initiale et synchronisez la page de `Carousel`
 pendant la navigation.
 
-<style>{LightboxDocs.lightboxGalleryExampleCss}</style>
+<ExampleFrame variant="component">
+  <LightboxGallery />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/gallery.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/lightbox/gallery.tsx"
 ```
 
-### Montage différé
+    </Tab>
+    <Tab value="Styles">
 
-Par défaut, les médias lourds sont montés à la première ouverture et démontés après la fermeture.
-`lazyMount` diffère le premier rendu, tandis que `unmountOnExit` supprime la fenêtre après la fin de
-l’animation de fermeture.
-
-<style>{LightboxDocs.lightboxLazyMountCss}</style>
-
-```tsx preview file="../../en/docs/_snippets/lightbox/lazy-mount.tsx"
-
+```css file="../../../src/components/examples/lightbox/lightbox-gallery.module.css"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Plusieurs déclencheurs
 
 Utilisez `Lightbox.Trigger.value` et `onTriggerValueChange(details)` pour les miniatures d’une galerie.
 Le composant ne maintient pas de registre d’images caché.
 
-<style>{LightboxDocs.lightboxMultipleTriggersCss}</style>
+<ExampleFrame variant="component">
+  <LightboxMultipleTriggers />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/multiple-triggers.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/lightbox/multiple-triggers.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/lightbox/lightbox-multiple-triggers.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Mode non modal
 
@@ -247,11 +350,26 @@ Définissez `modal={false}` lorsque la page doit rester interactive pendant l’
 alors le piège de focus et le blocage du défilement. N’ajoutez pas `Backdrop` afin que les actions en
 arrière-plan restent accessibles pendant l’affichage de l’image.
 
-<style>{LightboxDocs.lightboxNonModalCss}</style>
+<ExampleFrame variant="component">
+  <LightboxNonModal />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/non-modal.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/lightbox/non-modal.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/lightbox/lightbox-non-modal.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
@@ -259,11 +377,26 @@ Créez l’état avec `useLightbox()` lorsque le bouton d’ouverture se trouve 
 Dans un composant enfant, lisez cet état avec `useLightboxContext()`. Le bouton externe reste un
 `Button` moduix ordinaire.
 
-<style>{LightboxDocs.lightboxRootProviderCss}</style>
+<ExampleFrame variant="component">
+  <LightboxRootProviderAndContext />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/root-provider-and-context.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/lightbox/root-provider-and-context.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/lightbox/lightbox-root-provider-and-context.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Personnalisation avancée
 
@@ -271,11 +404,26 @@ N’utilisez pas les conteneurs de mise en page facultatifs lorsque la zone méd
 classes de slots et des remplacements de tokens. `Backdrop`, `Positioner` et `Content` restent
 explicites.
 
-<style>{LightboxDocs.lightboxAdvancedCustomizationCss}</style>
+<ExampleFrame variant="component">
+  <LightboxAdvancedCustomization />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/advanced-customization.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/lightbox/advanced-customization.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/lightbox/lightbox-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

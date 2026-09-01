@@ -4,7 +4,20 @@ component: listbox
 description: Listbox на базе Ark UI для выбора одного или нескольких элементов в списке, который остаётся открытым. Поддерживает фильтрацию и расширенный выбор с клавишами-модификаторами.
 ---
 
-import * as ListboxDocs from '@/components/examples/listbox';
+import * as ListboxDocs from '@/components/examples/listbox/listbox';
+import ListboxBasic from '../../en/docs/_snippets/listbox/basic.tsx';
+import ListboxControlled from '../../en/docs/_snippets/listbox/controlled.tsx';
+import ListboxDisabledItem from '../../en/docs/_snippets/listbox/disabled-item.tsx';
+import ListboxExtendedSelection from '../../en/docs/_snippets/listbox/extended-selection.tsx';
+import ListboxFiltering from '../../en/docs/_snippets/listbox/filtering.tsx';
+import ListboxGrid from '../../en/docs/_snippets/listbox/grid.tsx';
+import ListboxGrouping from '../../en/docs/_snippets/listbox/grouping.tsx';
+import ListboxHorizontal from '../../en/docs/_snippets/listbox/horizontal.tsx';
+import ListboxMultiple from '../../en/docs/_snippets/listbox/multiple.tsx';
+import ListboxRootProvider from '../../en/docs/_snippets/listbox/root-provider.tsx';
+import ListboxSelectAll from '../../en/docs/_snippets/listbox/select-all.tsx';
+import ListboxStandaloneFilterInput from '../../en/docs/_snippets/listbox/standalone-filter-input.tsx';
+import ListboxValueText from '../../en/docs/_snippets/listbox/value-text.tsx';
 
 ## Справочник API
 
@@ -22,11 +35,26 @@ import * as ListboxDocs from '@/components/examples/listbox';
 открытым. Передайте `collection`, добавьте `Listbox.Content`, а исходный элемент коллекции передайте в `Listbox.Item`
 через `item`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/listbox/basic.tsx"
+<ExampleFrame variant="component">
+  <ListboxBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/listbox/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/listbox/listbox-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -149,33 +177,78 @@ Ark обеспечивает ARIA-паттерн listbox, управление �
 
 Храните массив выбранных значений в состоянии React и обновляйте его из `details.value`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/listbox/controlled.tsx"
+<ExampleFrame variant="component">
+  <ListboxControlled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/listbox/controlled.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/listbox/listbox-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Отключённый элемент
 
 Отключайте отдельные элементы, задавая поле `disabled` у элемента коллекции или используя `isItemDisabled` при
 создании коллекции.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/listbox/disabled-item.tsx"
+<ExampleFrame variant="component">
+  <ListboxDisabledItem />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/listbox/disabled-item.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/listbox/listbox-disabled-item.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенный выбор
 
 Используйте `selectionMode="extended"`, если пользователям нужно выбирать несколько элементов с помощью
 клавиш-модификаторов.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/listbox/extended-selection.tsx"
+<ExampleFrame variant="component">
+  <ListboxExtendedSelection />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/listbox/extended-selection.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/listbox/listbox-extended-selection.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Фильтрация
 
@@ -183,11 +256,26 @@ Ark обеспечивает ARIA-паттерн listbox, управление �
 с расположенным ниже `Content` в один блок с рамкой. Отключите поиск по вводимым символам, когда текстовый ввод
 отвечает за поиск.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/listbox/filtering.tsx"
+<ExampleFrame variant="component">
+  <ListboxFiltering />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/listbox/filtering.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/listbox/listbox-filtering.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Сетка
 
@@ -195,84 +283,204 @@ Ark обеспечивает ARIA-паттерн listbox, управление �
 Ark добавляет `data-layout="grid"` и CSS-переменную `--column-count` в `Content`. В сетке используйте фон
 выбранного элемента вместо встроенного индикатора, чтобы ячейки оставались компактными.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/listbox/grid.tsx"
+<ExampleFrame variant="component">
+  <ListboxGrid />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/listbox/grid.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/listbox/listbox-grid.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Группировка
 
 Задайте `groupBy` при создании коллекции и отобразите `ItemGroup` вместе с `ItemGroupLabel`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/listbox/grouping.tsx"
+<ExampleFrame variant="component">
+  <ListboxGrouping />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/listbox/grouping.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/listbox/listbox-grouping.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Горизонтальная ориентация
 
 Установите `orientation="horizontal"`, чтобы расположить элементы по горизонтали и включить навигацию стрелками
 влево и вправо.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/listbox/horizontal.tsx"
+<ExampleFrame variant="component">
+  <ListboxHorizontal />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/listbox/horizontal.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/listbox/listbox-horizontal.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Множественный выбор
 
 Установите `selectionMode="multiple"`, чтобы выбирать несколько значений без клавиш-модификаторов.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/listbox/multiple.tsx"
+<ExampleFrame variant="component">
+  <ListboxMultiple />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/listbox/multiple.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/listbox/listbox-multiple.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Используйте `useListbox` из `@moduix/react/listbox` вместе с `Listbox.RootProvider`, когда элементам управления за
 пределами listbox нужен прямой доступ к его API.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/listbox/root-provider.tsx"
+<ExampleFrame variant="component">
+  <ListboxRootProvider />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/listbox/root-provider.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/listbox/listbox-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Выбрать всё
 
 Используйте `useListboxContext` внутри дочернего компонента, чтобы добавить внешнюю кнопку «Выбрать всё».
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/listbox/select-all.tsx"
+<ExampleFrame variant="component">
+  <ListboxSelectAll />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/listbox/select-all.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/listbox/listbox-select-all.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Отдельное поле фильтра
 
 Отображайте `Listbox.Input` напрямую, когда поле фильтра и результаты должны находиться в разных блоках. По умолчанию
 его рамка совпадает с рамкой `Listbox.Content`; при фокусе с клавиатуры анимируется только цвет контура.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/listbox/standalone-filter-input.tsx"
+<ExampleFrame variant="component">
+  <ListboxStandaloneFilterInput />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/listbox/standalone-filter-input.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/listbox/listbox-standalone-filter-input.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Текст значения
 
 Отображайте `Listbox.ValueText`, если подписи выбранных элементов должны оставаться видимыми рядом со списком.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/listbox/value-text.tsx"
+<ExampleFrame variant="component">
+  <ListboxValueText />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/listbox/value-text.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/listbox/listbox-value-text.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

@@ -2,6 +2,7 @@ import { Button } from '@moduix/react/button';
 import { Menu } from '@moduix/react/menu';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/menu/menu-controlled.module.css';
 
 export default function ControlledMenuDemo() {
   const [open, setOpen] = useState(false);
@@ -15,7 +16,7 @@ export default function ControlledMenuDemo() {
           </Button>
         </Menu.Trigger>
         <Menu.Positioner>
-          <Menu.Content className="menu-content">
+          <Menu.Content className={styles.content}>
             <Menu.Item value="edit">Edit</Menu.Item>
             <Menu.Item value="duplicate">Duplicate</Menu.Item>
             <Menu.Item value="archive">Archive</Menu.Item>

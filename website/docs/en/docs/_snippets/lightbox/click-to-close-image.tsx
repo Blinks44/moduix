@@ -1,4 +1,5 @@
 import { Lightbox } from '@moduix/react/lightbox';
+import styles from '@/components/examples/lightbox/lightbox-click-to-close-image.module.css';
 
 const images = [
   {
@@ -27,7 +28,7 @@ const images = [
 export default function ClickToCloseLightboxDemo() {
   return (
     <Lightbox>
-      <Lightbox.Trigger className="lightbox-button">Open click-to-close lightbox</Lightbox.Trigger>
+      <Lightbox.Trigger className={styles.button}>Open click-to-close lightbox</Lightbox.Trigger>
       <Lightbox.Backdrop />
       <Lightbox.Positioner>
         <Lightbox.CloseIcon />

@@ -1,30 +1,5 @@
-import type { CssPropertyInput } from '../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../mdx/reference';
-
-export const menuExampleCss = `
-  .menu-content {
-    --moduix-menu-popup-min-width: 13rem;
-  }
-
-  .menu-trigger-row {
-    display: flex;
-    justify-content: center;
-  }
-
-  .menu-context-trigger {
-    --moduix-menu-trigger-bg-hover: var(--moduix-color-muted);
-    --moduix-menu-trigger-bg-active: var(--moduix-color-muted);
-
-    width: 16rem;
-    min-height: 10rem;
-    border-style: dashed;
-  }
-
-  .menu-dialog-stack {
-    margin-block-start: var(--moduix-spacing-4);
-  }
-
-`;
+import type { CssPropertyInput } from '../../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
 const menuOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-menu-arrow-size', 'var(--moduix-spacing-2-5)', 'Controls Ark arrow size.'],

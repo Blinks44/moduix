@@ -2,6 +2,7 @@ import { Button } from '@moduix/react/button';
 import { Marquee, useMarquee } from '@moduix/react/marquee';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/marquee/marquee-programmatic-control.module.css';
 
 const partners = [
   {
@@ -54,12 +55,12 @@ export default function ProgrammaticMarqueeDemo() {
   };
 
   return (
-    <div className="marquee-stack">
-      <Marquee.RootProvider value={marquee} className="marquee-root">
+    <div className={styles.stack}>
+      <Marquee.RootProvider value={marquee} className={styles.root}>
         <Marquee.Viewport>
           <Marquee.Content>
             {partners.map((item) => (
-              <Marquee.Item key={item.name} className="marquee-item">
+              <Marquee.Item key={item.name} className={styles.item}>
                 <span>{item.mark}</span>
                 <span>{item.name}</span>
               </Marquee.Item>

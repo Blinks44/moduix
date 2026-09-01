@@ -1,0 +1,8 @@
+.button {
+  border: 0;
+  border-radius: var(--moduix-radius-md);
+  background: var(--moduix-color-muted);
+  padding: var(--moduix-spacing-3) var(--moduix-spacing-4);
+  color: var(--moduix-color-foreground);
+  font: inherit;
+}

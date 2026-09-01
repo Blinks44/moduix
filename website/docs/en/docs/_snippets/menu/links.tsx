@@ -1,5 +1,6 @@
 import { Button } from '@moduix/react/button';
 import { Menu } from '@moduix/react/menu';
+import styles from '@/components/examples/menu/menu-links.module.css';
 
 export default function LinkItemsMenuDemo() {
   return (
@@ -11,7 +12,7 @@ export default function LinkItemsMenuDemo() {
         </Button>
       </Menu.Trigger>
       <Menu.Positioner>
-        <Menu.Content className="menu-content">
+        <Menu.Content className={styles.content}>
           <Menu.Item value="docs" asChild>
             <a href="#menu-docs">Documentation</a>
           </Menu.Item>

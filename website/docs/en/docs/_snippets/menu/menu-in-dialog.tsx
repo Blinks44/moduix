@@ -1,6 +1,7 @@
 import { Button } from '@moduix/react/button';
 import { Dialog } from '@moduix/react/dialog';
 import { Menu } from '@moduix/react/menu';
+import styles from '@/components/examples/menu/menu-menu-in-dialog.module.css';
 
 export default function MenuInDialogDemo() {
   return (
@@ -16,7 +17,7 @@ export default function MenuInDialogDemo() {
             <Dialog.CloseIcon />
             <Dialog.Description>Choose an action without leaving the dialog.</Dialog.Description>
           </Dialog.Header>
-          <div className="menu-dialog-stack">
+          <div className={styles.stack}>
             <Menu portalled={false} positioning={{ strategy: 'fixed', hideWhenDetached: true }}>
               <Menu.Trigger asChild>
                 <Button variant="outline">

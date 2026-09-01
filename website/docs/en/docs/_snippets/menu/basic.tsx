@@ -1,5 +1,6 @@
 import { Button } from '@moduix/react/button';
 import { Menu } from '@moduix/react/menu';
+import styles from '@/components/examples/menu/menu-basic.module.css';
 
 const fileItems = [
   {
@@ -30,7 +31,7 @@ export default function MenuDemo() {
         </Button>
       </Menu.Trigger>
       <Menu.Positioner>
-        <Menu.Content className="menu-content">
+        <Menu.Content className={styles.content}>
           {fileItems.map((item) => (
             <Menu.Item key={item.value} value={item.value}>
               {item.label}

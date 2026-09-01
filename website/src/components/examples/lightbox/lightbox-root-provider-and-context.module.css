@@ -1,0 +1,11 @@
+.status {
+  position: absolute;
+  inset-block-end: var(--moduix-spacing-3);
+  inset-inline-start: 50%;
+  translate: -50% 0;
+  border-radius: var(--moduix-radius-sm);
+  background: rgb(0 0 0 / 0.65);
+  padding: var(--moduix-spacing-1) var(--moduix-spacing-2);
+  color: white;
+  font-size: var(--moduix-text-sm);
+}

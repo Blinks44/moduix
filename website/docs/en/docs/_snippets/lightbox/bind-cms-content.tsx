@@ -1,5 +1,6 @@
 import { Lightbox, type LightboxImageSelectDetails } from '@moduix/react/lightbox';
 import { useRef, useState } from 'react';
+import styles from '@/components/examples/lightbox/lightbox-bind-cms-content.module.css';
 
 const images = [
   {
@@ -30,15 +31,15 @@ export default function CmsLightboxDemo() {
   const [activeImage, setActiveImage] = useState(null as LightboxImageSelectDetails | null);
   return (
     <>
-      <div ref={rootRef} className="lightbox-gallery">
+      <div ref={rootRef} className={styles.gallery}>
         {images.map((image) => (
-          <button key={image.id} type="button" className="lightbox-gallery-trigger">
+          <button key={image.id} type="button" className={styles.galleryTrigger}>
             <img src={image.thumbnail} data-lightbox-src={image.src} alt={image.alt} />
           </button>
         ))}
       </div>
 
-      <Lightbox lazyMount unmountOnExit>
+      <Lightbox>
         <Lightbox.Bind rootRef={rootRef} selector="button" onImageSelect={setActiveImage} />
         <Lightbox.Backdrop />
         <Lightbox.Positioner>

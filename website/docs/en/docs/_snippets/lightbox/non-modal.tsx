@@ -2,6 +2,7 @@ import { Button } from '@moduix/react/button';
 import { Lightbox } from '@moduix/react/lightbox';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/lightbox/lightbox-non-modal.module.css';
 
 const images = [
   {
@@ -33,7 +34,7 @@ export default function NonModalLightboxDemo() {
   return (
     <>
       <Lightbox modal={false}>
-        <Lightbox.Trigger className="lightbox-button">Open non-modal lightbox</Lightbox.Trigger>
+        <Lightbox.Trigger className={styles.button}>Open non-modal lightbox</Lightbox.Trigger>
         <Lightbox.Positioner>
           <Lightbox.CloseIcon />
           <Lightbox.Content aria-label={images[2].alt}>

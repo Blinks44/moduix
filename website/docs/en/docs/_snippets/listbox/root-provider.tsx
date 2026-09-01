@@ -2,7 +2,7 @@ import { createListCollection } from '@ark-ui/react/collection';
 import { Button } from '@moduix/react/button';
 import { Listbox, useListbox } from '@moduix/react/listbox';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/listbox.module.css';
+import styles from '@/components/examples/listbox/listbox-root-provider.module.css';
 
 const priorities = createListCollection({
   items: [
@@ -30,7 +30,7 @@ export default function RootProviderListboxDemo() {
     collection: priorities,
   });
   return (
-    <div style={{ display: 'grid', gap: 'var(--moduix-spacing-3)' }}>
+    <div className={styles.stack}>
       <Listbox.RootProvider value={listbox} className={styles.root}>
         <Listbox.Label>Select priority</Listbox.Label>
         <Listbox.Content>

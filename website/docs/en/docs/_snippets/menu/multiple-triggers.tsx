@@ -1,5 +1,6 @@
 import { Menu } from '@moduix/react/menu';
 import { Map as MapIcon } from 'lucide-react';
+import styles from '@/components/examples/menu/menu-multiple-triggers.module.css';
 
 const messages = [
   {
@@ -22,7 +23,7 @@ const messages = [
 export default function MultipleTriggersMenuDemo() {
   return (
     <Menu>
-      <div style={{ display: 'flex', gap: '0.5rem' }}>
+      <div className={styles.triggers}>
         {messages.map((message) => (
           <Menu.Trigger
             key={message.id}
@@ -34,7 +35,7 @@ export default function MultipleTriggersMenuDemo() {
         ))}
       </div>
       <Menu.Positioner>
-        <Menu.Content className="menu-content">
+        <Menu.Content className={styles.content}>
           <Menu.Item value="reply">Reply</Menu.Item>
           <Menu.Item value="forward">Forward</Menu.Item>
           <Menu.Item value="archive">Archive</Menu.Item>

@@ -4,7 +4,20 @@ component: listbox
 description: A visible listbox for selecting one or more items, with optional filtering and extended selection.
 ---
 
-import * as ListboxDocs from '@/components/examples/listbox';
+import * as ListboxDocs from '@/components/examples/listbox/listbox';
+import ListboxBasic from './_snippets/listbox/basic.tsx';
+import ListboxControlled from './_snippets/listbox/controlled.tsx';
+import ListboxDisabledItem from './_snippets/listbox/disabled-item.tsx';
+import ListboxExtendedSelection from './_snippets/listbox/extended-selection.tsx';
+import ListboxFiltering from './_snippets/listbox/filtering.tsx';
+import ListboxGrid from './_snippets/listbox/grid.tsx';
+import ListboxGrouping from './_snippets/listbox/grouping.tsx';
+import ListboxHorizontal from './_snippets/listbox/horizontal.tsx';
+import ListboxMultiple from './_snippets/listbox/multiple.tsx';
+import ListboxRootProvider from './_snippets/listbox/root-provider.tsx';
+import ListboxSelectAll from './_snippets/listbox/select-all.tsx';
+import ListboxStandaloneFilterInput from './_snippets/listbox/standalone-filter-input.tsx';
+import ListboxValueText from './_snippets/listbox/value-text.tsx';
 
 ## API Reference
 
@@ -21,11 +34,26 @@ searching or entering a value.
 Use `Listbox` when users need to choose one or more items from a list that stays open. Pass a
 `collection`, render `Listbox.Content`, and pass each collection item to `Listbox.Item` through `item`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/listbox/basic.tsx"
+<ExampleFrame variant="component">
+  <ListboxBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/listbox/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/listbox/listbox-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -148,43 +176,103 @@ typeahead, Home/End behavior, disabled items, and orientation-specific arrow key
 
 Keep the selected string array in React state and update it from `details.value`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/listbox/controlled.tsx"
+<ExampleFrame variant="component">
+  <ListboxControlled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/listbox/controlled.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/listbox/listbox-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Disabled Item
 
 Disable individual items by setting the collection item's `disabled` field or by using
 `isItemDisabled` when you create the collection.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/listbox/disabled-item.tsx"
+<ExampleFrame variant="component">
+  <ListboxDisabledItem />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/listbox/disabled-item.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/listbox/listbox-disabled-item.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Extended Selection
 
 Use `selectionMode="extended"` when users need to select multiple items with platform modifier keys.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/listbox/extended-selection.tsx"
+<ExampleFrame variant="component">
+  <ListboxExtendedSelection />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/listbox/extended-selection.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/listbox/listbox-extended-selection.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Filtering
 
 Use `Listbox.Filter` with `useListCollection`. It adds the default search icon and visually joins the
 filter with the following `Content`; turn off typeahead when the input handles search.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/listbox/filtering.tsx"
+<ExampleFrame variant="component">
+  <ListboxFiltering />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/listbox/filtering.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/listbox/listbox-filtering.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Grid
 
@@ -192,83 +280,203 @@ Pass a collection created with `createGridCollection` to enable grid keyboard na
 `data-layout="grid"` and the `--column-count` CSS variable to `Content`. In grid layouts, use a
 selected background instead of an inline check indicator to keep cells compact.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/listbox/grid.tsx"
+<ExampleFrame variant="component">
+  <ListboxGrid />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/listbox/grid.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/listbox/listbox-grid.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Grouping
 
 Set `groupBy` when you create the collection and render `ItemGroup` with `ItemGroupLabel`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/listbox/grouping.tsx"
+<ExampleFrame variant="component">
+  <ListboxGrouping />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/listbox/grouping.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/listbox/listbox-grouping.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Horizontal
 
 Set `orientation="horizontal"` to lay out items horizontally and enable left/right arrow-key navigation.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/listbox/horizontal.tsx"
+<ExampleFrame variant="component">
+  <ListboxHorizontal />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/listbox/horizontal.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/listbox/listbox-horizontal.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Multiple
 
 Set `selectionMode="multiple"` to toggle multiple values without modifier keys.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/listbox/multiple.tsx"
+<ExampleFrame variant="component">
+  <ListboxMultiple />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/listbox/multiple.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/listbox/listbox-multiple.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Use `useListbox` from `@moduix/react/listbox` with `Listbox.RootProvider` when controls outside the
 listbox need direct access to its API.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/listbox/root-provider.tsx"
+<ExampleFrame variant="component">
+  <ListboxRootProvider />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/listbox/root-provider.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/listbox/listbox-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Select All
 
 Use `useListboxContext` inside a child component to add an external Select All button.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/listbox/select-all.tsx"
+<ExampleFrame variant="component">
+  <ListboxSelectAll />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/listbox/select-all.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/listbox/listbox-select-all.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Standalone Filter Input
 
 Render `Listbox.Input` directly when the filter and results should remain separate surfaces. Its
 default border matches `Listbox.Content`; on keyboard focus, only the outline color is animated.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/listbox/standalone-filter-input.tsx"
+<ExampleFrame variant="component">
+  <ListboxStandaloneFilterInput />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/listbox/standalone-filter-input.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/listbox/listbox-standalone-filter-input.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Value Text
 
 Render `Listbox.ValueText` when the selected-value summary should stay visible beside the list.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/listbox/value-text.tsx"
+<ExampleFrame variant="component">
+  <ListboxValueText />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/listbox/value-text.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/listbox/listbox-value-text.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

@@ -1,0 +1,12 @@
+@layer ui.docs {
+  .root {
+    --moduix-listbox-width: 16rem;
+    --moduix-listbox-root-gap: var(--moduix-spacing-3);
+    --moduix-listbox-content-max-height: 14rem;
+  }
+
+  .stack {
+    display: grid;
+    gap: var(--moduix-spacing-3);
+  }
+}

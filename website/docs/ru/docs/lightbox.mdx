@@ -4,7 +4,17 @@ component: lightbox
 description: Композиция на основе диалога Ark UI для модального просмотра изображений.
 ---
 
-import * as LightboxDocs from '@/components/examples/lightbox';
+import * as LightboxDocs from '@/components/examples/lightbox/lightbox';
+import LightboxAdvancedCustomization from '../../en/docs/_snippets/lightbox/advanced-customization.tsx';
+import LightboxBasic from '../../en/docs/_snippets/lightbox/basic.tsx';
+import LightboxBindCmsContent from '../../en/docs/_snippets/lightbox/bind-cms-content.tsx';
+import LightboxClickToCloseImage from '../../en/docs/_snippets/lightbox/click-to-close-image.tsx';
+import LightboxControlled from '../../en/docs/_snippets/lightbox/controlled.tsx';
+import LightboxFocusAndIds from '../../en/docs/_snippets/lightbox/focus-and-ids.tsx';
+import LightboxGallery from '../../en/docs/_snippets/lightbox/gallery.tsx';
+import LightboxMultipleTriggers from '../../en/docs/_snippets/lightbox/multiple-triggers.tsx';
+import LightboxNonModal from '../../en/docs/_snippets/lightbox/non-modal.tsx';
+import LightboxRootProviderAndContext from '../../en/docs/_snippets/lightbox/root-provider-and-context.tsx';
 
 ## Справочник API
 
@@ -29,11 +39,26 @@ import * as LightboxDocs from '@/components/examples/lightbox';
 `Lightbox.Backdrop`, `Lightbox.Positioner` и `Lightbox.Content`. С помощью `asChild` передайте
 один семантический элемент, который открывает окно просмотра.
 
-<style>{LightboxDocs.lightboxBasicCss}</style>
+<ExampleFrame variant="component">
+  <LightboxBasic />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/lightbox/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/lightbox/lightbox-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -162,32 +187,77 @@ Lightbox.RootProvider
 Если сервер уже возвращает структурированный массив изображений, используйте описанную выше
 композицию `Lightbox.Gallery + Carousel`.
 
-<style>{LightboxDocs.lightboxBindCmsContentCss}</style>
+<ExampleFrame variant="component">
+  <LightboxBindCmsContent />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/bind-cms-content.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/lightbox/bind-cms-content.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/lightbox/lightbox-bind-cms-content.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Закрытие по клику на изображение
 
 Используйте `Lightbox.Image closeOnClick`, если клик по изображению должен закрывать окно просмотра.
 Иконка закрытия остаётся доступной и сохраняет стандартную для Ark UI семантику закрытия.
 
-<style>{LightboxDocs.lightboxClickToCloseImageCss}</style>
+<ExampleFrame variant="component">
+  <LightboxClickToCloseImage />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/click-to-close-image.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/lightbox/click-to-close-image.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/lightbox/lightbox-click-to-close-image.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Управляемое состояние
 
 Используйте обработчик `onOpenChange(details)` из Ark UI, если состояние Lightbox нужно синхронизировать с React.
 
-<style>{LightboxDocs.lightboxControlledCss}</style>
+<ExampleFrame variant="component">
+  <LightboxControlled />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/controlled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/lightbox/controlled.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/lightbox/lightbox-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Фокус и идентификаторы
 
@@ -195,11 +265,26 @@ Lightbox.RootProvider
 фокус, или стабильные идентификаторы для внешних связей доступности. После закрытия целевой элемент
 подсвечивается, поэтому возврат фокуса легко заметить.
 
-<style>{LightboxDocs.lightboxFocusAndIdsCss}</style>
+<ExampleFrame variant="component">
+  <LightboxFocusAndIds />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/focus-and-ids.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/lightbox/focus-and-ids.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/lightbox/lightbox-focus-and-ids.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Галерея
 
@@ -208,34 +293,52 @@ Lightbox.RootProvider
 Используйте `Lightbox.Trigger.value`, чтобы выбрать начальный слайд, и синхронизируйте страницу
 `Carousel` во время навигации.
 
-<style>{LightboxDocs.lightboxGalleryExampleCss}</style>
+<ExampleFrame variant="component">
+  <LightboxGallery />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/gallery.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/lightbox/gallery.tsx"
 ```
 
-### Ленивое монтирование
+    </Tab>
+    <Tab value="Styles">
 
-Тяжёлый медиаконтент по умолчанию создаётся при первом открытии и удаляется после закрытия.
-`lazyMount` откладывает создание до первого открытия, а `unmountOnExit` удаляет модальное окно после
-завершения анимации закрытия.
-
-<style>{LightboxDocs.lightboxLazyMountCss}</style>
-
-```tsx preview file="../../en/docs/_snippets/lightbox/lazy-mount.tsx"
-
+```css file="../../../src/components/examples/lightbox/lightbox-gallery.module.css"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Несколько триггеров
 
 Используйте `Lightbox.Trigger.value` и `onTriggerValueChange(details)` для миниатюр галереи.
 Компонент не создаёт скрытый реестр изображений.
 
-<style>{LightboxDocs.lightboxMultipleTriggersCss}</style>
+<ExampleFrame variant="component">
+  <LightboxMultipleTriggers />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/multiple-triggers.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/lightbox/multiple-triggers.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/lightbox/lightbox-multiple-triggers.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Немодальный режим
 
@@ -243,11 +346,26 @@ Lightbox.RootProvider
 режиме Ark отключает удержание фокуса и блокировку прокрутки. Не добавляйте `Backdrop`, чтобы
 действия на фоне оставались доступными, пока изображение открыто.
 
-<style>{LightboxDocs.lightboxNonModalCss}</style>
+<ExampleFrame variant="component">
+  <LightboxNonModal />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/non-modal.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/lightbox/non-modal.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/lightbox/lightbox-non-modal.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
@@ -255,22 +373,52 @@ Lightbox.RootProvider
 компонента. В дочернем компоненте читайте это состояние через `useLightboxContext()`. Внешняя кнопка
 остаётся обычным компонентом `Button` из moduix.
 
-<style>{LightboxDocs.lightboxRootProviderCss}</style>
+<ExampleFrame variant="component">
+  <LightboxRootProviderAndContext />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/root-provider-and-context.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/lightbox/root-provider-and-context.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/lightbox/lightbox-root-provider-and-context.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
 Не используйте необязательные компоненты компоновки, если для медиаконтента нужны собственные классы
 слотов и переопределения токенов. `Backdrop`, `Positioner` и `Content` остаются явными.
 
-<style>{LightboxDocs.lightboxAdvancedCustomizationCss}</style>
+<ExampleFrame variant="component">
+  <LightboxAdvancedCustomization />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/advanced-customization.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/lightbox/advanced-customization.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/lightbox/lightbox-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

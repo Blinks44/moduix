@@ -1,4 +1,5 @@
 import { Marquee } from '@moduix/react/marquee';
+import styles from '@/components/examples/marquee/marquee-reverse.module.css';
 
 const partners = [
   {
@@ -29,11 +30,11 @@ const partners = [
 
 export default function ReverseMarqueeDemo() {
   return (
-    <Marquee aria-label="Partner logos" reverse className="marquee-root">
+    <Marquee aria-label="Partner logos" reverse className={styles.root}>
       <Marquee.Viewport>
         <Marquee.Content>
           {partners.map((item) => (
-            <Marquee.Item key={item.name} className="marquee-item">
+            <Marquee.Item key={item.name} className={styles.item}>
               <span>{item.mark}</span>
               <span>{item.name}</span>
             </Marquee.Item>

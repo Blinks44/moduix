@@ -1,5 +1,6 @@
 import { Button } from '@moduix/react/button';
 import { Menu } from '@moduix/react/menu';
+import styles from '@/components/examples/menu/menu-item-context.module.css';
 
 export default function ItemContextMenuDemo() {
   return (
@@ -11,7 +12,7 @@ export default function ItemContextMenuDemo() {
         </Button>
       </Menu.Trigger>
       <Menu.Positioner>
-        <Menu.Content className="menu-content">
+        <Menu.Content className={styles.content}>
           <Menu.Item value="profile">
             <Menu.ItemContext>
               {(item) => (

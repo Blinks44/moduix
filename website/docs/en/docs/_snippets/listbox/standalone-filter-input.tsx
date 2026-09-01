@@ -1,6 +1,6 @@
 import { useListCollection } from '@ark-ui/react/collection';
 import { Listbox } from '@moduix/react/listbox';
-import styles from '@/components/examples/listbox.module.css';
+import styles from '@/components/examples/listbox/listbox-standalone-filter-input.module.css';
 
 const frameworks = [
   {

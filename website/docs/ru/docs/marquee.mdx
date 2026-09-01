@@ -4,7 +4,17 @@ component: marquee
 description: Компонент на базе Ark UI для непрерывной прокрутки логотипов, объявлений и другого повторяющегося содержимого.
 ---
 
-import * as MarqueeDocs from '@/components/examples/marquee';
+import * as MarqueeDocs from '@/components/examples/marquee/marquee';
+import MarqueeAutoFill from '../../en/docs/_snippets/marquee/auto-fill.tsx';
+import MarqueeBasic from '../../en/docs/_snippets/marquee/basic.tsx';
+import MarqueeEdges from '../../en/docs/_snippets/marquee/edges.tsx';
+import MarqueeFiniteLoops from '../../en/docs/_snippets/marquee/finite-loops.tsx';
+import MarqueePauseOnInteraction from '../../en/docs/_snippets/marquee/pause-on-interaction.tsx';
+import MarqueeProgrammaticControl from '../../en/docs/_snippets/marquee/programmatic-control.tsx';
+import MarqueeReverse from '../../en/docs/_snippets/marquee/reverse.tsx';
+import MarqueeRtl from '../../en/docs/_snippets/marquee/rtl.tsx';
+import MarqueeSpeed from '../../en/docs/_snippets/marquee/speed.tsx';
+import MarqueeVertical from '../../en/docs/_snippets/marquee/vertical.tsx';
 
 ## Справочник API
 
@@ -15,15 +25,28 @@ import * as MarqueeDocs from '@/components/examples/marquee';
 Используйте короткую форму `Marquee` и явно соберите внутри неё `Viewport`, `Content` и `Item`. Если движущееся
 содержимое передаёт пользователю информацию, задайте метку через `aria-label` или `translations.root`. Компонент
 `Marquee` отвечает за поведение и необходимые стили анимации, но не оформляет отдельные элементы и не добавляет
-рамку. В примере стили элементов заданы отдельно, а `PreviewFrame` лишь ограничивает ширину области предпросмотра.
+рамку. В примере отдельно заданы стили элементов и ограничение ширины корневого элемента.
 
-<style>{MarqueeDocs.marqueeExampleCss}</style>
+<ExampleFrame variant="component">
+  <MarqueeBasic />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/marquee/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/marquee/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/marquee/marquee-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -124,116 +147,233 @@ Ark задаёт корневому элементу роль именованн
 Используйте `autoFill`, если содержимое короче области просмотра. Параметр `spacing` задаёт расстояние между
 повторяющимися копиями содержимого.
 
-<style>{MarqueeDocs.marqueeExampleCss}</style>
+<ExampleFrame variant="component">
+  <MarqueeAutoFill />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/marquee/auto-fill.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/marquee/auto-fill.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/marquee/marquee-auto-fill.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Затухание по краям
 
 Добавьте `Marquee.Edge` с нужных сторон, чтобы содержимое плавно исчезало на фоне страницы. Эта часть декоративна
 и не перехватывает события указателя.
 
-<style>{MarqueeDocs.marqueeExampleCss}</style>
+<ExampleFrame variant="component">
+  <MarqueeEdges />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/marquee/edges.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/marquee/edges.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/marquee/marquee-edges.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Ограниченное число циклов
 
 Задайте `loopCount`, чтобы ограничить число повторов. `onLoopComplete` вызывается после каждого цикла, а
 `onComplete` после последнего.
 
-<style>{MarqueeDocs.marqueeExampleCss}</style>
+<ExampleFrame variant="component">
+  <MarqueeFiniteLoops />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/marquee/finite-loops.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/marquee/finite-loops.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/marquee/marquee-finite-loops.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Пауза при взаимодействии
 
 Используйте `pauseOnInteraction`, чтобы приостанавливать прокрутку, когда пользователь наводит указатель на компонент
 или переводит фокус на его содержимое.
 
-<style>{MarqueeDocs.marqueeExampleCss}</style>
+<ExampleFrame variant="component">
+  <MarqueePauseOnInteraction />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/marquee/pause-on-interaction.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/marquee/pause-on-interaction.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/marquee/marquee-pause-on-interaction.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Используйте `useMarquee()` из moduix вместе с `Marquee.RootProvider`, когда внешним элементам управления нужно
 приостанавливать, возобновлять или перезапускать прокрутку.
 
-<style>{MarqueeDocs.marqueeExampleCss}</style>
+<ExampleFrame variant="component">
+  <MarqueeProgrammaticControl />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/marquee/programmatic-control.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/marquee/programmatic-control.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/marquee/marquee-programmatic-control.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Обратное направление
 
 Используйте `reverse`, когда содержимое должно двигаться в обратном направлении относительно `side`, не меняя
 ориентацию.
 
-<style>{MarqueeDocs.marqueeExampleCss}</style>
+<ExampleFrame variant="component">
+  <MarqueeReverse />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/marquee/reverse.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/marquee/reverse.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/marquee/marquee-reverse.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Справа налево
 
 Оберните бегущую строку в `LocaleProvider` с RTL-локалью. Тогда логические стороны `start` и `end` будут следовать
 направлению текста.
 
-<style>{MarqueeDocs.marqueeExampleCss}</style>
+<ExampleFrame variant="component">
+  <MarqueeRtl />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/marquee/rtl.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/marquee/rtl.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/marquee/marquee-rtl.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Скорость
 
 Задайте скорость через `speed`, указав число пикселей в секунду. При меньшей скорости содержимое легче читать.
 
-<style>{MarqueeDocs.marqueeExampleCss}</style>
+<ExampleFrame variant="component">
+  <MarqueeSpeed />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/marquee/speed.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/marquee/speed.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/marquee/marquee-speed.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Вертикальная ориентация
 
 Задайте `side="top"` или `side="bottom"`, чтобы прокручивать содержимое вертикально. По умолчанию корневой
 элемент использует `--moduix-marquee-vertical-height`, поэтому область просмотра получает стабильную высоту.
 
-<style>{MarqueeDocs.marqueeVerticalCss}</style>
+<ExampleFrame variant="component">
+  <MarqueeVertical />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/marquee/vertical.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/marquee/vertical.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/marquee/marquee-vertical.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

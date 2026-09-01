@@ -7,6 +7,7 @@ import {
   TrafficCone as TrafficConeIcon,
 } from 'lucide-react';
 import { useState } from 'react';
+import styles from '@/components/examples/menu/menu-indicator-placement.module.css';
 
 export default function IndicatorRightMenuDemo() {
   const [showSearch, setShowSearch] = useState(true);
@@ -22,7 +23,7 @@ export default function IndicatorRightMenuDemo() {
         </Button>
       </Menu.Trigger>
       <Menu.Positioner>
-        <Menu.Content className="menu-content">
+        <Menu.Content className={styles.content}>
           <Menu.CheckboxItem
             checked={showSearch}
             value="search"

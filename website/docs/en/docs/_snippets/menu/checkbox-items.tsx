@@ -1,6 +1,7 @@
 import { Button } from '@moduix/react/button';
 import { Menu } from '@moduix/react/menu';
 import { useState } from 'react';
+import styles from '@/components/examples/menu/menu-checkbox-items.module.css';
 
 export default function CheckboxItemsMenuDemo() {
   const [showToolbar, setShowToolbar] = useState(true);
@@ -16,7 +17,7 @@ export default function CheckboxItemsMenuDemo() {
         </Button>
       </Menu.Trigger>
       <Menu.Positioner>
-        <Menu.Content className="menu-content">
+        <Menu.Content className={styles.content}>
           <Menu.CheckboxItem checked={showToolbar} value="toolbar" onCheckedChange={setShowToolbar}>
             <Menu.ItemIndicator />
             <Menu.ItemText>Show Toolbar</Menu.ItemText>

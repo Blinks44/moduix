@@ -1,7 +1,7 @@
 import { useListCollection } from '@ark-ui/react/collection';
 import { Listbox } from '@moduix/react/listbox';
 import { useState } from 'react';
-import styles from '@/components/examples/listbox.module.css';
+import styles from '@/components/examples/listbox/listbox-filtering.module.css';
 
 const frameworks = [
   {

@@ -1,5 +1,6 @@
 import { Marquee } from '@moduix/react/marquee';
 import { useState } from 'react';
+import styles from '@/components/examples/marquee/marquee-finite-loops.module.css';
 
 const partners = [
   {
@@ -32,18 +33,18 @@ export default function FiniteLoopsMarqueeDemo() {
   const [loops, setLoops] = useState(0);
   const [completed, setCompleted] = useState(0);
   return (
-    <div className="marquee-stack">
+    <div className={styles.stack}>
       <Marquee
         aria-label="Partner logos"
         loopCount={3}
         onLoopComplete={() => setLoops((value) => value + 1)}
         onComplete={() => setCompleted((value) => value + 1)}
-        className="marquee-root"
+        className={styles.root}
       >
         <Marquee.Viewport>
           <Marquee.Content>
             {partners.map((item) => (
-              <Marquee.Item key={item.name} className="marquee-item">
+              <Marquee.Item key={item.name} className={styles.item}>
                 <span>{item.mark}</span>
                 <span>{item.name}</span>
               </Marquee.Item>
@@ -51,7 +52,7 @@ export default function FiniteLoopsMarqueeDemo() {
           </Marquee.Content>
         </Marquee.Viewport>
       </Marquee>
-      <div className="marquee-status">
+      <div className={styles.status}>
         <span>Loops: {loops}</span>
         <span>Completed: {completed}</span>
       </div>

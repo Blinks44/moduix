@@ -1,5 +1,6 @@
 import { Button } from '@moduix/react/button';
 import { Menu } from '@moduix/react/menu';
+import styles from '@/components/examples/menu/menu-nested.module.css';
 
 export default function NestedMenuDemo() {
   return (
@@ -11,7 +12,7 @@ export default function NestedMenuDemo() {
         </Button>
       </Menu.Trigger>
       <Menu.Positioner>
-        <Menu.Content className="menu-content">
+        <Menu.Content className={styles.content}>
           <Menu.Item value="open">Open...</Menu.Item>
           <Menu.Item value="save">Save</Menu.Item>
           <Menu>
@@ -20,7 +21,7 @@ export default function NestedMenuDemo() {
               <Menu.TriggerItemIcon />
             </Menu.TriggerItem>
             <Menu.Positioner>
-              <Menu.Content className="menu-content">
+              <Menu.Content className={styles.content}>
                 <Menu.Item value="email">Email</Menu.Item>
                 <Menu.Item value="message">Message</Menu.Item>
                 <Menu.Item value="copy-link">Copy Link</Menu.Item>

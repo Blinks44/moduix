@@ -2,12 +2,13 @@ import { Button } from '@moduix/react/button';
 import { Menu } from '@moduix/react/menu';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/menu/menu-select-event.module.css';
 
 export default function SelectEventMenuDemo() {
   const [selected, setSelected] = useState('Nothing selected');
   return (
     <div>
-      <div className="menu-trigger-row">
+      <div className={styles.triggerRow}>
         <Menu onSelect={(details) => setSelected(details.value)}>
           <Menu.Trigger asChild>
             <Button>
@@ -16,7 +17,7 @@ export default function SelectEventMenuDemo() {
             </Button>
           </Menu.Trigger>
           <Menu.Positioner>
-            <Menu.Content className="menu-content">
+            <Menu.Content className={styles.content}>
               <Menu.Item value="edit">Edit</Menu.Item>
               <Menu.Item value="duplicate">Duplicate</Menu.Item>
               <Menu.Item value="archive">Archive</Menu.Item>

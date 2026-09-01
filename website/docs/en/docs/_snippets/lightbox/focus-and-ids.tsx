@@ -2,6 +2,7 @@ import { Button } from '@moduix/react/button';
 import { Lightbox } from '@moduix/react/lightbox';
 import { useRef, useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/lightbox/lightbox-focus-and-ids.module.css';
 
 const images = [
   {
@@ -47,12 +48,12 @@ export default function FocusLightboxDemo() {
           title: 'lightbox-focus-title',
         }}
       >
-        <Lightbox.Trigger className="lightbox-button">Open focus-managed lightbox</Lightbox.Trigger>
+        <Lightbox.Trigger className={styles.button}>Open focus-managed lightbox</Lightbox.Trigger>
         <Lightbox.Backdrop />
         <Lightbox.Positioner>
           <Lightbox.CloseIcon ref={closeRef} />
           <Lightbox.Content>
-            <Lightbox.Title className="lightbox-status">Mountain ridge at sunset</Lightbox.Title>
+            <Lightbox.Title className={styles.status}>Mountain ridge at sunset</Lightbox.Title>
             <Lightbox.Image src={images[0].src} alt={images[0].alt} />
           </Lightbox.Content>
         </Lightbox.Positioner>
@@ -65,7 +66,7 @@ export default function FocusLightboxDemo() {
         </output>
         <Button
           ref={triggerRef}
-          className="lightbox-focus-target"
+          className={styles.focusTarget}
           data-focus-returned={focusReturned ? '' : undefined}
           onFocus={() => setFocusReturned(true)}
         >

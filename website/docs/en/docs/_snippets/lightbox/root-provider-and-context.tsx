@@ -1,5 +1,6 @@
 import { Button } from '@moduix/react/button';
 import { Lightbox, useLightbox, useLightboxContext } from '@moduix/react/lightbox';
+import styles from '@/components/examples/lightbox/lightbox-root-provider-and-context.module.css';
 
 const images = [
   {
@@ -27,7 +28,7 @@ const images = [
 
 function LightboxStatus() {
   const dialog = useLightboxContext();
-  return <output className="lightbox-status">Preview is {dialog.open ? 'open' : 'closed'}</output>;
+  return <output className={styles.status}>Preview is {dialog.open ? 'open' : 'closed'}</output>;
 }
 
 export default function LightboxStateDemo() {

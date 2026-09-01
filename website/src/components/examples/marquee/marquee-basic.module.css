@@ -1,0 +1,19 @@
+.root {
+  width: min(32rem, 100%);
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--moduix-spacing-2);
+  min-width: max-content;
+  padding: var(--moduix-spacing-2) var(--moduix-spacing-3);
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-md);
+  background-color: var(--moduix-color-muted);
+  color: var(--moduix-color-foreground);
+  font-size: var(--moduix-text-sm);
+  font-weight: var(--moduix-weight-medium);
+  line-height: var(--moduix-line-height-text-sm);
+  white-space: nowrap;
+}

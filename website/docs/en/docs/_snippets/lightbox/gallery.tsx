@@ -1,6 +1,7 @@
 import { Carousel } from '@moduix/react/carousel';
 import { Lightbox } from '@moduix/react/lightbox';
 import { useState } from 'react';
+import styles from '@/components/examples/lightbox/lightbox-gallery.module.css';
 
 const images = [
   {
@@ -36,10 +37,10 @@ export default function GalleryLightboxDemo() {
         setActiveIndex(nextIndex >= 0 ? nextIndex : 0);
       }}
     >
-      <div className="lightbox-gallery">
+      <div className={styles.gallery}>
         {images.map((image) => (
           <Lightbox.Trigger key={image.id} value={image.id} asChild>
-            <button type="button" className="lightbox-gallery-trigger">
+            <button type="button" className={styles.galleryTrigger}>
               <img src={image.thumbnail} alt={image.alt} />
             </button>
           </Lightbox.Trigger>

@@ -4,7 +4,14 @@ component: list
 description: Семантический список с настраиваемыми отступами, типографикой, цветом и нативными маркерами.
 ---
 
-import * as ListDocs from '@/components/examples/list';
+import * as ListDocs from '@/components/examples/list/list';
+import ListBasic from '../../en/docs/_snippets/list/basic.tsx';
+import ListCustomComposition from '../../en/docs/_snippets/list/custom-composition.tsx';
+import ListMarkerless from '../../en/docs/_snippets/list/markerless.tsx';
+import ListNativeItems from '../../en/docs/_snippets/list/native-items.tsx';
+import ListOrdered from '../../en/docs/_snippets/list/ordered.tsx';
+import ListRootAsChild from '../../en/docs/_snippets/list/root-as-child.tsx';
+import ListTone from '../../en/docs/_snippets/list/tone.tsx';
 
 ## Справочник API
 
@@ -28,9 +35,20 @@ import * as ListDocs from '@/components/examples/list';
 элемента и его хуки стилизации, или передавайте обычные `<li>`, когда дополнительная обёртка не нужна.
 Корневой `List` управляет отступами, типографикой, цветом и маркерами.
 
-```tsx preview file="../../en/docs/_snippets/list/basic.tsx"
+<ExampleFrame variant="component">
+  <ListBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/list/basic.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -100,43 +118,102 @@ List / List.Root
 Используйте `List asChild`, когда компонент из вашего приложения должен сам отрисовать семантический элемент списка.
 Он должен передать полученные props и ref одному `<ul>` или `<ol>`.
 
-```tsx preview file="../../en/docs/_snippets/list/root-as-child.tsx"
+<ExampleFrame variant="component">
+  <ListRootAsChild />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/list/root-as-child.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Без маркеров
 
 Используйте `marker="none"`, если нужна семантика списка без видимых маркеров.
 
-```tsx preview file="../../en/docs/_snippets/list/markerless.tsx"
+<ExampleFrame variant="component">
+  <ListMarkerless />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/list/markerless.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Нативные элементы
 
 Используйте нативные `li`, если вам не нужна экспортируемая часть `List.Item`.
 
-```tsx preview file="../../en/docs/_snippets/list/native-items.tsx"
+<ExampleFrame variant="component">
+  <ListNativeItems />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/list/native-items.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Упорядоченный список
 
 Используйте `as="ol"`, чтобы отрисовать упорядоченный список и сохранить стилизацию корневого элемента moduix.
 
-```tsx preview file="../../en/docs/_snippets/list/ordered.tsx"
+<ExampleFrame variant="component">
+  <ListOrdered />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/list/ordered.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Тон
 
 Используйте `tone`, чтобы задать семантический цвет текста и маркеров списка.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/list/tone.tsx"
+<ExampleFrame variant="component">
+  <ListTone />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/list/tone.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/list/list-tone.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
@@ -144,9 +221,26 @@ List / List.Root
 полученные props и ref и сохранить семантический элемент `<li>`. Во всех остальных случаях достаточно
 `List.Item className`.
 
-```tsx preview file="../../en/docs/_snippets/list/custom-composition.tsx"
+<ExampleFrame variant="component">
+  <ListCustomComposition />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/list/custom-composition.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/list/list-custom-composition.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

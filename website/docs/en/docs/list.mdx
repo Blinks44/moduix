@@ -4,7 +4,14 @@ component: list
 description: A semantic list with configurable spacing, typography, tones, and native markers.
 ---
 
-import * as ListDocs from '@/components/examples/list';
+import * as ListDocs from '@/components/examples/list/list';
+import ListBasic from './_snippets/list/basic.tsx';
+import ListCustomComposition from './_snippets/list/custom-composition.tsx';
+import ListMarkerless from './_snippets/list/markerless.tsx';
+import ListNativeItems from './_snippets/list/native-items.tsx';
+import ListOrdered from './_snippets/list/ordered.tsx';
+import ListRootAsChild from './_snippets/list/root-as-child.tsx';
+import ListTone from './_snippets/list/tone.tsx';
 
 ## API Reference
 
@@ -28,9 +35,20 @@ If users need to navigate with the keyboard and select one or more options, use 
 styling hooks, or use native `<li>` children when you do not need the wrapper. The root controls spacing,
 typography, tone, and markers.
 
-```tsx preview file="./_snippets/list/basic.tsx"
+<ExampleFrame variant="component">
+  <ListBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/list/basic.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -98,52 +116,128 @@ The props below apply to the `List` root. `List.Item` accepts native `li` props 
 Use `List asChild` when a component from your application must render the semantic list element. It must
 forward the received props and ref to one `<ul>` or `<ol>`.
 
-```tsx preview file="./_snippets/list/root-as-child.tsx"
+<ExampleFrame variant="component">
+  <ListRootAsChild />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/list/root-as-child.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Markerless
 
 Use `marker="none"` when you need list semantics without visible markers.
 
-```tsx preview file="./_snippets/list/markerless.tsx"
+<ExampleFrame variant="component">
+  <ListMarkerless />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/list/markerless.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Native Items
 
 Use native `li` elements when you do not need the exported `List.Item` part.
 
-```tsx preview file="./_snippets/list/native-items.tsx"
+<ExampleFrame variant="component">
+  <ListNativeItems />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/list/native-items.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Ordered
 
 Use `as="ol"` to render an ordered list while keeping the styling applied by the moduix root.
 
-```tsx preview file="./_snippets/list/ordered.tsx"
+<ExampleFrame variant="component">
+  <ListOrdered />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/list/ordered.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Tone
 
 Use `tone` to apply a semantic text and marker color to the list.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/list/tone.tsx"
+<ExampleFrame variant="component">
+  <ListTone />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/list/tone.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/list/list-tone.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Use `List.Item asChild` when a custom component must render the `<li>` itself. It must forward the received
 props and ref and preserve the semantic `<li>` element. In other cases, use `List.Item className` directly.
 
-```tsx preview file="./_snippets/list/custom-composition.tsx"
+<ExampleFrame variant="component">
+  <ListCustomComposition />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/list/custom-composition.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/list/list-custom-composition.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

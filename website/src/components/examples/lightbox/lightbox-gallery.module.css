@@ -1,0 +1,25 @@
+.gallery {
+  display: grid;
+  width: min(36rem, calc(100vw - var(--moduix-spacing-10)));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--moduix-spacing-3);
+}
+
+.galleryTrigger {
+  display: block;
+  margin: 0;
+  width: 100%;
+  border: 0;
+  border-radius: var(--moduix-radius-sm);
+  padding: 0;
+  background: transparent;
+  cursor: zoom-in;
+
+  & img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: inherit;
+    object-fit: cover;
+  }
+}

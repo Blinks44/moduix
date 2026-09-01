@@ -4,7 +4,17 @@ component: marquee
 description: A continuous scroller for logos, announcements, and other repeated content, built on Ark UI.
 ---
 
-import * as MarqueeDocs from '@/components/examples/marquee';
+import * as MarqueeDocs from '@/components/examples/marquee/marquee';
+import MarqueeAutoFill from './_snippets/marquee/auto-fill.tsx';
+import MarqueeBasic from './_snippets/marquee/basic.tsx';
+import MarqueeEdges from './_snippets/marquee/edges.tsx';
+import MarqueeFiniteLoops from './_snippets/marquee/finite-loops.tsx';
+import MarqueePauseOnInteraction from './_snippets/marquee/pause-on-interaction.tsx';
+import MarqueeProgrammaticControl from './_snippets/marquee/programmatic-control.tsx';
+import MarqueeReverse from './_snippets/marquee/reverse.tsx';
+import MarqueeRtl from './_snippets/marquee/rtl.tsx';
+import MarqueeSpeed from './_snippets/marquee/speed.tsx';
+import MarqueeVertical from './_snippets/marquee/vertical.tsx';
 
 ## API Reference
 
@@ -15,15 +25,28 @@ import * as MarqueeDocs from '@/components/examples/marquee';
 Use the short `Marquee` root and compose `Viewport`, `Content`, and `Item` inside it. Add
 `aria-label` or `translations.root` when the moving content conveys information. `Marquee`
 provides the behavior and required animation styles, but it does not style individual items or add a
-frame. The example styles its items separately, while `PreviewFrame` only limits the preview width.
+frame. The example styles its items and limits the root width separately.
 
-<style>{MarqueeDocs.marqueeExampleCss}</style>
+<ExampleFrame variant="component">
+  <MarqueeBasic />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/marquee/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/marquee/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/marquee/marquee-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -126,115 +149,232 @@ Refs on every wrapped part are forwarded to the underlying Ark DOM element.
 Use `autoFill` when the available content is shorter than the viewport. `spacing` controls the gap
 between duplicated content instances.
 
-<style>{MarqueeDocs.marqueeExampleCss}</style>
+<ExampleFrame variant="component">
+  <MarqueeAutoFill />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/marquee/auto-fill.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/marquee/auto-fill.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/marquee/marquee-auto-fill.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Edge fades
 
 Add `Marquee.Edge` on the sides that should fade into the page background. The edge part is
 decorative and does not receive pointer events.
 
-<style>{MarqueeDocs.marqueeExampleCss}</style>
+<ExampleFrame variant="component">
+  <MarqueeEdges />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/marquee/edges.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/marquee/edges.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/marquee/marquee-edges.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Finite Loops
 
 Set `loopCount` for finite playback. `onLoopComplete` fires after each loop and `onComplete` fires
 after the final loop.
 
-<style>{MarqueeDocs.marqueeExampleCss}</style>
+<ExampleFrame variant="component">
+  <MarqueeFiniteLoops />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/marquee/finite-loops.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/marquee/finite-loops.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/marquee/marquee-finite-loops.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Pause on Interaction
 
 Use `pauseOnInteraction` to pause while the user hovers the marquee or focuses content inside it.
 
-<style>{MarqueeDocs.marqueeExampleCss}</style>
+<ExampleFrame variant="component">
+  <MarqueePauseOnInteraction />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/marquee/pause-on-interaction.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/marquee/pause-on-interaction.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/marquee/marquee-pause-on-interaction.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Use moduix `useMarquee()` with `Marquee.RootProvider` when external controls need to pause, resume,
 or restart playback.
 
-<style>{MarqueeDocs.marqueeExampleCss}</style>
+<ExampleFrame variant="component">
+  <MarqueeProgrammaticControl />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/marquee/programmatic-control.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/marquee/programmatic-control.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/marquee/marquee-programmatic-control.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Reverse
 
 Use `reverse` when the content should move opposite the configured side without changing
 orientation.
 
-<style>{MarqueeDocs.marqueeExampleCss}</style>
+<ExampleFrame variant="component">
+  <MarqueeReverse />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/marquee/reverse.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/marquee/reverse.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/marquee/marquee-reverse.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Right to left
 
 Wrap the marquee in `LocaleProvider` with an RTL locale. Logical `start` and `end` edges then follow
 the configured direction.
 
-<style>{MarqueeDocs.marqueeExampleCss}</style>
+<ExampleFrame variant="component">
+  <MarqueeRtl />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/marquee/rtl.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/marquee/rtl.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/marquee/marquee-rtl.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Speed
 
 Control motion with `speed`, measured in pixels per second. Lower values are easier to read.
 
-<style>{MarqueeDocs.marqueeExampleCss}</style>
+<ExampleFrame variant="component">
+  <MarqueeSpeed />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/marquee/speed.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/marquee/speed.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/marquee/marquee-speed.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Vertical
 
 Set `side="top"` or `side="bottom"` for vertical marquees. The root uses
 `--moduix-marquee-vertical-height` by default so the viewport has a stable block size.
 
-<style>{MarqueeDocs.marqueeVerticalCss}</style>
+<ExampleFrame variant="component">
+  <MarqueeVertical />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/marquee/vertical.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/marquee/vertical.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/marquee/marquee-vertical.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 
