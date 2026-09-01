@@ -4,7 +4,15 @@ component: qr-code
 description: Un composant de code QR fondé sur Ark UI qui produit un SVG, prend en charge les superpositions et permet de télécharger le code comme image.
 ---
 
-import * as QrCodeDocs from '@/components/examples/qr-code';
+import QrCodeBasic from '../../en/docs/_snippets/qr-code/basic.tsx';
+import ControlledQrCode from '../../en/docs/_snippets/qr-code/controlled.tsx';
+import DownloadQrCode from '../../en/docs/_snippets/qr-code/download.tsx';
+import ErrorCorrectionQrCode from '../../en/docs/_snippets/qr-code/error-correction.tsx';
+import FillQrCode from '../../en/docs/_snippets/qr-code/fill.tsx';
+import InputQrCode from '../../en/docs/_snippets/qr-code/input.tsx';
+import OverlayQrCode from '../../en/docs/_snippets/qr-code/overlay.tsx';
+import RootProviderQrCode from '../../en/docs/_snippets/qr-code/root-provider.tsx';
+import * as QrCodeDocs from '@/components/examples/qr-code/qr-code';
 
 ## Référence de l’API
 
@@ -16,11 +24,20 @@ Pour le cas courant, utilisez `QrCode`. Passez le contenu à encoder dans `defau
 explicitement `QrCode.Frame` et `QrCode.Pattern` pour rendre le SVG généré. Donnez un nom accessible
 à `QrCode.Frame` lorsque le code QR transmet une information.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/qr-code/basic.tsx"
+<ExampleFrame variant="component">
+  <QrCodeBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/qr-code/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -116,22 +133,46 @@ Le SVG est un contenu visuel. Lorsque le code QR transmet une information, ajout
 Contrôlez `value` lorsque le code QR doit suivre une destination sélectionnée ou un autre état de
 l’application.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/qr-code/controlled.tsx"
+<ExampleFrame variant="component">
+  <ControlledQrCode />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/qr-code/controlled.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/qr-code/component-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Téléchargement
 
 Ajoutez `QrCode.DownloadTrigger` lorsque les utilisateurs doivent enregistrer le code généré sous forme
 d’image. Définissez `fileName` et `mimeType` sur le déclencheur.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/qr-code/download.tsx"
+<ExampleFrame variant="component">
+  <DownloadQrCode />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/qr-code/download.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Correction d’erreurs
 
@@ -144,33 +185,78 @@ risque d’être rayé ou déformé.
 - `Q` : récupère jusqu’à 25 %.
 - `H` : récupère jusqu’à 30 %.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/qr-code/error-correction.tsx"
+<ExampleFrame variant="component">
+  <ErrorCorrectionQrCode />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/qr-code/error-correction.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/qr-code/component-error-correction.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Remplissage
 
 Les modules du code QR utilisent `currentColor` par défaut. Modifiez le remplissage du SVG avec
 `style`, une classe ou la variable `--moduix-qr-code-fill`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/qr-code/fill.tsx"
+<ExampleFrame variant="component">
+  <FillQrCode />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/qr-code/fill.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/qr-code/component-fill.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Champ de saisie
 
 Liez `value` à un champ de texte lorsque les utilisateurs doivent saisir ou modifier le contenu encodé
 dans le code QR. Donnez à `QrCode.Frame` un nom accessible qui explique ce que représente le code.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/qr-code/input.tsx"
+<ExampleFrame variant="component">
+  <InputQrCode />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/qr-code/input.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/qr-code/component-input.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Superposition
 
@@ -178,22 +264,46 @@ Utilisez `QrCode.Overlay` pour un petit logo ou une marque textuelle. Définisse
 correction d’erreurs et gardez la superposition assez petite pour que les scanners puissent toujours
 lire le code.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/qr-code/overlay.tsx"
+<ExampleFrame variant="component">
+  <OverlayQrCode />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/qr-code/overlay.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/qr-code/component-overlay.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Créez l’état du code QR avec `useQrCode()` lorsqu’il doit être partagé avec des contrôles situés en
 dehors de l’arbre du code QR, puis transmettez cet état à `QrCode.RootProvider`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/qr-code/root-provider.tsx"
+<ExampleFrame variant="component">
+  <RootProviderQrCode />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/qr-code/root-provider.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

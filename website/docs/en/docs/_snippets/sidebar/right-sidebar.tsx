@@ -8,41 +8,16 @@ import {
   Settings,
   SlidersHorizontal,
 } from 'lucide-react';
+import styles from '@/components/examples/sidebar/sidebar-right-sidebar.module.css';
 
 export default function RightSidebar() {
   return (
-    <Sidebar
-      side="right"
-      style={{
-        borderRadius: 'var(--moduix-radius-lg)',
-        boxShadow: 'var(--moduix-shadow-sm)',
-        height: '34rem',
-        minHeight: '28rem',
-      }}
-    >
+    <Sidebar side="right" className={styles.root}>
       <Sidebar.Inset>
-        <header
-          style={{
-            alignItems: 'center',
-            borderBlockEnd: '1px solid var(--moduix-color-border)',
-            display: 'flex',
-            minHeight: '3.5rem',
-            paddingInline: '1.5rem',
-          }}
-        >
-          Dashboard
-        </header>
-        <main style={{ display: 'grid', gap: '1rem', padding: '1.5rem' }}>
+        <header className={styles.header}>Dashboard</header>
+        <main className={styles.content}>
           <strong>Page settings</strong>
-          <section
-            style={{
-              border: '1px solid var(--moduix-color-border)',
-              borderRadius: 'var(--moduix-radius-md)',
-              padding: '1rem',
-            }}
-          >
-            Select an Inspector tool to edit this page.
-          </section>
+          <section className={styles.card}>Select an Inspector tool to edit this page.</section>
         </main>
       </Sidebar.Inset>
       <Sidebar.Trigger />

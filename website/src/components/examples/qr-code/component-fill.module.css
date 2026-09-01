@@ -1,0 +1,15 @@
+.grid {
+  display: grid;
+  inline-size: min(100%, 24rem);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--moduix-spacing-4);
+  justify-items: center;
+}
+
+.primary {
+  fill: var(--moduix-color-primary);
+}
+
+.danger {
+  fill: var(--moduix-color-destructive);
+}

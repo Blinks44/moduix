@@ -2,6 +2,7 @@ import { createListCollection } from '@ark-ui/react/collection';
 import { Button } from '@moduix/react/button';
 import { Select } from '@moduix/react/select';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/select/select-select-all.module.css';
 
 const languages = createListCollection({
   items: [
@@ -39,7 +40,7 @@ export default function SelectSelectAllDemo() {
   });
 
   return (
-    <div className="select-preview-stack">
+    <div className={styles.root}>
       <Select.RootProvider value={select}>
         <Select.Label>Languages</Select.Label>
         <Select.Field placeholder="Select languages" clearLabel="Clear selection" />

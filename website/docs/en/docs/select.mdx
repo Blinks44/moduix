@@ -4,7 +4,24 @@ component: select
 description: Ark UI select composition for choosing one or more values from a popup list.
 ---
 
-import * as SelectDocs from '@/components/examples/select';
+import * as SelectDocs from '@/components/examples/select/select';
+import SelectAdvancedCustomization from './_snippets/select/advanced-customization.tsx';
+import SelectBasic from './_snippets/select/basic.tsx';
+import SelectControlled from './_snippets/select/controlled.tsx';
+import SelectCustomItemLayout from './_snippets/select/custom-item-layout.tsx';
+import SelectDynamicItems from './_snippets/select/dynamic-items.tsx';
+import SelectField from './_snippets/select/field.tsx';
+import SelectFormUsage from './_snippets/select/form-usage.tsx';
+import SelectGrouping from './_snippets/select/grouping.tsx';
+import SelectLazyMount from './_snippets/select/lazy-mount.tsx';
+import SelectMaxSelection from './_snippets/select/max-selection.tsx';
+import SelectMultiple from './_snippets/select/multiple.tsx';
+import SelectNativeFormControl from './_snippets/select/native-form-control.tsx';
+import SelectOverflow from './_snippets/select/overflow.tsx';
+import SelectRootProvider from './_snippets/select/root-provider.tsx';
+import SelectSearchInPopup from './_snippets/select/search-in-popup.tsx';
+import SelectSelectAll from './_snippets/select/select-all.tsx';
+import SelectSelectOnHighlight from './_snippets/select/select-on-highlight.tsx';
 
 ## API Reference
 
@@ -21,13 +38,20 @@ Pass a collection to `Select`, use `Select.Field` for the standard visible contr
 popup structure explicit. `clearLabel` adds an accessible clear action. The root automatically
 renders its native form control for submission, autofill, and reset.
 
-<style>{SelectDocs.selectExampleCss}</style>
+<ExampleFrame variant="component">
+  <SelectBasic />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/select/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/select/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -145,96 +169,195 @@ motion; selection, focus restoration, and mount lifecycle remain unchanged.
 
 Control the selected string array from React state and update it from `details.value`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/select/controlled.tsx"
+<ExampleFrame variant="component">
+  <SelectControlled />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/select/controlled.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Custom Item Layout
 
 Use `Select.ItemTextContent`, `Select.ItemTextIcon`, and `Select.ItemTextLabel` inside `ItemText`
 when an item needs a stable icon and an ellipsized label.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/select/custom-item-layout.tsx"
+<ExampleFrame variant="component">
+  <SelectCustomItemLayout />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/select/custom-item-layout.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Dynamic Items
 
 Update the collection when available items change; the existing Select composition stays the same.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/select/dynamic-items.tsx"
+<ExampleFrame variant="component">
+  <SelectDynamicItems />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/select/dynamic-items.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/select/select-dynamic-items.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Field
 
 Wrap Select in `Field.Root` when label, helper text, invalid, required, or disabled state belongs
 to a form field.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/select/field.tsx"
+<ExampleFrame variant="component">
+  <SelectField />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/select/field.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/select/select-field.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Form Usage
 
 The automatic native select keeps native form submission working. Read submitted values from
 `FormData`.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/select/form-usage.tsx"
+<ExampleFrame variant="component">
+  <SelectFormUsage />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/select/form-usage.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/select/select-form-usage.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Grouping
 
 Use `groupBy` on the collection and render `collection.group()` with `ItemGroup` and
 `ItemGroupLabel`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/select/grouping.tsx"
+<ExampleFrame variant="component">
+  <SelectGrouping />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/select/grouping.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Lazy Mount
 
 Use `lazyMount` and `unmountOnExit` when popup content should exist only while the Select is used.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/select/lazy-mount.tsx"
+<ExampleFrame variant="component">
+  <SelectLazyMount />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/select/lazy-mount.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Max Selection
 
 Limit multiple selection by rejecting oversized value arrays and disabling the remaining items.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/select/max-selection.tsx"
+<ExampleFrame variant="component">
+  <SelectMaxSelection />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/select/max-selection.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Multiple
 
 Set `multiple` to allow several selected values. `ValueText` renders selected labels from the
 collection.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/select/multiple.tsx"
+<ExampleFrame variant="component">
+  <SelectMultiple />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/select/multiple.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Native Form Control
 
@@ -242,76 +365,163 @@ Use `nativeFormControl="input"` for large or virtualized collections when render
 `option` for every item would be too costly. This example focuses on the submitted `FormData`.
 For a virtualized collection, combine this mode with `Select.List` and your virtualization strategy.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/select/native-form-control.tsx"
+<ExampleFrame variant="component">
+  <SelectNativeFormControl />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/select/native-form-control.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/select/select-native-form-control.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Overflow
 
 Use `positioning.fitViewport` for long lists. The content already limits its height with Ark's
 `--available-height` variable and remains scrollable.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/select/overflow.tsx"
+<ExampleFrame variant="component">
+  <SelectOverflow />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/select/overflow.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Use `Select.useSelect` with `Select.RootProvider` when state is read or controlled outside the
 rendered Select tree.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/select/root-provider.tsx"
+<ExampleFrame variant="component">
+  <SelectRootProvider />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/select/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/select/select-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Search in Popup
 
 Place a filter control beside the listbox inside the popup. Keep the query state and filtered
 collection in your component rather than extending the Select API.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/select/search-in-popup.tsx"
+<ExampleFrame variant="component">
+  <SelectSearchInPopup />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/select/search-in-popup.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/select/select-search-in-popup.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Select All
 
 Keep bulk actions outside the listbox. `Select.useSelect` keeps the action and the Select backed by
 the same Ark state instance.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/select/select-all.tsx"
+<ExampleFrame variant="component">
+  <SelectSelectAll />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/select/select-all.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/select/select-select-all.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Select On Highlight
 
 Use `onHighlightChange(details)` when moving through options should immediately update selection.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/select/select-on-highlight.tsx"
+<ExampleFrame variant="component">
+  <SelectSelectOnHighlight />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/select/select-on-highlight.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Bypass `Select.Field` when the trigger, value text, or indicator needs independent composition and
 styling.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/select/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <SelectAdvancedCustomization />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/select/advanced-customization.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

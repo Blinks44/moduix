@@ -1,9 +1,10 @@
 import { Field } from '@moduix/react/field';
 import { RadioGroup } from '@moduix/react/radio-group';
+import styles from '@/components/examples/radio-group/radio-group-with-field.module.css';
 
 export default function RadioGroupFieldDemo() {
   return (
-    <Field.Root invalid className="radio-field">
+    <Field.Root invalid className={styles.field}>
       <Field.Label>Account type</Field.Label>
       <RadioGroup invalid required name="account-type">
         <RadioGroup.Option value="personal">Personal account</RadioGroup.Option>

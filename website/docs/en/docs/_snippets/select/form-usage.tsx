@@ -4,6 +4,7 @@ import { Select } from '@moduix/react/select';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/select/select-form-usage.module.css';
 
 const themes = createListCollection({
   items: [
@@ -32,7 +33,7 @@ export default function SelectFormUsageDemo() {
   };
 
   return (
-    <form className="select-preview-stack" onSubmit={handleSubmit}>
+    <form className={styles.root} onSubmit={handleSubmit}>
       <Select collection={themes} name="theme" required>
         <Select.Label>Theme</Select.Label>
         <Select.Control>

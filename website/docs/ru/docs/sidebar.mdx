@@ -4,7 +4,15 @@ component: sidebar
 description: Сворачиваемая и изменяемая по ширине навигация приложения на базе Ark UI Splitter.
 ---
 
-import { SidebarCssPropertiesPanel } from '@/components/examples/sidebar';
+import { SidebarCssPropertiesPanel } from '@/components/examples/sidebar/sidebar';
+import SidebarBasic from '../../en/docs/_snippets/sidebar/basic.tsx';
+import SidebarCustomScrollArea from '../../en/docs/_snippets/sidebar/custom-scroll-area.tsx';
+import SidebarCustomSizes from '../../en/docs/_snippets/sidebar/custom-sizes.tsx';
+import SidebarNestedNavigation from '../../en/docs/_snippets/sidebar/nested-navigation.tsx';
+import SidebarNestedNavigationAndAccountMenu from '../../en/docs/_snippets/sidebar/nested-navigation-and-account-menu.tsx';
+import SidebarPersistedLayout from '../../en/docs/_snippets/sidebar/persisted-layout.tsx';
+import SidebarRightSidebar from '../../en/docs/_snippets/sidebar/right-sidebar.tsx';
+import SidebarWorkspaceSelect from '../../en/docs/_snippets/sidebar/workspace-select.tsx';
 
 ## Справочник API
 
@@ -30,11 +38,26 @@ import { SidebarCssPropertiesPanel } from '@/components/examples/sidebar';
 только с иконками после сворачивания: оберните `Sidebar.NavigationButton` в
 `Sidebar.Tooltip`. Всплывающей подсказкой управляет сам Tooltip.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/sidebar/basic.tsx"
+<ExampleFrame variant="component">
+  <SidebarBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/sidebar/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/sidebar/sidebar-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -194,11 +217,26 @@ Sidebar намеренно не анимирует ширину панели: CS
 в ряду иконок. Эти части переключают только видимость, поэтому стилизацию Menu и Collapsible
 вы задаёте в своей композиции.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/sidebar/nested-navigation.tsx"
+<ExampleFrame variant="component">
+  <SidebarNestedNavigation />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/sidebar/nested-navigation.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/sidebar/sidebar-nested-navigation.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Собственная область прокрутки
 
@@ -206,11 +244,26 @@ Sidebar намеренно не анимирует ширину панели: CS
 края, поместите `ScrollArea` внутрь `Sidebar.Content`. Отключите overflow у внешней области,
 чтобы единственным контейнером прокрутки оставался `ScrollArea.Viewport`.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/sidebar/custom-scroll-area.tsx"
+<ExampleFrame variant="component">
+  <SidebarCustomScrollArea />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/sidebar/custom-scroll-area.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/sidebar/sidebar-custom-scroll-area.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Сохраняемый макет для десктопа
 
@@ -219,11 +272,26 @@ Sidebar намеренно не анимирует ширину панели: CS
 `onResizeEnd(details)`. За макет по-прежнему отвечает Splitter, а выбранная ширина сохраняется
 до следующего визита.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/sidebar/persisted-layout.tsx"
+<ExampleFrame variant="component">
+  <SidebarPersistedLayout />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/sidebar/persisted-layout.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/sidebar/sidebar-persisted-layout.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 <span id="recommended-app-shell" />
 
@@ -237,11 +305,26 @@ Sidebar намеренно не анимирует ширину панели: CS
 пример показывает длинный список проектов с прокруткой внутри `Sidebar.Content` и подсказки для
 свёрнутого ряда иконок.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/sidebar/nested-navigation-and-account-menu.tsx"
+<ExampleFrame variant="component">
+  <SidebarNestedNavigationAndAccountMenu />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/sidebar/nested-navigation-and-account-menu.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/sidebar/sidebar-nested-navigation-and-account-menu.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Боковая панель справа
 
@@ -250,11 +333,26 @@ Sidebar намеренно не анимирует ширину панели: CS
 стрелки. В примере Inspector показаны сгруппированные инструменты, ссылки на активность, внутренняя
 прокрутка и меню в нижней части панели.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/sidebar/right-sidebar.tsx"
+<ExampleFrame variant="component">
+  <SidebarRightSidebar />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/sidebar/right-sidebar.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/sidebar/sidebar-right-sidebar.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Выбор рабочего пространства
 
@@ -264,22 +362,52 @@ Sidebar намеренно не анимирует ширину панели: CS
 индикатор в конце строки, а Sidebar скрывает его в свёрнутом ряду. В примере переключатель рабочего
 пространства объединён с навигацией, прокручиваемой областью содержимого и меню учётной записи.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/sidebar/workspace-select.tsx"
+<ExampleFrame variant="component">
+  <SidebarWorkspaceSelect />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/sidebar/workspace-select.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/sidebar/sidebar-workspace-select.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
 Используйте `Splitter` напрямую, если нужны другие ограничения панелей, собственные id inset,
 больше двух панелей или API провайдера и реестра.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/sidebar/custom-sizes.tsx"
+<ExampleFrame variant="component">
+  <SidebarCustomSizes />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/sidebar/custom-sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/sidebar/sidebar-custom-sizes.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

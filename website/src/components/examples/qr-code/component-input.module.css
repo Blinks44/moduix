@@ -1,0 +1,10 @@
+.stack {
+  display: grid;
+  gap: var(--moduix-spacing-3);
+  justify-items: center;
+  inline-size: 100%;
+}
+
+.input {
+  inline-size: min(100%, 24rem);
+}

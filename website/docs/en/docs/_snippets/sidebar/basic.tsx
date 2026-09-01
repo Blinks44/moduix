@@ -1,16 +1,10 @@
 import { Sidebar } from '@moduix/react/sidebar';
 import { FileText, Gauge } from 'lucide-react';
+import styles from '@/components/examples/sidebar/sidebar-basic.module.css';
 
 export default function AppSidebar() {
   return (
-    <Sidebar
-      style={{
-        borderRadius: 'var(--moduix-radius-lg)',
-        boxShadow: 'var(--moduix-shadow-sm)',
-        height: '34rem',
-        minHeight: '28rem',
-      }}
-    >
+    <Sidebar className={styles.root}>
       <Sidebar.Panel>
         <Sidebar.Header>
           <strong data-sidebar-icon>M</strong>
@@ -47,70 +41,26 @@ export default function AppSidebar() {
       <Sidebar.ResizeTrigger />
       <Sidebar.Trigger />
       <Sidebar.Inset>
-        <header
-          style={{
-            alignItems: 'center',
-            borderBlockEnd: '1px solid var(--moduix-color-border)',
-            display: 'flex',
-            minHeight: '3.5rem',
-            paddingInline: '1.5rem',
-          }}
-        >
-          Dashboard
-        </header>
-        <main style={{ display: 'grid', gap: '1rem', padding: '1.5rem' }}>
+        <header className={styles.header}>Dashboard</header>
+        <main className={styles.content}>
           <div>
             <strong>Workspace overview</strong>
-            <p style={{ color: 'var(--moduix-color-muted-foreground)', marginBlock: '0.25rem 0' }}>
+            <p className={styles.muted}>
               Keep navigation, content, and resizing in one responsive shell.
             </p>
           </div>
-          <section
-            style={{
-              border: '1px solid var(--moduix-color-border)',
-              borderRadius: 'var(--moduix-radius-md)',
-              padding: '1rem',
-            }}
-          >
+          <section className={styles.card}>
             <strong>12 open tasks</strong>
-            <p style={{ color: 'var(--moduix-color-muted-foreground)', marginBlock: '0.25rem 0' }}>
-              Your team is on track for this week.
-            </p>
+            <p className={styles.muted}>Your team is on track for this week.</p>
           </section>
-          <div
-            style={{
-              display: 'grid',
-              gap: '1rem',
-              gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-            }}
-          >
-            <section
-              style={{
-                border: '1px solid var(--moduix-color-border)',
-                borderRadius: 'var(--moduix-radius-md)',
-                padding: '1rem',
-              }}
-            >
+          <div className={styles.stats}>
+            <section className={styles.card}>
               <strong>8</strong>
-              <p
-                style={{ color: 'var(--moduix-color-muted-foreground)', marginBlock: '0.25rem 0' }}
-              >
-                In review
-              </p>
+              <p className={styles.muted}>In review</p>
             </section>
-            <section
-              style={{
-                border: '1px solid var(--moduix-color-border)',
-                borderRadius: 'var(--moduix-radius-md)',
-                padding: '1rem',
-              }}
-            >
+            <section className={styles.card}>
               <strong>4</strong>
-              <p
-                style={{ color: 'var(--moduix-color-muted-foreground)', marginBlock: '0.25rem 0' }}
-              >
-                Due today
-              </p>
+              <p className={styles.muted}>Due today</p>
             </section>
           </div>
         </main>

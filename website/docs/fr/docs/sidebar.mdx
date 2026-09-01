@@ -4,7 +4,15 @@ component: sidebar
 description: Navigation d’application redimensionnable et repliable, basée sur le Splitter d’Ark UI.
 ---
 
-import { SidebarCssPropertiesPanel } from '@/components/examples/sidebar';
+import { SidebarCssPropertiesPanel } from '@/components/examples/sidebar/sidebar';
+import SidebarBasic from '../../en/docs/_snippets/sidebar/basic.tsx';
+import SidebarCustomScrollArea from '../../en/docs/_snippets/sidebar/custom-scroll-area.tsx';
+import SidebarCustomSizes from '../../en/docs/_snippets/sidebar/custom-sizes.tsx';
+import SidebarNestedNavigation from '../../en/docs/_snippets/sidebar/nested-navigation.tsx';
+import SidebarNestedNavigationAndAccountMenu from '../../en/docs/_snippets/sidebar/nested-navigation-and-account-menu.tsx';
+import SidebarPersistedLayout from '../../en/docs/_snippets/sidebar/persisted-layout.tsx';
+import SidebarRightSidebar from '../../en/docs/_snippets/sidebar/right-sidebar.tsx';
+import SidebarWorkspaceSelect from '../../en/docs/_snippets/sidebar/workspace-select.tsx';
 
 ## Référence de l’API
 
@@ -32,11 +40,26 @@ L’exemple montre aussi comment conserver les libellés des boutons de navigati
 repli : enveloppez `Sidebar.NavigationButton` dans `Sidebar.Tooltip`. L’infobulle gère son propre
 état contextuel.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/sidebar/basic.tsx"
+<ExampleFrame variant="component">
+  <SidebarBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/sidebar/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/sidebar/sidebar-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -204,11 +227,26 @@ Gardez les deux mises en page de navigation explicites et côte à côte.
 parties ne changent que la visibilité : la personnalisation de Menu et de Collapsible reste dans
 votre composition.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/sidebar/nested-navigation.tsx"
+<ExampleFrame variant="component">
+  <SidebarNestedNavigation />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/sidebar/nested-navigation.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/sidebar/sidebar-nested-navigation.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Zone de défilement personnalisée
 
@@ -217,11 +255,26 @@ ou d’un fondu sur le bord, placez un `ScrollArea` dans `Sidebar.Content`. Dés
 débordement de la partie de contenu externe pour que `ScrollArea.Viewport` soit l’unique conteneur
 de défilement.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/sidebar/custom-scroll-area.tsx"
+<ExampleFrame variant="component">
+  <SidebarCustomScrollArea />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/sidebar/custom-scroll-area.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/sidebar/sidebar-custom-scroll-area.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Mise en page persistante sur ordinateur
 
@@ -230,11 +283,26 @@ Conservez la largeur de la barre latérale pour ordinateur en dehors du composan
 valeur finale dans `onResizeEnd(details)`. Splitter reste responsable de la mise en page et la
 largeur choisie sera conservée lors de la prochaine visite.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/sidebar/persisted-layout.tsx"
+<ExampleFrame variant="component">
+  <SidebarPersistedLayout />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/sidebar/persisted-layout.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/sidebar/sidebar-persisted-layout.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 <span id="recommended-app-shell" />
 
@@ -248,11 +316,26 @@ Chaque primitif gère toujours son propre état, le focus, le positionnement du 
 L’exemple montre aussi une longue liste de projets qui défile dans `Sidebar.Content`, ainsi que
 des infobulles pour la barre d’icônes repliée.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/sidebar/nested-navigation-and-account-menu.tsx"
+<ExampleFrame variant="component">
+  <SidebarNestedNavigationAndAccountMenu />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/sidebar/nested-navigation-and-account-menu.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/sidebar/sidebar-nested-navigation-and-account-menu.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Barre latérale à droite
 
@@ -261,11 +344,26 @@ ordre. Sidebar ajuste automatiquement la configuration des panneaux, l’identif
 déclencheur, ainsi que la direction du chevron. L’exemple Inspector comprend des outils regroupés,
 des liens d’activité, un défilement interne et un menu de pied de page.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/sidebar/right-sidebar.tsx"
+<ExampleFrame variant="component">
+  <SidebarRightSidebar />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/sidebar/right-sidebar.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/sidebar/sidebar-right-sidebar.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Sélection d’un espace de travail
 
@@ -275,22 +373,52 @@ puis marquez le repère visuel compact avec `data-sidebar-icon`. Select place so
 à la fin de la ligne ; Sidebar le masque dans la barre repliée. L’exemple associe un sélecteur
 d’espace de travail à une navigation, une zone de contenu défilable et un menu de compte.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/sidebar/workspace-select.tsx"
+<ExampleFrame variant="component">
+  <SidebarWorkspaceSelect />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/sidebar/workspace-select.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/sidebar/sidebar-workspace-select.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Personnalisation avancée
 
 Utilisez directement `Splitter` lorsque la mise en page nécessite d’autres contraintes de panneaux,
 des identifiants d’inset personnalisés, plus de deux panneaux ou les API de provider et de registre.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/sidebar/custom-sizes.tsx"
+<ExampleFrame variant="component">
+  <SidebarCustomSizes />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/sidebar/custom-sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/sidebar/sidebar-custom-sizes.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

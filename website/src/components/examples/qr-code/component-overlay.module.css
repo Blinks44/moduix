@@ -1,0 +1,9 @@
+.frame {
+  fill: var(--moduix-color-primary);
+}
+
+.overlay {
+  font-size: var(--moduix-text-xs);
+  font-weight: var(--moduix-weight-semibold);
+  line-height: var(--moduix-line-height-text-xs);
+}

@@ -1,4 +1,4 @@
-import type { CssPropertyInput } from '../mdx/reference';
+import type { CssPropertyInput } from '../../mdx/reference';
 
 export const scrollAreaOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-scroll-area-bg', 'transparent', 'Controls the viewport background color.'],

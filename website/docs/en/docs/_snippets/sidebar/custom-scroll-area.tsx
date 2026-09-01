@@ -1,6 +1,7 @@
 import { ScrollArea } from '@moduix/react/scroll-area';
 import { Sidebar } from '@moduix/react/sidebar';
 import { FileText, FolderOpen, Gauge } from 'lucide-react';
+import styles from '@/components/examples/sidebar/sidebar-custom-scroll-area.module.css';
 
 const projects = [
   'Website',
@@ -19,20 +20,13 @@ const projects = [
 
 export default function ScrollableSidebar() {
   return (
-    <Sidebar
-      style={{
-        borderRadius: 'var(--moduix-radius-lg)',
-        boxShadow: 'var(--moduix-shadow-sm)',
-        height: '34rem',
-        minHeight: '28rem',
-      }}
-    >
+    <Sidebar className={styles.root}>
       <Sidebar.Panel>
         <Sidebar.Header>
           <strong data-sidebar-icon>M</strong>
           <Sidebar.Label>Moduix</Sidebar.Label>
         </Sidebar.Header>
-        <Sidebar.Content style={{ overflow: 'hidden' }}>
+        <Sidebar.Content className={styles.sidebarContent}>
           <ScrollArea fade>
             <ScrollArea.Viewport>
               <ScrollArea.Content>
@@ -77,28 +71,12 @@ export default function ScrollableSidebar() {
       <Sidebar.ResizeTrigger />
       <Sidebar.Trigger />
       <Sidebar.Inset>
-        <header
-          style={{
-            alignItems: 'center',
-            borderBlockEnd: '1px solid var(--moduix-color-border)',
-            display: 'flex',
-            minHeight: '3.5rem',
-            paddingInline: '1.5rem',
-          }}
-        >
-          Project dashboard
-        </header>
-        <main style={{ display: 'grid', gap: '1rem', padding: '1.5rem' }}>
+        <header className={styles.header}>Project dashboard</header>
+        <main className={styles.content}>
           <strong>Recent activity</strong>
-          <section
-            style={{
-              border: '1px solid var(--moduix-color-border)',
-              borderRadius: 'var(--moduix-radius-md)',
-              padding: '1rem',
-            }}
-          >
+          <section className={styles.card}>
             <strong>18 active projects</strong>
-            <p style={{ color: 'var(--moduix-color-muted-foreground)', marginBlock: '0.25rem 0' }}>
+            <p className={styles.muted}>
               Scroll the project list independently from the application content.
             </p>
           </section>

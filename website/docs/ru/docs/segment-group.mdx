@@ -4,8 +4,18 @@ component: segment-group
 description: Компактный сегментированный элемент управления на базе Ark UI для выбора одного значения из небольшого набора.
 ---
 
-import * as SegmentGroupDocs from '@/components/examples/segment-group';
+import * as SegmentGroupDocs from '@/components/examples/segment-group/segment-group';
 import { CssPropertiesSection } from '@/components/mdx/Components';
+import SegmentGroupAsChild from '../../en/docs/_snippets/segment-group/aschild.tsx';
+import SegmentGroupBasic from '../../en/docs/_snippets/segment-group/basic.tsx';
+import SegmentGroupConditionalMount from '../../en/docs/_snippets/segment-group/conditional-mount.tsx';
+import SegmentGroupControlled from '../../en/docs/_snippets/segment-group/controlled.tsx';
+import SegmentGroupDisabled from '../../en/docs/_snippets/segment-group/disabled.tsx';
+import SegmentGroupField from '../../en/docs/_snippets/segment-group/field.tsx';
+import SegmentGroupFormSubmission from '../../en/docs/_snippets/segment-group/form-submission.tsx';
+import SegmentGroupInvalid from '../../en/docs/_snippets/segment-group/invalid.tsx';
+import SegmentGroupRootProvider from '../../en/docs/_snippets/segment-group/root-provider.tsx';
+import SegmentGroupVerticalOrientation from '../../en/docs/_snippets/segment-group/vertical-orientation.tsx';
 
 ## Справочник API
 
@@ -27,13 +37,20 @@ import { CssPropertiesSection } from '@/components/mdx/Components';
 элемента списка он создаёт части Ark `item`, `text` и `control`, а также одно синхронизированное
 нативное поле формы.
 
-<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <SegmentGroupBasic />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/segment-group/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/segment-group/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -130,26 +147,52 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 Группу сегментов можно монтировать условно. Когда она появляется, Ark заново рассчитывает
 геометрию элементов, необходимую индикатору.
 
-<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <SegmentGroupConditionalMount />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/segment-group/conditional-mount.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/segment-group/conditional-mount.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/segment-group/segment-group-conditional-mount.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Управляемое состояние
 
 Храните выбранное значение в состоянии React и обновляйте его из `details.value` в обработчике
 `onValueChange`.
 
-<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <SegmentGroupControlled />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/segment-group/controlled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/segment-group/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/segment-group/segment-group-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Отключённый элемент и группа
 
@@ -157,13 +200,26 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 отключить всю группу, задайте `disabled` на корневом элементе. Стиль отключённой группы уменьшает
 её непрозрачность один раз, не складывая её с прозрачностью отдельных элементов.
 
-<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <SegmentGroupDisabled />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/segment-group/disabled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/segment-group/disabled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/segment-group/segment-group-disabled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Field
 
@@ -171,78 +227,150 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 текстом или сообщением об ошибке. Ark наследует от поля состояния `disabled`, `invalid`, `required`
 и `readOnly`.
 
-<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <SegmentGroupField />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/segment-group/field.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/segment-group/field.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/segment-group/segment-group-field.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Отправка формы
 
 Передайте `name` в корневой элемент, чтобы выбранное значение попало в данные нативной формы.
 `SegmentGroup.Items` добавляет нативное поле формы в каждый созданный элемент.
 
-<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <SegmentGroupFormSubmission />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/segment-group/form-submission.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/segment-group/form-submission.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/segment-group/segment-group-form-submission.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Недопустимое состояние
 
 Задайте `invalid` на корневом элементе, если проверка завершилась ошибкой. Сочетайте его с
 `required` и `name`, когда группа участвует в нативной проверке формы.
 
-<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <SegmentGroupInvalid />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/segment-group/invalid.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/segment-group/invalid.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Используйте `useSegmentGroup()` вместе с `RootProvider`, если элементам управления за пределами
 дерева сегментов нужен доступ к тому же состоянию.
 
-<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <SegmentGroupRootProvider />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/segment-group/root-provider.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/segment-group/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/segment-group/segment-group-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Вертикальная ориентация
 
 Укажите `orientation="vertical"`, если группе нужны вертикальная раскладка и навигация стрелками
 вверх и вниз.
 
-<style>{SegmentGroupDocs.segmentGroupVerticalCss}</style>
+<ExampleFrame variant="component">
+  <SegmentGroupVerticalOrientation />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/segment-group/vertical-orientation.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/segment-group/vertical-orientation.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/segment-group/segment-group-vertical-orientation.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
 Используйте `SegmentGroup.Item asChild` вместо `SegmentGroup.Items`, если собственная разметка
 подписи должна владеть DOM-узлом элемента.
 
-<style>{SegmentGroupDocs.segmentGroupAsChildCss}</style>
+<ExampleFrame variant="component">
+  <SegmentGroupAsChild />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/segment-group/aschild.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/segment-group/aschild.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/segment-group/segment-group-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

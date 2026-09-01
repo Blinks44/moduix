@@ -4,7 +4,16 @@ component: rating-group
 description: A star rating control built on the Ark UI rating-group primitive.
 ---
 
-import * as RatingGroupDocs from '@/components/examples/rating-group';
+import * as RatingGroupDocs from '@/components/examples/rating-group/rating-group';
+import RatingGroupBasic from './_snippets/rating-group/basic.tsx';
+import RatingGroupControlled from './_snippets/rating-group/controlled.tsx';
+import RatingGroupCustomIcon from './_snippets/rating-group/custom-icon.tsx';
+import RatingGroupDisabledAndReadonly from './_snippets/rating-group/disabled-and-readonly.tsx';
+import RatingGroupField from './_snippets/rating-group/field.tsx';
+import RatingGroupForms from './_snippets/rating-group/forms.tsx';
+import RatingGroupHalfRating from './_snippets/rating-group/half-rating.tsx';
+import RatingGroupSizes from './_snippets/rating-group/sizes.tsx';
+import RatingGroupAdvancedCustomization from './_snippets/rating-group/advanced-customization.tsx';
 
 Use `RatingGroup` when people need to choose a numeric score from a row of stars or another repeated icon.
 
@@ -17,13 +26,20 @@ Use `RatingGroup` when people need to choose a numeric score from a row of stars
 For the common case, use the shorthand with `RatingGroup.Label`, `RatingGroup.Control`, and
 `RatingGroup.Items`.
 
-<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupBasic />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/rating-group/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/rating-group/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -113,13 +129,26 @@ parts. `ItemIndicator` forwards its ref to its own visual wrapper.
 
 Use controlled mode when the score depends on other state, drives nearby UI, or must be reset by a parent.
 
-<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupControlled />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/rating-group/controlled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/rating-group/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/rating-group/component-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Custom Icon
 
@@ -127,26 +156,52 @@ Pass a custom `RatingGroup.ItemIndicator` as the child of `RatingGroup.Items` wh
 use the same icon. The indicator still receives Ark-driven `data-highlighted` and `data-half`
 attributes for styling.
 
-<style>{RatingGroupDocs.ratingGroupCustomIconCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupCustomIcon />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/rating-group/custom-icon.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/rating-group/custom-icon.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/rating-group/component-custom-icon.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Disabled and Readonly
 
 Use `disabled` to remove interaction. Use `readOnly` to keep the score visible while preventing
 changes.
 
-<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupDisabledAndReadonly />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/rating-group/disabled-and-readonly.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/rating-group/disabled-and-readonly.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/rating-group/component-disabled-and-readonly.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Field
 
@@ -154,50 +209,96 @@ Wrap the rating group in `Field` when helper or validation text should be associ
 form input. Ark inherits `disabled`, `readOnly`, and `required` from the field; validation state remains
 owned by `Field` and application code.
 
-<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupField />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/rating-group/field.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/rating-group/field.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/rating-group/component-field.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Forms
 
 Pass `name` when the selected score should be included in `FormData`; the root renders the synchronized
 native form input automatically.
 
-<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupForms />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/rating-group/forms.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/rating-group/forms.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/rating-group/component-forms.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Half Rating
 
 Set `allowHalf` to enable half-step selection and rendering.
 
-<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupHalfRating />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/rating-group/half-rating.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/rating-group/half-rating.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Sizes
 
 Use the moduix `size` prop when the rating needs to keep the same Ark behavior at a different visual density.
 
-<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupSizes />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/rating-group/sizes.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/rating-group/sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/rating-group/component-sizes.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Composition
 
@@ -205,13 +306,26 @@ Use `RatingGroup.RootProvider` with `useRatingGroup()` when the rating state mus
 rendered rating tree. Use `RatingGroup.Context` when `RatingGroup.Items` is not enough and you need to
 render each item yourself.
 
-<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupAdvancedCustomization />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/rating-group/advanced-customization.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/rating-group/advanced-customization.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/rating-group/component-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

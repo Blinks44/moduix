@@ -4,7 +4,14 @@ component: scroll-area
 description: Un conteneur de défilement natif avec des barres de défilement stylisées par Ark UI.
 ---
 
-import * as ScrollAreaDocs from '@/components/examples/scroll-area';
+import * as ScrollAreaDocs from '@/components/examples/scroll-area/scroll-area';
+import ScrollAreaAlwaysVisible from '../../en/docs/_snippets/scroll-area/always-visible.tsx';
+import ScrollAreaBasic from '../../en/docs/_snippets/scroll-area/basic.tsx';
+import ScrollAreaBothDirections from '../../en/docs/_snippets/scroll-area/both-directions.tsx';
+import ScrollAreaFade from '../../en/docs/_snippets/scroll-area/fade.tsx';
+import ScrollAreaHorizontal from '../../en/docs/_snippets/scroll-area/horizontal.tsx';
+import ScrollAreaNested from '../../en/docs/_snippets/scroll-area/nested.tsx';
+import ScrollAreaRootProvider from '../../en/docs/_snippets/scroll-area/root-provider.tsx';
 
 ## Référence de l’API
 
@@ -18,11 +25,26 @@ faire défiler la zone avec la molette, le pavé tactile, l’écran tactile ou 
 barre de défilement ajoutent des contrôles stylisés. moduix ajoute également `fade`, qui applique un
 masque en haut et en bas à partir des mesures de débordement fournies par Ark.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/scroll-area/basic.tsx"
+<ExampleFrame variant="component">
+  <ScrollAreaBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/scroll-area/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/scroll-area/scroll-area-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -102,43 +124,103 @@ d’état.
 Utilisez `variant="always"` dans les panneaux denses lorsque la barre de défilement doit rester
 visible sans survol.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/scroll-area/always-visible.tsx"
+<ExampleFrame variant="component">
+  <ScrollAreaAlwaysVisible />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/scroll-area/always-visible.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/scroll-area/scroll-area-always-visible.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Les deux axes
 
 Affichez des barres de défilement verticale et horizontale lorsque le contenu peut déborder sur les
 deux axes.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/scroll-area/both-directions.tsx"
+<ExampleFrame variant="component">
+  <ScrollAreaBothDirections />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/scroll-area/both-directions.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/scroll-area/scroll-area-both-directions.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Fondu
 
 Utilisez `fade` pour signaler qu’un long contenu vertical se poursuit au-dessus et au-dessous de la
 zone visible, sans ajouter d’enveloppe supplémentaire.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/scroll-area/fade.tsx"
+<ExampleFrame variant="component">
+  <ScrollAreaFade />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/scroll-area/fade.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/scroll-area/scroll-area-fade.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Défilement horizontal
 
 Ajoutez une barre horizontale lorsque le contenu est volontairement plus large que la zone visible.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/scroll-area/horizontal.tsx"
+<ExampleFrame variant="component">
+  <ScrollAreaHorizontal />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/scroll-area/horizontal.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/scroll-area/scroll-area-horizontal.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Zones imbriquées
 
@@ -146,22 +228,52 @@ Les zones de défilement imbriquées utilisent la même composition. Conservez u
 avec root, viewport, content et scrollbar pour chaque zone afin qu’Ark puisse les mesurer
 indépendamment.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/scroll-area/nested.tsx"
+<ExampleFrame variant="component">
+  <ScrollAreaNested />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/scroll-area/nested.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/scroll-area/scroll-area-nested.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Utilisez `ScrollArea.useScrollArea()` avec `ScrollArea.RootProvider` lorsque des contrôles externes
 doivent accéder à l’API de défilement.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/scroll-area/root-provider.tsx"
+<ExampleFrame variant="component">
+  <ScrollAreaRootProvider />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/scroll-area/root-provider.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/scroll-area/scroll-area-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

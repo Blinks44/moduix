@@ -1,0 +1,5 @@
+.root {
+  display: grid;
+  inline-size: min(24rem, 100%);
+  gap: var(--moduix-spacing-2);
+}

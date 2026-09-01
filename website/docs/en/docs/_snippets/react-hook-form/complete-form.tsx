@@ -103,8 +103,8 @@ export default function ProjectForm() {
                   <Select.Control>
                     <Select.Trigger ref={field.ref}>
                       <Select.ValueText placeholder="Choose a team" />
-                      <Select.Indicator />
                     </Select.Trigger>
+                    <Select.Indicator />
                   </Select.Control>
                   <Select.Positioner>
                     <Select.Content>

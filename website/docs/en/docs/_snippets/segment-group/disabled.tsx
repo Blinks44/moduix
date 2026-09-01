@@ -1,4 +1,5 @@
 import { SegmentGroup } from '@moduix/react/segment-group';
+import styles from '@/components/examples/segment-group/segment-group-disabled.module.css';
 
 const frameworks = [
   { value: 'React', label: 'React' },
@@ -9,7 +10,7 @@ const frameworks = [
 
 export default function DisabledSegmentGroupDemo() {
   return (
-    <div className="segment-stack">
+    <div className={styles.root}>
       <SegmentGroup aria-label="Framework with unavailable item" defaultValue="React">
         <SegmentGroup.Indicator />
         <SegmentGroup.Items items={frameworks} />

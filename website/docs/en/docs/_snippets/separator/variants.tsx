@@ -1,20 +1,13 @@
 import { Separator } from '@moduix/react/separator';
+import styles from '@/components/examples/separator/separator-variants.module.css';
 
 const variants = ['solid', 'dashed', 'dotted'] as const;
 
 export default function SeparatorVariantsDemo() {
   return (
-    <div style={{ display: 'grid', width: '100%', gap: 'var(--moduix-spacing-2)' }}>
+    <div className={styles.root}>
       {variants.map((variant) => (
-        <div
-          key={variant}
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '4rem minmax(6rem, 1fr)',
-            alignItems: 'center',
-            gap: 'var(--moduix-spacing-3)',
-          }}
-        >
+        <div key={variant} className={styles.item}>
           <span>{variant}</span>
           <Separator variant={variant} />
         </div>

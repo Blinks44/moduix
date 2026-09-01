@@ -4,8 +4,18 @@ component: segment-group
 description: A compact segmented control based on Ark UI for choosing one value from a small visible set.
 ---
 
-import * as SegmentGroupDocs from '@/components/examples/segment-group';
+import * as SegmentGroupDocs from '@/components/examples/segment-group/segment-group';
 import { CssPropertiesSection } from '@/components/mdx/Components';
+import SegmentGroupAsChild from './_snippets/segment-group/aschild.tsx';
+import SegmentGroupBasic from './_snippets/segment-group/basic.tsx';
+import SegmentGroupConditionalMount from './_snippets/segment-group/conditional-mount.tsx';
+import SegmentGroupControlled from './_snippets/segment-group/controlled.tsx';
+import SegmentGroupDisabled from './_snippets/segment-group/disabled.tsx';
+import SegmentGroupField from './_snippets/segment-group/field.tsx';
+import SegmentGroupFormSubmission from './_snippets/segment-group/form-submission.tsx';
+import SegmentGroupInvalid from './_snippets/segment-group/invalid.tsx';
+import SegmentGroupRootProvider from './_snippets/segment-group/root-provider.tsx';
+import SegmentGroupVerticalOrientation from './_snippets/segment-group/vertical-orientation.tsx';
 
 ## API Reference
 
@@ -25,13 +35,20 @@ Use `SegmentGroup` when users choose one value from a small set that is visible 
 Use `SegmentGroup.Items` when each segment only needs a text label. It creates the Ark item, text,
 control, and one synchronized native form input for every entry in the list.
 
-<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <SegmentGroupBasic />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/segment-group/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/segment-group/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -125,25 +142,51 @@ identifiers.
 Segment groups can be mounted conditionally. When the group appears, Ark recalculates the item
 geometry used by the indicator.
 
-<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <SegmentGroupConditionalMount />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/segment-group/conditional-mount.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/segment-group/conditional-mount.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/segment-group/segment-group-conditional-mount.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Controlled
 
 Keep the selected value in React state and update it from `details.value` in `onValueChange`.
 
-<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <SegmentGroupControlled />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/segment-group/controlled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/segment-group/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/segment-group/segment-group-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Disabled
 
@@ -151,91 +194,176 @@ Set `disabled` on an item when only that segment should be unavailable. Set it o
 disable the whole group. The root's disabled style dims the group once, without compounding the
 opacity of individual items.
 
-<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <SegmentGroupDisabled />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/segment-group/disabled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/segment-group/disabled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/segment-group/segment-group-disabled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Field
 
 Wrap the group in `Field` when its automatic native input should be accompanied by helper or error
 text. Ark inherits the field's disabled, invalid, required, and read-only state.
 
-<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <SegmentGroupField />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/segment-group/field.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/segment-group/field.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/segment-group/segment-group-field.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Form Submission
 
 Pass `name` to the root to include the selected value in native form data. `SegmentGroup.Items`
 adds a native form input to every generated item.
 
-<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <SegmentGroupFormSubmission />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/segment-group/form-submission.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/segment-group/form-submission.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/segment-group/segment-group-form-submission.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Invalid
 
 Set `invalid` on the root when validation fails. Combine it with `required` and `name` when the
 group participates in native form validation.
 
-<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <SegmentGroupInvalid />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/segment-group/invalid.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/segment-group/invalid.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Use `useSegmentGroup()` with `RootProvider` when controls outside the segment tree need access to
 the same state.
 
-<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <SegmentGroupRootProvider />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/segment-group/root-provider.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/segment-group/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/segment-group/segment-group-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Vertical Orientation
 
 Set `orientation="vertical"` when the group should use a vertical layout and vertical arrow-key
 navigation.
 
-<style>{SegmentGroupDocs.segmentGroupVerticalCss}</style>
+<ExampleFrame variant="component">
+  <SegmentGroupVerticalOrientation />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/segment-group/vertical-orientation.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/segment-group/vertical-orientation.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/segment-group/segment-group-vertical-orientation.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Use `SegmentGroup.Item asChild` instead of `SegmentGroup.Items` when a custom label layout should
 own the item's DOM node.
 
-<style>{SegmentGroupDocs.segmentGroupAsChildCss}</style>
+<ExampleFrame variant="component">
+  <SegmentGroupAsChild />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/segment-group/aschild.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/segment-group/aschild.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/segment-group/segment-group-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

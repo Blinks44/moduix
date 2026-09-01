@@ -1,4 +1,5 @@
 import { QrCode } from '@moduix/react/qr-code';
+import styles from '@/components/examples/qr-code/component-overlay.module.css';
 
 export default function OverlayQrCodeDemo() {
   return (
@@ -8,18 +9,10 @@ export default function OverlayQrCodeDemo() {
         ecc: 'H',
       }}
     >
-      <QrCode.Frame style={{ fill: 'var(--moduix-color-primary)' }}>
+      <QrCode.Frame className={styles.frame}>
         <QrCode.Pattern />
       </QrCode.Frame>
-      <QrCode.Overlay
-        style={{
-          fontSize: 'var(--moduix-text-xs)',
-          fontWeight: 'var(--moduix-weight-semibold)',
-          lineHeight: 'var(--moduix-line-height-text-xs)',
-        }}
-      >
-        MX
-      </QrCode.Overlay>
+      <QrCode.Overlay className={styles.overlay}>MX</QrCode.Overlay>
     </QrCode>
   );
 }

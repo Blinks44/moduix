@@ -3,6 +3,7 @@ import { InputGroup } from '@moduix/react/input-group';
 import { Select } from '@moduix/react/select';
 import { Search as SearchIcon } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import styles from '@/components/examples/select/select-search-in-popup.module.css';
 
 const fruits = createListCollection({
   items: [
@@ -67,8 +68,8 @@ export default function SelectSearchInPopupDemo() {
       <Select.Label>Choose fruit</Select.Label>
       <Select.Field placeholder="Search or select a fruit" clearLabel="Clear selection" />
       <Select.Positioner>
-        <div ref={popupRef} className="select-search-popup">
-          <div className="select-search-popup-header">
+        <div ref={popupRef} className={styles.popup}>
+          <div className={styles.popupHeader}>
             <InputGroup>
               <InputGroup.Addon>
                 <SearchIcon aria-hidden />
@@ -82,7 +83,7 @@ export default function SelectSearchInPopupDemo() {
               />
             </InputGroup>
           </div>
-          <Select.Content className="select-search-popup-content">
+          <Select.Content className={styles.popupContent}>
             {collection.items.length ? (
               collection.items.map((item) => (
                 <Select.Item key={item.value} item={item}>
@@ -91,7 +92,7 @@ export default function SelectSearchInPopupDemo() {
                 </Select.Item>
               ))
             ) : (
-              <div className="select-search-popup-empty" role="presentation">
+              <div className={styles.popupEmpty} role="presentation">
                 No fruits found.
               </div>
             )}

@@ -1,0 +1,12 @@
+.root {
+  display: grid;
+  inline-size: min(24rem, 100%);
+  gap: var(--moduix-spacing-2);
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 4rem minmax(6rem, 1fr);
+  align-items: center;
+  gap: var(--moduix-spacing-3);
+}

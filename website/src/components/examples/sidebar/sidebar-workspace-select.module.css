@@ -1,0 +1,61 @@
+.root {
+  --moduix-sidebar-width: min(100%, 64rem);
+  --moduix-sidebar-height: 34rem;
+  --moduix-sidebar-min-height: 28rem;
+  --moduix-sidebar-radius: var(--moduix-radius-lg);
+  --moduix-sidebar-shadow: var(--moduix-shadow-sm);
+  margin-inline: auto;
+}
+
+.workspaceMark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--moduix-radius-sm);
+  background-color: var(--moduix-color-accent);
+}
+
+.footer {
+  display: grid;
+  width: 100%;
+}
+
+.accountLabel {
+  display: grid;
+  flex: 1;
+  text-align: start;
+}
+
+.accountName,
+.accountEmail {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.accountEmail {
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-xs);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  min-height: 3.5rem;
+  padding-inline: 1.5rem;
+  border-block-end: 1px solid var(--moduix-color-border);
+}
+
+.content {
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+.card {
+  padding: 1rem;
+  border: 1px solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-md);
+}

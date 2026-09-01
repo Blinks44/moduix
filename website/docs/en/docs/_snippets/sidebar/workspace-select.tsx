@@ -15,6 +15,7 @@ import {
   Settings,
   Users,
 } from 'lucide-react';
+import styles from '@/components/examples/sidebar/sidebar-workspace-select.module.css';
 
 const workspaces = createListCollection({
   items: [
@@ -35,14 +36,7 @@ const workspaces = createListCollection({
 
 export default function WorkspaceSidebar() {
   return (
-    <Sidebar
-      style={{
-        borderRadius: 'var(--moduix-radius-lg)',
-        boxShadow: 'var(--moduix-shadow-sm)',
-        height: '34rem',
-        minHeight: '28rem',
-      }}
-    >
+    <Sidebar className={styles.root}>
       <Sidebar.Panel>
         <Sidebar.Header>
           <Sidebar.NavigationList>
@@ -58,18 +52,7 @@ export default function WorkspaceSidebar() {
               >
                 <Select.Trigger asChild>
                   <Sidebar.NavigationButton size="lg" aria-label="Select workspace">
-                    <span
-                      data-sidebar-icon
-                      style={{
-                        alignItems: 'center',
-                        backgroundColor: 'var(--moduix-color-accent)',
-                        borderRadius: 'var(--moduix-radius-sm)',
-                        display: 'inline-flex',
-                        height: '2rem',
-                        justifyContent: 'center',
-                        width: '2rem',
-                      }}
-                    >
+                    <span data-sidebar-icon className={styles.workspaceMark}>
                       AC
                     </span>
                     <Sidebar.Label>
@@ -169,7 +152,7 @@ export default function WorkspaceSidebar() {
             </Sidebar.NavigationList>
           </Sidebar.Group>
         </Sidebar.Content>
-        <Sidebar.Footer style={{ display: 'grid', width: '100%' }}>
+        <Sidebar.Footer className={styles.footer}>
           <Sidebar.Separator />
           <Menu
             positioning={{
@@ -183,23 +166,9 @@ export default function WorkspaceSidebar() {
                 <Avatar size="sm" data-sidebar-icon>
                   <Avatar.Fallback>AM</Avatar.Fallback>
                 </Avatar>
-                <Sidebar.Label style={{ display: 'grid', flex: 1, textAlign: 'start' }}>
-                  <strong
-                    style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
-                  >
-                    Alex Morgan
-                  </strong>
-                  <span
-                    style={{
-                      color: 'var(--moduix-color-muted-foreground)',
-                      fontSize: 'var(--moduix-text-xs)',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      whiteSpace: 'nowrap',
-                    }}
-                  >
-                    alex@acme.dev
-                  </span>
+                <Sidebar.Label className={styles.accountLabel}>
+                  <strong className={styles.accountName}>Alex Morgan</strong>
+                  <span className={styles.accountEmail}>alex@acme.dev</span>
                 </Sidebar.Label>
               </Sidebar.NavigationButton>
             </Menu.Trigger>
@@ -226,26 +195,10 @@ export default function WorkspaceSidebar() {
       <Sidebar.ResizeTrigger />
       <Sidebar.Trigger />
       <Sidebar.Inset>
-        <header
-          style={{
-            alignItems: 'center',
-            borderBlockEnd: '1px solid var(--moduix-color-border)',
-            display: 'flex',
-            minHeight: '3.5rem',
-            paddingInline: '1.5rem',
-          }}
-        >
-          Dashboard
-        </header>
-        <main style={{ display: 'grid', gap: '1rem', padding: '1.5rem' }}>
+        <header className={styles.header}>Dashboard</header>
+        <main className={styles.content}>
           <strong>Acme Inc.</strong>
-          <section
-            style={{
-              border: '1px solid var(--moduix-color-border)',
-              borderRadius: 'var(--moduix-radius-md)',
-              padding: '1rem',
-            }}
-          >
+          <section className={styles.card}>
             Switch workspaces without changing the navigation shell.
           </section>
         </main>

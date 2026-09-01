@@ -4,7 +4,14 @@ component: scroll-area
 description: A native scroll container with styled scrollbars built on Ark UI.
 ---
 
-import * as ScrollAreaDocs from '@/components/examples/scroll-area';
+import * as ScrollAreaDocs from '@/components/examples/scroll-area/scroll-area';
+import ScrollAreaAlwaysVisible from './_snippets/scroll-area/always-visible.tsx';
+import ScrollAreaBasic from './_snippets/scroll-area/basic.tsx';
+import ScrollAreaBothDirections from './_snippets/scroll-area/both-directions.tsx';
+import ScrollAreaFade from './_snippets/scroll-area/fade.tsx';
+import ScrollAreaHorizontal from './_snippets/scroll-area/horizontal.tsx';
+import ScrollAreaNested from './_snippets/scroll-area/nested.tsx';
+import ScrollAreaRootProvider from './_snippets/scroll-area/root-provider.tsx';
 
 ## API Reference
 
@@ -17,11 +24,26 @@ Use `ScrollArea` as the Ark root and compose `Viewport`, `Content`, `Scrollbar`,
 wheel, trackpad, touch, or keyboard continues to work. The scrollbar parts add styled controls.
 moduix also adds `fade`, which applies a top and bottom mask based on Ark's overflow measurements.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/scroll-area/basic.tsx"
+<ExampleFrame variant="component">
+  <ScrollAreaBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/scroll-area/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/scroll-area/scroll-area-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -98,64 +120,154 @@ to call the scroll area API. The package also exports `useScrollArea` and `useSc
 
 Use `variant="always"` in dense panels when the scrollbar should remain discoverable without hover.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/scroll-area/always-visible.tsx"
+<ExampleFrame variant="component">
+  <ScrollAreaAlwaysVisible />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/scroll-area/always-visible.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/scroll-area/scroll-area-always-visible.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Both Directions
 
 Render vertical and horizontal scrollbars when content can overflow on both axes.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/scroll-area/both-directions.tsx"
+<ExampleFrame variant="component">
+  <ScrollAreaBothDirections />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/scroll-area/both-directions.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/scroll-area/scroll-area-both-directions.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Fade
 
 Use `fade` when long vertical content should hint that more content exists above and below the
 current viewport without introducing another wrapper.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/scroll-area/fade.tsx"
+<ExampleFrame variant="component">
+  <ScrollAreaFade />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/scroll-area/fade.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/scroll-area/scroll-area-fade.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Horizontal
 
 Use a horizontal scrollbar when the content is intentionally wider than the frame.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/scroll-area/horizontal.tsx"
+<ExampleFrame variant="component">
+  <ScrollAreaHorizontal />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/scroll-area/horizontal.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/scroll-area/scroll-area-horizontal.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Nested
 
 Nested scroll areas use the same composition. Keep each root, viewport, content, and scrollbar tree
 complete so Ark can measure each area independently.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/scroll-area/nested.tsx"
+<ExampleFrame variant="component">
+  <ScrollAreaNested />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/scroll-area/nested.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/scroll-area/scroll-area-nested.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Use `ScrollArea.useScrollArea()` with `ScrollArea.RootProvider` when external controls need access
 to the scrolling API.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/scroll-area/root-provider.tsx"
+<ExampleFrame variant="component">
+  <ScrollAreaRootProvider />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/scroll-area/root-provider.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/scroll-area/scroll-area-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

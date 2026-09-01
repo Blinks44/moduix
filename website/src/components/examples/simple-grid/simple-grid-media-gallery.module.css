@@ -1,0 +1,29 @@
+.root {
+  width: 100%;
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: var(--moduix-spacing-3);
+  border-radius: var(--moduix-radius-xl);
+  background-color: var(--moduix-color-muted);
+  list-style: none;
+}
+
+.item {
+  min-width: 0;
+  overflow: hidden;
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-lg);
+  background-color: var(--moduix-color-background);
+}
+
+.image {
+  aspect-ratio: 4 / 3;
+  display: block;
+  width: 100%;
+  object-fit: cover;
+}
+
+.caption {
+  display: block;
+  padding: var(--moduix-spacing-3);
+}

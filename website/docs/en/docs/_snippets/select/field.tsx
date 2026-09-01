@@ -1,6 +1,7 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import { Field } from '@moduix/react/field';
 import { Select } from '@moduix/react/select';
+import styles from '@/components/examples/select/select-field.module.css';
 
 const frameworks = createListCollection({
   items: [
@@ -26,7 +27,7 @@ const frameworks = createListCollection({
 
 export default function SelectFieldDemo() {
   return (
-    <Field.Root required>
+    <Field.Root className={styles.root} required>
       <Select collection={frameworks} name="framework">
         <Select.Label>Framework</Select.Label>
         <Select.Control>

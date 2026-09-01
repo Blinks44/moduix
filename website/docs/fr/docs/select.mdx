@@ -4,7 +4,24 @@ component: select
 description: Composition Select basée sur Ark UI pour choisir une ou plusieurs valeurs dans une liste contextuelle.
 ---
 
-import * as SelectDocs from '@/components/examples/select';
+import * as SelectDocs from '@/components/examples/select/select';
+import SelectAdvancedCustomization from '../../en/docs/_snippets/select/advanced-customization.tsx';
+import SelectBasic from '../../en/docs/_snippets/select/basic.tsx';
+import SelectControlled from '../../en/docs/_snippets/select/controlled.tsx';
+import SelectCustomItemLayout from '../../en/docs/_snippets/select/custom-item-layout.tsx';
+import SelectDynamicItems from '../../en/docs/_snippets/select/dynamic-items.tsx';
+import SelectField from '../../en/docs/_snippets/select/field.tsx';
+import SelectFormUsage from '../../en/docs/_snippets/select/form-usage.tsx';
+import SelectGrouping from '../../en/docs/_snippets/select/grouping.tsx';
+import SelectLazyMount from '../../en/docs/_snippets/select/lazy-mount.tsx';
+import SelectMaxSelection from '../../en/docs/_snippets/select/max-selection.tsx';
+import SelectMultiple from '../../en/docs/_snippets/select/multiple.tsx';
+import SelectNativeFormControl from '../../en/docs/_snippets/select/native-form-control.tsx';
+import SelectOverflow from '../../en/docs/_snippets/select/overflow.tsx';
+import SelectRootProvider from '../../en/docs/_snippets/select/root-provider.tsx';
+import SelectSearchInPopup from '../../en/docs/_snippets/select/search-in-popup.tsx';
+import SelectSelectAll from '../../en/docs/_snippets/select/select-all.tsx';
+import SelectSelectOnHighlight from '../../en/docs/_snippets/select/select-on-highlight.tsx';
 
 ## Référence de l’API
 
@@ -23,13 +40,20 @@ la structure de la fenêtre contextuelle explicite. La propriété `clearLabel` 
 d’effacement accessible. La racine ajoute automatiquement le contrôle de formulaire natif nécessaire
 à la soumission, au remplissage automatique et à la réinitialisation.
 
-<style>{SelectDocs.selectExampleCss}</style>
+<ExampleFrame variant="component">
+  <SelectBasic />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/select/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -157,99 +181,198 @@ du focus et le cycle de montage restent inchangés.
 
 Contrôlez les valeurs sélectionnées depuis l’état React et mettez-les à jour avec `details.value`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/controlled.tsx"
+<ExampleFrame variant="component">
+  <SelectControlled />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/select/controlled.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Disposition personnalisée des éléments
 
 Utilisez `Select.ItemTextContent`, `Select.ItemTextIcon` et `Select.ItemTextLabel` dans `ItemText`
 lorsqu’un élément doit afficher une icône stable et un libellé tronqué.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/custom-item-layout.tsx"
+<ExampleFrame variant="component">
+  <SelectCustomItemLayout />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/select/custom-item-layout.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Éléments dynamiques
 
 Mettez à jour la collection lorsque les éléments disponibles changent. La composition Select reste
 identique.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/dynamic-items.tsx"
+<ExampleFrame variant="component">
+  <SelectDynamicItems />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/select/dynamic-items.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/select/select-dynamic-items.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Champ de formulaire
 
 Enveloppez Select dans `Field.Root` lorsque le libellé, le texte d’aide ou les états `invalid`,
 `required` et `disabled` s’appliquent au champ de formulaire.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/field.tsx"
+<ExampleFrame variant="component">
+  <SelectField />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/select/field.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/select/select-field.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Utilisation dans un formulaire
 
 Le `<select>` natif ajouté automatiquement préserve la soumission native du formulaire. Lisez les
 valeurs envoyées depuis `FormData`.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/form-usage.tsx"
+<ExampleFrame variant="component">
+  <SelectFormUsage />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/select/form-usage.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/select/select-form-usage.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Regroupement
 
 Définissez `groupBy` dans la collection et affichez `collection.group()` avec `ItemGroup` et
 `ItemGroupLabel`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/grouping.tsx"
+<ExampleFrame variant="component">
+  <SelectGrouping />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/select/grouping.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Montage différé
 
 Utilisez `lazyMount` et `unmountOnExit` lorsque le contenu de la fenêtre contextuelle ne doit être
 monté que pendant l’utilisation de Select.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/lazy-mount.tsx"
+<ExampleFrame variant="component">
+  <SelectLazyMount />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/select/lazy-mount.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Nombre maximal d’éléments sélectionnés
 
 Limitez le nombre d’éléments sélectionnés en rejetant les tableaux trop longs et en désactivant les
 éléments restants.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/max-selection.tsx"
+<ExampleFrame variant="component">
+  <SelectMaxSelection />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/select/max-selection.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Sélection multiple
 
 Définissez `multiple` pour autoriser plusieurs valeurs sélectionnées. `ValueText` affiche les
 libellés des éléments sélectionnés à partir de la collection.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/multiple.tsx"
+<ExampleFrame variant="component">
+  <SelectMultiple />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/select/multiple.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Contrôle de formulaire natif
 
@@ -258,77 +381,164 @@ lorsque générer une `option` native pour chaque élément serait trop coûteux
 valeurs envoyées dans `FormData`. Pour une collection virtualisée, associez ce mode à `Select.List`
 et à votre stratégie de virtualisation.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/native-form-control.tsx"
+<ExampleFrame variant="component">
+  <SelectNativeFormControl />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/select/native-form-control.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/select/select-native-form-control.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Débordement
 
 Pour les longues listes, utilisez `positioning.fitViewport`. Le contenu limite déjà sa hauteur avec
 la variable Ark `--available-height` et reste défilable.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/overflow.tsx"
+<ExampleFrame variant="component">
+  <SelectOverflow />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/select/overflow.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Utilisez `Select.useSelect` avec `Select.RootProvider` lorsque l’état doit être lu ou contrôlé en
 dehors de l’arborescence Select rendue.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/root-provider.tsx"
+<ExampleFrame variant="component">
+  <SelectRootProvider />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/select/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/select/select-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Recherche dans la fenêtre contextuelle
 
 Placez un contrôle de filtrage à côté de la listbox dans la fenêtre contextuelle. Conservez l’état de
 la requête et la collection filtrée dans votre composant, sans étendre l’API Select.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/search-in-popup.tsx"
+<ExampleFrame variant="component">
+  <SelectSearchInPopup />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/select/search-in-popup.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/select/select-search-in-popup.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Tout sélectionner
 
 Placez les actions groupées en dehors de la listbox. `Select.useSelect` permet d’utiliser l’action et
 Select avec la même instance d’état Ark.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/select-all.tsx"
+<ExampleFrame variant="component">
+  <SelectSelectAll />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/select/select-all.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/select/select-select-all.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Sélection lors du déplacement dans la liste
 
 Utilisez `onHighlightChange(details)` lorsque le déplacement entre les options doit mettre
 immédiatement à jour la sélection.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/select-on-highlight.tsx"
+<ExampleFrame variant="component">
+  <SelectSelectOnHighlight />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/select/select-on-highlight.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Personnalisation avancée
 
 N’utilisez pas `Select.Field` lorsque le déclencheur, le texte de la valeur ou l’indicateur doivent
 être composés et stylisés indépendamment.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <SelectAdvancedCustomization />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/select/advanced-customization.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

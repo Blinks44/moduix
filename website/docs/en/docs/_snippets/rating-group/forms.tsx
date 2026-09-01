@@ -2,13 +2,14 @@ import { Button } from '@moduix/react/button';
 import { RatingGroup } from '@moduix/react/rating-group';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/rating-group/component-forms.module.css';
 
 export default function FormRatingGroupDemo() {
   const [submitted, setSubmitted] = useState('Nothing submitted');
 
   return (
     <form
-      className="rating-group-stack"
+      className={styles.stack}
       onSubmit={(event) => {
         event.preventDefault();
         setSubmitted(String(new FormData(event.currentTarget).get('review') ?? ''));
@@ -22,7 +23,7 @@ export default function FormRatingGroupDemo() {
       </RatingGroup>
       <PreviewMeta>
         <Button type="submit">Submit</Button>
-        <output className="rating-group-hint">Submitted: {submitted}</output>
+        <output className={styles.hint}>Submitted: {submitted}</output>
       </PreviewMeta>
     </form>
   );

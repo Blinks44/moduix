@@ -4,7 +4,15 @@ component: sidebar
 description: Resizable and collapsible application navigation built on the Ark UI Splitter.
 ---
 
-import { SidebarCssPropertiesPanel } from '@/components/examples/sidebar';
+import { SidebarCssPropertiesPanel } from '@/components/examples/sidebar/sidebar';
+import SidebarBasic from './_snippets/sidebar/basic.tsx';
+import SidebarCustomScrollArea from './_snippets/sidebar/custom-scroll-area.tsx';
+import SidebarCustomSizes from './_snippets/sidebar/custom-sizes.tsx';
+import SidebarNestedNavigation from './_snippets/sidebar/nested-navigation.tsx';
+import SidebarNestedNavigationAndAccountMenu from './_snippets/sidebar/nested-navigation-and-account-menu.tsx';
+import SidebarPersistedLayout from './_snippets/sidebar/persisted-layout.tsx';
+import SidebarRightSidebar from './_snippets/sidebar/right-sidebar.tsx';
+import SidebarWorkspaceSelect from './_snippets/sidebar/workspace-select.tsx';
 
 ## API Reference
 
@@ -28,11 +36,26 @@ The default ids and panel constraints cover the usual left-sidebar layout, so no
 The example also shows how to keep labels available for icon-only navigation after collapse: wrap
 `Sidebar.NavigationButton` in `Sidebar.Tooltip`. The tooltip manages its own popup state.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/sidebar/basic.tsx"
+<ExampleFrame variant="component">
+  <SidebarBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/sidebar/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/sidebar/sidebar-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -186,11 +209,26 @@ Keep both navigation layouts explicit and adjacent. `Sidebar.ExpandedContent` ke
 popup `Menu` in the icon rail. These parts only switch visibility, so all Menu and Collapsible
 styling stays in your composition.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/sidebar/nested-navigation.tsx"
+<ExampleFrame variant="component">
+  <SidebarNestedNavigation />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/sidebar/nested-navigation.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/sidebar/sidebar-nested-navigation.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Custom Scroll Area
 
@@ -198,11 +236,26 @@ Native scrolling is the default. If you need a styled scrollbar thumb or an opti
 a `ScrollArea` inside `Sidebar.Content`. Disable overflow on the outer content part so
 `ScrollArea.Viewport` is the only scroll container.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/sidebar/custom-scroll-area.tsx"
+<ExampleFrame variant="component">
+  <SidebarCustomScrollArea />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/sidebar/custom-scroll-area.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/sidebar/sidebar-custom-scroll-area.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Persisted Desktop Layout
 
@@ -210,11 +263,26 @@ Keep the desktop sidebar width outside the component. Control `size`, update it 
 `onResize(details)`, and save the final value in `onResizeEnd(details)`. Splitter remains in charge
 of the layout while the chosen width survives the next visit.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/sidebar/persisted-layout.tsx"
+<ExampleFrame variant="component">
+  <SidebarPersistedLayout />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/sidebar/persisted-layout.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/sidebar/sidebar-persisted-layout.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 <span id="recommended-app-shell" />
 
@@ -227,11 +295,26 @@ compositions visible in this example: `Sidebar.ExpandedContent` selects the inli
 owns its own state, focus, popup positioning, and animation. The example also shows a long project list
 scrolling inside `Sidebar.Content` and tooltips for the collapsed icon rail.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/sidebar/nested-navigation-and-account-menu.tsx"
+<ExampleFrame variant="component">
+  <SidebarNestedNavigationAndAccountMenu />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/sidebar/nested-navigation-and-account-menu.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/sidebar/sidebar-nested-navigation-and-account-menu.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Right Sidebar
 
@@ -239,11 +322,26 @@ Pass `side="right"` and render `Inset`, `Trigger`, `ResizeTrigger`, and `Panel` 
 order. Sidebar adjusts the panel setup, trigger id and position, and chevron direction automatically.
 The Inspector example includes grouped tools, activity links, internal scrolling, and a footer menu.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/sidebar/right-sidebar.tsx"
+<ExampleFrame variant="component">
+  <SidebarRightSidebar />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/sidebar/right-sidebar.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/sidebar/sidebar-right-sidebar.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Workspace Select
 
@@ -253,22 +351,52 @@ visual anchor with `data-sidebar-icon`. Select places its direct indicator at th
 Sidebar hides it in the collapsed rail. The example combines a workspace switcher with navigation, a
 scrollable content area, and an account menu.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/sidebar/workspace-select.tsx"
+<ExampleFrame variant="component">
+  <SidebarWorkspaceSelect />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/sidebar/workspace-select.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/sidebar/sidebar-workspace-select.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Use `Splitter` directly when a layout needs different panel constraints, custom inset ids, more than
 two panels, or provider and registry APIs.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/sidebar/custom-sizes.tsx"
+<ExampleFrame variant="component">
+  <SidebarCustomSizes />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/sidebar/custom-sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/sidebar/sidebar-custom-sizes.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

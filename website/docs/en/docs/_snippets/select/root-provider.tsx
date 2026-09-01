@@ -2,6 +2,7 @@ import { createListCollection } from '@ark-ui/react/collection';
 import { Button } from '@moduix/react/button';
 import { Select } from '@moduix/react/select';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/select/select-root-provider.module.css';
 
 const fruits = createListCollection({
   items: [
@@ -54,7 +55,7 @@ export default function SelectRootProviderDemo() {
     defaultValue: ['banana'],
   });
   return (
-    <div className="select-preview-stack">
+    <div className={styles.root}>
       <Select.RootProvider value={select}>
         <Select.Label>Choose fruit</Select.Label>
         <Select.Control>

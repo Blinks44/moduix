@@ -1,0 +1,18 @@
+.root {
+  --moduix-sidebar-width: min(100%, 64rem);
+  --moduix-sidebar-height: 22rem;
+  --moduix-sidebar-min-height: 18rem;
+  --moduix-sidebar-radius: var(--moduix-radius-lg);
+  --moduix-sidebar-shadow: var(--moduix-shadow-sm);
+  margin-inline: auto;
+}
+
+.content {
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+.description {
+  margin: 0;
+}

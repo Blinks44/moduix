@@ -1,6 +1,7 @@
 import { Button } from '@moduix/react/button';
 import { SegmentGroup, useSegmentGroup } from '@moduix/react/segment-group';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/segment-group/segment-group-root-provider.module.css';
 
 const frameworks = [
   { value: 'React', label: 'React' },
@@ -14,7 +15,7 @@ export default function SegmentGroupRootProviderDemo() {
     defaultValue: 'React',
   });
   return (
-    <div className="segment-stack">
+    <div className={styles.root}>
       <SegmentGroup.RootProvider aria-label="Framework" value={segmentGroup}>
         <SegmentGroup.Indicator />
         <SegmentGroup.Items items={frameworks} />

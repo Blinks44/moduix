@@ -1,5 +1,5 @@
-import type { CssPropertyInput } from '../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../mdx/reference';
+import type { CssPropertyInput } from '../../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
 const qrCodeCssProperties: CssPropertyInput[] = [
   ['--qrcode-height', 'computed by Ark', 'Runtime height for the generated frame.'],

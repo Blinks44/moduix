@@ -1,9 +1,10 @@
 import { Field } from '@moduix/react/field';
 import { RatingGroup } from '@moduix/react/rating-group';
+import styles from '@/components/examples/rating-group/component-field.module.css';
 
 export default function FieldRatingGroupDemo() {
   return (
-    <Field className="rating-group-field">
+    <Field className={styles.field}>
       <RatingGroup defaultValue={4} required>
         <RatingGroup.Label>Experience score</RatingGroup.Label>
         <RatingGroup.Control>

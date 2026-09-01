@@ -1,4 +1,5 @@
 import { ScrollArea } from '@moduix/react/scroll-area';
+import styles from '@/components/examples/scroll-area/scroll-area-basic.module.css';
 
 const sections = [
   {
@@ -25,26 +26,14 @@ const sections = [
 
 export default function ScrollAreaDemo() {
   return (
-    <ScrollArea
-      style={{
-        height: '13rem',
-        border: 'var(--moduix-border-width-sm) solid var(--moduix-color-border)',
-        borderRadius: 'var(--moduix-radius-lg)',
-      }}
-    >
+    <ScrollArea className={styles.root}>
       <ScrollArea.Viewport>
         <ScrollArea.Content>
-          <div
-            style={{
-              display: 'grid',
-              gap: 'var(--moduix-spacing-3)',
-              padding: 'var(--moduix-spacing-3)',
-            }}
-          >
+          <div className={styles.content}>
             {sections.map((item) => (
               <section key={item.title}>
                 <h3>{item.title}</h3>
-                <p style={{ margin: 0 }}>{item.body}</p>
+                <p className={styles.description}>{item.body}</p>
               </section>
             ))}
           </div>

@@ -4,7 +4,16 @@ component: rating-group
 description: Contrôle de notation par étoiles fondé sur le primitif rating-group d’Ark UI.
 ---
 
-import * as RatingGroupDocs from '@/components/examples/rating-group';
+import * as RatingGroupDocs from '@/components/examples/rating-group/rating-group';
+import RatingGroupBasic from '../../en/docs/_snippets/rating-group/basic.tsx';
+import RatingGroupControlled from '../../en/docs/_snippets/rating-group/controlled.tsx';
+import RatingGroupCustomIcon from '../../en/docs/_snippets/rating-group/custom-icon.tsx';
+import RatingGroupDisabledAndReadonly from '../../en/docs/_snippets/rating-group/disabled-and-readonly.tsx';
+import RatingGroupField from '../../en/docs/_snippets/rating-group/field.tsx';
+import RatingGroupForms from '../../en/docs/_snippets/rating-group/forms.tsx';
+import RatingGroupHalfRating from '../../en/docs/_snippets/rating-group/half-rating.tsx';
+import RatingGroupSizes from '../../en/docs/_snippets/rating-group/sizes.tsx';
+import RatingGroupAdvancedCustomization from '../../en/docs/_snippets/rating-group/advanced-customization.tsx';
 
 Utilisez `RatingGroup` lorsque l’utilisateur doit choisir une note numérique à l’aide d’une série d’étoiles ou d’icônes identiques.
 
@@ -17,13 +26,20 @@ Utilisez `RatingGroup` lorsque l’utilisateur doit choisir une note numérique 
 Dans le cas courant, utilisez la forme abrégée de la racine avec `RatingGroup.Label`,
 `RatingGroup.Control` et `RatingGroup.Items`.
 
-<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupBasic />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/rating-group/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/rating-group/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -118,13 +134,26 @@ correspondantes. `ItemIndicator` transmet sa ref à sa propre enveloppe visuelle
 Utilisez le mode contrôlé lorsque la note dépend d’un autre état, pilote l’interface voisine ou doit
 être réinitialisée par le parent.
 
-<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupControlled />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/rating-group/controlled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/rating-group/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/rating-group/component-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Icône personnalisée
 
@@ -132,26 +161,52 @@ Passez un `RatingGroup.ItemIndicator` personnalisé comme enfant de `RatingGroup
 éléments doivent utiliser la même icône. L’indicateur reçoit toujours les attributs d’état Ark
 `data-highlighted` et `data-half`, utilisables dans vos styles.
 
-<style>{RatingGroupDocs.ratingGroupCustomIconCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupCustomIcon />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/rating-group/custom-icon.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/rating-group/custom-icon.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/rating-group/component-custom-icon.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### État désactivé et mode lecture seule
 
 Utilisez `disabled` pour désactiver les interactions. Utilisez `readOnly` pour laisser la note visible
 sans permettre sa modification.
 
-<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupDisabledAndReadonly />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/rating-group/disabled-and-readonly.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/rating-group/disabled-and-readonly.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/rating-group/component-disabled-and-readonly.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Field
 
@@ -159,51 +214,97 @@ Enveloppez le groupe de notation dans `Field` lorsque le texte d’aide ou de va
 à son champ de formulaire natif masqué. Ark transmet au groupe les états `disabled`, `readOnly` et
 `required` du champ ; l’état de validation reste géré par `Field` et le code de l’application.
 
-<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupField />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/rating-group/field.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/rating-group/field.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/rating-group/component-field.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Formulaires
 
 Passez `name` pour inclure la note sélectionnée dans `FormData` ; l’élément racine rend automatiquement
 le champ de formulaire natif synchronisé.
 
-<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupForms />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/rating-group/forms.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/rating-group/forms.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/rating-group/component-forms.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Notation par demi-pas
 
 Définissez `allowHalf` pour activer la sélection et l’affichage par demi-pas.
 
-<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupHalfRating />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/rating-group/half-rating.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/rating-group/half-rating.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Tailles
 
 Utilisez la prop moduix `size` lorsque la notation doit conserver le même comportement Ark avec une
 densité visuelle différente.
 
-<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupSizes />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/rating-group/sizes.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/rating-group/sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/rating-group/component-sizes.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Composition avancée
 
@@ -211,13 +312,26 @@ Utilisez `RatingGroup.RootProvider` avec `useRatingGroup()` lorsque l’état do
 l’arbre de notation rendu. Utilisez `RatingGroup.Context` lorsque `RatingGroup.Items` ne suffit pas et
 que vous devez rendre chaque élément vous-même.
 
-<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupAdvancedCustomization />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/rating-group/advanced-customization.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/rating-group/advanced-customization.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/rating-group/component-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

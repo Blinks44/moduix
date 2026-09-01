@@ -3,6 +3,7 @@ import { SignaturePad } from '@moduix/react/signature-pad';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/signature-pad/signature-pad-form-serialization.module.css';
 
 export default function FormSerializationSignaturePadDemo() {
   const [submitted, setSubmitted] = useState('Nothing submitted');
@@ -13,7 +14,7 @@ export default function FormSerializationSignaturePadDemo() {
   };
 
   return (
-    <form className="signature-pad-stack" onSubmit={handleSubmit}>
+    <form className={styles.root} onSubmit={handleSubmit}>
       <SignaturePad name="signature" getFormValue={(paths) => JSON.stringify(paths)}>
         <SignaturePad.Label>Sign below</SignaturePad.Label>
         <SignaturePad.Canvas />

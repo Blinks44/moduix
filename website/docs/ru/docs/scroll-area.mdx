@@ -4,7 +4,14 @@ component: scroll-area
 description: Нативный контейнер прокрутки со стилизованными полосами прокрутки на базе Ark UI.
 ---
 
-import * as ScrollAreaDocs from '@/components/examples/scroll-area';
+import * as ScrollAreaDocs from '@/components/examples/scroll-area/scroll-area';
+import ScrollAreaAlwaysVisible from '../../en/docs/_snippets/scroll-area/always-visible.tsx';
+import ScrollAreaBasic from '../../en/docs/_snippets/scroll-area/basic.tsx';
+import ScrollAreaBothDirections from '../../en/docs/_snippets/scroll-area/both-directions.tsx';
+import ScrollAreaFade from '../../en/docs/_snippets/scroll-area/fade.tsx';
+import ScrollAreaHorizontal from '../../en/docs/_snippets/scroll-area/horizontal.tsx';
+import ScrollAreaNested from '../../en/docs/_snippets/scroll-area/nested.tsx';
+import ScrollAreaRootProvider from '../../en/docs/_snippets/scroll-area/root-provider.tsx';
 
 ## Справочник API
 
@@ -18,11 +25,26 @@ import * as ScrollAreaDocs from '@/components/examples/scroll-area';
 добавляют стилизованные элементы управления. moduix также добавляет `fade`: он накладывает
 градиентную маску у верхнего и нижнего края на основе данных Ark о переполнении.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/scroll-area/basic.tsx"
+<ExampleFrame variant="component">
+  <ScrollAreaBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/scroll-area/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/scroll-area/scroll-area-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -102,65 +124,155 @@ ScrollArea
 Используйте `variant="always"` в плотных панелях, когда полоса прокрутки должна оставаться заметной
 без наведения.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/scroll-area/always-visible.tsx"
+<ExampleFrame variant="component">
+  <ScrollAreaAlwaysVisible />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/scroll-area/always-visible.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/scroll-area/scroll-area-always-visible.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Обе оси
 
 Добавьте вертикальную и горизонтальную полосы прокрутки, если содержимое может переполняться по обеим
 осям.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/scroll-area/both-directions.tsx"
+<ExampleFrame variant="component">
+  <ScrollAreaBothDirections />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/scroll-area/both-directions.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/scroll-area/scroll-area-both-directions.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Плавное затухание
 
 Используйте `fade`, чтобы показать, что длинное вертикальное содержимое продолжается выше и ниже
 текущей области просмотра, без дополнительной обёртки.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/scroll-area/fade.tsx"
+<ExampleFrame variant="component">
+  <ScrollAreaFade />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/scroll-area/fade.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/scroll-area/scroll-area-fade.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Горизонтальная прокрутка
 
 Добавьте горизонтальную полосу, если содержимое намеренно шире области просмотра.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/scroll-area/horizontal.tsx"
+<ExampleFrame variant="component">
+  <ScrollAreaHorizontal />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/scroll-area/horizontal.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/scroll-area/scroll-area-horizontal.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Вложенные области
 
 Вложенные области прокрутки используют ту же композицию. Сохраняйте полными деревья `root`,
 `viewport`, `content` и `scrollbar` каждой области, чтобы Ark мог измерять их независимо.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/scroll-area/nested.tsx"
+<ExampleFrame variant="component">
+  <ScrollAreaNested />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/scroll-area/nested.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/scroll-area/scroll-area-nested.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Используйте `ScrollArea.useScrollArea()` с `ScrollArea.RootProvider`, если внешним элементам
 управления нужен доступ к API прокрутки.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/scroll-area/root-provider.tsx"
+<ExampleFrame variant="component">
+  <ScrollAreaRootProvider />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/scroll-area/root-provider.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/scroll-area/scroll-area-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

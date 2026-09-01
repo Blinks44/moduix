@@ -4,6 +4,10 @@ component: simple-grid
 description: An equal-column CSS Grid that adapts to the available width.
 ---
 
+import SimpleGridBasic from './_snippets/simple-grid/basic.tsx';
+import SimpleGridFixedColumns from './_snippets/simple-grid/fixed-columns.tsx';
+import SimpleGridMediaGallery from './_snippets/simple-grid/media-gallery.tsx';
+
 ## API Reference
 
 `SimpleGrid` is not an Ark UI primitive. moduix provides it as a small layout wrapper built with
@@ -22,9 +26,24 @@ numeric values are treated as pixels, while strings can contain any valid CSS le
 The number of columns changes with the root width, and the children remain direct grid items. If a
 child contains unbreakable content, add `min-width: 0` or an appropriate overflow rule to that child.
 
-```tsx preview file="./_snippets/simple-grid/basic.tsx"
+<ExampleFrame variant="component">
+  <SimpleGridBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/simple-grid/basic.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/simple-grid/simple-grid-basic.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -101,18 +120,48 @@ different templates at media or container query breakpoints. Leave both `columns
 
 Use `columns` when the number of equal columns should stay fixed, such as in a compact metrics grid.
 
-```tsx preview file="./_snippets/simple-grid/fixed-columns.tsx"
+<ExampleFrame variant="component">
+  <SimpleGridFixedColumns />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/simple-grid/fixed-columns.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/simple-grid/simple-grid-fixed-columns.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Media Gallery
 
 Use `asChild` when the grid itself should carry list semantics. This example renders the root as a
 `ul` and keeps each image in a direct `li` child.
 
-```tsx preview file="./_snippets/simple-grid/media-gallery.tsx"
+<ExampleFrame variant="component">
+  <SimpleGridMediaGallery />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/simple-grid/media-gallery.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/simple-grid/simple-grid-media-gallery.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

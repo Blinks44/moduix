@@ -3,6 +3,7 @@ import { RadioGroup } from '@moduix/react/radio-group';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/radio-group/radio-group-form.module.css';
 
 const frameworks = ['React', 'Solid', 'Vue'];
 
@@ -16,7 +17,7 @@ export default function RadioGroupFormDemo() {
 
   return (
     <form
-      className="radio-group-preview-stack"
+      className={styles.stack}
       onReset={() => setSubmitted('Not submitted')}
       onSubmit={handleSubmit}
     >

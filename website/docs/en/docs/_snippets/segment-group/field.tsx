@@ -1,5 +1,6 @@
 import { Field } from '@moduix/react/field';
 import { SegmentGroup } from '@moduix/react/segment-group';
+import styles from '@/components/examples/segment-group/segment-group-field.module.css';
 
 const frameworks = [
   { value: 'React', label: 'React' },
@@ -10,7 +11,7 @@ const frameworks = [
 
 export default function FieldSegmentGroupDemo() {
   return (
-    <Field invalid>
+    <Field className={styles.root} invalid>
       <SegmentGroup aria-label="Framework" defaultValue="React" name="framework" required>
         <SegmentGroup.Indicator />
         <SegmentGroup.Items items={frameworks} />

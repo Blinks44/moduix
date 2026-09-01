@@ -2,6 +2,7 @@ import { createListCollection } from '@ark-ui/react/collection';
 import { Input } from '@moduix/react/input';
 import { Select } from '@moduix/react/select';
 import { useState } from 'react';
+import styles from '@/components/examples/select/select-dynamic-items.module.css';
 
 const fruits = createListCollection({
   items: [
@@ -55,7 +56,7 @@ export default function SelectDynamicItemsDemo() {
   });
 
   return (
-    <div className="select-dynamic-items">
+    <div className={styles.root}>
       <Input
         aria-label="Filter fruits"
         value={query}

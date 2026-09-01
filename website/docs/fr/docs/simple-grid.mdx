@@ -4,6 +4,10 @@ component: simple-grid
 description: Une grille CSS à colonnes égales qui s’adapte à la largeur disponible.
 ---
 
+import SimpleGridBasic from '../../en/docs/_snippets/simple-grid/basic.tsx';
+import SimpleGridFixedColumns from '../../en/docs/_snippets/simple-grid/fixed-columns.tsx';
+import SimpleGridMediaGallery from '../../en/docs/_snippets/simple-grid/media-gallery.tsx';
+
 ## Référence de l’API
 
 `SimpleGrid` n’est pas une primitive d’Ark UI. moduix fournit un composant de mise en page compact,
@@ -25,9 +29,24 @@ Le nombre de colonnes s’ajuste à la largeur de l’élément racine, et les e
 directs de la grille. Si un enfant contient du contenu qui ne peut pas être coupé, ajoutez
 `min-width: 0` ou une règle de débordement adaptée sur cet enfant.
 
-```tsx preview file="../../en/docs/_snippets/simple-grid/basic.tsx"
+<ExampleFrame variant="component">
+  <SimpleGridBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/simple-grid/basic.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/simple-grid/simple-grid-basic.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -107,18 +126,48 @@ points de rupture définis par des requêtes média ou de conteneur. Ne transmet
 Utilisez `columns` lorsque le nombre de colonnes égales doit rester fixe, par exemple pour une grille
 compacte de métriques.
 
-```tsx preview file="../../en/docs/_snippets/simple-grid/fixed-columns.tsx"
+<ExampleFrame variant="component">
+  <SimpleGridFixedColumns />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/simple-grid/fixed-columns.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/simple-grid/simple-grid-fixed-columns.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Galerie de médias
 
 Utilisez `asChild` lorsque la grille elle-même doit porter la sémantique d’une liste. Dans cet exemple,
 la racine devient un `ul` et chaque image reste dans un élément `li` direct.
 
-```tsx preview file="../../en/docs/_snippets/simple-grid/media-gallery.tsx"
+<ExampleFrame variant="component">
+  <SimpleGridMediaGallery />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/simple-grid/media-gallery.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/simple-grid/simple-grid-media-gallery.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

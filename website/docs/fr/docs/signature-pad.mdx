@@ -4,7 +4,15 @@ component: signature-pad
 description: Un composant qui permet de capturer une signature manuscrite au pointeur ou au toucher.
 ---
 
-import * as SignaturePadDocs from '@/components/examples/signature-pad';
+import * as SignaturePadDocs from '@/components/examples/signature-pad/signature-pad';
+import SignaturePadBasic from '../../en/docs/_snippets/signature-pad/basic.tsx';
+import SignaturePadControlled from '../../en/docs/_snippets/signature-pad/controlled.tsx';
+import SignaturePadDrawing from '../../en/docs/_snippets/signature-pad/drawing.tsx';
+import SignaturePadField from '../../en/docs/_snippets/signature-pad/field.tsx';
+import SignaturePadFormSerialization from '../../en/docs/_snippets/signature-pad/form-serialization.tsx';
+import SignaturePadImagePreview from '../../en/docs/_snippets/signature-pad/image-preview.tsx';
+import SignaturePadRootProvider from '../../en/docs/_snippets/signature-pad/root-provider.tsx';
+import SignaturePadAdvancedCustomization from '../../en/docs/_snippets/signature-pad/advanced-customization.tsx';
 
 ## Référence de l’API
 
@@ -16,13 +24,20 @@ Pour la plupart des cas, commencez avec `SignaturePad.Canvas`. Il fournit la sur
 standard avec les parties Ark `Control`, `Segment`, `ClearTrigger` et `Guide`, ainsi que l’icône
 d’effacement par défaut de moduix.
 
-<style>{SignaturePadDocs.signaturePadExampleCss}</style>
+<ExampleFrame variant="component">
+  <SignaturePadBasic />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/signature-pad/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/signature-pad/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -139,66 +154,123 @@ pour éviter toute modification accidentelle de la signature affichée.
 Utilisez `paths` en mode contrôlé pour conserver la signature dans l’état de l’application et la
 coordonner avec des contrôles de réinitialisation ou une logique d’enregistrement automatique.
 
-<style>{SignaturePadDocs.signaturePadExampleCss}</style>
+<ExampleFrame variant="component">
+  <SignaturePadControlled />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/signature-pad/controlled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/signature-pad/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/signature-pad/signature-pad-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Dessin
 
 Transmettez `drawing` lorsque l’épaisseur, la couleur du trait ou le comportement de la pression
 doivent différer des valeurs par défaut.
 
-<style>{SignaturePadDocs.signaturePadExampleCss}</style>
+<ExampleFrame variant="component">
+  <SignaturePadDrawing />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/signature-pad/drawing.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/signature-pad/drawing.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Champ de formulaire
 
 Utilisez `Field` autour de `SignaturePad` lorsque le texte d’aide, le message d’erreur, l’état
 obligatoire (`required`) ou le message de validation concernent un même contrôle de formulaire.
 
-<style>{SignaturePadDocs.signaturePadExampleCss}</style>
+<ExampleFrame variant="component">
+  <SignaturePadField />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/signature-pad/field.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/signature-pad/field.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/signature-pad/signature-pad-field.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Sérialisation du formulaire
 
 Utilisez `getFormValue` lorsque le serveur doit recevoir les tracés sous une autre forme. Cet exemple
 envoie un tableau JSON au lieu de la chaîne de tracés SVG séparés par des espaces utilisée par défaut.
 
-<style>{SignaturePadDocs.signaturePadExampleCss}</style>
+<ExampleFrame variant="component">
+  <SignaturePadFormSerialization />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/signature-pad/form-serialization.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/signature-pad/form-serialization.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/signature-pad/signature-pad-form-serialization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Aperçu de l’image
 
 Utilisez `onDrawEnd` pour exporter la signature et l’afficher avant son enregistrement.
 
-<style>
-  {SignaturePadDocs.signaturePadExampleCss + '\n' + SignaturePadDocs.signaturePadPreviewCss}
-</style>
+<ExampleFrame variant="component">
+  <SignaturePadImagePreview />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/signature-pad/image-preview.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../en/docs/_snippets/signature-pad/image-preview.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/signature-pad/signature-pad-image-preview.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
@@ -207,26 +279,46 @@ en dehors de l’arborescence rendue doivent accéder directement à `paths`, `c
 Transmettez les options de la racine, comme `translations`, `ids` et `drawing`, à
 `useSignaturePad(...)`.
 
-<style>{SignaturePadDocs.signaturePadExampleCss}</style>
+<ExampleFrame variant="component">
+  <SignaturePadRootProvider />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/signature-pad/root-provider.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/signature-pad/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/signature-pad/signature-pad-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Personnalisation avancée
 
 Utilisez les parties explicites à la place de `Canvas` lorsque vous devez contrôler l’arborescence des
 parties de dessin ou fournir votre propre bouton d’effacement.
 
-<style>{SignaturePadDocs.signaturePadExampleCss}</style>
+<ExampleFrame variant="component">
+  <SignaturePadAdvancedCustomization />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/signature-pad/advanced-customization.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/signature-pad/advanced-customization.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

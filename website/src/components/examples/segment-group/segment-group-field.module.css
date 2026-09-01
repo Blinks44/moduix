@@ -1,0 +1,5 @@
+.root {
+  width: min(24rem, 100%);
+  align-items: center;
+  text-align: center;
+}

@@ -1,47 +1,5 @@
-import type { CssPropertyInput } from '../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../mdx/reference';
-
-export const signaturePadExampleCss = `
-  .signature-pad-stack {
-    display: grid;
-    gap: var(--moduix-spacing-3);
-    justify-items: center;
-  }
-
-  .signature-pad-field {
-    align-items: center;
-    width: auto;
-  }
-
-  .signature-pad-stack > [data-preview-meta] {
-    justify-self: center;
-  }
-`;
-
-export const signaturePadPreviewCss = `
-  .signature-pad-preview {
-    display: block;
-    width: 17.5rem;
-    max-width: 100%;
-    height: auto;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-    border-radius: var(--moduix-radius-md);
-    background-color: var(--moduix-color-background);
-  }
-
-  .signature-pad-preview-placeholder {
-    display: grid;
-    width: 17.5rem;
-    max-width: 100%;
-    min-height: 6rem;
-    place-items: center;
-    border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
-    border-radius: var(--moduix-radius-md);
-    color: var(--moduix-color-muted-foreground);
-    font-size: var(--moduix-text-sm);
-    line-height: var(--moduix-line-height-text-sm);
-  }
-`;
+import type { CssPropertyInput } from '../../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
 const signaturePadCssProperties: CssPropertyInput[] = [
   ['--moduix-signature-pad-width', '17.5rem', 'Controls the root width.'],

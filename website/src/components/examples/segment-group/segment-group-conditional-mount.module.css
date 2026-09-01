@@ -1,0 +1,10 @@
+.root {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--moduix-spacing-2);
+  justify-items: center;
+}
+
+.root > [data-preview-meta] {
+  justify-self: center;
+}

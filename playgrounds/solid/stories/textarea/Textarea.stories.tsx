@@ -1,6 +1,6 @@
-import { Field } from '@ark-ui/solid/field';
 import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
+import { Field } from '@/components/field';
 import { Textarea } from '@/components/textarea/Textarea';
 import storyStyles from './Textarea.stories.module.css';
 
@@ -18,11 +18,11 @@ type Story = StoryObj<typeof meta>;
 
 export const DefaultPath: Story = {
   render: () => (
-    <Field.Root class={storyStyles.field}>
+    <Field class={storyStyles.field}>
       <Field.Label>Comment</Field.Label>
       <Field.HelperText>Included in the issue summary visible to the whole team.</Field.HelperText>
       <Textarea placeholder="Write a short comment" />
-    </Field.Root>
+    </Field>
   ),
 };
 
@@ -31,21 +31,21 @@ export const Controlled: Story = {
     const [value, setValue] = createSignal('');
 
     return (
-      <Field.Root class={storyStyles.field}>
+      <Field class={storyStyles.field}>
         <Field.Label>Feedback</Field.Label>
         <Textarea
           placeholder="Type to control value"
           value={value()}
           onChange={(event) => setValue(event.currentTarget.value)}
         />
-      </Field.Root>
+      </Field>
     );
   },
 };
 
 export const NativeAttributes: Story = {
   render: () => (
-    <Field.Root class={storyStyles.field}>
+    <Field class={storyStyles.field}>
       <Field.Label>Notes</Field.Label>
       <Textarea
         name="notes"
@@ -54,19 +54,19 @@ export const NativeAttributes: Story = {
         spellcheck={false}
         placeholder="Add enough context for the next person reading this."
       />
-    </Field.Root>
+    </Field>
   ),
 };
 
 export const AutoResize: Story = {
   render: () => (
-    <Field.Root class={storyStyles.field}>
+    <Field class={storyStyles.field}>
       <Field.Label>Issue description</Field.Label>
       <Textarea
         autoresize
         placeholder="Start typing a longer description. Height grows with content."
       />
-    </Field.Root>
+    </Field>
   ),
 };
 
@@ -81,7 +81,7 @@ export const DisabledAndReadOnly: Story = {
 
 export const FieldValidation: Story = {
   render: () => (
-    <Field.Root class={storyStyles.field} invalid required>
+    <Field class={storyStyles.field} invalid required>
       <Field.Label>Details</Field.Label>
       <Textarea minLength={10} placeholder="Add at least 10 characters" />
       <Field.HelperText>
@@ -89,15 +89,15 @@ export const FieldValidation: Story = {
       </Field.HelperText>
       <Field.ErrorText>Please provide details.</Field.ErrorText>
       <Field.ErrorText>Enter at least 10 characters.</Field.ErrorText>
-    </Field.Root>
+    </Field>
   ),
 };
 
 export const CustomStyles: Story = {
   render: () => (
-    <Field.Root class={storyStyles.field}>
+    <Field class={storyStyles.field}>
       <Field.Label>Notes</Field.Label>
       <Textarea class={storyStyles.customTextarea} placeholder="Styled textarea" />
-    </Field.Root>
+    </Field>
   ),
 };

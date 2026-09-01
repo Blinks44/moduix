@@ -2,17 +2,11 @@ import { Collapsible } from '@moduix/react/collapsible';
 import { Menu } from '@moduix/react/menu';
 import { Sidebar } from '@moduix/react/sidebar';
 import { FolderOpen } from 'lucide-react';
+import styles from '@/components/examples/sidebar/sidebar-nested-navigation.module.css';
 
 export default function NestedNavigation() {
   return (
-    <Sidebar
-      style={{
-        borderRadius: 'var(--moduix-radius-lg)',
-        boxShadow: 'var(--moduix-shadow-sm)',
-        height: '22rem',
-        minHeight: '18rem',
-      }}
-    >
+    <Sidebar className={styles.root}>
       <Sidebar.Panel>
         <Sidebar.Content>
           <Sidebar.Group>
@@ -71,9 +65,11 @@ export default function NestedNavigation() {
       <Sidebar.ResizeTrigger />
       <Sidebar.Trigger />
       <Sidebar.Inset>
-        <main style={{ display: 'grid', gap: '1rem', padding: '1.5rem' }}>
+        <main className={styles.content}>
           <strong>Project overview</strong>
-          <p style={{ margin: 0 }}>Collapse the sidebar to open the same links in a popup menu.</p>
+          <p className={styles.description}>
+            Collapse the sidebar to open the same links in a popup menu.
+          </p>
         </main>
       </Sidebar.Inset>
     </Sidebar>

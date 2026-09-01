@@ -1,0 +1,17 @@
+.customIcon {
+  color: var(--moduix-rating-group-active-color, var(--moduix-color-primary));
+}
+
+.customIcon > svg {
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+.customIcon:not([data-highlighted]) {
+  color: var(--moduix-rating-group-color, var(--moduix-color-muted-foreground));
+}
+
+.customIcon:not([data-highlighted]) > svg {
+  fill: transparent;
+  stroke: currentColor;
+}

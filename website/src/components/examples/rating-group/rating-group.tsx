@@ -1,48 +1,5 @@
-import type { CssPropertyInput } from '../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../mdx/reference';
-
-export const ratingGroupExampleCss = `
-  .rating-group-stack {
-    display: grid;
-    gap: var(--moduix-spacing-3);
-    justify-items: center;
-  }
-
-  .rating-group-stack > [data-preview-meta] {
-    justify-self: center;
-  }
-
-  .rating-group-field {
-    align-items: center;
-    text-align: center;
-  }
-
-  .rating-group-hint {
-    color: var(--moduix-color-muted-foreground);
-    font-size: var(--moduix-text-xs);
-    line-height: var(--moduix-line-height-text-xs);
-  }
-`;
-
-export const ratingGroupCustomIconCss = `
-  .rating-group-custom-icon {
-    color: var(--moduix-rating-group-active-color, var(--moduix-color-primary));
-
-    & > svg {
-      fill: currentColor;
-      stroke: currentColor;
-    }
-  }
-
-  .rating-group-custom-icon:not([data-highlighted]) {
-    color: var(--moduix-rating-group-color, var(--moduix-color-muted-foreground));
-
-    & > svg {
-      fill: transparent;
-      stroke: currentColor;
-    }
-  }
-`;
+import type { CssPropertyInput } from '../../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
 const ratingGroupOverrideCssProperties: CssPropertyInput[] = [
   [

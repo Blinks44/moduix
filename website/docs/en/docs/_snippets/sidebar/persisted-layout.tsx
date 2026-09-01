@@ -2,6 +2,7 @@ import { Button } from '@moduix/react/button';
 import { Sidebar } from '@moduix/react/sidebar';
 import { FileText, Gauge } from 'lucide-react';
 import { useEffect, useState, type ComponentProps } from 'react';
+import styles from '@/components/examples/sidebar/sidebar-persisted-layout.module.css';
 
 const storageKey = 'my-app-sidebar-size';
 type SidebarSize = NonNullable<ComponentProps<typeof Sidebar>['size']>;
@@ -42,18 +43,13 @@ export default function PersistedSidebar() {
 
   return (
     <Sidebar
+      className={styles.root}
       size={size}
       onResize={(details) => setSize(details.size)}
       onResizeEnd={(details) => {
         if (typeof window !== 'undefined') {
           window.localStorage.setItem(storageKey, details.size.join('|'));
         }
-      }}
-      style={{
-        borderRadius: 'var(--moduix-radius-lg)',
-        boxShadow: 'var(--moduix-shadow-sm)',
-        height: '34rem',
-        minHeight: '28rem',
       }}
     >
       <Sidebar.Panel>
@@ -92,30 +88,15 @@ export default function PersistedSidebar() {
       <Sidebar.ResizeTrigger />
       <Sidebar.Trigger />
       <Sidebar.Inset>
-        <header
-          style={{
-            alignItems: 'center',
-            borderBlockEnd: '1px solid var(--moduix-color-border)',
-            display: 'flex',
-            justifyContent: 'space-between',
-            minHeight: '3.5rem',
-            paddingInline: '1.5rem',
-          }}
-        >
+        <header className={styles.header}>
           Dashboard
           <Button variant="outline" size="sm" onClick={handleReset}>
             Reset saved width
           </Button>
         </header>
-        <main style={{ display: 'grid', gap: '1rem', padding: '1.5rem' }}>
+        <main className={styles.content}>
           <strong>Saved layout</strong>
-          <section
-            style={{
-              border: '1px solid var(--moduix-color-border)',
-              borderRadius: 'var(--moduix-radius-md)',
-              padding: '1rem',
-            }}
-          >
+          <section className={styles.card}>
             Resize the sidebar and reload to restore the saved width.
           </section>
         </main>

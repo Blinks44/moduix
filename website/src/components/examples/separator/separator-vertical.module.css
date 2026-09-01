@@ -1,0 +1,11 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--moduix-spacing-3);
+  text-wrap: nowrap;
+}
+
+.link {
+  color: var(--moduix-color-foreground);
+  text-decoration: none;
+}

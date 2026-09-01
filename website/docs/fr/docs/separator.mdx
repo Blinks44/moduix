@@ -4,7 +4,13 @@ component: separator
 description: Sépare le contenu ou les groupes associés par une ligne horizontale ou verticale, avec une sémantique adaptée aux technologies d’assistance.
 ---
 
-import * as SeparatorDocs from '@/components/examples/separator';
+import * as SeparatorDocs from '@/components/examples/separator/separator';
+import SeparatorBasic from '../../en/docs/_snippets/separator/basic.tsx';
+import SeparatorDecorative from '../../en/docs/_snippets/separator/decorative.tsx';
+import SeparatorSizes from '../../en/docs/_snippets/separator/sizes.tsx';
+import SeparatorVariants from '../../en/docs/_snippets/separator/variants.tsx';
+import SeparatorVertical from '../../en/docs/_snippets/separator/vertical.tsx';
+import SeparatorAsChild from '../../en/docs/_snippets/separator/as-child.tsx';
 
 ## Référence de l’API
 
@@ -16,11 +22,26 @@ Ses propriétés `orientation`, `variant` et `size` reprennent le modèle famili
 
 Utilisez `Separator` pour marquer visuellement la limite entre des sections liées.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/separator/basic.tsx"
+<ExampleFrame variant="component">
+  <SeparatorBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/separator/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/separator/separator-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -81,52 +102,127 @@ déjà un séparateur sémantique. Son enfant doit être un élément unique cap
 Utilisez `role="presentation"` pour une ligne purement visuelle qui n’apporte aucune structure aux technologies
 d’assistance.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/separator/decorative.tsx"
+<ExampleFrame variant="component">
+  <SeparatorDecorative />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/separator/decorative.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/separator/separator-decorative.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Tailles
 
 Utilisez `size` pour choisir l’épaisseur du séparateur, puis les propriétés CSS pour l’ajuster si nécessaire.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/separator/sizes.tsx"
+<ExampleFrame variant="component">
+  <SeparatorSizes />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/separator/sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/separator/separator-sizes.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Variantes
 
 Utilisez `variant` pour choisir une ligne continue, en tirets ou en pointillés.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/separator/variants.tsx"
+<ExampleFrame variant="component">
+  <SeparatorVariants />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/separator/variants.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/separator/separator-variants.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Vertical
 
 Utilisez `orientation="vertical"` pour les groupes disposés sur une ligne, comme des liens de navigation.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/separator/vertical.tsx"
+<ExampleFrame variant="component">
+  <SeparatorVertical />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/separator/vertical.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/separator/separator-vertical.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Personnalisation avancée
 
 Utilisez `asChild` lorsqu’un élément hôte précis doit recevoir le rôle de séparateur, les sélecteurs de style et la
 `ref` transmise. Dans les autres cas, utilisez directement `<Separator />`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/separator/as-child.tsx"
+<ExampleFrame variant="component">
+  <SeparatorAsChild />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/separator/as-child.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/separator/separator-as-child.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

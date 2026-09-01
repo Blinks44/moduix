@@ -1,18 +1,11 @@
 import { Menu } from '@moduix/react/menu';
 import { Sidebar } from '@moduix/react/sidebar';
 import { BarChart3, FileText, FolderOpen, Gauge, MessageSquare, Settings } from 'lucide-react';
+import styles from '@/components/examples/sidebar/sidebar-custom-sizes.module.css';
 
 export default function SizedSidebar() {
   return (
-    <Sidebar
-      defaultSize={['14rem']}
-      style={{
-        borderRadius: 'var(--moduix-radius-lg)',
-        boxShadow: 'var(--moduix-shadow-sm)',
-        height: '34rem',
-        minHeight: '28rem',
-      }}
-    >
+    <Sidebar defaultSize={['14rem']} className={styles.root}>
       <Sidebar.Panel>
         <Sidebar.Header>
           <strong data-sidebar-icon>M</strong>
@@ -87,28 +80,10 @@ export default function SizedSidebar() {
       <Sidebar.ResizeTrigger />
       <Sidebar.Trigger />
       <Sidebar.Inset>
-        <header
-          style={{
-            alignItems: 'center',
-            borderBlockEnd: '1px solid var(--moduix-color-border)',
-            display: 'flex',
-            minHeight: '3.5rem',
-            paddingInline: '1.5rem',
-          }}
-        >
-          Dashboard
-        </header>
-        <main style={{ display: 'grid', gap: '1rem', padding: '1.5rem' }}>
+        <header className={styles.header}>Dashboard</header>
+        <main className={styles.content}>
           <strong>Resizable workspace</strong>
-          <section
-            style={{
-              border: '1px solid var(--moduix-color-border)',
-              borderRadius: 'var(--moduix-radius-md)',
-              padding: '1rem',
-            }}
-          >
-            Resize the sidebar between 3rem and 18rem.
-          </section>
+          <section className={styles.card}>Resize the sidebar between 3rem and 18rem.</section>
         </main>
       </Sidebar.Inset>
     </Sidebar>

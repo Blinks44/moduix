@@ -1,28 +1,23 @@
 import { QrCode } from '@moduix/react/qr-code';
+import styles from '@/components/examples/qr-code/component-fill.module.css';
 
 const fills = [
   {
     label: 'Primary',
-    fill: 'var(--moduix-color-primary)',
+    className: styles.primary,
   },
   {
     label: 'Danger',
-    fill: 'var(--moduix-color-destructive)',
+    className: styles.danger,
   },
 ];
 
 export default function FillQrCodeDemo() {
   return (
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(2, minmax(0, max-content))',
-        gap: 'var(--moduix-spacing-4)',
-      }}
-    >
+    <div className={styles.grid}>
       {fills.map((fill) => (
         <QrCode key={fill.label} defaultValue="https://moduix.dev/docs/qr-code">
-          <QrCode.Frame style={{ fill: fill.fill }}>
+          <QrCode.Frame className={fill.className}>
             <QrCode.Pattern />
           </QrCode.Frame>
         </QrCode>

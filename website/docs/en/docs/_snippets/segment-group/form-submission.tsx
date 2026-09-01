@@ -2,6 +2,7 @@ import { Button } from '@moduix/react/button';
 import { SegmentGroup } from '@moduix/react/segment-group';
 import { useState, type FormEvent } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/segment-group/segment-group-form-submission.module.css';
 
 const frameworks = [
   { value: 'React', label: 'React' },
@@ -19,7 +20,7 @@ export default function FormSegmentGroupDemo() {
     setSubmitted(String(formData.get('framework') ?? 'none'));
   };
   return (
-    <form className="segment-stack" onSubmit={handleSubmit}>
+    <form className={styles.root} onSubmit={handleSubmit}>
       <SegmentGroup aria-label="Framework" name="framework" defaultValue="React">
         <SegmentGroup.Indicator />
         <SegmentGroup.Items items={frameworks} />

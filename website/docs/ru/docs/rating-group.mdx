@@ -4,7 +4,16 @@ component: rating-group
 description: Компонент для выбора оценки в виде набора звёзд на основе примитива rating-group из Ark UI.
 ---
 
-import * as RatingGroupDocs from '@/components/examples/rating-group';
+import * as RatingGroupDocs from '@/components/examples/rating-group/rating-group';
+import RatingGroupBasic from '../../en/docs/_snippets/rating-group/basic.tsx';
+import RatingGroupControlled from '../../en/docs/_snippets/rating-group/controlled.tsx';
+import RatingGroupCustomIcon from '../../en/docs/_snippets/rating-group/custom-icon.tsx';
+import RatingGroupDisabledAndReadonly from '../../en/docs/_snippets/rating-group/disabled-and-readonly.tsx';
+import RatingGroupField from '../../en/docs/_snippets/rating-group/field.tsx';
+import RatingGroupForms from '../../en/docs/_snippets/rating-group/forms.tsx';
+import RatingGroupHalfRating from '../../en/docs/_snippets/rating-group/half-rating.tsx';
+import RatingGroupSizes from '../../en/docs/_snippets/rating-group/sizes.tsx';
+import RatingGroupAdvancedCustomization from '../../en/docs/_snippets/rating-group/advanced-customization.tsx';
 
 Используйте `RatingGroup`, когда пользователю нужно выбрать числовую оценку с помощью ряда звёзд или других одинаковых значков.
 
@@ -17,13 +26,20 @@ import * as RatingGroupDocs from '@/components/examples/rating-group';
 В обычном случае используйте сокращённую форму корневого компонента с `RatingGroup.Label`,
 `RatingGroup.Control` и `RatingGroup.Items`.
 
-<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupBasic />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/rating-group/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/rating-group/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -119,13 +135,26 @@ Ark. `ItemIndicator` передаёт ref своей визуальной обё
 Используйте управляемый режим, если оценка зависит от другого состояния, влияет на соседний интерфейс
 или должна сбрасываться родителем.
 
-<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupControlled />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/rating-group/controlled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/rating-group/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/rating-group/component-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Пользовательский значок
 
@@ -133,26 +162,52 @@ Ark. `ItemIndicator` передаёт ref своей визуальной обё
 нужен один и тот же значок. Индикатор сохраняет атрибуты состояния Ark `data-highlighted` и `data-half`,
 которые можно использовать для стилизации.
 
-<style>{RatingGroupDocs.ratingGroupCustomIconCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupCustomIcon />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/rating-group/custom-icon.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/rating-group/custom-icon.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/rating-group/component-custom-icon.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Отключённое состояние и режим только для чтения
 
 Используйте `disabled`, чтобы отключить взаимодействие. Используйте `readOnly`, чтобы оставить оценку
 видимой, но запретить её изменение.
 
-<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupDisabledAndReadonly />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/rating-group/disabled-and-readonly.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/rating-group/disabled-and-readonly.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/rating-group/component-disabled-and-readonly.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Field
 
@@ -160,51 +215,97 @@ Ark. `ItemIndicator` передаёт ref своей визуальной обё
 автоматическим полем формы. Ark передаёт группе состояния `disabled`, `readOnly` и `required` от поля;
 состоянием валидации по-прежнему управляют `Field` и код приложения.
 
-<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupField />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/rating-group/field.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/rating-group/field.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/rating-group/component-field.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Формы
 
 Передайте `name`, чтобы выбранная оценка попала в `FormData`; корневой компонент автоматически добавит
 синхронизированное нативное поле формы.
 
-<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupForms />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/rating-group/forms.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/rating-group/forms.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/rating-group/component-forms.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Оценка с половинами
 
 Установите `allowHalf`, чтобы включить выбор и отображение с шагом в половину.
 
-<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupHalfRating />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/rating-group/half-rating.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/rating-group/half-rating.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Размеры
 
 Используйте свойство moduix `size`, если нужно сохранить поведение рейтинга Ark, но изменить его
 визуальный размер.
 
-<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupSizes />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/rating-group/sizes.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/rating-group/sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/rating-group/component-sizes.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная композиция
 
@@ -212,13 +313,26 @@ Ark. `ItemIndicator` передаёт ref своей визуальной обё
 рейтинга. Используйте `RatingGroup.Context`, когда `RatingGroup.Items` недостаточно и нужно вывести
 каждый элемент вручную.
 
-<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupAdvancedCustomization />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/rating-group/advanced-customization.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/rating-group/advanced-customization.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/rating-group/component-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

@@ -1,45 +1,4 @@
-import type { CssPropertyInput } from '../mdx/reference';
-
-export const selectExampleCss = `
-  .select-dynamic-items {
-    display: grid;
-    gap: var(--moduix-spacing-3);
-  }
-
-  .select-preview-stack > [data-preview-meta],
-  [data-slot="select-root"].select-preview-stack [data-preview-meta] {
-    margin-inline: auto;
-  }
-
-  .select-search-popup {
-    width: var(--reference-width);
-    max-width: var(--available-width);
-    overflow: hidden;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-    border-radius: var(--moduix-radius-md);
-    background-color: var(--moduix-color-popover);
-    box-shadow: var(--moduix-shadow-lg);
-  }
-
-  .select-search-popup-header {
-    padding: var(--moduix-spacing-2);
-    border-block-end: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-  }
-
-  .select-search-popup-content {
-    max-height: min(16rem, var(--available-height));
-    border: 0;
-    border-radius: 0;
-    background: transparent;
-    box-shadow: none;
-  }
-
-  .select-search-popup-empty {
-    padding: var(--moduix-spacing-3);
-    color: var(--moduix-color-muted-foreground);
-    font-size: var(--moduix-text-sm);
-  }
-`;
+import type { CssPropertyInput } from '../../mdx/reference';
 
 export const selectOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-select-action-bg', 'transparent', 'Controls clear and indicator button background.'],

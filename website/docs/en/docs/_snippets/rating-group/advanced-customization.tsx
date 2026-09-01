@@ -1,6 +1,7 @@
 import { Button } from '@moduix/react/button';
 import { RatingGroup, useRatingGroup } from '@moduix/react/rating-group';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/rating-group/component-advanced-customization.module.css';
 
 export default function AdvancedCustomizationRatingGroupDemo() {
   const ratingGroup = useRatingGroup({
@@ -9,7 +10,7 @@ export default function AdvancedCustomizationRatingGroupDemo() {
   });
 
   return (
-    <div className="rating-group-stack">
+    <div className={styles.stack}>
       <RatingGroup.RootProvider value={ratingGroup}>
         <RatingGroup.Label>Product quality</RatingGroup.Label>
         <RatingGroup.Control>
@@ -25,7 +26,7 @@ export default function AdvancedCustomizationRatingGroupDemo() {
         </RatingGroup.Control>
       </RatingGroup.RootProvider>
       <PreviewMeta>
-        <output className="rating-group-hint">Current value: {ratingGroup.value}</output>
+        <output className={styles.hint}>Current value: {ratingGroup.value}</output>
         <Button type="button" size="sm" onClick={() => ratingGroup.setValue(5)}>
           Set to 5
         </Button>

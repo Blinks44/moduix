@@ -4,6 +4,10 @@ component: simple-grid
 description: Сетка CSS с равными колонками, которая подстраивается под доступную ширину.
 ---
 
+import SimpleGridBasic from '../../en/docs/_snippets/simple-grid/basic.tsx';
+import SimpleGridFixedColumns from '../../en/docs/_snippets/simple-grid/fixed-columns.tsx';
+import SimpleGridMediaGallery from '../../en/docs/_snippets/simple-grid/media-gallery.tsx';
+
 ## Справочник API
 
 `SimpleGrid` не является примитивом Ark UI. moduix предоставляет небольшой компонент раскладки,
@@ -24,9 +28,24 @@ description: Сетка CSS с равными колонками, которая
 непосредственными элементами сетки. Если внутри дочернего элемента есть непереносимый контент,
 добавьте для него `min-width: 0` или подходящее правило переполнения.
 
-```tsx preview file="../../en/docs/_snippets/simple-grid/basic.tsx"
+<ExampleFrame variant="component">
+  <SimpleGridBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/simple-grid/basic.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/simple-grid/simple-grid-basic.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -107,18 +126,48 @@ SimpleGrid
 Используйте `columns`, когда число равных колонок должно оставаться неизменным, например в компактной
 сетке с метриками.
 
-```tsx preview file="../../en/docs/_snippets/simple-grid/fixed-columns.tsx"
+<ExampleFrame variant="component">
+  <SimpleGridFixedColumns />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/simple-grid/fixed-columns.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/simple-grid/simple-grid-fixed-columns.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ### Галерея медиафайлов
 
 Используйте `asChild`, когда самой сетке нужна семантика списка. В этом примере корневым элементом
 становится `ul`, а каждое изображение остаётся внутри непосредственного дочернего элемента `li`.
 
-```tsx preview file="../../en/docs/_snippets/simple-grid/media-gallery.tsx"
+<ExampleFrame variant="component">
+  <SimpleGridMediaGallery />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/simple-grid/media-gallery.tsx"
 ```
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/simple-grid/simple-grid-media-gallery.module.css"
+```
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

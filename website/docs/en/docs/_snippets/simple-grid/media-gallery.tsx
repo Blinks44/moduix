@@ -1,6 +1,6 @@
 import { SimpleGrid } from '@moduix/react/simple-grid';
 import { Text } from '@moduix/react/text';
-import styles from '@/components/examples/simple-grid.module.css';
+import styles from '@/components/examples/simple-grid/simple-grid-media-gallery.module.css';
 
 const destinations = [
   {
@@ -25,22 +25,17 @@ const destinations = [
 
 export default function MediaGalleryDemo() {
   return (
-    <SimpleGrid
-      asChild
-      minChildWidth="10rem"
-      gap="var(--moduix-spacing-3)"
-      className={`${styles.simpleGridDemoGrid} ${styles.simpleGridDemoGallery}`}
-    >
+    <SimpleGrid asChild minChildWidth="10rem" gap="var(--moduix-spacing-3)" className={styles.root}>
       <ul aria-label="Travel destinations">
         {destinations.map((destination) => (
-          <li key={destination.name} className={styles.simpleGridDemoGalleryItem}>
+          <li key={destination.name} className={styles.item}>
             <img
               src={destination.image}
               alt={destination.alt}
               loading="lazy"
-              className={styles.simpleGridDemoImage}
+              className={styles.image}
             />
-            <Text as="span" size="sm" weight="medium" className={styles.simpleGridDemoCaption}>
+            <Text as="span" size="sm" weight="medium" className={styles.caption}>
               {destination.name}
             </Text>
           </li>

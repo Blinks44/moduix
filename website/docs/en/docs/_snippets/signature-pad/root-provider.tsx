@@ -1,5 +1,6 @@
 import { SignaturePad, useSignaturePad } from '@moduix/react/signature-pad';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/signature-pad/signature-pad-root-provider.module.css';
 
 const signaturePadTranslations = {
   control: 'Signature drawing area',
@@ -11,7 +12,7 @@ export default function RootProviderSignaturePadDemo() {
     translations: signaturePadTranslations,
   });
   return (
-    <div className="signature-pad-stack">
+    <div className={styles.root}>
       <SignaturePad.RootProvider value={signaturePad}>
         <SignaturePad.Label>Sign below</SignaturePad.Label>
         <SignaturePad.Canvas />

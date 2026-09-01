@@ -1,6 +1,7 @@
 import { SegmentGroup } from '@moduix/react/segment-group';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/segment-group/segment-group-controlled.module.css';
 
 const frameworks = [
   { value: 'React', label: 'React' },
@@ -12,7 +13,7 @@ const frameworks = [
 export default function ControlledSegmentGroupDemo() {
   const [value, setValue] = useState('React' as string | null);
   return (
-    <div className="segment-stack">
+    <div className={styles.root}>
       <SegmentGroup
         aria-label="Framework"
         value={value}

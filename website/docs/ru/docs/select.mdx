@@ -4,7 +4,24 @@ component: select
 description: Композиция Select на базе Ark UI для выбора одного или нескольких значений из всплывающего списка.
 ---
 
-import * as SelectDocs from '@/components/examples/select';
+import * as SelectDocs from '@/components/examples/select/select';
+import SelectAdvancedCustomization from '../../en/docs/_snippets/select/advanced-customization.tsx';
+import SelectBasic from '../../en/docs/_snippets/select/basic.tsx';
+import SelectControlled from '../../en/docs/_snippets/select/controlled.tsx';
+import SelectCustomItemLayout from '../../en/docs/_snippets/select/custom-item-layout.tsx';
+import SelectDynamicItems from '../../en/docs/_snippets/select/dynamic-items.tsx';
+import SelectField from '../../en/docs/_snippets/select/field.tsx';
+import SelectFormUsage from '../../en/docs/_snippets/select/form-usage.tsx';
+import SelectGrouping from '../../en/docs/_snippets/select/grouping.tsx';
+import SelectLazyMount from '../../en/docs/_snippets/select/lazy-mount.tsx';
+import SelectMaxSelection from '../../en/docs/_snippets/select/max-selection.tsx';
+import SelectMultiple from '../../en/docs/_snippets/select/multiple.tsx';
+import SelectNativeFormControl from '../../en/docs/_snippets/select/native-form-control.tsx';
+import SelectOverflow from '../../en/docs/_snippets/select/overflow.tsx';
+import SelectRootProvider from '../../en/docs/_snippets/select/root-provider.tsx';
+import SelectSearchInPopup from '../../en/docs/_snippets/select/search-in-popup.tsx';
+import SelectSelectAll from '../../en/docs/_snippets/select/select-all.tsx';
+import SelectSelectOnHighlight from '../../en/docs/_snippets/select/select-on-highlight.tsx';
 
 ## Справочник API
 
@@ -23,13 +40,20 @@ import * as SelectDocs from '@/components/examples/select';
 Корневой компонент автоматически добавляет нативный элемент формы для отправки данных,
 автозаполнения и сброса.
 
-<style>{SelectDocs.selectExampleCss}</style>
+<ExampleFrame variant="component">
+  <SelectBasic />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/select/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -155,99 +179,198 @@ Select / Select.Root
 
 Управляйте выбранными значениями через состояние React и обновляйте его из `details.value`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/controlled.tsx"
+<ExampleFrame variant="component">
+  <SelectControlled />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/select/controlled.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Пользовательская разметка элемента
 
 Используйте `Select.ItemTextContent`, `Select.ItemTextIcon` и `Select.ItemTextLabel` внутри
 `ItemText`, когда элементу нужны иконка и подпись с обрезанием по ширине.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/custom-item-layout.tsx"
+<ExampleFrame variant="component">
+  <SelectCustomItemLayout />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/select/custom-item-layout.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Динамические элементы
 
 Обновляйте коллекцию, когда меняется список доступных элементов. Композиция Select при этом
 остаётся прежней.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/dynamic-items.tsx"
+<ExampleFrame variant="component">
+  <SelectDynamicItems />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/select/dynamic-items.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/select/select-dynamic-items.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Поле формы
 
 Оберните Select в `Field.Root`, когда к полю формы относятся подпись, текст подсказки или состояния
 `invalid`, `required` и `disabled`.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/field.tsx"
+<ExampleFrame variant="component">
+  <SelectField />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/select/field.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/select/select-field.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Использование в форме
 
 Автоматически добавляемый нативный `<select>` сохраняет обычную отправку формы. Читайте отправленные
 значения из `FormData`.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/form-usage.tsx"
+<ExampleFrame variant="component">
+  <SelectFormUsage />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/select/form-usage.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/select/select-form-usage.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Группировка
 
 Задайте `groupBy` для коллекции и отрендерите `collection.group()` с помощью `ItemGroup` и
 `ItemGroupLabel`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/grouping.tsx"
+<ExampleFrame variant="component">
+  <SelectGrouping />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/select/grouping.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Ленивое монтирование
 
 Используйте `lazyMount` и `unmountOnExit`, если содержимое всплывающего окна нужно монтировать
 только на время работы с Select.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/lazy-mount.tsx"
+<ExampleFrame variant="component">
+  <SelectLazyMount />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/select/lazy-mount.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Максимальное число выбранных элементов
 
 Ограничьте число выбранных элементов: отклоняйте массивы длиннее допустимого и отключайте остальные
 элементы.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/max-selection.tsx"
+<ExampleFrame variant="component">
+  <SelectMaxSelection />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/select/max-selection.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Множественный выбор
 
 Установите `multiple`, чтобы разрешить несколько выбранных значений. `ValueText` выводит подписи
 выбранных элементов из коллекции.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/multiple.tsx"
+<ExampleFrame variant="component">
+  <SelectMultiple />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/select/multiple.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Нативный элемент формы
 
@@ -256,76 +379,163 @@ Select / Select.Root
 значения попадают в отправляемый `FormData`. Для виртуализированной коллекции сочетайте этот режим
 с `Select.List` и выбранной стратегией виртуализации.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/native-form-control.tsx"
+<ExampleFrame variant="component">
+  <SelectNativeFormControl />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/select/native-form-control.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/select/select-native-form-control.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Переполнение
 
 Для длинных списков используйте `positioning.fitViewport`. Содержимое уже ограничивает высоту с
 помощью переменной Ark `--available-height` и остаётся прокручиваемым.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/overflow.tsx"
+<ExampleFrame variant="component">
+  <SelectOverflow />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/select/overflow.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Используйте `Select.useSelect` вместе с `Select.RootProvider`, когда состояние нужно читать или
 контролировать за пределами отрендеренного дерева Select.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/root-provider.tsx"
+<ExampleFrame variant="component">
+  <SelectRootProvider />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/select/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/select/select-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Поиск во всплывающем окне
 
 Разместите элемент фильтрации рядом с listbox внутри всплывающего окна. Храните состояние запроса и
 отфильтрованную коллекцию в своём компоненте, не расширяя API Select.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/search-in-popup.tsx"
+<ExampleFrame variant="component">
+  <SelectSearchInPopup />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/select/search-in-popup.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/select/select-search-in-popup.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Выбрать все
 
 Разместите массовые действия за пределами listbox. `Select.useSelect` позволяет использовать их и
 Select с одним экземпляром состояния Ark.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/select-all.tsx"
+<ExampleFrame variant="component">
+  <SelectSelectAll />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/select/select-all.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/select/select-select-all.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Выбор при перемещении по вариантам
 
 Используйте `onHighlightChange(details)`, если переход по вариантам должен сразу обновлять выбор.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/select-on-highlight.tsx"
+<ExampleFrame variant="component">
+  <SelectSelectOnHighlight />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/select/select-on-highlight.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
 Соберите триггер, текст значения и индикатор вручную, если им нужны независимые композиция и
 стилизация. В этом случае не используйте `Select.Field`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <SelectAdvancedCustomization />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/select/advanced-customization.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

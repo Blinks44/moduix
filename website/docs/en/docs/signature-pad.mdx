@@ -4,7 +4,15 @@ component: signature-pad
 description: A signature pad for capturing handwritten input from a pointer or touch device.
 ---
 
-import * as SignaturePadDocs from '@/components/examples/signature-pad';
+import * as SignaturePadDocs from '@/components/examples/signature-pad/signature-pad';
+import SignaturePadBasic from './_snippets/signature-pad/basic.tsx';
+import SignaturePadControlled from './_snippets/signature-pad/controlled.tsx';
+import SignaturePadDrawing from './_snippets/signature-pad/drawing.tsx';
+import SignaturePadField from './_snippets/signature-pad/field.tsx';
+import SignaturePadFormSerialization from './_snippets/signature-pad/form-serialization.tsx';
+import SignaturePadImagePreview from './_snippets/signature-pad/image-preview.tsx';
+import SignaturePadRootProvider from './_snippets/signature-pad/root-provider.tsx';
+import SignaturePadAdvancedCustomization from './_snippets/signature-pad/advanced-customization.tsx';
 
 ## API Reference
 
@@ -15,13 +23,20 @@ import * as SignaturePadDocs from '@/components/examples/signature-pad';
 For most use cases, start with `SignaturePad.Canvas`. It provides the standard drawing surface with
 Ark's `Control`, `Segment`, `ClearTrigger`, and `Guide` parts, plus moduix's default clear icon.
 
-<style>{SignaturePadDocs.signaturePadExampleCss}</style>
+<ExampleFrame variant="component">
+  <SignaturePadBasic />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/signature-pad/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/signature-pad/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -134,66 +149,123 @@ changed accidentally.
 Use controlled `paths` to keep the signature in application state and coordinate it with reset
 controls or autosave logic.
 
-<style>{SignaturePadDocs.signaturePadExampleCss}</style>
+<ExampleFrame variant="component">
+  <SignaturePadControlled />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/signature-pad/controlled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/signature-pad/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/signature-pad/signature-pad-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Drawing
 
 Pass `drawing` when stroke width, stroke color, or pressure behavior needs to differ from the
 defaults.
 
-<style>{SignaturePadDocs.signaturePadExampleCss}</style>
+<ExampleFrame variant="component">
+  <SignaturePadDrawing />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/signature-pad/drawing.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/signature-pad/drawing.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Field
 
 Use `Field` around the signature pad when helper text, error text, required state, or invalid
 messaging belongs to the same form control.
 
-<style>{SignaturePadDocs.signaturePadExampleCss}</style>
+<ExampleFrame variant="component">
+  <SignaturePadField />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/signature-pad/field.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/signature-pad/field.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/signature-pad/signature-pad-field.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Form Serialization
 
 Use `getFormValue` when the server should receive another representation of the drawn paths. This
 example sends a JSON array instead of the default space-separated SVG path string.
 
-<style>{SignaturePadDocs.signaturePadExampleCss}</style>
+<ExampleFrame variant="component">
+  <SignaturePadFormSerialization />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/signature-pad/form-serialization.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/signature-pad/form-serialization.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/signature-pad/signature-pad-form-serialization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Image Preview
 
 Use `onDrawEnd` to export the signature and show a preview before saving it.
 
-<style>
-  {SignaturePadDocs.signaturePadExampleCss + '\n' + SignaturePadDocs.signaturePadPreviewCss}
-</style>
+<ExampleFrame variant="component">
+  <SignaturePadImagePreview />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/signature-pad/image-preview.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx pure file="./_snippets/signature-pad/image-preview.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/signature-pad/signature-pad-image-preview.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
@@ -201,26 +273,46 @@ Create state with `useSignaturePad()` and pass it to `RootProvider` when control
 rendered tree need direct access to `paths`, `clear()`, or `getDataUrl()`. Pass root options such as
 `translations`, `ids`, and `drawing` to `useSignaturePad(...)`.
 
-<style>{SignaturePadDocs.signaturePadExampleCss}</style>
+<ExampleFrame variant="component">
+  <SignaturePadRootProvider />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/signature-pad/root-provider.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/signature-pad/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/signature-pad/signature-pad-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Use the explicit parts instead of `Canvas` when you need to control the drawing-part tree or provide
 a custom clear trigger.
 
-<style>{SignaturePadDocs.signaturePadExampleCss}</style>
+<ExampleFrame variant="component">
+  <SignaturePadAdvancedCustomization />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/signature-pad/advanced-customization.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/signature-pad/advanced-customization.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

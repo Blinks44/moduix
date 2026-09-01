@@ -1,0 +1,28 @@
+.popup {
+  width: var(--reference-width);
+  max-width: var(--available-width);
+  overflow: hidden;
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-md);
+  background-color: var(--moduix-color-popover);
+  box-shadow: var(--moduix-shadow-lg);
+}
+
+.popupHeader {
+  padding: var(--moduix-spacing-2);
+  border-block-end: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+}
+
+.popupContent {
+  max-height: min(16rem, var(--available-height));
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.popupEmpty {
+  padding: var(--moduix-spacing-3);
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-sm);
+}

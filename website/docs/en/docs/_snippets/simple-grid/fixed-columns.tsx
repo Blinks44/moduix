@@ -1,6 +1,6 @@
 import { SimpleGrid } from '@moduix/react/simple-grid';
 import { Text } from '@moduix/react/text';
-import styles from '@/components/examples/simple-grid.module.css';
+import styles from '@/components/examples/simple-grid/simple-grid-fixed-columns.module.css';
 
 const metrics = [
   {
@@ -23,13 +23,9 @@ const metrics = [
 
 export default function FixedColumnsDemo() {
   return (
-    <SimpleGrid
-      columns={4}
-      gap="var(--moduix-spacing-3)"
-      className={`${styles.simpleGridDemoGrid} ${styles.simpleGridDemoMetrics}`}
-    >
+    <SimpleGrid columns={4} gap="var(--moduix-spacing-3)" className={styles.root}>
       {metrics.map((metric) => (
-        <div key={metric.label} className={styles.simpleGridDemoMetric}>
+        <div key={metric.label} className={styles.metric}>
           <Text size="xl" weight="semibold">
             {metric.value}
           </Text>

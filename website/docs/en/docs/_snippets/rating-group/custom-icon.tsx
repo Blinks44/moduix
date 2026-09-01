@@ -1,5 +1,6 @@
 import { RatingGroup } from '@moduix/react/rating-group';
 import { Heart as HeartIcon } from 'lucide-react';
+import styles from '@/components/examples/rating-group/component-custom-icon.module.css';
 
 export default function CustomIconRatingGroupDemo() {
   return (
@@ -7,7 +8,7 @@ export default function CustomIconRatingGroupDemo() {
       <RatingGroup.Label>Checklist score</RatingGroup.Label>
       <RatingGroup.Control>
         <RatingGroup.Items>
-          <RatingGroup.ItemIndicator className="rating-group-custom-icon">
+          <RatingGroup.ItemIndicator className={styles.customIcon}>
             <HeartIcon />
           </RatingGroup.ItemIndicator>
         </RatingGroup.Items>

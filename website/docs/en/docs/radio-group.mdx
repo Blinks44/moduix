@@ -4,7 +4,21 @@ component: radio-group
 description: A radio group for choosing exactly one option from a visible set.
 ---
 
-import * as RadioGroupDocs from '@/components/examples/radio-group';
+import * as RadioGroupDocs from '@/components/examples/radio-group/radio-group';
+import RadioGroupAdvancedCustomization from './_snippets/radio-group/advanced-customization.tsx';
+import RadioGroupAsChild from './_snippets/radio-group/aschild.tsx';
+import RadioGroupBasic from './_snippets/radio-group/basic.tsx';
+import RadioGroupControlled from './_snippets/radio-group/controlled.tsx';
+import RadioGroupDisabled from './_snippets/radio-group/disabled.tsx';
+import RadioGroupDisabledItem from './_snippets/radio-group/item-disabled.tsx';
+import RadioGroupForm from './_snippets/radio-group/form.tsx';
+import RadioGroupIndicator from './_snippets/radio-group/indicator.tsx';
+import RadioGroupInitialValue from './_snippets/radio-group/initial-value.tsx';
+import RadioGroupOrientation from './_snippets/radio-group/orientation.tsx';
+import RadioGroupRootProvider from './_snippets/radio-group/root-provider.tsx';
+import RadioGroupSizes from './_snippets/radio-group/sizes.tsx';
+import RadioGroupField from './_snippets/radio-group/with-field.tsx';
+import RadioGroupFieldset from './_snippets/radio-group/with-fieldset.tsx';
 
 Use `RadioGroup` when people need to choose exactly one option from a visible set, such as a
 framework, plan, or account type. Use `Checkbox` for independent choices and `Switch` for a setting
@@ -24,14 +38,20 @@ For most groups, use `RadioGroup.Option` to render a labelled item with a contro
 Each item includes its native hidden input automatically. If the group belongs to a native form, pass
 `name` to `RadioGroup` as shown in the Form example.
 
-<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RadioGroupBasic />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/radio-group/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
+```tsx file="./_snippets/radio-group/basic.tsx"
+```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -125,66 +145,116 @@ internal and is not a separate public ref target.
 Use `RadioGroup.Item asChild` when a custom card or label layout should own the item DOM node. Keep a
 semantic `label` as the direct child.
 
-<style>{RadioGroupDocs.radioGroupAsChildCss}</style>
+<ExampleFrame variant="component">
+  <RadioGroupAsChild />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/radio-group/aschild.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
+```tsx file="./_snippets/radio-group/aschild.tsx"
+```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/radio-group/radio-group-aschild.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Controlled
 
 Use `value` with `onValueChange(details)` when the selected value is owned by React state or must
 stay in sync with other parts of the interface.
 
-<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RadioGroupControlled />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/radio-group/controlled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
+```tsx file="./_snippets/radio-group/controlled.tsx"
+```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/radio-group/radio-group-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Disabled
 
 Set `disabled` on the root to make every item unavailable while keeping the selected value visible.
 
-<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RadioGroupDisabled />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/radio-group/disabled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
+```tsx file="./_snippets/radio-group/disabled.tsx"
+```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Disabled Item
 
 Set `disabled` on an individual `Item` or `Option` when only that choice is unavailable.
 
-<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RadioGroupDisabledItem />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/radio-group/item-disabled.tsx"
-  ```
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-</PreviewFrame>
+```tsx file="./_snippets/radio-group/item-disabled.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Form
 
 Pass `name` to the root when the selected value should be submitted. The native input created for
 each item participates in form submission and reset without adding an input part manually.
 
-<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RadioGroupForm />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/radio-group/form.tsx"
-  ```
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-</PreviewFrame>
+```tsx file="./_snippets/radio-group/form.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/radio-group/radio-group-form.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Indicator
 
@@ -192,120 +262,190 @@ Render `RadioGroup.Indicator` when the active item needs an additional measured 
 indicator and the radio items in the same positioning context, and keep unrelated content outside it,
 so the indicator follows the item geometry.
 
-<style>{RadioGroupDocs.radioGroupIndicatorCss}</style>
+<ExampleFrame variant="component">
+  <RadioGroupIndicator />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/radio-group/indicator.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
+```tsx file="./_snippets/radio-group/indicator.tsx"
+```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/radio-group/radio-group-indicator.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Initial Value
 
 Set `defaultValue` when the initial checked item is known and the group should manage later changes
 itself.
 
-<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RadioGroupInitialValue />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/radio-group/initial-value.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
+```tsx file="./_snippets/radio-group/initial-value.tsx"
+```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Orientation
 
 Set `orientation="horizontal"` when arrow-key behavior should follow a horizontal group. Arrange
 the items in a row with an inline wrapper when the visual layout should be horizontal too.
 
-<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RadioGroupOrientation />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/radio-group/orientation.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
+```tsx file="./_snippets/radio-group/orientation.tsx"
+```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/radio-group/radio-group-orientation.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Use `RootProvider` when a `useRadioGroup()` store needs to be shared with controls outside the radio
 group tree. The example also shows how to update the selected value from outside the group.
 
-<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RadioGroupRootProvider />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/radio-group/root-provider.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
+```tsx file="./_snippets/radio-group/root-provider.tsx"
+```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/radio-group/radio-group-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Sizes
 
 Use the moduix `size` prop on `ItemControl` or `Option` when the radio control needs a different
 diameter. Supported values are `xs`, `sm`, `md`, `lg`, and `xl`.
 
-<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RadioGroupSizes />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/radio-group/sizes.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
+```tsx file="./_snippets/radio-group/sizes.tsx"
+```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### With Field
 
 Use `Field.Root` when a radio group needs a field-level label, helper text, or error message. Pass
 `invalid` to `RadioGroup` as well, because `Field.Root` does not set the group's validation state.
 
-<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RadioGroupField />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/radio-group/with-field.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
+```tsx file="./_snippets/radio-group/with-field.tsx"
+```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/radio-group/radio-group-with-field.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### With Fieldset
 
 Wrap the group in `Fieldset` when several radio items share a legend and belong to the same form
 section. `Fieldset` can also provide its disabled and invalid state to the nested group.
 
-<style>{`
-  ${RadioGroupDocs.radioGroupExampleCss}
+<ExampleFrame variant="component">
+  <RadioGroupFieldset />
+</ExampleFrame>
 
-  .centered-fieldset-example {
-    width: fit-content;
-    max-width: 100%;
-    margin-inline: auto;
-  }
-`}</style>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/radio-group/with-fieldset.tsx"
+```tsx file="./_snippets/radio-group/with-fieldset.tsx"
+```
 
-  ```
+    </Tab>
+    <Tab value="Styles">
 
-</PreviewFrame>
+```css file="../../../src/components/examples/radio-group/radio-group-with-fieldset.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Bypass `Option` and use the full `Item` tree when each nested part needs custom placement, props, or
 styling.
 
-<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RadioGroupAdvancedCustomization />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/radio-group/advanced-customization.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
+```tsx file="./_snippets/radio-group/advanced-customization.tsx"
+```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 
