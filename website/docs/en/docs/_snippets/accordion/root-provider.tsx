@@ -1,6 +1,6 @@
 import { Accordion, useAccordion } from '@moduix/react/accordion';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/accordion.module.css';
+import styles from '@/components/examples/accordion-root-provider.module.css';
 
 const items = [
   {

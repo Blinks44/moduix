@@ -5,6 +5,16 @@ description: Круговой элемент управления для выб�
 ---
 
 import * as AngleSliderDocs from '@/components/examples/angle-slider';
+import AngleSliderAdvancedCustomization from '../../en/docs/_snippets/angle-slider/advanced-customization.tsx';
+import AngleSliderBasic from '../../en/docs/_snippets/angle-slider/basic.tsx';
+import AngleSliderControlled from '../../en/docs/_snippets/angle-slider/controlled.tsx';
+import AngleSliderDisabled from '../../en/docs/_snippets/angle-slider/disabled.tsx';
+import AngleSliderForm from '../../en/docs/_snippets/angle-slider/form.tsx';
+import AngleSliderInvalid from '../../en/docs/_snippets/angle-slider/invalid.tsx';
+import AngleSliderReadOnly from '../../en/docs/_snippets/angle-slider/read-only.tsx';
+import AngleSliderRootProvider from '../../en/docs/_snippets/angle-slider/root-provider.tsx';
+import AngleSliderSteps from '../../en/docs/_snippets/angle-slider/steps.tsx';
+import AngleSliderWithMarks from '../../en/docs/_snippets/angle-slider/with-marks.tsx';
 
 ## Справочник API
 
@@ -25,13 +35,26 @@ import * as AngleSliderDocs from '@/components/examples/angle-slider';
 градусов. По возможности добавьте видимый `Label`. Если у регулятора нет видимой подписи, укажите `aria-label`
 в корневом компоненте.
 
-<style>{AngleSliderDocs.angleSliderBasicCss}</style>
+<ExampleFrame variant="component">
+  <AngleSliderBasic />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/angle-slider/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/angle-slider/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/angle-slider-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -126,27 +149,51 @@ DOM-части Ark поддерживают `asChild`. Передайте оди
 
 Используйте управляемый режим, если угол должен быть синхронизирован с состоянием приложения.
 
-<style>{AngleSliderDocs.angleSliderControlledCss}</style>
+<ExampleFrame variant="component">
+  <AngleSliderControlled />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/angle-slider/controlled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/angle-slider/controlled.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/angle-slider-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Отключённый режим
 
 Используйте `disabled`, если элемент должен быть недоступен, не получать фокус и не реагировать на взаимодействие.
 
-<style>{AngleSliderDocs.angleSliderDisabledCss}</style>
+<ExampleFrame variant="component">
+  <AngleSliderDisabled />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/angle-slider/disabled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/angle-slider/disabled.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/angle-slider-disabled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Использование в форме
 
@@ -154,97 +201,181 @@ DOM-части Ark поддерживают `asChild`. Передайте оди
 нативное поле, а кнопка Reset показывает сброс нативной формы. Используйте `form`, если форма не является предком
 слайдера.
 
-<style>{AngleSliderDocs.angleSliderFormCss}</style>
+<ExampleFrame variant="component">
+  <AngleSliderForm />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/angle-slider/form.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/angle-slider/form.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/angle-slider-form.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Недопустимое значение
 
 Используйте `invalid`, если выбранный угол не проходит проверку. Компонент отразит состояние ошибки в стилях и
 ARIA, не меняя способ взаимодействия.
 
-<style>{AngleSliderDocs.angleSliderInvalidCss}</style>
+<ExampleFrame variant="component">
+  <AngleSliderInvalid />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/angle-slider/invalid.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/angle-slider/invalid.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/angle-slider-invalid.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Только для чтения
 
 Используйте `readOnly`, если текущее значение должно оставаться видимым и доступным для фокуса, но не должно
 изменяться.
 
-<style>{AngleSliderDocs.angleSliderReadOnlyCss}</style>
+<ExampleFrame variant="component">
+  <AngleSliderReadOnly />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/angle-slider/read-only.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/angle-slider/read-only.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/angle-slider-read-only.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Используйте `useAngleSlider()` из `@moduix/react/angle-slider` вместе с `AngleSlider.RootProvider`, если другому
 компоненту нужен доступ к тому же состоянию. Внешнее состояние можно использовать в остальной части интерфейса.
 
-<style>{AngleSliderDocs.angleSliderRootProviderCss}</style>
+<ExampleFrame variant="component">
+  <AngleSliderRootProvider />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/angle-slider/root-provider.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/angle-slider/root-provider.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/angle-slider-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Шаги
 
 Используйте `step`, чтобы задать фиксированный шаг изменения угла при работе с указателем и клавиатурой.
 
-<style>{AngleSliderDocs.angleSliderStepCss}</style>
+<ExampleFrame variant="component">
+  <AngleSliderSteps />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/angle-slider/steps.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/angle-slider/steps.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/angle-slider-steps.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### С маркерами
 
 Используйте `AngleSlider.Marks`, если нужно показать распространённые опорные углы, не повторяя разметку
 `MarkerGroup` и `Marker`. `AngleSlider.Dial` объединяет `Control` и `Thumb` в одну композицию.
 
-<style>{AngleSliderDocs.angleSliderWithMarksCss}</style>
+<ExampleFrame variant="component">
+  <AngleSliderWithMarks />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/angle-slider/with-marks.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/angle-slider/with-marks.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/angle-slider-with-marks.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
 Используйте отдельные части вместо `AngleSlider.Dial` и `AngleSlider.Marks`, если нужно настроить композицию
 маркеров или добавить дочерние элементы внутрь области управления.
 
-<style>{AngleSliderDocs.angleSliderWithMarksCss}</style>
+<ExampleFrame variant="component">
+  <AngleSliderAdvancedCustomization />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/angle-slider/advanced-customization.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/angle-slider/advanced-customization.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/angle-slider-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

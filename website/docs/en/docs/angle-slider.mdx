@@ -5,6 +5,16 @@ description: A circular control for selecting an angle between 0 and 360 degrees
 ---
 
 import * as AngleSliderDocs from '@/components/examples/angle-slider';
+import AngleSliderAdvancedCustomization from './_snippets/angle-slider/advanced-customization.tsx';
+import AngleSliderBasic from './_snippets/angle-slider/basic.tsx';
+import AngleSliderControlled from './_snippets/angle-slider/controlled.tsx';
+import AngleSliderDisabled from './_snippets/angle-slider/disabled.tsx';
+import AngleSliderForm from './_snippets/angle-slider/form.tsx';
+import AngleSliderInvalid from './_snippets/angle-slider/invalid.tsx';
+import AngleSliderReadOnly from './_snippets/angle-slider/read-only.tsx';
+import AngleSliderRootProvider from './_snippets/angle-slider/root-provider.tsx';
+import AngleSliderSteps from './_snippets/angle-slider/steps.tsx';
+import AngleSliderWithMarks from './_snippets/angle-slider/with-marks.tsx';
 
 ## API Reference
 
@@ -24,13 +34,26 @@ Start with the smallest useful composition: `Dial`. `AngleSlider` accepts one an
 degrees. Add a visible `Label` when possible. If the dial has no visible label, add `aria-label` to
 the root.
 
-<style>{AngleSliderDocs.angleSliderBasicCss}</style>
+<ExampleFrame variant="component">
+  <AngleSliderBasic />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="fit-content">
-  ```tsx preview file="./_snippets/angle-slider/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/angle-slider/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/angle-slider-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -122,27 +145,51 @@ IDs. Refs are forwarded to the DOM element rendered by each wrapped Ark part.
 
 Use controlled state when the angle needs to stay synchronized with application state.
 
-<style>{AngleSliderDocs.angleSliderControlledCss}</style>
+<ExampleFrame variant="component">
+  <AngleSliderControlled />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="fit-content">
-  ```tsx preview file="./_snippets/angle-slider/controlled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/angle-slider/controlled.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/angle-slider-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Disabled
 
 Use `disabled` when the control should be unavailable and excluded from focus and interaction.
 
-<style>{AngleSliderDocs.angleSliderDisabledCss}</style>
+<ExampleFrame variant="component">
+  <AngleSliderDisabled />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="fit-content">
-  ```tsx preview file="./_snippets/angle-slider/disabled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/angle-slider/disabled.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/angle-slider-disabled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### In a Form
 
@@ -150,68 +197,128 @@ Add `name` to include the angle in native form submission. moduix renders the hi
 automatically, and the Reset button demonstrates native form reset. Use `form` when the form is not
 an ancestor of the slider.
 
-<style>{AngleSliderDocs.angleSliderFormCss}</style>
+<ExampleFrame variant="component">
+  <AngleSliderForm />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/angle-slider/form.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/angle-slider/form.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/angle-slider-form.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Invalid
 
 Use `invalid` when the selected angle fails validation. The dial then exposes error styling and the
 corresponding ARIA state without changing its interaction model.
 
-<style>{AngleSliderDocs.angleSliderInvalidCss}</style>
+<ExampleFrame variant="component">
+  <AngleSliderInvalid />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="fit-content">
-  ```tsx preview file="./_snippets/angle-slider/invalid.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/angle-slider/invalid.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/angle-slider-invalid.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Read Only
 
 Use `readOnly` when the current value should remain focusable and visible but not editable.
 
-<style>{AngleSliderDocs.angleSliderReadOnlyCss}</style>
+<ExampleFrame variant="component">
+  <AngleSliderReadOnly />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="fit-content">
-  ```tsx preview file="./_snippets/angle-slider/read-only.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/angle-slider/read-only.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/angle-slider-read-only.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Use `useAngleSlider()` from `@moduix/react/angle-slider` with `AngleSlider.RootProvider` when another component
 needs direct access to the same state machine. The external state can then drive surrounding UI.
 
-<style>{AngleSliderDocs.angleSliderRootProviderCss}</style>
+<ExampleFrame variant="component">
+  <AngleSliderRootProvider />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="fit-content">
-  ```tsx preview file="./_snippets/angle-slider/root-provider.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/angle-slider/root-provider.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/angle-slider-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Steps
 
 Use `step` to snap pointer and keyboard interaction to fixed angular increments.
 
-<style>{AngleSliderDocs.angleSliderStepCss}</style>
+<ExampleFrame variant="component">
+  <AngleSliderSteps />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="fit-content">
-  ```tsx preview file="./_snippets/angle-slider/steps.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/angle-slider/steps.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/angle-slider-steps.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### With Marks
 
@@ -219,28 +326,52 @@ Use `AngleSlider.Marks` when the dial should show common reference angles withou
 `MarkerGroup` and `Marker` boilerplate. `AngleSlider.Dial` keeps the `Control` and `Thumb`
 composition together.
 
-<style>{AngleSliderDocs.angleSliderWithMarksCss}</style>
+<ExampleFrame variant="component">
+  <AngleSliderWithMarks />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="fit-content">
-  ```tsx preview file="./_snippets/angle-slider/with-marks.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/angle-slider/with-marks.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/angle-slider-with-marks.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Use the explicit parts instead of `AngleSlider.Dial` and `AngleSlider.Marks` when the dial needs a
 custom marker composition or extra children inside the control.
 
-<style>{AngleSliderDocs.angleSliderWithMarksCss}</style>
+<ExampleFrame variant="component">
+  <AngleSliderAdvancedCustomization />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="fit-content">
-  ```tsx preview file="./_snippets/angle-slider/advanced-customization.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/angle-slider/advanced-customization.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/angle-slider-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

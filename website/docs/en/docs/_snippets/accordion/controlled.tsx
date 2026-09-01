@@ -1,6 +1,6 @@
 import { Accordion } from '@moduix/react/accordion';
 import { useState } from 'react';
-import styles from '@/components/examples/accordion.module.css';
+import styles from '@/components/examples/accordion-controlled.module.css';
 
 const items = [
   {

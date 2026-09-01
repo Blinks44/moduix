@@ -2,7 +2,7 @@ import { Alert } from '@moduix/react/alert';
 import { Button } from '@moduix/react/button';
 import { Info as InfoIcon } from 'lucide-react';
 import { useState } from 'react';
-import styles from '@/components/examples/alert.module.css';
+import styles from '@/components/examples/alert-custom-composition.module.css';
 
 const alert = {
   title: 'Storage is almost full',

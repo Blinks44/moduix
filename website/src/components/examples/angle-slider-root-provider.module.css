@@ -1,0 +1,9 @@
+.layout {
+  display: grid;
+  gap: var(--moduix-spacing-3);
+  justify-items: center;
+}
+
+.root {
+  --moduix-angle-slider-size: 9rem;
+}

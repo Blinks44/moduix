@@ -1,4 +1,5 @@
 import { AngleSlider } from '@moduix/react/angle-slider';
+import styles from '@/components/examples/angle-slider-steps.module.css';
 
 const initialValue = 60;
 const step = 15;
@@ -10,7 +11,7 @@ export default function SteppedAngleSliderDemo() {
       defaultValue={initialValue}
       step={step}
       aria-label="Snap angle"
-      className="docs-angle-slider-step"
+      className={styles.root}
     >
       <AngleSlider.Label>15 Step</AngleSlider.Label>
       <AngleSlider.Dial>

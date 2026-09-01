@@ -1,4 +1,5 @@
 import { AngleSlider } from '@moduix/react/angle-slider';
+import styles from '@/components/examples/angle-slider-read-only.module.css';
 
 const initialValue = 300;
 const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];
@@ -9,7 +10,7 @@ export default function ReadOnlyAngleSliderDemo() {
       defaultValue={initialValue}
       readOnly
       aria-label="Locked angle"
-      className="docs-angle-slider-readonly"
+      className={styles.root}
     >
       <AngleSlider.Label>Locked angle</AngleSlider.Label>
       <AngleSlider.Dial>
