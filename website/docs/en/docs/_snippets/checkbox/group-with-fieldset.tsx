@@ -1,5 +1,6 @@
 import { Checkbox } from '@moduix/react/checkbox';
 import { Fieldset } from '@moduix/react/fieldset';
+import styles from '@/components/examples/checkbox/checkbox-group-with-fieldset.module.css';
 
 const options = [
   { value: 'react', label: 'React' },
@@ -9,7 +10,7 @@ const options = [
 
 export default function CheckboxGroupFieldsetDemo() {
   return (
-    <Fieldset>
+    <Fieldset className={styles.root}>
       <Fieldset.Legend>Frameworks</Fieldset.Legend>
       <Checkbox.Group defaultValue={['react']} name="frameworks">
         {options.map((option) => (

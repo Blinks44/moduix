@@ -1,9 +1,10 @@
 import { Checkbox } from '@moduix/react/checkbox';
 import { Field } from '@moduix/react/field';
+import styles from '@/components/examples/checkbox/checkbox-with-field.module.css';
 
 export default function CheckboxFieldDemo() {
   return (
-    <Field>
+    <Field className={styles.root}>
       <Checkbox required name="terms" value="accepted">
         <Checkbox.Control />
         <Checkbox.Label>Accept terms</Checkbox.Label>
