@@ -3,7 +3,7 @@ import { ark } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
 import type { JSX } from 'solid-js';
 import { children, For, splitProps } from 'solid-js';
-import { ChevronRightIcon } from '@/internal/icons/ui/Icons';
+import { ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './Breadcrumbs.module.css';
 
 type BreadcrumbsPathItem = {

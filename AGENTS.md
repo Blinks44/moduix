@@ -8,7 +8,7 @@
 - `packages/solid` — the native Solid component library kept contract-compatible with shipped React components as they are ported.
 - `playgrounds` — private React and Solid Vite Storybooks for manual visual and interaction parity checks.
 - `website` — the Rspress documentation site, runnable component examples, and generated registry artifacts.
-- `registry/registry.json` — source manifest for the hosted React registry; its source files point into `packages/react/src`.
+- `packages/foundation/registry.json`, `packages/react/registry.json`, and `packages/solid/registry.json` — source manifests for the hosted registries; each manifest owns files within its package.
 - `packages/oxlint-config` and `packages/oxfmt-config` — shared linting and formatting configuration.
 
 ## Skill routing

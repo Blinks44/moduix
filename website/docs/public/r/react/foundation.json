@@ -4,6 +4,6 @@
   "title": "moduix React core",
   "description": "Shared runtime dependencies installed by every moduix registry component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["@moduix-react/core"],
+  "registryDependencies": ["https://moduix.dev/r/foundation/core.json"],
   "type": "registry:item"
 }

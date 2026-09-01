@@ -72,7 +72,9 @@ Read [preview rules](references/previews.md) whenever adding or changing a previ
 
 - Cover a component's full public `--<component>-*` contract from `packages/react/src/styles/variables-moduix.css` using the shared CSS variables reference UI; do not duplicate it in prose.
 - Keep styling hooks limited to meaningful `className`, `data-slot`, and state attributes that consumers can target.
-- Keep the full hosted-registry setup in `quick-start.mdx`; component pages show only the relevant install command. Treat `registry/registry.json` as the source manifest and regenerate artifacts after changing it.
+- Keep the full hosted-registry setup in `quick-start.mdx`; component pages show only the relevant install command. Treat `packages/<framework>/registry.json` as the source manifest; shared styles, reset, and presets come from `packages/foundation/registry.json` through `/r/foundation` URL dependencies.
+- Never edit `website/docs/public/r` by hand. Regenerate all `/r/foundation`, `/r/react`, and
+  `/r/solid` artifacts with `pnpm run build:registry`.
 
 ## Local development
 

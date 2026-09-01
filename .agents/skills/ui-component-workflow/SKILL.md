@@ -48,5 +48,8 @@ When moduix owns Ark's native hidden control, render it on every public composit
   its contract, leave Solid unchanged and state that result in the handoff. If no Solid counterpart
   exists, do not create a new port unless the task requests one.
 - Cover exposed provider, context, and state surfaces in stories when they are consumer contracts.
-- Update `registry/registry.json` and run `npm run build:registry` when a registry-shipped component changes its public import, styling, or dependency contract.
+- Update `packages/react/registry.json` and, for an existing Solid counterpart, `packages/solid/registry.json`; then run `pnpm run build:registry` when a registry-shipped component changes its public import, styling, or dependency contract.
+- Each framework manifest owns only sources in its package. Shared styles, reset, and presets are
+  published by `packages/foundation/registry.json` and consumed through `/r/foundation` URL
+  dependencies; do not duplicate them or use symlinks and parent paths.
 - Use existing component directory and import conventions; do not start a development server outside the project workflow.

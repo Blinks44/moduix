@@ -9,7 +9,7 @@ import { ark } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
 import { children, splitProps } from 'solid-js';
-import { PlusIcon } from '@/internal/icons/ui/Icons';
+import { PlusIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './Accordion.module.css';
 
 function AccordionRoot(props: ComponentProps<typeof AccordionPrimitive.Root>) {

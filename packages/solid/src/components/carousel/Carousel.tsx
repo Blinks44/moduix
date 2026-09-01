@@ -6,7 +6,7 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
 import { children, For, splitProps } from 'solid-js';
-import { ChevronLeftIcon, ChevronRightIcon } from '@/internal/icons/ui/Icons';
+import { ChevronLeftIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './Carousel.module.css';
 
 function CarouselRoot(props: ComponentProps<typeof CarouselPrimitive.Root>) {

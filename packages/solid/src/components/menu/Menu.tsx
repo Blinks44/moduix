@@ -9,12 +9,12 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, JSX } from 'solid-js';
 import { children, splitProps } from 'solid-js';
-import { CheckIcon, ChevronDownIcon, ChevronRightIcon } from '@/internal/icons/ui/Icons';
+import { CheckIcon, ChevronDownIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
 import {
   OverlayPortal,
   OverlayPortalProvider,
   type OverlayPortalProps,
-} from '@/internal/overlayPortal';
+} from '@/lib/moduix/overlayPortal';
 import styles from './Menu.module.css';
 
 type MenuIndicatorPosition = 'start' | 'end' | 'none';

@@ -4,8 +4,9 @@
 
 - Use `https://moduix.dev/llms.txt` to discover components, themes, recipes, and guides.
 - Read `https://moduix.dev/docs/<slug>.md` before implementing a focused component or workflow.
-- Use `https://moduix.dev/r/react/registry.json` to inspect the copy-owned registry catalogue and
-  `https://moduix.dev/r/react/<item>.json` to inspect one item.
+- Use `https://moduix.dev/r/react/registry.json` or
+  `https://moduix.dev/r/solid/registry.json` to inspect the copy-owned registry catalogue that
+  matches the application's runtime, and the matching `<item>.json` URL to inspect one item.
 
 ## Choose an existing building block first
 
@@ -16,9 +17,10 @@
 
 ## Copy-owned discovery
 
-Confirm the configured `@moduix-react` namespace with `shadcn@latest info --json`. Then use the
-project runner with `shadcn@latest search @moduix-react --query "<product need>"` to find items and
-`shadcn@latest view @moduix-react/<item>` to inspect one before adding it. Search the component and
-theme catalogue by user-facing behavior. Use the docs to find recipes, then install the registry
-components they name. Prefer the configured shadcn MCP server when it is available; otherwise
-follow the same CLI workflow.
+Confirm the configured `@moduix-react` or `@moduix-solid` namespace with
+`shadcn@latest info --json`. Then use the project runner with
+`shadcn@latest search @moduix-<framework> --query "<product need>"` to find items and
+`shadcn@latest view @moduix-<framework>/<item>` to inspect one before adding it. Select `react` or
+`solid` to match the application runtime. Search the component and theme catalogue by user-facing
+behavior. Use the docs to find recipes, then install the registry components they name. Prefer the
+configured shadcn MCP server when it is available; otherwise follow the same CLI workflow.

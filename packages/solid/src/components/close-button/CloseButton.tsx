@@ -3,7 +3,7 @@ import { ark } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
 import type { JSX } from 'solid-js';
 import { children as resolveChildren, splitProps } from 'solid-js';
-import { CloseIcon } from '@/internal/icons/ui/Icons';
+import { CloseIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './CloseButton.module.css';
 
 type CloseButtonRootProps = HTMLArkProps<'button'> & {

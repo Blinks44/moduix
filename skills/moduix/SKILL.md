@@ -17,8 +17,9 @@ installation for the user.
    `@moduix/react/<component>`, and load `@moduix/react/style.css` once in the application entry
    point.
 3. For copy-owned code, use the project's package runner to run
-   `shadcn@latest info --json`. Confirm the `@moduix-react` registry, aliases, installed items, and
-   resolved paths before changing files.
+   `shadcn@latest info --json`. Confirm the registry matching the application's runtime
+   (`@moduix-react` or `@moduix-solid`), aliases, installed items, and resolved paths before
+   changing files.
 4. If neither model is established, ask the user which ownership model to use. Do not initialize
    shadcn only to use package-managed moduix.
 
@@ -28,9 +29,12 @@ Read [references/discovery.md](references/discovery.md) for the docs, registry, 
 paths.
 
 1. Read the canonical moduix documentation page for the component, recipe, or guide.
-2. For copy-owned work, use the project's package runner with `shadcn@latest search @moduix-react --query "<product need>"` and `shadcn@latest view @moduix-react/<item>` before adding an item. Search
-   for the interface or workflow; moduix registry items include components, themes, and shared
-   support items. Recipes are documentation and are not registry items.
+2. For copy-owned work, use the project's package runner with
+   `shadcn@latest search @moduix-<framework> --query "<product need>"` and
+   `shadcn@latest view @moduix-<framework>/<item>` before adding an item. Select `react` or
+   `solid` to match the application runtime. Search for the interface or workflow; moduix registry
+   items include components, themes, and shared support items. Recipes are documentation and are
+   not registry items.
 3. Use the configured shadcn MCP server for discovery when available; otherwise use the CLI. Do not
    initialize MCP or change an AI client's configuration unless the user asks. The consumer setup is
    documented at `https://moduix.dev/docs/ai.md`.

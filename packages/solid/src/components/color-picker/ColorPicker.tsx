@@ -6,12 +6,12 @@ import {
 } from '@ark-ui/solid/color-picker';
 import { clsx } from 'clsx';
 import { children, type ComponentProps, splitProps } from 'solid-js';
-import { CheckIcon, ChevronDownIcon, PipetteIcon } from '@/internal/icons/ui/Icons';
+import { CheckIcon, ChevronDownIcon, PipetteIcon } from '@/lib/moduix/icons/ui/Icons';
 import {
   OverlayPortal,
   OverlayPortalProvider,
   type OverlayPortalProps,
-} from '@/internal/overlayPortal';
+} from '@/lib/moduix/overlayPortal';
 import styles from './ColorPicker.module.css';
 
 type ColorPickerRootProps = ComponentProps<typeof ColorPickerPrimitive.Root> & OverlayPortalProps;

@@ -6,7 +6,7 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
 import { children, splitProps } from 'solid-js';
-import { CheckIcon, CopyIcon } from '@/internal/icons/ui/Icons';
+import { CheckIcon, CopyIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './Clipboard.module.css';
 
 function ClipboardRoot(props: ComponentProps<typeof ClipboardPrimitive.Root>) {

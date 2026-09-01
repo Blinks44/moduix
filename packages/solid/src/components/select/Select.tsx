@@ -15,12 +15,12 @@ import { mergeProps } from '@zag-js/solid';
 import { clsx } from 'clsx';
 import type { ComponentProps, JSX } from 'solid-js';
 import { children, For, onMount, splitProps } from 'solid-js';
-import { CheckIcon, ChevronUpDownIcon } from '@/internal/icons/ui/Icons';
+import { CheckIcon, ChevronUpDownIcon } from '@/lib/moduix/icons/ui/Icons';
 import {
   OverlayPortal,
   OverlayPortalProvider,
   type OverlayPortalProps,
-} from '@/internal/overlayPortal';
+} from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
 import styles from './Select.module.css';
 

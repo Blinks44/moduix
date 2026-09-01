@@ -8,7 +8,7 @@ import { ark } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
 import { children, splitProps } from 'solid-js';
-import { ChevronDownIcon } from '@/internal/icons/ui/Icons';
+import { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './Collapsible.module.css';
 
 function CollapsibleRoot(props: ComponentProps<typeof CollapsiblePrimitive.Root>) {

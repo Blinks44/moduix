@@ -3,7 +3,7 @@ import type { FieldSelectProps } from '@ark-ui/solid/field';
 import { clsx } from 'clsx';
 import type { JSX } from 'solid-js';
 import { splitProps } from 'solid-js';
-import { ChevronDownIcon } from '@/internal/icons/ui/Icons';
+import { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './NativeSelect.module.css';
 
 type NativeSelectRootProps = FieldSelectProps & {

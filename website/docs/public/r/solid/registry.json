@@ -1,0 +1,715 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "moduix-solid",
+  "homepage": "https://moduix.dev",
+  "items": [
+    {
+      "name": "init",
+      "type": "registry:base",
+      "title": "moduix Solid init",
+      "description": "Initialize shadcn for moduix Solid and install the shared foundation files.",
+      "extends": "none",
+      "config": {
+        "style": "new-york",
+        "rsc": false,
+        "tsx": true,
+        "aliases": {
+          "components": "@/components",
+          "ui": "@/components/ui",
+          "lib": "@/lib",
+          "hooks": "@/hooks",
+          "utils": "@/lib/utils"
+        }
+      },
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"]
+    },
+    {
+      "name": "core",
+      "type": "registry:item",
+      "title": "moduix core",
+      "description": "Runtime styles and utilities required by moduix registry components.",
+      "docs": "Required: import the installed style.css once in your app entry. The optional reset is a separate registry item and must be imported before style.css.",
+      "registryDependencies": ["https://moduix.dev/r/foundation/core.json"]
+    },
+    {
+      "name": "reset",
+      "type": "registry:item",
+      "title": "moduix reset",
+      "description": "Optional CSS reset for projects that want moduix global reset rules.",
+      "docs": "Optional: import the installed reset.css before style.css in your app entry.",
+      "registryDependencies": ["https://moduix.dev/r/foundation/reset.json"]
+    },
+    {
+      "name": "icons",
+      "type": "registry:item",
+      "title": "moduix icons",
+      "description": "Internal icon components required only by registry components that render them.",
+      "files": [
+        {
+          "path": "src/internal/icons/ui/Icons.tsx",
+          "target": "@lib/moduix/icons/ui/Icons.tsx",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "overlay-portal",
+      "type": "registry:item",
+      "title": "moduix overlay portal",
+      "description": "Internal overlay portal helper required only by overlay registry components.",
+      "files": [
+        {
+          "path": "src/internal/overlayPortal.tsx",
+          "target": "@lib/moduix/overlayPortal.tsx",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "foundation",
+      "type": "registry:item",
+      "title": "moduix Solid core",
+      "description": "Shared runtime dependencies installed by every moduix registry component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["https://moduix.dev/r/foundation/core.json"]
+    },
+    {
+      "name": "theme-contrast",
+      "type": "registry:theme",
+      "title": "Contrast theme",
+      "description": "High-clarity moduix tokens with stronger borders and focus states for technical interfaces.",
+      "docs": "Import '@/lib/moduix/styles/style.css' once, then import '@/lib/moduix/presets/contrast.css'. Put data-moduix-theme=\"contrast\" on the document root.",
+      "registryDependencies": ["https://moduix.dev/r/foundation/theme-contrast.json"]
+    },
+    {
+      "name": "theme-dense",
+      "type": "registry:theme",
+      "title": "Dense theme",
+      "description": "Compact moduix tokens with a structured blue palette for admin and data-heavy interfaces.",
+      "docs": "Import '@/lib/moduix/styles/style.css' once, then import '@/lib/moduix/presets/dense.css'. Put data-moduix-theme=\"dense\" on the document root.",
+      "registryDependencies": ["https://moduix.dev/r/foundation/theme-dense.json"]
+    },
+    {
+      "name": "theme-soft",
+      "type": "registry:theme",
+      "title": "Soft theme",
+      "description": "Rounded moduix tokens with a warmer violet palette for product workflows.",
+      "docs": "Import '@/lib/moduix/styles/style.css' once, then import '@/lib/moduix/presets/soft.css'. Put data-moduix-theme=\"soft\" on the document root.",
+      "registryDependencies": ["https://moduix.dev/r/foundation/theme-soft.json"]
+    },
+    {
+      "name": "accordion",
+      "type": "registry:item",
+      "title": "Accordion",
+      "description": "moduix Solid Accordion component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
+      "files": [
+        {
+          "path": "src/components/accordion/Accordion.tsx",
+          "target": "@components/moduix/accordion/Accordion.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/accordion/Accordion.module.css",
+          "target": "@components/moduix/accordion/Accordion.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/accordion/index.ts",
+          "target": "@components/moduix/accordion/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "angle-slider",
+      "type": "registry:item",
+      "title": "AngleSlider",
+      "description": "moduix Solid AngleSlider component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/angle-slider/AngleSlider.tsx",
+          "target": "@components/moduix/angle-slider/AngleSlider.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/angle-slider/AngleSlider.module.css",
+          "target": "@components/moduix/angle-slider/AngleSlider.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/angle-slider/index.ts",
+          "target": "@components/moduix/angle-slider/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "alert",
+      "type": "registry:item",
+      "title": "Alert",
+      "description": "moduix Solid Alert component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/alert/Alert.tsx",
+          "target": "@components/moduix/alert/Alert.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/alert/Alert.module.css",
+          "target": "@components/moduix/alert/Alert.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/alert/index.ts",
+          "target": "@components/moduix/alert/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "aspect-ratio",
+      "type": "registry:item",
+      "title": "AspectRatio",
+      "description": "moduix Solid AspectRatio component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/aspect-ratio/AspectRatio.tsx",
+          "target": "@components/moduix/aspect-ratio/AspectRatio.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/aspect-ratio/AspectRatio.module.css",
+          "target": "@components/moduix/aspect-ratio/AspectRatio.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/aspect-ratio/index.ts",
+          "target": "@components/moduix/aspect-ratio/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "avatar",
+      "type": "registry:item",
+      "title": "Avatar",
+      "description": "moduix Solid Avatar component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/avatar/Avatar.tsx",
+          "target": "@components/moduix/avatar/Avatar.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/avatar/Avatar.module.css",
+          "target": "@components/moduix/avatar/Avatar.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/avatar/index.ts",
+          "target": "@components/moduix/avatar/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "badge",
+      "type": "registry:item",
+      "title": "Badge",
+      "description": "moduix Solid Badge component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/badge/Badge.tsx",
+          "target": "@components/moduix/badge/Badge.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/badge/Badge.module.css",
+          "target": "@components/moduix/badge/Badge.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/badge/index.ts",
+          "target": "@components/moduix/badge/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "bleed",
+      "type": "registry:item",
+      "title": "Bleed",
+      "description": "moduix Solid Bleed component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/bleed/Bleed.tsx",
+          "target": "@components/moduix/bleed/Bleed.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/bleed/Bleed.module.css",
+          "target": "@components/moduix/bleed/Bleed.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/bleed/index.ts",
+          "target": "@components/moduix/bleed/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "breadcrumbs",
+      "type": "registry:item",
+      "title": "Breadcrumbs",
+      "description": "moduix Solid Breadcrumbs component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
+      "files": [
+        {
+          "path": "src/components/breadcrumbs/Breadcrumbs.tsx",
+          "target": "@components/moduix/breadcrumbs/Breadcrumbs.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/breadcrumbs/Breadcrumbs.module.css",
+          "target": "@components/moduix/breadcrumbs/Breadcrumbs.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/breadcrumbs/index.ts",
+          "target": "@components/moduix/breadcrumbs/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:item",
+      "title": "Button",
+      "description": "moduix Solid Button component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/button/Button.tsx",
+          "target": "@components/moduix/button/Button.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/button/Button.module.css",
+          "target": "@components/moduix/button/Button.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/button/index.ts",
+          "target": "@components/moduix/button/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:item",
+      "title": "Card",
+      "description": "moduix Solid Card component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/card/Card.tsx",
+          "target": "@components/moduix/card/Card.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/card/Card.module.css",
+          "target": "@components/moduix/card/Card.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/card/index.ts",
+          "target": "@components/moduix/card/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:item",
+      "title": "Checkbox",
+      "description": "moduix Solid Checkbox component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
+      "files": [
+        {
+          "path": "src/components/checkbox/Checkbox.tsx",
+          "target": "@components/moduix/checkbox/Checkbox.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/checkbox/Checkbox.module.css",
+          "target": "@components/moduix/checkbox/Checkbox.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/checkbox/index.ts",
+          "target": "@components/moduix/checkbox/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "close-button",
+      "type": "registry:item",
+      "title": "CloseButton",
+      "description": "moduix Solid CloseButton component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
+      "files": [
+        {
+          "path": "src/components/close-button/CloseButton.tsx",
+          "target": "@components/moduix/close-button/CloseButton.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/close-button/CloseButton.module.css",
+          "target": "@components/moduix/close-button/CloseButton.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/close-button/index.ts",
+          "target": "@components/moduix/close-button/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "collapsible",
+      "type": "registry:item",
+      "title": "Collapsible",
+      "description": "moduix Solid Collapsible component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
+      "files": [
+        {
+          "path": "src/components/collapsible/Collapsible.tsx",
+          "target": "@components/moduix/collapsible/Collapsible.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/collapsible/Collapsible.module.css",
+          "target": "@components/moduix/collapsible/Collapsible.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/collapsible/index.ts",
+          "target": "@components/moduix/collapsible/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "color-picker",
+      "type": "registry:item",
+      "title": "ColorPicker",
+      "description": "moduix Solid ColorPicker component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": [
+        "@moduix-solid/foundation",
+        "@moduix-solid/icons",
+        "@moduix-solid/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/color-picker/ColorPicker.tsx",
+          "target": "@components/moduix/color-picker/ColorPicker.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPicker.module.css",
+          "target": "@components/moduix/color-picker/ColorPicker.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/color-picker/index.ts",
+          "target": "@components/moduix/color-picker/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "clipboard",
+      "type": "registry:item",
+      "title": "Clipboard",
+      "description": "moduix Solid Clipboard component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
+      "files": [
+        {
+          "path": "src/components/clipboard/Clipboard.tsx",
+          "target": "@components/moduix/clipboard/Clipboard.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/clipboard/Clipboard.module.css",
+          "target": "@components/moduix/clipboard/Clipboard.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/clipboard/index.ts",
+          "target": "@components/moduix/clipboard/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "field",
+      "type": "registry:item",
+      "title": "Field",
+      "description": "moduix Solid Field component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/field/Field.tsx",
+          "target": "@components/moduix/field/Field.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/field/Field.module.css",
+          "target": "@components/moduix/field/Field.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/field/index.ts",
+          "target": "@components/moduix/field/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:item",
+      "title": "Input",
+      "description": "moduix Solid Input component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/input/Input.tsx",
+          "target": "@components/moduix/input/Input.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/input/Input.module.css",
+          "target": "@components/moduix/input/Input.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/input/index.ts",
+          "target": "@components/moduix/input/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "menu",
+      "type": "registry:item",
+      "title": "Menu",
+      "description": "moduix Solid Menu component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": [
+        "@moduix-solid/foundation",
+        "@moduix-solid/icons",
+        "@moduix-solid/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/menu/Menu.tsx",
+          "target": "@components/moduix/menu/Menu.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/Menu.module.css",
+          "target": "@components/moduix/menu/Menu.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/menu/index.ts",
+          "target": "@components/moduix/menu/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "native-select",
+      "type": "registry:item",
+      "title": "Native Select",
+      "description": "moduix Solid Native Select component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
+      "files": [
+        {
+          "path": "src/components/native-select/NativeSelect.tsx",
+          "target": "@components/moduix/native-select/NativeSelect.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/native-select/NativeSelect.module.css",
+          "target": "@components/moduix/native-select/NativeSelect.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/native-select/index.ts",
+          "target": "@components/moduix/native-select/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "select",
+      "type": "registry:item",
+      "title": "Select",
+      "description": "moduix Solid Select component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": [
+        "@moduix-solid/foundation",
+        "@moduix-solid/close-button",
+        "@moduix-solid/icons",
+        "@moduix-solid/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/select/Select.tsx",
+          "target": "@components/moduix/select/Select.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/Select.module.css",
+          "target": "@components/moduix/select/Select.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/select/index.ts",
+          "target": "@components/moduix/select/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "carousel",
+      "type": "registry:item",
+      "title": "Carousel",
+      "description": "moduix Solid Carousel component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
+      "files": [
+        {
+          "path": "src/components/carousel/Carousel.tsx",
+          "target": "@components/moduix/carousel/Carousel.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/carousel/Carousel.module.css",
+          "target": "@components/moduix/carousel/Carousel.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/carousel/index.ts",
+          "target": "@components/moduix/carousel/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "spinner",
+      "type": "registry:item",
+      "title": "Spinner",
+      "description": "moduix Solid Spinner component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/spinner/Spinner.tsx",
+          "target": "@components/moduix/spinner/Spinner.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/spinner/Spinner.module.css",
+          "target": "@components/moduix/spinner/Spinner.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/spinner/index.ts",
+          "target": "@components/moduix/spinner/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "text",
+      "type": "registry:item",
+      "title": "Text",
+      "description": "moduix Solid Text component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/text/Text.tsx",
+          "target": "@components/moduix/text/Text.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/text/Text.module.css",
+          "target": "@components/moduix/text/Text.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/text/index.ts",
+          "target": "@components/moduix/text/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:item",
+      "title": "Textarea",
+      "description": "moduix Solid Textarea component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/textarea/Textarea.tsx",
+          "target": "@components/moduix/textarea/Textarea.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/textarea/Textarea.module.css",
+          "target": "@components/moduix/textarea/Textarea.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/textarea/index.ts",
+          "target": "@components/moduix/textarea/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    }
+  ]
+}

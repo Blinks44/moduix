@@ -24,6 +24,10 @@ of recreating Ark internals.
 Use `packages/foundation` as the existing cross-framework source. Do not move component JSX, CSS
 Modules, icons, or framework-specific helpers into foundation as part of an ordinary port.
 
+When the port is ready for copy-owned distribution, add its item to
+`packages/solid/registry.json`. Keep its source paths inside `packages/solid`, use
+`@moduix-solid/*` for registry dependencies, and port every direct component dependency first.
+
 ## Parity contract
 
 Keep these equivalent to the React component:
@@ -96,9 +100,23 @@ Keep the CSS Module beside the Solid component; do not import it across framewor
 A framework-specific CSS difference is allowed only when the emitted platform contract genuinely
 differs, and the reason must be recorded with the component.
 
-Configure the Solid package to copy the same foundation styles and presets into its own output. Do
-not create a published foundation runtime dependency unless that packaging decision is requested
-separately.
+The shared styles and presets belong to `packages/foundation/registry.json`. The Solid registry
+references its published `/r/foundation/*.json` items; do not copy foundation files, use parent
+paths, or introduce symlinks into a framework registry.
+
+## Registry distribution
+
+`packages/react/registry.json` and `packages/solid/registry.json` are separate source roots. Their
+items may include only files under their own package and their framework-native internal helpers.
+The generated artifacts are published at `/r/react` and `/r/solid`.
+
+- Start a Solid item from the matching React item's file and target layout, then use the Solid
+  source paths and `@ark-ui/solid` dependencies.
+- Keep registry dependencies framework-specific: a Solid item may depend on
+  `@moduix-solid/foundation`, `@moduix-solid/icons`, or another already-ported Solid item, never
+  an `@moduix-react/*` item.
+- Do not manually edit `website/docs/public/r`. Run `pnpm run build:registry` to regenerate
+  foundation, React, and Solid artifacts together.
 
 ## Playground stories
 
@@ -139,9 +157,11 @@ in the preview, so manual parity checks always identify the active runtime.
    framework mechanics; do not weaken or delete contract assertions to make the port pass.
 7. Copy the package React story into the React playground and create its scenario-equivalent Solid
    story. Keep their story CSS Modules and exported scenario names aligned.
-8. Add component-local and package exports only after implementation and declarations build.
+8. Add component-local and package exports only after implementation and declarations build. Add
+   the Solid registry item once all of its registry dependencies are ported.
 9. Run the Solid component tests and build. Start both playgrounds and compare matching React and
-   Solid stories, then run the repository validation required by `AGENTS.md`.
+   Solid stories, then run `pnpm run build:registry` and the repository validation required by
+   `AGENTS.md`.
 
 If `packages/solid` does not exist, create only the minimal bundleless ESM Rslib package needed for
 the requested component. Align the Ark Solid version with the Ark React line, keep `solid-js` and Ark
@@ -161,6 +181,8 @@ A port is complete only when:
 - any unavoidable Ark Solid factory difference, including unsupported `ref` with `asChild`, is
   documented and tested as separate native paths;
 - CSS Modules are identical unless a necessary difference is documented;
+- the Solid registry item has only Solid dependencies and the regenerated `/r/solid` artifact is
+  included;
 - the Solid package build and declaration output succeed;
 - required repository formatting, lint, and type checks pass.
 

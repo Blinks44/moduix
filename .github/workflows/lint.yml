@@ -57,7 +57,7 @@ jobs:
         run: pnpm run build:registry
 
       - name: Check generated registry
-        run: git diff --exit-code -- website/docs/public/r/react
+        run: git diff --exit-code -- website/docs/public/r
 
       - name: Check package contract
         run: pnpm run check:package

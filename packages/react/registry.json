@@ -29,75 +29,8 @@
       "type": "registry:item",
       "title": "moduix core",
       "description": "Runtime styles and utilities required by moduix registry components.",
-      "dependencies": ["clsx"],
       "docs": "Required: import the installed style.css once in your app entry. The optional reset is a separate registry item and must be imported before style.css.",
-      "files": [
-        {
-          "path": "packages/foundation/src/styles/animations.css",
-          "target": "@lib/moduix/styles/animations.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "packages/foundation/src/styles/borders.css",
-          "target": "@lib/moduix/styles/borders.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "packages/foundation/src/styles/colors.css",
-          "target": "@lib/moduix/styles/colors.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "packages/foundation/src/styles/opacity.css",
-          "target": "@lib/moduix/styles/opacity.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "packages/foundation/src/styles/radius.css",
-          "target": "@lib/moduix/styles/radius.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "packages/foundation/src/styles/shadows.css",
-          "target": "@lib/moduix/styles/shadows.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "packages/foundation/src/styles/sizing.css",
-          "target": "@lib/moduix/styles/sizing.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "packages/foundation/src/styles/spacing.css",
-          "target": "@lib/moduix/styles/spacing.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "packages/foundation/src/styles/style.css",
-          "target": "@lib/moduix/styles/style.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "packages/foundation/src/styles/transforms.css",
-          "target": "@lib/moduix/styles/transforms.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "packages/foundation/src/styles/transitions.css",
-          "target": "@lib/moduix/styles/transitions.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "packages/foundation/src/styles/typography.css",
-          "target": "@lib/moduix/styles/typography.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "packages/foundation/src/styles/z-index.css",
-          "target": "@lib/moduix/styles/z-index.css",
-          "type": "registry:file"
-        }
-      ]
+      "registryDependencies": ["https://moduix.dev/r/foundation/core.json"]
     },
     {
       "name": "reset",
@@ -105,13 +38,7 @@
       "title": "moduix reset",
       "description": "Optional CSS reset for projects that want moduix global reset rules.",
       "docs": "Optional: import the installed reset.css before style.css in your app entry.",
-      "files": [
-        {
-          "path": "packages/foundation/src/styles/reset.css",
-          "target": "@lib/moduix/styles/reset.css",
-          "type": "registry:file"
-        }
-      ]
+      "registryDependencies": ["https://moduix.dev/r/foundation/reset.json"]
     },
     {
       "name": "icons",
@@ -120,12 +47,12 @@
       "description": "Internal icon components required only by registry components that render them.",
       "files": [
         {
-          "path": "packages/react/src/internal/icons/ui/index.ts",
+          "path": "src/internal/icons/ui/index.ts",
           "target": "@lib/moduix/icons/ui/index.ts",
           "type": "registry:lib"
         },
         {
-          "path": "packages/react/src/internal/icons/ui/Icons.tsx",
+          "path": "src/internal/icons/ui/Icons.tsx",
           "target": "@lib/moduix/icons/ui/Icons.tsx",
           "type": "registry:lib"
         }
@@ -138,7 +65,7 @@
       "description": "Internal overlay portal helper required only by overlay registry components.",
       "files": [
         {
-          "path": "packages/react/src/internal/overlayPortal.tsx",
+          "path": "src/internal/overlayPortal.tsx",
           "target": "@lib/moduix/overlayPortal.tsx",
           "type": "registry:lib"
         }
@@ -150,7 +77,7 @@
       "title": "moduix React core",
       "description": "Shared runtime dependencies installed by every moduix registry component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/core"]
+      "registryDependencies": ["https://moduix.dev/r/foundation/core.json"]
     },
     {
       "name": "theme-contrast",
@@ -158,14 +85,7 @@
       "title": "Contrast theme",
       "description": "High-clarity moduix tokens with stronger borders and focus states for technical interfaces.",
       "docs": "Import '@/lib/moduix/styles/style.css' once, then import '@/lib/moduix/presets/contrast.css'. Put data-moduix-theme=\"contrast\" on the document root.",
-      "registryDependencies": ["@moduix-react/core"],
-      "files": [
-        {
-          "path": "packages/foundation/src/presets/contrast.css",
-          "target": "@lib/moduix/presets/contrast.css",
-          "type": "registry:file"
-        }
-      ]
+      "registryDependencies": ["https://moduix.dev/r/foundation/theme-contrast.json"]
     },
     {
       "name": "theme-dense",
@@ -173,14 +93,7 @@
       "title": "Dense theme",
       "description": "Compact moduix tokens with a structured blue palette for admin and data-heavy interfaces.",
       "docs": "Import '@/lib/moduix/styles/style.css' once, then import '@/lib/moduix/presets/dense.css'. Put data-moduix-theme=\"dense\" on the document root.",
-      "registryDependencies": ["@moduix-react/core"],
-      "files": [
-        {
-          "path": "packages/foundation/src/presets/dense.css",
-          "target": "@lib/moduix/presets/dense.css",
-          "type": "registry:file"
-        }
-      ]
+      "registryDependencies": ["https://moduix.dev/r/foundation/theme-dense.json"]
     },
     {
       "name": "theme-soft",
@@ -188,14 +101,7 @@
       "title": "Soft theme",
       "description": "Rounded moduix tokens with a warmer violet palette for product workflows.",
       "docs": "Import '@/lib/moduix/styles/style.css' once, then import '@/lib/moduix/presets/soft.css'. Put data-moduix-theme=\"soft\" on the document root.",
-      "registryDependencies": ["@moduix-react/core"],
-      "files": [
-        {
-          "path": "packages/foundation/src/presets/soft.css",
-          "target": "@lib/moduix/presets/soft.css",
-          "type": "registry:file"
-        }
-      ]
+      "registryDependencies": ["https://moduix.dev/r/foundation/theme-soft.json"]
     },
     {
       "name": "accordion",
@@ -206,17 +112,17 @@
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
-          "path": "packages/react/src/components/accordion/Accordion.tsx",
+          "path": "src/components/accordion/Accordion.tsx",
           "target": "@components/moduix/accordion/Accordion.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/accordion/Accordion.module.css",
+          "path": "src/components/accordion/Accordion.module.css",
           "target": "@components/moduix/accordion/Accordion.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/accordion/index.ts",
+          "path": "src/components/accordion/index.ts",
           "target": "@components/moduix/accordion/index.ts",
           "type": "registry:component"
         }
@@ -231,17 +137,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/angle-slider/AngleSlider.tsx",
+          "path": "src/components/angle-slider/AngleSlider.tsx",
           "target": "@components/moduix/angle-slider/AngleSlider.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/angle-slider/AngleSlider.module.css",
+          "path": "src/components/angle-slider/AngleSlider.module.css",
           "target": "@components/moduix/angle-slider/AngleSlider.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/angle-slider/index.ts",
+          "path": "src/components/angle-slider/index.ts",
           "target": "@components/moduix/angle-slider/index.ts",
           "type": "registry:component"
         }
@@ -256,17 +162,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/alert/Alert.tsx",
+          "path": "src/components/alert/Alert.tsx",
           "target": "@components/moduix/alert/Alert.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/alert/Alert.module.css",
+          "path": "src/components/alert/Alert.module.css",
           "target": "@components/moduix/alert/Alert.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/alert/index.ts",
+          "path": "src/components/alert/index.ts",
           "target": "@components/moduix/alert/index.ts",
           "type": "registry:component"
         }
@@ -281,17 +187,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/aspect-ratio/AspectRatio.tsx",
+          "path": "src/components/aspect-ratio/AspectRatio.tsx",
           "target": "@components/moduix/aspect-ratio/AspectRatio.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/aspect-ratio/AspectRatio.module.css",
+          "path": "src/components/aspect-ratio/AspectRatio.module.css",
           "target": "@components/moduix/aspect-ratio/AspectRatio.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/aspect-ratio/index.ts",
+          "path": "src/components/aspect-ratio/index.ts",
           "target": "@components/moduix/aspect-ratio/index.ts",
           "type": "registry:component"
         }
@@ -306,17 +212,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/avatar/Avatar.tsx",
+          "path": "src/components/avatar/Avatar.tsx",
           "target": "@components/moduix/avatar/Avatar.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/avatar/Avatar.module.css",
+          "path": "src/components/avatar/Avatar.module.css",
           "target": "@components/moduix/avatar/Avatar.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/avatar/index.ts",
+          "path": "src/components/avatar/index.ts",
           "target": "@components/moduix/avatar/index.ts",
           "type": "registry:component"
         }
@@ -331,17 +237,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/badge/Badge.tsx",
+          "path": "src/components/badge/Badge.tsx",
           "target": "@components/moduix/badge/Badge.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/badge/Badge.module.css",
+          "path": "src/components/badge/Badge.module.css",
           "target": "@components/moduix/badge/Badge.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/badge/index.ts",
+          "path": "src/components/badge/index.ts",
           "target": "@components/moduix/badge/index.ts",
           "type": "registry:component"
         }
@@ -356,17 +262,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/bleed/Bleed.tsx",
+          "path": "src/components/bleed/Bleed.tsx",
           "target": "@components/moduix/bleed/Bleed.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/bleed/Bleed.module.css",
+          "path": "src/components/bleed/Bleed.module.css",
           "target": "@components/moduix/bleed/Bleed.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/bleed/index.ts",
+          "path": "src/components/bleed/index.ts",
           "target": "@components/moduix/bleed/index.ts",
           "type": "registry:component"
         }
@@ -381,17 +287,17 @@
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
-          "path": "packages/react/src/components/breadcrumbs/Breadcrumbs.tsx",
+          "path": "src/components/breadcrumbs/Breadcrumbs.tsx",
           "target": "@components/moduix/breadcrumbs/Breadcrumbs.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/breadcrumbs/Breadcrumbs.module.css",
+          "path": "src/components/breadcrumbs/Breadcrumbs.module.css",
           "target": "@components/moduix/breadcrumbs/Breadcrumbs.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/breadcrumbs/index.ts",
+          "path": "src/components/breadcrumbs/index.ts",
           "target": "@components/moduix/breadcrumbs/index.ts",
           "type": "registry:component"
         }
@@ -406,17 +312,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/button/Button.tsx",
+          "path": "src/components/button/Button.tsx",
           "target": "@components/moduix/button/Button.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/button/Button.module.css",
+          "path": "src/components/button/Button.module.css",
           "target": "@components/moduix/button/Button.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/button/index.ts",
+          "path": "src/components/button/index.ts",
           "target": "@components/moduix/button/index.ts",
           "type": "registry:component"
         }
@@ -431,17 +337,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/card/Card.tsx",
+          "path": "src/components/card/Card.tsx",
           "target": "@components/moduix/card/Card.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/card/Card.module.css",
+          "path": "src/components/card/Card.module.css",
           "target": "@components/moduix/card/Card.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/card/index.ts",
+          "path": "src/components/card/index.ts",
           "target": "@components/moduix/card/index.ts",
           "type": "registry:component"
         }
@@ -456,17 +362,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/chart/Chart.tsx",
+          "path": "src/components/chart/Chart.tsx",
           "target": "@components/moduix/chart/Chart.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/chart/Chart.module.css",
+          "path": "src/components/chart/Chart.module.css",
           "target": "@components/moduix/chart/Chart.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/chart/index.ts",
+          "path": "src/components/chart/index.ts",
           "target": "@components/moduix/chart/index.ts",
           "type": "registry:component"
         }
@@ -481,17 +387,17 @@
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
-          "path": "packages/react/src/components/checkbox/Checkbox.tsx",
+          "path": "src/components/checkbox/Checkbox.tsx",
           "target": "@components/moduix/checkbox/Checkbox.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/checkbox/Checkbox.module.css",
+          "path": "src/components/checkbox/Checkbox.module.css",
           "target": "@components/moduix/checkbox/Checkbox.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/checkbox/index.ts",
+          "path": "src/components/checkbox/index.ts",
           "target": "@components/moduix/checkbox/index.ts",
           "type": "registry:component"
         }
@@ -506,17 +412,17 @@
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
-          "path": "packages/react/src/components/close-button/CloseButton.tsx",
+          "path": "src/components/close-button/CloseButton.tsx",
           "target": "@components/moduix/close-button/CloseButton.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/close-button/CloseButton.module.css",
+          "path": "src/components/close-button/CloseButton.module.css",
           "target": "@components/moduix/close-button/CloseButton.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/close-button/index.ts",
+          "path": "src/components/close-button/index.ts",
           "target": "@components/moduix/close-button/index.ts",
           "type": "registry:component"
         }
@@ -531,17 +437,17 @@
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
-          "path": "packages/react/src/components/collapsible/Collapsible.tsx",
+          "path": "src/components/collapsible/Collapsible.tsx",
           "target": "@components/moduix/collapsible/Collapsible.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/collapsible/Collapsible.module.css",
+          "path": "src/components/collapsible/Collapsible.module.css",
           "target": "@components/moduix/collapsible/Collapsible.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/collapsible/index.ts",
+          "path": "src/components/collapsible/index.ts",
           "target": "@components/moduix/collapsible/index.ts",
           "type": "registry:component"
         }
@@ -561,17 +467,17 @@
       ],
       "files": [
         {
-          "path": "packages/react/src/components/combobox/Combobox.tsx",
+          "path": "src/components/combobox/Combobox.tsx",
           "target": "@components/moduix/combobox/Combobox.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/combobox/Combobox.module.css",
+          "path": "src/components/combobox/Combobox.module.css",
           "target": "@components/moduix/combobox/Combobox.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/combobox/index.ts",
+          "path": "src/components/combobox/index.ts",
           "target": "@components/moduix/combobox/index.ts",
           "type": "registry:component"
         }
@@ -590,17 +496,17 @@
       ],
       "files": [
         {
-          "path": "packages/react/src/components/color-picker/ColorPicker.tsx",
+          "path": "src/components/color-picker/ColorPicker.tsx",
           "target": "@components/moduix/color-picker/ColorPicker.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/color-picker/ColorPicker.module.css",
+          "path": "src/components/color-picker/ColorPicker.module.css",
           "target": "@components/moduix/color-picker/ColorPicker.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/color-picker/index.ts",
+          "path": "src/components/color-picker/index.ts",
           "target": "@components/moduix/color-picker/index.ts",
           "type": "registry:component"
         }
@@ -622,17 +528,17 @@
       ],
       "files": [
         {
-          "path": "packages/react/src/components/command-palette/CommandPalette.tsx",
+          "path": "src/components/command-palette/CommandPalette.tsx",
           "target": "@components/moduix/command-palette/CommandPalette.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/command-palette/CommandPalette.module.css",
+          "path": "src/components/command-palette/CommandPalette.module.css",
           "target": "@components/moduix/command-palette/CommandPalette.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/command-palette/index.ts",
+          "path": "src/components/command-palette/index.ts",
           "target": "@components/moduix/command-palette/index.ts",
           "type": "registry:component"
         }
@@ -647,17 +553,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/container/Container.tsx",
+          "path": "src/components/container/Container.tsx",
           "target": "@components/moduix/container/Container.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/container/Container.module.css",
+          "path": "src/components/container/Container.module.css",
           "target": "@components/moduix/container/Container.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/container/index.ts",
+          "path": "src/components/container/index.ts",
           "target": "@components/moduix/container/index.ts",
           "type": "registry:component"
         }
@@ -672,17 +578,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/date-input/DateInput.tsx",
+          "path": "src/components/date-input/DateInput.tsx",
           "target": "@components/moduix/date-input/DateInput.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/date-input/DateInput.module.css",
+          "path": "src/components/date-input/DateInput.module.css",
           "target": "@components/moduix/date-input/DateInput.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/date-input/index.ts",
+          "path": "src/components/date-input/index.ts",
           "target": "@components/moduix/date-input/index.ts",
           "type": "registry:component"
         }
@@ -702,17 +608,17 @@
       ],
       "files": [
         {
-          "path": "packages/react/src/components/date-picker/DatePicker.tsx",
+          "path": "src/components/date-picker/DatePicker.tsx",
           "target": "@components/moduix/date-picker/DatePicker.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/date-picker/DatePicker.module.css",
+          "path": "src/components/date-picker/DatePicker.module.css",
           "target": "@components/moduix/date-picker/DatePicker.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/date-picker/index.ts",
+          "path": "src/components/date-picker/index.ts",
           "target": "@components/moduix/date-picker/index.ts",
           "type": "registry:component"
         }
@@ -727,17 +633,17 @@
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
-          "path": "packages/react/src/components/clipboard/Clipboard.tsx",
+          "path": "src/components/clipboard/Clipboard.tsx",
           "target": "@components/moduix/clipboard/Clipboard.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/clipboard/Clipboard.module.css",
+          "path": "src/components/clipboard/Clipboard.module.css",
           "target": "@components/moduix/clipboard/Clipboard.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/clipboard/index.ts",
+          "path": "src/components/clipboard/index.ts",
           "target": "@components/moduix/clipboard/index.ts",
           "type": "registry:component"
         }
@@ -756,17 +662,17 @@
       ],
       "files": [
         {
-          "path": "packages/react/src/components/dialog/Dialog.tsx",
+          "path": "src/components/dialog/Dialog.tsx",
           "target": "@components/moduix/dialog/Dialog.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/dialog/Dialog.module.css",
+          "path": "src/components/dialog/Dialog.module.css",
           "target": "@components/moduix/dialog/Dialog.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/dialog/index.ts",
+          "path": "src/components/dialog/index.ts",
           "target": "@components/moduix/dialog/index.ts",
           "type": "registry:component"
         }
@@ -785,17 +691,17 @@
       ],
       "files": [
         {
-          "path": "packages/react/src/components/drawer/Drawer.tsx",
+          "path": "src/components/drawer/Drawer.tsx",
           "target": "@components/moduix/drawer/Drawer.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/drawer/Drawer.module.css",
+          "path": "src/components/drawer/Drawer.module.css",
           "target": "@components/moduix/drawer/Drawer.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/drawer/index.ts",
+          "path": "src/components/drawer/index.ts",
           "target": "@components/moduix/drawer/index.ts",
           "type": "registry:component"
         }
@@ -810,17 +716,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/empty/Empty.tsx",
+          "path": "src/components/empty/Empty.tsx",
           "target": "@components/moduix/empty/Empty.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/empty/Empty.module.css",
+          "path": "src/components/empty/Empty.module.css",
           "target": "@components/moduix/empty/Empty.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/empty/index.ts",
+          "path": "src/components/empty/index.ts",
           "target": "@components/moduix/empty/index.ts",
           "type": "registry:component"
         }
@@ -835,17 +741,17 @@
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
-          "path": "packages/react/src/components/editable/Editable.tsx",
+          "path": "src/components/editable/Editable.tsx",
           "target": "@components/moduix/editable/Editable.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/editable/Editable.module.css",
+          "path": "src/components/editable/Editable.module.css",
           "target": "@components/moduix/editable/Editable.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/editable/index.ts",
+          "path": "src/components/editable/index.ts",
           "target": "@components/moduix/editable/index.ts",
           "type": "registry:component"
         }
@@ -860,17 +766,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/field/Field.tsx",
+          "path": "src/components/field/Field.tsx",
           "target": "@components/moduix/field/Field.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/field/Field.module.css",
+          "path": "src/components/field/Field.module.css",
           "target": "@components/moduix/field/Field.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/field/index.ts",
+          "path": "src/components/field/index.ts",
           "target": "@components/moduix/field/index.ts",
           "type": "registry:component"
         }
@@ -889,17 +795,17 @@
       ],
       "files": [
         {
-          "path": "packages/react/src/components/file-upload/FileUpload.tsx",
+          "path": "src/components/file-upload/FileUpload.tsx",
           "target": "@components/moduix/file-upload/FileUpload.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/file-upload/FileUpload.module.css",
+          "path": "src/components/file-upload/FileUpload.module.css",
           "target": "@components/moduix/file-upload/FileUpload.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/file-upload/index.ts",
+          "path": "src/components/file-upload/index.ts",
           "target": "@components/moduix/file-upload/index.ts",
           "type": "registry:component"
         }
@@ -914,17 +820,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/fieldset/Fieldset.tsx",
+          "path": "src/components/fieldset/Fieldset.tsx",
           "target": "@components/moduix/fieldset/Fieldset.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/fieldset/Fieldset.module.css",
+          "path": "src/components/fieldset/Fieldset.module.css",
           "target": "@components/moduix/fieldset/Fieldset.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/fieldset/index.ts",
+          "path": "src/components/fieldset/index.ts",
           "target": "@components/moduix/fieldset/index.ts",
           "type": "registry:component"
         }
@@ -944,17 +850,17 @@
       ],
       "files": [
         {
-          "path": "packages/react/src/components/floating-panel/FloatingPanel.tsx",
+          "path": "src/components/floating-panel/FloatingPanel.tsx",
           "target": "@components/moduix/floating-panel/FloatingPanel.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/floating-panel/FloatingPanel.module.css",
+          "path": "src/components/floating-panel/FloatingPanel.module.css",
           "target": "@components/moduix/floating-panel/FloatingPanel.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/floating-panel/index.ts",
+          "path": "src/components/floating-panel/index.ts",
           "target": "@components/moduix/floating-panel/index.ts",
           "type": "registry:component"
         }
@@ -969,17 +875,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/heading/Heading.tsx",
+          "path": "src/components/heading/Heading.tsx",
           "target": "@components/moduix/heading/Heading.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/heading/Heading.module.css",
+          "path": "src/components/heading/Heading.module.css",
           "target": "@components/moduix/heading/Heading.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/heading/index.ts",
+          "path": "src/components/heading/index.ts",
           "target": "@components/moduix/heading/index.ts",
           "type": "registry:component"
         }
@@ -994,17 +900,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/highlight/Highlight.tsx",
+          "path": "src/components/highlight/Highlight.tsx",
           "target": "@components/moduix/highlight/Highlight.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/highlight/Highlight.module.css",
+          "path": "src/components/highlight/Highlight.module.css",
           "target": "@components/moduix/highlight/Highlight.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/highlight/index.ts",
+          "path": "src/components/highlight/index.ts",
           "target": "@components/moduix/highlight/index.ts",
           "type": "registry:component"
         }
@@ -1019,17 +925,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/image/Image.tsx",
+          "path": "src/components/image/Image.tsx",
           "target": "@components/moduix/image/Image.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/image/Image.module.css",
+          "path": "src/components/image/Image.module.css",
           "target": "@components/moduix/image/Image.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/image/index.ts",
+          "path": "src/components/image/index.ts",
           "target": "@components/moduix/image/index.ts",
           "type": "registry:component"
         }
@@ -1044,17 +950,17 @@
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
-          "path": "packages/react/src/components/json-tree-view/JsonTreeView.tsx",
+          "path": "src/components/json-tree-view/JsonTreeView.tsx",
           "target": "@components/moduix/json-tree-view/JsonTreeView.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/json-tree-view/JsonTreeView.module.css",
+          "path": "src/components/json-tree-view/JsonTreeView.module.css",
           "target": "@components/moduix/json-tree-view/JsonTreeView.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/json-tree-view/index.ts",
+          "path": "src/components/json-tree-view/index.ts",
           "target": "@components/moduix/json-tree-view/index.ts",
           "type": "registry:component"
         }
@@ -1069,17 +975,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/image-cropper/ImageCropper.tsx",
+          "path": "src/components/image-cropper/ImageCropper.tsx",
           "target": "@components/moduix/image-cropper/ImageCropper.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/image-cropper/ImageCropper.module.css",
+          "path": "src/components/image-cropper/ImageCropper.module.css",
           "target": "@components/moduix/image-cropper/ImageCropper.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/image-cropper/index.ts",
+          "path": "src/components/image-cropper/index.ts",
           "target": "@components/moduix/image-cropper/index.ts",
           "type": "registry:component"
         }
@@ -1094,17 +1000,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/input/Input.tsx",
+          "path": "src/components/input/Input.tsx",
           "target": "@components/moduix/input/Input.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/input/Input.module.css",
+          "path": "src/components/input/Input.module.css",
           "target": "@components/moduix/input/Input.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/input/index.ts",
+          "path": "src/components/input/index.ts",
           "target": "@components/moduix/input/index.ts",
           "type": "registry:component"
         }
@@ -1123,17 +1029,17 @@
       ],
       "files": [
         {
-          "path": "packages/react/src/components/input-group/InputGroup.tsx",
+          "path": "src/components/input-group/InputGroup.tsx",
           "target": "@components/moduix/input-group/InputGroup.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/input-group/InputGroup.module.css",
+          "path": "src/components/input-group/InputGroup.module.css",
           "target": "@components/moduix/input-group/InputGroup.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/input-group/index.ts",
+          "path": "src/components/input-group/index.ts",
           "target": "@components/moduix/input-group/index.ts",
           "type": "registry:component"
         }
@@ -1148,17 +1054,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/kbd/Kbd.tsx",
+          "path": "src/components/kbd/Kbd.tsx",
           "target": "@components/moduix/kbd/Kbd.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/kbd/Kbd.module.css",
+          "path": "src/components/kbd/Kbd.module.css",
           "target": "@components/moduix/kbd/Kbd.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/kbd/index.ts",
+          "path": "src/components/kbd/index.ts",
           "target": "@components/moduix/kbd/index.ts",
           "type": "registry:component"
         }
@@ -1177,17 +1083,17 @@
       ],
       "files": [
         {
-          "path": "packages/react/src/components/lightbox/Lightbox.tsx",
+          "path": "src/components/lightbox/Lightbox.tsx",
           "target": "@components/moduix/lightbox/Lightbox.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/lightbox/Lightbox.module.css",
+          "path": "src/components/lightbox/Lightbox.module.css",
           "target": "@components/moduix/lightbox/Lightbox.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/lightbox/index.ts",
+          "path": "src/components/lightbox/index.ts",
           "target": "@components/moduix/lightbox/index.ts",
           "type": "registry:component"
         }
@@ -1202,17 +1108,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/list/List.tsx",
+          "path": "src/components/list/List.tsx",
           "target": "@components/moduix/list/List.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/list/List.module.css",
+          "path": "src/components/list/List.module.css",
           "target": "@components/moduix/list/List.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/list/index.ts",
+          "path": "src/components/list/index.ts",
           "target": "@components/moduix/list/index.ts",
           "type": "registry:component"
         }
@@ -1231,17 +1137,17 @@
       ],
       "files": [
         {
-          "path": "packages/react/src/components/listbox/Listbox.tsx",
+          "path": "src/components/listbox/Listbox.tsx",
           "target": "@components/moduix/listbox/Listbox.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/listbox/Listbox.module.css",
+          "path": "src/components/listbox/Listbox.module.css",
           "target": "@components/moduix/listbox/Listbox.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/listbox/index.ts",
+          "path": "src/components/listbox/index.ts",
           "target": "@components/moduix/listbox/index.ts",
           "type": "registry:component"
         }
@@ -1256,17 +1162,17 @@
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
-          "path": "packages/react/src/components/tree-view/TreeView.tsx",
+          "path": "src/components/tree-view/TreeView.tsx",
           "target": "@components/moduix/tree-view/TreeView.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/tree-view/TreeView.module.css",
+          "path": "src/components/tree-view/TreeView.module.css",
           "target": "@components/moduix/tree-view/TreeView.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/tree-view/index.ts",
+          "path": "src/components/tree-view/index.ts",
           "target": "@components/moduix/tree-view/index.ts",
           "type": "registry:component"
         }
@@ -1281,17 +1187,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/marquee/Marquee.tsx",
+          "path": "src/components/marquee/Marquee.tsx",
           "target": "@components/moduix/marquee/Marquee.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/marquee/Marquee.module.css",
+          "path": "src/components/marquee/Marquee.module.css",
           "target": "@components/moduix/marquee/Marquee.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/marquee/index.ts",
+          "path": "src/components/marquee/index.ts",
           "target": "@components/moduix/marquee/index.ts",
           "type": "registry:component"
         }
@@ -1310,17 +1216,17 @@
       ],
       "files": [
         {
-          "path": "packages/react/src/components/menu/Menu.tsx",
+          "path": "src/components/menu/Menu.tsx",
           "target": "@components/moduix/menu/Menu.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/menu/Menu.module.css",
+          "path": "src/components/menu/Menu.module.css",
           "target": "@components/moduix/menu/Menu.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/menu/index.ts",
+          "path": "src/components/menu/index.ts",
           "target": "@components/moduix/menu/index.ts",
           "type": "registry:component"
         }
@@ -1335,17 +1241,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/navigation-menu/NavigationMenu.tsx",
+          "path": "src/components/navigation-menu/NavigationMenu.tsx",
           "target": "@components/moduix/navigation-menu/NavigationMenu.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/navigation-menu/NavigationMenu.module.css",
+          "path": "src/components/navigation-menu/NavigationMenu.module.css",
           "target": "@components/moduix/navigation-menu/NavigationMenu.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/navigation-menu/index.ts",
+          "path": "src/components/navigation-menu/index.ts",
           "target": "@components/moduix/navigation-menu/index.ts",
           "type": "registry:component"
         }
@@ -1360,17 +1266,17 @@
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
-          "path": "packages/react/src/components/native-select/NativeSelect.tsx",
+          "path": "src/components/native-select/NativeSelect.tsx",
           "target": "@components/moduix/native-select/NativeSelect.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/native-select/NativeSelect.module.css",
+          "path": "src/components/native-select/NativeSelect.module.css",
           "target": "@components/moduix/native-select/NativeSelect.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/native-select/index.ts",
+          "path": "src/components/native-select/index.ts",
           "target": "@components/moduix/native-select/index.ts",
           "type": "registry:component"
         }
@@ -1385,17 +1291,17 @@
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
-          "path": "packages/react/src/components/number-input/NumberInput.tsx",
+          "path": "src/components/number-input/NumberInput.tsx",
           "target": "@components/moduix/number-input/NumberInput.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/number-input/NumberInput.module.css",
+          "path": "src/components/number-input/NumberInput.module.css",
           "target": "@components/moduix/number-input/NumberInput.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/number-input/index.ts",
+          "path": "src/components/number-input/index.ts",
           "target": "@components/moduix/number-input/index.ts",
           "type": "registry:component"
         }
@@ -1410,17 +1316,17 @@
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
-          "path": "packages/react/src/components/pin-input/PinInput.tsx",
+          "path": "src/components/pin-input/PinInput.tsx",
           "target": "@components/moduix/pin-input/PinInput.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/pin-input/PinInput.module.css",
+          "path": "src/components/pin-input/PinInput.module.css",
           "target": "@components/moduix/pin-input/PinInput.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/pin-input/index.ts",
+          "path": "src/components/pin-input/index.ts",
           "target": "@components/moduix/pin-input/index.ts",
           "type": "registry:component"
         }
@@ -1435,17 +1341,17 @@
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
-          "path": "packages/react/src/components/pagination/Pagination.tsx",
+          "path": "src/components/pagination/Pagination.tsx",
           "target": "@components/moduix/pagination/Pagination.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/pagination/Pagination.module.css",
+          "path": "src/components/pagination/Pagination.module.css",
           "target": "@components/moduix/pagination/Pagination.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/pagination/index.ts",
+          "path": "src/components/pagination/index.ts",
           "target": "@components/moduix/pagination/index.ts",
           "type": "registry:component"
         }
@@ -1460,17 +1366,17 @@
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
-          "path": "packages/react/src/components/password-input/PasswordInput.tsx",
+          "path": "src/components/password-input/PasswordInput.tsx",
           "target": "@components/moduix/password-input/PasswordInput.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/password-input/PasswordInput.module.css",
+          "path": "src/components/password-input/PasswordInput.module.css",
           "target": "@components/moduix/password-input/PasswordInput.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/password-input/index.ts",
+          "path": "src/components/password-input/index.ts",
           "target": "@components/moduix/password-input/index.ts",
           "type": "registry:component"
         }
@@ -1489,17 +1395,17 @@
       ],
       "files": [
         {
-          "path": "packages/react/src/components/popover/Popover.tsx",
+          "path": "src/components/popover/Popover.tsx",
           "target": "@components/moduix/popover/Popover.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/popover/Popover.module.css",
+          "path": "src/components/popover/Popover.module.css",
           "target": "@components/moduix/popover/Popover.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/popover/index.ts",
+          "path": "src/components/popover/index.ts",
           "target": "@components/moduix/popover/index.ts",
           "type": "registry:component"
         }
@@ -1514,17 +1420,17 @@
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/overlay-portal"],
       "files": [
         {
-          "path": "packages/react/src/components/hover-card/HoverCard.tsx",
+          "path": "src/components/hover-card/HoverCard.tsx",
           "target": "@components/moduix/hover-card/HoverCard.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/hover-card/HoverCard.module.css",
+          "path": "src/components/hover-card/HoverCard.module.css",
           "target": "@components/moduix/hover-card/HoverCard.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/hover-card/index.ts",
+          "path": "src/components/hover-card/index.ts",
           "target": "@components/moduix/hover-card/index.ts",
           "type": "registry:component"
         }
@@ -1539,17 +1445,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/progress-circular/ProgressCircular.tsx",
+          "path": "src/components/progress-circular/ProgressCircular.tsx",
           "target": "@components/moduix/progress-circular/ProgressCircular.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/progress-circular/ProgressCircular.module.css",
+          "path": "src/components/progress-circular/ProgressCircular.module.css",
           "target": "@components/moduix/progress-circular/ProgressCircular.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/progress-circular/index.ts",
+          "path": "src/components/progress-circular/index.ts",
           "target": "@components/moduix/progress-circular/index.ts",
           "type": "registry:component"
         }
@@ -1564,17 +1470,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/progress-linear/ProgressLinear.tsx",
+          "path": "src/components/progress-linear/ProgressLinear.tsx",
           "target": "@components/moduix/progress-linear/ProgressLinear.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/progress-linear/ProgressLinear.module.css",
+          "path": "src/components/progress-linear/ProgressLinear.module.css",
           "target": "@components/moduix/progress-linear/ProgressLinear.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/progress-linear/index.ts",
+          "path": "src/components/progress-linear/index.ts",
           "target": "@components/moduix/progress-linear/index.ts",
           "type": "registry:component"
         }
@@ -1589,17 +1495,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/qr-code/QrCode.tsx",
+          "path": "src/components/qr-code/QrCode.tsx",
           "target": "@components/moduix/qr-code/QrCode.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/qr-code/QrCode.module.css",
+          "path": "src/components/qr-code/QrCode.module.css",
           "target": "@components/moduix/qr-code/QrCode.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/qr-code/index.ts",
+          "path": "src/components/qr-code/index.ts",
           "target": "@components/moduix/qr-code/index.ts",
           "type": "registry:component"
         }
@@ -1614,17 +1520,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/radio-group/RadioGroup.tsx",
+          "path": "src/components/radio-group/RadioGroup.tsx",
           "target": "@components/moduix/radio-group/RadioGroup.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/radio-group/RadioGroup.module.css",
+          "path": "src/components/radio-group/RadioGroup.module.css",
           "target": "@components/moduix/radio-group/RadioGroup.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/radio-group/index.ts",
+          "path": "src/components/radio-group/index.ts",
           "target": "@components/moduix/radio-group/index.ts",
           "type": "registry:component"
         }
@@ -1639,17 +1545,17 @@
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
-          "path": "packages/react/src/components/rating-group/RatingGroup.tsx",
+          "path": "src/components/rating-group/RatingGroup.tsx",
           "target": "@components/moduix/rating-group/RatingGroup.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/rating-group/RatingGroup.module.css",
+          "path": "src/components/rating-group/RatingGroup.module.css",
           "target": "@components/moduix/rating-group/RatingGroup.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/rating-group/index.ts",
+          "path": "src/components/rating-group/index.ts",
           "target": "@components/moduix/rating-group/index.ts",
           "type": "registry:component"
         }
@@ -1664,17 +1570,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/scroll-area/ScrollArea.tsx",
+          "path": "src/components/scroll-area/ScrollArea.tsx",
           "target": "@components/moduix/scroll-area/ScrollArea.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/scroll-area/ScrollArea.module.css",
+          "path": "src/components/scroll-area/ScrollArea.module.css",
           "target": "@components/moduix/scroll-area/ScrollArea.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/scroll-area/index.ts",
+          "path": "src/components/scroll-area/index.ts",
           "target": "@components/moduix/scroll-area/index.ts",
           "type": "registry:component"
         }
@@ -1689,17 +1595,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/segment-group/SegmentGroup.tsx",
+          "path": "src/components/segment-group/SegmentGroup.tsx",
           "target": "@components/moduix/segment-group/SegmentGroup.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/segment-group/SegmentGroup.module.css",
+          "path": "src/components/segment-group/SegmentGroup.module.css",
           "target": "@components/moduix/segment-group/SegmentGroup.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/segment-group/index.ts",
+          "path": "src/components/segment-group/index.ts",
           "target": "@components/moduix/segment-group/index.ts",
           "type": "registry:component"
         }
@@ -1718,17 +1624,17 @@
       ],
       "files": [
         {
-          "path": "packages/react/src/components/signature-pad/SignaturePad.tsx",
+          "path": "src/components/signature-pad/SignaturePad.tsx",
           "target": "@components/moduix/signature-pad/SignaturePad.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/signature-pad/SignaturePad.module.css",
+          "path": "src/components/signature-pad/SignaturePad.module.css",
           "target": "@components/moduix/signature-pad/SignaturePad.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/signature-pad/index.ts",
+          "path": "src/components/signature-pad/index.ts",
           "target": "@components/moduix/signature-pad/index.ts",
           "type": "registry:component"
         }
@@ -1748,17 +1654,17 @@
       ],
       "files": [
         {
-          "path": "packages/react/src/components/select/Select.tsx",
+          "path": "src/components/select/Select.tsx",
           "target": "@components/moduix/select/Select.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/select/Select.module.css",
+          "path": "src/components/select/Select.module.css",
           "target": "@components/moduix/select/Select.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/select/index.ts",
+          "path": "src/components/select/index.ts",
           "target": "@components/moduix/select/index.ts",
           "type": "registry:component"
         }
@@ -1773,17 +1679,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/separator/Separator.tsx",
+          "path": "src/components/separator/Separator.tsx",
           "target": "@components/moduix/separator/Separator.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/separator/Separator.module.css",
+          "path": "src/components/separator/Separator.module.css",
           "target": "@components/moduix/separator/Separator.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/separator/index.ts",
+          "path": "src/components/separator/index.ts",
           "target": "@components/moduix/separator/index.ts",
           "type": "registry:component"
         }
@@ -1798,12 +1704,12 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/simple-grid/SimpleGrid.tsx",
+          "path": "src/components/simple-grid/SimpleGrid.tsx",
           "target": "@components/moduix/simple-grid/SimpleGrid.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/simple-grid/index.ts",
+          "path": "src/components/simple-grid/index.ts",
           "target": "@components/moduix/simple-grid/index.ts",
           "type": "registry:component"
         }
@@ -1818,17 +1724,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/skeleton/Skeleton.tsx",
+          "path": "src/components/skeleton/Skeleton.tsx",
           "target": "@components/moduix/skeleton/Skeleton.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/skeleton/Skeleton.module.css",
+          "path": "src/components/skeleton/Skeleton.module.css",
           "target": "@components/moduix/skeleton/Skeleton.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/skeleton/index.ts",
+          "path": "src/components/skeleton/index.ts",
           "target": "@components/moduix/skeleton/index.ts",
           "type": "registry:component"
         }
@@ -1843,17 +1749,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/slider/Slider.tsx",
+          "path": "src/components/slider/Slider.tsx",
           "target": "@components/moduix/slider/Slider.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/slider/Slider.module.css",
+          "path": "src/components/slider/Slider.module.css",
           "target": "@components/moduix/slider/Slider.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/slider/index.ts",
+          "path": "src/components/slider/index.ts",
           "target": "@components/moduix/slider/index.ts",
           "type": "registry:component"
         }
@@ -1868,17 +1774,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/splitter/Splitter.tsx",
+          "path": "src/components/splitter/Splitter.tsx",
           "target": "@components/moduix/splitter/Splitter.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/splitter/Splitter.module.css",
+          "path": "src/components/splitter/Splitter.module.css",
           "target": "@components/moduix/splitter/Splitter.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/splitter/index.ts",
+          "path": "src/components/splitter/index.ts",
           "target": "@components/moduix/splitter/index.ts",
           "type": "registry:component"
         }
@@ -1899,17 +1805,17 @@
       ],
       "files": [
         {
-          "path": "packages/react/src/components/sidebar/Sidebar.tsx",
+          "path": "src/components/sidebar/Sidebar.tsx",
           "target": "@components/moduix/sidebar/Sidebar.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/sidebar/Sidebar.module.css",
+          "path": "src/components/sidebar/Sidebar.module.css",
           "target": "@components/moduix/sidebar/Sidebar.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/sidebar/index.ts",
+          "path": "src/components/sidebar/index.ts",
           "target": "@components/moduix/sidebar/index.ts",
           "type": "registry:component"
         }
@@ -1924,17 +1830,17 @@
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
-          "path": "packages/react/src/components/carousel/Carousel.tsx",
+          "path": "src/components/carousel/Carousel.tsx",
           "target": "@components/moduix/carousel/Carousel.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/carousel/Carousel.module.css",
+          "path": "src/components/carousel/Carousel.module.css",
           "target": "@components/moduix/carousel/Carousel.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/carousel/index.ts",
+          "path": "src/components/carousel/index.ts",
           "target": "@components/moduix/carousel/index.ts",
           "type": "registry:component"
         }
@@ -1949,17 +1855,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/spinner/Spinner.tsx",
+          "path": "src/components/spinner/Spinner.tsx",
           "target": "@components/moduix/spinner/Spinner.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/spinner/Spinner.module.css",
+          "path": "src/components/spinner/Spinner.module.css",
           "target": "@components/moduix/spinner/Spinner.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/spinner/index.ts",
+          "path": "src/components/spinner/index.ts",
           "target": "@components/moduix/spinner/index.ts",
           "type": "registry:component"
         }
@@ -1979,17 +1885,17 @@
       ],
       "files": [
         {
-          "path": "packages/react/src/components/split-button/SplitButton.tsx",
+          "path": "src/components/split-button/SplitButton.tsx",
           "target": "@components/moduix/split-button/SplitButton.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/split-button/SplitButton.module.css",
+          "path": "src/components/split-button/SplitButton.module.css",
           "target": "@components/moduix/split-button/SplitButton.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/split-button/index.ts",
+          "path": "src/components/split-button/index.ts",
           "target": "@components/moduix/split-button/index.ts",
           "type": "registry:component"
         }
@@ -2004,17 +1910,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/stack/Stack.tsx",
+          "path": "src/components/stack/Stack.tsx",
           "target": "@components/moduix/stack/Stack.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/stack/Stack.module.css",
+          "path": "src/components/stack/Stack.module.css",
           "target": "@components/moduix/stack/Stack.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/stack/index.ts",
+          "path": "src/components/stack/index.ts",
           "target": "@components/moduix/stack/index.ts",
           "type": "registry:component"
         }
@@ -2029,17 +1935,17 @@
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
-          "path": "packages/react/src/components/steps/Steps.tsx",
+          "path": "src/components/steps/Steps.tsx",
           "target": "@components/moduix/steps/Steps.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/steps/Steps.module.css",
+          "path": "src/components/steps/Steps.module.css",
           "target": "@components/moduix/steps/Steps.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/steps/index.ts",
+          "path": "src/components/steps/index.ts",
           "target": "@components/moduix/steps/index.ts",
           "type": "registry:component"
         }
@@ -2054,17 +1960,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/swap/Swap.tsx",
+          "path": "src/components/swap/Swap.tsx",
           "target": "@components/moduix/swap/Swap.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/swap/Swap.module.css",
+          "path": "src/components/swap/Swap.module.css",
           "target": "@components/moduix/swap/Swap.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/swap/index.ts",
+          "path": "src/components/swap/index.ts",
           "target": "@components/moduix/swap/index.ts",
           "type": "registry:component"
         }
@@ -2079,17 +1985,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/switch/Switch.tsx",
+          "path": "src/components/switch/Switch.tsx",
           "target": "@components/moduix/switch/Switch.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/switch/Switch.module.css",
+          "path": "src/components/switch/Switch.module.css",
           "target": "@components/moduix/switch/Switch.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/switch/index.ts",
+          "path": "src/components/switch/index.ts",
           "target": "@components/moduix/switch/index.ts",
           "type": "registry:component"
         }
@@ -2104,17 +2010,17 @@
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/close-button"],
       "files": [
         {
-          "path": "packages/react/src/components/tag/Tag.tsx",
+          "path": "src/components/tag/Tag.tsx",
           "target": "@components/moduix/tag/Tag.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/tag/Tag.module.css",
+          "path": "src/components/tag/Tag.module.css",
           "target": "@components/moduix/tag/Tag.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/tag/index.ts",
+          "path": "src/components/tag/index.ts",
           "target": "@components/moduix/tag/index.ts",
           "type": "registry:component"
         }
@@ -2133,17 +2039,17 @@
       ],
       "files": [
         {
-          "path": "packages/react/src/components/tags-input/TagsInput.tsx",
+          "path": "src/components/tags-input/TagsInput.tsx",
           "target": "@components/moduix/tags-input/TagsInput.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/tags-input/TagsInput.module.css",
+          "path": "src/components/tags-input/TagsInput.module.css",
           "target": "@components/moduix/tags-input/TagsInput.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/tags-input/index.ts",
+          "path": "src/components/tags-input/index.ts",
           "target": "@components/moduix/tags-input/index.ts",
           "type": "registry:component"
         }
@@ -2158,17 +2064,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/table/Table.tsx",
+          "path": "src/components/table/Table.tsx",
           "target": "@components/moduix/table/Table.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/table/Table.module.css",
+          "path": "src/components/table/Table.module.css",
           "target": "@components/moduix/table/Table.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/table/index.ts",
+          "path": "src/components/table/index.ts",
           "target": "@components/moduix/table/index.ts",
           "type": "registry:component"
         }
@@ -2183,17 +2089,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/toc/Toc.tsx",
+          "path": "src/components/toc/Toc.tsx",
           "target": "@components/moduix/toc/Toc.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/toc/Toc.module.css",
+          "path": "src/components/toc/Toc.module.css",
           "target": "@components/moduix/toc/Toc.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/toc/index.ts",
+          "path": "src/components/toc/index.ts",
           "target": "@components/moduix/toc/index.ts",
           "type": "registry:component"
         }
@@ -2208,17 +2114,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/tabs/Tabs.tsx",
+          "path": "src/components/tabs/Tabs.tsx",
           "target": "@components/moduix/tabs/Tabs.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/tabs/Tabs.module.css",
+          "path": "src/components/tabs/Tabs.module.css",
           "target": "@components/moduix/tabs/Tabs.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/tabs/index.ts",
+          "path": "src/components/tabs/index.ts",
           "target": "@components/moduix/tabs/index.ts",
           "type": "registry:component"
         }
@@ -2233,17 +2139,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/text/Text.tsx",
+          "path": "src/components/text/Text.tsx",
           "target": "@components/moduix/text/Text.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/text/Text.module.css",
+          "path": "src/components/text/Text.module.css",
           "target": "@components/moduix/text/Text.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/text/index.ts",
+          "path": "src/components/text/index.ts",
           "target": "@components/moduix/text/index.ts",
           "type": "registry:component"
         }
@@ -2258,17 +2164,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/textarea/Textarea.tsx",
+          "path": "src/components/textarea/Textarea.tsx",
           "target": "@components/moduix/textarea/Textarea.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/textarea/Textarea.module.css",
+          "path": "src/components/textarea/Textarea.module.css",
           "target": "@components/moduix/textarea/Textarea.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/textarea/index.ts",
+          "path": "src/components/textarea/index.ts",
           "target": "@components/moduix/textarea/index.ts",
           "type": "registry:component"
         }
@@ -2283,17 +2189,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/timer/Timer.tsx",
+          "path": "src/components/timer/Timer.tsx",
           "target": "@components/moduix/timer/Timer.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/timer/Timer.module.css",
+          "path": "src/components/timer/Timer.module.css",
           "target": "@components/moduix/timer/Timer.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/timer/index.ts",
+          "path": "src/components/timer/index.ts",
           "target": "@components/moduix/timer/index.ts",
           "type": "registry:component"
         }
@@ -2308,17 +2214,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/typeset/Typeset.tsx",
+          "path": "src/components/typeset/Typeset.tsx",
           "target": "@components/moduix/typeset/Typeset.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/typeset/Typeset.module.css",
+          "path": "src/components/typeset/Typeset.module.css",
           "target": "@components/moduix/typeset/Typeset.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/typeset/index.ts",
+          "path": "src/components/typeset/index.ts",
           "target": "@components/moduix/typeset/index.ts",
           "type": "registry:component"
         }
@@ -2337,17 +2243,17 @@
       ],
       "files": [
         {
-          "path": "packages/react/src/components/toast/Toast.tsx",
+          "path": "src/components/toast/Toast.tsx",
           "target": "@components/moduix/toast/Toast.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/toast/Toast.module.css",
+          "path": "src/components/toast/Toast.module.css",
           "target": "@components/moduix/toast/Toast.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/toast/index.ts",
+          "path": "src/components/toast/index.ts",
           "target": "@components/moduix/toast/index.ts",
           "type": "registry:component"
         }
@@ -2362,17 +2268,17 @@
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
-          "path": "packages/react/src/components/toggle/Toggle.tsx",
+          "path": "src/components/toggle/Toggle.tsx",
           "target": "@components/moduix/toggle/Toggle.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/toggle/Toggle.module.css",
+          "path": "src/components/toggle/Toggle.module.css",
           "target": "@components/moduix/toggle/Toggle.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/toggle/index.ts",
+          "path": "src/components/toggle/index.ts",
           "target": "@components/moduix/toggle/index.ts",
           "type": "registry:component"
         }
@@ -2387,17 +2293,17 @@
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/toggle"],
       "files": [
         {
-          "path": "packages/react/src/components/toggle-group/ToggleGroup.tsx",
+          "path": "src/components/toggle-group/ToggleGroup.tsx",
           "target": "@components/moduix/toggle-group/ToggleGroup.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/toggle-group/ToggleGroup.module.css",
+          "path": "src/components/toggle-group/ToggleGroup.module.css",
           "target": "@components/moduix/toggle-group/ToggleGroup.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/toggle-group/index.ts",
+          "path": "src/components/toggle-group/index.ts",
           "target": "@components/moduix/toggle-group/index.ts",
           "type": "registry:component"
         }
@@ -2412,17 +2318,17 @@
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/overlay-portal"],
       "files": [
         {
-          "path": "packages/react/src/components/tooltip/Tooltip.tsx",
+          "path": "src/components/tooltip/Tooltip.tsx",
           "target": "@components/moduix/tooltip/Tooltip.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/tooltip/Tooltip.module.css",
+          "path": "src/components/tooltip/Tooltip.module.css",
           "target": "@components/moduix/tooltip/Tooltip.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/tooltip/index.ts",
+          "path": "src/components/tooltip/index.ts",
           "target": "@components/moduix/tooltip/index.ts",
           "type": "registry:component"
         }
@@ -2441,17 +2347,17 @@
       ],
       "files": [
         {
-          "path": "packages/react/src/components/tour/Tour.tsx",
+          "path": "src/components/tour/Tour.tsx",
           "target": "@components/moduix/tour/Tour.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/tour/Tour.module.css",
+          "path": "src/components/tour/Tour.module.css",
           "target": "@components/moduix/tour/Tour.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/components/tour/index.ts",
+          "path": "src/components/tour/index.ts",
           "target": "@components/moduix/tour/index.ts",
           "type": "registry:component"
         }
