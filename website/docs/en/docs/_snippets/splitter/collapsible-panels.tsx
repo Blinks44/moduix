@@ -1,4 +1,5 @@
 import { Splitter } from '@moduix/react/splitter';
+import styles from '@/components/examples/splitter/splitter-collapsible-panels.module.css';
 
 const panels = [
   {
@@ -16,12 +17,12 @@ const panels = [
 
 export default function CollapsibleSplitterDemo() {
   return (
-    <Splitter panels={panels} defaultSize={[28, 72]} className="splitter-demo">
-      <Splitter.Panel id="sidebar" className="splitter-panel">
+    <Splitter panels={panels} defaultSize={[28, 72]} className={styles.root}>
+      <Splitter.Panel id="sidebar" className={styles.panel}>
         Sidebar
       </Splitter.Panel>
       <Splitter.ResizeTrigger id="sidebar:content" aria-label="Resize panels" />
-      <Splitter.Panel id="content" className="splitter-panel">
+      <Splitter.Panel id="content" className={styles.panel}>
         Content
       </Splitter.Panel>
     </Splitter>

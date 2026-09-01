@@ -1,16 +1,10 @@
 import { Slider } from '@moduix/react/slider';
+import styles from '@/components/examples/slider/slider-thumb-collision.module.css';
 
 export default function ThumbCollisionSliderDemo() {
   return (
     <Slider defaultValue={[25, 60]} thumbCollisionBehavior="push">
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: 'var(--moduix-spacing-3)',
-        }}
-      >
+      <div className={styles.header}>
         <Slider.Label>Linked range</Slider.Label>
         <Slider.ValueText />
       </div>

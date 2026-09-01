@@ -1,5 +1,6 @@
 import { Skeleton } from '@moduix/react/skeleton';
 import { Stack } from '@moduix/react/stack';
+import styles from '@/components/examples/skeleton/skeleton-card.module.css';
 
 const cardSkeleton = {
   mediaHeight: 148,
@@ -9,7 +10,7 @@ const cardSkeleton = {
 
 export default function SkeletonCardDemo() {
   return (
-    <Stack gap={16} style={{ width: '100%' }}>
+    <Stack className={styles.root} gap={16}>
       <Skeleton height={cardSkeleton.mediaHeight} borderRadius="var(--moduix-radius-lg)" />
       <Stack gap={12}>
         <Skeleton width={cardSkeleton.titleWidth} height={20} />

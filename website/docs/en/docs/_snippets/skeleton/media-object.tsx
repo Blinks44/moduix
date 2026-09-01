@@ -1,5 +1,6 @@
 import { Skeleton } from '@moduix/react/skeleton';
 import { Stack } from '@moduix/react/stack';
+import styles from '@/components/examples/skeleton/skeleton-media-object.module.css';
 
 const userRowSkeleton = {
   avatarSize: 48,
@@ -9,7 +10,7 @@ const userRowSkeleton = {
 
 export default function SkeletonMediaObjectDemo() {
   return (
-    <Stack direction="row" align="center" gap={12} style={{ width: '100%' }}>
+    <Stack className={styles.root} direction="row" align="center" gap={12}>
       <Skeleton boxSize={userRowSkeleton.avatarSize} borderRadius="var(--moduix-radius-full)" />
       <Stack direction="column" gap={8} fill>
         <Skeleton width={userRowSkeleton.titleWidth} height={16} />

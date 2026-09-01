@@ -4,7 +4,16 @@ component: split-button
 description: Un groupe composé d’une action principale et d’un menu d’actions associées, construit avec les parties Button et Menu de moduix.
 ---
 
-import * as SplitButtonDocs from '@/components/examples/split-button';
+import SplitButtonBasic from '../../en/docs/_snippets/split-button/basic.tsx';
+import SplitButtonControlledMenuState from '../../en/docs/_snippets/split-button/controlled-menu-state.tsx';
+import SplitButtonDisabledAction from '../../en/docs/_snippets/split-button/disabled-action.tsx';
+import SplitButtonLinkAction from '../../en/docs/_snippets/split-button/link-action.tsx';
+import SplitButtonMenuComposition from '../../en/docs/_snippets/split-button/menu-composition.tsx';
+import SplitButtonPositioning from '../../en/docs/_snippets/split-button/positioning.tsx';
+import SplitButtonSizes from '../../en/docs/_snippets/split-button/sizes.tsx';
+import SplitButtonVariants from '../../en/docs/_snippets/split-button/variants.tsx';
+import SplitButtonWithIcons from '../../en/docs/_snippets/split-button/with-icons.tsx';
+import * as SplitButtonDocs from '@/components/examples/split-button/split-button';
 
 ## Référence de l’API
 
@@ -26,13 +35,26 @@ Utilisez la forme abrégée `<SplitButton>`, équivalente à `<SplitButton.Root>
 `SplitButton.Action`, `SplitButton.Trigger`, `SplitButton.Positioner` et `SplitButton.Content`.
 L’action principale suit le même contrat `onClick` que `Button`.
 
-<style>{SplitButtonDocs.splitButtonExampleCss}</style>
+<ExampleFrame variant="component">
+  <SplitButtonBasic />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/split-button/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/split-button/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/split-button/split-button-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -127,100 +149,168 @@ l’API `Menu` partagée au lieu d’ajouter une gestion d’état propre à `Sp
 Lorsque l’état d’ouverture doit être géré depuis l’extérieur du composant, utilisez le même contrat d’état contrôlé
 qu’Ark Menu.
 
-<style>{SplitButtonDocs.splitButtonExampleCss}</style>
+<ExampleFrame variant="component">
+  <SplitButtonControlledMenuState />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/split-button/controlled-menu-state.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/split-button/controlled-menu-state.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Action principale désactivée
 
 Désactivez l’action principale tout en laissant le menu des actions secondaires disponible lorsqu’il propose encore une
 solution utile.
 
-<style>{SplitButtonDocs.splitButtonExampleCss}</style>
+<ExampleFrame variant="component">
+  <SplitButtonDisabledAction />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/split-button/disabled-action.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/split-button/disabled-action.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Action sous forme de lien
 
 Utilisez `asChild` sur `SplitButton.Action` lorsque l’action principale doit être rendue comme un lien.
 
-<style>{SplitButtonDocs.splitButtonExampleCss}</style>
+<ExampleFrame variant="component">
+  <SplitButtonLinkAction />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/split-button/link-action.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/split-button/link-action.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Positionnement
 
 Configurez le placement de la fenêtre contextuelle avec la propriété racine Ark `positioning` tout en conservant ses
 parties structurelles explicites.
 
-<style>{SplitButtonDocs.splitButtonExampleCss}</style>
+<ExampleFrame variant="component">
+  <SplitButtonPositioning />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/split-button/positioning.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/split-button/positioning.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Tailles
 
 Utilisez la propriété racine `size` lorsque les deux boutons doivent être redimensionnés ensemble.
 
-<style>{SplitButtonDocs.splitButtonExampleCss}</style>
+<ExampleFrame variant="component">
+  <SplitButtonSizes />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/split-button/sizes.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/split-button/sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/split-button/split-button-sizes.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Variantes
 
 Utilisez la propriété racine `variant` lorsque les deux boutons doivent partager le même style visuel.
 
-<style>{SplitButtonDocs.splitButtonExampleCss}</style>
+<ExampleFrame variant="component">
+  <SplitButtonVariants />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/split-button/variants.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/split-button/variants.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/split-button/split-button-variants.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Avec des icônes
 
 Ajoutez une icône au bouton principal lorsqu’elle aide à comprendre l’action sans remplacer son libellé textuel.
 
-<style>{SplitButtonDocs.splitButtonExampleCss}</style>
+<ExampleFrame variant="component">
+  <SplitButtonWithIcons />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/split-button/with-icons.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/split-button/with-icons.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Personnalisation avancée
 
 Utilisez les parties `Menu.*` partagées dans `SplitButton.Content` lorsque les actions secondaires nécessitent des
 groupes, des séparateurs, des éléments case à cocher, des options radio ou des lignes sous forme de lien.
 
-<style>{SplitButtonDocs.splitButtonExampleCss}</style>
+<ExampleFrame variant="component">
+  <SplitButtonMenuComposition />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/split-button/menu-composition.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/split-button/menu-composition.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

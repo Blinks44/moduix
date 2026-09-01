@@ -4,7 +4,16 @@ component: split-button
 description: Группа с основной кнопкой и меню связанных действий на базе частей moduix Button и Menu.
 ---
 
-import * as SplitButtonDocs from '@/components/examples/split-button';
+import SplitButtonBasic from '../../en/docs/_snippets/split-button/basic.tsx';
+import SplitButtonControlledMenuState from '../../en/docs/_snippets/split-button/controlled-menu-state.tsx';
+import SplitButtonDisabledAction from '../../en/docs/_snippets/split-button/disabled-action.tsx';
+import SplitButtonLinkAction from '../../en/docs/_snippets/split-button/link-action.tsx';
+import SplitButtonMenuComposition from '../../en/docs/_snippets/split-button/menu-composition.tsx';
+import SplitButtonPositioning from '../../en/docs/_snippets/split-button/positioning.tsx';
+import SplitButtonSizes from '../../en/docs/_snippets/split-button/sizes.tsx';
+import SplitButtonVariants from '../../en/docs/_snippets/split-button/variants.tsx';
+import SplitButtonWithIcons from '../../en/docs/_snippets/split-button/with-icons.tsx';
+import * as SplitButtonDocs from '@/components/examples/split-button/split-button';
 
 ## Справочник API
 
@@ -26,13 +35,26 @@ import * as SplitButtonDocs from '@/components/examples/split-button';
 `SplitButton.Action`, `SplitButton.Trigger`, `SplitButton.Positioner` и `SplitButton.Content`.
 Основное действие принимает тот же `onClick`, что и `Button`.
 
-<style>{SplitButtonDocs.splitButtonExampleCss}</style>
+<ExampleFrame variant="component">
+  <SplitButtonBasic />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/split-button/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/split-button/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/split-button/split-button-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -127,99 +149,167 @@ SplitButton
 
 Если состоянием открытия нужно управлять из внешнего компонента, используйте тот же контракт, что и у Ark Menu.
 
-<style>{SplitButtonDocs.splitButtonExampleCss}</style>
+<ExampleFrame variant="component">
+  <SplitButtonControlledMenuState />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/split-button/controlled-menu-state.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/split-button/controlled-menu-state.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Отключённое основное действие
 
 Отключите основное действие, но оставьте меню доступным, если в нём есть рабочая альтернатива.
 
-<style>{SplitButtonDocs.splitButtonExampleCss}</style>
+<ExampleFrame variant="component">
+  <SplitButtonDisabledAction />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/split-button/disabled-action.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/split-button/disabled-action.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Действие-ссылка
 
 Используйте `asChild` на `SplitButton.Action`, чтобы отрендерировать основное действие как ссылку.
 
-<style>{SplitButtonDocs.splitButtonExampleCss}</style>
+<ExampleFrame variant="component">
+  <SplitButtonLinkAction />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/split-button/link-action.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/split-button/link-action.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Позиционирование
 
 Настройте положение всплывающего меню с помощью корневого свойства Ark `positioning`, сохранив явную структуру
 частей меню.
 
-<style>{SplitButtonDocs.splitButtonExampleCss}</style>
+<ExampleFrame variant="component">
+  <SplitButtonPositioning />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/split-button/positioning.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/split-button/positioning.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Размеры
 
 Используйте корневой `size`, когда обе кнопки должны масштабироваться одновременно.
 
-<style>{SplitButtonDocs.splitButtonExampleCss}</style>
+<ExampleFrame variant="component">
+  <SplitButtonSizes />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/split-button/sizes.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/split-button/sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/split-button/split-button-sizes.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Варианты
 
 Используйте корневой `variant`, когда обе кнопки должны иметь одинаковое оформление.
 
-<style>{SplitButtonDocs.splitButtonExampleCss}</style>
+<ExampleFrame variant="component">
+  <SplitButtonVariants />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/split-button/variants.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/split-button/variants.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/split-button/split-button-variants.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### С иконками
 
 Добавьте иконку к основной кнопке, если она помогает быстрее понять действие, но не заменяет текстовую подпись.
 
-<style>{SplitButtonDocs.splitButtonExampleCss}</style>
+<ExampleFrame variant="component">
+  <SplitButtonWithIcons />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/split-button/with-icons.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/split-button/with-icons.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
 Используйте общие части `Menu.*` внутри `SplitButton.Content`, если дополнительным действиям нужны группы,
 разделители, пункты с флажками, радиокнопки или пункты-ссылки.
 
-<style>{SplitButtonDocs.splitButtonExampleCss}</style>
+<ExampleFrame variant="component">
+  <SplitButtonMenuComposition />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/split-button/menu-composition.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/split-button/menu-composition.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

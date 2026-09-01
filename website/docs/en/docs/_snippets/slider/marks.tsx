@@ -1,18 +1,12 @@
 import { Slider } from '@moduix/react/slider';
+import styles from '@/components/examples/slider/slider-marks.module.css';
 
 const marks = [0, 25, 50, 75, 100];
 
 export default function MarksSliderDemo() {
   return (
     <Slider defaultValue={[50]}>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: 'var(--moduix-spacing-3)',
-        }}
-      >
+      <div className={styles.header}>
         <Slider.Label>Progress</Slider.Label>
         <Slider.ValueText />
       </div>
@@ -22,7 +16,7 @@ export default function MarksSliderDemo() {
         </Slider.Track>
         <Slider.Thumbs />
       </Slider.Control>
-      <Slider.MarkerGroup>
+      <Slider.MarkerGroup className={styles.markerGroup}>
         {marks.map((value) => (
           <Slider.Marker key={value} value={value}>
             {value}

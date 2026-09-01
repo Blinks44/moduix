@@ -1,6 +1,7 @@
 import { Button } from '@moduix/react/button';
 import { Splitter, useSplitter } from '@moduix/react/splitter';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/splitter/splitter-root-provider.module.css';
 
 const panels = [
   {
@@ -19,19 +20,19 @@ export default function RootProviderSplitterDemo() {
     defaultSize: [50, 50],
   });
   return (
-    <div className="splitter-stack">
-      <Splitter.RootProvider value={splitter} className="splitter-demo">
-        <Splitter.Panel id="a" className="splitter-panel">
+    <div className={styles.stack}>
+      <Splitter.RootProvider value={splitter} className={styles.root}>
+        <Splitter.Panel id="a" className={styles.panel}>
           A
         </Splitter.Panel>
         <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels" />
-        <Splitter.Panel id="b" className="splitter-panel">
+        <Splitter.Panel id="b" className={styles.panel}>
           B
         </Splitter.Panel>
       </Splitter.RootProvider>
       <PreviewMeta>
-        <output className="splitter-status">Sizes: {splitter.getSizes().join(' / ')}</output>
-        <div className="splitter-toolbar">
+        <output className={styles.status}>Sizes: {splitter.getSizes().join(' / ')}</output>
+        <div className={styles.toolbar}>
           <Button onClick={() => splitter.resetSizes()}>Reset</Button>
           <Button onClick={() => splitter.resizePanel('a', 25)}>Set A to 25%</Button>
         </div>

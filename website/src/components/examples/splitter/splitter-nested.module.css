@@ -1,0 +1,18 @@
+.root {
+  --moduix-splitter-height: 30rem;
+}
+
+.panel {
+  display: grid;
+  place-items: center;
+  font-weight: var(--moduix-weight-medium);
+}
+
+.root [data-orientation='vertical'] {
+  --moduix-splitter-height: 100%;
+  min-height: 0;
+}
+
+.root [data-orientation='vertical'] > [data-slot='splitter-panel'] {
+  min-height: 0;
+}

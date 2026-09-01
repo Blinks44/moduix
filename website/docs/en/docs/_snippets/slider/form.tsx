@@ -3,6 +3,7 @@ import { Slider } from '@moduix/react/slider';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/slider/slider-form.module.css';
 
 export default function SliderFormDemo() {
   const [submitted, setSubmitted] = useState('Nothing submitted');
@@ -16,21 +17,10 @@ export default function SliderFormDemo() {
     <form
       onSubmit={handleSubmit}
       onReset={() => setSubmitted('Nothing submitted')}
-      style={{
-        display: 'grid',
-        justifyItems: 'center',
-        gap: 'var(--moduix-spacing-4)',
-      }}
+      className={styles.stack}
     >
       <Slider defaultValue={[40]} name="volume">
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: 'var(--moduix-spacing-3)',
-          }}
-        >
+        <div className={styles.header}>
           <Slider.Label>Volume</Slider.Label>
           <Slider.ValueText />
         </div>

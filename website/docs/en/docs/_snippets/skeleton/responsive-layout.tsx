@@ -1,5 +1,6 @@
 import { Skeleton } from '@moduix/react/skeleton';
 import { Stack } from '@moduix/react/stack';
+import styles from '@/components/examples/skeleton/skeleton-responsive-layout.module.css';
 
 const announcements = [
   {
@@ -12,7 +13,7 @@ const announcements = [
 
 export default function SkeletonCompositionDemo() {
   return (
-    <Stack gap={12} style={{ width: '100%', paddingBlock: 'var(--moduix-spacing-1)' }}>
+    <Stack className={styles.root} gap={12}>
       {announcements.map((item) => (
         <Stack
           key={item.titleWidth}

@@ -2,18 +2,13 @@ import { Button } from '@moduix/react/button';
 import { Spinner } from '@moduix/react/spinner';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/spinner/spinner-button.module.css';
 
 export default function SpinnerButtonDemo() {
   const [saving, setSaving] = useState(false);
 
   return (
-    <div
-      style={{
-        display: 'grid',
-        justifyItems: 'center',
-        gap: 'var(--moduix-spacing-3)',
-      }}
-    >
+    <div className={styles.root}>
       <Button aria-busy={saving} type="button" onClick={() => setSaving(!saving)}>
         {saving ? (
           <>
@@ -24,7 +19,7 @@ export default function SpinnerButtonDemo() {
           'Save changes'
         )}
       </Button>
-      <PreviewMeta style={{ justifySelf: 'center' }}>
+      <PreviewMeta className={styles.meta}>
         <output>State: {saving ? 'Saving' : 'Ready'}</output>
       </PreviewMeta>
     </div>

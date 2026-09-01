@@ -1,19 +1,14 @@
 import { Button } from '@moduix/react/button';
 import { Slider, useSlider } from '@moduix/react/slider';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/slider/slider-root-provider.module.css';
 
 export default function RootProviderSliderDemo() {
   const slider = useSlider({
     defaultValue: [40],
   });
   return (
-    <div
-      style={{
-        display: 'grid',
-        justifyItems: 'center',
-        gap: 'var(--moduix-spacing-4)',
-      }}
-    >
+    <div className={styles.stack}>
       <Slider.RootProvider value={slider}>
         <Slider.Label>Volume</Slider.Label>
         <Slider.ValueText />

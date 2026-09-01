@@ -1,16 +1,10 @@
 import { Slider } from '@moduix/react/slider';
+import styles from '@/components/examples/slider/slider-step.module.css';
 
 export default function StepSliderDemo() {
   return (
     <Slider step={0.01} min={5} max={10} defaultValue={[7.5]}>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: 'var(--moduix-spacing-3)',
-        }}
-      >
+      <div className={styles.header}>
         <Slider.Label>Precision</Slider.Label>
         <Slider.ValueText />
       </div>

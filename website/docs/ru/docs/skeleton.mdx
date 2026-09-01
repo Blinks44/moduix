@@ -4,7 +4,14 @@ component: skeleton
 description: Заполнитель, который сохраняет место для текста, карточек, медиаобъектов и разделов страницы во время загрузки.
 ---
 
-import * as SkeletonDocs from '@/components/examples/skeleton';
+import * as SkeletonDocs from '@/components/examples/skeleton/skeleton';
+import SkeletonBasic from '../../en/docs/_snippets/skeleton/basic.tsx';
+import SkeletonCard from '../../en/docs/_snippets/skeleton/card.tsx';
+import SkeletonCustomHost from '../../en/docs/_snippets/skeleton/custom-host.tsx';
+import SkeletonLoadedContent from '../../en/docs/_snippets/skeleton/loaded-content.tsx';
+import SkeletonMediaObject from '../../en/docs/_snippets/skeleton/media-object.tsx';
+import SkeletonResponsiveLayout from '../../en/docs/_snippets/skeleton/responsive-layout.tsx';
+import SkeletonVariants from '../../en/docs/_snippets/skeleton/variants.tsx';
 
 ## Справочник API
 
@@ -17,11 +24,26 @@ import * as SkeletonDocs from '@/components/examples/skeleton';
 
 Начните с нескольких строк `Skeleton`, пока текст ещё загружается.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/skeleton/basic.tsx"
+<ExampleFrame variant="component">
+  <SkeletonBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/skeleton/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/skeleton/skeleton-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка с помощью shadcn
 
@@ -85,61 +107,145 @@ Skeleton.Root
 
 Используйте крупный блок и более короткие строки текста, чтобы сохранить компоновку карточки во время загрузки содержимого.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/skeleton/card.tsx"
+<ExampleFrame variant="component">
+  <SkeletonCard />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/skeleton/card.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/skeleton/skeleton-card.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Загруженное содержимое
 
 Используйте `loading`, чтобы переключаться между заполнителем и реальным содержимым в одном и том же корневом элементе.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/skeleton/loaded-content.tsx"
+<ExampleFrame variant="component">
+  <SkeletonLoadedContent />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/skeleton/loaded-content.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/skeleton/skeleton-loaded-content.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Медиаобъект
 
 Используйте `boxSize` с полным скруглением для заполнителя аватара, а строки текста разместите рядом.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/skeleton/media-object.tsx"
+<ExampleFrame variant="component">
+  <SkeletonMediaObject />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/skeleton/media-object.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/skeleton/skeleton-media-object.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Адаптивная раскладка
 
 Оставьте логику адаптивной компоновки в обёртке, а каждый `Skeleton` используйте как отдельный визуальный блок.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/skeleton/responsive-layout.tsx"
+<ExampleFrame variant="component">
+  <SkeletonResponsiveLayout />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/skeleton/responsive-layout.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/skeleton/skeleton-responsive-layout.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Варианты
 
 Используйте `variant`, чтобы выбрать пульсирующее или статичное отображение заполнителя.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/skeleton/variants.tsx"
+<ExampleFrame variant="component">
+  <SkeletonVariants />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/skeleton/variants.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/skeleton/skeleton-variants.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
 Используйте `asChild`, когда корневым элементом должен стать семантический `section`, а не стандартный `div`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/skeleton/custom-host.tsx"
+<ExampleFrame variant="component">
+  <SkeletonCustomHost />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/skeleton/custom-host.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

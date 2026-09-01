@@ -1,5 +1,6 @@
 import { Menu } from '@moduix/react/menu';
 import { SplitButton } from '@moduix/react/split-button';
+import styles from '@/components/examples/split-button/split-button-variants.module.css';
 
 const variants = [
   'default',
@@ -12,7 +13,7 @@ const variants = [
 
 export default function SplitButtonVariantsDemo() {
   return (
-    <div className="row">
+    <div className={styles.row}>
       {variants.map((variant) => (
         <SplitButton key={variant} aria-label={`${variant} actions`} variant={variant}>
           <SplitButton.Action>{variant}</SplitButton.Action>

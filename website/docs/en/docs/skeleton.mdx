@@ -4,7 +4,14 @@ component: skeleton
 description: A loading placeholder for text, cards, media objects, and custom page sections.
 ---
 
-import * as SkeletonDocs from '@/components/examples/skeleton';
+import * as SkeletonDocs from '@/components/examples/skeleton/skeleton';
+import SkeletonBasic from './_snippets/skeleton/basic.tsx';
+import SkeletonCard from './_snippets/skeleton/card.tsx';
+import SkeletonCustomHost from './_snippets/skeleton/custom-host.tsx';
+import SkeletonLoadedContent from './_snippets/skeleton/loaded-content.tsx';
+import SkeletonMediaObject from './_snippets/skeleton/media-object.tsx';
+import SkeletonResponsiveLayout from './_snippets/skeleton/responsive-layout.tsx';
+import SkeletonVariants from './_snippets/skeleton/variants.tsx';
 
 ## API Reference
 
@@ -17,11 +24,26 @@ Ark UI does not ship a dedicated `Skeleton` primitive. moduix builds `Skeleton` 
 
 Start with a few `Skeleton` lines when text is still loading.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/skeleton/basic.tsx"
+<ExampleFrame variant="component">
+  <SkeletonBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/skeleton/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/skeleton/skeleton-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -84,61 +106,145 @@ appearance, use `className`, `style`, or the public CSS variables.
 
 Use a larger block and shorter text lines to reserve the card layout while content is loading.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/skeleton/card.tsx"
+<ExampleFrame variant="component">
+  <SkeletonCard />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/skeleton/card.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/skeleton/skeleton-card.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Loaded Content
 
 Use `loading` to keep the same root element in place while switching from the placeholder to real content.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/skeleton/loaded-content.tsx"
+<ExampleFrame variant="component">
+  <SkeletonLoadedContent />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/skeleton/loaded-content.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/skeleton/skeleton-loaded-content.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Media Object
 
 Use `boxSize` with a full radius for an avatar placeholder, then place text lines beside it.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/skeleton/media-object.tsx"
+<ExampleFrame variant="component">
+  <SkeletonMediaObject />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/skeleton/media-object.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/skeleton/skeleton-media-object.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Responsive Layout
 
 Keep responsive layout logic in the wrapper while each `Skeleton` remains a visual building block.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/skeleton/responsive-layout.tsx"
+<ExampleFrame variant="component">
+  <SkeletonResponsiveLayout />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/skeleton/responsive-layout.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/skeleton/skeleton-responsive-layout.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Variants
 
 Use `variant` to choose between pulse and static placeholder rendering.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/skeleton/variants.tsx"
+<ExampleFrame variant="component">
+  <SkeletonVariants />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/skeleton/variants.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/skeleton/skeleton-variants.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Use `asChild` when a semantic element such as `section` should become the DOM root instead of the default `div`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/skeleton/custom-host.tsx"
+<ExampleFrame variant="component">
+  <SkeletonCustomHost />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/skeleton/custom-host.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

@@ -1,5 +1,6 @@
 import { Skeleton } from '@moduix/react/skeleton';
 import { Stack } from '@moduix/react/stack';
+import styles from '@/components/examples/skeleton/skeleton-basic.module.css';
 
 const lines = [
   {
@@ -18,7 +19,7 @@ const lines = [
 
 export default function SkeletonDemo() {
   return (
-    <Stack gap={10} style={{ width: '100%' }}>
+    <Stack className={styles.root} gap={10}>
       {lines.map((line) => (
         <Skeleton key={line.width} width={line.width} height={line.height} />
       ))}

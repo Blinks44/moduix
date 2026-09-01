@@ -1,11 +1,12 @@
 import { Menu } from '@moduix/react/menu';
 import { SplitButton } from '@moduix/react/split-button';
+import styles from '@/components/examples/split-button/split-button-sizes.module.css';
 
 const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
 
 export default function SplitButtonSizesDemo() {
   return (
-    <div className="row">
+    <div className={styles.row}>
       {sizes.map((size) => (
         <SplitButton key={size} aria-label={`${size} create actions`} size={size} variant="outline">
           <SplitButton.Action>{size}</SplitButton.Action>

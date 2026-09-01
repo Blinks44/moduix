@@ -2,6 +2,7 @@ import { Menu } from '@moduix/react/menu';
 import { SplitButton } from '@moduix/react/split-button';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/split-button/split-button-basic.module.css';
 
 const items = [
   {
@@ -22,7 +23,7 @@ export default function SplitButtonDemo() {
   const [status, setStatus] = useState('Ready to save.');
 
   return (
-    <div className="split-button-stack">
+    <div className={styles.stack}>
       <SplitButton aria-label="Save actions">
         <SplitButton.Action onClick={() => setStatus('Changes saved.')}>
           Save Changes

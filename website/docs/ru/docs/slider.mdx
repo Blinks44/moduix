@@ -4,7 +4,28 @@ component: slider
 description: Элемент управления для выбора одного значения или диапазона в заданных границах.
 ---
 
-import * as SliderDocs from '@/components/examples/slider';
+import * as SliderDocs from '@/components/examples/slider/slider';
+import SliderAdvancedCustomization from '../../en/docs/_snippets/slider/advanced-customization.tsx';
+import SliderBasic from '../../en/docs/_snippets/slider/basic.tsx';
+import SliderCenterOrigin from '../../en/docs/_snippets/slider/center-origin.tsx';
+import SliderChangeEvents from '../../en/docs/_snippets/slider/change-events.tsx';
+import SliderContext from '../../en/docs/_snippets/slider/context.tsx';
+import SliderControlled from '../../en/docs/_snippets/slider/controlled.tsx';
+import SliderDisabled from '../../en/docs/_snippets/slider/disabled.tsx';
+import SliderDraggingIndicator from '../../en/docs/_snippets/slider/dragging-indicator.tsx';
+import SliderForm from '../../en/docs/_snippets/slider/form.tsx';
+import SliderInvalid from '../../en/docs/_snippets/slider/invalid.tsx';
+import SliderMarks from '../../en/docs/_snippets/slider/marks.tsx';
+import SliderMinAndMax from '../../en/docs/_snippets/slider/min-and-max.tsx';
+import SliderRange from '../../en/docs/_snippets/slider/range.tsx';
+import SliderReadOnly from '../../en/docs/_snippets/slider/read-only.tsx';
+import SliderRootProvider from '../../en/docs/_snippets/slider/root-provider.tsx';
+import SliderStep from '../../en/docs/_snippets/slider/step.tsx';
+import SliderThumbAlignment from '../../en/docs/_snippets/slider/thumb-alignment.tsx';
+import SliderThumbCollision from '../../en/docs/_snippets/slider/thumb-collision.tsx';
+import SliderThumbOverlap from '../../en/docs/_snippets/slider/thumb-overlap.tsx';
+import SliderVertical from '../../en/docs/_snippets/slider/vertical.tsx';
+import SliderVerticalWithMarks from '../../en/docs/_snippets/slider/vertical-with-marks.tsx';
 
 ## Справочник API
 
@@ -24,12 +45,26 @@ import * as SliderDocs from '@/components/examples/slider';
 `Slider.Thumbs` - рекомендуемый способ автоматически создать стилизованный ползунок для каждого значения. Каждый
 ползунок, включая явно добавленный `Slider.Thumb`, автоматически добавляет нативное поле ввода для формы.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/basic.tsx"
+<ExampleFrame variant="component">
+  <SliderBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/slider/basic.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -123,232 +158,488 @@ Slider / Slider.Root
 
 Задайте `origin="center"`, если значение представляет положительное или отрицательное смещение, например баланс относительно нуля.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/center-origin.tsx"
+<ExampleFrame variant="component">
+  <SliderCenterOrigin />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/slider/center-origin.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-center-origin.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### События изменения
 
 Используйте `onValueChange`, чтобы обновлять интерфейс во время взаимодействия, а `onValueChangeEnd` - когда перетаскивание
 или взаимодействие с клавиатурой завершено.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/change-events.tsx"
+<ExampleFrame variant="component">
+  <SliderChangeEvents />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/slider/change-events.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-change-events.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Контекст
 
 Используйте `useSliderContext` из moduix внутри дочернего компонента, если ему нужно читать состояние слайдера, например
 `value`, `dragging` или состояние фокуса.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/context.tsx"
+<ExampleFrame variant="component">
+  <SliderContext />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/slider/context.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Управляемое состояние
 
 Управляйте слайдером из состояния React, сохраняя массив из `details.value`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/controlled.tsx"
+<ExampleFrame variant="component">
+  <SliderControlled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/slider/controlled.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Отключённый
 
 Используйте `disabled`, чтобы оставить значение видимым, но отключить взаимодействие.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/disabled.tsx"
+<ExampleFrame variant="component">
+  <SliderDisabled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/slider/disabled.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-disabled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Форма
 
 Задайте `name`, чтобы отправлять текущее значение через нативную форму. moduix автоматически добавляет и синхронизирует
 скрытое поле ввода.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/form.tsx"
+<ExampleFrame variant="component">
+  <SliderForm />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/slider/form.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-form.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Индикатор перетаскивания
 
 Поместите `Slider.DraggingIndicator` внутрь ползунка, чтобы показывать его текущее значение при перетаскивании.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/dragging-indicator.tsx"
+<ExampleFrame variant="component">
+  <SliderDraggingIndicator />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/slider/dragging-indicator.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Некорректное значение
 
 Используйте `invalid`, если выбранное значение не проходит проверку. Дорожка, диапазон и ползунок получают состояние
 ошибки, но остаются интерактивными.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/invalid.tsx"
+<ExampleFrame variant="component">
+  <SliderInvalid />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/slider/invalid.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-invalid.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Деления
 
 Используйте `Slider.MarkerGroup` и `Slider.Marker`, чтобы добавить отметки на дорожку. Ark добавляет к отметкам
 `data-state="under-value | at-value | over-value"`, который можно использовать в стилях.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/marks.tsx"
+<ExampleFrame variant="component">
+  <SliderMarks />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/slider/marks.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-marks.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Минимум и максимум
 
 Задайте `min` и `max`, если диапазон слайдера не начинается с `0` или не заканчивается на `100`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/min-and-max.tsx"
+<ExampleFrame variant="component">
+  <SliderMinAndMax />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/slider/min-and-max.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Диапазон
 
 Передайте массив, содержащий по одному значению на каждый ползунок. `Slider.Thumbs` создаст соответствующие ползунки
 и скрытые поля ввода для формы.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/range.tsx"
+<ExampleFrame variant="component">
+  <SliderRange />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/slider/range.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Только для чтения
 
 Используйте `readOnly`, если значение должно оставаться видимым, а ползунок - доступным для фокуса, но изменять его нельзя.
 В этом состоянии moduix использует курсор по умолчанию, поэтому слайдер не выглядит интерактивным.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/read-only.tsx"
+<ExampleFrame variant="component">
+  <SliderReadOnly />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/slider/read-only.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-read-only.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Используйте `useSlider` из moduix с `Slider.RootProvider`, если состояние нужно создать вне дерева, в котором отображаются
 части слайдера. Рендерьте эти части внутри `RootProvider` и не добавляйте второй корень для того же состояния.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/root-provider.tsx"
+<ExampleFrame variant="component">
+  <SliderRootProvider />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/slider/root-provider.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Шаг
 
 Используйте `step` для дробного или более точного шага.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/step.tsx"
+<ExampleFrame variant="component">
+  <SliderStep />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/slider/step.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-step.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Выравнивание ползунка
 
 Используйте `thumbAlignment="center"`, если ползунок должен выходить за края дорожки.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/thumb-alignment.tsx"
+<ExampleFrame variant="component">
+  <SliderThumbAlignment />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/slider/thumb-alignment.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-thumb-alignment.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Столкновение ползунков
 
 Используйте `thumbCollisionBehavior`, чтобы задать поведение ползунков диапазона при встрече. Значение `none` (по умолчанию)
 не позволяет одному ползунку пройти дальше другого, `push` двигает второй ползунок, а `swap` меняет их местами.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/thumb-collision.tsx"
+<ExampleFrame variant="component">
+  <SliderThumbCollision />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/slider/thumb-collision.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-thumb-collision.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Перекрытие ползунков
 
 Используйте `minStepsBetweenThumbs`, чтобы задать минимальный зазор между ползунками диапазона. Фактический зазор равен
 `minStepsBetweenThumbs * step`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/thumb-overlap.tsx"
+<ExampleFrame variant="component">
+  <SliderThumbOverlap />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/slider/thumb-overlap.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-thumb-overlap.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Вертикальный
 
 Задайте `orientation="vertical"` и явно задайте корневому элементу высоту.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/vertical.tsx"
+<ExampleFrame variant="component">
+  <SliderVertical />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/slider/vertical.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-vertical.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Вертикальный с делениями
 
 В вертикальной ориентации отметки выравниваются по дорожке и используют те же атрибуты состояния.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/vertical-with-marks.tsx"
+<ExampleFrame variant="component">
+  <SliderVerticalWithMarks />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/slider/vertical-with-marks.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-vertical-with-marks.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
 Используйте отдельные `Slider.Thumb` вместо `Slider.Thumbs`, если каждому ползунку нужны свои дочерние элементы, доступное
 имя или определённый порядок.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <SliderAdvancedCustomization />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/slider/advanced-customization.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

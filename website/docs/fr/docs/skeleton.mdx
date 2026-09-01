@@ -4,7 +4,14 @@ component: skeleton
 description: Un espace réservé affiché pendant le chargement de textes, de cartes, de médias et de sections personnalisées.
 ---
 
-import * as SkeletonDocs from '@/components/examples/skeleton';
+import * as SkeletonDocs from '@/components/examples/skeleton/skeleton';
+import SkeletonBasic from '../../en/docs/_snippets/skeleton/basic.tsx';
+import SkeletonCard from '../../en/docs/_snippets/skeleton/card.tsx';
+import SkeletonCustomHost from '../../en/docs/_snippets/skeleton/custom-host.tsx';
+import SkeletonLoadedContent from '../../en/docs/_snippets/skeleton/loaded-content.tsx';
+import SkeletonMediaObject from '../../en/docs/_snippets/skeleton/media-object.tsx';
+import SkeletonResponsiveLayout from '../../en/docs/_snippets/skeleton/responsive-layout.tsx';
+import SkeletonVariants from '../../en/docs/_snippets/skeleton/variants.tsx';
 
 ## Référence de l’API
 
@@ -17,11 +24,26 @@ d’Ark pour la [composition](https://ark-ui.com/docs/guides/composition), les
 
 Commencez par quelques lignes `Skeleton` lorsque le texte est encore en cours de chargement.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/skeleton/basic.tsx"
+<ExampleFrame variant="component">
+  <SkeletonBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/skeleton/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/skeleton/skeleton-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -88,61 +110,145 @@ Pour une apparence plus spécifique, utilisez `className`, `style` ou les variab
 
 Utilisez un grand bloc et des lignes de texte plus courtes pour préserver la mise en page d’une carte pendant le chargement du contenu.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/skeleton/card.tsx"
+<ExampleFrame variant="component">
+  <SkeletonCard />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/skeleton/card.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/skeleton/skeleton-card.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Contenu chargé
 
 Utilisez `loading` pour conserver le même élément racine lors du remplacement de l’espace réservé par le contenu réel.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/skeleton/loaded-content.tsx"
+<ExampleFrame variant="component">
+  <SkeletonLoadedContent />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/skeleton/loaded-content.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/skeleton/skeleton-loaded-content.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Objet média
 
 Utilisez `boxSize` avec un rayon complet pour l’espace réservé d’un avatar, puis placez les lignes de texte à côté.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/skeleton/media-object.tsx"
+<ExampleFrame variant="component">
+  <SkeletonMediaObject />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/skeleton/media-object.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/skeleton/skeleton-media-object.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Mise en page adaptative
 
 Laissez la logique de mise en page responsive dans le balisage englobant et utilisez chaque `Skeleton` comme un bloc visuel.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/skeleton/responsive-layout.tsx"
+<ExampleFrame variant="component">
+  <SkeletonResponsiveLayout />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/skeleton/responsive-layout.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/skeleton/skeleton-responsive-layout.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Variantes
 
 Utilisez `variant` pour choisir un espace réservé animé par pulsation ou statique.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/skeleton/variants.tsx"
+<ExampleFrame variant="component">
+  <SkeletonVariants />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/skeleton/variants.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/skeleton/skeleton-variants.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Personnalisation avancée
 
 Utilisez `asChild` pour qu’un élément sémantique tel que `section` devienne la racine DOM à la place du `div` par défaut.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/skeleton/custom-host.tsx"
+<ExampleFrame variant="component">
+  <SkeletonCustomHost />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/skeleton/custom-host.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

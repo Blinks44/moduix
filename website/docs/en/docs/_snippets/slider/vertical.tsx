@@ -1,12 +1,13 @@
 import { Slider } from '@moduix/react/slider';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/slider/slider-vertical.module.css';
 
 export default function VerticalSliderDemo() {
   const [value, setValue] = useState([60]);
 
   return (
-    <div style={{ display: 'grid', justifyItems: 'center', gap: 'var(--moduix-spacing-3)' }}>
+    <div className={styles.stack}>
       <Slider
         aria-label={['Output']}
         orientation="vertical"

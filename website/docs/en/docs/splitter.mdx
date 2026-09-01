@@ -4,7 +4,15 @@ component: splitter
 description: A resizable layout component for dividing an interface into panels.
 ---
 
-import * as SplitterDocs from '@/components/examples/splitter';
+import * as SplitterDocs from '@/components/examples/splitter/splitter';
+import SplitterBasic from './_snippets/splitter/basic.tsx';
+import SplitterCollapsiblePanels from './_snippets/splitter/collapsible-panels.tsx';
+import SplitterControlled from './_snippets/splitter/controlled.tsx';
+import SplitterDynamicCollapsible from './_snippets/splitter/dynamic-collapsible.tsx';
+import SplitterMultiplePanels from './_snippets/splitter/multiple-panels.tsx';
+import SplitterNested from './_snippets/splitter/nested.tsx';
+import SplitterRootProvider from './_snippets/splitter/root-provider.tsx';
+import SplitterVertical from './_snippets/splitter/vertical.tsx';
 
 ## API Reference
 
@@ -16,13 +24,26 @@ Build a splitter from three parts: `Splitter`, `Splitter.Panel`, and `Splitter.R
 `panels` prop lists the panel ids and their size constraints. Each rendered `Splitter.Panel` must use
 one of those ids. When you omit the trigger's children, moduix renders a resize indicator for you.
 
-<style>{SplitterDocs.splitterExampleCss}</style>
+<ExampleFrame variant="component">
+  <SplitterBasic />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/splitter/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/splitter/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/splitter/splitter-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -98,64 +119,129 @@ Set `collapsible: true` and choose a `collapsedSize` for a panel that can turn i
 `minSize` to the same value when pointer resizing should remain continuous all the way to the collapsed
 size. If `minSize` is larger, the splitter snaps between the expanded minimum and the collapsed rail.
 
-<style>{SplitterDocs.splitterExampleCss}</style>
+<ExampleFrame variant="component">
+  <SplitterCollapsiblePanels />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/splitter/collapsible-panels.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/splitter/collapsible-panels.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/splitter/splitter-collapsible-panels.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Controlled
 
 Keep panel sizes in React state and update that state from `details.size` in `onResize`.
 
-<style>{SplitterDocs.splitterStackCss}</style>
+<ExampleFrame variant="component">
+  <SplitterControlled />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/splitter/controlled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/splitter/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/splitter/splitter-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Responsive collapse
 
 Use `collapsePanel()` and `expandPanel()` when a sidebar should react to the available width measured
 by the application.
 
-<style>{SplitterDocs.splitterExampleCss}</style>
+<ExampleFrame variant="component">
+  <SplitterDynamicCollapsible />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/splitter/dynamic-collapsible.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/splitter/dynamic-collapsible.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/splitter/splitter-dynamic-collapsible.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Multiple panels
 
 Add another `Panel` and an adjacent `ResizeTrigger` for a three-panel layout. Every panel needs a
 matching entry in `panels`, and every trigger id must connect its two neighbors.
 
-<style>{SplitterDocs.splitterExampleCss}</style>
+<ExampleFrame variant="component">
+  <SplitterMultiplePanels />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/splitter/multiple-panels.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/splitter/multiple-panels.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/splitter/splitter-multiple-panels.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Nested
 
 Pass the same registry to nested splitters to support multi-drag at intersections between horizontal
 and vertical handles.
 
-<style>{SplitterDocs.splitterNestedCss}</style>
+<ExampleFrame variant="component">
+  <SplitterNested />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/splitter/nested.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/splitter/nested.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/splitter/splitter-nested.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### RootProvider
 
@@ -163,25 +249,51 @@ Use `useSplitter()` with `Splitter.RootProvider` when state or controls need to 
 rendered splitter parts. The returned API includes methods such as `getSizes()`, `setSizes()`,
 `resizePanel()`, `collapsePanel()`, `expandPanel()`, and `resetSizes()`.
 
-<style>{SplitterDocs.splitterStackCss}</style>
+<ExampleFrame variant="component">
+  <SplitterRootProvider />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/splitter/root-provider.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/splitter/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/splitter/splitter-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Vertical
 
 Set `orientation="vertical"` and give the root a stable height so stacked panels have room to resize.
 
-<style>{SplitterDocs.splitterVerticalCss}</style>
+<ExampleFrame variant="component">
+  <SplitterVertical />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/splitter/vertical.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="./_snippets/splitter/vertical.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/splitter/splitter-vertical.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Accessibility
 

@@ -4,7 +4,13 @@ component: spinner
 description: Компактный индикатор загрузки, который сообщает ассистивным технологиям о состоянии загрузки и поддерживает несколько размеров и собственное содержимое.
 ---
 
-import * as SpinnerDocs from '@/components/examples/spinner';
+import SpinnerAsChild from '../../en/docs/_snippets/spinner/as-child.tsx';
+import SpinnerBasic from '../../en/docs/_snippets/spinner/basic.tsx';
+import SpinnerButton from '../../en/docs/_snippets/spinner/button.tsx';
+import SpinnerCustomIndicator from '../../en/docs/_snippets/spinner/custom-indicator.tsx';
+import SpinnerInlineLoadingText from '../../en/docs/_snippets/spinner/inline-loading-text.tsx';
+import SpinnerSizes from '../../en/docs/_snippets/spinner/sizes.tsx';
+import * as SpinnerDocs from '@/components/examples/spinner/spinner';
 
 ## Справочник API
 
@@ -20,11 +26,20 @@ import * as SpinnerDocs from '@/components/examples/spinner';
 элемента есть `role="status"` и запасное имя `aria-label="Loading"`. Это буквальная английская строка `Loading`,
 поэтому в интерфейсе на другом языке задайте локализованный `aria-label` или используйте `aria-labelledby`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/spinner/basic.tsx"
+<ExampleFrame variant="component">
+  <SpinnerBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/spinner/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -106,53 +121,122 @@ Spinner / Spinner.Root
 Передайте собственное содержимое через `children`, если стандартное кольцо нужно заменить, но размер и семантика
 статуса должны остаться прежними.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/spinner/custom-indicator.tsx"
+<ExampleFrame variant="component">
+  <SpinnerCustomIndicator />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/spinner/custom-indicator.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### В кнопке
 
 Оставьте `Spinner` декоративным, если текст кнопки уже объясняет действие. В примере `aria-busy` передаётся кнопке,
 а подпись под ней нужна только для демонстрации текущего состояния.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/spinner/button.tsx"
+<ExampleFrame variant="component">
+  <SpinnerButton />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/spinner/button.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/spinner/spinner-button.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Загрузка с текстом
 
 Используйте `decorative`, когда видимый текст рядом со `Spinner` уже объясняет, что происходит.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/spinner/inline-loading-text.tsx"
+<ExampleFrame variant="component">
+  <SpinnerInlineLoadingText />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/spinner/inline-loading-text.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/spinner/spinner-inline-loading-text.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Размеры
 
 Используйте небольшие размеры внутри компактных элементов управления, а большие - для самостоятельных состояний загрузки.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/spinner/sizes.tsx"
+<ExampleFrame variant="component">
+  <SpinnerSizes />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/spinner/sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/spinner/spinner-sizes.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Собственный корневой элемент
 
 Используйте `asChild`, когда другой компонент должен владеть корневым элементом. Дочерний элемент получает атрибуты
 и имя класса корня Spinner и должен сам отрисовать визуальный индикатор.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/spinner/as-child.tsx"
+<ExampleFrame variant="component">
+  <SpinnerAsChild />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/spinner/as-child.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/spinner/spinner-as-child.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

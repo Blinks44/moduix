@@ -1,9 +1,10 @@
 import { Spinner } from '@moduix/react/spinner';
+import styles from '@/components/examples/spinner/spinner-as-child.module.css';
 
 export default function SpinnerAsChildDemo() {
   return (
     <Spinner asChild size="lg" aria-label="Loading report">
-      <span style={{ color: 'var(--moduix-color-primary)' }}>
+      <span className={styles.root}>
         <span
           aria-hidden="true"
           data-scope="spinner"

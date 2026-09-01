@@ -4,7 +4,15 @@ component: splitter
 description: Компонент для разделения интерфейса на панели, размер которых можно менять.
 ---
 
-import * as SplitterDocs from '@/components/examples/splitter';
+import * as SplitterDocs from '@/components/examples/splitter/splitter';
+import SplitterBasic from '../../en/docs/_snippets/splitter/basic.tsx';
+import SplitterCollapsiblePanels from '../../en/docs/_snippets/splitter/collapsible-panels.tsx';
+import SplitterControlled from '../../en/docs/_snippets/splitter/controlled.tsx';
+import SplitterDynamicCollapsible from '../../en/docs/_snippets/splitter/dynamic-collapsible.tsx';
+import SplitterMultiplePanels from '../../en/docs/_snippets/splitter/multiple-panels.tsx';
+import SplitterNested from '../../en/docs/_snippets/splitter/nested.tsx';
+import SplitterRootProvider from '../../en/docs/_snippets/splitter/root-provider.tsx';
+import SplitterVertical from '../../en/docs/_snippets/splitter/vertical.tsx';
 
 ## Справочник API
 
@@ -17,13 +25,26 @@ import * as SplitterDocs from '@/components/examples/splitter';
 `Splitter.Panel` должен быть идентификатор из этого массива. Если не передавать триггеру дочерние
 элементы, moduix автоматически добавит индикатор изменения размера.
 
-<style>{SplitterDocs.splitterExampleCss}</style>
+<ExampleFrame variant="component">
+  <SplitterBasic />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/splitter/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/splitter/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/splitter/splitter-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -104,38 +125,77 @@ Splitter
 одинаковые значения для `minSize` и `collapsedSize`. Если `minSize` больше, Splitter переключается
 между минимальным развёрнутым размером и свёрнутой полосой.
 
-<style>{SplitterDocs.splitterExampleCss}</style>
+<ExampleFrame variant="component">
+  <SplitterCollapsiblePanels />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/splitter/collapsible-panels.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/splitter/collapsible-panels.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/splitter/splitter-collapsible-panels.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Управляемое состояние
 
 Храните размеры панелей в состоянии React и обновляйте его значением `details.size` из `onResize`.
 
-<style>{SplitterDocs.splitterStackCss}</style>
+<ExampleFrame variant="component">
+  <SplitterControlled />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/splitter/controlled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/splitter/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/splitter/splitter-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Адаптивное сворачивание
 
 Используйте `collapsePanel()` и `expandPanel()`, если боковая панель должна реагировать на доступную
 ширину, измеренную приложением.
 
-<style>{SplitterDocs.splitterExampleCss}</style>
+<ExampleFrame variant="component">
+  <SplitterDynamicCollapsible />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/splitter/dynamic-collapsible.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/splitter/dynamic-collapsible.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/splitter/splitter-dynamic-collapsible.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Несколько панелей
 
@@ -143,26 +203,52 @@ Splitter
 каждой панели нужна соответствующая запись в `panels`, а идентификатор каждой ручки должен связывать
 двух её соседей.
 
-<style>{SplitterDocs.splitterExampleCss}</style>
+<ExampleFrame variant="component">
+  <SplitterMultiplePanels />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/splitter/multiple-panels.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/splitter/multiple-panels.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/splitter/splitter-multiple-panels.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Вложенные Splitter
 
 Передайте один и тот же реестр вложенным Splitter, чтобы одновременно перетаскивать несколько ручек
 на пересечениях горизонтальных и вертикальных разделителей.
 
-<style>{SplitterDocs.splitterNestedCss}</style>
+<ExampleFrame variant="component">
+  <SplitterNested />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/splitter/nested.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/splitter/nested.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/splitter/splitter-nested.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### RootProvider
 
@@ -170,26 +256,52 @@ Splitter
 находиться за пределами отрисованных частей Splitter. Возвращаемый API содержит, в частности,
 `getSizes()`, `setSizes()`, `resizePanel()`, `collapsePanel()`, `expandPanel()` и `resetSizes()`.
 
-<style>{SplitterDocs.splitterStackCss}</style>
+<ExampleFrame variant="component">
+  <SplitterRootProvider />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/splitter/root-provider.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/splitter/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/splitter/splitter-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Вертикальная ориентация
 
 Задайте `orientation="vertical"` и укажите корню стабильную высоту, чтобы вертикальным панелям было
 достаточно места для изменения размера.
 
-<style>{SplitterDocs.splitterVerticalCss}</style>
+<ExampleFrame variant="component">
+  <SplitterVertical />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/splitter/vertical.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/splitter/vertical.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/splitter/splitter-vertical.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Доступность
 

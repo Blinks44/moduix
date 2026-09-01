@@ -1,0 +1,12 @@
+.stack {
+  display: grid;
+  justify-items: center;
+  gap: var(--moduix-spacing-4);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--moduix-spacing-3);
+}

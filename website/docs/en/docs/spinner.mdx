@@ -4,7 +4,13 @@ component: spinner
 description: A compact loading indicator with status semantics, size control, and optional custom indicator content.
 ---
 
-import * as SpinnerDocs from '@/components/examples/spinner';
+import SpinnerAsChild from './_snippets/spinner/as-child.tsx';
+import SpinnerBasic from './_snippets/spinner/basic.tsx';
+import SpinnerButton from './_snippets/spinner/button.tsx';
+import SpinnerCustomIndicator from './_snippets/spinner/custom-indicator.tsx';
+import SpinnerInlineLoadingText from './_snippets/spinner/inline-loading-text.tsx';
+import SpinnerSizes from './_snippets/spinner/sizes.tsx';
+import * as SpinnerDocs from '@/components/examples/spinner/spinner';
 
 ## API Reference
 
@@ -20,11 +26,20 @@ states. By default, it exposes the loading status to assistive technology with `
 the fallback label `aria-label="Loading"`. The fallback is the literal English string `Loading`, so
 set a localized `aria-label` or use `aria-labelledby` in a non-English interface.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/spinner/basic.tsx"
+<ExampleFrame variant="component">
+  <SpinnerBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/spinner/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -109,53 +124,122 @@ child must provide the visual indicator markup itself.
 Pass custom `children` when the default ring should be replaced but the size and status behavior
 should stay the same.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/spinner/custom-indicator.tsx"
+<ExampleFrame variant="component">
+  <SpinnerCustomIndicator />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/spinner/custom-indicator.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### In a Button
 
 Keep the spinner decorative when the button text already describes the action. The example puts
 `aria-busy` on the button and shows the current state below it for demonstration purposes.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/spinner/button.tsx"
+<ExampleFrame variant="component">
+  <SpinnerButton />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/spinner/button.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/spinner/spinner-button.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Inline Loading Text
 
 Use `decorative` when visible text next to the spinner already explains what is happening.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/spinner/inline-loading-text.tsx"
+<ExampleFrame variant="component">
+  <SpinnerInlineLoadingText />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/spinner/inline-loading-text.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/spinner/spinner-inline-loading-text.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Sizes
 
 Use smaller sizes inside compact controls and larger sizes for standalone loading states.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/spinner/sizes.tsx"
+<ExampleFrame variant="component">
+  <SpinnerSizes />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/spinner/sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/spinner/spinner-sizes.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Custom Root
 
 Use `asChild` when another component must own the root element. The child receives Spinner's root
 attributes and class name, and must render the visual indicator itself.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/spinner/as-child.tsx"
+<ExampleFrame variant="component">
+  <SpinnerAsChild />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/spinner/as-child.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/spinner/spinner-as-child.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

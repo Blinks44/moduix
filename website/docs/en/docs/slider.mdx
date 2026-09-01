@@ -4,7 +4,28 @@ component: slider
 description: A control for selecting one value or a range of values within defined bounds.
 ---
 
-import * as SliderDocs from '@/components/examples/slider';
+import * as SliderDocs from '@/components/examples/slider/slider';
+import SliderAdvancedCustomization from './_snippets/slider/advanced-customization.tsx';
+import SliderBasic from './_snippets/slider/basic.tsx';
+import SliderCenterOrigin from './_snippets/slider/center-origin.tsx';
+import SliderChangeEvents from './_snippets/slider/change-events.tsx';
+import SliderContext from './_snippets/slider/context.tsx';
+import SliderControlled from './_snippets/slider/controlled.tsx';
+import SliderDisabled from './_snippets/slider/disabled.tsx';
+import SliderDraggingIndicator from './_snippets/slider/dragging-indicator.tsx';
+import SliderForm from './_snippets/slider/form.tsx';
+import SliderInvalid from './_snippets/slider/invalid.tsx';
+import SliderMarks from './_snippets/slider/marks.tsx';
+import SliderMinAndMax from './_snippets/slider/min-and-max.tsx';
+import SliderRange from './_snippets/slider/range.tsx';
+import SliderReadOnly from './_snippets/slider/read-only.tsx';
+import SliderRootProvider from './_snippets/slider/root-provider.tsx';
+import SliderStep from './_snippets/slider/step.tsx';
+import SliderThumbAlignment from './_snippets/slider/thumb-alignment.tsx';
+import SliderThumbCollision from './_snippets/slider/thumb-collision.tsx';
+import SliderThumbOverlap from './_snippets/slider/thumb-overlap.tsx';
+import SliderVertical from './_snippets/slider/vertical.tsx';
+import SliderVerticalWithMarks from './_snippets/slider/vertical-with-marks.tsx';
 
 ## API Reference
 
@@ -25,12 +46,26 @@ keyboard.
 `Slider.Thumbs` is the recommended way to render one styled thumb for each value. Every thumb,
 including an explicit `Slider.Thumb`, adds its native form input automatically.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/slider/basic.tsx"
+<ExampleFrame variant="component">
+  <SliderBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/slider/basic.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -125,140 +160,284 @@ submission and reset synchronization. `id`, `asChild`, `disabled`, `invalid`, `r
 Set `origin="center"` when the value represents a positive or negative offset, such as balance
 around zero.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/slider/center-origin.tsx"
+<ExampleFrame variant="component">
+  <SliderCenterOrigin />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/slider/center-origin.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-center-origin.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Change Events
 
 Use `onValueChange` for updates during interaction and `onValueChangeEnd` when the drag or keyboard
 interaction ends.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/slider/change-events.tsx"
+<ExampleFrame variant="component">
+  <SliderChangeEvents />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/slider/change-events.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-change-events.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Context
 
 Use moduix `useSliderContext` inside a child component when it needs to read slider state such as
 `value`, `dragging`, or focus state.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/slider/context.tsx"
+<ExampleFrame variant="component">
+  <SliderContext />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/slider/context.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Controlled
 
 Control the slider from React state by storing the array from Ark's `details.value`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/slider/controlled.tsx"
+<ExampleFrame variant="component">
+  <SliderControlled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/slider/controlled.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Disabled
 
 Use `disabled` to keep the value visible while preventing interaction.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/slider/disabled.tsx"
+<ExampleFrame variant="component">
+  <SliderDisabled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/slider/disabled.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-disabled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Form
 
 Set `name` to submit the current value with a native form. moduix adds and synchronizes the hidden
 input automatically.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/slider/form.tsx"
+<ExampleFrame variant="component">
+  <SliderForm />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/slider/form.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-form.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Dragging Indicator
 
 Place `Slider.DraggingIndicator` inside a thumb to show its active value while dragging.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/slider/dragging-indicator.tsx"
+<ExampleFrame variant="component">
+  <SliderDraggingIndicator />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/slider/dragging-indicator.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Invalid
 
 Use `invalid` when the selected value fails validation. The track, range, and thumb expose the
 invalid state while remaining interactive.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/slider/invalid.tsx"
+<ExampleFrame variant="component">
+  <SliderInvalid />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/slider/invalid.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-invalid.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Marks
 
 Use `Slider.MarkerGroup` and `Slider.Marker` to render tick marks. Ark marks expose
 `data-state="under-value | at-value | over-value"`, which you can use for styling.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/slider/marks.tsx"
+<ExampleFrame variant="component">
+  <SliderMarks />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/slider/marks.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-marks.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Min and Max
 
 Use `min` and `max` when the slider's range does not start at `0` or end at `100`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/slider/min-and-max.tsx"
+<ExampleFrame variant="component">
+  <SliderMinAndMax />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/slider/min-and-max.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Range
 
 Pass an array with one value per thumb. `Slider.Thumbs` creates the matching thumbs and their native
 form inputs.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/slider/range.tsx"
+<ExampleFrame variant="component">
+  <SliderRange />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/slider/range.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Read Only
 
 Use `readOnly` when the value should remain visible and focusable but must not change. moduix uses a
 default cursor in this state so the slider does not look interactive.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/slider/read-only.tsx"
+<ExampleFrame variant="component">
+  <SliderReadOnly />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/slider/read-only.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-read-only.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
@@ -266,34 +445,76 @@ Use moduix `useSlider` with `Slider.RootProvider` when state needs to be created
 that renders the slider parts. Render the parts under `RootProvider`; do not render a second root
 for the same slider state.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/slider/root-provider.tsx"
+<ExampleFrame variant="component">
+  <SliderRootProvider />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/slider/root-provider.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Step
 
 Use `step` for fractional or finer-grained increments.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/slider/step.tsx"
+<ExampleFrame variant="component">
+  <SliderStep />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/slider/step.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-step.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Thumb Alignment
 
 Use `thumbAlignment="center"` when the thumb should extend beyond the track edges.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/slider/thumb-alignment.tsx"
+<ExampleFrame variant="component">
+  <SliderThumbAlignment />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/slider/thumb-alignment.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-thumb-alignment.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Thumb Collision
 
@@ -301,58 +522,128 @@ Use `thumbCollisionBehavior` to control what happens when range thumbs meet. `no
 keeps one thumb from moving past the other, `push` moves the other thumb, and `swap` exchanges
 their positions.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/slider/thumb-collision.tsx"
+<ExampleFrame variant="component">
+  <SliderThumbCollision />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/slider/thumb-collision.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-thumb-collision.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Thumb Overlap
 
 Use `minStepsBetweenThumbs` to keep a minimum gap between range thumbs. The gap is calculated as
 `minStepsBetweenThumbs * step`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/slider/thumb-overlap.tsx"
+<ExampleFrame variant="component">
+  <SliderThumbOverlap />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/slider/thumb-overlap.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-thumb-overlap.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Vertical
 
 Set `orientation="vertical"` and give the root an explicit height.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/slider/vertical.tsx"
+<ExampleFrame variant="component">
+  <SliderVertical />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/slider/vertical.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-vertical.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Vertical with Marks
 
 Marks stay aligned with the track in vertical orientation and expose the same marker state attributes.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/slider/vertical-with-marks.tsx"
+<ExampleFrame variant="component">
+  <SliderVerticalWithMarks />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/slider/vertical-with-marks.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-vertical-with-marks.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Use explicit `Slider.Thumb` parts instead of `Slider.Thumbs` when individual thumbs need custom
 children, accessible names, or a specific order.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/slider/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <SliderAdvancedCustomization />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/slider/advanced-customization.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/slider/slider-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

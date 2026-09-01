@@ -1,5 +1,6 @@
 import { createSplitterRegistry, Splitter } from '@moduix/react/splitter';
 import { useState } from 'react';
+import styles from '@/components/examples/splitter/splitter-nested.module.css';
 
 const horizontalPanels = [
   {
@@ -32,9 +33,9 @@ export default function NestedSplitterDemo() {
       panels={horizontalPanels}
       defaultSize={[35, 65]}
       registry={registry}
-      className="splitter-nested"
+      className={styles.root}
     >
-      <Splitter.Panel id="left" className="splitter-panel">
+      <Splitter.Panel id="left" className={styles.panel}>
         Left
       </Splitter.Panel>
       <Splitter.ResizeTrigger id="left:right" aria-label="Resize panels" />
@@ -46,11 +47,11 @@ export default function NestedSplitterDemo() {
           registry={registry}
           onResize={({ size }) => setVerticalSize(size)}
         >
-          <Splitter.Panel id="top" className="splitter-panel">
+          <Splitter.Panel id="top" className={styles.panel}>
             Top
           </Splitter.Panel>
           <Splitter.ResizeTrigger id="top:bottom" aria-label="Resize panels" />
-          <Splitter.Panel id="bottom" className="splitter-panel">
+          <Splitter.Panel id="bottom" className={styles.panel}>
             Bottom
           </Splitter.Panel>
         </Splitter>
