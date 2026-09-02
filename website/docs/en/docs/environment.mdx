@@ -3,6 +3,8 @@ title: Environment
 description: Configure Ark UI DOM queries for iframes, Shadow DOM, Electron, and other custom environments.
 ---
 
+import EnvironmentBasic from '@/components/examples/environment/basic.tsx';
+
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/environment" />
@@ -25,11 +27,20 @@ Wrap the part of the React tree that renders in the custom environment. If you o
 environment where it renders. `useEnvironmentContext` provides functions for reading that root, its `Document`, and
 its `Window`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/environment/basic.tsx"
+<ExampleFrame variant="component">
+  <EnvironmentBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/environment/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 The preview runs in the page’s main document, so that is the root the provider resolves. When your app renders into an
 iframe or Shadow DOM, pass the root containing that subtree through `value`.

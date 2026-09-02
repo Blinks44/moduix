@@ -3,6 +3,8 @@ title: Client Only
 description: Отображайте зависящий от браузера интерфейс moduix только в браузере с помощью ClientOnly из Ark UI и fallback, который сохраняет разметку.
 ---
 
+import ClientOnlyBasic from '@/components/examples/client-only/basic.tsx';
+
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/client-only" />
@@ -32,11 +34,20 @@ pnpm add @ark-ui/react
 готовый интерфейс moduix и занимать примерно столько же места. Тогда сервер покажет полезное содержимое, а после
 гидратации интерфейс не будет резко сдвигаться.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/client-only/basic.tsx"
+<ExampleFrame clientOnly variant="component">
+  <ClientOnlyBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/client-only/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Как выбрать `fallback`
 

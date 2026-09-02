@@ -3,6 +3,9 @@ title: Presence
 description: Contrôlez quand un contenu est monté, masqué ou démonté avec Presence d’Ark UI, puis composez-le avec les composants moduix.
 ---
 
+import PresenceBasic from '@/components/examples/presence/basic.tsx';
+import PresenceMountOnDemand from '@/components/examples/presence/mount-on-demand.tsx';
+
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/presence" />
@@ -39,11 +42,26 @@ Contrôlez `Presence` avec la prop `present`. Lorsque `unmountOnExit` vaut `fals
 la laisse montée. L’état local est ainsi conservé et les effets continuent de s’exécuter. Cet exemple active
 `unmountOnExit` afin que l’animation de sortie puisse se terminer avant le retrait de la racine.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/presence/basic.tsx"
+<ExampleFrame variant="component">
+  <PresenceBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/presence/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/presence/presence-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Monter à la demande
 
@@ -51,11 +69,26 @@ Combinez `lazyMount` et `unmountOnExit` lorsque le contenu ne doit pas exister a
 fermeture. `lazyMount` retarde le premier montage, mais ne retire pas le contenu à la fermeture. `unmountOnExit` s’en
 charge.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/presence/mount-on-demand.tsx"
+<ExampleFrame variant="component">
+  <PresenceMountOnDemand />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/presence/mount-on-demand.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/presence/presence-mount-on-demand.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Animations de sortie
 
@@ -63,42 +96,22 @@ Lorsque `unmountOnExit` est activé, Presence laisse la racine dans le DOM penda
 sortie. Ciblez `data-state="open"` et `data-state="closed"` pour définir les styles d’entrée et de sortie. Utilisez
 `onExitComplete` lorsqu’un autre traitement doit attendre la fin de l’animation de sortie.
 
-```tsx
-import { Presence } from '@ark-ui/react/presence';
-import { Card } from '@moduix/react/card';
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-export function ActivityPanel({ open }: { open: boolean }) {
-  return (
-    <Presence className="activity-panel" present={open} unmountOnExit>
-      <Card>Saved filters will apply to the next refresh.</Card>
-    </Presence>
-  );
-}
+```tsx file="../../../src/components/examples/presence/exit-animations.tsx"
 ```
 
-```css
-@keyframes activity-panel-enter {
-  from {
-    opacity: 0;
-    transform: translateY(-0.25rem);
-  }
-}
+    </Tab>
+    <Tab value="Styles">
 
-@keyframes activity-panel-exit {
-  to {
-    opacity: 0;
-    transform: translateY(-0.25rem);
-  }
-}
-
-.activity-panel[data-state='open'] {
-  animation: activity-panel-enter 160ms ease-out;
-}
-
-.activity-panel[data-state='closed'] {
-  animation: activity-panel-exit 120ms ease-in;
-}
+```css file="../../../src/components/examples/presence/presence-exit-animations.module.css"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 Définissez `skipAnimationOnMount` lorsque la première apparition doit être immédiate. Définissez `immediate` lorsque
 le changement de `present` doit s’appliquer immédiatement au lieu d’être reporté à la prochaine frame.

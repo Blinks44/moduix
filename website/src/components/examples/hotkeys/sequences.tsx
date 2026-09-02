@@ -3,6 +3,7 @@ import { Card } from '@moduix/react/card';
 import { Kbd } from '@moduix/react/kbd';
 import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
+import styles from './hotkeys-sequences.module.css';
 
 export default function HotkeysSequencesDemo() {
   const [destination, setDestination] = useState('Home');
@@ -26,13 +27,13 @@ export default function HotkeysSequencesDemo() {
   });
 
   return (
-    <Card style={{ inlineSize: '100%' }}>
+    <Card className={styles.root}>
       <Card.Header>
         <Card.Title>Workspace navigation</Card.Title>
         <Card.Description>Press G, then I or D before the sequence times out.</Card.Description>
       </Card.Header>
       <Card.Body>
-        <Stack gap="3" style={{ inlineSize: '100%' }}>
+        <Stack className={styles.stack} gap="3">
           <Stack align="center" direction="row" justify="space-between">
             <span>Open inbox</span>
             <Kbd>{formatHotkey('g > i')}</Kbd>

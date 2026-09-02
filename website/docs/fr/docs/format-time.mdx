@@ -3,6 +3,9 @@ title: Format Time
 description: Affichez une heure selon la locale active avec Ark UI Format.Time et moduix.
 ---
 
+import FormatTimeBasic from '@/components/examples/format-time/basic.tsx';
+import FormatTimeSecondsAndLabels from '@/components/examples/format-time/seconds-and-labels.tsx';
+
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/format-time" />
@@ -27,11 +30,20 @@ import { Format } from '@ark-ui/react';
 Pour une heure de planning, passez une chaîne afin que le résultat reste indépendant du fuseau horaire. Placez-le dans des
 composants moduix qui donnent le contexte de l’événement.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/format-time/basic.tsx"
+<ExampleFrame variant="component">
+  <FormatTimeBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/format-time/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Format sur 12 heures, secondes et libellés AM/PM
 
@@ -39,11 +51,32 @@ composants moduix qui donnent le contexte de l’événement.
 Activez `withSeconds` lorsque les secondes comptent réellement, par exemple dans un indicateur de synchronisation. En
 format sur 12 heures, `amLabel` et `pmLabel` remplacent les libellés de période de la journée par défaut.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/format-time/seconds-and-labels.tsx"
+<ExampleFrame variant="component">
+  <FormatTimeSecondsAndLabels />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs
+    values={[
+      { label: 'React', value: 'React' },
+      { label: 'Styles', value: 'Styles' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/format-time/seconds-and-labels.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/format-time/format-time-seconds-and-labels.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 N’ajoutez pas les secondes à un planning uniquement parce qu’elles existent dans la donnée source. Choisissez la
 précision qui aide réellement la personne à agir.

@@ -3,6 +3,8 @@ title: Client Only
 description: Affichez côté client une interface moduix qui dépend du navigateur avec ClientOnly d’Ark UI et un fallback qui préserve la mise en page.
 ---
 
+import ClientOnlyBasic from '@/components/examples/client-only/basic.tsx';
+
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/client-only" />
@@ -32,11 +34,20 @@ Placez le code qui dépend du navigateur dans le composant enfant à l’intéri
 `fallback` proche de l’interface moduix finale et de dimensions comparables. Le serveur affiche ainsi un contenu utile
 et la mise en page ne se décale pas brusquement au moment où le client prend le relais.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/client-only/basic.tsx"
+<ExampleFrame clientOnly variant="component">
+  <ClientOnlyBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/client-only/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Choisir un `fallback`
 

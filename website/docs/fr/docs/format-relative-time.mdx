@@ -3,6 +3,9 @@ title: Format Relative Time
 description: Formatez des dates en temps relatif avec Ark UI et partagez la locale via le LocaleProvider de moduix.
 ---
 
+import FormatRelativeTimeBasic from '@/components/examples/format-relative-time/basic.tsx';
+import FormatRelativeTimeShort from '@/components/examples/format-relative-time/short.tsx';
+
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/format-relative-time" />
@@ -28,22 +31,40 @@ import { Format } from '@ark-ui/react';
 Utilisez `numeric="auto"` lorsque des dates proches d’aujourd’hui peuvent être formulées naturellement, par exemple
 « demain » ou « hier ». Dans cet exemple, une carte indique dans combien de temps une revue planifiée commencera.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/format-relative-time/basic.tsx"
+<ExampleFrame variant="component">
+  <FormatRelativeTimeBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/format-relative-time/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Format court
 
 Utilisez `style="short"` lorsque l’espace est limité, par exemple dans une liste ou une ligne de statut compacte.
 Conservez la date et l’heure exactes ailleurs si la personne doit pouvoir vérifier l’horodatage.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/format-relative-time/short.tsx"
+<ExampleFrame variant="component">
+  <FormatRelativeTimeShort />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/format-relative-time/short.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Locale
 

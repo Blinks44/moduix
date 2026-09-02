@@ -1,0 +1,38 @@
+.root {
+  inline-size: 100%;
+  max-inline-size: 26rem;
+  margin-inline: auto;
+}
+
+.panel,
+.card {
+  inline-size: 100%;
+}
+
+@keyframes presence-basic-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem) scale(0.98);
+  }
+}
+
+@keyframes presence-basic-exit {
+  to {
+    opacity: 0;
+    transform: translateY(-0.5rem) scale(0.98);
+  }
+}
+
+.panel[data-state='open'] {
+  animation: presence-basic-enter 180ms ease-out;
+}
+
+.panel[data-state='closed'] {
+  animation: presence-basic-exit 140ms ease-in;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel[data-state] {
+    animation-duration: 1ms;
+  }
+}

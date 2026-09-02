@@ -3,7 +3,11 @@ title: Swap
 description: Анимируйте переход между двумя визуальными состояниями с готовыми пресетами moduix на базе Ark UI.
 ---
 
+import SwapAnimationPresets from '@/components/examples/swap/animation-presets.tsx';
+import SwapBasic from '@/components/examples/swap/basic.tsx';
 import * as SwapDocs from '@/components/examples/swap/css-properties';
+import SwapCustomAnimation from '@/components/examples/swap/custom-animation.tsx';
+import SwapRootProvider from '@/components/examples/swap/root-provider.tsx';
 
 ## Справочник API
 
@@ -16,11 +20,20 @@ import * as SwapDocs from '@/components/examples/swap/css-properties';
 `swap`: при `false` отображается индикатор `off`, при `true` индикатор `on`. Внешний элемент управления отвечает
 за взаимодействие и доступное имя.
 
-<PreviewFrame>
-  ```tsx preview file="../../../src/components/examples/swap/basic.tsx"
+<ExampleFrame variant="component">
+  <SwapBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/swap/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -89,11 +102,26 @@ Swap / Swap.Root
 Попробуйте каждый встроенный рецепт, затем активируйте кнопку, чтобы увидеть выбранный переход. Текущее
 значение и кнопки выбора отображаются под демонстрацией.
 
-<PreviewFrame>
-  ```tsx preview file="../../../src/components/examples/swap/animation-presets.tsx"
+<ExampleFrame variant="component">
+  <SwapAnimationPresets />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/swap/animation-presets.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/swap/swap-animation-presets.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Пользовательская анимация
 
@@ -102,47 +130,26 @@ Swap / Swap.Root
 или JavaScript для `Swap` не нужен, но пользовательский рецепт должен описывать анимации появления
 и выхода и предусматривать вариант для пользователей, включивших уменьшение анимации.
 
-<style>{SwapDocs.swapCustomAnimationCss}</style>
+<ExampleFrame variant="component">
+  <SwapCustomAnimation />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../../src/components/examples/swap/custom-animation.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
-
-```css
-.swap-custom-animation[data-animation='bounce'] [data-slot='swap-indicator'][data-state='open'] {
-  animation: swap-bounce-enter var(--moduix-swap-transition, var(--moduix-transition-slow));
-}
-
-.swap-custom-animation[data-animation='bounce'] [data-slot='swap-indicator'][data-state='closed'] {
-  animation: swap-bounce-exit var(--moduix-swap-transition, var(--moduix-transition-slow));
-}
-
-@keyframes swap-bounce-enter {
-  from {
-    opacity: 0;
-    transform: scale(0.7);
-  }
-
-  70% {
-    transform: scale(1.1);
-  }
-}
-
-@keyframes swap-bounce-exit {
-  to {
-    opacity: 0;
-    transform: scale(0.7);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .swap-custom-animation[data-animation='bounce'] [data-slot='swap-indicator'][data-state] {
-    animation-duration: 1ms;
-  }
-}
+```tsx file="../../../src/components/examples/swap/custom-animation.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/swap/swap-custom-animation.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### RootProvider
 
@@ -150,11 +157,26 @@ Swap / Swap.Root
 через свойство `value`. В этом примере используется и `asChild`, поэтому семантическая кнопка становится
 отрисованным корнем `Swap`.
 
-<PreviewFrame>
-  ```tsx preview file="../../../src/components/examples/swap/root-provider.tsx"
+<ExampleFrame variant="component">
+  <SwapRootProvider />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/swap/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/swap/swap-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

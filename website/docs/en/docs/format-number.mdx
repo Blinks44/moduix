@@ -3,6 +3,9 @@ title: Format Number
 description: Format numbers, currencies, percentages, units, and large values in compact notation with Ark UI Format.Number and moduix.
 ---
 
+import FormatNumberBasic from '@/components/examples/format-number/basic.tsx';
+import FormatNumberCommonStyles from '@/components/examples/format-number/common-styles.tsx';
+
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/format-number" />
@@ -27,11 +30,26 @@ Pass a number to `value`. With no formatting options, the component follows the 
 `Format.Number` renders only text. Place it next to a label or another element that explains what the value means. In
 this example, `Card` and `Stack` provide the surrounding context and visual hierarchy.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/format-number/basic.tsx"
+<ExampleFrame variant="component">
+  <FormatNumberBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/format-number/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/format-number/format-number-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Currency, percentage, and compact notation
 
@@ -39,11 +57,26 @@ this example, `Card` and `Stack` provide the surrounding context and visual hier
 `style="currency"` with the `currency` prop set to a currency code. Use `style="percent"` for percentages, and use
 `notation="compact"` when space is limited, such as in a dashboard.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/format-number/common-styles.tsx"
+<ExampleFrame variant="component">
+  <FormatNumberCommonStyles />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/format-number/common-styles.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/format-number/format-number-common-styles.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 The input value for 6.42% is `0.0642`; `6.42` is formatted as 642%. Set `maximumFractionDigits={2}` when you need to
 keep both decimal places. Use `minimumFractionDigits` and `maximumFractionDigits` when the number of fraction digits

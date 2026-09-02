@@ -4,6 +4,9 @@ component: json-tree-view
 description: Просматривайте значения JSON и JavaScript в доступном раскрываемом дереве с JsonTreeView из moduix.
 ---
 
+import JsonTreeViewBasicDemo from '../../en/docs/_snippets/json-tree-view/basic.tsx';
+import JsonTreeViewCompactPreviewsDemo from '../../en/docs/_snippets/json-tree-view/compact-previews.tsx';
+
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/json-tree-view" />
@@ -23,12 +26,20 @@ description: Просматривайте значения JSON и JavaScript в
 В примере сразу раскрыты два уровня. С помощью `defaultExpandedDepth` задайте, какая часть ответа или конфигурации
 должна быть видна при первом отображении.
 
-<PreviewFrame maxWidth="lg">
+<ExampleFrame variant="component">
+  <JsonTreeViewBasicDemo />
+</ExampleFrame>
 
-```tsx preview file="../../../src/components/examples/json-tree-view/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/json-tree-view/basic.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -108,12 +119,20 @@ Ark поддерживает объекты, массивы, примитивы 
 `collapseStringsAfterLength` сокращает длинные строки, пока узел не раскрыт. Пользователь сможет раскрыть узел и
 посмотреть его значение полностью.
 
-<PreviewFrame maxWidth="lg">
+<ExampleFrame variant="component">
+  <JsonTreeViewCompactPreviewsDemo />
+</ExampleFrame>
 
-```tsx preview file="../../../src/components/examples/json-tree-view/compact-previews.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/json-tree-view/compact-previews.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

@@ -3,6 +3,9 @@ title: Format Time
 description: Format clock times for the active locale with Ark UI Format.Time and moduix.
 ---
 
+import FormatTimeBasic from '@/components/examples/format-time/basic.tsx';
+import FormatTimeSecondsAndLabels from '@/components/examples/format-time/seconds-and-labels.tsx';
+
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/format-time" />
@@ -26,11 +29,20 @@ import { Format } from '@ark-ui/react';
 For a scheduled time, pass a string so the displayed time stays independent of the time zone. Place the formatted text
 in moduix components that provide the event and its context.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/format-time/basic.tsx"
+<ExampleFrame variant="component">
+  <FormatTimeBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/format-time/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## 12-hour format, seconds, and AM/PM labels
 
@@ -38,11 +50,32 @@ in moduix components that provide the event and its context.
 seconds matter, such as in a recent sync indicator. In 12-hour format, `amLabel` and `pmLabel` replace the default
 day-period labels.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/format-time/seconds-and-labels.tsx"
+<ExampleFrame variant="component">
+  <FormatTimeSecondsAndLabels />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs
+    values={[
+      { label: 'React', value: 'React' },
+      { label: 'Styles', value: 'Styles' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/format-time/seconds-and-labels.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/format-time/format-time-seconds-and-labels.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 Do not add seconds to a schedule merely because the source includes them. Choose the precision people need to act on
 the information.

@@ -3,6 +3,9 @@ title: Format Byte
 description: Форматируйте размеры файлов с помощью Ark UI Format.Byte, выбирая локаль, точность и систему единиц.
 ---
 
+import FormatByteBasic from '@/components/examples/format-byte/basic.tsx';
+import FormatByteUnitSystem from '@/components/examples/format-byte/unit-system.tsx';
+
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/format-byte" />
@@ -25,22 +28,52 @@ import { Format } from '@ark-ui/react';
 или статусом, чтобы было понятно, что означает значение. В примере размер файла указан рядом с экспортом, к которому
 он относится.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/format-byte/basic.tsx"
+<ExampleFrame variant="component">
+  <FormatByteBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/format-byte/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/format-byte/format-byte-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Десятичная и двоичная системы
 
 Свойство `unitSystem` задаёт основу пересчёта: `decimal` увеличивает единицы в 1000 раз, а `binary` - в 1024 раза.
 Выбирайте систему явно, если продукт отдельно показывает заявленную ёмкость диска и технические значения хранения.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/format-byte/unit-system.tsx"
+<ExampleFrame variant="component">
+  <FormatByteUnitSystem />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/format-byte/unit-system.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/format-byte/format-byte-unit-system.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Локаль и параметры отображения
 

@@ -4,6 +4,9 @@ component: json-tree-view
 description: Inspect JSON and JavaScript values in an accessible, expandable tree with JsonTreeView from moduix.
 ---
 
+import JsonTreeViewBasicDemo from './_snippets/json-tree-view/basic.tsx';
+import JsonTreeViewCompactPreviewsDemo from './_snippets/json-tree-view/compact-previews.tsx';
+
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/json-tree-view" />
@@ -23,12 +26,20 @@ states, and default disclosure icon.
 The example starts with two levels expanded. Use `defaultExpandedDepth` to choose how much of a response or
 configuration should be visible on the first render.
 
-<PreviewFrame maxWidth="lg">
+<ExampleFrame variant="component">
+  <JsonTreeViewBasicDemo />
+</ExampleFrame>
 
-```tsx preview file="../../../src/components/examples/json-tree-view/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/json-tree-view/basic.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -105,12 +116,20 @@ or `focusedValue` and update it from the corresponding change callback.
 Use `maxPreviewItems` to limit object and array previews, and `collapseStringsAfterLength` to shorten long strings.
 Users can expand a node to inspect its complete value.
 
-<PreviewFrame maxWidth="lg">
+<ExampleFrame variant="component">
+  <JsonTreeViewCompactPreviewsDemo />
+</ExampleFrame>
 
-```tsx preview file="../../../src/components/examples/json-tree-view/compact-previews.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/json-tree-view/compact-previews.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

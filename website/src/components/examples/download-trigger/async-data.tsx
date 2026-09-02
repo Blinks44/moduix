@@ -2,6 +2,7 @@ import { DownloadTrigger } from '@ark-ui/react/download-trigger';
 import { Button } from '@moduix/react/button';
 import { Card } from '@moduix/react/card';
 import { Stack } from '@moduix/react/stack';
+import styles from '@/components/examples/download-trigger/download-trigger-async-data.module.css';
 
 const members = [
   ['Name', 'Role'],
@@ -17,7 +18,7 @@ async function createMemberExport() {
 
 export default function DownloadTriggerAsyncDataDemo() {
   return (
-    <Card>
+    <Card className={styles.root}>
       <Card.Header>
         <Card.Title>Team members</Card.Title>
         <Card.Description>Create the export only when someone asks for it.</Card.Description>

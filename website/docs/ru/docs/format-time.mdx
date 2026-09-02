@@ -3,6 +3,9 @@ title: Format Time
 description: Показывайте время в формате текущей локали с помощью Ark UI Format.Time и moduix.
 ---
 
+import FormatTimeBasic from '@/components/examples/format-time/basic.tsx';
+import FormatTimeSecondsAndLabels from '@/components/examples/format-time/seconds-and-labels.tsx';
+
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/format-time" />
@@ -27,11 +30,20 @@ import { Format } from '@ark-ui/react';
 Для времени по расписанию передайте строку, чтобы результат не зависел от часового пояса. Покажите его в компонентах
 moduix рядом с событием, к которому оно относится.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/format-time/basic.tsx"
+<ExampleFrame variant="component">
+  <FormatTimeBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/format-time/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## 12-часовой формат, секунды и обозначения AM/PM
 
@@ -39,11 +51,32 @@ moduix рядом с событием, к которому оно относит
 формат. Добавляйте `withSeconds`, когда секунды действительно важны, например в индикаторе последней синхронизации.
 В 12-часовом формате `amLabel` и `pmLabel` заменяют стандартные обозначения части суток.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/format-time/seconds-and-labels.tsx"
+<ExampleFrame variant="component">
+  <FormatTimeSecondsAndLabels />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs
+    values={[
+      { label: 'React', value: 'React' },
+      { label: 'Styles', value: 'Styles' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/format-time/seconds-and-labels.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/format-time/format-time-seconds-and-labels.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 Не добавляйте секунды в расписание только потому, что они есть в исходных данных. Выбирайте точность, которая помогает
 человеку сориентироваться.

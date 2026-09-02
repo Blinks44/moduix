@@ -3,6 +3,9 @@ title: Download Trigger
 description: Trigger downloads for strings, Blobs, Files, and generated data with Ark UI, then style the action with moduix.
 ---
 
+import DownloadTriggerBasic from '@/components/examples/download-trigger/basic.tsx';
+import DownloadTriggerAsyncData from '@/components/examples/download-trigger/async-data.tsx';
+
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/download-trigger" />
@@ -26,22 +29,52 @@ import { DownloadTrigger } from '@ark-ui/react/download-trigger';
 Use `data` for content that is already available, then set `fileName` and `mimeType`. With `asChild`, Ark applies the
 download behavior to the child element. In this example, the child is a moduix `Button`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/download-trigger/basic.tsx"
+<ExampleFrame clientOnly variant="component">
+  <DownloadTriggerBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/download-trigger/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/download-trigger/download-trigger-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Generate data on demand
 
 Pass a function when the file needs to be created before it can be downloaded. Ark calls it after the user activates
 the trigger. If it returns a promise, Ark waits for it to resolve before saving the file.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/download-trigger/async-data.tsx"
+<ExampleFrame clientOnly variant="component">
+  <DownloadTriggerAsyncData />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/download-trigger/async-data.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/download-trigger/download-trigger-async-data.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 `DownloadTrigger` does not expose loading state or an error callback. If generation can take time, track its state in
 your application and handle errors inside the function passed to `data`. Disable or replace the trigger while the

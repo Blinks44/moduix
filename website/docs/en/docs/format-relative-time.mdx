@@ -3,6 +3,9 @@ title: Format Relative Time
 description: Format dates as relative time with Ark UI and share the active locale through moduix's LocaleProvider.
 ---
 
+import FormatRelativeTimeBasic from '@/components/examples/format-relative-time/basic.tsx';
+import FormatRelativeTimeShort from '@/components/examples/format-relative-time/short.tsx';
+
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/format-relative-time" />
@@ -28,22 +31,40 @@ import { Format } from '@ark-ui/react';
 Use `numeric="auto"` when dates close to today can be described naturally, such as “tomorrow” or “yesterday”.
 In this example, a card shows when a scheduled review will begin.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/format-relative-time/basic.tsx"
+<ExampleFrame variant="component">
+  <FormatRelativeTimeBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/format-relative-time/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Short format
 
 Use `style="short"` when space is limited, such as in a list or compact status row. Keep the exact date and time
 available elsewhere when people may need to inspect the timestamp.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/format-relative-time/short.tsx"
+<ExampleFrame variant="component">
+  <FormatRelativeTimeShort />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/format-relative-time/short.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Locale
 

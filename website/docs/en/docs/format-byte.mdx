@@ -3,6 +3,9 @@ title: Format Byte
 description: Format byte values as readable file sizes with Ark UI Format.Byte, locale-aware units, and decimal or binary scaling.
 ---
 
+import FormatByteBasic from '@/components/examples/format-byte/basic.tsx';
+import FormatByteUnitSystem from '@/components/examples/format-byte/unit-system.tsx';
+
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/format-byte" />
@@ -24,11 +27,26 @@ import { Format } from '@ark-ui/react';
 `Format.Byte` returns formatted text without a label or layout. Place it next to a label or status that explains what
 the value represents. The example keeps the file size close to the export it describes.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/format-byte/basic.tsx"
+<ExampleFrame variant="component">
+  <FormatByteBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/format-byte/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/format-byte/format-byte-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Decimal and binary systems
 
@@ -36,11 +54,26 @@ Use `unitSystem="decimal"` when units are scaled in multiples of 1000, and `unit
 in multiples of 1024. Make the choice explicit whenever a product distinguishes advertised disk capacity from
 technical storage values.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/format-byte/unit-system.tsx"
+<ExampleFrame variant="component">
+  <FormatByteUnitSystem />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/format-byte/unit-system.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/format-byte/format-byte-unit-system.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Locale and display options
 

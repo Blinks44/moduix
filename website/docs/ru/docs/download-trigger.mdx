@@ -3,6 +3,9 @@ title: Download Trigger
 description: Запускайте скачивание строк, Blob, File и данных, созданных по запросу, с помощью Ark UI и кнопок moduix.
 ---
 
+import DownloadTriggerBasic from '@/components/examples/download-trigger/basic.tsx';
+import DownloadTriggerAsyncData from '@/components/examples/download-trigger/async-data.tsx';
+
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/download-trigger" />
@@ -27,22 +30,52 @@ import { DownloadTrigger } from '@ark-ui/react/download-trigger';
 поведение скачивания дочернему элементу. В этом примере в качестве дочернего элемента используется кнопка moduix
 `Button`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/download-trigger/basic.tsx"
+<ExampleFrame clientOnly variant="component">
+  <DownloadTriggerBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/download-trigger/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/download-trigger/download-trigger-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Генерация по запросу
 
 Передайте функцию, если файл нужно подготовить перед скачиванием. Ark вызовет её после активации триггера. Если
 функция вернёт промис, Ark дождётся его выполнения и только потом сохранит файл.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/download-trigger/async-data.tsx"
+<ExampleFrame clientOnly variant="component">
+  <DownloadTriggerAsyncData />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/download-trigger/async-data.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/download-trigger/download-trigger-async-data.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 У `DownloadTrigger` нет собственного состояния загрузки и обработчика ошибок. Если генерация может занять время,
 храните её состояние в приложении и обрабатывайте ошибки внутри функции, переданной в `data`. На время операции

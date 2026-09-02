@@ -3,6 +3,9 @@ title: Format Number
 description: Форматируйте числа, валюты, проценты, единицы измерения и большие значения в компактной записи с помощью Format.Number из Ark UI и moduix.
 ---
 
+import FormatNumberBasic from '@/components/examples/format-number/basic.tsx';
+import FormatNumberCommonStyles from '@/components/examples/format-number/common-styles.tsx';
+
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/format-number" />
@@ -27,11 +30,26 @@ import { Format } from '@ark-ui/react';
 `Format.Number` выводит только текст. Разместите его рядом с подписью или другим элементом, который объясняет смысл
 значения. В этом примере `Card` и `Stack` создают контекст и визуальную иерархию.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/format-number/basic.tsx"
+<ExampleFrame variant="component">
+  <FormatNumberBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/format-number/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/format-number/format-number-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Валюта, проценты и компактная запись
 
@@ -39,11 +57,26 @@ import { Format } from '@ark-ui/react';
 `style="currency"` и передайте код валюты в параметре `currency`. Для процентов используйте `style="percent"`.
 `notation="compact"` пригодится, когда в интерфейсе мало места, например в дашборде.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/format-number/common-styles.tsx"
+<ExampleFrame variant="component">
+  <FormatNumberCommonStyles />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/format-number/common-styles.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/format-number/format-number-common-styles.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 Значение для 6,42 % передаётся как дробь `0.0642`, а число `6.42` будет отображено как 642 %. Если нужно сохранить
 два знака после запятой, задайте `maximumFractionDigits={2}`. Используйте `minimumFractionDigits` и

@@ -3,6 +3,9 @@ title: Локаль
 description: Настройте локаль и направление текста для форматтеров Ark и компонентов moduix, учитывающих локаль.
 ---
 
+import LocaleBasic from '@/components/examples/locale/basic.tsx';
+import LocaleContext from '@/components/examples/locale/context.tsx';
+
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/locale" />
@@ -24,22 +27,40 @@ import { LocaleProvider, useLocaleContext } from '@moduix/react/locale';
 Оберните провайдером локализованную часть интерфейса. В примере форматтер Ark используется вместе с компонентами
 компоновки moduix, поэтому сумма форматируется, а окружающие её компоненты используют одну и ту же локаль.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/locale/basic.tsx"
+<ExampleFrame variant="component">
+  <LocaleBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/locale/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Чтение контекста локали
 
 `useLocaleContext` возвращает `locale` и `dir` из ближайшего провайдера. Используйте эти значения в собственном
 контенте, если ему нужны та же локаль или то же направление текста, что и остальной части локализованной области.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/locale/context.tsx"
+<ExampleFrame variant="component">
+  <LocaleContext />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/locale/context.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Язык и направление документа
 

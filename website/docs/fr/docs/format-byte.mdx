@@ -3,6 +3,9 @@ title: Format Byte
 description: Affichez des tailles de fichier lisibles avec Ark UI Format.Byte, en contrôlant la locale, la précision et le système d’unités.
 ---
 
+import FormatByteBasic from '@/components/examples/format-byte/basic.tsx';
+import FormatByteUnitSystem from '@/components/examples/format-byte/unit-system.tsx';
+
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/format-byte" />
@@ -24,11 +27,26 @@ import { Format } from '@ark-ui/react';
 `Format.Byte` renvoie uniquement le texte formaté, sans libellé ni mise en page. Placez-le près d’un libellé ou d’un
 statut qui précise ce que représente la valeur. Dans cet exemple, la taille est associée à l’export qu’elle décrit.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/format-byte/basic.tsx"
+<ExampleFrame variant="component">
+  <FormatByteBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/format-byte/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/format-byte/format-byte-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Systèmes décimal et binaire
 
@@ -36,11 +54,26 @@ La propriété `unitSystem` définit la base de conversion : `decimal` utilise d
 utilise des multiples de 1024. Choisissez explicitement le système lorsque le produit distingue la capacité annoncée
 d’un disque de ses valeurs techniques de stockage.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/format-byte/unit-system.tsx"
+<ExampleFrame variant="component">
+  <FormatByteUnitSystem />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/format-byte/unit-system.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/format-byte/format-byte-unit-system.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Locale et options d’affichage
 

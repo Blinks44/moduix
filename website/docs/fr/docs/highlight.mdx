@@ -4,6 +4,12 @@ description: Mettez en évidence des mots et des expressions dans un texte exist
 ---
 
 import * as HighlightDocs from '@/components/examples/highlight/css-properties';
+import HighlightBasic from '@/components/examples/highlight/basic.tsx';
+import HighlightDynamicQuery from '@/components/examples/highlight/dynamic-query.tsx';
+import HighlightExactMatch from '@/components/examples/highlight/exact-match.tsx';
+import HighlightIgnoreCase from '@/components/examples/highlight/ignore-case.tsx';
+import HighlightMatchAll from '@/components/examples/highlight/match-all.tsx';
+import HighlightMultipleQueries from '@/components/examples/highlight/multiple-queries.tsx';
 
 ## Référence de l’API
 
@@ -23,11 +29,20 @@ propre conteneur de mise en page.
 Transmettez le texte source complet via `text` et le terme recherché via `query`. Placez `Highlight`
 dans le composant de texte ou l’élément HTML qui définit la mise en page et la sémantique autour du texte.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../../src/components/examples/highlight/basic.tsx"
+<ExampleFrame variant="component">
+  <HighlightBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/highlight/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -94,58 +109,116 @@ avec une logique adaptée à la langue, puis affichez vous-même le résultat.
 Contrôlez `query` avec l’état React pour mettre en évidence le terme saisi pendant une recherche ou
 un filtrage du texte affiché.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../../src/components/examples/highlight/dynamic-query.tsx"
+<ExampleFrame variant="component">
+  <HighlightDynamicQuery />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/highlight/dynamic-query.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/highlight/highlight-dynamic-query.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Correspondance exacte
 
 Activez `exactMatch` lorsque les correspondances partielles sont trop larges. Dans cet exemple,
 `box` correspond au mot isolé, mais pas à `checkbox` ni à `combobox`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../../src/components/examples/highlight/exact-match.tsx"
+<ExampleFrame variant="component">
+  <HighlightExactMatch />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/highlight/exact-match.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/highlight/highlight-exact-match.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Casse ignorée
 
 Activez `ignoreCase` lorsque la casse du texte source ne doit pas influencer le résultat.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../../src/components/examples/highlight/ignore-case.tsx"
+<ExampleFrame variant="component">
+  <HighlightIgnoreCase />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/highlight/ignore-case.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Toutes les correspondances
 
 Activez `matchAll` pour mettre en évidence chaque occurrence au lieu de la première seulement.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../../src/components/examples/highlight/match-all.tsx"
+<ExampleFrame variant="component">
+  <HighlightMatchAll />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/highlight/match-all.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/highlight/highlight-match-all.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Plusieurs requêtes
 
 Transmettez un tableau de chaînes lorsque plusieurs termes doivent être mis en évidence dans le même
 texte. Pour un tableau, `matchAll` vaut `true` par défaut ; définir `matchAll={false}` provoque une erreur.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../../src/components/examples/highlight/multiple-queries.tsx"
+<ExampleFrame variant="component">
+  <HighlightMultipleQueries />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/highlight/multiple-queries.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

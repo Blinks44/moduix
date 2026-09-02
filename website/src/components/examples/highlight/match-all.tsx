@@ -1,6 +1,6 @@
 import { Highlight } from '@moduix/react/highlight';
 import { Text } from '@moduix/react/text';
-import styles from '@/components/examples/highlight.module.css';
+import styles from '@/components/examples/highlight/highlight-match-all.module.css';
 
 export default function HighlightMatchAllDemo() {
   return (

@@ -1,10 +1,11 @@
 import { Format } from '@ark-ui/react';
 import { Card } from '@moduix/react/card';
 import { Stack } from '@moduix/react/stack';
+import styles from '@/components/examples/format-number/format-number-basic.module.css';
 
 export default function FormatNumberBasicDemo() {
   return (
-    <Card>
+    <Card className={styles.root}>
       <Card.Header>
         <Card.Title>Available balance</Card.Title>
         <Card.Description>The current balance across all projects.</Card.Description>

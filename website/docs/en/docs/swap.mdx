@@ -3,7 +3,11 @@ title: Swap
 description: Animate the transition between two visual states with moduix presets built on Ark UI.
 ---
 
+import SwapAnimationPresets from '@/components/examples/swap/animation-presets.tsx';
+import SwapBasic from '@/components/examples/swap/basic.tsx';
 import * as SwapDocs from '@/components/examples/swap/css-properties';
+import SwapCustomAnimation from '@/components/examples/swap/custom-animation.tsx';
+import SwapRootProvider from '@/components/examples/swap/root-provider.tsx';
 
 ## API Reference
 
@@ -15,11 +19,20 @@ Use `Swap` when one piece of UI needs to switch between two visual states, such 
 changes after an action. Pass the current boolean to `swap`: `false` shows the `off` indicator and
 `true` shows the `on` indicator. The surrounding control owns the interaction and accessible name.
 
-<PreviewFrame>
-  ```tsx preview file="../../../src/components/examples/swap/basic.tsx"
+<ExampleFrame variant="component">
+  <SwapBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/swap/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -86,11 +99,26 @@ animation, so your CSS can use Ark's `data-state` attributes to define the trans
 Try each built-in recipe, then activate the button to see the selected transition. The controls and
 current value are shown below the demo.
 
-<PreviewFrame>
-  ```tsx preview file="../../../src/components/examples/swap/animation-presets.tsx"
+<ExampleFrame variant="component">
+  <SwapAnimationPresets />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/swap/animation-presets.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/swap/swap-animation-presets.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Custom animation
 
@@ -99,47 +127,26 @@ Ark `data-state`. The `bounce` recipe below is plain CSS. No extra Swap API or J
 but a custom recipe must define both enter and exit animations and should include a reduced-motion
 fallback.
 
-<style>{SwapDocs.swapCustomAnimationCss}</style>
+<ExampleFrame variant="component">
+  <SwapCustomAnimation />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../../src/components/examples/swap/custom-animation.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
-
-```css
-.swap-custom-animation[data-animation='bounce'] [data-slot='swap-indicator'][data-state='open'] {
-  animation: swap-bounce-enter var(--moduix-swap-transition, var(--moduix-transition-slow));
-}
-
-.swap-custom-animation[data-animation='bounce'] [data-slot='swap-indicator'][data-state='closed'] {
-  animation: swap-bounce-exit var(--moduix-swap-transition, var(--moduix-transition-slow));
-}
-
-@keyframes swap-bounce-enter {
-  from {
-    opacity: 0;
-    transform: scale(0.7);
-  }
-
-  70% {
-    transform: scale(1.1);
-  }
-}
-
-@keyframes swap-bounce-exit {
-  to {
-    opacity: 0;
-    transform: scale(0.7);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .swap-custom-animation[data-animation='bounce'] [data-slot='swap-indicator'][data-state] {
-    animation-duration: 1ms;
-  }
-}
+```tsx file="../../../src/components/examples/swap/custom-animation.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/swap/swap-custom-animation.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### RootProvider
 
@@ -147,11 +154,26 @@ Create the Swap state separately with `Swap.useSwap()`, then pass it to `Swap.Ro
 the `value` prop. This example also uses `asChild`, so the semantic button becomes the rendered Swap
 root.
 
-<PreviewFrame>
-  ```tsx preview file="../../../src/components/examples/swap/root-provider.tsx"
+<ExampleFrame variant="component">
+  <SwapRootProvider />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/swap/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/swap/swap-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

@@ -3,6 +3,9 @@ title: Hotkeys
 description: Use Ark UI Hotkeys to register platform-aware keyboard shortcuts, sequences, and commands in a moduix application.
 ---
 
+import HotkeysBasicDemo from '@/components/examples/hotkeys/basic.tsx';
+import HotkeysSequencesDemo from '@/components/examples/hotkeys/sequences.tsx';
+
 ## API reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/hotkeys" />
@@ -21,12 +24,26 @@ import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/react';
 
 Use `mod` instead of choosing Control or Command yourself. The same shortcut works on macOS, Windows, and Linux. After the component mounts, `useFormatHotkey` displays the notation used by the visitor's platform.
 
-<PreviewFrame maxWidth="sm">
+<ExampleFrame variant="component">
+  <HotkeysBasicDemo />
+</ExampleFrame>
 
-```tsx preview file="../../../src/components/examples/hotkeys/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/hotkeys/basic.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hotkeys/hotkeys-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 When your application needs to handle a shortcut normally reserved for the browser, add `preventDefault`. Otherwise, the browser may perform its own action as well.
 
@@ -36,12 +53,26 @@ Use `useHotkeys` when a screen has several commands or the command list comes fr
 
 Separate the keys in a sequence with `>`, such as `g > i`. By default, the user has one second to press the next key.
 
-<PreviewFrame maxWidth="sm">
+<ExampleFrame variant="component">
+  <HotkeysSequencesDemo />
+</ExampleFrame>
 
-```tsx preview file="../../../src/components/examples/hotkeys/sequences.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/hotkeys/sequences.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hotkeys/hotkeys-sequences.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Form fields and scopes
 

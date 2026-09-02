@@ -3,6 +3,9 @@ title: Hotkeys
 description: Регистрируйте в приложении на moduix сочетания клавиш для разных платформ, последовательности клавиш и команды с помощью Ark UI Hotkeys.
 ---
 
+import HotkeysBasicDemo from '@/components/examples/hotkeys/basic.tsx';
+import HotkeysSequencesDemo from '@/components/examples/hotkeys/sequences.tsx';
+
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/hotkeys" />
@@ -21,12 +24,26 @@ import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/react';
 
 Используйте `mod`, чтобы одно сочетание работало и на macOS, и на Windows или Linux. После монтирования компонента `useFormatHotkey` покажет обозначение, принятое на платформе пользователя.
 
-<PreviewFrame maxWidth="sm">
+<ExampleFrame variant="component">
+  <HotkeysBasicDemo />
+</ExampleFrame>
 
-```tsx preview file="../../../src/components/examples/hotkeys/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/hotkeys/basic.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hotkeys/hotkeys-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 Если приложение должно перехватить сочетание, которое обычно обрабатывает браузер, добавьте `preventDefault`. Иначе браузер тоже может выполнить своё действие.
 
@@ -36,12 +53,26 @@ import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/react';
 
 Разделяйте клавиши в последовательности символом `>`, например `g > i`. По умолчанию у пользователя есть одна секунда, чтобы нажать следующую клавишу.
 
-<PreviewFrame maxWidth="sm">
+<ExampleFrame variant="component">
+  <HotkeysSequencesDemo />
+</ExampleFrame>
 
-```tsx preview file="../../../src/components/examples/hotkeys/sequences.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/hotkeys/sequences.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hotkeys/hotkeys-sequences.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Поля ввода и области действия
 

@@ -4,6 +4,12 @@ description: Выделяйте слова и фразы внутри сущес
 ---
 
 import * as HighlightDocs from '@/components/examples/highlight/css-properties';
+import HighlightBasic from '@/components/examples/highlight/basic.tsx';
+import HighlightDynamicQuery from '@/components/examples/highlight/dynamic-query.tsx';
+import HighlightExactMatch from '@/components/examples/highlight/exact-match.tsx';
+import HighlightIgnoreCase from '@/components/examples/highlight/ignore-case.tsx';
+import HighlightMatchAll from '@/components/examples/highlight/match-all.tsx';
+import HighlightMultipleQueries from '@/components/examples/highlight/multiple-queries.tsx';
 
 ## Справочник API
 
@@ -23,11 +29,20 @@ import * as HighlightDocs from '@/components/examples/highlight/css-properties';
 Передайте полный исходный текст в `text`, а искомый термин - в `query`. Разместите `Highlight`
 внутри текстового компонента или HTML-элемента, который отвечает за внешнюю разметку и семантику.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../../src/components/examples/highlight/basic.tsx"
+<ExampleFrame variant="component">
+  <HighlightBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/highlight/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -93,58 +108,116 @@ Highlight / Highlight.Root
 Управляйте `query` через состояние React, чтобы выделять текущий термин во время поиска или
 фильтрации видимого текста.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../../src/components/examples/highlight/dynamic-query.tsx"
+<ExampleFrame variant="component">
+  <HighlightDynamicQuery />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/highlight/dynamic-query.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/highlight/highlight-dynamic-query.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Точное совпадение
 
 Включите `exactMatch`, когда частичные совпадения дают слишком много лишних результатов. В этом
 примере `box` совпадёт с отдельным словом, но не с `checkbox` и `combobox`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../../src/components/examples/highlight/exact-match.tsx"
+<ExampleFrame variant="component">
+  <HighlightExactMatch />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/highlight/exact-match.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/highlight/highlight-exact-match.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Игнорирование регистра
 
 Включите `ignoreCase`, если регистр букв в исходном тексте не должен влиять на результат поиска.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../../src/components/examples/highlight/ignore-case.tsx"
+<ExampleFrame variant="component">
+  <HighlightIgnoreCase />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/highlight/ignore-case.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Все совпадения
 
 Включите `matchAll`, если нужно выделить каждое вхождение, а не только первое.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../../src/components/examples/highlight/match-all.tsx"
+<ExampleFrame variant="component">
+  <HighlightMatchAll />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/highlight/match-all.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/highlight/highlight-match-all.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Несколько запросов
 
 Передайте массив строк, если нужно выделить несколько терминов в одном тексте. Для массива
 `matchAll` по умолчанию равен `true`; значение `matchAll={false}` приводит к ошибке.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../../src/components/examples/highlight/multiple-queries.tsx"
+<ExampleFrame variant="component">
+  <HighlightMultipleQueries />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/highlight/multiple-queries.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

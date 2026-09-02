@@ -1,0 +1,9 @@
+.root {
+  inline-size: 100%;
+  max-inline-size: 26rem;
+  margin-inline: auto;
+}
+
+.trap {
+  inline-size: 100%;
+}

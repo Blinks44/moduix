@@ -3,6 +3,9 @@ title: Frame
 description: Показывайте React-содержимое в изолированном iframe с помощью Frame из Ark UI.
 ---
 
+import FrameBasic from '@/components/examples/frame/basic.tsx';
+import FrameHead from '@/components/examples/frame/head.tsx';
+
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/frame" />
@@ -26,11 +29,26 @@ import { Frame } from '@ark-ui/react';
 Размер задавайте явно. В этом примере iframe занимает всю доступную ширину и получает комфортную начальную высоту для
 превью.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../../src/components/examples/frame/basic.tsx"
+<ExampleFrame variant="component">
+  <FrameBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/frame/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/frame/frame-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 `Frame` также передаёт вложенным компонентам Ark документ iframe. Поэтому поиск элементов в DOM, порталы и управление
 фокусом работают в нужном документе, если внутри превью используются компоненты Ark UI. Внутри `Frame` можно напрямую
@@ -41,11 +59,26 @@ import { Frame } from '@ark-ui/react';
 У iframe свой документ, поэтому стили родительской страницы не применяются к его содержимому автоматически. Передайте
 React-узлы через проп `head`, чтобы добавить в документ iframe стили, шрифты или метаданные.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../../src/components/examples/frame/head.tsx"
+<ExampleFrame variant="component">
+  <FrameHead />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/frame/head.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/frame/frame-head.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 Содержимое `head` добавляется в `<head>` iframe. Если внутри iframe рендерятся компоненты moduix, загрузите туда и
 нужные им стили. CSS родительской страницы не проникает внутрь iframe.

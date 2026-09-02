@@ -3,6 +3,9 @@ title: Download Trigger
 description: Lancez le téléchargement de chaînes, de Blob, de File ou de données générées à la demande avec Ark UI, puis intégrez l’action aux boutons moduix.
 ---
 
+import DownloadTriggerBasic from '@/components/examples/download-trigger/basic.tsx';
+import DownloadTriggerAsyncData from '@/components/examples/download-trigger/async-data.tsx';
+
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/download-trigger" />
@@ -26,22 +29,52 @@ import { DownloadTrigger } from '@ark-ui/react/download-trigger';
 Utilisez `data` lorsque le contenu est déjà disponible, puis définissez `fileName` et `mimeType`. Avec `asChild`, Ark
 transmet le comportement de téléchargement à l’élément enfant. Ici, l’élément enfant est un bouton `Button` de moduix.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/download-trigger/basic.tsx"
+<ExampleFrame clientOnly variant="component">
+  <DownloadTriggerBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/download-trigger/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/download-trigger/download-trigger-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Générer les données à la demande
 
 Passez une fonction lorsque le fichier doit être créé avant le téléchargement. Ark l’appelle après l’activation du
 déclencheur. Si elle renvoie une promesse, Ark attend sa résolution avant d’enregistrer le fichier.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/download-trigger/async-data.tsx"
+<ExampleFrame clientOnly variant="component">
+  <DownloadTriggerAsyncData />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/download-trigger/async-data.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/download-trigger/download-trigger-async-data.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 `DownloadTrigger` n’expose ni état de chargement ni gestionnaire d’erreur. Si la génération peut prendre du temps, suivez
 son état dans votre application et gérez les erreurs dans la fonction passée à `data`. Désactivez ou remplacez le

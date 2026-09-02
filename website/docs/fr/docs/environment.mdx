@@ -3,6 +3,8 @@ title: Environment
 description: Configurez les requêtes DOM d’Ark UI pour les iframes, le Shadow DOM, Electron et d’autres environnements personnalisés.
 ---
 
+import EnvironmentBasic from '@/components/examples/environment/basic.tsx';
+
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/environment" />
@@ -25,11 +27,20 @@ Placez le `EnvironmentProvider` autour de la partie de l’arbre React rendue da
 `value`, il détecte automatiquement l’environnement dans lequel il est rendu. `useEnvironmentContext` expose des
 fonctions pour obtenir cette racine ainsi que son `Document` et sa `Window`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/environment/basic.tsx"
+<ExampleFrame variant="component">
+  <EnvironmentBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/environment/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 L’aperçu s’exécute dans le document principal de la page, qui est donc la racine détectée par `EnvironmentProvider`. Si votre
 application rend son contenu dans une iframe ou un Shadow DOM, transmettez à `value` la racine qui contient ce

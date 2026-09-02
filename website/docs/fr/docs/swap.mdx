@@ -3,7 +3,11 @@ title: Swap
 description: Animez la transition entre deux états visuels avec les préréglages moduix fondés sur Ark UI.
 ---
 
+import SwapAnimationPresets from '@/components/examples/swap/animation-presets.tsx';
+import SwapBasic from '@/components/examples/swap/basic.tsx';
 import * as SwapDocs from '@/components/examples/swap/css-properties';
+import SwapCustomAnimation from '@/components/examples/swap/custom-animation.tsx';
+import SwapRootProvider from '@/components/examples/swap/root-provider.tsx';
 
 ## Référence de l’API
 
@@ -16,11 +20,20 @@ une icône qui change après une action. Passez la valeur booléenne courante à
 l’indicateur `off` et `true` l’indicateur `on`. Le contrôle englobant reste responsable de l’interaction
 et du nom accessible.
 
-<PreviewFrame>
-  ```tsx preview file="../../../src/components/examples/swap/basic.tsx"
+<ExampleFrame variant="component">
+  <SwapBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/swap/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -90,11 +103,26 @@ aucune animation intégrée. Vous pouvez donc définir la transition en CSS à p
 Essayez chaque préréglage intégré, puis activez le bouton pour voir la transition sélectionnée. La valeur
 actuelle et les boutons de sélection sont affichés sous la démonstration.
 
-<PreviewFrame>
-  ```tsx preview file="../../../src/components/examples/swap/animation-presets.tsx"
+<ExampleFrame variant="component">
+  <SwapAnimationPresets />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/swap/animation-presets.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/swap/swap-animation-presets.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Animation personnalisée
 
@@ -104,47 +132,26 @@ Aucune API Swap ni aucun JavaScript supplémentaire n’est nécessaire, mais un
 doit définir l’entrée et la sortie et prévoir une variante pour les utilisateurs qui préfèrent réduire
 les animations.
 
-<style>{SwapDocs.swapCustomAnimationCss}</style>
+<ExampleFrame variant="component">
+  <SwapCustomAnimation />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../../src/components/examples/swap/custom-animation.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
-
-```css
-.swap-custom-animation[data-animation='bounce'] [data-slot='swap-indicator'][data-state='open'] {
-  animation: swap-bounce-enter var(--moduix-swap-transition, var(--moduix-transition-slow));
-}
-
-.swap-custom-animation[data-animation='bounce'] [data-slot='swap-indicator'][data-state='closed'] {
-  animation: swap-bounce-exit var(--moduix-swap-transition, var(--moduix-transition-slow));
-}
-
-@keyframes swap-bounce-enter {
-  from {
-    opacity: 0;
-    transform: scale(0.7);
-  }
-
-  70% {
-    transform: scale(1.1);
-  }
-}
-
-@keyframes swap-bounce-exit {
-  to {
-    opacity: 0;
-    transform: scale(0.7);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .swap-custom-animation[data-animation='bounce'] [data-slot='swap-indicator'][data-state] {
-    animation-duration: 1ms;
-  }
-}
+```tsx file="../../../src/components/examples/swap/custom-animation.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/swap/swap-custom-animation.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### RootProvider
 
@@ -152,11 +159,26 @@ Créez l’état séparément avec `Swap.useSwap()`, puis transmettez-le à `Swa
 propriété `value`. Cet exemple utilise également `asChild`, de sorte que le bouton sémantique devient
 la racine rendue de `Swap`.
 
-<PreviewFrame>
-  ```tsx preview file="../../../src/components/examples/swap/root-provider.tsx"
+<ExampleFrame variant="component">
+  <SwapRootProvider />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/swap/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/swap/swap-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

@@ -3,6 +3,8 @@ title: Focus Trap
 description: Удерживайте фокус при навигации с клавиатуры внутри пользовательской интерактивной области с помощью Ark UI FocusTrap и компонентов moduix.
 ---
 
+import FocusTrapBasic from '@/components/examples/focus-trap/basic.tsx';
+
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/focus-trap" />
@@ -34,11 +36,26 @@ pnpm add @ark-ui/react @moduix/react
 Оставьте `FocusTrap` смонтированным и переключайте его свойство `disabled` при начале и завершении сценария. В этом
 примере `initialFocus` переводит фокус на **Review details**, когда начинается режим проверки.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/focus-trap/basic.tsx"
+<ExampleFrame variant="component">
+  <FocusTrapBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/focus-trap/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/focus-trap/focus-trap-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 Нажмите **Start review**, чтобы включить удержание фокуса. Фокус перейдёт на **Review details**, а затем клавиши `Tab`
 и `Shift + Tab` будут перемещать его между двумя кнопками в карточке. Нажмите **Finish review**, чтобы отключить

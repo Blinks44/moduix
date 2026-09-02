@@ -3,6 +3,8 @@ title: Environment
 description: Настройте DOM-запросы Ark UI для iframe, Shadow DOM, Electron и других нестандартных окружений.
 ---
 
+import EnvironmentBasic from '@/components/examples/environment/basic.tsx';
+
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/environment" />
@@ -25,11 +27,20 @@ import { EnvironmentProvider, useEnvironmentContext } from '@ark-ui/react/enviro
 провайдер автоматически определит окружение, в котором он отображается. `useEnvironmentContext` возвращает функции
 для доступа к этому корневому узлу, его `Document` и `Window`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/environment/basic.tsx"
+<ExampleFrame variant="component">
+  <EnvironmentBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/environment/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 Пример отображается в основном документе страницы, поэтому провайдер определяет именно его. Если приложение
 рендерит содержимое в iframe или Shadow DOM, передайте через `value` корневой узел, содержащий это поддерево.

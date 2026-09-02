@@ -2,6 +2,7 @@ import { Button } from '@moduix/react/button';
 import { Swap } from '@moduix/react/swap';
 import { Check as CheckIcon, Download as DownloadIcon } from 'lucide-react';
 import { useState } from 'react';
+import styles from '@/components/examples/swap/swap-custom-animation.module.css';
 
 export default function SwapCustomAnimationDemo() {
   const [downloaded, setDownloaded] = useState(false);
@@ -11,7 +12,7 @@ export default function SwapCustomAnimationDemo() {
       aria-label={downloaded ? 'Downloaded' : 'Download'}
       onClick={() => setDownloaded((value) => !value)}
     >
-      <Swap animation="bounce" className="swap-custom-animation" swap={downloaded}>
+      <Swap animation="bounce" className={styles.root} swap={downloaded}>
         <Swap.Indicator aria-hidden="true" type="off">
           <DownloadIcon />
         </Swap.Indicator>

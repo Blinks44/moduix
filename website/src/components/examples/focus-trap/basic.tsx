@@ -4,21 +4,18 @@ import { Card } from '@moduix/react/card';
 import { Stack } from '@moduix/react/stack';
 import { useRef, useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/focus-trap/focus-trap-basic.module.css';
 
 export default function FocusTrapBasicDemo() {
   const [isReviewing, setIsReviewing] = useState(false);
   const detailsButtonRef = useRef<HTMLButtonElement>(null);
 
   return (
-    <Stack
-      align="center"
-      gap={4}
-      style={{ inlineSize: '100%', maxInlineSize: '26rem', marginInline: 'auto' }}
-    >
+    <Stack align="center" className={styles.root} gap={4}>
       <FocusTrap
         disabled={!isReviewing}
         initialFocus={() => detailsButtonRef.current}
-        style={{ inlineSize: '100%' }}
+        className={styles.trap}
       >
         <Card>
           <Card.Header>

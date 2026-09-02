@@ -1,0 +1,18 @@
+.root {
+  display: grid;
+  justify-items: center;
+  gap: var(--moduix-spacing-4);
+}
+
+.controls {
+  display: grid;
+  justify-items: center;
+  gap: var(--moduix-spacing-2);
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}

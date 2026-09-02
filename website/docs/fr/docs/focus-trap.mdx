@@ -3,6 +3,8 @@ title: Focus Trap
 description: Maintenez le focus clavier dans une interface interactive personnalisée avec Ark UI FocusTrap et les composants moduix.
 ---
 
+import FocusTrapBasic from '@/components/examples/focus-trap/basic.tsx';
+
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/focus-trap" />
@@ -35,11 +37,26 @@ pnpm add @ark-ui/react @moduix/react
 Laissez `FocusTrap` monté et basculez sa prop `disabled` au début et à la fin du parcours. Dans cet exemple,
 `initialFocus` place le focus sur **Review details** lorsque le mode de révision démarre.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/focus-trap/basic.tsx"
+<ExampleFrame variant="component">
+  <FocusTrapBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/focus-trap/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/focus-trap/focus-trap-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 Cliquez sur **Start review** pour activer le confinement. Le focus passe sur **Review details**, puis `Tab` et
 `Shift + Tab` le font circuler entre les deux boutons de la carte. Cliquez sur **Finish review** pour désactiver le

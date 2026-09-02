@@ -3,6 +3,9 @@ title: Frame
 description: Render React content in an isolated iframe with Ark UI Frame.
 ---
 
+import FrameBasic from '@/components/examples/frame/basic.tsx';
+import FrameHead from '@/components/examples/frame/head.tsx';
+
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/frame" />
@@ -24,11 +27,26 @@ import { Frame } from '@ark-ui/react';
 Always provide a descriptive `title` for people using assistive technology. Set an explicit initial size. In this
 example, the iframe fills the available width and starts at a comfortable height for the preview.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../../src/components/examples/frame/basic.tsx"
+<ExampleFrame variant="component">
+  <FrameBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/frame/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/frame/frame-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 `Frame` also passes the iframe document to nested Ark components. DOM queries, portals, and focus management then use
 the correct document when the preview contains Ark UI components. You can place components such as `Button`, `Dialog`,
@@ -39,11 +57,26 @@ or `Popover` directly inside `Frame`.
 An iframe has its own document, so styles from the host page do not automatically apply to its contents. Pass React
 nodes through the `head` prop to add styles, fonts, or metadata to the iframe document.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../../src/components/examples/frame/head.tsx"
+<ExampleFrame variant="component">
+  <FrameHead />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/frame/head.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/frame/frame-head.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 The `head` content is inserted into the iframe's `<head>`. If you render moduix components inside the iframe, load the
 styles they need there as well. The host page's CSS does not cross the iframe boundary.

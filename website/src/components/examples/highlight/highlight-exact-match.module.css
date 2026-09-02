@@ -1,8 +1,3 @@
-.stack {
-  display: grid;
-  gap: var(--moduix-spacing-4);
-}
-
 .comparison {
   display: grid;
   gap: var(--moduix-spacing-4);

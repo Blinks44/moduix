@@ -4,6 +4,7 @@ import { Card } from '@moduix/react/card';
 import { Kbd } from '@moduix/react/kbd';
 import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
+import styles from './hotkeys-basic.module.css';
 
 export default function HotkeysBasicDemo() {
   const [status, setStatus] = useState('Not saved');
@@ -21,29 +22,19 @@ export default function HotkeysBasicDemo() {
   });
 
   return (
-    <Card style={{ inlineSize: '100%' }}>
+    <Card className={styles.root}>
       <Card.Header>
         <Card.Title>Draft</Card.Title>
         <Card.Description>Save your changes without leaving the keyboard.</Card.Description>
       </Card.Header>
       <Card.Body>
-        <Stack
-          align="center"
-          direction="row"
-          justify="space-between"
-          style={{ inlineSize: '100%' }}
-        >
+        <Stack align="center" direction="row" justify="space-between" className={styles.stack}>
           <span>Save draft</span>
           <Kbd>{formatHotkey('mod+S')}</Kbd>
         </Stack>
       </Card.Body>
       <Card.Footer>
-        <Stack
-          align="center"
-          direction="row"
-          justify="space-between"
-          style={{ inlineSize: '100%' }}
-        >
+        <Stack align="center" direction="row" justify="space-between" className={styles.stack}>
           <output>{status}</output>
           <Button onClick={saveDraft} type="button">
             Save draft

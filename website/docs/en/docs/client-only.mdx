@@ -3,6 +3,8 @@ title: Client Only
 description: Render browser-dependent moduix UI only in the browser with Ark UI ClientOnly and a fallback that preserves the layout.
 ---
 
+import ClientOnlyBasic from '@/components/examples/client-only/basic.tsx';
+
 ## API reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/client-only" />
@@ -31,11 +33,20 @@ Keep browser-dependent code in the child rendered by `ClientOnly`. Make the fall
 including its approximate height. This gives the server useful content to render and prevents the layout from
 shifting when the client takes over.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/client-only/basic.tsx"
+<ExampleFrame clientOnly variant="component">
+  <ClientOnlyBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/client-only/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Choose a fallback
 

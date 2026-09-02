@@ -2,7 +2,7 @@ import { Highlight } from '@moduix/react/highlight';
 import { Input } from '@moduix/react/input';
 import { Text } from '@moduix/react/text';
 import { useState } from 'react';
-import styles from '@/components/examples/highlight.module.css';
+import styles from '@/components/examples/highlight/highlight-dynamic-query.module.css';
 
 export default function HighlightDynamicQueryDemo() {
   const [query, setQuery] = useState('component');

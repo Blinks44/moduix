@@ -4,6 +4,9 @@ component: json-tree-view
 description: Inspectez des valeurs JSON et JavaScript dans une arborescence accessible et dépliable avec JsonTreeView de moduix.
 ---
 
+import JsonTreeViewBasicDemo from '../../en/docs/_snippets/json-tree-view/basic.tsx';
+import JsonTreeViewCompactPreviewsDemo from '../../en/docs/_snippets/json-tree-view/compact-previews.tsx';
+
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/json-tree-view" />
@@ -24,12 +27,20 @@ le style des lignes, l’indentation, les états du focus et l’icône d’ouve
 L’exemple ouvre d’emblée deux niveaux. Utilisez `defaultExpandedDepth` pour choisir la partie d’une réponse ou d’une
 configuration à afficher au premier rendu.
 
-<PreviewFrame maxWidth="lg">
+<ExampleFrame variant="component">
+  <JsonTreeViewBasicDemo />
+</ExampleFrame>
 
-```tsx preview file="../../../src/components/examples/json-tree-view/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/json-tree-view/basic.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -109,12 +120,20 @@ correspondant.
 Utilisez `maxPreviewItems` pour limiter les aperçus d’objets et de tableaux, et `collapseStringsAfterLength` pour
 raccourcir les chaînes longues. L’utilisateur peut ouvrir un nœud pour consulter sa valeur complète.
 
-<PreviewFrame maxWidth="lg">
+<ExampleFrame variant="component">
+  <JsonTreeViewCompactPreviewsDemo />
+</ExampleFrame>
 
-```tsx preview file="../../../src/components/examples/json-tree-view/compact-previews.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/json-tree-view/compact-previews.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

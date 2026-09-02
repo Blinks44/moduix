@@ -3,6 +3,9 @@ title: Hotkeys
 description: Utilisez Hotkeys d’Ark UI pour enregistrer des raccourcis adaptés à la plateforme, des séquences et des commandes dans une application moduix.
 ---
 
+import HotkeysBasicDemo from '@/components/examples/hotkeys/basic.tsx';
+import HotkeysSequencesDemo from '@/components/examples/hotkeys/sequences.tsx';
+
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/hotkeys" />
@@ -21,12 +24,26 @@ import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/react';
 
 Utilisez `mod` au lieu de choisir vous-même entre Control et Command. Le même raccourci fonctionne ainsi sur macOS, Windows et Linux. Une fois le composant monté, `useFormatHotkey` affiche la notation adaptée à la plateforme de l’utilisateur.
 
-<PreviewFrame maxWidth="sm">
+<ExampleFrame variant="component">
+  <HotkeysBasicDemo />
+</ExampleFrame>
 
-```tsx preview file="../../../src/components/examples/hotkeys/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/hotkeys/basic.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hotkeys/hotkeys-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 Si votre application doit intercepter un raccourci habituellement géré par le navigateur, ajoutez `preventDefault`. Sinon, le navigateur peut également exécuter sa propre action.
 
@@ -36,12 +53,26 @@ Utilisez `useHotkeys` lorsqu’un écran comporte plusieurs commandes ou que la 
 
 Séparez les touches d’une séquence par `>`, par exemple `g > i`. Par défaut, l’utilisateur dispose d’une seconde pour appuyer sur la touche suivante.
 
-<PreviewFrame maxWidth="sm">
+<ExampleFrame variant="component">
+  <HotkeysSequencesDemo />
+</ExampleFrame>
 
-```tsx preview file="../../../src/components/examples/hotkeys/sequences.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/hotkeys/sequences.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/hotkeys/hotkeys-sequences.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Champs de saisie et portées
 
