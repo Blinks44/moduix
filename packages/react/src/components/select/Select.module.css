@@ -253,6 +253,7 @@
 
   .content {
     box-sizing: border-box;
+    z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
     display: flex;
     min-width: var(--reference-width);
     max-width: var(--available-width);

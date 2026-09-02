@@ -1,0 +1,126 @@
+@layer moduix.components {
+  .root {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--moduix-date-input-gap, var(--moduix-spacing-1));
+    width: var(--moduix-date-input-width, 100%);
+    max-width: var(--moduix-date-input-max-width, none);
+
+    &[data-disabled] {
+      opacity: var(--moduix-date-input-disabled-opacity, var(--moduix-opacity-disabled));
+    }
+  }
+
+  .label {
+    color: var(--moduix-date-input-label-color, var(--moduix-color-foreground));
+    font-size: var(--moduix-date-input-label-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-date-input-label-font-weight, var(--moduix-weight-medium));
+    line-height: var(--moduix-date-input-label-line-height, var(--moduix-line-height-text-sm));
+  }
+
+  .control {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    width: var(--moduix-date-input-control-width, 100%);
+    min-height: var(--moduix-date-input-control-height, var(--moduix-size-md));
+    border: var(--moduix-date-input-border-width, var(--moduix-border-width-sm))
+      var(--moduix-date-input-border-style, solid)
+      var(--moduix-date-input-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-date-input-radius, var(--moduix-radius-md));
+    padding: var(--moduix-date-input-padding-y, var(--moduix-spacing-1))
+      var(--moduix-date-input-padding-x, var(--moduix-spacing-3));
+    background-color: var(--moduix-date-input-bg, var(--moduix-color-background));
+    color: var(--moduix-date-input-color, var(--moduix-color-foreground));
+    outline: var(
+        --moduix-date-input-focus-ring-width,
+        var(
+          --moduix-date-input-border-width,
+          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+        )
+      )
+      solid transparent;
+    outline-offset: var(
+      --moduix-date-input-focus-ring-offset,
+      var(--moduix-focus-ring-inset-offset)
+    );
+    transition:
+      border-color var(--moduix-date-input-transition, var(--moduix-transition-default)),
+      outline-color var(--moduix-date-input-transition, var(--moduix-transition-default)),
+      opacity var(--moduix-date-input-transition, var(--moduix-transition-default));
+
+    &:focus-within,
+    &[data-focus] {
+      outline-color: var(--moduix-date-input-focus-ring-color, var(--moduix-color-ring));
+    }
+
+    &[data-invalid] {
+      border-color: var(--moduix-date-input-border-color-invalid, var(--moduix-color-destructive));
+
+      &:focus-within,
+      &[data-focus] {
+        outline-color: var(
+          --moduix-date-input-border-color-invalid,
+          var(--moduix-color-destructive)
+        );
+      }
+    }
+
+    &[data-disabled] {
+      pointer-events: none;
+    }
+  }
+
+  .segmentGroup {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--moduix-date-input-segment-gap, var(--moduix-border-width-md));
+    font-variant-numeric: tabular-nums;
+  }
+
+  .segment {
+    min-width: var(--moduix-date-input-segment-min-width, 2ch);
+    border-radius: var(--moduix-date-input-segment-radius, var(--moduix-radius-sm));
+    padding: var(--moduix-date-input-segment-padding-y, 0)
+      var(--moduix-date-input-segment-padding-x, var(--moduix-spacing-1));
+    color: var(--moduix-date-input-segment-color, currentColor);
+    font: inherit;
+    line-height: var(--moduix-date-input-segment-line-height, var(--moduix-line-height-text-md));
+    text-align: center;
+    outline: 0;
+    cursor: text;
+    transition:
+      background-color var(--moduix-date-input-transition, var(--moduix-transition-default)),
+      color var(--moduix-date-input-transition, var(--moduix-transition-default));
+
+    &[data-placeholder-shown] {
+      color: var(--moduix-date-input-placeholder-color, var(--moduix-color-muted-foreground));
+    }
+
+    &:focus-visible {
+      background-color: var(
+        --moduix-date-input-segment-bg-focus,
+        color-mix(in oklab, var(--moduix-color-ring) 18%, transparent)
+      );
+      color: var(--moduix-date-input-segment-color-focus, var(--moduix-color-foreground));
+    }
+
+    &:is([data-readonly], [data-disabled]) {
+      cursor: default;
+    }
+
+    &[data-type='literal'] {
+      min-width: auto;
+      padding-inline: 0;
+      background: transparent;
+      color: var(--moduix-date-input-separator-color, var(--moduix-color-muted-foreground));
+      pointer-events: none;
+    }
+  }
+
+  .separator {
+    color: var(--moduix-date-input-separator-color, var(--moduix-color-muted-foreground));
+    user-select: none;
+  }
+}

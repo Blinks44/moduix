@@ -533,6 +533,90 @@
       ]
     },
     {
+      "name": "date-picker",
+      "type": "registry:item",
+      "title": "DatePicker",
+      "description": "moduix Solid DatePicker component.",
+      "dependencies": ["@ark-ui/solid", "@internationalized/date", "clsx"],
+      "registryDependencies": [
+        "@moduix-solid/foundation",
+        "@moduix-solid/icons",
+        "@moduix-solid/close-button",
+        "@moduix-solid/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/date-picker/DatePicker.tsx",
+          "target": "@components/moduix/date-picker/DatePicker.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePicker.module.css",
+          "target": "@components/moduix/date-picker/DatePicker.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/date-picker/index.ts",
+          "target": "@components/moduix/date-picker/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "date-input",
+      "type": "registry:item",
+      "title": "DateInput",
+      "description": "moduix Solid DateInput component.",
+      "dependencies": ["@ark-ui/solid", "@internationalized/date", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/date-input/DateInput.tsx",
+          "target": "@components/moduix/date-input/DateInput.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-input/DateInput.module.css",
+          "target": "@components/moduix/date-input/DateInput.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/date-input/index.ts",
+          "target": "@components/moduix/date-input/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "drawer",
+      "type": "registry:item",
+      "title": "Drawer",
+      "description": "moduix Solid Drawer component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": [
+        "@moduix-solid/foundation",
+        "@moduix-solid/close-button",
+        "@moduix-solid/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/drawer/Drawer.tsx",
+          "target": "@components/moduix/drawer/Drawer.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/Drawer.module.css",
+          "target": "@components/moduix/drawer/Drawer.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/drawer/index.ts",
+          "target": "@components/moduix/drawer/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "field",
       "type": "registry:item",
       "title": "Field",
@@ -762,6 +846,117 @@
         {
           "path": "src/components/textarea/index.ts",
           "target": "@components/moduix/textarea/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "kbd",
+      "type": "registry:item",
+      "title": "Kbd",
+      "description": "moduix Solid Kbd component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/kbd/Kbd.tsx",
+          "target": "@components/moduix/kbd/Kbd.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/kbd/Kbd.module.css",
+          "target": "@components/moduix/kbd/Kbd.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/kbd/index.ts",
+          "target": "@components/moduix/kbd/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "scroll-area",
+      "type": "registry:item",
+      "title": "ScrollArea",
+      "description": "moduix Solid ScrollArea component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/scroll-area/ScrollArea.tsx",
+          "target": "@components/moduix/scroll-area/ScrollArea.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/scroll-area/ScrollArea.module.css",
+          "target": "@components/moduix/scroll-area/ScrollArea.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/scroll-area/index.ts",
+          "target": "@components/moduix/scroll-area/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "command-palette",
+      "type": "registry:item",
+      "title": "CommandPalette",
+      "description": "moduix Solid CommandPalette component.",
+      "dependencies": ["@ark-ui/solid", "@zag-js/hotkeys", "clsx"],
+      "registryDependencies": [
+        "@moduix-solid/foundation",
+        "@moduix-solid/close-button",
+        "@moduix-solid/icons",
+        "@moduix-solid/kbd",
+        "@moduix-solid/overlay-portal",
+        "@moduix-solid/scroll-area"
+      ],
+      "files": [
+        {
+          "path": "src/components/command-palette/CommandPalette.tsx",
+          "target": "@components/moduix/command-palette/CommandPalette.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPalette.module.css",
+          "target": "@components/moduix/command-palette/CommandPalette.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/command-palette/index.ts",
+          "target": "@components/moduix/command-palette/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:item",
+      "title": "Dialog",
+      "description": "moduix Solid Dialog component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": [
+        "@moduix-solid/foundation",
+        "@moduix-solid/close-button",
+        "@moduix-solid/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/dialog/Dialog.tsx",
+          "target": "@components/moduix/dialog/Dialog.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/Dialog.module.css",
+          "target": "@components/moduix/dialog/Dialog.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/dialog/index.ts",
+          "target": "@components/moduix/dialog/index.ts",
           "type": "registry:component"
         }
       ]

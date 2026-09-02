@@ -91,6 +91,22 @@
       "types": "./dist/components/container/index.d.ts",
       "import": "./dist/components/container/index.js"
     },
+    "./dialog": {
+      "types": "./dist/components/dialog/index.d.ts",
+      "import": "./dist/components/dialog/index.js"
+    },
+    "./drawer": {
+      "types": "./dist/components/drawer/index.d.ts",
+      "import": "./dist/components/drawer/index.js"
+    },
+    "./date-picker": {
+      "types": "./dist/components/date-picker/index.d.ts",
+      "import": "./dist/components/date-picker/index.js"
+    },
+    "./date-input": {
+      "types": "./dist/components/date-input/index.d.ts",
+      "import": "./dist/components/date-input/index.js"
+    },
     "./field": {
       "types": "./dist/components/field/index.d.ts",
       "import": "./dist/components/field/index.js"
@@ -158,6 +174,7 @@
   },
   "devDependencies": {
     "@ark-ui/solid": "^5.39.1",
+    "@internationalized/date": "^3.12.3",
     "@rsbuild/core": "^2.2.0",
     "@rsbuild/plugin-babel": "^2.1.0",
     "@rsbuild/plugin-solid": "^1.2.2",

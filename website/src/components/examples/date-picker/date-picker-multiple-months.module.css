@@ -1,5 +1,5 @@
 .content {
-  --moduix-date-picker-content-width: 37.5rem;
+  --moduix-date-picker-content-width: max-content;
   --moduix-date-picker-content-max-width: calc(100vw - 2rem);
 }
 
