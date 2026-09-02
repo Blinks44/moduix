@@ -4,7 +4,7 @@ import { Field } from '@moduix/react/field';
 import { PinInput } from '@moduix/react/pin-input';
 import type { FormEventHandler } from 'react';
 import { useState } from 'react';
-import styles from './verification-code.module.css';
+import styles from './verification-code-form.module.css';
 
 export function VerificationCode({ onSubmit }: { onSubmit?: FormEventHandler<HTMLFormElement> }) {
   const [invalid, setInvalid] = useState(false);
@@ -31,7 +31,7 @@ export function VerificationCode({ onSubmit }: { onSubmit?: FormEventHandler<HTM
       </Card.Header>
 
       <Card.Body>
-        <form className={styles.form} noValidate onSubmit={handleSubmit}>
+        <form className={styles.stack} noValidate onSubmit={handleSubmit}>
           <Field className={styles.field} invalid={invalid} required>
             <PinInput
               className={styles.code}

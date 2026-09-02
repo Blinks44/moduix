@@ -4,7 +4,7 @@ import { Checkbox } from '@moduix/react/checkbox';
 import { Field } from '@moduix/react/field';
 import { Input } from '@moduix/react/input';
 import type { FormEventHandler } from 'react';
-import styles from './sign-up.module.css';
+import styles from './sign-up-form.module.css';
 
 export function SignUp({ onSubmit }: { onSubmit?: FormEventHandler<HTMLFormElement> }) {
   return (
@@ -15,7 +15,7 @@ export function SignUp({ onSubmit }: { onSubmit?: FormEventHandler<HTMLFormEleme
       </Card.Header>
 
       <Card.Body>
-        <form className={styles.form} onSubmit={onSubmit}>
+        <form className={styles.stack} onSubmit={onSubmit}>
           <Field required>
             <Field.Label>Full name</Field.Label>
             <Input name="name" autoComplete="name" placeholder="Alex Morgan" />

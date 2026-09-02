@@ -3,7 +3,7 @@ import { Card } from '@moduix/react/card';
 import { Field } from '@moduix/react/field';
 import { Input } from '@moduix/react/input';
 import type { FormEventHandler } from 'react';
-import styles from './reset-password.module.css';
+import styles from './reset-password-form.module.css';
 
 export function ResetPassword({ onSubmit }: { onSubmit?: FormEventHandler<HTMLFormElement> }) {
   return (
@@ -14,7 +14,7 @@ export function ResetPassword({ onSubmit }: { onSubmit?: FormEventHandler<HTMLFo
       </Card.Header>
 
       <Card.Body>
-        <form className={styles.form} onSubmit={onSubmit}>
+        <form className={styles.stack} onSubmit={onSubmit}>
           <Field required>
             <Field.Label>New password</Field.Label>
             <Input name="password" type="password" autoComplete="new-password" />

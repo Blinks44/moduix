@@ -5,6 +5,8 @@ description: Connectez les composants moduix à Formisch et Valibot pour un éta
 
 # Formisch
 
+import ProjectForm from '@/components/examples/formisch/complete-form.tsx';
+
 [Formisch](https://formisch.dev) et [Valibot](https://valibot.dev) documentent en détail les API de
 schéma, de stockage et de validation. Cette page explique comment connecter la version stable v1 de
 Formisch aux composants moduix.
@@ -77,31 +79,26 @@ et `Textarea` reçoivent directement les props de Formisch. `Select`, `Combobox`
 conservent leurs valeurs sur leurs racines moduix et transmettent les changements via
 `field.onChange`.
 
-<style>{`
-      .form {
-        width: min(24rem, 100%);
-        margin-inline: auto;
-      }
+<ExampleFrame variant="component">
+  <ProjectForm />
+</ExampleFrame>
 
-      .fields {
-        display: grid;
-        gap: var(--moduix-spacing-4);
-      }
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-      .fields [data-slot="select-root"],
-      .fields [data-slot="combobox-root"] {
-        --moduix-select-width: 100%;
-        --moduix-combobox-width: 100%;
-      }
-
-      .submit {
-        width: 100%;
-      }
-    `}</style>
-
-```tsx preview file="../../../src/components/examples/formisch/complete-form.tsx"
-
+```tsx file="../../../src/components/examples/formisch/complete-form.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/formisch/formisch-complete-form.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Champs répétés
 

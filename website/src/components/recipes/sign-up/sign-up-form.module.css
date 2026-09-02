@@ -9,18 +9,9 @@
   text-align: center;
 }
 
-.form {
+.stack {
   display: grid;
   gap: var(--moduix-spacing-4);
-}
-
-.passwordLabel {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--moduix-spacing-2);
-  width: 100%;
 }
 
 .link {

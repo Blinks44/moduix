@@ -4,6 +4,7 @@ description: Build accessible forms with moduix fields, controls, and native for
 ---
 
 import { Card, Cards } from '@/components/mdx/Components';
+import NativeForm from '@/components/examples/forms/native-form.tsx';
 
 # Forms
 
@@ -117,39 +118,26 @@ the dedicated [Fieldset guide](/docs/fieldset) for composition patterns.
 Native inputs and Ark-backed controls can be submitted together with `FormData`. The `Card` in this
 example is presentation only; the native form still owns submission, validation, and reset behavior.
 
-<style>{`
-      .form {
-        width: min(24rem, 100%);
-        margin-inline: auto;
-      }
+<ExampleFrame variant="component">
+  <NativeForm />
+</ExampleFrame>
 
-      .fields {
-        display: grid;
-        gap: var(--moduix-spacing-4);
-      }
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-      .fields [data-slot="field-root"],
-      .fields [data-slot="select-root"],
-      .fields [data-slot="combobox-root"] {
-        width: 100%;
-      }
-
-      .fields [data-slot="select-root"] {
-        --moduix-select-width: 100%;
-      }
-
-      .fields [data-slot="combobox-root"] {
-        --moduix-combobox-width: 100%;
-      }
-
-      .submit {
-        width: 100%;
-      }
-    `}</style>
-
-```tsx preview file="../../../src/components/examples/forms/native-form.tsx"
-
+```tsx file="../../../src/components/examples/forms/native-form.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/forms/forms-native-form.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Validation and reset
 

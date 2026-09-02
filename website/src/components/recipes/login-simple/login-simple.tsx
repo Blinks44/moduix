@@ -4,7 +4,7 @@ import { Checkbox } from '@moduix/react/checkbox';
 import { Field } from '@moduix/react/field';
 import { Input } from '@moduix/react/input';
 import type { FormEventHandler } from 'react';
-import styles from './login-simple.module.css';
+import styles from './login-simple-form.module.css';
 
 export function LoginSimple({ onSubmit }: { onSubmit?: FormEventHandler<HTMLFormElement> }) {
   return (
@@ -15,7 +15,7 @@ export function LoginSimple({ onSubmit }: { onSubmit?: FormEventHandler<HTMLForm
       </Card.Header>
 
       <Card.Body>
-        <form className={styles.form} onSubmit={onSubmit}>
+        <form className={styles.stack} onSubmit={onSubmit}>
           <Field required>
             <Field.Label>Email address</Field.Label>
             <Input name="email" type="email" autoComplete="email" placeholder="you@example.com" />

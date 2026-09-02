@@ -9,6 +9,7 @@ import { Input } from '@moduix/react/input';
 import { Select } from '@moduix/react/select';
 import { Textarea } from '@moduix/react/textarea';
 import { useForm } from '@tanstack/react-form';
+import styles from './tanstack-form-complete-form.module.css';
 
 const teams = createListCollection({
   items: [
@@ -59,7 +60,7 @@ export default function ProjectForm() {
   return (
     <form
       id={formId}
-      className="form"
+      className={styles.form}
       noValidate
       onSubmit={(event) => {
         event.preventDefault();
@@ -73,7 +74,7 @@ export default function ProjectForm() {
           <Card.Description>Share the details your team needs to get started.</Card.Description>
         </Card.Header>
 
-        <Card.Body className="fields">
+        <Card.Body className={styles.fields}>
           <form.Field
             name="name"
             validators={{
@@ -214,7 +215,12 @@ export default function ProjectForm() {
         <Card.Footer>
           <form.Subscribe selector={(state) => [state.canSubmit, state.isSubmitting] as const}>
             {([canSubmit, isSubmitting]) => (
-              <Button className="submit" type="submit" disabled={!canSubmit} loading={isSubmitting}>
+              <Button
+                className={styles.submit}
+                type="submit"
+                disabled={!canSubmit}
+                loading={isSubmitting}
+              >
                 {isSubmitting ? 'Creating…' : 'Create project'}
               </Button>
             )}

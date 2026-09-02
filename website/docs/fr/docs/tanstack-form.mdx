@@ -5,6 +5,8 @@ description: Intégrez les contrôles moduix à TanStack Form pour gérer valida
 
 # TanStack Form
 
+import ProjectForm from '@/components/examples/tanstack-form/complete-form.tsx';
+
 La [documentation de TanStack Form](https://tanstack.com/form/latest/docs/framework/react/overview)
 couvre l’intégralité de son API React et son modèle de validation. Cette page montre comment connecter
 les contrôles moduix à un formulaire TanStack Form.
@@ -64,39 +66,26 @@ place le focus sur le premier contrôle invalide et ne s’abonne qu’à l’au
 l’état de soumission en cours. `noValidate` garde la gestion des erreurs de la démonstration dans
 TanStack Form. Retirez-le si la validation native du navigateur doit s’exécuter en premier.
 
-<style>{`
-      .form {
-        width: min(24rem, 100%);
-        margin-inline: auto;
-      }
+<ExampleFrame variant="component">
+  <ProjectForm />
+</ExampleFrame>
 
-      .fields {
-        display: grid;
-        gap: var(--moduix-spacing-4);
-      }
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-      .fields [data-slot="field-root"],
-      .fields [data-slot="select-root"],
-      .fields [data-slot="combobox-root"] {
-        width: 100%;
-      }
-
-      .fields [data-slot="select-root"] {
-        --moduix-select-width: 100%;
-      }
-
-      .fields [data-slot="combobox-root"] {
-        --moduix-combobox-width: 100%;
-      }
-
-      .submit {
-        width: 100%;
-      }
-    `}</style>
-
-```tsx preview file="../../../src/components/examples/tanstack-form/complete-form.tsx"
-
+```tsx file="../../../src/components/examples/tanstack-form/complete-form.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tanstack-form/tanstack-form-complete-form.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Champs répétés
 

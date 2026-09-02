@@ -3,7 +3,7 @@ title: Sign up
 description: A ready-to-copy account registration form built with moduix React components.
 ---
 
-import { SignUpPreview } from '@/components/recipes/sign-up-preview';
+import { SignUp } from '@/components/recipes/sign-up/sign-up';
 
 # Sign up
 
@@ -12,22 +12,22 @@ Use this recipe as a starting point for an account registration screen. It combi
 and terms acceptance. The recipe does not connect to an authentication service or compare the two
 password fields, so add that logic in your `onSubmit` handler.
 
-<ExampleFrame clientOnly>
-  <SignUpPreview />
+<ExampleFrame variant="recipe" clientOnly>
+  <SignUp onSubmit={(event) => event.preventDefault()} />
 </ExampleFrame>
 
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/recipes/sign-up.tsx"
+```tsx file="../../../src/components/recipes/sign-up/sign-up.tsx"
 
 ```
 
     </Tab>
     <Tab value="Styles">
 
-```css file="../../../src/components/recipes/sign-up.module.css"
+```css file="../../../src/components/recipes/sign-up/sign-up-form.module.css"
 
 ```
 

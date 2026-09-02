@@ -3,7 +3,7 @@ title: Вход
 description: Форма входа по адресу электронной почты и паролю, собранная из React-компонентов moduix.
 ---
 
-import { LoginSimplePreview } from '@/components/recipes/login-simple-preview';
+import { LoginSimple } from '@/components/recipes/login-simple/login-simple';
 
 # Вход
 
@@ -12,8 +12,8 @@ import { LoginSimplePreview } from '@/components/recipes/login-simple-preview';
 компоненты moduix `Card`, `Field`, `Input`, `Checkbox` и `Button`. Рецепт не выполняет вход и не
 управляет состоянием запроса. Подключите обработку входа в своём приложении через `onSubmit`.
 
-<ExampleFrame clientOnly>
-  <LoginSimplePreview />
+<ExampleFrame variant="recipe" clientOnly>
+  <LoginSimple onSubmit={(event) => event.preventDefault()} />
 </ExampleFrame>
 
 Предпросмотр отменяет стандартную отправку формы, поэтому не обращается к API аутентификации. Скопированный
@@ -23,14 +23,14 @@ import { LoginSimplePreview } from '@/components/recipes/login-simple-preview';
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Стили', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/recipes/login-simple.tsx"
+```tsx file="../../../src/components/recipes/login-simple/login-simple.tsx"
 
 ```
 
     </Tab>
     <Tab value="Styles">
 
-```css file="../../../src/components/recipes/login-simple.module.css"
+```css file="../../../src/components/recipes/login-simple/login-simple-form.module.css"
 
 ```
 

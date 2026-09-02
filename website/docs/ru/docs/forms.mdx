@@ -4,6 +4,7 @@ description: Создавайте доступные формы с полями,
 ---
 
 import { Card, Cards } from '@/components/mdx/Components';
+import NativeForm from '@/components/examples/forms/native-form.tsx';
 
 # Формы
 
@@ -122,39 +123,26 @@ moduix отвечает за доступную структуру формы: �
 в этом примере отвечает только за представление; нативная форма по-прежнему управляет отправкой,
 валидацией и сбросом.
 
-<style>{`
-      .form {
-        width: min(24rem, 100%);
-        margin-inline: auto;
-      }
+<ExampleFrame variant="component">
+  <NativeForm />
+</ExampleFrame>
 
-      .fields {
-        display: grid;
-        gap: var(--moduix-spacing-4);
-      }
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Стили', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-      .fields [data-slot="field-root"],
-      .fields [data-slot="select-root"],
-      .fields [data-slot="combobox-root"] {
-        width: 100%;
-      }
-
-      .fields [data-slot="select-root"] {
-        --moduix-select-width: 100%;
-      }
-
-      .fields [data-slot="combobox-root"] {
-        --moduix-combobox-width: 100%;
-      }
-
-      .submit {
-        width: 100%;
-      }
-    `}</style>
-
-```tsx preview file="../../../src/components/examples/forms/native-form.tsx"
-
+```tsx file="../../../src/components/examples/forms/native-form.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/forms/forms-native-form.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Валидация и сброс
 

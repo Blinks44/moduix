@@ -8,6 +8,7 @@ import { Field } from '@moduix/react/field';
 import { Input } from '@moduix/react/input';
 import { Select } from '@moduix/react/select';
 import { Textarea } from '@moduix/react/textarea';
+import styles from './forms-native-form.module.css';
 
 const teams = createListCollection({
   items: [
@@ -33,7 +34,7 @@ export default function NativeForm() {
 
   return (
     <form
-      className="form"
+      className={styles.root}
       onSubmit={(event) => {
         event.preventDefault();
         console.log(Object.fromEntries(new FormData(event.currentTarget)));
@@ -45,7 +46,7 @@ export default function NativeForm() {
           <Card.Description>Share the details your team needs to get started.</Card.Description>
         </Card.Header>
 
-        <Card.Body className="fields">
+        <Card.Body className={styles.stack}>
           <Field required>
             <Field.Label>
               Project name
@@ -121,7 +122,7 @@ export default function NativeForm() {
         </Card.Body>
 
         <Card.Footer>
-          <Button className="submit" type="submit">
+          <Button className={styles.submit} type="submit">
             Create project
           </Button>
         </Card.Footer>

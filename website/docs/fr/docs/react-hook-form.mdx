@@ -5,6 +5,9 @@ description: Connectez les contrôles natifs et composites de moduix à React Ho
 
 # React Hook Form
 
+import ProjectForm from '@/components/examples/react-hook-form/complete-form.tsx';
+import { ExampleFrame } from '@/components/mdx/reference';
+
 La [documentation de React Hook Form](https://react-hook-form.com/get-started) décrit l’ensemble de
 l’API, les modes de validation, les resolvers et la prise en charge de TypeScript. Ce guide explique
 comment relier cette bibliothèque aux contrôles moduix.
@@ -62,39 +65,26 @@ Ce formulaire associe des contrôles `Input` et `Textarea` enregistrés à des c
 messages d’erreur. Retirez-le si vous souhaitez afficher volontairement l’interface de validation
 native du navigateur.
 
-<style>{`
-      .form {
-        width: min(24rem, 100%);
-        margin-inline: auto;
-      }
+<ExampleFrame variant="component">
+  <ProjectForm />
+</ExampleFrame>
 
-      .fields {
-        display: grid;
-        gap: var(--moduix-spacing-4);
-      }
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-      .fields [data-slot="field-root"],
-      .fields [data-slot="select-root"],
-      .fields [data-slot="combobox-root"] {
-        width: 100%;
-      }
-
-      .fields [data-slot="select-root"] {
-        --moduix-select-width: 100%;
-      }
-
-      .fields [data-slot="combobox-root"] {
-        --moduix-combobox-width: 100%;
-      }
-
-      .submit {
-        width: 100%;
-      }
-    `}</style>
-
-```tsx preview file="../../../src/components/examples/react-hook-form/complete-form.tsx"
-
+```tsx file="../../../src/components/examples/react-hook-form/complete-form.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/react-hook-form/react-hook-form-complete-form.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Champs répétés
 

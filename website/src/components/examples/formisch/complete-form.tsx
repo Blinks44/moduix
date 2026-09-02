@@ -10,6 +10,7 @@ import { Input } from '@moduix/react/input';
 import { Select } from '@moduix/react/select';
 import { Textarea } from '@moduix/react/textarea';
 import * as v from 'valibot';
+import styles from './formisch-complete-form.module.css';
 
 const teams = createListCollection({
   items: [
@@ -52,7 +53,7 @@ export default function ProjectForm() {
 
   return (
     <Form
-      className="form"
+      className={styles.form}
       of={form}
       onSubmit={async (values) => {
         await new Promise((resolve) => setTimeout(resolve, 600));
@@ -65,7 +66,7 @@ export default function ProjectForm() {
           <Card.Description>Share the details your team needs to get started.</Card.Description>
         </Card.Header>
 
-        <Card.Body className="fields">
+        <Card.Body className={styles.fields}>
           <FormischField of={form} path={['name']}>
             {(field) => (
               <Field invalid={field.errors !== null} required>
@@ -194,7 +195,7 @@ export default function ProjectForm() {
         </Card.Body>
 
         <Card.Footer>
-          <Button className="submit" type="submit" loading={form.isSubmitting}>
+          <Button className={styles.submit} type="submit" loading={form.isSubmitting}>
             {form.isSubmitting ? 'Creating…' : 'Create project'}
           </Button>
         </Card.Footer>

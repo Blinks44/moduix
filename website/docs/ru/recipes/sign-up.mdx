@@ -3,7 +3,7 @@ title: Регистрация
 description: Готовая к копированию форма регистрации, собранная из React-компонентов moduix.
 ---
 
-import { SignUpPreview } from '@/components/recipes/sign-up-preview';
+import { SignUp } from '@/components/recipes/sign-up/sign-up';
 
 # Регистрация
 
@@ -12,22 +12,22 @@ import { SignUpPreview } from '@/components/recipes/sign-up-preview';
 наличие согласия с условиями. Рецепт не содержит интеграции с сервисом аутентификации и не сравнивает два
 пароля, поэтому добавьте эту логику в обработчик `onSubmit`.
 
-<ExampleFrame clientOnly>
-  <SignUpPreview />
+<ExampleFrame variant="recipe" clientOnly>
+  <SignUp onSubmit={(event) => event.preventDefault()} />
 </ExampleFrame>
 
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Стили', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/recipes/sign-up.tsx"
+```tsx file="../../../src/components/recipes/sign-up/sign-up.tsx"
 
 ```
 
     </Tab>
     <Tab value="Styles">
 
-```css file="../../../src/components/recipes/sign-up.module.css"
+```css file="../../../src/components/recipes/sign-up/sign-up-form.module.css"
 
 ```
 

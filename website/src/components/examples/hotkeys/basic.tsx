@@ -4,6 +4,7 @@ import { Card } from '@moduix/react/card';
 import { Kbd } from '@moduix/react/kbd';
 import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 import styles from './hotkeys-basic.module.css';
 
 export default function HotkeysBasicDemo() {
@@ -35,7 +36,9 @@ export default function HotkeysBasicDemo() {
       </Card.Body>
       <Card.Footer>
         <Stack align="center" direction="row" justify="space-between" className={styles.stack}>
-          <output>{status}</output>
+          <PreviewMeta>
+            <output>{status}</output>
+          </PreviewMeta>
           <Button onClick={saveDraft} type="button">
             Save draft
           </Button>

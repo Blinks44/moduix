@@ -3,7 +3,7 @@ import { Card } from '@moduix/react/card';
 import { Field } from '@moduix/react/field';
 import { Input } from '@moduix/react/input';
 import type { FormEventHandler } from 'react';
-import styles from './forgot-password.module.css';
+import styles from './forgot-password-form.module.css';
 
 export function ForgotPassword({ onSubmit }: { onSubmit?: FormEventHandler<HTMLFormElement> }) {
   return (
@@ -14,7 +14,7 @@ export function ForgotPassword({ onSubmit }: { onSubmit?: FormEventHandler<HTMLF
       </Card.Header>
 
       <Card.Body>
-        <form className={styles.form} onSubmit={onSubmit}>
+        <form className={styles.stack} onSubmit={onSubmit}>
           <Field required>
             <Field.Label>Email address</Field.Label>
             <Input name="email" type="email" autoComplete="email" placeholder="you@example.com" />

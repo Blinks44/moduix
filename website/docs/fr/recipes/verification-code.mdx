@@ -3,7 +3,7 @@ title: Code de vérification
 description: Un formulaire de vérification d’adresse e-mail avec un code à usage unique de six chiffres, construit avec les composants React moduix.
 ---
 
-import { VerificationCodePreview } from '@/components/recipes/verification-code-preview';
+import { VerificationCode } from '@/components/recipes/verification-code/verification-code';
 
 # Code de vérification
 
@@ -14,22 +14,22 @@ le collage, et active le remplissage automatique du code à usage unique sur mob
 avec moins de six chiffres pour afficher l’erreur intégrée au champ. Cette vérification confirme uniquement
 que les six chiffres ont été saisis. Votre application doit toujours vérifier le code sur le serveur.
 
-<ExampleFrame clientOnly>
-  <VerificationCodePreview />
+<ExampleFrame variant="recipe" clientOnly>
+  <VerificationCode onSubmit={(event) => event.preventDefault()} />
 </ExampleFrame>
 
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/recipes/verification-code.tsx"
+```tsx file="../../../src/components/recipes/verification-code/verification-code.tsx"
 
 ```
 
     </Tab>
     <Tab value="Styles">
 
-```css file="../../../src/components/recipes/verification-code.module.css"
+```css file="../../../src/components/recipes/verification-code/verification-code-form.module.css"
 
 ```
 

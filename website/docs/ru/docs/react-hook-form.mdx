@@ -5,6 +5,9 @@ description: Подключайте нативные и составные ко�
 
 # React Hook Form
 
+import ProjectForm from '@/components/examples/react-hook-form/complete-form.tsx';
+import { ExampleFrame } from '@/components/mdx/reference';
+
 [Документация React Hook Form](https://react-hook-form.com/get-started) описывает полный API,
 режимы валидации, resolver и поддержку TypeScript. На этой странице показано, как подключать эту
 библиотеку к компонентам moduix.
@@ -60,39 +63,26 @@ npm install react-hook-form
 как контролируемые компоненты. `noValidate` передаёт React Hook Form управление сообщениями об
 ошибках. Уберите его, если хотите намеренно использовать встроенный интерфейс валидации браузера.
 
-<style>{`
-      .form {
-        width: min(24rem, 100%);
-        margin-inline: auto;
-      }
+<ExampleFrame variant="component">
+  <ProjectForm />
+</ExampleFrame>
 
-      .fields {
-        display: grid;
-        gap: var(--moduix-spacing-4);
-      }
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-      .fields [data-slot="field-root"],
-      .fields [data-slot="select-root"],
-      .fields [data-slot="combobox-root"] {
-        width: 100%;
-      }
-
-      .fields [data-slot="select-root"] {
-        --moduix-select-width: 100%;
-      }
-
-      .fields [data-slot="combobox-root"] {
-        --moduix-combobox-width: 100%;
-      }
-
-      .submit {
-        width: 100%;
-      }
-    `}</style>
-
-```tsx preview file="../../../src/components/examples/react-hook-form/complete-form.tsx"
-
+```tsx file="../../../src/components/examples/react-hook-form/complete-form.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/react-hook-form/react-hook-form-complete-form.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Повторяющиеся поля
 

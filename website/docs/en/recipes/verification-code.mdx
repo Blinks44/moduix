@@ -3,7 +3,7 @@ title: Verification code
 description: A six-digit email verification form built with moduix React components.
 ---
 
-import { VerificationCodePreview } from '@/components/recipes/verification-code-preview';
+import { VerificationCode } from '@/components/recipes/verification-code/verification-code';
 
 # Verification code
 
@@ -13,22 +13,22 @@ native form input, handles keyboard navigation and paste, and enables OTP autofi
 with fewer than six digits to see the built-in field error. This check only confirms that all six digits
 are present. Your application still needs to verify the code on the server.
 
-<ExampleFrame clientOnly>
-  <VerificationCodePreview />
+<ExampleFrame variant="recipe" clientOnly>
+  <VerificationCode onSubmit={(event) => event.preventDefault()} />
 </ExampleFrame>
 
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/recipes/verification-code.tsx"
+```tsx file="../../../src/components/recipes/verification-code/verification-code.tsx"
 
 ```
 
     </Tab>
     <Tab value="Styles">
 
-```css file="../../../src/components/recipes/verification-code.module.css"
+```css file="../../../src/components/recipes/verification-code/verification-code-form.module.css"
 
 ```
 

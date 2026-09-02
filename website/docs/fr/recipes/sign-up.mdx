@@ -3,7 +3,7 @@ title: Inscription
 description: Un formulaire d’inscription prêt à copier, construit avec les composants React de moduix.
 ---
 
-import { SignUpPreview } from '@/components/recipes/sign-up-preview';
+import { SignUp } from '@/components/recipes/sign-up/sign-up';
 
 # Inscription
 
@@ -13,22 +13,22 @@ de l’adresse e-mail et de l’acceptation des conditions. La recette ne se con
 d’authentification et ne compare pas les deux mots de passe : ajoutez cette logique dans le gestionnaire
 `onSubmit`.
 
-<ExampleFrame clientOnly>
-  <SignUpPreview />
+<ExampleFrame variant="recipe" clientOnly>
+  <SignUp onSubmit={(event) => event.preventDefault()} />
 </ExampleFrame>
 
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/recipes/sign-up.tsx"
+```tsx file="../../../src/components/recipes/sign-up/sign-up.tsx"
 
 ```
 
     </Tab>
     <Tab value="Styles">
 
-```css file="../../../src/components/recipes/sign-up.module.css"
+```css file="../../../src/components/recipes/sign-up/sign-up-form.module.css"
 
 ```
 

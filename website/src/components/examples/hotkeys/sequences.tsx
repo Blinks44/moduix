@@ -3,6 +3,7 @@ import { Card } from '@moduix/react/card';
 import { Kbd } from '@moduix/react/kbd';
 import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 import styles from './hotkeys-sequences.module.css';
 
 export default function HotkeysSequencesDemo() {
@@ -45,7 +46,9 @@ export default function HotkeysSequencesDemo() {
         </Stack>
       </Card.Body>
       <Card.Footer>
-        <output>Current view: {destination}</output>
+        <PreviewMeta>
+          <output>Current view: {destination}</output>
+        </PreviewMeta>
       </Card.Footer>
     </Card>
   );

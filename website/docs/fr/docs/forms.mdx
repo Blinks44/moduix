@@ -4,6 +4,7 @@ description: Créez des formulaires accessibles avec les champs, les contrôles 
 ---
 
 import { Card, Cards } from '@/components/mdx/Components';
+import NativeForm from '@/components/examples/forms/native-form.tsx';
 
 # Formulaires
 
@@ -126,39 +127,26 @@ Les champs natifs et les contrôles basés sur Ark peuvent être soumis ensemble
 `Card` de cet exemple ne sert qu’à la présentation ; le formulaire natif continue de gérer la
 soumission, la validation et la réinitialisation.
 
-<style>{`
-      .form {
-        width: min(24rem, 100%);
-        margin-inline: auto;
-      }
+<ExampleFrame variant="component">
+  <NativeForm />
+</ExampleFrame>
 
-      .fields {
-        display: grid;
-        gap: var(--moduix-spacing-4);
-      }
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-      .fields [data-slot="field-root"],
-      .fields [data-slot="select-root"],
-      .fields [data-slot="combobox-root"] {
-        width: 100%;
-      }
-
-      .fields [data-slot="select-root"] {
-        --moduix-select-width: 100%;
-      }
-
-      .fields [data-slot="combobox-root"] {
-        --moduix-combobox-width: 100%;
-      }
-
-      .submit {
-        width: 100%;
-      }
-    `}</style>
-
-```tsx preview file="../../../src/components/examples/forms/native-form.tsx"
-
+```tsx file="../../../src/components/examples/forms/native-form.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/forms/forms-native-form.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Validation et réinitialisation
 

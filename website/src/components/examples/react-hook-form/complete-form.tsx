@@ -9,6 +9,7 @@ import { Input } from '@moduix/react/input';
 import { Select } from '@moduix/react/select';
 import { Textarea } from '@moduix/react/textarea';
 import { Controller, useForm } from 'react-hook-form';
+import styles from './react-hook-form-complete-form.module.css';
 
 const teams = createListCollection({
   items: [
@@ -56,7 +57,7 @@ export default function ProjectForm() {
 
   return (
     <form
-      className="form"
+      className={styles.root}
       noValidate
       onSubmit={handleSubmit(async (values) => {
         await new Promise((resolve) => setTimeout(resolve, 600));
@@ -69,7 +70,7 @@ export default function ProjectForm() {
           <Card.Description>Share the details your team needs to get started.</Card.Description>
         </Card.Header>
 
-        <Card.Body className="fields">
+        <Card.Body className={styles.stack}>
           <Field invalid={Boolean(errors.name)} required>
             <Field.Label>
               Project name
@@ -193,7 +194,7 @@ export default function ProjectForm() {
         </Card.Body>
 
         <Card.Footer>
-          <Button className="submit" type="submit" loading={isSubmitting}>
+          <Button className={styles.submit} type="submit" loading={isSubmitting}>
             {isSubmitting ? 'Creating…' : 'Create project'}
           </Button>
         </Card.Footer>

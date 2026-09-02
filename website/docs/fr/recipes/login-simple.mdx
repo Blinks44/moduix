@@ -3,7 +3,7 @@ title: Connexion
 description: Un formulaire de connexion par e-mail et mot de passe composé avec les composants React de moduix.
 ---
 
-import { LoginSimplePreview } from '@/components/recipes/login-simple-preview';
+import { LoginSimple } from '@/components/recipes/login-simple/login-simple';
 
 # Connexion
 
@@ -13,8 +13,8 @@ pour s’inscrire. Elle utilise les composants moduix `Card`, `Field`, `Input`, 
 Elle ne gère ni l’authentification ni l’état de la requête. Branchez ces éléments dans votre application
 via `onSubmit`.
 
-<ExampleFrame clientOnly>
-  <LoginSimplePreview />
+<ExampleFrame variant="recipe" clientOnly>
+  <LoginSimple onSubmit={(event) => event.preventDefault()} />
 </ExampleFrame>
 
 L’aperçu empêche l’envoi standard du formulaire et n’appelle donc aucune API d’authentification. La recette
@@ -24,14 +24,14 @@ copiée transmet `onSubmit` au formulaire natif et laisse votre application gér
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/recipes/login-simple.tsx"
+```tsx file="../../../src/components/recipes/login-simple/login-simple.tsx"
 
 ```
 
     </Tab>
     <Tab value="Styles">
 
-```css file="../../../src/components/recipes/login-simple.module.css"
+```css file="../../../src/components/recipes/login-simple/login-simple-form.module.css"
 
 ```
 

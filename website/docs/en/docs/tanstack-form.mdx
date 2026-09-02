@@ -5,6 +5,8 @@ description: Integrate moduix controls with TanStack Form, including validation,
 
 # TanStack Form
 
+import ProjectForm from '@/components/examples/tanstack-form/complete-form.tsx';
+
 [TanStack Form documentation](https://tanstack.com/form/latest/docs/framework/react/overview) covers
 the complete React API and validation model. This page shows how to connect moduix controls to a
 TanStack form.
@@ -61,39 +63,26 @@ submit, focuses the first invalid control, and subscribes only to whether submis
 whether it is pending. `noValidate` keeps the demo's error flow inside TanStack Form; remove it when
 native browser validation should run first.
 
-<style>{`
-      .form {
-        width: min(24rem, 100%);
-        margin-inline: auto;
-      }
+<ExampleFrame variant="component">
+  <ProjectForm />
+</ExampleFrame>
 
-      .fields {
-        display: grid;
-        gap: var(--moduix-spacing-4);
-      }
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-      .fields [data-slot="field-root"],
-      .fields [data-slot="select-root"],
-      .fields [data-slot="combobox-root"] {
-        width: 100%;
-      }
-
-      .fields [data-slot="select-root"] {
-        --moduix-select-width: 100%;
-      }
-
-      .fields [data-slot="combobox-root"] {
-        --moduix-combobox-width: 100%;
-      }
-
-      .submit {
-        width: 100%;
-      }
-    `}</style>
-
-```tsx preview file="../../../src/components/examples/tanstack-form/complete-form.tsx"
-
+```tsx file="../../../src/components/examples/tanstack-form/complete-form.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tanstack-form/tanstack-form-complete-form.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Repeated fields
 

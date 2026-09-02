@@ -1,14 +1,20 @@
 import { Button } from '@moduix/react/button';
 import { Popover, usePopoverContext } from '@moduix/react/popover';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 function PopoverState() {
   const popover = usePopoverContext();
-  return <output>Open: {popover.open ? 'yes' : 'no'}</output>;
+  return (
+    <PreviewMeta>
+      <output>Open: {popover.open ? 'yes' : 'no'}</output>
+    </PreviewMeta>
+  );
 }
 
 export default function PopoverContextDemo() {
   return (
     <Popover positioning={{ gutter: 8 }}>
+      <PopoverState />
       <Popover.Trigger asChild>
         <Button>Open context example</Button>
       </Popover.Trigger>
@@ -21,7 +27,6 @@ export default function PopoverContextDemo() {
             </Popover.Description>
           </Popover.Header>
           <Popover.Footer>
-            <PopoverState />
             <Popover.CloseTrigger>Close</Popover.CloseTrigger>
           </Popover.Footer>
         </Popover.Content>

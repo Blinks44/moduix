@@ -1,12 +1,17 @@
 import { CloseButton } from '@moduix/react/close-button';
 import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/close-button/close-button-basic.module.css';
 
 export default function CloseButtonDemo() {
   const [isVisible, setIsVisible] = useState(true);
 
   if (!isVisible) {
-    return <output>Notification dismissed</output>;
+    return (
+      <PreviewMeta>
+        <output>Notification dismissed</output>
+      </PreviewMeta>
+    );
   }
 
   return (

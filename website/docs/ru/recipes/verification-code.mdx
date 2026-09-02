@@ -3,7 +3,7 @@ title: Код подтверждения
 description: Форма подтверждения адреса электронной почты шестизначным кодом на React-компонентах moduix.
 ---
 
-import { VerificationCodePreview } from '@/components/recipes/verification-code-preview';
+import { VerificationCode } from '@/components/recipes/verification-code/verification-code';
 
 # Код подтверждения
 
@@ -14,22 +14,22 @@ import { VerificationCodePreview } from '@/components/recipes/verification-code-
 встроенную ошибку поля. Эта проверка подтверждает только наличие всех шести цифр. Проверяйте сам код на
 сервере.
 
-<ExampleFrame clientOnly>
-  <VerificationCodePreview />
+<ExampleFrame variant="recipe" clientOnly>
+  <VerificationCode onSubmit={(event) => event.preventDefault()} />
 </ExampleFrame>
 
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Стили', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/recipes/verification-code.tsx"
+```tsx file="../../../src/components/recipes/verification-code/verification-code.tsx"
 
 ```
 
     </Tab>
     <Tab value="Styles">
 
-```css file="../../../src/components/recipes/verification-code.module.css"
+```css file="../../../src/components/recipes/verification-code/verification-code-form.module.css"
 
 ```
 
