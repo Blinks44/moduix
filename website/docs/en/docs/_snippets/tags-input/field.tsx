@@ -1,9 +1,10 @@
 import { Field } from '@moduix/react/field';
 import { TagsInput } from '@moduix/react/tags-input';
+import styles from '@/components/examples/tags-input/tags-input-field.module.css';
 
 export default function FieldTagsInput() {
   return (
-    <Field invalid required>
+    <Field className={styles.root} invalid required>
       <TagsInput defaultValue={['api']} name="topics">
         <TagsInput.Label>Topics</TagsInput.Label>
         <TagsInput.Control>

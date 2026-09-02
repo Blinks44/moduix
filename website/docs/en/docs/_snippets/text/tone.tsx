@@ -1,8 +1,9 @@
 import { Text } from '@moduix/react/text';
+import styles from '@/components/examples/text/text-tone.module.css';
 
 export default function TextTonesDemo() {
   return (
-    <div style={{ display: 'grid', gap: 'var(--moduix-spacing-3)' }}>
+    <div className={styles.stack}>
       <Text tone="default">Default tone</Text>
       <Text tone="muted">Muted tone</Text>
       <Text tone="subtle">Subtle tone</Text>

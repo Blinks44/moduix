@@ -2,6 +2,7 @@ import { Button } from '@moduix/react/button';
 import { Toaster, createToaster } from '@moduix/react/toast';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/toast/toast-placement.module.css';
 
 const placements = ['top-start', 'top', 'top-end', 'bottom-start', 'bottom', 'bottom-end'] as const;
 type Placement = (typeof placements)[number];
@@ -20,7 +21,7 @@ export default function App() {
   const toaster = toasters[placement];
 
   return (
-    <div className="toast-preview-stack">
+    <div className={styles.root}>
       {placements.map((item) => (
         <Toaster key={item} toaster={toasters[item]} />
       ))}

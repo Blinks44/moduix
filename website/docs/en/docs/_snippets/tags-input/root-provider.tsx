@@ -3,6 +3,7 @@ import { Stack } from '@moduix/react/stack';
 import { TagsInput, useTagsInput } from '@moduix/react/tags-input';
 import { useId } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/tags-input/tags-input-root-provider.module.css';
 
 export default function RootProviderTagsInput() {
   const id = useId();
@@ -11,7 +12,7 @@ export default function RootProviderTagsInput() {
     defaultValue: ['React'],
   });
   return (
-    <Stack className="tags-input-preview-stack" gap="var(--moduix-spacing-3)">
+    <Stack className={styles.root}>
       <TagsInput.RootProvider value={tagsInput}>
         <TagsInput.Label>Frameworks</TagsInput.Label>
         <TagsInput.Control>

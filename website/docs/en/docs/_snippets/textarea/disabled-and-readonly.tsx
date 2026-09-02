@@ -1,8 +1,9 @@
 import { Textarea } from '@moduix/react/textarea';
+import styles from '@/components/examples/textarea/textarea-disabled-and-readonly.module.css';
 
 export default function DisabledAndReadonlyTextareaDemo() {
   return (
-    <div style={{ display: 'grid', gap: 'var(--moduix-spacing-3)', inlineSize: '100%' }}>
+    <div className={styles.root}>
       <Textarea aria-label="Disabled textarea" disabled placeholder="Disabled textarea" />
       <Textarea aria-label="Read-only textarea" readOnly value="Read-only text value" />
     </div>

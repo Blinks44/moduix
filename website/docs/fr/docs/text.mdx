@@ -4,7 +4,15 @@ component: text
 description: Un composant typographique pour le texte courant ou en ligne, l’emphase sémantique et les aperçus tronqués.
 ---
 
-import * as TextDocs from '@/components/examples/text';
+import * as TextDocs from '@/components/examples/text/text';
+import TextAlignment from '../../en/docs/_snippets/text/alignment.tsx';
+import TextBasic from '../../en/docs/_snippets/text/basic.tsx';
+import TextCustomComposition from '../../en/docs/_snippets/text/custom-composition.tsx';
+import TextSemantics from '../../en/docs/_snippets/text/semantics.tsx';
+import TextSize from '../../en/docs/_snippets/text/size.tsx';
+import TextTone from '../../en/docs/_snippets/text/tone.tsx';
+import TextTruncation from '../../en/docs/_snippets/text/truncation.tsx';
+import TextWeight from '../../en/docs/_snippets/text/weight.tsx';
 
 ## Référence de l’API
 
@@ -27,11 +35,26 @@ suivre l’échelle typographique de moduix.
 Utilisez l’élément `p` par défaut pour un paragraphe. Passez `as` lorsque le contenu doit utiliser une autre balise HTML
 sémantique tout en conservant le style typographique de `Text`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/text/basic.tsx"
+<ExampleFrame variant="component">
+  <TextBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/text/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/text/text-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -91,73 +114,172 @@ bouton ou un autre contrôle si les utilisateurs doivent pouvoir afficher le tex
 
 Utilisez `align` lorsque l’alignement appartient au texte lui-même et non à son conteneur.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/text/alignment.tsx"
+<ExampleFrame variant="component">
+  <TextAlignment />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/text/alignment.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/text/text-alignment.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Sémantique
 
 Utilisez `as` pour choisir une balise HTML sémantique tout en conservant le style typographique de `Text`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/text/semantics.tsx"
+<ExampleFrame variant="component">
+  <TextSemantics />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/text/semantics.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/text/text-semantics.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Taille
 
 Utilisez `size` pour modifier la hiérarchie visuelle sans changer de composant typographique.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/text/size.tsx"
+<ExampleFrame variant="component">
+  <TextSize />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/text/size.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/text/text-size.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Tonalité
 
 Utilisez `tone` pour indiquer le rôle du texte sans ajouter de classe de couleur locale.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/text/tone.tsx"
+<ExampleFrame variant="component">
+  <TextTone />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/text/tone.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/text/text-tone.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Troncature
 
 Utilisez `truncate` pour une troncature sur une ligne avec points de suspension et `lineClamp` pour les aperçus
 compacts sur plusieurs lignes. Ajoutez le comportement de dépliage dans l’interface environnante.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/text/truncation.tsx"
+<ExampleFrame variant="component">
+  <TextTruncation />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/text/truncation.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/text/text-truncation.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Graisse
 
 Utilisez `weight` lorsque l’emphase doit rester dans le même élément sémantique.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/text/weight.tsx"
+<ExampleFrame variant="component">
+  <TextWeight />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/text/weight.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/text/text-weight.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Personnalisation avancée
 
 Utilisez `asChild` lorsque la racine doit être un élément personnalisé existant plutôt que l’une des valeurs prises en
 charge par `as`. L’enfant doit être un élément unique capable d’accepter les propriétés transmises et la `ref`.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/text/custom-composition.tsx"
+<ExampleFrame variant="component">
+  <TextCustomComposition />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/text/custom-composition.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

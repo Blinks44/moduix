@@ -1,17 +1,5 @@
-import type { CssPropertyInput } from '../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../mdx/reference';
-
-export const tagsInputExampleCss = `
-  .tags-input-preview-stack {
-    display: grid;
-    gap: var(--moduix-spacing-3);
-    justify-items: center;
-  }
-
-  .tags-input-preview-stack > [data-preview-meta] {
-    justify-self: center;
-  }
-`;
+import type { CssPropertyInput } from '../../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
 const tagsInputCssProperties: CssPropertyInput[] = [
   [

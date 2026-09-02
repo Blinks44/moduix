@@ -3,6 +3,7 @@ import { useFilter } from '@ark-ui/react/locale';
 import { Combobox, useCombobox } from '@moduix/react/combobox';
 import { TagsInput, useTagsInput } from '@moduix/react/tags-input';
 import { useId } from 'react';
+import styles from '@/components/examples/tags-input/tags-input-with-combobox.module.css';
 
 const frameworkOptions = ['React', 'Solid', 'Vue', 'Svelte', 'Angular', 'Preact', 'Next.js'];
 
@@ -42,7 +43,7 @@ export default function ComboboxTagsInput() {
     },
   });
   return (
-    <Combobox.RootProvider value={combobox}>
+    <Combobox.RootProvider className={styles.root} value={combobox}>
       <TagsInput.RootProvider value={tagsInput}>
         <TagsInput.Label>Frameworks</TagsInput.Label>
         <TagsInput.Control>

@@ -1,8 +1,9 @@
 import { Text } from '@moduix/react/text';
+import styles from '@/components/examples/text/text-size.module.css';
 
 export default function TextSizesDemo() {
   return (
-    <div style={{ display: 'grid', gap: 'var(--moduix-spacing-3)' }}>
+    <div className={styles.stack}>
       <Text size="xl">Extra-large text</Text>
       <Text size="lg">Large text</Text>
       <Text size="md">Medium text</Text>

@@ -4,7 +4,15 @@ component: text
 description: A typography component for body text, inline content, semantic emphasis, and truncated previews.
 ---
 
-import * as TextDocs from '@/components/examples/text';
+import * as TextDocs from '@/components/examples/text/text';
+import TextAlignment from './_snippets/text/alignment.tsx';
+import TextBasic from './_snippets/text/basic.tsx';
+import TextCustomComposition from './_snippets/text/custom-composition.tsx';
+import TextSemantics from './_snippets/text/semantics.tsx';
+import TextSize from './_snippets/text/size.tsx';
+import TextTone from './_snippets/text/tone.tsx';
+import TextTruncation from './_snippets/text/truncation.tsx';
+import TextWeight from './_snippets/text/weight.tsx';
 
 ## API Reference
 
@@ -27,11 +35,26 @@ on moduix's typography scale.
 Use the default `p` root for a paragraph. Pass `as` when the content needs a different semantic HTML
 element but should keep `Text`'s typography styles.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/text/basic.tsx"
+<ExampleFrame variant="component">
+  <TextBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/text/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/text/text-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -92,73 +115,172 @@ control separately when users need to reveal the full text.
 
 Use `align` when alignment belongs to the text rather than its surrounding layout container.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/text/alignment.tsx"
+<ExampleFrame variant="component">
+  <TextAlignment />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/text/alignment.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/text/text-alignment.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Semantics
 
 Use `as` to choose a semantic HTML element while keeping `Text`'s typography styles.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/text/semantics.tsx"
+<ExampleFrame variant="component">
+  <TextSemantics />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/text/semantics.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/text/text-semantics.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Size
 
 Use `size` to change the visual hierarchy without switching to a different typography component.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/text/size.tsx"
+<ExampleFrame variant="component">
+  <TextSize />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/text/size.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/text/text-size.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Tone
 
 Use `tone` to express the role of the copy without adding local color classes.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/text/tone.tsx"
+<ExampleFrame variant="component">
+  <TextTone />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/text/tone.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/text/text-tone.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Truncation
 
 Use `truncate` for a single-line ellipsis and `lineClamp` for dense multi-line previews. Add the
 expansion or disclosure behavior in the surrounding UI.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/text/truncation.tsx"
+<ExampleFrame variant="component">
+  <TextTruncation />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/text/truncation.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/text/text-truncation.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Weight
 
 Use `weight` when the emphasis should stay within the same semantic element.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/text/weight.tsx"
+<ExampleFrame variant="component">
+  <TextWeight />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/text/weight.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/text/text-weight.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Use `asChild` when the root should be an existing custom element instead of one of the supported
 intrinsic `as` values. The child must be a single element that accepts the forwarded props and ref.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/text/custom-composition.tsx"
+<ExampleFrame variant="component">
+  <TextCustomComposition />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/text/custom-composition.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

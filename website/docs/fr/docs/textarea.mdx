@@ -4,7 +4,13 @@ component: textarea
 description: Zone de texte native multiligne, compatible avec Field et stylée par moduix.
 ---
 
-import * as TextareaDocs from '@/components/examples/textarea';
+import * as TextareaDocs from '@/components/examples/textarea/textarea';
+import TextareaAutoResize from '../../en/docs/_snippets/textarea/auto-resize.tsx';
+import TextareaBasic from '../../en/docs/_snippets/textarea/basic.tsx';
+import TextareaControlled from '../../en/docs/_snippets/textarea/controlled.tsx';
+import TextareaDisabledAndReadonly from '../../en/docs/_snippets/textarea/disabled-and-readonly.tsx';
+import TextareaFieldValidation from '../../en/docs/_snippets/textarea/field-validation.tsx';
+import TextareaNativeAttributes from '../../en/docs/_snippets/textarea/native-attributes.tsx';
 
 ## Référence de l’API
 
@@ -30,11 +36,26 @@ Placez `Textarea` dans `Field` lorsqu’il faut fournir au champ un libellé acc
 complémentaire. C’est la configuration recommandée pour les commentaires, notes, descriptions de
 tâches et contenus similaires.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/textarea/basic.tsx"
+<ExampleFrame variant="component">
+  <TextareaBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/textarea/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/textarea/textarea-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -103,43 +124,103 @@ Pour une interface où le texte est d’abord affiché puis modifié, utilisez `
 Définissez `autoresize` lorsque la zone de texte doit grandir au fil de la saisie. Ark désactive le
 redimensionnement manuel lorsque cette option est active.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/textarea/auto-resize.tsx"
+<ExampleFrame variant="component">
+  <TextareaAutoResize />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/textarea/auto-resize.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/textarea/textarea-auto-resize.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Valeur contrôlée
 
 Utilisez `value` et le gestionnaire natif `onChange` lorsque l’état React doit piloter le contenu.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/textarea/controlled.tsx"
+<ExampleFrame variant="component">
+  <TextareaControlled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/textarea/controlled.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/textarea/textarea-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Désactivé et en lecture seule
 
 Utilisez `disabled` lorsque l’utilisateur ne doit pas interagir avec le contrôle. Utilisez `readOnly`
 lorsqu’il peut lire et sélectionner la valeur, mais pas la modifier.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/textarea/disabled-and-readonly.tsx"
+<ExampleFrame variant="component">
+  <TextareaDisabledAndReadonly />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/textarea/disabled-and-readonly.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/textarea/textarea-disabled-and-readonly.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Validation du champ
 
 Définissez `invalid` sur `Field`. Ark ajoute `aria-invalid` et `data-invalid` à la zone de texte et
 la relie à son message d’erreur.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/textarea/field-validation.tsx"
+<ExampleFrame variant="component">
+  <TextareaFieldValidation />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/textarea/field-validation.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/textarea/textarea-field-validation.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Attributs natifs et soumission du formulaire
 
@@ -147,11 +228,26 @@ Utilisez les propriétés natives de `textarea`, comme `rows`, `maxLength` et `s
 comportement du navigateur. Cet exemple soumet également le formulaire et lit la valeur actuelle via
 `FormData`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/textarea/native-attributes.tsx"
+<ExampleFrame variant="component">
+  <TextareaNativeAttributes />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/textarea/native-attributes.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/textarea/textarea-native-attributes.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

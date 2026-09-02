@@ -4,9 +4,17 @@ component: toast
 description: Notifications temporaires pour les actions, les changements d’état et les retours contextuels.
 ---
 
-import * as ToastDocs from '@/components/examples/toast';
-
-<style>{ToastDocs.toastExampleCss}</style>
+import * as ToastDocs from '@/components/examples/toast/toast';
+import ToastAction from '../../en/docs/_snippets/toast/action.tsx';
+import ToastBasic from '../../en/docs/_snippets/toast/basic.tsx';
+import ToastCustomComposition from '../../en/docs/_snippets/toast/custom-composition.tsx';
+import ToastDuration from '../../en/docs/_snippets/toast/duration.tsx';
+import ToastMaximumVisible from '../../en/docs/_snippets/toast/max-toasts.tsx';
+import ToastNonOverlapping from '../../en/docs/_snippets/toast/always-expanded.tsx';
+import ToastPlacement from '../../en/docs/_snippets/toast/placement.tsx';
+import ToastPromise from '../../en/docs/_snippets/toast/promise-toast.tsx';
+import ToastTypes from '../../en/docs/_snippets/toast/types.tsx';
+import ToastUpdate from '../../en/docs/_snippets/toast/update.tsx';
 
 ## Référence de l’API
 
@@ -21,10 +29,26 @@ courantes. La référence Ark décrit l’API complète du gestionnaire de notif
 Créez une instance de toaster une seule fois avec `createToaster()`, utilisez ses méthodes pour
 ajouter des notifications, puis affichez-la avec `Toaster`.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/toast/basic.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <ToastBasic />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toast/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toast/toast-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -135,10 +159,26 @@ cycle de fermeture et les callbacks de statut d’Ark restent disponibles. Utili
 
 Ajoutez `action: { label, onClick }` lorsque la notification doit proposer une action directe.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/toast/action.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <ToastAction />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toast/action.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toast/toast-action.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Durée
 
@@ -146,20 +186,52 @@ Définissez `duration` en millisecondes lorsqu’une notification doit disparaî
 visible plus longtemps ou rester affichée jusqu’à sa fermeture manuelle. Utilisez `Infinity` dans ce
 dernier cas.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/toast/duration.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <ToastDuration />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toast/duration.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toast/toast-duration.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Nombre maximal visible
 
 Définissez `max` sur le toaster lorsque des rafales de notifications doivent être mises en file au
 lieu de remplir l’écran.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/toast/max-toasts.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <ToastMaximumVisible />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toast/max-toasts.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toast/toast-max-toasts.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Pile sans chevauchement
 
@@ -167,60 +239,156 @@ Définissez `overlap: false` pour que chaque notification reste entièrement vis
 replier dans une pile qui se chevauche. Il s’agit d’un réglage du toaster, pas d’un mode distinct du
 composant.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/toast/always-expanded.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <ToastNonOverlapping />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toast/always-expanded.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toast/toast-always-expanded.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Placement
 
 Choisissez l’un des six placements d’Ark lorsque le groupe de notifications doit apparaître près d’un
 bord précis de la fenêtre.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/toast/placement.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <ToastPlacement />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toast/placement.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toast/toast-placement.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Promise
 
 Utilisez `toaster.promise()` pour faire passer une même notification du chargement au succès ou à
 l’erreur lorsque l’opération asynchrone se termine.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/toast/promise-toast.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <ToastPromise />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toast/promise-toast.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toast/toast-promise-toast.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Types
 
 Utilisez les helpers typés du toaster pour les variantes liées au statut. Moduix applique les styles
 `info`, `success`, `warning` et `error` via `data-type`.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/toast/types.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <ToastTypes />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toast/types.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toast/toast-types.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Mise à jour
 
 Conservez l’identifiant renvoyé lors de la création d’une notification et transmettez-le à
 `toaster.update()` lorsque la notification existante doit être modifiée sur place.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/toast/update.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <ToastUpdate />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toast/update.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toast/toast-update.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Personnalisation avancée
 
 Utilisez la render prop pour remplacer la structure standard de `Toaster`, ajouter une icône,
 remplacer l’icône de fermeture et appliquer des variables CSS propres au composant.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/toast/custom-composition.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <ToastCustomComposition />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toast/custom-composition.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toast/toast-custom-composition.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

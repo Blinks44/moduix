@@ -3,6 +3,7 @@ import { TagsInput } from '@moduix/react/tags-input';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/tags-input/tags-input-form.module.css';
 
 export default function FormTagsInput() {
   const [submittedValue, setSubmittedValue] = useState('');
@@ -13,7 +14,7 @@ export default function FormTagsInput() {
   };
 
   return (
-    <form className="tags-input-preview-stack" onSubmit={handleSubmit}>
+    <form className={styles.root} onSubmit={handleSubmit}>
       <TagsInput defaultValue={['React', 'TypeScript']} name="frameworks">
         <TagsInput.Label>Frameworks</TagsInput.Label>
         <TagsInput.Control>

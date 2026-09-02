@@ -1,27 +1,5 @@
-import type { CssPropertyInput } from '../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../mdx/reference';
-
-export const timerExampleCss = `
-  .timer-note {
-    margin: 0;
-    font-size: var(--moduix-text-sm);
-    line-height: var(--moduix-line-height-text-sm);
-    color: var(--moduix-color-muted-foreground);
-  }
-
-  .timer-item-group {
-    display: inline-grid;
-    justify-items: center;
-    gap: var(--moduix-spacing-1);
-  }
-
-  .timer-item-label {
-    font-size: var(--moduix-text-xs);
-    font-weight: var(--moduix-weight-regular);
-    line-height: var(--moduix-line-height-text-xs);
-    color: var(--moduix-color-muted-foreground);
-  }
-`;
+import type { CssPropertyInput } from '../../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
 const timerCssProperties: CssPropertyInput[] = [
   ['--moduix-timer-color', 'var(--moduix-color-foreground)', 'Controls the timer text color.'],

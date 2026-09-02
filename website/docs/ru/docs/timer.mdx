@@ -4,7 +4,13 @@ component: timer
 description: Компонент для отсчёта прошедшего или оставшегося времени с явными элементами управления.
 ---
 
-import * as TimerDocs from '@/components/examples/timer';
+import * as TimerDocs from '@/components/examples/timer/timer';
+import TimerBasic from '../../en/docs/_snippets/timer/basic.tsx';
+import TimerCountdown from '../../en/docs/_snippets/timer/countdown.tsx';
+import TimerEvents from '../../en/docs/_snippets/timer/events.tsx';
+import TimerInterval from '../../en/docs/_snippets/timer/interval.tsx';
+import TimerPomodoro from '../../en/docs/_snippets/timer/pomodoro.tsx';
+import TimerRootProvider from '../../en/docs/_snippets/timer/root-provider.tsx';
 
 ## Справочник API
 
@@ -21,13 +27,20 @@ import * as TimerDocs from '@/components/examples/timer';
 Компонент сам создаёт элементы и разделители, поэтому для замены корневого элемента или собственных дочерних
 элементов используйте `Timer.Area`.
 
-<style>{TimerDocs.timerExampleCss}</style>
+<ExampleFrame variant="component">
+  <TimerBasic />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/timer/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/timer/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -122,62 +135,127 @@ Timer.Segments
 
 Задайте `countdown` и `startMs`, если отображение должно идти обратным отсчётом до нуля.
 
-<style>{TimerDocs.timerExampleCss}</style>
+<ExampleFrame variant="component">
+  <TimerCountdown />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/timer/countdown.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/timer/countdown.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/timer/timer-countdown.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### События
 
 Используйте `onTick` и `onComplete` для побочных эффектов, связанных с жизненным циклом таймера.
 
-<style>{TimerDocs.timerExampleCss}</style>
+<ExampleFrame variant="component">
+  <TimerEvents />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/timer/events.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/timer/events.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/timer/timer-events.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Интервал
 
 Уменьшите `interval` и добавьте элемент `milliseconds`, если UI должен обновляться несколько раз в секунду.
 
-<style>{TimerDocs.timerExampleCss}</style>
+<ExampleFrame variant="component">
+  <TimerInterval />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/timer/interval.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/timer/interval.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/timer/timer-interval.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Помодоро
 
 Используйте `onComplete`, чтобы переключать режимы работы и отдыха и запускать следующий цикл таймера.
 
-<style>{TimerDocs.timerExampleCss}</style>
+<ExampleFrame variant="component">
+  <TimerPomodoro />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/timer/pomodoro.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/timer/pomodoro.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/timer/timer-pomodoro.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
 Используйте `useTimer()`, если состояние и методы таймера должны быть доступны за пределами отображаемого дерева
 композиции. Это также подход для подписей единиц и другой пользовательской композиции элементов.
 
-<style>{TimerDocs.timerExampleCss}</style>
+<ExampleFrame variant="component">
+  <TimerRootProvider />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/timer/root-provider.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/timer/root-provider.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/timer/timer-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

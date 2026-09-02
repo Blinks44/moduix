@@ -4,9 +4,17 @@ component: toast
 description: Временные уведомления о действиях, изменениях статуса и событиях в интерфейсе.
 ---
 
-import * as ToastDocs from '@/components/examples/toast';
-
-<style>{ToastDocs.toastExampleCss}</style>
+import * as ToastDocs from '@/components/examples/toast/toast';
+import ToastAction from '../../en/docs/_snippets/toast/action.tsx';
+import ToastBasic from '../../en/docs/_snippets/toast/basic.tsx';
+import ToastCustomComposition from '../../en/docs/_snippets/toast/custom-composition.tsx';
+import ToastDuration from '../../en/docs/_snippets/toast/duration.tsx';
+import ToastMaximumVisible from '../../en/docs/_snippets/toast/max-toasts.tsx';
+import ToastNonOverlapping from '../../en/docs/_snippets/toast/always-expanded.tsx';
+import ToastPlacement from '../../en/docs/_snippets/toast/placement.tsx';
+import ToastPromise from '../../en/docs/_snippets/toast/promise-toast.tsx';
+import ToastTypes from '../../en/docs/_snippets/toast/types.tsx';
+import ToastUpdate from '../../en/docs/_snippets/toast/update.tsx';
 
 ## Справочник API
 
@@ -21,10 +29,26 @@ import * as ToastDocs from '@/components/examples/toast';
 Один раз создайте экземпляр toaster через `createToaster()`, добавляйте уведомления его методами и
 передайте его в `Toaster`.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/toast/basic.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <ToastBasic />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toast/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toast/toast-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -134,90 +158,234 @@ Ark сохраняет поведение live region, группировку у
 
 Добавьте `action: { label, onClick }`, если уведомление должно предложить одно прямое действие.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/toast/action.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <ToastAction />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toast/action.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toast/toast-action.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Длительность
 
 Задайте `duration` в миллисекундах, если уведомление должно исчезнуть раньше, оставаться дольше или
 ждать ручного закрытия. Для последнего варианта используйте `Infinity`.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/toast/duration.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <ToastDuration />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toast/duration.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toast/toast-duration.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Максимум видимых уведомлений
 
 Установите `max` на toaster, если всплески уведомлений должны вставать в очередь, а не заполнять
 экран.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/toast/max-toasts.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <ToastMaximumVisible />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toast/max-toasts.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toast/toast-max-toasts.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Стек без перекрытия
 
 Задайте `overlap: false`, если каждое уведомление должно оставаться полностью видимым, а не
 сворачиваться в перекрывающийся стек. Это настройка toaster, а не отдельный режим компонента.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/toast/always-expanded.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <ToastNonOverlapping />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toast/always-expanded.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toast/toast-always-expanded.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Размещение
 
 Выберите один из шести вариантов Ark, если группа уведомлений должна появляться у определённого
 края окна.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/toast/placement.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <ToastPlacement />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toast/placement.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toast/toast-placement.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Promise
 
 Используйте `toaster.promise()`, чтобы одно уведомление переходило из состояния загрузки в состояние
 успеха или ошибки после завершения асинхронной операции.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/toast/promise-toast.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <ToastPromise />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toast/promise-toast.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toast/toast-promise-toast.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Типы
 
 Используйте типизированные методы toaster для вариантов, зависящих от статуса. Moduix оформляет
 `info`, `success`, `warning` и `error` через `data-type`.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/toast/types.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <ToastTypes />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toast/types.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toast/toast-types.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Обновление
 
 Сохраните ID, который возвращает создание уведомления, и передайте его в `toaster.update()`, если
 существующее уведомление нужно изменить на месте.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/toast/update.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <ToastUpdate />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toast/update.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toast/toast-update.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
 Используйте render prop, чтобы заменить стандартную разметку `Toaster`, добавить иконку, изменить
 иконку закрытия и применить CSS-переменные компонента.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/toast/custom-composition.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <ToastCustomComposition />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toast/custom-composition.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toast/toast-custom-composition.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

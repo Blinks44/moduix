@@ -1,9 +1,10 @@
 import { Stack } from '@moduix/react/stack';
 import { TagsInput } from '@moduix/react/tags-input';
+import styles from '@/components/examples/tags-input/tags-input-disabled-and-read-only.module.css';
 
 export default function StateTagsInput() {
   return (
-    <Stack className="tags-input-preview-stack" gap="var(--moduix-spacing-3)">
+    <Stack className={styles.root}>
       <TagsInput disabled defaultValue={['disabled']}>
         <TagsInput.Label>Disabled</TagsInput.Label>
         <TagsInput.Control>

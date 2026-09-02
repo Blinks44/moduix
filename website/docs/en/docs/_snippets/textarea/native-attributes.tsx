@@ -3,13 +3,14 @@ import { Field } from '@moduix/react/field';
 import { Textarea } from '@moduix/react/textarea';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/textarea/textarea-native-attributes.module.css';
 
 export default function TextareaNativeAttributesDemo() {
   const [submitted, setSubmitted] = useState('Not submitted');
 
   return (
     <form
-      style={{ inlineSize: '100%' }}
+      className={styles.root}
       onSubmit={(event) => {
         event.preventDefault();
         setSubmitted(String(new FormData(event.currentTarget).get('notes') ?? ''));

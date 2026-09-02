@@ -1,0 +1,28 @@
+.root {
+  display: grid;
+  gap: var(--moduix-spacing-3);
+  justify-items: center;
+}
+
+.root > [data-preview-meta] {
+  justify-self: center;
+}
+
+.content {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--moduix-spacing-2);
+}
+
+.toast {
+  --moduix-toast-bg: var(--moduix-color-primary);
+  --moduix-toast-color: var(--moduix-color-primary-foreground);
+  --moduix-toast-border-color: var(--moduix-color-primary);
+  --moduix-toast-description-color: color-mix(
+    in srgb,
+    var(--moduix-color-primary-foreground) 72%,
+    transparent
+  );
+  --moduix-toast-close-color: var(--moduix-color-primary-foreground);
+  --moduix-toast-close-color-hover: var(--moduix-color-primary-foreground);
+}

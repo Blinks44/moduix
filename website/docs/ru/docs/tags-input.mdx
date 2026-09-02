@@ -4,7 +4,22 @@ component: tags-input
 description: Редактируемое поле для списка строковых тегов с проверкой и отправкой формы, которое можно дополнить подсказками.
 ---
 
-import * as TagsInputDocs from '@/components/examples/tags-input';
+import * as TagsInputDocs from '@/components/examples/tags-input/tags-input';
+import TagsInputAdvancedCustomization from '../../en/docs/_snippets/tags-input/advanced-customization.tsx';
+import TagsInputAllowDuplicates from '../../en/docs/_snippets/tags-input/allow-duplicates.tsx';
+import TagsInputBasic from '../../en/docs/_snippets/tags-input/basic.tsx';
+import TagsInputControlled from '../../en/docs/_snippets/tags-input/controlled.tsx';
+import TagsInputControlledInputValue from '../../en/docs/_snippets/tags-input/controlled-input-value.tsx';
+import TagsInputDelimiterAndPaste from '../../en/docs/_snippets/tags-input/delimiter-and-paste.tsx';
+import TagsInputDisableEditing from '../../en/docs/_snippets/tags-input/disable-editing.tsx';
+import TagsInputDisabledAndReadOnly from '../../en/docs/_snippets/tags-input/disabled-and-read-only.tsx';
+import TagsInputField from '../../en/docs/_snippets/tags-input/field.tsx';
+import TagsInputForm from '../../en/docs/_snippets/tags-input/form.tsx';
+import TagsInputMaxWithOverflow from '../../en/docs/_snippets/tags-input/max-with-overflow.tsx';
+import TagsInputRootProvider from '../../en/docs/_snippets/tags-input/root-provider.tsx';
+import TagsInputSanitizeAndBlur from '../../en/docs/_snippets/tags-input/sanitize-and-blur.tsx';
+import TagsInputValidationAndMax from '../../en/docs/_snippets/tags-input/validation-and-max.tsx';
+import TagsInputWithCombobox from '../../en/docs/_snippets/tags-input/with-combobox.tsx';
 
 ## Справочник API
 
@@ -26,13 +41,26 @@ import * as TagsInputDocs from '@/components/examples/tags-input';
 добавляет скрытое нативное поле формы. Передайте ему, например, `name`, если теги нужно отправлять
 вместе с формой.
 
-<style>{TagsInputDocs.tagsInputExampleCss}</style>
+<ExampleFrame variant="component">
+  <TagsInputBasic />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/tags-input/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/tags-input/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tags-input/tags-input-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -148,120 +176,285 @@ Ark `asChild`, а для удаления отдельного тега оста
 Включите `allowDuplicates`, если одно и то же значение может встречаться несколько раз и это важно
 для сценария.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/tags-input/allow-duplicates.tsx"
+<ExampleFrame variant="component">
+  <TagsInputAllowDuplicates />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tags-input/allow-duplicates.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tags-input/tags-input-allow-duplicates.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Управляемый список тегов
 
 Храните массив тегов в состоянии React, если от него зависит другая часть экрана или список нужно
 сбрасывать программно.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/tags-input/controlled.tsx"
+<ExampleFrame variant="component">
+  <TagsInputControlled />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tags-input/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tags-input/tags-input-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Управляемое значение поля ввода
 
 Управляйте `inputValue` отдельно, если другой элемент интерфейса должен заранее заполнить или
 очистить поле ввода.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/tags-input/controlled-input-value.tsx"
+<ExampleFrame variant="component">
+  <TagsInputControlledInputValue />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tags-input/controlled-input-value.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tags-input/tags-input-controlled-input-value.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Разделитель и вставка
 
 Используйте `delimiter` вместе с `addOnPaste`, если вставленный текст должен превратиться в несколько
 тегов. В примере разделителями служат запятая, точка с запятой и пробел.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/tags-input/delimiter-and-paste.tsx"
+<ExampleFrame variant="component">
+  <TagsInputDelimiterAndPaste />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tags-input/delimiter-and-paste.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tags-input/tags-input-delimiter-and-paste.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Запретить редактирование
 
 Задайте `editable={false}`, если существующие теги можно удалять, но нельзя редактировать на месте.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/tags-input/disable-editing.tsx"
+<ExampleFrame variant="component">
+  <TagsInputDisableEditing />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tags-input/disable-editing.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tags-input/tags-input-disable-editing.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Отключённое состояние и режим только для чтения
 
 Используйте `disabled` для полностью неинтерактивного поля. `readOnly` оставляет теги видимыми, но
 запрещает добавлять, удалять и редактировать их.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/tags-input/disabled-and-read-only.tsx"
+<ExampleFrame variant="component">
+  <TagsInputDisabledAndReadOnly />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tags-input/disabled-and-read-only.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tags-input/tags-input-disabled-and-read-only.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Field
 
 Оберните `TagsInput` в `Field`, если подпись, поясняющий текст, состояние ошибки и
 сообщение об ошибке должны быть связаны с полем по правилам доступности Ark.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/tags-input/field.tsx"
+<ExampleFrame variant="component">
+  <TagsInputField />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tags-input/field.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tags-input/tags-input-field.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Форма
 
 Передайте корню `name`, чтобы список тегов попал в `FormData`. moduix автоматически добавит скрытое
 нативное поле формы и синхронизирует его со сбросом формы.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/tags-input/form.tsx"
+<ExampleFrame variant="component">
+  <TagsInputForm />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tags-input/form.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tags-input/tags-input-form.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Максимальное число тегов с превышением
 
 Используйте `allowOverflow` вместе с `max`, если пользователь может временно превысить лимит, а
 поле при этом должно сообщить о невалидном состоянии.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/tags-input/max-with-overflow.tsx"
+<ExampleFrame variant="component">
+  <TagsInputMaxWithOverflow />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tags-input/max-with-overflow.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tags-input/tags-input-max-with-overflow.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### RootProvider
 
 Используйте moduix `useTagsInput` с `RootProvider`, когда состояние и императивные методы должны
 использоваться за пределами дерева отрисованного поля.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/tags-input/root-provider.tsx"
+<ExampleFrame variant="component">
+  <TagsInputRootProvider />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tags-input/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tags-input/tags-input-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Нормализация и потеря фокуса
 
 Используйте `sanitizeValue`, чтобы нормализовать вводимые теги, а `blurBehavior="add"`, чтобы
 добавить текущее значение, когда фокус покидает поле.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/tags-input/sanitize-and-blur.tsx"
+<ExampleFrame variant="component">
+  <TagsInputSanitizeAndBlur />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tags-input/sanitize-and-blur.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tags-input/tags-input-sanitize-and-blur.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Проверка и максимум
 
@@ -269,11 +462,26 @@ Ark `asChild`, а для удаления отдельного тега оста
 почему добавление не состоялось. Добавьте `maxLength`, если поле не должно принимать слишком длинные
 значения ещё до запуска проверки.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/tags-input/validation-and-max.tsx"
+<ExampleFrame variant="component">
+  <TagsInputValidationAndMax />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tags-input/validation-and-max.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tags-input/tags-input-validation-and-max.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Вместе с Combobox
 
@@ -281,11 +489,26 @@ Ark `asChild`, а для удаления отдельного тега оста
 одновременно разрешать пользовательские значения. В примере компоненты используют общие
 идентификаторы, а поля объединяются через `asChild`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/tags-input/with-combobox.tsx"
+<ExampleFrame variant="component">
+  <TagsInputWithCombobox />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tags-input/with-combobox.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tags-input/tags-input-with-combobox.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
@@ -293,11 +516,26 @@ Ark `asChild`, а для удаления отдельного тега оста
 значения корня с полной структурой частей Ark и оставьте `ItemInput` внутри каждого тега, если
 редактирование на месте всё ещё нужно.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/tags-input/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <TagsInputAdvancedCustomization />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tags-input/advanced-customization.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tags-input/tags-input-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

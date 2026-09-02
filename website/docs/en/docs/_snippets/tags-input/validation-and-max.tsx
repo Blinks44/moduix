@@ -1,11 +1,12 @@
 import { TagsInput } from '@moduix/react/tags-input';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/tags-input/tags-input-validation-and-max.module.css';
 
 export default function ValidationTagsInput() {
   const [invalidReason, setInvalidReason] = useState('none');
   return (
-    <div className="tags-input-preview-stack">
+    <div className={styles.root}>
       <TagsInput
         max={3}
         maxLength={12}

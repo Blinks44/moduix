@@ -1,5 +1,5 @@
-import type { CssPropertyInput } from '../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../mdx/reference';
+import type { CssPropertyInput } from '../../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
 const toastOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-toast-action-bg', 'transparent', 'Controls action button background.'],
@@ -242,18 +242,6 @@ const toastOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-toast-width', '20rem', 'Controls toast width.'],
   ['--moduix-toast-z-index', 'var(--moduix-z-toast)', 'Controls toast stack z-index.'],
 ];
-
-export const toastExampleCss = `
-.toast-preview-stack {
-  display: grid;
-  gap: var(--moduix-spacing-3);
-  justify-items: center;
-}
-
-.toast-preview-stack > [data-preview-meta] {
-  justify-self: center;
-}
-`;
 
 export function ToastCssPropertiesPanel() {
   return (

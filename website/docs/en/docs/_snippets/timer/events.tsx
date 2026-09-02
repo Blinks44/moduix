@@ -2,6 +2,7 @@ import { Timer } from '@moduix/react/timer';
 import { Play as PlayIcon, RotateCcw as RotateCcwIcon } from 'lucide-react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/timer/timer-events.module.css';
 
 export default function EventsTimerDemo() {
   const [ticks, setTicks] = useState(0);
@@ -14,9 +15,9 @@ export default function EventsTimerDemo() {
         onComplete={() => setComplete(true)}
       >
         <Timer.Area>
-          <span className="timer-item-group">
+          <span className={styles.itemGroup}>
             <Timer.Item type="seconds" />
-            <span className="timer-item-label">seconds</span>
+            <span className={styles.itemLabel}>seconds</span>
           </span>
         </Timer.Area>
         <Timer.Control>

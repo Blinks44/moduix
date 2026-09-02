@@ -2,6 +2,7 @@ import { Timer } from '@moduix/react/timer';
 import { Pause as PauseIcon, Play as PlayIcon, RotateCcw as RotateCcwIcon } from 'lucide-react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/timer/timer-pomodoro.module.css';
 
 export default function PomodoroTimerDemo() {
   const [mode, setMode] = useState('work' as 'work' | 'break');
@@ -15,14 +16,14 @@ export default function PomodoroTimerDemo() {
         onComplete={() => setMode((value) => (value === 'work' ? 'break' : 'work'))}
       >
         <Timer.Area>
-          <span className="timer-item-group">
+          <span className={styles.itemGroup}>
             <Timer.Item type="minutes" />
-            <span className="timer-item-label">minutes</span>
+            <span className={styles.itemLabel}>minutes</span>
           </span>
           <Timer.Separator>:</Timer.Separator>
-          <span className="timer-item-group">
+          <span className={styles.itemGroup}>
             <Timer.Item type="seconds" />
-            <span className="timer-item-label">seconds</span>
+            <span className={styles.itemLabel}>seconds</span>
           </span>
         </Timer.Area>
         <Timer.Control>

@@ -1,18 +1,19 @@
 import { Timer } from '@moduix/react/timer';
 import { Pause as PauseIcon, Play as PlayIcon, RotateCcw as RotateCcwIcon } from 'lucide-react';
+import styles from '@/components/examples/timer/timer-countdown.module.css';
 
 export default function CountdownTimerDemo() {
   return (
     <Timer countdown startMs={10 * 60 * 1000}>
       <Timer.Area>
-        <span className="timer-item-group">
+        <span className={styles.itemGroup}>
           <Timer.Item type="minutes" />
-          <span className="timer-item-label">minutes</span>
+          <span className={styles.itemLabel}>minutes</span>
         </span>
         <Timer.Separator>:</Timer.Separator>
-        <span className="timer-item-group">
+        <span className={styles.itemGroup}>
           <Timer.Item type="seconds" />
-          <span className="timer-item-label">seconds</span>
+          <span className={styles.itemLabel}>seconds</span>
         </span>
       </Timer.Area>
       <Timer.Control>

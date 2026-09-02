@@ -1,32 +1,20 @@
 import { Button } from '@moduix/react/button';
 import { Toast, Toaster, createToaster } from '@moduix/react/toast';
-import type { CSSProperties } from 'react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/toast/toast-custom-composition.module.css';
 
 const toaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 24 });
-
-const toastStyle = {
-  '--moduix-toast-bg': 'var(--moduix-color-primary)',
-  '--moduix-toast-color': 'var(--moduix-color-primary-foreground)',
-  '--moduix-toast-border-color': 'var(--moduix-color-primary)',
-  '--moduix-toast-description-color':
-    'color-mix(in srgb, var(--moduix-color-primary-foreground) 72%, transparent)',
-  '--moduix-toast-close-color': 'var(--moduix-color-primary-foreground)',
-  '--moduix-toast-close-color-hover': 'var(--moduix-color-primary-foreground)',
-} as CSSProperties;
 
 export default function App() {
   const [event, setEvent] = useState('No toast created');
 
   return (
-    <div className="toast-preview-stack">
+    <div className={styles.root}>
       <Toaster toaster={toaster}>
         {(toast) => (
-          <Toast key={toast.id} style={toastStyle}>
-            <div
-              style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--moduix-spacing-2)' }}
-            >
+          <Toast key={toast.id} className={styles.toast}>
+            <div className={styles.content}>
               <span aria-hidden="true">ⓘ</span>
               <div>
                 <Toast.Title />

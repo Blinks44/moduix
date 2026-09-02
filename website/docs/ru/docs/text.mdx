@@ -4,7 +4,15 @@ component: text
 description: Компонент для оформления обычного и встроенного текста, смысловых акцентов и усечённых превью.
 ---
 
-import * as TextDocs from '@/components/examples/text';
+import * as TextDocs from '@/components/examples/text/text';
+import TextAlignment from '../../en/docs/_snippets/text/alignment.tsx';
+import TextBasic from '../../en/docs/_snippets/text/basic.tsx';
+import TextCustomComposition from '../../en/docs/_snippets/text/custom-composition.tsx';
+import TextSemantics from '../../en/docs/_snippets/text/semantics.tsx';
+import TextSize from '../../en/docs/_snippets/text/size.tsx';
+import TextTone from '../../en/docs/_snippets/text/tone.tsx';
+import TextTruncation from '../../en/docs/_snippets/text/truncation.tsx';
+import TextWeight from '../../en/docs/_snippets/text/weight.tsx';
 
 ## Справочник API
 
@@ -27,11 +35,26 @@ import * as TextDocs from '@/components/examples/text';
 Для абзаца используйте корневой элемент `p`, который выбран по умолчанию. Передавайте `as`, когда нужна другая
 семантический HTML-элемент, но оформление `Text` должно сохраниться.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/text/basic.tsx"
+<ExampleFrame variant="component">
+  <TextBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/text/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/text/text-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -91,73 +114,172 @@ Text / Text.Root
 
 Используйте `align`, когда выравнивание относится к тексту, а не к окружающему контейнеру.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/text/alignment.tsx"
+<ExampleFrame variant="component">
+  <TextAlignment />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/text/alignment.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/text/text-alignment.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Семантика
 
 Используйте `as`, чтобы выбрать семантический HTML-элемент и сохранить типографические стили `Text`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/text/semantics.tsx"
+<ExampleFrame variant="component">
+  <TextSemantics />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/text/semantics.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/text/text-semantics.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Размер
 
 Используйте `size`, чтобы изменить визуальную иерархию, не переходя на другой типографический компонент.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/text/size.tsx"
+<ExampleFrame variant="component">
+  <TextSize />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/text/size.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/text/text-size.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Тон
 
 Используйте `tone`, чтобы показать роль текста без локальных классов цвета.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/text/tone.tsx"
+<ExampleFrame variant="component">
+  <TextTone />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/text/tone.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/text/text-tone.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Усечение
 
 Используйте `truncate` для однострочного усечения с многоточием, а `lineClamp` для компактных многострочных превью.
 Логику раскрытия полного текста добавляйте отдельно, в окружающем интерфейсе.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/text/truncation.tsx"
+<ExampleFrame variant="component">
+  <TextTruncation />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/text/truncation.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/text/text-truncation.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Насыщенность
 
 Используйте `weight`, когда акцент должен остаться в пределах того же семантического элемента.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/text/weight.tsx"
+<ExampleFrame variant="component">
+  <TextWeight />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/text/weight.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/text/text-weight.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
 Используйте `asChild`, когда корнем должен стать существующий пользовательский элемент, а не одно из поддерживаемых
 встроенных значений `as`. Дочерний элемент должен быть единственным и принимать передаваемые свойства и `ref`.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/text/custom-composition.tsx"
+<ExampleFrame variant="component">
+  <TextCustomComposition />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/text/custom-composition.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

@@ -1,8 +1,9 @@
 import { Text } from '@moduix/react/text';
+import styles from '@/components/examples/text/text-weight.module.css';
 
 export default function TextWeightsDemo() {
   return (
-    <div style={{ display: 'grid', gap: 'var(--moduix-spacing-3)' }}>
+    <div className={styles.stack}>
       <Text weight="regular">Regular weight</Text>
       <Text weight="medium">Medium weight</Text>
       <Text weight="semibold">Semibold weight</Text>

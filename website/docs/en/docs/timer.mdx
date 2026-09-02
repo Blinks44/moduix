@@ -4,7 +4,13 @@ component: timer
 description: A timer for tracking elapsed or remaining time with explicit controls.
 ---
 
-import * as TimerDocs from '@/components/examples/timer';
+import * as TimerDocs from '@/components/examples/timer/timer';
+import TimerBasic from './_snippets/timer/basic.tsx';
+import TimerCountdown from './_snippets/timer/countdown.tsx';
+import TimerEvents from './_snippets/timer/events.tsx';
+import TimerInterval from './_snippets/timer/interval.tsx';
+import TimerPomodoro from './_snippets/timer/pomodoro.tsx';
+import TimerRootProvider from './_snippets/timer/root-provider.tsx';
 
 ## API Reference
 
@@ -20,13 +26,20 @@ you need unit labels, custom separators, or per-item styling.
 it creates the items and separators itself, use `Timer.Area` when you need to replace its host element or provide
 custom children.
 
-<style>{TimerDocs.timerExampleCss}</style>
+<ExampleFrame variant="component">
+  <TimerBasic />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="./_snippets/timer/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/timer/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -118,62 +131,127 @@ the Ark timer machine.
 
 Set `countdown` and `startMs` when the display should count down to zero.
 
-<style>{TimerDocs.timerExampleCss}</style>
+<ExampleFrame variant="component">
+  <TimerCountdown />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="./_snippets/timer/countdown.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/timer/countdown.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/timer/timer-countdown.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Events
 
 Use `onTick` and `onComplete` for side effects tied to the timer lifecycle.
 
-<style>{TimerDocs.timerExampleCss}</style>
+<ExampleFrame variant="component">
+  <TimerEvents />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="./_snippets/timer/events.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/timer/events.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/timer/timer-events.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Interval
 
 Use a shorter `interval` with a `milliseconds` item when the UI needs sub-second updates.
 
-<style>{TimerDocs.timerExampleCss}</style>
+<ExampleFrame variant="component">
+  <TimerInterval />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="./_snippets/timer/interval.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/timer/interval.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/timer/timer-interval.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Pomodoro
 
 Use `onComplete` to switch between work and break durations when the timer should advance to the next cycle.
 
-<style>{TimerDocs.timerExampleCss}</style>
+<ExampleFrame variant="component">
+  <TimerPomodoro />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="./_snippets/timer/pomodoro.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/timer/pomodoro.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/timer/timer-pomodoro.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Use `useTimer()` when the timer state and methods must also be available outside the rendered part tree. This is
 also the right composition for unit labels and other custom item layouts.
 
-<style>{TimerDocs.timerExampleCss}</style>
+<ExampleFrame variant="component">
+  <TimerRootProvider />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="./_snippets/timer/root-provider.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="./_snippets/timer/root-provider.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/timer/timer-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

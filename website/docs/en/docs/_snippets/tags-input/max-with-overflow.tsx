@@ -1,8 +1,9 @@
 import { TagsInput } from '@moduix/react/tags-input';
+import styles from '@/components/examples/tags-input/tags-input-max-with-overflow.module.css';
 
 export default function MaxOverflowTagsInput() {
   return (
-    <TagsInput max={2} allowOverflow defaultValue={['React', 'Solid']}>
+    <TagsInput className={styles.root} max={2} allowOverflow defaultValue={['React', 'Solid']}>
       <TagsInput.Label>Frameworks</TagsInput.Label>
       <TagsInput.Control>
         <TagsInput.Items />

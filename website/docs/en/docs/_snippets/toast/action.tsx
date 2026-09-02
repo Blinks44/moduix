@@ -2,6 +2,7 @@ import { Button } from '@moduix/react/button';
 import { Toaster, createToaster } from '@moduix/react/toast';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/toast/toast-action.module.css';
 
 const toaster = createToaster({ placement: 'bottom-end', gap: 24 });
 
@@ -9,7 +10,7 @@ export default function App() {
   const [event, setEvent] = useState('No toast created');
 
   return (
-    <div className="toast-preview-stack">
+    <div className={styles.root}>
       <Toaster toaster={toaster} />
       <PreviewMeta>
         <output>Last event: {event}</output>

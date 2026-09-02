@@ -1,8 +1,9 @@
 import { Text } from '@moduix/react/text';
+import styles from '@/components/examples/text/text-basic.module.css';
 
 export default function TextDemo() {
   return (
-    <div style={{ display: 'grid', gap: 'var(--moduix-spacing-3)' }}>
+    <div className={styles.stack}>
       <Text>Use text to describe interface state and supporting details.</Text>
       <Text as="small" tone="muted">
         Last updated 2 minutes ago

@@ -1,10 +1,11 @@
 import { TagsInput } from '@moduix/react/tags-input';
+import styles from '@/components/examples/tags-input/tags-input-basic.module.css';
 
 const initialTags = ['React', 'TypeScript'];
 
 export default function TagsInputDemo() {
   return (
-    <TagsInput defaultValue={initialTags} name="frameworks">
+    <TagsInput className={styles.root} defaultValue={initialTags} name="frameworks">
       <TagsInput.Label>Frameworks</TagsInput.Label>
       <TagsInput.Control>
         <TagsInput.Items />

@@ -3,11 +3,12 @@ import { Stack } from '@moduix/react/stack';
 import { TagsInput } from '@moduix/react/tags-input';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/tags-input/tags-input-controlled-input-value.module.css';
 
 export default function ControlledInputValueTagsInput() {
   const [inputValue, setInputValue] = useState('');
   return (
-    <Stack className="tags-input-preview-stack" gap="var(--moduix-spacing-3)">
+    <Stack className={styles.root}>
       <TagsInput
         defaultValue={['Solid']}
         inputValue={inputValue}

@@ -1,5 +1,5 @@
-import type { CssPropertyInput } from '../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../mdx/reference';
+import type { CssPropertyInput } from '../../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
 const textOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-text-default-color', 'var(--moduix-color-foreground)', 'Controls default tone color.'],

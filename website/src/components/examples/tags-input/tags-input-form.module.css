@@ -1,0 +1,6 @@
+.root {
+  display: grid;
+  gap: var(--moduix-spacing-3);
+  justify-items: center;
+  width: min(24rem, 100%);
+}
