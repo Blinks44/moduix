@@ -68,6 +68,49 @@
   overflow: auto;
 }
 
+.exampleCode {
+  margin-top: -2.5rem;
+}
+
+.exampleCodeTrigger {
+  display: grid;
+  width: 1.75rem;
+  height: 1.75rem;
+  align-self: center;
+  place-items: center;
+  margin-inline: auto;
+  border: 1px solid var(--rp-c-divider-light);
+  border-radius: 50%;
+  background: var(--rp-c-bg);
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--rp-c-text-1) 12%, transparent);
+  color: var(--rp-c-text-1);
+  cursor: pointer;
+  transition:
+    border-color 0.3s,
+    background 0.3s;
+
+  &:hover {
+    border-color: var(--rp-c-divider);
+    background: var(--rp-c-bg-soft);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--rp-c-brand);
+    outline-offset: 2px;
+  }
+
+  & svg {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+.exampleCodeBody {
+  & > * {
+    min-width: 0;
+  }
+}
+
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));

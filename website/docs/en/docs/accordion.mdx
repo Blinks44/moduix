@@ -38,6 +38,7 @@ want to make that part explicit in your composition.
   <AccordionBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
@@ -54,6 +55,8 @@ want to make that part explicit in your composition.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -168,6 +171,7 @@ Set `collapsible` when the open item should be able to close without opening ano
   <AccordionCollapsible />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
@@ -185,6 +189,8 @@ Set `collapsible` when the open item should be able to close without opening ano
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Controlled
 
 Manage `value` with React state when open items need to stay in sync with routing, filters, or
@@ -194,6 +200,7 @@ surrounding UI.
   <AccordionControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
@@ -211,6 +218,8 @@ surrounding UI.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Disabled Item
 
 Set `disabled` on an item when it should remain visible in the list but unavailable for interaction.
@@ -219,6 +228,7 @@ Set `disabled` on an item when it should remain visible in the list but unavaila
   <AccordionDisabledItem />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
@@ -236,6 +246,8 @@ Set `disabled` on an item when it should remain visible in the list but unavaila
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Horizontal
 
 Set `orientation="horizontal"` to lay out the accordion in a row and use horizontal keyboard
@@ -245,6 +257,7 @@ navigation.
   <AccordionHorizontal />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
@@ -262,6 +275,8 @@ navigation.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Lazy Mount
 
 Combine `lazyMount` and `unmountOnExit` when hidden panel content is expensive to render and should
@@ -271,6 +286,7 @@ be removed from the DOM after it closes.
   <AccordionLazyMount />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
@@ -288,6 +304,8 @@ be removed from the DOM after it closes.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Multiple
 
 Set `multiple` when several sections should stay open at the same time.
@@ -296,6 +314,7 @@ Set `multiple` when several sections should stay open at the same time.
   <AccordionMultiple />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
@@ -313,6 +332,8 @@ Set `multiple` when several sections should stay open at the same time.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Use `useAccordion()` from `@moduix/react` with `Accordion.RootProvider` when the state store must be
@@ -323,6 +344,7 @@ same store.
   <AccordionRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
@@ -340,6 +362,8 @@ same store.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Advanced Customization
 
 Accordion content can contain another Ark-based composite widget, such as `Slider`. Keep each
@@ -349,6 +373,7 @@ primitive's part tree explicit so the right component owns keyboard handling and
   <AccordionWithSlider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
@@ -365,6 +390,8 @@ primitive's part tree explicit so the right component owns keyboard handling and
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

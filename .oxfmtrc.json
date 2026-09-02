@@ -6,7 +6,7 @@
   "sortImports": {
     "internalPattern": ["@/", "components/", "data/", "icons/", "lib/"],
     "newlinesBetween": false,
-    "sortSideEffects": true,
+    "sortSideEffects": false,
     "groups": [
       ["type-builtin", "value-builtin", "type-external", "value-external"],
       ["type-internal", "value-internal"],

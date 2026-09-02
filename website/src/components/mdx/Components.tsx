@@ -1,6 +1,7 @@
+import { Collapsible } from '@moduix/react/collapsible';
 import { useI18n } from '@rspress/core/runtime';
 import { Link, PackageManagerTabs, Tab, Tabs } from '@rspress/core/theme';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Code2 } from 'lucide-react';
 import type { ComponentProps, ReactNode } from 'react';
 import { useLocalizedPath } from '@/utils/localized-path';
 import styles from './Components.module.css';
@@ -121,10 +122,35 @@ function PreviewMeta({ children, ...props }: ComponentProps<'div'>) {
   );
 }
 
+function ExampleCode({ children }: { children: ReactNode }) {
+  const t = useI18n<typeof import('i18n')>();
+
+  if (import.meta.env.SSG_MD) return children;
+
+  return (
+    <Collapsible className={styles.exampleCode}>
+      <Collapsible.Trigger asChild>
+        <button
+          aria-label={t('showCode')}
+          className={styles.exampleCodeTrigger}
+          title={t('showCode')}
+          type="button"
+        >
+          <Code2 aria-hidden="true" />
+        </button>
+      </Collapsible.Trigger>
+      <Collapsible.Content className={styles.exampleCodeContent}>
+        <Collapsible.Body className={styles.exampleCodeBody}>{children}</Collapsible.Body>
+      </Collapsible.Content>
+    </Collapsible>
+  );
+}
+
 export {
   Card,
   Cards,
   CssPropertiesSection,
+  ExampleCode,
   ExampleFrame,
   PreviewFrame,
   PreviewMeta,

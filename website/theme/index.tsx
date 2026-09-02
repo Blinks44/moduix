@@ -25,17 +25,18 @@ import {
   useMdUrl,
 } from '@rspress/core/theme-original';
 import { useEffect, type ComponentProps, type FC } from 'react';
+import './index.css';
 import {
   Card,
   Cards,
   CssPropertiesSection,
+  ExampleCode,
   ExampleFrame,
   PreviewFrame,
   PrimitiveReference,
   ShadcnInstall,
 } from '@/components/mdx/Components';
 import { Tag } from './components/Tag';
-import './index.css';
 
 export * from '@rspress/core/theme-original';
 
@@ -173,6 +174,7 @@ const mdxComponents = {
   Card,
   Cards,
   CssPropertiesSection,
+  ExampleCode,
   ExampleFrame,
   PreviewFrame,
   h1: DocTitle,

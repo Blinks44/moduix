@@ -356,6 +356,11 @@
     "ru": "Документация Ark UI",
     "fr": "Référence de l’API Ark UI"
   },
+  "showCode": {
+    "en": "Show code",
+    "ru": "Показать код",
+    "fr": "Afficher le code"
+  },
   "primitiveReferenceDescription": {
     "en": "For behavior, accessibility guidance, and low-level props, see the Ark UI reference.",
     "ru": "Описание поведения, требований доступности и низкоуровневых свойств смотрите в документации Ark UI.",

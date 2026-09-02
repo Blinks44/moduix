@@ -39,6 +39,7 @@ import AccordionWithSlider from '@/components/examples/accordion/with-slider.tsx
   <AccordionBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
@@ -55,6 +56,8 @@ import AccordionWithSlider from '@/components/examples/accordion/with-slider.tsx
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -172,6 +175,7 @@ Accordion.RootProvider
   <AccordionCollapsible />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
@@ -189,6 +193,8 @@ Accordion.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Управляемое состояние
 
 Управляйте `value` через состояние React, если открытые элементы должны синхронизироваться с
@@ -198,6 +204,7 @@ Accordion.RootProvider
   <AccordionControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
@@ -215,6 +222,8 @@ Accordion.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Отключённый элемент
 
 Задайте элементу `disabled`, если он должен оставаться видимым в списке, но быть недоступным для взаимодействия.
@@ -223,6 +232,7 @@ Accordion.RootProvider
   <AccordionDisabledItem />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
@@ -240,6 +250,8 @@ Accordion.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Горизонтальный вариант
 
 Установите `orientation="horizontal"`, чтобы расположить аккордеон в ряд и включить горизонтальную
@@ -249,6 +261,7 @@ Accordion.RootProvider
   <AccordionHorizontal />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
@@ -266,6 +279,8 @@ Accordion.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Ленивое монтирование
 
 Сочетайте `lazyMount` и `unmountOnExit`, если скрытое содержимое панели дорого рендерить и его нужно
@@ -275,6 +290,7 @@ Accordion.RootProvider
   <AccordionLazyMount />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
@@ -292,6 +308,8 @@ Accordion.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Несколько открытых элементов
 
 Установите `multiple`, если одновременно должны оставаться открытыми несколько разделов.
@@ -300,6 +318,7 @@ Accordion.RootProvider
   <AccordionMultiple />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
@@ -317,6 +336,8 @@ Accordion.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Используйте `useAccordion()` из `@moduix/react` вместе с `Accordion.RootProvider`, если состояние
@@ -326,6 +347,7 @@ Accordion.RootProvider
   <AccordionRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
@@ -343,6 +365,8 @@ Accordion.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Расширенная настройка
 
 В содержимое аккордеона можно поместить другой составной виджет на базе Ark, например `Slider`.
@@ -353,6 +377,7 @@ Accordion.RootProvider
   <AccordionWithSlider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
@@ -369,6 +394,9 @@ Accordion.RootProvider
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
+
 ## Стилизация
 
 Используйте `className` у экспортируемых частей для структурных стилей. Для стилей, зависящих от

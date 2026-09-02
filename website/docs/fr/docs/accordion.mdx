@@ -39,6 +39,7 @@ même racine lorsque vous souhaitez rendre cette partie explicite dans votre com
   <AccordionBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
@@ -55,6 +56,8 @@ même racine lorsque vous souhaitez rendre cette partie explicite dans votre com
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -174,6 +177,7 @@ Activez `collapsible` pour permettre de refermer l'élément ouvert sans en ouvr
   <AccordionCollapsible />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
@@ -191,6 +195,8 @@ Activez `collapsible` pour permettre de refermer l'élément ouvert sans en ouvr
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### État contrôlé
 
 Gérez `value` avec l'état React lorsque les éléments ouverts doivent rester synchronisés avec le
@@ -200,6 +206,7 @@ routage, les filtres ou d'autres parties de l'interface.
   <AccordionControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
@@ -217,6 +224,8 @@ routage, les filtres ou d'autres parties de l'interface.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Élément désactivé
 
 Ajoutez `disabled` à un élément qui doit rester visible dans la liste, mais ne doit pas être interactif.
@@ -225,6 +234,7 @@ Ajoutez `disabled` à un élément qui doit rester visible dans la liste, mais n
   <AccordionDisabledItem />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
@@ -242,6 +252,8 @@ Ajoutez `disabled` à un élément qui doit rester visible dans la liste, mais n
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Horizontal
 
 Définissez `orientation="horizontal"` pour disposer l'accordéon en ligne et utiliser une navigation
@@ -251,6 +263,7 @@ au clavier horizontale.
   <AccordionHorizontal />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
@@ -268,6 +281,8 @@ au clavier horizontale.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Montage différé
 
 Combinez `lazyMount` et `unmountOnExit` lorsque le contenu masqué est coûteux à rendre et doit être
@@ -277,6 +292,7 @@ retiré du DOM après sa fermeture.
   <AccordionLazyMount />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
@@ -294,6 +310,8 @@ retiré du DOM après sa fermeture.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Plusieurs éléments ouverts
 
 Définissez `multiple` lorsque plusieurs sections doivent rester ouvertes simultanément.
@@ -302,6 +320,7 @@ Définissez `multiple` lorsque plusieurs sections doivent rester ouvertes simult
   <AccordionMultiple />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
@@ -319,6 +338,8 @@ Définissez `multiple` lorsque plusieurs sections doivent rester ouvertes simult
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Utilisez `useAccordion()` de `@moduix/react` avec `Accordion.RootProvider` lorsque l'état doit être
@@ -329,6 +350,7 @@ pour le même état.
   <AccordionRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
@@ -346,6 +368,8 @@ pour le même état.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Personnalisation avancée
 
 Le contenu d'un accordéon peut accueillir un autre widget composite basé sur Ark, comme `Slider`.
@@ -356,6 +380,7 @@ et les champs de formulaire masqués.
   <AccordionWithSlider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
@@ -372,6 +397,9 @@ et les champs de formulaire masqués.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
+
 ## Styles
 
 Utilisez `className` sur les parties exportées pour appliquer les styles structurels. Pour les styles
