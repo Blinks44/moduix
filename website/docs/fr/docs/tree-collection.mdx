@@ -3,6 +3,8 @@ title: Tree Collection
 description: "Créez, recherchez, parcourez, filtrez et mettez à jour des données hiérarchiques pour Tree View et vos interfaces arborescentes."
 ---
 
+import TreeCollectionBasic from '@/components/examples/tree-collection/basic.tsx';
+
 # Tree Collection
 
 ## API
@@ -51,9 +53,20 @@ La collection stocke la hiérarchie. `TreeView` gère l'ouverture des branches, 
 au clavier et la sélection. Affichez chaque branche récursivement à partir du nœud et du chemin d'index
 fournis par la collection.
 
-```tsx preview file="../../../src/components/examples/tree-view/basic.tsx"
+<ExampleFrame variant="component">
+  <TreeCollectionBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/tree-collection/basic.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Nœuds personnalisés
 

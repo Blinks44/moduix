@@ -3,6 +3,8 @@ title: Tree Collection
 description: "Создавайте, ищите, обходите, фильтруйте и обновляйте иерархические данные для Tree View и своих древовидных интерфейсов."
 ---
 
+import TreeCollectionBasic from '@/components/examples/tree-collection/basic.tsx';
+
 # Tree Collection
 
 ## API
@@ -52,9 +54,20 @@ const tree = createTreeCollection({
 навигацией и выбором. Отрисовывайте каждую ветвь рекурсивно, передавая узел и индексный путь из
 коллекции.
 
-```tsx preview file="../../../src/components/examples/tree-view/basic.tsx"
+<ExampleFrame variant="component">
+  <TreeCollectionBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/tree-collection/basic.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Пользовательские узлы
 

@@ -3,6 +3,8 @@ title: List Selection
 description: Управляйте одиночным, множественным, отменяемым выбором и выбором диапазона с модификаторами в пользовательских списках.
 ---
 
+import ListSelectionBasic from '@/components/examples/list-selection/basic.tsx';
+
 # List Selection
 
 ## Справочник API
@@ -22,9 +24,20 @@ import { createListCollection, useListSelection } from '@ark-ui/react/collection
 
 ## Одиночный выбор
 
-```tsx preview file="../../../src/components/examples/list-selection/basic.tsx"
+<ExampleFrame variant="component">
+  <ListSelectionBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/list-selection/basic.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 В этом примере для короткого списка независимых вариантов используются кнопки. Хук хранит выбранные
 значения, а интерфейс отвечает за отображение, семантические роли, фокус, взаимодействие с

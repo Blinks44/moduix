@@ -3,6 +3,8 @@ title: Async List
 description: Управляйте асинхронными данными списка с помощью useAsyncList: загружайте, фильтруйте, сортируйте и постранично подгружайте данные, отменяйте запросы и повторяйте загрузку после ошибок.
 ---
 
+import AsyncListBasic from '@/components/examples/async-list/basic.tsx';
+
 # Async List
 
 ## Справочник API
@@ -40,9 +42,20 @@ import { useAsyncList } from '@ark-ui/react/collection';
 показывает начальную загрузку и обновление, а также содержит ветки для пустого списка и ошибки,
 которые можно подключить к своей функции загрузки.
 
-```tsx preview file="../../../src/components/examples/async-list/basic.tsx"
+<ExampleFrame clientOnly variant="component">
+  <AsyncListBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/async-list/basic.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 `reload()` сначала очищает текущие элементы, а затем запускает новую загрузку. Поэтому полное
 состояние загрузки стоит показывать, когда `list.loading` имеет значение `true`, а элементов ещё

@@ -3,6 +3,8 @@ title: List Collection
 description: Créez et mettez à jour des collections construites à partir de tableaux pour Select, Combobox, Listbox et vos interfaces personnalisées.
 ---
 
+import ListCollectionBasic from '@/components/examples/list-collection/basic.tsx';
+
 # List Collection
 
 Une `ListCollection` est une structure de données construite à partir d'un tableau d'éléments. Elle
@@ -46,11 +48,20 @@ const collection = createListCollection({
 Passez la collection à un composant basé sur Ark et affichez ses éléments à partir de
 `collection.items`. L'exemple exécutable ci-dessous reprend le même principe avec `Select`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/select/basic.tsx"
-  ```
+<ExampleFrame variant="component">
+  <ListCollectionBasic />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/list-collection/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 Conservez une collection statique en dehors du composant lorsque ses éléments ne changent pas. Si
 les éléments viennent de props, de l'état React ou d'une requête, utilisez `useMemo` autour de

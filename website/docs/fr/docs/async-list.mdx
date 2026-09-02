@@ -3,6 +3,8 @@ title: Async List
 description: Gérez les données asynchrones d'une liste avec useAsyncList : chargement, filtrage, tri, pagination, annulation des requêtes et nouvelles tentatives.
 ---
 
+import AsyncListBasic from '@/components/examples/async-list/basic.tsx';
+
 # Async List
 
 ## Référence de l’API
@@ -40,9 +42,20 @@ L’exemple exécutable utilise un petit jeu de données local et un court déla
 chargement initial et l’actualisation. Il contient également les branches pour une liste vide et
 pour une erreur, que vous pouvez relier à votre propre fonction de chargement.
 
-```tsx preview file="../../../src/components/examples/async-list/basic.tsx"
+<ExampleFrame clientOnly variant="component">
+  <AsyncListBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/async-list/basic.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 Comme `reload()` vide les éléments actuels avant de lancer un nouveau chargement, affichez un état
 de chargement complet lorsque `list.loading` est vrai et que la liste ne contient aucun élément.

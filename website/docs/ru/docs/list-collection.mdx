@@ -3,6 +3,8 @@ title: List Collection
 description: Создавайте и обновляйте коллекции на основе массивов для Select, Combobox, Listbox и собственных интерфейсов.
 ---
 
+import ListCollectionBasic from '@/components/examples/list-collection/basic.tsx';
+
 # List Collection
 
 `ListCollection` - это структура данных, построенная на основе массива элементов. Она не отображает
@@ -46,11 +48,20 @@ const collection = createListCollection({
 Передайте коллекцию компоненту на базе Ark UI и отрисуйте элементы из `collection.items`. В
 работающем примере ниже показан тот же подход с `Select`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../../src/components/examples/select/basic.tsx"
-  ```
+<ExampleFrame variant="component">
+  <ListCollectionBasic />
+</ExampleFrame>
 
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/list-collection/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 Храните статическую коллекцию за пределами компонента, если её элементы не меняются. Если данные
 приходят через свойства компонента, состояние или запрос, оберните `createListCollection` в

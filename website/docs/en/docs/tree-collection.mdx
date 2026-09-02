@@ -3,6 +3,8 @@ title: Tree Collection
 description: Create, query, traverse, filter, and update hierarchical data for Tree View and custom tree interfaces.
 ---
 
+import TreeCollectionBasic from '@/components/examples/tree-collection/basic.tsx';
+
 # Tree Collection
 
 ## API
@@ -49,9 +51,20 @@ The root node is a container, so it is not included in `getValues()`. Pass the c
 The collection stores the hierarchy. `TreeView` manages branch expansion, focus, keyboard navigation,
 and selection. Render each branch recursively with the node and index path supplied by the collection.
 
-```tsx preview file="../../../src/components/examples/tree-view/basic.tsx"
+<ExampleFrame variant="component">
+  <TreeCollectionBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../../src/components/examples/tree-collection/basic.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Custom nodes
 
