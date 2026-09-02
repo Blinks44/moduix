@@ -3,10 +3,12 @@ import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import { Checkbox } from '@/components/checkbox';
 import { Field, useField } from '@/components/field';
 import { NativeSelect } from '@/components/native-select';
+import { RadioGroup } from '@/components/radio-group';
 
 const meta = {
   title: 'Components/Field',
   component: Field,
+  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },
@@ -50,7 +52,7 @@ export const ControlledInvalid: Story = {
         <Field.Label>Username</Field.Label>
         <Field.Input
           value={value()}
-          onChange={(event) => setValue(event.currentTarget.value)}
+          onInput={(event) => setValue(event.currentTarget.value)}
           placeholder="e.g. vinny"
         />
         <Field.HelperText>Use at least 3 characters.</Field.HelperText>
@@ -74,7 +76,7 @@ export const Select: Story = {
   render: () => (
     <Field required>
       <Field.Label>Priority</Field.Label>
-      <NativeSelect value="">
+      <NativeSelect defaultValue="">
         <option value="" disabled>
           Select priority
         </option>
@@ -118,6 +120,25 @@ export const WithCheckbox: Story = {
       </Checkbox.Root>
       <Field.HelperText>Required before the team can inspect workspace data.</Field.HelperText>
       <Field.ErrorText>Support access must be enabled.</Field.ErrorText>
+    </Field>
+  ),
+};
+
+export const WithRadioGroup: Story = {
+  render: () => (
+    <Field>
+      <Field.Label>Account type</Field.Label>
+      <RadioGroup defaultValue="team" aria-label="Account type">
+        <RadioGroup.Item value="personal">
+          <RadioGroup.ItemControl />
+          <RadioGroup.ItemText>Personal account</RadioGroup.ItemText>
+        </RadioGroup.Item>
+        <RadioGroup.Item value="team">
+          <RadioGroup.ItemControl />
+          <RadioGroup.ItemText>Team account</RadioGroup.ItemText>
+        </RadioGroup.Item>
+      </RadioGroup>
+      <Field.HelperText>Choose the default account context for new projects.</Field.HelperText>
     </Field>
   ),
 };

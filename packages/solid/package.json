@@ -99,6 +99,14 @@
       "types": "./dist/components/drawer/index.d.ts",
       "import": "./dist/components/drawer/index.js"
     },
+    "./empty": {
+      "types": "./dist/components/empty/index.d.ts",
+      "import": "./dist/components/empty/index.js"
+    },
+    "./editable": {
+      "types": "./dist/components/editable/index.d.ts",
+      "import": "./dist/components/editable/index.js"
+    },
     "./date-picker": {
       "types": "./dist/components/date-picker/index.d.ts",
       "import": "./dist/components/date-picker/index.js"
@@ -110,6 +118,10 @@
     "./field": {
       "types": "./dist/components/field/index.d.ts",
       "import": "./dist/components/field/index.js"
+    },
+    "./fieldset": {
+      "types": "./dist/components/fieldset/index.d.ts",
+      "import": "./dist/components/fieldset/index.js"
     },
     "./input": {
       "types": "./dist/components/input/index.d.ts",
@@ -126,6 +138,10 @@
     "./native-select": {
       "types": "./dist/components/native-select/index.d.ts",
       "import": "./dist/components/native-select/index.js"
+    },
+    "./radio-group": {
+      "types": "./dist/components/radio-group/index.d.ts",
+      "import": "./dist/components/radio-group/index.js"
     },
     "./select": {
       "types": "./dist/components/select/index.d.ts",

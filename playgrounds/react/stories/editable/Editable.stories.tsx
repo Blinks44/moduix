@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { Editable, useEditable } from '@/components/editable/Editable';
 import { Field } from '@/components/field';
@@ -93,7 +93,7 @@ export const Textarea: Story = {
     >
       <Editable.Label>Description</Editable.Label>
       <Editable.Area className={storyStyles.textareaArea}>
-        <Editable.Input asChild className={storyStyles.textareaInput}>
+        <Editable.Input asChild>
           <textarea />
         </Editable.Input>
         <Editable.Preview className={storyStyles.textareaPreview} />

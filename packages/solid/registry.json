@@ -617,6 +617,56 @@
       ]
     },
     {
+      "name": "empty",
+      "type": "registry:item",
+      "title": "Empty",
+      "description": "Composable empty-state surface for no-results, no-data, and first-run screens.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/empty/Empty.tsx",
+          "target": "@components/moduix/empty/Empty.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/empty/Empty.module.css",
+          "target": "@components/moduix/empty/Empty.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/empty/index.ts",
+          "target": "@components/moduix/empty/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "editable",
+      "type": "registry:item",
+      "title": "Editable",
+      "description": "moduix Solid Editable component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
+      "files": [
+        {
+          "path": "src/components/editable/Editable.tsx",
+          "target": "@components/moduix/editable/Editable.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/Editable.module.css",
+          "target": "@components/moduix/editable/Editable.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/editable/index.ts",
+          "target": "@components/moduix/editable/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "field",
       "type": "registry:item",
       "title": "Field",
@@ -637,6 +687,31 @@
         {
           "path": "src/components/field/index.ts",
           "target": "@components/moduix/field/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "fieldset",
+      "type": "registry:item",
+      "title": "Fieldset",
+      "description": "moduix Solid Fieldset component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/fieldset/Fieldset.tsx",
+          "target": "@components/moduix/fieldset/Fieldset.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/fieldset/Fieldset.module.css",
+          "target": "@components/moduix/fieldset/Fieldset.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/fieldset/index.ts",
+          "target": "@components/moduix/fieldset/index.ts",
           "type": "registry:component"
         }
       ]
@@ -716,6 +791,31 @@
         {
           "path": "src/components/native-select/index.ts",
           "target": "@components/moduix/native-select/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:item",
+      "title": "Radio Group",
+      "description": "moduix Solid RadioGroup component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/radio-group/RadioGroup.tsx",
+          "target": "@components/moduix/radio-group/RadioGroup.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/radio-group/RadioGroup.module.css",
+          "target": "@components/moduix/radio-group/RadioGroup.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/radio-group/index.ts",
+          "target": "@components/moduix/radio-group/index.ts",
           "type": "registry:component"
         }
       ]
