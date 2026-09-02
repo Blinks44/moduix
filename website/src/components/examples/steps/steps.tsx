@@ -1,19 +1,5 @@
-import type { CssPropertyInput } from '../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../mdx/reference';
-
-export const stepsExampleCss = `
-  .steps-demo [data-slot='steps-item'],
-  .steps-demo [data-slot='steps-item']:last-child {
-    flex: 1 1 0;
-  }
-
-  @media (max-width: 40rem) {
-    .steps-demo [data-slot='steps-item'],
-    .steps-demo [data-slot='steps-item']:last-child {
-      flex: 0 0 auto;
-    }
-  }
-`;
+import type { CssPropertyInput } from '../../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
 const stepsOverrideCssProperties: CssPropertyInput[] = [
   [

@@ -4,7 +4,7 @@ import { Text } from '@moduix/react/text';
 
 export default function StackSeparatorDemo() {
   return (
-    <Stack direction="row" align="center" gap={10} style={{ inlineSize: '100%' }}>
+    <Stack direction="row" align="center" justify="center" gap={10} style={{ inlineSize: '100%' }}>
       <Text weight="semibold">Design</Text>
       <Separator orientation="vertical" aria-hidden="true" />
       <Text tone="muted">Engineering</Text>

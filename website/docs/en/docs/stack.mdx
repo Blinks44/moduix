@@ -4,7 +4,15 @@ component: stack
 description: A lightweight flex layout primitive for arranging content vertically or horizontally.
 ---
 
-import * as StackDocs from '@/components/examples/stack';
+import * as StackDocs from '@/components/examples/stack/stack';
+import StackBasic from './_snippets/stack/basic.tsx';
+import StackFill from './_snippets/stack/growing-child-stack.tsx';
+import StackLoadingLayout from './_snippets/stack/loading-layout.tsx';
+import StackResponsiveDirection from './_snippets/stack/responsive-direction.tsx';
+import StackRowLayout from './_snippets/stack/row-layout.tsx';
+import StackSemanticElement from './_snippets/stack/semantic-element.tsx';
+import StackSeparator from './_snippets/stack/separator.tsx';
+import StackWrappedItems from './_snippets/stack/wrapped-items.tsx';
 
 ## API Reference
 
@@ -18,11 +26,20 @@ documentation informs the layout prop names only.
 
 Use `Stack` when a single flex container is enough and you only need to control direction, gap, and alignment.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/stack/basic.tsx"
+<ExampleFrame variant="component">
+  <StackBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/stack/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -92,72 +109,135 @@ Use `style` for a one-off override of public `--moduix-stack-*` variables or com
 
 Use `fill` when a nested `Stack` should take the remaining space in a flex row.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/stack/growing-child-stack.tsx"
+<ExampleFrame variant="component">
+  <StackFill />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/stack/growing-child-stack.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Loading Layout
 
 Combine `Stack` and `Skeleton` for a loading layout that only needs flex composition and spacing.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/stack/loading-layout.tsx"
+<ExampleFrame variant="component">
+  <StackLoadingLayout />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/stack/loading-layout.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Responsive Direction
 
 Use responsive `direction` for a simple column-on-mobile, row-on-desktop layout.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/stack/responsive-direction.tsx"
+<ExampleFrame variant="component">
+  <StackResponsiveDirection />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/stack/responsive-direction.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Row Layout
 
 Use `direction="row"` with alignment props for inline content.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/stack/row-layout.tsx"
+<ExampleFrame variant="component">
+  <StackRowLayout />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/stack/row-layout.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Semantic Element
 
 Use Ark's `asChild` when the layout wrapper should also express document structure.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/stack/semantic-element.tsx"
+<ExampleFrame variant="component">
+  <StackSemanticElement />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/stack/semantic-element.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Separator
 
 Add `Separator` directly when a horizontal or vertical `Stack` needs a repeated visual divider between children.
 `gap` applies to every child, including dividers.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/stack/separator.tsx"
+<ExampleFrame variant="component">
+  <StackSeparator />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/stack/separator.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Wrapped Items
 
 Use `wrap="wrap"` when items should flow onto the next line.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/stack/wrapped-items.tsx"
+<ExampleFrame variant="component">
+  <StackWrappedItems />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/stack/wrapped-items.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

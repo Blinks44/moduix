@@ -1,6 +1,7 @@
 import { Steps } from '@moduix/react/steps';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/steps/steps-controlled.module.css';
 
 const items = [
   {
@@ -20,16 +21,9 @@ const items = [
 export default function ControlledStepsDemo() {
   const [step, setStep] = useState(1);
   return (
-    <div
-      style={{
-        display: 'grid',
-        width: '100%',
-        gap: 'var(--moduix-spacing-3)',
-        justifyItems: 'center',
-      }}
-    >
+    <div className={styles.container}>
       <Steps
-        className="steps-demo"
+        className={styles.root}
         count={items.length}
         step={step}
         onStepChange={(details) => setStep(details.step)}
@@ -39,16 +33,9 @@ export default function ControlledStepsDemo() {
             <Steps.Item key={item.title} index={index}>
               <Steps.Trigger>
                 <Steps.Indicator />
-                <span style={{ display: 'grid', minWidth: 0, gap: '0.125rem' }}>
+                <span className={styles.label}>
                   <strong>{item.title}</strong>
-                  <small
-                    style={{
-                      color: 'var(--moduix-color-muted-foreground)',
-                      fontSize: 'var(--moduix-text-xs)',
-                    }}
-                  >
-                    {item.description}
-                  </small>
+                  <small className={styles.description}>{item.description}</small>
                 </span>
               </Steps.Trigger>
               <Steps.Separator />
@@ -64,13 +51,7 @@ export default function ControlledStepsDemo() {
 
         <Steps.CompletedContent>Steps complete. The workspace is ready.</Steps.CompletedContent>
 
-        <div
-          style={{
-            display: 'flex',
-            gap: 'var(--moduix-spacing-2)',
-            justifyContent: 'flex-end',
-          }}
-        >
+        <div className={styles.actions}>
           <Steps.PrevTrigger>Back</Steps.PrevTrigger>
           <Steps.NextTrigger>Next</Steps.NextTrigger>
         </div>

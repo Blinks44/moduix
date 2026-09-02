@@ -1,4 +1,5 @@
 import { Steps } from '@moduix/react/steps';
+import styles from '@/components/examples/steps/steps-basic.module.css';
 
 const items = [
   {
@@ -17,22 +18,15 @@ const items = [
 
 export default function StepsDemo() {
   return (
-    <Steps className="steps-demo" count={items.length}>
+    <Steps className={styles.root} count={items.length}>
       <Steps.List>
         {items.map((item, index) => (
           <Steps.Item key={item.title} index={index}>
             <Steps.Trigger>
               <Steps.Indicator />
-              <span style={{ display: 'grid', minWidth: 0, gap: '0.125rem' }}>
+              <span className={styles.label}>
                 <strong>{item.title}</strong>
-                <small
-                  style={{
-                    color: 'var(--moduix-color-muted-foreground)',
-                    fontSize: 'var(--moduix-text-xs)',
-                  }}
-                >
-                  {item.description}
-                </small>
+                <small className={styles.description}>{item.description}</small>
               </span>
             </Steps.Trigger>
             <Steps.Separator />
@@ -48,13 +42,7 @@ export default function StepsDemo() {
 
       <Steps.CompletedContent>Steps complete. The workspace is ready.</Steps.CompletedContent>
 
-      <div
-        style={{
-          display: 'flex',
-          gap: 'var(--moduix-spacing-2)',
-          justifyContent: 'flex-end',
-        }}
-      >
+      <div className={styles.actions}>
         <Steps.PrevTrigger>Back</Steps.PrevTrigger>
         <Steps.NextTrigger>Next</Steps.NextTrigger>
       </div>

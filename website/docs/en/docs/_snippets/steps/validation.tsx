@@ -2,20 +2,14 @@ import { Input } from '@moduix/react/input';
 import { Steps } from '@moduix/react/steps';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/steps/steps-validation.module.css';
 
 export default function StepsValidationDemo() {
   const [name, setName] = useState('');
   const [message, setMessage] = useState('Enter a name to continue.');
 
   return (
-    <div
-      style={{
-        display: 'grid',
-        width: '100%',
-        gap: 'var(--moduix-spacing-3)',
-        justifyItems: 'center',
-      }}
-    >
+    <div className={styles.container}>
       <Steps
         count={2}
         linear
@@ -48,13 +42,7 @@ export default function StepsValidationDemo() {
         <Steps.Content index={1}>Your profile can now be completed.</Steps.Content>
         <Steps.CompletedContent>Steps complete.</Steps.CompletedContent>
 
-        <div
-          style={{
-            display: 'flex',
-            gap: 'var(--moduix-spacing-2)',
-            justifyContent: 'flex-end',
-          }}
-        >
+        <div className={styles.actions}>
           <Steps.PrevTrigger>Back</Steps.PrevTrigger>
           <Steps.NextTrigger>Next</Steps.NextTrigger>
         </div>

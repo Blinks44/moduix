@@ -4,7 +4,18 @@ component: switch
 description: A composable Ark UI switch for turning an immediate boolean setting on or off.
 ---
 
-import * as SwitchDocs from '@/components/examples/switch';
+import * as SwitchDocs from '@/components/examples/switch/switch';
+import SwitchAdvancedCustomization from './_snippets/switch/advanced-customization.tsx';
+import SwitchAsChild from './_snippets/switch/as-child.tsx';
+import SwitchBasic from './_snippets/switch/basic.tsx';
+import SwitchContext from './_snippets/switch/context.tsx';
+import SwitchControlled from './_snippets/switch/controlled.tsx';
+import SwitchDisabled from './_snippets/switch/disabled.tsx';
+import SwitchFormIntegration from './_snippets/switch/form-integration.tsx';
+import SwitchInitialChecked from './_snippets/switch/initial-checked.tsx';
+import SwitchReadOnly from './_snippets/switch/read-only.tsx';
+import SwitchRootProvider from './_snippets/switch/root-provider.tsx';
+import SwitchSizes from './_snippets/switch/sizes.tsx';
 
 ## API Reference
 
@@ -25,11 +36,20 @@ boolean value.
 A basic switch has a root, a visual control, and a label. The control adds the default thumb, and the
 root adds the hidden form input used for native form behavior.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/switch/basic.tsx"
+<ExampleFrame variant="component">
+  <SwitchBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/switch/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -103,104 +123,236 @@ rendered switch tree. Do not render `Switch` and `Switch.RootProvider` for the s
 
 Use `asChild` when you need a custom root element while Ark continues to manage the switch behavior.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/switch/as-child.tsx"
+<ExampleFrame variant="component">
+  <SwitchAsChild />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/switch/as-child.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/switch/switch-as-child.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Context
 
 Use `useSwitchContext` from `@moduix/react` when a nearby label or supporting element needs to read
 the current switch state.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/switch/context.tsx"
+<ExampleFrame variant="component">
+  <SwitchContext />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/switch/context.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Controlled
 
 Use controlled mode when the switch needs to stay in sync with other UI or application state.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/switch/controlled.tsx"
+<ExampleFrame variant="component">
+  <SwitchControlled />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/switch/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/switch/switch-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Disabled
 
 Use `disabled` to prevent interaction while keeping the current visual state.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/switch/disabled.tsx"
+<ExampleFrame variant="component">
+  <SwitchDisabled />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/switch/disabled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/switch/switch-disabled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Form Integration
 
 Use `Field` when the switch needs form labeling, validation, or submission. This example displays an
 error after the form is submitted while the switch is still off.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/switch/form-integration.tsx"
+<ExampleFrame variant="component">
+  <SwitchFormIntegration />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/switch/form-integration.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/switch/switch-form-integration.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Initial Checked
 
 Use `defaultChecked` when the switch should start enabled and manage its own state afterward.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/switch/initial-checked.tsx"
+<ExampleFrame variant="component">
+  <SwitchInitialChecked />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/switch/initial-checked.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Read Only
 
 Use `readOnly` when the current state should remain visible but users must not be able to change it.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/switch/read-only.tsx"
+<ExampleFrame variant="component">
+  <SwitchReadOnly />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/switch/read-only.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/switch/switch-read-only.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Import `useSwitch` from `@moduix/react` and pair it with `Switch.RootProvider` when you need to create
 and control the state outside the rendered switch tree.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/switch/root-provider.tsx"
+<ExampleFrame variant="component">
+  <SwitchRootProvider />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/switch/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/switch/switch-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Sizes
 
 Use moduix `size` to match different form densities without changing the Ark part tree.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/switch/sizes.tsx"
+<ExampleFrame variant="component">
+  <SwitchSizes />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/switch/sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/switch/switch-sizes.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Add `Switch.Thumb` explicitly when the thumb needs custom content or styling.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/switch/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <SwitchAdvancedCustomization />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/switch/advanced-customization.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

@@ -1,5 +1,5 @@
 import { Switch } from '@moduix/react/switch';
-import styles from '@/components/examples/switch.module.css';
+import styles from '@/components/examples/switch/switch-as-child.module.css';
 
 export default function AsChildSwitchDemo() {
   return (

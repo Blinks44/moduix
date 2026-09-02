@@ -4,9 +4,14 @@ component: steps
 description: Guide users through a multi-step process with accessible Ark UI state and navigation.
 ---
 
-import * as StepsDocs from '@/components/examples/steps';
-
-<style>{StepsDocs.stepsExampleCss}</style>
+import * as StepsDocs from '@/components/examples/steps/steps';
+import StepsBasic from './_snippets/steps/basic.tsx';
+import StepsControlled from './_snippets/steps/controlled.tsx';
+import StepsValidation from './_snippets/steps/validation.tsx';
+import StepsProgress from './_snippets/steps/progress.tsx';
+import StepsRootProvider from './_snippets/steps/root-provider.tsx';
+import StepsVertical from './_snippets/steps/vertical.tsx';
+import StepsCustomComposition from './_snippets/steps/custom-composition.tsx';
 
 ## API Reference
 
@@ -22,11 +27,26 @@ For example, `count={3}` uses indexes `0`, `1`, and `2`. When the step value rea
 The default `Steps` export is the root component. Use `Steps.Root` when you want the explicit root
 part name.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/steps/basic.tsx"
+<ExampleFrame variant="component">
+  <StepsBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/steps/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/steps/steps-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -120,66 +140,156 @@ full control of the marker.
 Control `step` from React state when the active step must stay synchronized with routing, validation,
 or another part of the interface.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/steps/controlled.tsx"
+<ExampleFrame variant="component">
+  <StepsControlled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/steps/controlled.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/steps/steps-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Validation
 
 Use `linear`, `isStepValid`, and `onStepInvalid` to prevent navigation until the current step passes
 your validation rule.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/steps/validation.tsx"
+<ExampleFrame variant="component">
+  <StepsValidation />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/steps/validation.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/steps/steps-validation.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Progress
 
 Add `Steps.Progress` when the flow should show a visual progress track alongside the step list. Add
 your own accessible status if the progress needs to be announced to assistive technology.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/steps/progress.tsx"
+<ExampleFrame variant="component">
+  <StepsProgress />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/steps/progress.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/steps/steps-progress.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### RootProvider
 
 Create the state with `Steps.useSteps()` outside the rendered part tree, then pass it to
 `Steps.RootProvider` when external controls need to work with the same state.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/steps/root-provider.tsx"
+<ExampleFrame variant="component">
+  <StepsRootProvider />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/steps/root-provider.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/steps/steps-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Vertical
 
 Set `orientation="vertical"` when the step list should sit beside the active content panel on wide
 layouts and stack above it on narrow screens.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/steps/vertical.tsx"
+<ExampleFrame variant="component">
+  <StepsVertical />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/steps/vertical.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/steps/steps-vertical.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Use `asChild` when a trigger must render as an anchor or router link instead of the default button.
 Keep one semantic child so it receives Ark's ARIA, keyboard, and focus behavior.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/steps/custom-composition.tsx"
+<ExampleFrame variant="component">
+  <StepsCustomComposition />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/steps/custom-composition.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/steps/steps-custom-composition.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

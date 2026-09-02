@@ -4,7 +4,15 @@ component: stack
 description: Небольшой компонент для вертикальной и горизонтальной flex-разметки на базе фабрики Ark.
 ---
 
-import * as StackDocs from '@/components/examples/stack';
+import * as StackDocs from '@/components/examples/stack/stack';
+import StackBasic from '../../en/docs/_snippets/stack/basic.tsx';
+import StackFill from '../../en/docs/_snippets/stack/growing-child-stack.tsx';
+import StackLoadingLayout from '../../en/docs/_snippets/stack/loading-layout.tsx';
+import StackResponsiveDirection from '../../en/docs/_snippets/stack/responsive-direction.tsx';
+import StackRowLayout from '../../en/docs/_snippets/stack/row-layout.tsx';
+import StackSemanticElement from '../../en/docs/_snippets/stack/semantic-element.tsx';
+import StackSeparator from '../../en/docs/_snippets/stack/separator.tsx';
+import StackWrappedItems from '../../en/docs/_snippets/stack/wrapped-items.tsx';
 
 ## Справочник API
 
@@ -19,11 +27,20 @@ import * as StackDocs from '@/components/examples/stack';
 Используйте `Stack`, когда достаточно одного flex-контейнера и нужно настроить только направление, отступ и
 выравнивание.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/stack/basic.tsx"
+<ExampleFrame variant="component">
+  <StackBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/stack/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -96,73 +113,136 @@ CSS также будет понятнее, если набор свойств �
 
 Используйте `fill`, когда вложенный `Stack` должен занять оставшееся место в flex-строке.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/stack/growing-child-stack.tsx"
+<ExampleFrame variant="component">
+  <StackFill />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/stack/growing-child-stack.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Раскладка состояния загрузки
 
 Объедините `Stack` и `Skeleton`, если для состояния загрузки нужны только flex-разметка и отступы.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/stack/loading-layout.tsx"
+<ExampleFrame variant="component">
+  <StackLoadingLayout />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/stack/loading-layout.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Адаптивное направление
 
 Используйте адаптивный `direction`, чтобы просто переключать раскладку с колонки на мобильных экранах на строку на
 больших экранах.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/stack/responsive-direction.tsx"
+<ExampleFrame variant="component">
+  <StackResponsiveDirection />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/stack/responsive-direction.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Горизонтальная раскладка
 
 Используйте `direction="row"` и свойства выравнивания, чтобы расположить содержимое в одну строку.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/stack/row-layout.tsx"
+<ExampleFrame variant="component">
+  <StackRowLayout />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/stack/row-layout.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Семантический элемент
 
 Используйте `asChild` от Ark, когда корневая обёртка раскладки должна также описывать структуру документа.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/stack/semantic-element.tsx"
+<ExampleFrame variant="component">
+  <StackSemanticElement />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/stack/semantic-element.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Разделитель
 
 Добавляйте `Separator` напрямую, когда горизонтальному или вертикальному `Stack` нужен повторяющийся визуальный
 разделитель между дочерними элементами. `gap` применяется к каждому дочернему элементу, включая разделители.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/stack/separator.tsx"
+<ExampleFrame variant="component">
+  <StackSeparator />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/stack/separator.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Перенос элементов
 
 Используйте `wrap="wrap"`, когда элементы должны переходить на следующую строку.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/stack/wrapped-items.tsx"
+<ExampleFrame variant="component">
+  <StackWrappedItems />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/stack/wrapped-items.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

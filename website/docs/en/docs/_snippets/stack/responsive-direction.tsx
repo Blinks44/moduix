@@ -9,6 +9,7 @@ export default function StackResponsiveDirectionDemo() {
         desktop: 'row',
       }}
       gap={12}
+      justify="center"
       style={{ inlineSize: '100%' }}
     >
       <Text weight="semibold">Adaptive layout</Text>

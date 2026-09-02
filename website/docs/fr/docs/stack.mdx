@@ -4,7 +4,15 @@ component: stack
 description: Une primitive de mise en page flex légère pour composer des interfaces verticales ou horizontales.
 ---
 
-import * as StackDocs from '@/components/examples/stack';
+import * as StackDocs from '@/components/examples/stack/stack';
+import StackBasic from '../../en/docs/_snippets/stack/basic.tsx';
+import StackFill from '../../en/docs/_snippets/stack/growing-child-stack.tsx';
+import StackLoadingLayout from '../../en/docs/_snippets/stack/loading-layout.tsx';
+import StackResponsiveDirection from '../../en/docs/_snippets/stack/responsive-direction.tsx';
+import StackRowLayout from '../../en/docs/_snippets/stack/row-layout.tsx';
+import StackSemanticElement from '../../en/docs/_snippets/stack/semantic-element.tsx';
+import StackSeparator from '../../en/docs/_snippets/stack/separator.tsx';
+import StackWrappedItems from '../../en/docs/_snippets/stack/wrapped-items.tsx';
 
 ## Référence de l’API
 
@@ -19,11 +27,20 @@ de Chakra UI sert uniquement de référence pour les noms des propriétés de mi
 Utilisez `Stack` lorsqu’un seul conteneur flex suffit et qu’il faut simplement définir la direction, l’espacement et
 l’alignement.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/stack/basic.tsx"
+<ExampleFrame variant="component">
+  <StackBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/stack/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -99,72 +116,135 @@ calculées.
 
 Utilisez `fill` lorsqu’un `Stack` imbriqué doit occuper l’espace restant dans une ligne flex.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/stack/growing-child-stack.tsx"
+<ExampleFrame variant="component">
+  <StackFill />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/stack/growing-child-stack.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Mise en page de chargement
 
 Associez `Stack` et `Skeleton` pour un état de chargement qui ne nécessite qu’une composition flex et de l’espacement.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/stack/loading-layout.tsx"
+<ExampleFrame variant="component">
+  <StackLoadingLayout />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/stack/loading-layout.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Direction responsive
 
 Utilisez une `direction` responsive pour passer simplement d’une colonne sur mobile à une ligne sur ordinateur.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/stack/responsive-direction.tsx"
+<ExampleFrame variant="component">
+  <StackResponsiveDirection />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/stack/responsive-direction.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Mise en page en ligne
 
 Utilisez `direction="row"` et les propriétés d’alignement pour disposer le contenu sur une ligne.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/stack/row-layout.tsx"
+<ExampleFrame variant="component">
+  <StackRowLayout />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/stack/row-layout.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Élément sémantique
 
 Utilisez `asChild` d’Ark lorsque l’enveloppe de mise en page doit également exprimer la structure du document.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/stack/semantic-element.tsx"
+<ExampleFrame variant="component">
+  <StackSemanticElement />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/stack/semantic-element.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Séparateur
 
 Ajoutez directement `Separator` lorsqu’un `Stack` horizontal ou vertical nécessite un séparateur visuel répété
 entre ses enfants. `gap` s’applique à chaque enfant, y compris aux séparateurs.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/stack/separator.tsx"
+<ExampleFrame variant="component">
+  <StackSeparator />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/stack/separator.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Retour à la ligne des éléments
 
 Utilisez `wrap="wrap"` lorsque les éléments doivent passer à la ligne suivante.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/stack/wrapped-items.tsx"
+<ExampleFrame variant="component">
+  <StackWrappedItems />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/stack/wrapped-items.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

@@ -1,0 +1,24 @@
+.label {
+  display: grid;
+  min-width: 0;
+  gap: 0.125rem;
+}
+
+.description {
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-xs);
+}
+
+.contentColumn {
+  display: grid;
+  min-width: 0;
+  flex: 1 1 auto;
+  align-content: start;
+  gap: var(--moduix-spacing-4);
+}
+
+.actions {
+  display: flex;
+  gap: var(--moduix-spacing-2);
+  justify-content: flex-end;
+}

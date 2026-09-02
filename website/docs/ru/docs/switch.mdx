@@ -4,7 +4,18 @@ component: switch
 description: Переключатель Ark UI для настроек, которые можно включать и выключать сразу.
 ---
 
-import * as SwitchDocs from '@/components/examples/switch';
+import * as SwitchDocs from '@/components/examples/switch/switch';
+import SwitchAdvancedCustomization from '../../en/docs/_snippets/switch/advanced-customization.tsx';
+import SwitchAsChild from '../../en/docs/_snippets/switch/as-child.tsx';
+import SwitchBasic from '../../en/docs/_snippets/switch/basic.tsx';
+import SwitchContext from '../../en/docs/_snippets/switch/context.tsx';
+import SwitchControlled from '../../en/docs/_snippets/switch/controlled.tsx';
+import SwitchDisabled from '../../en/docs/_snippets/switch/disabled.tsx';
+import SwitchFormIntegration from '../../en/docs/_snippets/switch/form-integration.tsx';
+import SwitchInitialChecked from '../../en/docs/_snippets/switch/initial-checked.tsx';
+import SwitchReadOnly from '../../en/docs/_snippets/switch/read-only.tsx';
+import SwitchRootProvider from '../../en/docs/_snippets/switch/root-provider.tsx';
+import SwitchSizes from '../../en/docs/_snippets/switch/sizes.tsx';
 
 ## Справочник API
 
@@ -24,11 +35,20 @@ import * as SwitchDocs from '@/components/examples/switch';
 Базовый переключатель состоит из корневого элемента, визуальной дорожки и подписи. Дорожка автоматически получает
 стандартный бегунок, а корневой элемент добавляет скрытое поле формы для нативного поведения формы.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/switch/basic.tsx"
+<ExampleFrame variant="component">
+  <SwitchBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/switch/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -99,101 +119,233 @@ Switch / Switch.Root
 
 Используйте `asChild`, когда нужен пользовательский корневой элемент, а поведение переключателя по-прежнему должен обеспечивать Ark.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/switch/as-child.tsx"
+<ExampleFrame variant="component">
+  <SwitchAsChild />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/switch/as-child.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/switch/switch-as-child.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Контекст
 
 Импортируйте `useSwitchContext` из `@moduix/react`, когда соседней подписи или вспомогательному элементу нужно читать текущее состояние переключателя.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/switch/context.tsx"
+<ExampleFrame variant="component">
+  <SwitchContext />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/switch/context.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Управляемое состояние
 
 Используйте управляемый режим, когда переключатель должен синхронизироваться с остальным интерфейсом или состоянием приложения.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/switch/controlled.tsx"
+<ExampleFrame variant="component">
+  <SwitchControlled />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/switch/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/switch/switch-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Отключённое состояние
 
 Используйте `disabled`, чтобы запретить взаимодействие и сохранить текущее визуальное состояние.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/switch/disabled.tsx"
+<ExampleFrame variant="component">
+  <SwitchDisabled />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/switch/disabled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/switch/switch-disabled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Интеграция с формой
 
 Используйте `Field`, когда переключателю нужны подпись, валидация или отправка вместе с формой. В этом примере ошибка появляется после отправки формы, если переключатель остался выключенным.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/switch/form-integration.tsx"
+<ExampleFrame variant="component">
+  <SwitchFormIntegration />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/switch/form-integration.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/switch/switch-form-integration.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Начальное состояние
 
 Используйте `defaultChecked`, когда переключатель должен быть включён при первом рендере, а затем самостоятельно управлять своим состоянием.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/switch/initial-checked.tsx"
+<ExampleFrame variant="component">
+  <SwitchInitialChecked />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/switch/initial-checked.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Только для чтения
 
 Используйте `readOnly`, когда текущее состояние должно оставаться видимым, но пользователь не должен иметь возможности его изменить.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/switch/read-only.tsx"
+<ExampleFrame variant="component">
+  <SwitchReadOnly />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/switch/read-only.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/switch/switch-read-only.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Состояние через RootProvider
 
 Импортируйте `useSwitch` из `@moduix/react` и передайте созданное состояние в `Switch.RootProvider`, когда нужно управлять им вне дерева переключателя.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/switch/root-provider.tsx"
+<ExampleFrame variant="component">
+  <SwitchRootProvider />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/switch/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/switch/switch-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Размеры
 
 Используйте `size` от moduix, чтобы подобрать размер под плотность формы, не меняя дерево частей Ark.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/switch/sizes.tsx"
+<ExampleFrame variant="component">
+  <SwitchSizes />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/switch/sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/switch/switch-sizes.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
 Добавьте `Switch.Thumb` явно, когда бегунку нужны пользовательское содержимое или собственная стилизация.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/switch/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <SwitchAdvancedCustomization />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/switch/advanced-customization.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

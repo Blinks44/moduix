@@ -1,0 +1,28 @@
+.root [data-slot='steps-item'],
+.root [data-slot='steps-item']:last-child {
+  flex: 1 1 0;
+}
+
+.label {
+  display: grid;
+  min-width: 0;
+  gap: 0.125rem;
+}
+
+.description {
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-xs);
+}
+
+.actions {
+  display: flex;
+  gap: var(--moduix-spacing-2);
+  justify-content: flex-end;
+}
+
+@media (max-width: 40rem) {
+  .root [data-slot='steps-item'],
+  .root [data-slot='steps-item']:last-child {
+    flex: 0 0 auto;
+  }
+}

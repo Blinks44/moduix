@@ -1,33 +1,7 @@
-.stack {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--moduix-spacing-3);
-}
-
-.formField {
-  align-items: center;
-  justify-self: center;
-  text-align: center;
-}
-
-.form {
-  display: grid;
-  justify-items: center;
-  gap: var(--moduix-spacing-4);
-}
-
 .siblingRow {
   display: flex;
   align-items: center;
   gap: var(--moduix-switch-gap, var(--moduix-spacing-2));
-}
-
-.column {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--moduix-spacing-3);
 }
 
 .label {

@@ -1,0 +1,12 @@
+.container {
+  display: grid;
+  width: 100%;
+  gap: var(--moduix-spacing-3);
+  justify-items: center;
+}
+
+.actions {
+  display: flex;
+  gap: var(--moduix-spacing-2);
+  justify-content: flex-end;
+}

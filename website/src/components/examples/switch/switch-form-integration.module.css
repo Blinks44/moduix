@@ -1,0 +1,11 @@
+.formField {
+  align-items: center;
+  justify-self: center;
+  text-align: center;
+}
+
+.form {
+  display: grid;
+  justify-items: center;
+  gap: var(--moduix-spacing-4);
+}

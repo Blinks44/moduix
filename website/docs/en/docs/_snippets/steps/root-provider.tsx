@@ -1,5 +1,6 @@
 import { Steps } from '@moduix/react/steps';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/steps/steps-root-provider.module.css';
 
 const items = [
   {
@@ -21,30 +22,16 @@ export default function RootProviderStepsDemo() {
     count: items.length,
   });
   return (
-    <div
-      style={{
-        display: 'grid',
-        width: '100%',
-        gap: 'var(--moduix-spacing-3)',
-        justifyItems: 'center',
-      }}
-    >
-      <Steps.RootProvider className="steps-demo" value={steps}>
+    <div className={styles.container}>
+      <Steps.RootProvider className={styles.root} value={steps}>
         <Steps.List>
           {items.map((item, index) => (
             <Steps.Item key={item.title} index={index}>
               <Steps.Trigger>
                 <Steps.Indicator />
-                <span style={{ display: 'grid', minWidth: 0, gap: '0.125rem' }}>
+                <span className={styles.label}>
                   <strong>{item.title}</strong>
-                  <small
-                    style={{
-                      color: 'var(--moduix-color-muted-foreground)',
-                      fontSize: 'var(--moduix-text-xs)',
-                    }}
-                  >
-                    {item.description}
-                  </small>
+                  <small className={styles.description}>{item.description}</small>
                 </span>
               </Steps.Trigger>
               <Steps.Separator />
@@ -60,13 +47,7 @@ export default function RootProviderStepsDemo() {
 
         <Steps.CompletedContent>Steps complete. The workspace is ready.</Steps.CompletedContent>
 
-        <div
-          style={{
-            display: 'flex',
-            gap: 'var(--moduix-spacing-2)',
-            justifyContent: 'flex-end',
-          }}
-        >
+        <div className={styles.actions}>
           <Steps.PrevTrigger>Back</Steps.PrevTrigger>
           <Steps.NextTrigger>Next</Steps.NextTrigger>
         </div>

@@ -4,9 +4,14 @@ component: steps
 description: Помогает пользователю пройти многошаговый процесс с доступным управлением состоянием и навигацией Ark UI.
 ---
 
-import * as StepsDocs from '@/components/examples/steps';
-
-<style>{StepsDocs.stepsExampleCss}</style>
+import * as StepsDocs from '@/components/examples/steps/steps';
+import StepsBasic from '../../en/docs/_snippets/steps/basic.tsx';
+import StepsControlled from '../../en/docs/_snippets/steps/controlled.tsx';
+import StepsValidation from '../../en/docs/_snippets/steps/validation.tsx';
+import StepsProgress from '../../en/docs/_snippets/steps/progress.tsx';
+import StepsRootProvider from '../../en/docs/_snippets/steps/root-provider.tsx';
+import StepsVertical from '../../en/docs/_snippets/steps/vertical.tsx';
+import StepsCustomComposition from '../../en/docs/_snippets/steps/custom-composition.tsx';
 
 ## Справочник API
 
@@ -22,11 +27,26 @@ import * as StepsDocs from '@/components/examples/steps';
 Экспорт `Steps` по умолчанию является корневым компонентом. Используйте `Steps.Root`, если хотите явно указать
 имя корневой части.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/steps/basic.tsx"
+<ExampleFrame variant="component">
+  <StepsBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/steps/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/steps/steps-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -119,55 +139,130 @@ Steps.RootProvider
 Управляйте `step` из состояния React, когда активный шаг должен оставаться синхронизированным с маршрутизацией,
 валидацией или другой частью интерфейса.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/steps/controlled.tsx"
+<ExampleFrame variant="component">
+  <StepsControlled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/steps/controlled.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/steps/steps-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Валидация
 
 Используйте `linear`, `isStepValid` и `onStepInvalid`, чтобы запрещать переход дальше, пока текущий шаг не пройдёт
 проверку.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/steps/validation.tsx"
+<ExampleFrame variant="component">
+  <StepsValidation />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/steps/validation.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/steps/steps-validation.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Прогресс
 
 Добавьте `Steps.Progress`, если нужно показать визуальную полосу прогресса рядом со списком шагов. Если этот
 прогресс должен быть доступен вспомогательным технологиям, добавьте собственный доступный статус.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/steps/progress.tsx"
+<ExampleFrame variant="component">
+  <StepsProgress />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/steps/progress.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/steps/steps-progress.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### RootProvider
 
 Создайте состояние с помощью `Steps.useSteps()` за пределами дерева частей и передайте его в `Steps.RootProvider`,
 если внешним элементам управления нужно работать с тем же состоянием.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/steps/root-provider.tsx"
+<ExampleFrame variant="component">
+  <StepsRootProvider />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/steps/root-provider.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/steps/steps-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Вертикальная ориентация
 
 Задайте `orientation="vertical"`, если на широких экранах список шагов должен находиться рядом с активной панелью
 содержимого, а на узких экранах переходить над ней.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/steps/vertical.tsx"
+<ExampleFrame variant="component">
+  <StepsVertical />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/steps/vertical.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/steps/steps-vertical.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
@@ -175,11 +270,26 @@ Steps.RootProvider
 кнопка. Сохраните один семантический дочерний элемент, чтобы он получил ARIA-свойства Ark, поведение клавиатуры
 и поддержку фокуса.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/steps/custom-composition.tsx"
+<ExampleFrame variant="component">
+  <StepsCustomComposition />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/steps/custom-composition.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/steps/steps-custom-composition.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

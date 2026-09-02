@@ -4,9 +4,14 @@ component: steps
 description: Guidez les utilisateurs dans un processus en plusieurs étapes avec un état et une navigation accessibles grâce à Ark UI.
 ---
 
-import * as StepsDocs from '@/components/examples/steps';
-
-<style>{StepsDocs.stepsExampleCss}</style>
+import * as StepsDocs from '@/components/examples/steps/steps';
+import StepsBasic from '../../en/docs/_snippets/steps/basic.tsx';
+import StepsControlled from '../../en/docs/_snippets/steps/controlled.tsx';
+import StepsValidation from '../../en/docs/_snippets/steps/validation.tsx';
+import StepsProgress from '../../en/docs/_snippets/steps/progress.tsx';
+import StepsRootProvider from '../../en/docs/_snippets/steps/root-provider.tsx';
+import StepsVertical from '../../en/docs/_snippets/steps/vertical.tsx';
+import StepsCustomComposition from '../../en/docs/_snippets/steps/custom-composition.tsx';
 
 ## Référence de l’API
 
@@ -22,11 +27,26 @@ commencent à zéro. Avec `count={3}`, utilisez donc les index `0`, `1` et `2`. 
 L’export `Steps` par défaut est le composant racine. Utilisez `Steps.Root` lorsque vous souhaitez préciser le nom
 de cette partie.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/steps/basic.tsx"
+<ExampleFrame variant="component">
+  <StepsBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/steps/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/steps/steps-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -120,55 +140,130 @@ entièrement le repère.
 Contrôlez `step` depuis l’état React lorsque l’étape active doit rester synchronisée avec le routage, la validation
 ou une autre partie de l’interface.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/steps/controlled.tsx"
+<ExampleFrame variant="component">
+  <StepsControlled />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/steps/controlled.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/steps/steps-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Validation
 
 Utilisez `linear`, `isStepValid` et `onStepInvalid` pour empêcher la navigation tant que l’étape courante ne respecte
 pas votre règle de validation.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/steps/validation.tsx"
+<ExampleFrame variant="component">
+  <StepsValidation />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/steps/validation.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/steps/steps-validation.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Progression
 
 Ajoutez `Steps.Progress` lorsque le parcours doit afficher une barre visuelle de progression à côté de la liste des
 étapes. Ajoutez votre propre statut accessible si cette progression doit être annoncée aux technologies d’assistance.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/steps/progress.tsx"
+<ExampleFrame variant="component">
+  <StepsProgress />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/steps/progress.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/steps/steps-progress.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### RootProvider
 
 Créez l’état avec `Steps.useSteps()` en dehors de l’arbre des parties affiché, puis transmettez-le à
 `Steps.RootProvider` lorsque des contrôles externes doivent utiliser ce même état.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/steps/root-provider.tsx"
+<ExampleFrame variant="component">
+  <StepsRootProvider />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/steps/root-provider.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/steps/steps-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Orientation verticale
 
 Définissez `orientation="vertical"` lorsque la liste des étapes doit se trouver à côté du panneau actif sur les
 écrans larges et au-dessus sur les écrans étroits.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/steps/vertical.tsx"
+<ExampleFrame variant="component">
+  <StepsVertical />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/steps/vertical.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/steps/steps-vertical.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Personnalisation avancée
 
@@ -176,11 +271,26 @@ Utilisez `asChild` lorsqu’un déclencheur doit être rendu sous forme d’ancr
 forme de bouton par défaut. Conservez un seul enfant sémantique afin qu’il reçoive les attributs ARIA et les
 comportements Ark liés au clavier et au focus.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/steps/custom-composition.tsx"
+<ExampleFrame variant="component">
+  <StepsCustomComposition />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/steps/custom-composition.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/steps/steps-custom-composition.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

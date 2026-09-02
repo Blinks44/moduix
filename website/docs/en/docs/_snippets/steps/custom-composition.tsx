@@ -1,4 +1,5 @@
 import { Steps } from '@moduix/react/steps';
+import styles from '@/components/examples/steps/steps-custom-composition.module.css';
 
 const items = [
   {
@@ -17,7 +18,7 @@ const items = [
 
 export default function StepsCustomCompositionDemo() {
   return (
-    <Steps className="steps-demo" count={items.length} defaultStep={1} linear={false}>
+    <Steps className={styles.root} count={items.length} defaultStep={1} linear={false}>
       <Steps.List>
         {items.map((item, index) => (
           <Steps.Item key={item.title} index={index}>
@@ -42,13 +43,7 @@ export default function StepsCustomCompositionDemo() {
 
       <Steps.CompletedContent>Steps complete. The workspace is ready.</Steps.CompletedContent>
 
-      <div
-        style={{
-          display: 'flex',
-          gap: 'var(--moduix-spacing-2)',
-          justifyContent: 'flex-end',
-        }}
-      >
+      <div className={styles.actions}>
         <Steps.PrevTrigger>Back</Steps.PrevTrigger>
         <Steps.NextTrigger>Next</Steps.NextTrigger>
       </div>

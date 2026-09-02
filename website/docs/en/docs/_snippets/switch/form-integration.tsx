@@ -3,7 +3,7 @@ import { Field } from '@moduix/react/field';
 import { Switch } from '@moduix/react/switch';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/switch.module.css';
+import styles from '@/components/examples/switch/switch-form-integration.module.css';
 
 export default function SwitchFormDemo() {
   const [checked, setChecked] = useState(false);
