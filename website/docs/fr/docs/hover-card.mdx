@@ -4,17 +4,17 @@ component: hover-card
 description: Composant Hover Card basé sur Ark UI qui affiche des aperçus complémentaires au survol ou lorsque le déclencheur reçoit le focus.
 ---
 
-import * as HoverCardDocs from '@/components/examples/hover-card/hover-card';
-import BasicHoverCard from '../../en/docs/_snippets/hover-card/basic.tsx';
-import ContextHoverCard from '../../en/docs/_snippets/hover-card/context.tsx';
-import ControlledHoverCard from '../../en/docs/_snippets/hover-card/controlled.tsx';
-import DelayHoverCard from '../../en/docs/_snippets/hover-card/delay.tsx';
-import DialogHoverCard from '../../en/docs/_snippets/hover-card/dialog.tsx';
-import DisabledHoverCard from '../../en/docs/_snippets/hover-card/disabled.tsx';
-import MultipleTriggersHoverCard from '../../en/docs/_snippets/hover-card/multiple-triggers.tsx';
-import PositioningHoverCard from '../../en/docs/_snippets/hover-card/positioning.tsx';
-import RootProviderHoverCard from '../../en/docs/_snippets/hover-card/root-provider.tsx';
-import HoverCardWithArrow from '../../en/docs/_snippets/hover-card/with-arrow.tsx';
+import * as HoverCardDocs from '@/components/examples/hover-card/css-properties';
+import BasicHoverCard from '@/components/examples/hover-card/basic.tsx';
+import ContextHoverCard from '@/components/examples/hover-card/context.tsx';
+import ControlledHoverCard from '@/components/examples/hover-card/controlled.tsx';
+import DelayHoverCard from '@/components/examples/hover-card/delay.tsx';
+import DialogHoverCard from '@/components/examples/hover-card/dialog.tsx';
+import DisabledHoverCard from '@/components/examples/hover-card/disabled.tsx';
+import MultipleTriggersHoverCard from '@/components/examples/hover-card/multiple-triggers.tsx';
+import PositioningHoverCard from '@/components/examples/hover-card/positioning.tsx';
+import RootProviderHoverCard from '@/components/examples/hover-card/root-provider.tsx';
+import HoverCardWithArrow from '@/components/examples/hover-card/with-arrow.tsx';
 
 ## Référence de l’API
 
@@ -41,7 +41,7 @@ de base n’inclut pas de flèche.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/hover-card/basic.tsx"
+```tsx file="../../../src/components/examples/hover-card/basic.tsx"
 ```
 
     </Tab>
@@ -167,7 +167,7 @@ structure visible.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/hover-card/context.tsx"
+```tsx file="../../../src/components/examples/hover-card/context.tsx"
 ```
 
     </Tab>
@@ -192,7 +192,7 @@ Contrôlez l’ouverture de la carte avec `open` et `onOpenChange(details)`.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/hover-card/controlled.tsx"
+```tsx file="../../../src/components/examples/hover-card/controlled.tsx"
 ```
 
     </Tab>
@@ -217,7 +217,7 @@ Ajustez les délais d’ouverture et de fermeture avec `openDelay` et `closeDela
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/hover-card/delay.tsx"
+```tsx file="../../../src/components/examples/hover-card/delay.tsx"
 ```
 
     </Tab>
@@ -245,7 +245,7 @@ fermé jusqu’au survol ou à la réception du focus.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/hover-card/dialog.tsx"
+```tsx file="../../../src/components/examples/hover-card/dialog.tsx"
 ```
 
     </Tab>
@@ -271,7 +271,7 @@ déclencheur.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/hover-card/disabled.tsx"
+```tsx file="../../../src/components/examples/hover-card/disabled.tsx"
 ```
 
     </Tab>
@@ -297,7 +297,7 @@ un même contenu entre plusieurs déclencheurs.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/hover-card/multiple-triggers.tsx"
+```tsx file="../../../src/components/examples/hover-card/multiple-triggers.tsx"
 ```
 
     </Tab>
@@ -322,7 +322,7 @@ Transmettez les options de positionnement d’Ark via la propriété `positionin
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/hover-card/positioning.tsx"
+```tsx file="../../../src/components/examples/hover-card/positioning.tsx"
 ```
 
     </Tab>
@@ -348,7 +348,7 @@ de l’interface situés en dehors de l’arborescence de la carte doivent lire 
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/hover-card/root-provider.tsx"
+```tsx file="../../../src/components/examples/hover-card/root-provider.tsx"
 ```
 
     </Tab>
@@ -374,7 +374,7 @@ visuellement vers son déclencheur. L’enveloppe rend `HoverCard.ArrowTip` par 
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/hover-card/with-arrow.tsx"
+```tsx file="../../../src/components/examples/hover-card/with-arrow.tsx"
 ```
 
     </Tab>

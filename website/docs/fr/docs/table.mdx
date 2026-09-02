@@ -4,19 +4,19 @@ component: table
 description: Un composant de tableau natif avec un conteneur de défilement facultatif, des colonnes numériques, des légendes et un état vide.
 ---
 
-import * as TableDocs from '@/components/examples/table/table';
-import TableBasic from '../../en/docs/_snippets/table/basic.tsx';
-import TableCaptionAndFooter from '../../en/docs/_snippets/table/caption-and-footer.tsx';
-import TableColumnGroupAndBorders from '../../en/docs/_snippets/table/column-group-and-borders.tsx';
-import TableCustomComposition from '../../en/docs/_snippets/table/custom-composition.tsx';
-import TableEmptyState from '../../en/docs/_snippets/table/empty-state.tsx';
-import TableInsideCard from '../../en/docs/_snippets/table/inside-card.tsx';
-import TableNumericColumns from '../../en/docs/_snippets/table/numeric-columns.tsx';
-import TableRowActions from '../../en/docs/_snippets/table/row-actions-with-menu.tsx';
-import TableSizesAndVariants from '../../en/docs/_snippets/table/sizes-and-variants.tsx';
-import TableStickyHeaderAndColumn from '../../en/docs/_snippets/table/sticky-header-and-column.tsx';
-import TableStripedRows from '../../en/docs/_snippets/table/striped-rows.tsx';
-import TableWithScrollarea from '../../en/docs/_snippets/table/with-scrollarea.tsx';
+import * as TableDocs from '@/components/examples/table/css-properties';
+import TableBasic from '@/components/examples/table/basic.tsx';
+import TableCaptionAndFooter from '@/components/examples/table/caption-and-footer.tsx';
+import TableColumnGroupAndBorders from '@/components/examples/table/column-group-and-borders.tsx';
+import TableCustomComposition from '@/components/examples/table/custom-composition.tsx';
+import TableEmptyState from '@/components/examples/table/empty-state.tsx';
+import TableInsideCard from '@/components/examples/table/inside-card.tsx';
+import TableNumericColumns from '@/components/examples/table/numeric-columns.tsx';
+import TableRowActions from '@/components/examples/table/row-actions-with-menu.tsx';
+import TableSizesAndVariants from '@/components/examples/table/sizes-and-variants.tsx';
+import TableStickyHeaderAndColumn from '@/components/examples/table/sticky-header-and-column.tsx';
+import TableStripedRows from '@/components/examples/table/striped-rows.tsx';
+import TableWithScrollarea from '@/components/examples/table/with-scrollarea.tsx';
 
 ## Référence de l’API
 
@@ -45,7 +45,7 @@ interfaces d’administration.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/table/basic.tsx"
+```tsx file="../../../src/components/examples/table/basic.tsx"
 ```
 
     </Tab>
@@ -169,7 +169,7 @@ totaux ou les synthèses.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/table/caption-and-footer.tsx"
+```tsx file="../../../src/components/examples/table/caption-and-footer.tsx"
 ```
 
     </Tab>
@@ -189,7 +189,7 @@ Utilisez `Table.ColumnGroup` et `Table.Column` pour définir les largeurs native
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/table/column-group-and-borders.tsx"
+```tsx file="../../../src/components/examples/table/column-group-and-borders.tsx"
 ```
 
     </Tab>
@@ -209,7 +209,7 @@ colonnes.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/table/empty-state.tsx"
+```tsx file="../../../src/components/examples/table/empty-state.tsx"
 ```
 
     </Tab>
@@ -229,7 +229,7 @@ carte.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/table/inside-card.tsx"
+```tsx file="../../../src/components/examples/table/inside-card.tsx"
 ```
 
     </Tab>
@@ -249,7 +249,7 @@ autres valeurs numériques.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/table/numeric-columns.tsx"
+```tsx file="../../../src/components/examples/table/numeric-columns.tsx"
 ```
 
     </Tab>
@@ -269,7 +269,7 @@ secondaires. `Menu` convient à ce cas sans modifier la structure native du tabl
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/table/row-actions-with-menu.tsx"
+```tsx file="../../../src/components/examples/table/row-actions-with-menu.tsx"
 ```
 
     </Tab>
@@ -289,7 +289,7 @@ sur la racine native sans ajouter d’état au tableau.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/table/sizes-and-variants.tsx"
+```tsx file="../../../src/components/examples/table/sizes-and-variants.tsx"
 ```
 
     </Tab>
@@ -315,7 +315,7 @@ horizontalement ou verticalement doit conserver son en-tête ou une colonne impo
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/table/sticky-header-and-column.tsx"
+```tsx file="../../../src/components/examples/table/sticky-header-and-column.tsx"
 ```
 
     </Tab>
@@ -341,7 +341,7 @@ sans passer à une abstraction de tableau plus directive.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/table/striped-rows.tsx"
+```tsx file="../../../src/components/examples/table/striped-rows.tsx"
 ```
 
     </Tab>
@@ -362,7 +362,7 @@ défilement horizontal. Gardez la structure de `ScrollArea` explicite afin que l
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/table/with-scrollarea.tsx"
+```tsx file="../../../src/components/examples/table/with-scrollarea.tsx"
 ```
 
     </Tab>
@@ -389,7 +389,7 @@ conteneur.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/table/custom-composition.tsx"
+```tsx file="../../../src/components/examples/table/custom-composition.tsx"
 ```
 
     </Tab>

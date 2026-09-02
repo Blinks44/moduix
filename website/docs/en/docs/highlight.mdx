@@ -3,7 +3,7 @@ title: Highlight
 description: Highlight words and phrases inside existing text with native mark elements and moduix styles.
 ---
 
-import * as HighlightDocs from '@/components/examples/highlight';
+import * as HighlightDocs from '@/components/examples/highlight/css-properties';
 
 ## API Reference
 
@@ -24,7 +24,7 @@ Pass the complete source string through `text` and the term to find through `que
 and semantics.
 
 <PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/highlight/basic.tsx"
+  ```tsx preview file="../../../src/components/examples/highlight/basic.tsx"
 
 ```
 </PreviewFrame>
@@ -92,7 +92,7 @@ Control `query` from React state to highlight the current term while a user sear
 visible text.
 
 <PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/highlight/dynamic-query.tsx"
+  ```tsx preview file="../../../src/components/examples/highlight/dynamic-query.tsx"
 
 ```
 
@@ -104,7 +104,7 @@ Set `exactMatch` when partial-word matches are too broad. In this example, `box`
 standalone word but not `checkbox` or `combobox`.
 
 <PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/highlight/exact-match.tsx"
+  ```tsx preview file="../../../src/components/examples/highlight/exact-match.tsx"
 
 ```
 
@@ -115,7 +115,7 @@ standalone word but not `checkbox` or `combobox`.
 Set `ignoreCase` when the capitalization of the source text should not affect the result.
 
 <PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/highlight/ignore-case.tsx"
+  ```tsx preview file="../../../src/components/examples/highlight/ignore-case.tsx"
 
 ```
 
@@ -126,7 +126,7 @@ Set `ignoreCase` when the capitalization of the source text should not affect th
 Set `matchAll` when every occurrence should be highlighted instead of only the first one.
 
 <PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/highlight/match-all.tsx"
+  ```tsx preview file="../../../src/components/examples/highlight/match-all.tsx"
 
 ```
 
@@ -138,7 +138,7 @@ Pass a string array when several terms should be highlighted in the same text. F
 `matchAll` defaults to `true`; setting `matchAll={false}` throws an error.
 
 <PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/highlight/multiple-queries.tsx"
+  ```tsx preview file="../../../src/components/examples/highlight/multiple-queries.tsx"
 
 ```
 

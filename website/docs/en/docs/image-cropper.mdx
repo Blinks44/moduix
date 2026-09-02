@@ -4,19 +4,19 @@ component: image-cropper
 description: A component for cropping and transforming images with zoom, rotation, and aspect-ratio controls.
 ---
 
-import * as ImageCropperDocs from '@/components/examples/image-cropper/image-cropper';
-import ImageCropperAdvancedCustomization from './_snippets/image-cropper/advanced-customization.tsx';
-import ImageCropperAspectRatio from './_snippets/image-cropper/aspect-ratio.tsx';
-import ImageCropperBasic from './_snippets/image-cropper/basic.tsx';
-import ImageCropperCircleCrop from './_snippets/image-cropper/circle-crop.tsx';
-import ImageCropperControlledZoom from './_snippets/image-cropper/controlled-zoom.tsx';
-import ImageCropperCropPreview from './_snippets/image-cropper/crop-preview.tsx';
-import ImageCropperEvents from './_snippets/image-cropper/events.tsx';
-import ImageCropperFixedCropArea from './_snippets/image-cropper/fixed-crop-area.tsx';
-import ImageCropperInitialCrop from './_snippets/image-cropper/initial-crop.tsx';
-import ImageCropperMinAndMaxSize from './_snippets/image-cropper/min-and-max-size.tsx';
-import ImageCropperRootProvider from './_snippets/image-cropper/root-provider.tsx';
-import ImageCropperRotationFlipAndReset from './_snippets/image-cropper/rotation-flip-and-reset.tsx';
+import * as ImageCropperDocs from '@/components/examples/image-cropper/css-properties';
+import ImageCropperAdvancedCustomization from '@/components/examples/image-cropper/advanced-customization.tsx';
+import ImageCropperAspectRatio from '@/components/examples/image-cropper/aspect-ratio.tsx';
+import ImageCropperBasic from '@/components/examples/image-cropper/basic.tsx';
+import ImageCropperCircleCrop from '@/components/examples/image-cropper/circle-crop.tsx';
+import ImageCropperControlledZoom from '@/components/examples/image-cropper/controlled-zoom.tsx';
+import ImageCropperCropPreview from '@/components/examples/image-cropper/crop-preview.tsx';
+import ImageCropperEvents from '@/components/examples/image-cropper/events.tsx';
+import ImageCropperFixedCropArea from '@/components/examples/image-cropper/fixed-crop-area.tsx';
+import ImageCropperInitialCrop from '@/components/examples/image-cropper/initial-crop.tsx';
+import ImageCropperMinAndMaxSize from '@/components/examples/image-cropper/min-and-max-size.tsx';
+import ImageCropperRootProvider from '@/components/examples/image-cropper/root-provider.tsx';
+import ImageCropperRotationFlipAndReset from '@/components/examples/image-cropper/rotation-flip-and-reset.tsx';
 
 ## API Reference
 
@@ -35,7 +35,7 @@ Use `ImageCropper` with `Viewport`, `Image`, and `CropArea`. Pass the image URL 
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/image-cropper/basic.tsx"
+```tsx file="../../../src/components/examples/image-cropper/basic.tsx"
 ```
 
     </Tab>
@@ -135,7 +135,7 @@ when users choose an output format.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/image-cropper/aspect-ratio.tsx"
+```tsx file="../../../src/components/examples/image-cropper/aspect-ratio.tsx"
 ```
 
     </Tab>
@@ -160,7 +160,7 @@ Use `cropShape="circle"` with `aspectRatio={1}` for avatars and profile images.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/image-cropper/circle-crop.tsx"
+```tsx file="../../../src/components/examples/image-cropper/circle-crop.tsx"
 ```
 
     </Tab>
@@ -180,7 +180,7 @@ display the current zoom. Set `minZoom` and `maxZoom` to constrain the range.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/image-cropper/controlled-zoom.tsx"
+```tsx file="../../../src/components/examples/image-cropper/controlled-zoom.tsx"
 ```
 
     </Tab>
@@ -207,7 +207,7 @@ Call `getCroppedImage()` on a `useImageCropper` instance to create a rendered re
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/image-cropper/crop-preview.tsx"
+```tsx file="../../../src/components/examples/image-cropper/crop-preview.tsx"
 ```
 
     </Tab>
@@ -233,7 +233,7 @@ with other UI.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/image-cropper/events.tsx"
+```tsx file="../../../src/components/examples/image-cropper/events.tsx"
 ```
 
     </Tab>
@@ -259,7 +259,7 @@ behind it.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/image-cropper/fixed-crop-area.tsx"
+```tsx file="../../../src/components/examples/image-cropper/fixed-crop-area.tsx"
 ```
 
     </Tab>
@@ -279,7 +279,7 @@ pixels.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/image-cropper/initial-crop.tsx"
+```tsx file="../../../src/components/examples/image-cropper/initial-crop.tsx"
 ```
 
     </Tab>
@@ -298,7 +298,7 @@ Constrain the selection with `minWidth`, `minHeight`, `maxWidth`, and `maxHeight
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/image-cropper/min-and-max-size.tsx"
+```tsx file="../../../src/components/examples/image-cropper/min-and-max-size.tsx"
 ```
 
     </Tab>
@@ -318,7 +318,7 @@ cropper from outside its component tree.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/image-cropper/root-provider.tsx"
+```tsx file="../../../src/components/examples/image-cropper/root-provider.tsx"
 ```
 
     </Tab>
@@ -344,7 +344,7 @@ the cropper. The example keeps rotation and flip state controlled.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/image-cropper/rotation-flip-and-reset.tsx"
+```tsx file="../../../src/components/examples/image-cropper/rotation-flip-and-reset.tsx"
 ```
 
     </Tab>
@@ -371,7 +371,7 @@ a different structure or custom child parts. `Grid` requires an `axis`, and `Han
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/image-cropper/advanced-customization.tsx"
+```tsx file="../../../src/components/examples/image-cropper/advanced-customization.tsx"
 ```
 
     </Tab>

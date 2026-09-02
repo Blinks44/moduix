@@ -4,20 +4,20 @@ component: dialog
 description: Fenêtre modale pour les formulaires, les confirmations et les autres tâches qui demandent de l’attention.
 ---
 
-import { DialogCssPropertiesPanel } from '@/components/examples/dialog/dialog';
-import DialogAdvancedCustomization from '../../en/docs/_snippets/dialog/advanced-customization.tsx';
-import DialogAlertDialog from '../../en/docs/_snippets/dialog/alert-dialog.tsx';
-import DialogBasic from '../../en/docs/_snippets/dialog/basic.tsx';
-import DialogConfirmation from '../../en/docs/_snippets/dialog/confirmation.tsx';
-import DialogControlled from '../../en/docs/_snippets/dialog/controlled.tsx';
-import DialogInsideScroll from '../../en/docs/_snippets/dialog/inside-scroll.tsx';
-import DialogMountingAndFocusLifecycle from '../../en/docs/_snippets/dialog/mounting-and-focus-lifecycle.tsx';
-import DialogMultipleTriggers from '../../en/docs/_snippets/dialog/multiple-triggers.tsx';
-import DialogNested from '../../en/docs/_snippets/dialog/nested.tsx';
-import DialogNonModal from '../../en/docs/_snippets/dialog/non-modal.tsx';
-import DialogOpenFromMenu from '../../en/docs/_snippets/dialog/open-from-menu.tsx';
-import DialogOutsideScroll from '../../en/docs/_snippets/dialog/outside-scroll.tsx';
-import DialogRootProvider from '../../en/docs/_snippets/dialog/root-provider-and-ark-context-hooks.tsx';
+import { DialogCssPropertiesPanel } from '@/components/examples/dialog/css-properties';
+import DialogAdvancedCustomization from '@/components/examples/dialog/advanced-customization.tsx';
+import DialogAlertDialog from '@/components/examples/dialog/alert-dialog.tsx';
+import DialogBasic from '@/components/examples/dialog/basic.tsx';
+import DialogConfirmation from '@/components/examples/dialog/confirmation.tsx';
+import DialogControlled from '@/components/examples/dialog/controlled.tsx';
+import DialogInsideScroll from '@/components/examples/dialog/inside-scroll.tsx';
+import DialogMountingAndFocusLifecycle from '@/components/examples/dialog/mounting-and-focus-lifecycle.tsx';
+import DialogMultipleTriggers from '@/components/examples/dialog/multiple-triggers.tsx';
+import DialogNested from '@/components/examples/dialog/nested.tsx';
+import DialogNonModal from '@/components/examples/dialog/non-modal.tsx';
+import DialogOpenFromMenu from '@/components/examples/dialog/open-from-menu.tsx';
+import DialogOutsideScroll from '@/components/examples/dialog/outside-scroll.tsx';
+import DialogRootProvider from '@/components/examples/dialog/root-provider-and-ark-context-hooks.tsx';
 
 ## Référence de l’API
 
@@ -42,7 +42,7 @@ modal, `Dialog.Positioner` positionne le dialogue et `Dialog.Content` contient s
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/dialog/basic.tsx"
+```tsx file="../../../src/components/examples/dialog/basic.tsx"
 
 ```
     </Tab>
@@ -177,7 +177,7 @@ action distincte pour confirmer la décision.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/dialog/alert-dialog.tsx"
+```tsx file="../../../src/components/examples/dialog/alert-dialog.tsx"
 
 ```
     </Tab>
@@ -197,7 +197,7 @@ demandez à l’utilisateur s’il souhaite les abandonner.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/dialog/confirmation.tsx"
+```tsx file="../../../src/components/examples/dialog/confirmation.tsx"
 
 ```
     </Tab>
@@ -217,7 +217,7 @@ de l’application.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/dialog/controlled.tsx"
+```tsx file="../../../src/components/examples/dialog/controlled.tsx"
 
 ```
     </Tab>
@@ -236,7 +236,7 @@ Rendez uniquement le contenu principal défilable lorsque le titre et les action
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/dialog/inside-scroll.tsx"
+```tsx file="../../../src/components/examples/dialog/inside-scroll.tsx"
 
 ```
     </Tab>
@@ -261,7 +261,7 @@ le focus doit aller vers des éléments précis à l’ouverture et à la fermet
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/dialog/mounting-and-focus-lifecycle.tsx"
+```tsx file="../../../src/components/examples/dialog/mounting-and-focus-lifecycle.tsx"
 
 ```
     </Tab>
@@ -281,7 +281,7 @@ Partagez un même dialogue entre plusieurs déclencheurs en attribuant une `valu
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/dialog/multiple-triggers.tsx"
+```tsx file="../../../src/components/examples/dialog/multiple-triggers.tsx"
 
 ```
     </Tab>
@@ -301,7 +301,7 @@ utilise cet état pour faire reculer le parent lorsque le dialogue imbriqué est
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/dialog/nested.tsx"
+```tsx file="../../../src/components/examples/dialog/nested.tsx"
 
 ```
     </Tab>
@@ -326,7 +326,7 @@ la page en dehors du dialogue.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/dialog/non-modal.tsx"
+```tsx file="../../../src/components/examples/dialog/non-modal.tsx"
 
 ```
     </Tab>
@@ -345,7 +345,7 @@ Contrôlez `open` depuis un élément de menu lorsqu’une action contextuelle d
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/dialog/open-from-menu.tsx"
+```tsx file="../../../src/components/examples/dialog/open-from-menu.tsx"
 
 ```
     </Tab>
@@ -365,7 +365,7 @@ naturelle.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/dialog/outside-scroll.tsx"
+```tsx file="../../../src/components/examples/dialog/outside-scroll.tsx"
 
 ```
     </Tab>
@@ -390,7 +390,7 @@ Créez l’état avec `useDialog()` lorsque les contrôles se trouvent en dehors
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/dialog/root-provider-and-ark-context-hooks.tsx"
+```tsx file="../../../src/components/examples/dialog/root-provider-and-ark-context-hooks.tsx"
 
 ```
     </Tab>
@@ -410,7 +410,7 @@ chaque partie du dialogue Ark.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/dialog/advanced-customization.tsx"
+```tsx file="../../../src/components/examples/dialog/advanced-customization.tsx"
 
 ```
     </Tab>

@@ -4,18 +4,18 @@ component: tooltip
 description: A short, supplementary label that appears when its trigger is hovered or focused.
 ---
 
-import * as TooltipDocs from '@/components/examples/tooltip/component';
-import TooltipAdvancedCustomization from './_snippets/tooltip/advanced-customization.tsx';
-import TooltipBasic from './_snippets/tooltip/basic.tsx';
-import TooltipContext from './_snippets/tooltip/context.tsx';
-import TooltipControlled from './_snippets/tooltip/controlled.tsx';
-import TooltipDelay from './_snippets/tooltip/delay.tsx';
-import TooltipDisabledTrigger from './_snippets/tooltip/disabled-trigger.tsx';
-import TooltipMultipleTriggers from './_snippets/tooltip/multiple-triggers.tsx';
-import TooltipPositioning from './_snippets/tooltip/positioning.tsx';
-import TooltipRootProvider from './_snippets/tooltip/root-provider.tsx';
-import TooltipWithArrow from './_snippets/tooltip/with-arrow.tsx';
-import TooltipWithinFixedContainers from './_snippets/tooltip/within-fixed-containers.tsx';
+import * as TooltipDocs from '@/components/examples/tooltip/css-properties';
+import TooltipAdvancedCustomization from '@/components/examples/tooltip/advanced-customization.tsx';
+import TooltipBasic from '@/components/examples/tooltip/basic.tsx';
+import TooltipContext from '@/components/examples/tooltip/context.tsx';
+import TooltipControlled from '@/components/examples/tooltip/controlled.tsx';
+import TooltipDelay from '@/components/examples/tooltip/delay.tsx';
+import TooltipDisabledTrigger from '@/components/examples/tooltip/disabled-trigger.tsx';
+import TooltipMultipleTriggers from '@/components/examples/tooltip/multiple-triggers.tsx';
+import TooltipPositioning from '@/components/examples/tooltip/positioning.tsx';
+import TooltipRootProvider from '@/components/examples/tooltip/root-provider.tsx';
+import TooltipWithArrow from '@/components/examples/tooltip/with-arrow.tsx';
+import TooltipWithinFixedContainers from '@/components/examples/tooltip/within-fixed-containers.tsx';
 
 ## API Reference
 
@@ -44,7 +44,7 @@ visible text or an `aria-label`.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/tooltip/basic.tsx"
+```tsx file="../../../src/components/examples/tooltip/basic.tsx"
 ```
 
     </Tab>
@@ -191,7 +191,7 @@ Use `useTooltipContext()` inside a descendant that needs the current tooltip sta
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/tooltip/context.tsx"
+```tsx file="../../../src/components/examples/tooltip/context.tsx"
 ```
 
     </Tab>
@@ -210,7 +210,7 @@ Control whether the tooltip is open with `open` and `onOpenChange(details)`.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/tooltip/controlled.tsx"
+```tsx file="../../../src/components/examples/tooltip/controlled.tsx"
 ```
 
     </Tab>
@@ -229,7 +229,7 @@ Set `openDelay` and `closeDelay` on the root to adjust hover and focus timing.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/tooltip/delay.tsx"
+```tsx file="../../../src/components/examples/tooltip/delay.tsx"
 ```
 
     </Tab>
@@ -249,7 +249,7 @@ keeps a focusable wrapper around the disabled child without changing the child's
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/tooltip/disabled-trigger.tsx"
+```tsx file="../../../src/components/examples/tooltip/disabled-trigger.tsx"
 ```
 
     </Tab>
@@ -272,7 +272,7 @@ several triggers.
   >
     <Tab value="React">
 
-```tsx file="./_snippets/tooltip/multiple-triggers.tsx"
+```tsx file="../../../src/components/examples/tooltip/multiple-triggers.tsx"
 ```
 
     </Tab>
@@ -297,7 +297,7 @@ Pass Ark positioning options to `Tooltip`, including placement and offset values
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/tooltip/positioning.tsx"
+```tsx file="../../../src/components/examples/tooltip/positioning.tsx"
 ```
 
     </Tab>
@@ -323,7 +323,7 @@ rendered tooltip tree.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/tooltip/root-provider.tsx"
+```tsx file="../../../src/components/examples/tooltip/root-provider.tsx"
 ```
 
     </Tab>
@@ -344,7 +344,7 @@ Add `Tooltip.Arrow` as the first child of the tooltip content when it needs a vi
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/tooltip/with-arrow.tsx"
+```tsx file="../../../src/components/examples/tooltip/with-arrow.tsx"
 ```
 
     </Tab>
@@ -368,7 +368,7 @@ checking the tooltip's alignment.
   >
     <Tab value="React">
 
-```tsx file="./_snippets/tooltip/within-fixed-containers.tsx"
+```tsx file="../../../src/components/examples/tooltip/within-fixed-containers.tsx"
 ```
 
     </Tab>
@@ -394,7 +394,7 @@ composition or styling.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/tooltip/advanced-customization.tsx"
+```tsx file="../../../src/components/examples/tooltip/advanced-customization.tsx"
 ```
 
     </Tab>

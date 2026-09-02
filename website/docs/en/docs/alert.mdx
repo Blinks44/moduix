@@ -4,13 +4,13 @@ component: alert
 description: Inline messages for status updates, validation results, and system feedback.
 ---
 
-import * as AlertDocs from '@/components/examples/alert/alert';
-import AlertBasic from './_snippets/alert/basic.tsx';
-import AlertCustomComposition from './_snippets/alert/custom-composition.tsx';
-import AlertCustomHeading from './_snippets/alert/custom-heading.tsx';
-import AlertError from './_snippets/alert/error.tsx';
-import AlertStatuses from './_snippets/alert/statuses.tsx';
-import AlertWithIcon from './_snippets/alert/with-icon.tsx';
+import * as AlertDocs from '@/components/examples/alert/css-properties';
+import AlertBasic from '@/components/examples/alert/basic.tsx';
+import AlertCustomComposition from '@/components/examples/alert/custom-composition.tsx';
+import AlertCustomHeading from '@/components/examples/alert/custom-heading.tsx';
+import AlertError from '@/components/examples/alert/error.tsx';
+import AlertStatuses from '@/components/examples/alert/statuses.tsx';
+import AlertWithIcon from '@/components/examples/alert/with-icon.tsx';
 
 ## API Reference
 
@@ -47,7 +47,7 @@ For a standard inline message, use the short `<Alert>` root form with `Alert.Tit
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/alert/basic.tsx"
+```tsx file="../../../src/components/examples/alert/basic.tsx"
 ```
 
     </Tab>
@@ -145,7 +145,7 @@ Use `asChild` on `Alert.Title` when the alert title needs to participate in the 
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/alert/custom-heading.tsx"
+```tsx file="../../../src/components/examples/alert/custom-heading.tsx"
 ```
 
     </Tab>
@@ -164,7 +164,7 @@ Set `status="error"` when the message needs an assertive announcement and strong
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/alert/error.tsx"
+```tsx file="../../../src/components/examples/alert/error.tsx"
 ```
 
     </Tab>
@@ -184,7 +184,7 @@ Use the four statuses to distinguish informational, successful, warning, and err
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/alert/statuses.tsx"
+```tsx file="../../../src/components/examples/alert/statuses.tsx"
 ```
 
     </Tab>
@@ -209,7 +209,7 @@ Place a moduix icon or custom SVG inside `Alert.Indicator`.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/alert/with-icon.tsx"
+```tsx file="../../../src/components/examples/alert/with-icon.tsx"
 ```
 
     </Tab>
@@ -229,7 +229,7 @@ dismissal state in the component that renders the alert when a local alert shoul
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/alert/custom-composition.tsx"
+```tsx file="../../../src/components/examples/alert/custom-composition.tsx"
 ```
 
     </Tab>

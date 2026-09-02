@@ -20,10 +20,10 @@ directory as Cloudflare Workers Static Assets.
 
 ```text
 website/
-  docs/en/              # English MDX pages, navigation metadata, and snippets
+  docs/<locale>/        # Localized MDX pages and navigation metadata
   docs/public/          # Static and hosted registry assets shared by locales
   i18n.json             # Locale-aware UI strings
-  src/components/       # Home, examples, recipes, and focused MDX support components
+  src/components/       # Home, runnable examples, recipes, and focused MDX support components
   theme/                # Rspress theme wrapper and moduix visual tokens
   rspress.config.ts     # Rspress and official plugin configuration
   wrangler.jsonc        # Cloudflare Workers Static Assets deployment

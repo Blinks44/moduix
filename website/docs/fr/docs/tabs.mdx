@@ -4,17 +4,17 @@ component: tabs
 description: Basculez entre des panneaux associés avec une navigation clavier accessible, un état contrôlé, un montage différé, des liens et une orientation verticale.
 ---
 
-import * as TabsDocs from '@/components/examples/tabs/tabs';
-import TabsBasic from '../../en/docs/_snippets/tabs/basic.tsx';
-import TabsControlledValue from '../../en/docs/_snippets/tabs/controlled-value.tsx';
-import TabsCustomIcons from '../../en/docs/_snippets/tabs/custom-icons.tsx';
-import TabsDisabledTab from '../../en/docs/_snippets/tabs/disabled-tab.tsx';
-import TabsLazyMount from '../../en/docs/_snippets/tabs/lazy-mount.tsx';
-import TabsLine from '../../en/docs/_snippets/tabs/line.tsx';
-import TabsLinks from '../../en/docs/_snippets/tabs/links.tsx';
-import TabsManualActivation from '../../en/docs/_snippets/tabs/manual-activation.tsx';
-import TabsRootProvider from '../../en/docs/_snippets/tabs/root-provider.tsx';
-import TabsVertical from '../../en/docs/_snippets/tabs/vertical.tsx';
+import * as TabsDocs from '@/components/examples/tabs/css-properties';
+import TabsBasic from '@/components/examples/tabs/basic.tsx';
+import TabsControlledValue from '@/components/examples/tabs/controlled-value.tsx';
+import TabsCustomIcons from '@/components/examples/tabs/custom-icons.tsx';
+import TabsDisabledTab from '@/components/examples/tabs/disabled-tab.tsx';
+import TabsLazyMount from '@/components/examples/tabs/lazy-mount.tsx';
+import TabsLine from '@/components/examples/tabs/line.tsx';
+import TabsLinks from '@/components/examples/tabs/links.tsx';
+import TabsManualActivation from '@/components/examples/tabs/manual-activation.tsx';
+import TabsRootProvider from '@/components/examples/tabs/root-provider.tsx';
+import TabsVertical from '@/components/examples/tabs/vertical.tsx';
 
 ## Référence de l’API
 
@@ -42,7 +42,7 @@ explicitement `Tabs.Indicator` lorsque vous souhaitez mettre en évidence l’on
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/tabs/basic.tsx"
+```tsx file="../../../src/components/examples/tabs/basic.tsx"
 ```
 
     </Tab>
@@ -143,7 +143,7 @@ l’interface.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/tabs/controlled-value.tsx"
+```tsx file="../../../src/components/examples/tabs/controlled-value.tsx"
 ```
 
     </Tab>
@@ -162,7 +162,7 @@ Placez directement les icônes et les libellés dans `Tabs.Trigger`.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/tabs/custom-icons.tsx"
+```tsx file="../../../src/components/examples/tabs/custom-icons.tsx"
 ```
 
     </Tab>
@@ -181,7 +181,7 @@ Désactivez un onglet qui doit rester visible, mais qui n’est pas encore dispo
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/tabs/disabled-tab.tsx"
+```tsx file="../../../src/components/examples/tabs/disabled-tab.tsx"
 ```
 
     </Tab>
@@ -201,7 +201,7 @@ le retirer du DOM lorsque l’utilisateur change d’onglet.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/tabs/lazy-mount.tsx"
+```tsx file="../../../src/components/examples/tabs/lazy-mount.tsx"
 ```
 
     </Tab>
@@ -221,7 +221,7 @@ Ce style est disponible pour les onglets horizontaux.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/tabs/line.tsx"
+```tsx file="../../../src/components/examples/tabs/line.tsx"
 ```
 
     </Tab>
@@ -241,7 +241,7 @@ votre routeur.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/tabs/links.tsx"
+```tsx file="../../../src/components/examples/tabs/links.tsx"
 ```
 
     </Tab>
@@ -261,7 +261,7 @@ sélectionné. Activez-le avec un clic, la touche Entrée ou la barre d’espace
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/tabs/manual-activation.tsx"
+```tsx file="../../../src/components/examples/tabs/manual-activation.tsx"
 ```
 
     </Tab>
@@ -281,7 +281,7 @@ verticaux utilisent l’indicateur rempli, ce qui facilite le repérage de l’�
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/tabs/vertical.tsx"
+```tsx file="../../../src/components/examples/tabs/vertical.tsx"
 ```
 
     </Tab>
@@ -301,7 +301,7 @@ l’interface voisine doit lire la valeur sélectionnée.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/tabs/root-provider.tsx"
+```tsx file="../../../src/components/examples/tabs/root-provider.tsx"
 ```
 
     </Tab>

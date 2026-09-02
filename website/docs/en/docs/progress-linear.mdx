@@ -4,16 +4,16 @@ component: progress-linear
 description: A linear progress indicator for tasks with known or unknown progress.
 ---
 
-import * as ProgressLinearDocs from '@/components/examples/progress-linear/progress-linear';
-import ProgressLinearBasic from './_snippets/progress-linear/basic.tsx';
-import ProgressLinearControlled from './_snippets/progress-linear/controlled.tsx';
-import ProgressLinearIndeterminate from './_snippets/progress-linear/indeterminate.tsx';
-import ProgressLinearInitialValue from './_snippets/progress-linear/initial-value.tsx';
-import ProgressLinearMinMax from './_snippets/progress-linear/min-max.tsx';
-import ProgressLinearStateViews from './_snippets/progress-linear/state-views.tsx';
-import ProgressLinearValueText from './_snippets/progress-linear/value-text.tsx';
-import ProgressLinearVertical from './_snippets/progress-linear/vertical.tsx';
-import ProgressLinearRootProvider from './_snippets/progress-linear/root-provider.tsx';
+import * as ProgressLinearDocs from '@/components/examples/progress-linear/css-properties';
+import ProgressLinearBasic from '@/components/examples/progress-linear/basic.tsx';
+import ProgressLinearControlled from '@/components/examples/progress-linear/controlled.tsx';
+import ProgressLinearIndeterminate from '@/components/examples/progress-linear/indeterminate.tsx';
+import ProgressLinearInitialValue from '@/components/examples/progress-linear/initial-value.tsx';
+import ProgressLinearMinMax from '@/components/examples/progress-linear/min-max.tsx';
+import ProgressLinearStateViews from '@/components/examples/progress-linear/state-views.tsx';
+import ProgressLinearValueText from '@/components/examples/progress-linear/value-text.tsx';
+import ProgressLinearVertical from '@/components/examples/progress-linear/vertical.tsx';
+import ProgressLinearRootProvider from '@/components/examples/progress-linear/root-provider.tsx';
 
 ## API Reference
 
@@ -37,7 +37,7 @@ Compose the progress bar from the explicit `Label`, `ValueText`, `Track`, and `R
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/progress-linear/basic.tsx"
+```tsx file="../../../src/components/examples/progress-linear/basic.tsx"
 ```
 
     </Tab>
@@ -148,7 +148,7 @@ task.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/progress-linear/controlled.tsx"
+```tsx file="../../../src/components/examples/progress-linear/controlled.tsx"
 ```
 
     </Tab>
@@ -168,7 +168,7 @@ measured yet.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/progress-linear/indeterminate.tsx"
+```tsx file="../../../src/components/examples/progress-linear/indeterminate.tsx"
 ```
 
     </Tab>
@@ -187,7 +187,7 @@ Use `defaultValue` to set the initial value for uncontrolled progress.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/progress-linear/initial-value.tsx"
+```tsx file="../../../src/components/examples/progress-linear/initial-value.tsx"
 ```
 
     </Tab>
@@ -206,7 +206,7 @@ Use `min` and `max` when the progress range is different from the default range 
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/progress-linear/min-max.tsx"
+```tsx file="../../../src/components/examples/progress-linear/min-max.tsx"
 ```
 
     </Tab>
@@ -225,7 +225,7 @@ Use `ProgressLinear.View` when supporting text or UI should change with the Ark 
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/progress-linear/state-views.tsx"
+```tsx file="../../../src/components/examples/progress-linear/state-views.tsx"
 ```
 
     </Tab>
@@ -245,7 +245,7 @@ task-specific wording.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/progress-linear/value-text.tsx"
+```tsx file="../../../src/components/examples/progress-linear/value-text.tsx"
 ```
 
     </Tab>
@@ -266,7 +266,7 @@ different height.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/progress-linear/vertical.tsx"
+```tsx file="../../../src/components/examples/progress-linear/vertical.tsx"
 ```
 
     </Tab>
@@ -286,7 +286,7 @@ it to the rendered parts with `ProgressLinear.RootProvider`.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/progress-linear/root-provider.tsx"
+```tsx file="../../../src/components/examples/progress-linear/root-provider.tsx"
 ```
 
     </Tab>

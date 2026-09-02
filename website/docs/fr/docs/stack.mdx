@@ -4,15 +4,15 @@ component: stack
 description: Une primitive de mise en page flex légère pour composer des interfaces verticales ou horizontales.
 ---
 
-import * as StackDocs from '@/components/examples/stack/stack';
-import StackBasic from '../../en/docs/_snippets/stack/basic.tsx';
-import StackFill from '../../en/docs/_snippets/stack/growing-child-stack.tsx';
-import StackLoadingLayout from '../../en/docs/_snippets/stack/loading-layout.tsx';
-import StackResponsiveDirection from '../../en/docs/_snippets/stack/responsive-direction.tsx';
-import StackRowLayout from '../../en/docs/_snippets/stack/row-layout.tsx';
-import StackSemanticElement from '../../en/docs/_snippets/stack/semantic-element.tsx';
-import StackSeparator from '../../en/docs/_snippets/stack/separator.tsx';
-import StackWrappedItems from '../../en/docs/_snippets/stack/wrapped-items.tsx';
+import * as StackDocs from '@/components/examples/stack/css-properties';
+import StackBasic from '@/components/examples/stack/basic.tsx';
+import StackFill from '@/components/examples/stack/growing-child-stack.tsx';
+import StackLoadingLayout from '@/components/examples/stack/loading-layout.tsx';
+import StackResponsiveDirection from '@/components/examples/stack/responsive-direction.tsx';
+import StackRowLayout from '@/components/examples/stack/row-layout.tsx';
+import StackSemanticElement from '@/components/examples/stack/semantic-element.tsx';
+import StackSeparator from '@/components/examples/stack/separator.tsx';
+import StackWrappedItems from '@/components/examples/stack/wrapped-items.tsx';
 
 ## Référence de l’API
 
@@ -35,7 +35,7 @@ l’alignement.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/stack/basic.tsx"
+```tsx file="../../../src/components/examples/stack/basic.tsx"
 ```
 
     </Tab>
@@ -124,7 +124,7 @@ Utilisez `fill` lorsqu’un `Stack` imbriqué doit occuper l’espace restant da
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/stack/growing-child-stack.tsx"
+```tsx file="../../../src/components/examples/stack/growing-child-stack.tsx"
 ```
 
     </Tab>
@@ -143,7 +143,7 @@ Associez `Stack` et `Skeleton` pour un état de chargement qui ne nécessite qu�
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/stack/loading-layout.tsx"
+```tsx file="../../../src/components/examples/stack/loading-layout.tsx"
 ```
 
     </Tab>
@@ -162,7 +162,7 @@ Utilisez une `direction` responsive pour passer simplement d’une colonne sur m
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/stack/responsive-direction.tsx"
+```tsx file="../../../src/components/examples/stack/responsive-direction.tsx"
 ```
 
     </Tab>
@@ -181,7 +181,7 @@ Utilisez `direction="row"` et les propriétés d’alignement pour disposer le c
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/stack/row-layout.tsx"
+```tsx file="../../../src/components/examples/stack/row-layout.tsx"
 ```
 
     </Tab>
@@ -200,7 +200,7 @@ Utilisez `asChild` d’Ark lorsque l’enveloppe de mise en page doit également
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/stack/semantic-element.tsx"
+```tsx file="../../../src/components/examples/stack/semantic-element.tsx"
 ```
 
     </Tab>
@@ -220,7 +220,7 @@ entre ses enfants. `gap` s’applique à chaque enfant, y compris aux séparateu
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/stack/separator.tsx"
+```tsx file="../../../src/components/examples/stack/separator.tsx"
 ```
 
     </Tab>
@@ -239,7 +239,7 @@ Utilisez `wrap="wrap"` lorsque les éléments doivent passer à la ligne suivant
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/stack/wrapped-items.tsx"
+```tsx file="../../../src/components/examples/stack/wrapped-items.tsx"
 ```
 
     </Tab>

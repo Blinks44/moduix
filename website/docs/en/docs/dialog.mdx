@@ -4,20 +4,20 @@ component: dialog
 description: A modal window for focused tasks such as forms, confirmations, and details.
 ---
 
-import { DialogCssPropertiesPanel } from '@/components/examples/dialog/dialog';
-import DialogAdvancedCustomization from './_snippets/dialog/advanced-customization.tsx';
-import DialogAlertDialog from './_snippets/dialog/alert-dialog.tsx';
-import DialogBasic from './_snippets/dialog/basic.tsx';
-import DialogConfirmation from './_snippets/dialog/confirmation.tsx';
-import DialogControlled from './_snippets/dialog/controlled.tsx';
-import DialogInsideScroll from './_snippets/dialog/inside-scroll.tsx';
-import DialogMountingAndFocusLifecycle from './_snippets/dialog/mounting-and-focus-lifecycle.tsx';
-import DialogMultipleTriggers from './_snippets/dialog/multiple-triggers.tsx';
-import DialogNested from './_snippets/dialog/nested.tsx';
-import DialogNonModal from './_snippets/dialog/non-modal.tsx';
-import DialogOpenFromMenu from './_snippets/dialog/open-from-menu.tsx';
-import DialogOutsideScroll from './_snippets/dialog/outside-scroll.tsx';
-import DialogRootProvider from './_snippets/dialog/root-provider-and-ark-context-hooks.tsx';
+import { DialogCssPropertiesPanel } from '@/components/examples/dialog/css-properties';
+import DialogAdvancedCustomization from '@/components/examples/dialog/advanced-customization.tsx';
+import DialogAlertDialog from '@/components/examples/dialog/alert-dialog.tsx';
+import DialogBasic from '@/components/examples/dialog/basic.tsx';
+import DialogConfirmation from '@/components/examples/dialog/confirmation.tsx';
+import DialogControlled from '@/components/examples/dialog/controlled.tsx';
+import DialogInsideScroll from '@/components/examples/dialog/inside-scroll.tsx';
+import DialogMountingAndFocusLifecycle from '@/components/examples/dialog/mounting-and-focus-lifecycle.tsx';
+import DialogMultipleTriggers from '@/components/examples/dialog/multiple-triggers.tsx';
+import DialogNested from '@/components/examples/dialog/nested.tsx';
+import DialogNonModal from '@/components/examples/dialog/non-modal.tsx';
+import DialogOpenFromMenu from '@/components/examples/dialog/open-from-menu.tsx';
+import DialogOutsideScroll from '@/components/examples/dialog/outside-scroll.tsx';
+import DialogRootProvider from '@/components/examples/dialog/root-provider-and-ark-context-hooks.tsx';
 
 ## API Reference
 
@@ -42,7 +42,7 @@ modal background, `Dialog.Positioner` places the dialog, and `Dialog.Content` co
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/dialog/basic.tsx"
+```tsx file="../../../src/components/examples/dialog/basic.tsx"
 
 ```
     </Tab>
@@ -178,7 +178,7 @@ and a separate action that confirms the decision.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/dialog/alert-dialog.tsx"
+```tsx file="../../../src/components/examples/dialog/alert-dialog.tsx"
 
 ```
     </Tab>
@@ -198,7 +198,7 @@ user wants to discard them.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/dialog/confirmation.tsx"
+```tsx file="../../../src/components/examples/dialog/confirmation.tsx"
 
 ```
     </Tab>
@@ -218,7 +218,7 @@ with the rest of the application.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/dialog/controlled.tsx"
+```tsx file="../../../src/components/examples/dialog/controlled.tsx"
 
 ```
     </Tab>
@@ -237,7 +237,7 @@ Make only the main content scrollable when the title and actions should remain v
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/dialog/inside-scroll.tsx"
+```tsx file="../../../src/components/examples/dialog/inside-scroll.tsx"
 
 ```
     </Tab>
@@ -262,7 +262,7 @@ Use `lazyMount` and `unmountOnExit` for the presence lifecycle. Use `initialFocu
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/dialog/mounting-and-focus-lifecycle.tsx"
+```tsx file="../../../src/components/examples/dialog/mounting-and-focus-lifecycle.tsx"
 
 ```
     </Tab>
@@ -282,7 +282,7 @@ Share one dialog between several triggers by giving each trigger a `value` and h
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/dialog/multiple-triggers.tsx"
+```tsx file="../../../src/components/examples/dialog/multiple-triggers.tsx"
 
 ```
     </Tab>
@@ -302,7 +302,7 @@ uses the resulting state to make the parent recede while the nested dialog is op
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/dialog/nested.tsx"
+```tsx file="../../../src/components/examples/dialog/nested.tsx"
 
 ```
     </Tab>
@@ -327,7 +327,7 @@ outside the dialog.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/dialog/non-modal.tsx"
+```tsx file="../../../src/components/examples/dialog/non-modal.tsx"
 
 ```
     </Tab>
@@ -346,7 +346,7 @@ Control `open` from a menu item when a contextual action should open a confirmat
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/dialog/open-from-menu.tsx"
+```tsx file="../../../src/components/examples/dialog/open-from-menu.tsx"
 
 ```
     </Tab>
@@ -365,7 +365,7 @@ Let `Dialog.Positioner` scroll the whole dialog when long content should keep it
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/dialog/outside-scroll.tsx"
+```tsx file="../../../src/components/examples/dialog/outside-scroll.tsx"
 
 ```
     </Tab>
@@ -391,7 +391,7 @@ components.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/dialog/root-provider-and-ark-context-hooks.tsx"
+```tsx file="../../../src/components/examples/dialog/root-provider-and-ark-context-hooks.tsx"
 
 ```
     </Tab>
@@ -411,7 +411,7 @@ Ark dialog part.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/dialog/advanced-customization.tsx"
+```tsx file="../../../src/components/examples/dialog/advanced-customization.tsx"
 
 ```
     </Tab>

@@ -4,15 +4,15 @@ component: sidebar
 description: Resizable and collapsible application navigation built on the Ark UI Splitter.
 ---
 
-import { SidebarCssPropertiesPanel } from '@/components/examples/sidebar/sidebar';
-import SidebarBasic from './_snippets/sidebar/basic.tsx';
-import SidebarCustomScrollArea from './_snippets/sidebar/custom-scroll-area.tsx';
-import SidebarCustomSizes from './_snippets/sidebar/custom-sizes.tsx';
-import SidebarNestedNavigation from './_snippets/sidebar/nested-navigation.tsx';
-import SidebarNestedNavigationAndAccountMenu from './_snippets/sidebar/nested-navigation-and-account-menu.tsx';
-import SidebarPersistedLayout from './_snippets/sidebar/persisted-layout.tsx';
-import SidebarRightSidebar from './_snippets/sidebar/right-sidebar.tsx';
-import SidebarWorkspaceSelect from './_snippets/sidebar/workspace-select.tsx';
+import { SidebarCssPropertiesPanel } from '@/components/examples/sidebar/css-properties';
+import SidebarBasic from '@/components/examples/sidebar/basic.tsx';
+import SidebarCustomScrollArea from '@/components/examples/sidebar/custom-scroll-area.tsx';
+import SidebarCustomSizes from '@/components/examples/sidebar/custom-sizes.tsx';
+import SidebarNestedNavigation from '@/components/examples/sidebar/nested-navigation.tsx';
+import SidebarNestedNavigationAndAccountMenu from '@/components/examples/sidebar/nested-navigation-and-account-menu.tsx';
+import SidebarPersistedLayout from '@/components/examples/sidebar/persisted-layout.tsx';
+import SidebarRightSidebar from '@/components/examples/sidebar/right-sidebar.tsx';
+import SidebarWorkspaceSelect from '@/components/examples/sidebar/workspace-select.tsx';
 
 ## API Reference
 
@@ -44,7 +44,7 @@ The example also shows how to keep labels available for icon-only navigation aft
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/sidebar/basic.tsx"
+```tsx file="../../../src/components/examples/sidebar/basic.tsx"
 ```
 
     </Tab>
@@ -217,7 +217,7 @@ styling stays in your composition.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/sidebar/nested-navigation.tsx"
+```tsx file="../../../src/components/examples/sidebar/nested-navigation.tsx"
 ```
 
     </Tab>
@@ -244,7 +244,7 @@ a `ScrollArea` inside `Sidebar.Content`. Disable overflow on the outer content p
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/sidebar/custom-scroll-area.tsx"
+```tsx file="../../../src/components/examples/sidebar/custom-scroll-area.tsx"
 ```
 
     </Tab>
@@ -271,7 +271,7 @@ of the layout while the chosen width survives the next visit.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/sidebar/persisted-layout.tsx"
+```tsx file="../../../src/components/examples/sidebar/persisted-layout.tsx"
 ```
 
     </Tab>
@@ -303,7 +303,7 @@ scrolling inside `Sidebar.Content` and tooltips for the collapsed icon rail.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/sidebar/nested-navigation-and-account-menu.tsx"
+```tsx file="../../../src/components/examples/sidebar/nested-navigation-and-account-menu.tsx"
 ```
 
     </Tab>
@@ -330,7 +330,7 @@ The Inspector example includes grouped tools, activity links, internal scrolling
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/sidebar/right-sidebar.tsx"
+```tsx file="../../../src/components/examples/sidebar/right-sidebar.tsx"
 ```
 
     </Tab>
@@ -359,7 +359,7 @@ scrollable content area, and an account menu.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/sidebar/workspace-select.tsx"
+```tsx file="../../../src/components/examples/sidebar/workspace-select.tsx"
 ```
 
     </Tab>
@@ -385,7 +385,7 @@ two panels, or provider and registry APIs.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/sidebar/custom-sizes.tsx"
+```tsx file="../../../src/components/examples/sidebar/custom-sizes.tsx"
 ```
 
     </Tab>

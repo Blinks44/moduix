@@ -4,12 +4,12 @@ component: bleed
 description: Layout primitive that lets selected content extend beyond a constrained container.
 ---
 
-import * as BleedDocs from '@/components/examples/bleed/bleed';
-import BleedBasic from './_snippets/bleed/basic.tsx';
-import BleedBlockBleed from './_snippets/bleed/block-bleed.tsx';
-import BleedCustomStyling from './_snippets/bleed/custom-styling.tsx';
-import BleedInlineAmounts from './_snippets/bleed/inline-amounts.tsx';
-import BleedSemanticElement from './_snippets/bleed/semantic-element.tsx';
+import * as BleedDocs from '@/components/examples/bleed/css-properties';
+import BleedBasic from '@/components/examples/bleed/basic.tsx';
+import BleedBlockBleed from '@/components/examples/bleed/block-bleed.tsx';
+import BleedCustomStyling from '@/components/examples/bleed/custom-styling.tsx';
+import BleedInlineAmounts from '@/components/examples/bleed/inline-amounts.tsx';
+import BleedSemanticElement from '@/components/examples/bleed/semantic-element.tsx';
 
 ## API Reference
 
@@ -34,7 +34,7 @@ remaining in the normal document flow.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/bleed/basic.tsx"
+```tsx file="../../../src/components/examples/bleed/basic.tsx"
 ```
 
     </Tab>
@@ -118,7 +118,7 @@ Add `block` when a surface should extend through the container's block-axis padd
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/bleed/block-bleed.tsx"
+```tsx file="../../../src/components/examples/bleed/block-bleed.tsx"
 ```
 
     </Tab>
@@ -144,7 +144,7 @@ should size the bleed to its own content area instead of the viewport.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/bleed/custom-styling.tsx"
+```tsx file="../../../src/components/examples/bleed/custom-styling.tsx"
 ```
 
     </Tab>
@@ -170,7 +170,7 @@ Set `inline` to control how far content extends along the inline axis. This exam
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/bleed/inline-amounts.tsx"
+```tsx file="../../../src/components/examples/bleed/inline-amounts.tsx"
 ```
 
     </Tab>
@@ -196,7 +196,7 @@ element becomes the `Bleed` root.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/bleed/semantic-element.tsx"
+```tsx file="../../../src/components/examples/bleed/semantic-element.tsx"
 ```
 
     </Tab>

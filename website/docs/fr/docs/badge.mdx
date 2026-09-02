@@ -4,14 +4,14 @@ component: badge
 description: Un badge compact pour afficher de brèves informations comme un statut, une catégorie, une version ou un nombre.
 ---
 
-import * as BadgeDocs from '@/components/examples/badge/badge';
-import BadgeBasic from '../../en/docs/_snippets/badge/basic.tsx';
-import BadgeCustomStyling from '../../en/docs/_snippets/badge/custom-styling.tsx';
-import BadgeLink from '../../en/docs/_snippets/badge/link.tsx';
-import BadgeLongLabels from '../../en/docs/_snippets/badge/long-labels.tsx';
-import BadgeVariants from '../../en/docs/_snippets/badge/variants.tsx';
-import BadgeWithDot from '../../en/docs/_snippets/badge/with-dot.tsx';
-import BadgeWithIcon from '../../en/docs/_snippets/badge/with-icon.tsx';
+import * as BadgeDocs from '@/components/examples/badge/css-properties';
+import BadgeBasic from '@/components/examples/badge/basic.tsx';
+import BadgeCustomStyling from '@/components/examples/badge/custom-styling.tsx';
+import BadgeLink from '@/components/examples/badge/link.tsx';
+import BadgeLongLabels from '@/components/examples/badge/long-labels.tsx';
+import BadgeVariants from '@/components/examples/badge/variants.tsx';
+import BadgeWithDot from '@/components/examples/badge/with-dot.tsx';
+import BadgeWithIcon from '@/components/examples/badge/with-icon.tsx';
 
 ## Référence de l’API
 
@@ -40,7 +40,7 @@ choisir un style intégré et ajoutez `Badge.Dot` uniquement lorsqu’un statut 
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/badge/basic.tsx"
+```tsx file="../../../src/components/examples/badge/basic.tsx"
 ```
 
     </Tab>
@@ -125,7 +125,7 @@ ou définissez des variables CSS directement sur le badge.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/badge/custom-styling.tsx"
+```tsx file="../../../src/components/examples/badge/custom-styling.tsx"
 ```
 
     </Tab>
@@ -151,7 +151,7 @@ enfant reste un véritable lien et conserve sa sémantique native.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/badge/link.tsx"
+```tsx file="../../../src/components/examples/badge/link.tsx"
 ```
 
     </Tab>
@@ -171,7 +171,7 @@ les interfaces tactiles, choisissez un libellé qui tient dans l’espace dispon
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/badge/long-labels.tsx"
+```tsx file="../../../src/components/examples/badge/long-labels.tsx"
 ```
 
     </Tab>
@@ -196,7 +196,7 @@ Utilisez les variantes intégrées pour les styles courants.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/badge/variants.tsx"
+```tsx file="../../../src/components/examples/badge/variants.tsx"
 ```
 
     </Tab>
@@ -222,7 +222,7 @@ porter le sens du statut, car le point est décoratif.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/badge/with-dot.tsx"
+```tsx file="../../../src/components/examples/badge/with-dot.tsx"
 ```
 
     </Tab>
@@ -247,7 +247,7 @@ Placez une icône SVG enfant directe à côté du libellé lorsque les métadonn
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/badge/with-icon.tsx"
+```tsx file="../../../src/components/examples/badge/with-icon.tsx"
 ```
 
     </Tab>

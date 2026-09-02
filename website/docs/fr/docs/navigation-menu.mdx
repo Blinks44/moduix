@@ -4,10 +4,10 @@ component: navigation-menu
 description: Barre de navigation pour les liens directs et les panneaux dépliables, avec la possibilité d’utiliser une zone `Viewport` partagée pour les transitions animées.
 ---
 
-import * as NavigationMenuDocs from '@/components/examples/navigation-menu/navigation-menu';
-import NavigationMenuBasic from '../../en/docs/_snippets/navigation-menu/basic.tsx';
-import NavigationMenuControlledValue from '../../en/docs/_snippets/navigation-menu/controlled-value.tsx';
-import NavigationMenuViewport from '../../en/docs/_snippets/navigation-menu/viewport.tsx';
+import * as NavigationMenuDocs from '@/components/examples/navigation-menu/css-properties';
+import NavigationMenuBasic from '@/components/examples/navigation-menu/basic.tsx';
+import NavigationMenuControlledValue from '@/components/examples/navigation-menu/controlled-value.tsx';
+import NavigationMenuViewport from '@/components/examples/navigation-menu/viewport.tsx';
 
 ## Référence de l’API
 
@@ -37,7 +37,7 @@ directes du premier niveau et pour les liens à l’intérieur d’un panneau.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/navigation-menu/basic.tsx"
+```tsx file="../../../src/components/examples/navigation-menu/basic.tsx"
 ```
 
     </Tab>
@@ -162,7 +162,7 @@ voisine de l’interface. La sortie sous l’exemple affiche la valeur de l’é
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/navigation-menu/controlled-value.tsx"
+```tsx file="../../../src/components/examples/navigation-menu/controlled-value.tsx"
 ```
 
     </Tab>
@@ -190,7 +190,7 @@ d’un déclencheur à l’autre.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/navigation-menu/viewport.tsx"
+```tsx file="../../../src/components/examples/navigation-menu/viewport.tsx"
 ```
 
     </Tab>

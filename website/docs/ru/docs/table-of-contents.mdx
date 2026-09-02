@@ -4,11 +4,11 @@ component: table-of-contents
 description: Синхронизируйте доступное оглавление с разделом, который читает пользователь.
 ---
 
-import TocBasic from '../../en/docs/_snippets/table-of-contents/basic.tsx';
-import TocRail from '../../en/docs/_snippets/table-of-contents/rail.tsx';
-import TocRootProvider from '../../en/docs/_snippets/table-of-contents/root-provider.tsx';
-import TocWithCollapsible from '../../en/docs/_snippets/table-of-contents/with-collapsible.tsx';
-import * as TocDocs from '@/components/examples/table-of-contents/table-of-contents';
+import TocBasic from '@/components/examples/table-of-contents/basic.tsx';
+import TocRail from '@/components/examples/table-of-contents/rail.tsx';
+import TocRootProvider from '@/components/examples/table-of-contents/root-provider.tsx';
+import TocWithCollapsible from '@/components/examples/table-of-contents/with-collapsible.tsx';
+import * as TocDocs from '@/components/examples/table-of-contents/css-properties';
 
 ## Справочник API
 
@@ -33,7 +33,7 @@ import * as TocDocs from '@/components/examples/table-of-contents/table-of-conte
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/table-of-contents/basic.tsx"
+```tsx file="../../../src/components/examples/table-of-contents/basic.tsx"
 ```
 
     </Tab>
@@ -163,7 +163,7 @@ Toc.RootProvider
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/table-of-contents/root-provider.tsx"
+```tsx file="../../../src/components/examples/table-of-contents/root-provider.tsx"
 ```
 
     </Tab>
@@ -191,7 +191,7 @@ Toc.RootProvider
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/table-of-contents/rail.tsx"
+```tsx file="../../../src/components/examples/table-of-contents/rail.tsx"
 ```
 
     </Tab>
@@ -218,7 +218,7 @@ Toc.RootProvider
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/table-of-contents/with-collapsible.tsx"
+```tsx file="../../../src/components/examples/table-of-contents/with-collapsible.tsx"
 ```
 
     </Tab>

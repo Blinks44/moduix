@@ -4,17 +4,17 @@ component: angle-slider
 description: Contrôle circulaire permettant de choisir un angle compris entre 0 et 360 degrés.
 ---
 
-import * as AngleSliderDocs from '@/components/examples/angle-slider/angle-slider';
-import AngleSliderAdvancedCustomization from '../../en/docs/_snippets/angle-slider/advanced-customization.tsx';
-import AngleSliderBasic from '../../en/docs/_snippets/angle-slider/basic.tsx';
-import AngleSliderControlled from '../../en/docs/_snippets/angle-slider/controlled.tsx';
-import AngleSliderDisabled from '../../en/docs/_snippets/angle-slider/disabled.tsx';
-import AngleSliderForm from '../../en/docs/_snippets/angle-slider/form.tsx';
-import AngleSliderInvalid from '../../en/docs/_snippets/angle-slider/invalid.tsx';
-import AngleSliderReadOnly from '../../en/docs/_snippets/angle-slider/read-only.tsx';
-import AngleSliderRootProvider from '../../en/docs/_snippets/angle-slider/root-provider.tsx';
-import AngleSliderSteps from '../../en/docs/_snippets/angle-slider/steps.tsx';
-import AngleSliderWithMarks from '../../en/docs/_snippets/angle-slider/with-marks.tsx';
+import * as AngleSliderDocs from '@/components/examples/angle-slider/css-properties';
+import AngleSliderAdvancedCustomization from '@/components/examples/angle-slider/advanced-customization.tsx';
+import AngleSliderBasic from '@/components/examples/angle-slider/basic.tsx';
+import AngleSliderControlled from '@/components/examples/angle-slider/controlled.tsx';
+import AngleSliderDisabled from '@/components/examples/angle-slider/disabled.tsx';
+import AngleSliderForm from '@/components/examples/angle-slider/form.tsx';
+import AngleSliderInvalid from '@/components/examples/angle-slider/invalid.tsx';
+import AngleSliderReadOnly from '@/components/examples/angle-slider/read-only.tsx';
+import AngleSliderRootProvider from '@/components/examples/angle-slider/root-provider.tsx';
+import AngleSliderSteps from '@/components/examples/angle-slider/steps.tsx';
+import AngleSliderWithMarks from '@/components/examples/angle-slider/with-marks.tsx';
 
 ## Référence API
 
@@ -44,7 +44,7 @@ et 360 degrés. Ajoutez si possible un `Label` visible. Si le cadran n’en a pa
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/angle-slider/basic.tsx"
+```tsx file="../../../src/components/examples/angle-slider/basic.tsx"
 ```
 
     </Tab>
@@ -158,7 +158,7 @@ Utilisez le mode contrôlé lorsque l’angle doit rester synchronisé avec l’
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/angle-slider/controlled.tsx"
+```tsx file="../../../src/components/examples/angle-slider/controlled.tsx"
 ```
 
     </Tab>
@@ -184,7 +184,7 @@ interactions.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/angle-slider/disabled.tsx"
+```tsx file="../../../src/components/examples/angle-slider/disabled.tsx"
 ```
 
     </Tab>
@@ -211,7 +211,7 @@ pas un ancêtre du curseur.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/angle-slider/form.tsx"
+```tsx file="../../../src/components/examples/angle-slider/form.tsx"
 ```
 
     </Tab>
@@ -237,7 +237,7 @@ dans ses styles et ses attributs ARIA, sans modifier son mode d’interaction.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/angle-slider/invalid.tsx"
+```tsx file="../../../src/components/examples/angle-slider/invalid.tsx"
 ```
 
     </Tab>
@@ -263,7 +263,7 @@ modifiée.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/angle-slider/read-only.tsx"
+```tsx file="../../../src/components/examples/angle-slider/read-only.tsx"
 ```
 
     </Tab>
@@ -289,7 +289,7 @@ composant doit accéder au même état. L’état externe peut alors alimenter l
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/angle-slider/root-provider.tsx"
+```tsx file="../../../src/components/examples/angle-slider/root-provider.tsx"
 ```
 
     </Tab>
@@ -314,7 +314,7 @@ Utilisez `step` pour faire suivre aux interactions du pointeur et du clavier des
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/angle-slider/steps.tsx"
+```tsx file="../../../src/components/examples/angle-slider/steps.tsx"
 ```
 
     </Tab>
@@ -340,7 +340,7 @@ composition de `MarkerGroup` et `Marker`. `AngleSlider.Dial` regroupe `Control` 
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/angle-slider/with-marks.tsx"
+```tsx file="../../../src/components/examples/angle-slider/with-marks.tsx"
 ```
 
     </Tab>
@@ -366,7 +366,7 @@ une composition de marqueurs personnalisée ou des enfants supplémentaires dans
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/angle-slider/advanced-customization.tsx"
+```tsx file="../../../src/components/examples/angle-slider/advanced-customization.tsx"
 ```
 
     </Tab>

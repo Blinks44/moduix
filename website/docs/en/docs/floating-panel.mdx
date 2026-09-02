@@ -4,18 +4,18 @@ component: floating-panel
 description: A non-modal Ark UI window for content users can drag, resize, minimize, and maximize.
 ---
 
-import * as FloatingPanelDocs from '@/components/examples/floating-panel/floating-panel';
-import FloatingPanelAdvancedCustomization from './_snippets/floating-panel/advanced-customization.tsx';
-import FloatingPanelAnchorPosition from './_snippets/floating-panel/anchor-position.tsx';
-import FloatingPanelBasic from './_snippets/floating-panel/basic.tsx';
-import FloatingPanelBoundary from './_snippets/floating-panel/boundary.tsx';
-import FloatingPanelContext from './_snippets/floating-panel/context.tsx';
-import FloatingPanelControlledOpen from './_snippets/floating-panel/controlled-open.tsx';
-import FloatingPanelControlledPosition from './_snippets/floating-panel/controlled-position.tsx';
-import FloatingPanelControlledSize from './_snippets/floating-panel/controlled-size.tsx';
-import FloatingPanelEscapeDismiss from './_snippets/floating-panel/escape-dismiss.tsx';
-import FloatingPanelLazyMount from './_snippets/floating-panel/lazy-mount.tsx';
-import FloatingPanelRootProvider from './_snippets/floating-panel/root-provider.tsx';
+import * as FloatingPanelDocs from '@/components/examples/floating-panel/css-properties';
+import FloatingPanelAdvancedCustomization from '@/components/examples/floating-panel/advanced-customization.tsx';
+import FloatingPanelAnchorPosition from '@/components/examples/floating-panel/anchor-position.tsx';
+import FloatingPanelBasic from '@/components/examples/floating-panel/basic.tsx';
+import FloatingPanelBoundary from '@/components/examples/floating-panel/boundary.tsx';
+import FloatingPanelContext from '@/components/examples/floating-panel/context.tsx';
+import FloatingPanelControlledOpen from '@/components/examples/floating-panel/controlled-open.tsx';
+import FloatingPanelControlledPosition from '@/components/examples/floating-panel/controlled-position.tsx';
+import FloatingPanelControlledSize from '@/components/examples/floating-panel/controlled-size.tsx';
+import FloatingPanelEscapeDismiss from '@/components/examples/floating-panel/escape-dismiss.tsx';
+import FloatingPanelLazyMount from '@/components/examples/floating-panel/lazy-mount.tsx';
+import FloatingPanelRootProvider from '@/components/examples/floating-panel/root-provider.tsx';
 
 ## API Reference
 
@@ -41,7 +41,7 @@ handle, and `ResizeTriggerGroup` adds the resize handles around the panel.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/floating-panel/basic.tsx"
+```tsx file="../../../src/components/examples/floating-panel/basic.tsx"
 ```
 
     </Tab>
@@ -176,7 +176,7 @@ Use `getAnchorPosition` to calculate the panel's initial position from the trigg
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/floating-panel/anchor-position.tsx"
+```tsx file="../../../src/components/examples/floating-panel/anchor-position.tsx"
 ```
 
     </Tab>
@@ -196,7 +196,7 @@ it is being dragged.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/floating-panel/boundary.tsx"
+```tsx file="../../../src/components/examples/floating-panel/boundary.tsx"
 ```
 
     </Tab>
@@ -222,7 +222,7 @@ the component tree.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/floating-panel/context.tsx"
+```tsx file="../../../src/components/examples/floating-panel/context.tsx"
 ```
 
     </Tab>
@@ -241,7 +241,7 @@ Use `open` with `onOpenChange` when React state should control the panel's visib
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/floating-panel/controlled-open.tsx"
+```tsx file="../../../src/components/examples/floating-panel/controlled-open.tsx"
 ```
 
     </Tab>
@@ -260,7 +260,7 @@ Control `position` when another part of the application needs the panel's curren
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/floating-panel/controlled-position.tsx"
+```tsx file="../../../src/components/examples/floating-panel/controlled-position.tsx"
 ```
 
     </Tab>
@@ -279,7 +279,7 @@ Control `size` when the surrounding UI needs to store or display the panel's cur
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/floating-panel/controlled-size.tsx"
+```tsx file="../../../src/components/examples/floating-panel/controlled-size.tsx"
 ```
 
     </Tab>
@@ -299,7 +299,7 @@ immediately after the non-modal panel opens.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/floating-panel/escape-dismiss.tsx"
+```tsx file="../../../src/components/examples/floating-panel/escape-dismiss.tsx"
 ```
 
     </Tab>
@@ -319,7 +319,7 @@ exit animation.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/floating-panel/lazy-mount.tsx"
+```tsx file="../../../src/components/examples/floating-panel/lazy-mount.tsx"
 ```
 
     </Tab>
@@ -340,7 +340,7 @@ close-animation behavior as the moduix root default.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/floating-panel/root-provider.tsx"
+```tsx file="../../../src/components/examples/floating-panel/root-provider.tsx"
 ```
 
     </Tab>
@@ -359,7 +359,7 @@ Use individual `ResizeTrigger` parts when each resize axis needs its own placeme
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/floating-panel/advanced-customization.tsx"
+```tsx file="../../../src/components/examples/floating-panel/advanced-customization.tsx"
 ```
 
     </Tab>

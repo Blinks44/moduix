@@ -4,11 +4,11 @@ component: empty
 description: A composable empty-state component for no-results, no-data, and first-run screens.
 ---
 
-import * as EmptyDocs from '@/components/examples/empty/empty';
-import EmptyAdvancedCustomization from './_snippets/empty/advanced-customization.tsx';
-import EmptyBasic from './_snippets/empty/basic.tsx';
-import EmptyWithoutActions from './_snippets/empty/without-actions.tsx';
-import EmptyWithoutIcon from './_snippets/empty/without-icon.tsx';
+import * as EmptyDocs from '@/components/examples/empty/css-properties';
+import EmptyAdvancedCustomization from '@/components/examples/empty/advanced-customization.tsx';
+import EmptyBasic from '@/components/examples/empty/basic.tsx';
+import EmptyWithoutActions from '@/components/examples/empty/without-actions.tsx';
+import EmptyWithoutIcon from '@/components/examples/empty/without-icon.tsx';
 
 ## API Reference
 
@@ -37,7 +37,7 @@ the state benefits from a visual cue or a clear next step.
   >
     <Tab value="React">
 
-```tsx file="./_snippets/empty/basic.tsx"
+```tsx file="../../../src/components/examples/empty/basic.tsx"
 ```
 
     </Tab>
@@ -136,7 +136,7 @@ Leave out `Empty.Actions` when the state is informational and does not need an i
   >
     <Tab value="React">
 
-```tsx file="./_snippets/empty/without-actions.tsx"
+```tsx file="../../../src/components/examples/empty/without-actions.tsx"
 ```
 
     </Tab>
@@ -164,7 +164,7 @@ The icon is optional, so a text-only empty state can stay compact.
   >
     <Tab value="React">
 
-```tsx file="./_snippets/empty/without-icon.tsx"
+```tsx file="../../../src/components/examples/empty/without-icon.tsx"
 ```
 
     </Tab>
@@ -194,7 +194,7 @@ as `section`. Use it on `Empty.Title` when the heading needs a different level. 
   >
     <Tab value="React">
 
-```tsx file="./_snippets/empty/advanced-customization.tsx"
+```tsx file="../../../src/components/examples/empty/advanced-customization.tsx"
 ```
 
     </Tab>

@@ -4,13 +4,13 @@ component: typeset
 description: Style semantic HTML, rendered Markdown, and streaming content with a scoped reading rhythm.
 ---
 
-import * as TypesetDocs from '@/components/examples/typeset/typeset';
-import TypesetBasic from './_snippets/typeset/basic.tsx';
-import TypesetExcludedSubtree from './_snippets/typeset/excluded-subtree.tsx';
-import TypesetMarkdownExtensions from './_snippets/typeset/markdown-extensions.tsx';
-import TypesetReadingRhythm from './_snippets/typeset/reading-rhythm.tsx';
-import TypesetScrollableTable from './_snippets/typeset/scrollable-table.tsx';
-import TypesetStreamingContent from './_snippets/typeset/streaming-content.tsx';
+import * as TypesetDocs from '@/components/examples/typeset/css-properties';
+import TypesetBasic from '@/components/examples/typeset/basic.tsx';
+import TypesetExcludedSubtree from '@/components/examples/typeset/excluded-subtree.tsx';
+import TypesetMarkdownExtensions from '@/components/examples/typeset/markdown-extensions.tsx';
+import TypesetReadingRhythm from '@/components/examples/typeset/reading-rhythm.tsx';
+import TypesetScrollableTable from '@/components/examples/typeset/scrollable-table.tsx';
+import TypesetStreamingContent from '@/components/examples/typeset/streaming-content.tsx';
 
 ## API Reference
 
@@ -36,7 +36,7 @@ container needs to be semantic, such as an `article` or `section`. Keep lists as
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/typeset/basic.tsx"
+```tsx file="../../../src/components/examples/typeset/basic.tsx"
 ```
 
     </Tab>
@@ -109,7 +109,7 @@ including a nested `Typeset` root.
   >
     <Tab value="React">
 
-```tsx file="./_snippets/typeset/excluded-subtree.tsx"
+```tsx file="../../../src/components/examples/typeset/excluded-subtree.tsx"
 ```
 
     </Tab>
@@ -135,7 +135,7 @@ block spacing as the core HTML elements.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/typeset/markdown-extensions.tsx"
+```tsx file="../../../src/components/examples/typeset/markdown-extensions.tsx"
 ```
 
     </Tab>
@@ -158,7 +158,7 @@ props.
   >
     <Tab value="React">
 
-```tsx file="./_snippets/typeset/reading-rhythm.tsx"
+```tsx file="../../../src/components/examples/typeset/reading-rhythm.tsx"
 ```
 
     </Tab>
@@ -187,7 +187,7 @@ narrow container. Give the scroller an accessible name that identifies the table
   >
     <Tab value="React">
 
-```tsx file="./_snippets/typeset/scrollable-table.tsx"
+```tsx file="../../../src/components/examples/typeset/scrollable-table.tsx"
 ```
 
     </Tab>
@@ -216,7 +216,7 @@ content stays in place as the stream grows.
   >
     <Tab value="React">
 
-```tsx file="./_snippets/typeset/streaming-content.tsx"
+```tsx file="../../../src/components/examples/typeset/streaming-content.tsx"
 ```
 
     </Tab>

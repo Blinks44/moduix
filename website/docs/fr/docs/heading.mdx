@@ -4,13 +4,13 @@ component: heading
 description: Composant sémantique pour les titres, basé sur la fabrique Ark et les tokens typographiques de moduix.
 ---
 
-import * as HeadingDocs from '@/components/examples/heading/heading';
-import HeadingBasic from '../../en/docs/_snippets/heading/basic.tsx';
-import HeadingLevels from '../../en/docs/_snippets/heading/heading-levels.tsx';
-import SemanticLevelAndVisualSize from '../../en/docs/_snippets/heading/semantic-level-and-visual-size.tsx';
-import HeadingVisualSizes from '../../en/docs/_snippets/heading/visual-sizes.tsx';
-import HeadingWeights from '../../en/docs/_snippets/heading/weights.tsx';
-import CustomHostHeading from '../../en/docs/_snippets/heading/custom-host.tsx';
+import * as HeadingDocs from '@/components/examples/heading/css-properties';
+import HeadingBasic from '@/components/examples/heading/basic.tsx';
+import HeadingLevels from '@/components/examples/heading/heading-levels.tsx';
+import SemanticLevelAndVisualSize from '@/components/examples/heading/semantic-level-and-visual-size.tsx';
+import HeadingVisualSizes from '@/components/examples/heading/visual-sizes.tsx';
+import HeadingWeights from '@/components/examples/heading/weights.tsx';
+import CustomHostHeading from '@/components/examples/heading/custom-host.tsx';
 
 ## Référence de l’API
 
@@ -33,7 +33,7 @@ doit différer du niveau sémantique.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/heading/basic.tsx"
+```tsx file="../../../src/components/examples/heading/basic.tsx"
 ```
 
     </Tab>
@@ -117,7 +117,7 @@ dépend de l’élément de titre rendu.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/heading/heading-levels.tsx"
+```tsx file="../../../src/components/examples/heading/heading-levels.tsx"
 ```
 
     </Tab>
@@ -137,7 +137,7 @@ Séparez la hiérarchie du document de l’importance visuelle. Utilisez `as` po
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/heading/semantic-level-and-visual-size.tsx"
+```tsx file="../../../src/components/examples/heading/semantic-level-and-visual-size.tsx"
 ```
 
     </Tab>
@@ -156,7 +156,7 @@ Utilisez `size` lorsque plusieurs titres partagent le même niveau sémantique m
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/heading/visual-sizes.tsx"
+```tsx file="../../../src/components/examples/heading/visual-sizes.tsx"
 ```
 
     </Tab>
@@ -175,7 +175,7 @@ Utilisez `weight` pour choisir l’une des graisses typographiques intégrées.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/heading/weights.tsx"
+```tsx file="../../../src/components/examples/heading/weights.tsx"
 ```
 
     </Tab>
@@ -195,7 +195,7 @@ courants avec `h1` à `h6`, utilisez plutôt `as`.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/heading/custom-host.tsx"
+```tsx file="../../../src/components/examples/heading/custom-host.tsx"
 ```
 
     </Tab>

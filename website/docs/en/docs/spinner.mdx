@@ -4,13 +4,13 @@ component: spinner
 description: A compact loading indicator with status semantics, size control, and optional custom indicator content.
 ---
 
-import SpinnerAsChild from './_snippets/spinner/as-child.tsx';
-import SpinnerBasic from './_snippets/spinner/basic.tsx';
-import SpinnerButton from './_snippets/spinner/button.tsx';
-import SpinnerCustomIndicator from './_snippets/spinner/custom-indicator.tsx';
-import SpinnerInlineLoadingText from './_snippets/spinner/inline-loading-text.tsx';
-import SpinnerSizes from './_snippets/spinner/sizes.tsx';
-import * as SpinnerDocs from '@/components/examples/spinner/spinner';
+import SpinnerAsChild from '@/components/examples/spinner/as-child.tsx';
+import SpinnerBasic from '@/components/examples/spinner/basic.tsx';
+import SpinnerButton from '@/components/examples/spinner/button.tsx';
+import SpinnerCustomIndicator from '@/components/examples/spinner/custom-indicator.tsx';
+import SpinnerInlineLoadingText from '@/components/examples/spinner/inline-loading-text.tsx';
+import SpinnerSizes from '@/components/examples/spinner/sizes.tsx';
+import * as SpinnerDocs from '@/components/examples/spinner/css-properties';
 
 ## API Reference
 
@@ -34,7 +34,7 @@ set a localized `aria-label` or use `aria-labelledby` in a non-English interface
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/spinner/basic.tsx"
+```tsx file="../../../src/components/examples/spinner/basic.tsx"
 ```
 
     </Tab>
@@ -132,7 +132,7 @@ should stay the same.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/spinner/custom-indicator.tsx"
+```tsx file="../../../src/components/examples/spinner/custom-indicator.tsx"
 ```
 
     </Tab>
@@ -152,7 +152,7 @@ Keep the spinner decorative when the button text already describes the action. T
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/spinner/button.tsx"
+```tsx file="../../../src/components/examples/spinner/button.tsx"
 ```
 
     </Tab>
@@ -177,7 +177,7 @@ Use `decorative` when visible text next to the spinner already explains what is 
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/spinner/inline-loading-text.tsx"
+```tsx file="../../../src/components/examples/spinner/inline-loading-text.tsx"
 ```
 
     </Tab>
@@ -202,7 +202,7 @@ Use smaller sizes inside compact controls and larger sizes for standalone loadin
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/spinner/sizes.tsx"
+```tsx file="../../../src/components/examples/spinner/sizes.tsx"
 ```
 
     </Tab>
@@ -228,7 +228,7 @@ attributes and class name, and must render the visual indicator itself.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/spinner/as-child.tsx"
+```tsx file="../../../src/components/examples/spinner/as-child.tsx"
 ```
 
     </Tab>

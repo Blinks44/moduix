@@ -4,14 +4,14 @@ component: steps
 description: Guidez les utilisateurs dans un processus en plusieurs étapes avec un état et une navigation accessibles grâce à Ark UI.
 ---
 
-import * as StepsDocs from '@/components/examples/steps/steps';
-import StepsBasic from '../../en/docs/_snippets/steps/basic.tsx';
-import StepsControlled from '../../en/docs/_snippets/steps/controlled.tsx';
-import StepsValidation from '../../en/docs/_snippets/steps/validation.tsx';
-import StepsProgress from '../../en/docs/_snippets/steps/progress.tsx';
-import StepsRootProvider from '../../en/docs/_snippets/steps/root-provider.tsx';
-import StepsVertical from '../../en/docs/_snippets/steps/vertical.tsx';
-import StepsCustomComposition from '../../en/docs/_snippets/steps/custom-composition.tsx';
+import * as StepsDocs from '@/components/examples/steps/css-properties';
+import StepsBasic from '@/components/examples/steps/basic.tsx';
+import StepsControlled from '@/components/examples/steps/controlled.tsx';
+import StepsValidation from '@/components/examples/steps/validation.tsx';
+import StepsProgress from '@/components/examples/steps/progress.tsx';
+import StepsRootProvider from '@/components/examples/steps/root-provider.tsx';
+import StepsVertical from '@/components/examples/steps/vertical.tsx';
+import StepsCustomComposition from '@/components/examples/steps/custom-composition.tsx';
 
 ## Référence de l’API
 
@@ -35,7 +35,7 @@ de cette partie.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/steps/basic.tsx"
+```tsx file="../../../src/components/examples/steps/basic.tsx"
 ```
 
     </Tab>
@@ -148,7 +148,7 @@ ou une autre partie de l’interface.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/steps/controlled.tsx"
+```tsx file="../../../src/components/examples/steps/controlled.tsx"
 ```
 
     </Tab>
@@ -174,7 +174,7 @@ pas votre règle de validation.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/steps/validation.tsx"
+```tsx file="../../../src/components/examples/steps/validation.tsx"
 ```
 
     </Tab>
@@ -200,7 +200,7 @@ Ajoutez `Steps.Progress` lorsque le parcours doit afficher une barre visuelle de
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/steps/progress.tsx"
+```tsx file="../../../src/components/examples/steps/progress.tsx"
 ```
 
     </Tab>
@@ -226,7 +226,7 @@ Créez l’état avec `Steps.useSteps()` en dehors de l’arbre des parties affi
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/steps/root-provider.tsx"
+```tsx file="../../../src/components/examples/steps/root-provider.tsx"
 ```
 
     </Tab>
@@ -252,7 +252,7 @@ Définissez `orientation="vertical"` lorsque la liste des étapes doit se trouve
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/steps/vertical.tsx"
+```tsx file="../../../src/components/examples/steps/vertical.tsx"
 ```
 
     </Tab>
@@ -279,7 +279,7 @@ comportements Ark liés au clavier et au focus.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/steps/custom-composition.tsx"
+```tsx file="../../../src/components/examples/steps/custom-composition.tsx"
 ```
 
     </Tab>

@@ -4,20 +4,20 @@ component: date-input
 description: Champ de saisie de date segmenté basé sur Ark UI. Il prend en charge les dates individuelles et les plages, l’édition adaptée à la locale et la soumission native du formulaire.
 ---
 
-import * as DateInputDocs from '@/components/examples/date-input/date-input';
-import DateInputAdvancedCustomization from '../../en/docs/_snippets/date-input/advanced-customization.tsx';
-import DateInputBasic from '../../en/docs/_snippets/date-input/basic.tsx';
-import DateInputControlled from '../../en/docs/_snippets/date-input/controlled.tsx';
-import DateInputDisabledAndReadOnly from '../../en/docs/_snippets/date-input/disabled-and-read-only.tsx';
-import DateInputFieldState from '../../en/docs/_snippets/date-input/field-state.tsx';
-import DateInputGranularity from '../../en/docs/_snippets/date-input/granularity.tsx';
-import DateInputLeadingZeros from '../../en/docs/_snippets/date-input/leading-zeros.tsx';
-import DateInputLocale from '../../en/docs/_snippets/date-input/locale.tsx';
-import DateInputMinMaxAndUnavailableDates from '../../en/docs/_snippets/date-input/min-max-and-unavailable-dates.tsx';
-import DateInputRange from '../../en/docs/_snippets/date-input/range.tsx';
-import DateInputRightToLeft from '../../en/docs/_snippets/date-input/right-to-left.tsx';
-import DateInputRootProvider from '../../en/docs/_snippets/date-input/root-provider.tsx';
-import DateInputTimeOnly from '../../en/docs/_snippets/date-input/time-only.tsx';
+import * as DateInputDocs from '@/components/examples/date-input/css-properties';
+import DateInputAdvancedCustomization from '@/components/examples/date-input/advanced-customization.tsx';
+import DateInputBasic from '@/components/examples/date-input/basic.tsx';
+import DateInputControlled from '@/components/examples/date-input/controlled.tsx';
+import DateInputDisabledAndReadOnly from '@/components/examples/date-input/disabled-and-read-only.tsx';
+import DateInputFieldState from '@/components/examples/date-input/field-state.tsx';
+import DateInputGranularity from '@/components/examples/date-input/granularity.tsx';
+import DateInputLeadingZeros from '@/components/examples/date-input/leading-zeros.tsx';
+import DateInputLocale from '@/components/examples/date-input/locale.tsx';
+import DateInputMinMaxAndUnavailableDates from '@/components/examples/date-input/min-max-and-unavailable-dates.tsx';
+import DateInputRange from '@/components/examples/date-input/range.tsx';
+import DateInputRightToLeft from '@/components/examples/date-input/right-to-left.tsx';
+import DateInputRootProvider from '@/components/examples/date-input/root-provider.tsx';
+import DateInputTimeOnly from '@/components/examples/date-input/time-only.tsx';
 
 ## Référence de l’API
 
@@ -44,7 +44,7 @@ formulaire. moduix ajoute les parties stylées et les champs natifs masqués, ce
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/date-input/basic.tsx"
+```tsx file="../../../src/components/examples/date-input/basic.tsx"
 ```
 
     </Tab>
@@ -155,7 +155,7 @@ Passez le tableau de valeurs dans `value` et mettez-le à jour avec `details.val
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/date-input/controlled.tsx"
+```tsx file="../../../src/components/examples/date-input/controlled.tsx"
 ```
 
     </Tab>
@@ -181,7 +181,7 @@ focus sans être modifiable.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/date-input/disabled-and-read-only.tsx"
+```tsx file="../../../src/components/examples/date-input/disabled-and-read-only.tsx"
 ```
 
     </Tab>
@@ -207,7 +207,7 @@ Placez `DateInput` dans `Field` pour associer le texte d’aide et le message d�
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/date-input/field-state.tsx"
+```tsx file="../../../src/components/examples/date-input/field-state.tsx"
 ```
 
     </Tab>
@@ -232,7 +232,7 @@ Définissez `granularity` pour ajouter des segments d’heure au champ.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/date-input/granularity.tsx"
+```tsx file="../../../src/components/examples/date-input/granularity.tsx"
 ```
 
     </Tab>
@@ -257,7 +257,7 @@ Définissez `shouldForceLeadingZeros={false}` si les segments numériques ne doi
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/date-input/leading-zeros.tsx"
+```tsx file="../../../src/components/examples/date-input/leading-zeros.tsx"
 ```
 
     </Tab>
@@ -283,7 +283,7 @@ des segments doivent suivre les conventions régionales.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/date-input/locale.tsx"
+```tsx file="../../../src/components/examples/date-input/locale.tsx"
 ```
 
     </Tab>
@@ -309,7 +309,7 @@ règles de l’application.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/date-input/min-max-and-unavailable-dates.tsx"
+```tsx file="../../../src/components/examples/date-input/min-max-and-unavailable-dates.tsx"
 ```
 
     </Tab>
@@ -335,7 +335,7 @@ les champs natifs avec les index correspondants.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/date-input/range.tsx"
+```tsx file="../../../src/components/examples/date-input/range.tsx"
 ```
 
     </Tab>
@@ -360,7 +360,7 @@ Définissez `dir="rtl"` avec une locale RTL afin de conserver l’ordre des segm
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/date-input/right-to-left.tsx"
+```tsx file="../../../src/components/examples/date-input/right-to-left.tsx"
 ```
 
     </Tab>
@@ -386,7 +386,7 @@ Utilisez `useDateInput()` depuis `@moduix/react` avec `DateInput.RootProvider` l
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/date-input/root-provider.tsx"
+```tsx file="../../../src/components/examples/date-input/root-provider.tsx"
 ```
 
     </Tab>
@@ -412,7 +412,7 @@ l’utilisateur n’a pas besoin de saisir une date.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/date-input/time-only.tsx"
+```tsx file="../../../src/components/examples/date-input/time-only.tsx"
 ```
 
     </Tab>
@@ -438,7 +438,7 @@ chaque segment. Pour un rendu standard, utilisez `DateInput.Segments`.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/date-input/advanced-customization.tsx"
+```tsx file="../../../src/components/examples/date-input/advanced-customization.tsx"
 ```
 
     </Tab>

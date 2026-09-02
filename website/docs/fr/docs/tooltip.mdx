@@ -4,18 +4,18 @@ component: tooltip
 description: Une brève information complémentaire affichée lorsque l’élément déclencheur est survolé ou reçoit le focus.
 ---
 
-import * as TooltipDocs from '@/components/examples/tooltip/component';
-import TooltipAdvancedCustomization from '../../en/docs/_snippets/tooltip/advanced-customization.tsx';
-import TooltipBasic from '../../en/docs/_snippets/tooltip/basic.tsx';
-import TooltipContext from '../../en/docs/_snippets/tooltip/context.tsx';
-import TooltipControlled from '../../en/docs/_snippets/tooltip/controlled.tsx';
-import TooltipDelay from '../../en/docs/_snippets/tooltip/delay.tsx';
-import TooltipDisabledTrigger from '../../en/docs/_snippets/tooltip/disabled-trigger.tsx';
-import TooltipMultipleTriggers from '../../en/docs/_snippets/tooltip/multiple-triggers.tsx';
-import TooltipPositioning from '../../en/docs/_snippets/tooltip/positioning.tsx';
-import TooltipRootProvider from '../../en/docs/_snippets/tooltip/root-provider.tsx';
-import TooltipWithArrow from '../../en/docs/_snippets/tooltip/with-arrow.tsx';
-import TooltipWithinFixedContainers from '../../en/docs/_snippets/tooltip/within-fixed-containers.tsx';
+import * as TooltipDocs from '@/components/examples/tooltip/css-properties';
+import TooltipAdvancedCustomization from '@/components/examples/tooltip/advanced-customization.tsx';
+import TooltipBasic from '@/components/examples/tooltip/basic.tsx';
+import TooltipContext from '@/components/examples/tooltip/context.tsx';
+import TooltipControlled from '@/components/examples/tooltip/controlled.tsx';
+import TooltipDelay from '@/components/examples/tooltip/delay.tsx';
+import TooltipDisabledTrigger from '@/components/examples/tooltip/disabled-trigger.tsx';
+import TooltipMultipleTriggers from '@/components/examples/tooltip/multiple-triggers.tsx';
+import TooltipPositioning from '@/components/examples/tooltip/positioning.tsx';
+import TooltipRootProvider from '@/components/examples/tooltip/root-provider.tsx';
+import TooltipWithArrow from '@/components/examples/tooltip/with-arrow.tsx';
+import TooltipWithinFixedContainers from '@/components/examples/tooltip/within-fixed-containers.tsx';
 
 ## Référence de l’API
 
@@ -45,7 +45,7 @@ complémentaire et ne remplace ni le texte visible ni `aria-label`.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/tooltip/basic.tsx"
+```tsx file="../../../src/components/examples/tooltip/basic.tsx"
 ```
 
     </Tab>
@@ -197,7 +197,7 @@ Utilisez `useTooltipContext()` dans un descendant qui doit lire l’état couran
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/tooltip/context.tsx"
+```tsx file="../../../src/components/examples/tooltip/context.tsx"
 ```
 
     </Tab>
@@ -216,7 +216,7 @@ Contrôlez l’ouverture de l’infobulle avec `open` et `onOpenChange(details)`
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/tooltip/controlled.tsx"
+```tsx file="../../../src/components/examples/tooltip/controlled.tsx"
 ```
 
     </Tab>
@@ -235,7 +235,7 @@ Définissez `openDelay` et `closeDelay` sur la racine pour régler le délai au 
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/tooltip/delay.tsx"
+```tsx file="../../../src/components/examples/tooltip/delay.tsx"
 ```
 
     </Tab>
@@ -255,7 +255,7 @@ explication. L’enveloppe peut recevoir le focus sans modifier l’état désac
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/tooltip/disabled-trigger.tsx"
+```tsx file="../../../src/components/examples/tooltip/disabled-trigger.tsx"
 ```
 
     </Tab>
@@ -278,7 +278,7 @@ une seule infobulle entre plusieurs déclencheurs.
   >
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/tooltip/multiple-triggers.tsx"
+```tsx file="../../../src/components/examples/tooltip/multiple-triggers.tsx"
 ```
 
     </Tab>
@@ -303,7 +303,7 @@ Passez les options de positionnement d’Ark à `Tooltip`, notamment le placemen
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/tooltip/positioning.tsx"
+```tsx file="../../../src/components/examples/tooltip/positioning.tsx"
 ```
 
     </Tab>
@@ -329,7 +329,7 @@ de l’arbre rendu.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/tooltip/root-provider.tsx"
+```tsx file="../../../src/components/examples/tooltip/root-provider.tsx"
 ```
 
     </Tab>
@@ -350,7 +350,7 @@ l’enveloppe fournit `Tooltip.ArrowTip` par défaut.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/tooltip/with-arrow.tsx"
+```tsx file="../../../src/components/examples/tooltip/with-arrow.tsx"
 ```
 
     </Tab>
@@ -374,7 +374,7 @@ focaliser le déclencheur, de faire défiler le panneau et de vérifier l’alig
   >
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/tooltip/within-fixed-containers.tsx"
+```tsx file="../../../src/components/examples/tooltip/within-fixed-containers.tsx"
 ```
 
     </Tab>
@@ -400,7 +400,7 @@ avoir une composition ou une mise en forme indépendantes.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/tooltip/advanced-customization.tsx"
+```tsx file="../../../src/components/examples/tooltip/advanced-customization.tsx"
 ```
 
     </Tab>

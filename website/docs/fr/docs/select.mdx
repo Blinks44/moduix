@@ -4,24 +4,24 @@ component: select
 description: Composition Select basée sur Ark UI pour choisir une ou plusieurs valeurs dans une liste contextuelle.
 ---
 
-import * as SelectDocs from '@/components/examples/select/select';
-import SelectAdvancedCustomization from '../../en/docs/_snippets/select/advanced-customization.tsx';
-import SelectBasic from '../../en/docs/_snippets/select/basic.tsx';
-import SelectControlled from '../../en/docs/_snippets/select/controlled.tsx';
-import SelectCustomItemLayout from '../../en/docs/_snippets/select/custom-item-layout.tsx';
-import SelectDynamicItems from '../../en/docs/_snippets/select/dynamic-items.tsx';
-import SelectField from '../../en/docs/_snippets/select/field.tsx';
-import SelectFormUsage from '../../en/docs/_snippets/select/form-usage.tsx';
-import SelectGrouping from '../../en/docs/_snippets/select/grouping.tsx';
-import SelectLazyMount from '../../en/docs/_snippets/select/lazy-mount.tsx';
-import SelectMaxSelection from '../../en/docs/_snippets/select/max-selection.tsx';
-import SelectMultiple from '../../en/docs/_snippets/select/multiple.tsx';
-import SelectNativeFormControl from '../../en/docs/_snippets/select/native-form-control.tsx';
-import SelectOverflow from '../../en/docs/_snippets/select/overflow.tsx';
-import SelectRootProvider from '../../en/docs/_snippets/select/root-provider.tsx';
-import SelectSearchInPopup from '../../en/docs/_snippets/select/search-in-popup.tsx';
-import SelectSelectAll from '../../en/docs/_snippets/select/select-all.tsx';
-import SelectSelectOnHighlight from '../../en/docs/_snippets/select/select-on-highlight.tsx';
+import * as SelectDocs from '@/components/examples/select/css-properties';
+import SelectAdvancedCustomization from '@/components/examples/select/advanced-customization.tsx';
+import SelectBasic from '@/components/examples/select/basic.tsx';
+import SelectControlled from '@/components/examples/select/controlled.tsx';
+import SelectCustomItemLayout from '@/components/examples/select/custom-item-layout.tsx';
+import SelectDynamicItems from '@/components/examples/select/dynamic-items.tsx';
+import SelectField from '@/components/examples/select/field.tsx';
+import SelectFormUsage from '@/components/examples/select/form-usage.tsx';
+import SelectGrouping from '@/components/examples/select/grouping.tsx';
+import SelectLazyMount from '@/components/examples/select/lazy-mount.tsx';
+import SelectMaxSelection from '@/components/examples/select/max-selection.tsx';
+import SelectMultiple from '@/components/examples/select/multiple.tsx';
+import SelectNativeFormControl from '@/components/examples/select/native-form-control.tsx';
+import SelectOverflow from '@/components/examples/select/overflow.tsx';
+import SelectRootProvider from '@/components/examples/select/root-provider.tsx';
+import SelectSearchInPopup from '@/components/examples/select/search-in-popup.tsx';
+import SelectSelectAll from '@/components/examples/select/select-all.tsx';
+import SelectSelectOnHighlight from '@/components/examples/select/select-on-highlight.tsx';
 
 ## Référence de l’API
 
@@ -48,7 +48,7 @@ d’effacement accessible. La racine ajoute automatiquement le contrôle de form
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/select/basic.tsx"
+```tsx file="../../../src/components/examples/select/basic.tsx"
 ```
 
     </Tab>
@@ -189,7 +189,7 @@ Contrôlez les valeurs sélectionnées depuis l’état React et mettez-les à j
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/select/controlled.tsx"
+```tsx file="../../../src/components/examples/select/controlled.tsx"
 ```
 
     </Tab>
@@ -209,7 +209,7 @@ lorsqu’un élément doit afficher une icône stable et un libellé tronqué.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/select/custom-item-layout.tsx"
+```tsx file="../../../src/components/examples/select/custom-item-layout.tsx"
 ```
 
     </Tab>
@@ -229,7 +229,7 @@ identique.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/select/dynamic-items.tsx"
+```tsx file="../../../src/components/examples/select/dynamic-items.tsx"
 ```
 
     </Tab>
@@ -255,7 +255,7 @@ Enveloppez Select dans `Field.Root` lorsque le libellé, le texte d’aide ou le
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/select/field.tsx"
+```tsx file="../../../src/components/examples/select/field.tsx"
 ```
 
     </Tab>
@@ -281,7 +281,7 @@ valeurs envoyées depuis `FormData`.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/select/form-usage.tsx"
+```tsx file="../../../src/components/examples/select/form-usage.tsx"
 ```
 
     </Tab>
@@ -307,7 +307,7 @@ Définissez `groupBy` dans la collection et affichez `collection.group()` avec `
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/select/grouping.tsx"
+```tsx file="../../../src/components/examples/select/grouping.tsx"
 ```
 
     </Tab>
@@ -327,7 +327,7 @@ monté que pendant l’utilisation de Select.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/select/lazy-mount.tsx"
+```tsx file="../../../src/components/examples/select/lazy-mount.tsx"
 ```
 
     </Tab>
@@ -347,7 +347,7 @@ Limitez le nombre d’éléments sélectionnés en rejetant les tableaux trop lo
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/select/max-selection.tsx"
+```tsx file="../../../src/components/examples/select/max-selection.tsx"
 ```
 
     </Tab>
@@ -367,7 +367,7 @@ libellés des éléments sélectionnés à partir de la collection.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/select/multiple.tsx"
+```tsx file="../../../src/components/examples/select/multiple.tsx"
 ```
 
     </Tab>
@@ -389,7 +389,7 @@ et à votre stratégie de virtualisation.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/select/native-form-control.tsx"
+```tsx file="../../../src/components/examples/select/native-form-control.tsx"
 ```
 
     </Tab>
@@ -415,7 +415,7 @@ la variable Ark `--available-height` et reste défilable.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/select/overflow.tsx"
+```tsx file="../../../src/components/examples/select/overflow.tsx"
 ```
 
     </Tab>
@@ -435,7 +435,7 @@ dehors de l’arborescence Select rendue.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/select/root-provider.tsx"
+```tsx file="../../../src/components/examples/select/root-provider.tsx"
 ```
 
     </Tab>
@@ -461,7 +461,7 @@ la requête et la collection filtrée dans votre composant, sans étendre l’AP
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/select/search-in-popup.tsx"
+```tsx file="../../../src/components/examples/select/search-in-popup.tsx"
 ```
 
     </Tab>
@@ -487,7 +487,7 @@ Select avec la même instance d’état Ark.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/select/select-all.tsx"
+```tsx file="../../../src/components/examples/select/select-all.tsx"
 ```
 
     </Tab>
@@ -513,7 +513,7 @@ immédiatement à jour la sélection.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/select/select-on-highlight.tsx"
+```tsx file="../../../src/components/examples/select/select-on-highlight.tsx"
 ```
 
     </Tab>
@@ -533,7 +533,7 @@ N’utilisez pas `Select.Field` lorsque le déclencheur, le texte de la valeur o
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/select/advanced-customization.tsx"
+```tsx file="../../../src/components/examples/select/advanced-customization.tsx"
 ```
 
     </Tab>

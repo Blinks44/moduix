@@ -4,24 +4,24 @@ component: menu
 description: A trigger-based menu for actions, links, selectable options, nested commands, and context menus.
 ---
 
-import * as MenuDocs from '@/components/examples/menu/menu';
-import MenuAdvancedCustomization from './_snippets/menu/advanced-customization.tsx';
-import MenuBasic from './_snippets/menu/basic.tsx';
-import MenuCheckboxItems from './_snippets/menu/checkbox-items.tsx';
-import MenuContext from './_snippets/menu/context-menu.tsx';
-import MenuControlled from './_snippets/menu/controlled.tsx';
-import MenuGrouping from './_snippets/menu/grouping.tsx';
-import MenuIndicatorPlacement from './_snippets/menu/indicator-placement.tsx';
-import MenuItemContext from './_snippets/menu/item-context.tsx';
-import MenuLazyMountedContext from './_snippets/menu/lazy-mounted-context-menu.tsx';
-import MenuLinks from './_snippets/menu/links.tsx';
-import MenuInDialog from './_snippets/menu/menu-in-dialog.tsx';
-import MenuMultipleTriggers from './_snippets/menu/multiple-triggers.tsx';
-import MenuNested from './_snippets/menu/nested.tsx';
-import MenuRadioItems from './_snippets/menu/radio-items.tsx';
-import MenuRootProvider from './_snippets/menu/root-provider.tsx';
-import MenuSelectEvent from './_snippets/menu/select-event.tsx';
-import MenuWithArrow from './_snippets/menu/with-arrow.tsx';
+import * as MenuDocs from '@/components/examples/menu/css-properties';
+import MenuAdvancedCustomization from '@/components/examples/menu/advanced-customization.tsx';
+import MenuBasic from '@/components/examples/menu/basic.tsx';
+import MenuCheckboxItems from '@/components/examples/menu/checkbox-items.tsx';
+import MenuContext from '@/components/examples/menu/context-menu.tsx';
+import MenuControlled from '@/components/examples/menu/controlled.tsx';
+import MenuGrouping from '@/components/examples/menu/grouping.tsx';
+import MenuIndicatorPlacement from '@/components/examples/menu/indicator-placement.tsx';
+import MenuItemContext from '@/components/examples/menu/item-context.tsx';
+import MenuLazyMountedContext from '@/components/examples/menu/lazy-mounted-context-menu.tsx';
+import MenuLinks from '@/components/examples/menu/links.tsx';
+import MenuInDialog from '@/components/examples/menu/menu-in-dialog.tsx';
+import MenuMultipleTriggers from '@/components/examples/menu/multiple-triggers.tsx';
+import MenuNested from '@/components/examples/menu/nested.tsx';
+import MenuRadioItems from '@/components/examples/menu/radio-items.tsx';
+import MenuRootProvider from '@/components/examples/menu/root-provider.tsx';
+import MenuSelectEvent from '@/components/examples/menu/select-event.tsx';
+import MenuWithArrow from '@/components/examples/menu/with-arrow.tsx';
 
 ## API Reference
 
@@ -41,7 +41,7 @@ continue to work when the list changes.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/menu/basic.tsx"
+```tsx file="../../../src/components/examples/menu/basic.tsx"
 ```
 
     </Tab>
@@ -202,7 +202,7 @@ options before closing the menu.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/menu/checkbox-items.tsx"
+```tsx file="../../../src/components/examples/menu/checkbox-items.tsx"
 ```
 
     </Tab>
@@ -228,7 +228,7 @@ the menu as well.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/menu/context-menu.tsx"
+```tsx file="../../../src/components/examples/menu/context-menu.tsx"
 ```
 
     </Tab>
@@ -253,7 +253,7 @@ Control `open` with React state when another control needs to open or close the 
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/menu/controlled.tsx"
+```tsx file="../../../src/components/examples/menu/controlled.tsx"
 ```
 
     </Tab>
@@ -278,7 +278,7 @@ Use `Menu.ItemGroup` and `Menu.ItemGroupLabel` to organize related items, and `M
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/menu/grouping.tsx"
+```tsx file="../../../src/components/examples/menu/grouping.tsx"
 ```
 
     </Tab>
@@ -303,7 +303,7 @@ Set `indicator="start"`, `"end"`, or `"none"` on checkbox and radio items to cho
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/menu/indicator-placement.tsx"
+```tsx file="../../../src/components/examples/menu/indicator-placement.tsx"
 ```
 
     </Tab>
@@ -328,7 +328,7 @@ Use `Menu.ItemContext` when the content of an item needs to react to its state, 
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/menu/item-context.tsx"
+```tsx file="../../../src/components/examples/menu/item-context.tsx"
 ```
 
     </Tab>
@@ -354,7 +354,7 @@ By default, context-menu content mounts on first open and unmounts after the exi
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/menu/lazy-mounted-context-menu.tsx"
+```tsx file="../../../src/components/examples/menu/lazy-mounted-context-menu.tsx"
 ```
 
     </Tab>
@@ -380,7 +380,7 @@ attributes, keyboard behavior, and focus handling.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/menu/links.tsx"
+```tsx file="../../../src/components/examples/menu/links.tsx"
 ```
 
     </Tab>
@@ -406,7 +406,7 @@ fixed positioning with `hideWhenDetached` so the menu is hidden after it leaves 
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/menu/menu-in-dialog.tsx"
+```tsx file="../../../src/components/examples/menu/menu-in-dialog.tsx"
 ```
 
     </Tab>
@@ -432,7 +432,7 @@ relative to the trigger that opened it.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/menu/multiple-triggers.tsx"
+```tsx file="../../../src/components/examples/menu/multiple-triggers.tsx"
 ```
 
     </Tab>
@@ -457,7 +457,7 @@ Render a child `Menu` inside the parent content and open it with `Menu.TriggerIt
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/menu/nested.tsx"
+```tsx file="../../../src/components/examples/menu/nested.tsx"
 ```
 
     </Tab>
@@ -483,7 +483,7 @@ menu should stay open while they change the selection.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/menu/radio-items.tsx"
+```tsx file="../../../src/components/examples/menu/radio-items.tsx"
 ```
 
     </Tab>
@@ -508,7 +508,7 @@ Use `useMenu` and `Menu.RootProvider` when code outside the rendered tree needs 
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/menu/root-provider.tsx"
+```tsx file="../../../src/components/examples/menu/root-provider.tsx"
 ```
 
     </Tab>
@@ -534,7 +534,7 @@ Use `onSelect(details)` on the root when one handler should respond to every ite
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/menu/select-event.tsx"
+```tsx file="../../../src/components/examples/menu/select-event.tsx"
 ```
 
     </Tab>
@@ -560,7 +560,7 @@ trigger.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/menu/with-arrow.tsx"
+```tsx file="../../../src/components/examples/menu/with-arrow.tsx"
 ```
 
     </Tab>
@@ -580,7 +580,7 @@ custom structure.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/menu/advanced-customization.tsx"
+```tsx file="../../../src/components/examples/menu/advanced-customization.tsx"
 ```
 
     </Tab>

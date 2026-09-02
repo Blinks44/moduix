@@ -4,14 +4,14 @@ component: fieldset
 description: Group related form controls under one legend while preserving native fieldset semantics and shared state. Helper text and error messages are connected to the group so assistive technologies can announce them.
 ---
 
-import * as FieldsetDocs from '@/components/examples/fieldset/fieldset';
-import FieldsetBasic from './_snippets/fieldset/basic.tsx';
-import FieldsetCheckbox from './_snippets/fieldset/checkbox.tsx';
-import FieldsetDisabled from './_snippets/fieldset/disabled.tsx';
-import FieldsetField from './_snippets/fieldset/field.tsx';
-import FieldsetInputWithSelect from './_snippets/fieldset/input-with-select.tsx';
-import FieldsetInvalid from './_snippets/fieldset/invalid.tsx';
-import FieldsetRootProvider from './_snippets/fieldset/root-provider.tsx';
+import * as FieldsetDocs from '@/components/examples/fieldset/css-properties';
+import FieldsetBasic from '@/components/examples/fieldset/basic.tsx';
+import FieldsetCheckbox from '@/components/examples/fieldset/checkbox.tsx';
+import FieldsetDisabled from '@/components/examples/fieldset/disabled.tsx';
+import FieldsetField from '@/components/examples/fieldset/field.tsx';
+import FieldsetInputWithSelect from '@/components/examples/fieldset/input-with-select.tsx';
+import FieldsetInvalid from '@/components/examples/fieldset/invalid.tsx';
+import FieldsetRootProvider from '@/components/examples/fieldset/root-provider.tsx';
 
 ## API Reference
 
@@ -37,7 +37,7 @@ available for compatibility with Ark's namespace API.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/fieldset/basic.tsx"
+```tsx file="../../../src/components/examples/fieldset/basic.tsx"
 ```
 
     </Tab>
@@ -128,7 +128,7 @@ automatically, so its value participates in form submission and form reset as ex
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/fieldset/checkbox.tsx"
+```tsx file="../../../src/components/examples/fieldset/checkbox.tsx"
 ```
 
     </Tab>
@@ -154,7 +154,7 @@ state from the fieldset context.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/fieldset/disabled.tsx"
+```tsx file="../../../src/components/examples/fieldset/disabled.tsx"
 ```
 
     </Tab>
@@ -180,7 +180,7 @@ to the shared legend.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/fieldset/field.tsx"
+```tsx file="../../../src/components/examples/fieldset/field.tsx"
 ```
 
     </Tab>
@@ -206,7 +206,7 @@ one phone number.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/fieldset/input-with-select.tsx"
+```tsx file="../../../src/components/examples/fieldset/input-with-select.tsx"
 ```
 
     </Tab>
@@ -232,7 +232,7 @@ on nested `Field` components as well when individual controls need their own inv
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/fieldset/invalid.tsx"
+```tsx file="../../../src/components/examples/fieldset/invalid.tsx"
 ```
 
     </Tab>
@@ -258,7 +258,7 @@ it with sibling controls or reusable descendants.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/fieldset/root-provider.tsx"
+```tsx file="../../../src/components/examples/fieldset/root-provider.tsx"
 ```
 
     </Tab>

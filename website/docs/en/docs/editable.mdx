@@ -4,16 +4,16 @@ component: editable
 description: Inline text editing with Ark UI, preview and input states, edit controls, and native form support.
 ---
 
-import * as EditableDocs from '@/components/examples/editable/editable';
-import EditableAdvancedCustomization from './_snippets/editable/advanced-customization.tsx';
-import EditableBasic from './_snippets/editable/basic.tsx';
-import EditableControlled from './_snippets/editable/controlled.tsx';
-import EditableField from './_snippets/editable/field.tsx';
-import EditableForm from './_snippets/editable/form.tsx';
-import EditableGuides from './_snippets/editable/guides.tsx';
-import EditableRootProvider from './_snippets/editable/root-provider.tsx';
-import EditableStates from './_snippets/editable/disabled-and-read-only.tsx';
-import EditableTextarea from './_snippets/editable/textarea.tsx';
+import * as EditableDocs from '@/components/examples/editable/css-properties';
+import EditableAdvancedCustomization from '@/components/examples/editable/advanced-customization.tsx';
+import EditableBasic from '@/components/examples/editable/basic.tsx';
+import EditableControlled from '@/components/examples/editable/controlled.tsx';
+import EditableField from '@/components/examples/editable/field.tsx';
+import EditableForm from '@/components/examples/editable/form.tsx';
+import EditableGuides from '@/components/examples/editable/guides.tsx';
+import EditableRootProvider from '@/components/examples/editable/root-provider.tsx';
+import EditableStates from '@/components/examples/editable/disabled-and-read-only.tsx';
+import EditableTextarea from '@/components/examples/editable/textarea.tsx';
 
 ## API Reference
 
@@ -41,7 +41,7 @@ enter edit mode with a double-click, which helps prevent accidental changes.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/editable/basic.tsx"
+```tsx file="../../../src/components/examples/editable/basic.tsx"
 ```
 
     </Tab>
@@ -137,7 +137,7 @@ Use `value` and `onValueChange` when application state should be the source of t
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/editable/controlled.tsx"
+```tsx file="../../../src/components/examples/editable/controlled.tsx"
 ```
 
     </Tab>
@@ -156,7 +156,7 @@ Wrap `Editable` in `Field` when validation state or an error message should appe
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/editable/field.tsx"
+```tsx file="../../../src/components/examples/editable/field.tsx"
 ```
 
     </Tab>
@@ -183,7 +183,7 @@ mode-specific placeholders, and localized control labels. This example sets `act
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/editable/guides.tsx"
+```tsx file="../../../src/components/examples/editable/guides.tsx"
 ```
 
     </Tab>
@@ -205,7 +205,7 @@ state instance.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/editable/root-provider.tsx"
+```tsx file="../../../src/components/examples/editable/root-provider.tsx"
 ```
 
     </Tab>
@@ -231,7 +231,7 @@ textarea size so the copied snippet works as-is.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/editable/textarea.tsx"
+```tsx file="../../../src/components/examples/editable/textarea.tsx"
 ```
 
     </Tab>
@@ -257,7 +257,7 @@ edit state. The example skips `Editable.Controls` and shows keyboard instruction
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/editable/advanced-customization.tsx"
+```tsx file="../../../src/components/examples/editable/advanced-customization.tsx"
 ```
 
     </Tab>
@@ -277,7 +277,7 @@ should remain visible but must not be editable.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/editable/disabled-and-read-only.tsx"
+```tsx file="../../../src/components/examples/editable/disabled-and-read-only.tsx"
 ```
 
     </Tab>
@@ -302,7 +302,7 @@ Pass `name` to include the current value in a native form submission.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/editable/form.tsx"
+```tsx file="../../../src/components/examples/editable/form.tsx"
 ```
 
     </Tab>

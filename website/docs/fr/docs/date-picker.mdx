@@ -4,26 +4,26 @@ component: date-picker
 description: Sélecteur de date basé sur Ark UI, avec un calendrier en fenêtre contextuelle ou intégré à la page et la sélection de plages ou de plusieurs dates.
 ---
 
-import DatePickerAdvancedCustomization from '../../en/docs/_snippets/date-picker/advanced-customization.tsx';
-import DatePickerBasic from '../../en/docs/_snippets/date-picker/basic.tsx';
-import DatePickerControlled from '../../en/docs/_snippets/date-picker/controlled.tsx';
-import DatePickerDefaultView from '../../en/docs/_snippets/date-picker/default-view-and-fixed-weeks.tsx';
-import DatePickerFieldState from '../../en/docs/_snippets/date-picker/field-state.tsx';
-import DatePickerForm from '../../en/docs/_snippets/date-picker/form.tsx';
-import DatePickerInline from '../../en/docs/_snippets/date-picker/inline-and-week-numbers.tsx';
-import DatePickerLocale from '../../en/docs/_snippets/date-picker/locale-and-format.tsx';
-import DatePickerMinMax from '../../en/docs/_snippets/date-picker/min-max-and-unavailable.tsx';
-import DatePickerMonthPicker from '../../en/docs/_snippets/date-picker/month-picker.tsx';
-import DatePickerMonthYearSelect from '../../en/docs/_snippets/date-picker/month-year-select.tsx';
-import DatePickerMultiple from '../../en/docs/_snippets/date-picker/multiple.tsx';
-import DatePickerMultipleMonths from '../../en/docs/_snippets/date-picker/multiple-months.tsx';
-import DatePickerPresets from '../../en/docs/_snippets/date-picker/presets.tsx';
-import DatePickerRange from '../../en/docs/_snippets/date-picker/range.tsx';
-import DatePickerRootProvider from '../../en/docs/_snippets/date-picker/root-provider.tsx';
-import DatePickerSelectToday from '../../en/docs/_snippets/date-picker/select-today.tsx';
-import DatePickerWithTime from '../../en/docs/_snippets/date-picker/with-time.tsx';
-import DatePickerYearPicker from '../../en/docs/_snippets/date-picker/year-picker.tsx';
-import * as DatePickerDocs from '@/components/examples/date-picker/date-picker';
+import DatePickerAdvancedCustomization from '@/components/examples/date-picker/advanced-customization.tsx';
+import DatePickerBasic from '@/components/examples/date-picker/basic.tsx';
+import DatePickerControlled from '@/components/examples/date-picker/controlled.tsx';
+import DatePickerDefaultView from '@/components/examples/date-picker/default-view-and-fixed-weeks.tsx';
+import DatePickerFieldState from '@/components/examples/date-picker/field-state.tsx';
+import DatePickerForm from '@/components/examples/date-picker/form.tsx';
+import DatePickerInline from '@/components/examples/date-picker/inline-and-week-numbers.tsx';
+import DatePickerLocale from '@/components/examples/date-picker/locale-and-format.tsx';
+import DatePickerMinMax from '@/components/examples/date-picker/min-max-and-unavailable.tsx';
+import DatePickerMonthPicker from '@/components/examples/date-picker/month-picker.tsx';
+import DatePickerMonthYearSelect from '@/components/examples/date-picker/month-year-select.tsx';
+import DatePickerMultiple from '@/components/examples/date-picker/multiple.tsx';
+import DatePickerMultipleMonths from '@/components/examples/date-picker/multiple-months.tsx';
+import DatePickerPresets from '@/components/examples/date-picker/presets.tsx';
+import DatePickerRange from '@/components/examples/date-picker/range.tsx';
+import DatePickerRootProvider from '@/components/examples/date-picker/root-provider.tsx';
+import DatePickerSelectToday from '@/components/examples/date-picker/select-today.tsx';
+import DatePickerWithTime from '@/components/examples/date-picker/with-time.tsx';
+import DatePickerYearPicker from '@/components/examples/date-picker/year-picker.tsx';
+import * as DatePickerDocs from '@/components/examples/date-picker/css-properties';
 
 ## Référence de l’API
 
@@ -49,7 +49,7 @@ pour les scénarios courants. Utilisez `DatePicker.Field` pour un champ standard
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/date-picker/basic.tsx"
+```tsx file="../../../src/components/examples/date-picker/basic.tsx"
 ```
 
     </Tab>
@@ -208,7 +208,7 @@ Contrôlez le tableau des dates sélectionnées en le mettant à jour avec `deta
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/date-picker/controlled.tsx"
+```tsx file="../../../src/components/examples/date-picker/controlled.tsx"
 ```
 
     </Tab>
@@ -234,7 +234,7 @@ conserve une hauteur stable de six lignes lorsque l’utilisateur passe d’un m
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/date-picker/default-view-and-fixed-weeks.tsx"
+```tsx file="../../../src/components/examples/date-picker/default-view-and-fixed-weeks.tsx"
 ```
 
     </Tab>
@@ -254,7 +254,7 @@ si vous n’utilisez pas `Field` pour composer le champ.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/date-picker/field-state.tsx"
+```tsx file="../../../src/components/examples/date-picker/field-state.tsx"
 ```
 
     </Tab>
@@ -280,7 +280,7 @@ pas, `DatePicker.Field` utilise l’espace réservé localisé et les libellés 
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/date-picker/form.tsx"
+```tsx file="../../../src/components/examples/date-picker/form.tsx"
 ```
 
     </Tab>
@@ -306,7 +306,7 @@ dans la racine, sans `Positioner`.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/date-picker/inline-and-week-numbers.tsx"
+```tsx file="../../../src/components/examples/date-picker/inline-and-week-numbers.tsx"
 ```
 
     </Tab>
@@ -331,7 +331,7 @@ dans la racine, sans `Positioner`.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/date-picker/locale-and-format.tsx"
+```tsx file="../../../src/components/examples/date-picker/locale-and-format.tsx"
 ```
 
     </Tab>
@@ -351,7 +351,7 @@ calendrier.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/date-picker/min-max-and-unavailable.tsx"
+```tsx file="../../../src/components/examples/date-picker/min-max-and-unavailable.tsx"
 ```
 
     </Tab>
@@ -372,7 +372,7 @@ Ark fournit les parties natives `DatePicker.MonthSelect` et `DatePicker.YearSele
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/date-picker/month-year-select.tsx"
+```tsx file="../../../src/components/examples/date-picker/month-year-select.tsx"
 ```
 
     </Tab>
@@ -398,7 +398,7 @@ si le champ doit accepter une chaîne au format « mois/année ».
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/date-picker/month-picker.tsx"
+```tsx file="../../../src/components/examples/date-picker/month-picker.tsx"
 ```
 
     </Tab>
@@ -419,7 +419,7 @@ pas plusieurs valeurs dans un même champ textuel. Affichez les dates sélection
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/date-picker/multiple.tsx"
+```tsx file="../../../src/components/examples/date-picker/multiple.tsx"
 ```
 
     </Tab>
@@ -444,7 +444,7 @@ Définissez `numOfMonths` pour afficher plusieurs mois à la fois et faciliter l
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/date-picker/multiple-months.tsx"
+```tsx file="../../../src/components/examples/date-picker/multiple-months.tsx"
 ```
 
     </Tab>
@@ -470,7 +470,7 @@ Définissez `numOfMonths` pour afficher plusieurs mois à la fois et faciliter l
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/date-picker/presets.tsx"
+```tsx file="../../../src/components/examples/date-picker/presets.tsx"
 ```
 
     </Tab>
@@ -497,7 +497,7 @@ la date de fin.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/date-picker/range.tsx"
+```tsx file="../../../src/components/examples/date-picker/range.tsx"
 ```
 
     </Tab>
@@ -517,7 +517,7 @@ partagé avec des contrôles situés en dehors de l’arbre du composant.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/date-picker/root-provider.tsx"
+```tsx file="../../../src/components/examples/date-picker/root-provider.tsx"
 ```
 
     </Tab>
@@ -542,7 +542,7 @@ Utilisez `DatePicker.Context` lorsqu’un bouton voisin doit appeler une méthod
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/date-picker/select-today.tsx"
+```tsx file="../../../src/components/examples/date-picker/select-today.tsx"
 ```
 
     </Tab>
@@ -568,7 +568,7 @@ Pour conserver l’heure dans la valeur sélectionnée, utilisez des objets `Cal
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/date-picker/with-time.tsx"
+```tsx file="../../../src/components/examples/date-picker/with-time.tsx"
 ```
 
     </Tab>
@@ -595,7 +595,7 @@ l’année 2026 est sélectionnée au départ et le champ affiche uniquement l�
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/date-picker/year-picker.tsx"
+```tsx file="../../../src/components/examples/date-picker/year-picker.tsx"
 ```
 
     </Tab>
@@ -615,7 +615,7 @@ Utilisez la composition Ark complète lorsque la grille du calendrier doit être
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/date-picker/advanced-customization.tsx"
+```tsx file="../../../src/components/examples/date-picker/advanced-customization.tsx"
 ```
 
     </Tab>

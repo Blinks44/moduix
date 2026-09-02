@@ -4,12 +4,12 @@ component: kbd
 description: A compact component for keyboard shortcuts, command hints, and inline key labels.
 ---
 
-import * as KbdDocs from '@/components/examples/kbd/kbd';
-import KbdBasic from './_snippets/kbd/basic.tsx';
-import KbdCompactDensity from './_snippets/kbd/compact-density.tsx';
-import KbdCustomElement from './_snippets/kbd/custom-element.tsx';
-import KbdShortcutList from './_snippets/kbd/shortcut-list.tsx';
-import KbdSingleKey from './_snippets/kbd/single-key.tsx';
+import * as KbdDocs from '@/components/examples/kbd/css-properties';
+import KbdBasic from '@/components/examples/kbd/basic.tsx';
+import KbdCompactDensity from '@/components/examples/kbd/compact-density.tsx';
+import KbdCustomElement from '@/components/examples/kbd/custom-element.tsx';
+import KbdShortcutList from '@/components/examples/kbd/shortcut-list.tsx';
+import KbdSingleKey from '@/components/examples/kbd/single-key.tsx';
 
 ## API Reference
 
@@ -32,7 +32,7 @@ Use `Kbd` to show one key. For a shortcut made of several keys, place the keycap
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/kbd/basic.tsx"
+```tsx file="../../../src/components/examples/kbd/basic.tsx"
 ```
 
     </Tab>
@@ -102,7 +102,7 @@ Use local CSS variables when one part of your interface needs more compact keyca
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/kbd/compact-density.tsx"
+```tsx file="../../../src/components/examples/kbd/compact-density.tsx"
 ```
 
     </Tab>
@@ -127,7 +127,7 @@ Use `asChild` when another component renders the semantic `<kbd>` element and yo
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/kbd/custom-element.tsx"
+```tsx file="../../../src/components/examples/kbd/custom-element.tsx"
 ```
 
     </Tab>
@@ -146,7 +146,7 @@ Combine `Kbd.Group` with explanatory text to present a list of available shortcu
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/kbd/shortcut-list.tsx"
+```tsx file="../../../src/components/examples/kbd/shortcut-list.tsx"
 ```
 
     </Tab>
@@ -171,7 +171,7 @@ Use `Kbd` directly when you need to show one key, such as `Esc`.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/kbd/single-key.tsx"
+```tsx file="../../../src/components/examples/kbd/single-key.tsx"
 ```
 
     </Tab>

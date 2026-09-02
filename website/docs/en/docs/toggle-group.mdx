@@ -4,17 +4,17 @@ component: toggle-group
 description: A keyboard-navigable group of toggle buttons for single or multiple selection.
 ---
 
-import * as ToggleGroupDocs from '@/components/examples/toggle-group/toggle-group';
-import ToggleGroupAsChild from './_snippets/toggle-group/as-child.tsx';
-import ToggleGroupBasic from './_snippets/toggle-group/basic.tsx';
-import ToggleGroupContext from './_snippets/toggle-group/context.tsx';
-import ToggleGroupControlled from './_snippets/toggle-group/controlled.tsx';
-import ToggleGroupDisabled from './_snippets/toggle-group/disabled.tsx';
-import ToggleGroupIcons from './_snippets/toggle-group/icons.tsx';
-import ToggleGroupMultipleSelection from './_snippets/toggle-group/multiple-selection.tsx';
-import ToggleGroupRootProvider from './_snippets/toggle-group/root-provider.tsx';
-import ToggleGroupVariants from './_snippets/toggle-group/variants.tsx';
-import ToggleGroupVertical from './_snippets/toggle-group/vertical.tsx';
+import * as ToggleGroupDocs from '@/components/examples/toggle-group/css-properties';
+import ToggleGroupAsChild from '@/components/examples/toggle-group/as-child.tsx';
+import ToggleGroupBasic from '@/components/examples/toggle-group/basic.tsx';
+import ToggleGroupContext from '@/components/examples/toggle-group/context.tsx';
+import ToggleGroupControlled from '@/components/examples/toggle-group/controlled.tsx';
+import ToggleGroupDisabled from '@/components/examples/toggle-group/disabled.tsx';
+import ToggleGroupIcons from '@/components/examples/toggle-group/icons.tsx';
+import ToggleGroupMultipleSelection from '@/components/examples/toggle-group/multiple-selection.tsx';
+import ToggleGroupRootProvider from '@/components/examples/toggle-group/root-provider.tsx';
+import ToggleGroupVariants from '@/components/examples/toggle-group/variants.tsx';
+import ToggleGroupVertical from '@/components/examples/toggle-group/vertical.tsx';
 
 ## API Reference
 
@@ -47,7 +47,7 @@ Use `<ToggleGroup>` for the common case. It is shorthand for `<ToggleGroup.Root>
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/toggle-group/basic.tsx"
+```tsx file="../../../src/components/examples/toggle-group/basic.tsx"
 ```
 
     </Tab>
@@ -154,7 +154,7 @@ button-like child so Ark can merge the group semantics and keyboard behavior.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/toggle-group/as-child.tsx"
+```tsx file="../../../src/components/examples/toggle-group/as-child.tsx"
 ```
 
     </Tab>
@@ -174,7 +174,7 @@ Use `useToggleGroupContext()` in a custom item when its contents need the curren
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/toggle-group/context.tsx"
+```tsx file="../../../src/components/examples/toggle-group/context.tsx"
 ```
 
     </Tab>
@@ -193,7 +193,7 @@ Control `value` from React state when the group needs to stay in sync with surro
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/toggle-group/controlled.tsx"
+```tsx file="../../../src/components/examples/toggle-group/controlled.tsx"
 ```
 
     </Tab>
@@ -218,7 +218,7 @@ Use `disabled` on the group or on a specific item to prevent interaction.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/toggle-group/disabled.tsx"
+```tsx file="../../../src/components/examples/toggle-group/disabled.tsx"
 ```
 
     </Tab>
@@ -243,7 +243,7 @@ Pass icons as regular children. Icon-only items should always include an accessi
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/toggle-group/icons.tsx"
+```tsx file="../../../src/components/examples/toggle-group/icons.tsx"
 ```
 
     </Tab>
@@ -262,7 +262,7 @@ Use `multiple` when several options can stay pressed at the same time.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/toggle-group/multiple-selection.tsx"
+```tsx file="../../../src/components/examples/toggle-group/multiple-selection.tsx"
 ```
 
     </Tab>
@@ -281,7 +281,7 @@ Set `variant` on the group when every item should share the same visual treatmen
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/toggle-group/variants.tsx"
+```tsx file="../../../src/components/examples/toggle-group/variants.tsx"
 ```
 
     </Tab>
@@ -306,7 +306,7 @@ Set `orientation="vertical"` when the choices should stack in a column.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/toggle-group/vertical.tsx"
+```tsx file="../../../src/components/examples/toggle-group/vertical.tsx"
 ```
 
     </Tab>
@@ -326,7 +326,7 @@ controlled before the root is rendered.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/toggle-group/root-provider.tsx"
+```tsx file="../../../src/components/examples/toggle-group/root-provider.tsx"
 ```
 
     </Tab>

@@ -4,16 +4,16 @@ component: input
 description: A styled native single-line input built on Ark Field.Input, with native events and moduix styling.
 ---
 
-import * as InputDocs from '@/components/examples/input/input';
-import InputAsChild from './_snippets/input/as-child.tsx';
-import InputBasic from './_snippets/input/basic.tsx';
-import InputControlled from './_snippets/input/controlled.tsx';
-import InputFieldState from './_snippets/input/field-state.tsx';
-import InputFile from './_snippets/input/file-input.tsx';
-import InputNativeAttributes from './_snippets/input/native-attributes.tsx';
-import InputSizes from './_snippets/input/sizes.tsx';
-import InputStandalone from './_snippets/input/standalone-input.tsx';
-import InputStates from './_snippets/input/disabled-and-readonly.tsx';
+import * as InputDocs from '@/components/examples/input/css-properties';
+import InputAsChild from '@/components/examples/input/as-child.tsx';
+import InputBasic from '@/components/examples/input/basic.tsx';
+import InputControlled from '@/components/examples/input/controlled.tsx';
+import InputFieldState from '@/components/examples/input/field-state.tsx';
+import InputFile from '@/components/examples/input/file-input.tsx';
+import InputNativeAttributes from '@/components/examples/input/native-attributes.tsx';
+import InputSizes from '@/components/examples/input/sizes.tsx';
+import InputStandalone from '@/components/examples/input/standalone-input.tsx';
+import InputStates from '@/components/examples/input/disabled-and-readonly.tsx';
 
 ## API Reference
 
@@ -47,7 +47,7 @@ connects that content to the control, generates the necessary ids, and provides 
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/input/basic.tsx"
+```tsx file="../../../src/components/examples/input/basic.tsx"
 ```
 
     </Tab>
@@ -127,7 +127,7 @@ Use this pattern when React owns the current value. Read the next value from the
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/input/controlled.tsx"
+```tsx file="../../../src/components/examples/input/controlled.tsx"
 ```
 
     </Tab>
@@ -154,7 +154,7 @@ and select the value but must not edit it. Set them directly on `Input` for one 
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/input/disabled-and-readonly.tsx"
+```tsx file="../../../src/components/examples/input/disabled-and-readonly.tsx"
 ```
 
     </Tab>
@@ -180,7 +180,7 @@ input and connects it to the error text.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/input/field-state.tsx"
+```tsx file="../../../src/components/examples/input/field-state.tsx"
 ```
 
     </Tab>
@@ -206,7 +206,7 @@ needs to keep selected files in state, show a dropzone, or manage an upload flow
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/input/file-input.tsx"
+```tsx file="../../../src/components/examples/input/file-input.tsx"
 ```
 
     </Tab>
@@ -232,7 +232,7 @@ submission. Use `htmlSize` for a character-based width and `size` for visual den
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/input/native-attributes.tsx"
+```tsx file="../../../src/components/examples/input/native-attributes.tsx"
 ```
 
     </Tab>
@@ -258,7 +258,7 @@ native character-based width.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/input/sizes.tsx"
+```tsx file="../../../src/components/examples/input/sizes.tsx"
 ```
 
     </Tab>
@@ -285,7 +285,7 @@ ids are not generated automatically and helper or error text is not connected to
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/input/standalone-input.tsx"
+```tsx file="../../../src/components/examples/input/standalone-input.tsx"
 ```
 
     </Tab>
@@ -311,7 +311,7 @@ focusable input element that can receive the merged props and `ref`.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/input/as-child.tsx"
+```tsx file="../../../src/components/examples/input/as-child.tsx"
 ```
 
     </Tab>

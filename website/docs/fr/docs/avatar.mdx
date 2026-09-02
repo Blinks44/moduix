@@ -4,15 +4,15 @@ component: avatar
 description: Une représentation compacte d’un utilisateur ou d’une entité. Ark UI gère le chargement de l’image et l’affichage du contenu de remplacement.
 ---
 
-import * as AvatarDocs from '@/components/examples/avatar/avatar';
-import AvatarBasic from '../../en/docs/_snippets/avatar/basic.tsx';
-import AvatarCustomComposition from '../../en/docs/_snippets/avatar/custom-composition.tsx';
-import AvatarCustomFallback from '../../en/docs/_snippets/avatar/custom-fallback.tsx';
-import AvatarCustomImage from '../../en/docs/_snippets/avatar/custom-image.tsx';
-import AvatarDefaultFallback from '../../en/docs/_snippets/avatar/default-fallback.tsx';
-import AvatarEvents from '../../en/docs/_snippets/avatar/events.tsx';
-import AvatarRootProvider from '../../en/docs/_snippets/avatar/root-provider.tsx';
-import AvatarSizesAndFallbackOnly from '../../en/docs/_snippets/avatar/sizes-and-fallback-only.tsx';
+import * as AvatarDocs from '@/components/examples/avatar/css-properties';
+import AvatarBasic from '@/components/examples/avatar/basic.tsx';
+import AvatarCustomComposition from '@/components/examples/avatar/custom-composition.tsx';
+import AvatarCustomFallback from '@/components/examples/avatar/custom-fallback.tsx';
+import AvatarCustomImage from '@/components/examples/avatar/custom-image.tsx';
+import AvatarDefaultFallback from '@/components/examples/avatar/default-fallback.tsx';
+import AvatarEvents from '@/components/examples/avatar/events.tsx';
+import AvatarRootProvider from '@/components/examples/avatar/root-provider.tsx';
+import AvatarSizesAndFallbackOnly from '@/components/examples/avatar/sizes-and-fallback-only.tsx';
 
 ## Référence de l’API
 
@@ -31,7 +31,7 @@ pour qu’Ark UI puisse basculer entre le contenu de remplacement et l’image l
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/avatar/basic.tsx"
+```tsx file="../../../src/components/examples/avatar/basic.tsx"
 ```
 
     </Tab>
@@ -124,7 +124,7 @@ un nom accessible si ce contenu apporte une information absente du texte voisin.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/avatar/custom-fallback.tsx"
+```tsx file="../../../src/components/examples/avatar/custom-fallback.tsx"
 ```
 
     </Tab>
@@ -150,7 +150,7 @@ moteur de rendu personnalisé doit s’intégrer au cycle de chargement géré p
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/avatar/custom-image.tsx"
+```tsx file="../../../src/components/examples/avatar/custom-image.tsx"
 ```
 
     </Tab>
@@ -176,7 +176,7 @@ l’avatar est interactif, donnez un nom accessible au lien ou au bouton qui l�
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/avatar/default-fallback.tsx"
+```tsx file="../../../src/components/examples/avatar/default-fallback.tsx"
 ```
 
     </Tab>
@@ -195,7 +195,7 @@ Utilisez `onStatusChange(details)` lorsque l’interface voisine doit réagir au
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/avatar/events.tsx"
+```tsx file="../../../src/components/examples/avatar/events.tsx"
 ```
 
     </Tab>
@@ -221,7 +221,7 @@ interagir avec lui. Transmettez-le à `Avatar.RootProvider` à la place de `Avat
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/avatar/root-provider.tsx"
+```tsx file="../../../src/components/examples/avatar/root-provider.tsx"
 ```
 
     </Tab>
@@ -248,7 +248,7 @@ d’image n’est disponible.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/avatar/sizes-and-fallback-only.tsx"
+```tsx file="../../../src/components/examples/avatar/sizes-and-fallback-only.tsx"
 ```
 
     </Tab>
@@ -275,7 +275,7 @@ de remplacement et la composition explicite des parties.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/avatar/custom-composition.tsx"
+```tsx file="../../../src/components/examples/avatar/custom-composition.tsx"
 ```
 
     </Tab>

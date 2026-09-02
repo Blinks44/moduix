@@ -4,17 +4,17 @@ component: hover-card
 description: An Ark UI hover card for supplementary previews opened when its trigger is hovered or focused.
 ---
 
-import * as HoverCardDocs from '@/components/examples/hover-card/hover-card';
-import BasicHoverCard from './_snippets/hover-card/basic.tsx';
-import ContextHoverCard from './_snippets/hover-card/context.tsx';
-import ControlledHoverCard from './_snippets/hover-card/controlled.tsx';
-import DelayHoverCard from './_snippets/hover-card/delay.tsx';
-import DialogHoverCard from './_snippets/hover-card/dialog.tsx';
-import DisabledHoverCard from './_snippets/hover-card/disabled.tsx';
-import MultipleTriggersHoverCard from './_snippets/hover-card/multiple-triggers.tsx';
-import PositioningHoverCard from './_snippets/hover-card/positioning.tsx';
-import RootProviderHoverCard from './_snippets/hover-card/root-provider.tsx';
-import HoverCardWithArrow from './_snippets/hover-card/with-arrow.tsx';
+import * as HoverCardDocs from '@/components/examples/hover-card/css-properties';
+import BasicHoverCard from '@/components/examples/hover-card/basic.tsx';
+import ContextHoverCard from '@/components/examples/hover-card/context.tsx';
+import ControlledHoverCard from '@/components/examples/hover-card/controlled.tsx';
+import DelayHoverCard from '@/components/examples/hover-card/delay.tsx';
+import DialogHoverCard from '@/components/examples/hover-card/dialog.tsx';
+import DisabledHoverCard from '@/components/examples/hover-card/disabled.tsx';
+import MultipleTriggersHoverCard from '@/components/examples/hover-card/multiple-triggers.tsx';
+import PositioningHoverCard from '@/components/examples/hover-card/positioning.tsx';
+import RootProviderHoverCard from '@/components/examples/hover-card/root-provider.tsx';
+import HoverCardWithArrow from '@/components/examples/hover-card/with-arrow.tsx';
 
 ## API Reference
 
@@ -40,7 +40,7 @@ does not include an arrow.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/hover-card/basic.tsx"
+```tsx file="../../../src/components/examples/hover-card/basic.tsx"
 ```
 
     </Tab>
@@ -161,7 +161,7 @@ structure.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/hover-card/context.tsx"
+```tsx file="../../../src/components/examples/hover-card/context.tsx"
 ```
 
     </Tab>
@@ -186,7 +186,7 @@ Control whether the card is open with `open` and `onOpenChange(details)`.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/hover-card/controlled.tsx"
+```tsx file="../../../src/components/examples/hover-card/controlled.tsx"
 ```
 
     </Tab>
@@ -211,7 +211,7 @@ Set `openDelay` and `closeDelay` on the root to adjust hover and focus timing.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/hover-card/delay.tsx"
+```tsx file="../../../src/components/examples/hover-card/delay.tsx"
 ```
 
     </Tab>
@@ -238,7 +238,7 @@ dialog's initial focus can land on the Hover Card trigger and open the card afte
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/hover-card/dialog.tsx"
+```tsx file="../../../src/components/examples/hover-card/dialog.tsx"
 ```
 
     </Tab>
@@ -263,7 +263,7 @@ Set `disabled` to prevent the card from opening while keeping the trigger visibl
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/hover-card/disabled.tsx"
+```tsx file="../../../src/components/examples/hover-card/disabled.tsx"
 ```
 
     </Tab>
@@ -289,7 +289,7 @@ across several triggers.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/hover-card/multiple-triggers.tsx"
+```tsx file="../../../src/components/examples/hover-card/multiple-triggers.tsx"
 ```
 
     </Tab>
@@ -314,7 +314,7 @@ Pass Ark positioning options through the `positioning` prop.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/hover-card/positioning.tsx"
+```tsx file="../../../src/components/examples/hover-card/positioning.tsx"
 ```
 
     </Tab>
@@ -340,7 +340,7 @@ need to read or update its state.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/hover-card/root-provider.tsx"
+```tsx file="../../../src/components/examples/hover-card/root-provider.tsx"
 ```
 
     </Tab>
@@ -366,7 +366,7 @@ trigger. The wrapper renders `HoverCard.ArrowTip` by default.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/hover-card/with-arrow.tsx"
+```tsx file="../../../src/components/examples/hover-card/with-arrow.tsx"
 ```
 
     </Tab>

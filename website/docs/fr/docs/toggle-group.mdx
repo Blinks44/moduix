@@ -4,17 +4,17 @@ component: toggle-group
 description: Un groupe de boutons à bascule navigable au clavier pour une sélection unique ou multiple.
 ---
 
-import * as ToggleGroupDocs from '@/components/examples/toggle-group/toggle-group';
-import ToggleGroupAsChild from '../../en/docs/_snippets/toggle-group/as-child.tsx';
-import ToggleGroupBasic from '../../en/docs/_snippets/toggle-group/basic.tsx';
-import ToggleGroupContext from '../../en/docs/_snippets/toggle-group/context.tsx';
-import ToggleGroupControlled from '../../en/docs/_snippets/toggle-group/controlled.tsx';
-import ToggleGroupDisabled from '../../en/docs/_snippets/toggle-group/disabled.tsx';
-import ToggleGroupIcons from '../../en/docs/_snippets/toggle-group/icons.tsx';
-import ToggleGroupMultipleSelection from '../../en/docs/_snippets/toggle-group/multiple-selection.tsx';
-import ToggleGroupRootProvider from '../../en/docs/_snippets/toggle-group/root-provider.tsx';
-import ToggleGroupVariants from '../../en/docs/_snippets/toggle-group/variants.tsx';
-import ToggleGroupVertical from '../../en/docs/_snippets/toggle-group/vertical.tsx';
+import * as ToggleGroupDocs from '@/components/examples/toggle-group/css-properties';
+import ToggleGroupAsChild from '@/components/examples/toggle-group/as-child.tsx';
+import ToggleGroupBasic from '@/components/examples/toggle-group/basic.tsx';
+import ToggleGroupContext from '@/components/examples/toggle-group/context.tsx';
+import ToggleGroupControlled from '@/components/examples/toggle-group/controlled.tsx';
+import ToggleGroupDisabled from '@/components/examples/toggle-group/disabled.tsx';
+import ToggleGroupIcons from '@/components/examples/toggle-group/icons.tsx';
+import ToggleGroupMultipleSelection from '@/components/examples/toggle-group/multiple-selection.tsx';
+import ToggleGroupRootProvider from '@/components/examples/toggle-group/root-provider.tsx';
+import ToggleGroupVariants from '@/components/examples/toggle-group/variants.tsx';
+import ToggleGroupVertical from '@/components/examples/toggle-group/vertical.tsx';
 
 ## Référence de l’API
 
@@ -47,7 +47,7 @@ Dans le cas courant, utilisez `<ToggleGroup>`. C’est le raccourci de `<ToggleG
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/toggle-group/basic.tsx"
+```tsx file="../../../src/components/examples/toggle-group/basic.tsx"
 ```
 
     </Tab>
@@ -150,7 +150,7 @@ et le comportement clavier.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/toggle-group/as-child.tsx"
+```tsx file="../../../src/components/examples/toggle-group/as-child.tsx"
 ```
 
     </Tab>
@@ -170,7 +170,7 @@ actuel du groupe. `ToggleGroup.Context` fournit le même état via une render pr
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/toggle-group/context.tsx"
+```tsx file="../../../src/components/examples/toggle-group/context.tsx"
 ```
 
     </Tab>
@@ -189,7 +189,7 @@ Contrôlez `value` depuis l’état React lorsque le groupe doit rester synchron
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/toggle-group/controlled.tsx"
+```tsx file="../../../src/components/examples/toggle-group/controlled.tsx"
 ```
 
     </Tab>
@@ -214,7 +214,7 @@ Utilisez `disabled` sur le groupe ou sur un élément précis pour empêcher les
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/toggle-group/disabled.tsx"
+```tsx file="../../../src/components/examples/toggle-group/disabled.tsx"
 ```
 
     </Tab>
@@ -240,7 +240,7 @@ avoir un libellé accessible.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/toggle-group/icons.tsx"
+```tsx file="../../../src/components/examples/toggle-group/icons.tsx"
 ```
 
     </Tab>
@@ -259,7 +259,7 @@ Utilisez `multiple` lorsque plusieurs choix peuvent rester activés simultanéme
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/toggle-group/multiple-selection.tsx"
+```tsx file="../../../src/components/examples/toggle-group/multiple-selection.tsx"
 ```
 
     </Tab>
@@ -278,7 +278,7 @@ Définissez `variant` sur le groupe lorsque tous les éléments doivent partager
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/toggle-group/variants.tsx"
+```tsx file="../../../src/components/examples/toggle-group/variants.tsx"
 ```
 
     </Tab>
@@ -303,7 +303,7 @@ Définissez `orientation="vertical"` lorsque les choix doivent être disposés e
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/toggle-group/vertical.tsx"
+```tsx file="../../../src/components/examples/toggle-group/vertical.tsx"
 ```
 
     </Tab>
@@ -323,7 +323,7 @@ partagée avec d’autres parties de l’interface ou contrôlée avant le rendu
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/toggle-group/root-provider.tsx"
+```tsx file="../../../src/components/examples/toggle-group/root-provider.tsx"
 ```
 
     </Tab>

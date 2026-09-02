@@ -4,12 +4,12 @@ component: tour
 description: Build guided product walkthroughs with Ark UI tour state, accessible overlay parts, and ready-made actions.
 ---
 
-import { TourCssPropertiesPanel } from '@/components/examples/tour/tour';
-import TourAdvancedCustomization from './_snippets/tour/advanced-customization.tsx';
-import TourBasic from './_snippets/tour/basic.tsx';
-import TourEvents from './_snippets/tour/events.tsx';
-import TourWaitForInput from './_snippets/tour/wait-for-input.tsx';
-import TourWithArrow from './_snippets/tour/with-arrow.tsx';
+import { TourCssPropertiesPanel } from '@/components/examples/tour/css-properties';
+import TourAdvancedCustomization from '@/components/examples/tour/advanced-customization.tsx';
+import TourBasic from '@/components/examples/tour/basic.tsx';
+import TourEvents from '@/components/examples/tour/events.tsx';
+import TourWaitForInput from '@/components/examples/tour/wait-for-input.tsx';
+import TourWithArrow from '@/components/examples/tour/with-arrow.tsx';
 
 ## API Reference
 
@@ -30,7 +30,7 @@ long copy scrollable inside the panel.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/tour/basic.tsx"
+```tsx file="../../../src/components/examples/tour/basic.tsx"
 ```
 
     </Tab>
@@ -136,7 +136,7 @@ callbacks.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/tour/events.tsx"
+```tsx file="../../../src/components/examples/tour/events.tsx"
 ```
 
     </Tab>
@@ -163,7 +163,7 @@ For steps that depend on an asynchronous condition, `waitForElement`, `waitForEl
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/tour/wait-for-input.tsx"
+```tsx file="../../../src/components/examples/tour/wait-for-input.tsx"
 ```
 
     </Tab>
@@ -189,7 +189,7 @@ step's `arrow` option so Ark can position it.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/tour/with-arrow.tsx"
+```tsx file="../../../src/components/examples/tour/with-arrow.tsx"
 ```
 
     </Tab>
@@ -216,7 +216,7 @@ Ark action object, so navigation, dismissal, and disabled state continue to work
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/tour/advanced-customization.tsx"
+```tsx file="../../../src/components/examples/tour/advanced-customization.tsx"
 ```
 
     </Tab>

@@ -4,18 +4,18 @@ component: segment-group
 description: A compact segmented control based on Ark UI for choosing one value from a small visible set.
 ---
 
-import * as SegmentGroupDocs from '@/components/examples/segment-group/segment-group';
+import * as SegmentGroupDocs from '@/components/examples/segment-group/css-properties';
 import { CssPropertiesSection } from '@/components/mdx/Components';
-import SegmentGroupAsChild from './_snippets/segment-group/aschild.tsx';
-import SegmentGroupBasic from './_snippets/segment-group/basic.tsx';
-import SegmentGroupConditionalMount from './_snippets/segment-group/conditional-mount.tsx';
-import SegmentGroupControlled from './_snippets/segment-group/controlled.tsx';
-import SegmentGroupDisabled from './_snippets/segment-group/disabled.tsx';
-import SegmentGroupField from './_snippets/segment-group/field.tsx';
-import SegmentGroupFormSubmission from './_snippets/segment-group/form-submission.tsx';
-import SegmentGroupInvalid from './_snippets/segment-group/invalid.tsx';
-import SegmentGroupRootProvider from './_snippets/segment-group/root-provider.tsx';
-import SegmentGroupVerticalOrientation from './_snippets/segment-group/vertical-orientation.tsx';
+import SegmentGroupAsChild from '@/components/examples/segment-group/aschild.tsx';
+import SegmentGroupBasic from '@/components/examples/segment-group/basic.tsx';
+import SegmentGroupConditionalMount from '@/components/examples/segment-group/conditional-mount.tsx';
+import SegmentGroupControlled from '@/components/examples/segment-group/controlled.tsx';
+import SegmentGroupDisabled from '@/components/examples/segment-group/disabled.tsx';
+import SegmentGroupField from '@/components/examples/segment-group/field.tsx';
+import SegmentGroupFormSubmission from '@/components/examples/segment-group/form-submission.tsx';
+import SegmentGroupInvalid from '@/components/examples/segment-group/invalid.tsx';
+import SegmentGroupRootProvider from '@/components/examples/segment-group/root-provider.tsx';
+import SegmentGroupVerticalOrientation from '@/components/examples/segment-group/vertical-orientation.tsx';
 
 ## API Reference
 
@@ -43,7 +43,7 @@ control, and one synchronized native form input for every entry in the list.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/segment-group/basic.tsx"
+```tsx file="../../../src/components/examples/segment-group/basic.tsx"
 ```
 
     </Tab>
@@ -150,7 +150,7 @@ geometry used by the indicator.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/segment-group/conditional-mount.tsx"
+```tsx file="../../../src/components/examples/segment-group/conditional-mount.tsx"
 ```
 
     </Tab>
@@ -175,7 +175,7 @@ Keep the selected value in React state and update it from `details.value` in `on
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/segment-group/controlled.tsx"
+```tsx file="../../../src/components/examples/segment-group/controlled.tsx"
 ```
 
     </Tab>
@@ -202,7 +202,7 @@ opacity of individual items.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/segment-group/disabled.tsx"
+```tsx file="../../../src/components/examples/segment-group/disabled.tsx"
 ```
 
     </Tab>
@@ -228,7 +228,7 @@ text. Ark inherits the field's disabled, invalid, required, and read-only state.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/segment-group/field.tsx"
+```tsx file="../../../src/components/examples/segment-group/field.tsx"
 ```
 
     </Tab>
@@ -254,7 +254,7 @@ adds a native form input to every generated item.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/segment-group/form-submission.tsx"
+```tsx file="../../../src/components/examples/segment-group/form-submission.tsx"
 ```
 
     </Tab>
@@ -280,7 +280,7 @@ group participates in native form validation.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/segment-group/invalid.tsx"
+```tsx file="../../../src/components/examples/segment-group/invalid.tsx"
 ```
 
     </Tab>
@@ -300,7 +300,7 @@ the same state.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/segment-group/root-provider.tsx"
+```tsx file="../../../src/components/examples/segment-group/root-provider.tsx"
 ```
 
     </Tab>
@@ -326,7 +326,7 @@ navigation.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/segment-group/vertical-orientation.tsx"
+```tsx file="../../../src/components/examples/segment-group/vertical-orientation.tsx"
 ```
 
     </Tab>
@@ -352,7 +352,7 @@ own the item's DOM node.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/segment-group/aschild.tsx"
+```tsx file="../../../src/components/examples/segment-group/aschild.tsx"
 ```
 
     </Tab>

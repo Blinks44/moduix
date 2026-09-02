@@ -4,24 +4,24 @@ component: menu
 description: Un menu ouvert par un déclencheur pour les actions, les liens, les options sélectionnables, les commandes imbriquées et les menus contextuels.
 ---
 
-import * as MenuDocs from '@/components/examples/menu/menu';
-import MenuAdvancedCustomization from '../../en/docs/_snippets/menu/advanced-customization.tsx';
-import MenuBasic from '../../en/docs/_snippets/menu/basic.tsx';
-import MenuCheckboxItems from '../../en/docs/_snippets/menu/checkbox-items.tsx';
-import MenuContext from '../../en/docs/_snippets/menu/context-menu.tsx';
-import MenuControlled from '../../en/docs/_snippets/menu/controlled.tsx';
-import MenuGrouping from '../../en/docs/_snippets/menu/grouping.tsx';
-import MenuIndicatorPlacement from '../../en/docs/_snippets/menu/indicator-placement.tsx';
-import MenuItemContext from '../../en/docs/_snippets/menu/item-context.tsx';
-import MenuLazyMountedContext from '../../en/docs/_snippets/menu/lazy-mounted-context-menu.tsx';
-import MenuLinks from '../../en/docs/_snippets/menu/links.tsx';
-import MenuInDialog from '../../en/docs/_snippets/menu/menu-in-dialog.tsx';
-import MenuMultipleTriggers from '../../en/docs/_snippets/menu/multiple-triggers.tsx';
-import MenuNested from '../../en/docs/_snippets/menu/nested.tsx';
-import MenuRadioItems from '../../en/docs/_snippets/menu/radio-items.tsx';
-import MenuRootProvider from '../../en/docs/_snippets/menu/root-provider.tsx';
-import MenuSelectEvent from '../../en/docs/_snippets/menu/select-event.tsx';
-import MenuWithArrow from '../../en/docs/_snippets/menu/with-arrow.tsx';
+import * as MenuDocs from '@/components/examples/menu/css-properties';
+import MenuAdvancedCustomization from '@/components/examples/menu/advanced-customization.tsx';
+import MenuBasic from '@/components/examples/menu/basic.tsx';
+import MenuCheckboxItems from '@/components/examples/menu/checkbox-items.tsx';
+import MenuContext from '@/components/examples/menu/context-menu.tsx';
+import MenuControlled from '@/components/examples/menu/controlled.tsx';
+import MenuGrouping from '@/components/examples/menu/grouping.tsx';
+import MenuIndicatorPlacement from '@/components/examples/menu/indicator-placement.tsx';
+import MenuItemContext from '@/components/examples/menu/item-context.tsx';
+import MenuLazyMountedContext from '@/components/examples/menu/lazy-mounted-context-menu.tsx';
+import MenuLinks from '@/components/examples/menu/links.tsx';
+import MenuInDialog from '@/components/examples/menu/menu-in-dialog.tsx';
+import MenuMultipleTriggers from '@/components/examples/menu/multiple-triggers.tsx';
+import MenuNested from '@/components/examples/menu/nested.tsx';
+import MenuRadioItems from '@/components/examples/menu/radio-items.tsx';
+import MenuRootProvider from '@/components/examples/menu/root-provider.tsx';
+import MenuSelectEvent from '@/components/examples/menu/select-event.tsx';
+import MenuWithArrow from '@/components/examples/menu/with-arrow.tsx';
 
 ## Référence de l’API
 
@@ -39,7 +39,7 @@ Utilisez la composition standard pour un menu ouvert par un bouton, un déclench
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/menu/basic.tsx"
+```tsx file="../../../src/components/examples/menu/basic.tsx"
 ```
 
     </Tab>
@@ -188,7 +188,7 @@ Utilisez ces éléments pour des options indépendantes qui peuvent être activ�
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/menu/checkbox-items.tsx"
+```tsx file="../../../src/components/examples/menu/checkbox-items.tsx"
 ```
 
     </Tab>
@@ -213,7 +213,7 @@ Utilisez `Menu.ContextTrigger` lorsque les actions doivent apparaître après un
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/menu/context-menu.tsx"
+```tsx file="../../../src/components/examples/menu/context-menu.tsx"
 ```
 
     </Tab>
@@ -238,7 +238,7 @@ Contrôlez `open` avec l’état React lorsqu’un autre contrôle doit ouvrir o
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/menu/controlled.tsx"
+```tsx file="../../../src/components/examples/menu/controlled.tsx"
 ```
 
     </Tab>
@@ -263,7 +263,7 @@ Utilisez `Menu.ItemGroup` et `Menu.ItemGroupLabel` pour organiser les éléments
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/menu/grouping.tsx"
+```tsx file="../../../src/components/examples/menu/grouping.tsx"
 ```
 
     </Tab>
@@ -288,7 +288,7 @@ Définissez `indicator="start"`, `"end"` ou `"none"` sur les éléments avec cas
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/menu/indicator-placement.tsx"
+```tsx file="../../../src/components/examples/menu/indicator-placement.tsx"
 ```
 
     </Tab>
@@ -313,7 +313,7 @@ Utilisez `Menu.ItemContext` lorsque le contenu d’un élément doit réagir à 
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/menu/item-context.tsx"
+```tsx file="../../../src/components/examples/menu/item-context.tsx"
 ```
 
     </Tab>
@@ -338,7 +338,7 @@ Par défaut, le contenu du menu contextuel est monté à la première ouverture 
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/menu/lazy-mounted-context-menu.tsx"
+```tsx file="../../../src/components/examples/menu/lazy-mounted-context-menu.tsx"
 ```
 
     </Tab>
@@ -363,7 +363,7 @@ Utilisez `Menu.Item asChild` et faites de l’ancre l’élément de menu lui-m�
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/menu/links.tsx"
+```tsx file="../../../src/components/examples/menu/links.tsx"
 ```
 
     </Tab>
@@ -388,7 +388,7 @@ Définissez `portalled={false}` pour garder la fenêtre contextuelle dans une bo
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/menu/menu-in-dialog.tsx"
+```tsx file="../../../src/components/examples/menu/menu-in-dialog.tsx"
 ```
 
     </Tab>
@@ -413,7 +413,7 @@ Partagez un même menu entre plusieurs déclencheurs en attribuant une valeur `v
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/menu/multiple-triggers.tsx"
+```tsx file="../../../src/components/examples/menu/multiple-triggers.tsx"
 ```
 
     </Tab>
@@ -438,7 +438,7 @@ Rendez un `Menu` enfant dans le contenu du menu parent et ouvrez-le avec `Menu.T
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/menu/nested.tsx"
+```tsx file="../../../src/components/examples/menu/nested.tsx"
 ```
 
     </Tab>
@@ -463,7 +463,7 @@ Utilisez `Menu.RadioItemGroup` lorsque l’utilisateur doit choisir une seule va
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/menu/radio-items.tsx"
+```tsx file="../../../src/components/examples/menu/radio-items.tsx"
 ```
 
     </Tab>
@@ -488,7 +488,7 @@ Utilisez `useMenu` et `Menu.RootProvider` lorsque du code situé en dehors de l�
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/menu/root-provider.tsx"
+```tsx file="../../../src/components/examples/menu/root-provider.tsx"
 ```
 
     </Tab>
@@ -513,7 +513,7 @@ Utilisez `onSelect(details)` sur la racine lorsqu’un seul gestionnaire doit r�
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/menu/select-event.tsx"
+```tsx file="../../../src/components/examples/menu/select-event.tsx"
 ```
 
     </Tab>
@@ -538,7 +538,7 @@ Ajoutez `Menu.Arrow` et `Menu.ArrowTip` directement dans `Menu.Content` lorsque 
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/menu/with-arrow.tsx"
+```tsx file="../../../src/components/examples/menu/with-arrow.tsx"
 ```
 
     </Tab>
@@ -557,7 +557,7 @@ Utilisez les composants utilitaires pour les mises en page courantes, puis compo
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/menu/advanced-customization.tsx"
+```tsx file="../../../src/components/examples/menu/advanced-customization.tsx"
 ```
 
     </Tab>

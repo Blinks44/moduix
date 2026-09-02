@@ -4,15 +4,15 @@ component: button
 description: A styled button for actions, built with Ark's factory composition model.
 ---
 
-import * as ButtonDocs from '@/components/examples/button/button';
-import ButtonAsChildLink from './_snippets/button/as-child-link.tsx';
-import ButtonBasic from './_snippets/button/basic.tsx';
-import ButtonDisabled from './_snippets/button/disabled.tsx';
-import ButtonIcons from './_snippets/button/icons.tsx';
-import ButtonPendingState from './_snippets/button/pending-state.tsx';
-import ButtonRef from './_snippets/button/ref.tsx';
-import ButtonSizes from './_snippets/button/sizes.tsx';
-import ButtonVariants from './_snippets/button/variants.tsx';
+import * as ButtonDocs from '@/components/examples/button/css-properties';
+import ButtonAsChildLink from '@/components/examples/button/as-child-link.tsx';
+import ButtonBasic from '@/components/examples/button/basic.tsx';
+import ButtonDisabled from '@/components/examples/button/disabled.tsx';
+import ButtonIcons from '@/components/examples/button/icons.tsx';
+import ButtonPendingState from '@/components/examples/button/pending-state.tsx';
+import ButtonRef from '@/components/examples/button/ref.tsx';
+import ButtonSizes from '@/components/examples/button/sizes.tsx';
+import ButtonVariants from '@/components/examples/button/variants.tsx';
 
 ## API Reference
 
@@ -34,7 +34,7 @@ namespaced form.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/button/basic.tsx"
+```tsx file="../../../src/components/examples/button/basic.tsx"
 ```
 
     </Tab>
@@ -117,7 +117,7 @@ Use `disabled` with native buttons and elements used with `asChild`.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/button/disabled.tsx"
+```tsx file="../../../src/components/examples/button/disabled.tsx"
 ```
 
     </Tab>
@@ -143,7 +143,7 @@ layout.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/button/icons.tsx"
+```tsx file="../../../src/components/examples/button/icons.tsx"
 ```
 
     </Tab>
@@ -168,7 +168,7 @@ Use `asChild` for navigation so the anchor keeps its link semantics while using 
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/button/as-child-link.tsx"
+```tsx file="../../../src/components/examples/button/as-child-link.tsx"
 ```
 
     </Tab>
@@ -188,7 +188,7 @@ your application code. It also prevents click activation on elements used with `
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/button/pending-state.tsx"
+```tsx file="../../../src/components/examples/button/pending-state.tsx"
 ```
 
     </Tab>
@@ -207,7 +207,7 @@ The forwarded ref points to the rendered root and can be used to focus or measur
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/button/ref.tsx"
+```tsx file="../../../src/components/examples/button/ref.tsx"
 ```
 
     </Tab>
@@ -232,7 +232,7 @@ Text and icon-only buttons use the same root API.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/button/sizes.tsx"
+```tsx file="../../../src/components/examples/button/sizes.tsx"
 ```
 
     </Tab>
@@ -257,7 +257,7 @@ Use variants to communicate an action's priority and intent.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/button/variants.tsx"
+```tsx file="../../../src/components/examples/button/variants.tsx"
 ```
 
     </Tab>

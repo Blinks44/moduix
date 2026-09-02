@@ -4,12 +4,12 @@ component: aspect-ratio
 description: Place les médias et les contenus intégrés dans un cadre adaptatif dont le rapport hauteur/largeur reste fixe.
 ---
 
-import * as AspectRatioDocs from '@/components/examples/aspect-ratio/aspect-ratio';
-import AspectRatioAdvancedCustomization from '../../en/docs/_snippets/aspect-ratio/advanced-customization.tsx';
-import AspectRatioBasic from '../../en/docs/_snippets/aspect-ratio/basic.tsx';
-import AspectRatioCardGrid from '../../en/docs/_snippets/aspect-ratio/card-grid.tsx';
-import AspectRatioEmbeddedContent from '../../en/docs/_snippets/aspect-ratio/embedded-content.tsx';
-import AspectRatioMigration from '../../en/docs/_snippets/aspect-ratio/migrating-from-shadcn.tsx';
+import * as AspectRatioDocs from '@/components/examples/aspect-ratio/css-properties';
+import AspectRatioAdvancedCustomization from '@/components/examples/aspect-ratio/advanced-customization.tsx';
+import AspectRatioBasic from '@/components/examples/aspect-ratio/basic.tsx';
+import AspectRatioCardGrid from '@/components/examples/aspect-ratio/card-grid.tsx';
+import AspectRatioEmbeddedContent from '@/components/examples/aspect-ratio/embedded-content.tsx';
+import AspectRatioMigration from '@/components/examples/aspect-ratio/migrating-from-shadcn.tsx';
 
 ## Référence de l’API
 
@@ -36,7 +36,7 @@ sur les images et les vidéos pour choisir entre le recadrage et l’affichage c
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/aspect-ratio/basic.tsx"
+```tsx file="../../../src/components/examples/aspect-ratio/basic.tsx"
 ```
 
     </Tab>
@@ -133,7 +133,7 @@ dimensions différentes.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/aspect-ratio/card-grid.tsx"
+```tsx file="../../../src/components/examples/aspect-ratio/card-grid.tsx"
 ```
 
     </Tab>
@@ -159,7 +159,7 @@ chargement du contenu externe.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/aspect-ratio/embedded-content.tsx"
+```tsx file="../../../src/components/examples/aspect-ratio/embedded-content.tsx"
 ```
 
     </Tab>
@@ -185,7 +185,7 @@ sur un conteneur extérieur. La même racine fonctionne avec `Image` de Next.js 
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/aspect-ratio/migrating-from-shadcn.tsx"
+```tsx file="../../../src/components/examples/aspect-ratio/migrating-from-shadcn.tsx"
 ```
 
     </Tab>
@@ -211,7 +211,7 @@ propriétés du composant à son unique enfant.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/aspect-ratio/advanced-customization.tsx"
+```tsx file="../../../src/components/examples/aspect-ratio/advanced-customization.tsx"
 ```
 
     </Tab>

@@ -4,14 +4,14 @@ component: skeleton
 description: Un espace réservé affiché pendant le chargement de textes, de cartes, de médias et de sections personnalisées.
 ---
 
-import * as SkeletonDocs from '@/components/examples/skeleton/skeleton';
-import SkeletonBasic from '../../en/docs/_snippets/skeleton/basic.tsx';
-import SkeletonCard from '../../en/docs/_snippets/skeleton/card.tsx';
-import SkeletonCustomHost from '../../en/docs/_snippets/skeleton/custom-host.tsx';
-import SkeletonLoadedContent from '../../en/docs/_snippets/skeleton/loaded-content.tsx';
-import SkeletonMediaObject from '../../en/docs/_snippets/skeleton/media-object.tsx';
-import SkeletonResponsiveLayout from '../../en/docs/_snippets/skeleton/responsive-layout.tsx';
-import SkeletonVariants from '../../en/docs/_snippets/skeleton/variants.tsx';
+import * as SkeletonDocs from '@/components/examples/skeleton/css-properties';
+import SkeletonBasic from '@/components/examples/skeleton/basic.tsx';
+import SkeletonCard from '@/components/examples/skeleton/card.tsx';
+import SkeletonCustomHost from '@/components/examples/skeleton/custom-host.tsx';
+import SkeletonLoadedContent from '@/components/examples/skeleton/loaded-content.tsx';
+import SkeletonMediaObject from '@/components/examples/skeleton/media-object.tsx';
+import SkeletonResponsiveLayout from '@/components/examples/skeleton/responsive-layout.tsx';
+import SkeletonVariants from '@/components/examples/skeleton/variants.tsx';
 
 ## Référence de l’API
 
@@ -32,7 +32,7 @@ Commencez par quelques lignes `Skeleton` lorsque le texte est encore en cours de
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/skeleton/basic.tsx"
+```tsx file="../../../src/components/examples/skeleton/basic.tsx"
 ```
 
     </Tab>
@@ -118,7 +118,7 @@ Utilisez un grand bloc et des lignes de texte plus courtes pour préserver la mi
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/skeleton/card.tsx"
+```tsx file="../../../src/components/examples/skeleton/card.tsx"
 ```
 
     </Tab>
@@ -143,7 +143,7 @@ Utilisez `loading` pour conserver le même élément racine lors du remplacement
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/skeleton/loaded-content.tsx"
+```tsx file="../../../src/components/examples/skeleton/loaded-content.tsx"
 ```
 
     </Tab>
@@ -168,7 +168,7 @@ Utilisez `boxSize` avec un rayon complet pour l’espace réservé d’un avatar
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/skeleton/media-object.tsx"
+```tsx file="../../../src/components/examples/skeleton/media-object.tsx"
 ```
 
     </Tab>
@@ -193,7 +193,7 @@ Laissez la logique de mise en page responsive dans le balisage englobant et util
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/skeleton/responsive-layout.tsx"
+```tsx file="../../../src/components/examples/skeleton/responsive-layout.tsx"
 ```
 
     </Tab>
@@ -218,7 +218,7 @@ Utilisez `variant` pour choisir un espace réservé animé par pulsation ou stat
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/skeleton/variants.tsx"
+```tsx file="../../../src/components/examples/skeleton/variants.tsx"
 ```
 
     </Tab>
@@ -243,7 +243,7 @@ Utilisez `asChild` pour qu’un élément sémantique tel que `section` devienne
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/skeleton/custom-host.tsx"
+```tsx file="../../../src/components/examples/skeleton/custom-host.tsx"
 ```
 
     </Tab>

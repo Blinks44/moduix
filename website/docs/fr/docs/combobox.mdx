@@ -4,21 +4,21 @@ component: combobox
 description: Un champ pour rechercher et sélectionner une ou plusieurs valeurs dans une collection Ark UI.
 ---
 
-import * as ComboboxDocs from '@/components/examples/combobox/combobox';
-import ComboboxAdvancedCustomization from '../../en/docs/_snippets/combobox/advanced-customization.tsx';
-import ComboboxAsyncSearch from '../../en/docs/_snippets/combobox/async-search.tsx';
-import ComboboxAutoHighlight from '../../en/docs/_snippets/combobox/auto-highlight.tsx';
-import ComboboxBasic from '../../en/docs/_snippets/combobox/basic.tsx';
-import ComboboxControlled from '../../en/docs/_snippets/combobox/controlled.tsx';
-import ComboboxCreatable from '../../en/docs/_snippets/combobox/creatable.tsx';
-import ComboboxCustomObjectsAndGrouping from '../../en/docs/_snippets/combobox/custom-objects-and-grouping.tsx';
-import ComboboxDynamic from '../../en/docs/_snippets/combobox/dynamic.tsx';
-import ComboboxInlineAutocomplete from '../../en/docs/_snippets/combobox/inline-autocomplete.tsx';
-import ComboboxLimitResults from '../../en/docs/_snippets/combobox/limit-results.tsx';
-import ComboboxMultiple from '../../en/docs/_snippets/combobox/multiple.tsx';
-import ComboboxRootProvider from '../../en/docs/_snippets/combobox/root-provider.tsx';
-import ComboboxVirtualized from '../../en/docs/_snippets/combobox/virtualized.tsx';
-import ComboboxWithTagsInput from '../../en/docs/_snippets/combobox/with-tags-input.tsx';
+import * as ComboboxDocs from '@/components/examples/combobox/css-properties';
+import ComboboxAdvancedCustomization from '@/components/examples/combobox/advanced-customization.tsx';
+import ComboboxAsyncSearch from '@/components/examples/combobox/async-search.tsx';
+import ComboboxAutoHighlight from '@/components/examples/combobox/auto-highlight.tsx';
+import ComboboxBasic from '@/components/examples/combobox/basic.tsx';
+import ComboboxControlled from '@/components/examples/combobox/controlled.tsx';
+import ComboboxCreatable from '@/components/examples/combobox/creatable.tsx';
+import ComboboxCustomObjectsAndGrouping from '@/components/examples/combobox/custom-objects-and-grouping.tsx';
+import ComboboxDynamic from '@/components/examples/combobox/dynamic.tsx';
+import ComboboxInlineAutocomplete from '@/components/examples/combobox/inline-autocomplete.tsx';
+import ComboboxLimitResults from '@/components/examples/combobox/limit-results.tsx';
+import ComboboxMultiple from '@/components/examples/combobox/multiple.tsx';
+import ComboboxRootProvider from '@/components/examples/combobox/root-provider.tsx';
+import ComboboxVirtualized from '@/components/examples/combobox/virtualized.tsx';
+import ComboboxWithTagsInput from '@/components/examples/combobox/with-tags-input.tsx';
 
 ## Référence de l’API
 
@@ -43,7 +43,7 @@ La fonction `onInputValueChange` reçoit un objet `details` fourni par Ark.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/combobox/basic.tsx"
+```tsx file="../../../src/components/examples/combobox/basic.tsx"
 ```
 
     </Tab>
@@ -223,7 +223,7 @@ Si le champ est vide, affichez `Start typing to search…` pour que la liste res
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/combobox/async-search.tsx"
+```tsx file="../../../src/components/examples/combobox/async-search.tsx"
 ```
 
     </Tab>
@@ -249,7 +249,7 @@ sélectionner avec la touche Entrée sans appuyer d’abord sur une flèche.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/combobox/auto-highlight.tsx"
+```tsx file="../../../src/components/examples/combobox/auto-highlight.tsx"
 ```
 
     </Tab>
@@ -274,7 +274,7 @@ Contrôlez le tableau des chaînes sélectionnées et lisez la nouvelle valeur d
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/combobox/controlled.tsx"
+```tsx file="../../../src/components/examples/combobox/controlled.tsx"
 ```
 
     </Tab>
@@ -300,7 +300,7 @@ remplacez cette valeur temporaire par le texte saisi par l’utilisateur après 
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/combobox/creatable.tsx"
+```tsx file="../../../src/components/examples/combobox/creatable.tsx"
 ```
 
     </Tab>
@@ -326,7 +326,7 @@ Indiquez dans la collection comment extraire les libellés et les valeurs des ob
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/combobox/custom-objects-and-grouping.tsx"
+```tsx file="../../../src/components/examples/combobox/custom-objects-and-grouping.tsx"
 ```
 
     </Tab>
@@ -352,7 +352,7 @@ Vérifiez `details.reason` pour ne pas la reconstruire après une modification d
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/combobox/dynamic.tsx"
+```tsx file="../../../src/components/examples/combobox/dynamic.tsx"
 ```
 
     </Tab>
@@ -378,7 +378,7 @@ correspondant tout en conservant la navigation au clavier d’Ark.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/combobox/inline-autocomplete.tsx"
+```tsx file="../../../src/components/examples/combobox/inline-autocomplete.tsx"
 ```
 
     </Tab>
@@ -404,7 +404,7 @@ Définissez `limit` dans `useListCollection` lorsque tous les résultats ne sont
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/combobox/limit-results.tsx"
+```tsx file="../../../src/components/examples/combobox/limit-results.tsx"
 ```
 
     </Tab>
@@ -430,7 +430,7 @@ Pour les placer dans le même conteneur de champ, composez `Combobox` avec `Tags
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/combobox/multiple.tsx"
+```tsx file="../../../src/components/examples/combobox/multiple.tsx"
 ```
 
     </Tab>
@@ -456,7 +456,7 @@ partagé avant l’affichage de la racine. `Combobox.RootProvider` conserve les 
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/combobox/root-provider.tsx"
+```tsx file="../../../src/components/examples/combobox/root-provider.tsx"
 ```
 
     </Tab>
@@ -482,7 +482,7 @@ d’Ark à `scrollToIndexFn`. Conservez `aria-setsize` et `aria-posinset` sur le
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/combobox/virtualized.tsx"
+```tsx file="../../../src/components/examples/combobox/virtualized.tsx"
 ```
 
     </Tab>
@@ -508,7 +508,7 @@ doivent apparaître dans le même champ éditable que les tags.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/combobox/with-tags-input.tsx"
+```tsx file="../../../src/components/examples/combobox/with-tags-input.tsx"
 ```
 
     </Tab>
@@ -528,7 +528,7 @@ Cet exemple affiche chaque résultat comme un lien avec `Combobox.Item asChild`.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/combobox/advanced-customization.tsx"
+```tsx file="../../../src/components/examples/combobox/advanced-customization.tsx"
 ```
 
     </Tab>

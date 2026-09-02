@@ -1,4 +1,4 @@
-import type { CssPropertyInput } from '../mdx/reference';
+import type { CssPropertyInput } from '../../mdx/reference';
 
 export const swapCustomAnimationCss = `
   .swap-custom-animation[data-animation='bounce'] [data-slot='swap-indicator'][data-state='open'] {

@@ -4,14 +4,14 @@ component: fieldset
 description: Regroupez des contrôles de formulaire associés sous une même légende tout en conservant la sémantique native de fieldset et un état partagé. Les textes d’aide et d’erreur sont reliés au groupe pour rester accessibles aux technologies d’assistance.
 ---
 
-import * as FieldsetDocs from '@/components/examples/fieldset/fieldset';
-import FieldsetBasic from '../../en/docs/_snippets/fieldset/basic.tsx';
-import FieldsetCheckbox from '../../en/docs/_snippets/fieldset/checkbox.tsx';
-import FieldsetDisabled from '../../en/docs/_snippets/fieldset/disabled.tsx';
-import FieldsetField from '../../en/docs/_snippets/fieldset/field.tsx';
-import FieldsetInputWithSelect from '../../en/docs/_snippets/fieldset/input-with-select.tsx';
-import FieldsetInvalid from '../../en/docs/_snippets/fieldset/invalid.tsx';
-import FieldsetRootProvider from '../../en/docs/_snippets/fieldset/root-provider.tsx';
+import * as FieldsetDocs from '@/components/examples/fieldset/css-properties';
+import FieldsetBasic from '@/components/examples/fieldset/basic.tsx';
+import FieldsetCheckbox from '@/components/examples/fieldset/checkbox.tsx';
+import FieldsetDisabled from '@/components/examples/fieldset/disabled.tsx';
+import FieldsetField from '@/components/examples/fieldset/field.tsx';
+import FieldsetInputWithSelect from '@/components/examples/fieldset/input-with-select.tsx';
+import FieldsetInvalid from '@/components/examples/fieldset/invalid.tsx';
+import FieldsetRootProvider from '@/components/examples/fieldset/root-provider.tsx';
 
 ## Référence de l’API
 
@@ -37,7 +37,7 @@ conserver la compatibilité avec l’API Ark.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/fieldset/basic.tsx"
+```tsx file="../../../src/components/examples/fieldset/basic.tsx"
 ```
 
     </Tab>
@@ -127,7 +127,7 @@ son `input` natif, de sorte que sa valeur est incluse dans la soumission et la r
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/fieldset/checkbox.tsx"
+```tsx file="../../../src/components/examples/fieldset/checkbox.tsx"
 ```
 
     </Tab>
@@ -153,7 +153,7 @@ le même état depuis le contexte du fieldset.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/fieldset/disabled.tsx"
+```tsx file="../../../src/components/examples/fieldset/disabled.tsx"
 ```
 
     </Tab>
@@ -179,7 +179,7 @@ plus de la légende commune.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/fieldset/field.tsx"
+```tsx file="../../../src/components/examples/fieldset/field.tsx"
 ```
 
     </Tab>
@@ -205,7 +205,7 @@ ensemble un seul numéro de téléphone.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/fieldset/input-with-select.tsx"
+```tsx file="../../../src/components/examples/fieldset/input-with-select.tsx"
 ```
 
     </Tab>
@@ -231,7 +231,7 @@ composants `Field` imbriqués lorsque des contrôles individuels doivent affiche
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/fieldset/invalid.tsx"
+```tsx file="../../../src/components/examples/fieldset/invalid.tsx"
 ```
 
     </Tab>
@@ -257,7 +257,7 @@ des contrôles voisins ou des descendants réutilisables.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/fieldset/root-provider.tsx"
+```tsx file="../../../src/components/examples/fieldset/root-provider.tsx"
 ```
 
     </Tab>

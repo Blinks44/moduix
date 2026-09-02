@@ -4,25 +4,25 @@ component: checkbox
 description: Un composant de case à cocher pour les options individuelles et les groupes à sélection multiple.
 ---
 
-import * as CheckboxDocs from '@/components/examples/checkbox/checkbox';
-import CheckboxBasic from '../../en/docs/_snippets/checkbox/basic.tsx';
-import CheckboxControlled from '../../en/docs/_snippets/checkbox/controlled.tsx';
-import CheckboxControlledGroup from '../../en/docs/_snippets/checkbox/controlled-group.tsx';
-import CheckboxCustomIndicator from '../../en/docs/_snippets/checkbox/custom-indicator.tsx';
-import CheckboxDefaultChecked from '../../en/docs/_snippets/checkbox/default-checked.tsx';
-import CheckboxDisabled from '../../en/docs/_snippets/checkbox/disabled.tsx';
-import CheckboxGroup from '../../en/docs/_snippets/checkbox/group.tsx';
-import CheckboxGroupWithFieldset from '../../en/docs/_snippets/checkbox/group-with-fieldset.tsx';
-import CheckboxGroupWithForm from '../../en/docs/_snippets/checkbox/group-with-form.tsx';
-import CheckboxIndeterminate from '../../en/docs/_snippets/checkbox/indeterminate.tsx';
-import CheckboxInvalidGroup from '../../en/docs/_snippets/checkbox/invalid-group.tsx';
-import CheckboxMaxSelected from '../../en/docs/_snippets/checkbox/max-selected.tsx';
-import CheckboxReadOnly from '../../en/docs/_snippets/checkbox/read-only.tsx';
-import CheckboxRootProvider from '../../en/docs/_snippets/checkbox/root-provider.tsx';
-import CheckboxSelectAll from '../../en/docs/_snippets/checkbox/select-all.tsx';
-import CheckboxSizes from '../../en/docs/_snippets/checkbox/sizes.tsx';
-import CheckboxWithField from '../../en/docs/_snippets/checkbox/with-field.tsx';
-import CheckboxWithForm from '../../en/docs/_snippets/checkbox/with-form.tsx';
+import * as CheckboxDocs from '@/components/examples/checkbox/css-properties';
+import CheckboxBasic from '@/components/examples/checkbox/basic.tsx';
+import CheckboxControlled from '@/components/examples/checkbox/controlled.tsx';
+import CheckboxControlledGroup from '@/components/examples/checkbox/controlled-group.tsx';
+import CheckboxCustomIndicator from '@/components/examples/checkbox/custom-indicator.tsx';
+import CheckboxDefaultChecked from '@/components/examples/checkbox/default-checked.tsx';
+import CheckboxDisabled from '@/components/examples/checkbox/disabled.tsx';
+import CheckboxGroup from '@/components/examples/checkbox/group.tsx';
+import CheckboxGroupWithFieldset from '@/components/examples/checkbox/group-with-fieldset.tsx';
+import CheckboxGroupWithForm from '@/components/examples/checkbox/group-with-form.tsx';
+import CheckboxIndeterminate from '@/components/examples/checkbox/indeterminate.tsx';
+import CheckboxInvalidGroup from '@/components/examples/checkbox/invalid-group.tsx';
+import CheckboxMaxSelected from '@/components/examples/checkbox/max-selected.tsx';
+import CheckboxReadOnly from '@/components/examples/checkbox/read-only.tsx';
+import CheckboxRootProvider from '@/components/examples/checkbox/root-provider.tsx';
+import CheckboxSelectAll from '@/components/examples/checkbox/select-all.tsx';
+import CheckboxSizes from '@/components/examples/checkbox/sizes.tsx';
+import CheckboxWithField from '@/components/examples/checkbox/with-field.tsx';
+import CheckboxWithForm from '@/components/examples/checkbox/with-form.tsx';
 
 Utilisez `Checkbox` lorsque l’utilisateur peut sélectionner une ou plusieurs options indépendantes
 dans un formulaire, un panneau de réglages ou une liste de filtres. Utilisez `RadioGroup` lorsqu’un
@@ -46,7 +46,7 @@ vide pour utiliser les icônes intégrées de moduix pour les états coché et i
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/checkbox/basic.tsx"
+```tsx file="../../../src/components/examples/checkbox/basic.tsx"
 ```
     </Tab>
   </Tabs>
@@ -156,7 +156,7 @@ Utilisez une case à cocher contrôlée lorsque sa valeur est gérée par une au
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/checkbox/controlled.tsx"
+```tsx file="../../../src/components/examples/checkbox/controlled.tsx"
 ```
     </Tab>
     <Tab value="Styles">
@@ -180,7 +180,7 @@ récapitulatifs ou des actions.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/checkbox/controlled-group.tsx"
+```tsx file="../../../src/components/examples/checkbox/controlled-group.tsx"
 ```
     </Tab>
   </Tabs>
@@ -199,7 +199,7 @@ l’accessibilité d’Ark.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/checkbox/custom-indicator.tsx"
+```tsx file="../../../src/components/examples/checkbox/custom-indicator.tsx"
 ```
     </Tab>
   </Tabs>
@@ -218,7 +218,7 @@ gérer elle-même son état.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/checkbox/default-checked.tsx"
+```tsx file="../../../src/components/examples/checkbox/default-checked.tsx"
 ```
     </Tab>
   </Tabs>
@@ -236,7 +236,7 @@ Utilisez `disabled` pour une option indisponible avec laquelle l’utilisateur n
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/checkbox/disabled.tsx"
+```tsx file="../../../src/components/examples/checkbox/disabled.tsx"
 ```
     </Tab>
   </Tabs>
@@ -255,7 +255,7 @@ sélectionnées.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/checkbox/group.tsx"
+```tsx file="../../../src/components/examples/checkbox/group.tsx"
 ```
     </Tab>
   </Tabs>
@@ -274,7 +274,7 @@ légende commune.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/checkbox/group-with-fieldset.tsx"
+```tsx file="../../../src/components/examples/checkbox/group-with-fieldset.tsx"
 ```
     </Tab>
     <Tab value="Styles">
@@ -298,7 +298,7 @@ sélectionnées dans `FormData`. Lisez-les avec `FormData.getAll(name)`.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/checkbox/group-with-form.tsx"
+```tsx file="../../../src/components/examples/checkbox/group-with-form.tsx"
 ```
     </Tab>
     <Tab value="Styles">
@@ -322,7 +322,7 @@ fréquent pour une commande « Tout sélectionner ».
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/checkbox/indeterminate.tsx"
+```tsx file="../../../src/components/examples/checkbox/indeterminate.tsx"
 ```
     </Tab>
   </Tabs>
@@ -340,7 +340,7 @@ Définissez `invalid` sur le groupe lorsque la validation porte sur l’ensemble
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/checkbox/invalid-group.tsx"
+```tsx file="../../../src/components/examples/checkbox/invalid-group.tsx"
 ```
     </Tab>
   </Tabs>
@@ -358,7 +358,7 @@ Utilisez `maxSelectedValues` pour limiter le nombre d’options sélectionnées 
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/checkbox/max-selected.tsx"
+```tsx file="../../../src/components/examples/checkbox/max-selected.tsx"
 ```
     </Tab>
   </Tabs>
@@ -376,7 +376,7 @@ Utilisez `readOnly` pour afficher une valeur sans permettre à l’utilisateur d
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/checkbox/read-only.tsx"
+```tsx file="../../../src/components/examples/checkbox/read-only.tsx"
 ```
     </Tab>
   </Tabs>
@@ -395,7 +395,7 @@ l’arbre rendu. Importez `useCheckbox` depuis `@moduix/react/checkbox`.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/checkbox/root-provider.tsx"
+```tsx file="../../../src/components/examples/checkbox/root-provider.tsx"
 ```
     </Tab>
     <Tab value="Styles">
@@ -419,7 +419,7 @@ sélectionner ou de désélectionner toutes les options.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/checkbox/select-all.tsx"
+```tsx file="../../../src/components/examples/checkbox/select-all.tsx"
 ```
     </Tab>
     <Tab value="Styles">
@@ -443,7 +443,7 @@ réglages.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/checkbox/sizes.tsx"
+```tsx file="../../../src/components/examples/checkbox/sizes.tsx"
 ```
     </Tab>
   </Tabs>
@@ -462,7 +462,7 @@ d’un état de champ partagé.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/checkbox/with-field.tsx"
+```tsx file="../../../src/components/examples/checkbox/with-field.tsx"
 ```
     </Tab>
     <Tab value="Styles">
@@ -486,7 +486,7 @@ dans `FormData`.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/checkbox/with-form.tsx"
+```tsx file="../../../src/components/examples/checkbox/with-form.tsx"
 ```
     </Tab>
     <Tab value="Styles">

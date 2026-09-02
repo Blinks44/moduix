@@ -4,9 +4,9 @@ component: simple-grid
 description: An equal-column CSS Grid that adapts to the available width.
 ---
 
-import SimpleGridBasic from './_snippets/simple-grid/basic.tsx';
-import SimpleGridFixedColumns from './_snippets/simple-grid/fixed-columns.tsx';
-import SimpleGridMediaGallery from './_snippets/simple-grid/media-gallery.tsx';
+import SimpleGridBasic from '@/components/examples/simple-grid/basic.tsx';
+import SimpleGridFixedColumns from '@/components/examples/simple-grid/fixed-columns.tsx';
+import SimpleGridMediaGallery from '@/components/examples/simple-grid/media-gallery.tsx';
 
 ## API Reference
 
@@ -34,7 +34,7 @@ child contains unbreakable content, add `min-width: 0` or an appropriate overflo
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/simple-grid/basic.tsx"
+```tsx file="../../../src/components/examples/simple-grid/basic.tsx"
 ```
     </Tab>
     <Tab value="Styles">
@@ -128,7 +128,7 @@ Use `columns` when the number of equal columns should stay fixed, such as in a c
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/simple-grid/fixed-columns.tsx"
+```tsx file="../../../src/components/examples/simple-grid/fixed-columns.tsx"
 ```
     </Tab>
     <Tab value="Styles">
@@ -152,7 +152,7 @@ Use `asChild` when the grid itself should carry list semantics. This example ren
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/simple-grid/media-gallery.tsx"
+```tsx file="../../../src/components/examples/simple-grid/media-gallery.tsx"
 ```
     </Tab>
     <Tab value="Styles">

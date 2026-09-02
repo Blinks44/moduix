@@ -4,16 +4,16 @@ component: clipboard
 description: Primitives basées sur Ark pour afficher, modifier et copier du texte.
 ---
 
-import AsChildClipboardDemo from '../../en/docs/_snippets/clipboard/as-child.tsx';
-import ClipboardBasic from '../../en/docs/_snippets/clipboard/basic.tsx';
-import ContextClipboardDemo from '../../en/docs/_snippets/clipboard/context.tsx';
-import ClipboardStatusDemo from '../../en/docs/_snippets/clipboard/copy-status.tsx';
-import CustomCopyTextClipboardDemo from '../../en/docs/_snippets/clipboard/custom-copy-text.tsx';
-import DisabledClipboardDemo from '../../en/docs/_snippets/clipboard/disabled.tsx';
-import RootProviderClipboardDemo from '../../en/docs/_snippets/clipboard/root-provider.tsx';
-import TimeoutClipboardDemo from '../../en/docs/_snippets/clipboard/timeout.tsx';
-import ValueTextClipboardDemo from '../../en/docs/_snippets/clipboard/value-text.tsx';
-import * as ClipboardDocs from '@/components/examples/clipboard/clipboard';
+import AsChildClipboardDemo from '@/components/examples/clipboard/as-child.tsx';
+import ClipboardBasic from '@/components/examples/clipboard/basic.tsx';
+import ContextClipboardDemo from '@/components/examples/clipboard/context.tsx';
+import ClipboardStatusDemo from '@/components/examples/clipboard/copy-status.tsx';
+import CustomCopyTextClipboardDemo from '@/components/examples/clipboard/custom-copy-text.tsx';
+import DisabledClipboardDemo from '@/components/examples/clipboard/disabled.tsx';
+import RootProviderClipboardDemo from '@/components/examples/clipboard/root-provider.tsx';
+import TimeoutClipboardDemo from '@/components/examples/clipboard/timeout.tsx';
+import ValueTextClipboardDemo from '@/components/examples/clipboard/value-text.tsx';
+import * as ClipboardDocs from '@/components/examples/clipboard/css-properties';
 
 Utilisez `Clipboard` lorsque les utilisateurs doivent copier une valeur textuelle. Selon les parties
 utilisées, cette valeur peut être modifiable, en lecture seule ou affichée comme du texte ordinaire.
@@ -38,7 +38,7 @@ initial et copié.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/clipboard/basic.tsx"
+```tsx file="../../../src/components/examples/clipboard/basic.tsx"
 ```
 
     </Tab>
@@ -153,7 +153,7 @@ Lisez l’état du presse-papiers depuis un contenu imbriqué avec `Clipboard.Co
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/clipboard/context.tsx"
+```tsx file="../../../src/components/examples/clipboard/context.tsx"
 ```
 
     </Tab>
@@ -179,7 +179,7 @@ réussie. L’exemple incrémente un compteur lorsque `details.copied` est vrai.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/clipboard/copy-status.tsx"
+```tsx file="../../../src/components/examples/clipboard/copy-status.tsx"
 ```
 
     </Tab>
@@ -205,7 +205,7 @@ doit utiliser des libellés adaptés à votre produit.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/clipboard/custom-copy-text.tsx"
+```tsx file="../../../src/components/examples/clipboard/custom-copy-text.tsx"
 ```
 
     </Tab>
@@ -231,7 +231,7 @@ doivent ni la modifier ni la copier.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/clipboard/disabled.tsx"
+```tsx file="../../../src/components/examples/clipboard/disabled.tsx"
 ```
 
     </Tab>
@@ -257,7 +257,7 @@ celui-ci doit être partagé entre plusieurs composants ou créé indépendammen
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/clipboard/root-provider.tsx"
+```tsx file="../../../src/components/examples/clipboard/root-provider.tsx"
 ```
 
     </Tab>
@@ -283,7 +283,7 @@ secondes par défaut.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/clipboard/timeout.tsx"
+```tsx file="../../../src/components/examples/clipboard/timeout.tsx"
 ```
 
     </Tab>
@@ -309,7 +309,7 @@ champ de saisie.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/clipboard/value-text.tsx"
+```tsx file="../../../src/components/examples/clipboard/value-text.tsx"
 ```
 
     </Tab>
@@ -335,7 +335,7 @@ des parties Clipboard, tout en conservant l’état et le comportement du compos
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/clipboard/as-child.tsx"
+```tsx file="../../../src/components/examples/clipboard/as-child.tsx"
 ```
 
     </Tab>

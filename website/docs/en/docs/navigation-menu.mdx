@@ -4,10 +4,10 @@ component: navigation-menu
 description: A composable navigation bar for direct links and disclosure panels, with an optional shared viewport for animated transitions.
 ---
 
-import * as NavigationMenuDocs from '@/components/examples/navigation-menu/navigation-menu';
-import NavigationMenuBasic from './_snippets/navigation-menu/basic.tsx';
-import NavigationMenuControlledValue from './_snippets/navigation-menu/controlled-value.tsx';
-import NavigationMenuViewport from './_snippets/navigation-menu/viewport.tsx';
+import * as NavigationMenuDocs from '@/components/examples/navigation-menu/css-properties';
+import NavigationMenuBasic from '@/components/examples/navigation-menu/basic.tsx';
+import NavigationMenuControlledValue from '@/components/examples/navigation-menu/controlled-value.tsx';
+import NavigationMenuViewport from '@/components/examples/navigation-menu/viewport.tsx';
 
 ## API Reference
 
@@ -36,7 +36,7 @@ the same item. Use `NavigationMenu.Link` for direct top-level destinations and f
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/navigation-menu/basic.tsx"
+```tsx file="../../../src/components/examples/navigation-menu/basic.tsx"
 ```
 
     </Tab>
@@ -158,7 +158,7 @@ The output below shows the value of the currently open item.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/navigation-menu/controlled-value.tsx"
+```tsx file="../../../src/components/examples/navigation-menu/controlled-value.tsx"
 ```
 
     </Tab>
@@ -185,7 +185,7 @@ the viewport's measured width and height.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/navigation-menu/viewport.tsx"
+```tsx file="../../../src/components/examples/navigation-menu/viewport.tsx"
 ```
 
     </Tab>

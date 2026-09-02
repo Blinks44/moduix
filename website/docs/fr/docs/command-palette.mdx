@@ -4,12 +4,12 @@ component: command-palette
 description: Une palette de commandes dans une boîte de dialogue, avec recherche et raccourcis clavier pour un accès rapide.
 ---
 
-import * as CommandPaletteDocs from '@/components/examples/command-palette/command-palette';
-import CommandPaletteBasic from '../../en/docs/_snippets/command-palette/basic.tsx';
-import AdvancedCommandPalette from '../../en/docs/_snippets/command-palette/advanced-customization.tsx';
-import ControlledCommandPalette from '../../en/docs/_snippets/command-palette/controlled-open-state.tsx';
-import CommandPaletteShortcutDemo from '../../en/docs/_snippets/command-palette/enable-the-global-shortcut.tsx';
-import CommandPaletteActionsDemo from '../../en/docs/_snippets/command-palette/item-actions.tsx';
+import * as CommandPaletteDocs from '@/components/examples/command-palette/css-properties';
+import CommandPaletteBasic from '@/components/examples/command-palette/basic.tsx';
+import AdvancedCommandPalette from '@/components/examples/command-palette/advanced-customization.tsx';
+import ControlledCommandPalette from '@/components/examples/command-palette/controlled-open-state.tsx';
+import CommandPaletteShortcutDemo from '@/components/examples/command-palette/enable-the-global-shortcut.tsx';
+import CommandPaletteActionsDemo from '@/components/examples/command-palette/item-actions.tsx';
 
 ## Référence de l’API
 
@@ -34,7 +34,7 @@ ajoute le champ de saisie et un bouton d’effacement, visible dès qu’une req
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/command-palette/basic.tsx"
+```tsx file="../../../src/components/examples/command-palette/basic.tsx"
 ```
 
     </Tab>
@@ -203,7 +203,7 @@ L’exemple réinitialise le filtre externe de la collection à la fermeture de 
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/command-palette/controlled-open-state.tsx"
+```tsx file="../../../src/components/examples/command-palette/controlled-open-state.tsx"
 ```
 
     </Tab>
@@ -229,7 +229,7 @@ de la page qui enregistre `Alt+K`.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/command-palette/enable-the-global-shortcut.tsx"
+```tsx file="../../../src/components/examples/command-palette/enable-the-global-shortcut.tsx"
 ```
 
     </Tab>
@@ -255,7 +255,7 @@ après l’exécution de l’action sélectionnée.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/command-palette/item-actions.tsx"
+```tsx file="../../../src/components/examples/command-palette/item-actions.tsx"
 ```
 
     </Tab>
@@ -282,7 +282,7 @@ L’exemple conserve le comportement d’Ark Dialog et d’Ark Combobox, tout en
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/command-palette/advanced-customization.tsx"
+```tsx file="../../../src/components/examples/command-palette/advanced-customization.tsx"
 ```
 
     </Tab>

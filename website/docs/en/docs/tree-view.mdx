@@ -4,14 +4,14 @@ component: tree-view
 description: Accessible tree controls for folders, files, and other nested data, built on Ark UI.
 ---
 
-import * as TreeViewDocs from '@/components/examples/tree-view/tree-view';
-import AsyncTreeView from './_snippets/tree-view/async-loading.tsx';
-import CheckboxTreeView from './_snippets/tree-view/checkboxes.tsx';
-import ControlledSelectionTreeView from './_snippets/tree-view/controlled-selection.tsx';
-import FileIconsTreeView from './_snippets/tree-view/file-icons.tsx';
-import LinkedTreeView from './_snippets/tree-view/links.tsx';
-import RootProviderTreeView from './_snippets/tree-view/root-provider.tsx';
-import TreeViewBasic from './_snippets/tree-view/basic.tsx';
+import * as TreeViewDocs from '@/components/examples/tree-view/css-properties';
+import AsyncTreeView from '@/components/examples/tree-view/async-loading.tsx';
+import CheckboxTreeView from '@/components/examples/tree-view/checkboxes.tsx';
+import ControlledSelectionTreeView from '@/components/examples/tree-view/controlled-selection.tsx';
+import FileIconsTreeView from '@/components/examples/tree-view/file-icons.tsx';
+import LinkedTreeView from '@/components/examples/tree-view/links.tsx';
+import RootProviderTreeView from '@/components/examples/tree-view/root-provider.tsx';
+import TreeViewBasic from '@/components/examples/tree-view/basic.tsx';
 
 ## API Reference
 
@@ -31,7 +31,7 @@ you can render a branch or a leaf without wiring a provider and context into eve
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/tree-view/basic.tsx"
+```tsx file="../../../src/components/examples/tree-view/basic.tsx"
 ```
 
     </Tab>
@@ -105,7 +105,7 @@ child must accept the Ark props so that focus and keyboard behavior stay intact.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/tree-view/links.tsx"
+```tsx file="../../../src/components/examples/tree-view/links.tsx"
 ```
 
     </Tab>
@@ -150,7 +150,7 @@ For a branch with a known `childrenCount`, load its children with `loadChildren`
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/tree-view/async-loading.tsx"
+```tsx file="../../../src/components/examples/tree-view/async-loading.tsx"
 ```
 
     </Tab>
@@ -170,7 +170,7 @@ the checked and indeterminate states.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/tree-view/checkboxes.tsx"
+```tsx file="../../../src/components/examples/tree-view/checkboxes.tsx"
 ```
 
     </Tab>
@@ -190,7 +190,7 @@ Put decorative file and folder icons inside `BranchText` and `ItemText`. Keep
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/tree-view/file-icons.tsx"
+```tsx file="../../../src/components/examples/tree-view/file-icons.tsx"
 ```
 
     </Tab>
@@ -213,7 +213,7 @@ a selection range. The example keeps the selected values in application state.
   >
     <Tab value="React">
 
-```tsx file="./_snippets/tree-view/controlled-selection.tsx"
+```tsx file="../../../src/components/examples/tree-view/controlled-selection.tsx"
 ```
 
     </Tab>
@@ -242,7 +242,7 @@ or `collapse()`. Pass that state to `RootProvider` instead of rendering a second
   >
     <Tab value="React">
 
-```tsx file="./_snippets/tree-view/root-provider.tsx"
+```tsx file="../../../src/components/examples/tree-view/root-provider.tsx"
 ```
 
     </Tab>

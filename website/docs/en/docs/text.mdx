@@ -4,15 +4,15 @@ component: text
 description: A typography component for body text, inline content, semantic emphasis, and truncated previews.
 ---
 
-import * as TextDocs from '@/components/examples/text/text';
-import TextAlignment from './_snippets/text/alignment.tsx';
-import TextBasic from './_snippets/text/basic.tsx';
-import TextCustomComposition from './_snippets/text/custom-composition.tsx';
-import TextSemantics from './_snippets/text/semantics.tsx';
-import TextSize from './_snippets/text/size.tsx';
-import TextTone from './_snippets/text/tone.tsx';
-import TextTruncation from './_snippets/text/truncation.tsx';
-import TextWeight from './_snippets/text/weight.tsx';
+import * as TextDocs from '@/components/examples/text/css-properties';
+import TextAlignment from '@/components/examples/text/alignment.tsx';
+import TextBasic from '@/components/examples/text/basic.tsx';
+import TextCustomComposition from '@/components/examples/text/custom-composition.tsx';
+import TextSemantics from '@/components/examples/text/semantics.tsx';
+import TextSize from '@/components/examples/text/size.tsx';
+import TextTone from '@/components/examples/text/tone.tsx';
+import TextTruncation from '@/components/examples/text/truncation.tsx';
+import TextWeight from '@/components/examples/text/weight.tsx';
 
 ## API Reference
 
@@ -43,7 +43,7 @@ element but should keep `Text`'s typography styles.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/text/basic.tsx"
+```tsx file="../../../src/components/examples/text/basic.tsx"
 ```
 
     </Tab>
@@ -123,7 +123,7 @@ Use `align` when alignment belongs to the text rather than its surrounding layou
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/text/alignment.tsx"
+```tsx file="../../../src/components/examples/text/alignment.tsx"
 ```
 
     </Tab>
@@ -148,7 +148,7 @@ Use `as` to choose a semantic HTML element while keeping `Text`'s typography sty
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/text/semantics.tsx"
+```tsx file="../../../src/components/examples/text/semantics.tsx"
 ```
 
     </Tab>
@@ -173,7 +173,7 @@ Use `size` to change the visual hierarchy without switching to a different typog
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/text/size.tsx"
+```tsx file="../../../src/components/examples/text/size.tsx"
 ```
 
     </Tab>
@@ -198,7 +198,7 @@ Use `tone` to express the role of the copy without adding local color classes.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/text/tone.tsx"
+```tsx file="../../../src/components/examples/text/tone.tsx"
 ```
 
     </Tab>
@@ -224,7 +224,7 @@ expansion or disclosure behavior in the surrounding UI.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/text/truncation.tsx"
+```tsx file="../../../src/components/examples/text/truncation.tsx"
 ```
 
     </Tab>
@@ -249,7 +249,7 @@ Use `weight` when the emphasis should stay within the same semantic element.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/text/weight.tsx"
+```tsx file="../../../src/components/examples/text/weight.tsx"
 ```
 
     </Tab>
@@ -275,7 +275,7 @@ intrinsic `as` values. The child must be a single element that accepts the forwa
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/text/custom-composition.tsx"
+```tsx file="../../../src/components/examples/text/custom-composition.tsx"
 ```
 
     </Tab>

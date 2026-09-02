@@ -4,14 +4,14 @@ component: input-group
 description: Compose a native input with inline addons, text, or actions.
 ---
 
-import * as InputGroupDocs from '@/components/examples/input-group/input-group';
-import InputGroupAsChild from './_snippets/input-group/as-child.tsx';
-import InputGroupBasic from './_snippets/input-group/basic.tsx';
-import InputGroupDisabled from './_snippets/input-group/disabled.tsx';
-import InputGroupFieldState from './_snippets/input-group/field-state.tsx';
-import InputGroupPrefixAndSuffix from './_snippets/input-group/prefix-and-suffix.tsx';
-import InputGroupSizes from './_snippets/input-group/sizes.tsx';
-import InputGroupWithAction from './_snippets/input-group/with-action.tsx';
+import * as InputGroupDocs from '@/components/examples/input-group/css-properties';
+import InputGroupAsChild from '@/components/examples/input-group/as-child.tsx';
+import InputGroupBasic from '@/components/examples/input-group/basic.tsx';
+import InputGroupDisabled from '@/components/examples/input-group/disabled.tsx';
+import InputGroupFieldState from '@/components/examples/input-group/field-state.tsx';
+import InputGroupPrefixAndSuffix from '@/components/examples/input-group/prefix-and-suffix.tsx';
+import InputGroupSizes from '@/components/examples/input-group/sizes.tsx';
+import InputGroupWithAction from '@/components/examples/input-group/with-action.tsx';
 
 ## API Reference
 
@@ -41,7 +41,7 @@ Build a grouped input with only the parts the field needs.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/input-group/basic.tsx"
+```tsx file="../../../src/components/examples/input-group/basic.tsx"
 ```
 
     </Tab>
@@ -129,7 +129,7 @@ unavailable too.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/input-group/disabled.tsx"
+```tsx file="../../../src/components/examples/input-group/disabled.tsx"
 ```
 
     </Tab>
@@ -155,7 +155,7 @@ Set `invalid` on `Field` when validation fails. Ark passes the state and require
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/input-group/field-state.tsx"
+```tsx file="../../../src/components/examples/input-group/field-state.tsx"
 ```
 
     </Tab>
@@ -180,7 +180,7 @@ Use `Addon` for a filled prefix or suffix and `Text` for inline text without a f
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/input-group/prefix-and-suffix.tsx"
+```tsx file="../../../src/components/examples/input-group/prefix-and-suffix.tsx"
 ```
 
     </Tab>
@@ -205,7 +205,7 @@ Set `size` once on the root to keep the input, addon, text, and button aligned.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/input-group/sizes.tsx"
+```tsx file="../../../src/components/examples/input-group/sizes.tsx"
 ```
 
     </Tab>
@@ -231,7 +231,7 @@ controlled and enables `Send` only after a value is entered.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/input-group/with-action.tsx"
+```tsx file="../../../src/components/examples/input-group/with-action.tsx"
 ```
 
     </Tab>
@@ -257,7 +257,7 @@ keeps its styling and size context, and the child must remain a semantic layout 
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/input-group/as-child.tsx"
+```tsx file="../../../src/components/examples/input-group/as-child.tsx"
 ```
 
     </Tab>

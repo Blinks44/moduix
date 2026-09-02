@@ -4,16 +4,16 @@ component: split-button
 description: Un groupe composé d’une action principale et d’un menu d’actions associées, construit avec les parties Button et Menu de moduix.
 ---
 
-import SplitButtonBasic from '../../en/docs/_snippets/split-button/basic.tsx';
-import SplitButtonControlledMenuState from '../../en/docs/_snippets/split-button/controlled-menu-state.tsx';
-import SplitButtonDisabledAction from '../../en/docs/_snippets/split-button/disabled-action.tsx';
-import SplitButtonLinkAction from '../../en/docs/_snippets/split-button/link-action.tsx';
-import SplitButtonMenuComposition from '../../en/docs/_snippets/split-button/menu-composition.tsx';
-import SplitButtonPositioning from '../../en/docs/_snippets/split-button/positioning.tsx';
-import SplitButtonSizes from '../../en/docs/_snippets/split-button/sizes.tsx';
-import SplitButtonVariants from '../../en/docs/_snippets/split-button/variants.tsx';
-import SplitButtonWithIcons from '../../en/docs/_snippets/split-button/with-icons.tsx';
-import * as SplitButtonDocs from '@/components/examples/split-button/split-button';
+import SplitButtonBasic from '@/components/examples/split-button/basic.tsx';
+import SplitButtonControlledMenuState from '@/components/examples/split-button/controlled-menu-state.tsx';
+import SplitButtonDisabledAction from '@/components/examples/split-button/disabled-action.tsx';
+import SplitButtonLinkAction from '@/components/examples/split-button/link-action.tsx';
+import SplitButtonMenuComposition from '@/components/examples/split-button/menu-composition.tsx';
+import SplitButtonPositioning from '@/components/examples/split-button/positioning.tsx';
+import SplitButtonSizes from '@/components/examples/split-button/sizes.tsx';
+import SplitButtonVariants from '@/components/examples/split-button/variants.tsx';
+import SplitButtonWithIcons from '@/components/examples/split-button/with-icons.tsx';
+import * as SplitButtonDocs from '@/components/examples/split-button/css-properties';
 
 ## Référence de l’API
 
@@ -43,7 +43,7 @@ L’action principale suit le même contrat `onClick` que `Button`.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/split-button/basic.tsx"
+```tsx file="../../../src/components/examples/split-button/basic.tsx"
 ```
 
     </Tab>
@@ -157,7 +157,7 @@ qu’Ark Menu.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/split-button/controlled-menu-state.tsx"
+```tsx file="../../../src/components/examples/split-button/controlled-menu-state.tsx"
 ```
 
     </Tab>
@@ -177,7 +177,7 @@ solution utile.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/split-button/disabled-action.tsx"
+```tsx file="../../../src/components/examples/split-button/disabled-action.tsx"
 ```
 
     </Tab>
@@ -196,7 +196,7 @@ Utilisez `asChild` sur `SplitButton.Action` lorsque l’action principale doit �
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/split-button/link-action.tsx"
+```tsx file="../../../src/components/examples/split-button/link-action.tsx"
 ```
 
     </Tab>
@@ -216,7 +216,7 @@ parties structurelles explicites.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/split-button/positioning.tsx"
+```tsx file="../../../src/components/examples/split-button/positioning.tsx"
 ```
 
     </Tab>
@@ -235,7 +235,7 @@ Utilisez la propriété racine `size` lorsque les deux boutons doivent être red
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/split-button/sizes.tsx"
+```tsx file="../../../src/components/examples/split-button/sizes.tsx"
 ```
 
     </Tab>
@@ -260,7 +260,7 @@ Utilisez la propriété racine `variant` lorsque les deux boutons doivent partag
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/split-button/variants.tsx"
+```tsx file="../../../src/components/examples/split-button/variants.tsx"
 ```
 
     </Tab>
@@ -285,7 +285,7 @@ Ajoutez une icône au bouton principal lorsqu’elle aide à comprendre l’acti
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/split-button/with-icons.tsx"
+```tsx file="../../../src/components/examples/split-button/with-icons.tsx"
 ```
 
     </Tab>
@@ -305,7 +305,7 @@ groupes, des séparateurs, des éléments case à cocher, des options radio ou d
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/split-button/menu-composition.tsx"
+```tsx file="../../../src/components/examples/split-button/menu-composition.tsx"
 ```
 
     </Tab>

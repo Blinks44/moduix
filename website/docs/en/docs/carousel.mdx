@@ -4,23 +4,23 @@ component: carousel
 description: A paginated carousel built on Ark UI with autoplay, externally managed state, and variable-width slides.
 ---
 
-import * as CarouselDocs from '@/components/examples/carousel/carousel';
-import AdvancedCustomizationCarousel from './_snippets/carousel/advanced-customization.tsx';
-import AutoplayCarousel from './_snippets/carousel/autoplay.tsx';
-import TravelCarousel from './_snippets/carousel/basic.tsx';
-import CardCarousel from './_snippets/carousel/cards.tsx';
-import ControlledCarousel from './_snippets/carousel/controlled.tsx';
-import DynamicSlidesCarousel from './_snippets/carousel/dynamic.tsx';
-import LoopCarousel from './_snippets/carousel/loop.tsx';
-import MouseDragCarousel from './_snippets/carousel/mouse-drag.tsx';
-import PauseOnHoverCarousel from './_snippets/carousel/pause-on-hover.tsx';
-import RootProviderCarousel from './_snippets/carousel/root-provider.tsx';
-import ScrollToCarousel from './_snippets/carousel/scroll-to-slide.tsx';
-import SlidesPerPageCarousel from './_snippets/carousel/slides-per-page.tsx';
-import SpacingCarousel from './_snippets/carousel/spacing.tsx';
-import ThumbnailIndicatorCarousel from './_snippets/carousel/thumbnail-indicators.tsx';
-import VariableSizeCarousel from './_snippets/carousel/variable-sizes.tsx';
-import VerticalCarousel from './_snippets/carousel/vertical.tsx';
+import * as CarouselDocs from '@/components/examples/carousel/css-properties';
+import AdvancedCustomizationCarousel from '@/components/examples/carousel/advanced-customization.tsx';
+import AutoplayCarousel from '@/components/examples/carousel/autoplay.tsx';
+import TravelCarousel from '@/components/examples/carousel/basic.tsx';
+import CardCarousel from '@/components/examples/carousel/cards.tsx';
+import ControlledCarousel from '@/components/examples/carousel/controlled.tsx';
+import DynamicSlidesCarousel from '@/components/examples/carousel/dynamic.tsx';
+import LoopCarousel from '@/components/examples/carousel/loop.tsx';
+import MouseDragCarousel from '@/components/examples/carousel/mouse-drag.tsx';
+import PauseOnHoverCarousel from '@/components/examples/carousel/pause-on-hover.tsx';
+import RootProviderCarousel from '@/components/examples/carousel/root-provider.tsx';
+import ScrollToCarousel from '@/components/examples/carousel/scroll-to-slide.tsx';
+import SlidesPerPageCarousel from '@/components/examples/carousel/slides-per-page.tsx';
+import SpacingCarousel from '@/components/examples/carousel/spacing.tsx';
+import ThumbnailIndicatorCarousel from '@/components/examples/carousel/thumbnail-indicators.tsx';
+import VariableSizeCarousel from '@/components/examples/carousel/variable-sizes.tsx';
+import VerticalCarousel from '@/components/examples/carousel/vertical.tsx';
 
 ## API Reference
 
@@ -40,7 +40,7 @@ for the default pager.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/carousel/basic.tsx"
+```tsx file="../../../src/components/examples/carousel/basic.tsx"
 
 ```
 
@@ -165,7 +165,7 @@ start it again with `Carousel.AutoplayTrigger`.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/carousel/autoplay.tsx"
+```tsx file="../../../src/components/examples/carousel/autoplay.tsx"
 
 ```
 
@@ -195,7 +195,7 @@ narrower than the slide.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/carousel/cards.tsx"
+```tsx file="../../../src/components/examples/carousel/cards.tsx"
 
 ```
 
@@ -222,7 +222,7 @@ or analytics.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/carousel/controlled.tsx"
+```tsx file="../../../src/components/examples/carousel/controlled.tsx"
 
 ```
 
@@ -249,7 +249,7 @@ the rendered items.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/carousel/dynamic.tsx"
+```tsx file="../../../src/components/examples/carousel/dynamic.tsx"
 
 ```
 
@@ -275,7 +275,7 @@ Set `loop` to make the carousel wrap from the last slide back to the first.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/carousel/loop.tsx"
+```tsx file="../../../src/components/examples/carousel/loop.tsx"
 
 ```
 
@@ -302,7 +302,7 @@ touch screens.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/carousel/mouse-drag.tsx"
+```tsx file="../../../src/components/examples/carousel/mouse-drag.tsx"
 
 ```
 
@@ -330,7 +330,7 @@ focus.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/carousel/pause-on-hover.tsx"
+```tsx file="../../../src/components/examples/carousel/pause-on-hover.tsx"
 
 ```
 
@@ -357,7 +357,7 @@ shared across composition boundaries.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/carousel/root-provider.tsx"
+```tsx file="../../../src/components/examples/carousel/root-provider.tsx"
 
 ```
 
@@ -383,7 +383,7 @@ Use the carousel API from context when another control needs to jump directly to
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/carousel/scroll-to-slide.tsx"
+```tsx file="../../../src/components/examples/carousel/scroll-to-slide.tsx"
 
 ```
 
@@ -409,7 +409,7 @@ Increase `slidesPerPage` to show several items at once instead of one full-width
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/carousel/slides-per-page.tsx"
+```tsx file="../../../src/components/examples/carousel/slides-per-page.tsx"
 
 ```
 
@@ -436,7 +436,7 @@ branded interfaces.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/carousel/spacing.tsx"
+```tsx file="../../../src/components/examples/carousel/spacing.tsx"
 
 ```
 
@@ -463,7 +463,7 @@ plain dots.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/carousel/thumbnail-indicators.tsx"
+```tsx file="../../../src/components/examples/carousel/thumbnail-indicators.tsx"
 
 ```
 
@@ -489,7 +489,7 @@ Enable `autoSize` to size slides to their content instead of a fixed page grid.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/carousel/variable-sizes.tsx"
+```tsx file="../../../src/components/examples/carousel/variable-sizes.tsx"
 
 ```
 
@@ -516,7 +516,7 @@ axis.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/carousel/vertical.tsx"
+```tsx file="../../../src/components/examples/carousel/vertical.tsx"
 
 ```
 
@@ -543,7 +543,7 @@ alongside other context-driven controls.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/carousel/advanced-customization.tsx"
+```tsx file="../../../src/components/examples/carousel/advanced-customization.tsx"
 
 ```
 

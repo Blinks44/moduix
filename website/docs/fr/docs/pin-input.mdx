@@ -4,16 +4,16 @@ component: pin-input
 description: Un champ segmenté pour saisir des codes PIN et des codes de vérification courts, avec gestion automatique du focus et prise en charge des codes OTP.
 ---
 
-import * as PinInputDocs from '@/components/examples/pin-input/pin-input';
-import PinInputBasic from '../../en/docs/_snippets/pin-input/basic.tsx';
-import PinInputBlurOnComplete from '../../en/docs/_snippets/pin-input/blur-on-complete.tsx';
-import PinInputChangeEvents from '../../en/docs/_snippets/pin-input/change-events.tsx';
-import PinInputField from '../../en/docs/_snippets/pin-input/field.tsx';
-import PinInputGroupedLayout from '../../en/docs/_snippets/pin-input/grouped-layout.tsx';
-import PinInputMasking from '../../en/docs/_snippets/pin-input/masking.tsx';
-import PinInputOtpMode from '../../en/docs/_snippets/pin-input/otp-mode.tsx';
-import PinInputPlaceholder from '../../en/docs/_snippets/pin-input/placeholder.tsx';
-import PinInputRootProvider from '../../en/docs/_snippets/pin-input/root-provider.tsx';
+import * as PinInputDocs from '@/components/examples/pin-input/css-properties';
+import PinInputBasic from '@/components/examples/pin-input/basic.tsx';
+import PinInputBlurOnComplete from '@/components/examples/pin-input/blur-on-complete.tsx';
+import PinInputChangeEvents from '@/components/examples/pin-input/change-events.tsx';
+import PinInputField from '@/components/examples/pin-input/field.tsx';
+import PinInputGroupedLayout from '@/components/examples/pin-input/grouped-layout.tsx';
+import PinInputMasking from '@/components/examples/pin-input/masking.tsx';
+import PinInputOtpMode from '@/components/examples/pin-input/otp-mode.tsx';
+import PinInputPlaceholder from '@/components/examples/pin-input/placeholder.tsx';
+import PinInputRootProvider from '@/components/examples/pin-input/root-provider.tsx';
 
 ## Référence de l’API
 
@@ -44,7 +44,7 @@ avec un formulaire, et indiquez aussi `form` lorsque le composant ne se trouve p
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/pin-input/basic.tsx"
+```tsx file="../../../src/components/examples/pin-input/basic.tsx"
 ```
 
     </Tab>
@@ -146,7 +146,7 @@ Définissez `blurOnComplete` lorsque le focus doit quitter le dernier champ une 
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/pin-input/blur-on-complete.tsx"
+```tsx file="../../../src/components/examples/pin-input/blur-on-complete.tsx"
 ```
 
     </Tab>
@@ -166,7 +166,7 @@ callbacks Ark.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/pin-input/change-events.tsx"
+```tsx file="../../../src/components/examples/pin-input/change-events.tsx"
 ```
 
     </Tab>
@@ -192,7 +192,7 @@ Placez `PinInput` dans `Field` lorsque le libellé, le texte d’aide, le messag
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/pin-input/field.tsx"
+```tsx file="../../../src/components/examples/pin-input/field.tsx"
 ```
 
     </Tab>
@@ -218,7 +218,7 @@ consécutifs, même si les champs sont rendus dans des groupes distincts.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/pin-input/grouped-layout.tsx"
+```tsx file="../../../src/components/examples/pin-input/grouped-layout.tsx"
 ```
 
     </Tab>
@@ -237,7 +237,7 @@ Définissez `mask` lorsque le code saisi est sensible et ne doit pas apparaître
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/pin-input/masking.tsx"
+```tsx file="../../../src/components/examples/pin-input/masking.tsx"
 ```
 
     </Tab>
@@ -257,7 +257,7 @@ codes à usage unique sur les navigateurs mobiles compatibles.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/pin-input/otp-mode.tsx"
+```tsx file="../../../src/components/examples/pin-input/otp-mode.tsx"
 ```
 
     </Tab>
@@ -277,7 +277,7 @@ défaut.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/pin-input/placeholder.tsx"
+```tsx file="../../../src/components/examples/pin-input/placeholder.tsx"
 ```
 
     </Tab>
@@ -297,7 +297,7 @@ de l’arborescence rendue. Cet exemple remplace `Inputs` par des parties `Input
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/pin-input/root-provider.tsx"
+```tsx file="../../../src/components/examples/pin-input/root-provider.tsx"
 ```
 
     </Tab>

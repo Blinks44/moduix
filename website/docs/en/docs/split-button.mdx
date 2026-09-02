@@ -4,16 +4,16 @@ component: split-button
 description: A grouped primary action with a menu of related actions, built from moduix Button and Menu parts.
 ---
 
-import SplitButtonBasic from './_snippets/split-button/basic.tsx';
-import SplitButtonControlledMenuState from './_snippets/split-button/controlled-menu-state.tsx';
-import SplitButtonDisabledAction from './_snippets/split-button/disabled-action.tsx';
-import SplitButtonLinkAction from './_snippets/split-button/link-action.tsx';
-import SplitButtonMenuComposition from './_snippets/split-button/menu-composition.tsx';
-import SplitButtonPositioning from './_snippets/split-button/positioning.tsx';
-import SplitButtonSizes from './_snippets/split-button/sizes.tsx';
-import SplitButtonVariants from './_snippets/split-button/variants.tsx';
-import SplitButtonWithIcons from './_snippets/split-button/with-icons.tsx';
-import * as SplitButtonDocs from '@/components/examples/split-button/split-button';
+import SplitButtonBasic from '@/components/examples/split-button/basic.tsx';
+import SplitButtonControlledMenuState from '@/components/examples/split-button/controlled-menu-state.tsx';
+import SplitButtonDisabledAction from '@/components/examples/split-button/disabled-action.tsx';
+import SplitButtonLinkAction from '@/components/examples/split-button/link-action.tsx';
+import SplitButtonMenuComposition from '@/components/examples/split-button/menu-composition.tsx';
+import SplitButtonPositioning from '@/components/examples/split-button/positioning.tsx';
+import SplitButtonSizes from '@/components/examples/split-button/sizes.tsx';
+import SplitButtonVariants from '@/components/examples/split-button/variants.tsx';
+import SplitButtonWithIcons from '@/components/examples/split-button/with-icons.tsx';
+import * as SplitButtonDocs from '@/components/examples/split-button/css-properties';
 
 ## API Reference
 
@@ -42,7 +42,7 @@ The primary action follows the same `onClick` contract as `Button`.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/split-button/basic.tsx"
+```tsx file="../../../src/components/examples/split-button/basic.tsx"
 ```
 
     </Tab>
@@ -153,7 +153,7 @@ component.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/split-button/controlled-menu-state.tsx"
+```tsx file="../../../src/components/examples/split-button/controlled-menu-state.tsx"
 ```
 
     </Tab>
@@ -172,7 +172,7 @@ Disable the primary action while keeping the alternate-actions menu available wh
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/split-button/disabled-action.tsx"
+```tsx file="../../../src/components/examples/split-button/disabled-action.tsx"
 ```
 
     </Tab>
@@ -191,7 +191,7 @@ Use `asChild` on `SplitButton.Action` when the primary action should render as a
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/split-button/link-action.tsx"
+```tsx file="../../../src/components/examples/split-button/link-action.tsx"
 ```
 
     </Tab>
@@ -210,7 +210,7 @@ Configure popup placement with the Ark `positioning` root prop while keeping the
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/split-button/positioning.tsx"
+```tsx file="../../../src/components/examples/split-button/positioning.tsx"
 ```
 
     </Tab>
@@ -229,7 +229,7 @@ Use the root `size` when both sides should scale together.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/split-button/sizes.tsx"
+```tsx file="../../../src/components/examples/split-button/sizes.tsx"
 ```
 
     </Tab>
@@ -254,7 +254,7 @@ Use the root `variant` when both buttons should share the same visual style.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/split-button/variants.tsx"
+```tsx file="../../../src/components/examples/split-button/variants.tsx"
 ```
 
     </Tab>
@@ -279,7 +279,7 @@ Add an icon to the primary action when it clarifies the default action without r
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/split-button/with-icons.tsx"
+```tsx file="../../../src/components/examples/split-button/with-icons.tsx"
 ```
 
     </Tab>
@@ -299,7 +299,7 @@ radio items, or link rows.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/split-button/menu-composition.tsx"
+```tsx file="../../../src/components/examples/split-button/menu-composition.tsx"
 ```
 
     </Tab>

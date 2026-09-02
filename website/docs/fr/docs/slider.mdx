@@ -4,28 +4,28 @@ component: slider
 description: Un contrôle permettant de sélectionner une valeur unique ou une plage de valeurs dans un intervalle défini.
 ---
 
-import * as SliderDocs from '@/components/examples/slider/slider';
-import SliderAdvancedCustomization from '../../en/docs/_snippets/slider/advanced-customization.tsx';
-import SliderBasic from '../../en/docs/_snippets/slider/basic.tsx';
-import SliderCenterOrigin from '../../en/docs/_snippets/slider/center-origin.tsx';
-import SliderChangeEvents from '../../en/docs/_snippets/slider/change-events.tsx';
-import SliderContext from '../../en/docs/_snippets/slider/context.tsx';
-import SliderControlled from '../../en/docs/_snippets/slider/controlled.tsx';
-import SliderDisabled from '../../en/docs/_snippets/slider/disabled.tsx';
-import SliderDraggingIndicator from '../../en/docs/_snippets/slider/dragging-indicator.tsx';
-import SliderForm from '../../en/docs/_snippets/slider/form.tsx';
-import SliderInvalid from '../../en/docs/_snippets/slider/invalid.tsx';
-import SliderMarks from '../../en/docs/_snippets/slider/marks.tsx';
-import SliderMinAndMax from '../../en/docs/_snippets/slider/min-and-max.tsx';
-import SliderRange from '../../en/docs/_snippets/slider/range.tsx';
-import SliderReadOnly from '../../en/docs/_snippets/slider/read-only.tsx';
-import SliderRootProvider from '../../en/docs/_snippets/slider/root-provider.tsx';
-import SliderStep from '../../en/docs/_snippets/slider/step.tsx';
-import SliderThumbAlignment from '../../en/docs/_snippets/slider/thumb-alignment.tsx';
-import SliderThumbCollision from '../../en/docs/_snippets/slider/thumb-collision.tsx';
-import SliderThumbOverlap from '../../en/docs/_snippets/slider/thumb-overlap.tsx';
-import SliderVertical from '../../en/docs/_snippets/slider/vertical.tsx';
-import SliderVerticalWithMarks from '../../en/docs/_snippets/slider/vertical-with-marks.tsx';
+import * as SliderDocs from '@/components/examples/slider/css-properties';
+import SliderAdvancedCustomization from '@/components/examples/slider/advanced-customization.tsx';
+import SliderBasic from '@/components/examples/slider/basic.tsx';
+import SliderCenterOrigin from '@/components/examples/slider/center-origin.tsx';
+import SliderChangeEvents from '@/components/examples/slider/change-events.tsx';
+import SliderContext from '@/components/examples/slider/context.tsx';
+import SliderControlled from '@/components/examples/slider/controlled.tsx';
+import SliderDisabled from '@/components/examples/slider/disabled.tsx';
+import SliderDraggingIndicator from '@/components/examples/slider/dragging-indicator.tsx';
+import SliderForm from '@/components/examples/slider/form.tsx';
+import SliderInvalid from '@/components/examples/slider/invalid.tsx';
+import SliderMarks from '@/components/examples/slider/marks.tsx';
+import SliderMinAndMax from '@/components/examples/slider/min-and-max.tsx';
+import SliderRange from '@/components/examples/slider/range.tsx';
+import SliderReadOnly from '@/components/examples/slider/read-only.tsx';
+import SliderRootProvider from '@/components/examples/slider/root-provider.tsx';
+import SliderStep from '@/components/examples/slider/step.tsx';
+import SliderThumbAlignment from '@/components/examples/slider/thumb-alignment.tsx';
+import SliderThumbCollision from '@/components/examples/slider/thumb-collision.tsx';
+import SliderThumbOverlap from '@/components/examples/slider/thumb-overlap.tsx';
+import SliderVertical from '@/components/examples/slider/vertical.tsx';
+import SliderVerticalWithMarks from '@/components/examples/slider/vertical-with-marks.tsx';
 
 ## Référence de l’API
 
@@ -52,7 +52,7 @@ y compris un `Slider.Thumb` explicite, ajoute automatiquement son champ natif po
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/slider/basic.tsx"
+```tsx file="../../../src/components/examples/slider/basic.tsx"
 ```
 
     </Tab>
@@ -164,7 +164,7 @@ Définissez `origin="center"` lorsque la valeur représente un décalage positif
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/slider/center-origin.tsx"
+```tsx file="../../../src/components/examples/slider/center-origin.tsx"
 ```
 
     </Tab>
@@ -190,7 +190,7 @@ ou l’interaction au clavier est terminé.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/slider/change-events.tsx"
+```tsx file="../../../src/components/examples/slider/change-events.tsx"
 ```
 
     </Tab>
@@ -216,7 +216,7 @@ Utilisez `useSliderContext` de moduix dans un composant enfant lorsque celui-ci 
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/slider/context.tsx"
+```tsx file="../../../src/components/examples/slider/context.tsx"
 ```
 
     </Tab>
@@ -235,7 +235,7 @@ Contrôlez le slider depuis l’état React en conservant le tableau fourni par 
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/slider/controlled.tsx"
+```tsx file="../../../src/components/examples/slider/controlled.tsx"
 ```
 
     </Tab>
@@ -260,7 +260,7 @@ Utilisez `disabled` pour garder la valeur visible tout en désactivant les inter
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/slider/disabled.tsx"
+```tsx file="../../../src/components/examples/slider/disabled.tsx"
 ```
 
     </Tab>
@@ -286,7 +286,7 @@ le champ masqué.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/slider/form.tsx"
+```tsx file="../../../src/components/examples/slider/form.tsx"
 ```
 
     </Tab>
@@ -311,7 +311,7 @@ Placez `Slider.DraggingIndicator` dans une poignée pour afficher sa valeur acti
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/slider/dragging-indicator.tsx"
+```tsx file="../../../src/components/examples/slider/dragging-indicator.tsx"
 ```
 
     </Tab>
@@ -331,7 +331,7 @@ l’état invalide tout en restant interactives.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/slider/invalid.tsx"
+```tsx file="../../../src/components/examples/slider/invalid.tsx"
 ```
 
     </Tab>
@@ -357,7 +357,7 @@ Utilisez `Slider.MarkerGroup` et `Slider.Marker` pour afficher des repères. Les
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/slider/marks.tsx"
+```tsx file="../../../src/components/examples/slider/marks.tsx"
 ```
 
     </Tab>
@@ -382,7 +382,7 @@ Utilisez `min` et `max` lorsque l’intervalle du slider ne commence pas à `0` 
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/slider/min-and-max.tsx"
+```tsx file="../../../src/components/examples/slider/min-and-max.tsx"
 ```
 
     </Tab>
@@ -402,7 +402,7 @@ champs natifs.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/slider/range.tsx"
+```tsx file="../../../src/components/examples/slider/range.tsx"
 ```
 
     </Tab>
@@ -422,7 +422,7 @@ curseur système par défaut dans cet état afin que le slider ne paraisse pas i
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/slider/read-only.tsx"
+```tsx file="../../../src/components/examples/slider/read-only.tsx"
 ```
 
     </Tab>
@@ -448,7 +448,7 @@ les parties du slider. Placez ces parties dans `RootProvider` et n’utilisez pa
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/slider/root-provider.tsx"
+```tsx file="../../../src/components/examples/slider/root-provider.tsx"
 ```
 
     </Tab>
@@ -473,7 +473,7 @@ Utilisez `step` pour des incréments fractionnaires ou plus fins.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/slider/step.tsx"
+```tsx file="../../../src/components/examples/slider/step.tsx"
 ```
 
     </Tab>
@@ -498,7 +498,7 @@ Utilisez `thumbAlignment="center"` lorsque la poignée doit dépasser des extré
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/slider/thumb-alignment.tsx"
+```tsx file="../../../src/components/examples/slider/thumb-alignment.tsx"
 ```
 
     </Tab>
@@ -524,7 +524,7 @@ Utilisez `thumbCollisionBehavior` pour définir ce qui se passe lorsque les poig
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/slider/thumb-collision.tsx"
+```tsx file="../../../src/components/examples/slider/thumb-collision.tsx"
 ```
 
     </Tab>
@@ -550,7 +550,7 @@ Utilisez `minStepsBetweenThumbs` pour imposer un écart minimal entre les poign�
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/slider/thumb-overlap.tsx"
+```tsx file="../../../src/components/examples/slider/thumb-overlap.tsx"
 ```
 
     </Tab>
@@ -575,7 +575,7 @@ Définissez `orientation="vertical"` et donnez une hauteur explicite à la racin
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/slider/vertical.tsx"
+```tsx file="../../../src/components/examples/slider/vertical.tsx"
 ```
 
     </Tab>
@@ -600,7 +600,7 @@ En orientation verticale, les repères restent alignés sur la piste et exposent
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/slider/vertical-with-marks.tsx"
+```tsx file="../../../src/components/examples/slider/vertical-with-marks.tsx"
 ```
 
     </Tab>
@@ -626,7 +626,7 @@ personnalisés, un nom accessible ou un ordre particulier.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/slider/advanced-customization.tsx"
+```tsx file="../../../src/components/examples/slider/advanced-customization.tsx"
 ```
 
     </Tab>

@@ -4,15 +4,15 @@ component: stack
 description: A lightweight flex layout primitive for arranging content vertically or horizontally.
 ---
 
-import * as StackDocs from '@/components/examples/stack/stack';
-import StackBasic from './_snippets/stack/basic.tsx';
-import StackFill from './_snippets/stack/growing-child-stack.tsx';
-import StackLoadingLayout from './_snippets/stack/loading-layout.tsx';
-import StackResponsiveDirection from './_snippets/stack/responsive-direction.tsx';
-import StackRowLayout from './_snippets/stack/row-layout.tsx';
-import StackSemanticElement from './_snippets/stack/semantic-element.tsx';
-import StackSeparator from './_snippets/stack/separator.tsx';
-import StackWrappedItems from './_snippets/stack/wrapped-items.tsx';
+import * as StackDocs from '@/components/examples/stack/css-properties';
+import StackBasic from '@/components/examples/stack/basic.tsx';
+import StackFill from '@/components/examples/stack/growing-child-stack.tsx';
+import StackLoadingLayout from '@/components/examples/stack/loading-layout.tsx';
+import StackResponsiveDirection from '@/components/examples/stack/responsive-direction.tsx';
+import StackRowLayout from '@/components/examples/stack/row-layout.tsx';
+import StackSemanticElement from '@/components/examples/stack/semantic-element.tsx';
+import StackSeparator from '@/components/examples/stack/separator.tsx';
+import StackWrappedItems from '@/components/examples/stack/wrapped-items.tsx';
 
 ## API Reference
 
@@ -34,7 +34,7 @@ Use `Stack` when a single flex container is enough and you only need to control 
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/stack/basic.tsx"
+```tsx file="../../../src/components/examples/stack/basic.tsx"
 ```
 
     </Tab>
@@ -117,7 +117,7 @@ Use `fill` when a nested `Stack` should take the remaining space in a flex row.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/stack/growing-child-stack.tsx"
+```tsx file="../../../src/components/examples/stack/growing-child-stack.tsx"
 ```
 
     </Tab>
@@ -136,7 +136,7 @@ Combine `Stack` and `Skeleton` for a loading layout that only needs flex composi
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/stack/loading-layout.tsx"
+```tsx file="../../../src/components/examples/stack/loading-layout.tsx"
 ```
 
     </Tab>
@@ -155,7 +155,7 @@ Use responsive `direction` for a simple column-on-mobile, row-on-desktop layout.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/stack/responsive-direction.tsx"
+```tsx file="../../../src/components/examples/stack/responsive-direction.tsx"
 ```
 
     </Tab>
@@ -174,7 +174,7 @@ Use `direction="row"` with alignment props for inline content.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/stack/row-layout.tsx"
+```tsx file="../../../src/components/examples/stack/row-layout.tsx"
 ```
 
     </Tab>
@@ -193,7 +193,7 @@ Use Ark's `asChild` when the layout wrapper should also express document structu
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/stack/semantic-element.tsx"
+```tsx file="../../../src/components/examples/stack/semantic-element.tsx"
 ```
 
     </Tab>
@@ -213,7 +213,7 @@ Add `Separator` directly when a horizontal or vertical `Stack` needs a repeated 
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/stack/separator.tsx"
+```tsx file="../../../src/components/examples/stack/separator.tsx"
 ```
 
     </Tab>
@@ -232,7 +232,7 @@ Use `wrap="wrap"` when items should flow onto the next line.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/stack/wrapped-items.tsx"
+```tsx file="../../../src/components/examples/stack/wrapped-items.tsx"
 ```
 
     </Tab>

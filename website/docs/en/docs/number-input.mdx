@@ -4,20 +4,20 @@ component: number-input
 description: A numeric input built on Ark UI with increment and decrement controls, formatting, validation, and optional drag-to-change interaction.
 ---
 
-import * as NumberInputDocs from '@/components/examples/number-input/number-input';
-import NumberInputBasic from './_snippets/number-input/basic.tsx';
-import NumberInputControlled from './_snippets/number-input/controlled.tsx';
-import NumberInputDisabledAndReadOnly from './_snippets/number-input/disabled-and-read-only.tsx';
-import NumberInputField from './_snippets/number-input/field.tsx';
-import NumberInputFormatting from './_snippets/number-input/formatting.tsx';
-import NumberInputMinAndMax from './_snippets/number-input/min-and-max.tsx';
-import NumberInputMouseWheel from './_snippets/number-input/mouse-wheel.tsx';
-import NumberInputFormSubmission from './_snippets/number-input/form-submission.tsx';
-import NumberInputPrecision from './_snippets/number-input/precision.tsx';
-import NumberInputRootProvider from './_snippets/number-input/root-provider.tsx';
-import NumberInputScrubbing from './_snippets/number-input/scrubbing.tsx';
-import NumberInputValueText from './_snippets/number-input/value-text.tsx';
-import NumberInputCustomIcons from './_snippets/number-input/custom-icons.tsx';
+import * as NumberInputDocs from '@/components/examples/number-input/css-properties';
+import NumberInputBasic from '@/components/examples/number-input/basic.tsx';
+import NumberInputControlled from '@/components/examples/number-input/controlled.tsx';
+import NumberInputDisabledAndReadOnly from '@/components/examples/number-input/disabled-and-read-only.tsx';
+import NumberInputField from '@/components/examples/number-input/field.tsx';
+import NumberInputFormatting from '@/components/examples/number-input/formatting.tsx';
+import NumberInputMinAndMax from '@/components/examples/number-input/min-and-max.tsx';
+import NumberInputMouseWheel from '@/components/examples/number-input/mouse-wheel.tsx';
+import NumberInputFormSubmission from '@/components/examples/number-input/form-submission.tsx';
+import NumberInputPrecision from '@/components/examples/number-input/precision.tsx';
+import NumberInputRootProvider from '@/components/examples/number-input/root-provider.tsx';
+import NumberInputScrubbing from '@/components/examples/number-input/scrubbing.tsx';
+import NumberInputValueText from '@/components/examples/number-input/value-text.tsx';
+import NumberInputCustomIcons from '@/components/examples/number-input/custom-icons.tsx';
 
 ## API Reference
 
@@ -35,7 +35,7 @@ Use `NumberInput` with `NumberInput.Field` for a standard input with increment a
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/number-input/basic.tsx"
+```tsx file="../../../src/components/examples/number-input/basic.tsx"
 ```
 
     </Tab>
@@ -153,7 +153,7 @@ Keep controlled state as a string and use `details.value` in `onValueChange`.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/number-input/controlled.tsx"
+```tsx file="../../../src/components/examples/number-input/controlled.tsx"
 ```
 
     </Tab>
@@ -179,7 +179,7 @@ but must not be editable.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/number-input/disabled-and-read-only.tsx"
+```tsx file="../../../src/components/examples/number-input/disabled-and-read-only.tsx"
 ```
 
     </Tab>
@@ -204,7 +204,7 @@ Use `Field` when form state, helper text, error text, and accessibility metadata
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/number-input/field.tsx"
+```tsx file="../../../src/components/examples/number-input/field.tsx"
 ```
 
     </Tab>
@@ -229,7 +229,7 @@ Pass `formatOptions` to format the visible value with `Intl.NumberFormat`.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/number-input/formatting.tsx"
+```tsx file="../../../src/components/examples/number-input/formatting.tsx"
 ```
 
     </Tab>
@@ -250,7 +250,7 @@ typed value should remain visible after the input loses focus.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/number-input/min-and-max.tsx"
+```tsx file="../../../src/components/examples/number-input/min-and-max.tsx"
 ```
 
     </Tab>
@@ -269,7 +269,7 @@ Set `allowMouseWheel` when changing the value with the mouse wheel is intentiona
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/number-input/mouse-wheel.tsx"
+```tsx file="../../../src/components/examples/number-input/mouse-wheel.tsx"
 ```
 
     </Tab>
@@ -290,7 +290,7 @@ the displayed string.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/number-input/form-submission.tsx"
+```tsx file="../../../src/components/examples/number-input/form-submission.tsx"
 ```
 
     </Tab>
@@ -316,7 +316,7 @@ fraction digits.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/number-input/precision.tsx"
+```tsx file="../../../src/components/examples/number-input/precision.tsx"
 ```
 
     </Tab>
@@ -336,7 +336,7 @@ rendered part tree.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/number-input/root-provider.tsx"
+```tsx file="../../../src/components/examples/number-input/root-provider.tsx"
 ```
 
     </Tab>
@@ -361,7 +361,7 @@ Drag `NumberInput.Scrubber` left or right to change the value.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/number-input/scrubbing.tsx"
+```tsx file="../../../src/components/examples/number-input/scrubbing.tsx"
 ```
 
     </Tab>
@@ -387,7 +387,7 @@ input.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/number-input/value-text.tsx"
+```tsx file="../../../src/components/examples/number-input/value-text.tsx"
 ```
 
     </Tab>
@@ -407,7 +407,7 @@ must be customized. Pass `translations` when custom trigger content needs locali
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/number-input/custom-icons.tsx"
+```tsx file="../../../src/components/examples/number-input/custom-icons.tsx"
 ```
 
     </Tab>

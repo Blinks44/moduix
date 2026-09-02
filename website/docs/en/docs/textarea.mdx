@@ -4,13 +4,13 @@ component: textarea
 description: A native multiline text input with Field integration and moduix styling.
 ---
 
-import * as TextareaDocs from '@/components/examples/textarea/textarea';
-import TextareaAutoResize from './_snippets/textarea/auto-resize.tsx';
-import TextareaBasic from './_snippets/textarea/basic.tsx';
-import TextareaControlled from './_snippets/textarea/controlled.tsx';
-import TextareaDisabledAndReadonly from './_snippets/textarea/disabled-and-readonly.tsx';
-import TextareaFieldValidation from './_snippets/textarea/field-validation.tsx';
-import TextareaNativeAttributes from './_snippets/textarea/native-attributes.tsx';
+import * as TextareaDocs from '@/components/examples/textarea/css-properties';
+import TextareaAutoResize from '@/components/examples/textarea/auto-resize.tsx';
+import TextareaBasic from '@/components/examples/textarea/basic.tsx';
+import TextareaControlled from '@/components/examples/textarea/controlled.tsx';
+import TextareaDisabledAndReadonly from '@/components/examples/textarea/disabled-and-readonly.tsx';
+import TextareaFieldValidation from '@/components/examples/textarea/field-validation.tsx';
+import TextareaNativeAttributes from '@/components/examples/textarea/native-attributes.tsx';
 
 ## API Reference
 
@@ -42,7 +42,7 @@ is the recommended setup for comments, notes, issue descriptions, and similar co
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/textarea/basic.tsx"
+```tsx file="../../../src/components/examples/textarea/basic.tsx"
 ```
 
     </Tab>
@@ -128,7 +128,7 @@ this option is enabled.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/textarea/auto-resize.tsx"
+```tsx file="../../../src/components/examples/textarea/auto-resize.tsx"
 ```
 
     </Tab>
@@ -153,7 +153,7 @@ Use `value` and native `onChange` when React state should control the content.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/textarea/controlled.tsx"
+```tsx file="../../../src/components/examples/textarea/controlled.tsx"
 ```
 
     </Tab>
@@ -179,7 +179,7 @@ and select the value but must not edit it.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/textarea/disabled-and-readonly.tsx"
+```tsx file="../../../src/components/examples/textarea/disabled-and-readonly.tsx"
 ```
 
     </Tab>
@@ -205,7 +205,7 @@ its error text.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/textarea/field-validation.tsx"
+```tsx file="../../../src/components/examples/textarea/field-validation.tsx"
 ```
 
     </Tab>
@@ -231,7 +231,7 @@ example also submits the form and reads the current value from `FormData`.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/textarea/native-attributes.tsx"
+```tsx file="../../../src/components/examples/textarea/native-attributes.tsx"
 ```
 
     </Tab>

@@ -4,13 +4,13 @@ component: heading
 description: A semantic heading component with Ark factory composition and moduix typography tokens.
 ---
 
-import * as HeadingDocs from '@/components/examples/heading/heading';
-import HeadingBasic from './_snippets/heading/basic.tsx';
-import HeadingLevels from './_snippets/heading/heading-levels.tsx';
-import SemanticLevelAndVisualSize from './_snippets/heading/semantic-level-and-visual-size.tsx';
-import HeadingVisualSizes from './_snippets/heading/visual-sizes.tsx';
-import HeadingWeights from './_snippets/heading/weights.tsx';
-import CustomHostHeading from './_snippets/heading/custom-host.tsx';
+import * as HeadingDocs from '@/components/examples/heading/css-properties';
+import HeadingBasic from '@/components/examples/heading/basic.tsx';
+import HeadingLevels from '@/components/examples/heading/heading-levels.tsx';
+import SemanticLevelAndVisualSize from '@/components/examples/heading/semantic-level-and-visual-size.tsx';
+import HeadingVisualSizes from '@/components/examples/heading/visual-sizes.tsx';
+import HeadingWeights from '@/components/examples/heading/weights.tsx';
+import CustomHostHeading from '@/components/examples/heading/custom-host.tsx';
 
 ## API Reference
 
@@ -33,7 +33,7 @@ should differ from the semantic level.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/heading/basic.tsx"
+```tsx file="../../../src/components/examples/heading/basic.tsx"
 ```
 
     </Tab>
@@ -115,7 +115,7 @@ heading element.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/heading/heading-levels.tsx"
+```tsx file="../../../src/components/examples/heading/heading-levels.tsx"
 ```
 
     </Tab>
@@ -135,7 +135,7 @@ for the visual size.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/heading/semantic-level-and-visual-size.tsx"
+```tsx file="../../../src/components/examples/heading/semantic-level-and-visual-size.tsx"
 ```
 
     </Tab>
@@ -154,7 +154,7 @@ Use `size` when multiple headings share one semantic level but need different vi
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/heading/visual-sizes.tsx"
+```tsx file="../../../src/components/examples/heading/visual-sizes.tsx"
 ```
 
     </Tab>
@@ -173,7 +173,7 @@ Use `weight` to choose one of the built-in font-weight presets.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/heading/weights.tsx"
+```tsx file="../../../src/components/examples/heading/weights.tsx"
 ```
 
     </Tab>
@@ -193,7 +193,7 @@ Use `asChild` when another semantic heading element must own the rendered DOM no
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/heading/custom-host.tsx"
+```tsx file="../../../src/components/examples/heading/custom-host.tsx"
 ```
 
     </Tab>

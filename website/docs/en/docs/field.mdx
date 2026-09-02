@@ -4,19 +4,19 @@ component: field
 description: Field context that connects one form control to its label, helper text, error message, and shared state.
 ---
 
-import * as FieldDocs from '@/components/examples/field/field';
-import FieldBasic from './_snippets/field/basic.tsx';
-import FieldCheckbox from './_snippets/field/checkbox.tsx';
-import FieldControlledInvalid from './_snippets/field/controlled-invalid.tsx';
-import FieldDisabled from './_snippets/field/disabled.tsx';
-import FieldInvalid from './_snippets/field/invalid.tsx';
-import FieldItemTarget from './_snippets/field/item-target.tsx';
-import FieldNativeSelect from './_snippets/field/native-select.tsx';
-import FieldRadioGroup from './_snippets/field/radiogroup.tsx';
-import FieldReadOnly from './_snippets/field/read-only.tsx';
-import FieldRootProvider from './_snippets/field/root-provider.tsx';
-import FieldSelect from './_snippets/field/select.tsx';
-import FieldTextarea from './_snippets/field/textarea.tsx';
+import * as FieldDocs from '@/components/examples/field/css-properties';
+import FieldBasic from '@/components/examples/field/basic.tsx';
+import FieldCheckbox from '@/components/examples/field/checkbox.tsx';
+import FieldControlledInvalid from '@/components/examples/field/controlled-invalid.tsx';
+import FieldDisabled from '@/components/examples/field/disabled.tsx';
+import FieldInvalid from '@/components/examples/field/invalid.tsx';
+import FieldItemTarget from '@/components/examples/field/item-target.tsx';
+import FieldNativeSelect from '@/components/examples/field/native-select.tsx';
+import FieldRadioGroup from '@/components/examples/field/radiogroup.tsx';
+import FieldReadOnly from '@/components/examples/field/read-only.tsx';
+import FieldRootProvider from '@/components/examples/field/root-provider.tsx';
+import FieldSelect from '@/components/examples/field/select.tsx';
+import FieldTextarea from '@/components/examples/field/textarea.tsx';
 
 ## API Reference
 
@@ -44,7 +44,7 @@ helper or error text when the user needs more information.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/field/basic.tsx"
+```tsx file="../../../src/components/examples/field/basic.tsx"
 ```
 
     </Tab>
@@ -152,7 +152,7 @@ state and form props to `Checkbox`.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/field/checkbox.tsx"
+```tsx file="../../../src/components/examples/field/checkbox.tsx"
 ```
 
     </Tab>
@@ -178,7 +178,7 @@ appears only while the field is invalid.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/field/controlled-invalid.tsx"
+```tsx file="../../../src/components/examples/field/controlled-invalid.tsx"
 ```
 
     </Tab>
@@ -203,7 +203,7 @@ Set `disabled` on the root to pass the disabled state to the supported Ark field
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/field/disabled.tsx"
+```tsx file="../../../src/components/examples/field/disabled.tsx"
 ```
 
     </Tab>
@@ -229,7 +229,7 @@ compound child root as well when that component owns its invalid state.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/field/invalid.tsx"
+```tsx file="../../../src/components/examples/field/invalid.tsx"
 ```
 
     </Tab>
@@ -255,7 +255,7 @@ description.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/field/native-select.tsx"
+```tsx file="../../../src/components/examples/field/native-select.tsx"
 ```
 
     </Tab>
@@ -282,7 +282,7 @@ the whole set of choices rather than individual radio items. Pass the group's ow
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/field/radiogroup.tsx"
+```tsx file="../../../src/components/examples/field/radiogroup.tsx"
 ```
 
     </Tab>
@@ -307,7 +307,7 @@ Set `readOnly` on the root when users can copy the control's value but cannot ed
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/field/read-only.tsx"
+```tsx file="../../../src/components/examples/field/read-only.tsx"
 ```
 
     </Tab>
@@ -334,7 +334,7 @@ its state, pass `required`, `invalid`, `disabled`, or `readOnly` to `Select` whe
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/field/select.tsx"
+```tsx file="../../../src/components/examples/field/select.tsx"
 ```
 
     </Tab>
@@ -360,7 +360,7 @@ connections.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/field/textarea.tsx"
+```tsx file="../../../src/components/examples/field/textarea.tsx"
 ```
 
     </Tab>
@@ -385,7 +385,7 @@ Use `Field.Item` with the root `target` prop when one label should target a cont
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/field/item-target.tsx"
+```tsx file="../../../src/components/examples/field/item-target.tsx"
 ```
 
     </Tab>
@@ -409,7 +409,7 @@ tree.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/field/root-provider.tsx"
+```tsx file="../../../src/components/examples/field/root-provider.tsx"
 ```
 
     </Tab>

@@ -4,11 +4,11 @@ component: native-select
 description: Un élément `<select>` natif stylisé pour les listes d’options simples, dont la sélection est gérée par le navigateur.
 ---
 
-import * as NativeSelectDocs from '@/components/examples/native-select/native-select';
-import NativeSelectBasic from '../../en/docs/_snippets/native-select/basic.tsx';
-import NativeSelectControlled from '../../en/docs/_snippets/native-select/controlled.tsx';
-import NativeSelectField from '../../en/docs/_snippets/native-select/field-integration.tsx';
-import NativeSelectMultiple from '../../en/docs/_snippets/native-select/multiple-selection.tsx';
+import * as NativeSelectDocs from '@/components/examples/native-select/css-properties';
+import NativeSelectBasic from '@/components/examples/native-select/basic.tsx';
+import NativeSelectControlled from '@/components/examples/native-select/controlled.tsx';
+import NativeSelectField from '@/components/examples/native-select/field-integration.tsx';
+import NativeSelectMultiple from '@/components/examples/native-select/multiple-selection.tsx';
 
 ## Référence de l’API
 
@@ -36,7 +36,7 @@ Ajoutez des éléments natifs `option` ou `optgroup` comme enfants et passez les
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/native-select/basic.tsx"
+```tsx file="../../../src/components/examples/native-select/basic.tsx"
 ```
 
     </Tab>
@@ -124,7 +124,7 @@ dans `event.target.value` et transmettez-la via `value`.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/native-select/controlled.tsx"
+```tsx file="../../../src/components/examples/native-select/controlled.tsx"
 ```
 
     </Tab>
@@ -147,7 +147,7 @@ ou d’un état de champ partagé. `Field` relie ces éléments au contrôle nat
   >
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/native-select/field-integration.tsx"
+```tsx file="../../../src/components/examples/native-select/field-integration.tsx"
 ```
 
     </Tab>
@@ -173,7 +173,7 @@ gère directement les options sélectionnées et les interactions au clavier.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/native-select/multiple-selection.tsx"
+```tsx file="../../../src/components/examples/native-select/multiple-selection.tsx"
 ```
 
     </Tab>

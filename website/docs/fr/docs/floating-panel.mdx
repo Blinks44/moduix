@@ -4,18 +4,18 @@ component: floating-panel
 description: Fenêtre flottante non modale d’Ark UI pour afficher du contenu que l’utilisateur peut déplacer, redimensionner, réduire ou agrandir.
 ---
 
-import * as FloatingPanelDocs from '@/components/examples/floating-panel/floating-panel';
-import FloatingPanelAdvancedCustomization from '../../en/docs/_snippets/floating-panel/advanced-customization.tsx';
-import FloatingPanelAnchorPosition from '../../en/docs/_snippets/floating-panel/anchor-position.tsx';
-import FloatingPanelBasic from '../../en/docs/_snippets/floating-panel/basic.tsx';
-import FloatingPanelBoundary from '../../en/docs/_snippets/floating-panel/boundary.tsx';
-import FloatingPanelContext from '../../en/docs/_snippets/floating-panel/context.tsx';
-import FloatingPanelControlledOpen from '../../en/docs/_snippets/floating-panel/controlled-open.tsx';
-import FloatingPanelControlledPosition from '../../en/docs/_snippets/floating-panel/controlled-position.tsx';
-import FloatingPanelControlledSize from '../../en/docs/_snippets/floating-panel/controlled-size.tsx';
-import FloatingPanelEscapeDismiss from '../../en/docs/_snippets/floating-panel/escape-dismiss.tsx';
-import FloatingPanelLazyMount from '../../en/docs/_snippets/floating-panel/lazy-mount.tsx';
-import FloatingPanelRootProvider from '../../en/docs/_snippets/floating-panel/root-provider.tsx';
+import * as FloatingPanelDocs from '@/components/examples/floating-panel/css-properties';
+import FloatingPanelAdvancedCustomization from '@/components/examples/floating-panel/advanced-customization.tsx';
+import FloatingPanelAnchorPosition from '@/components/examples/floating-panel/anchor-position.tsx';
+import FloatingPanelBasic from '@/components/examples/floating-panel/basic.tsx';
+import FloatingPanelBoundary from '@/components/examples/floating-panel/boundary.tsx';
+import FloatingPanelContext from '@/components/examples/floating-panel/context.tsx';
+import FloatingPanelControlledOpen from '@/components/examples/floating-panel/controlled-open.tsx';
+import FloatingPanelControlledPosition from '@/components/examples/floating-panel/controlled-position.tsx';
+import FloatingPanelControlledSize from '@/components/examples/floating-panel/controlled-size.tsx';
+import FloatingPanelEscapeDismiss from '@/components/examples/floating-panel/escape-dismiss.tsx';
+import FloatingPanelLazyMount from '@/components/examples/floating-panel/lazy-mount.tsx';
+import FloatingPanelRootProvider from '@/components/examples/floating-panel/root-provider.tsx';
 
 ## Référence de l’API
 
@@ -42,7 +42,7 @@ déplacement et `ResizeTriggerGroup` ajoute les poignées de redimensionnement a
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/floating-panel/basic.tsx"
+```tsx file="../../../src/components/examples/floating-panel/basic.tsx"
 ```
 
     </Tab>
@@ -174,7 +174,7 @@ Utilisez `getAnchorPosition` pour calculer la position initiale de la fenêtre �
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/floating-panel/anchor-position.tsx"
+```tsx file="../../../src/components/examples/floating-panel/anchor-position.tsx"
 ```
 
     </Tab>
@@ -194,7 +194,7 @@ pendant son déplacement.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/floating-panel/boundary.tsx"
+```tsx file="../../../src/components/examples/floating-panel/boundary.tsx"
 ```
 
     </Tab>
@@ -220,7 +220,7 @@ l’arbre des composants.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/floating-panel/context.tsx"
+```tsx file="../../../src/components/examples/floating-panel/context.tsx"
 ```
 
     </Tab>
@@ -239,7 +239,7 @@ Utilisez `open` avec `onOpenChange` lorsque l’état React doit contrôler la v
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/floating-panel/controlled-open.tsx"
+```tsx file="../../../src/components/examples/floating-panel/controlled-open.tsx"
 ```
 
     </Tab>
@@ -258,7 +258,7 @@ Contrôlez `position` lorsqu’une autre partie de l’application doit connaît
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/floating-panel/controlled-position.tsx"
+```tsx file="../../../src/components/examples/floating-panel/controlled-position.tsx"
 ```
 
     </Tab>
@@ -277,7 +277,7 @@ Contrôlez `size` lorsque l’interface doit conserver ou afficher les dimension
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/floating-panel/controlled-size.tsx"
+```tsx file="../../../src/components/examples/floating-panel/controlled-size.tsx"
 ```
 
     </Tab>
@@ -297,7 +297,7 @@ l’ouverture de la fenêtre non modale.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/floating-panel/escape-dismiss.tsx"
+```tsx file="../../../src/components/examples/floating-panel/escape-dismiss.tsx"
 ```
 
     </Tab>
@@ -317,7 +317,7 @@ l’animation de sortie.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/floating-panel/lazy-mount.tsx"
+```tsx file="../../../src/components/examples/floating-panel/lazy-mount.tsx"
 ```
 
     </Tab>
@@ -338,7 +338,7 @@ conserver le comportement d’animation de fermeture défini par défaut par la 
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/floating-panel/root-provider.tsx"
+```tsx file="../../../src/components/examples/floating-panel/root-provider.tsx"
 ```
 
     </Tab>
@@ -358,7 +358,7 @@ ou style.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/floating-panel/advanced-customization.tsx"
+```tsx file="../../../src/components/examples/floating-panel/advanced-customization.tsx"
 ```
 
     </Tab>

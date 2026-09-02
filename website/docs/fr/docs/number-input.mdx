@@ -4,20 +4,20 @@ component: number-input
 description: Champ de saisie numérique basé sur Ark UI, avec boutons d’incrémentation et de décrémentation, formatage, validation et glissement facultatif.
 ---
 
-import * as NumberInputDocs from '@/components/examples/number-input/number-input';
-import NumberInputBasic from '../../en/docs/_snippets/number-input/basic.tsx';
-import NumberInputControlled from '../../en/docs/_snippets/number-input/controlled.tsx';
-import NumberInputDisabledAndReadOnly from '../../en/docs/_snippets/number-input/disabled-and-read-only.tsx';
-import NumberInputField from '../../en/docs/_snippets/number-input/field.tsx';
-import NumberInputFormatting from '../../en/docs/_snippets/number-input/formatting.tsx';
-import NumberInputMinAndMax from '../../en/docs/_snippets/number-input/min-and-max.tsx';
-import NumberInputMouseWheel from '../../en/docs/_snippets/number-input/mouse-wheel.tsx';
-import NumberInputFormSubmission from '../../en/docs/_snippets/number-input/form-submission.tsx';
-import NumberInputPrecision from '../../en/docs/_snippets/number-input/precision.tsx';
-import NumberInputRootProvider from '../../en/docs/_snippets/number-input/root-provider.tsx';
-import NumberInputScrubbing from '../../en/docs/_snippets/number-input/scrubbing.tsx';
-import NumberInputValueText from '../../en/docs/_snippets/number-input/value-text.tsx';
-import NumberInputCustomIcons from '../../en/docs/_snippets/number-input/custom-icons.tsx';
+import * as NumberInputDocs from '@/components/examples/number-input/css-properties';
+import NumberInputBasic from '@/components/examples/number-input/basic.tsx';
+import NumberInputControlled from '@/components/examples/number-input/controlled.tsx';
+import NumberInputDisabledAndReadOnly from '@/components/examples/number-input/disabled-and-read-only.tsx';
+import NumberInputField from '@/components/examples/number-input/field.tsx';
+import NumberInputFormatting from '@/components/examples/number-input/formatting.tsx';
+import NumberInputMinAndMax from '@/components/examples/number-input/min-and-max.tsx';
+import NumberInputMouseWheel from '@/components/examples/number-input/mouse-wheel.tsx';
+import NumberInputFormSubmission from '@/components/examples/number-input/form-submission.tsx';
+import NumberInputPrecision from '@/components/examples/number-input/precision.tsx';
+import NumberInputRootProvider from '@/components/examples/number-input/root-provider.tsx';
+import NumberInputScrubbing from '@/components/examples/number-input/scrubbing.tsx';
+import NumberInputValueText from '@/components/examples/number-input/value-text.tsx';
+import NumberInputCustomIcons from '@/components/examples/number-input/custom-icons.tsx';
 
 ## Référence de l’API
 
@@ -35,7 +35,7 @@ Utilisez `NumberInput` avec `NumberInput.Field` pour afficher un champ standard 
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/number-input/basic.tsx"
+```tsx file="../../../src/components/examples/number-input/basic.tsx"
 ```
 
     </Tab>
@@ -154,7 +154,7 @@ Conservez l’état contrôlé sous forme de chaîne et utilisez `details.value`
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/number-input/controlled.tsx"
+```tsx file="../../../src/components/examples/number-input/controlled.tsx"
 ```
 
     </Tab>
@@ -180,7 +180,7 @@ mais ne doit pas pouvoir être modifiée.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/number-input/disabled-and-read-only.tsx"
+```tsx file="../../../src/components/examples/number-input/disabled-and-read-only.tsx"
 ```
 
     </Tab>
@@ -206,7 +206,7 @@ d’accessibilité.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/number-input/field.tsx"
+```tsx file="../../../src/components/examples/number-input/field.tsx"
 ```
 
     </Tab>
@@ -231,7 +231,7 @@ Transmettez `formatOptions` pour formater la valeur visible avec `Intl.NumberFor
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/number-input/formatting.tsx"
+```tsx file="../../../src/components/examples/number-input/formatting.tsx"
 ```
 
     </Tab>
@@ -252,7 +252,7 @@ par glissement. La valeur est ramenée dans la plage à la perte du focus par d�
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/number-input/min-and-max.tsx"
+```tsx file="../../../src/components/examples/number-input/min-and-max.tsx"
 ```
 
     </Tab>
@@ -271,7 +271,7 @@ Activez `allowMouseWheel` lorsque la molette doit modifier la valeur dans votre 
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/number-input/mouse-wheel.tsx"
+```tsx file="../../../src/components/examples/number-input/mouse-wheel.tsx"
 ```
 
     </Tab>
@@ -292,7 +292,7 @@ affichée.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/number-input/form-submission.tsx"
+```tsx file="../../../src/components/examples/number-input/form-submission.tsx"
 ```
 
     </Tab>
@@ -318,7 +318,7 @@ chiffres après la virgule.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/number-input/precision.tsx"
+```tsx file="../../../src/components/examples/number-input/precision.tsx"
 ```
 
     </Tab>
@@ -338,7 +338,7 @@ qui affiche les parties du composant.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/number-input/root-provider.tsx"
+```tsx file="../../../src/components/examples/number-input/root-provider.tsx"
 ```
 
     </Tab>
@@ -363,7 +363,7 @@ Faites glisser `NumberInput.Scrubber` vers la gauche ou la droite pour modifier 
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/number-input/scrubbing.tsx"
+```tsx file="../../../src/components/examples/number-input/scrubbing.tsx"
 ```
 
     </Tab>
@@ -388,7 +388,7 @@ Utilisez `NumberInput.ValueText` lorsque la valeur formatée doit également app
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/number-input/value-text.tsx"
+```tsx file="../../../src/components/examples/number-input/value-text.tsx"
 ```
 
     </Tab>
@@ -409,7 +409,7 @@ nécessite des libellés localisés pour les technologies d’assistance.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/number-input/custom-icons.tsx"
+```tsx file="../../../src/components/examples/number-input/custom-icons.tsx"
 ```
 
     </Tab>

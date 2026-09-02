@@ -4,18 +4,18 @@ component: collapsible
 description: Un composant qui permet de déplier ou de replier une seule zone de contenu.
 ---
 
-import * as CollapsibleDocs from '@/components/examples/collapsible/collapsible';
-import CollapsibleBasic from '../../en/docs/_snippets/collapsible/basic.tsx';
-import CollapsibleContext from '../../en/docs/_snippets/collapsible/context.tsx';
-import CollapsibleControlled from '../../en/docs/_snippets/collapsible/controlled.tsx';
-import CollapsibleDefaultOpen from '../../en/docs/_snippets/collapsible/default-open.tsx';
-import CollapsibleDisabled from '../../en/docs/_snippets/collapsible/disabled.tsx';
-import CollapsibleLazyMount from '../../en/docs/_snippets/collapsible/lazy-mount.tsx';
-import CollapsibleNested from '../../en/docs/_snippets/collapsible/nested.tsx';
-import CollapsiblePartialCollapse from '../../en/docs/_snippets/collapsible/partial-collapse.tsx';
-import CollapsiblePartialCollapseWidth from '../../en/docs/_snippets/collapsible/partial-collapse-width.tsx';
-import CollapsibleRootProvider from '../../en/docs/_snippets/collapsible/root-provider.tsx';
-import CollapsibleCustomComposition from '../../en/docs/_snippets/collapsible/custom-composition.tsx';
+import * as CollapsibleDocs from '@/components/examples/collapsible/css-properties';
+import CollapsibleBasic from '@/components/examples/collapsible/basic.tsx';
+import CollapsibleContext from '@/components/examples/collapsible/context.tsx';
+import CollapsibleControlled from '@/components/examples/collapsible/controlled.tsx';
+import CollapsibleDefaultOpen from '@/components/examples/collapsible/default-open.tsx';
+import CollapsibleDisabled from '@/components/examples/collapsible/disabled.tsx';
+import CollapsibleLazyMount from '@/components/examples/collapsible/lazy-mount.tsx';
+import CollapsibleNested from '@/components/examples/collapsible/nested.tsx';
+import CollapsiblePartialCollapse from '@/components/examples/collapsible/partial-collapse.tsx';
+import CollapsiblePartialCollapseWidth from '@/components/examples/collapsible/partial-collapse-width.tsx';
+import CollapsibleRootProvider from '@/components/examples/collapsible/root-provider.tsx';
+import CollapsibleCustomComposition from '@/components/examples/collapsible/custom-composition.tsx';
 
 ## Référence de l’API
 
@@ -40,7 +40,7 @@ interne recommandé pour les espacements et la mise en page.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/collapsible/basic.tsx"
+```tsx file="../../../src/components/examples/collapsible/basic.tsx"
 ```
 
     </Tab>
@@ -148,7 +148,7 @@ la zone par programmation.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/collapsible/context.tsx"
+```tsx file="../../../src/components/examples/collapsible/context.tsx"
 ```
 
     </Tab>
@@ -174,7 +174,7 @@ gère l’état.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/collapsible/controlled.tsx"
+```tsx file="../../../src/components/examples/collapsible/controlled.tsx"
 ```
 
     </Tab>
@@ -199,7 +199,7 @@ Définissez `defaultOpen` pour qu’un composant non contrôlé soit ouvert dès
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/collapsible/default-open.tsx"
+```tsx file="../../../src/components/examples/collapsible/default-open.tsx"
 ```
 
     </Tab>
@@ -224,7 +224,7 @@ Ajoutez `disabled` à la racine pour empêcher l’utilisateur d’ouvrir ou de 
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/collapsible/disabled.tsx"
+```tsx file="../../../src/components/examples/collapsible/disabled.tsx"
 ```
 
     </Tab>
@@ -250,7 +250,7 @@ le retirer du DOM après sa fermeture.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/collapsible/lazy-mount.tsx"
+```tsx file="../../../src/components/examples/collapsible/lazy-mount.tsx"
 ```
 
     </Tab>
@@ -275,7 +275,7 @@ Imbriquez des racines indépendantes lorsqu’une section ouverte contient un au
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/collapsible/nested.tsx"
+```tsx file="../../../src/components/examples/collapsible/nested.tsx"
 ```
 
     </Tab>
@@ -302,7 +302,7 @@ repliée. Placez donc les actions qui doivent rester disponibles en dehors de `C
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/collapsible/partial-collapse.tsx"
+```tsx file="../../../src/components/examples/collapsible/partial-collapse.tsx"
 ```
 
     </Tab>
@@ -327,7 +327,7 @@ Utilisez `collapsedWidth` lorsqu’un aperçu horizontal est plus utile qu’un 
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/collapsible/partial-collapse-width.tsx"
+```tsx file="../../../src/components/examples/collapsible/partial-collapse-width.tsx"
 ```
 
     </Tab>
@@ -353,7 +353,7 @@ extérieur à l’arborescence rendue doit y accéder.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/collapsible/root-provider.tsx"
+```tsx file="../../../src/components/examples/collapsible/root-provider.tsx"
 ```
 
     </Tab>
@@ -380,7 +380,7 @@ les attributs d’état sont conservés.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/collapsible/custom-composition.tsx"
+```tsx file="../../../src/components/examples/collapsible/custom-composition.tsx"
 ```
 
     </Tab>

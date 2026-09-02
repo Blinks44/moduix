@@ -4,12 +4,12 @@ component: container
 description: Un composant de mise en page adaptatif pour conserver une largeur de contenu lisible et des espacements horizontaux fluides.
 ---
 
-import * as ContainerDocs from '@/components/examples/container/container';
-import ContainerBasic from '../../en/docs/_snippets/container/basic.tsx';
-import ContainerFullWidth from '../../en/docs/_snippets/container/full-width.tsx';
-import ContainerGutters from '../../en/docs/_snippets/container/gutters.tsx';
-import ContainerSemanticElement from '../../en/docs/_snippets/container/semantic-element.tsx';
-import ContainerWithBleed from '../../en/docs/_snippets/container/with-bleed.tsx';
+import * as ContainerDocs from '@/components/examples/container/css-properties';
+import ContainerBasic from '@/components/examples/container/basic.tsx';
+import ContainerFullWidth from '@/components/examples/container/full-width.tsx';
+import ContainerGutters from '@/components/examples/container/gutters.tsx';
+import ContainerSemanticElement from '@/components/examples/container/semantic-element.tsx';
+import ContainerWithBleed from '@/components/examples/container/with-bleed.tsx';
 
 ## Référence de l’API
 
@@ -32,7 +32,7 @@ verticaux à la mise en page qui l’entoure.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/container/basic.tsx"
+```tsx file="../../../src/components/examples/container/basic.tsx"
 ```
 
     </Tab>
@@ -126,7 +126,7 @@ Utilisez `size="full"` pour qu’une section occupe toute la largeur de son pare
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/container/full-width.tsx"
+```tsx file="../../../src/components/examples/container/full-width.tsx"
 ```
 
     </Tab>
@@ -151,7 +151,7 @@ Utilisez `gutter` pour choisir la taille des espacements intérieurs horizontaux
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/container/gutters.tsx"
+```tsx file="../../../src/components/examples/container/gutters.tsx"
 ```
 
     </Tab>
@@ -176,7 +176,7 @@ Utilisez `asChild` lorsque l’enveloppe de mise en page doit également décrir
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/container/semantic-element.tsx"
+```tsx file="../../../src/components/examples/container/semantic-element.tsx"
 ```
 
     </Tab>
@@ -201,7 +201,7 @@ Conservez une largeur de texte limitée et laissez uniquement l’enfant plus la
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/container/with-bleed.tsx"
+```tsx file="../../../src/components/examples/container/with-bleed.tsx"
 ```
 
     </Tab>

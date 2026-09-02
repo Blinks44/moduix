@@ -4,13 +4,13 @@ component: breadcrumbs
 description: Navigation sémantique en fil d’Ariane, avec une composition explicite et une API compacte pour les chemins courts.
 ---
 
-import * as BreadcrumbsDocs from '@/components/examples/breadcrumbs/breadcrumbs';
-import BreadcrumbsAdvancedCustomization from '../../en/docs/_snippets/breadcrumbs/advanced-customization.tsx';
-import BreadcrumbsBasic from '../../en/docs/_snippets/breadcrumbs/basic.tsx';
-import BreadcrumbsCollapsedPath from '../../en/docs/_snippets/breadcrumbs/collapsed-path.tsx';
-import BreadcrumbsCustomSeparator from '../../en/docs/_snippets/breadcrumbs/custom-separator.tsx';
-import BreadcrumbsFrameworkLink from '../../en/docs/_snippets/breadcrumbs/framework-link.tsx';
-import BreadcrumbsLongCurrentLabel from '../../en/docs/_snippets/breadcrumbs/long-current-label.tsx';
+import * as BreadcrumbsDocs from '@/components/examples/breadcrumbs/css-properties';
+import BreadcrumbsAdvancedCustomization from '@/components/examples/breadcrumbs/advanced-customization.tsx';
+import BreadcrumbsBasic from '@/components/examples/breadcrumbs/basic.tsx';
+import BreadcrumbsCollapsedPath from '@/components/examples/breadcrumbs/collapsed-path.tsx';
+import BreadcrumbsCustomSeparator from '@/components/examples/breadcrumbs/custom-separator.tsx';
+import BreadcrumbsFrameworkLink from '@/components/examples/breadcrumbs/framework-link.tsx';
+import BreadcrumbsLongCurrentLabel from '@/components/examples/breadcrumbs/long-current-label.tsx';
 
 ## Référence de l’API
 
@@ -32,7 +32,7 @@ ordonnée, les éléments, les liens, la page actuelle et les séparateurs à pa
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/breadcrumbs/basic.tsx"
+```tsx file="../../../src/components/examples/breadcrumbs/basic.tsx"
 ```
 
     </Tab>
@@ -129,7 +129,7 @@ explicites plutôt que `Breadcrumbs.Path`.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/breadcrumbs/collapsed-path.tsx"
+```tsx file="../../../src/components/examples/breadcrumbs/collapsed-path.tsx"
 ```
 
     </Tab>
@@ -155,7 +155,7 @@ dans tous les intervalles visibles.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/breadcrumbs/custom-separator.tsx"
+```tsx file="../../../src/components/examples/breadcrumbs/custom-separator.tsx"
 ```
 
     </Tab>
@@ -180,7 +180,7 @@ Utilisez `asChild` d’Ark pour intégrer un lien fourni par le routeur du frame
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/breadcrumbs/framework-link.tsx"
+```tsx file="../../../src/components/examples/breadcrumbs/framework-link.tsx"
 ```
 
     </Tab>
@@ -207,7 +207,7 @@ risquent donc moins de faire déborder le fil d’Ariane.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/breadcrumbs/long-current-label.tsx"
+```tsx file="../../../src/components/examples/breadcrumbs/long-current-label.tsx"
 ```
 
     </Tab>
@@ -233,7 +233,7 @@ framework, un séparateur personnalisé et un libellé de page actuelle enrichi 
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/breadcrumbs/advanced-customization.tsx"
+```tsx file="../../../src/components/examples/breadcrumbs/advanced-customization.tsx"
 ```
 
     </Tab>

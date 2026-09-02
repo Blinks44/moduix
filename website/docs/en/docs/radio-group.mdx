@@ -4,21 +4,21 @@ component: radio-group
 description: A radio group for choosing exactly one option from a visible set.
 ---
 
-import * as RadioGroupDocs from '@/components/examples/radio-group/radio-group';
-import RadioGroupAdvancedCustomization from './_snippets/radio-group/advanced-customization.tsx';
-import RadioGroupAsChild from './_snippets/radio-group/aschild.tsx';
-import RadioGroupBasic from './_snippets/radio-group/basic.tsx';
-import RadioGroupControlled from './_snippets/radio-group/controlled.tsx';
-import RadioGroupDisabled from './_snippets/radio-group/disabled.tsx';
-import RadioGroupDisabledItem from './_snippets/radio-group/item-disabled.tsx';
-import RadioGroupForm from './_snippets/radio-group/form.tsx';
-import RadioGroupIndicator from './_snippets/radio-group/indicator.tsx';
-import RadioGroupInitialValue from './_snippets/radio-group/initial-value.tsx';
-import RadioGroupOrientation from './_snippets/radio-group/orientation.tsx';
-import RadioGroupRootProvider from './_snippets/radio-group/root-provider.tsx';
-import RadioGroupSizes from './_snippets/radio-group/sizes.tsx';
-import RadioGroupField from './_snippets/radio-group/with-field.tsx';
-import RadioGroupFieldset from './_snippets/radio-group/with-fieldset.tsx';
+import * as RadioGroupDocs from '@/components/examples/radio-group/css-properties';
+import RadioGroupAdvancedCustomization from '@/components/examples/radio-group/advanced-customization.tsx';
+import RadioGroupAsChild from '@/components/examples/radio-group/aschild.tsx';
+import RadioGroupBasic from '@/components/examples/radio-group/basic.tsx';
+import RadioGroupControlled from '@/components/examples/radio-group/controlled.tsx';
+import RadioGroupDisabled from '@/components/examples/radio-group/disabled.tsx';
+import RadioGroupDisabledItem from '@/components/examples/radio-group/item-disabled.tsx';
+import RadioGroupForm from '@/components/examples/radio-group/form.tsx';
+import RadioGroupIndicator from '@/components/examples/radio-group/indicator.tsx';
+import RadioGroupInitialValue from '@/components/examples/radio-group/initial-value.tsx';
+import RadioGroupOrientation from '@/components/examples/radio-group/orientation.tsx';
+import RadioGroupRootProvider from '@/components/examples/radio-group/root-provider.tsx';
+import RadioGroupSizes from '@/components/examples/radio-group/sizes.tsx';
+import RadioGroupField from '@/components/examples/radio-group/with-field.tsx';
+import RadioGroupFieldset from '@/components/examples/radio-group/with-fieldset.tsx';
 
 Use `RadioGroup` when people need to choose exactly one option from a visible set, such as a
 framework, plan, or account type. Use `Checkbox` for independent choices and `Switch` for a setting
@@ -46,7 +46,7 @@ Each item includes its native hidden input automatically. If the group belongs t
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/radio-group/basic.tsx"
+```tsx file="../../../src/components/examples/radio-group/basic.tsx"
 ```
 
     </Tab>
@@ -153,7 +153,7 @@ semantic `label` as the direct child.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/radio-group/aschild.tsx"
+```tsx file="../../../src/components/examples/radio-group/aschild.tsx"
 ```
 
     </Tab>
@@ -179,7 +179,7 @@ stay in sync with other parts of the interface.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/radio-group/controlled.tsx"
+```tsx file="../../../src/components/examples/radio-group/controlled.tsx"
 ```
 
     </Tab>
@@ -204,7 +204,7 @@ Set `disabled` on the root to make every item unavailable while keeping the sele
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/radio-group/disabled.tsx"
+```tsx file="../../../src/components/examples/radio-group/disabled.tsx"
 ```
 
     </Tab>
@@ -223,7 +223,7 @@ Set `disabled` on an individual `Item` or `Option` when only that choice is unav
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/radio-group/item-disabled.tsx"
+```tsx file="../../../src/components/examples/radio-group/item-disabled.tsx"
 ```
 
     </Tab>
@@ -243,7 +243,7 @@ each item participates in form submission and reset without adding an input part
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/radio-group/form.tsx"
+```tsx file="../../../src/components/examples/radio-group/form.tsx"
 ```
 
     </Tab>
@@ -270,7 +270,7 @@ so the indicator follows the item geometry.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/radio-group/indicator.tsx"
+```tsx file="../../../src/components/examples/radio-group/indicator.tsx"
 ```
 
     </Tab>
@@ -296,7 +296,7 @@ itself.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/radio-group/initial-value.tsx"
+```tsx file="../../../src/components/examples/radio-group/initial-value.tsx"
 ```
 
     </Tab>
@@ -316,7 +316,7 @@ the items in a row with an inline wrapper when the visual layout should be horiz
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/radio-group/orientation.tsx"
+```tsx file="../../../src/components/examples/radio-group/orientation.tsx"
 ```
 
     </Tab>
@@ -342,7 +342,7 @@ group tree. The example also shows how to update the selected value from outside
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/radio-group/root-provider.tsx"
+```tsx file="../../../src/components/examples/radio-group/root-provider.tsx"
 ```
 
     </Tab>
@@ -368,7 +368,7 @@ diameter. Supported values are `xs`, `sm`, `md`, `lg`, and `xl`.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/radio-group/sizes.tsx"
+```tsx file="../../../src/components/examples/radio-group/sizes.tsx"
 ```
 
     </Tab>
@@ -388,7 +388,7 @@ Use `Field.Root` when a radio group needs a field-level label, helper text, or e
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/radio-group/with-field.tsx"
+```tsx file="../../../src/components/examples/radio-group/with-field.tsx"
 ```
 
     </Tab>
@@ -414,7 +414,7 @@ section. `Fieldset` can also provide its disabled and invalid state to the neste
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/radio-group/with-fieldset.tsx"
+```tsx file="../../../src/components/examples/radio-group/with-fieldset.tsx"
 ```
 
     </Tab>
@@ -440,7 +440,7 @@ styling.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/radio-group/advanced-customization.tsx"
+```tsx file="../../../src/components/examples/radio-group/advanced-customization.tsx"
 ```
 
     </Tab>

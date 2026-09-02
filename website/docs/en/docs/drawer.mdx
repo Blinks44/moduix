@@ -4,21 +4,21 @@ component: drawer
 description: An accessible panel that slides in from the edge of the screen for navigation and forms, with swipe gestures, snap points, and nested drawers.
 ---
 
-import * as DrawerDocs from '@/components/examples/drawer/drawer';
-import DrawerAdvancedCustomization from './_snippets/drawer/advanced-customization.tsx';
-import DrawerBasic from './_snippets/drawer/basic.tsx';
-import DrawerControlled from './_snippets/drawer/controlled.tsx';
-import DrawerDragControls from './_snippets/drawer/drag-controls.tsx';
-import DrawerFloatingGrabber from './_snippets/drawer/floating-grabber.tsx';
-import DrawerIndentBackground from './_snippets/drawer/indent-background.tsx';
-import DrawerIsland from './_snippets/drawer/island.tsx';
-import DrawerMultipleTriggers from './_snippets/drawer/multiple-triggers.tsx';
-import DrawerNested from './_snippets/drawer/nested.tsx';
-import DrawerNonModal from './_snippets/drawer/non-modal.tsx';
-import DrawerRootProvider from './_snippets/drawer/root-provider.tsx';
-import DrawerScrollable from './_snippets/drawer/scrollable.tsx';
-import DrawerSnapPoints from './_snippets/drawer/snap-points.tsx';
-import DrawerSwipeDirection from './_snippets/drawer/swipe-direction.tsx';
+import * as DrawerDocs from '@/components/examples/drawer/css-properties';
+import DrawerAdvancedCustomization from '@/components/examples/drawer/advanced-customization.tsx';
+import DrawerBasic from '@/components/examples/drawer/basic.tsx';
+import DrawerControlled from '@/components/examples/drawer/controlled.tsx';
+import DrawerDragControls from '@/components/examples/drawer/drag-controls.tsx';
+import DrawerFloatingGrabber from '@/components/examples/drawer/floating-grabber.tsx';
+import DrawerIndentBackground from '@/components/examples/drawer/indent-background.tsx';
+import DrawerIsland from '@/components/examples/drawer/island.tsx';
+import DrawerMultipleTriggers from '@/components/examples/drawer/multiple-triggers.tsx';
+import DrawerNested from '@/components/examples/drawer/nested.tsx';
+import DrawerNonModal from '@/components/examples/drawer/non-modal.tsx';
+import DrawerRootProvider from '@/components/examples/drawer/root-provider.tsx';
+import DrawerScrollable from '@/components/examples/drawer/scrollable.tsx';
+import DrawerSnapPoints from '@/components/examples/drawer/snap-points.tsx';
+import DrawerSwipeDirection from '@/components/examples/drawer/swipe-direction.tsx';
 
 ## API Reference
 
@@ -44,7 +44,7 @@ places it, and `Drawer.Backdrop` provides the modal layer.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/drawer/basic.tsx"
+```tsx file="../../../src/components/examples/drawer/basic.tsx"
 ```
 
     </Tab>
@@ -200,7 +200,7 @@ Read `details.open` from the Ark callback. The callback receives a details objec
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/drawer/controlled.tsx"
+```tsx file="../../../src/components/examples/drawer/controlled.tsx"
 ```
 
     </Tab>
@@ -226,7 +226,7 @@ content draggable. Set `draggable={false}` when the drawer should move only from
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/drawer/drag-controls.tsx"
+```tsx file="../../../src/components/examples/drawer/drag-controls.tsx"
 ```
 
     </Tab>
@@ -252,7 +252,7 @@ styling in this example leaves a 10px gap between the handle and the drawer edge
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/drawer/floating-grabber.tsx"
+```tsx file="../../../src/components/examples/drawer/floating-grabber.tsx"
 ```
 
     </Tab>
@@ -277,7 +277,7 @@ styling in this example leaves a 10px gap between the handle and the drawer edge
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/drawer/indent-background.tsx"
+```tsx file="../../../src/components/examples/drawer/indent-background.tsx"
 ```
 
     </Tab>
@@ -303,7 +303,7 @@ an inset instead of extending visually past the edge where it opens.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/drawer/island.tsx"
+```tsx file="../../../src/components/examples/drawer/island.tsx"
 ```
 
     </Tab>
@@ -329,7 +329,7 @@ active.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/drawer/multiple-triggers.tsx"
+```tsx file="../../../src/components/examples/drawer/multiple-triggers.tsx"
 ```
 
     </Tab>
@@ -356,7 +356,7 @@ behind the active drawer while leaving an edge visible.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/drawer/nested.tsx"
+```tsx file="../../../src/components/examples/drawer/nested.tsx"
 ```
 
     </Tab>
@@ -386,7 +386,7 @@ the drawer is open.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/drawer/non-modal.tsx"
+```tsx file="../../../src/components/examples/drawer/non-modal.tsx"
 ```
 
     </Tab>
@@ -412,7 +412,7 @@ snap points.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/drawer/root-provider.tsx"
+```tsx file="../../../src/components/examples/drawer/root-provider.tsx"
 ```
 
     </Tab>
@@ -438,7 +438,7 @@ container while the grabber and header stay fixed.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/drawer/scrollable.tsx"
+```tsx file="../../../src/components/examples/drawer/scrollable.tsx"
 ```
 
     </Tab>
@@ -463,7 +463,7 @@ Set intermediate positions on the root and choose the initial position with `def
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/drawer/snap-points.tsx"
+```tsx file="../../../src/components/examples/drawer/snap-points.tsx"
 ```
 
     </Tab>
@@ -489,7 +489,7 @@ for a top drawer and `down` for a bottom drawer.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/drawer/swipe-direction.tsx"
+```tsx file="../../../src/components/examples/drawer/swipe-direction.tsx"
 ```
 
     </Tab>
@@ -515,7 +515,7 @@ full low-level Drawer anatomy.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/drawer/advanced-customization.tsx"
+```tsx file="../../../src/components/examples/drawer/advanced-customization.tsx"
 ```
 
     </Tab>

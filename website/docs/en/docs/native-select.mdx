@@ -4,11 +4,11 @@ component: native-select
 description: A styled native `<select>` for simple option lists that keeps the browser in control of selection.
 ---
 
-import * as NativeSelectDocs from '@/components/examples/native-select/native-select';
-import NativeSelectBasic from './_snippets/native-select/basic.tsx';
-import NativeSelectControlled from './_snippets/native-select/controlled.tsx';
-import NativeSelectField from './_snippets/native-select/field-integration.tsx';
-import NativeSelectMultiple from './_snippets/native-select/multiple-selection.tsx';
+import * as NativeSelectDocs from '@/components/examples/native-select/css-properties';
+import NativeSelectBasic from '@/components/examples/native-select/basic.tsx';
+import NativeSelectControlled from '@/components/examples/native-select/controlled.tsx';
+import NativeSelectField from '@/components/examples/native-select/field-integration.tsx';
+import NativeSelectMultiple from '@/components/examples/native-select/multiple-selection.tsx';
 
 ## API Reference
 
@@ -37,7 +37,7 @@ HTML `<select>`.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/native-select/basic.tsx"
+```tsx file="../../../src/components/examples/native-select/basic.tsx"
 ```
 
     </Tab>
@@ -128,7 +128,7 @@ event and pass the new value back through `value`.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/native-select/controlled.tsx"
+```tsx file="../../../src/components/examples/native-select/controlled.tsx"
 ```
 
     </Tab>
@@ -151,7 +151,7 @@ state. Field connects that content to the native control.
   >
     <Tab value="React">
 
-```tsx file="./_snippets/native-select/field-integration.tsx"
+```tsx file="../../../src/components/examples/native-select/field-integration.tsx"
 ```
 
     </Tab>
@@ -177,7 +177,7 @@ selected options and their keyboard interaction.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/native-select/multiple-selection.tsx"
+```tsx file="../../../src/components/examples/native-select/multiple-selection.tsx"
 ```
 
     </Tab>

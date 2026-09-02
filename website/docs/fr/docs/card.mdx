@@ -4,19 +4,19 @@ component: card
 description: Un composant flexible pour regrouper le contenu lié à un même sujet.
 ---
 
-import * as CardDocs from '@/components/examples/card/card';
-import CardAdvancedCustomization from '../../en/docs/_snippets/card/advanced-customization.tsx';
-import CardBasic from '../../en/docs/_snippets/card/basic.tsx';
-import CardHeaderAction from '../../en/docs/_snippets/card/header-action.tsx';
-import CardHorizontal from '../../en/docs/_snippets/card/horizontal.tsx';
-import CardOverlayLink from '../../en/docs/_snippets/card/overlay-link.tsx';
-import CardRootAsLink from '../../en/docs/_snippets/card/root-as-link.tsx';
-import CardSizes from '../../en/docs/_snippets/card/sizes.tsx';
-import CardVariants from '../../en/docs/_snippets/card/variants.tsx';
-import CardWithAvatar from '../../en/docs/_snippets/card/with-avatar.tsx';
-import CardWithBackground from '../../en/docs/_snippets/card/with-background.tsx';
-import CardWithImage from '../../en/docs/_snippets/card/with-image.tsx';
-import CardWithinForm from '../../en/docs/_snippets/card/within-form.tsx';
+import * as CardDocs from '@/components/examples/card/css-properties';
+import CardAdvancedCustomization from '@/components/examples/card/advanced-customization.tsx';
+import CardBasic from '@/components/examples/card/basic.tsx';
+import CardHeaderAction from '@/components/examples/card/header-action.tsx';
+import CardHorizontal from '@/components/examples/card/horizontal.tsx';
+import CardOverlayLink from '@/components/examples/card/overlay-link.tsx';
+import CardRootAsLink from '@/components/examples/card/root-as-link.tsx';
+import CardSizes from '@/components/examples/card/sizes.tsx';
+import CardVariants from '@/components/examples/card/variants.tsx';
+import CardWithAvatar from '@/components/examples/card/with-avatar.tsx';
+import CardWithBackground from '@/components/examples/card/with-background.tsx';
+import CardWithImage from '@/components/examples/card/with-image.tsx';
+import CardWithinForm from '@/components/examples/card/within-form.tsx';
 
 ## Référence de l’API
 
@@ -37,7 +37,7 @@ Si vous connaissez shadcn/ui, la structure vous sera familière. moduix utilise 
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/card/basic.tsx"
+```tsx file="../../../src/components/examples/card/basic.tsx"
 ```
 
     </Tab>
@@ -149,7 +149,7 @@ Utilisez `Card.Action` pour placer un statut compact ou un contrôle à la fin d
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/card/header-action.tsx"
+```tsx file="../../../src/components/examples/card/header-action.tsx"
 ```
 
     </Tab>
@@ -175,7 +175,7 @@ mise en page.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/card/horizontal.tsx"
+```tsx file="../../../src/components/examples/card/horizontal.tsx"
 ```
 
     </Tab>
@@ -200,7 +200,7 @@ Utilisez `Card.Link` lorsque la carte doit proposer une navigation et des action
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/card/overlay-link.tsx"
+```tsx file="../../../src/components/examples/card/overlay-link.tsx"
 ```
 
     </Tab>
@@ -225,7 +225,7 @@ Utilisez `asChild` lorsque toute la carte doit être un seul lien et ne contient
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/card/root-as-link.tsx"
+```tsx file="../../../src/components/examples/card/root-as-link.tsx"
 ```
 
     </Tab>
@@ -250,7 +250,7 @@ Choisissez `sm`, `md` ou `lg` pour modifier l’espacement intérieur de la cart
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/card/sizes.tsx"
+```tsx file="../../../src/components/examples/card/sizes.tsx"
 ```
 
     </Tab>
@@ -275,7 +275,7 @@ Utilisez les variantes pour exprimer la hiérarchie visuelle des surfaces.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/card/variants.tsx"
+```tsx file="../../../src/components/examples/card/variants.tsx"
 ```
 
     </Tab>
@@ -300,7 +300,7 @@ Placez un avatar ou un autre élément de profil dans l’en-tête lorsque la ca
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/card/with-avatar.tsx"
+```tsx file="../../../src/components/examples/card/with-avatar.tsx"
 ```
 
     </Tab>
@@ -326,7 +326,7 @@ styles de contraste du texte dans votre application.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/card/with-background.tsx"
+```tsx file="../../../src/components/examples/card/with-background.tsx"
 ```
 
     </Tab>
@@ -352,7 +352,7 @@ uniforme des angles supérieurs.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/card/with-image.tsx"
+```tsx file="../../../src/components/examples/card/with-image.tsx"
 ```
 
     </Tab>
@@ -377,7 +377,7 @@ Faites de la racine un formulaire lorsque la carte regroupe des champs et des ac
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/card/within-form.tsx"
+```tsx file="../../../src/components/examples/card/within-form.tsx"
 ```
 
     </Tab>
@@ -403,7 +403,7 @@ avec des points d’extension bas niveau.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/card/advanced-customization.tsx"
+```tsx file="../../../src/components/examples/card/advanced-customization.tsx"
 ```
 
     </Tab>

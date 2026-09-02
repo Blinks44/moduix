@@ -4,12 +4,12 @@ component: bleed
 description: Composant de mise en page qui permet à certains contenus de dépasser les limites d’un conteneur.
 ---
 
-import * as BleedDocs from '@/components/examples/bleed/bleed';
-import BleedBasic from '../../en/docs/_snippets/bleed/basic.tsx';
-import BleedBlockBleed from '../../en/docs/_snippets/bleed/block-bleed.tsx';
-import BleedCustomStyling from '../../en/docs/_snippets/bleed/custom-styling.tsx';
-import BleedInlineAmounts from '../../en/docs/_snippets/bleed/inline-amounts.tsx';
-import BleedSemanticElement from '../../en/docs/_snippets/bleed/semantic-element.tsx';
+import * as BleedDocs from '@/components/examples/bleed/css-properties';
+import BleedBasic from '@/components/examples/bleed/basic.tsx';
+import BleedBlockBleed from '@/components/examples/bleed/block-bleed.tsx';
+import BleedCustomStyling from '@/components/examples/bleed/custom-styling.tsx';
+import BleedInlineAmounts from '@/components/examples/bleed/inline-amounts.tsx';
+import BleedSemanticElement from '@/components/examples/bleed/semantic-element.tsx';
 
 ## Référence de l’API
 
@@ -35,7 +35,7 @@ d’atteindre les bords de la fenêtre tout en restant dans le flux normal du do
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/bleed/basic.tsx"
+```tsx file="../../../src/components/examples/bleed/basic.tsx"
 ```
 
     </Tab>
@@ -121,7 +121,7 @@ Ajoutez `block` lorsque la surface doit dépasser l’espacement intérieur du c
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/bleed/block-bleed.tsx"
+```tsx file="../../../src/components/examples/bleed/block-bleed.tsx"
 ```
 
     </Tab>
@@ -147,7 +147,7 @@ doit s’adapter à sa propre zone de contenu plutôt qu’à la fenêtre.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/bleed/custom-styling.tsx"
+```tsx file="../../../src/components/examples/bleed/custom-styling.tsx"
 ```
 
     </Tab>
@@ -173,7 +173,7 @@ Utilisez `inline` pour contrôler le dépassement du contenu sur l’axe en lign
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/bleed/inline-amounts.tsx"
+```tsx file="../../../src/components/examples/bleed/inline-amounts.tsx"
 ```
 
     </Tab>
@@ -199,7 +199,7 @@ Utilisez `asChild` lorsque le contenu doit utiliser un élément sémantique plu
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/bleed/semantic-element.tsx"
+```tsx file="../../../src/components/examples/bleed/semantic-element.tsx"
 ```
 
     </Tab>

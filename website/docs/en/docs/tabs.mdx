@@ -4,17 +4,17 @@ component: tabs
 description: Switch between related content panels with accessible keyboard navigation, controlled state, lazy mounting, links, and vertical layouts.
 ---
 
-import * as TabsDocs from '@/components/examples/tabs/tabs';
-import TabsBasic from './_snippets/tabs/basic.tsx';
-import TabsControlledValue from './_snippets/tabs/controlled-value.tsx';
-import TabsCustomIcons from './_snippets/tabs/custom-icons.tsx';
-import TabsDisabledTab from './_snippets/tabs/disabled-tab.tsx';
-import TabsLazyMount from './_snippets/tabs/lazy-mount.tsx';
-import TabsLine from './_snippets/tabs/line.tsx';
-import TabsLinks from './_snippets/tabs/links.tsx';
-import TabsManualActivation from './_snippets/tabs/manual-activation.tsx';
-import TabsRootProvider from './_snippets/tabs/root-provider.tsx';
-import TabsVertical from './_snippets/tabs/vertical.tsx';
+import * as TabsDocs from '@/components/examples/tabs/css-properties';
+import TabsBasic from '@/components/examples/tabs/basic.tsx';
+import TabsControlledValue from '@/components/examples/tabs/controlled-value.tsx';
+import TabsCustomIcons from '@/components/examples/tabs/custom-icons.tsx';
+import TabsDisabledTab from '@/components/examples/tabs/disabled-tab.tsx';
+import TabsLazyMount from '@/components/examples/tabs/lazy-mount.tsx';
+import TabsLine from '@/components/examples/tabs/line.tsx';
+import TabsLinks from '@/components/examples/tabs/links.tsx';
+import TabsManualActivation from '@/components/examples/tabs/manual-activation.tsx';
+import TabsRootProvider from '@/components/examples/tabs/root-provider.tsx';
+import TabsVertical from '@/components/examples/tabs/vertical.tsx';
 
 ## API Reference
 
@@ -42,7 +42,7 @@ Start with `Tabs` and give each `Tabs.Trigger` and `Tabs.Content` the same `valu
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/tabs/basic.tsx"
+```tsx file="../../../src/components/examples/tabs/basic.tsx"
 ```
 
     </Tab>
@@ -140,7 +140,7 @@ Control the selected tab from React state when the active panel needs to coordin
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/tabs/controlled-value.tsx"
+```tsx file="../../../src/components/examples/tabs/controlled-value.tsx"
 ```
 
     </Tab>
@@ -159,7 +159,7 @@ Place icons and labels directly inside `Tabs.Trigger`.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/tabs/custom-icons.tsx"
+```tsx file="../../../src/components/examples/tabs/custom-icons.tsx"
 ```
 
     </Tab>
@@ -178,7 +178,7 @@ Disable a tab that should remain visible but is not currently available.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/tabs/disabled-tab.tsx"
+```tsx file="../../../src/components/examples/tabs/disabled-tab.tsx"
 ```
 
     </Tab>
@@ -198,7 +198,7 @@ remove them from the DOM again after the user leaves them.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/tabs/lazy-mount.tsx"
+```tsx file="../../../src/components/examples/tabs/lazy-mount.tsx"
 ```
 
     </Tab>
@@ -218,7 +218,7 @@ selected tab. This treatment is available for horizontal tabs.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/tabs/line.tsx"
+```tsx file="../../../src/components/examples/tabs/line.tsx"
 ```
 
     </Tab>
@@ -237,7 +237,7 @@ Use `asChild` when tab triggers should render anchors or links managed by your r
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/tabs/links.tsx"
+```tsx file="../../../src/components/examples/tabs/links.tsx"
 ```
 
     </Tab>
@@ -257,7 +257,7 @@ tab. Activate it with a click, Enter, or Space.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/tabs/manual-activation.tsx"
+```tsx file="../../../src/components/examples/tabs/manual-activation.tsx"
 ```
 
     </Tab>
@@ -277,7 +277,7 @@ use the filled indicator, which makes the selected item easy to scan.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/tabs/vertical.tsx"
+```tsx file="../../../src/components/examples/tabs/vertical.tsx"
 ```
 
     </Tab>
@@ -297,7 +297,7 @@ adjacent UI needs to read the selected value.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/tabs/root-provider.tsx"
+```tsx file="../../../src/components/examples/tabs/root-provider.tsx"
 ```
 
     </Tab>

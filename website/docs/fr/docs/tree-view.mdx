@@ -4,14 +4,14 @@ component: tree-view
 description: Une arborescence accessible, fondée sur Ark UI, pour les dossiers, les fichiers et toutes les données imbriquées.
 ---
 
-import * as TreeViewDocs from '@/components/examples/tree-view/tree-view';
-import AsyncTreeView from '../../en/docs/_snippets/tree-view/async-loading.tsx';
-import CheckboxTreeView from '../../en/docs/_snippets/tree-view/checkboxes.tsx';
-import ControlledSelectionTreeView from '../../en/docs/_snippets/tree-view/controlled-selection.tsx';
-import FileIconsTreeView from '../../en/docs/_snippets/tree-view/file-icons.tsx';
-import LinkedTreeView from '../../en/docs/_snippets/tree-view/links.tsx';
-import RootProviderTreeView from '../../en/docs/_snippets/tree-view/root-provider.tsx';
-import TreeViewBasic from '../../en/docs/_snippets/tree-view/basic.tsx';
+import * as TreeViewDocs from '@/components/examples/tree-view/css-properties';
+import AsyncTreeView from '@/components/examples/tree-view/async-loading.tsx';
+import CheckboxTreeView from '@/components/examples/tree-view/checkboxes.tsx';
+import ControlledSelectionTreeView from '@/components/examples/tree-view/controlled-selection.tsx';
+import FileIconsTreeView from '@/components/examples/tree-view/file-icons.tsx';
+import LinkedTreeView from '@/components/examples/tree-view/links.tsx';
+import RootProviderTreeView from '@/components/examples/tree-view/root-provider.tsx';
+import TreeViewBasic from '@/components/examples/tree-view/basic.tsx';
 
 ## Référence de l’API
 
@@ -32,7 +32,7 @@ contexte à chaque niveau.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/tree-view/basic.tsx"
+```tsx file="../../../src/components/examples/tree-view/basic.tsx"
 ```
 
     </Tab>
@@ -108,7 +108,7 @@ navigation au clavier.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/tree-view/links.tsx"
+```tsx file="../../../src/components/examples/tree-view/links.tsx"
 ```
 
     </Tab>
@@ -154,7 +154,7 @@ Lorsqu’une branche a un `childrenCount` connu, chargez ses enfants avec `loadC
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/tree-view/async-loading.tsx"
+```tsx file="../../../src/components/examples/tree-view/async-loading.tsx"
 ```
 
     </Tab>
@@ -174,7 +174,7 @@ couvre déjà les états coché et indéterminé.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/tree-view/checkboxes.tsx"
+```tsx file="../../../src/components/examples/tree-view/checkboxes.tsx"
 ```
 
     </Tab>
@@ -194,7 +194,7 @@ Placez les icônes décoratives de fichiers et de dossiers dans `BranchText` et 
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/tree-view/file-icons.tsx"
+```tsx file="../../../src/components/examples/tree-view/file-icons.tsx"
 ```
 
     </Tab>
@@ -218,7 +218,7 @@ dans l’état de l’application.
   >
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/tree-view/controlled-selection.tsx"
+```tsx file="../../../src/components/examples/tree-view/controlled-selection.tsx"
 ```
 
     </Tab>
@@ -248,7 +248,7 @@ second `TreeView.Root`.
   >
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/tree-view/root-provider.tsx"
+```tsx file="../../../src/components/examples/tree-view/root-provider.tsx"
 ```
 
     </Tab>

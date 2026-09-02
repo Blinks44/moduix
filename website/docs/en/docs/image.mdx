@@ -4,11 +4,11 @@ component: image
 description: Responsive images with automatic CDN detection and Unpic-generated srcset and sizes attributes.
 ---
 
-import * as ImageDocs from '@/components/examples/image/component';
-import ImageArtDirection from './_snippets/image/art-direction.tsx';
-import ImageBasic from './_snippets/image/basic.tsx';
-import ImageFixed from './_snippets/image/fixed.tsx';
-import ImageFullWidth from './_snippets/image/full-width.tsx';
+import * as ImageDocs from '@/components/examples/image/css-properties';
+import ImageArtDirection from '@/components/examples/image/art-direction.tsx';
+import ImageBasic from '@/components/examples/image/basic.tsx';
+import ImageFixed from '@/components/examples/image/fixed.tsx';
+import ImageFullWidth from '@/components/examples/image/full-width.tsx';
 
 ## API Reference
 
@@ -32,7 +32,7 @@ The browser reserves space for the image before it loads.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/image/basic.tsx"
+```tsx file="../../../src/components/examples/image/basic.tsx"
 ```
 
     </Tab>
@@ -130,7 +130,7 @@ browsers that do not support AVIF. `Image.Source` must stay inside a native `<pi
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/image/art-direction.tsx"
+```tsx file="../../../src/components/examples/image/art-direction.tsx"
 ```
 
     </Tab>
@@ -156,7 +156,7 @@ has enough room, since fixed images do not shrink to fit a narrower container.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/image/fixed.tsx"
+```tsx file="../../../src/components/examples/image/fixed.tsx"
 ```
 
     </Tab>
@@ -176,7 +176,7 @@ Supply `height` when the crop height must remain fixed.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/image/full-width.tsx"
+```tsx file="../../../src/components/examples/image/full-width.tsx"
 ```
 
     </Tab>

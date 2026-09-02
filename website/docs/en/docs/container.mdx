@@ -4,12 +4,12 @@ component: container
 description: A responsive layout primitive for readable content widths and fluid horizontal padding.
 ---
 
-import * as ContainerDocs from '@/components/examples/container/container';
-import ContainerBasic from './_snippets/container/basic.tsx';
-import ContainerFullWidth from './_snippets/container/full-width.tsx';
-import ContainerGutters from './_snippets/container/gutters.tsx';
-import ContainerSemanticElement from './_snippets/container/semantic-element.tsx';
-import ContainerWithBleed from './_snippets/container/with-bleed.tsx';
+import * as ContainerDocs from '@/components/examples/container/css-properties';
+import ContainerBasic from '@/components/examples/container/basic.tsx';
+import ContainerFullWidth from '@/components/examples/container/full-width.tsx';
+import ContainerGutters from '@/components/examples/container/gutters.tsx';
+import ContainerSemanticElement from '@/components/examples/container/semantic-element.tsx';
+import ContainerWithBleed from '@/components/examples/container/with-bleed.tsx';
 
 ## API Reference
 
@@ -31,7 +31,7 @@ It adds responsive horizontal gutters and leaves vertical spacing to the surroun
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/container/basic.tsx"
+```tsx file="../../../src/components/examples/container/basic.tsx"
 ```
 
     </Tab>
@@ -126,7 +126,7 @@ edge gutter.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/container/full-width.tsx"
+```tsx file="../../../src/components/examples/container/full-width.tsx"
 ```
 
     </Tab>
@@ -151,7 +151,7 @@ Use `gutter` to choose the amount of responsive horizontal padding.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/container/gutters.tsx"
+```tsx file="../../../src/components/examples/container/gutters.tsx"
 ```
 
     </Tab>
@@ -176,7 +176,7 @@ Use `asChild` when the layout wrapper should also describe document structure.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/container/semantic-element.tsx"
+```tsx file="../../../src/components/examples/container/semantic-element.tsx"
 ```
 
     </Tab>
@@ -201,7 +201,7 @@ Keep the text column constrained and let only the wider child extend beyond it.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/container/with-bleed.tsx"
+```tsx file="../../../src/components/examples/container/with-bleed.tsx"
 ```
 
     </Tab>

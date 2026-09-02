@@ -4,13 +4,13 @@ component: timer
 description: Un composant pour suivre le temps écoulé ou restant, avec des contrôles explicites.
 ---
 
-import * as TimerDocs from '@/components/examples/timer/timer';
-import TimerBasic from '../../en/docs/_snippets/timer/basic.tsx';
-import TimerCountdown from '../../en/docs/_snippets/timer/countdown.tsx';
-import TimerEvents from '../../en/docs/_snippets/timer/events.tsx';
-import TimerInterval from '../../en/docs/_snippets/timer/interval.tsx';
-import TimerPomodoro from '../../en/docs/_snippets/timer/pomodoro.tsx';
-import TimerRootProvider from '../../en/docs/_snippets/timer/root-provider.tsx';
+import * as TimerDocs from '@/components/examples/timer/css-properties';
+import TimerBasic from '@/components/examples/timer/basic.tsx';
+import TimerCountdown from '@/components/examples/timer/countdown.tsx';
+import TimerEvents from '@/components/examples/timer/events.tsx';
+import TimerInterval from '@/components/examples/timer/interval.tsx';
+import TimerPomodoro from '@/components/examples/timer/pomodoro.tsx';
+import TimerRootProvider from '@/components/examples/timer/root-provider.tsx';
 
 ## Référence de l’API
 
@@ -35,7 +35,7 @@ l’élément hôte ou fournir vos propres enfants.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/timer/basic.tsx"
+```tsx file="../../../src/components/examples/timer/basic.tsx"
 ```
 
     </Tab>
@@ -143,7 +143,7 @@ Définissez `countdown` et `startMs` si l’affichage doit décompter jusqu’à
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/timer/countdown.tsx"
+```tsx file="../../../src/components/examples/timer/countdown.tsx"
 ```
 
     </Tab>
@@ -168,7 +168,7 @@ Utilisez `onTick` et `onComplete` pour les effets de bord liés au cycle de vie 
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/timer/events.tsx"
+```tsx file="../../../src/components/examples/timer/events.tsx"
 ```
 
     </Tab>
@@ -194,7 +194,7 @@ plusieurs fois par seconde.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/timer/interval.tsx"
+```tsx file="../../../src/components/examples/timer/interval.tsx"
 ```
 
     </Tab>
@@ -219,7 +219,7 @@ Utilisez `onComplete` pour passer du travail à la pause et inversement lorsque 
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/timer/pomodoro.tsx"
+```tsx file="../../../src/components/examples/timer/pomodoro.tsx"
 ```
 
     </Tab>
@@ -246,7 +246,7 @@ personnalisés.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/timer/root-provider.tsx"
+```tsx file="../../../src/components/examples/timer/root-provider.tsx"
 ```
 
     </Tab>

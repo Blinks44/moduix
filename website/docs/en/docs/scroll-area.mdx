@@ -4,14 +4,14 @@ component: scroll-area
 description: A native scroll container with styled scrollbars built on Ark UI.
 ---
 
-import * as ScrollAreaDocs from '@/components/examples/scroll-area/scroll-area';
-import ScrollAreaAlwaysVisible from './_snippets/scroll-area/always-visible.tsx';
-import ScrollAreaBasic from './_snippets/scroll-area/basic.tsx';
-import ScrollAreaBothDirections from './_snippets/scroll-area/both-directions.tsx';
-import ScrollAreaFade from './_snippets/scroll-area/fade.tsx';
-import ScrollAreaHorizontal from './_snippets/scroll-area/horizontal.tsx';
-import ScrollAreaNested from './_snippets/scroll-area/nested.tsx';
-import ScrollAreaRootProvider from './_snippets/scroll-area/root-provider.tsx';
+import * as ScrollAreaDocs from '@/components/examples/scroll-area/css-properties';
+import ScrollAreaAlwaysVisible from '@/components/examples/scroll-area/always-visible.tsx';
+import ScrollAreaBasic from '@/components/examples/scroll-area/basic.tsx';
+import ScrollAreaBothDirections from '@/components/examples/scroll-area/both-directions.tsx';
+import ScrollAreaFade from '@/components/examples/scroll-area/fade.tsx';
+import ScrollAreaHorizontal from '@/components/examples/scroll-area/horizontal.tsx';
+import ScrollAreaNested from '@/components/examples/scroll-area/nested.tsx';
+import ScrollAreaRootProvider from '@/components/examples/scroll-area/root-provider.tsx';
 
 ## API Reference
 
@@ -32,7 +32,7 @@ moduix also adds `fade`, which applies a top and bottom mask based on Ark's over
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/scroll-area/basic.tsx"
+```tsx file="../../../src/components/examples/scroll-area/basic.tsx"
 ```
 
     </Tab>
@@ -128,7 +128,7 @@ Use `variant="always"` in dense panels when the scrollbar should remain discover
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/scroll-area/always-visible.tsx"
+```tsx file="../../../src/components/examples/scroll-area/always-visible.tsx"
 ```
 
     </Tab>
@@ -153,7 +153,7 @@ Render vertical and horizontal scrollbars when content can overflow on both axes
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/scroll-area/both-directions.tsx"
+```tsx file="../../../src/components/examples/scroll-area/both-directions.tsx"
 ```
 
     </Tab>
@@ -179,7 +179,7 @@ current viewport without introducing another wrapper.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/scroll-area/fade.tsx"
+```tsx file="../../../src/components/examples/scroll-area/fade.tsx"
 ```
 
     </Tab>
@@ -204,7 +204,7 @@ Use a horizontal scrollbar when the content is intentionally wider than the fram
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/scroll-area/horizontal.tsx"
+```tsx file="../../../src/components/examples/scroll-area/horizontal.tsx"
 ```
 
     </Tab>
@@ -230,7 +230,7 @@ complete so Ark can measure each area independently.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/scroll-area/nested.tsx"
+```tsx file="../../../src/components/examples/scroll-area/nested.tsx"
 ```
 
     </Tab>
@@ -256,7 +256,7 @@ to the scrolling API.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/scroll-area/root-provider.tsx"
+```tsx file="../../../src/components/examples/scroll-area/root-provider.tsx"
 ```
 
     </Tab>

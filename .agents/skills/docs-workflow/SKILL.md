@@ -54,7 +54,10 @@ For a new, migrated, or substantially restructured component page, read [the com
 
 ## Runnable previews
 
-- Use Rspress's `tsx preview file="./_snippets/<component>/<name>.tsx"` directive for runnable component-page examples.
+- Keep runnable component-page examples in `website/src/components/examples/<component>/<name>.tsx`.
+- Render an imported example with `ExampleFrame` when the page also shows its source; use Rspress's
+  `tsx preview file="../../../src/components/examples/<component>/<name>.tsx"` directive for a
+  direct preview.
 - Use `basic.tsx` for the basic path and stable heading-based filenames for subsequent examples.
 - Keep a visible snippet self-contained and copyable. Prefer one complete component composition over indirection through hidden helpers.
 - Do not add an interactive playground unless the task explicitly requires token editing and the interaction teaches more than static documentation.

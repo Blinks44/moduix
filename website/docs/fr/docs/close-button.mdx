@@ -4,11 +4,11 @@ component: close-button
 description: Un bouton sans libellé, représenté par une icône, pour fermer des notifications, des cartes, des panneaux superposés et d’autres surfaces d’interface.
 ---
 
-import * as CloseButtonDocs from '@/components/examples/close-button/close-button';
-import CloseButtonAsChild from '../../en/docs/_snippets/close-button/as-child.tsx';
-import CloseButtonBasic from '../../en/docs/_snippets/close-button/basic.tsx';
-import CloseButtonCustomChildren from '../../en/docs/_snippets/close-button/custom-children.tsx';
-import CloseButtonDisabled from '../../en/docs/_snippets/close-button/disabled-state.tsx';
+import * as CloseButtonDocs from '@/components/examples/close-button/css-properties';
+import CloseButtonAsChild from '@/components/examples/close-button/as-child.tsx';
+import CloseButtonBasic from '@/components/examples/close-button/basic.tsx';
+import CloseButtonCustomChildren from '@/components/examples/close-button/custom-children.tsx';
+import CloseButtonDisabled from '@/components/examples/close-button/disabled-state.tsx';
 
 ## Référence de l’API
 
@@ -29,7 +29,7 @@ mais il ne gère pas lui-même l’état de la surface.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/close-button/basic.tsx"
+```tsx file="../../../src/components/examples/close-button/basic.tsx"
 ```
 
     </Tab>
@@ -115,7 +115,7 @@ et les attributs `data-*` de `CloseButton`. Définissez `type="button"` sur l’
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/close-button/as-child.tsx"
+```tsx file="../../../src/components/examples/close-button/as-child.tsx"
 ```
 
     </Tab>
@@ -141,7 +141,7 @@ racine. L’exemple utilise une simple croix décorative avec `aria-hidden="true
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/close-button/custom-children.tsx"
+```tsx file="../../../src/components/examples/close-button/custom-children.tsx"
 ```
 
     </Tab>
@@ -167,7 +167,7 @@ Utilisez l’attribut natif `disabled` lorsque le bouton ne doit pas recevoir le
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/close-button/disabled-state.tsx"
+```tsx file="../../../src/components/examples/close-button/disabled-state.tsx"
 ```
 
     </Tab>

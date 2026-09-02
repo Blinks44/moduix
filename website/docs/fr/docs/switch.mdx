@@ -4,18 +4,18 @@ component: switch
 description: Un interrupteur Ark UI pour activer ou désactiver immédiatement un réglage booléen.
 ---
 
-import * as SwitchDocs from '@/components/examples/switch/switch';
-import SwitchAdvancedCustomization from '../../en/docs/_snippets/switch/advanced-customization.tsx';
-import SwitchAsChild from '../../en/docs/_snippets/switch/as-child.tsx';
-import SwitchBasic from '../../en/docs/_snippets/switch/basic.tsx';
-import SwitchContext from '../../en/docs/_snippets/switch/context.tsx';
-import SwitchControlled from '../../en/docs/_snippets/switch/controlled.tsx';
-import SwitchDisabled from '../../en/docs/_snippets/switch/disabled.tsx';
-import SwitchFormIntegration from '../../en/docs/_snippets/switch/form-integration.tsx';
-import SwitchInitialChecked from '../../en/docs/_snippets/switch/initial-checked.tsx';
-import SwitchReadOnly from '../../en/docs/_snippets/switch/read-only.tsx';
-import SwitchRootProvider from '../../en/docs/_snippets/switch/root-provider.tsx';
-import SwitchSizes from '../../en/docs/_snippets/switch/sizes.tsx';
+import * as SwitchDocs from '@/components/examples/switch/css-properties';
+import SwitchAdvancedCustomization from '@/components/examples/switch/advanced-customization.tsx';
+import SwitchAsChild from '@/components/examples/switch/as-child.tsx';
+import SwitchBasic from '@/components/examples/switch/basic.tsx';
+import SwitchContext from '@/components/examples/switch/context.tsx';
+import SwitchControlled from '@/components/examples/switch/controlled.tsx';
+import SwitchDisabled from '@/components/examples/switch/disabled.tsx';
+import SwitchFormIntegration from '@/components/examples/switch/form-integration.tsx';
+import SwitchInitialChecked from '@/components/examples/switch/initial-checked.tsx';
+import SwitchReadOnly from '@/components/examples/switch/read-only.tsx';
+import SwitchRootProvider from '@/components/examples/switch/root-provider.tsx';
+import SwitchSizes from '@/components/examples/switch/sizes.tsx';
 
 ## Référence de l’API
 
@@ -45,7 +45,7 @@ par défaut, tandis que la racine ajoute l’input de formulaire masqué utilis�
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/switch/basic.tsx"
+```tsx file="../../../src/components/examples/switch/basic.tsx"
 ```
 
     </Tab>
@@ -132,7 +132,7 @@ de l’interrupteur.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/switch/as-child.tsx"
+```tsx file="../../../src/components/examples/switch/as-child.tsx"
 ```
 
     </Tab>
@@ -158,7 +158,7 @@ l’état courant de l’interrupteur.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/switch/context.tsx"
+```tsx file="../../../src/components/examples/switch/context.tsx"
 ```
 
     </Tab>
@@ -177,7 +177,7 @@ Utilisez le mode contrôlé lorsque l’interrupteur doit rester synchronisé av
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/switch/controlled.tsx"
+```tsx file="../../../src/components/examples/switch/controlled.tsx"
 ```
 
     </Tab>
@@ -202,7 +202,7 @@ Utilisez `disabled` pour empêcher les interactions tout en conservant l’état
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/switch/disabled.tsx"
+```tsx file="../../../src/components/examples/switch/disabled.tsx"
 ```
 
     </Tab>
@@ -228,7 +228,7 @@ Dans cet exemple, l’erreur s’affiche après l’envoi du formulaire si l’o
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/switch/form-integration.tsx"
+```tsx file="../../../src/components/examples/switch/form-integration.tsx"
 ```
 
     </Tab>
@@ -253,7 +253,7 @@ Utilisez `defaultChecked` lorsque l’interrupteur doit être activé au premier
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/switch/initial-checked.tsx"
+```tsx file="../../../src/components/examples/switch/initial-checked.tsx"
 ```
 
     </Tab>
@@ -272,7 +272,7 @@ Utilisez `readOnly` lorsque l’état courant doit rester visible sans que l’u
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/switch/read-only.tsx"
+```tsx file="../../../src/components/examples/switch/read-only.tsx"
 ```
 
     </Tab>
@@ -298,7 +298,7 @@ contrôler en dehors de l’arbre rendu de l’interrupteur.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/switch/root-provider.tsx"
+```tsx file="../../../src/components/examples/switch/root-provider.tsx"
 ```
 
     </Tab>
@@ -324,7 +324,7 @@ l’arbre de parties Ark.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/switch/sizes.tsx"
+```tsx file="../../../src/components/examples/switch/sizes.tsx"
 ```
 
     </Tab>
@@ -349,7 +349,7 @@ Ajoutez `Switch.Thumb` explicitement lorsque le curseur nécessite un contenu ou
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/switch/advanced-customization.tsx"
+```tsx file="../../../src/components/examples/switch/advanced-customization.tsx"
 ```
 
     </Tab>

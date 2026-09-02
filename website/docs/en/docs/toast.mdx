@@ -4,17 +4,17 @@ component: toast
 description: Transient notifications for actions, status changes, and contextual feedback.
 ---
 
-import * as ToastDocs from '@/components/examples/toast/toast';
-import ToastAction from './_snippets/toast/action.tsx';
-import ToastBasic from './_snippets/toast/basic.tsx';
-import ToastCustomComposition from './_snippets/toast/custom-composition.tsx';
-import ToastDuration from './_snippets/toast/duration.tsx';
-import ToastMaximumVisible from './_snippets/toast/max-toasts.tsx';
-import ToastNonOverlapping from './_snippets/toast/always-expanded.tsx';
-import ToastPlacement from './_snippets/toast/placement.tsx';
-import ToastPromise from './_snippets/toast/promise-toast.tsx';
-import ToastTypes from './_snippets/toast/types.tsx';
-import ToastUpdate from './_snippets/toast/update.tsx';
+import * as ToastDocs from '@/components/examples/toast/css-properties';
+import ToastAction from '@/components/examples/toast/action.tsx';
+import ToastBasic from '@/components/examples/toast/basic.tsx';
+import ToastCustomComposition from '@/components/examples/toast/custom-composition.tsx';
+import ToastDuration from '@/components/examples/toast/duration.tsx';
+import ToastMaximumVisible from '@/components/examples/toast/max-toasts.tsx';
+import ToastNonOverlapping from '@/components/examples/toast/always-expanded.tsx';
+import ToastPlacement from '@/components/examples/toast/placement.tsx';
+import ToastPromise from '@/components/examples/toast/promise-toast.tsx';
+import ToastTypes from '@/components/examples/toast/types.tsx';
+import ToastUpdate from '@/components/examples/toast/update.tsx';
 
 ## API Reference
 
@@ -37,7 +37,7 @@ with `Toaster`.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/toast/basic.tsx"
+```tsx file="../../../src/components/examples/toast/basic.tsx"
 ```
 
     </Tab>
@@ -163,7 +163,7 @@ Add `action: { label, onClick }` when the notification should offer one direct f
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/toast/action.tsx"
+```tsx file="../../../src/components/examples/toast/action.tsx"
 ```
 
     </Tab>
@@ -189,7 +189,7 @@ remain until the user dismisses it with `Infinity`.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/toast/duration.tsx"
+```tsx file="../../../src/components/examples/toast/duration.tsx"
 ```
 
     </Tab>
@@ -214,7 +214,7 @@ Set `max` on the toaster when bursts of notifications should queue instead of fi
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/toast/max-toasts.tsx"
+```tsx file="../../../src/components/examples/toast/max-toasts.tsx"
 ```
 
     </Tab>
@@ -240,7 +240,7 @@ overlapping stack. This is a toaster setting, not a separate component mode.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/toast/always-expanded.tsx"
+```tsx file="../../../src/components/examples/toast/always-expanded.tsx"
 ```
 
     </Tab>
@@ -266,7 +266,7 @@ the viewport.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/toast/placement.tsx"
+```tsx file="../../../src/components/examples/toast/placement.tsx"
 ```
 
     </Tab>
@@ -292,7 +292,7 @@ operation settles.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/toast/promise-toast.tsx"
+```tsx file="../../../src/components/examples/toast/promise-toast.tsx"
 ```
 
     </Tab>
@@ -318,7 +318,7 @@ Use the typed toaster helpers for status-specific variants. Moduix styles `info`
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/toast/types.tsx"
+```tsx file="../../../src/components/examples/toast/types.tsx"
 ```
 
     </Tab>
@@ -344,7 +344,7 @@ notification should change in place.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/toast/update.tsx"
+```tsx file="../../../src/components/examples/toast/update.tsx"
 ```
 
     </Tab>
@@ -370,7 +370,7 @@ and apply component-specific CSS variables.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/toast/custom-composition.tsx"
+```tsx file="../../../src/components/examples/toast/custom-composition.tsx"
 ```
 
     </Tab>

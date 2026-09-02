@@ -4,13 +4,13 @@ component: timer
 description: A timer for tracking elapsed or remaining time with explicit controls.
 ---
 
-import * as TimerDocs from '@/components/examples/timer/timer';
-import TimerBasic from './_snippets/timer/basic.tsx';
-import TimerCountdown from './_snippets/timer/countdown.tsx';
-import TimerEvents from './_snippets/timer/events.tsx';
-import TimerInterval from './_snippets/timer/interval.tsx';
-import TimerPomodoro from './_snippets/timer/pomodoro.tsx';
-import TimerRootProvider from './_snippets/timer/root-provider.tsx';
+import * as TimerDocs from '@/components/examples/timer/css-properties';
+import TimerBasic from '@/components/examples/timer/basic.tsx';
+import TimerCountdown from '@/components/examples/timer/countdown.tsx';
+import TimerEvents from '@/components/examples/timer/events.tsx';
+import TimerInterval from '@/components/examples/timer/interval.tsx';
+import TimerPomodoro from '@/components/examples/timer/pomodoro.tsx';
+import TimerRootProvider from '@/components/examples/timer/root-provider.tsx';
 
 ## API Reference
 
@@ -34,7 +34,7 @@ custom children.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/timer/basic.tsx"
+```tsx file="../../../src/components/examples/timer/basic.tsx"
 ```
 
     </Tab>
@@ -139,7 +139,7 @@ Set `countdown` and `startMs` when the display should count down to zero.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/timer/countdown.tsx"
+```tsx file="../../../src/components/examples/timer/countdown.tsx"
 ```
 
     </Tab>
@@ -164,7 +164,7 @@ Use `onTick` and `onComplete` for side effects tied to the timer lifecycle.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/timer/events.tsx"
+```tsx file="../../../src/components/examples/timer/events.tsx"
 ```
 
     </Tab>
@@ -189,7 +189,7 @@ Use a shorter `interval` with a `milliseconds` item when the UI needs sub-second
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/timer/interval.tsx"
+```tsx file="../../../src/components/examples/timer/interval.tsx"
 ```
 
     </Tab>
@@ -214,7 +214,7 @@ Use `onComplete` to switch between work and break durations when the timer shoul
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/timer/pomodoro.tsx"
+```tsx file="../../../src/components/examples/timer/pomodoro.tsx"
 ```
 
     </Tab>
@@ -240,7 +240,7 @@ also the right composition for unit labels and other custom item layouts.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/timer/root-provider.tsx"
+```tsx file="../../../src/components/examples/timer/root-provider.tsx"
 ```
 
     </Tab>

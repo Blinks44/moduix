@@ -4,18 +4,18 @@ component: segment-group
 description: Un contrôle segmenté compact basé sur Ark UI pour choisir une valeur parmi un petit ensemble visible.
 ---
 
-import * as SegmentGroupDocs from '@/components/examples/segment-group/segment-group';
+import * as SegmentGroupDocs from '@/components/examples/segment-group/css-properties';
 import { CssPropertiesSection } from '@/components/mdx/Components';
-import SegmentGroupAsChild from '../../en/docs/_snippets/segment-group/aschild.tsx';
-import SegmentGroupBasic from '../../en/docs/_snippets/segment-group/basic.tsx';
-import SegmentGroupConditionalMount from '../../en/docs/_snippets/segment-group/conditional-mount.tsx';
-import SegmentGroupControlled from '../../en/docs/_snippets/segment-group/controlled.tsx';
-import SegmentGroupDisabled from '../../en/docs/_snippets/segment-group/disabled.tsx';
-import SegmentGroupField from '../../en/docs/_snippets/segment-group/field.tsx';
-import SegmentGroupFormSubmission from '../../en/docs/_snippets/segment-group/form-submission.tsx';
-import SegmentGroupInvalid from '../../en/docs/_snippets/segment-group/invalid.tsx';
-import SegmentGroupRootProvider from '../../en/docs/_snippets/segment-group/root-provider.tsx';
-import SegmentGroupVerticalOrientation from '../../en/docs/_snippets/segment-group/vertical-orientation.tsx';
+import SegmentGroupAsChild from '@/components/examples/segment-group/aschild.tsx';
+import SegmentGroupBasic from '@/components/examples/segment-group/basic.tsx';
+import SegmentGroupConditionalMount from '@/components/examples/segment-group/conditional-mount.tsx';
+import SegmentGroupControlled from '@/components/examples/segment-group/controlled.tsx';
+import SegmentGroupDisabled from '@/components/examples/segment-group/disabled.tsx';
+import SegmentGroupField from '@/components/examples/segment-group/field.tsx';
+import SegmentGroupFormSubmission from '@/components/examples/segment-group/form-submission.tsx';
+import SegmentGroupInvalid from '@/components/examples/segment-group/invalid.tsx';
+import SegmentGroupRootProvider from '@/components/examples/segment-group/root-provider.tsx';
+import SegmentGroupVerticalOrientation from '@/components/examples/segment-group/vertical-orientation.tsx';
 
 ## Référence de l’API
 
@@ -45,7 +45,7 @@ natif synchronisé.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/segment-group/basic.tsx"
+```tsx file="../../../src/components/examples/segment-group/basic.tsx"
 ```
 
     </Tab>
@@ -155,7 +155,7 @@ géométrie des éléments utilisée par l’indicateur.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/segment-group/conditional-mount.tsx"
+```tsx file="../../../src/components/examples/segment-group/conditional-mount.tsx"
 ```
 
     </Tab>
@@ -181,7 +181,7 @@ Conservez la valeur sélectionnée dans l’état React et mettez-la à jour ave
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/segment-group/controlled.tsx"
+```tsx file="../../../src/components/examples/segment-group/controlled.tsx"
 ```
 
     </Tab>
@@ -208,7 +208,7 @@ l’opacité du groupe, sans la cumuler avec celle de chaque élément.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/segment-group/disabled.tsx"
+```tsx file="../../../src/components/examples/segment-group/disabled.tsx"
 ```
 
     </Tab>
@@ -235,7 +235,7 @@ du champ.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/segment-group/field.tsx"
+```tsx file="../../../src/components/examples/segment-group/field.tsx"
 ```
 
     </Tab>
@@ -261,7 +261,7 @@ natif. `SegmentGroup.Items` ajoute un champ de formulaire natif à chaque élém
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/segment-group/form-submission.tsx"
+```tsx file="../../../src/components/examples/segment-group/form-submission.tsx"
 ```
 
     </Tab>
@@ -287,7 +287,7 @@ lorsque le groupe participe à la validation native du formulaire.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/segment-group/invalid.tsx"
+```tsx file="../../../src/components/examples/segment-group/invalid.tsx"
 ```
 
     </Tab>
@@ -307,7 +307,7 @@ l’arborescence des segments doivent accéder au même état.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/segment-group/root-provider.tsx"
+```tsx file="../../../src/components/examples/segment-group/root-provider.tsx"
 ```
 
     </Tab>
@@ -333,7 +333,7 @@ une navigation verticale avec les touches fléchées.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/segment-group/vertical-orientation.tsx"
+```tsx file="../../../src/components/examples/segment-group/vertical-orientation.tsx"
 ```
 
     </Tab>
@@ -359,7 +359,7 @@ personnalisée du libellé doit posséder le nœud DOM de l’élément.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/segment-group/aschild.tsx"
+```tsx file="../../../src/components/examples/segment-group/aschild.tsx"
 ```
 
     </Tab>

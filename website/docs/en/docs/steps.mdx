@@ -4,14 +4,14 @@ component: steps
 description: Guide users through a multi-step process with accessible Ark UI state and navigation.
 ---
 
-import * as StepsDocs from '@/components/examples/steps/steps';
-import StepsBasic from './_snippets/steps/basic.tsx';
-import StepsControlled from './_snippets/steps/controlled.tsx';
-import StepsValidation from './_snippets/steps/validation.tsx';
-import StepsProgress from './_snippets/steps/progress.tsx';
-import StepsRootProvider from './_snippets/steps/root-provider.tsx';
-import StepsVertical from './_snippets/steps/vertical.tsx';
-import StepsCustomComposition from './_snippets/steps/custom-composition.tsx';
+import * as StepsDocs from '@/components/examples/steps/css-properties';
+import StepsBasic from '@/components/examples/steps/basic.tsx';
+import StepsControlled from '@/components/examples/steps/controlled.tsx';
+import StepsValidation from '@/components/examples/steps/validation.tsx';
+import StepsProgress from '@/components/examples/steps/progress.tsx';
+import StepsRootProvider from '@/components/examples/steps/root-provider.tsx';
+import StepsVertical from '@/components/examples/steps/vertical.tsx';
+import StepsCustomComposition from '@/components/examples/steps/custom-composition.tsx';
 
 ## API Reference
 
@@ -35,7 +35,7 @@ part name.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/steps/basic.tsx"
+```tsx file="../../../src/components/examples/steps/basic.tsx"
 ```
 
     </Tab>
@@ -148,7 +148,7 @@ or another part of the interface.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/steps/controlled.tsx"
+```tsx file="../../../src/components/examples/steps/controlled.tsx"
 ```
 
     </Tab>
@@ -174,7 +174,7 @@ your validation rule.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/steps/validation.tsx"
+```tsx file="../../../src/components/examples/steps/validation.tsx"
 ```
 
     </Tab>
@@ -200,7 +200,7 @@ your own accessible status if the progress needs to be announced to assistive te
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/steps/progress.tsx"
+```tsx file="../../../src/components/examples/steps/progress.tsx"
 ```
 
     </Tab>
@@ -226,7 +226,7 @@ Create the state with `Steps.useSteps()` outside the rendered part tree, then pa
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/steps/root-provider.tsx"
+```tsx file="../../../src/components/examples/steps/root-provider.tsx"
 ```
 
     </Tab>
@@ -252,7 +252,7 @@ layouts and stack above it on narrow screens.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/steps/vertical.tsx"
+```tsx file="../../../src/components/examples/steps/vertical.tsx"
 ```
 
     </Tab>
@@ -278,7 +278,7 @@ Keep one semantic child so it receives Ark's ARIA, keyboard, and focus behavior.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/steps/custom-composition.tsx"
+```tsx file="../../../src/components/examples/steps/custom-composition.tsx"
 ```
 
     </Tab>

@@ -4,20 +4,20 @@ component: date-input
 description: A segmented date input built on Ark UI for single dates and ranges, with locale-aware editing and native form submission.
 ---
 
-import * as DateInputDocs from '@/components/examples/date-input/date-input';
-import DateInputAdvancedCustomization from './_snippets/date-input/advanced-customization.tsx';
-import DateInputBasic from './_snippets/date-input/basic.tsx';
-import DateInputControlled from './_snippets/date-input/controlled.tsx';
-import DateInputDisabledAndReadOnly from './_snippets/date-input/disabled-and-read-only.tsx';
-import DateInputFieldState from './_snippets/date-input/field-state.tsx';
-import DateInputGranularity from './_snippets/date-input/granularity.tsx';
-import DateInputLeadingZeros from './_snippets/date-input/leading-zeros.tsx';
-import DateInputLocale from './_snippets/date-input/locale.tsx';
-import DateInputMinMaxAndUnavailableDates from './_snippets/date-input/min-max-and-unavailable-dates.tsx';
-import DateInputRange from './_snippets/date-input/range.tsx';
-import DateInputRightToLeft from './_snippets/date-input/right-to-left.tsx';
-import DateInputRootProvider from './_snippets/date-input/root-provider.tsx';
-import DateInputTimeOnly from './_snippets/date-input/time-only.tsx';
+import * as DateInputDocs from '@/components/examples/date-input/css-properties';
+import DateInputAdvancedCustomization from '@/components/examples/date-input/advanced-customization.tsx';
+import DateInputBasic from '@/components/examples/date-input/basic.tsx';
+import DateInputControlled from '@/components/examples/date-input/controlled.tsx';
+import DateInputDisabledAndReadOnly from '@/components/examples/date-input/disabled-and-read-only.tsx';
+import DateInputFieldState from '@/components/examples/date-input/field-state.tsx';
+import DateInputGranularity from '@/components/examples/date-input/granularity.tsx';
+import DateInputLeadingZeros from '@/components/examples/date-input/leading-zeros.tsx';
+import DateInputLocale from '@/components/examples/date-input/locale.tsx';
+import DateInputMinMaxAndUnavailableDates from '@/components/examples/date-input/min-max-and-unavailable-dates.tsx';
+import DateInputRange from '@/components/examples/date-input/range.tsx';
+import DateInputRightToLeft from '@/components/examples/date-input/right-to-left.tsx';
+import DateInputRootProvider from '@/components/examples/date-input/root-provider.tsx';
+import DateInputTimeOnly from '@/components/examples/date-input/time-only.tsx';
 
 ## API Reference
 
@@ -44,7 +44,7 @@ the styled parts and automatic native form inputs, keeping the common compositio
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/date-input/basic.tsx"
+```tsx file="../../../src/components/examples/date-input/basic.tsx"
 ```
 
     </Tab>
@@ -155,7 +155,7 @@ Pass the selected date array to `value` and update it from `details.value` in `o
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/date-input/controlled.tsx"
+```tsx file="../../../src/components/examples/date-input/controlled.tsx"
 ```
 
     </Tab>
@@ -181,7 +181,7 @@ editable.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/date-input/disabled-and-read-only.tsx"
+```tsx file="../../../src/components/examples/date-input/disabled-and-read-only.tsx"
 ```
 
     </Tab>
@@ -207,7 +207,7 @@ directly to `DateInput` when Ark state attributes should appear on the date inpu
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/date-input/field-state.tsx"
+```tsx file="../../../src/components/examples/date-input/field-state.tsx"
 ```
 
     </Tab>
@@ -232,7 +232,7 @@ Set `granularity` to include time segments in the input.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/date-input/granularity.tsx"
+```tsx file="../../../src/components/examples/date-input/granularity.tsx"
 ```
 
     </Tab>
@@ -257,7 +257,7 @@ Set `shouldForceLeadingZeros={false}` when numeric segments should not include l
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/date-input/leading-zeros.tsx"
+```tsx file="../../../src/components/examples/date-input/leading-zeros.tsx"
 ```
 
     </Tab>
@@ -283,7 +283,7 @@ should follow regional conventions.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/date-input/locale.tsx"
+```tsx file="../../../src/components/examples/date-input/locale.tsx"
 ```
 
     </Tab>
@@ -308,7 +308,7 @@ Use `min`, `max`, and `isDateUnavailable` to mark entered dates outside business
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/date-input/min-max-and-unavailable-dates.tsx"
+```tsx file="../../../src/components/examples/date-input/min-max-and-unavailable-dates.tsx"
 ```
 
     </Tab>
@@ -334,7 +334,7 @@ the indexed native inputs.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/date-input/range.tsx"
+```tsx file="../../../src/components/examples/date-input/range.tsx"
 ```
 
     </Tab>
@@ -359,7 +359,7 @@ Set `dir="rtl"` with an RTL locale to keep the locale's segment order and direct
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/date-input/right-to-left.tsx"
+```tsx file="../../../src/components/examples/date-input/right-to-left.tsx"
 ```
 
     </Tab>
@@ -385,7 +385,7 @@ be available outside the rendered root tree.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/date-input/root-provider.tsx"
+```tsx file="../../../src/components/examples/date-input/root-provider.tsx"
 ```
 
     </Tab>
@@ -411,7 +411,7 @@ of the value users edit.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/date-input/time-only.tsx"
+```tsx file="../../../src/components/examples/date-input/time-only.tsx"
 ```
 
     </Tab>
@@ -437,7 +437,7 @@ Use the full segment composition when rendering needs to vary based on Ark segme
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/date-input/advanced-customization.tsx"
+```tsx file="../../../src/components/examples/date-input/advanced-customization.tsx"
 ```
 
     </Tab>

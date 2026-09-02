@@ -4,15 +4,15 @@ component: qr-code
 description: A QR code component built on Ark UI that renders SVG output, supports overlays, and can download the code as an image.
 ---
 
-import QrCodeBasic from './_snippets/qr-code/basic.tsx';
-import ControlledQrCode from './_snippets/qr-code/controlled.tsx';
-import DownloadQrCode from './_snippets/qr-code/download.tsx';
-import ErrorCorrectionQrCode from './_snippets/qr-code/error-correction.tsx';
-import FillQrCode from './_snippets/qr-code/fill.tsx';
-import InputQrCode from './_snippets/qr-code/input.tsx';
-import OverlayQrCode from './_snippets/qr-code/overlay.tsx';
-import RootProviderQrCode from './_snippets/qr-code/root-provider.tsx';
-import * as QrCodeDocs from '@/components/examples/qr-code/qr-code';
+import QrCodeBasic from '@/components/examples/qr-code/basic.tsx';
+import ControlledQrCode from '@/components/examples/qr-code/controlled.tsx';
+import DownloadQrCode from '@/components/examples/qr-code/download.tsx';
+import ErrorCorrectionQrCode from '@/components/examples/qr-code/error-correction.tsx';
+import FillQrCode from '@/components/examples/qr-code/fill.tsx';
+import InputQrCode from '@/components/examples/qr-code/input.tsx';
+import OverlayQrCode from '@/components/examples/qr-code/overlay.tsx';
+import RootProviderQrCode from '@/components/examples/qr-code/root-provider.tsx';
+import * as QrCodeDocs from '@/components/examples/qr-code/css-properties';
 
 ## API Reference
 
@@ -32,7 +32,7 @@ name when the QR code conveys information.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/qr-code/basic.tsx"
+```tsx file="../../../src/components/examples/qr-code/basic.tsx"
 ```
 
     </Tab>
@@ -138,7 +138,7 @@ state.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/qr-code/controlled.tsx"
+```tsx file="../../../src/components/examples/qr-code/controlled.tsx"
 ```
 
     </Tab>
@@ -164,7 +164,7 @@ Add `QrCode.DownloadTrigger` when users need to save the generated code as an im
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/qr-code/download.tsx"
+```tsx file="../../../src/components/examples/qr-code/download.tsx"
 ```
 
     </Tab>
@@ -189,7 +189,7 @@ an overlay covers part of the code or when the code may be scratched or distorte
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/qr-code/error-correction.tsx"
+```tsx file="../../../src/components/examples/qr-code/error-correction.tsx"
 ```
 
     </Tab>
@@ -215,7 +215,7 @@ The QR modules use `currentColor` by default. Change the SVG fill with `style`, 
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/qr-code/fill.tsx"
+```tsx file="../../../src/components/examples/qr-code/fill.tsx"
 ```
 
     </Tab>
@@ -241,7 +241,7 @@ Give the frame an accessible name that explains what the code represents.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/qr-code/input.tsx"
+```tsx file="../../../src/components/examples/qr-code/input.tsx"
 ```
 
     </Tab>
@@ -267,7 +267,7 @@ overlay small enough that scanners can still read the code.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/qr-code/overlay.tsx"
+```tsx file="../../../src/components/examples/qr-code/overlay.tsx"
 ```
 
     </Tab>
@@ -293,7 +293,7 @@ that state to `QrCode.RootProvider`.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/qr-code/root-provider.tsx"
+```tsx file="../../../src/components/examples/qr-code/root-provider.tsx"
 ```
 
     </Tab>

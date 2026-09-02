@@ -4,11 +4,11 @@ component: table-of-contents
 description: Keep an accessible table of contents in sync with the section a reader is viewing.
 ---
 
-import TocBasic from './_snippets/table-of-contents/basic.tsx';
-import TocRail from './_snippets/table-of-contents/rail.tsx';
-import TocRootProvider from './_snippets/table-of-contents/root-provider.tsx';
-import TocWithCollapsible from './_snippets/table-of-contents/with-collapsible.tsx';
-import * as TocDocs from '@/components/examples/table-of-contents/table-of-contents';
+import TocBasic from '@/components/examples/table-of-contents/basic.tsx';
+import TocRail from '@/components/examples/table-of-contents/rail.tsx';
+import TocRootProvider from '@/components/examples/table-of-contents/root-provider.tsx';
+import TocWithCollapsible from '@/components/examples/table-of-contents/with-collapsible.tsx';
+import * as TocDocs from '@/components/examples/table-of-contents/css-properties';
 
 ## API Reference
 
@@ -33,7 +33,7 @@ tracking and link navigation inside the preview.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/table-of-contents/basic.tsx"
+```tsx file="../../../src/components/examples/table-of-contents/basic.tsx"
 ```
 
     </Tab>
@@ -155,7 +155,7 @@ Use `useToc()` when another control needs to read the active headings or scroll 
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/table-of-contents/root-provider.tsx"
+```tsx file="../../../src/components/examples/table-of-contents/root-provider.tsx"
 ```
 
     </Tab>
@@ -182,7 +182,7 @@ active link uses the indicator colour. Do not render `Toc.Indicator` in the same
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/table-of-contents/rail.tsx"
+```tsx file="../../../src/components/examples/table-of-contents/rail.tsx"
 ```
 
     </Tab>
@@ -209,7 +209,7 @@ the links continue to target the same reading pane.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/table-of-contents/with-collapsible.tsx"
+```tsx file="../../../src/components/examples/table-of-contents/with-collapsible.tsx"
 ```
 
     </Tab>

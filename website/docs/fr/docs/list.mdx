@@ -4,14 +4,14 @@ component: list
 description: Liste sémantique avec espacement, typographie, tonalité et marqueurs natifs personnalisables.
 ---
 
-import * as ListDocs from '@/components/examples/list/list';
-import ListBasic from '../../en/docs/_snippets/list/basic.tsx';
-import ListCustomComposition from '../../en/docs/_snippets/list/custom-composition.tsx';
-import ListMarkerless from '../../en/docs/_snippets/list/markerless.tsx';
-import ListNativeItems from '../../en/docs/_snippets/list/native-items.tsx';
-import ListOrdered from '../../en/docs/_snippets/list/ordered.tsx';
-import ListRootAsChild from '../../en/docs/_snippets/list/root-as-child.tsx';
-import ListTone from '../../en/docs/_snippets/list/tone.tsx';
+import * as ListDocs from '@/components/examples/list/css-properties';
+import ListBasic from '@/components/examples/list/basic.tsx';
+import ListCustomComposition from '@/components/examples/list/custom-composition.tsx';
+import ListMarkerless from '@/components/examples/list/markerless.tsx';
+import ListNativeItems from '@/components/examples/list/native-items.tsx';
+import ListOrdered from '@/components/examples/list/ordered.tsx';
+import ListRootAsChild from '@/components/examples/list/root-as-child.tsx';
+import ListTone from '@/components/examples/list/tone.tsx';
 
 ## Référence de l’API
 
@@ -43,7 +43,7 @@ La racine `List` gère l’espacement, la typographie, la tonalité et les marqu
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/list/basic.tsx"
+```tsx file="../../../src/components/examples/list/basic.tsx"
 ```
 
     </Tab>
@@ -126,7 +126,7 @@ Il doit transmettre les props et la ref reçues à un unique `<ul>` ou `<ol>`.
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/list/root-as-child.tsx"
+```tsx file="../../../src/components/examples/list/root-as-child.tsx"
 ```
 
     </Tab>
@@ -145,7 +145,7 @@ Utilisez `marker="none"` si vous avez besoin de la sémantique d’une liste san
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/list/markerless.tsx"
+```tsx file="../../../src/components/examples/list/markerless.tsx"
 ```
 
     </Tab>
@@ -164,7 +164,7 @@ Utilisez des éléments `li` natifs si vous n’avez pas besoin de la partie exp
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/list/native-items.tsx"
+```tsx file="../../../src/components/examples/list/native-items.tsx"
 ```
 
     </Tab>
@@ -183,7 +183,7 @@ Utilisez `as="ol"` pour rendre une liste ordonnée tout en conservant les styles
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/list/ordered.tsx"
+```tsx file="../../../src/components/examples/list/ordered.tsx"
 ```
 
     </Tab>
@@ -202,7 +202,7 @@ Utilisez `tone` pour appliquer une couleur sémantique au texte et aux marqueurs
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/list/tone.tsx"
+```tsx file="../../../src/components/examples/list/tone.tsx"
 ```
 
     </Tab>
@@ -229,7 +229,7 @@ directement `List.Item className`.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../en/docs/_snippets/list/custom-composition.tsx"
+```tsx file="../../../src/components/examples/list/custom-composition.tsx"
 ```
 
     </Tab>

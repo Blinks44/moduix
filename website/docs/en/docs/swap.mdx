@@ -3,7 +3,7 @@ title: Swap
 description: Animate the transition between two visual states with moduix presets built on Ark UI.
 ---
 
-import * as SwapDocs from '@/components/examples/swap';
+import * as SwapDocs from '@/components/examples/swap/css-properties';
 
 ## API Reference
 
@@ -16,7 +16,7 @@ changes after an action. Pass the current boolean to `swap`: `false` shows the `
 `true` shows the `on` indicator. The surrounding control owns the interaction and accessible name.
 
 <PreviewFrame>
-  ```tsx preview file="./_snippets/swap/basic.tsx"
+  ```tsx preview file="../../../src/components/examples/swap/basic.tsx"
 
   ```
 </PreviewFrame>
@@ -87,7 +87,7 @@ Try each built-in recipe, then activate the button to see the selected transitio
 current value are shown below the demo.
 
 <PreviewFrame>
-  ```tsx preview file="./_snippets/swap/animation-presets.tsx"
+  ```tsx preview file="../../../src/components/examples/swap/animation-presets.tsx"
 
   ```
 </PreviewFrame>
@@ -102,7 +102,7 @@ fallback.
 <style>{SwapDocs.swapCustomAnimationCss}</style>
 
 <PreviewFrame>
-  ```tsx preview file="./_snippets/swap/custom-animation.tsx"
+  ```tsx preview file="../../../src/components/examples/swap/custom-animation.tsx"
 
   ```
 </PreviewFrame>
@@ -148,7 +148,7 @@ the `value` prop. This example also uses `asChild`, so the semantic button becom
 root.
 
 <PreviewFrame>
-  ```tsx preview file="./_snippets/swap/root-provider.tsx"
+  ```tsx preview file="../../../src/components/examples/swap/root-provider.tsx"
 
   ```
 </PreviewFrame>

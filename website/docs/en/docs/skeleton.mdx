@@ -4,14 +4,14 @@ component: skeleton
 description: A loading placeholder for text, cards, media objects, and custom page sections.
 ---
 
-import * as SkeletonDocs from '@/components/examples/skeleton/skeleton';
-import SkeletonBasic from './_snippets/skeleton/basic.tsx';
-import SkeletonCard from './_snippets/skeleton/card.tsx';
-import SkeletonCustomHost from './_snippets/skeleton/custom-host.tsx';
-import SkeletonLoadedContent from './_snippets/skeleton/loaded-content.tsx';
-import SkeletonMediaObject from './_snippets/skeleton/media-object.tsx';
-import SkeletonResponsiveLayout from './_snippets/skeleton/responsive-layout.tsx';
-import SkeletonVariants from './_snippets/skeleton/variants.tsx';
+import * as SkeletonDocs from '@/components/examples/skeleton/css-properties';
+import SkeletonBasic from '@/components/examples/skeleton/basic.tsx';
+import SkeletonCard from '@/components/examples/skeleton/card.tsx';
+import SkeletonCustomHost from '@/components/examples/skeleton/custom-host.tsx';
+import SkeletonLoadedContent from '@/components/examples/skeleton/loaded-content.tsx';
+import SkeletonMediaObject from '@/components/examples/skeleton/media-object.tsx';
+import SkeletonResponsiveLayout from '@/components/examples/skeleton/responsive-layout.tsx';
+import SkeletonVariants from '@/components/examples/skeleton/variants.tsx';
 
 ## API Reference
 
@@ -32,7 +32,7 @@ Start with a few `Skeleton` lines when text is still loading.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/skeleton/basic.tsx"
+```tsx file="../../../src/components/examples/skeleton/basic.tsx"
 ```
 
     </Tab>
@@ -114,7 +114,7 @@ Use a larger block and shorter text lines to reserve the card layout while conte
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/skeleton/card.tsx"
+```tsx file="../../../src/components/examples/skeleton/card.tsx"
 ```
 
     </Tab>
@@ -139,7 +139,7 @@ Use `loading` to keep the same root element in place while switching from the pl
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/skeleton/loaded-content.tsx"
+```tsx file="../../../src/components/examples/skeleton/loaded-content.tsx"
 ```
 
     </Tab>
@@ -164,7 +164,7 @@ Use `boxSize` with a full radius for an avatar placeholder, then place text line
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/skeleton/media-object.tsx"
+```tsx file="../../../src/components/examples/skeleton/media-object.tsx"
 ```
 
     </Tab>
@@ -189,7 +189,7 @@ Keep responsive layout logic in the wrapper while each `Skeleton` remains a visu
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/skeleton/responsive-layout.tsx"
+```tsx file="../../../src/components/examples/skeleton/responsive-layout.tsx"
 ```
 
     </Tab>
@@ -214,7 +214,7 @@ Use `variant` to choose between pulse and static placeholder rendering.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/skeleton/variants.tsx"
+```tsx file="../../../src/components/examples/skeleton/variants.tsx"
 ```
 
     </Tab>
@@ -239,7 +239,7 @@ Use `asChild` when a semantic element such as `section` should become the DOM ro
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/skeleton/custom-host.tsx"
+```tsx file="../../../src/components/examples/skeleton/custom-host.tsx"
 ```
 
     </Tab>

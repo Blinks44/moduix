@@ -4,12 +4,12 @@ component: command-palette
 description: A searchable command menu in a dialog, with keyboard shortcuts for quick access.
 ---
 
-import * as CommandPaletteDocs from '@/components/examples/command-palette/command-palette';
-import CommandPaletteBasic from './_snippets/command-palette/basic.tsx';
-import AdvancedCommandPalette from './_snippets/command-palette/advanced-customization.tsx';
-import ControlledCommandPalette from './_snippets/command-palette/controlled-open-state.tsx';
-import CommandPaletteShortcutDemo from './_snippets/command-palette/enable-the-global-shortcut.tsx';
-import CommandPaletteActionsDemo from './_snippets/command-palette/item-actions.tsx';
+import * as CommandPaletteDocs from '@/components/examples/command-palette/css-properties';
+import CommandPaletteBasic from '@/components/examples/command-palette/basic.tsx';
+import AdvancedCommandPalette from '@/components/examples/command-palette/advanced-customization.tsx';
+import ControlledCommandPalette from '@/components/examples/command-palette/controlled-open-state.tsx';
+import CommandPaletteShortcutDemo from '@/components/examples/command-palette/enable-the-global-shortcut.tsx';
+import CommandPaletteActionsDemo from '@/components/examples/command-palette/item-actions.tsx';
 
 ## API Reference
 
@@ -34,7 +34,7 @@ once the user enters a query.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/command-palette/basic.tsx"
+```tsx file="../../../src/components/examples/command-palette/basic.tsx"
 ```
 
     </Tab>
@@ -201,7 +201,7 @@ The example resets the external collection filter when the palette closes.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/command-palette/controlled-open-state.tsx"
+```tsx file="../../../src/components/examples/command-palette/controlled-open-state.tsx"
 ```
 
     </Tab>
@@ -227,7 +227,7 @@ Set `shortcut="alt+k"` to register a global toggle. This is the only preview on 
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/command-palette/enable-the-global-shortcut.tsx"
+```tsx file="../../../src/components/examples/command-palette/enable-the-global-shortcut.tsx"
 ```
 
     </Tab>
@@ -253,7 +253,7 @@ after the selected action runs.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/command-palette/item-actions.tsx"
+```tsx file="../../../src/components/examples/command-palette/item-actions.tsx"
 ```
 
     </Tab>
@@ -279,7 +279,7 @@ The example keeps Ark Dialog and Combobox behavior while replacing the convenien
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/command-palette/advanced-customization.tsx"
+```tsx file="../../../src/components/examples/command-palette/advanced-customization.tsx"
 ```
 
     </Tab>

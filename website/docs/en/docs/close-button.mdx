@@ -4,11 +4,11 @@ component: close-button
 description: An icon-only button for dismissing notifications, cards, overlays, and other UI surfaces.
 ---
 
-import * as CloseButtonDocs from '@/components/examples/close-button/close-button';
-import CloseButtonAsChild from './_snippets/close-button/as-child.tsx';
-import CloseButtonBasic from './_snippets/close-button/basic.tsx';
-import CloseButtonCustomChildren from './_snippets/close-button/custom-children.tsx';
-import CloseButtonDisabled from './_snippets/close-button/disabled-state.tsx';
+import * as CloseButtonDocs from '@/components/examples/close-button/css-properties';
+import CloseButtonAsChild from '@/components/examples/close-button/as-child.tsx';
+import CloseButtonBasic from '@/components/examples/close-button/basic.tsx';
+import CloseButtonCustomChildren from '@/components/examples/close-button/custom-children.tsx';
+import CloseButtonDisabled from '@/components/examples/close-button/disabled-state.tsx';
 
 ## API Reference
 
@@ -31,7 +31,7 @@ provides a default accessible name, and shows a `CloseIcon`, but it does not man
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/close-button/basic.tsx"
+```tsx file="../../../src/components/examples/close-button/basic.tsx"
 ```
 
     </Tab>
@@ -117,7 +117,7 @@ CloseButton's styles and data attributes. Set `type="button"` on the child and p
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/close-button/as-child.tsx"
+```tsx file="../../../src/components/examples/close-button/as-child.tsx"
 ```
 
     </Tab>
@@ -143,7 +143,7 @@ The example uses a simple X-shaped mark and keeps it decorative with `aria-hidde
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/close-button/custom-children.tsx"
+```tsx file="../../../src/components/examples/close-button/custom-children.tsx"
 ```
 
     </Tab>
@@ -169,7 +169,7 @@ remain focusable but must not activate.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/close-button/disabled-state.tsx"
+```tsx file="../../../src/components/examples/close-button/disabled-state.tsx"
 ```
 
     </Tab>

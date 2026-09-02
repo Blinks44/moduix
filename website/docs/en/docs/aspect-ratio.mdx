@@ -4,12 +4,12 @@ component: aspect-ratio
 description: Keeps media and embedded content inside a responsive frame with a fixed aspect ratio.
 ---
 
-import * as AspectRatioDocs from '@/components/examples/aspect-ratio/aspect-ratio';
-import AspectRatioAdvancedCustomization from './_snippets/aspect-ratio/advanced-customization.tsx';
-import AspectRatioBasic from './_snippets/aspect-ratio/basic.tsx';
-import AspectRatioCardGrid from './_snippets/aspect-ratio/card-grid.tsx';
-import AspectRatioEmbeddedContent from './_snippets/aspect-ratio/embedded-content.tsx';
-import AspectRatioMigration from './_snippets/aspect-ratio/migrating-from-shadcn.tsx';
+import * as AspectRatioDocs from '@/components/examples/aspect-ratio/css-properties';
+import AspectRatioAdvancedCustomization from '@/components/examples/aspect-ratio/advanced-customization.tsx';
+import AspectRatioBasic from '@/components/examples/aspect-ratio/basic.tsx';
+import AspectRatioCardGrid from '@/components/examples/aspect-ratio/card-grid.tsx';
+import AspectRatioEmbeddedContent from '@/components/examples/aspect-ratio/embedded-content.tsx';
+import AspectRatioMigration from '@/components/examples/aspect-ratio/migrating-from-shadcn.tsx';
 
 ## API Reference
 
@@ -36,7 +36,7 @@ their content or contain it within the frame.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/aspect-ratio/basic.tsx"
+```tsx file="../../../src/components/examples/aspect-ratio/basic.tsx"
 ```
 
     </Tab>
@@ -131,7 +131,7 @@ different dimensions.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/aspect-ratio/card-grid.tsx"
+```tsx file="../../../src/components/examples/aspect-ratio/card-grid.tsx"
 ```
 
     </Tab>
@@ -156,7 +156,7 @@ Wrap a video or another embed in `AspectRatio` to keep the frame stable while ex
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/aspect-ratio/embedded-content.tsx"
+```tsx file="../../../src/components/examples/aspect-ratio/embedded-content.tsx"
 ```
 
     </Tab>
@@ -182,7 +182,7 @@ also works with Next.js `Image` using `fill`.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/aspect-ratio/migrating-from-shadcn.tsx"
+```tsx file="../../../src/components/examples/aspect-ratio/migrating-from-shadcn.tsx"
 ```
 
     </Tab>
@@ -208,7 +208,7 @@ component props into its only child element.
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="./_snippets/aspect-ratio/advanced-customization.tsx"
+```tsx file="../../../src/components/examples/aspect-ratio/advanced-customization.tsx"
 ```
 
     </Tab>
