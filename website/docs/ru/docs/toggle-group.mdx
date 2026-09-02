@@ -4,7 +4,17 @@ component: toggle-group
 description: Группа кнопок-переключателей с навигацией с клавиатуры для одиночного и множественного выбора.
 ---
 
-import * as ToggleGroupDocs from '@/components/examples/toggle-group';
+import * as ToggleGroupDocs from '@/components/examples/toggle-group/toggle-group';
+import ToggleGroupAsChild from '../../en/docs/_snippets/toggle-group/as-child.tsx';
+import ToggleGroupBasic from '../../en/docs/_snippets/toggle-group/basic.tsx';
+import ToggleGroupContext from '../../en/docs/_snippets/toggle-group/context.tsx';
+import ToggleGroupControlled from '../../en/docs/_snippets/toggle-group/controlled.tsx';
+import ToggleGroupDisabled from '../../en/docs/_snippets/toggle-group/disabled.tsx';
+import ToggleGroupIcons from '../../en/docs/_snippets/toggle-group/icons.tsx';
+import ToggleGroupMultipleSelection from '../../en/docs/_snippets/toggle-group/multiple-selection.tsx';
+import ToggleGroupRootProvider from '../../en/docs/_snippets/toggle-group/root-provider.tsx';
+import ToggleGroupVariants from '../../en/docs/_snippets/toggle-group/variants.tsx';
+import ToggleGroupVertical from '../../en/docs/_snippets/toggle-group/vertical.tsx';
 
 ## Справочник API
 
@@ -29,11 +39,20 @@ import * as ToggleGroupDocs from '@/components/examples/toggle-group';
 одному `ToggleGroup.Item` на каждый вариант. Задайте группе доступное имя через `aria-label` или
 `aria-labelledby`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/toggle-group/basic.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toggle-group/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -123,93 +142,198 @@ moduix добавляет два визуальных свойства к `Toggl
 Передавайте ровно одного потомка, который ведёт себя как кнопка, чтобы Ark мог объединить семантику группы и
 клавиатурное поведение.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/toggle-group/as-child.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupAsChild />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toggle-group/as-child.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Контекст
 
 Используйте `useToggleGroupContext()` в пользовательском элементе, если его содержимому нужно текущее состояние
 группы. `ToggleGroup.Context` предоставляет то же состояние через render prop.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/toggle-group/context.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupContext />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toggle-group/context.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Управляемое состояние
 
 Управляйте `value` из состояния React, если группа должна оставаться синхронизированной с остальным интерфейсом.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/toggle-group/controlled.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupControlled />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toggle-group/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toggle-group/toggle-group-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Отключённая группа и элемент
 
 Используйте `disabled` на группе или отдельном элементе, чтобы запретить взаимодействие.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/toggle-group/disabled.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupDisabled />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toggle-group/disabled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toggle-group/toggle-group-disabled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Иконки
 
 Передавайте иконки как обычные дочерние элементы. Элементам только с иконками всегда нужно доступное имя.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/toggle-group/icons.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupIcons />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toggle-group/icons.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Множественный выбор
 
 Используйте `multiple`, если несколько вариантов могут оставаться выбранными одновременно.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/toggle-group/multiple-selection.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupMultipleSelection />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toggle-group/multiple-selection.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Варианты
 
 Установите `variant` на группе, если все элементы должны использовать одинаковое оформление.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/toggle-group/variants.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupVariants />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toggle-group/variants.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toggle-group/toggle-group-variants.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Вертикальная ориентация
 
 Установите `orientation="vertical"`, если варианты должны располагаться столбцом.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/toggle-group/vertical.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupVertical />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toggle-group/vertical.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
 Используйте `ToggleGroup.RootProvider` с `useToggleGroup` из moduix, если экземпляр состояния нужно разделить
 с другими частями интерфейса или настроить до отрисовки корневого компонента.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/toggle-group/root-provider.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupRootProvider />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toggle-group/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toggle-group/toggle-group-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

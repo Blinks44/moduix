@@ -1,6 +1,7 @@
 import { TreeView, createTreeCollection } from '@moduix/react/tree-view';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/tree-view/tree-view-controlled-selection.module.css';
 
 type FileNode = { children?: FileNode[]; id: string; name: string };
 
@@ -25,7 +26,7 @@ export default function ControlledSelectionTreeViewDemo() {
   const [selectedValue, setSelectedValue] = useState<string[]>(['package.json']);
 
   return (
-    <div style={{ display: 'grid', gap: '0.75rem', justifyItems: 'center' }}>
+    <div className={styles.root}>
       <TreeView
         collection={collection}
         selectedValue={selectedValue}
@@ -45,7 +46,7 @@ export default function ControlledSelectionTreeViewDemo() {
           ))}
         </TreeView.Tree>
       </TreeView>
-      <PreviewMeta style={{ justifySelf: 'center' }}>
+      <PreviewMeta>
         <output aria-live="polite">Selected: {selectedValue.join(', ') || 'none'}</output>
       </PreviewMeta>
     </div>

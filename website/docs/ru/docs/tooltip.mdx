@@ -4,7 +4,18 @@ component: tooltip
 description: Короткая дополнительная подсказка, которая появляется при наведении или когда триггер получает фокус.
 ---
 
-import * as TooltipDocs from '@/components/examples/tooltip';
+import * as TooltipDocs from '@/components/examples/tooltip/component';
+import TooltipAdvancedCustomization from '../../en/docs/_snippets/tooltip/advanced-customization.tsx';
+import TooltipBasic from '../../en/docs/_snippets/tooltip/basic.tsx';
+import TooltipContext from '../../en/docs/_snippets/tooltip/context.tsx';
+import TooltipControlled from '../../en/docs/_snippets/tooltip/controlled.tsx';
+import TooltipDelay from '../../en/docs/_snippets/tooltip/delay.tsx';
+import TooltipDisabledTrigger from '../../en/docs/_snippets/tooltip/disabled-trigger.tsx';
+import TooltipMultipleTriggers from '../../en/docs/_snippets/tooltip/multiple-triggers.tsx';
+import TooltipPositioning from '../../en/docs/_snippets/tooltip/positioning.tsx';
+import TooltipRootProvider from '../../en/docs/_snippets/tooltip/root-provider.tsx';
+import TooltipWithArrow from '../../en/docs/_snippets/tooltip/with-arrow.tsx';
+import TooltipWithinFixedContainers from '../../en/docs/_snippets/tooltip/within-fixed-containers.tsx';
 
 ## Справочник API
 
@@ -26,11 +37,20 @@ import * as TooltipDocs from '@/components/examples/tooltip';
 У самого триггера должно быть доступное имя. Содержимое подсказки дополняет интерфейс и не заменяет
 видимый текст или `aria-label`.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/basic.tsx"
+<ExampleFrame variant="component">
+  <TooltipBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tooltip/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -169,75 +189,153 @@ Tooltip / Tooltip.Root
 Используйте `useTooltipContext()` внутри потомка, которому нужно текущее состояние подсказки.
 Используйте `Tooltip.Context`, когда для пользовательской композиции удобнее render prop.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/context.tsx"
+<ExampleFrame variant="component">
+  <TooltipContext />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tooltip/context.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Управляемое состояние
 
 Управляйте открытием подсказки с помощью `open` и `onOpenChange(details)`.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/controlled.tsx"
+<ExampleFrame variant="component">
+  <TooltipControlled />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tooltip/controlled.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Задержка
 
 Укажите `openDelay` и `closeDelay` у корневого компонента, чтобы настроить задержки при наведении и
 фокусе.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/delay.tsx"
+<ExampleFrame variant="component">
+  <TooltipDelay />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tooltip/delay.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Отключённый триггер
 
 Используйте `Tooltip.DisabledTrigger`, когда отключённому нативному элементу управления всё ещё
 нужно краткое пояснение. Обёртка может получать фокус, не меняя состояние отключённого потомка.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/disabled-trigger.tsx"
+<ExampleFrame variant="component">
+  <TooltipDisabledTrigger />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tooltip/disabled-trigger.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Несколько триггеров
 
 Задайте каждому триггеру `value` и используйте `onTriggerValueChange(details)`, чтобы связать одну
 подсказку с несколькими триггерами.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/multiple-triggers.tsx"
+<ExampleFrame variant="component">
+  <TooltipMultipleTriggers />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tooltip/multiple-triggers.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tooltip/component-multiple-triggers.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Позиционирование
 
 Передавайте в `Tooltip` параметры позиционирования Ark, включая размещение и значения отступов.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/positioning.tsx"
+<ExampleFrame variant="component">
+  <TooltipPositioning />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tooltip/positioning.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tooltip/component-positioning.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Используйте `useTooltip()` вместе с `Tooltip.RootProvider`, если состояние подсказки создаётся за
 пределами дерева, в котором она отображается.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/root-provider.tsx"
+<ExampleFrame variant="component">
+  <TooltipRootProvider />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tooltip/root-provider.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Со стрелкой
 
@@ -245,11 +343,20 @@ Tooltip / Tooltip.Root
 триггер. При использовании `Tooltip.Body` разместите его непосредственно внутри `Tooltip.Body`.
 Обёртка сама добавит стандартный `Tooltip.ArrowTip`.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/with-arrow.tsx"
+<ExampleFrame variant="component">
+  <TooltipWithArrow />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tooltip/with-arrow.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### В фиксированных контейнерах
 
@@ -257,22 +364,49 @@ Tooltip / Tooltip.Root
 области интерфейса. В этом примере задано `closeOnScroll={false}`, поэтому можно сфокусировать
 триггер, прокручивать панель и проверять выравнивание подсказки.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/within-fixed-containers.tsx"
+<ExampleFrame variant="component">
+  <TooltipWithinFixedContainers />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tooltip/within-fixed-containers.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tooltip/component-within-fixed-containers.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
 Используйте явные части `Tooltip.Positioner` и `Tooltip.Content`, если им нужны независимые
 композиция или стилизация.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <TooltipAdvancedCustomization />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tooltip/advanced-customization.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

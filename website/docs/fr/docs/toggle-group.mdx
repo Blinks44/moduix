@@ -4,7 +4,17 @@ component: toggle-group
 description: Un groupe de boutons à bascule navigable au clavier pour une sélection unique ou multiple.
 ---
 
-import * as ToggleGroupDocs from '@/components/examples/toggle-group';
+import * as ToggleGroupDocs from '@/components/examples/toggle-group/toggle-group';
+import ToggleGroupAsChild from '../../en/docs/_snippets/toggle-group/as-child.tsx';
+import ToggleGroupBasic from '../../en/docs/_snippets/toggle-group/basic.tsx';
+import ToggleGroupContext from '../../en/docs/_snippets/toggle-group/context.tsx';
+import ToggleGroupControlled from '../../en/docs/_snippets/toggle-group/controlled.tsx';
+import ToggleGroupDisabled from '../../en/docs/_snippets/toggle-group/disabled.tsx';
+import ToggleGroupIcons from '../../en/docs/_snippets/toggle-group/icons.tsx';
+import ToggleGroupMultipleSelection from '../../en/docs/_snippets/toggle-group/multiple-selection.tsx';
+import ToggleGroupRootProvider from '../../en/docs/_snippets/toggle-group/root-provider.tsx';
+import ToggleGroupVariants from '../../en/docs/_snippets/toggle-group/variants.tsx';
+import ToggleGroupVertical from '../../en/docs/_snippets/toggle-group/vertical.tsx';
 
 ## Référence de l’API
 
@@ -29,11 +39,20 @@ Dans le cas courant, utilisez `<ToggleGroup>`. C’est le raccourci de `<ToggleG
 `ToggleGroup.Item` pour chaque choix. Donnez au groupe un nom accessible avec `aria-label` ou
 `aria-labelledby`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/toggle-group/basic.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toggle-group/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -123,94 +142,199 @@ Utilisez `asChild` sur un élément lorsqu’un bouton personnalisé doit porter
 exactement un enfant qui se comporte comme un bouton afin qu’Ark puisse fusionner la sémantique du groupe
 et le comportement clavier.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/toggle-group/as-child.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupAsChild />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toggle-group/as-child.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Contexte
 
 Utilisez `useToggleGroupContext()` dans un élément personnalisé lorsque son contenu a besoin de l’état
 actuel du groupe. `ToggleGroup.Context` fournit le même état via une render prop.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/toggle-group/context.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupContext />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toggle-group/context.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Valeur contrôlée
 
 Contrôlez `value` depuis l’état React lorsque le groupe doit rester synchronisé avec le reste de l’interface.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/toggle-group/controlled.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupControlled />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toggle-group/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toggle-group/toggle-group-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Groupe et élément désactivés
 
 Utilisez `disabled` sur le groupe ou sur un élément précis pour empêcher les interactions.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/toggle-group/disabled.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupDisabled />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toggle-group/disabled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toggle-group/toggle-group-disabled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Icônes
 
 Passez les icônes comme des enfants ordinaires. Les éléments qui n’affichent qu’une icône doivent toujours
 avoir un libellé accessible.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/toggle-group/icons.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupIcons />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toggle-group/icons.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Sélection multiple
 
 Utilisez `multiple` lorsque plusieurs choix peuvent rester activés simultanément.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/toggle-group/multiple-selection.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupMultipleSelection />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toggle-group/multiple-selection.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Variantes
 
 Définissez `variant` sur le groupe lorsque tous les éléments doivent partager le même style visuel.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/toggle-group/variants.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupVariants />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toggle-group/variants.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toggle-group/toggle-group-variants.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Orientation verticale
 
 Définissez `orientation="vertical"` lorsque les choix doivent être disposés en colonne.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/toggle-group/vertical.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupVertical />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toggle-group/vertical.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Personnalisation avancée
 
 Utilisez `ToggleGroup.RootProvider` avec `useToggleGroup` de moduix lorsque l’instance d’état doit être
 partagée avec d’autres parties de l’interface ou contrôlée avant le rendu de la racine.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/toggle-group/root-provider.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupRootProvider />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toggle-group/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toggle-group/toggle-group-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

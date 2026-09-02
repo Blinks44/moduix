@@ -4,7 +4,18 @@ component: tooltip
 description: A short, supplementary label that appears when its trigger is hovered or focused.
 ---
 
-import * as TooltipDocs from '@/components/examples/tooltip';
+import * as TooltipDocs from '@/components/examples/tooltip/component';
+import TooltipAdvancedCustomization from './_snippets/tooltip/advanced-customization.tsx';
+import TooltipBasic from './_snippets/tooltip/basic.tsx';
+import TooltipContext from './_snippets/tooltip/context.tsx';
+import TooltipControlled from './_snippets/tooltip/controlled.tsx';
+import TooltipDelay from './_snippets/tooltip/delay.tsx';
+import TooltipDisabledTrigger from './_snippets/tooltip/disabled-trigger.tsx';
+import TooltipMultipleTriggers from './_snippets/tooltip/multiple-triggers.tsx';
+import TooltipPositioning from './_snippets/tooltip/positioning.tsx';
+import TooltipRootProvider from './_snippets/tooltip/root-provider.tsx';
+import TooltipWithArrow from './_snippets/tooltip/with-arrow.tsx';
+import TooltipWithinFixedContainers from './_snippets/tooltip/within-fixed-containers.tsx';
 
 ## API Reference
 
@@ -25,11 +36,20 @@ Use `Tooltip.Trigger` for the element that opens the tooltip and `Tooltip.Body` 
 Give the trigger an accessible name of its own. Tooltip content is supplemental and does not replace
 visible text or an `aria-label`.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="./_snippets/tooltip/basic.tsx"
+<ExampleFrame variant="component">
+  <TooltipBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/tooltip/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -163,74 +183,152 @@ The portalled content mounts lazily and is removed after its exit animation by d
 Use `useTooltipContext()` inside a descendant that needs the current tooltip state. Use
 `Tooltip.Context` when a render prop makes the custom composition clearer.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="./_snippets/tooltip/context.tsx"
+<ExampleFrame variant="component">
+  <TooltipContext />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/tooltip/context.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Controlled
 
 Control whether the tooltip is open with `open` and `onOpenChange(details)`.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="./_snippets/tooltip/controlled.tsx"
+<ExampleFrame variant="component">
+  <TooltipControlled />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/tooltip/controlled.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Delay
 
 Set `openDelay` and `closeDelay` on the root to adjust hover and focus timing.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="./_snippets/tooltip/delay.tsx"
+<ExampleFrame variant="component">
+  <TooltipDelay />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/tooltip/delay.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Disabled Trigger
 
 Use `Tooltip.DisabledTrigger` when a disabled native control still needs a short explanation. It
 keeps a focusable wrapper around the disabled child without changing the child's disabled state.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="./_snippets/tooltip/disabled-trigger.tsx"
+<ExampleFrame variant="component">
+  <TooltipDisabledTrigger />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/tooltip/disabled-trigger.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Multiple Triggers
 
 Give each trigger a `value` and use `onTriggerValueChange(details)` to share one tooltip across
 several triggers.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="./_snippets/tooltip/multiple-triggers.tsx"
+<ExampleFrame variant="component">
+  <TooltipMultipleTriggers />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
+
+```tsx file="./_snippets/tooltip/multiple-triggers.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tooltip/component-multiple-triggers.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Positioning
 
 Pass Ark positioning options to `Tooltip`, including placement and offset values.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="./_snippets/tooltip/positioning.tsx"
+<ExampleFrame variant="component">
+  <TooltipPositioning />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/tooltip/positioning.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tooltip/component-positioning.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Use `useTooltip()` with `Tooltip.RootProvider` when the tooltip state is created outside the
 rendered tooltip tree.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="./_snippets/tooltip/root-provider.tsx"
+<ExampleFrame variant="component">
+  <TooltipRootProvider />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/tooltip/root-provider.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### With Arrow
 
@@ -238,11 +336,20 @@ Add `Tooltip.Arrow` as the first child of the tooltip content when it needs a vi
 `Tooltip.Body`, place it directly inside `Tooltip.Body`; the wrapper supplies the default
 `Tooltip.ArrowTip`.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="./_snippets/tooltip/with-arrow.tsx"
+<ExampleFrame variant="component">
+  <TooltipWithArrow />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/tooltip/with-arrow.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Within Fixed Containers
 
@@ -250,22 +357,49 @@ Use `positioning.strategy: "fixed"` when the trigger is inside a fixed or sticky
 This example sets `closeOnScroll={false}` so you can focus the trigger and scroll the panel while
 checking the tooltip's alignment.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/tooltip/within-fixed-containers.tsx"
+<ExampleFrame variant="component">
+  <TooltipWithinFixedContainers />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
+
+```tsx file="./_snippets/tooltip/within-fixed-containers.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tooltip/component-within-fixed-containers.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Use the explicit `Tooltip.Positioner` and `Tooltip.Content` parts when they need independent
 composition or styling.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="./_snippets/tooltip/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <TooltipAdvancedCustomization />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/tooltip/advanced-customization.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

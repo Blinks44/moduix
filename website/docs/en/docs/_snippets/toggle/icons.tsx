@@ -1,6 +1,6 @@
 import { Toggle } from '@moduix/react/toggle';
 import { Bell as BellIcon, Check as CheckIcon, Star as StarIcon } from 'lucide-react';
-import styles from '@/components/examples/toggle.module.css';
+import styles from '@/components/examples/toggle/toggle-icons.module.css';
 
 export default function ToggleIconsDemo() {
   return (

@@ -1,26 +1,11 @@
 import { Tooltip } from '@moduix/react/tooltip';
+import styles from '@/components/examples/tooltip/component-within-fixed-containers.module.css';
 
 export default function WithinFixedTooltipDemo() {
   return (
-    <div
-      style={{
-        inlineSize: '100%',
-        blockSize: '12rem',
-        overflow: 'auto',
-        border: 'var(--moduix-border-width-sm) solid var(--moduix-color-border)',
-        borderRadius: 'var(--moduix-radius-lg)',
-        background: 'var(--moduix-color-muted)',
-      }}
-    >
-      <div style={{ minBlockSize: '24rem', padding: 'var(--moduix-spacing-4)' }}>
-        <div
-          style={{
-            position: 'sticky',
-            top: 'var(--moduix-spacing-4)',
-            display: 'flex',
-            justifyContent: 'center',
-          }}
-        >
+    <div className={styles.root}>
+      <div className={styles.content}>
+        <div className={styles.sticky}>
           <Tooltip
             closeOnScroll={false}
             positioning={{
@@ -31,15 +16,7 @@ export default function WithinFixedTooltipDemo() {
             <Tooltip.Body>Stays anchored while this panel scrolls.</Tooltip.Body>
           </Tooltip>
         </div>
-        <p
-          style={{
-            marginBlockStart: '14rem',
-            color: 'var(--moduix-color-muted-foreground)',
-            textAlign: 'center',
-          }}
-        >
-          End of scroll area
-        </p>
+        <p className={styles.end}>End of scroll area</p>
       </div>
     </div>
   );

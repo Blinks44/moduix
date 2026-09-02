@@ -4,7 +4,13 @@ component: typeset
 description: Appliquez un rythme de lecture au HTML sémantique, au Markdown rendu et au contenu diffusé en continu.
 ---
 
-import * as TypesetDocs from '@/components/examples/typeset';
+import * as TypesetDocs from '@/components/examples/typeset/typeset';
+import TypesetBasic from '../../en/docs/_snippets/typeset/basic.tsx';
+import TypesetExcludedSubtree from '../../en/docs/_snippets/typeset/excluded-subtree.tsx';
+import TypesetMarkdownExtensions from '../../en/docs/_snippets/typeset/markdown-extensions.tsx';
+import TypesetReadingRhythm from '../../en/docs/_snippets/typeset/reading-rhythm.tsx';
+import TypesetScrollableTable from '../../en/docs/_snippets/typeset/scrollable-table.tsx';
+import TypesetStreamingContent from '../../en/docs/_snippets/typeset/streaming-content.tsx';
 
 ## Référence de l’API
 
@@ -24,11 +30,20 @@ lorsque le conteneur extérieur doit être un élément sémantique, comme `arti
 les listes en `<ul>` et `<ol>` natifs : Typeset leur apporte les marqueurs et les espacements sans
 classes utilitaires.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/typeset/basic.tsx"
+<ExampleFrame variant="component">
+  <TypesetBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/typeset/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -88,33 +103,78 @@ Excluez un sous-arbre lorsqu’il a sa propre mise en forme, par exemple un cont
 carte. `.not-typeset` comme `data-not-typeset` excluent l’élément marqué et tout son contenu, y
 compris une racine `Typeset` imbriquée.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/typeset/excluded-subtree.tsx"
+<ExampleFrame variant="component">
+  <TypesetExcludedSubtree />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/typeset/excluded-subtree.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/typeset/typeset-excluded-subtree.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Extensions Markdown
 
 Les listes de tâches, blocs dépliables `details`, listes de définitions et notes de bas de page GFM
 utilisent les mêmes tokens et espacements entre blocs que les éléments HTML principaux.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/typeset/markdown-extensions.tsx"
+<ExampleFrame variant="component">
+  <TypesetMarkdownExtensions />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/typeset/markdown-extensions.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Rythme de lecture
 
 Réglez les variables CSS lorsqu’une section demande un rythme de lecture plus aéré ou plus dense,
 sans ajouter de propriétés au composant.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/typeset/reading-rhythm.tsx"
+<ExampleFrame variant="component">
+  <TypesetReadingRhythm />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/typeset/reading-rhythm.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/typeset/typeset-reading-rhythm.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Tableau défilant
 
@@ -122,22 +182,58 @@ Placez une table créée par votre moteur de rendu dans `Typeset.Scroll` lorsqu�
 largeur et défiler dans un conteneur étroit. Donnez à la zone de défilement un nom accessible qui
 identifie la table qu’elle contient.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/typeset/scrollable-table.tsx"
+<ExampleFrame variant="component">
+  <TypesetScrollableTable />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/typeset/scrollable-table.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/typeset/typeset-scrollable-table.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Contenu diffusé en continu
 
 Pour un flux de messages, utilisez un rythme plus dense. Chaque nouveau bloc apporte son propre
 espacement, ainsi le contenu déjà affiché reste en place à mesure que le flux grandit.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/typeset/streaming-content.tsx"
+<ExampleFrame variant="component">
+  <TypesetStreamingContent />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/typeset/streaming-content.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/typeset/typeset-streaming-content.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

@@ -1,33 +1,5 @@
-import type { CssPropertyInput } from '../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../mdx/reference';
-
-export const toggleBasicCss = `
-.favoriteToggle {
-  --moduix-toggle-content-gap: var(--moduix-spacing-2);
-}
-`;
-
-export const toggleRowCss = `
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: var(--moduix-spacing-3);
-}
-`;
-
-export const toggleStackCss = `
-.stack {
-  display: grid;
-  gap: var(--moduix-spacing-3);
-  justify-items: center;
-}
-
-.stack > [data-preview-meta] {
-  justify-self: center;
-}
-`;
+import type { CssPropertyInput } from '../../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
 const toggleOverrideCssProperties: CssPropertyInput[] = [
   [

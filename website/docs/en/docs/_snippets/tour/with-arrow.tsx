@@ -1,6 +1,7 @@
 import type { TourStepDetails } from '@ark-ui/react/tour';
 import { Button } from '@moduix/react/button';
 import { Tour, useTour } from '@moduix/react/tour';
+import styles from '@/components/examples/tour/tour-with-arrow.module.css';
 
 const steps = [
   {
@@ -18,7 +19,7 @@ export default function TourWithArrowDemo() {
   const tour = useTour({ steps });
 
   return (
-    <div style={{ display: 'grid', gap: 'var(--moduix-spacing-3)', justifyItems: 'center' }}>
+    <div className={styles.root}>
       <Button id="tour-with-arrow-upload" variant="outline">
         Upload files
       </Button>

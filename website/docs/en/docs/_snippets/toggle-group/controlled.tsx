@@ -1,7 +1,7 @@
 import { ToggleGroup } from '@moduix/react/toggle-group';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/toggle-group.module.css';
+import styles from '@/components/examples/toggle-group/toggle-group-controlled.module.css';
 
 const alignmentItems = [
   {

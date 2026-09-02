@@ -4,7 +4,17 @@ component: toggle-group
 description: A keyboard-navigable group of toggle buttons for single or multiple selection.
 ---
 
-import * as ToggleGroupDocs from '@/components/examples/toggle-group';
+import * as ToggleGroupDocs from '@/components/examples/toggle-group/toggle-group';
+import ToggleGroupAsChild from './_snippets/toggle-group/as-child.tsx';
+import ToggleGroupBasic from './_snippets/toggle-group/basic.tsx';
+import ToggleGroupContext from './_snippets/toggle-group/context.tsx';
+import ToggleGroupControlled from './_snippets/toggle-group/controlled.tsx';
+import ToggleGroupDisabled from './_snippets/toggle-group/disabled.tsx';
+import ToggleGroupIcons from './_snippets/toggle-group/icons.tsx';
+import ToggleGroupMultipleSelection from './_snippets/toggle-group/multiple-selection.tsx';
+import ToggleGroupRootProvider from './_snippets/toggle-group/root-provider.tsx';
+import ToggleGroupVariants from './_snippets/toggle-group/variants.tsx';
+import ToggleGroupVertical from './_snippets/toggle-group/vertical.tsx';
 
 ## API Reference
 
@@ -29,11 +39,20 @@ Use `<ToggleGroup>` for the common case. It is shorthand for `<ToggleGroup.Root>
 `ToggleGroup.Item` for each choice. Give the group an accessible name with `aria-label` or
 `aria-labelledby`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/toggle-group/basic.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/toggle-group/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -127,93 +146,198 @@ same state instance. Direct Ark imports are only needed for compositions outside
 Use `asChild` on an item when a custom button must own the rendered element. Keep exactly one
 button-like child so Ark can merge the group semantics and keyboard behavior.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/toggle-group/as-child.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupAsChild />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/toggle-group/as-child.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Context
 
 Use `useToggleGroupContext()` in a custom item when its contents need the current group state.
 `ToggleGroup.Context` provides the same state through a render prop.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/toggle-group/context.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupContext />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/toggle-group/context.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Controlled
 
 Control `value` from React state when the group needs to stay in sync with surrounding UI.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/toggle-group/controlled.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupControlled />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/toggle-group/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toggle-group/toggle-group-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Disabled
 
 Use `disabled` on the group or on a specific item to prevent interaction.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/toggle-group/disabled.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupDisabled />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/toggle-group/disabled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toggle-group/toggle-group-disabled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Icons
 
 Pass icons as regular children. Icon-only items should always include an accessible label.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/toggle-group/icons.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupIcons />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/toggle-group/icons.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Multiple Selection
 
 Use `multiple` when several options can stay pressed at the same time.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/toggle-group/multiple-selection.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupMultipleSelection />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/toggle-group/multiple-selection.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Variants
 
 Set `variant` on the group when every item should share the same visual treatment.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/toggle-group/variants.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupVariants />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/toggle-group/variants.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toggle-group/toggle-group-variants.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Vertical
 
 Set `orientation="vertical"` when the choices should stack in a column.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/toggle-group/vertical.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupVertical />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/toggle-group/vertical.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
 Use `ToggleGroup.RootProvider` with moduix `useToggleGroup` when the state instance must be shared or
 controlled before the root is rendered.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/toggle-group/root-provider.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupRootProvider />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/toggle-group/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toggle-group/toggle-group-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

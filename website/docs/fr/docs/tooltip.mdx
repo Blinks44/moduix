@@ -4,7 +4,18 @@ component: tooltip
 description: Une brève information complémentaire affichée lorsque l’élément déclencheur est survolé ou reçoit le focus.
 ---
 
-import * as TooltipDocs from '@/components/examples/tooltip';
+import * as TooltipDocs from '@/components/examples/tooltip/component';
+import TooltipAdvancedCustomization from '../../en/docs/_snippets/tooltip/advanced-customization.tsx';
+import TooltipBasic from '../../en/docs/_snippets/tooltip/basic.tsx';
+import TooltipContext from '../../en/docs/_snippets/tooltip/context.tsx';
+import TooltipControlled from '../../en/docs/_snippets/tooltip/controlled.tsx';
+import TooltipDelay from '../../en/docs/_snippets/tooltip/delay.tsx';
+import TooltipDisabledTrigger from '../../en/docs/_snippets/tooltip/disabled-trigger.tsx';
+import TooltipMultipleTriggers from '../../en/docs/_snippets/tooltip/multiple-triggers.tsx';
+import TooltipPositioning from '../../en/docs/_snippets/tooltip/positioning.tsx';
+import TooltipRootProvider from '../../en/docs/_snippets/tooltip/root-provider.tsx';
+import TooltipWithArrow from '../../en/docs/_snippets/tooltip/with-arrow.tsx';
+import TooltipWithinFixedContainers from '../../en/docs/_snippets/tooltip/within-fixed-containers.tsx';
 
 ## Référence de l’API
 
@@ -26,11 +37,20 @@ Utilisez `Tooltip.Trigger` pour l’élément qui ouvre l’infobulle et `Toolti
 Donnez au déclencheur un nom accessible qui lui est propre. Le contenu de l’infobulle est
 complémentaire et ne remplace ni le texte visible ni `aria-label`.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/basic.tsx"
+<ExampleFrame variant="component">
+  <TooltipBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tooltip/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -169,74 +189,152 @@ deux propriétés de cycle de vie sur `false` que si le contenu doit être rendu
 Utilisez `useTooltipContext()` dans un descendant qui doit lire l’état courant. Utilisez
 `Tooltip.Context` lorsqu’une fonction de rendu rend la composition personnalisée plus claire.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/context.tsx"
+<ExampleFrame variant="component">
+  <TooltipContext />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tooltip/context.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### État contrôlé
 
 Contrôlez l’ouverture de l’infobulle avec `open` et `onOpenChange(details)`.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/controlled.tsx"
+<ExampleFrame variant="component">
+  <TooltipControlled />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tooltip/controlled.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Délai
 
 Définissez `openDelay` et `closeDelay` sur la racine pour régler le délai au survol et au focus.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/delay.tsx"
+<ExampleFrame variant="component">
+  <TooltipDelay />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tooltip/delay.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Déclencheur désactivé
 
 Utilisez `Tooltip.DisabledTrigger` lorsqu’un contrôle natif désactivé nécessite toujours une courte
 explication. L’enveloppe peut recevoir le focus sans modifier l’état désactivé de l’enfant.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/disabled-trigger.tsx"
+<ExampleFrame variant="component">
+  <TooltipDisabledTrigger />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tooltip/disabled-trigger.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Plusieurs déclencheurs
 
 Donnez une `value` à chaque déclencheur et utilisez `onTriggerValueChange(details)` pour partager
 une seule infobulle entre plusieurs déclencheurs.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/multiple-triggers.tsx"
+<ExampleFrame variant="component">
+  <TooltipMultipleTriggers />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tooltip/multiple-triggers.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tooltip/component-multiple-triggers.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Positionnement
 
 Passez les options de positionnement d’Ark à `Tooltip`, notamment le placement et les décalages.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/positioning.tsx"
+<ExampleFrame variant="component">
+  <TooltipPositioning />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tooltip/positioning.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tooltip/component-positioning.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root Provider
 
 Utilisez `useTooltip()` avec `Tooltip.RootProvider` lorsque l’état de l’infobulle est créé en dehors
 de l’arbre rendu.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/root-provider.tsx"
+<ExampleFrame variant="component">
+  <TooltipRootProvider />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tooltip/root-provider.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Avec une flèche
 
@@ -244,11 +342,20 @@ Ajoutez `Tooltip.Arrow` comme premier enfant du contenu lorsque l’infobulle do
 déclencheur. Avec `Tooltip.Body`, placez-le directement à l’intérieur de `Tooltip.Body` ;
 l’enveloppe fournit `Tooltip.ArrowTip` par défaut.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/with-arrow.tsx"
+<ExampleFrame variant="component">
+  <TooltipWithArrow />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tooltip/with-arrow.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Dans des conteneurs à position fixe
 
@@ -256,22 +363,49 @@ Utilisez `positioning.strategy: "fixed"` lorsque le déclencheur se trouve dans 
 collante de l’interface. Cet exemple définit `closeOnScroll={false}` pour vous permettre de
 focaliser le déclencheur, de faire défiler le panneau et de vérifier l’alignement de l’infobulle.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/within-fixed-containers.tsx"
+<ExampleFrame variant="component">
+  <TooltipWithinFixedContainers />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tooltip/within-fixed-containers.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tooltip/component-within-fixed-containers.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Personnalisation avancée
 
 Utilisez directement les parties `Tooltip.Positioner` et `Tooltip.Content` lorsqu’elles doivent
 avoir une composition ou une mise en forme indépendantes.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <TooltipAdvancedCustomization />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tooltip/advanced-customization.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

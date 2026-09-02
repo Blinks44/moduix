@@ -4,7 +4,16 @@ component: toggle
 description: Кнопка с двумя состояниями для компактных действий, например добавления в избранное, сохранения, форматирования и действий на панели инструментов.
 ---
 
-import * as ToggleDocs from '@/components/examples/toggle';
+import * as ToggleDocs from '@/components/examples/toggle/toggle';
+import ToggleAdvancedCustomization from '../../en/docs/_snippets/toggle/advanced-customization.tsx';
+import ToggleAsChild from '../../en/docs/_snippets/toggle/aschild.tsx';
+import ToggleBasic from '../../en/docs/_snippets/toggle/basic.tsx';
+import ToggleControlled from '../../en/docs/_snippets/toggle/controlled.tsx';
+import ToggleDisabled from '../../en/docs/_snippets/toggle/disabled.tsx';
+import ToggleIcons from '../../en/docs/_snippets/toggle/icons.tsx';
+import ToggleIndicator from '../../en/docs/_snippets/toggle/indicator.tsx';
+import ToggleSizes from '../../en/docs/_snippets/toggle/sizes.tsx';
+import ToggleVariants from '../../en/docs/_snippets/toggle/variants.tsx';
 
 ## Справочник API
 
@@ -23,11 +32,20 @@ import * as ToggleDocs from '@/components/examples/toggle';
 
 Начните с отдельного `Toggle`. Это сокращённая форма `Toggle.Root`, при этом Ark по-прежнему управляет поведением кнопки и её состоянием нажатия.
 
-<style>{ToggleDocs.toggleBasicCss}</style>
+<ExampleFrame variant="component">
+  <ToggleBasic />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/toggle/basic.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/toggle/basic.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -96,62 +114,140 @@ Toggle.Context (читает состояние, но не создаёт час
 единственной кнопкой, поэтому Ark может добавить ему поведение для нажатого состояния и клавиатуры без конфликтующих
 стилей.
 
-```tsx preview file="../../en/docs/_snippets/toggle/aschild.tsx"
+<ExampleFrame variant="component">
+  <ToggleAsChild />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/toggle/aschild.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Управляемое состояние
 
 Используйте управляемое состояние `pressed`, если `Toggle` является частью состояния приложения или отслеживания
 действий пользователя.
 
-<style>{ToggleDocs.toggleStackCss}</style>
+<ExampleFrame variant="component">
+  <ToggleControlled />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/toggle/controlled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/toggle/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toggle/toggle-controlled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Отключённое состояние
 
 Используйте `disabled`, чтобы запретить взаимодействие и сохранить текущее нажатое состояние.
 
-<style>{ToggleDocs.toggleRowCss}</style>
+<ExampleFrame variant="component">
+  <ToggleDisabled />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/toggle/disabled.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/toggle/disabled.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toggle/toggle-disabled.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Иконки
 
 Передавайте иконки как обычных дочерних элементов. Для компактных действий используйте размер только для иконки.
 
-<style>{ToggleDocs.toggleRowCss}</style>
+<ExampleFrame variant="component">
+  <ToggleIcons />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/toggle/icons.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/toggle/icons.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toggle/toggle-icons.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Индикатор
 
 Используйте `Toggle.Indicator`, если в нажатом и ненажатом состояниях нужно показывать разное встроенное содержимое.
 
-<style>{ToggleDocs.toggleBasicCss}</style>
+<ExampleFrame variant="component">
+  <ToggleIndicator />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/toggle/indicator.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/toggle/indicator.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Размеры
 
 Для `Toggle` с подписью используйте текстовые размеры, а для плотных рядов действий используйте размеры кнопок только с иконкой.
 
-<style>{ToggleDocs.toggleRowCss}</style>
+<ExampleFrame variant="component">
+  <ToggleSizes />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/toggle/sizes.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/toggle/sizes.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toggle/toggle-sizes.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Варианты
 
@@ -159,22 +255,46 @@ Toggle.Context (читает состояние, но не создаёт час
 на панели инструментов. В нажатом состоянии `default` и `outline` используют основной цвет, а `ghost` использует
 акцентный фон, чтобы оставаться визуально спокойным на плотной панели инструментов.
 
-<style>{ToggleDocs.toggleRowCss}</style>
+<ExampleFrame variant="component">
+  <ToggleVariants />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/toggle/variants.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/toggle/variants.tsx"
 ```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/toggle/toggle-variants.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
 Если пользовательскому потомку нужно знать нажатое состояние, прочитайте состояние ближайшего `Toggle` через
 контекстный хук moduix вместо `Toggle.Indicator`.
 
-<style>{ToggleDocs.toggleBasicCss}</style>
+<ExampleFrame variant="component">
+  <ToggleAdvancedCustomization />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/toggle/advanced-customization.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
 
+```tsx file="../../en/docs/_snippets/toggle/advanced-customization.tsx"
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

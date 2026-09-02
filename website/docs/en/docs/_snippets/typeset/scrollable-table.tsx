@@ -1,10 +1,11 @@
 import { Typeset } from '@moduix/react/typeset';
+import styles from '@/components/examples/typeset/typeset-scrollable-table.module.css';
 
 export default function TypesetScrollableTableDemo() {
   return (
     <Typeset>
       <Typeset.Scroll aria-label="Typeset settings comparison">
-        <table style={{ minWidth: '36rem' }}>
+        <table className={styles.table}>
           <thead>
             <tr>
               <th>Context</th>

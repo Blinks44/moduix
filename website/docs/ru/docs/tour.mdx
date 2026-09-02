@@ -4,7 +4,12 @@ component: tour
 description: Компонент для пошагового знакомства с продуктом на основе состояния Tour из Ark UI, с доступным оверлеем и готовыми действиями.
 ---
 
-import { TourCssPropertiesPanel } from '@/components/examples/tour';
+import { TourCssPropertiesPanel } from '@/components/examples/tour/tour';
+import TourAdvancedCustomization from '../../en/docs/_snippets/tour/advanced-customization.tsx';
+import TourBasic from '../../en/docs/_snippets/tour/basic.tsx';
+import TourEvents from '../../en/docs/_snippets/tour/events.tsx';
+import TourWaitForInput from '../../en/docs/_snippets/tour/wait-for-input.tsx';
+import TourWithArrow from '../../en/docs/_snippets/tour/with-arrow.tsx';
 
 ## Справочник API
 
@@ -17,11 +22,26 @@ import { TourCssPropertiesPanel } from '@/components/examples/tour';
 плавающий шаг. Все элементы композиции остаются в JSX, поэтому их легко настроить при необходимости.
 `Tour.Body` прокручивает длинный текст внутри панели.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tour/basic.tsx"
+<ExampleFrame variant="component">
+  <TourBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tour/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tour/tour-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -111,11 +131,26 @@ Tour
 интерфейса или отправить данные в аналитику. Запустите тур, затем нажмите Next и Done.
 `PreviewMeta` в этом примере покажет смену шага и итоговый статус.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tour/events.tsx"
+<ExampleFrame variant="component">
+  <TourEvents />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tour/events.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tour/tour-events.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Ожидание ввода
 
@@ -123,22 +158,52 @@ Tour
 Для шагов, которые зависят от асинхронного условия, из `@moduix/react/tour` также экспортируются
 `waitForElement`, `waitForElementValue`, `waitForEvent` и `waitForPromise`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tour/wait-for-input.tsx"
+<ExampleFrame variant="component">
+  <TourWaitForInput />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tour/wait-for-input.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tour/tour-wait-for-input.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Со стрелкой
 
 Добавьте `Tour.Arrow` в шаг с подсказкой, если он должен визуально указывать на целевой элемент.
 Включите у шага опцию `arrow`, и Ark сам расположит стрелку.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tour/with-arrow.tsx"
+<ExampleFrame variant="component">
+  <TourWithArrow />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tour/with-arrow.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tour/tour-with-arrow.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
@@ -147,11 +212,26 @@ Tour
 получает исходный объект действия Ark, поэтому навигация, закрытие и отключённое состояние продолжают
 работать.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tour/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <TourAdvancedCustomization />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tour/advanced-customization.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tour/tour-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

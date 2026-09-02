@@ -3,6 +3,7 @@ import { Button } from '@moduix/react/button';
 import { Tour, useTour } from '@moduix/react/tour';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/tour/tour-events.module.css';
 
 const steps = [
   {
@@ -36,13 +37,7 @@ export default function TourEventsDemo() {
   });
 
   return (
-    <div
-      style={{
-        display: 'grid',
-        gap: 'var(--moduix-spacing-3)',
-        justifyItems: 'center',
-      }}
-    >
+    <div className={styles.root}>
       <Tour tour={tour} lazyMount unmountOnExit>
         <Tour.Backdrop />
         <Tour.Positioner>

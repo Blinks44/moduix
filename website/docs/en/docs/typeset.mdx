@@ -4,7 +4,13 @@ component: typeset
 description: Style semantic HTML, rendered Markdown, and streaming content with a scoped reading rhythm.
 ---
 
-import * as TypesetDocs from '@/components/examples/typeset';
+import * as TypesetDocs from '@/components/examples/typeset/typeset';
+import TypesetBasic from './_snippets/typeset/basic.tsx';
+import TypesetExcludedSubtree from './_snippets/typeset/excluded-subtree.tsx';
+import TypesetMarkdownExtensions from './_snippets/typeset/markdown-extensions.tsx';
+import TypesetReadingRhythm from './_snippets/typeset/reading-rhythm.tsx';
+import TypesetScrollableTable from './_snippets/typeset/scrollable-table.tsx';
+import TypesetStreamingContent from './_snippets/typeset/streaming-content.tsx';
 
 ## API Reference
 
@@ -22,11 +28,20 @@ Wrap HTML that your renderer has already produced in `<Typeset>`. Use `asChild` 
 container needs to be semantic, such as an `article` or `section`. Keep lists as native `<ul>` and
 `<ol>` elements: Typeset provides their markers and spacing without utility classes.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/typeset/basic.tsx"
+<ExampleFrame variant="component">
+  <TypesetBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/typeset/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -83,55 +98,136 @@ Exclude a nested subtree when it has its own visual treatment, such as an embedd
 Both `.not-typeset` and `data-not-typeset` exclude the marked element and everything inside it,
 including a nested `Typeset` root.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/typeset/excluded-subtree.tsx"
+<ExampleFrame variant="component">
+  <TypesetExcludedSubtree />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
+
+```tsx file="./_snippets/typeset/excluded-subtree.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/typeset/typeset-excluded-subtree.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Markdown extensions
 
 Task lists, expandable `details` blocks, definition lists, and GFM footnotes use the same tokens and
 block spacing as the core HTML elements.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/typeset/markdown-extensions.tsx"
+<ExampleFrame variant="component">
+  <TypesetMarkdownExtensions />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/typeset/markdown-extensions.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Reading rhythm
 
 Set CSS variables when a section needs a roomier or denser reading rhythm without adding component
 props.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/typeset/reading-rhythm.tsx"
+<ExampleFrame variant="component">
+  <TypesetReadingRhythm />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
+
+```tsx file="./_snippets/typeset/reading-rhythm.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/typeset/typeset-reading-rhythm.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Scrollable table
 
 Wrap a table produced by your renderer in `Typeset.Scroll` when it should remain wide and scroll in a
 narrow container. Give the scroller an accessible name that identifies the table it contains.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/typeset/scrollable-table.tsx"
+<ExampleFrame variant="component">
+  <TypesetScrollableTable />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
+
+```tsx file="./_snippets/typeset/scrollable-table.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/typeset/typeset-scrollable-table.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Streaming content
 
 Use a tighter rhythm for chat-like streams. Each new block contributes its own spacing, so existing
 content stays in place as the stream grows.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/typeset/streaming-content.tsx"
+<ExampleFrame variant="component">
+  <TypesetStreamingContent />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
+
+```tsx file="./_snippets/typeset/streaming-content.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/typeset/typeset-streaming-content.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 
@@ -143,7 +239,7 @@ content stays in place as the stream grows.
     className="docs-reference-tabs"
     contentItemClassName="docs-reference-panel"
   >
-    <Tab>
+    <Tab value="CSS Variables">
       <TypesetDocs.TypesetCssPropertiesPanel />
     </Tab>
   </Tabs>

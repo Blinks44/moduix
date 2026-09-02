@@ -1,5 +1,5 @@
-import type { CssPropertyInput } from '../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../mdx/reference';
+import type { CssPropertyInput } from '../../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
 const typesetOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-typeset-flow', '1.25em', 'Controls space before each rendered block.'],

@@ -1,6 +1,6 @@
 import { ToggleGroup, useToggleGroup } from '@moduix/react/toggle-group';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/toggle-group.module.css';
+import styles from '@/components/examples/toggle-group/toggle-group-advanced-customization.module.css';
 
 const alignmentItems = [
   {

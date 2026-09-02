@@ -4,7 +4,14 @@ component: tree-view
 description: Une arborescence accessible, fondée sur Ark UI, pour les dossiers, les fichiers et toutes les données imbriquées.
 ---
 
-import * as TreeViewDocs from '@/components/examples/tree-view';
+import * as TreeViewDocs from '@/components/examples/tree-view/tree-view';
+import AsyncTreeView from '../../en/docs/_snippets/tree-view/async-loading.tsx';
+import CheckboxTreeView from '../../en/docs/_snippets/tree-view/checkboxes.tsx';
+import ControlledSelectionTreeView from '../../en/docs/_snippets/tree-view/controlled-selection.tsx';
+import FileIconsTreeView from '../../en/docs/_snippets/tree-view/file-icons.tsx';
+import LinkedTreeView from '../../en/docs/_snippets/tree-view/links.tsx';
+import RootProviderTreeView from '../../en/docs/_snippets/tree-view/root-provider.tsx';
+import TreeViewBasic from '../../en/docs/_snippets/tree-view/basic.tsx';
 
 ## Référence de l’API
 
@@ -17,11 +24,20 @@ Créez la collection de données avec `createTreeCollection`, puis transmettez-l
 `state`. Vous pouvez ainsi afficher une branche ou une feuille sans reconnecter un provider et son
 contexte à chaque niveau.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/tree-view/basic.tsx"
+<ExampleFrame variant="component">
+  <TreeViewBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tree-view/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -84,11 +100,20 @@ Utilisez `asChild` sur `TreeView.Item` lorsqu’une feuille doit être formée d
 sémantique, comme un lien. Cet élément doit accepter les props Ark afin de préserver le focus et la
 navigation au clavier.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/tree-view/links.tsx"
+<ExampleFrame variant="component">
+  <LinkedTreeView />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tree-view/links.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### État et navigation au clavier
 
@@ -121,33 +146,60 @@ Lorsqu’une branche a un `childrenCount` connu, chargez ses enfants avec `loadC
 `onLoadChildrenComplete`, remplacez la collection de l’état de votre application par
 `details.collection`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/tree-view/async-loading.tsx"
+<ExampleFrame variant="component">
+  <AsyncTreeView />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tree-view/async-loading.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Arborescence avec cases à cocher
 
 Placez `NodeCheckbox` dans les contrôles de branche comme dans les feuilles. Son indicateur par défaut
 couvre déjà les états coché et indéterminé.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/tree-view/checkboxes.tsx"
+<ExampleFrame variant="component">
+  <CheckboxTreeView />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tree-view/checkboxes.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Icônes de fichiers
 
 Placez les icônes décoratives de fichiers et de dossiers dans `BranchText` et `ItemText`. Gardez
 `BranchIndicator` séparé pour qu’il reste le seul élément consacré au dépliage et au repliage.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/tree-view/file-icons.tsx"
+<ExampleFrame variant="component">
+  <FileIconsTreeView />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tree-view/file-icons.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Sélection multiple
 
@@ -155,11 +207,29 @@ Définissez `selectionMode="multiple"`. Utilisez Ctrl ou ⌘ pour ajouter ou ret
 individuels, et Maj pour étendre une plage de sélection. L’exemple conserve les valeurs sélectionnées
 dans l’état de l’application.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/tree-view/controlled-selection.tsx"
+<ExampleFrame variant="component">
+  <ControlledSelectionTreeView />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tree-view/controlled-selection.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tree-view/tree-view-controlled-selection.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root provider
 
@@ -167,11 +237,29 @@ Créez l’état de l’arborescence avec `useTreeView` si des contrôles extér
 méthodes comme `expand()` ou `collapse()`. Transmettez cet état à `RootProvider` au lieu de rendre un
 second `TreeView.Root`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/tree-view/root-provider.tsx"
+<ExampleFrame variant="component">
+  <RootProviderTreeView />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tree-view/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tree-view/tree-view-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

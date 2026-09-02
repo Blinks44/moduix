@@ -2,6 +2,7 @@ import { Button } from '@moduix/react/button';
 import { Tooltip } from '@moduix/react/tooltip';
 import { Info as InfoIcon, Plus as PlusIcon, Share as ShareIcon } from 'lucide-react';
 import { useState } from 'react';
+import styles from '@/components/examples/tooltip/component-multiple-triggers.module.css';
 
 const tooltipTools = [
   {
@@ -32,13 +33,7 @@ export default function MultipleTriggersTooltipDemo() {
         setActiveTool(tooltipTools.find((tool) => tool.id === details.value) ?? null);
       }}
     >
-      <div
-        style={{
-          display: 'inline-flex',
-          flexWrap: 'wrap',
-          gap: 'var(--moduix-spacing-1)',
-        }}
-      >
+      <div className={styles.tools}>
         {tooltipTools.map((tool) => (
           <Tooltip.Trigger key={tool.id} value={tool.id} asChild aria-label={tool.label}>
             <Button variant="ghost" size="icon-md">

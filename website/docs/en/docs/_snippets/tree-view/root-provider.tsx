@@ -6,6 +6,7 @@ import {
   useTreeView,
 } from '@moduix/react/tree-view';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/tree-view/tree-view-root-provider.module.css';
 
 type FileNode = { children?: FileNode[]; id: string; name: string };
 
@@ -70,7 +71,7 @@ export default function RootProviderTreeViewDemo() {
   const treeView = useTreeView({ collection, defaultExpandedValue: ['src'] });
 
   return (
-    <div style={{ display: 'grid', gap: '0.75rem', justifyItems: 'center' }}>
+    <div className={styles.root}>
       <TreeView.RootProvider value={treeView}>
         <TreeView.Label>Project files</TreeView.Label>
         <TreeView.Tree>
@@ -79,15 +80,9 @@ export default function RootProviderTreeViewDemo() {
           ))}
         </TreeView.Tree>
       </TreeView.RootProvider>
-      <PreviewMeta
-        style={{
-          display: 'grid',
-          gap: '0.5rem',
-          justifyItems: 'center',
-        }}
-      >
+      <PreviewMeta>
         <output aria-live="polite">Expanded: {treeView.expandedValue.join(', ') || 'none'}</output>
-        <div style={{ display: 'flex', gap: '0.5rem' }}>
+        <div className={styles.actions}>
           <Button variant="outline" onClick={() => treeView.expand()}>
             Expand all
           </Button>

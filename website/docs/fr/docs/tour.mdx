@@ -4,7 +4,12 @@ component: tour
 description: Créez des parcours guidés pour faire découvrir votre produit avec l’état Tour d’Ark UI, une couche superposée accessible et des actions prêtes à l’emploi.
 ---
 
-import { TourCssPropertiesPanel } from '@/components/examples/tour';
+import { TourCssPropertiesPanel } from '@/components/examples/tour/tour';
+import TourAdvancedCustomization from '../../en/docs/_snippets/tour/advanced-customization.tsx';
+import TourBasic from '../../en/docs/_snippets/tour/basic.tsx';
+import TourEvents from '../../en/docs/_snippets/tour/events.tsx';
+import TourWaitForInput from '../../en/docs/_snippets/tour/wait-for-input.tsx';
+import TourWithArrow from '../../en/docs/_snippets/tour/with-arrow.tsx';
 
 ## Référence de l’API
 
@@ -18,11 +23,26 @@ la page, puis se termine par une étape flottante. Les éléments de composition
 le JSX afin de pouvoir les adapter si nécessaire. `Tour.Body` permet à un texte long de défiler dans
 le panneau.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tour/basic.tsx"
+<ExampleFrame variant="component">
+  <TourBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tour/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tour/tour-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -113,11 +133,26 @@ Utilisez les objets transmis aux fonctions de rappel d’Ark pour mettre à jour
 l’interface ou enregistrer des données d’analyse. Lancez le tour, cliquez sur Next puis sur Done. Le
 `PreviewMeta` de cet exemple affiche le changement d’étape et le statut final.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tour/events.tsx"
+<ExampleFrame variant="component">
+  <TourEvents />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tour/events.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tour/tour-events.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Attendre une saisie
 
@@ -126,22 +161,52 @@ caractères. Pour des étapes qui dépendent d’une condition asynchrone, `wait
 `waitForElementValue`, `waitForEvent` et `waitForPromise` sont aussi exportés depuis
 `@moduix/react/tour`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tour/wait-for-input.tsx"
+<ExampleFrame variant="component">
+  <TourWaitForInput />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tour/wait-for-input.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tour/tour-wait-for-input.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Avec flèche
 
 Ajoutez `Tour.Arrow` à une étape de type infobulle lorsqu’elle doit indiquer visuellement sa cible,
 et activez l’option `arrow` de l’étape pour qu’Ark puisse positionner la flèche.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tour/with-arrow.tsx"
+<ExampleFrame variant="component">
+  <TourWithArrow />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tour/with-arrow.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tour/tour-with-arrow.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Personnalisation avancée
 
@@ -150,11 +215,26 @@ enfants `Button` personnalisés pour Continue, Back et Skip tour. Chaque `Tour.A
 toujours l’objet d’action Ark d’origine, donc la navigation, la fermeture et l’état désactivé restent
 fonctionnels.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tour/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <TourAdvancedCustomization />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tour/advanced-customization.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tour/tour-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

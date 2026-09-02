@@ -4,7 +4,14 @@ component: tree-view
 description: Доступное дерево на базе Ark UI для папок, файлов и любых вложенных данных.
 ---
 
-import * as TreeViewDocs from '@/components/examples/tree-view';
+import * as TreeViewDocs from '@/components/examples/tree-view/tree-view';
+import AsyncTreeView from '../../en/docs/_snippets/tree-view/async-loading.tsx';
+import CheckboxTreeView from '../../en/docs/_snippets/tree-view/checkboxes.tsx';
+import ControlledSelectionTreeView from '../../en/docs/_snippets/tree-view/controlled-selection.tsx';
+import FileIconsTreeView from '../../en/docs/_snippets/tree-view/file-icons.tsx';
+import LinkedTreeView from '../../en/docs/_snippets/tree-view/links.tsx';
+import RootProviderTreeView from '../../en/docs/_snippets/tree-view/root-provider.tsx';
+import TreeViewBasic from '../../en/docs/_snippets/tree-view/basic.tsx';
 
 ## Справочник API
 
@@ -16,11 +23,20 @@ import * as TreeViewDocs from '@/components/examples/tree-view';
 `TreeView.Node` передаёт в рекурсивный рендерер текущие `node`, `indexPath` и `state`, поэтому можно
 вывести ветку или конечный узел без повторной настройки провайдера и контекста на каждом уровне.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/tree-view/basic.tsx"
+<ExampleFrame variant="component">
+  <TreeViewBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tree-view/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -82,11 +98,20 @@ TreeView / TreeView.Root
 элемента, например ссылки. Этот элемент должен принимать props Ark, чтобы не нарушить фокус и
 клавиатурное управление.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/tree-view/links.tsx"
+<ExampleFrame variant="component">
+  <LinkedTreeView />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tree-view/links.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Состояние и клавиатурная навигация
 
@@ -118,44 +143,89 @@ Ark UI реализует паттерн дерева WAI-ARIA. Пользова
 Если у ветки известен `childrenCount`, загрузите её дочерние узлы через `loadChildren`. В
 `onLoadChildrenComplete` замените коллекцию в состоянии приложения значением `details.collection`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/tree-view/async-loading.tsx"
+<ExampleFrame variant="component">
+  <AsyncTreeView />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tree-view/async-loading.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Дерево с флажками
 
 Разместите `NodeCheckbox` и в элементах управления ветками, и в конечных узлах. Индикатор по
 умолчанию уже отображает отмеченное и частично отмеченное состояния.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/tree-view/checkboxes.tsx"
+<ExampleFrame variant="component">
+  <CheckboxTreeView />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tree-view/checkboxes.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Значки файлов
 
 Помещайте декоративные значки файлов и папок внутрь `BranchText` и `ItemText`. Оставьте
 `BranchIndicator` отдельным элементом, чтобы он по-прежнему отвечал только за раскрытие и сворачивание.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/tree-view/file-icons.tsx"
+<ExampleFrame variant="component">
+  <FileIconsTreeView />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tree-view/file-icons.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Множественный выбор
 
 Задайте `selectionMode="multiple"`. Используйте Ctrl или ⌘, чтобы добавлять и убирать отдельные
 элементы, и Shift, чтобы расширять диапазон выбора. В примере выбранные значения хранятся в состоянии приложения.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/tree-view/controlled-selection.tsx"
+<ExampleFrame variant="component">
+  <ControlledSelectionTreeView />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tree-view/controlled-selection.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tree-view/tree-view-controlled-selection.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Root provider
 
@@ -163,11 +233,29 @@ Ark UI реализует паттерн дерева WAI-ARIA. Пользова
 вроде `expand()` или `collapse()`. Передайте это состояние в `RootProvider` вместо того, чтобы
 рендерить второй `TreeView.Root`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/tree-view/root-provider.tsx"
+<ExampleFrame variant="component">
+  <RootProviderTreeView />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    className="docs-tabs"
+  >
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tree-view/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tree-view/tree-view-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

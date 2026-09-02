@@ -4,7 +4,12 @@ component: tour
 description: Build guided product walkthroughs with Ark UI tour state, accessible overlay parts, and ready-made actions.
 ---
 
-import { TourCssPropertiesPanel } from '@/components/examples/tour';
+import { TourCssPropertiesPanel } from '@/components/examples/tour/tour';
+import TourAdvancedCustomization from './_snippets/tour/advanced-customization.tsx';
+import TourBasic from './_snippets/tour/basic.tsx';
+import TourEvents from './_snippets/tour/events.tsx';
+import TourWaitForInput from './_snippets/tour/wait-for-input.tsx';
+import TourWithArrow from './_snippets/tour/with-arrow.tsx';
 
 ## API Reference
 
@@ -17,11 +22,26 @@ example starts with a dialog, moves to a tooltip anchored to a page control, and
 floating step. Keep the parts in JSX so each one can be adjusted when needed. `Tour.Body` keeps
 long copy scrollable inside the panel.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/tour/basic.tsx"
+<ExampleFrame variant="component">
+  <TourBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/tour/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tour/tour-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -108,11 +128,26 @@ Use the detail objects from Ark callbacks to update surrounding UI or record ana
 tour, choose Next, then Done. The `PreviewMeta` in this example shows both the step and final-status
 callbacks.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/tour/events.tsx"
+<ExampleFrame variant="component">
+  <TourEvents />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/tour/events.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tour/tour-events.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Wait for input
 
@@ -120,22 +155,52 @@ This example calls `tour.next()` from the input handler after the value reaches 
 For steps that depend on an asynchronous condition, `waitForElement`, `waitForElementValue`,
 `waitForEvent`, and `waitForPromise` are also exported from `@moduix/react/tour`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/tour/wait-for-input.tsx"
+<ExampleFrame variant="component">
+  <TourWaitForInput />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/tour/wait-for-input.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tour/tour-wait-for-input.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### With Arrow
 
 Add `Tour.Arrow` to a tooltip step when it needs a visual connection to its target, and enable the
 step's `arrow` option so Ark can position it.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/tour/with-arrow.tsx"
+<ExampleFrame variant="component">
+  <TourWithArrow />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/tour/with-arrow.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tour/tour-with-arrow.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced customization
 
@@ -143,11 +208,26 @@ Replace `Tour.ActionList` when each action needs its own markup. The example use
 children for Continue, Back, and Skip tour. Each `Tour.ActionTrigger` still receives the original
 Ark action object, so navigation, dismissal, and disabled state continue to work.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/tour/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <TourAdvancedCustomization />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/tour/advanced-customization.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tour/tour-advanced-customization.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

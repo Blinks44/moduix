@@ -4,6 +4,7 @@ import { Input } from '@moduix/react/input';
 import { Tour, useTour } from '@moduix/react/tour';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/tour/tour-wait-for-input.module.css';
 
 const steps = [
   {
@@ -30,13 +31,7 @@ export default function TourWaitForInputDemo() {
     onStatusChange: (details) => setStatus(details.status),
   });
   return (
-    <div
-      style={{
-        display: 'grid',
-        gap: 'var(--moduix-spacing-3)',
-        justifyItems: 'center',
-      }}
-    >
+    <div className={styles.root}>
       <Input
         id="tour-wait-name"
         aria-label="Workspace name"

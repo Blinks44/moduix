@@ -1,5 +1,5 @@
 import { Toggle } from '@moduix/react/toggle';
-import styles from '@/components/examples/toggle.module.css';
+import styles from '@/components/examples/toggle/toggle-sizes.module.css';
 
 export default function ToggleSizesDemo() {
   return (
