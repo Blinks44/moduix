@@ -4,7 +4,14 @@ component: tag
 description: Компактная метка для выбранных значений, фильтров, назначений и других коротких элементов интерфейса с необязательными значками и кнопкой удаления.
 ---
 
-import * as TagDocs from '@/components/examples/tag';
+import * as TagDocs from '@/components/examples/tag/tag';
+import TagBasic from '../../en/docs/_snippets/tag/basic.tsx';
+import TagClosable from '../../en/docs/_snippets/tag/closable.tsx';
+import TagIcon from '../../en/docs/_snippets/tag/icon.tsx';
+import TagOverflow from '../../en/docs/_snippets/tag/overflow.tsx';
+import TagRenderAsButton from '../../en/docs/_snippets/tag/render-as-button.tsx';
+import TagSizes from '../../en/docs/_snippets/tag/sizes.tsx';
+import TagVariants from '../../en/docs/_snippets/tag/variants.tsx';
 
 ## Справочник API
 
@@ -23,11 +30,20 @@ import * as TagDocs from '@/components/examples/tag';
 Начните с `Tag` и `Tag.Label`. Добавляйте остальные части только для значка, дополнительного
 содержимого или встроенного действия удаления.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/tag/basic.tsx"
+<ExampleFrame variant="component">
+  <TagBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tag/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -103,22 +119,52 @@ DOM-узлом и будет отвечать за собственную сем
 Родительский компонент хранит список значений и удаляет элемент после нажатия кнопки удаления.
 Задайте каждой кнопке имя, в котором указано удаляемое значение.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/tag/closable.tsx"
+<ExampleFrame variant="component">
+  <TagClosable />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tag/closable.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tag/tag-closable.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Со значком
 
 Используйте `Tag.StartElement` и `Tag.EndElement` для значков и действий. Тогда `Tag.Label`
 останется границей обрезки, а размер действия можно будет настраивать отдельно.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/tag/icon.tsx"
+<ExampleFrame variant="component">
+  <TagIcon />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tag/icon.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tag/tag-icon.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Длинные значения
 
@@ -126,33 +172,78 @@ DOM-узлом и будет отвечать за собственную сем
 `Tag.Label` станет границей обрезки и покажет многоточие. Добавьте `title`, если полное значение
 должно оставаться доступным для просмотра.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/tag/overflow.tsx"
+<ExampleFrame variant="component">
+  <TagOverflow />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tag/overflow.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tag/tag-overflow.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Размеры
 
 Используйте `size="sm"` для плотных рядов меток. Для отдельных меток и более свободной компоновки
 оставляйте размер `md` по умолчанию.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/tag/sizes.tsx"
+<ExampleFrame variant="component">
+  <TagSizes />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tag/sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tag/tag-sizes.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Варианты
 
 Используйте встроенные варианты для стандартных цветовых ролей moduix, сохраняя одну и ту же
 структуру частей.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/tag/variants.tsx"
+<ExampleFrame variant="component">
+  <TagVariants />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tag/variants.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tag/tag-variants.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
@@ -160,11 +251,26 @@ DOM-узлом и будет отвечать за собственную сем
 дочерний элемент станет семантическим и интерактивным узлом. Поэтому он должен поддерживать поведение
 кнопки или ссылки.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/tag/render-as-button.tsx"
+<ExampleFrame variant="component">
+  <TagRenderAsButton />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tag/render-as-button.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tag/tag-render-as-button.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

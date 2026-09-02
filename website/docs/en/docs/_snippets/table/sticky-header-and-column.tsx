@@ -1,4 +1,5 @@
 import { Table } from '@moduix/react/table';
+import styles from '@/components/examples/table/table-sticky-header-and-column.module.css';
 
 const rows = [
   {
@@ -23,8 +24,8 @@ const rows = [
 
 export default function TableStickyHeaderAndColumnDemo() {
   return (
-    <Table.ScrollArea style={{ maxHeight: '18rem' }}>
-      <Table stickyHeader interactive style={{ minWidth: '56rem' }}>
+    <Table.ScrollArea className={styles.scrollArea}>
+      <Table stickyHeader interactive className={styles.table}>
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeader data-sticky="start">Project</Table.ColumnHeader>

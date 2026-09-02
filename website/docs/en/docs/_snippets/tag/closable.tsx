@@ -1,6 +1,6 @@
 import { Tag } from '@moduix/react/tag';
 import { useState, type ComponentProps } from 'react';
-import styles from '@/components/examples/tag.module.css';
+import styles from '@/components/examples/tag/tag-closable.module.css';
 
 type DemoTag = {
   label: string;

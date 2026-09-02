@@ -1,5 +1,6 @@
 import { Toc } from '@moduix/react/toc';
 import { useRef } from 'react';
+import styles from '@/components/examples/table-of-contents/table-of-contents-rail.module.css';
 
 const items = [
   { value: 'toc-rail-overview', depth: 2, label: 'Overview' },
@@ -22,12 +23,12 @@ export default function TocRailDemo() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   return (
-    <Toc className="table-of-contents-demo" items={items} scrollEl={() => scrollRef.current}>
+    <Toc className={styles.root} items={items} scrollEl={() => scrollRef.current}>
       <Toc.Content>
         <div
           ref={scrollRef}
           aria-label="Scrollable document preview"
-          className="table-of-contents-demo-scroll-area"
+          className={styles.scrollArea}
           tabIndex={0}
         >
           {items.map((item) => {

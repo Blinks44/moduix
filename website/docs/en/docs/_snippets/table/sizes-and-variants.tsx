@@ -1,4 +1,5 @@
 import { Table } from '@moduix/react/table';
+import styles from '@/components/examples/table/table-sizes-and-variants.module.css';
 
 const projects = [
   {
@@ -13,7 +14,7 @@ const projects = [
 
 export default function TableSizesAndVariantsDemo() {
   return (
-    <div style={{ display: 'grid', gap: 'var(--moduix-spacing-4)' }}>
+    <div className={styles.root}>
       {(['sm', 'md', 'lg'] as const).map((size) => (
         <Table.ScrollArea key={size}>
           <Table size={size} variant={size === 'md' ? 'outline' : 'line'}>

@@ -1,5 +1,5 @@
 import { Tag } from '@moduix/react/tag';
-import styles from '@/components/examples/tag.module.css';
+import styles from '@/components/examples/tag/tag-overflow.module.css';
 
 const label = 'Ready for stakeholder review after legal approval';
 

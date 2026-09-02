@@ -1,6 +1,7 @@
 import { Button } from '@moduix/react/button';
 import { Toc, useToc } from '@moduix/react/toc';
 import { useRef } from 'react';
+import styles from '@/components/examples/table-of-contents/table-of-contents-root-provider.module.css';
 
 const items = [
   { value: 'toc-provider-overview', depth: 2, label: 'Overview' },
@@ -23,9 +24,9 @@ export default function TocRootProviderDemo() {
   });
 
   return (
-    <div className="table-of-contents-provider-demo">
-      <output>Active: {toc.activeIds.join(', ') || 'none'}</output>
-      <div className="table-of-contents-provider-actions">
+    <div className={styles.root}>
+      <output className={styles.status}>Active: {toc.activeIds.join(', ') || 'none'}</output>
+      <div className={styles.actions}>
         {items.map((item) => (
           <Button
             key={item.value}
@@ -38,12 +39,12 @@ export default function TocRootProviderDemo() {
         ))}
       </div>
 
-      <Toc.RootProvider className="table-of-contents-demo" value={toc}>
+      <Toc.RootProvider className={styles.toc} value={toc}>
         <Toc.Content>
           <div
             ref={scrollRef}
             aria-label="Scrollable document preview"
-            className="table-of-contents-demo-scroll-area"
+            className={styles.scrollArea}
             tabIndex={0}
           >
             {items.map((item) => (

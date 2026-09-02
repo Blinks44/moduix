@@ -1,0 +1,10 @@
+.root {
+  overflow-x: auto;
+  padding: var(--moduix-spacing-3);
+  border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
+  border-radius: var(--moduix-radius-lg);
+}
+
+.table {
+  min-width: 34rem;
+}

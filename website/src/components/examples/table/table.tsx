@@ -1,5 +1,5 @@
-import type { CssPropertyInput } from '../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../mdx/reference';
+import type { CssPropertyInput } from '../../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
 const tableOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-table-border-color', 'var(--moduix-color-border)', 'Controls table divider color.'],

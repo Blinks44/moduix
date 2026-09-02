@@ -4,7 +4,17 @@ component: tabs
 description: Basculez entre des panneaux associés avec une navigation clavier accessible, un état contrôlé, un montage différé, des liens et une orientation verticale.
 ---
 
-import * as TabsDocs from '@/components/examples/tabs';
+import * as TabsDocs from '@/components/examples/tabs/tabs';
+import TabsBasic from '../../en/docs/_snippets/tabs/basic.tsx';
+import TabsControlledValue from '../../en/docs/_snippets/tabs/controlled-value.tsx';
+import TabsCustomIcons from '../../en/docs/_snippets/tabs/custom-icons.tsx';
+import TabsDisabledTab from '../../en/docs/_snippets/tabs/disabled-tab.tsx';
+import TabsLazyMount from '../../en/docs/_snippets/tabs/lazy-mount.tsx';
+import TabsLine from '../../en/docs/_snippets/tabs/line.tsx';
+import TabsLinks from '../../en/docs/_snippets/tabs/links.tsx';
+import TabsManualActivation from '../../en/docs/_snippets/tabs/manual-activation.tsx';
+import TabsRootProvider from '../../en/docs/_snippets/tabs/root-provider.tsx';
+import TabsVertical from '../../en/docs/_snippets/tabs/vertical.tsx';
 
 ## Référence de l’API
 
@@ -24,11 +34,20 @@ panneau correspondant et masque les autres.
 Commencez avec `Tabs` et donnez la même valeur `value` à chaque paire `Tabs.Trigger` et `Tabs.Content`. Ajoutez
 explicitement `Tabs.Indicator` lorsque vous souhaitez mettre en évidence l’onglet sélectionné.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tabs/basic.tsx"
+<ExampleFrame variant="component">
+  <TabsBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tabs/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -116,99 +135,184 @@ depuis les descendants de `Tabs` ou de `Tabs.RootProvider`.
 Contrôlez l’onglet sélectionné avec un état React lorsque le panneau actif doit se coordonner avec le reste de
 l’interface.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tabs/controlled-value.tsx"
+<ExampleFrame variant="component">
+  <TabsControlledValue />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tabs/controlled-value.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Icônes personnalisées
 
 Placez directement les icônes et les libellés dans `Tabs.Trigger`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tabs/custom-icons.tsx"
+<ExampleFrame variant="component">
+  <TabsCustomIcons />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tabs/custom-icons.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Onglet désactivé
 
 Désactivez un onglet qui doit rester visible, mais qui n’est pas encore disponible.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tabs/disabled-tab.tsx"
+<ExampleFrame variant="component">
+  <TabsDisabledTab />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tabs/disabled-tab.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Montage différé
 
 Utilisez `lazyMount` pour ne monter un panneau qu’au moment où il est sélectionné. Ajoutez `unmountOnExit` pour
 le retirer du DOM lorsque l’utilisateur change d’onglet.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tabs/lazy-mount.tsx"
+<ExampleFrame variant="component">
+  <TabsLazyMount />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tabs/lazy-mount.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Variante ligne
 
 Utilisez `variant="line"` lorsque l’indicateur doit suivre le bord actif au lieu de remplir l’onglet sélectionné.
 Ce style est disponible pour les onglets horizontaux.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tabs/line.tsx"
+<ExampleFrame variant="component">
+  <TabsLine />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tabs/line.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Liens
 
 Utilisez `asChild` lorsque les onglets doivent être rendus comme des ancres ou des liens pris en charge par
 votre routeur.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tabs/links.tsx"
+<ExampleFrame variant="component">
+  <TabsLinks />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tabs/links.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Activation manuelle
 
 Définissez `activationMode="manual"` lorsque les touches fléchées doivent déplacer le focus sans modifier l’onglet
 sélectionné. Activez-le avec un clic, la touche Entrée ou la barre d’espace.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tabs/manual-activation.tsx"
+<ExampleFrame variant="component">
+  <TabsManualActivation />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tabs/manual-activation.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Orientation verticale
 
 Utilisez `orientation="vertical"` lorsque la liste des onglets doit se trouver à côté du panneau actif. Les onglets
 verticaux utilisent l’indicateur rempli, ce qui facilite le repérage de l’élément sélectionné.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tabs/vertical.tsx"
+<ExampleFrame variant="component">
+  <TabsVertical />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tabs/vertical.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Personnalisation avancée
 
 Créez l’état des onglets avec `useTabs()` lorsqu’il doit exister avant le rendu de l’arbre de parties ou lorsque
 l’interface voisine doit lire la valeur sélectionnée.
 
-<style>{TabsDocs.tabsExampleCss}</style>
+<ExampleFrame variant="component">
+  <TabsRootProvider />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tabs/root-provider.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/tabs/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tabs/tabs-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

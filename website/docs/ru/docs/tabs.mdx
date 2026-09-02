@@ -4,7 +4,17 @@ component: tabs
 description: Переключайте связанные панели с доступной клавиатурной навигацией, управляемым состоянием, ленивым монтированием, ссылками и вертикальной ориентацией.
 ---
 
-import * as TabsDocs from '@/components/examples/tabs';
+import * as TabsDocs from '@/components/examples/tabs/tabs';
+import TabsBasic from '../../en/docs/_snippets/tabs/basic.tsx';
+import TabsControlledValue from '../../en/docs/_snippets/tabs/controlled-value.tsx';
+import TabsCustomIcons from '../../en/docs/_snippets/tabs/custom-icons.tsx';
+import TabsDisabledTab from '../../en/docs/_snippets/tabs/disabled-tab.tsx';
+import TabsLazyMount from '../../en/docs/_snippets/tabs/lazy-mount.tsx';
+import TabsLine from '../../en/docs/_snippets/tabs/line.tsx';
+import TabsLinks from '../../en/docs/_snippets/tabs/links.tsx';
+import TabsManualActivation from '../../en/docs/_snippets/tabs/manual-activation.tsx';
+import TabsRootProvider from '../../en/docs/_snippets/tabs/root-provider.tsx';
+import TabsVertical from '../../en/docs/_snippets/tabs/vertical.tsx';
 
 ## Справочник API
 
@@ -24,11 +34,20 @@ import * as TabsDocs from '@/components/examples/tabs';
 Начните с `Tabs` и укажите одинаковое значение `value` у каждой пары `Tabs.Trigger` и `Tabs.Content`. Добавляйте
 `Tabs.Indicator` явно, если хотите визуально выделить выбранную вкладку.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tabs/basic.tsx"
+<ExampleFrame variant="component">
+  <TabsBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tabs/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -116,99 +135,184 @@ Tabs.Context
 Храните выбранную вкладку в состоянии React, если активная панель должна согласовываться с другими элементами
 интерфейса.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tabs/controlled-value.tsx"
+<ExampleFrame variant="component">
+  <TabsControlledValue />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tabs/controlled-value.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Собственные значки
 
 Размещайте значки и подписи непосредственно внутри `Tabs.Trigger`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tabs/custom-icons.tsx"
+<ExampleFrame variant="component">
+  <TabsCustomIcons />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tabs/custom-icons.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Отключённая вкладка
 
 Отключите вкладку, которая должна оставаться видимой, но пока недоступна пользователю.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tabs/disabled-tab.tsx"
+<ExampleFrame variant="component">
+  <TabsDisabledTab />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tabs/disabled-tab.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Ленивое монтирование
 
 Используйте `lazyMount`, чтобы панель монтировалась только после выбора вкладки. Добавьте `unmountOnExit`, чтобы
 после переключения на другую вкладку удалять её из DOM.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tabs/lazy-mount.tsx"
+<ExampleFrame variant="component">
+  <TabsLazyMount />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tabs/lazy-mount.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Вариант с линией
 
 Используйте `variant="line"`, если индикатор должен располагаться у активного края, а не заполнять выбранную
 вкладку. Этот вариант доступен для горизонтальных вкладок.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tabs/line.tsx"
+<ExampleFrame variant="component">
+  <TabsLine />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tabs/line.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Ссылки
 
 Используйте `asChild`, если триггеры вкладок должны рендериться как якоря или ссылки, которыми управляет ваш
 маршрутизатор.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tabs/links.tsx"
+<ExampleFrame variant="component">
+  <TabsLinks />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tabs/links.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Ручная активация
 
 Задайте `activationMode="manual"`, если стрелки должны перемещать фокус, не меняя выбранную вкладку. Активируйте
 её щелчком, клавишей Enter или пробелом.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tabs/manual-activation.tsx"
+<ExampleFrame variant="component">
+  <TabsManualActivation />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tabs/manual-activation.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Вертикальная ориентация
 
 Используйте `orientation="vertical"`, если список вкладок должен располагаться рядом с активной панелью. В
 вертикальных вкладках используется заполненный индикатор, поэтому выбранный элемент легче заметить.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tabs/vertical.tsx"
+<ExampleFrame variant="component">
+  <TabsVertical />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tabs/vertical.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Расширенная настройка
 
 Создайте состояние вкладок через `useTabs()`, если оно должно существовать до отображения дерева частей или если
 соседнему элементу интерфейса нужно читать выбранное значение.
 
-<style>{TabsDocs.tabsExampleCss}</style>
+<ExampleFrame variant="component">
+  <TabsRootProvider />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tabs/root-provider.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
 
-  ```
-</PreviewFrame>
+```tsx file="../../en/docs/_snippets/tabs/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tabs/tabs-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 

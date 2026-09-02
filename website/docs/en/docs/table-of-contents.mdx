@@ -4,9 +4,11 @@ component: table-of-contents
 description: Keep an accessible table of contents in sync with the section a reader is viewing.
 ---
 
-import * as TocDocs from '@/components/examples/toc';
-
-<style>{TocDocs.tocExampleCss}</style>
+import TocBasic from './_snippets/table-of-contents/basic.tsx';
+import TocRail from './_snippets/table-of-contents/rail.tsx';
+import TocRootProvider from './_snippets/table-of-contents/root-provider.tsx';
+import TocWithCollapsible from './_snippets/table-of-contents/with-collapsible.tsx';
+import * as TocDocs from '@/components/examples/table-of-contents/table-of-contents';
 
 ## API Reference
 
@@ -23,11 +25,26 @@ On a regular document page, omit `scrollEl` and the component observes the page 
 preview below uses an inner scroll container, so it passes that element to `scrollEl` to keep
 tracking and link navigation inside the preview.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/table-of-contents/basic.tsx"
+<ExampleFrame variant="component">
+  <TocBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/table-of-contents/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/table-of-contents/table-of-contents-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -130,11 +147,26 @@ Use `Toc.RootProvider` with `useToc()` when controls outside the part tree need 
 
 Use `useToc()` when another control needs to read the active headings or scroll the reading pane.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/table-of-contents/root-provider.tsx"
+<ExampleFrame variant="component">
+  <TocRootProvider />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/table-of-contents/root-provider.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/table-of-contents/table-of-contents-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Rail
 
@@ -142,11 +174,26 @@ Place `Toc.Rail` inside each link to draw an SVG connector between neighbouring 
 Pass the current, previous, and next depths from the same ordered `items` array. The rail on the
 active link uses the indicator colour. Do not render `Toc.Indicator` in the same list.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/table-of-contents/rail.tsx"
+<ExampleFrame variant="component">
+  <TocRail />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/table-of-contents/rail.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/table-of-contents/table-of-contents-rail.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### With Collapsible
 
@@ -154,11 +201,26 @@ Place the navigation list inside `Collapsible` when readers should be able to hi
 of contents. `Toc.Context` supplies the active item for the trigger label and progress ring, while
 the links continue to target the same reading pane.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/table-of-contents/with-collapsible.tsx"
+<ExampleFrame variant="component">
+  <TocWithCollapsible />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/table-of-contents/with-collapsible.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/table-of-contents/table-of-contents-with-collapsible.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 
@@ -167,17 +229,7 @@ Style the component through `className`, Ark attributes, moduix `data-slot` hook
 
 ### CSS Properties
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <TocDocs.TocCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={TocDocs.tableOfContentsOverrideCssProperties} />
 
 ### Styling hooks
 

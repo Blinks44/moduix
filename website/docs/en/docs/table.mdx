@@ -4,7 +4,19 @@ component: table
 description: A native table component with an optional scroll container, numeric columns, captions, and empty-state support.
 ---
 
-import * as TableDocs from '@/components/examples/table';
+import * as TableDocs from '@/components/examples/table/table';
+import TableBasic from './_snippets/table/basic.tsx';
+import TableCaptionAndFooter from './_snippets/table/caption-and-footer.tsx';
+import TableColumnGroupAndBorders from './_snippets/table/column-group-and-borders.tsx';
+import TableCustomComposition from './_snippets/table/custom-composition.tsx';
+import TableEmptyState from './_snippets/table/empty-state.tsx';
+import TableInsideCard from './_snippets/table/inside-card.tsx';
+import TableNumericColumns from './_snippets/table/numeric-columns.tsx';
+import TableRowActions from './_snippets/table/row-actions-with-menu.tsx';
+import TableSizesAndVariants from './_snippets/table/sizes-and-variants.tsx';
+import TableStickyHeaderAndColumn from './_snippets/table/sticky-header-and-column.tsx';
+import TableStripedRows from './_snippets/table/striped-rows.tsx';
+import TableWithScrollarea from './_snippets/table/with-scrollarea.tsx';
 
 ## API Reference
 
@@ -24,10 +36,20 @@ If the table may be wider than its container, wrap it in `Table.ScrollArea`. The
 with `Table.Header`, `Table.Body`, `Table.Row`, and the matching header and cell parts. This is the
 recommended setup for invoices, summaries, and admin-style read-only datasets.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/table/basic.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <TableBasic />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/table/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install with shadcn
 
@@ -137,89 +159,191 @@ description, and use `id` / `headers` when a complex table needs explicit header
 Use `Table.Caption side="top"` when the label reads better before the data, and `Table.Footer` for
 totals or summaries.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/table/caption-and-footer.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <TableCaptionAndFooter />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/table/caption-and-footer.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Column Group and Borders
 
 Use `Table.ColumnGroup` and `Table.Column` for native column widths, and `showColumnBorder` when
 column separation needs to be visible.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/table/column-group-and-borders.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <TableColumnGroupAndBorders />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/table/column-group-and-borders.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Empty State
 
 Use `Table.Empty` when a body would otherwise render no rows. Set `colSpan` to the current number of
 columns.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/table/empty-state.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <TableEmptyState />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/table/empty-state.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Inside Card
 
 `Table.ScrollArea` fits naturally inside `Card.Body` when the table should live on a card surface.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/table/inside-card.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <TableInsideCard />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/table/inside-card.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Numeric Columns
 
 Use `numeric` on both the header and the cells for aligned amounts, counts, percentages, and other
 numeric metrics.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/table/numeric-columns.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <TableNumericColumns />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/table/numeric-columns.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Row Actions With Menu
 
 Use the last column for row-specific actions when the dataset needs lightweight overflow commands.
 `Menu` fits this case cleanly without changing the native table structure.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/table/row-actions-with-menu.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <TableRowActions />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/table/row-actions-with-menu.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Sizes and Variants
 
 Use `size` for density and `variant` for divider style. `Table` keeps these as visual modes on the
 native root instead of adding extra state.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/table/sizes-and-variants.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <TableSizesAndVariants />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/table/sizes-and-variants.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/table/table-sizes-and-variants.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Sticky Header and Column
 
 Use `stickyHeader` on the root and `data-sticky="start" | "end"` on cells when a horizontally or
 vertically scrolling table needs persistent context.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/table/sticky-header-and-column.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <TableStickyHeaderAndColumn />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/table/sticky-header-and-column.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/table/table-sticky-header-and-column.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Striped Rows
 
 Use `striped` when long read-only bodies need stronger row separation without switching to a more
 opinionated table abstraction.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/table/striped-rows.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <TableStripedRows />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/table/striped-rows.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### With ScrollArea
 
@@ -227,10 +351,26 @@ Use `ScrollArea` directly when the table needs styled scrollbars on both axes, f
 scroll area API. `Table.ScrollArea` is a simpler bordered horizontal-overflow wrapper. Keep the
 `ScrollArea` structure explicit so the table stays native and lightweight.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/table/with-scrollarea.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <TableWithScrollarea />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/table/with-scrollarea.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/table/table-with-scrollarea.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Advanced Customization
 
@@ -238,10 +378,26 @@ Use your own wrapper instead of `Table.ScrollArea` when the surrounding layout a
 surface or scrolling behavior. This keeps the native table composition explicit while giving your
 layout full control of the shell.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/table/custom-composition.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <TableCustomComposition />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="./_snippets/table/custom-composition.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/table/table-custom-composition.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styling
 

@@ -1,5 +1,6 @@
 import { Tabs, useTabs } from '@moduix/react/tabs';
 import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/tabs/tabs-root-provider.module.css';
 
 const items = [
   {
@@ -26,7 +27,7 @@ export default function RootProviderTabsDemo() {
     defaultValue: 'overview',
   });
   return (
-    <div className="tabs-stack">
+    <div className={styles.root}>
       <Tabs.RootProvider value={tabs}>
         <Tabs.List>
           {items.map((item) => (

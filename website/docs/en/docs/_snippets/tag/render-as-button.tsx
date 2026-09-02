@@ -1,5 +1,5 @@
 import { Tag } from '@moduix/react/tag';
-import styles from '@/components/examples/tag.module.css';
+import styles from '@/components/examples/tag/tag-render-as-button.module.css';
 
 export default function TagAsChildDemo() {
   return (

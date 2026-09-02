@@ -1,17 +1,5 @@
-import type { CssPropertyInput } from '../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../mdx/reference';
-
-export const tabsExampleCss = `
-  .tabs-stack {
-    display: grid;
-    gap: var(--moduix-spacing-3);
-    justify-items: center;
-  }
-
-  .tabs-stack > [data-preview-meta] {
-    justify-self: center;
-  }
-`;
+import type { CssPropertyInput } from '../../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
 const tabsOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-tabs-bg', 'var(--moduix-color-background)', 'Controls the content background color.'],

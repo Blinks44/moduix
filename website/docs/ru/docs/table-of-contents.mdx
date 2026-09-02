@@ -4,9 +4,11 @@ component: table-of-contents
 description: Синхронизируйте доступное оглавление с разделом, который читает пользователь.
 ---
 
-import * as TocDocs from '@/components/examples/toc';
-
-<style>{TocDocs.tocExampleCss}</style>
+import TocBasic from '../../en/docs/_snippets/table-of-contents/basic.tsx';
+import TocRail from '../../en/docs/_snippets/table-of-contents/rail.tsx';
+import TocRootProvider from '../../en/docs/_snippets/table-of-contents/root-provider.tsx';
+import TocWithCollapsible from '../../en/docs/_snippets/table-of-contents/with-collapsible.tsx';
+import * as TocDocs from '@/components/examples/table-of-contents/table-of-contents';
 
 ## Справочник API
 
@@ -23,11 +25,26 @@ import * as TocDocs from '@/components/examples/toc';
 просмотра страницы. В примере ниже используется вложенный контейнер с прокруткой. Он передаётся в
 `scrollEl`, поэтому отслеживание и переходы по ссылкам не выходят за пределы предпросмотра.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/table-of-contents/basic.tsx"
+<ExampleFrame variant="component">
+  <TocBasic />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/table-of-contents/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/table-of-contents/table-of-contents-basic.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Установка через shadcn
 
@@ -138,11 +155,26 @@ Toc.RootProvider
 Используйте `useToc()`, если другому элементу интерфейса нужно читать активные заголовки или
 прокручивать область чтения.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/table-of-contents/root-provider.tsx"
+<ExampleFrame variant="component">
+  <TocRootProvider />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/table-of-contents/root-provider.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/table-of-contents/table-of-contents-root-provider.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Rail
 
@@ -151,11 +183,26 @@ Toc.RootProvider
 массива `items`. Для активной ссылки Rail использует цвет индикатора. Не добавляйте
 `Toc.Indicator` в тот же список.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/table-of-contents/rail.tsx"
+<ExampleFrame variant="component">
+  <TocRail />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/table-of-contents/rail.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/table-of-contents/table-of-contents-rail.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### С раскрываемой навигацией
 
@@ -163,11 +210,26 @@ Toc.RootProvider
 `Toc.Context` передаёт активный элемент в текст кнопки и кольцо прогресса, а ссылки по-прежнему
 ведут в ту же область чтения.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/table-of-contents/with-collapsible.tsx"
+<ExampleFrame variant="component">
+  <TocWithCollapsible />
+</ExampleFrame>
 
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/table-of-contents/with-collapsible.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/table-of-contents/table-of-contents-with-collapsible.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Стилизация
 
@@ -176,17 +238,7 @@ Toc.RootProvider
 
 ### CSS-свойства
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS-переменные', value: 'CSS-переменные' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <TocDocs.TocCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={TocDocs.tableOfContentsOverrideCssProperties} />
 
 ### Хуки стилизации
 

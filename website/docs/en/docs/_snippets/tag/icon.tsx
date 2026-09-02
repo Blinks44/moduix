@@ -1,6 +1,6 @@
 import { Tag } from '@moduix/react/tag';
 import { Check as CheckIcon } from 'lucide-react';
-import styles from '@/components/examples/tag.module.css';
+import styles from '@/components/examples/tag/tag-icon.module.css';
 
 const tags = [
   {

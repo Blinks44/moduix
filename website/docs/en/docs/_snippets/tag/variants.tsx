@@ -1,5 +1,5 @@
 import { Tag } from '@moduix/react/tag';
-import styles from '@/components/examples/tag.module.css';
+import styles from '@/components/examples/tag/tag-variants.module.css';
 
 const variants = ['default', 'secondary', 'outline', 'ghost', 'destructive'] as const;
 

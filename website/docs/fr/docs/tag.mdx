@@ -4,7 +4,14 @@ component: tag
 description: Une étiquette compacte pour afficher une valeur sélectionnée, un filtre, une attribution ou une autre information courte, avec des icônes et une action de suppression facultatives.
 ---
 
-import * as TagDocs from '@/components/examples/tag';
+import * as TagDocs from '@/components/examples/tag/tag';
+import TagBasic from '../../en/docs/_snippets/tag/basic.tsx';
+import TagClosable from '../../en/docs/_snippets/tag/closable.tsx';
+import TagIcon from '../../en/docs/_snippets/tag/icon.tsx';
+import TagOverflow from '../../en/docs/_snippets/tag/overflow.tsx';
+import TagRenderAsButton from '../../en/docs/_snippets/tag/render-as-button.tsx';
+import TagSizes from '../../en/docs/_snippets/tag/sizes.tsx';
+import TagVariants from '../../en/docs/_snippets/tag/variants.tsx';
 
 ## Référence de l’API
 
@@ -23,11 +30,20 @@ actuel et peut nécessiter une action locale, par exemple une suppression.
 Commencez avec un `Tag` et `Tag.Label`. Ajoutez les autres parties uniquement si l’étiquette a
 besoin d’une icône, d’un contenu complémentaire ou d’une action de fermeture intégrée.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/tag/basic.tsx"
+<ExampleFrame variant="component">
+  <TagBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tag/basic.tsx"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Installation avec shadcn
 
@@ -103,22 +119,52 @@ défaut n’est pas rendue dans ce mode.
 Le composant parent conserve la liste des valeurs et supprime un élément après le clic sur le
 bouton de fermeture. Donnez à chaque bouton un nom qui contient la valeur supprimée.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/tag/closable.tsx"
+<ExampleFrame variant="component">
+  <TagClosable />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tag/closable.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tag/tag-closable.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Avec une icône
 
 Utilisez `Tag.StartElement` et `Tag.EndElement` pour les icônes et les actions. `Tag.Label` reste
 ainsi la limite de troncature et la taille de l’action reste indépendante.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/tag/icon.tsx"
+<ExampleFrame variant="component">
+  <TagIcon />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tag/icon.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tag/tag-icon.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Valeurs longues
 
@@ -126,33 +172,78 @@ Limitez la largeur de la racine lorsque les valeurs longues doivent tenir dans u
 `Tag.Label` devient la limite de troncature et affiche des points de suspension ; ajoutez `title`
 pour que la valeur complète reste consultable.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/tag/overflow.tsx"
+<ExampleFrame variant="component">
+  <TagOverflow />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tag/overflow.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tag/tag-overflow.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Tailles
 
 Utilisez `size="sm"` pour les rangées d’étiquettes denses. Conservez la taille `md` par défaut
 pour les étiquettes seules et un espacement plus confortable.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/tag/sizes.tsx"
+<ExampleFrame variant="component">
+  <TagSizes />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tag/sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tag/tag-sizes.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Variantes
 
 Utilisez les variantes intégrées pour les rôles de couleur courants de moduix tout en conservant
 la même structure de parties.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/tag/variants.tsx"
+<ExampleFrame variant="component">
+  <TagVariants />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tag/variants.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tag/tag-variants.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ### Personnalisation avancée
 
@@ -160,11 +251,26 @@ Utilisez `asChild` lorsque l’étiquette entière est une action. Cette option 
 défaut ; l’unique enfant devient l’élément sémantique et interactif. Il doit donc fournir le
 comportement attendu d’un bouton ou d’un lien.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/tag/render-as-button.tsx"
+<ExampleFrame variant="component">
+  <TagRenderAsButton />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<div className="docs-reference">
+  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="React">
+
+```tsx file="../../en/docs/_snippets/tag/render-as-button.tsx"
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/examples/tag/tag-render-as-button.module.css"
+```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Styles
 

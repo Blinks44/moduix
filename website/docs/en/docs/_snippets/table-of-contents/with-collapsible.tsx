@@ -1,6 +1,7 @@
 import { Collapsible } from '@moduix/react/collapsible';
 import { Toc } from '@moduix/react/toc';
 import { useRef } from 'react';
+import styles from '@/components/examples/table-of-contents/table-of-contents-with-collapsible.module.css';
 
 const items = [
   { value: 'toc-collapsible-overview', depth: 2, label: 'Overview' },
@@ -20,12 +21,8 @@ export default function TocWithCollapsibleDemo() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   return (
-    <Toc
-      className="table-of-contents-demo table-of-contents-collapsible-demo"
-      items={items}
-      scrollEl={() => scrollRef.current}
-    >
-      <Collapsible.Root className="table-of-contents-collapsible-root" defaultOpen>
+    <Toc className={styles.root} items={items} scrollEl={() => scrollRef.current}>
+      <Collapsible.Root className={styles.collapsibleRoot} defaultOpen>
         <Toc.Context>
           {({ activeItems }) => {
             const activeIndex = items.findIndex((item) => item.value === activeItems[0]?.value);
@@ -33,9 +30,9 @@ export default function TocWithCollapsibleDemo() {
 
             return (
               <Collapsible.Trigger>
-                <span className="table-of-contents-collapsible-trigger-content">
+                <span className={styles.triggerContent}>
                   <ProgressRing index={activeIndex} total={items.length} />
-                  <span className="table-of-contents-collapsible-trigger-label">{activeLabel}</span>
+                  <span className={styles.triggerLabel}>{activeLabel}</span>
                 </span>
                 <Collapsible.Indicator />
               </Collapsible.Trigger>
@@ -59,7 +56,7 @@ export default function TocWithCollapsibleDemo() {
         <div
           ref={scrollRef}
           aria-label="Scrollable document preview"
-          className="table-of-contents-demo-scroll-area"
+          className={styles.scrollArea}
           tabIndex={0}
         >
           {items.map((item) => (
@@ -85,7 +82,7 @@ function ProgressRing({ index, total }: { index: number; total: number }) {
       height="28"
       viewBox="0 0 36 36"
       aria-hidden="true"
-      className="table-of-contents-progress-ring"
+      className={styles.progressRing}
     >
       <circle
         cx="18"
