@@ -34,11 +34,12 @@ import { DownloadTrigger } from '@ark-ui/react/download-trigger';
   <DownloadTriggerBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/download-trigger/basic.tsx"
+```tsx pure file="../../../src/components/examples/download-trigger/basic.tsx"
 ```
 
     </Tab>
@@ -51,6 +52,8 @@ import { DownloadTrigger } from '@ark-ui/react/download-trigger';
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ## Генерация по запросу
 
 Передайте функцию, если файл нужно подготовить перед скачиванием. Ark вызовет её после активации триггера. Если
@@ -60,11 +63,12 @@ import { DownloadTrigger } from '@ark-ui/react/download-trigger';
   <DownloadTriggerAsyncData />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/download-trigger/async-data.tsx"
+```tsx pure file="../../../src/components/examples/download-trigger/async-data.tsx"
 ```
 
     </Tab>
@@ -76,6 +80,8 @@ import { DownloadTrigger } from '@ark-ui/react/download-trigger';
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 У `DownloadTrigger` нет собственного состояния загрузки и обработчика ошибок. Если генерация может занять время,
 храните её состояние в приложении и обрабатывайте ошибки внутри функции, переданной в `data`. На время операции

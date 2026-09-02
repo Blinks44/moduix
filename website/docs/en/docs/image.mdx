@@ -28,16 +28,19 @@ The browser reserves space for the image before it loads.
   <ImageBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/image/basic.tsx"
+```tsx pure file="../../../src/components/examples/image/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -126,11 +129,12 @@ browsers that do not support AVIF. `Image.Source` must stay inside a native `<pi
   <ImageArtDirection />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/image/art-direction.tsx"
+```tsx pure file="../../../src/components/examples/image/art-direction.tsx"
 ```
 
     </Tab>
@@ -143,6 +147,8 @@ browsers that do not support AVIF. `Image.Source` must stay inside a native `<pi
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Fixed
 
 Use `layout="fixed"` when the image must keep exact dimensions in CSS pixels. Make sure its parent
@@ -152,16 +158,19 @@ has enough room, since fixed images do not shrink to fit a narrower container.
   <ImageFixed />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/image/fixed.tsx"
+```tsx pure file="../../../src/components/examples/image/fixed.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Full Width
 
@@ -172,16 +181,19 @@ Supply `height` when the crop height must remain fixed.
   <ImageFullWidth />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/image/full-width.tsx"
+```tsx pure file="../../../src/components/examples/image/full-width.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

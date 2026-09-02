@@ -34,11 +34,12 @@ initial et copié.
   <ClipboardBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/clipboard/basic.tsx"
+```tsx pure file="../../../src/components/examples/clipboard/basic.tsx"
 ```
 
     </Tab>
@@ -50,6 +51,8 @@ initial et copié.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -149,11 +152,12 @@ Lisez l’état du presse-papiers depuis un contenu imbriqué avec `Clipboard.Co
   <ContextClipboardDemo />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/clipboard/context.tsx"
+```tsx pure file="../../../src/components/examples/clipboard/context.tsx"
 ```
 
     </Tab>
@@ -166,6 +170,8 @@ Lisez l’état du presse-papiers depuis un contenu imbriqué avec `Clipboard.Co
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### État de la copie
 
 Utilisez `onStatusChange(details)` lorsqu’une autre partie de l’interface doit réagir après une copie
@@ -175,11 +181,12 @@ réussie. L’exemple incrémente un compteur lorsque `details.copied` est vrai.
   <ClipboardStatusDemo />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/clipboard/copy-status.tsx"
+```tsx pure file="../../../src/components/examples/clipboard/copy-status.tsx"
 ```
 
     </Tab>
@@ -192,6 +199,8 @@ réussie. L’exemple incrémente un compteur lorsque `details.copied` est vrai.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Texte de copie personnalisé
 
 Fournissez votre propre contenu à `Clipboard.CopyText` ou utilisez sa prop `copied` lorsque le bouton
@@ -201,11 +210,12 @@ doit utiliser des libellés adaptés à votre produit.
   <CustomCopyTextClipboardDemo />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/clipboard/custom-copy-text.tsx"
+```tsx pure file="../../../src/components/examples/clipboard/custom-copy-text.tsx"
 ```
 
     </Tab>
@@ -218,6 +228,8 @@ doit utiliser des libellés adaptés à votre produit.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### État désactivé
 
 Transmettez `disabled` au champ et au bouton lorsque les utilisateurs peuvent voir la valeur, mais ne
@@ -227,11 +239,12 @@ doivent ni la modifier ni la copier.
   <DisabledClipboardDemo />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/clipboard/disabled.tsx"
+```tsx pure file="../../../src/components/examples/clipboard/disabled.tsx"
 ```
 
     </Tab>
@@ -244,6 +257,8 @@ doivent ni la modifier ni la copier.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Créez l’état avec `Clipboard.useClipboard()` et transmettez-le à `Clipboard.RootProvider` lorsque
@@ -253,11 +268,12 @@ celui-ci doit être partagé entre plusieurs composants ou créé indépendammen
   <RootProviderClipboardDemo />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/clipboard/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/clipboard/root-provider.tsx"
 ```
 
     </Tab>
@@ -270,6 +286,8 @@ celui-ci doit être partagé entre plusieurs composants ou créé indépendammen
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Délai
 
 Définissez `timeout` lorsque l’état copié doit rester visible plus ou moins longtemps que les trois
@@ -279,11 +297,12 @@ secondes par défaut.
   <TimeoutClipboardDemo />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/clipboard/timeout.tsx"
+```tsx pure file="../../../src/components/examples/clipboard/timeout.tsx"
 ```
 
     </Tab>
@@ -296,6 +315,8 @@ secondes par défaut.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Texte de la valeur
 
 Utilisez `Clipboard.ValueText` lorsque la valeur doit apparaître comme du texte plutôt que dans un
@@ -305,11 +326,12 @@ champ de saisie.
   <ValueTextClipboardDemo />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/clipboard/value-text.tsx"
+```tsx pure file="../../../src/components/examples/clipboard/value-text.tsx"
 ```
 
     </Tab>
@@ -322,6 +344,8 @@ champ de saisie.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Personnalisation avancée
 
 Utilisez `asChild` pour que vos propres éléments de champ et de bouton soient utilisés pour le rendu
@@ -331,11 +355,12 @@ des parties Clipboard, tout en conservant l’état et le comportement du compos
   <AsChildClipboardDemo />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/clipboard/as-child.tsx"
+```tsx pure file="../../../src/components/examples/clipboard/as-child.tsx"
 ```
 
     </Tab>
@@ -347,6 +372,8 @@ des parties Clipboard, tout en conservant l’état et le comportement du compos
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

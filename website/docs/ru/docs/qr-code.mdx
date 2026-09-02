@@ -28,16 +28,19 @@ SVG. Если QR-код передаёт информацию, добавьте 
   <QrCodeBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/qr-code/basic.tsx"
+```tsx pure file="../../../src/components/examples/qr-code/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -139,11 +142,12 @@ SVG является визуальным содержимым. Если QR-ко
   <ControlledQrCode />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/qr-code/controlled.tsx"
+```tsx pure file="../../../src/components/examples/qr-code/controlled.tsx"
 ```
 
     </Tab>
@@ -156,6 +160,8 @@ SVG является визуальным содержимым. Если QR-ко
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Скачивание
 
 Добавьте `QrCode.DownloadTrigger`, если пользователям нужно сохранить созданный QR-код как
@@ -165,16 +171,19 @@ SVG является визуальным содержимым. Если QR-ко
   <DownloadQrCode />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/qr-code/download.tsx"
+```tsx pure file="../../../src/components/examples/qr-code/download.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Коррекция ошибок
 
@@ -191,11 +200,12 @@ SVG является визуальным содержимым. Если QR-ко
   <ErrorCorrectionQrCode />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/qr-code/error-correction.tsx"
+```tsx pure file="../../../src/components/examples/qr-code/error-correction.tsx"
 ```
 
     </Tab>
@@ -208,6 +218,8 @@ SVG является визуальным содержимым. Если QR-ко
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Заливка
 
 По умолчанию модули QR-кода используют `currentColor`. Измените заливку SVG через `style`, класс
@@ -217,11 +229,12 @@ SVG является визуальным содержимым. Если QR-ко
   <FillQrCode />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/qr-code/fill.tsx"
+```tsx pure file="../../../src/components/examples/qr-code/fill.tsx"
 ```
 
     </Tab>
@@ -234,6 +247,8 @@ SVG является визуальным содержимым. Если QR-ко
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Поле ввода
 
 Свяжите `value` с текстовым полем, если пользователям нужно ввести или изменить содержимое QR-кода.
@@ -243,11 +258,12 @@ SVG является визуальным содержимым. Если QR-ко
   <InputQrCode />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/qr-code/input.tsx"
+```tsx pure file="../../../src/components/examples/qr-code/input.tsx"
 ```
 
     </Tab>
@@ -260,6 +276,8 @@ SVG является визуальным содержимым. Если QR-ко
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Наложение
 
 Используйте `QrCode.Overlay` для небольшого логотипа или текстовой отметки. Задайте высокий уровень
@@ -269,11 +287,12 @@ SVG является визуальным содержимым. Если QR-ко
   <OverlayQrCode />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/qr-code/overlay.tsx"
+```tsx pure file="../../../src/components/examples/qr-code/overlay.tsx"
 ```
 
     </Tab>
@@ -286,6 +305,8 @@ SVG является визуальным содержимым. Если QR-ко
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Создайте состояние QR-кода через `useQrCode()`, если им должны пользоваться элементы управления вне
@@ -295,16 +316,19 @@ SVG является визуальным содержимым. Если QR-ко
   <RootProviderQrCode />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/qr-code/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/qr-code/root-provider.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

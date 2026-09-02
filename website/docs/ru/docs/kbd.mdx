@@ -24,11 +24,12 @@ import KbdSingleKey from '@/components/examples/kbd/single-key.tsx';
   <KbdBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/kbd/basic.tsx"
+```tsx pure file="../../../src/components/examples/kbd/basic.tsx"
 ```
 
     </Tab>
@@ -40,6 +41,8 @@ import KbdSingleKey from '@/components/examples/kbd/single-key.tsx';
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -95,11 +98,12 @@ Kbd.Group
   <KbdCompactDensity />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/kbd/compact-density.tsx"
+```tsx pure file="../../../src/components/examples/kbd/compact-density.tsx"
 ```
 
     </Tab>
@@ -112,6 +116,8 @@ Kbd.Group
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Пользовательский элемент
 
 Используйте `asChild`, если другой компонент уже выводит семантический элемент `<kbd>` и к нему нужно применить стили Kbd.
@@ -120,16 +126,19 @@ Kbd.Group
   <KbdCustomElement />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/kbd/custom-element.tsx"
+```tsx pure file="../../../src/components/examples/kbd/custom-element.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Список сочетаний
 
@@ -139,11 +148,12 @@ Kbd.Group
   <KbdShortcutList />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/kbd/shortcut-list.tsx"
+```tsx pure file="../../../src/components/examples/kbd/shortcut-list.tsx"
 ```
 
     </Tab>
@@ -156,6 +166,8 @@ Kbd.Group
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Одна клавиша
 
 Используйте `Kbd` напрямую, если нужно показать одну клавишу, например `Esc`.
@@ -164,16 +176,19 @@ Kbd.Group
   <KbdSingleKey />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/kbd/single-key.tsx"
+```tsx pure file="../../../src/components/examples/kbd/single-key.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

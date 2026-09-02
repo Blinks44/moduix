@@ -29,11 +29,12 @@ import SplitterVertical from '@/components/examples/splitter/vertical.tsx';
   <SplitterBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/splitter/basic.tsx"
+```tsx pure file="../../../src/components/examples/splitter/basic.tsx"
 ```
 
     </Tab>
@@ -45,6 +46,8 @@ import SplitterVertical from '@/components/examples/splitter/vertical.tsx';
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -129,11 +132,12 @@ Splitter
   <SplitterCollapsiblePanels />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/splitter/collapsible-panels.tsx"
+```tsx pure file="../../../src/components/examples/splitter/collapsible-panels.tsx"
 ```
 
     </Tab>
@@ -146,6 +150,8 @@ Splitter
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Управляемое состояние
 
 Храните размеры панелей в состоянии React и обновляйте его значением `details.size` из `onResize`.
@@ -154,11 +160,12 @@ Splitter
   <SplitterControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/splitter/controlled.tsx"
+```tsx pure file="../../../src/components/examples/splitter/controlled.tsx"
 ```
 
     </Tab>
@@ -171,6 +178,8 @@ Splitter
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Адаптивное сворачивание
 
 Используйте `collapsePanel()` и `expandPanel()`, если боковая панель должна реагировать на доступную
@@ -180,11 +189,12 @@ Splitter
   <SplitterDynamicCollapsible />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/splitter/dynamic-collapsible.tsx"
+```tsx pure file="../../../src/components/examples/splitter/dynamic-collapsible.tsx"
 ```
 
     </Tab>
@@ -197,6 +207,8 @@ Splitter
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Несколько панелей
 
 Добавьте ещё одну `Panel` и соседнюю `ResizeTrigger`, чтобы получить раскладку из трёх панелей. Для
@@ -207,11 +219,12 @@ Splitter
   <SplitterMultiplePanels />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/splitter/multiple-panels.tsx"
+```tsx pure file="../../../src/components/examples/splitter/multiple-panels.tsx"
 ```
 
     </Tab>
@@ -224,6 +237,8 @@ Splitter
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Вложенные Splitter
 
 Передайте один и тот же реестр вложенным Splitter, чтобы одновременно перетаскивать несколько ручек
@@ -233,11 +248,12 @@ Splitter
   <SplitterNested />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/splitter/nested.tsx"
+```tsx pure file="../../../src/components/examples/splitter/nested.tsx"
 ```
 
     </Tab>
@@ -250,6 +266,8 @@ Splitter
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### RootProvider
 
 Используйте `useSplitter()` с `Splitter.RootProvider`, если состояние или элементы управления должны
@@ -260,11 +278,12 @@ Splitter
   <SplitterRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/splitter/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/splitter/root-provider.tsx"
 ```
 
     </Tab>
@@ -277,6 +296,8 @@ Splitter
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Вертикальная ориентация
 
 Задайте `orientation="vertical"` и укажите корню стабильную высоту, чтобы вертикальным панелям было
@@ -286,11 +307,12 @@ Splitter
   <SplitterVertical />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/splitter/vertical.tsx"
+```tsx pure file="../../../src/components/examples/splitter/vertical.tsx"
 ```
 
     </Tab>
@@ -302,6 +324,8 @@ Splitter
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Доступность
 

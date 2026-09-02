@@ -31,16 +31,19 @@ import { EnvironmentProvider, useEnvironmentContext } from '@ark-ui/react/enviro
   <EnvironmentBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/environment/basic.tsx"
+```tsx pure file="../../../src/components/examples/environment/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 Пример отображается в основном документе страницы, поэтому провайдер определяет именно его. Если приложение
 рендерит содержимое в iframe или Shadow DOM, передайте через `value` корневой узел, содержащий это поддерево.

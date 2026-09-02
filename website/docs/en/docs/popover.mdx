@@ -38,16 +38,19 @@ button should render the trigger.
   <PopoverBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/basic.tsx"
+```tsx pure file="../../../src/components/examples/popover/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -190,11 +193,12 @@ Use `Anchor` when a different element should provide the positioning reference.
   <PopoverAnchor />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/anchor.tsx"
+```tsx pure file="../../../src/components/examples/popover/anchor.tsx"
 ```
 
     </Tab>
@@ -207,6 +211,8 @@ Use `Anchor` when a different element should provide the positioning reference.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Close Behavior
 
 Disable dismissal on outside interaction or Escape only when the workflow provides an explicit
@@ -216,16 +222,19 @@ close action.
   <PopoverCloseBehavior />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/close-behavior.tsx"
+```tsx pure file="../../../src/components/examples/popover/close-behavior.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Context
 
@@ -236,16 +245,19 @@ Use `usePopoverContext()` inside a descendant that needs the current popover sta
   <PopoverContext />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/context.tsx"
+```tsx pure file="../../../src/components/examples/popover/context.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Controlled
 
@@ -256,11 +268,12 @@ with the rest of the application.
   <PopoverControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/controlled.tsx"
+```tsx pure file="../../../src/components/examples/popover/controlled.tsx"
 ```
 
     </Tab>
@@ -273,6 +286,8 @@ with the rest of the application.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Lazy Mount
 
 Use `lazyMount` and `unmountOnExit` when the content should be mounted only while the popover is
@@ -282,16 +297,19 @@ in use.
   <PopoverLazyMount />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/lazy-mount.tsx"
+```tsx pure file="../../../src/components/examples/popover/lazy-mount.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Modal
 
@@ -303,11 +321,12 @@ target.
   <PopoverModal />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/modal.tsx"
+```tsx pure file="../../../src/components/examples/popover/modal.tsx"
 ```
 
     </Tab>
@@ -320,6 +339,8 @@ target.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Multiple Triggers
 
 Share one content area across several triggers by giving each trigger a `value` and reacting to
@@ -329,11 +350,12 @@ the active value.
   <PopoverMultipleTriggers />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/multiple-triggers.tsx"
+```tsx pure file="../../../src/components/examples/popover/multiple-triggers.tsx"
 ```
 
     </Tab>
@@ -346,6 +368,8 @@ the active value.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Nested
 
 Nested popovers keep independent state. Render the nested popover with `portalled={false}` so it
@@ -355,11 +379,12 @@ stays inside the parent overlay and participates in its layer structure.
   <PopoverNested />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/nested.tsx"
+```tsx pure file="../../../src/components/examples/popover/nested.tsx"
 ```
 
     </Tab>
@@ -372,6 +397,8 @@ stays inside the parent overlay and participates in its layer structure.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Placement
 
 Pass Ark positioning options through the root's `positioning` prop.
@@ -380,16 +407,19 @@ Pass Ark positioning options through the root's `positioning` prop.
   <PopoverPlacement />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/placement.tsx"
+```tsx pure file="../../../src/components/examples/popover/placement.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Root Provider
 
@@ -400,11 +430,12 @@ or update its state.
   <PopoverRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/popover/root-provider.tsx"
 ```
 
     </Tab>
@@ -417,6 +448,8 @@ or update its state.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Same Width
 
 Set `positioning.sameWidth` and use Ark's `--reference-width` variable on the content.
@@ -425,11 +458,12 @@ Set `positioning.sameWidth` and use Ark's `--reference-width` variable on the co
   <PopoverSameWidth />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/same-width.tsx"
+```tsx pure file="../../../src/components/examples/popover/same-width.tsx"
 ```
 
     </Tab>
@@ -442,6 +476,8 @@ Set `positioning.sameWidth` and use Ark's `--reference-width` variable on the co
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### With Arrow
 
 Add `Popover.Arrow` when the popover needs a visual pointer to its reference element. The wrapper
@@ -451,16 +487,19 @@ renders the default moduix-styled `ArrowTip`.
   <PopoverWithArrow />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/with-arrow.tsx"
+```tsx pure file="../../../src/components/examples/popover/with-arrow.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Advanced Customization
 
@@ -472,11 +511,12 @@ need a visual pointer.
   <PopoverAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/popover/advanced-customization.tsx"
 ```
 
     </Tab>
@@ -488,6 +528,8 @@ need a visual pointer.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

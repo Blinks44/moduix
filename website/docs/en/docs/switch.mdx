@@ -40,16 +40,19 @@ root adds the hidden form input used for native form behavior.
   <SwitchBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/basic.tsx"
+```tsx pure file="../../../src/components/examples/switch/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -127,11 +130,12 @@ Use `asChild` when you need a custom root element while Ark continues to manage 
   <SwitchAsChild />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/as-child.tsx"
+```tsx pure file="../../../src/components/examples/switch/as-child.tsx"
 ```
 
     </Tab>
@@ -144,6 +148,8 @@ Use `asChild` when you need a custom root element while Ark continues to manage 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Context
 
 Use `useSwitchContext` from `@moduix/react` when a nearby label or supporting element needs to read
@@ -153,16 +159,19 @@ the current switch state.
   <SwitchContext />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/context.tsx"
+```tsx pure file="../../../src/components/examples/switch/context.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Controlled
 
@@ -172,11 +181,12 @@ Use controlled mode when the switch needs to stay in sync with other UI or appli
   <SwitchControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/controlled.tsx"
+```tsx pure file="../../../src/components/examples/switch/controlled.tsx"
 ```
 
     </Tab>
@@ -189,6 +199,8 @@ Use controlled mode when the switch needs to stay in sync with other UI or appli
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Disabled
 
 Use `disabled` to prevent interaction while keeping the current visual state.
@@ -197,11 +209,12 @@ Use `disabled` to prevent interaction while keeping the current visual state.
   <SwitchDisabled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/disabled.tsx"
+```tsx pure file="../../../src/components/examples/switch/disabled.tsx"
 ```
 
     </Tab>
@@ -214,6 +227,8 @@ Use `disabled` to prevent interaction while keeping the current visual state.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Form Integration
 
 Use `Field` when the switch needs form labeling, validation, or submission. This example displays an
@@ -223,11 +238,12 @@ error after the form is submitted while the switch is still off.
   <SwitchFormIntegration />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/form-integration.tsx"
+```tsx pure file="../../../src/components/examples/switch/form-integration.tsx"
 ```
 
     </Tab>
@@ -240,6 +256,8 @@ error after the form is submitted while the switch is still off.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Initial Checked
 
 Use `defaultChecked` when the switch should start enabled and manage its own state afterward.
@@ -248,16 +266,19 @@ Use `defaultChecked` when the switch should start enabled and manage its own sta
   <SwitchInitialChecked />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/initial-checked.tsx"
+```tsx pure file="../../../src/components/examples/switch/initial-checked.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Read Only
 
@@ -267,11 +288,12 @@ Use `readOnly` when the current state should remain visible but users must not b
   <SwitchReadOnly />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/read-only.tsx"
+```tsx pure file="../../../src/components/examples/switch/read-only.tsx"
 ```
 
     </Tab>
@@ -284,6 +306,8 @@ Use `readOnly` when the current state should remain visible but users must not b
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Import `useSwitch` from `@moduix/react` and pair it with `Switch.RootProvider` when you need to create
@@ -293,11 +317,12 @@ and control the state outside the rendered switch tree.
   <SwitchRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/switch/root-provider.tsx"
 ```
 
     </Tab>
@@ -310,6 +335,8 @@ and control the state outside the rendered switch tree.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Sizes
 
 Use moduix `size` to match different form densities without changing the Ark part tree.
@@ -318,11 +345,12 @@ Use moduix `size` to match different form densities without changing the Ark par
   <SwitchSizes />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/sizes.tsx"
+```tsx pure file="../../../src/components/examples/switch/sizes.tsx"
 ```
 
     </Tab>
@@ -335,6 +363,8 @@ Use moduix `size` to match different form densities without changing the Ark par
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Advanced Customization
 
 Add `Switch.Thumb` explicitly when the thumb needs custom content or styling.
@@ -343,16 +373,19 @@ Add `Switch.Thumb` explicitly when the thumb needs custom content or styling.
   <SwitchAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/switch/advanced-customization.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

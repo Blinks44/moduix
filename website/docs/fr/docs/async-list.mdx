@@ -46,16 +46,19 @@ pour une erreur, que vous pouvez relier à votre propre fonction de chargement.
   <AsyncListBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/async-list/basic.tsx"
+```tsx pure file="../../../src/components/examples/async-list/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 Comme `reload()` vide les éléments actuels avant de lancer un nouveau chargement, affichez un état
 de chargement complet lorsque `list.loading` est vrai et que la liste ne contient aucun élément.

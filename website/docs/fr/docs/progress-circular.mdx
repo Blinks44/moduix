@@ -34,11 +34,12 @@ identifie la tâche et correspond au libellé visible.
   <ProgressCircularBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/progress-circular/basic.tsx"
+```tsx pure file="../../../src/components/examples/progress-circular/basic.tsx"
 ```
 
     </Tab>
@@ -50,6 +51,8 @@ identifie la tâche et correspond au libellé visible.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -153,11 +156,12 @@ contrôle ou une tâche externe.
   <ControlledProgressCircular />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/progress-circular/controlled.tsx"
+```tsx pure file="../../../src/components/examples/progress-circular/controlled.tsx"
 ```
 
     </Tab>
@@ -170,6 +174,8 @@ contrôle ou une tâche externe.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Progression indéterminée
 
 Définissez `defaultValue={null}` ou `value={null}` lorsque la tâche est en cours, mais que sa
@@ -179,11 +185,12 @@ progression ne peut pas encore être mesurée.
   <IndeterminateProgressCircular />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/progress-circular/indeterminate.tsx"
+```tsx pure file="../../../src/components/examples/progress-circular/indeterminate.tsx"
 ```
 
     </Tab>
@@ -196,6 +203,8 @@ progression ne peut pas encore être mesurée.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Minimum et maximum
 
 Utilisez `min` et `max` pour représenter des valeurs dans une plage autre que la plage par défaut de
@@ -205,11 +214,12 @@ Utilisez `min` et `max` pour représenter des valeurs dans une plage autre que l
   <MinMaxProgressCircular />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/progress-circular/min-max.tsx"
+```tsx pure file="../../../src/components/examples/progress-circular/min-max.tsx"
 ```
 
     </Tab>
@@ -222,6 +232,8 @@ Utilisez `min` et `max` pour représenter des valeurs dans une plage autre que l
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Texte de la valeur
 
 Utilisez `Context` avec `translations.value(details)` lorsque le texte visible de la valeur doit
@@ -232,16 +244,19 @@ afin que le texte visible corresponde à la chaîne de valeur accessible.
   <ValueTextProgressCircular />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/progress-circular/value-text.tsx"
+```tsx pure file="../../../src/components/examples/progress-circular/value-text.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Personnalisation avancée
 
@@ -257,11 +272,12 @@ composant doit lire ou mettre à jour la progression en dehors de l’arbre rend
   <RootProviderProgressCircular />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/progress-circular/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/progress-circular/root-provider.tsx"
 ```
 
     </Tab>
@@ -274,6 +290,8 @@ composant doit lire ou mettre à jour la progression en dehors de l’arbre rend
   </Tabs>
 </div>
 
+</ExampleCode>
+
 #### Vues d’état
 
 Utilisez `ProgressCircular.View` lorsque le texte ou l’interface d’accompagnement doit changer avec
@@ -283,11 +301,12 @@ l’état de progression Ark. Les vérifications d’état restent ainsi dans vo
   <StateViewsProgressCircular />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/progress-circular/state-views.tsx"
+```tsx pure file="../../../src/components/examples/progress-circular/state-views.tsx"
 ```
 
     </Tab>
@@ -299,6 +318,8 @@ l’état de progression Ark. Les vérifications d’état restent ainsi dans vo
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

@@ -37,11 +37,12 @@ Build a grouped input with only the parts the field needs.
   <InputGroupBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input-group/basic.tsx"
+```tsx pure file="../../../src/components/examples/input-group/basic.tsx"
 ```
 
     </Tab>
@@ -53,6 +54,8 @@ Build a grouped input with only the parts the field needs.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -125,11 +128,12 @@ unavailable too.
   <InputGroupDisabled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input-group/disabled.tsx"
+```tsx pure file="../../../src/components/examples/input-group/disabled.tsx"
 ```
 
     </Tab>
@@ -142,6 +146,8 @@ unavailable too.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Field State
 
 Set `invalid` on `Field` when validation fails. Ark passes the state and required ARIA attributes to
@@ -151,11 +157,12 @@ Set `invalid` on `Field` when validation fails. Ark passes the state and require
   <InputGroupFieldState />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input-group/field-state.tsx"
+```tsx pure file="../../../src/components/examples/input-group/field-state.tsx"
 ```
 
     </Tab>
@@ -168,6 +175,8 @@ Set `invalid` on `Field` when validation fails. Ark passes the state and require
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Prefix and Suffix
 
 Use `Addon` for a filled prefix or suffix and `Text` for inline text without a fill.
@@ -176,11 +185,12 @@ Use `Addon` for a filled prefix or suffix and `Text` for inline text without a f
   <InputGroupPrefixAndSuffix />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input-group/prefix-and-suffix.tsx"
+```tsx pure file="../../../src/components/examples/input-group/prefix-and-suffix.tsx"
 ```
 
     </Tab>
@@ -193,6 +203,8 @@ Use `Addon` for a filled prefix or suffix and `Text` for inline text without a f
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Sizes
 
 Set `size` once on the root to keep the input, addon, text, and button aligned.
@@ -201,11 +213,12 @@ Set `size` once on the root to keep the input, addon, text, and button aligned.
   <InputGroupSizes />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input-group/sizes.tsx"
+```tsx pure file="../../../src/components/examples/input-group/sizes.tsx"
 ```
 
     </Tab>
@@ -218,6 +231,8 @@ Set `size` once on the root to keep the input, addon, text, and button aligned.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### With Action
 
 Use `InputGroup.Button` for an action tied to the input value. This example keeps the input
@@ -227,11 +242,12 @@ controlled and enables `Send` only after a value is entered.
   <InputGroupWithAction />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input-group/with-action.tsx"
+```tsx pure file="../../../src/components/examples/input-group/with-action.tsx"
 ```
 
     </Tab>
@@ -244,6 +260,8 @@ controlled and enables `Send` only after a value is entered.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Advanced Customization
 
 Use `asChild` when the root must render a custom container instead of the default `div`. The group
@@ -253,11 +271,12 @@ keeps its styling and size context, and the child must remain a semantic layout 
   <InputGroupAsChild />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input-group/as-child.tsx"
+```tsx pure file="../../../src/components/examples/input-group/as-child.tsx"
 ```
 
     </Tab>
@@ -269,6 +288,8 @@ keeps its styling and size context, and the child must remain a semantic layout 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

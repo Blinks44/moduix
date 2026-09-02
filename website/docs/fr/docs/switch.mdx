@@ -41,16 +41,19 @@ par défaut, tandis que la racine ajoute l’input de formulaire masqué utilis�
   <SwitchBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/basic.tsx"
+```tsx pure file="../../../src/components/examples/switch/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -128,11 +131,12 @@ de l’interrupteur.
   <SwitchAsChild />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/as-child.tsx"
+```tsx pure file="../../../src/components/examples/switch/as-child.tsx"
 ```
 
     </Tab>
@@ -145,6 +149,8 @@ de l’interrupteur.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Contexte
 
 Importez `useSwitchContext` depuis `@moduix/react` lorsqu’un libellé proche ou un élément complémentaire doit lire
@@ -154,16 +160,19 @@ l’état courant de l’interrupteur.
   <SwitchContext />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/context.tsx"
+```tsx pure file="../../../src/components/examples/switch/context.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### État contrôlé
 
@@ -173,11 +182,12 @@ Utilisez le mode contrôlé lorsque l’interrupteur doit rester synchronisé av
   <SwitchControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/controlled.tsx"
+```tsx pure file="../../../src/components/examples/switch/controlled.tsx"
 ```
 
     </Tab>
@@ -190,6 +200,8 @@ Utilisez le mode contrôlé lorsque l’interrupteur doit rester synchronisé av
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### État désactivé
 
 Utilisez `disabled` pour empêcher les interactions tout en conservant l’état visuel courant.
@@ -198,11 +210,12 @@ Utilisez `disabled` pour empêcher les interactions tout en conservant l’état
   <SwitchDisabled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/disabled.tsx"
+```tsx pure file="../../../src/components/examples/switch/disabled.tsx"
 ```
 
     </Tab>
@@ -215,6 +228,8 @@ Utilisez `disabled` pour empêcher les interactions tout en conservant l’état
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Intégration à un formulaire
 
 Utilisez `Field` lorsque l’interrupteur a besoin d’un libellé, d’une validation ou d’une soumission avec le formulaire.
@@ -224,11 +239,12 @@ Dans cet exemple, l’erreur s’affiche après l’envoi du formulaire si l’o
   <SwitchFormIntegration />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/form-integration.tsx"
+```tsx pure file="../../../src/components/examples/switch/form-integration.tsx"
 ```
 
     </Tab>
@@ -241,6 +257,8 @@ Dans cet exemple, l’erreur s’affiche après l’envoi du formulaire si l’o
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### État initial activé
 
 Utilisez `defaultChecked` lorsque l’interrupteur doit être activé au premier rendu, puis gérer lui-même son état.
@@ -249,16 +267,19 @@ Utilisez `defaultChecked` lorsque l’interrupteur doit être activé au premier
   <SwitchInitialChecked />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/initial-checked.tsx"
+```tsx pure file="../../../src/components/examples/switch/initial-checked.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Lecture seule
 
@@ -268,11 +289,12 @@ Utilisez `readOnly` lorsque l’état courant doit rester visible sans que l’u
   <SwitchReadOnly />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/read-only.tsx"
+```tsx pure file="../../../src/components/examples/switch/read-only.tsx"
 ```
 
     </Tab>
@@ -285,6 +307,8 @@ Utilisez `readOnly` lorsque l’état courant doit rester visible sans que l’u
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### État avec RootProvider
 
 Importez `useSwitch` depuis `@moduix/react` et transmettez l’état créé à `Switch.RootProvider` lorsque vous devez le
@@ -294,11 +318,12 @@ contrôler en dehors de l’arbre rendu de l’interrupteur.
   <SwitchRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/switch/root-provider.tsx"
 ```
 
     </Tab>
@@ -311,6 +336,8 @@ contrôler en dehors de l’arbre rendu de l’interrupteur.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Tailles
 
 Utilisez la propriété `size` de moduix pour adapter la taille à différentes densités de formulaire sans modifier
@@ -320,11 +347,12 @@ l’arbre de parties Ark.
   <SwitchSizes />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/sizes.tsx"
+```tsx pure file="../../../src/components/examples/switch/sizes.tsx"
 ```
 
     </Tab>
@@ -337,6 +365,8 @@ l’arbre de parties Ark.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Personnalisation avancée
 
 Ajoutez `Switch.Thumb` explicitement lorsque le curseur nécessite un contenu ou des styles personnalisés.
@@ -345,16 +375,19 @@ Ajoutez `Switch.Thumb` explicitement lorsque le curseur nécessite un contenu ou
   <SwitchAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/switch/advanced-customization.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

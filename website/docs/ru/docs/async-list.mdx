@@ -46,16 +46,19 @@ import { useAsyncList } from '@ark-ui/react/collection';
   <AsyncListBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/async-list/basic.tsx"
+```tsx pure file="../../../src/components/examples/async-list/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 `reload()` сначала очищает текущие элементы, а затем запускает новую загрузку. Поэтому полное
 состояние загрузки стоит показывать, когда `list.loading` имеет значение `true`, а элементов ещё

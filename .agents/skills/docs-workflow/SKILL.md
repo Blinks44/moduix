@@ -58,6 +58,9 @@ For a new, migrated, or substantially restructured component page, read [the com
 - Render an imported example with `ExampleFrame` when the page also shows its source; use Rspress's
   `tsx preview file="../../../src/components/examples/<component>/<name>.tsx"` directive for a
   direct preview.
+- Mark source-only `tsx` or `jsx` fences that load code from a file with `pure` before `file=`, as
+  in `tsx pure file="..."`. This prevents Rspress from treating the copied source as a live preview.
+  Use `preview file=...` only for intentionally rendered previews; never add `pure` to those fences.
 - Use `basic.tsx` for the basic path and stable heading-based filenames for subsequent examples.
 - Keep a visible snippet self-contained and copyable. Prefer one complete component composition over indirection through hidden helpers.
 - Do not add an interactive playground unless the task explicitly requires token editing and the interaction teaches more than static documentation.

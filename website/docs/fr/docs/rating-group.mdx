@@ -30,16 +30,19 @@ Dans le cas courant, utilisez la forme abrégée de la racine avec `RatingGroup.
   <RatingGroupBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/rating-group/basic.tsx"
+```tsx pure file="../../../src/components/examples/rating-group/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -138,11 +141,12 @@ Utilisez le mode contrôlé lorsque la note dépend d’un autre état, pilote l
   <RatingGroupControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/rating-group/controlled.tsx"
+```tsx pure file="../../../src/components/examples/rating-group/controlled.tsx"
 ```
 
     </Tab>
@@ -155,6 +159,8 @@ Utilisez le mode contrôlé lorsque la note dépend d’un autre état, pilote l
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Icône personnalisée
 
 Passez un `RatingGroup.ItemIndicator` personnalisé comme enfant de `RatingGroup.Items` lorsque tous les
@@ -165,11 +171,12 @@ Passez un `RatingGroup.ItemIndicator` personnalisé comme enfant de `RatingGroup
   <RatingGroupCustomIcon />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/rating-group/custom-icon.tsx"
+```tsx pure file="../../../src/components/examples/rating-group/custom-icon.tsx"
 ```
 
     </Tab>
@@ -182,6 +189,8 @@ Passez un `RatingGroup.ItemIndicator` personnalisé comme enfant de `RatingGroup
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### État désactivé et mode lecture seule
 
 Utilisez `disabled` pour désactiver les interactions. Utilisez `readOnly` pour laisser la note visible
@@ -191,11 +200,12 @@ sans permettre sa modification.
   <RatingGroupDisabledAndReadonly />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/rating-group/disabled-and-readonly.tsx"
+```tsx pure file="../../../src/components/examples/rating-group/disabled-and-readonly.tsx"
 ```
 
     </Tab>
@@ -208,6 +218,8 @@ sans permettre sa modification.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Field
 
 Enveloppez le groupe de notation dans `Field` lorsque le texte d’aide ou de validation doit être associé
@@ -218,11 +230,12 @@ Enveloppez le groupe de notation dans `Field` lorsque le texte d’aide ou de va
   <RatingGroupField />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/rating-group/field.tsx"
+```tsx pure file="../../../src/components/examples/rating-group/field.tsx"
 ```
 
     </Tab>
@@ -235,6 +248,8 @@ Enveloppez le groupe de notation dans `Field` lorsque le texte d’aide ou de va
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Formulaires
 
 Passez `name` pour inclure la note sélectionnée dans `FormData` ; l’élément racine rend automatiquement
@@ -244,11 +259,12 @@ le champ de formulaire natif synchronisé.
   <RatingGroupForms />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/rating-group/forms.tsx"
+```tsx pure file="../../../src/components/examples/rating-group/forms.tsx"
 ```
 
     </Tab>
@@ -261,6 +277,8 @@ le champ de formulaire natif synchronisé.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Notation par demi-pas
 
 Définissez `allowHalf` pour activer la sélection et l’affichage par demi-pas.
@@ -269,16 +287,19 @@ Définissez `allowHalf` pour activer la sélection et l’affichage par demi-pas
   <RatingGroupHalfRating />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/rating-group/half-rating.tsx"
+```tsx pure file="../../../src/components/examples/rating-group/half-rating.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Tailles
 
@@ -289,11 +310,12 @@ densité visuelle différente.
   <RatingGroupSizes />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/rating-group/sizes.tsx"
+```tsx pure file="../../../src/components/examples/rating-group/sizes.tsx"
 ```
 
     </Tab>
@@ -306,6 +328,8 @@ densité visuelle différente.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Composition avancée
 
 Utilisez `RatingGroup.RootProvider` avec `useRatingGroup()` lorsque l’état doit être créé en dehors de
@@ -316,11 +340,12 @@ que vous devez rendre chaque élément vous-même.
   <RatingGroupAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/rating-group/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/rating-group/advanced-customization.tsx"
 ```
 
     </Tab>
@@ -332,6 +357,8 @@ que vous devez rendre chaque élément vous-même.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

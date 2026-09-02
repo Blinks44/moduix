@@ -28,16 +28,19 @@ moduix.
   <SignaturePadBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/signature-pad/basic.tsx"
+```tsx pure file="../../../src/components/examples/signature-pad/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -156,11 +159,12 @@ SignaturePad.RootProvider
   <SignaturePadControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/signature-pad/controlled.tsx"
+```tsx pure file="../../../src/components/examples/signature-pad/controlled.tsx"
 ```
 
     </Tab>
@@ -173,6 +177,8 @@ SignaturePad.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Рисование
 
 Передайте `drawing`, если нужно изменить толщину или цвет штриха либо поведение имитации давления.
@@ -181,16 +187,19 @@ SignaturePad.RootProvider
   <SignaturePadDrawing />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/signature-pad/drawing.tsx"
+```tsx pure file="../../../src/components/examples/signature-pad/drawing.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Поле формы
 
@@ -201,11 +210,12 @@ SignaturePad.RootProvider
   <SignaturePadField />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/signature-pad/field.tsx"
+```tsx pure file="../../../src/components/examples/signature-pad/field.tsx"
 ```
 
     </Tab>
@@ -218,6 +228,8 @@ SignaturePad.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Сериализация формы
 
 Используйте `getFormValue`, когда сервер должен получить пути в другом формате. В этом примере
@@ -227,11 +239,12 @@ SignaturePad.RootProvider
   <SignaturePadFormSerialization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/signature-pad/form-serialization.tsx"
+```tsx pure file="../../../src/components/examples/signature-pad/form-serialization.tsx"
 ```
 
     </Tab>
@@ -244,6 +257,8 @@ SignaturePad.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Предпросмотр изображения
 
 Используйте `onDrawEnd`, чтобы экспортировать подпись и показать её перед сохранением.
@@ -252,6 +267,7 @@ SignaturePad.RootProvider
   <SignaturePadImagePreview />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
@@ -269,6 +285,8 @@ SignaturePad.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Создайте состояние с помощью `useSignaturePad()` и передайте его в `RootProvider`, когда элементам
@@ -279,11 +297,12 @@ SignaturePad.RootProvider
   <SignaturePadRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/signature-pad/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/signature-pad/root-provider.tsx"
 ```
 
     </Tab>
@@ -296,6 +315,8 @@ SignaturePad.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Расширенная настройка
 
 Используйте отдельные части вместо `Canvas`, если нужно управлять деревом частей рисования или
@@ -305,16 +326,19 @@ SignaturePad.RootProvider
   <SignaturePadAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/signature-pad/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/signature-pad/advanced-customization.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

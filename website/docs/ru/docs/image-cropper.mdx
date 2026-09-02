@@ -32,16 +32,19 @@ import ImageCropperRotationFlipAndReset from '@/components/examples/image-croppe
   <ImageCropperBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/image-cropper/basic.tsx"
+```tsx pure file="../../../src/components/examples/image-cropper/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 Если вы вызываете `getCroppedImage()` для изображения с другого домена, сервер изображения должен
 разрешать CORS, а в `ImageCropper.Image` нужно передать `crossOrigin="anonymous"`. В примерах это
@@ -135,11 +138,12 @@ Ark `translations`. В управляемом режиме обратные вы
   <ImageCropperAspectRatio />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/image-cropper/aspect-ratio.tsx"
+```tsx pure file="../../../src/components/examples/image-cropper/aspect-ratio.tsx"
 ```
 
     </Tab>
@@ -152,6 +156,8 @@ Ark `translations`. В управляемом режиме обратные вы
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Круглое кадрирование
 
 Используйте `cropShape="circle"` вместе с `aspectRatio={1}` для аватаров и изображений профиля.
@@ -160,16 +166,19 @@ Ark `translations`. В управляемом режиме обратные вы
   <ImageCropperCircleCrop />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/image-cropper/circle-crop.tsx"
+```tsx pure file="../../../src/components/examples/image-cropper/circle-crop.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Управляемый масштаб
 
@@ -180,11 +189,12 @@ Ark `translations`. В управляемом режиме обратные вы
   <ImageCropperControlledZoom />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/image-cropper/controlled-zoom.tsx"
+```tsx pure file="../../../src/components/examples/image-cropper/controlled-zoom.tsx"
 ```
 
     </Tab>
@@ -197,6 +207,8 @@ Ark `translations`. В управляемом режиме обратные вы
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Предварительный просмотр кадра
 
 Вызовите `getCroppedImage()` у экземпляра `useImageCropper`, чтобы получить готовый результат.
@@ -208,11 +220,12 @@ Ark `translations`. В управляемом режиме обратные вы
   <ImageCropperCropPreview />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/image-cropper/crop-preview.tsx"
+```tsx pure file="../../../src/components/examples/image-cropper/crop-preview.tsx"
 ```
 
     </Tab>
@@ -225,6 +238,8 @@ Ark `translations`. В управляемом режиме обратные вы
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### События
 
 Подпишитесь на `onCropChange` и `onZoomChange`, чтобы показывать текущие данные кадрирования или
@@ -234,11 +249,12 @@ Ark `translations`. В управляемом режиме обратные вы
   <ImageCropperEvents />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/image-cropper/events.tsx"
+```tsx pure file="../../../src/components/examples/image-cropper/events.tsx"
 ```
 
     </Tab>
@@ -251,6 +267,8 @@ Ark `translations`. В управляемом режиме обратные вы
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Фиксированная область кадрирования
 
 Включите `fixedCropArea`, если область кадрирования должна сохранять размер и положение, пока
@@ -260,16 +278,19 @@ Ark `translations`. В управляемом режиме обратные вы
   <ImageCropperFixedCropArea />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/image-cropper/fixed-crop-area.tsx"
+```tsx pure file="../../../src/components/examples/image-cropper/fixed-crop-area.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Начальная область кадрирования
 
@@ -280,16 +301,19 @@ Ark `translations`. В управляемом режиме обратные вы
   <ImageCropperInitialCrop />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/image-cropper/initial-crop.tsx"
+```tsx pure file="../../../src/components/examples/image-cropper/initial-crop.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Минимальный и максимальный размер
 
@@ -299,16 +323,19 @@ Ark `translations`. В управляемом режиме обратные вы
   <ImageCropperMinAndMaxSize />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/image-cropper/min-and-max-size.tsx"
+```tsx pure file="../../../src/components/examples/image-cropper/min-and-max-size.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Root Provider
 
@@ -319,11 +346,12 @@ Ark `translations`. В управляемом режиме обратные вы
   <ImageCropperRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/image-cropper/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/image-cropper/root-provider.tsx"
 ```
 
     </Tab>
@@ -336,6 +364,8 @@ Ark `translations`. В управляемом режиме обратные вы
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Поворот, отражение и сброс
 
 Используйте `ImageCropper.Context`, чтобы подключить к панели инструментов действия масштабирования,
@@ -345,11 +375,12 @@ Ark `translations`. В управляемом режиме обратные вы
   <ImageCropperRotationFlipAndReset />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/image-cropper/rotation-flip-and-reset.tsx"
+```tsx pure file="../../../src/components/examples/image-cropper/rotation-flip-and-reset.tsx"
 ```
 
     </Tab>
@@ -362,6 +393,8 @@ Ark `translations`. В управляемом режиме обратные вы
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Расширенная настройка
 
 Замените `CropArea` на отдельные части `Selection`, `Grid` и `Handle`, если области кадрирования
@@ -372,16 +405,19 @@ Ark `translations`. В управляемом режиме обратные вы
   <ImageCropperAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/image-cropper/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/image-cropper/advanced-customization.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

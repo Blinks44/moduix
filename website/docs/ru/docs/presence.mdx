@@ -47,11 +47,12 @@ import { Presence } from '@ark-ui/react/presence';
   <PresenceBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/presence/basic.tsx"
+```tsx pure file="../../../src/components/examples/presence/basic.tsx"
 ```
 
     </Tab>
@@ -64,6 +65,8 @@ import { Presence } from '@ark-ui/react/presence';
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ## Монтирование по требованию
 
 Сочетайте `lazyMount` и `unmountOnExit`, если содержимое не должно существовать до первого показа и после закрытия.
@@ -74,11 +77,12 @@ import { Presence } from '@ark-ui/react/presence';
   <PresenceMountOnDemand />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/presence/mount-on-demand.tsx"
+```tsx pure file="../../../src/components/examples/presence/mount-on-demand.tsx"
 ```
 
     </Tab>
@@ -91,6 +95,8 @@ import { Presence } from '@ark-ui/react/presence';
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ## Анимации выхода
 
 Когда включён `unmountOnExit`, Presence оставляет корень в DOM на время CSS-анимации выхода. Используйте
@@ -101,7 +107,7 @@ import { Presence } from '@ark-ui/react/presence';
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/presence/exit-animations.tsx"
+```tsx pure file="../../../src/components/examples/presence/exit-animations.tsx"
 ```
 
     </Tab>

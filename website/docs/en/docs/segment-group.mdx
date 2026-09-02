@@ -39,16 +39,19 @@ control, and one synchronized native form input for every entry in the list.
   <SegmentGroupBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/segment-group/basic.tsx"
+```tsx pure file="../../../src/components/examples/segment-group/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -146,11 +149,12 @@ geometry used by the indicator.
   <SegmentGroupConditionalMount />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/segment-group/conditional-mount.tsx"
+```tsx pure file="../../../src/components/examples/segment-group/conditional-mount.tsx"
 ```
 
     </Tab>
@@ -163,6 +167,8 @@ geometry used by the indicator.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Controlled
 
 Keep the selected value in React state and update it from `details.value` in `onValueChange`.
@@ -171,11 +177,12 @@ Keep the selected value in React state and update it from `details.value` in `on
   <SegmentGroupControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/segment-group/controlled.tsx"
+```tsx pure file="../../../src/components/examples/segment-group/controlled.tsx"
 ```
 
     </Tab>
@@ -188,6 +195,8 @@ Keep the selected value in React state and update it from `details.value` in `on
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Disabled
 
 Set `disabled` on an item when only that segment should be unavailable. Set it on the root to
@@ -198,11 +207,12 @@ opacity of individual items.
   <SegmentGroupDisabled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/segment-group/disabled.tsx"
+```tsx pure file="../../../src/components/examples/segment-group/disabled.tsx"
 ```
 
     </Tab>
@@ -215,6 +225,8 @@ opacity of individual items.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Field
 
 Wrap the group in `Field` when its automatic native input should be accompanied by helper or error
@@ -224,11 +236,12 @@ text. Ark inherits the field's disabled, invalid, required, and read-only state.
   <SegmentGroupField />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/segment-group/field.tsx"
+```tsx pure file="../../../src/components/examples/segment-group/field.tsx"
 ```
 
     </Tab>
@@ -241,6 +254,8 @@ text. Ark inherits the field's disabled, invalid, required, and read-only state.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Form Submission
 
 Pass `name` to the root to include the selected value in native form data. `SegmentGroup.Items`
@@ -250,11 +265,12 @@ adds a native form input to every generated item.
   <SegmentGroupFormSubmission />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/segment-group/form-submission.tsx"
+```tsx pure file="../../../src/components/examples/segment-group/form-submission.tsx"
 ```
 
     </Tab>
@@ -267,6 +283,8 @@ adds a native form input to every generated item.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Invalid
 
 Set `invalid` on the root when validation fails. Combine it with `required` and `name` when the
@@ -276,16 +294,19 @@ group participates in native form validation.
   <SegmentGroupInvalid />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/segment-group/invalid.tsx"
+```tsx pure file="../../../src/components/examples/segment-group/invalid.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Root Provider
 
@@ -296,11 +317,12 @@ the same state.
   <SegmentGroupRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/segment-group/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/segment-group/root-provider.tsx"
 ```
 
     </Tab>
@@ -313,6 +335,8 @@ the same state.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Vertical Orientation
 
 Set `orientation="vertical"` when the group should use a vertical layout and vertical arrow-key
@@ -322,11 +346,12 @@ navigation.
   <SegmentGroupVerticalOrientation />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/segment-group/vertical-orientation.tsx"
+```tsx pure file="../../../src/components/examples/segment-group/vertical-orientation.tsx"
 ```
 
     </Tab>
@@ -339,6 +364,8 @@ navigation.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Advanced Customization
 
 Use `SegmentGroup.Item asChild` instead of `SegmentGroup.Items` when a custom label layout should
@@ -348,11 +375,12 @@ own the item's DOM node.
   <SegmentGroupAsChild />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/segment-group/aschild.tsx"
+```tsx pure file="../../../src/components/examples/segment-group/aschild.tsx"
 ```
 
     </Tab>
@@ -364,6 +392,8 @@ own the item's DOM node.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

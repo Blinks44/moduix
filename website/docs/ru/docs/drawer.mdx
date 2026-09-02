@@ -40,11 +40,12 @@ import DrawerSwipeDirection from '@/components/examples/drawer/swipe-direction.t
   <DrawerBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/basic.tsx"
+```tsx pure file="../../../src/components/examples/drawer/basic.tsx"
 ```
 
     </Tab>
@@ -56,6 +57,8 @@ import DrawerSwipeDirection from '@/components/examples/drawer/swipe-direction.t
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -195,11 +198,12 @@ Drawer.Root
   <DrawerControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/controlled.tsx"
+```tsx pure file="../../../src/components/examples/drawer/controlled.tsx"
 ```
 
     </Tab>
@@ -212,6 +216,8 @@ Drawer.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Элементы управления перетаскиванием
 
 Добавьте `data-no-drag` к интерактивным областям, которые не должны запускать перетаскивание, а остальное содержимое
@@ -221,11 +227,12 @@ Drawer.Root
   <DrawerDragControls />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/drag-controls.tsx"
+```tsx pure file="../../../src/components/examples/drawer/drag-controls.tsx"
 ```
 
     </Tab>
@@ -238,6 +245,8 @@ Drawer.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Плавающий Grabber
 
 Разместите `Drawer.Grabber` над панелью, если ручка должна выглядеть отдельным элементом управления. Стиль в примере
@@ -247,11 +256,12 @@ Drawer.Root
   <DrawerFloatingGrabber />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/floating-grabber.tsx"
+```tsx pure file="../../../src/components/examples/drawer/floating-grabber.tsx"
 ```
 
     </Tab>
@@ -264,6 +274,8 @@ Drawer.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Фон отступа
 
 `Drawer.Stack` использует состояние стека Ark и прогресс свайпа, чтобы согласованно перемещать `IndentBackground` и
@@ -273,11 +285,12 @@ Drawer.Root
   <DrawerIndentBackground />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/indent-background.tsx"
+```tsx pure file="../../../src/components/examples/drawer/indent-background.tsx"
 ```
 
     </Tab>
@@ -290,6 +303,8 @@ Drawer.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Island
 
 Задайте `variant="island"` для `Drawer.Content`, если компактная панель должна оставаться с отступом от краёв окна,
@@ -299,11 +314,12 @@ Drawer.Root
   <DrawerIsland />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/island.tsx"
+```tsx pure file="../../../src/components/examples/drawer/island.tsx"
 ```
 
     </Tab>
@@ -316,6 +332,8 @@ Drawer.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Несколько триггеров
 
 Назначьте каждому триггеру `value`, чтобы использовать одну панель для всего списка. Колбэк сообщит, какой триггер
@@ -325,11 +343,12 @@ Drawer.Root
   <DrawerMultipleTriggers />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/multiple-triggers.tsx"
+```tsx pure file="../../../src/components/examples/drawer/multiple-triggers.tsx"
 ```
 
     </Tab>
@@ -342,6 +361,8 @@ Drawer.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Вложенные панели
 
 Для вложенных панелей создайте отдельные экземпляры Ark `useDrawer` и отдельные деревья `Drawer.RootProvider` из
@@ -352,11 +373,12 @@ moduix. Так каждая панель сохраняет собственно
   <DrawerNested />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/nested.tsx"
+```tsx pure file="../../../src/components/examples/drawer/nested.tsx"
 ```
 
     </Tab>
@@ -368,6 +390,8 @@ moduix. Так каждая панель сохраняет собственно
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Немодальный режим
 
@@ -382,11 +406,12 @@ moduix. Так каждая панель сохраняет собственно
   <DrawerNonModal />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/non-modal.tsx"
+```tsx pure file="../../../src/components/examples/drawer/non-modal.tsx"
 ```
 
     </Tab>
@@ -399,6 +424,8 @@ moduix. Так каждая панель сохраняет собственно
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Используйте экспорт `useDrawer` из moduix, когда кнопки вне дерева панели должны открывать её или менять её точки
@@ -408,11 +435,12 @@ moduix. Так каждая панель сохраняет собственно
   <DrawerRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/drawer/root-provider.tsx"
 ```
 
     </Tab>
@@ -425,6 +453,8 @@ moduix. Так каждая панель сохраняет собственно
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Прокручиваемая панель
 
 Поместите длинное содержимое в `Drawer.Body`. Используйте `ScrollArea`, когда панели нужен отдельный контейнер
@@ -434,11 +464,12 @@ moduix. Так каждая панель сохраняет собственно
   <DrawerScrollable />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/scrollable.tsx"
+```tsx pure file="../../../src/components/examples/drawer/scrollable.tsx"
 ```
 
     </Tab>
@@ -451,6 +482,8 @@ moduix. Так каждая панель сохраняет собственно
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Точки привязки
 
 Задайте промежуточные положения на корневом компоненте и выберите начальное положение с помощью `defaultSnapPoint`.
@@ -459,11 +492,12 @@ moduix. Так каждая панель сохраняет собственно
   <DrawerSnapPoints />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/snap-points.tsx"
+```tsx pure file="../../../src/components/examples/drawer/snap-points.tsx"
 ```
 
     </Tab>
@@ -476,6 +510,8 @@ moduix. Так каждая панель сохраняет собственно
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Направление свайпа
 
 Используйте логические значения `start` и `end` для боковых панелей, чтобы один и тот же код работал в LTR и RTL. Для
@@ -485,11 +521,12 @@ moduix. Так каждая панель сохраняет собственно
   <DrawerSwipeDirection />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/swipe-direction.tsx"
+```tsx pure file="../../../src/components/examples/drawer/swipe-direction.tsx"
 ```
 
     </Tab>
@@ -502,6 +539,8 @@ moduix. Так каждая панель сохраняет собственно
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Расширенная настройка
 
 Не используйте необязательные помощники `Header`, `Body`, `Footer` и `CloseIcon`, если строите собственную разметку
@@ -511,11 +550,12 @@ moduix. Так каждая панель сохраняет собственно
   <DrawerAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/drawer/advanced-customization.tsx"
 ```
 
     </Tab>
@@ -527,6 +567,8 @@ moduix. Так каждая панель сохраняет собственно
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

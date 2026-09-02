@@ -39,16 +39,19 @@ import PopoverWithArrow from '@/components/examples/popover/with-arrow.tsx';
   <PopoverBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/basic.tsx"
+```tsx pure file="../../../src/components/examples/popover/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -197,11 +200,12 @@ DOM-дереве.
   <PopoverAnchor />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/anchor.tsx"
+```tsx pure file="../../../src/components/examples/popover/anchor.tsx"
 ```
 
     </Tab>
@@ -214,6 +218,8 @@ DOM-дереве.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Поведение закрытия
 
 Отключайте закрытие при взаимодействии за пределами окна или по Escape, только если в сценарии
@@ -223,16 +229,19 @@ DOM-дереве.
   <PopoverCloseBehavior />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/close-behavior.tsx"
+```tsx pure file="../../../src/components/examples/popover/close-behavior.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Контекст
 
@@ -243,16 +252,19 @@ DOM-дереве.
   <PopoverContext />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/context.tsx"
+```tsx pure file="../../../src/components/examples/popover/context.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Управляемое состояние
 
@@ -263,11 +275,12 @@ DOM-дереве.
   <PopoverControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/controlled.tsx"
+```tsx pure file="../../../src/components/examples/popover/controlled.tsx"
 ```
 
     </Tab>
@@ -280,6 +293,8 @@ DOM-дереве.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Отложенное монтирование
 
 Используйте `lazyMount` и `unmountOnExit`, когда содержимое должно существовать в DOM только во
@@ -289,16 +304,19 @@ DOM-дереве.
   <PopoverLazyMount />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/lazy-mount.tsx"
+```tsx pure file="../../../src/components/examples/popover/lazy-mount.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Модальный режим
 
@@ -310,11 +328,12 @@ DOM-дереве.
   <PopoverModal />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/modal.tsx"
+```tsx pure file="../../../src/components/examples/popover/modal.tsx"
 ```
 
     </Tab>
@@ -327,6 +346,8 @@ DOM-дереве.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Несколько триггеров
 
 Чтобы несколько триггеров использовали одно содержимое, задайте каждому `value` и реагируйте на
@@ -336,11 +357,12 @@ DOM-дереве.
   <PopoverMultipleTriggers />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/multiple-triggers.tsx"
+```tsx pure file="../../../src/components/examples/popover/multiple-triggers.tsx"
 ```
 
     </Tab>
@@ -353,6 +375,8 @@ DOM-дереве.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Вложенный Popover
 
 Вложенные Popover имеют независимое состояние. Используйте `portalled={false}`, чтобы вложенное
@@ -362,11 +386,12 @@ DOM-дереве.
   <PopoverNested />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/nested.tsx"
+```tsx pure file="../../../src/components/examples/popover/nested.tsx"
 ```
 
     </Tab>
@@ -379,6 +404,8 @@ DOM-дереве.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Позиционирование
 
 Передавайте параметры позиционирования Ark через свойство `positioning` корневого компонента.
@@ -387,16 +414,19 @@ DOM-дереве.
   <PopoverPlacement />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/placement.tsx"
+```tsx pure file="../../../src/components/examples/popover/placement.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Root Provider
 
@@ -407,11 +437,12 @@ DOM-дереве.
   <PopoverRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/popover/root-provider.tsx"
 ```
 
     </Tab>
@@ -424,6 +455,8 @@ DOM-дереве.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Одинаковая ширина
 
 Установите `positioning.sameWidth` и используйте в содержимом переменную Ark `--reference-width`.
@@ -432,11 +465,12 @@ DOM-дереве.
   <PopoverSameWidth />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/same-width.tsx"
+```tsx pure file="../../../src/components/examples/popover/same-width.tsx"
 ```
 
     </Tab>
@@ -449,6 +483,8 @@ DOM-дереве.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Со стрелкой
 
 Добавьте `Popover.Arrow`, если окну нужен визуальный указатель на элемент-якорь. Обёртка по
@@ -458,16 +494,19 @@ DOM-дереве.
   <PopoverWithArrow />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/with-arrow.tsx"
+```tsx pure file="../../../src/components/examples/popover/with-arrow.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Расширенная настройка
 
@@ -479,11 +518,12 @@ DOM-дереве.
   <PopoverAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/popover/advanced-customization.tsx"
 ```
 
     </Tab>
@@ -495,6 +535,8 @@ DOM-дереве.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

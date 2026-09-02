@@ -27,16 +27,19 @@ pour qu’Ark UI puisse basculer entre le contenu de remplacement et l’image l
   <AvatarBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/avatar/basic.tsx"
+```tsx pure file="../../../src/components/examples/avatar/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -120,11 +123,12 @@ un nom accessible si ce contenu apporte une information absente du texte voisin.
   <AvatarCustomFallback />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/avatar/custom-fallback.tsx"
+```tsx pure file="../../../src/components/examples/avatar/custom-fallback.tsx"
 ```
 
     </Tab>
@@ -137,6 +141,8 @@ un nom accessible si ce contenu apporte une information absente du texte voisin.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Image personnalisée
 
 Utilisez `useAvatarContext()` depuis moduix lorsqu’un composant d’image fourni par un framework ou un
@@ -146,11 +152,12 @@ moteur de rendu personnalisé doit s’intégrer au cycle de chargement géré p
   <AvatarCustomImage />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/avatar/custom-image.tsx"
+```tsx pure file="../../../src/components/examples/avatar/custom-image.tsx"
 ```
 
     </Tab>
@@ -163,6 +170,8 @@ moteur de rendu personnalisé doit s’intégrer au cycle de chargement géré p
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Contenu de remplacement par défaut
 
 Laissez `Avatar.Fallback` sans contenu enfant pour afficher l’icône utilisateur décorative intégrée. Si
@@ -172,16 +181,19 @@ l’avatar est interactif, donnez un nom accessible au lien ou au bouton qui l�
   <AvatarDefaultFallback />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/avatar/default-fallback.tsx"
+```tsx pure file="../../../src/components/examples/avatar/default-fallback.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Événements
 
@@ -191,11 +203,12 @@ Utilisez `onStatusChange(details)` lorsque l’interface voisine doit réagir au
   <AvatarEvents />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/avatar/events.tsx"
+```tsx pure file="../../../src/components/examples/avatar/events.tsx"
 ```
 
     </Tab>
@@ -208,6 +221,8 @@ Utilisez `onStatusChange(details)` lorsque l’interface voisine doit réagir au
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Créez l’état avec `useAvatar` depuis moduix lorsque des contrôles situés en dehors de l’avatar doivent
@@ -217,11 +232,12 @@ interagir avec lui. Transmettez-le à `Avatar.RootProvider` à la place de `Avat
   <AvatarRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/avatar/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/avatar/root-provider.tsx"
 ```
 
     </Tab>
@@ -234,6 +250,8 @@ interagir avec lui. Transmettez-le à `Avatar.RootProvider` à la place de `Avat
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Tailles et avatar sans image
 
 La propriété `size` de moduix permet de choisir l’une des tailles courantes des tokens de design pour l’un ou
@@ -244,11 +262,12 @@ d’image n’est disponible.
   <AvatarSizesAndFallbackOnly />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/avatar/sizes-and-fallback-only.tsx"
+```tsx pure file="../../../src/components/examples/avatar/sizes-and-fallback-only.tsx"
 ```
 
     </Tab>
@@ -261,6 +280,8 @@ d’image n’est disponible.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Personnalisation avancée
 
 Utilisez `asChild` lorsque l’avatar est lui-même un élément interactif, par exemple un lien. Le composant
@@ -271,11 +292,12 @@ de remplacement et la composition explicite des parties.
   <AvatarCustomComposition />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/avatar/custom-composition.tsx"
+```tsx pure file="../../../src/components/examples/avatar/custom-composition.tsx"
 ```
 
     </Tab>
@@ -287,6 +309,8 @@ de remplacement et la composition explicite des parties.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

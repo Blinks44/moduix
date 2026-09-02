@@ -38,11 +38,12 @@ Use `Listbox` when users need to choose one or more items from a list that stays
   <ListboxBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/listbox/basic.tsx"
+```tsx pure file="../../../src/components/examples/listbox/basic.tsx"
 ```
 
     </Tab>
@@ -54,6 +55,8 @@ Use `Listbox` when users need to choose one or more items from a list that stays
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -180,11 +183,12 @@ Keep the selected string array in React state and update it from `details.value`
   <ListboxControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/listbox/controlled.tsx"
+```tsx pure file="../../../src/components/examples/listbox/controlled.tsx"
 ```
 
     </Tab>
@@ -197,6 +201,8 @@ Keep the selected string array in React state and update it from `details.value`
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Disabled Item
 
 Disable individual items by setting the collection item's `disabled` field or by using
@@ -206,11 +212,12 @@ Disable individual items by setting the collection item's `disabled` field or by
   <ListboxDisabledItem />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/listbox/disabled-item.tsx"
+```tsx pure file="../../../src/components/examples/listbox/disabled-item.tsx"
 ```
 
     </Tab>
@@ -223,6 +230,8 @@ Disable individual items by setting the collection item's `disabled` field or by
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Extended Selection
 
 Use `selectionMode="extended"` when users need to select multiple items with platform modifier keys.
@@ -231,11 +240,12 @@ Use `selectionMode="extended"` when users need to select multiple items with pla
   <ListboxExtendedSelection />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/listbox/extended-selection.tsx"
+```tsx pure file="../../../src/components/examples/listbox/extended-selection.tsx"
 ```
 
     </Tab>
@@ -248,6 +258,8 @@ Use `selectionMode="extended"` when users need to select multiple items with pla
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Filtering
 
 Use `Listbox.Filter` with `useListCollection`. It adds the default search icon and visually joins the
@@ -257,11 +269,12 @@ filter with the following `Content`; turn off typeahead when the input handles s
   <ListboxFiltering />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/listbox/filtering.tsx"
+```tsx pure file="../../../src/components/examples/listbox/filtering.tsx"
 ```
 
     </Tab>
@@ -274,6 +287,8 @@ filter with the following `Content`; turn off typeahead when the input handles s
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Grid
 
 Pass a collection created with `createGridCollection` to enable grid keyboard navigation. Ark adds
@@ -284,11 +299,12 @@ selected background instead of an inline check indicator to keep cells compact.
   <ListboxGrid />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/listbox/grid.tsx"
+```tsx pure file="../../../src/components/examples/listbox/grid.tsx"
 ```
 
     </Tab>
@@ -301,6 +317,8 @@ selected background instead of an inline check indicator to keep cells compact.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Grouping
 
 Set `groupBy` when you create the collection and render `ItemGroup` with `ItemGroupLabel`.
@@ -309,11 +327,12 @@ Set `groupBy` when you create the collection and render `ItemGroup` with `ItemGr
   <ListboxGrouping />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/listbox/grouping.tsx"
+```tsx pure file="../../../src/components/examples/listbox/grouping.tsx"
 ```
 
     </Tab>
@@ -326,6 +345,8 @@ Set `groupBy` when you create the collection and render `ItemGroup` with `ItemGr
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Horizontal
 
 Set `orientation="horizontal"` to lay out items horizontally and enable left/right arrow-key navigation.
@@ -334,11 +355,12 @@ Set `orientation="horizontal"` to lay out items horizontally and enable left/rig
   <ListboxHorizontal />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/listbox/horizontal.tsx"
+```tsx pure file="../../../src/components/examples/listbox/horizontal.tsx"
 ```
 
     </Tab>
@@ -351,6 +373,8 @@ Set `orientation="horizontal"` to lay out items horizontally and enable left/rig
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Multiple
 
 Set `selectionMode="multiple"` to toggle multiple values without modifier keys.
@@ -359,11 +383,12 @@ Set `selectionMode="multiple"` to toggle multiple values without modifier keys.
   <ListboxMultiple />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/listbox/multiple.tsx"
+```tsx pure file="../../../src/components/examples/listbox/multiple.tsx"
 ```
 
     </Tab>
@@ -376,6 +401,8 @@ Set `selectionMode="multiple"` to toggle multiple values without modifier keys.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Use `useListbox` from `@moduix/react/listbox` with `Listbox.RootProvider` when controls outside the
@@ -385,11 +412,12 @@ listbox need direct access to its API.
   <ListboxRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/listbox/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/listbox/root-provider.tsx"
 ```
 
     </Tab>
@@ -402,6 +430,8 @@ listbox need direct access to its API.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Select All
 
 Use `useListboxContext` inside a child component to add an external Select All button.
@@ -410,11 +440,12 @@ Use `useListboxContext` inside a child component to add an external Select All b
   <ListboxSelectAll />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/listbox/select-all.tsx"
+```tsx pure file="../../../src/components/examples/listbox/select-all.tsx"
 ```
 
     </Tab>
@@ -427,6 +458,8 @@ Use `useListboxContext` inside a child component to add an external Select All b
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Standalone Filter Input
 
 Render `Listbox.Input` directly when the filter and results should remain separate surfaces. Its
@@ -436,11 +469,12 @@ default border matches `Listbox.Content`; on keyboard focus, only the outline co
   <ListboxStandaloneFilterInput />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/listbox/standalone-filter-input.tsx"
+```tsx pure file="../../../src/components/examples/listbox/standalone-filter-input.tsx"
 ```
 
     </Tab>
@@ -453,6 +487,8 @@ default border matches `Listbox.Content`; on keyboard focus, only the outline co
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Value Text
 
 Render `Listbox.ValueText` when the selected-value summary should stay visible beside the list.
@@ -461,11 +497,12 @@ Render `Listbox.ValueText` when the selected-value summary should stay visible b
   <ListboxValueText />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/listbox/value-text.tsx"
+```tsx pure file="../../../src/components/examples/listbox/value-text.tsx"
 ```
 
     </Tab>
@@ -477,6 +514,8 @@ Render `Listbox.ValueText` when the selected-value summary should stay visible b
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

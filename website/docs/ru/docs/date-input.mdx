@@ -40,11 +40,12 @@ moduix добавляет стилизованные части и скрыты�
   <DateInputBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-input/basic.tsx"
+```tsx pure file="../../../src/components/examples/date-input/basic.tsx"
 ```
 
     </Tab>
@@ -56,6 +57,8 @@ moduix добавляет стилизованные части и скрыты�
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -151,11 +154,12 @@ DateInput.RootProvider
   <DateInputControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-input/controlled.tsx"
+```tsx pure file="../../../src/components/examples/date-input/controlled.tsx"
 ```
 
     </Tab>
@@ -168,6 +172,8 @@ DateInput.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Отключённое состояние и только для чтения
 
 Используйте `disabled`, чтобы запретить взаимодействие. Используйте `readOnly`, когда значение должно оставаться
@@ -177,11 +183,12 @@ DateInput.RootProvider
   <DateInputDisabledAndReadOnly />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-input/disabled-and-read-only.tsx"
+```tsx pure file="../../../src/components/examples/date-input/disabled-and-read-only.tsx"
 ```
 
     </Tab>
@@ -194,6 +201,8 @@ DateInput.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Состояние поля
 
 Оберните `DateInput` в `Field`, чтобы добавить к полю вспомогательный текст и сообщение об ошибке. Передавайте `required`,
@@ -203,11 +212,12 @@ DateInput.RootProvider
   <DateInputFieldState />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-input/field-state.tsx"
+```tsx pure file="../../../src/components/examples/date-input/field-state.tsx"
 ```
 
     </Tab>
@@ -220,6 +230,8 @@ DateInput.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Гранулярность
 
 Укажите `granularity`, чтобы добавить к полю сегменты времени.
@@ -228,11 +240,12 @@ DateInput.RootProvider
   <DateInputGranularity />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-input/granularity.tsx"
+```tsx pure file="../../../src/components/examples/date-input/granularity.tsx"
 ```
 
     </Tab>
@@ -245,6 +258,8 @@ DateInput.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Ведущие нули
 
 Установите `shouldForceLeadingZeros={false}`, если числовые сегменты не должны содержать ведущие нули.
@@ -253,11 +268,12 @@ DateInput.RootProvider
   <DateInputLeadingZeros />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-input/leading-zeros.tsx"
+```tsx pure file="../../../src/components/examples/date-input/leading-zeros.tsx"
 ```
 
     </Tab>
@@ -270,6 +286,8 @@ DateInput.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Локаль
 
 Укажите `locale`, `timeZone`, `hourCycle` или `granularity` на корневом компоненте, если порядок и подписи сегментов
@@ -279,11 +297,12 @@ DateInput.RootProvider
   <DateInputLocale />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-input/locale.tsx"
+```tsx pure file="../../../src/components/examples/date-input/locale.tsx"
 ```
 
     </Tab>
@@ -296,6 +315,8 @@ DateInput.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Минимум, максимум и недоступные даты
 
 Используйте `min`, `max` и `isDateUnavailable`, чтобы ограничить допустимые даты правилами приложения и отметить
@@ -305,11 +326,12 @@ DateInput.RootProvider
   <DateInputMinMaxAndUnavailableDates />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-input/min-max-and-unavailable-dates.tsx"
+```tsx pure file="../../../src/components/examples/date-input/min-max-and-unavailable-dates.tsx"
 ```
 
     </Tab>
@@ -322,6 +344,8 @@ DateInput.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Диапазон
 
 Используйте `selectionMode="range"` и передайте `index` каждой группе сегментов. moduix автоматически добавит
@@ -331,11 +355,12 @@ DateInput.RootProvider
   <DateInputRange />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-input/range.tsx"
+```tsx pure file="../../../src/components/examples/date-input/range.tsx"
 ```
 
     </Tab>
@@ -348,6 +373,8 @@ DateInput.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Справа налево
 
 Установите `dir="rtl"` вместе с RTL-локалью, чтобы сохранить порядок сегментов и направление письма.
@@ -356,11 +383,12 @@ DateInput.RootProvider
   <DateInputRightToLeft />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-input/right-to-left.tsx"
+```tsx pure file="../../../src/components/examples/date-input/right-to-left.tsx"
 ```
 
     </Tab>
@@ -373,6 +401,8 @@ DateInput.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Используйте `useDateInput()` из `@moduix/react` вместе с `DateInput.RootProvider`, когда состояние и его методы нужно
@@ -382,11 +412,12 @@ DateInput.RootProvider
   <DateInputRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-input/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/date-input/root-provider.tsx"
 ```
 
     </Tab>
@@ -399,6 +430,8 @@ DateInput.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Только время
 
 Используйте форматтер только для времени с гранулярностью до минут или секунд, если пользователю не нужно вводить дату.
@@ -407,11 +440,12 @@ DateInput.RootProvider
   <DateInputTimeOnly />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-input/time-only.tsx"
+```tsx pure file="../../../src/components/examples/date-input/time-only.tsx"
 ```
 
     </Tab>
@@ -424,6 +458,8 @@ DateInput.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Расширенная настройка
 
 Используйте полную композицию сегментов, если отображение должно зависеть от данных, которые Ark UI передаёт для каждого
@@ -433,11 +469,12 @@ DateInput.RootProvider
   <DateInputAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-input/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/date-input/advanced-customization.tsx"
 ```
 
     </Tab>
@@ -449,6 +486,8 @@ DateInput.RootProvider
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

@@ -40,11 +40,12 @@ generic file preview.
   <FileUploadBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/file-upload/basic.tsx"
+```tsx pure file="../../../src/components/examples/file-upload/basic.tsx"
 ```
 
     </Tab>
@@ -56,6 +57,8 @@ generic file preview.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -159,11 +162,12 @@ Use `accept` to restrict both the native file picker and drop validation. Pass M
   <FileUploadAcceptedFileTypes />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/file-upload/accepted-file-types.tsx"
+```tsx pure file="../../../src/components/examples/file-upload/accepted-file-types.tsx"
 ```
 
     </Tab>
@@ -176,6 +180,8 @@ Use `accept` to restrict both the native file picker and drop validation. Pass M
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Clear Trigger
 
 Use `ClearTrigger` to remove all accepted files at once.
@@ -184,11 +190,12 @@ Use `ClearTrigger` to remove all accepted files at once.
   <FileUploadClearTrigger />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/file-upload/clear-trigger.tsx"
+```tsx pure file="../../../src/components/examples/file-upload/clear-trigger.tsx"
 ```
 
     </Tab>
@@ -201,6 +208,8 @@ Use `ClearTrigger` to remove all accepted files at once.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Controlled
 
 Control `acceptedFiles` when selected files need to stay in sync with external state or a multi-step flow. Update the
@@ -210,11 +219,12 @@ value from `onFileChange(details)`.
   <FileUploadControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/file-upload/controlled.tsx"
+```tsx pure file="../../../src/components/examples/file-upload/controlled.tsx"
 ```
 
     </Tab>
@@ -227,6 +237,8 @@ value from `onFileChange(details)`.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Directory Upload
 
 Use `directory` to let users select a folder. Supported browsers expose each file's relative path through
@@ -236,11 +248,12 @@ Use `directory` to let users select a folder. Supported browsers expose each fil
   <FileUploadDirectoryUpload />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/file-upload/directory-upload.tsx"
+```tsx pure file="../../../src/components/examples/file-upload/directory-upload.tsx"
 ```
 
     </Tab>
@@ -253,6 +266,8 @@ Use `directory` to let users select a folder. Supported browsers expose each fil
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Dropzone
 
 Use `Dropzone` for drag-and-drop uploads. Keep a nested `Trigger` so users can also open the picker with the keyboard.
@@ -261,11 +276,12 @@ Use `Dropzone` for drag-and-drop uploads. Keep a nested `Trigger` so users can a
   <FileUploadDropzone />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/file-upload/dropzone.tsx"
+```tsx pure file="../../../src/components/examples/file-upload/dropzone.tsx"
 ```
 
     </Tab>
@@ -278,6 +294,8 @@ Use `Dropzone` for drag-and-drop uploads. Keep a nested `Trigger` so users can a
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Error Handling
 
 Use `onFileReject(details)` to show application-specific feedback. Keep built-in constraints such as `accept`,
@@ -287,11 +305,12 @@ Use `onFileReject(details)` to show application-specific feedback. Keep built-in
   <FileUploadErrorHandling />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/file-upload/error-handling.tsx"
+```tsx pure file="../../../src/components/examples/file-upload/error-handling.tsx"
 ```
 
     </Tab>
@@ -304,6 +323,8 @@ Use `onFileReject(details)` to show application-specific feedback. Keep built-in
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### File Previews
 
 This example starts with an SVG image and a PDF, so you can see both layouts immediately. File-row preview boxes are
@@ -314,6 +335,7 @@ the same layouts with your own files.
   <FileUploadFilePreviews />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
@@ -331,6 +353,8 @@ the same layouts with your own files.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Form Usage
 
 Pass `name` to the root. It renders the hidden native file input automatically, so native form submission and reset
@@ -340,11 +364,12 @@ include the selected files.
   <FileUploadFormUsage />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/file-upload/form-usage.tsx"
+```tsx pure file="../../../src/components/examples/file-upload/form-usage.tsx"
 ```
 
     </Tab>
@@ -357,6 +382,8 @@ include the selected files.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Initial Files
 
 Use `defaultAcceptedFiles` to preload files and then let the component manage the selection.
@@ -365,11 +392,12 @@ Use `defaultAcceptedFiles` to preload files and then let the component manage th
   <FileUploadInitialFiles />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/file-upload/initial-files.tsx"
+```tsx pure file="../../../src/components/examples/file-upload/initial-files.tsx"
 ```
 
     </Tab>
@@ -382,6 +410,8 @@ Use `defaultAcceptedFiles` to preload files and then let the component manage th
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Media Capture
 
 Use `capture` with an image or video `accept` value to suggest opening the camera on mobile devices. Set it to
@@ -392,11 +422,12 @@ the camera will open.
   <FileUploadMediaCapture />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/file-upload/media-capture.tsx"
+```tsx pure file="../../../src/components/examples/file-upload/media-capture.tsx"
 ```
 
     </Tab>
@@ -409,6 +440,8 @@ the camera will open.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Rejected Files
 
 Render `rejectedFiles` in a separate `ItemGroup type="rejected"` when users need to see why files were rejected.
@@ -417,11 +450,12 @@ Render `rejectedFiles` in a separate `ItemGroup type="rejected"` when users need
   <FileUploadRejectedFiles />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/file-upload/rejected-files.tsx"
+```tsx pure file="../../../src/components/examples/file-upload/rejected-files.tsx"
 ```
 
     </Tab>
@@ -434,6 +468,8 @@ Render `rejectedFiles` in a separate `ItemGroup type="rejected"` when users need
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider and Pasting Files
 
 Use `useFileUpload` with `RootProvider` when state or methods need to live outside the rendered upload tree. In this
@@ -443,11 +479,12 @@ example, `setClipboardFiles` forwards files pasted into a text area to the uploa
   <FileUploadRootProviderAndPaste />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/file-upload/root-provider-and-paste.tsx"
+```tsx pure file="../../../src/components/examples/file-upload/root-provider-and-paste.tsx"
 ```
 
     </Tab>
@@ -460,6 +497,8 @@ example, `setClipboardFiles` forwards files pasted into a text area to the uploa
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Transform Files
 
 Use `transformFiles(files)` to process files asynchronously before adding them to accepted state.
@@ -468,11 +507,12 @@ Use `transformFiles(files)` to process files asynchronously before adding them t
   <FileUploadTransformFiles />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/file-upload/transform-files.tsx"
+```tsx pure file="../../../src/components/examples/file-upload/transform-files.tsx"
 ```
 
     </Tab>
@@ -485,6 +525,8 @@ Use `transformFiles(files)` to process files asynchronously before adding them t
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### With Field
 
 Wrap the upload in `Field.Root` when helper text, an error message, required state, or invalid state belongs to a form field.
@@ -493,11 +535,12 @@ Wrap the upload in `Field.Root` when helper text, an error message, required sta
   <FileUploadWithField />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/file-upload/with-field.tsx"
+```tsx pure file="../../../src/components/examples/file-upload/with-field.tsx"
 ```
 
     </Tab>
@@ -510,6 +553,8 @@ Wrap the upload in `Field.Root` when helper text, an error message, required sta
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Advanced Customization
 
 Use custom rows instead of `Items` when you need MIME-specific previews, extra metadata, or a different layout. The
@@ -520,11 +565,12 @@ for each file.
   <FileUploadAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/file-upload/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/file-upload/advanced-customization.tsx"
 ```
 
     </Tab>
@@ -536,6 +582,8 @@ for each file.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

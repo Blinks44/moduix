@@ -36,16 +36,19 @@ Commencez par un `Toggle` autonome. C’est la forme abrégée de `Toggle.Root` 
   <ToggleBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle/basic.tsx"
+```tsx pure file="../../../src/components/examples/toggle/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -116,16 +119,19 @@ le seul bouton. Ark peut donc lui ajouter le comportement lié à l’état et a
   <ToggleAsChild />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle/aschild.tsx"
+```tsx pure file="../../../src/components/examples/toggle/aschild.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### État contrôlé
 
@@ -135,11 +141,12 @@ Utilisez un état `pressed` contrôlé lorsque le toggle fait partie de l’éta
   <ToggleControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle/controlled.tsx"
+```tsx pure file="../../../src/components/examples/toggle/controlled.tsx"
 ```
 
     </Tab>
@@ -152,6 +159,8 @@ Utilisez un état `pressed` contrôlé lorsque le toggle fait partie de l’éta
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### État désactivé
 
 Utilisez `disabled` pour bloquer les interactions tout en conservant l’état activé actuel.
@@ -160,11 +169,12 @@ Utilisez `disabled` pour bloquer les interactions tout en conservant l’état a
   <ToggleDisabled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle/disabled.tsx"
+```tsx pure file="../../../src/components/examples/toggle/disabled.tsx"
 ```
 
     </Tab>
@@ -177,6 +187,8 @@ Utilisez `disabled` pour bloquer les interactions tout en conservant l’état a
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Icônes
 
 Passez les icônes comme des enfants ordinaires. Pour les actions compactes, utilisez une taille réservée aux boutons
@@ -186,11 +198,12 @@ avec icône seule.
   <ToggleIcons />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle/icons.tsx"
+```tsx pure file="../../../src/components/examples/toggle/icons.tsx"
 ```
 
     </Tab>
@@ -203,6 +216,8 @@ avec icône seule.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Indicateur
 
 Utilisez `Toggle.Indicator` lorsque le contenu intégré doit différer selon que le toggle est activé ou non.
@@ -211,16 +226,19 @@ Utilisez `Toggle.Indicator` lorsque le contenu intégré doit différer selon qu
   <ToggleIndicator />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle/indicator.tsx"
+```tsx pure file="../../../src/components/examples/toggle/indicator.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Tailles
 
@@ -231,11 +249,12 @@ lorsque l’espace est limité.
   <ToggleSizes />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle/sizes.tsx"
+```tsx pure file="../../../src/components/examples/toggle/sizes.tsx"
 ```
 
     </Tab>
@@ -248,6 +267,8 @@ lorsque l’espace est limité.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Variantes
 
 Utilisez `default` pour une action secondaire, `outline` pour une surface avec bordure et `ghost` pour les actions
@@ -258,11 +279,12 @@ compactes d’une barre d’outils. Lorsqu’elles sont activées, `default` et 
   <ToggleVariants />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle/variants.tsx"
+```tsx pure file="../../../src/components/examples/toggle/variants.tsx"
 ```
 
     </Tab>
@@ -275,6 +297,8 @@ compactes d’une barre d’outils. Lorsqu’elles sont activées, `default` et 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Personnalisation avancée
 
 Pour qu’un descendant personnalisé puisse connaître l’état activé, lisez l’état du toggle le plus proche avec le
@@ -284,16 +308,19 @@ hook de contexte moduix au lieu d’utiliser `Toggle.Indicator`.
   <ToggleAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/toggle/advanced-customization.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

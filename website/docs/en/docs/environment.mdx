@@ -31,16 +31,19 @@ its `Window`.
   <EnvironmentBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/environment/basic.tsx"
+```tsx pure file="../../../src/components/examples/environment/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 The preview runs in the page’s main document, so that is the root the provider resolves. When your app renders into an
 iframe or Shadow DOM, pass the root containing that subtree through `value`.

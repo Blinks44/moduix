@@ -28,16 +28,19 @@ d’effacement par défaut de moduix.
   <SignaturePadBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/signature-pad/basic.tsx"
+```tsx pure file="../../../src/components/examples/signature-pad/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -158,11 +161,12 @@ coordonner avec des contrôles de réinitialisation ou une logique d’enregistr
   <SignaturePadControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/signature-pad/controlled.tsx"
+```tsx pure file="../../../src/components/examples/signature-pad/controlled.tsx"
 ```
 
     </Tab>
@@ -175,6 +179,8 @@ coordonner avec des contrôles de réinitialisation ou une logique d’enregistr
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Dessin
 
 Transmettez `drawing` lorsque l’épaisseur, la couleur du trait ou le comportement de la pression
@@ -184,16 +190,19 @@ doivent différer des valeurs par défaut.
   <SignaturePadDrawing />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/signature-pad/drawing.tsx"
+```tsx pure file="../../../src/components/examples/signature-pad/drawing.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Champ de formulaire
 
@@ -204,11 +213,12 @@ obligatoire (`required`) ou le message de validation concernent un même contrô
   <SignaturePadField />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/signature-pad/field.tsx"
+```tsx pure file="../../../src/components/examples/signature-pad/field.tsx"
 ```
 
     </Tab>
@@ -221,6 +231,8 @@ obligatoire (`required`) ou le message de validation concernent un même contrô
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Sérialisation du formulaire
 
 Utilisez `getFormValue` lorsque le serveur doit recevoir les tracés sous une autre forme. Cet exemple
@@ -230,11 +242,12 @@ envoie un tableau JSON au lieu de la chaîne de tracés SVG séparés par des es
   <SignaturePadFormSerialization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/signature-pad/form-serialization.tsx"
+```tsx pure file="../../../src/components/examples/signature-pad/form-serialization.tsx"
 ```
 
     </Tab>
@@ -247,6 +260,8 @@ envoie un tableau JSON au lieu de la chaîne de tracés SVG séparés par des es
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Aperçu de l’image
 
 Utilisez `onDrawEnd` pour exporter la signature et l’afficher avant son enregistrement.
@@ -255,6 +270,7 @@ Utilisez `onDrawEnd` pour exporter la signature et l’afficher avant son enregi
   <SignaturePadImagePreview />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
@@ -272,6 +288,8 @@ Utilisez `onDrawEnd` pour exporter la signature et l’afficher avant son enregi
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Créez l’état avec `useSignaturePad()` et transmettez-le à `RootProvider` lorsque des contrôles situés
@@ -283,11 +301,12 @@ Transmettez les options de la racine, comme `translations`, `ids` et `drawing`, 
   <SignaturePadRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/signature-pad/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/signature-pad/root-provider.tsx"
 ```
 
     </Tab>
@@ -300,6 +319,8 @@ Transmettez les options de la racine, comme `translations`, `ids` et `drawing`, 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Personnalisation avancée
 
 Utilisez les parties explicites à la place de `Canvas` lorsque vous devez contrôler l’arborescence des
@@ -309,16 +330,19 @@ parties de dessin ou fournir votre propre bouton d’effacement.
   <SignaturePadAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/signature-pad/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/signature-pad/advanced-customization.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

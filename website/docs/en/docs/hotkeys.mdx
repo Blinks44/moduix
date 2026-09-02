@@ -28,11 +28,12 @@ Use `mod` instead of choosing Control or Command yourself. The same shortcut wor
   <HotkeysBasicDemo />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/hotkeys/basic.tsx"
+```tsx pure file="../../../src/components/examples/hotkeys/basic.tsx"
 ```
 
     </Tab>
@@ -44,6 +45,8 @@ Use `mod` instead of choosing Control or Command yourself. The same shortcut wor
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 When your application needs to handle a shortcut normally reserved for the browser, add `preventDefault`. Otherwise, the browser may perform its own action as well.
 
@@ -57,11 +60,12 @@ Separate the keys in a sequence with `>`, such as `g > i`. By default, the user 
   <HotkeysSequencesDemo />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/hotkeys/sequences.tsx"
+```tsx pure file="../../../src/components/examples/hotkeys/sequences.tsx"
 ```
 
     </Tab>
@@ -73,6 +77,8 @@ Separate the keys in a sequence with `>`, such as `g > i`. By default, the user 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Form fields and scopes
 

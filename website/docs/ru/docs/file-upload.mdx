@@ -40,11 +40,12 @@ import FileUploadWithField from '@/components/examples/file-upload/with-field.ts
   <FileUploadBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/file-upload/basic.tsx"
+```tsx pure file="../../../src/components/examples/file-upload/basic.tsx"
 ```
 
     </Tab>
@@ -56,6 +57,8 @@ import FileUploadWithField from '@/components/examples/file-upload/with-field.ts
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -161,11 +164,12 @@ FileUpload / FileUpload.Root
   <FileUploadAcceptedFileTypes />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/file-upload/accepted-file-types.tsx"
+```tsx pure file="../../../src/components/examples/file-upload/accepted-file-types.tsx"
 ```
 
     </Tab>
@@ -178,6 +182,8 @@ FileUpload / FileUpload.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Очистка списка файлов
 
 Используйте `ClearTrigger`, чтобы одним действием удалить все принятые файлы.
@@ -186,11 +192,12 @@ FileUpload / FileUpload.Root
   <FileUploadClearTrigger />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/file-upload/clear-trigger.tsx"
+```tsx pure file="../../../src/components/examples/file-upload/clear-trigger.tsx"
 ```
 
     </Tab>
@@ -203,6 +210,8 @@ FileUpload / FileUpload.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Управляемое состояние
 
 Управляйте `acceptedFiles`, когда выбранные файлы должны быть синхронизированы с состоянием приложения или
@@ -212,11 +221,12 @@ FileUpload / FileUpload.Root
   <FileUploadControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/file-upload/controlled.tsx"
+```tsx pure file="../../../src/components/examples/file-upload/controlled.tsx"
 ```
 
     </Tab>
@@ -229,6 +239,8 @@ FileUpload / FileUpload.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Загрузка папки
 
 Используйте `directory`, чтобы пользователь мог выбрать папку. В поддерживающих эту возможность браузерах относительный
@@ -239,11 +251,12 @@ FileUpload / FileUpload.Root
   <FileUploadDirectoryUpload />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/file-upload/directory-upload.tsx"
+```tsx pure file="../../../src/components/examples/file-upload/directory-upload.tsx"
 ```
 
     </Tab>
@@ -256,6 +269,8 @@ FileUpload / FileUpload.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Dropzone
 
 Используйте `Dropzone` для загрузки перетаскиванием. Оставьте вложенный `Trigger`, чтобы пользователь мог открыть окно
@@ -265,11 +280,12 @@ FileUpload / FileUpload.Root
   <FileUploadDropzone />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/file-upload/dropzone.tsx"
+```tsx pure file="../../../src/components/examples/file-upload/dropzone.tsx"
 ```
 
     </Tab>
@@ -282,6 +298,8 @@ FileUpload / FileUpload.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Обработка ошибок
 
 Используйте `onFileReject(details)`, чтобы показать сообщение, зависящее от логики приложения. Встроенные ограничения
@@ -292,11 +310,12 @@ FileUpload / FileUpload.Root
   <FileUploadErrorHandling />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/file-upload/error-handling.tsx"
+```tsx pure file="../../../src/components/examples/file-upload/error-handling.tsx"
 ```
 
     </Tab>
@@ -309,6 +328,8 @@ FileUpload / FileUpload.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Превью файлов
 
 В этом примере уже есть SVG-изображение и PDF, поэтому сразу видны оба варианта: карточка изображения и строка файла.
@@ -319,6 +340,7 @@ FileUpload / FileUpload.Root
   <FileUploadFilePreviews />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
@@ -336,6 +358,8 @@ FileUpload / FileUpload.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Использование в форме
 
 Передайте `name` корневому компоненту. Он автоматически добавит скрытое нативное поле выбора файлов, поэтому выбранные
@@ -345,11 +369,12 @@ FileUpload / FileUpload.Root
   <FileUploadFormUsage />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/file-upload/form-usage.tsx"
+```tsx pure file="../../../src/components/examples/file-upload/form-usage.tsx"
 ```
 
     </Tab>
@@ -362,6 +387,8 @@ FileUpload / FileUpload.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Начальные файлы
 
 Используйте `defaultAcceptedFiles`, чтобы заранее добавить файлы, а затем передать управление выбором компоненту.
@@ -370,11 +397,12 @@ FileUpload / FileUpload.Root
   <FileUploadInitialFiles />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/file-upload/initial-files.tsx"
+```tsx pure file="../../../src/components/examples/file-upload/initial-files.tsx"
 ```
 
     </Tab>
@@ -387,6 +415,8 @@ FileUpload / FileUpload.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Съёмка с камеры
 
 Используйте `capture` вместе с `accept` для изображения или видео, чтобы предложить мобильному браузеру открыть камеру.
@@ -397,11 +427,12 @@ FileUpload / FileUpload.Root
   <FileUploadMediaCapture />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/file-upload/media-capture.tsx"
+```tsx pure file="../../../src/components/examples/file-upload/media-capture.tsx"
 ```
 
     </Tab>
@@ -414,6 +445,8 @@ FileUpload / FileUpload.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Отклонённые файлы
 
 Выводите `rejectedFiles` в отдельной группе `ItemGroup type="rejected"`, если пользователю нужно видеть причины
@@ -423,11 +456,12 @@ FileUpload / FileUpload.Root
   <FileUploadRejectedFiles />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/file-upload/rejected-files.tsx"
+```tsx pure file="../../../src/components/examples/file-upload/rejected-files.tsx"
 ```
 
     </Tab>
@@ -440,6 +474,8 @@ FileUpload / FileUpload.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider и вставка файлов
 
 Используйте `useFileUpload` вместе с `RootProvider`, если состояние или методы должны находиться за пределами
@@ -449,11 +485,12 @@ FileUpload / FileUpload.Root
   <FileUploadRootProviderAndPaste />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/file-upload/root-provider-and-paste.tsx"
+```tsx pure file="../../../src/components/examples/file-upload/root-provider-and-paste.tsx"
 ```
 
     </Tab>
@@ -466,6 +503,8 @@ FileUpload / FileUpload.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Преобразование файлов
 
 Используйте `transformFiles(files)` для асинхронной обработки файлов до того, как они попадут в `acceptedFiles`.
@@ -474,11 +513,12 @@ FileUpload / FileUpload.Root
   <FileUploadTransformFiles />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/file-upload/transform-files.tsx"
+```tsx pure file="../../../src/components/examples/file-upload/transform-files.tsx"
 ```
 
     </Tab>
@@ -491,6 +531,8 @@ FileUpload / FileUpload.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Интеграция с Field
 
 Оберните загрузку в `Field.Root`, если к полю формы нужно добавить поясняющий текст или сообщение об ошибке либо
@@ -500,11 +542,12 @@ FileUpload / FileUpload.Root
   <FileUploadWithField />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/file-upload/with-field.tsx"
+```tsx pure file="../../../src/components/examples/file-upload/with-field.tsx"
 ```
 
     </Tab>
@@ -517,6 +560,8 @@ FileUpload / FileUpload.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Расширенная настройка
 
 Вместо `Items` используйте собственные строки, если нужны превью для разных MIME-типов, дополнительные метаданные или
@@ -527,11 +572,12 @@ FileUpload / FileUpload.Root
   <FileUploadAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/file-upload/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/file-upload/advanced-customization.tsx"
 ```
 
     </Tab>
@@ -543,6 +589,8 @@ FileUpload / FileUpload.Root
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

@@ -30,16 +30,19 @@ custom children.
   <TimerBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/timer/basic.tsx"
+```tsx pure file="../../../src/components/examples/timer/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -135,11 +138,12 @@ Set `countdown` and `startMs` when the display should count down to zero.
   <TimerCountdown />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/timer/countdown.tsx"
+```tsx pure file="../../../src/components/examples/timer/countdown.tsx"
 ```
 
     </Tab>
@@ -152,6 +156,8 @@ Set `countdown` and `startMs` when the display should count down to zero.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Events
 
 Use `onTick` and `onComplete` for side effects tied to the timer lifecycle.
@@ -160,11 +166,12 @@ Use `onTick` and `onComplete` for side effects tied to the timer lifecycle.
   <TimerEvents />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/timer/events.tsx"
+```tsx pure file="../../../src/components/examples/timer/events.tsx"
 ```
 
     </Tab>
@@ -177,6 +184,8 @@ Use `onTick` and `onComplete` for side effects tied to the timer lifecycle.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Interval
 
 Use a shorter `interval` with a `milliseconds` item when the UI needs sub-second updates.
@@ -185,11 +194,12 @@ Use a shorter `interval` with a `milliseconds` item when the UI needs sub-second
   <TimerInterval />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/timer/interval.tsx"
+```tsx pure file="../../../src/components/examples/timer/interval.tsx"
 ```
 
     </Tab>
@@ -202,6 +212,8 @@ Use a shorter `interval` with a `milliseconds` item when the UI needs sub-second
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Pomodoro
 
 Use `onComplete` to switch between work and break durations when the timer should advance to the next cycle.
@@ -210,11 +222,12 @@ Use `onComplete` to switch between work and break durations when the timer shoul
   <TimerPomodoro />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/timer/pomodoro.tsx"
+```tsx pure file="../../../src/components/examples/timer/pomodoro.tsx"
 ```
 
     </Tab>
@@ -227,6 +240,8 @@ Use `onComplete` to switch between work and break durations when the timer shoul
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Advanced Customization
 
 Use `useTimer()` when the timer state and methods must also be available outside the rendered part tree. This is
@@ -236,11 +251,12 @@ also the right composition for unit labels and other custom item layouts.
   <TimerRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/timer/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/timer/root-provider.tsx"
 ```
 
     </Tab>
@@ -252,6 +268,8 @@ also the right composition for unit labels and other custom item layouts.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

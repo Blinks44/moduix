@@ -40,11 +40,12 @@ formulaire. moduix ajoute les parties stylées et les champs natifs masqués, ce
   <DateInputBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-input/basic.tsx"
+```tsx pure file="../../../src/components/examples/date-input/basic.tsx"
 ```
 
     </Tab>
@@ -56,6 +57,8 @@ formulaire. moduix ajoute les parties stylées et les champs natifs masqués, ce
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -151,11 +154,12 @@ Passez le tableau de valeurs dans `value` et mettez-le à jour avec `details.val
   <DateInputControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-input/controlled.tsx"
+```tsx pure file="../../../src/components/examples/date-input/controlled.tsx"
 ```
 
     </Tab>
@@ -168,6 +172,8 @@ Passez le tableau de valeurs dans `value` et mettez-le à jour avec `details.val
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### État désactivé et lecture seule
 
 Utilisez `disabled` pour empêcher toute interaction. Utilisez `readOnly` lorsque la valeur doit rester accessible au
@@ -177,11 +183,12 @@ focus sans être modifiable.
   <DateInputDisabledAndReadOnly />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-input/disabled-and-read-only.tsx"
+```tsx pure file="../../../src/components/examples/date-input/disabled-and-read-only.tsx"
 ```
 
     </Tab>
@@ -194,6 +201,8 @@ focus sans être modifiable.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### État du champ
 
 Placez `DateInput` dans `Field` pour associer le texte d’aide et le message d’erreur au champ. Transmettez `required`,
@@ -203,11 +212,12 @@ Placez `DateInput` dans `Field` pour associer le texte d’aide et le message d�
   <DateInputFieldState />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-input/field-state.tsx"
+```tsx pure file="../../../src/components/examples/date-input/field-state.tsx"
 ```
 
     </Tab>
@@ -220,6 +230,8 @@ Placez `DateInput` dans `Field` pour associer le texte d’aide et le message d�
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Granularité
 
 Définissez `granularity` pour ajouter des segments d’heure au champ.
@@ -228,11 +240,12 @@ Définissez `granularity` pour ajouter des segments d’heure au champ.
   <DateInputGranularity />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-input/granularity.tsx"
+```tsx pure file="../../../src/components/examples/date-input/granularity.tsx"
 ```
 
     </Tab>
@@ -245,6 +258,8 @@ Définissez `granularity` pour ajouter des segments d’heure au champ.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Zéros initiaux
 
 Définissez `shouldForceLeadingZeros={false}` si les segments numériques ne doivent pas commencer par des zéros.
@@ -253,11 +268,12 @@ Définissez `shouldForceLeadingZeros={false}` si les segments numériques ne doi
   <DateInputLeadingZeros />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-input/leading-zeros.tsx"
+```tsx pure file="../../../src/components/examples/date-input/leading-zeros.tsx"
 ```
 
     </Tab>
@@ -270,6 +286,8 @@ Définissez `shouldForceLeadingZeros={false}` si les segments numériques ne doi
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Locale
 
 Définissez `locale`, `timeZone`, `hourCycle` ou `granularity` sur le composant racine lorsque l’ordre et les libellés
@@ -279,11 +297,12 @@ des segments doivent suivre les conventions régionales.
   <DateInputLocale />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-input/locale.tsx"
+```tsx pure file="../../../src/components/examples/date-input/locale.tsx"
 ```
 
     </Tab>
@@ -296,6 +315,8 @@ des segments doivent suivre les conventions régionales.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Date minimale, date maximale et dates indisponibles
 
 Utilisez `min`, `max` et `isDateUnavailable` pour limiter les dates acceptées et exclure celles qui ne respectent pas les
@@ -305,11 +326,12 @@ règles de l’application.
   <DateInputMinMaxAndUnavailableDates />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-input/min-max-and-unavailable-dates.tsx"
+```tsx pure file="../../../src/components/examples/date-input/min-max-and-unavailable-dates.tsx"
 ```
 
     </Tab>
@@ -322,6 +344,8 @@ règles de l’application.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Plage
 
 Utilisez `selectionMode="range"` et transmettez `index` à chaque groupe de segments. moduix ajoute automatiquement
@@ -331,11 +355,12 @@ les champs natifs avec les index correspondants.
   <DateInputRange />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-input/range.tsx"
+```tsx pure file="../../../src/components/examples/date-input/range.tsx"
 ```
 
     </Tab>
@@ -348,6 +373,8 @@ les champs natifs avec les index correspondants.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### De droite à gauche
 
 Définissez `dir="rtl"` avec une locale RTL afin de conserver l’ordre des segments et le sens d’écriture.
@@ -356,11 +383,12 @@ Définissez `dir="rtl"` avec une locale RTL afin de conserver l’ordre des segm
   <DateInputRightToLeft />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-input/right-to-left.tsx"
+```tsx pure file="../../../src/components/examples/date-input/right-to-left.tsx"
 ```
 
     </Tab>
@@ -373,6 +401,8 @@ Définissez `dir="rtl"` avec une locale RTL afin de conserver l’ordre des segm
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Utilisez `useDateInput()` depuis `@moduix/react` avec `DateInput.RootProvider` lorsque l’état et ses méthodes doivent
@@ -382,11 +412,12 @@ Utilisez `useDateInput()` depuis `@moduix/react` avec `DateInput.RootProvider` l
   <DateInputRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-input/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/date-input/root-provider.tsx"
 ```
 
     </Tab>
@@ -399,6 +430,8 @@ Utilisez `useDateInput()` depuis `@moduix/react` avec `DateInput.RootProvider` l
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Heure uniquement
 
 Utilisez un formateur configuré pour l’heure uniquement, avec une granularité à la minute ou à la seconde, lorsque
@@ -408,11 +441,12 @@ l’utilisateur n’a pas besoin de saisir une date.
   <DateInputTimeOnly />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-input/time-only.tsx"
+```tsx pure file="../../../src/components/examples/date-input/time-only.tsx"
 ```
 
     </Tab>
@@ -425,6 +459,8 @@ l’utilisateur n’a pas besoin de saisir une date.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Personnalisation avancée
 
 Utilisez la composition complète des segments lorsque le rendu doit varier selon les données fournies par Ark UI pour
@@ -434,11 +470,12 @@ chaque segment. Pour un rendu standard, utilisez `DateInput.Segments`.
   <DateInputAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-input/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/date-input/advanced-customization.tsx"
 ```
 
     </Tab>
@@ -450,6 +487,8 @@ chaque segment. Pour un rendu standard, utilisez `DateInput.Segments`.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

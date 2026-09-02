@@ -42,11 +42,12 @@ native input. Pass `name` when the color should be submitted with a form.
   <ColorPickerBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/basic.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/basic.tsx"
 ```
 
     </Tab>
@@ -58,6 +59,8 @@ native input. Pass `name` when the color should be submitted with a form.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -189,16 +192,19 @@ typed channel input.
   <ColorPickerSliderOnly />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/slider-only.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/slider-only.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Compact Trigger
 
@@ -209,11 +215,12 @@ square swatch, such as when replacing a button-based color field.
   <ColorPickerCompactTrigger />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/compact-trigger.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/compact-trigger.tsx"
 ```
 
     </Tab>
@@ -226,6 +233,8 @@ square swatch, such as when replacing a button-based color field.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Controlled
 
 Use controlled state when the selected color must stay in sync with application state.
@@ -234,16 +243,19 @@ Use controlled state when the selected color must stay in sync with application 
   <ColorPickerControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/controlled.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/controlled.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Disabled
 
@@ -254,16 +266,19 @@ the current color visible.
   <ColorPickerDisabled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/disabled.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/disabled.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Field State
 
@@ -274,11 +289,12 @@ field container and should expose the same state through Ark data attributes.
   <ColorPickerFieldState />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/field-state.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/field-state.tsx"
 ```
 
     </Tab>
@@ -291,6 +307,8 @@ field container and should expose the same state through Ark data attributes.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Form Usage
 
 Use `name` on `ColorPicker`; it renders its native form input automatically.
@@ -299,16 +317,19 @@ Use `name` on `ColorPicker`; it renders its native form input automatically.
   <ColorPickerFormUsage />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/form-usage.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/form-usage.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Format Views
 
@@ -321,11 +342,12 @@ presents the RGBA, HSLA, and HSBA options. The browser controls the options popu
   <ColorPickerFormatViews />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/format-views.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/format-views.tsx"
 ```
 
     </Tab>
@@ -338,6 +360,8 @@ presents the RGBA, HSLA, and HSBA options. The browser controls the options popu
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Inline
 
 Use `inline` in settings panels where the color tools should stay visible without a popup trigger.
@@ -346,11 +370,12 @@ Use `inline` in settings panels where the color tools should stay visible withou
   <ColorPickerInline />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/inline.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/inline.tsx"
 ```
 
     </Tab>
@@ -363,6 +388,8 @@ Use `inline` in settings panels where the color tools should stay visible withou
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Input Only
 
 Use channel inputs with a passive swatch when typed color entry is important and a popup would add
@@ -372,11 +399,12 @@ unnecessary complexity to the interface.
   <ColorPickerInputOnly />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/input-only.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/input-only.tsx"
 ```
 
     </Tab>
@@ -389,6 +417,8 @@ unnecessary complexity to the interface.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Inside Dialog
 
 When a picker appears inside a modal dialog, render its popup without a portal so it shares the
@@ -398,11 +428,12 @@ dialog's stacking context and stays interactive above the dialog surface.
   <ColorPickerInsideDialog />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/inside-dialog.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/inside-dialog.tsx"
 ```
 
     </Tab>
@@ -415,6 +446,8 @@ dialog's stacking context and stays interactive above the dialog surface.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Open Controlled
 
 Use controlled `open` state when another control or workflow owns the popup's visibility.
@@ -423,11 +456,12 @@ Use controlled `open` state when another control or workflow owns the popup's vi
   <ColorPickerOpenControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/open-controlled.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/open-controlled.tsx"
 ```
 
     </Tab>
@@ -440,6 +474,8 @@ Use controlled `open` state when another control or workflow owns the popup's vi
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### RootProvider
 
 Use moduix `useColorPicker` with `RootProvider` when the color picker state must be created outside
@@ -449,11 +485,12 @@ the rendered tree and shared with nearby controls.
   <ColorPickerRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/root-provider.tsx"
 ```
 
     </Tab>
@@ -466,6 +503,8 @@ the rendered tree and shared with nearby controls.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Swatch Only
 
 Use swatch-only composition when a preset palette is enough and the area, sliders, and inputs are
@@ -475,11 +514,12 @@ unnecessary.
   <ColorPickerSwatchOnly />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/swatch-only.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/swatch-only.tsx"
 ```
 
     </Tab>
@@ -492,6 +532,8 @@ unnecessary.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Swatches
 
 Use popup swatches when the picker should offer a curated set of colors alongside freeform editing.
@@ -501,16 +543,19 @@ Use popup swatches when the picker should offer a curated set of colors alongsid
   <ColorPickerSwatches />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/swatches.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/swatches.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Value Swatch
 
@@ -521,11 +566,12 @@ the full picker.
   <ColorPickerValueSwatch />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/value-swatch.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/value-swatch.tsx"
 ```
 
     </Tab>
@@ -538,6 +584,8 @@ the full picker.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Advanced Customization
 
 Use explicit parts and children when the default composition needs a different visual arrangement.
@@ -546,16 +594,19 @@ Use explicit parts and children when the default composition needs a different v
   <ColorPickerAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/advanced-customization.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

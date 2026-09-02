@@ -31,16 +31,19 @@ Utilisez `NumberInput` avec `NumberInput.Field` pour afficher un champ standard 
   <NumberInputBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/number-input/basic.tsx"
+```tsx pure file="../../../src/components/examples/number-input/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -150,11 +153,12 @@ Conservez l’état contrôlé sous forme de chaîne et utilisez `details.value`
   <NumberInputControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/number-input/controlled.tsx"
+```tsx pure file="../../../src/components/examples/number-input/controlled.tsx"
 ```
 
     </Tab>
@@ -167,6 +171,8 @@ Conservez l’état contrôlé sous forme de chaîne et utilisez `details.value`
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### État désactivé et lecture seule
 
 Utilisez `disabled` pour désactiver toute interaction. Utilisez `readOnly` lorsque la valeur doit rester sélectionnable,
@@ -176,11 +182,12 @@ mais ne doit pas pouvoir être modifiée.
   <NumberInputDisabledAndReadOnly />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/number-input/disabled-and-read-only.tsx"
+```tsx pure file="../../../src/components/examples/number-input/disabled-and-read-only.tsx"
 ```
 
     </Tab>
@@ -193,6 +200,8 @@ mais ne doit pas pouvoir être modifiée.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Field
 
 Utilisez `Field` pour associer l’état du champ de formulaire au texte d’aide, au message d’erreur et aux informations
@@ -202,11 +211,12 @@ d’accessibilité.
   <NumberInputField />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/number-input/field.tsx"
+```tsx pure file="../../../src/components/examples/number-input/field.tsx"
 ```
 
     </Tab>
@@ -219,6 +229,8 @@ d’accessibilité.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Formatage
 
 Transmettez `formatOptions` pour formater la valeur visible avec `Intl.NumberFormat`.
@@ -227,16 +239,19 @@ Transmettez `formatOptions` pour formater la valeur visible avec `Intl.NumberFor
   <NumberInputFormatting />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/number-input/formatting.tsx"
+```tsx pure file="../../../src/components/examples/number-input/formatting.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Minimum et maximum
 
@@ -248,16 +263,19 @@ par glissement. La valeur est ramenée dans la plage à la perte du focus par d�
   <NumberInputMinAndMax />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/number-input/min-and-max.tsx"
+```tsx pure file="../../../src/components/examples/number-input/min-and-max.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Molette de la souris
 
@@ -267,16 +285,19 @@ Activez `allowMouseWheel` lorsque la molette doit modifier la valeur dans votre 
   <NumberInputMouseWheel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/number-input/mouse-wheel.tsx"
+```tsx pure file="../../../src/components/examples/number-input/mouse-wheel.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Soumission native du formulaire
 
@@ -288,11 +309,12 @@ affichée.
   <NumberInputFormSubmission />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/number-input/form-submission.tsx"
+```tsx pure file="../../../src/components/examples/number-input/form-submission.tsx"
 ```
 
     </Tab>
@@ -305,6 +327,8 @@ affichée.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Précision
 
 Utilisez `formatOptions` avec `Intl.NumberFormatOptions` lorsque la valeur affichée doit comporter un nombre fixe de
@@ -314,16 +338,19 @@ chiffres après la virgule.
   <NumberInputPrecision />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/number-input/precision.tsx"
+```tsx pure file="../../../src/components/examples/number-input/precision.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Root Provider
 
@@ -334,11 +361,12 @@ qui affiche les parties du composant.
   <NumberInputRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/number-input/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/number-input/root-provider.tsx"
 ```
 
     </Tab>
@@ -351,6 +379,8 @@ qui affiche les parties du composant.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Modification par glissement
 
 Faites glisser `NumberInput.Scrubber` vers la gauche ou la droite pour modifier la valeur.
@@ -359,11 +389,12 @@ Faites glisser `NumberInput.Scrubber` vers la gauche ou la droite pour modifier 
   <NumberInputScrubbing />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/number-input/scrubbing.tsx"
+```tsx pure file="../../../src/components/examples/number-input/scrubbing.tsx"
 ```
 
     </Tab>
@@ -376,6 +407,8 @@ Faites glisser `NumberInput.Scrubber` vers la gauche ou la droite pour modifier 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Texte de la valeur
 
 Utilisez `NumberInput.ValueText` lorsque la valeur formatée doit également apparaître à l’extérieur du champ modifiable.
@@ -384,16 +417,19 @@ Utilisez `NumberInput.ValueText` lorsque la valeur formatée doit également app
   <NumberInputValueText />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/number-input/value-text.tsx"
+```tsx pure file="../../../src/components/examples/number-input/value-text.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Personnalisation avancée
 
@@ -405,11 +441,12 @@ nécessite des libellés localisés pour les technologies d’assistance.
   <NumberInputCustomIcons />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/number-input/custom-icons.tsx"
+```tsx pure file="../../../src/components/examples/number-input/custom-icons.tsx"
 ```
 
     </Tab>
@@ -421,6 +458,8 @@ nécessite des libellés localisés pour les technologies d’assistance.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

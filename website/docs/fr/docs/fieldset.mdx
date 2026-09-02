@@ -33,11 +33,12 @@ conserver la compatibilité avec l’API Ark.
   <FieldsetBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/fieldset/basic.tsx"
+```tsx pure file="../../../src/components/examples/fieldset/basic.tsx"
 ```
 
     </Tab>
@@ -49,6 +50,8 @@ conserver la compatibilité avec l’API Ark.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -123,11 +126,12 @@ son `input` natif, de sorte que sa valeur est incluse dans la soumission et la r
   <FieldsetCheckbox />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/fieldset/checkbox.tsx"
+```tsx pure file="../../../src/components/examples/fieldset/checkbox.tsx"
 ```
 
     </Tab>
@@ -140,6 +144,8 @@ son `input` natif, de sorte que sa valeur est incluse dans la soumission et la r
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### État désactivé
 
 Définissez `disabled` sur la racine. Le navigateur désactive les contrôles natifs, et les contrôles compatibles avec Ark récupèrent
@@ -149,11 +155,12 @@ le même état depuis le contexte du fieldset.
   <FieldsetDisabled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/fieldset/disabled.tsx"
+```tsx pure file="../../../src/components/examples/fieldset/disabled.tsx"
 ```
 
     </Tab>
@@ -166,6 +173,8 @@ le même état depuis le contexte du fieldset.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Field
 
 Imbriquez des composants `Field` lorsque chaque contrôle a besoin de son propre libellé, texte d’aide ou message d’erreur, en
@@ -175,11 +184,12 @@ plus de la légende commune.
   <FieldsetField />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/fieldset/field.tsx"
+```tsx pure file="../../../src/components/examples/fieldset/field.tsx"
 ```
 
     </Tab>
@@ -192,6 +202,8 @@ plus de la légende commune.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Input avec Select
 
 Associez un `Select` pour le code pays et un `Input` pour le numéro de téléphone sous une même légende lorsqu’ils forment
@@ -201,11 +213,12 @@ ensemble un seul numéro de téléphone.
   <FieldsetInputWithSelect />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/fieldset/input-with-select.tsx"
+```tsx pure file="../../../src/components/examples/fieldset/input-with-select.tsx"
 ```
 
     </Tab>
@@ -218,6 +231,8 @@ ensemble un seul numéro de téléphone.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### État invalide
 
 Définissez `invalid` sur `Fieldset` pour marquer le groupe comme invalide et afficher son message d’erreur. Définissez aussi `invalid` sur les
@@ -227,11 +242,12 @@ composants `Field` imbriqués lorsque des contrôles individuels doivent affiche
   <FieldsetInvalid />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/fieldset/invalid.tsx"
+```tsx pure file="../../../src/components/examples/fieldset/invalid.tsx"
 ```
 
     </Tab>
@@ -244,6 +260,8 @@ composants `Field` imbriqués lorsque des contrôles individuels doivent affiche
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Personnalisation avancée
 
 Utilisez `useFieldset` avec `Fieldset.RootProvider` pour créer l’état du fieldset en dehors de l’arbre JSX et le partager avec
@@ -253,11 +271,12 @@ des contrôles voisins ou des descendants réutilisables.
   <FieldsetRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/fieldset/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/fieldset/root-provider.tsx"
 ```
 
     </Tab>
@@ -269,6 +288,8 @@ des contrôles voisins ou des descendants réutilisables.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

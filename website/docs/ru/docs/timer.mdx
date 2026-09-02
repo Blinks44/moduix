@@ -31,16 +31,19 @@ import TimerRootProvider from '@/components/examples/timer/root-provider.tsx';
   <TimerBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/timer/basic.tsx"
+```tsx pure file="../../../src/components/examples/timer/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -139,11 +142,12 @@ Timer.Segments
   <TimerCountdown />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/timer/countdown.tsx"
+```tsx pure file="../../../src/components/examples/timer/countdown.tsx"
 ```
 
     </Tab>
@@ -156,6 +160,8 @@ Timer.Segments
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### События
 
 Используйте `onTick` и `onComplete` для побочных эффектов, связанных с жизненным циклом таймера.
@@ -164,11 +170,12 @@ Timer.Segments
   <TimerEvents />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/timer/events.tsx"
+```tsx pure file="../../../src/components/examples/timer/events.tsx"
 ```
 
     </Tab>
@@ -181,6 +188,8 @@ Timer.Segments
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Интервал
 
 Уменьшите `interval` и добавьте элемент `milliseconds`, если UI должен обновляться несколько раз в секунду.
@@ -189,11 +198,12 @@ Timer.Segments
   <TimerInterval />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/timer/interval.tsx"
+```tsx pure file="../../../src/components/examples/timer/interval.tsx"
 ```
 
     </Tab>
@@ -206,6 +216,8 @@ Timer.Segments
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Помодоро
 
 Используйте `onComplete`, чтобы переключать режимы работы и отдыха и запускать следующий цикл таймера.
@@ -214,11 +226,12 @@ Timer.Segments
   <TimerPomodoro />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/timer/pomodoro.tsx"
+```tsx pure file="../../../src/components/examples/timer/pomodoro.tsx"
 ```
 
     </Tab>
@@ -231,6 +244,8 @@ Timer.Segments
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Расширенная настройка
 
 Используйте `useTimer()`, если состояние и методы таймера должны быть доступны за пределами отображаемого дерева
@@ -240,11 +255,12 @@ Timer.Segments
   <TimerRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/timer/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/timer/root-provider.tsx"
 ```
 
     </Tab>
@@ -256,6 +272,8 @@ Timer.Segments
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

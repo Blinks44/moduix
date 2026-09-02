@@ -30,16 +30,19 @@ For the common case, use the shorthand with `RatingGroup.Label`, `RatingGroup.Co
   <RatingGroupBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/rating-group/basic.tsx"
+```tsx pure file="../../../src/components/examples/rating-group/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -133,11 +136,12 @@ Use controlled mode when the score depends on other state, drives nearby UI, or 
   <RatingGroupControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/rating-group/controlled.tsx"
+```tsx pure file="../../../src/components/examples/rating-group/controlled.tsx"
 ```
 
     </Tab>
@@ -150,6 +154,8 @@ Use controlled mode when the score depends on other state, drives nearby UI, or 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Custom Icon
 
 Pass a custom `RatingGroup.ItemIndicator` as the child of `RatingGroup.Items` when every item should
@@ -160,11 +166,12 @@ attributes for styling.
   <RatingGroupCustomIcon />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/rating-group/custom-icon.tsx"
+```tsx pure file="../../../src/components/examples/rating-group/custom-icon.tsx"
 ```
 
     </Tab>
@@ -177,6 +184,8 @@ attributes for styling.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Disabled and Readonly
 
 Use `disabled` to remove interaction. Use `readOnly` to keep the score visible while preventing
@@ -186,11 +195,12 @@ changes.
   <RatingGroupDisabledAndReadonly />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/rating-group/disabled-and-readonly.tsx"
+```tsx pure file="../../../src/components/examples/rating-group/disabled-and-readonly.tsx"
 ```
 
     </Tab>
@@ -203,6 +213,8 @@ changes.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Field
 
 Wrap the rating group in `Field` when helper or validation text should be associated with its automatic
@@ -213,11 +225,12 @@ owned by `Field` and application code.
   <RatingGroupField />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/rating-group/field.tsx"
+```tsx pure file="../../../src/components/examples/rating-group/field.tsx"
 ```
 
     </Tab>
@@ -230,6 +243,8 @@ owned by `Field` and application code.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Forms
 
 Pass `name` when the selected score should be included in `FormData`; the root renders the synchronized
@@ -239,11 +254,12 @@ native form input automatically.
   <RatingGroupForms />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/rating-group/forms.tsx"
+```tsx pure file="../../../src/components/examples/rating-group/forms.tsx"
 ```
 
     </Tab>
@@ -256,6 +272,8 @@ native form input automatically.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Half Rating
 
 Set `allowHalf` to enable half-step selection and rendering.
@@ -264,16 +282,19 @@ Set `allowHalf` to enable half-step selection and rendering.
   <RatingGroupHalfRating />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/rating-group/half-rating.tsx"
+```tsx pure file="../../../src/components/examples/rating-group/half-rating.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Sizes
 
@@ -283,11 +304,12 @@ Use the moduix `size` prop when the rating needs to keep the same Ark behavior a
   <RatingGroupSizes />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/rating-group/sizes.tsx"
+```tsx pure file="../../../src/components/examples/rating-group/sizes.tsx"
 ```
 
     </Tab>
@@ -300,6 +322,8 @@ Use the moduix `size` prop when the rating needs to keep the same Ark behavior a
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Advanced Composition
 
 Use `RatingGroup.RootProvider` with `useRatingGroup()` when the rating state must be created outside the
@@ -310,11 +334,12 @@ render each item yourself.
   <RatingGroupAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/rating-group/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/rating-group/advanced-customization.tsx"
 ```
 
     </Tab>
@@ -326,6 +351,8 @@ render each item yourself.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

@@ -39,11 +39,12 @@ explicit. Use `Combobox.Option` for ordinary rows; use `Combobox.Item` when a ro
   <ComboboxBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/basic.tsx"
+```tsx pure file="../../../src/components/examples/combobox/basic.tsx"
 ```
 
     </Tab>
@@ -55,6 +56,8 @@ explicit. Use `Combobox.Option` for ordinary rows; use `Combobox.Item` when a ro
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -222,11 +225,12 @@ show a `Start typing to search…` status so the popup remains informative.
   <ComboboxAsyncSearch />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/async-search.tsx"
+```tsx pure file="../../../src/components/examples/combobox/async-search.tsx"
 ```
 
     </Tab>
@@ -239,6 +243,8 @@ show a `Start typing to search…` status so the popup remains informative.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Auto Highlight
 
 Set `inputBehavior="autohighlight"` to highlight the first matching item while the user types, so
@@ -248,11 +254,12 @@ Enter can select it without an extra arrow-key press.
   <ComboboxAutoHighlight />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/auto-highlight.tsx"
+```tsx pure file="../../../src/components/examples/combobox/auto-highlight.tsx"
 ```
 
     </Tab>
@@ -265,6 +272,8 @@ Enter can select it without an extra arrow-key press.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Controlled
 
 Control the selected string array and read the next value from `details.value`.
@@ -273,11 +282,12 @@ Control the selected string array and read the next value from `details.value`.
   <ComboboxControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/controlled.tsx"
+```tsx pure file="../../../src/components/examples/combobox/controlled.tsx"
 ```
 
     </Tab>
@@ -290,6 +300,8 @@ Control the selected string array and read the next value from `details.value`.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Creatable
 
 Combine `allowCustomValue` with collection mutation to expose a temporary “Create” item, then
@@ -299,11 +311,12 @@ replace that sentinel value with the user-entered value after selection.
   <ComboboxCreatable />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/creatable.tsx"
+```tsx pure file="../../../src/components/examples/combobox/creatable.tsx"
 ```
 
     </Tab>
@@ -316,6 +329,8 @@ replace that sentinel value with the user-entered value after selection.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Custom Objects and Grouping
 
 Map object labels and values on the collection, then render Ark item groups from
@@ -325,11 +340,12 @@ Map object labels and values on the collection, then render Ark item groups from
   <ComboboxCustomObjectsAndGrouping />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/custom-objects-and-grouping.tsx"
+```tsx pure file="../../../src/components/examples/combobox/custom-objects-and-grouping.tsx"
 ```
 
     </Tab>
@@ -342,6 +358,8 @@ Map object labels and values on the collection, then render Ark item groups from
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Dynamic
 
 Build the collection from the current input when suggestions do not exist until the user starts
@@ -351,11 +369,12 @@ typing. Check `details.reason` to avoid rebuilding it after selection-driven inp
   <ComboboxDynamic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/dynamic.tsx"
+```tsx pure file="../../../src/components/examples/combobox/dynamic.tsx"
 ```
 
     </Tab>
@@ -368,6 +387,8 @@ typing. Check `details.reason` to avoid rebuilding it after selection-driven inp
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Inline Autocomplete
 
 Set `inputBehavior="autocomplete"` and filter with `startsWith` to complete the input from the
@@ -377,11 +398,12 @@ first matching item while preserving Ark keyboard navigation.
   <ComboboxInlineAutocomplete />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/inline-autocomplete.tsx"
+```tsx pure file="../../../src/components/examples/combobox/inline-autocomplete.tsx"
 ```
 
     </Tab>
@@ -394,6 +416,8 @@ first matching item while preserving Ark keyboard navigation.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Limit Results
 
 Set `limit` on `useListCollection` when the full matching set is unnecessary or would make the
@@ -403,11 +427,12 @@ popup harder to scan. Filtering still runs against the complete initial collecti
   <ComboboxLimitResults />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/limit-results.tsx"
+```tsx pure file="../../../src/components/examples/combobox/limit-results.tsx"
 ```
 
     </Tab>
@@ -420,6 +445,8 @@ popup harder to scan. Filtering still runs against the complete initial collecti
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Multiple
 
 Enable `multiple` and render selected objects from controlled `value`. Tags belong to the application;
@@ -429,11 +456,12 @@ when they must live inside the same field shell, compose `Combobox` with `TagsIn
   <ComboboxMultiple />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/multiple.tsx"
+```tsx pure file="../../../src/components/examples/combobox/multiple.tsx"
 ```
 
     </Tab>
@@ -446,6 +474,8 @@ when they must live inside the same field shell, compose `Combobox` with `TagsIn
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Create the state with moduix's `useCombobox` when external controls need imperative methods or shared
@@ -456,11 +486,12 @@ configuration.
   <ComboboxRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/combobox/root-provider.tsx"
 ```
 
     </Tab>
@@ -473,6 +504,8 @@ configuration.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Virtualized
 
 For large collections, render only visible rows with TanStack Virtual and connect Ark keyboard
@@ -482,11 +515,12 @@ navigation through `scrollToIndexFn`. Keep `aria-setsize` and `aria-posinset` on
   <ComboboxVirtualized />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/virtualized.tsx"
+```tsx pure file="../../../src/components/examples/combobox/virtualized.tsx"
 ```
 
     </Tab>
@@ -499,6 +533,8 @@ navigation through `scrollToIndexFn`. Keep `aria-setsize` and `aria-posinset` on
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### With TagsInput
 
 Use `Combobox` with `TagsInput` when users need filtered suggestions but the selected values should
@@ -508,16 +544,19 @@ live inside one editable chip field.
   <ComboboxWithTagsInput />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/with-tags-input.tsx"
+```tsx pure file="../../../src/components/examples/combobox/with-tags-input.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Advanced Customization
 
@@ -528,11 +567,12 @@ renders each result as a link with `Combobox.Item asChild`.
   <ComboboxAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/combobox/advanced-customization.tsx"
 ```
 
     </Tab>
@@ -544,6 +584,8 @@ renders each result as a link with `Combobox.Item asChild`.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

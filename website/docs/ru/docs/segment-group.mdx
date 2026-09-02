@@ -41,16 +41,19 @@ import SegmentGroupVerticalOrientation from '@/components/examples/segment-group
   <SegmentGroupBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/segment-group/basic.tsx"
+```tsx pure file="../../../src/components/examples/segment-group/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -151,11 +154,12 @@ SegmentGroup.Context / SegmentGroup.ItemContext
   <SegmentGroupConditionalMount />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/segment-group/conditional-mount.tsx"
+```tsx pure file="../../../src/components/examples/segment-group/conditional-mount.tsx"
 ```
 
     </Tab>
@@ -168,6 +172,8 @@ SegmentGroup.Context / SegmentGroup.ItemContext
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Управляемое состояние
 
 Храните выбранное значение в состоянии React и обновляйте его из `details.value` в обработчике
@@ -177,11 +183,12 @@ SegmentGroup.Context / SegmentGroup.ItemContext
   <SegmentGroupControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/segment-group/controlled.tsx"
+```tsx pure file="../../../src/components/examples/segment-group/controlled.tsx"
 ```
 
     </Tab>
@@ -194,6 +201,8 @@ SegmentGroup.Context / SegmentGroup.ItemContext
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Отключённый элемент и группа
 
 Задайте `disabled` на отдельном элементе, если недоступным должен быть только этот сегмент. Чтобы
@@ -204,11 +213,12 @@ SegmentGroup.Context / SegmentGroup.ItemContext
   <SegmentGroupDisabled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/segment-group/disabled.tsx"
+```tsx pure file="../../../src/components/examples/segment-group/disabled.tsx"
 ```
 
     </Tab>
@@ -221,6 +231,8 @@ SegmentGroup.Context / SegmentGroup.ItemContext
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Field
 
 Оберните группу в `Field`, если автоматическое нативное поле должно сопровождаться поясняющим
@@ -231,11 +243,12 @@ SegmentGroup.Context / SegmentGroup.ItemContext
   <SegmentGroupField />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/segment-group/field.tsx"
+```tsx pure file="../../../src/components/examples/segment-group/field.tsx"
 ```
 
     </Tab>
@@ -248,6 +261,8 @@ SegmentGroup.Context / SegmentGroup.ItemContext
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Отправка формы
 
 Передайте `name` в корневой элемент, чтобы выбранное значение попало в данные нативной формы.
@@ -257,11 +272,12 @@ SegmentGroup.Context / SegmentGroup.ItemContext
   <SegmentGroupFormSubmission />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/segment-group/form-submission.tsx"
+```tsx pure file="../../../src/components/examples/segment-group/form-submission.tsx"
 ```
 
     </Tab>
@@ -274,6 +290,8 @@ SegmentGroup.Context / SegmentGroup.ItemContext
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Недопустимое состояние
 
 Задайте `invalid` на корневом элементе, если проверка завершилась ошибкой. Сочетайте его с
@@ -283,16 +301,19 @@ SegmentGroup.Context / SegmentGroup.ItemContext
   <SegmentGroupInvalid />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/segment-group/invalid.tsx"
+```tsx pure file="../../../src/components/examples/segment-group/invalid.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Root Provider
 
@@ -303,11 +324,12 @@ SegmentGroup.Context / SegmentGroup.ItemContext
   <SegmentGroupRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/segment-group/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/segment-group/root-provider.tsx"
 ```
 
     </Tab>
@@ -320,6 +342,8 @@ SegmentGroup.Context / SegmentGroup.ItemContext
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Вертикальная ориентация
 
 Укажите `orientation="vertical"`, если группе нужны вертикальная раскладка и навигация стрелками
@@ -329,11 +353,12 @@ SegmentGroup.Context / SegmentGroup.ItemContext
   <SegmentGroupVerticalOrientation />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/segment-group/vertical-orientation.tsx"
+```tsx pure file="../../../src/components/examples/segment-group/vertical-orientation.tsx"
 ```
 
     </Tab>
@@ -346,6 +371,8 @@ SegmentGroup.Context / SegmentGroup.ItemContext
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Расширенная настройка
 
 Используйте `SegmentGroup.Item asChild` вместо `SegmentGroup.Items`, если собственная разметка
@@ -355,11 +382,12 @@ SegmentGroup.Context / SegmentGroup.ItemContext
   <SegmentGroupAsChild />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/segment-group/aschild.tsx"
+```tsx pure file="../../../src/components/examples/segment-group/aschild.tsx"
 ```
 
     </Tab>
@@ -371,6 +399,8 @@ SegmentGroup.Context / SegmentGroup.ItemContext
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

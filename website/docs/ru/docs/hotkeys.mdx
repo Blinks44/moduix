@@ -28,11 +28,12 @@ import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/react';
   <HotkeysBasicDemo />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/hotkeys/basic.tsx"
+```tsx pure file="../../../src/components/examples/hotkeys/basic.tsx"
 ```
 
     </Tab>
@@ -44,6 +45,8 @@ import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/react';
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 Если приложение должно перехватить сочетание, которое обычно обрабатывает браузер, добавьте `preventDefault`. Иначе браузер тоже может выполнить своё действие.
 
@@ -57,11 +60,12 @@ import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/react';
   <HotkeysSequencesDemo />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/hotkeys/sequences.tsx"
+```tsx pure file="../../../src/components/examples/hotkeys/sequences.tsx"
 ```
 
     </Tab>
@@ -73,6 +77,8 @@ import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/react';
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Поля ввода и области действия
 

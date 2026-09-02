@@ -24,16 +24,19 @@ import SwapRootProvider from '@/components/examples/swap/root-provider.tsx';
   <SwapBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/swap/basic.tsx"
+```tsx pure file="../../../src/components/examples/swap/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -106,11 +109,12 @@ Swap / Swap.Root
   <SwapAnimationPresets />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/swap/animation-presets.tsx"
+```tsx pure file="../../../src/components/examples/swap/animation-presets.tsx"
 ```
 
     </Tab>
@@ -123,6 +127,8 @@ Swap / Swap.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Пользовательская анимация
 
 Передайте пользовательское имя `animation` и обращайтесь в CSS к `data-animation` корня и
@@ -134,11 +140,12 @@ Swap / Swap.Root
   <SwapCustomAnimation />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/swap/custom-animation.tsx"
+```tsx pure file="../../../src/components/examples/swap/custom-animation.tsx"
 ```
 
     </Tab>
@@ -151,6 +158,8 @@ Swap / Swap.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### RootProvider
 
 Создайте состояние отдельно с помощью `Swap.useSwap()`, затем передайте его в `Swap.RootProvider`
@@ -161,11 +170,12 @@ Swap / Swap.Root
   <SwapRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/swap/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/swap/root-provider.tsx"
 ```
 
     </Tab>
@@ -177,6 +187,8 @@ Swap / Swap.Root
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

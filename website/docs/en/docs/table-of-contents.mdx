@@ -29,11 +29,12 @@ tracking and link navigation inside the preview.
   <TocBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/table-of-contents/basic.tsx"
+```tsx pure file="../../../src/components/examples/table-of-contents/basic.tsx"
 ```
 
     </Tab>
@@ -45,6 +46,8 @@ tracking and link navigation inside the preview.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -151,11 +154,12 @@ Use `useToc()` when another control needs to read the active headings or scroll 
   <TocRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/table-of-contents/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/table-of-contents/root-provider.tsx"
 ```
 
     </Tab>
@@ -168,6 +172,8 @@ Use `useToc()` when another control needs to read the active headings or scroll 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Rail
 
 Place `Toc.Rail` inside each link to draw an SVG connector between neighbouring heading depths.
@@ -178,11 +184,12 @@ active link uses the indicator colour. Do not render `Toc.Indicator` in the same
   <TocRail />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/table-of-contents/rail.tsx"
+```tsx pure file="../../../src/components/examples/table-of-contents/rail.tsx"
 ```
 
     </Tab>
@@ -195,6 +202,8 @@ active link uses the indicator colour. Do not render `Toc.Indicator` in the same
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### With Collapsible
 
 Place the navigation list inside `Collapsible` when readers should be able to hide the full table
@@ -205,11 +214,12 @@ the links continue to target the same reading pane.
   <TocWithCollapsible />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/table-of-contents/with-collapsible.tsx"
+```tsx pure file="../../../src/components/examples/table-of-contents/with-collapsible.tsx"
 ```
 
     </Tab>
@@ -221,6 +231,8 @@ the links continue to target the same reading pane.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

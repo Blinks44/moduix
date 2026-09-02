@@ -33,16 +33,19 @@ in moduix components that provide the event and its context.
   <FormatTimeBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/format-time/basic.tsx"
+```tsx pure file="../../../src/components/examples/format-time/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## 12-hour format, seconds, and AM/PM labels
 
@@ -54,6 +57,7 @@ day-period labels.
   <FormatTimeSecondsAndLabels />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs
     values={[
@@ -64,7 +68,7 @@ day-period labels.
   >
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/format-time/seconds-and-labels.tsx"
+```tsx pure file="../../../src/components/examples/format-time/seconds-and-labels.tsx"
 ```
 
     </Tab>
@@ -76,6 +80,8 @@ day-period labels.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 Do not add seconds to a schedule merely because the source includes them. Choose the precision people need to act on
 the information.

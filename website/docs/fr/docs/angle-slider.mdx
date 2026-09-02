@@ -40,11 +40,12 @@ et 360 degrés. Ajoutez si possible un `Label` visible. Si le cadran n’en a pa
   <AngleSliderBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/angle-slider/basic.tsx"
+```tsx pure file="../../../src/components/examples/angle-slider/basic.tsx"
 ```
 
     </Tab>
@@ -56,6 +57,8 @@ et 360 degrés. Ajoutez si possible un `Label` visible. Si le cadran n’en a pa
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -154,11 +157,12 @@ Utilisez le mode contrôlé lorsque l’angle doit rester synchronisé avec l’
   <AngleSliderControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/angle-slider/controlled.tsx"
+```tsx pure file="../../../src/components/examples/angle-slider/controlled.tsx"
 ```
 
     </Tab>
@@ -171,6 +175,8 @@ Utilisez le mode contrôlé lorsque l’angle doit rester synchronisé avec l’
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Désactivé
 
 Utilisez `disabled` lorsque le contrôle doit être indisponible, ne plus recevoir le focus et ne plus répondre aux
@@ -180,11 +186,12 @@ interactions.
   <AngleSliderDisabled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/angle-slider/disabled.tsx"
+```tsx pure file="../../../src/components/examples/angle-slider/disabled.tsx"
 ```
 
     </Tab>
@@ -197,6 +204,8 @@ interactions.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Dans un formulaire
 
 Ajoutez `name` pour inclure l’angle dans les données envoyées par le formulaire natif. moduix crée automatiquement le
@@ -207,11 +216,12 @@ pas un ancêtre du curseur.
   <AngleSliderForm />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/angle-slider/form.tsx"
+```tsx pure file="../../../src/components/examples/angle-slider/form.tsx"
 ```
 
     </Tab>
@@ -224,6 +234,8 @@ pas un ancêtre du curseur.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Valeur invalide
 
 Utilisez `invalid` lorsque la validation de l’angle sélectionné échoue. Le composant reflète alors l’état d’erreur
@@ -233,11 +245,12 @@ dans ses styles et ses attributs ARIA, sans modifier son mode d’interaction.
   <AngleSliderInvalid />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/angle-slider/invalid.tsx"
+```tsx pure file="../../../src/components/examples/angle-slider/invalid.tsx"
 ```
 
     </Tab>
@@ -250,6 +263,8 @@ dans ses styles et ses attributs ARIA, sans modifier son mode d’interaction.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Lecture seule
 
 Utilisez `readOnly` lorsque la valeur actuelle doit rester visible et pouvoir recevoir le focus, sans pouvoir être
@@ -259,11 +274,12 @@ modifiée.
   <AngleSliderReadOnly />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/angle-slider/read-only.tsx"
+```tsx pure file="../../../src/components/examples/angle-slider/read-only.tsx"
 ```
 
     </Tab>
@@ -276,6 +292,8 @@ modifiée.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Utilisez `useAngleSlider()` depuis `@moduix/react/angle-slider` avec `AngleSlider.RootProvider` lorsqu’un autre
@@ -285,11 +303,12 @@ composant doit accéder au même état. L’état externe peut alors alimenter l
   <AngleSliderRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/angle-slider/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/angle-slider/root-provider.tsx"
 ```
 
     </Tab>
@@ -302,6 +321,8 @@ composant doit accéder au même état. L’état externe peut alors alimenter l
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Pas
 
 Utilisez `step` pour faire suivre aux interactions du pointeur et du clavier des incréments angulaires fixes.
@@ -310,11 +331,12 @@ Utilisez `step` pour faire suivre aux interactions du pointeur et du clavier des
   <AngleSliderSteps />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/angle-slider/steps.tsx"
+```tsx pure file="../../../src/components/examples/angle-slider/steps.tsx"
 ```
 
     </Tab>
@@ -327,6 +349,8 @@ Utilisez `step` pour faire suivre aux interactions du pointeur et du clavier des
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Avec des marqueurs
 
 Utilisez `AngleSlider.Marks` lorsque le cadran doit afficher des angles de référence courants sans répéter la
@@ -336,11 +360,12 @@ composition de `MarkerGroup` et `Marker`. `AngleSlider.Dial` regroupe `Control` 
   <AngleSliderWithMarks />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/angle-slider/with-marks.tsx"
+```tsx pure file="../../../src/components/examples/angle-slider/with-marks.tsx"
 ```
 
     </Tab>
@@ -353,6 +378,8 @@ composition de `MarkerGroup` et `Marker`. `AngleSlider.Dial` regroupe `Control` 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Personnalisation avancée
 
 Utilisez les parties explicites à la place de `AngleSlider.Dial` et `AngleSlider.Marks` lorsque le cadran nécessite
@@ -362,11 +389,12 @@ une composition de marqueurs personnalisée ou des enfants supplémentaires dans
   <AngleSliderAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/angle-slider/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/angle-slider/advanced-customization.tsx"
 ```
 
     </Tab>
@@ -378,6 +406,8 @@ une composition de marqueurs personnalisée ou des enfants supplémentaires dans
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

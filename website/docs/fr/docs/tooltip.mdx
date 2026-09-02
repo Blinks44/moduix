@@ -41,16 +41,19 @@ complémentaire et ne remplace ni le texte visible ni `aria-label`.
   <TooltipBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tooltip/basic.tsx"
+```tsx pure file="../../../src/components/examples/tooltip/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -193,16 +196,19 @@ Utilisez `useTooltipContext()` dans un descendant qui doit lire l’état couran
   <TooltipContext />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tooltip/context.tsx"
+```tsx pure file="../../../src/components/examples/tooltip/context.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### État contrôlé
 
@@ -212,16 +218,19 @@ Contrôlez l’ouverture de l’infobulle avec `open` et `onOpenChange(details)`
   <TooltipControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tooltip/controlled.tsx"
+```tsx pure file="../../../src/components/examples/tooltip/controlled.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Délai
 
@@ -231,16 +240,19 @@ Définissez `openDelay` et `closeDelay` sur la racine pour régler le délai au 
   <TooltipDelay />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tooltip/delay.tsx"
+```tsx pure file="../../../src/components/examples/tooltip/delay.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Déclencheur désactivé
 
@@ -251,16 +263,19 @@ explication. L’enveloppe peut recevoir le focus sans modifier l’état désac
   <TooltipDisabledTrigger />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tooltip/disabled-trigger.tsx"
+```tsx pure file="../../../src/components/examples/tooltip/disabled-trigger.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Plusieurs déclencheurs
 
@@ -271,6 +286,7 @@ une seule infobulle entre plusieurs déclencheurs.
   <TooltipMultipleTriggers />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs
     values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
@@ -278,7 +294,7 @@ une seule infobulle entre plusieurs déclencheurs.
   >
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tooltip/multiple-triggers.tsx"
+```tsx pure file="../../../src/components/examples/tooltip/multiple-triggers.tsx"
 ```
 
     </Tab>
@@ -291,6 +307,8 @@ une seule infobulle entre plusieurs déclencheurs.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Positionnement
 
 Passez les options de positionnement d’Ark à `Tooltip`, notamment le placement et les décalages.
@@ -299,11 +317,12 @@ Passez les options de positionnement d’Ark à `Tooltip`, notamment le placemen
   <TooltipPositioning />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tooltip/positioning.tsx"
+```tsx pure file="../../../src/components/examples/tooltip/positioning.tsx"
 ```
 
     </Tab>
@@ -316,6 +335,8 @@ Passez les options de positionnement d’Ark à `Tooltip`, notamment le placemen
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Utilisez `useTooltip()` avec `Tooltip.RootProvider` lorsque l’état de l’infobulle est créé en dehors
@@ -325,16 +346,19 @@ de l’arbre rendu.
   <TooltipRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tooltip/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/tooltip/root-provider.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Avec une flèche
 
@@ -346,16 +370,19 @@ l’enveloppe fournit `Tooltip.ArrowTip` par défaut.
   <TooltipWithArrow />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tooltip/with-arrow.tsx"
+```tsx pure file="../../../src/components/examples/tooltip/with-arrow.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Dans des conteneurs à position fixe
 
@@ -367,6 +394,7 @@ focaliser le déclencheur, de faire défiler le panneau et de vérifier l’alig
   <TooltipWithinFixedContainers />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs
     values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
@@ -374,7 +402,7 @@ focaliser le déclencheur, de faire défiler le panneau et de vérifier l’alig
   >
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tooltip/within-fixed-containers.tsx"
+```tsx pure file="../../../src/components/examples/tooltip/within-fixed-containers.tsx"
 ```
 
     </Tab>
@@ -387,6 +415,8 @@ focaliser le déclencheur, de faire défiler le panneau et de vérifier l’alig
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Personnalisation avancée
 
 Utilisez directement les parties `Tooltip.Positioner` et `Tooltip.Content` lorsqu’elles doivent
@@ -396,16 +426,19 @@ avoir une composition ou une mise en forme indépendantes.
   <TooltipAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tooltip/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/tooltip/advanced-customization.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

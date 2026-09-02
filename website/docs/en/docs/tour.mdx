@@ -26,11 +26,12 @@ long copy scrollable inside the panel.
   <TourBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tour/basic.tsx"
+```tsx pure file="../../../src/components/examples/tour/basic.tsx"
 ```
 
     </Tab>
@@ -42,6 +43,8 @@ long copy scrollable inside the panel.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -132,11 +135,12 @@ callbacks.
   <TourEvents />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tour/events.tsx"
+```tsx pure file="../../../src/components/examples/tour/events.tsx"
 ```
 
     </Tab>
@@ -149,6 +153,8 @@ callbacks.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Wait for input
 
 This example calls `tour.next()` from the input handler after the value reaches two characters.
@@ -159,11 +165,12 @@ For steps that depend on an asynchronous condition, `waitForElement`, `waitForEl
   <TourWaitForInput />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tour/wait-for-input.tsx"
+```tsx pure file="../../../src/components/examples/tour/wait-for-input.tsx"
 ```
 
     </Tab>
@@ -176,6 +183,8 @@ For steps that depend on an asynchronous condition, `waitForElement`, `waitForEl
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### With Arrow
 
 Add `Tour.Arrow` to a tooltip step when it needs a visual connection to its target, and enable the
@@ -185,11 +194,12 @@ step's `arrow` option so Ark can position it.
   <TourWithArrow />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tour/with-arrow.tsx"
+```tsx pure file="../../../src/components/examples/tour/with-arrow.tsx"
 ```
 
     </Tab>
@@ -202,6 +212,8 @@ step's `arrow` option so Ark can position it.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Advanced customization
 
 Replace `Tour.ActionList` when each action needs its own markup. The example uses custom `Button`
@@ -212,11 +224,12 @@ Ark action object, so navigation, dismissal, and disabled state continue to work
   <TourAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tour/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/tour/advanced-customization.tsx"
 ```
 
     </Tab>
@@ -228,6 +241,8 @@ Ark action object, so navigation, dismissal, and disabled state continue to work
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

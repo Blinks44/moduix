@@ -42,16 +42,19 @@ renders its native form control for submission, autofill, and reset.
   <SelectBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/select/basic.tsx"
+```tsx pure file="../../../src/components/examples/select/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -173,16 +176,19 @@ Control the selected string array from React state and update it from `details.v
   <SelectControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/select/controlled.tsx"
+```tsx pure file="../../../src/components/examples/select/controlled.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Custom Item Layout
 
@@ -193,16 +199,19 @@ when an item needs a stable icon and an ellipsized label.
   <SelectCustomItemLayout />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/select/custom-item-layout.tsx"
+```tsx pure file="../../../src/components/examples/select/custom-item-layout.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Dynamic Items
 
@@ -212,11 +221,12 @@ Update the collection when available items change; the existing Select compositi
   <SelectDynamicItems />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/select/dynamic-items.tsx"
+```tsx pure file="../../../src/components/examples/select/dynamic-items.tsx"
 ```
 
     </Tab>
@@ -229,6 +239,8 @@ Update the collection when available items change; the existing Select compositi
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Field
 
 Wrap Select in `Field.Root` when label, helper text, invalid, required, or disabled state belongs
@@ -238,11 +250,12 @@ to a form field.
   <SelectField />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/select/field.tsx"
+```tsx pure file="../../../src/components/examples/select/field.tsx"
 ```
 
     </Tab>
@@ -255,6 +268,8 @@ to a form field.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Form Usage
 
 The automatic native select keeps native form submission working. Read submitted values from
@@ -264,11 +279,12 @@ The automatic native select keeps native form submission working. Read submitted
   <SelectFormUsage />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/select/form-usage.tsx"
+```tsx pure file="../../../src/components/examples/select/form-usage.tsx"
 ```
 
     </Tab>
@@ -281,6 +297,8 @@ The automatic native select keeps native form submission working. Read submitted
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Grouping
 
 Use `groupBy` on the collection and render `collection.group()` with `ItemGroup` and
@@ -290,16 +308,19 @@ Use `groupBy` on the collection and render `collection.group()` with `ItemGroup`
   <SelectGrouping />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/select/grouping.tsx"
+```tsx pure file="../../../src/components/examples/select/grouping.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Lazy Mount
 
@@ -309,16 +330,19 @@ Use `lazyMount` and `unmountOnExit` when popup content should exist only while t
   <SelectLazyMount />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/select/lazy-mount.tsx"
+```tsx pure file="../../../src/components/examples/select/lazy-mount.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Max Selection
 
@@ -328,16 +352,19 @@ Limit multiple selection by rejecting oversized value arrays and disabling the r
   <SelectMaxSelection />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/select/max-selection.tsx"
+```tsx pure file="../../../src/components/examples/select/max-selection.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Multiple
 
@@ -348,16 +375,19 @@ collection.
   <SelectMultiple />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/select/multiple.tsx"
+```tsx pure file="../../../src/components/examples/select/multiple.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Native Form Control
 
@@ -369,11 +399,12 @@ For a virtualized collection, combine this mode with `Select.List` and your virt
   <SelectNativeFormControl />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/select/native-form-control.tsx"
+```tsx pure file="../../../src/components/examples/select/native-form-control.tsx"
 ```
 
     </Tab>
@@ -386,6 +417,8 @@ For a virtualized collection, combine this mode with `Select.List` and your virt
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Overflow
 
 Use `positioning.fitViewport` for long lists. The content already limits its height with Ark's
@@ -395,16 +428,19 @@ Use `positioning.fitViewport` for long lists. The content already limits its hei
   <SelectOverflow />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/select/overflow.tsx"
+```tsx pure file="../../../src/components/examples/select/overflow.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Root Provider
 
@@ -415,11 +451,12 @@ rendered Select tree.
   <SelectRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/select/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/select/root-provider.tsx"
 ```
 
     </Tab>
@@ -432,6 +469,8 @@ rendered Select tree.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Search in Popup
 
 Place a filter control beside the listbox inside the popup. Keep the query state and filtered
@@ -441,11 +480,12 @@ collection in your component rather than extending the Select API.
   <SelectSearchInPopup />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/select/search-in-popup.tsx"
+```tsx pure file="../../../src/components/examples/select/search-in-popup.tsx"
 ```
 
     </Tab>
@@ -458,6 +498,8 @@ collection in your component rather than extending the Select API.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Select All
 
 Keep bulk actions outside the listbox. `Select.useSelect` keeps the action and the Select backed by
@@ -467,11 +509,12 @@ the same Ark state instance.
   <SelectSelectAll />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/select/select-all.tsx"
+```tsx pure file="../../../src/components/examples/select/select-all.tsx"
 ```
 
     </Tab>
@@ -484,6 +527,8 @@ the same Ark state instance.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Select On Highlight
 
 Use `onHighlightChange(details)` when moving through options should immediately update selection.
@@ -492,16 +537,19 @@ Use `onHighlightChange(details)` when moving through options should immediately 
   <SelectSelectOnHighlight />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/select/select-on-highlight.tsx"
+```tsx pure file="../../../src/components/examples/select/select-on-highlight.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Advanced Customization
 
@@ -512,16 +560,19 @@ styling.
   <SelectAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/select/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/select/advanced-customization.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

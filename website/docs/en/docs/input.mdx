@@ -43,11 +43,12 @@ connects that content to the control, generates the necessary ids, and provides 
   <InputBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input/basic.tsx"
+```tsx pure file="../../../src/components/examples/input/basic.tsx"
 ```
 
     </Tab>
@@ -59,6 +60,8 @@ connects that content to the control, generates the necessary ids, and provides 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -123,11 +126,12 @@ Use this pattern when React owns the current value. Read the next value from the
   <InputControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input/controlled.tsx"
+```tsx pure file="../../../src/components/examples/input/controlled.tsx"
 ```
 
     </Tab>
@@ -140,6 +144,8 @@ Use this pattern when React owns the current value. Read the next value from the
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Disabled and read-only
 
 Use `disabled` when the user must not interact with the control. Use `readOnly` when they can read
@@ -150,11 +156,12 @@ and select the value but must not edit it. Set them directly on `Input` for one 
   <InputStates />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input/disabled-and-readonly.tsx"
+```tsx pure file="../../../src/components/examples/input/disabled-and-readonly.tsx"
 ```
 
     </Tab>
@@ -167,6 +174,8 @@ and select the value but must not edit it. Set them directly on `Input` for one 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Field validation
 
 Set `invalid` on `Field` when validation fails. Ark adds `aria-invalid` and `data-invalid` to the
@@ -176,11 +185,12 @@ input and connects it to the error text.
   <InputFieldState />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input/field-state.tsx"
+```tsx pure file="../../../src/components/examples/input/field-state.tsx"
 ```
 
     </Tab>
@@ -193,6 +203,8 @@ input and connects it to the error text.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### File input
 
 `Input` is enough for a native file chooser in a simple form. Use `FileUpload` when the application
@@ -202,11 +214,12 @@ needs to keep selected files in state, show a dropzone, or manage an upload flow
   <InputFile />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input/file-input.tsx"
+```tsx pure file="../../../src/components/examples/input/file-input.tsx"
 ```
 
     </Tab>
@@ -219,6 +232,8 @@ needs to keep selected files in state, show a dropzone, or manage an upload flow
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Native attributes
 
 Use native attributes for browser behavior such as validation, input mode, autocomplete, and form
@@ -228,11 +243,12 @@ submission. Use `htmlSize` for a character-based width and `size` for visual den
   <InputNativeAttributes />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input/native-attributes.tsx"
+```tsx pure file="../../../src/components/examples/input/native-attributes.tsx"
 ```
 
     </Tab>
@@ -245,6 +261,8 @@ submission. Use `htmlSize` for a character-based width and `size` for visual den
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Sizes
 
 The moduix `size` prop controls visual density. It is separate from `htmlSize`, which controls the
@@ -254,11 +272,12 @@ native character-based width.
   <InputSizes />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input/sizes.tsx"
+```tsx pure file="../../../src/components/examples/input/sizes.tsx"
 ```
 
     </Tab>
@@ -271,6 +290,8 @@ native character-based width.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Standalone input
 
 `Field` is optional. When `Input` is used on its own, provide an accessible name with an HTML
@@ -281,11 +302,12 @@ ids are not generated automatically and helper or error text is not connected to
   <InputStandalone />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input/standalone-input.tsx"
+```tsx pure file="../../../src/components/examples/input/standalone-input.tsx"
 ```
 
     </Tab>
@@ -298,6 +320,8 @@ ids are not generated automatically and helper or error text is not connected to
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Advanced Customization
 
 Use `asChild` only when another DOM node must be rendered as the input. Keep one semantic,
@@ -307,11 +331,12 @@ focusable input element that can receive the merged props and `ref`.
   <InputAsChild />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input/as-child.tsx"
+```tsx pure file="../../../src/components/examples/input/as-child.tsx"
 ```
 
     </Tab>
@@ -323,6 +348,8 @@ focusable input element that can receive the merged props and `ref`.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

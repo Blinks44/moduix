@@ -39,11 +39,12 @@ import AngleSliderWithMarks from '@/components/examples/angle-slider/with-marks.
   <AngleSliderBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/angle-slider/basic.tsx"
+```tsx pure file="../../../src/components/examples/angle-slider/basic.tsx"
 ```
 
     </Tab>
@@ -55,6 +56,8 @@ import AngleSliderWithMarks from '@/components/examples/angle-slider/with-marks.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -153,11 +156,12 @@ DOM-части Ark поддерживают `asChild`. Передайте оди
   <AngleSliderControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/angle-slider/controlled.tsx"
+```tsx pure file="../../../src/components/examples/angle-slider/controlled.tsx"
 ```
 
     </Tab>
@@ -170,6 +174,8 @@ DOM-части Ark поддерживают `asChild`. Передайте оди
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Отключённый режим
 
 Используйте `disabled`, если элемент должен быть недоступен, не получать фокус и не реагировать на взаимодействие.
@@ -178,11 +184,12 @@ DOM-части Ark поддерживают `asChild`. Передайте оди
   <AngleSliderDisabled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/angle-slider/disabled.tsx"
+```tsx pure file="../../../src/components/examples/angle-slider/disabled.tsx"
 ```
 
     </Tab>
@@ -195,6 +202,8 @@ DOM-части Ark поддерживают `asChild`. Передайте оди
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Использование в форме
 
 Укажите `name`, чтобы включить угол в данные, отправляемые нативной формой. moduix автоматически создаёт скрытое
@@ -205,11 +214,12 @@ DOM-части Ark поддерживают `asChild`. Передайте оди
   <AngleSliderForm />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/angle-slider/form.tsx"
+```tsx pure file="../../../src/components/examples/angle-slider/form.tsx"
 ```
 
     </Tab>
@@ -222,6 +232,8 @@ DOM-части Ark поддерживают `asChild`. Передайте оди
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Недопустимое значение
 
 Используйте `invalid`, если выбранный угол не проходит проверку. Компонент отразит состояние ошибки в стилях и
@@ -231,11 +243,12 @@ ARIA, не меняя способ взаимодействия.
   <AngleSliderInvalid />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/angle-slider/invalid.tsx"
+```tsx pure file="../../../src/components/examples/angle-slider/invalid.tsx"
 ```
 
     </Tab>
@@ -248,6 +261,8 @@ ARIA, не меняя способ взаимодействия.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Только для чтения
 
 Используйте `readOnly`, если текущее значение должно оставаться видимым и доступным для фокуса, но не должно
@@ -257,11 +272,12 @@ ARIA, не меняя способ взаимодействия.
   <AngleSliderReadOnly />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/angle-slider/read-only.tsx"
+```tsx pure file="../../../src/components/examples/angle-slider/read-only.tsx"
 ```
 
     </Tab>
@@ -274,6 +290,8 @@ ARIA, не меняя способ взаимодействия.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Используйте `useAngleSlider()` из `@moduix/react/angle-slider` вместе с `AngleSlider.RootProvider`, если другому
@@ -283,11 +301,12 @@ ARIA, не меняя способ взаимодействия.
   <AngleSliderRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/angle-slider/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/angle-slider/root-provider.tsx"
 ```
 
     </Tab>
@@ -300,6 +319,8 @@ ARIA, не меняя способ взаимодействия.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Шаги
 
 Используйте `step`, чтобы задать фиксированный шаг изменения угла при работе с указателем и клавиатурой.
@@ -308,11 +329,12 @@ ARIA, не меняя способ взаимодействия.
   <AngleSliderSteps />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/angle-slider/steps.tsx"
+```tsx pure file="../../../src/components/examples/angle-slider/steps.tsx"
 ```
 
     </Tab>
@@ -325,6 +347,8 @@ ARIA, не меняя способ взаимодействия.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### С маркерами
 
 Используйте `AngleSlider.Marks`, если нужно показать распространённые опорные углы, не повторяя разметку
@@ -334,11 +358,12 @@ ARIA, не меняя способ взаимодействия.
   <AngleSliderWithMarks />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/angle-slider/with-marks.tsx"
+```tsx pure file="../../../src/components/examples/angle-slider/with-marks.tsx"
 ```
 
     </Tab>
@@ -351,6 +376,8 @@ ARIA, не меняя способ взаимодействия.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Расширенная настройка
 
 Используйте отдельные части вместо `AngleSlider.Dial` и `AngleSlider.Marks`, если нужно настроить композицию
@@ -360,11 +387,12 @@ ARIA, не меняя способ взаимодействия.
   <AngleSliderAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/angle-slider/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/angle-slider/advanced-customization.tsx"
 ```
 
     </Tab>
@@ -376,6 +404,8 @@ ARIA, не меняя способ взаимодействия.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

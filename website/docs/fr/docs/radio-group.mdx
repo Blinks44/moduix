@@ -42,16 +42,19 @@ se trouve dans un formulaire natif, transmettez-lui `name`, comme dans l’exemp
   <RadioGroupBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/radio-group/basic.tsx"
+```tsx pure file="../../../src/components/examples/radio-group/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -152,11 +155,12 @@ porter le nœud DOM de l’option. Gardez un `label` sémantique comme enfant di
   <RadioGroupAsChild />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/radio-group/aschild.tsx"
+```tsx pure file="../../../src/components/examples/radio-group/aschild.tsx"
 ```
 
     </Tab>
@@ -169,6 +173,8 @@ porter le nœud DOM de l’option. Gardez un `label` sémantique comme enfant di
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### État contrôlé
 
 Utilisez `value` avec `onValueChange(details)` lorsque la valeur sélectionnée est gérée par l’état
@@ -178,11 +184,12 @@ React ou doit rester synchronisée avec d’autres parties de l’interface.
   <RadioGroupControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/radio-group/controlled.tsx"
+```tsx pure file="../../../src/components/examples/radio-group/controlled.tsx"
 ```
 
     </Tab>
@@ -195,6 +202,8 @@ React ou doit rester synchronisée avec d’autres parties de l’interface.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### État désactivé
 
 Définissez `disabled` sur la racine pour rendre toutes les options indisponibles tout en gardant la
@@ -204,16 +213,19 @@ valeur sélectionnée visible.
   <RadioGroupDisabled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/radio-group/disabled.tsx"
+```tsx pure file="../../../src/components/examples/radio-group/disabled.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Élément désactivé
 
@@ -223,16 +235,19 @@ Définissez `disabled` sur un `Item` ou une `Option` précis lorsque seule cette
   <RadioGroupDisabledItem />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/radio-group/item-disabled.tsx"
+```tsx pure file="../../../src/components/examples/radio-group/item-disabled.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Formulaire
 
@@ -244,11 +259,12 @@ du formulaire, sans qu’il soit nécessaire d’ajouter une partie input manuel
   <RadioGroupForm />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/radio-group/form.tsx"
+```tsx pure file="../../../src/components/examples/radio-group/form.tsx"
 ```
 
     </Tab>
@@ -261,6 +277,8 @@ du formulaire, sans qu’il soit nécessaire d’ajouter une partie input manuel
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Indicateur
 
 Rendez `RadioGroup.Indicator` lorsque l’élément actif a besoin d’une mise en évidence supplémentaire
@@ -271,11 +289,12 @@ le contenu sans rapport à l’extérieur, afin que l’indicateur suive la géo
   <RadioGroupIndicator />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/radio-group/indicator.tsx"
+```tsx pure file="../../../src/components/examples/radio-group/indicator.tsx"
 ```
 
     </Tab>
@@ -288,6 +307,8 @@ le contenu sans rapport à l’extérieur, afin que l’indicateur suive la géo
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Valeur initiale
 
 Définissez `defaultValue` lorsque l’élément sélectionné au départ est connu et que le groupe doit
@@ -297,16 +318,19 @@ gérer lui-même les changements suivants.
   <RadioGroupInitialValue />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/radio-group/initial-value.tsx"
+```tsx pure file="../../../src/components/examples/radio-group/initial-value.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Orientation
 
@@ -318,11 +342,12 @@ page doit être horizontale.
   <RadioGroupOrientation />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/radio-group/orientation.tsx"
+```tsx pure file="../../../src/components/examples/radio-group/orientation.tsx"
 ```
 
     </Tab>
@@ -335,6 +360,8 @@ page doit être horizontale.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Utilisez `RootProvider` lorsqu’un état créé par `useRadioGroup()` doit être partagé avec des contrôles situés
@@ -345,11 +372,12 @@ un contrôle externe.
   <RadioGroupRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/radio-group/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/radio-group/root-provider.tsx"
 ```
 
     </Tab>
@@ -362,6 +390,8 @@ un contrôle externe.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Tailles
 
 Utilisez la prop moduix `size` sur `ItemControl` ou `Option` lorsque le contrôle du bouton radio doit avoir un
@@ -371,16 +401,19 @@ diamètre différent. Les valeurs prises en charge sont `xs`, `sm`, `md`, `lg` e
   <RadioGroupSizes />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/radio-group/sizes.tsx"
+```tsx pure file="../../../src/components/examples/radio-group/sizes.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Avec Field
 
@@ -392,11 +425,12 @@ pas l’état de validation du groupe.
   <RadioGroupField />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/radio-group/with-field.tsx"
+```tsx pure file="../../../src/components/examples/radio-group/with-field.tsx"
 ```
 
     </Tab>
@@ -409,6 +443,8 @@ pas l’état de validation du groupe.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Avec Fieldset
 
 Entourez le groupe d’un `Fieldset` lorsque plusieurs options partagent une légende et appartiennent à
@@ -419,11 +455,12 @@ groupe imbriqué.
   <RadioGroupFieldset />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/radio-group/with-fieldset.tsx"
+```tsx pure file="../../../src/components/examples/radio-group/with-fieldset.tsx"
 ```
 
     </Tab>
@@ -436,6 +473,8 @@ groupe imbriqué.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Personnalisation avancée
 
 N’utilisez pas `Option` lorsque les parties imbriquées ont besoin de props, d’un positionnement ou de
@@ -445,16 +484,19 @@ styles spécifiques. Composez l’arbre complet avec `Item`, `ItemControl` et `I
   <RadioGroupAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/radio-group/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/radio-group/advanced-customization.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

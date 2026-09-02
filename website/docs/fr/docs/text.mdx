@@ -39,11 +39,12 @@ sémantique tout en conservant le style typographique de `Text`.
   <TextBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/text/basic.tsx"
+```tsx pure file="../../../src/components/examples/text/basic.tsx"
 ```
 
     </Tab>
@@ -55,6 +56,8 @@ sémantique tout en conservant le style typographique de `Text`.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -118,11 +121,12 @@ Utilisez `align` lorsque l’alignement appartient au texte lui-même et non à 
   <TextAlignment />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/text/alignment.tsx"
+```tsx pure file="../../../src/components/examples/text/alignment.tsx"
 ```
 
     </Tab>
@@ -135,6 +139,8 @@ Utilisez `align` lorsque l’alignement appartient au texte lui-même et non à 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Sémantique
 
 Utilisez `as` pour choisir une balise HTML sémantique tout en conservant le style typographique de `Text`.
@@ -143,11 +149,12 @@ Utilisez `as` pour choisir une balise HTML sémantique tout en conservant le sty
   <TextSemantics />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/text/semantics.tsx"
+```tsx pure file="../../../src/components/examples/text/semantics.tsx"
 ```
 
     </Tab>
@@ -160,6 +167,8 @@ Utilisez `as` pour choisir une balise HTML sémantique tout en conservant le sty
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Taille
 
 Utilisez `size` pour modifier la hiérarchie visuelle sans changer de composant typographique.
@@ -168,11 +177,12 @@ Utilisez `size` pour modifier la hiérarchie visuelle sans changer de composant 
   <TextSize />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/text/size.tsx"
+```tsx pure file="../../../src/components/examples/text/size.tsx"
 ```
 
     </Tab>
@@ -185,6 +195,8 @@ Utilisez `size` pour modifier la hiérarchie visuelle sans changer de composant 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Tonalité
 
 Utilisez `tone` pour indiquer le rôle du texte sans ajouter de classe de couleur locale.
@@ -193,11 +205,12 @@ Utilisez `tone` pour indiquer le rôle du texte sans ajouter de classe de couleu
   <TextTone />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/text/tone.tsx"
+```tsx pure file="../../../src/components/examples/text/tone.tsx"
 ```
 
     </Tab>
@@ -210,6 +223,8 @@ Utilisez `tone` pour indiquer le rôle du texte sans ajouter de classe de couleu
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Troncature
 
 Utilisez `truncate` pour une troncature sur une ligne avec points de suspension et `lineClamp` pour les aperçus
@@ -219,11 +234,12 @@ compacts sur plusieurs lignes. Ajoutez le comportement de dépliage dans l’int
   <TextTruncation />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/text/truncation.tsx"
+```tsx pure file="../../../src/components/examples/text/truncation.tsx"
 ```
 
     </Tab>
@@ -236,6 +252,8 @@ compacts sur plusieurs lignes. Ajoutez le comportement de dépliage dans l’int
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Graisse
 
 Utilisez `weight` lorsque l’emphase doit rester dans le même élément sémantique.
@@ -244,11 +262,12 @@ Utilisez `weight` lorsque l’emphase doit rester dans le même élément séman
   <TextWeight />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/text/weight.tsx"
+```tsx pure file="../../../src/components/examples/text/weight.tsx"
 ```
 
     </Tab>
@@ -261,6 +280,8 @@ Utilisez `weight` lorsque l’emphase doit rester dans le même élément séman
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Personnalisation avancée
 
 Utilisez `asChild` lorsque la racine doit être un élément personnalisé existant plutôt que l’une des valeurs prises en
@@ -270,16 +291,19 @@ charge par `as`. L’enfant doit être un élément unique capable d’accepter 
   <TextCustomComposition />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/text/custom-composition.tsx"
+```tsx pure file="../../../src/components/examples/text/custom-composition.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

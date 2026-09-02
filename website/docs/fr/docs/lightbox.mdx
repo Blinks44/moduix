@@ -43,11 +43,12 @@ seul élément sémantique comme déclencheur.
   <LightboxBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/lightbox/basic.tsx"
+```tsx pure file="../../../src/components/examples/lightbox/basic.tsx"
 ```
 
     </Tab>
@@ -59,6 +60,8 @@ seul élément sémantique comme déclencheur.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -193,11 +196,12 @@ composition `Lightbox.Gallery + Carousel` présentée plus haut.
   <LightboxBindCmsContent />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/lightbox/bind-cms-content.tsx"
+```tsx pure file="../../../src/components/examples/lightbox/bind-cms-content.tsx"
 ```
 
     </Tab>
@@ -210,6 +214,8 @@ composition `Lightbox.Gallery + Carousel` présentée plus haut.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Fermer en cliquant sur l’image
 
 Utilisez `Lightbox.Image closeOnClick` si un clic sur l’image doit fermer la fenêtre. L’icône de
@@ -219,11 +225,12 @@ fermeture reste disponible et conserve le comportement de fermeture d’Ark UI.
   <LightboxClickToCloseImage />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/lightbox/click-to-close-image.tsx"
+```tsx pure file="../../../src/components/examples/lightbox/click-to-close-image.tsx"
 ```
 
     </Tab>
@@ -236,6 +243,8 @@ fermeture reste disponible et conserve le comportement de fermeture d’Ark UI.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### État contrôlé
 
 Utilisez la fonction `onOpenChange(details)` d’Ark lorsque l’état de la Lightbox doit être synchronisé
@@ -245,11 +254,12 @@ avec React.
   <LightboxControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/lightbox/controlled.tsx"
+```tsx pure file="../../../src/components/examples/lightbox/controlled.tsx"
 ```
 
     </Tab>
@@ -262,6 +272,8 @@ avec React.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Focus et identifiants
 
 Utilisez `initialFocusEl`, `finalFocusEl` et `ids` lorsqu’une lightbox nécessite des cibles de focus
@@ -273,11 +285,12 @@ visible.
   <LightboxFocusAndIds />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/lightbox/focus-and-ids.tsx"
+```tsx pure file="../../../src/components/examples/lightbox/focus-and-ids.tsx"
 ```
 
     </Tab>
@@ -290,6 +303,8 @@ visible.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Galerie
 
 Si un CMS ou une API fournit un tableau d’images structuré, conservez l’image sélectionnée et la page
@@ -301,11 +316,12 @@ pendant la navigation.
   <LightboxGallery />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/lightbox/gallery.tsx"
+```tsx pure file="../../../src/components/examples/lightbox/gallery.tsx"
 ```
 
     </Tab>
@@ -318,6 +334,8 @@ pendant la navigation.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Plusieurs déclencheurs
 
 Utilisez `Lightbox.Trigger.value` et `onTriggerValueChange(details)` pour les miniatures d’une galerie.
@@ -327,11 +345,12 @@ Le composant ne maintient pas de registre d’images caché.
   <LightboxMultipleTriggers />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/lightbox/multiple-triggers.tsx"
+```tsx pure file="../../../src/components/examples/lightbox/multiple-triggers.tsx"
 ```
 
     </Tab>
@@ -344,6 +363,8 @@ Le composant ne maintient pas de registre d’images caché.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Mode non modal
 
 Définissez `modal={false}` lorsque la page doit rester interactive pendant l’aperçu. Ark désactive
@@ -354,11 +375,12 @@ arrière-plan restent accessibles pendant l’affichage de l’image.
   <LightboxNonModal />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/lightbox/non-modal.tsx"
+```tsx pure file="../../../src/components/examples/lightbox/non-modal.tsx"
 ```
 
     </Tab>
@@ -371,6 +393,8 @@ arrière-plan restent accessibles pendant l’affichage de l’image.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Créez l’état avec `useLightbox()` lorsque le bouton d’ouverture se trouve en dehors de la racine.
@@ -381,11 +405,12 @@ Dans un composant enfant, lisez cet état avec `useLightboxContext()`. Le bouton
   <LightboxRootProviderAndContext />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/lightbox/root-provider-and-context.tsx"
+```tsx pure file="../../../src/components/examples/lightbox/root-provider-and-context.tsx"
 ```
 
     </Tab>
@@ -398,6 +423,8 @@ Dans un composant enfant, lisez cet état avec `useLightboxContext()`. Le bouton
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Personnalisation avancée
 
 N’utilisez pas les conteneurs de mise en page facultatifs lorsque la zone média nécessite ses propres
@@ -408,11 +435,12 @@ explicites.
   <LightboxAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/lightbox/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/lightbox/advanced-customization.tsx"
 ```
 
     </Tab>
@@ -424,6 +452,8 @@ explicites.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

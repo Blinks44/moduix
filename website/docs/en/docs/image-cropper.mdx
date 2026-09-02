@@ -31,16 +31,19 @@ Use `ImageCropper` with `Viewport`, `Image`, and `CropArea`. Pass the image URL 
   <ImageCropperBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/image-cropper/basic.tsx"
+```tsx pure file="../../../src/components/examples/image-cropper/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 If you call `getCroppedImage()` for an image from another origin, the image server must allow CORS
 and `ImageCropper.Image` must receive `crossOrigin="anonymous"`. The examples use this setup for
@@ -131,11 +134,12 @@ when users choose an output format.
   <ImageCropperAspectRatio />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/image-cropper/aspect-ratio.tsx"
+```tsx pure file="../../../src/components/examples/image-cropper/aspect-ratio.tsx"
 ```
 
     </Tab>
@@ -148,6 +152,8 @@ when users choose an output format.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Circle Crop
 
 Use `cropShape="circle"` with `aspectRatio={1}` for avatars and profile images.
@@ -156,16 +162,19 @@ Use `cropShape="circle"` with `aspectRatio={1}` for avatars and profile images.
   <ImageCropperCircleCrop />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/image-cropper/circle-crop.tsx"
+```tsx pure file="../../../src/components/examples/image-cropper/circle-crop.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Controlled Zoom
 
@@ -176,11 +185,12 @@ display the current zoom. Set `minZoom` and `maxZoom` to constrain the range.
   <ImageCropperControlledZoom />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/image-cropper/controlled-zoom.tsx"
+```tsx pure file="../../../src/components/examples/image-cropper/controlled-zoom.tsx"
 ```
 
     </Tab>
@@ -193,6 +203,8 @@ display the current zoom. Set `minZoom` and `maxZoom` to constrain the range.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Crop Preview
 
 Call `getCroppedImage()` on a `useImageCropper` instance to create a rendered result. With
@@ -203,11 +215,12 @@ Call `getCroppedImage()` on a `useImageCropper` instance to create a rendered re
   <ImageCropperCropPreview />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/image-cropper/crop-preview.tsx"
+```tsx pure file="../../../src/components/examples/image-cropper/crop-preview.tsx"
 ```
 
     </Tab>
@@ -220,6 +233,8 @@ Call `getCroppedImage()` on a `useImageCropper` instance to create a rendered re
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Events
 
 Subscribe to `onCropChange` and `onZoomChange` to display the current crop data or synchronize it
@@ -229,11 +244,12 @@ with other UI.
   <ImageCropperEvents />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/image-cropper/events.tsx"
+```tsx pure file="../../../src/components/examples/image-cropper/events.tsx"
 ```
 
     </Tab>
@@ -246,6 +262,8 @@ with other UI.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Fixed Crop Area
 
 Set `fixedCropArea` when the crop area must keep the same size and position while users pan the image
@@ -255,16 +273,19 @@ behind it.
   <ImageCropperFixedCropArea />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/image-cropper/fixed-crop-area.tsx"
+```tsx pure file="../../../src/components/examples/image-cropper/fixed-crop-area.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Initial Crop
 
@@ -275,16 +296,19 @@ pixels.
   <ImageCropperInitialCrop />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/image-cropper/initial-crop.tsx"
+```tsx pure file="../../../src/components/examples/image-cropper/initial-crop.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Min And Max Size
 
@@ -294,16 +318,19 @@ Constrain the selection with `minWidth`, `minHeight`, `maxWidth`, and `maxHeight
   <ImageCropperMinAndMaxSize />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/image-cropper/min-and-max-size.tsx"
+```tsx pure file="../../../src/components/examples/image-cropper/min-and-max-size.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Root Provider
 
@@ -314,11 +341,12 @@ cropper from outside its component tree.
   <ImageCropperRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/image-cropper/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/image-cropper/root-provider.tsx"
 ```
 
     </Tab>
@@ -331,6 +359,8 @@ cropper from outside its component tree.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Rotation, Flip, And Reset
 
 Use `ImageCropper.Context` to connect toolbar actions for zooming, rotating, flipping, and resetting
@@ -340,11 +370,12 @@ the cropper. The example keeps rotation and flip state controlled.
   <ImageCropperRotationFlipAndReset />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/image-cropper/rotation-flip-and-reset.tsx"
+```tsx pure file="../../../src/components/examples/image-cropper/rotation-flip-and-reset.tsx"
 ```
 
     </Tab>
@@ -357,6 +388,8 @@ the cropper. The example keeps rotation and flip state controlled.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Advanced Customization
 
 Replace `CropArea` with the explicit `Selection`, `Grid`, and `Handle` parts when the crop area needs
@@ -367,16 +400,19 @@ a different structure or custom child parts. `Grid` requires an `axis`, and `Han
   <ImageCropperAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/image-cropper/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/image-cropper/advanced-customization.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

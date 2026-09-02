@@ -31,11 +31,12 @@ import MarqueeVertical from '@/components/examples/marquee/vertical.tsx';
   <MarqueeBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/marquee/basic.tsx"
+```tsx pure file="../../../src/components/examples/marquee/basic.tsx"
 ```
 
     </Tab>
@@ -47,6 +48,8 @@ import MarqueeVertical from '@/components/examples/marquee/vertical.tsx';
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -151,11 +154,12 @@ Ark задаёт корневому элементу роль именованн
   <MarqueeAutoFill />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/marquee/auto-fill.tsx"
+```tsx pure file="../../../src/components/examples/marquee/auto-fill.tsx"
 ```
 
     </Tab>
@@ -168,6 +172,8 @@ Ark задаёт корневому элементу роль именованн
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Затухание по краям
 
 Добавьте `Marquee.Edge` с нужных сторон, чтобы содержимое плавно исчезало на фоне страницы. Эта часть декоративна
@@ -177,11 +183,12 @@ Ark задаёт корневому элементу роль именованн
   <MarqueeEdges />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/marquee/edges.tsx"
+```tsx pure file="../../../src/components/examples/marquee/edges.tsx"
 ```
 
     </Tab>
@@ -194,6 +201,8 @@ Ark задаёт корневому элементу роль именованн
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Ограниченное число циклов
 
 Задайте `loopCount`, чтобы ограничить число повторов. `onLoopComplete` вызывается после каждого цикла, а
@@ -203,11 +212,12 @@ Ark задаёт корневому элементу роль именованн
   <MarqueeFiniteLoops />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/marquee/finite-loops.tsx"
+```tsx pure file="../../../src/components/examples/marquee/finite-loops.tsx"
 ```
 
     </Tab>
@@ -220,6 +230,8 @@ Ark задаёт корневому элементу роль именованн
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Пауза при взаимодействии
 
 Используйте `pauseOnInteraction`, чтобы приостанавливать прокрутку, когда пользователь наводит указатель на компонент
@@ -229,11 +241,12 @@ Ark задаёт корневому элементу роль именованн
   <MarqueePauseOnInteraction />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/marquee/pause-on-interaction.tsx"
+```tsx pure file="../../../src/components/examples/marquee/pause-on-interaction.tsx"
 ```
 
     </Tab>
@@ -246,6 +259,8 @@ Ark задаёт корневому элементу роль именованн
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Используйте `useMarquee()` из moduix вместе с `Marquee.RootProvider`, когда внешним элементам управления нужно
@@ -255,11 +270,12 @@ Ark задаёт корневому элементу роль именованн
   <MarqueeProgrammaticControl />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/marquee/programmatic-control.tsx"
+```tsx pure file="../../../src/components/examples/marquee/programmatic-control.tsx"
 ```
 
     </Tab>
@@ -272,6 +288,8 @@ Ark задаёт корневому элементу роль именованн
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Обратное направление
 
 Используйте `reverse`, когда содержимое должно двигаться в обратном направлении относительно `side`, не меняя
@@ -281,11 +299,12 @@ Ark задаёт корневому элементу роль именованн
   <MarqueeReverse />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/marquee/reverse.tsx"
+```tsx pure file="../../../src/components/examples/marquee/reverse.tsx"
 ```
 
     </Tab>
@@ -298,6 +317,8 @@ Ark задаёт корневому элементу роль именованн
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Справа налево
 
 Оберните бегущую строку в `LocaleProvider` с RTL-локалью. Тогда логические стороны `start` и `end` будут следовать
@@ -307,11 +328,12 @@ Ark задаёт корневому элементу роль именованн
   <MarqueeRtl />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/marquee/rtl.tsx"
+```tsx pure file="../../../src/components/examples/marquee/rtl.tsx"
 ```
 
     </Tab>
@@ -324,6 +346,8 @@ Ark задаёт корневому элементу роль именованн
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Скорость
 
 Задайте скорость через `speed`, указав число пикселей в секунду. При меньшей скорости содержимое легче читать.
@@ -332,11 +356,12 @@ Ark задаёт корневому элементу роль именованн
   <MarqueeSpeed />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/marquee/speed.tsx"
+```tsx pure file="../../../src/components/examples/marquee/speed.tsx"
 ```
 
     </Tab>
@@ -349,6 +374,8 @@ Ark задаёт корневому элементу роль именованн
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Вертикальная ориентация
 
 Задайте `side="top"` или `side="bottom"`, чтобы прокручивать содержимое вертикально. По умолчанию корневой
@@ -358,11 +385,12 @@ Ark задаёт корневому элементу роль именованн
   <MarqueeVertical />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/marquee/vertical.tsx"
+```tsx pure file="../../../src/components/examples/marquee/vertical.tsx"
 ```
 
     </Tab>
@@ -374,6 +402,8 @@ Ark задаёт корневому элементу роль именованн
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

@@ -44,11 +44,12 @@ pass root props such as `name` when the tags should be submitted with a form.
   <TagsInputBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/basic.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/basic.tsx"
 ```
 
     </Tab>
@@ -60,6 +61,8 @@ pass root props such as `name` when the tags should be submitted with a form.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -174,11 +177,12 @@ values carry meaning.
   <TagsInputAllowDuplicates />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/allow-duplicates.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/allow-duplicates.tsx"
 ```
 
     </Tab>
@@ -191,6 +195,8 @@ values carry meaning.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Controlled
 
 Keep the tag array in React state when another part of the screen depends on it or you need to
@@ -200,11 +206,12 @@ reset it programmatically.
   <TagsInputControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/controlled.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/controlled.tsx"
 ```
 
     </Tab>
@@ -217,6 +224,8 @@ reset it programmatically.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Controlled Input Value
 
 Control `inputValue` separately when another control should prefill or clear the entry input.
@@ -225,11 +234,12 @@ Control `inputValue` separately when another control should prefill or clear the
   <TagsInputControlledInputValue />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/controlled-input-value.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/controlled-input-value.tsx"
 ```
 
     </Tab>
@@ -242,6 +252,8 @@ Control `inputValue` separately when another control should prefill or clear the
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Delimiter and Paste
 
 Use `delimiter` with `addOnPaste` when pasted text should create multiple tags. The example accepts
@@ -251,11 +263,12 @@ commas, semicolons, and spaces as separators.
   <TagsInputDelimiterAndPaste />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/delimiter-and-paste.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/delimiter-and-paste.tsx"
 ```
 
     </Tab>
@@ -268,6 +281,8 @@ commas, semicolons, and spaces as separators.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Disable Editing
 
 Set `editable={false}` when existing tags should remain removable but not editable in place.
@@ -276,11 +291,12 @@ Set `editable={false}` when existing tags should remain removable but not editab
   <TagsInputDisableEditing />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/disable-editing.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/disable-editing.tsx"
 ```
 
     </Tab>
@@ -293,6 +309,8 @@ Set `editable={false}` when existing tags should remain removable but not editab
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Disabled and Read-only
 
 Use `disabled` for a non-interactive control. Use `readOnly` when tags should remain visible but
@@ -302,11 +320,12 @@ users must not add, remove, or edit them.
   <TagsInputDisabledAndReadOnly />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/disabled-and-read-only.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/disabled-and-read-only.tsx"
 ```
 
     </Tab>
@@ -319,6 +338,8 @@ users must not add, remove, or edit them.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Field
 
 Wrap `TagsInput` in `Field` when its label, helper text, invalid state, and error text should share
@@ -328,11 +349,12 @@ Ark's form accessibility wiring.
   <TagsInputField />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/field.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/field.tsx"
 ```
 
     </Tab>
@@ -345,6 +367,8 @@ Ark's form accessibility wiring.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Form
 
 Pass `name` to the root to include the tag list in `FormData`. Moduix renders the hidden native
@@ -354,11 +378,12 @@ form input automatically and keeps it synchronized with form reset.
   <TagsInputForm />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/form.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/form.tsx"
 ```
 
     </Tab>
@@ -371,6 +396,8 @@ form input automatically and keeps it synchronized with form reset.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Max With Overflow
 
 Use `allowOverflow` with `max` when users may temporarily exceed the limit while the control reports
@@ -380,11 +407,12 @@ an invalid state.
   <TagsInputMaxWithOverflow />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/max-with-overflow.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/max-with-overflow.tsx"
 ```
 
     </Tab>
@@ -397,6 +425,8 @@ an invalid state.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Use moduix `useTagsInput` with `RootProvider` when state and imperative methods need to be used
@@ -406,11 +436,12 @@ outside the rendered tags input tree.
   <TagsInputRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/root-provider.tsx"
 ```
 
     </Tab>
@@ -423,6 +454,8 @@ outside the rendered tags input tree.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Sanitize and Blur
 
 Use `sanitizeValue` to normalize incoming tags and `blurBehavior="add"` to commit the current
@@ -432,11 +465,12 @@ input when focus leaves the control.
   <TagsInputSanitizeAndBlur />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/sanitize-and-blur.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/sanitize-and-blur.tsx"
 ```
 
     </Tab>
@@ -449,6 +483,8 @@ input when focus leaves the control.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Validation and Max
 
 Use `validate`, `max`, and `onValueInvalid` to reject invalid values and observe why an addition was
@@ -459,11 +495,12 @@ runs.
   <TagsInputValidationAndMax />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/validation-and-max.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/validation-and-max.tsx"
 ```
 
     </Tab>
@@ -476,6 +513,8 @@ runs.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### With Combobox
 
 Compose `TagsInput` with `Combobox` when typed input should offer known options while still allowing
@@ -485,11 +524,12 @@ custom tags. The example shares IDs and composes both inputs with `asChild`.
   <TagsInputWithCombobox />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/with-combobox.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/with-combobox.tsx"
 ```
 
     </Tab>
@@ -502,6 +542,8 @@ custom tags. The example shares IDs and composes both inputs with `asChild`.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Advanced Customization
 
 Bypass `Items` when each tag needs custom content or actions. Map the root values to the full
@@ -511,11 +553,12 @@ Ark-shaped item tree and keep `ItemInput` in each item if inline editing is stil
   <TagsInputAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/advanced-customization.tsx"
 ```
 
     </Tab>
@@ -527,6 +570,8 @@ Ark-shaped item tree and keep `ItemInput` in each item if inline editing is stil
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

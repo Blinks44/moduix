@@ -30,11 +30,12 @@ ajoute le champ de saisie et un bouton d’effacement, visible dès qu’une req
   <CommandPaletteBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/command-palette/basic.tsx"
+```tsx pure file="../../../src/components/examples/command-palette/basic.tsx"
 ```
 
     </Tab>
@@ -46,6 +47,8 @@ ajoute le champ de saisie et un bouton d’effacement, visible dès qu’une req
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -199,11 +202,12 @@ L’exemple réinitialise le filtre externe de la collection à la fermeture de 
   <ControlledCommandPalette />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/command-palette/controlled-open-state.tsx"
+```tsx pure file="../../../src/components/examples/command-palette/controlled-open-state.tsx"
 ```
 
     </Tab>
@@ -216,6 +220,8 @@ L’exemple réinitialise le filtre externe de la collection à la fermeture de 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Activation du raccourci global
 
 Définissez `shortcut="alt+k"` pour enregistrer un raccourci global qui ouvre et ferme la palette. C’est le seul aperçu
@@ -225,11 +231,12 @@ de la page qui enregistre `Alt+K`.
   <CommandPaletteShortcutDemo />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/command-palette/enable-the-global-shortcut.tsx"
+```tsx pure file="../../../src/components/examples/command-palette/enable-the-global-shortcut.tsx"
 ```
 
     </Tab>
@@ -242,6 +249,8 @@ de la page qui enregistre `Alt+K`.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Actions des éléments
 
 Gérez `onSelect(details)` pour exécuter une commande. Avec la valeur par défaut de `closeOnSelect`, la palette se ferme
@@ -251,11 +260,12 @@ après l’exécution de l’action sélectionnée.
   <CommandPaletteActionsDemo />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/command-palette/item-actions.tsx"
+```tsx pure file="../../../src/components/examples/command-palette/item-actions.tsx"
 ```
 
     </Tab>
@@ -268,6 +278,8 @@ après l’exécution de l’action sélectionnée.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Personnalisation avancée
 
 Utilisez les parties explicites lorsque la palette nécessite un en-tête ou une barre de recherche personnalisés.
@@ -278,11 +290,12 @@ L’exemple conserve le comportement d’Ark Dialog et d’Ark Combobox, tout en
   <AdvancedCommandPalette />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/command-palette/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/command-palette/advanced-customization.tsx"
 ```
 
     </Tab>
@@ -294,6 +307,8 @@ L’exemple conserve le comportement d’Ark Dialog et d’Ark Combobox, tout en
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

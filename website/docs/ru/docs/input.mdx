@@ -39,11 +39,12 @@ import InputStates from '@/components/examples/input/disabled-and-readonly.tsx';
   <InputBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input/basic.tsx"
+```tsx pure file="../../../src/components/examples/input/basic.tsx"
 ```
 
     </Tab>
@@ -55,6 +56,8 @@ import InputStates from '@/components/examples/input/disabled-and-readonly.tsx';
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -123,11 +126,12 @@ Field (необязательная оболочка)
   <InputControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input/controlled.tsx"
+```tsx pure file="../../../src/components/examples/input/controlled.tsx"
 ```
 
     </Tab>
@@ -140,6 +144,8 @@ Field (необязательная оболочка)
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Отключённое поле и режим только для чтения
 
 Используйте `disabled`, если с полем нельзя взаимодействовать. Используйте `readOnly`, если
@@ -151,11 +157,12 @@ Field (необязательная оболочка)
   <InputStates />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input/disabled-and-readonly.tsx"
+```tsx pure file="../../../src/components/examples/input/disabled-and-readonly.tsx"
 ```
 
     </Tab>
@@ -168,6 +175,8 @@ Field (необязательная оболочка)
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Валидация поля
 
 Задавайте `invalid` на `Field`, когда значение не проходит проверку. Ark добавит к `Input`
@@ -177,11 +186,12 @@ Field (необязательная оболочка)
   <InputFieldState />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input/field-state.tsx"
+```tsx pure file="../../../src/components/examples/input/field-state.tsx"
 ```
 
     </Tab>
@@ -194,6 +204,8 @@ Field (необязательная оболочка)
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Выбор файла
 
 Для простой формы `Input` достаточно, чтобы открыть нативный диалог выбора файла. Используйте
@@ -204,11 +216,12 @@ Field (необязательная оболочка)
   <InputFile />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input/file-input.tsx"
+```tsx pure file="../../../src/components/examples/input/file-input.tsx"
 ```
 
     </Tab>
@@ -221,6 +234,8 @@ Field (необязательная оболочка)
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Нативные атрибуты
 
 Используйте нативные атрибуты для управления поведением браузера: валидацией, режимом ввода,
@@ -231,11 +246,12 @@ Field (необязательная оболочка)
   <InputNativeAttributes />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input/native-attributes.tsx"
+```tsx pure file="../../../src/components/examples/input/native-attributes.tsx"
 ```
 
     </Tab>
@@ -248,6 +264,8 @@ Field (необязательная оболочка)
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Размеры
 
 Свойство moduix `size` управляет визуальным размером. Оно не связано с `htmlSize`, которое задаёт
@@ -257,11 +275,12 @@ Field (необязательная оболочка)
   <InputSizes />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input/sizes.tsx"
+```tsx pure file="../../../src/components/examples/input/sizes.tsx"
 ```
 
     </Tab>
@@ -274,6 +293,8 @@ Field (необязательная оболочка)
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Автономное поле
 
 `Field` необязателен. Если `Input` используется отдельно, задайте доступное имя с помощью HTML
@@ -285,11 +306,12 @@ Field (необязательная оболочка)
   <InputStandalone />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input/standalone-input.tsx"
+```tsx pure file="../../../src/components/examples/input/standalone-input.tsx"
 ```
 
     </Tab>
@@ -302,6 +324,8 @@ Field (необязательная оболочка)
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Расширенная настройка
 
 Используйте `asChild` только тогда, когда вместо стандартного элемента `Input` должен быть отрисован другой DOM-элемент.
@@ -312,11 +336,12 @@ Field (необязательная оболочка)
   <InputAsChild />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input/as-child.tsx"
+```tsx pure file="../../../src/components/examples/input/as-child.tsx"
 ```
 
     </Tab>
@@ -328,6 +353,8 @@ Field (необязательная оболочка)
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

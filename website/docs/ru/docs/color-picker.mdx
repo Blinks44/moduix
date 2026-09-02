@@ -43,11 +43,12 @@ import ColorPickerValueSwatch from '@/components/examples/color-picker/value-swa
   <ColorPickerBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/basic.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/basic.tsx"
 ```
 
     </Tab>
@@ -59,6 +60,8 @@ import ColorPickerValueSwatch from '@/components/examples/color-picker/value-swa
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -189,16 +192,19 @@ ColorPicker
   <ColorPickerSliderOnly />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/slider-only.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/slider-only.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Компактная кнопка открытия
 
@@ -209,11 +215,12 @@ ColorPicker
   <ColorPickerCompactTrigger />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/compact-trigger.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/compact-trigger.tsx"
 ```
 
     </Tab>
@@ -226,6 +233,8 @@ ColorPicker
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Управляемое значение
 
 Используйте управляемое значение, когда выбранный цвет должен оставаться синхронизированным с состоянием приложения.
@@ -234,16 +243,19 @@ ColorPicker
   <ColorPickerControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/controlled.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/controlled.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Отключённый компонент
 
@@ -254,16 +266,19 @@ ColorPicker
   <ColorPickerDisabled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/disabled.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/disabled.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Состояние поля
 
@@ -274,11 +289,12 @@ ColorPicker
   <ColorPickerFieldState />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/field-state.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/field-state.tsx"
 ```
 
     </Tab>
@@ -291,6 +307,8 @@ ColorPicker
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Использование в форме
 
 Передайте `name` в `ColorPicker`. Компонент автоматически добавит нативное поле, значение которого попадёт в форму.
@@ -299,16 +317,19 @@ ColorPicker
   <ColorPickerFormUsage />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/form-usage.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/form-usage.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Представления формата
 
@@ -321,11 +342,12 @@ ColorPicker
   <ColorPickerFormatViews />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/format-views.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/format-views.tsx"
 ```
 
     </Tab>
@@ -338,6 +360,8 @@ ColorPicker
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Встроенный режим
 
 Используйте `inline` в панелях настроек, если инструменты работы с цветом должны оставаться видимыми без кнопки открытия
@@ -347,11 +371,12 @@ ColorPicker
   <ColorPickerInline />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/inline.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/inline.tsx"
 ```
 
     </Tab>
@@ -364,6 +389,8 @@ ColorPicker
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Только ввод
 
 Используйте поля каналов с пассивным образцом, если важен ввод цвета с клавиатуры, а всплывающее окно только усложнит
@@ -373,11 +400,12 @@ ColorPicker
   <ColorPickerInputOnly />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/input-only.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/input-only.tsx"
 ```
 
     </Tab>
@@ -390,6 +418,8 @@ ColorPicker
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Внутри Dialog
 
 Если селектор находится внутри модального диалога, отключите портал у всплывающего окна. Тогда оно останется в том же
@@ -399,11 +429,12 @@ ColorPicker
   <ColorPickerInsideDialog />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/inside-dialog.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/inside-dialog.tsx"
 ```
 
     </Tab>
@@ -416,6 +447,8 @@ ColorPicker
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Управляемое открытие
 
 Используйте управляемое состояние `open`, если другой элемент управления или сценарий отвечает за видимость
@@ -425,11 +458,12 @@ ColorPicker
   <ColorPickerOpenControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/open-controlled.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/open-controlled.tsx"
 ```
 
     </Tab>
@@ -442,6 +476,8 @@ ColorPicker
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### RootProvider
 
 Используйте `useColorPicker` из moduix вместе с `RootProvider`, если состояние селектора нужно создать вне дерева
@@ -451,11 +487,12 @@ ColorPicker
   <ColorPickerRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/root-provider.tsx"
 ```
 
     </Tab>
@@ -468,6 +505,8 @@ ColorPicker
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Только цветовые образцы
 
 Используйте композицию только с образцами, если достаточно готовой палитры и не нужны область, слайдеры и поля ввода.
@@ -476,11 +515,12 @@ ColorPicker
   <ColorPickerSwatchOnly />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/swatch-only.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/swatch-only.tsx"
 ```
 
     </Tab>
@@ -493,6 +533,8 @@ ColorPicker
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Готовые цвета
 
 Добавьте образцы во всплывающее окно, если селектор должен предлагать готовую палитру вместе со свободным редактированием.
@@ -502,16 +544,19 @@ ColorPicker
   <ColorPickerSwatches />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/swatches.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/swatches.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Текущее значение
 
@@ -522,11 +567,12 @@ ColorPicker
   <ColorPickerValueSwatch />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/value-swatch.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/value-swatch.tsx"
 ```
 
     </Tab>
@@ -539,6 +585,8 @@ ColorPicker
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Расширенная настройка
 
 Используйте явные части и дочерние элементы, если встроенной композиции недостаточно и нужна другая визуальная структура.
@@ -547,16 +595,19 @@ ColorPicker
   <ColorPickerAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/color-picker/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/color-picker/advanced-customization.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

@@ -27,16 +27,19 @@ import AvatarSizesAndFallbackOnly from '@/components/examples/avatar/sizes-and-f
   <AvatarBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/avatar/basic.tsx"
+```tsx pure file="../../../src/components/examples/avatar/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -122,11 +125,12 @@ Avatar.Root | Avatar.RootProvider
   <AvatarCustomFallback />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/avatar/custom-fallback.tsx"
+```tsx pure file="../../../src/components/examples/avatar/custom-fallback.tsx"
 ```
 
     </Tab>
@@ -139,6 +143,8 @@ Avatar.Root | Avatar.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Пользовательское изображение
 
 Используйте `useAvatarContext()` из moduix, если компонент изображения из фреймворка или пользовательский
@@ -148,11 +154,12 @@ Avatar.Root | Avatar.RootProvider
   <AvatarCustomImage />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/avatar/custom-image.tsx"
+```tsx pure file="../../../src/components/examples/avatar/custom-image.tsx"
 ```
 
     </Tab>
@@ -165,6 +172,8 @@ Avatar.Root | Avatar.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Резервная иконка по умолчанию
 
 Оставьте `Avatar.Fallback` без дочернего содержимого, чтобы отобразить встроенную декоративную иконку
@@ -174,16 +183,19 @@ Avatar.Root | Avatar.RootProvider
   <AvatarDefaultFallback />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/avatar/default-fallback.tsx"
+```tsx pure file="../../../src/components/examples/avatar/default-fallback.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### События
 
@@ -194,11 +206,12 @@ Avatar.Root | Avatar.RootProvider
   <AvatarEvents />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/avatar/events.tsx"
+```tsx pure file="../../../src/components/examples/avatar/events.tsx"
 ```
 
     </Tab>
@@ -211,6 +224,8 @@ Avatar.Root | Avatar.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Создайте состояние с помощью `useAvatar` из moduix, если внешним элементам управления нужно работать с
@@ -220,11 +235,12 @@ Avatar.Root | Avatar.RootProvider
   <AvatarRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/avatar/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/avatar/root-provider.tsx"
 ```
 
     </Tab>
@@ -237,6 +253,8 @@ Avatar.Root | Avatar.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Размеры и аватар без изображения
 
 Свойство `size` в moduix задаёт один из распространённых размеров дизайн-токенов для любого корневого
@@ -246,11 +264,12 @@ Avatar.Root | Avatar.RootProvider
   <AvatarSizesAndFallbackOnly />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/avatar/sizes-and-fallback-only.tsx"
+```tsx pure file="../../../src/components/examples/avatar/sizes-and-fallback-only.tsx"
 ```
 
     </Tab>
@@ -263,6 +282,8 @@ Avatar.Root | Avatar.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Расширенная настройка
 
 Используйте `asChild`, если сам аватар должен быть интерактивным элементом, например ссылкой. Компонент не
@@ -273,11 +294,12 @@ Avatar.Root | Avatar.RootProvider
   <AvatarCustomComposition />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/avatar/custom-composition.tsx"
+```tsx pure file="../../../src/components/examples/avatar/custom-composition.tsx"
 ```
 
     </Tab>
@@ -289,6 +311,8 @@ Avatar.Root | Avatar.RootProvider
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

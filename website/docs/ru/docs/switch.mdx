@@ -39,16 +39,19 @@ import SwitchSizes from '@/components/examples/switch/sizes.tsx';
   <SwitchBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/basic.tsx"
+```tsx pure file="../../../src/components/examples/switch/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -123,11 +126,12 @@ Switch / Switch.Root
   <SwitchAsChild />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/as-child.tsx"
+```tsx pure file="../../../src/components/examples/switch/as-child.tsx"
 ```
 
     </Tab>
@@ -140,6 +144,8 @@ Switch / Switch.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Контекст
 
 Импортируйте `useSwitchContext` из `@moduix/react`, когда соседней подписи или вспомогательному элементу нужно читать текущее состояние переключателя.
@@ -148,16 +154,19 @@ Switch / Switch.Root
   <SwitchContext />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/context.tsx"
+```tsx pure file="../../../src/components/examples/switch/context.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Управляемое состояние
 
@@ -167,11 +176,12 @@ Switch / Switch.Root
   <SwitchControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/controlled.tsx"
+```tsx pure file="../../../src/components/examples/switch/controlled.tsx"
 ```
 
     </Tab>
@@ -184,6 +194,8 @@ Switch / Switch.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Отключённое состояние
 
 Используйте `disabled`, чтобы запретить взаимодействие и сохранить текущее визуальное состояние.
@@ -192,11 +204,12 @@ Switch / Switch.Root
   <SwitchDisabled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/disabled.tsx"
+```tsx pure file="../../../src/components/examples/switch/disabled.tsx"
 ```
 
     </Tab>
@@ -209,6 +222,8 @@ Switch / Switch.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Интеграция с формой
 
 Используйте `Field`, когда переключателю нужны подпись, валидация или отправка вместе с формой. В этом примере ошибка появляется после отправки формы, если переключатель остался выключенным.
@@ -217,11 +232,12 @@ Switch / Switch.Root
   <SwitchFormIntegration />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/form-integration.tsx"
+```tsx pure file="../../../src/components/examples/switch/form-integration.tsx"
 ```
 
     </Tab>
@@ -234,6 +250,8 @@ Switch / Switch.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Начальное состояние
 
 Используйте `defaultChecked`, когда переключатель должен быть включён при первом рендере, а затем самостоятельно управлять своим состоянием.
@@ -242,16 +260,19 @@ Switch / Switch.Root
   <SwitchInitialChecked />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/initial-checked.tsx"
+```tsx pure file="../../../src/components/examples/switch/initial-checked.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Только для чтения
 
@@ -261,11 +282,12 @@ Switch / Switch.Root
   <SwitchReadOnly />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/read-only.tsx"
+```tsx pure file="../../../src/components/examples/switch/read-only.tsx"
 ```
 
     </Tab>
@@ -278,6 +300,8 @@ Switch / Switch.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Состояние через RootProvider
 
 Импортируйте `useSwitch` из `@moduix/react` и передайте созданное состояние в `Switch.RootProvider`, когда нужно управлять им вне дерева переключателя.
@@ -286,11 +310,12 @@ Switch / Switch.Root
   <SwitchRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/switch/root-provider.tsx"
 ```
 
     </Tab>
@@ -303,6 +328,8 @@ Switch / Switch.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Размеры
 
 Используйте `size` от moduix, чтобы подобрать размер под плотность формы, не меняя дерево частей Ark.
@@ -311,11 +338,12 @@ Switch / Switch.Root
   <SwitchSizes />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/sizes.tsx"
+```tsx pure file="../../../src/components/examples/switch/sizes.tsx"
 ```
 
     </Tab>
@@ -328,6 +356,8 @@ Switch / Switch.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Расширенная настройка
 
 Добавьте `Switch.Thumb` явно, когда бегунку нужны пользовательское содержимое или собственная стилизация.
@@ -336,16 +366,19 @@ Switch / Switch.Root
   <SwitchAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/switch/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/switch/advanced-customization.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

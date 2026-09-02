@@ -31,11 +31,12 @@ des éléments ni celui du cadre. Dans l’exemple, le style des éléments et l
   <MarqueeBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/marquee/basic.tsx"
+```tsx pure file="../../../src/components/examples/marquee/basic.tsx"
 ```
 
     </Tab>
@@ -47,6 +48,8 @@ des éléments ni celui du cadre. Dans l’exemple, le style des éléments et l
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -153,11 +156,12 @@ les copies du contenu.
   <MarqueeAutoFill />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/marquee/auto-fill.tsx"
+```tsx pure file="../../../src/components/examples/marquee/auto-fill.tsx"
 ```
 
     </Tab>
@@ -170,6 +174,8 @@ les copies du contenu.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Fondu sur les bords
 
 Ajoutez `Marquee.Edge` sur les côtés où le contenu doit se fondre dans l’arrière-plan de la page. Cette partie est
@@ -179,11 +185,12 @@ décorative et n’intercepte pas les événements de pointeur.
   <MarqueeEdges />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/marquee/edges.tsx"
+```tsx pure file="../../../src/components/examples/marquee/edges.tsx"
 ```
 
     </Tab>
@@ -196,6 +203,8 @@ décorative et n’intercepte pas les événements de pointeur.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Boucles limitées
 
 Définissez `loopCount` pour limiter le nombre de boucles. `onLoopComplete` est appelé après chaque boucle et
@@ -205,11 +214,12 @@ Définissez `loopCount` pour limiter le nombre de boucles. `onLoopComplete` est 
   <MarqueeFiniteLoops />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/marquee/finite-loops.tsx"
+```tsx pure file="../../../src/components/examples/marquee/finite-loops.tsx"
 ```
 
     </Tab>
@@ -222,6 +232,8 @@ Définissez `loopCount` pour limiter le nombre de boucles. `onLoopComplete` est 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Pause lors des interactions
 
 Utilisez `pauseOnInteraction` pour mettre le composant en pause lorsque l’utilisateur le survole ou place le focus
@@ -231,11 +243,12 @@ dans son contenu.
   <MarqueePauseOnInteraction />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/marquee/pause-on-interaction.tsx"
+```tsx pure file="../../../src/components/examples/marquee/pause-on-interaction.tsx"
 ```
 
     </Tab>
@@ -248,6 +261,8 @@ dans son contenu.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Utilisez `useMarquee()` de moduix avec `Marquee.RootProvider` lorsque des commandes externes doivent mettre le
@@ -257,11 +272,12 @@ défilement en pause, le reprendre ou le relancer.
   <MarqueeProgrammaticControl />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/marquee/programmatic-control.tsx"
+```tsx pure file="../../../src/components/examples/marquee/programmatic-control.tsx"
 ```
 
     </Tab>
@@ -274,6 +290,8 @@ défilement en pause, le reprendre ou le relancer.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Sens inverse
 
 Utilisez `reverse` lorsque le contenu doit se déplacer dans le sens opposé à celui indiqué par `side`, sans modifier
@@ -283,11 +301,12 @@ l’orientation.
   <MarqueeReverse />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/marquee/reverse.tsx"
+```tsx pure file="../../../src/components/examples/marquee/reverse.tsx"
 ```
 
     </Tab>
@@ -300,6 +319,8 @@ l’orientation.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### De droite à gauche
 
 Placez le composant dans un `LocaleProvider` configuré avec une locale RTL. Les côtés logiques `start` et `end`
@@ -309,11 +330,12 @@ suivent alors la direction du texte.
   <MarqueeRtl />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/marquee/rtl.tsx"
+```tsx pure file="../../../src/components/examples/marquee/rtl.tsx"
 ```
 
     </Tab>
@@ -326,6 +348,8 @@ suivent alors la direction du texte.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Vitesse
 
 Réglez le mouvement avec `speed`, exprimé en pixels par seconde. Une vitesse plus faible facilite la lecture.
@@ -334,11 +358,12 @@ Réglez le mouvement avec `speed`, exprimé en pixels par seconde. Une vitesse p
   <MarqueeSpeed />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/marquee/speed.tsx"
+```tsx pure file="../../../src/components/examples/marquee/speed.tsx"
 ```
 
     </Tab>
@@ -351,6 +376,8 @@ Réglez le mouvement avec `speed`, exprimé en pixels par seconde. Une vitesse p
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Orientation verticale
 
 Définissez `side="top"` ou `side="bottom"` pour faire défiler le contenu verticalement. Par défaut, la racine utilise
@@ -360,11 +387,12 @@ Définissez `side="top"` ou `side="bottom"` pour faire défiler le contenu verti
   <MarqueeVertical />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/marquee/vertical.tsx"
+```tsx pure file="../../../src/components/examples/marquee/vertical.tsx"
 ```
 
     </Tab>
@@ -376,6 +404,8 @@ Définissez `side="top"` ou `side="bottom"` pour faire défiler le contenu verti
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

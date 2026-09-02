@@ -39,11 +39,12 @@ via `item`.
   <ListboxBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/listbox/basic.tsx"
+```tsx pure file="../../../src/components/examples/listbox/basic.tsx"
 ```
 
     </Tab>
@@ -55,6 +56,8 @@ via `item`.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -181,11 +184,12 @@ Conservez le tableau des valeurs sélectionnées dans l’état React et mettez-
   <ListboxControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/listbox/controlled.tsx"
+```tsx pure file="../../../src/components/examples/listbox/controlled.tsx"
 ```
 
     </Tab>
@@ -198,6 +202,8 @@ Conservez le tableau des valeurs sélectionnées dans l’état React et mettez-
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Élément désactivé
 
 Désactivez un élément en définissant son champ `disabled` dans la collection ou en utilisant `isItemDisabled` lors de
@@ -207,11 +213,12 @@ la création de la collection.
   <ListboxDisabledItem />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/listbox/disabled-item.tsx"
+```tsx pure file="../../../src/components/examples/listbox/disabled-item.tsx"
 ```
 
     </Tab>
@@ -224,6 +231,8 @@ la création de la collection.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Sélection étendue
 
 Utilisez `selectionMode="extended"` lorsque plusieurs éléments doivent pouvoir être sélectionnés avec des touches
@@ -233,11 +242,12 @@ modificatrices, comme `Cmd` sur Mac ou `Ctrl` sous Windows/Linux.
   <ListboxExtendedSelection />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/listbox/extended-selection.tsx"
+```tsx pure file="../../../src/components/examples/listbox/extended-selection.tsx"
 ```
 
     </Tab>
@@ -250,6 +260,8 @@ modificatrices, comme `Cmd` sur Mac ou `Ctrl` sous Windows/Linux.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Filtrage
 
 Utilisez `Listbox.Filter` avec `useListCollection`. Il ajoute l’icône de recherche par défaut et réunit visuellement
@@ -259,11 +271,12 @@ le champ avec le `Content` placé juste après. Désactivez `typeahead` lorsque 
   <ListboxFiltering />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/listbox/filtering.tsx"
+```tsx pure file="../../../src/components/examples/listbox/filtering.tsx"
 ```
 
     </Tab>
@@ -276,6 +289,8 @@ le champ avec le `Content` placé juste après. Désactivez `typeahead` lorsque 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Grille
 
 Transmettez une collection créée avec `createGridCollection` pour activer la navigation au clavier dans la grille. Ark
@@ -286,11 +301,12 @@ de sélection plutôt qu’une coche dans la cellule afin de conserver des cellu
   <ListboxGrid />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/listbox/grid.tsx"
+```tsx pure file="../../../src/components/examples/listbox/grid.tsx"
 ```
 
     </Tab>
@@ -303,6 +319,8 @@ de sélection plutôt qu’une coche dans la cellule afin de conserver des cellu
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Regroupement
 
 Définissez `groupBy` lors de la création de la collection, puis affichez `ItemGroup` avec `ItemGroupLabel`.
@@ -311,11 +329,12 @@ Définissez `groupBy` lors de la création de la collection, puis affichez `Item
   <ListboxGrouping />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/listbox/grouping.tsx"
+```tsx pure file="../../../src/components/examples/listbox/grouping.tsx"
 ```
 
     </Tab>
@@ -328,6 +347,8 @@ Définissez `groupBy` lors de la création de la collection, puis affichez `Item
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Orientation horizontale
 
 Définissez `orientation="horizontal"` pour disposer les éléments horizontalement et activer la navigation avec les
@@ -337,11 +358,12 @@ flèches gauche et droite.
   <ListboxHorizontal />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/listbox/horizontal.tsx"
+```tsx pure file="../../../src/components/examples/listbox/horizontal.tsx"
 ```
 
     </Tab>
@@ -354,6 +376,8 @@ flèches gauche et droite.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Sélection multiple
 
 Définissez `selectionMode="multiple"` pour sélectionner plusieurs valeurs sans touche modificatrice.
@@ -362,11 +386,12 @@ Définissez `selectionMode="multiple"` pour sélectionner plusieurs valeurs sans
   <ListboxMultiple />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/listbox/multiple.tsx"
+```tsx pure file="../../../src/components/examples/listbox/multiple.tsx"
 ```
 
     </Tab>
@@ -379,6 +404,8 @@ Définissez `selectionMode="multiple"` pour sélectionner plusieurs valeurs sans
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Utilisez `useListbox` depuis `@moduix/react/listbox` avec `Listbox.RootProvider` lorsque des contrôles situés à
@@ -388,11 +415,12 @@ l’extérieur de la listbox doivent accéder directement à son API.
   <ListboxRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/listbox/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/listbox/root-provider.tsx"
 ```
 
     </Tab>
@@ -405,6 +433,8 @@ l’extérieur de la listbox doivent accéder directement à son API.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Tout sélectionner
 
 Utilisez `useListboxContext` dans un composant enfant pour ajouter un bouton externe « Tout sélectionner ».
@@ -413,11 +443,12 @@ Utilisez `useListboxContext` dans un composant enfant pour ajouter un bouton ext
   <ListboxSelectAll />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/listbox/select-all.tsx"
+```tsx pure file="../../../src/components/examples/listbox/select-all.tsx"
 ```
 
     </Tab>
@@ -430,6 +461,8 @@ Utilisez `useListboxContext` dans un composant enfant pour ajouter un bouton ext
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Champ de filtre séparé
 
 Affichez `Listbox.Input` directement lorsque le champ de filtre et les résultats doivent rester séparés. Sa bordure par
@@ -439,11 +472,12 @@ défaut correspond à celle de `Listbox.Content`. Lorsqu’il reçoit le focus a
   <ListboxStandaloneFilterInput />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/listbox/standalone-filter-input.tsx"
+```tsx pure file="../../../src/components/examples/listbox/standalone-filter-input.tsx"
 ```
 
     </Tab>
@@ -456,6 +490,8 @@ défaut correspond à celle de `Listbox.Content`. Lorsqu’il reçoit le focus a
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Texte de la valeur
 
 Affichez `Listbox.ValueText` lorsque le résumé des valeurs sélectionnées doit rester visible à côté de la liste.
@@ -464,11 +500,12 @@ Affichez `Listbox.ValueText` lorsque le résumé des valeurs sélectionnées doi
   <ListboxValueText />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/listbox/value-text.tsx"
+```tsx pure file="../../../src/components/examples/listbox/value-text.tsx"
 ```
 
     </Tab>
@@ -480,6 +517,8 @@ Affichez `Listbox.ValueText` lorsque le résumé des valeurs sélectionnées doi
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

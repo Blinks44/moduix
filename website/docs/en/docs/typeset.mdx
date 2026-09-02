@@ -32,16 +32,19 @@ container needs to be semantic, such as an `article` or `section`. Keep lists as
   <TypesetBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/typeset/basic.tsx"
+```tsx pure file="../../../src/components/examples/typeset/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -102,6 +105,7 @@ including a nested `Typeset` root.
   <TypesetExcludedSubtree />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs
     values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
@@ -109,7 +113,7 @@ including a nested `Typeset` root.
   >
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/typeset/excluded-subtree.tsx"
+```tsx pure file="../../../src/components/examples/typeset/excluded-subtree.tsx"
 ```
 
     </Tab>
@@ -122,6 +126,8 @@ including a nested `Typeset` root.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Markdown extensions
 
 Task lists, expandable `details` blocks, definition lists, and GFM footnotes use the same tokens and
@@ -131,16 +137,19 @@ block spacing as the core HTML elements.
   <TypesetMarkdownExtensions />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/typeset/markdown-extensions.tsx"
+```tsx pure file="../../../src/components/examples/typeset/markdown-extensions.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Reading rhythm
 
@@ -151,6 +160,7 @@ props.
   <TypesetReadingRhythm />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs
     values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
@@ -158,7 +168,7 @@ props.
   >
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/typeset/reading-rhythm.tsx"
+```tsx pure file="../../../src/components/examples/typeset/reading-rhythm.tsx"
 ```
 
     </Tab>
@@ -171,6 +181,8 @@ props.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Scrollable table
 
 Wrap a table produced by your renderer in `Typeset.Scroll` when it should remain wide and scroll in a
@@ -180,6 +192,7 @@ narrow container. Give the scroller an accessible name that identifies the table
   <TypesetScrollableTable />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs
     values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
@@ -187,7 +200,7 @@ narrow container. Give the scroller an accessible name that identifies the table
   >
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/typeset/scrollable-table.tsx"
+```tsx pure file="../../../src/components/examples/typeset/scrollable-table.tsx"
 ```
 
     </Tab>
@@ -200,6 +213,8 @@ narrow container. Give the scroller an accessible name that identifies the table
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Streaming content
 
 Use a tighter rhythm for chat-like streams. Each new block contributes its own spacing, so existing
@@ -209,6 +224,7 @@ content stays in place as the stream grows.
   <TypesetStreamingContent />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs
     values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
@@ -216,7 +232,7 @@ content stays in place as the stream grows.
   >
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/typeset/streaming-content.tsx"
+```tsx pure file="../../../src/components/examples/typeset/streaming-content.tsx"
 ```
 
     </Tab>
@@ -228,6 +244,8 @@ content stays in place as the stream grows.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

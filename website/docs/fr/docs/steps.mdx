@@ -31,11 +31,12 @@ de cette partie.
   <StepsBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/steps/basic.tsx"
+```tsx pure file="../../../src/components/examples/steps/basic.tsx"
 ```
 
     </Tab>
@@ -47,6 +48,8 @@ de cette partie.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -144,11 +147,12 @@ ou une autre partie de l’interface.
   <StepsControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/steps/controlled.tsx"
+```tsx pure file="../../../src/components/examples/steps/controlled.tsx"
 ```
 
     </Tab>
@@ -161,6 +165,8 @@ ou une autre partie de l’interface.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Validation
 
 Utilisez `linear`, `isStepValid` et `onStepInvalid` pour empêcher la navigation tant que l’étape courante ne respecte
@@ -170,11 +176,12 @@ pas votre règle de validation.
   <StepsValidation />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/steps/validation.tsx"
+```tsx pure file="../../../src/components/examples/steps/validation.tsx"
 ```
 
     </Tab>
@@ -187,6 +194,8 @@ pas votre règle de validation.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Progression
 
 Ajoutez `Steps.Progress` lorsque le parcours doit afficher une barre visuelle de progression à côté de la liste des
@@ -196,11 +205,12 @@ Ajoutez `Steps.Progress` lorsque le parcours doit afficher une barre visuelle de
   <StepsProgress />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/steps/progress.tsx"
+```tsx pure file="../../../src/components/examples/steps/progress.tsx"
 ```
 
     </Tab>
@@ -213,6 +223,8 @@ Ajoutez `Steps.Progress` lorsque le parcours doit afficher une barre visuelle de
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### RootProvider
 
 Créez l’état avec `Steps.useSteps()` en dehors de l’arbre des parties affiché, puis transmettez-le à
@@ -222,11 +234,12 @@ Créez l’état avec `Steps.useSteps()` en dehors de l’arbre des parties affi
   <StepsRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/steps/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/steps/root-provider.tsx"
 ```
 
     </Tab>
@@ -239,6 +252,8 @@ Créez l’état avec `Steps.useSteps()` en dehors de l’arbre des parties affi
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Orientation verticale
 
 Définissez `orientation="vertical"` lorsque la liste des étapes doit se trouver à côté du panneau actif sur les
@@ -248,11 +263,12 @@ Définissez `orientation="vertical"` lorsque la liste des étapes doit se trouve
   <StepsVertical />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/steps/vertical.tsx"
+```tsx pure file="../../../src/components/examples/steps/vertical.tsx"
 ```
 
     </Tab>
@@ -265,6 +281,8 @@ Définissez `orientation="vertical"` lorsque la liste des étapes doit se trouve
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Personnalisation avancée
 
 Utilisez `asChild` lorsqu’un déclencheur doit être rendu sous forme d’ancre ou de lien de routeur plutôt que sous
@@ -275,11 +293,12 @@ comportements Ark liés au clavier et au focus.
   <StepsCustomComposition />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/steps/custom-composition.tsx"
+```tsx pure file="../../../src/components/examples/steps/custom-composition.tsx"
 ```
 
     </Tab>
@@ -291,6 +310,8 @@ comportements Ark liés au clavier et au focus.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

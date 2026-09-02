@@ -42,11 +42,12 @@ import SidebarWorkspaceSelect from '@/components/examples/sidebar/workspace-sele
   <SidebarBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/sidebar/basic.tsx"
+```tsx pure file="../../../src/components/examples/sidebar/basic.tsx"
 ```
 
     </Tab>
@@ -58,6 +59,8 @@ import SidebarWorkspaceSelect from '@/components/examples/sidebar/workspace-sele
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -221,11 +224,12 @@ Sidebar намеренно не анимирует ширину панели: CS
   <SidebarNestedNavigation />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/sidebar/nested-navigation.tsx"
+```tsx pure file="../../../src/components/examples/sidebar/nested-navigation.tsx"
 ```
 
     </Tab>
@@ -238,6 +242,8 @@ Sidebar намеренно не анимирует ширину панели: CS
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Собственная область прокрутки
 
 По умолчанию используется нативная прокрутка. Если нужен стилизованный ползунок или затухание у
@@ -248,11 +254,12 @@ Sidebar намеренно не анимирует ширину панели: CS
   <SidebarCustomScrollArea />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/sidebar/custom-scroll-area.tsx"
+```tsx pure file="../../../src/components/examples/sidebar/custom-scroll-area.tsx"
 ```
 
     </Tab>
@@ -265,6 +272,8 @@ Sidebar намеренно не анимирует ширину панели: CS
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Сохраняемый макет для десктопа
 
 Храните ширину десктопной боковой панели вне компонента. Управляйте `size`, обновляйте его во
@@ -276,11 +285,12 @@ Sidebar намеренно не анимирует ширину панели: CS
   <SidebarPersistedLayout />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/sidebar/persisted-layout.tsx"
+```tsx pure file="../../../src/components/examples/sidebar/persisted-layout.tsx"
 ```
 
     </Tab>
@@ -292,6 +302,8 @@ Sidebar намеренно не анимирует ширину панели: CS
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 <span id="recommended-app-shell" />
 
@@ -309,11 +321,12 @@ Sidebar намеренно не анимирует ширину панели: CS
   <SidebarNestedNavigationAndAccountMenu />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/sidebar/nested-navigation-and-account-menu.tsx"
+```tsx pure file="../../../src/components/examples/sidebar/nested-navigation-and-account-menu.tsx"
 ```
 
     </Tab>
@@ -326,6 +339,8 @@ Sidebar намеренно не анимирует ширину панели: CS
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Боковая панель справа
 
 Передайте `side="right"` и отрендерите `Inset`, `Trigger`, `ResizeTrigger`, затем
@@ -337,11 +352,12 @@ Sidebar намеренно не анимирует ширину панели: CS
   <SidebarRightSidebar />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/sidebar/right-sidebar.tsx"
+```tsx pure file="../../../src/components/examples/sidebar/right-sidebar.tsx"
 ```
 
     </Tab>
@@ -353,6 +369,8 @@ Sidebar намеренно не анимирует ширину панели: CS
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Выбор рабочего пространства
 
@@ -366,11 +384,12 @@ Sidebar намеренно не анимирует ширину панели: CS
   <SidebarWorkspaceSelect />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/sidebar/workspace-select.tsx"
+```tsx pure file="../../../src/components/examples/sidebar/workspace-select.tsx"
 ```
 
     </Tab>
@@ -383,6 +402,8 @@ Sidebar намеренно не анимирует ширину панели: CS
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Расширенная настройка
 
 Используйте `Splitter` напрямую, если нужны другие ограничения панелей, собственные id inset,
@@ -392,11 +413,12 @@ Sidebar намеренно не анимирует ширину панели: CS
   <SidebarCustomSizes />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/sidebar/custom-sizes.tsx"
+```tsx pure file="../../../src/components/examples/sidebar/custom-sizes.tsx"
 ```
 
     </Tab>
@@ -408,6 +430,8 @@ Sidebar намеренно не анимирует ширину панели: CS
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

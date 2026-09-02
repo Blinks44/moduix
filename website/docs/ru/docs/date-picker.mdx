@@ -45,16 +45,19 @@ import * as DatePickerDocs from '@/components/examples/date-picker/css-propertie
   <DatePickerBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/basic.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -203,11 +206,12 @@ DatePicker
   <DatePickerControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/controlled.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/controlled.tsx"
 ```
 
     </Tab>
@@ -220,6 +224,8 @@ DatePicker
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Представление по умолчанию и фиксированное число недель
 
 Используйте `defaultView`, чтобы открывать календарь на нужной панели. Добавьте `fixedWeeks`, чтобы панель дней
@@ -229,16 +235,19 @@ DatePicker
   <DatePickerDefaultView />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/default-view-and-fixed-weeks.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/default-view-and-fixed-weeks.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Состояние поля
 
@@ -249,11 +258,12 @@ DatePicker
   <DatePickerFieldState />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/field-state.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/field-state.tsx"
 ```
 
     </Tab>
@@ -266,6 +276,8 @@ DatePicker
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Форма
 
 Передайте `name`, чтобы включить выбранную дату в отправку нативной формы. Если не задать плейсхолдер и подписи
@@ -275,11 +287,12 @@ DatePicker
   <DatePickerForm />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/form.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/form.tsx"
 ```
 
     </Tab>
@@ -292,6 +305,8 @@ DatePicker
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Встроенный календарь и номера недель
 
 Задайте `inline`, чтобы календарь оставался в потоке документа. В этом режиме размещайте `Content` непосредственно
@@ -301,11 +316,12 @@ DatePicker
   <DatePickerInline />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/inline-and-week-numbers.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/inline-and-week-numbers.tsx"
 ```
 
     </Tab>
@@ -318,6 +334,8 @@ DatePicker
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Локаль и формат
 
 `locale`, `startOfWeek`, `format` и `parse` передаются в Ark UI без изменений.
@@ -326,16 +344,19 @@ DatePicker
   <DatePickerLocale />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/locale-and-format.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/locale-and-format.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Минимальная дата, максимальная дата и недоступные даты
 
@@ -346,16 +367,19 @@ DatePicker
   <DatePickerMinMax />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/min-max-and-unavailable.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/min-max-and-unavailable.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Выбор месяца и года
 
@@ -367,11 +391,12 @@ Ark предоставляет нативные части `DatePicker.MonthSele
   <DatePickerMonthYearSelect />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/month-year-select.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/month-year-select.tsx"
 ```
 
     </Tab>
@@ -384,6 +409,8 @@ Ark предоставляет нативные части `DatePicker.MonthSele
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Выбор месяца
 
 Если пользователи выбирают только месяц, задайте `defaultView="month"` и `minView="month"`. Используйте `format` и
@@ -393,16 +420,19 @@ Ark предоставляет нативные части `DatePicker.MonthSele
   <DatePickerMonthPicker />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/month-picker.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/month-picker.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Несколько дат
 
@@ -414,11 +444,12 @@ Ark предоставляет нативные части `DatePicker.MonthSele
   <DatePickerMultiple />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/multiple.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/multiple.tsx"
 ```
 
     </Tab>
@@ -431,6 +462,8 @@ Ark предоставляет нативные части `DatePicker.MonthSele
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Несколько месяцев
 
 Задайте `numOfMonths`, чтобы одновременно показывать несколько месяцев и пользователям было проще выбрать даты.
@@ -439,11 +472,12 @@ Ark предоставляет нативные части `DatePicker.MonthSele
   <DatePickerMultipleMonths />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/multiple-months.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/multiple-months.tsx"
 ```
 
     </Tab>
@@ -456,6 +490,8 @@ Ark предоставляет нативные части `DatePicker.MonthSele
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Предустановки
 
 `DatePicker.PresetTrigger` принимает встроенные имена предустановленных диапазонов Zag, например `last7Days`, или
@@ -466,11 +502,12 @@ Ark предоставляет нативные части `DatePicker.MonthSele
   <DatePickerPresets />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/presets.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/presets.tsx"
 ```
 
     </Tab>
@@ -483,6 +520,8 @@ Ark предоставляет нативные части `DatePicker.MonthSele
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Диапазон
 
 Используйте `selectionMode="range"` с двумя значениями. Ark управляет подсветкой диапазона при наведении, отметками
@@ -493,16 +532,19 @@ Ark предоставляет нативные части `DatePicker.MonthSele
   <DatePickerRange />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/range.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/range.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Root Provider
 
@@ -513,11 +555,12 @@ Ark предоставляет нативные части `DatePicker.MonthSele
   <DatePickerRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/root-provider.tsx"
 ```
 
     </Tab>
@@ -530,6 +573,8 @@ Ark предоставляет нативные части `DatePicker.MonthSele
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Выбор сегодняшней даты
 
 Используйте `DatePicker.Context`, если соседняя кнопка должна вызывать методы Ark, например `selectToday()`.
@@ -538,11 +583,12 @@ Ark предоставляет нативные части `DatePicker.MonthSele
   <DatePickerSelectToday />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/select-today.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/select-today.tsx"
 ```
 
     </Tab>
@@ -555,6 +601,8 @@ Ark предоставляет нативные части `DatePicker.MonthSele
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Дата и время
 
 Чтобы сохранить время в выбранном значении, используйте объекты `CalendarDateTime`. Скомпонуйте календарь с
@@ -564,11 +612,12 @@ Ark предоставляет нативные части `DatePicker.MonthSele
   <DatePickerWithTime />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/with-time.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/with-time.tsx"
 ```
 
     </Tab>
@@ -581,6 +630,8 @@ Ark предоставляет нативные части `DatePicker.MonthSele
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Выбор года
 
 Если пользователи выбирают только год, задайте `defaultView="year"`, `minView="year"` и `maxView="year"`. В заголовке
@@ -591,16 +642,19 @@ Ark предоставляет нативные части `DatePicker.MonthSele
   <DatePickerYearPicker />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/year-picker.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/year-picker.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Расширенная настройка
 
@@ -611,16 +665,19 @@ Ark предоставляет нативные части `DatePicker.MonthSele
   <DatePickerAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/advanced-customization.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

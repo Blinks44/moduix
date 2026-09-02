@@ -40,11 +40,12 @@ pnpm add @ark-ui/react @moduix/react
   <FocusTrapBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/focus-trap/basic.tsx"
+```tsx pure file="../../../src/components/examples/focus-trap/basic.tsx"
 ```
 
     </Tab>
@@ -56,6 +57,8 @@ pnpm add @ark-ui/react @moduix/react
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 Нажмите **Start review**, чтобы включить удержание фокуса. Фокус перейдёт на **Review details**, а затем клавиши `Tab`
 и `Shift + Tab` будут перемещать его между двумя кнопками в карточке. Нажмите **Finish review**, чтобы отключить

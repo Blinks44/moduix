@@ -39,11 +39,12 @@ import ComboboxWithTagsInput from '@/components/examples/combobox/with-tags-inpu
   <ComboboxBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/basic.tsx"
+```tsx pure file="../../../src/components/examples/combobox/basic.tsx"
 ```
 
     </Tab>
@@ -55,6 +56,8 @@ import ComboboxWithTagsInput from '@/components/examples/combobox/with-tags-inpu
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -222,11 +225,12 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
   <ComboboxAsyncSearch />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/async-search.tsx"
+```tsx pure file="../../../src/components/examples/combobox/async-search.tsx"
 ```
 
     </Tab>
@@ -239,6 +243,8 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Автоматическая подсветка
 
 Задайте `inputBehavior="autohighlight"`, чтобы при вводе выделять первый подходящий элемент и выбирать его клавишей Enter
@@ -248,11 +254,12 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
   <ComboboxAutoHighlight />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/auto-highlight.tsx"
+```tsx pure file="../../../src/components/examples/combobox/auto-highlight.tsx"
 ```
 
     </Tab>
@@ -265,6 +272,8 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Управляемое состояние
 
 Управляйте массивом выбранных строк и получайте новое значение из `details.value`.
@@ -273,11 +282,12 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
   <ComboboxControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/controlled.tsx"
+```tsx pure file="../../../src/components/examples/combobox/controlled.tsx"
 ```
 
     </Tab>
@@ -290,6 +300,8 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Создание значения
 
 Сочетайте `allowCustomValue` с изменением коллекции, чтобы показывать временный элемент «Создать», а после выбора
@@ -299,11 +311,12 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
   <ComboboxCreatable />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/creatable.tsx"
+```tsx pure file="../../../src/components/examples/combobox/creatable.tsx"
 ```
 
     </Tab>
@@ -316,6 +329,8 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Пользовательские объекты и группировка
 
 Настройте в коллекции преобразование объектов в подписи и значения, затем отображайте группы Ark через `collection.group()`.
@@ -325,11 +340,12 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
   <ComboboxCustomObjectsAndGrouping />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/custom-objects-and-grouping.tsx"
+```tsx pure file="../../../src/components/examples/combobox/custom-objects-and-grouping.tsx"
 ```
 
     </Tab>
@@ -342,6 +358,8 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Динамическое изменение
 
 Формируйте коллекцию из текущего ввода, если предложения появляются только после начала ввода. Проверяйте
@@ -351,11 +369,12 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
   <ComboboxDynamic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/dynamic.tsx"
+```tsx pure file="../../../src/components/examples/combobox/dynamic.tsx"
 ```
 
     </Tab>
@@ -368,6 +387,8 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Встроенное автодополнение
 
 Задайте `inputBehavior="autocomplete"` и фильтруйте с помощью `startsWith`, чтобы подставлять в поле первый подходящий
@@ -377,11 +398,12 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
   <ComboboxInlineAutocomplete />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/inline-autocomplete.tsx"
+```tsx pure file="../../../src/components/examples/combobox/inline-autocomplete.tsx"
 ```
 
     </Tab>
@@ -394,6 +416,8 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Ограничение результатов
 
 Задайте `limit` в `useListCollection`, если полный набор совпадений не нужен или его трудно просматривать во всплывающем списке.
@@ -403,11 +427,12 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
   <ComboboxLimitResults />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/limit-results.tsx"
+```tsx pure file="../../../src/components/examples/combobox/limit-results.tsx"
 ```
 
     </Tab>
@@ -420,6 +445,8 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Множественный выбор
 
 Включите `multiple` и отображайте выбранные объекты из управляемого `value`. Теги нужно отрисовать на стороне приложения.
@@ -429,11 +456,12 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
   <ComboboxMultiple />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/multiple.tsx"
+```tsx pure file="../../../src/components/examples/combobox/multiple.tsx"
 ```
 
     </Tab>
@@ -446,6 +474,8 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Создавайте состояние через `useCombobox` из moduix, когда внешним элементам управления нужны императивные методы или общее
@@ -455,11 +485,12 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
   <ComboboxRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/combobox/root-provider.tsx"
 ```
 
     </Tab>
@@ -472,6 +503,8 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Виртуализация
 
 Для больших коллекций отображайте только видимые строки с помощью TanStack Virtual и связывайте клавиатурную навигацию Ark
@@ -481,11 +514,12 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
   <ComboboxVirtualized />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/virtualized.tsx"
+```tsx pure file="../../../src/components/examples/combobox/virtualized.tsx"
 ```
 
     </Tab>
@@ -498,6 +532,8 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Вместе с TagsInput
 
 Используйте `Combobox` вместе с `TagsInput`, если пользователю нужны отфильтрованные предложения, а выбранные значения должны
@@ -507,16 +543,19 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
   <ComboboxWithTagsInput />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/with-tags-input.tsx"
+```tsx pure file="../../../src/components/examples/combobox/with-tags-input.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Расширенная настройка
 
@@ -527,11 +566,12 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
   <ComboboxAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/combobox/advanced-customization.tsx"
 ```
 
     </Tab>
@@ -543,6 +583,8 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

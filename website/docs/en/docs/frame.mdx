@@ -31,11 +31,12 @@ example, the iframe fills the available width and starts at a comfortable height
   <FrameBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/frame/basic.tsx"
+```tsx pure file="../../../src/components/examples/frame/basic.tsx"
 ```
 
     </Tab>
@@ -47,6 +48,8 @@ example, the iframe fills the available width and starts at a comfortable height
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 `Frame` also passes the iframe document to nested Ark components. DOM queries, portals, and focus management then use
 the correct document when the preview contains Ark UI components. You can place components such as `Button`, `Dialog`,
@@ -61,11 +64,12 @@ nodes through the `head` prop to add styles, fonts, or metadata to the iframe do
   <FrameHead />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/frame/head.tsx"
+```tsx pure file="../../../src/components/examples/frame/head.tsx"
 ```
 
     </Tab>
@@ -77,6 +81,8 @@ nodes through the `head` prop to add styles, fonts, or metadata to the iframe do
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 The `head` content is inserted into the iframe's `<head>`. If you render moduix components inside the iframe, load the
 styles they need there as well. The host page's CSS does not cross the iframe boundary.

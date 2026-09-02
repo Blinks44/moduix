@@ -39,16 +39,19 @@ utilisez `asChild` lorsque votre propre bouton doit servir de déclencheur.
   <PopoverBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/basic.tsx"
+```tsx pure file="../../../src/components/examples/popover/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -198,11 +201,12 @@ Utilisez `Anchor` lorsqu’un autre élément doit fournir la référence de pos
   <PopoverAnchor />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/anchor.tsx"
+```tsx pure file="../../../src/components/examples/popover/anchor.tsx"
 ```
 
     </Tab>
@@ -215,6 +219,8 @@ Utilisez `Anchor` lorsqu’un autre élément doit fournir la référence de pos
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Comportement de fermeture
 
 Désactivez la fermeture lors d’une interaction extérieure ou avec Échap uniquement lorsque le
@@ -224,16 +230,19 @@ parcours prévoit une action de fermeture explicite.
   <PopoverCloseBehavior />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/close-behavior.tsx"
+```tsx pure file="../../../src/components/examples/popover/close-behavior.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Contexte
 
@@ -244,16 +253,19 @@ Utilisez `Popover.Context` lorsqu’une fonction de rendu rend la composition pl
   <PopoverContext />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/context.tsx"
+```tsx pure file="../../../src/components/examples/popover/context.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### État contrôlé
 
@@ -264,11 +276,12 @@ fenêtre avec le reste de l’application.
   <PopoverControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/controlled.tsx"
+```tsx pure file="../../../src/components/examples/popover/controlled.tsx"
 ```
 
     </Tab>
@@ -281,6 +294,8 @@ fenêtre avec le reste de l’application.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Montage différé
 
 Utilisez `lazyMount` et `unmountOnExit` lorsque le contenu ne doit être monté que pendant
@@ -290,16 +305,19 @@ l’utilisation de la fenêtre.
   <PopoverLazyMount />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/lazy-mount.tsx"
+```tsx pure file="../../../src/components/examples/popover/lazy-mount.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Mode modal
 
@@ -311,11 +329,12 @@ choisir la première cible du focus.
   <PopoverModal />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/modal.tsx"
+```tsx pure file="../../../src/components/examples/popover/modal.tsx"
 ```
 
     </Tab>
@@ -328,6 +347,8 @@ choisir la première cible du focus.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Plusieurs déclencheurs
 
 Partagez une même zone de contenu entre plusieurs déclencheurs en attribuant une `value` à chacun
@@ -337,11 +358,12 @@ et en réagissant à la valeur active.
   <PopoverMultipleTriggers />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/multiple-triggers.tsx"
+```tsx pure file="../../../src/components/examples/popover/multiple-triggers.tsx"
 ```
 
     </Tab>
@@ -354,6 +376,8 @@ et en réagissant à la valeur active.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Popover imbriqué
 
 Les Popover imbriqués ont chacun leur propre état. Rendez le Popover imbriqué avec
@@ -364,11 +388,12 @@ calques.
   <PopoverNested />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/nested.tsx"
+```tsx pure file="../../../src/components/examples/popover/nested.tsx"
 ```
 
     </Tab>
@@ -381,6 +406,8 @@ calques.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Positionnement
 
 Transmettez les options de positionnement d’Ark via la propriété `positioning` de la racine.
@@ -389,16 +416,19 @@ Transmettez les options de positionnement d’Ark via la propriété `positionin
   <PopoverPlacement />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/placement.tsx"
+```tsx pure file="../../../src/components/examples/popover/placement.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Root Provider
 
@@ -409,11 +439,12 @@ l’arborescence du Popover doivent lire ou modifier son état.
   <PopoverRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/popover/root-provider.tsx"
 ```
 
     </Tab>
@@ -426,6 +457,8 @@ l’arborescence du Popover doivent lire ou modifier son état.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Même largeur
 
 Définissez `positioning.sameWidth` et utilisez la variable Ark `--reference-width` sur le contenu.
@@ -434,11 +467,12 @@ Définissez `positioning.sameWidth` et utilisez la variable Ark `--reference-wid
   <PopoverSameWidth />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/same-width.tsx"
+```tsx pure file="../../../src/components/examples/popover/same-width.tsx"
 ```
 
     </Tab>
@@ -451,6 +485,8 @@ Définissez `positioning.sameWidth` et utilisez la variable Ark `--reference-wid
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Avec une flèche
 
 Ajoutez `Popover.Arrow` lorsque la fenêtre doit pointer visuellement vers son élément de référence.
@@ -460,16 +496,19 @@ L’enveloppe rend par défaut l’élément `ArrowTip` stylisé par moduix.
   <PopoverWithArrow />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/with-arrow.tsx"
+```tsx pure file="../../../src/components/examples/popover/with-arrow.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Personnalisation avancée
 
@@ -481,11 +520,12 @@ donc l’omettre lorsque le panneau n’a pas besoin d’un repère visuel.
   <PopoverAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/popover/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/popover/advanced-customization.tsx"
 ```
 
     </Tab>
@@ -497,6 +537,8 @@ donc l’omettre lorsque le panneau n’a pas besoin d’un repère visuel.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

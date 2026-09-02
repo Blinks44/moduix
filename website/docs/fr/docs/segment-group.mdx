@@ -41,16 +41,19 @@ natif synchronisé.
   <SegmentGroupBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/segment-group/basic.tsx"
+```tsx pure file="../../../src/components/examples/segment-group/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -151,11 +154,12 @@ géométrie des éléments utilisée par l’indicateur.
   <SegmentGroupConditionalMount />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/segment-group/conditional-mount.tsx"
+```tsx pure file="../../../src/components/examples/segment-group/conditional-mount.tsx"
 ```
 
     </Tab>
@@ -168,6 +172,8 @@ géométrie des éléments utilisée par l’indicateur.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### État contrôlé
 
 Conservez la valeur sélectionnée dans l’état React et mettez-la à jour avec `details.value` dans
@@ -177,11 +183,12 @@ Conservez la valeur sélectionnée dans l’état React et mettez-la à jour ave
   <SegmentGroupControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/segment-group/controlled.tsx"
+```tsx pure file="../../../src/components/examples/segment-group/controlled.tsx"
 ```
 
     </Tab>
@@ -194,6 +201,8 @@ Conservez la valeur sélectionnée dans l’état React et mettez-la à jour ave
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Élément et groupe désactivés
 
 Définissez `disabled` sur un élément lorsqu’un seul segment doit être indisponible. Définissez-le sur
@@ -204,11 +213,12 @@ l’opacité du groupe, sans la cumuler avec celle de chaque élément.
   <SegmentGroupDisabled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/segment-group/disabled.tsx"
+```tsx pure file="../../../src/components/examples/segment-group/disabled.tsx"
 ```
 
     </Tab>
@@ -221,6 +231,8 @@ l’opacité du groupe, sans la cumuler avec celle de chaque élément.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Field
 
 Enveloppez le groupe dans `Field` lorsque son champ natif automatique doit être accompagné d’un texte
@@ -231,11 +243,12 @@ du champ.
   <SegmentGroupField />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/segment-group/field.tsx"
+```tsx pure file="../../../src/components/examples/segment-group/field.tsx"
 ```
 
     </Tab>
@@ -248,6 +261,8 @@ du champ.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Soumission du formulaire
 
 Transmettez `name` à la racine pour inclure la valeur sélectionnée dans les données du formulaire
@@ -257,11 +272,12 @@ natif. `SegmentGroup.Items` ajoute un champ de formulaire natif à chaque élém
   <SegmentGroupFormSubmission />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/segment-group/form-submission.tsx"
+```tsx pure file="../../../src/components/examples/segment-group/form-submission.tsx"
 ```
 
     </Tab>
@@ -274,6 +290,8 @@ natif. `SegmentGroup.Items` ajoute un champ de formulaire natif à chaque élém
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### État invalide
 
 Définissez `invalid` sur la racine lorsque la validation échoue. Associez-le à `required` et `name`
@@ -283,16 +301,19 @@ lorsque le groupe participe à la validation native du formulaire.
   <SegmentGroupInvalid />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/segment-group/invalid.tsx"
+```tsx pure file="../../../src/components/examples/segment-group/invalid.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Root Provider
 
@@ -303,11 +324,12 @@ l’arborescence des segments doivent accéder au même état.
   <SegmentGroupRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/segment-group/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/segment-group/root-provider.tsx"
 ```
 
     </Tab>
@@ -320,6 +342,8 @@ l’arborescence des segments doivent accéder au même état.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Orientation verticale
 
 Définissez `orientation="vertical"` lorsque le groupe doit utiliser une disposition verticale et
@@ -329,11 +353,12 @@ une navigation verticale avec les touches fléchées.
   <SegmentGroupVerticalOrientation />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/segment-group/vertical-orientation.tsx"
+```tsx pure file="../../../src/components/examples/segment-group/vertical-orientation.tsx"
 ```
 
     </Tab>
@@ -346,6 +371,8 @@ une navigation verticale avec les touches fléchées.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Personnalisation avancée
 
 Utilisez `SegmentGroup.Item asChild` à la place de `SegmentGroup.Items` lorsque la disposition
@@ -355,11 +382,12 @@ personnalisée du libellé doit posséder le nœud DOM de l’élément.
   <SegmentGroupAsChild />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/segment-group/aschild.tsx"
+```tsx pure file="../../../src/components/examples/segment-group/aschild.tsx"
 ```
 
     </Tab>
@@ -371,6 +399,8 @@ personnalisée du libellé doit posséder le nœud DOM de l’élément.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

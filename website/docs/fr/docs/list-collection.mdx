@@ -52,16 +52,19 @@ Passez la collection à un composant basé sur Ark et affichez ses éléments à
   <ListCollectionBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/list-collection/basic.tsx"
+```tsx pure file="../../../src/components/examples/list-collection/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 Conservez une collection statique en dehors du composant lorsque ses éléments ne changent pas. Si
 les éléments viennent de props, de l'état React ou d'une requête, utilisez `useMemo` autour de

@@ -31,11 +31,12 @@ frame. The example styles its items and limits the root width separately.
   <MarqueeBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/marquee/basic.tsx"
+```tsx pure file="../../../src/components/examples/marquee/basic.tsx"
 ```
 
     </Tab>
@@ -47,6 +48,8 @@ frame. The example styles its items and limits the root width separately.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -153,11 +156,12 @@ between duplicated content instances.
   <MarqueeAutoFill />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/marquee/auto-fill.tsx"
+```tsx pure file="../../../src/components/examples/marquee/auto-fill.tsx"
 ```
 
     </Tab>
@@ -170,6 +174,8 @@ between duplicated content instances.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Edge fades
 
 Add `Marquee.Edge` on the sides that should fade into the page background. The edge part is
@@ -179,11 +185,12 @@ decorative and does not receive pointer events.
   <MarqueeEdges />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/marquee/edges.tsx"
+```tsx pure file="../../../src/components/examples/marquee/edges.tsx"
 ```
 
     </Tab>
@@ -196,6 +203,8 @@ decorative and does not receive pointer events.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Finite Loops
 
 Set `loopCount` for finite playback. `onLoopComplete` fires after each loop and `onComplete` fires
@@ -205,11 +214,12 @@ after the final loop.
   <MarqueeFiniteLoops />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/marquee/finite-loops.tsx"
+```tsx pure file="../../../src/components/examples/marquee/finite-loops.tsx"
 ```
 
     </Tab>
@@ -222,6 +232,8 @@ after the final loop.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Pause on Interaction
 
 Use `pauseOnInteraction` to pause while the user hovers the marquee or focuses content inside it.
@@ -230,11 +242,12 @@ Use `pauseOnInteraction` to pause while the user hovers the marquee or focuses c
   <MarqueePauseOnInteraction />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/marquee/pause-on-interaction.tsx"
+```tsx pure file="../../../src/components/examples/marquee/pause-on-interaction.tsx"
 ```
 
     </Tab>
@@ -247,6 +260,8 @@ Use `pauseOnInteraction` to pause while the user hovers the marquee or focuses c
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Use moduix `useMarquee()` with `Marquee.RootProvider` when external controls need to pause, resume,
@@ -256,11 +271,12 @@ or restart playback.
   <MarqueeProgrammaticControl />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/marquee/programmatic-control.tsx"
+```tsx pure file="../../../src/components/examples/marquee/programmatic-control.tsx"
 ```
 
     </Tab>
@@ -273,6 +289,8 @@ or restart playback.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Reverse
 
 Use `reverse` when the content should move opposite the configured side without changing
@@ -282,11 +300,12 @@ orientation.
   <MarqueeReverse />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/marquee/reverse.tsx"
+```tsx pure file="../../../src/components/examples/marquee/reverse.tsx"
 ```
 
     </Tab>
@@ -299,6 +318,8 @@ orientation.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Right to left
 
 Wrap the marquee in `LocaleProvider` with an RTL locale. Logical `start` and `end` edges then follow
@@ -308,11 +329,12 @@ the configured direction.
   <MarqueeRtl />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/marquee/rtl.tsx"
+```tsx pure file="../../../src/components/examples/marquee/rtl.tsx"
 ```
 
     </Tab>
@@ -325,6 +347,8 @@ the configured direction.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Speed
 
 Control motion with `speed`, measured in pixels per second. Lower values are easier to read.
@@ -333,11 +357,12 @@ Control motion with `speed`, measured in pixels per second. Lower values are eas
   <MarqueeSpeed />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/marquee/speed.tsx"
+```tsx pure file="../../../src/components/examples/marquee/speed.tsx"
 ```
 
     </Tab>
@@ -350,6 +375,8 @@ Control motion with `speed`, measured in pixels per second. Lower values are eas
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Vertical
 
 Set `side="top"` or `side="bottom"` for vertical marquees. The root uses
@@ -359,11 +386,12 @@ Set `side="top"` or `side="bottom"` for vertical marquees. The root uses
   <MarqueeVertical />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/marquee/vertical.tsx"
+```tsx pure file="../../../src/components/examples/marquee/vertical.tsx"
 ```
 
     </Tab>
@@ -375,6 +403,8 @@ Set `side="top"` or `side="bottom"` for vertical marquees. The root uses
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

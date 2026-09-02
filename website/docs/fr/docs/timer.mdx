@@ -31,16 +31,19 @@ l’élément hôte ou fournir vos propres enfants.
   <TimerBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/timer/basic.tsx"
+```tsx pure file="../../../src/components/examples/timer/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -139,11 +142,12 @@ Définissez `countdown` et `startMs` si l’affichage doit décompter jusqu’à
   <TimerCountdown />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/timer/countdown.tsx"
+```tsx pure file="../../../src/components/examples/timer/countdown.tsx"
 ```
 
     </Tab>
@@ -156,6 +160,8 @@ Définissez `countdown` et `startMs` si l’affichage doit décompter jusqu’à
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Événements
 
 Utilisez `onTick` et `onComplete` pour les effets de bord liés au cycle de vie du minuteur.
@@ -164,11 +170,12 @@ Utilisez `onTick` et `onComplete` pour les effets de bord liés au cycle de vie 
   <TimerEvents />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/timer/events.tsx"
+```tsx pure file="../../../src/components/examples/timer/events.tsx"
 ```
 
     </Tab>
@@ -181,6 +188,8 @@ Utilisez `onTick` et `onComplete` pour les effets de bord liés au cycle de vie 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Intervalle
 
 Utilisez une valeur plus petite pour `interval` avec un élément `milliseconds` si l’interface doit être actualisée
@@ -190,11 +199,12 @@ plusieurs fois par seconde.
   <TimerInterval />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/timer/interval.tsx"
+```tsx pure file="../../../src/components/examples/timer/interval.tsx"
 ```
 
     </Tab>
@@ -207,6 +217,8 @@ plusieurs fois par seconde.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Pomodoro
 
 Utilisez `onComplete` pour passer du travail à la pause et inversement lorsque le minuteur doit enchaîner les cycles.
@@ -215,11 +227,12 @@ Utilisez `onComplete` pour passer du travail à la pause et inversement lorsque 
   <TimerPomodoro />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/timer/pomodoro.tsx"
+```tsx pure file="../../../src/components/examples/timer/pomodoro.tsx"
 ```
 
     </Tab>
@@ -232,6 +245,8 @@ Utilisez `onComplete` pour passer du travail à la pause et inversement lorsque 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Personnalisation avancée
 
 Utilisez `useTimer()` lorsque l’état et les méthodes du minuteur doivent aussi être disponibles en dehors de l’arbre
@@ -242,11 +257,12 @@ personnalisés.
   <TimerRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/timer/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/timer/root-provider.tsx"
 ```
 
     </Tab>
@@ -258,6 +274,8 @@ personnalisés.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

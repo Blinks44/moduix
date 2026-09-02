@@ -43,16 +43,19 @@ Dans le cas courant, utilisez `<ToggleGroup>`. C’est le raccourci de `<ToggleG
   <ToggleGroupBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle-group/basic.tsx"
+```tsx pure file="../../../src/components/examples/toggle-group/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -146,16 +149,19 @@ et le comportement clavier.
   <ToggleGroupAsChild />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle-group/as-child.tsx"
+```tsx pure file="../../../src/components/examples/toggle-group/as-child.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Contexte
 
@@ -166,16 +172,19 @@ actuel du groupe. `ToggleGroup.Context` fournit le même état via une render pr
   <ToggleGroupContext />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle-group/context.tsx"
+```tsx pure file="../../../src/components/examples/toggle-group/context.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Valeur contrôlée
 
@@ -185,11 +194,12 @@ Contrôlez `value` depuis l’état React lorsque le groupe doit rester synchron
   <ToggleGroupControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle-group/controlled.tsx"
+```tsx pure file="../../../src/components/examples/toggle-group/controlled.tsx"
 ```
 
     </Tab>
@@ -202,6 +212,8 @@ Contrôlez `value` depuis l’état React lorsque le groupe doit rester synchron
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Groupe et élément désactivés
 
 Utilisez `disabled` sur le groupe ou sur un élément précis pour empêcher les interactions.
@@ -210,11 +222,12 @@ Utilisez `disabled` sur le groupe ou sur un élément précis pour empêcher les
   <ToggleGroupDisabled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle-group/disabled.tsx"
+```tsx pure file="../../../src/components/examples/toggle-group/disabled.tsx"
 ```
 
     </Tab>
@@ -227,6 +240,8 @@ Utilisez `disabled` sur le groupe ou sur un élément précis pour empêcher les
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Icônes
 
 Passez les icônes comme des enfants ordinaires. Les éléments qui n’affichent qu’une icône doivent toujours
@@ -236,16 +251,19 @@ avoir un libellé accessible.
   <ToggleGroupIcons />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle-group/icons.tsx"
+```tsx pure file="../../../src/components/examples/toggle-group/icons.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Sélection multiple
 
@@ -255,16 +273,19 @@ Utilisez `multiple` lorsque plusieurs choix peuvent rester activés simultanéme
   <ToggleGroupMultipleSelection />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle-group/multiple-selection.tsx"
+```tsx pure file="../../../src/components/examples/toggle-group/multiple-selection.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Variantes
 
@@ -274,11 +295,12 @@ Définissez `variant` sur le groupe lorsque tous les éléments doivent partager
   <ToggleGroupVariants />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle-group/variants.tsx"
+```tsx pure file="../../../src/components/examples/toggle-group/variants.tsx"
 ```
 
     </Tab>
@@ -291,6 +313,8 @@ Définissez `variant` sur le groupe lorsque tous les éléments doivent partager
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Orientation verticale
 
 Définissez `orientation="vertical"` lorsque les choix doivent être disposés en colonne.
@@ -299,16 +323,19 @@ Définissez `orientation="vertical"` lorsque les choix doivent être disposés e
   <ToggleGroupVertical />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle-group/vertical.tsx"
+```tsx pure file="../../../src/components/examples/toggle-group/vertical.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Personnalisation avancée
 
@@ -319,11 +346,12 @@ partagée avec d’autres parties de l’interface ou contrôlée avant le rendu
   <ToggleGroupRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle-group/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/toggle-group/root-provider.tsx"
 ```
 
     </Tab>
@@ -335,6 +363,8 @@ partagée avec d’autres parties de l’interface ou contrôlée avant le rendu
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

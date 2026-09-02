@@ -36,11 +36,12 @@ for the default pager.
   <TravelCarousel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/carousel/basic.tsx"
+```tsx pure file="../../../src/components/examples/carousel/basic.tsx"
 
 ```
 
@@ -53,6 +54,8 @@ for the default pager.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -161,11 +164,12 @@ start it again with `Carousel.AutoplayTrigger`.
   <AutoplayCarousel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/carousel/autoplay.tsx"
+```tsx pure file="../../../src/components/examples/carousel/autoplay.tsx"
 
 ```
 
@@ -179,6 +183,8 @@ start it again with `Carousel.AutoplayTrigger`.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 For a complete gallery with side navigation, slide text, and progress indicators that fill as the
 gallery advances, see the [Autoplay gallery recipe](/recipes/autoplay-gallery).
 
@@ -191,11 +197,12 @@ narrower than the slide.
   <CardCarousel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/carousel/cards.tsx"
+```tsx pure file="../../../src/components/examples/carousel/cards.tsx"
 
 ```
 
@@ -209,6 +216,8 @@ narrower than the slide.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Controlled
 
 Use controlled state when the current page needs to stay in sync with external navigation, filters,
@@ -218,11 +227,12 @@ or analytics.
   <ControlledCarousel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/carousel/controlled.tsx"
+```tsx pure file="../../../src/components/examples/carousel/controlled.tsx"
 
 ```
 
@@ -236,6 +246,8 @@ or analytics.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Dynamic
 
 If the number of slides changes after the initial render, update `slideCount` whenever you update
@@ -245,11 +257,12 @@ the rendered items.
   <DynamicSlidesCarousel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/carousel/dynamic.tsx"
+```tsx pure file="../../../src/components/examples/carousel/dynamic.tsx"
 
 ```
 
@@ -263,6 +276,8 @@ the rendered items.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Loop
 
 Set `loop` to make the carousel wrap from the last slide back to the first.
@@ -271,11 +286,12 @@ Set `loop` to make the carousel wrap from the last slide back to the first.
   <LoopCarousel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/carousel/loop.tsx"
+```tsx pure file="../../../src/components/examples/carousel/loop.tsx"
 
 ```
 
@@ -289,6 +305,8 @@ Set `loop` to make the carousel wrap from the last slide back to the first.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Mouse Dragging
 
 Enable mouse dragging so desktop users can move through slides with the same gesture they use on
@@ -298,11 +316,12 @@ touch screens.
   <MouseDragCarousel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/carousel/mouse-drag.tsx"
+```tsx pure file="../../../src/components/examples/carousel/mouse-drag.tsx"
 
 ```
 
@@ -316,6 +335,8 @@ touch screens.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Pause on Hover
 
 Use this pattern when autoplay should pause while the pointer is over the carousel. The example
@@ -326,11 +347,12 @@ focus.
   <PauseOnHoverCarousel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/carousel/pause-on-hover.tsx"
+```tsx pure file="../../../src/components/examples/carousel/pause-on-hover.tsx"
 
 ```
 
@@ -344,6 +366,8 @@ focus.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Use `Carousel.RootProvider` when carousel state must be created outside the rendered subtree and
@@ -353,11 +377,12 @@ shared across composition boundaries.
   <RootProviderCarousel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/carousel/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/carousel/root-provider.tsx"
 
 ```
 
@@ -371,6 +396,8 @@ shared across composition boundaries.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Scroll to Slide
 
 Use the carousel API from context when another control needs to jump directly to a slide.
@@ -379,11 +406,12 @@ Use the carousel API from context when another control needs to jump directly to
   <ScrollToCarousel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/carousel/scroll-to-slide.tsx"
+```tsx pure file="../../../src/components/examples/carousel/scroll-to-slide.tsx"
 
 ```
 
@@ -397,6 +425,8 @@ Use the carousel API from context when another control needs to jump directly to
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Slides Per Page
 
 Increase `slidesPerPage` to show several items at once instead of one full-width panel.
@@ -405,11 +435,12 @@ Increase `slidesPerPage` to show several items at once instead of one full-width
   <SlidesPerPageCarousel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/carousel/slides-per-page.tsx"
+```tsx pure file="../../../src/components/examples/carousel/slides-per-page.tsx"
 
 ```
 
@@ -423,6 +454,8 @@ Increase `slidesPerPage` to show several items at once instead of one full-width
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Spacing
 
 Increase `spacing` to add room between adjacent slides in editorial layouts, product rails, or
@@ -432,11 +465,12 @@ branded interfaces.
   <SpacingCarousel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/carousel/spacing.tsx"
+```tsx pure file="../../../src/components/examples/carousel/spacing.tsx"
 
 ```
 
@@ -450,6 +484,8 @@ branded interfaces.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Thumbnail Indicators
 
 Render custom indicator content when the pager should preview the slides with thumbnails instead of
@@ -459,11 +495,12 @@ plain dots.
   <ThumbnailIndicatorCarousel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/carousel/thumbnail-indicators.tsx"
+```tsx pure file="../../../src/components/examples/carousel/thumbnail-indicators.tsx"
 
 ```
 
@@ -477,6 +514,8 @@ plain dots.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Variable Sizes
 
 Enable `autoSize` to size slides to their content instead of a fixed page grid.
@@ -485,11 +524,12 @@ Enable `autoSize` to size slides to their content instead of a fixed page grid.
   <VariableSizeCarousel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/carousel/variable-sizes.tsx"
+```tsx pure file="../../../src/components/examples/carousel/variable-sizes.tsx"
 
 ```
 
@@ -503,6 +543,8 @@ Enable `autoSize` to size slides to their content instead of a fixed page grid.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Vertical
 
 Switch to a vertical orientation when the carousel and its controls should work along the vertical
@@ -512,11 +554,12 @@ axis.
   <VerticalCarousel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/carousel/vertical.tsx"
+```tsx pure file="../../../src/components/examples/carousel/vertical.tsx"
 
 ```
 
@@ -530,6 +573,8 @@ axis.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Advanced Customization
 
 Skip `Carousel.Indicators` when you need to render `pageSnapPoints` yourself or place pager controls
@@ -539,11 +584,12 @@ alongside other context-driven controls.
   <AdvancedCustomizationCarousel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/carousel/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/carousel/advanced-customization.tsx"
 
 ```
 
@@ -556,6 +602,8 @@ alongside other context-driven controls.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

@@ -33,11 +33,12 @@ download behavior to the child element. In this example, the child is a moduix `
   <DownloadTriggerBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/download-trigger/basic.tsx"
+```tsx pure file="../../../src/components/examples/download-trigger/basic.tsx"
 ```
 
     </Tab>
@@ -50,6 +51,8 @@ download behavior to the child element. In this example, the child is a moduix `
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ## Generate data on demand
 
 Pass a function when the file needs to be created before it can be downloaded. Ark calls it after the user activates
@@ -59,11 +62,12 @@ the trigger. If it returns a promise, Ark waits for it to resolve before saving 
   <DownloadTriggerAsyncData />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/download-trigger/async-data.tsx"
+```tsx pure file="../../../src/components/examples/download-trigger/async-data.tsx"
 ```
 
     </Tab>
@@ -75,6 +79,8 @@ the trigger. If it returns a promise, Ark waits for it to resolve before saving 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 `DownloadTrigger` does not expose loading state or an error callback. If generation can take time, track its state in
 your application and handle errors inside the function passed to `data`. Disable or replace the trigger while the

@@ -39,11 +39,12 @@ La fonction `onInputValueChange` reçoit un objet `details` fourni par Ark.
   <ComboboxBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/basic.tsx"
+```tsx pure file="../../../src/components/examples/combobox/basic.tsx"
 ```
 
     </Tab>
@@ -55,6 +56,8 @@ La fonction `onInputValueChange` reçoit un objet `details` fourni par Ark.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -219,11 +222,12 @@ Si le champ est vide, affichez `Start typing to search…` pour que la liste res
   <ComboboxAsyncSearch />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/async-search.tsx"
+```tsx pure file="../../../src/components/examples/combobox/async-search.tsx"
 ```
 
     </Tab>
@@ -236,6 +240,8 @@ Si le champ est vide, affichez `Start typing to search…` pour que la liste res
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Mise en évidence automatique
 
 Définissez `inputBehavior="autohighlight"` pour mettre en évidence le premier résultat pendant la saisie et le
@@ -245,11 +251,12 @@ sélectionner avec la touche Entrée sans appuyer d’abord sur une flèche.
   <ComboboxAutoHighlight />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/auto-highlight.tsx"
+```tsx pure file="../../../src/components/examples/combobox/auto-highlight.tsx"
 ```
 
     </Tab>
@@ -262,6 +269,8 @@ sélectionner avec la touche Entrée sans appuyer d’abord sur une flèche.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### État contrôlé
 
 Contrôlez le tableau des chaînes sélectionnées et lisez la nouvelle valeur dans `details.value`.
@@ -270,11 +279,12 @@ Contrôlez le tableau des chaînes sélectionnées et lisez la nouvelle valeur d
   <ComboboxControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/controlled.tsx"
+```tsx pure file="../../../src/components/examples/combobox/controlled.tsx"
 ```
 
     </Tab>
@@ -287,6 +297,8 @@ Contrôlez le tableau des chaînes sélectionnées et lisez la nouvelle valeur d
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Création d’une valeur
 
 Associez `allowCustomValue` à une modification de la collection pour afficher un élément temporaire « Créer », puis
@@ -296,11 +308,12 @@ remplacez cette valeur temporaire par le texte saisi par l’utilisateur après 
   <ComboboxCreatable />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/creatable.tsx"
+```tsx pure file="../../../src/components/examples/combobox/creatable.tsx"
 ```
 
     </Tab>
@@ -313,6 +326,8 @@ remplacez cette valeur temporaire par le texte saisi par l’utilisateur après 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Objets personnalisés et regroupement
 
 Indiquez dans la collection comment extraire les libellés et les valeurs des objets, puis affichez les groupes Ark avec
@@ -322,11 +337,12 @@ Indiquez dans la collection comment extraire les libellés et les valeurs des ob
   <ComboboxCustomObjectsAndGrouping />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/custom-objects-and-grouping.tsx"
+```tsx pure file="../../../src/components/examples/combobox/custom-objects-and-grouping.tsx"
 ```
 
     </Tab>
@@ -339,6 +355,8 @@ Indiquez dans la collection comment extraire les libellés et les valeurs des ob
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Mise à jour dynamique
 
 Construisez la collection à partir de la saisie actuelle lorsque les suggestions n’apparaissent qu’après le début de la saisie.
@@ -348,11 +366,12 @@ Vérifiez `details.reason` pour ne pas la reconstruire après une modification d
   <ComboboxDynamic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/dynamic.tsx"
+```tsx pure file="../../../src/components/examples/combobox/dynamic.tsx"
 ```
 
     </Tab>
@@ -365,6 +384,8 @@ Vérifiez `details.reason` pour ne pas la reconstruire après une modification d
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Autocomplétion intégrée
 
 Définissez `inputBehavior="autocomplete"` et filtrez avec `startsWith` pour compléter le champ avec le premier résultat
@@ -374,11 +395,12 @@ correspondant tout en conservant la navigation au clavier d’Ark.
   <ComboboxInlineAutocomplete />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/inline-autocomplete.tsx"
+```tsx pure file="../../../src/components/examples/combobox/inline-autocomplete.tsx"
 ```
 
     </Tab>
@@ -391,6 +413,8 @@ correspondant tout en conservant la navigation au clavier d’Ark.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Limitation des résultats
 
 Définissez `limit` dans `useListCollection` lorsque tous les résultats ne sont pas nécessaires ou rendent le menu difficile
@@ -400,11 +424,12 @@ Définissez `limit` dans `useListCollection` lorsque tous les résultats ne sont
   <ComboboxLimitResults />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/limit-results.tsx"
+```tsx pure file="../../../src/components/examples/combobox/limit-results.tsx"
 ```
 
     </Tab>
@@ -417,6 +442,8 @@ Définissez `limit` dans `useListCollection` lorsque tous les résultats ne sont
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Sélection multiple
 
 Activez `multiple` et affichez les objets sélectionnés depuis la valeur contrôlée `value`. Les tags sont gérés par l’application.
@@ -426,11 +453,12 @@ Pour les placer dans le même conteneur de champ, composez `Combobox` avec `Tags
   <ComboboxMultiple />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/multiple.tsx"
+```tsx pure file="../../../src/components/examples/combobox/multiple.tsx"
 ```
 
     </Tab>
@@ -443,6 +471,8 @@ Pour les placer dans le même conteneur de champ, composez `Combobox` avec `Tags
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Créez l’état avec `useCombobox` de moduix lorsque des contrôles externes ont besoin de méthodes impératives ou d’un état
@@ -452,11 +482,12 @@ partagé avant l’affichage de la racine. `Combobox.RootProvider` conserve les 
   <ComboboxRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/combobox/root-provider.tsx"
 ```
 
     </Tab>
@@ -469,6 +500,8 @@ partagé avant l’affichage de la racine. `Combobox.RootProvider` conserve les 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Virtualisation
 
 Pour les grandes collections, n’affichez que les lignes visibles avec TanStack Virtual et reliez la navigation au clavier
@@ -478,11 +511,12 @@ d’Ark à `scrollToIndexFn`. Conservez `aria-setsize` et `aria-posinset` sur le
   <ComboboxVirtualized />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/virtualized.tsx"
+```tsx pure file="../../../src/components/examples/combobox/virtualized.tsx"
 ```
 
     </Tab>
@@ -495,6 +529,8 @@ d’Ark à `scrollToIndexFn`. Conservez `aria-setsize` et `aria-posinset` sur le
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Avec TagsInput
 
 Utilisez `Combobox` avec `TagsInput` lorsque l’utilisateur a besoin de suggestions filtrées, mais que les valeurs sélectionnées
@@ -504,16 +540,19 @@ doivent apparaître dans le même champ éditable que les tags.
   <ComboboxWithTagsInput />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/with-tags-input.tsx"
+```tsx pure file="../../../src/components/examples/combobox/with-tags-input.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Personnalisation avancée
 
@@ -524,11 +563,12 @@ Cet exemple affiche chaque résultat comme un lien avec `Combobox.Item asChild`.
   <ComboboxAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/combobox/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/combobox/advanced-customization.tsx"
 ```
 
     </Tab>
@@ -540,6 +580,8 @@ Cet exemple affiche chaque résultat comme un lien avec `Combobox.Item asChild`.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

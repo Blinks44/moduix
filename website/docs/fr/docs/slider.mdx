@@ -48,11 +48,12 @@ y compris un `Slider.Thumb` explicite, ajoute automatiquement son champ natif po
   <SliderBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/basic.tsx"
+```tsx pure file="../../../src/components/examples/slider/basic.tsx"
 ```
 
     </Tab>
@@ -64,6 +65,8 @@ y compris un `Slider.Thumb` explicite, ajoute automatiquement son champ natif po
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -160,11 +163,12 @@ Définissez `origin="center"` lorsque la valeur représente un décalage positif
   <SliderCenterOrigin />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/center-origin.tsx"
+```tsx pure file="../../../src/components/examples/slider/center-origin.tsx"
 ```
 
     </Tab>
@@ -177,6 +181,8 @@ Définissez `origin="center"` lorsque la valeur représente un décalage positif
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Événements de modification
 
 Utilisez `onValueChange` pour mettre à jour l’interface pendant l’interaction et `onValueChangeEnd` lorsque le glissement
@@ -186,11 +192,12 @@ ou l’interaction au clavier est terminé.
   <SliderChangeEvents />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/change-events.tsx"
+```tsx pure file="../../../src/components/examples/slider/change-events.tsx"
 ```
 
     </Tab>
@@ -203,6 +210,8 @@ ou l’interaction au clavier est terminé.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Contexte
 
 Utilisez `useSliderContext` de moduix dans un composant enfant lorsque celui-ci doit lire l’état du slider, par exemple
@@ -212,16 +221,19 @@ Utilisez `useSliderContext` de moduix dans un composant enfant lorsque celui-ci 
   <SliderContext />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/context.tsx"
+```tsx pure file="../../../src/components/examples/slider/context.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### État contrôlé
 
@@ -231,11 +243,12 @@ Contrôlez le slider depuis l’état React en conservant le tableau fourni par 
   <SliderControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/controlled.tsx"
+```tsx pure file="../../../src/components/examples/slider/controlled.tsx"
 ```
 
     </Tab>
@@ -248,6 +261,8 @@ Contrôlez le slider depuis l’état React en conservant le tableau fourni par 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Désactivé
 
 Utilisez `disabled` pour garder la valeur visible tout en désactivant les interactions.
@@ -256,11 +271,12 @@ Utilisez `disabled` pour garder la valeur visible tout en désactivant les inter
   <SliderDisabled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/disabled.tsx"
+```tsx pure file="../../../src/components/examples/slider/disabled.tsx"
 ```
 
     </Tab>
@@ -273,6 +289,8 @@ Utilisez `disabled` pour garder la valeur visible tout en désactivant les inter
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Formulaire
 
 Définissez `name` pour envoyer la valeur actuelle avec un formulaire natif. moduix ajoute et synchronise automatiquement
@@ -282,11 +300,12 @@ le champ masqué.
   <SliderForm />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/form.tsx"
+```tsx pure file="../../../src/components/examples/slider/form.tsx"
 ```
 
     </Tab>
@@ -299,6 +318,8 @@ le champ masqué.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Indicateur de glissement
 
 Placez `Slider.DraggingIndicator` dans une poignée pour afficher sa valeur active pendant le glissement.
@@ -307,16 +328,19 @@ Placez `Slider.DraggingIndicator` dans une poignée pour afficher sa valeur acti
   <SliderDraggingIndicator />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/dragging-indicator.tsx"
+```tsx pure file="../../../src/components/examples/slider/dragging-indicator.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Valeur non valide
 
@@ -327,11 +351,12 @@ l’état invalide tout en restant interactives.
   <SliderInvalid />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/invalid.tsx"
+```tsx pure file="../../../src/components/examples/slider/invalid.tsx"
 ```
 
     </Tab>
@@ -344,6 +369,8 @@ l’état invalide tout en restant interactives.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Repères
 
 Utilisez `Slider.MarkerGroup` et `Slider.Marker` pour afficher des repères. Les repères Ark exposent
@@ -353,11 +380,12 @@ Utilisez `Slider.MarkerGroup` et `Slider.Marker` pour afficher des repères. Les
   <SliderMarks />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/marks.tsx"
+```tsx pure file="../../../src/components/examples/slider/marks.tsx"
 ```
 
     </Tab>
@@ -370,6 +398,8 @@ Utilisez `Slider.MarkerGroup` et `Slider.Marker` pour afficher des repères. Les
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Minimum et maximum
 
 Utilisez `min` et `max` lorsque l’intervalle du slider ne commence pas à `0` ou ne se termine pas à `100`.
@@ -378,16 +408,19 @@ Utilisez `min` et `max` lorsque l’intervalle du slider ne commence pas à `0` 
   <SliderMinAndMax />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/min-and-max.tsx"
+```tsx pure file="../../../src/components/examples/slider/min-and-max.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Plage
 
@@ -398,16 +431,19 @@ champs natifs.
   <SliderRange />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/range.tsx"
+```tsx pure file="../../../src/components/examples/slider/range.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Lecture seule
 
@@ -418,11 +454,12 @@ curseur système par défaut dans cet état afin que le slider ne paraisse pas i
   <SliderReadOnly />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/read-only.tsx"
+```tsx pure file="../../../src/components/examples/slider/read-only.tsx"
 ```
 
     </Tab>
@@ -435,6 +472,8 @@ curseur système par défaut dans cet état afin que le slider ne paraisse pas i
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Utilisez `useSlider` de moduix avec `Slider.RootProvider` lorsque l’état doit être créé en dehors de l’arbre qui affiche
@@ -444,11 +483,12 @@ les parties du slider. Placez ces parties dans `RootProvider` et n’utilisez pa
   <SliderRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/slider/root-provider.tsx"
 ```
 
     </Tab>
@@ -461,6 +501,8 @@ les parties du slider. Placez ces parties dans `RootProvider` et n’utilisez pa
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Incrément
 
 Utilisez `step` pour des incréments fractionnaires ou plus fins.
@@ -469,11 +511,12 @@ Utilisez `step` pour des incréments fractionnaires ou plus fins.
   <SliderStep />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/step.tsx"
+```tsx pure file="../../../src/components/examples/slider/step.tsx"
 ```
 
     </Tab>
@@ -486,6 +529,8 @@ Utilisez `step` pour des incréments fractionnaires ou plus fins.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Alignement de la poignée
 
 Utilisez `thumbAlignment="center"` lorsque la poignée doit dépasser des extrémités de la piste.
@@ -494,11 +539,12 @@ Utilisez `thumbAlignment="center"` lorsque la poignée doit dépasser des extré
   <SliderThumbAlignment />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/thumb-alignment.tsx"
+```tsx pure file="../../../src/components/examples/slider/thumb-alignment.tsx"
 ```
 
     </Tab>
@@ -511,6 +557,8 @@ Utilisez `thumbAlignment="center"` lorsque la poignée doit dépasser des extré
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Collision des poignées
 
 Utilisez `thumbCollisionBehavior` pour définir ce qui se passe lorsque les poignées d’une plage se rencontrent. `none`
@@ -520,11 +568,12 @@ Utilisez `thumbCollisionBehavior` pour définir ce qui se passe lorsque les poig
   <SliderThumbCollision />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/thumb-collision.tsx"
+```tsx pure file="../../../src/components/examples/slider/thumb-collision.tsx"
 ```
 
     </Tab>
@@ -537,6 +586,8 @@ Utilisez `thumbCollisionBehavior` pour définir ce qui se passe lorsque les poig
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Chevauchement des poignées
 
 Utilisez `minStepsBetweenThumbs` pour imposer un écart minimal entre les poignées d’une plage. L’écart est calculé ainsi :
@@ -546,11 +597,12 @@ Utilisez `minStepsBetweenThumbs` pour imposer un écart minimal entre les poign�
   <SliderThumbOverlap />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/thumb-overlap.tsx"
+```tsx pure file="../../../src/components/examples/slider/thumb-overlap.tsx"
 ```
 
     </Tab>
@@ -563,6 +615,8 @@ Utilisez `minStepsBetweenThumbs` pour imposer un écart minimal entre les poign�
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Orientation verticale
 
 Définissez `orientation="vertical"` et donnez une hauteur explicite à la racine.
@@ -571,11 +625,12 @@ Définissez `orientation="vertical"` et donnez une hauteur explicite à la racin
   <SliderVertical />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/vertical.tsx"
+```tsx pure file="../../../src/components/examples/slider/vertical.tsx"
 ```
 
     </Tab>
@@ -588,6 +643,8 @@ Définissez `orientation="vertical"` et donnez une hauteur explicite à la racin
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Orientation verticale avec repères
 
 En orientation verticale, les repères restent alignés sur la piste et exposent les mêmes attributs d’état.
@@ -596,11 +653,12 @@ En orientation verticale, les repères restent alignés sur la piste et exposent
   <SliderVerticalWithMarks />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/vertical-with-marks.tsx"
+```tsx pure file="../../../src/components/examples/slider/vertical-with-marks.tsx"
 ```
 
     </Tab>
@@ -613,6 +671,8 @@ En orientation verticale, les repères restent alignés sur la piste et exposent
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Personnalisation avancée
 
 Utilisez des `Slider.Thumb` explicites plutôt que `Slider.Thumbs` lorsque chaque poignée nécessite des enfants
@@ -622,11 +682,12 @@ personnalisés, un nom accessible ou un ordre particulier.
   <SliderAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/slider/advanced-customization.tsx"
 ```
 
     </Tab>
@@ -638,6 +699,8 @@ personnalisés, un nom accessible ou un ordre particulier.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

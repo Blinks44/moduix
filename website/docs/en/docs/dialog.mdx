@@ -38,16 +38,19 @@ modal background, `Dialog.Positioner` places the dialog, and `Dialog.Content` co
   <DialogBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/dialog/basic.tsx"
+```tsx pure file="../../../src/components/examples/dialog/basic.tsx"
 
 ```
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -174,16 +177,19 @@ and a separate action that confirms the decision.
   <DialogAlertDialog />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/dialog/alert-dialog.tsx"
+```tsx pure file="../../../src/components/examples/dialog/alert-dialog.tsx"
 
 ```
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Confirmation
 
@@ -194,16 +200,19 @@ user wants to discard them.
   <DialogConfirmation />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/dialog/confirmation.tsx"
+```tsx pure file="../../../src/components/examples/dialog/confirmation.tsx"
 
 ```
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Controlled
 
@@ -214,16 +223,19 @@ with the rest of the application.
   <DialogControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/dialog/controlled.tsx"
+```tsx pure file="../../../src/components/examples/dialog/controlled.tsx"
 
 ```
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Inside Scroll
 
@@ -233,11 +245,12 @@ Make only the main content scrollable when the title and actions should remain v
   <DialogInsideScroll />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/dialog/inside-scroll.tsx"
+```tsx pure file="../../../src/components/examples/dialog/inside-scroll.tsx"
 
 ```
     </Tab>
@@ -249,6 +262,8 @@ Make only the main content scrollable when the title and actions should remain v
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Mounting and Focus Lifecycle
 
 Use `lazyMount` and `unmountOnExit` for the presence lifecycle. Use `initialFocusEl` and
@@ -258,16 +273,19 @@ Use `lazyMount` and `unmountOnExit` for the presence lifecycle. Use `initialFocu
   <DialogMountingAndFocusLifecycle />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/dialog/mounting-and-focus-lifecycle.tsx"
+```tsx pure file="../../../src/components/examples/dialog/mounting-and-focus-lifecycle.tsx"
 
 ```
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Multiple Triggers
 
@@ -278,16 +296,19 @@ Share one dialog between several triggers by giving each trigger a `value` and h
   <DialogMultipleTriggers />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/dialog/multiple-triggers.tsx"
+```tsx pure file="../../../src/components/examples/dialog/multiple-triggers.tsx"
 
 ```
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Nested
 
@@ -298,11 +319,12 @@ uses the resulting state to make the parent recede while the nested dialog is op
   <DialogNested />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/dialog/nested.tsx"
+```tsx pure file="../../../src/components/examples/dialog/nested.tsx"
 
 ```
     </Tab>
@@ -314,6 +336,8 @@ uses the resulting state to make the parent recede while the nested dialog is op
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Non-Modal
 
 Set `modal={false}` and omit the backdrop when users should still be able to interact with the page
@@ -323,16 +347,19 @@ outside the dialog.
   <DialogNonModal />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/dialog/non-modal.tsx"
+```tsx pure file="../../../src/components/examples/dialog/non-modal.tsx"
 
 ```
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Open from Menu
 
@@ -342,16 +369,19 @@ Control `open` from a menu item when a contextual action should open a confirmat
   <DialogOpenFromMenu />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/dialog/open-from-menu.tsx"
+```tsx pure file="../../../src/components/examples/dialog/open-from-menu.tsx"
 
 ```
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Outside Scroll
 
@@ -361,11 +391,12 @@ Let `Dialog.Positioner` scroll the whole dialog when long content should keep it
   <DialogOutsideScroll />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/dialog/outside-scroll.tsx"
+```tsx pure file="../../../src/components/examples/dialog/outside-scroll.tsx"
 
 ```
     </Tab>
@@ -377,6 +408,8 @@ Let `Dialog.Positioner` scroll the whole dialog when long content should keep it
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Create the state with `useDialog()` when controls live outside the dialog. Connect it with
@@ -387,16 +420,19 @@ components.
   <DialogRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/dialog/root-provider-and-ark-context-hooks.tsx"
+```tsx pure file="../../../src/components/examples/dialog/root-provider-and-ark-context-hooks.tsx"
 
 ```
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Advanced Customization
 
@@ -407,11 +443,12 @@ Ark dialog part.
   <DialogAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/dialog/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/dialog/advanced-customization.tsx"
 
 ```
     </Tab>
@@ -422,6 +459,8 @@ Ark dialog part.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

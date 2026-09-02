@@ -35,11 +35,12 @@ import MenuWithArrow from '@/components/examples/menu/with-arrow.tsx';
   <MenuBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/basic.tsx"
+```tsx pure file="../../../src/components/examples/menu/basic.tsx"
 ```
 
     </Tab>
@@ -51,6 +52,8 @@ import MenuWithArrow from '@/components/examples/menu/with-arrow.tsx';
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -184,11 +187,12 @@ export function ActionsMenu() {
   <MenuCheckboxItems />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/checkbox-items.tsx"
+```tsx pure file="../../../src/components/examples/menu/checkbox-items.tsx"
 ```
 
     </Tab>
@@ -201,6 +205,8 @@ export function ActionsMenu() {
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Контекстное меню
 
 Используйте `Menu.ContextTrigger`, если действия должны появляться по правому клику. На сенсорных устройствах и при использовании пера меню также открывается долгим нажатием.
@@ -209,11 +215,12 @@ export function ActionsMenu() {
   <MenuContext />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/context-menu.tsx"
+```tsx pure file="../../../src/components/examples/menu/context-menu.tsx"
 ```
 
     </Tab>
@@ -226,6 +233,8 @@ export function ActionsMenu() {
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Управляемое состояние
 
 Управляйте `open` через состояние React, если меню должно открываться или закрываться другим элементом управления.
@@ -234,11 +243,12 @@ export function ActionsMenu() {
   <MenuControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/controlled.tsx"
+```tsx pure file="../../../src/components/examples/menu/controlled.tsx"
 ```
 
     </Tab>
@@ -251,6 +261,8 @@ export function ActionsMenu() {
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Группировка
 
 Используйте `Menu.ItemGroup` и `Menu.ItemGroupLabel`, чтобы объединить связанные пункты, а `Menu.Separator` - чтобы разделить группы.
@@ -259,11 +271,12 @@ export function ActionsMenu() {
   <MenuGrouping />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/grouping.tsx"
+```tsx pure file="../../../src/components/examples/menu/grouping.tsx"
 ```
 
     </Tab>
@@ -276,6 +289,8 @@ export function ActionsMenu() {
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Размещение индикатора
 
 Задайте для пунктов с флажками и вариантами с единственным выбором `indicator="start"`, `"end"` или `"none"`, чтобы выбрать положение индикатора.
@@ -284,11 +299,12 @@ export function ActionsMenu() {
   <MenuIndicatorPlacement />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/indicator-placement.tsx"
+```tsx pure file="../../../src/components/examples/menu/indicator-placement.tsx"
 ```
 
     </Tab>
@@ -301,6 +317,8 @@ export function ActionsMenu() {
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Контекст элемента
 
 Используйте `Menu.ItemContext`, если содержимое пункта должно реагировать на его состояние, например на наличие подсветки.
@@ -309,11 +327,12 @@ export function ActionsMenu() {
   <MenuItemContext />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/item-context.tsx"
+```tsx pure file="../../../src/components/examples/menu/item-context.tsx"
 ```
 
     </Tab>
@@ -326,6 +345,8 @@ export function ActionsMenu() {
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Контекстное меню с отложенным монтированием
 
 По умолчанию содержимое контекстного меню добавляется в DOM при первом открытии и удаляется после анимации закрытия. Установите `unmountOnExit={false}`, если поддерево должно оставаться смонтированным после закрытия меню.
@@ -334,11 +355,12 @@ export function ActionsMenu() {
   <MenuLazyMountedContext />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/lazy-mounted-context-menu.tsx"
+```tsx pure file="../../../src/components/examples/menu/lazy-mounted-context-menu.tsx"
 ```
 
     </Tab>
@@ -351,6 +373,8 @@ export function ActionsMenu() {
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Ссылки
 
 Используйте `Menu.Item asChild` и сделайте саму ссылку пунктом меню. Тогда ссылка получит ARIA-атрибуты, клавиатурное поведение и обработку фокуса пункта.
@@ -359,11 +383,12 @@ export function ActionsMenu() {
   <MenuLinks />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/links.tsx"
+```tsx pure file="../../../src/components/examples/menu/links.tsx"
 ```
 
     </Tab>
@@ -376,6 +401,8 @@ export function ActionsMenu() {
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Меню в диалоге
 
 Установите `portalled={false}`, чтобы оставить всплывающее меню внутри диалога или прокручиваемого контейнера. Если контейнер может прокручиваться, используйте фиксированное позиционирование и `hideWhenDetached`, чтобы скрывать меню после выхода за видимую область.
@@ -384,11 +411,12 @@ export function ActionsMenu() {
   <MenuInDialog />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/menu-in-dialog.tsx"
+```tsx pure file="../../../src/components/examples/menu/menu-in-dialog.tsx"
 ```
 
     </Tab>
@@ -401,6 +429,8 @@ export function ActionsMenu() {
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Несколько триггеров
 
 Чтобы использовать одно меню с несколькими триггерами, передайте каждому `Menu.Trigger` своё значение `value`. Меню будет позиционироваться относительно триггера, который его открыл.
@@ -409,11 +439,12 @@ export function ActionsMenu() {
   <MenuMultipleTriggers />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/multiple-triggers.tsx"
+```tsx pure file="../../../src/components/examples/menu/multiple-triggers.tsx"
 ```
 
     </Tab>
@@ -426,6 +457,8 @@ export function ActionsMenu() {
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Вложенное меню
 
 Разместите дочерний `Menu` внутри содержимого родительского меню и открывайте его с помощью `Menu.TriggerItem`.
@@ -434,11 +467,12 @@ export function ActionsMenu() {
   <MenuNested />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/nested.tsx"
+```tsx pure file="../../../src/components/examples/menu/nested.tsx"
 ```
 
     </Tab>
@@ -451,6 +485,8 @@ export function ActionsMenu() {
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Пункты с выбором одного варианта
 
 Используйте `Menu.RadioItemGroup`, если пользователь должен выбрать одно значение из нескольких вариантов. Установите `closeOnSelect={false}`, если меню должно оставаться открытым во время выбора.
@@ -459,11 +495,12 @@ export function ActionsMenu() {
   <MenuRadioItems />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/radio-items.tsx"
+```tsx pure file="../../../src/components/examples/menu/radio-items.tsx"
 ```
 
     </Tab>
@@ -476,6 +513,8 @@ export function ActionsMenu() {
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Используйте `useMenu` и `Menu.RootProvider`, если коду за пределами дерева компонентов нужно читать состояние меню или изменять его.
@@ -484,11 +523,12 @@ export function ActionsMenu() {
   <MenuRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/menu/root-provider.tsx"
 ```
 
     </Tab>
@@ -501,6 +541,8 @@ export function ActionsMenu() {
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Событие выбора
 
 Используйте `onSelect(details)` на корневом компоненте, если один обработчик должен реагировать на выбор любого пункта. Выбранное значение находится в `details.value`.
@@ -509,11 +551,12 @@ export function ActionsMenu() {
   <MenuSelectEvent />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/select-event.tsx"
+```tsx pure file="../../../src/components/examples/menu/select-event.tsx"
 ```
 
     </Tab>
@@ -526,6 +569,8 @@ export function ActionsMenu() {
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Со стрелкой
 
 Добавьте `Menu.Arrow` и `Menu.ArrowTip` непосредственно внутрь `Menu.Content`, если нужно визуально связать всплывающее меню с триггером.
@@ -534,16 +579,19 @@ export function ActionsMenu() {
   <MenuWithArrow />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/with-arrow.tsx"
+```tsx pure file="../../../src/components/examples/menu/with-arrow.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Расширенная настройка
 
@@ -553,16 +601,19 @@ export function ActionsMenu() {
   <MenuAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/menu/advanced-customization.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

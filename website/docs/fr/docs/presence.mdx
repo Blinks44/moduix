@@ -46,11 +46,12 @@ la laisse montée. L’état local est ainsi conservé et les effets continuent 
   <PresenceBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/presence/basic.tsx"
+```tsx pure file="../../../src/components/examples/presence/basic.tsx"
 ```
 
     </Tab>
@@ -63,6 +64,8 @@ la laisse montée. L’état local est ainsi conservé et les effets continuent 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ## Monter à la demande
 
 Combinez `lazyMount` et `unmountOnExit` lorsque le contenu ne doit pas exister avant sa première apparition ni après sa
@@ -73,11 +76,12 @@ charge.
   <PresenceMountOnDemand />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/presence/mount-on-demand.tsx"
+```tsx pure file="../../../src/components/examples/presence/mount-on-demand.tsx"
 ```
 
     </Tab>
@@ -90,6 +94,8 @@ charge.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ## Animations de sortie
 
 Lorsque `unmountOnExit` est activé, Presence laisse la racine dans le DOM pendant l’exécution de son animation CSS de
@@ -100,7 +106,7 @@ sortie. Ciblez `data-state="open"` et `data-state="closed"` pour définir les st
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/presence/exit-animations.tsx"
+```tsx pure file="../../../src/components/examples/presence/exit-animations.tsx"
 ```
 
     </Tab>

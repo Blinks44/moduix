@@ -40,11 +40,12 @@ places it, and `Drawer.Backdrop` provides the modal layer.
   <DrawerBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/basic.tsx"
+```tsx pure file="../../../src/components/examples/drawer/basic.tsx"
 ```
 
     </Tab>
@@ -56,6 +57,8 @@ places it, and `Drawer.Backdrop` provides the modal layer.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -196,11 +199,12 @@ Read `details.open` from the Ark callback. The callback receives a details objec
   <DrawerControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/controlled.tsx"
+```tsx pure file="../../../src/components/examples/drawer/controlled.tsx"
 ```
 
     </Tab>
@@ -213,6 +217,8 @@ Read `details.open` from the Ark callback. The callback receives a details objec
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Drag Controls
 
 Add `data-no-drag` to interactive regions that must not start a drag while leaving the rest of the
@@ -222,11 +228,12 @@ content draggable. Set `draggable={false}` when the drawer should move only from
   <DrawerDragControls />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/drag-controls.tsx"
+```tsx pure file="../../../src/components/examples/drawer/drag-controls.tsx"
 ```
 
     </Tab>
@@ -239,6 +246,8 @@ content draggable. Set `draggable={false}` when the drawer should move only from
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Floating Grabber
 
 Place `Drawer.Grabber` above the surface when the handle should appear as a separate control. The
@@ -248,11 +257,12 @@ styling in this example leaves a 10px gap between the handle and the drawer edge
   <DrawerFloatingGrabber />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/floating-grabber.tsx"
+```tsx pure file="../../../src/components/examples/drawer/floating-grabber.tsx"
 ```
 
     </Tab>
@@ -265,6 +275,8 @@ styling in this example leaves a 10px gap between the handle and the drawer edge
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Indent Background
 
 `Drawer.Stack` uses Ark stack state and swipe progress to move `IndentBackground` and `Indent` together.
@@ -273,11 +285,12 @@ styling in this example leaves a 10px gap between the handle and the drawer edge
   <DrawerIndentBackground />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/indent-background.tsx"
+```tsx pure file="../../../src/components/examples/drawer/indent-background.tsx"
 ```
 
     </Tab>
@@ -290,6 +303,8 @@ styling in this example leaves a 10px gap between the handle and the drawer edge
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Island
 
 Set `variant="island"` on `Drawer.Content` when a compact drawer should sit inside the viewport with
@@ -299,11 +314,12 @@ an inset instead of extending visually past the edge where it opens.
   <DrawerIsland />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/island.tsx"
+```tsx pure file="../../../src/components/examples/drawer/island.tsx"
 ```
 
     </Tab>
@@ -316,6 +332,8 @@ an inset instead of extending visually past the edge where it opens.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Multiple Triggers
 
 Give each trigger a `value` to reuse one drawer for a list. The callback tells you which trigger is
@@ -325,11 +343,12 @@ active.
   <DrawerMultipleTriggers />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/multiple-triggers.tsx"
+```tsx pure file="../../../src/components/examples/drawer/multiple-triggers.tsx"
 ```
 
     </Tab>
@@ -342,6 +361,8 @@ active.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Nested
 
 Use separate Ark `useDrawer` instances and separate moduix `Drawer.RootProvider` trees for nested
@@ -352,11 +373,12 @@ behind the active drawer while leaving an edge visible.
   <DrawerNested />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/nested.tsx"
+```tsx pure file="../../../src/components/examples/drawer/nested.tsx"
 ```
 
     </Tab>
@@ -368,6 +390,8 @@ behind the active drawer while leaving an edge visible.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Non-Modal
 
@@ -382,11 +406,12 @@ the drawer is open.
   <DrawerNonModal />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/non-modal.tsx"
+```tsx pure file="../../../src/components/examples/drawer/non-modal.tsx"
 ```
 
     </Tab>
@@ -399,6 +424,8 @@ the drawer is open.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Use the moduix `useDrawer` export when buttons outside the drawer tree need to open it or change its
@@ -408,11 +435,12 @@ snap points.
   <DrawerRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/drawer/root-provider.tsx"
 ```
 
     </Tab>
@@ -425,6 +453,8 @@ snap points.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Scrollable
 
 Put long content in `Drawer.Body`. Use `ScrollArea` when the drawer should have a dedicated scroll
@@ -434,11 +464,12 @@ container while the grabber and header stay fixed.
   <DrawerScrollable />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/scrollable.tsx"
+```tsx pure file="../../../src/components/examples/drawer/scrollable.tsx"
 ```
 
     </Tab>
@@ -451,6 +482,8 @@ container while the grabber and header stay fixed.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Snap Points
 
 Set intermediate positions on the root and choose the initial position with `defaultSnapPoint`.
@@ -459,11 +492,12 @@ Set intermediate positions on the root and choose the initial position with `def
   <DrawerSnapPoints />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/snap-points.tsx"
+```tsx pure file="../../../src/components/examples/drawer/snap-points.tsx"
 ```
 
     </Tab>
@@ -476,6 +510,8 @@ Set intermediate positions on the root and choose the initial position with `def
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Swipe Direction
 
 Use logical `start` and `end` values for side drawers so the same code works in LTR and RTL. Use `up`
@@ -485,11 +521,12 @@ for a top drawer and `down` for a bottom drawer.
   <DrawerSwipeDirection />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/swipe-direction.tsx"
+```tsx pure file="../../../src/components/examples/drawer/swipe-direction.tsx"
 ```
 
     </Tab>
@@ -502,6 +539,8 @@ for a top drawer and `down` for a bottom drawer.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Advanced Customization
 
 Skip the optional `Header`, `Body`, `Footer`, and `CloseIcon` helpers when a custom layout needs the
@@ -511,11 +550,12 @@ full low-level Drawer anatomy.
   <DrawerAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/drawer/advanced-customization.tsx"
 ```
 
     </Tab>
@@ -527,6 +567,8 @@ full low-level Drawer anatomy.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

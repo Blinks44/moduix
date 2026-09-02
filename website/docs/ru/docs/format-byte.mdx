@@ -32,11 +32,12 @@ import { Format } from '@ark-ui/react';
   <FormatByteBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/format-byte/basic.tsx"
+```tsx pure file="../../../src/components/examples/format-byte/basic.tsx"
 ```
 
     </Tab>
@@ -49,6 +50,8 @@ import { Format } from '@ark-ui/react';
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ## Десятичная и двоичная системы
 
 Свойство `unitSystem` задаёт основу пересчёта: `decimal` увеличивает единицы в 1000 раз, а `binary` - в 1024 раза.
@@ -58,11 +61,12 @@ import { Format } from '@ark-ui/react';
   <FormatByteUnitSystem />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/format-byte/unit-system.tsx"
+```tsx pure file="../../../src/components/examples/format-byte/unit-system.tsx"
 ```
 
     </Tab>
@@ -74,6 +78,8 @@ import { Format } from '@ark-ui/react';
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Локаль и параметры отображения
 

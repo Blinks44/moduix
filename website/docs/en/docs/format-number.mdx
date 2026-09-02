@@ -34,11 +34,12 @@ this example, `Card` and `Stack` provide the surrounding context and visual hier
   <FormatNumberBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/format-number/basic.tsx"
+```tsx pure file="../../../src/components/examples/format-number/basic.tsx"
 ```
 
     </Tab>
@@ -51,6 +52,8 @@ this example, `Card` and `Stack` provide the surrounding context and visual hier
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ## Currency, percentage, and compact notation
 
 `Format.Number` accepts the standard `Intl.NumberFormat` options. For a monetary value, combine
@@ -61,11 +64,12 @@ this example, `Card` and `Stack` provide the surrounding context and visual hier
   <FormatNumberCommonStyles />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/format-number/common-styles.tsx"
+```tsx pure file="../../../src/components/examples/format-number/common-styles.tsx"
 ```
 
     </Tab>
@@ -77,6 +81,8 @@ this example, `Card` and `Stack` provide the surrounding context and visual hier
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 The input value for 6.42% is `0.0642`; `6.42` is formatted as 642%. Set `maximumFractionDigits={2}` when you need to
 keep both decimal places. Use `minimumFractionDigits` and `maximumFractionDigits` when the number of fraction digits

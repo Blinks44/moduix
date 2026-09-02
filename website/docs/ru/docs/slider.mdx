@@ -49,11 +49,12 @@ import SliderVerticalWithMarks from '@/components/examples/slider/vertical-with-
   <SliderBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/basic.tsx"
+```tsx pure file="../../../src/components/examples/slider/basic.tsx"
 ```
 
     </Tab>
@@ -65,6 +66,8 @@ import SliderVerticalWithMarks from '@/components/examples/slider/vertical-with-
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -162,11 +165,12 @@ Slider / Slider.Root
   <SliderCenterOrigin />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/center-origin.tsx"
+```tsx pure file="../../../src/components/examples/slider/center-origin.tsx"
 ```
 
     </Tab>
@@ -179,6 +183,8 @@ Slider / Slider.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### События изменения
 
 Используйте `onValueChange`, чтобы обновлять интерфейс во время взаимодействия, а `onValueChangeEnd` - когда перетаскивание
@@ -188,11 +194,12 @@ Slider / Slider.Root
   <SliderChangeEvents />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/change-events.tsx"
+```tsx pure file="../../../src/components/examples/slider/change-events.tsx"
 ```
 
     </Tab>
@@ -205,6 +212,8 @@ Slider / Slider.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Контекст
 
 Используйте `useSliderContext` из moduix внутри дочернего компонента, если ему нужно читать состояние слайдера, например
@@ -214,16 +223,19 @@ Slider / Slider.Root
   <SliderContext />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/context.tsx"
+```tsx pure file="../../../src/components/examples/slider/context.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Управляемое состояние
 
@@ -233,11 +245,12 @@ Slider / Slider.Root
   <SliderControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/controlled.tsx"
+```tsx pure file="../../../src/components/examples/slider/controlled.tsx"
 ```
 
     </Tab>
@@ -250,6 +263,8 @@ Slider / Slider.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Отключённый
 
 Используйте `disabled`, чтобы оставить значение видимым, но отключить взаимодействие.
@@ -258,11 +273,12 @@ Slider / Slider.Root
   <SliderDisabled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/disabled.tsx"
+```tsx pure file="../../../src/components/examples/slider/disabled.tsx"
 ```
 
     </Tab>
@@ -275,6 +291,8 @@ Slider / Slider.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Форма
 
 Задайте `name`, чтобы отправлять текущее значение через нативную форму. moduix автоматически добавляет и синхронизирует
@@ -284,11 +302,12 @@ Slider / Slider.Root
   <SliderForm />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/form.tsx"
+```tsx pure file="../../../src/components/examples/slider/form.tsx"
 ```
 
     </Tab>
@@ -301,6 +320,8 @@ Slider / Slider.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Индикатор перетаскивания
 
 Поместите `Slider.DraggingIndicator` внутрь ползунка, чтобы показывать его текущее значение при перетаскивании.
@@ -309,16 +330,19 @@ Slider / Slider.Root
   <SliderDraggingIndicator />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/dragging-indicator.tsx"
+```tsx pure file="../../../src/components/examples/slider/dragging-indicator.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Некорректное значение
 
@@ -329,11 +353,12 @@ Slider / Slider.Root
   <SliderInvalid />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/invalid.tsx"
+```tsx pure file="../../../src/components/examples/slider/invalid.tsx"
 ```
 
     </Tab>
@@ -346,6 +371,8 @@ Slider / Slider.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Деления
 
 Используйте `Slider.MarkerGroup` и `Slider.Marker`, чтобы добавить отметки на дорожку. Ark добавляет к отметкам
@@ -355,11 +382,12 @@ Slider / Slider.Root
   <SliderMarks />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/marks.tsx"
+```tsx pure file="../../../src/components/examples/slider/marks.tsx"
 ```
 
     </Tab>
@@ -372,6 +400,8 @@ Slider / Slider.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Минимум и максимум
 
 Задайте `min` и `max`, если диапазон слайдера не начинается с `0` или не заканчивается на `100`.
@@ -380,16 +410,19 @@ Slider / Slider.Root
   <SliderMinAndMax />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/min-and-max.tsx"
+```tsx pure file="../../../src/components/examples/slider/min-and-max.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Диапазон
 
@@ -400,16 +433,19 @@ Slider / Slider.Root
   <SliderRange />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/range.tsx"
+```tsx pure file="../../../src/components/examples/slider/range.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Только для чтения
 
@@ -420,11 +456,12 @@ Slider / Slider.Root
   <SliderReadOnly />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/read-only.tsx"
+```tsx pure file="../../../src/components/examples/slider/read-only.tsx"
 ```
 
     </Tab>
@@ -437,6 +474,8 @@ Slider / Slider.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Используйте `useSlider` из moduix с `Slider.RootProvider`, если состояние нужно создать вне дерева, в котором отображаются
@@ -446,11 +485,12 @@ Slider / Slider.Root
   <SliderRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/slider/root-provider.tsx"
 ```
 
     </Tab>
@@ -463,6 +503,8 @@ Slider / Slider.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Шаг
 
 Используйте `step` для дробного или более точного шага.
@@ -471,11 +513,12 @@ Slider / Slider.Root
   <SliderStep />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/step.tsx"
+```tsx pure file="../../../src/components/examples/slider/step.tsx"
 ```
 
     </Tab>
@@ -488,6 +531,8 @@ Slider / Slider.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Выравнивание ползунка
 
 Используйте `thumbAlignment="center"`, если ползунок должен выходить за края дорожки.
@@ -496,11 +541,12 @@ Slider / Slider.Root
   <SliderThumbAlignment />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/thumb-alignment.tsx"
+```tsx pure file="../../../src/components/examples/slider/thumb-alignment.tsx"
 ```
 
     </Tab>
@@ -513,6 +559,8 @@ Slider / Slider.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Столкновение ползунков
 
 Используйте `thumbCollisionBehavior`, чтобы задать поведение ползунков диапазона при встрече. Значение `none` (по умолчанию)
@@ -522,11 +570,12 @@ Slider / Slider.Root
   <SliderThumbCollision />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/thumb-collision.tsx"
+```tsx pure file="../../../src/components/examples/slider/thumb-collision.tsx"
 ```
 
     </Tab>
@@ -539,6 +588,8 @@ Slider / Slider.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Перекрытие ползунков
 
 Используйте `minStepsBetweenThumbs`, чтобы задать минимальный зазор между ползунками диапазона. Фактический зазор равен
@@ -548,11 +599,12 @@ Slider / Slider.Root
   <SliderThumbOverlap />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/thumb-overlap.tsx"
+```tsx pure file="../../../src/components/examples/slider/thumb-overlap.tsx"
 ```
 
     </Tab>
@@ -565,6 +617,8 @@ Slider / Slider.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Вертикальный
 
 Задайте `orientation="vertical"` и явно задайте корневому элементу высоту.
@@ -573,11 +627,12 @@ Slider / Slider.Root
   <SliderVertical />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/vertical.tsx"
+```tsx pure file="../../../src/components/examples/slider/vertical.tsx"
 ```
 
     </Tab>
@@ -590,6 +645,8 @@ Slider / Slider.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Вертикальный с делениями
 
 В вертикальной ориентации отметки выравниваются по дорожке и используют те же атрибуты состояния.
@@ -598,11 +655,12 @@ Slider / Slider.Root
   <SliderVerticalWithMarks />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/vertical-with-marks.tsx"
+```tsx pure file="../../../src/components/examples/slider/vertical-with-marks.tsx"
 ```
 
     </Tab>
@@ -615,6 +673,8 @@ Slider / Slider.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Расширенная настройка
 
 Используйте отдельные `Slider.Thumb` вместо `Slider.Thumbs`, если каждому ползунку нужны свои дочерние элементы, доступное
@@ -624,11 +684,12 @@ Slider / Slider.Root
   <SliderAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/slider/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/slider/advanced-customization.tsx"
 ```
 
     </Tab>
@@ -640,6 +701,8 @@ Slider / Slider.Root
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

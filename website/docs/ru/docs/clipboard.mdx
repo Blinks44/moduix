@@ -33,11 +33,12 @@ import * as ClipboardDocs from '@/components/examples/clipboard/css-properties';
   <ClipboardBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/clipboard/basic.tsx"
+```tsx pure file="../../../src/components/examples/clipboard/basic.tsx"
 ```
 
     </Tab>
@@ -49,6 +50,8 @@ import * as ClipboardDocs from '@/components/examples/clipboard/css-properties';
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -148,11 +151,12 @@ moduix, сохранив явные части Clipboard в разметке.
   <ContextClipboardDemo />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/clipboard/context.tsx"
+```tsx pure file="../../../src/components/examples/clipboard/context.tsx"
 ```
 
     </Tab>
@@ -165,6 +169,8 @@ moduix, сохранив явные части Clipboard в разметке.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Статус копирования
 
 Используйте `onStatusChange(details)`, если другая часть интерфейса должна реагировать на успешное
@@ -174,11 +180,12 @@ moduix, сохранив явные части Clipboard в разметке.
   <ClipboardStatusDemo />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/clipboard/copy-status.tsx"
+```tsx pure file="../../../src/components/examples/clipboard/copy-status.tsx"
 ```
 
     </Tab>
@@ -191,6 +198,8 @@ moduix, сохранив явные части Clipboard в разметке.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Свой текст копирования
 
 Передайте собственный текст в `Clipboard.CopyText` или задайте проп `copied`, если кнопке нужны
@@ -200,11 +209,12 @@ moduix, сохранив явные части Clipboard в разметке.
   <CustomCopyTextClipboardDemo />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/clipboard/custom-copy-text.tsx"
+```tsx pure file="../../../src/components/examples/clipboard/custom-copy-text.tsx"
 ```
 
     </Tab>
@@ -217,6 +227,8 @@ moduix, сохранив явные части Clipboard в разметке.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Отключённое состояние
 
 Передайте `disabled` и полю, и кнопке, если пользователь может видеть значение, но не должен его
@@ -226,11 +238,12 @@ moduix, сохранив явные части Clipboard в разметке.
   <DisabledClipboardDemo />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/clipboard/disabled.tsx"
+```tsx pure file="../../../src/components/examples/clipboard/disabled.tsx"
 ```
 
     </Tab>
@@ -243,6 +256,8 @@ moduix, сохранив явные части Clipboard в разметке.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Создайте состояние с помощью `Clipboard.useClipboard()` и передайте его в
@@ -253,11 +268,12 @@ moduix, сохранив явные части Clipboard в разметке.
   <RootProviderClipboardDemo />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/clipboard/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/clipboard/root-provider.tsx"
 ```
 
     </Tab>
@@ -270,6 +286,8 @@ moduix, сохранив явные части Clipboard в разметке.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Задержка
 
 Укажите `timeout`, если состояние после копирования должно отображаться дольше или меньше стандартных
@@ -279,11 +297,12 @@ moduix, сохранив явные части Clipboard в разметке.
   <TimeoutClipboardDemo />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/clipboard/timeout.tsx"
+```tsx pure file="../../../src/components/examples/clipboard/timeout.tsx"
 ```
 
     </Tab>
@@ -296,6 +315,8 @@ moduix, сохранив явные части Clipboard в разметке.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Текст значения
 
 Используйте `Clipboard.ValueText`, если значение должно отображаться как текст, а не внутри поля
@@ -305,11 +326,12 @@ moduix, сохранив явные части Clipboard в разметке.
   <ValueTextClipboardDemo />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/clipboard/value-text.tsx"
+```tsx pure file="../../../src/components/examples/clipboard/value-text.tsx"
 ```
 
     </Tab>
@@ -322,6 +344,8 @@ moduix, сохранив явные части Clipboard в разметке.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Расширенная настройка
 
 Используйте `asChild`, чтобы передать свои элементы поля и кнопки для отрисовки частей Clipboard,
@@ -331,11 +355,12 @@ moduix, сохранив явные части Clipboard в разметке.
   <AsChildClipboardDemo />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/clipboard/as-child.tsx"
+```tsx pure file="../../../src/components/examples/clipboard/as-child.tsx"
 ```
 
     </Tab>
@@ -347,6 +372,8 @@ moduix, сохранив явные части Clipboard в разметке.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

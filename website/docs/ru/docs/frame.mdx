@@ -33,11 +33,12 @@ import { Frame } from '@ark-ui/react';
   <FrameBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/frame/basic.tsx"
+```tsx pure file="../../../src/components/examples/frame/basic.tsx"
 ```
 
     </Tab>
@@ -49,6 +50,8 @@ import { Frame } from '@ark-ui/react';
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 `Frame` также передаёт вложенным компонентам Ark документ iframe. Поэтому поиск элементов в DOM, порталы и управление
 фокусом работают в нужном документе, если внутри превью используются компоненты Ark UI. Внутри `Frame` можно напрямую
@@ -63,11 +66,12 @@ React-узлы через проп `head`, чтобы добавить в док
   <FrameHead />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/frame/head.tsx"
+```tsx pure file="../../../src/components/examples/frame/head.tsx"
 ```
 
     </Tab>
@@ -79,6 +83,8 @@ React-узлы через проп `head`, чтобы добавить в док
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 Содержимое `head` добавляется в `<head>` iframe. Если внутри iframe рендерятся компоненты moduix, загрузите туда и
 нужные им стили. CSS родительской страницы не проникает внутрь iframe.

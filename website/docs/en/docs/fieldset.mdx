@@ -33,11 +33,12 @@ available for compatibility with Ark's namespace API.
   <FieldsetBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/fieldset/basic.tsx"
+```tsx pure file="../../../src/components/examples/fieldset/basic.tsx"
 ```
 
     </Tab>
@@ -49,6 +50,8 @@ available for compatibility with Ark's namespace API.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -124,11 +127,12 @@ automatically, so its value participates in form submission and form reset as ex
   <FieldsetCheckbox />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/fieldset/checkbox.tsx"
+```tsx pure file="../../../src/components/examples/fieldset/checkbox.tsx"
 ```
 
     </Tab>
@@ -141,6 +145,8 @@ automatically, so its value participates in form submission and form reset as ex
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Disabled
 
 Set `disabled` on the root. The browser disables native controls, and Ark-aware controls read the same
@@ -150,11 +156,12 @@ state from the fieldset context.
   <FieldsetDisabled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/fieldset/disabled.tsx"
+```tsx pure file="../../../src/components/examples/fieldset/disabled.tsx"
 ```
 
     </Tab>
@@ -167,6 +174,8 @@ state from the fieldset context.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Field
 
 Nest `Field` components when each control needs its own label, helper text, or error message in addition
@@ -176,11 +185,12 @@ to the shared legend.
   <FieldsetField />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/fieldset/field.tsx"
+```tsx pure file="../../../src/components/examples/fieldset/field.tsx"
 ```
 
     </Tab>
@@ -193,6 +203,8 @@ to the shared legend.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Input with Select
 
 Combine a country-code `Select` and a phone-number `Input` under one legend when together they make up
@@ -202,11 +214,12 @@ one phone number.
   <FieldsetInputWithSelect />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/fieldset/input-with-select.tsx"
+```tsx pure file="../../../src/components/examples/fieldset/input-with-select.tsx"
 ```
 
     </Tab>
@@ -219,6 +232,8 @@ one phone number.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Invalid
 
 Set `invalid` on `Fieldset` to mark the group as invalid and show its group-level error. Set `invalid`
@@ -228,11 +243,12 @@ on nested `Field` components as well when individual controls need their own inv
   <FieldsetInvalid />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/fieldset/invalid.tsx"
+```tsx pure file="../../../src/components/examples/fieldset/invalid.tsx"
 ```
 
     </Tab>
@@ -245,6 +261,8 @@ on nested `Field` components as well when individual controls need their own inv
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Advanced Customization
 
 Use `useFieldset` with `Fieldset.RootProvider` to create fieldset state outside the JSX tree and share
@@ -254,11 +272,12 @@ it with sibling controls or reusable descendants.
   <FieldsetRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/fieldset/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/fieldset/root-provider.tsx"
 ```
 
     </Tab>
@@ -270,6 +289,8 @@ it with sibling controls or reusable descendants.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

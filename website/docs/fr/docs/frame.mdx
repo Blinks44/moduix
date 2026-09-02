@@ -33,11 +33,12 @@ disponible et commence avec une hauteur confortable pour l’aperçu.
   <FrameBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/frame/basic.tsx"
+```tsx pure file="../../../src/components/examples/frame/basic.tsx"
 ```
 
     </Tab>
@@ -49,6 +50,8 @@ disponible et commence avec une hauteur confortable pour l’aperçu.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 `Frame` transmet automatiquement le document de l’iframe aux composants Ark imbriqués. Les requêtes DOM, les portails
 et la gestion du focus s’effectuent ainsi dans le bon document lorsque l’aperçu contient des composants Ark UI. Vous
@@ -64,11 +67,12 @@ l’iframe.
   <FrameHead />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/frame/head.tsx"
+```tsx pure file="../../../src/components/examples/frame/head.tsx"
 ```
 
     </Tab>
@@ -80,6 +84,8 @@ l’iframe.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 Le contenu de `head` est inséré dans le `<head>` de l’iframe. Si vous rendez des composants moduix dans l’iframe,
 chargez également les styles dont ils ont besoin. Les styles de la page hôte ne traversent pas la limite de l’iframe.

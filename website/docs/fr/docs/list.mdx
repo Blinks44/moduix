@@ -39,16 +39,19 @@ La racine `List` gère l’espacement, la typographie, la tonalité et les marqu
   <ListBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/list/basic.tsx"
+```tsx pure file="../../../src/components/examples/list/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -122,16 +125,19 @@ Il doit transmettre les props et la ref reçues à un unique `<ul>` ou `<ol>`.
   <ListRootAsChild />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/list/root-as-child.tsx"
+```tsx pure file="../../../src/components/examples/list/root-as-child.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Sans marqueurs
 
@@ -141,16 +147,19 @@ Utilisez `marker="none"` si vous avez besoin de la sémantique d’une liste san
   <ListMarkerless />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/list/markerless.tsx"
+```tsx pure file="../../../src/components/examples/list/markerless.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Éléments natifs
 
@@ -160,16 +169,19 @@ Utilisez des éléments `li` natifs si vous n’avez pas besoin de la partie exp
   <ListNativeItems />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/list/native-items.tsx"
+```tsx pure file="../../../src/components/examples/list/native-items.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Liste ordonnée
 
@@ -179,16 +191,19 @@ Utilisez `as="ol"` pour rendre une liste ordonnée tout en conservant les styles
   <ListOrdered />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/list/ordered.tsx"
+```tsx pure file="../../../src/components/examples/list/ordered.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Tonalité
 
@@ -198,11 +213,12 @@ Utilisez `tone` pour appliquer une couleur sémantique au texte et aux marqueurs
   <ListTone />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/list/tone.tsx"
+```tsx pure file="../../../src/components/examples/list/tone.tsx"
 ```
 
     </Tab>
@@ -215,6 +231,8 @@ Utilisez `tone` pour appliquer une couleur sémantique au texte et aux marqueurs
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Personnalisation avancée
 
 Utilisez `List.Item asChild` lorsqu’un composant personnalisé doit rendre lui-même l’élément `<li>`. Il doit
@@ -225,11 +243,12 @@ directement `List.Item className`.
   <ListCustomComposition />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/list/custom-composition.tsx"
+```tsx pure file="../../../src/components/examples/list/custom-composition.tsx"
 ```
 
     </Tab>
@@ -241,6 +260,8 @@ directement `List.Item className`.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

@@ -39,11 +39,12 @@ import TextWeight from '@/components/examples/text/weight.tsx';
   <TextBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/text/basic.tsx"
+```tsx pure file="../../../src/components/examples/text/basic.tsx"
 ```
 
     </Tab>
@@ -55,6 +56,8 @@ import TextWeight from '@/components/examples/text/weight.tsx';
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -118,11 +121,12 @@ Text / Text.Root
   <TextAlignment />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/text/alignment.tsx"
+```tsx pure file="../../../src/components/examples/text/alignment.tsx"
 ```
 
     </Tab>
@@ -135,6 +139,8 @@ Text / Text.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Семантика
 
 Используйте `as`, чтобы выбрать семантический HTML-элемент и сохранить типографические стили `Text`.
@@ -143,11 +149,12 @@ Text / Text.Root
   <TextSemantics />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/text/semantics.tsx"
+```tsx pure file="../../../src/components/examples/text/semantics.tsx"
 ```
 
     </Tab>
@@ -160,6 +167,8 @@ Text / Text.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Размер
 
 Используйте `size`, чтобы изменить визуальную иерархию, не переходя на другой типографический компонент.
@@ -168,11 +177,12 @@ Text / Text.Root
   <TextSize />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/text/size.tsx"
+```tsx pure file="../../../src/components/examples/text/size.tsx"
 ```
 
     </Tab>
@@ -185,6 +195,8 @@ Text / Text.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Тон
 
 Используйте `tone`, чтобы показать роль текста без локальных классов цвета.
@@ -193,11 +205,12 @@ Text / Text.Root
   <TextTone />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/text/tone.tsx"
+```tsx pure file="../../../src/components/examples/text/tone.tsx"
 ```
 
     </Tab>
@@ -210,6 +223,8 @@ Text / Text.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Усечение
 
 Используйте `truncate` для однострочного усечения с многоточием, а `lineClamp` для компактных многострочных превью.
@@ -219,11 +234,12 @@ Text / Text.Root
   <TextTruncation />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/text/truncation.tsx"
+```tsx pure file="../../../src/components/examples/text/truncation.tsx"
 ```
 
     </Tab>
@@ -236,6 +252,8 @@ Text / Text.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Насыщенность
 
 Используйте `weight`, когда акцент должен остаться в пределах того же семантического элемента.
@@ -244,11 +262,12 @@ Text / Text.Root
   <TextWeight />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/text/weight.tsx"
+```tsx pure file="../../../src/components/examples/text/weight.tsx"
 ```
 
     </Tab>
@@ -261,6 +280,8 @@ Text / Text.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Расширенная настройка
 
 Используйте `asChild`, когда корнем должен стать существующий пользовательский элемент, а не одно из поддерживаемых
@@ -270,16 +291,19 @@ Text / Text.Root
   <TextCustomComposition />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/text/custom-composition.tsx"
+```tsx pure file="../../../src/components/examples/text/custom-composition.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

@@ -20,11 +20,12 @@ via `onSubmit`.
 L’aperçu empêche l’envoi standard du formulaire et n’appelle donc aucune API d’authentification. La recette
 copiée transmet `onSubmit` au formulaire natif et laisse votre application gérer l’authentification.
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/recipes/login-simple/login-simple.tsx"
+```tsx pure file="../../../src/components/recipes/login-simple/login-simple.tsx"
 
 ```
 
@@ -38,6 +39,8 @@ copiée transmet `onSubmit` au formulaire natif et laisse votre application gér
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation
 

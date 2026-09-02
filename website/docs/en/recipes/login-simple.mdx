@@ -19,11 +19,12 @@ state. Connect those pieces to your application through `onSubmit`.
 The preview prevents the default form submission, so it never calls an authentication endpoint. The
 copied recipe forwards `onSubmit` to the native form and leaves authentication to your application.
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/recipes/login-simple/login-simple.tsx"
+```tsx pure file="../../../src/components/recipes/login-simple/login-simple.tsx"
 
 ```
 
@@ -37,6 +38,8 @@ copied recipe forwards `onSubmit` to the native form and leaves authentication t
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install
 

@@ -31,11 +31,12 @@ import StepsCustomComposition from '@/components/examples/steps/custom-compositi
   <StepsBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/steps/basic.tsx"
+```tsx pure file="../../../src/components/examples/steps/basic.tsx"
 ```
 
     </Tab>
@@ -47,6 +48,8 @@ import StepsCustomComposition from '@/components/examples/steps/custom-compositi
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -143,11 +146,12 @@ Steps.RootProvider
   <StepsControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/steps/controlled.tsx"
+```tsx pure file="../../../src/components/examples/steps/controlled.tsx"
 ```
 
     </Tab>
@@ -160,6 +164,8 @@ Steps.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Валидация
 
 Используйте `linear`, `isStepValid` и `onStepInvalid`, чтобы запрещать переход дальше, пока текущий шаг не пройдёт
@@ -169,11 +175,12 @@ Steps.RootProvider
   <StepsValidation />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/steps/validation.tsx"
+```tsx pure file="../../../src/components/examples/steps/validation.tsx"
 ```
 
     </Tab>
@@ -186,6 +193,8 @@ Steps.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Прогресс
 
 Добавьте `Steps.Progress`, если нужно показать визуальную полосу прогресса рядом со списком шагов. Если этот
@@ -195,11 +204,12 @@ Steps.RootProvider
   <StepsProgress />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/steps/progress.tsx"
+```tsx pure file="../../../src/components/examples/steps/progress.tsx"
 ```
 
     </Tab>
@@ -212,6 +222,8 @@ Steps.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### RootProvider
 
 Создайте состояние с помощью `Steps.useSteps()` за пределами дерева частей и передайте его в `Steps.RootProvider`,
@@ -221,11 +233,12 @@ Steps.RootProvider
   <StepsRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/steps/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/steps/root-provider.tsx"
 ```
 
     </Tab>
@@ -238,6 +251,8 @@ Steps.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Вертикальная ориентация
 
 Задайте `orientation="vertical"`, если на широких экранах список шагов должен находиться рядом с активной панелью
@@ -247,11 +262,12 @@ Steps.RootProvider
   <StepsVertical />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/steps/vertical.tsx"
+```tsx pure file="../../../src/components/examples/steps/vertical.tsx"
 ```
 
     </Tab>
@@ -264,6 +280,8 @@ Steps.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Расширенная настройка
 
 Используйте `asChild`, если триггер должен отрисовываться как ссылка или ссылка из роутера, а не как стандартная
@@ -274,11 +292,12 @@ Steps.RootProvider
   <StepsCustomComposition />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/steps/custom-composition.tsx"
+```tsx pure file="../../../src/components/examples/steps/custom-composition.tsx"
 ```
 
     </Tab>
@@ -290,6 +309,8 @@ Steps.RootProvider
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

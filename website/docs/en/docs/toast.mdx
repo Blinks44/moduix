@@ -33,11 +33,12 @@ with `Toaster`.
   <ToastBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toast/basic.tsx"
+```tsx pure file="../../../src/components/examples/toast/basic.tsx"
 ```
 
     </Tab>
@@ -49,6 +50,8 @@ with `Toaster`.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -159,11 +162,12 @@ Add `action: { label, onClick }` when the notification should offer one direct f
   <ToastAction />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toast/action.tsx"
+```tsx pure file="../../../src/components/examples/toast/action.tsx"
 ```
 
     </Tab>
@@ -176,6 +180,8 @@ Add `action: { label, onClick }` when the notification should offer one direct f
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Duration
 
 Set `duration` in milliseconds when a notification should disappear sooner, stay visible longer, or
@@ -185,11 +191,12 @@ remain until the user dismisses it with `Infinity`.
   <ToastDuration />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toast/duration.tsx"
+```tsx pure file="../../../src/components/examples/toast/duration.tsx"
 ```
 
     </Tab>
@@ -202,6 +209,8 @@ remain until the user dismisses it with `Infinity`.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Maximum visible
 
 Set `max` on the toaster when bursts of notifications should queue instead of filling the screen.
@@ -210,11 +219,12 @@ Set `max` on the toaster when bursts of notifications should queue instead of fi
   <ToastMaximumVisible />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toast/max-toasts.tsx"
+```tsx pure file="../../../src/components/examples/toast/max-toasts.tsx"
 ```
 
     </Tab>
@@ -227,6 +237,8 @@ Set `max` on the toaster when bursts of notifications should queue instead of fi
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Non-overlapping stack
 
 Set `overlap: false` when every toast should remain fully visible instead of collapsing into an
@@ -236,11 +248,12 @@ overlapping stack. This is a toaster setting, not a separate component mode.
   <ToastNonOverlapping />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toast/always-expanded.tsx"
+```tsx pure file="../../../src/components/examples/toast/always-expanded.tsx"
 ```
 
     </Tab>
@@ -253,6 +266,8 @@ overlapping stack. This is a toaster setting, not a separate component mode.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Placement
 
 Choose one of Ark's six placements when the notification group should appear at a specific edge of
@@ -262,11 +277,12 @@ the viewport.
   <ToastPlacement />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toast/placement.tsx"
+```tsx pure file="../../../src/components/examples/toast/placement.tsx"
 ```
 
     </Tab>
@@ -279,6 +295,8 @@ the viewport.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Promise
 
 Use `toaster.promise()` to move one notification from loading to success or error as an asynchronous
@@ -288,11 +306,12 @@ operation settles.
   <ToastPromise />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toast/promise-toast.tsx"
+```tsx pure file="../../../src/components/examples/toast/promise-toast.tsx"
 ```
 
     </Tab>
@@ -305,6 +324,8 @@ operation settles.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Types
 
 Use the typed toaster helpers for status-specific variants. Moduix styles `info`, `success`,
@@ -314,11 +335,12 @@ Use the typed toaster helpers for status-specific variants. Moduix styles `info`
   <ToastTypes />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toast/types.tsx"
+```tsx pure file="../../../src/components/examples/toast/types.tsx"
 ```
 
     </Tab>
@@ -331,6 +353,8 @@ Use the typed toaster helpers for status-specific variants. Moduix styles `info`
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Update
 
 Keep the id returned when a toast is created and pass it to `toaster.update()` when the existing
@@ -340,11 +364,12 @@ notification should change in place.
   <ToastUpdate />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toast/update.tsx"
+```tsx pure file="../../../src/components/examples/toast/update.tsx"
 ```
 
     </Tab>
@@ -357,6 +382,8 @@ notification should change in place.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Advanced Customization
 
 Use the render prop to bypass the default `Toaster` renderer, add an icon, replace the close icon,
@@ -366,11 +393,12 @@ and apply component-specific CSS variables.
   <ToastCustomComposition />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toast/custom-composition.tsx"
+```tsx pure file="../../../src/components/examples/toast/custom-composition.tsx"
 ```
 
     </Tab>
@@ -382,6 +410,8 @@ and apply component-specific CSS variables.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

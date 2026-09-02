@@ -33,11 +33,12 @@ import FieldsetRootProvider from '@/components/examples/fieldset/root-provider.t
   <FieldsetBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/fieldset/basic.tsx"
+```tsx pure file="../../../src/components/examples/fieldset/basic.tsx"
 ```
 
     </Tab>
@@ -49,6 +50,8 @@ import FieldsetRootProvider from '@/components/examples/fieldset/root-provider.t
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -123,11 +126,12 @@ Fieldset.Root | Fieldset.RootProvider
   <FieldsetCheckbox />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/fieldset/checkbox.tsx"
+```tsx pure file="../../../src/components/examples/fieldset/checkbox.tsx"
 ```
 
     </Tab>
@@ -140,6 +144,8 @@ Fieldset.Root | Fieldset.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Отключённое состояние
 
 Установите `disabled` у корневого компонента. Браузер отключит нативные элементы управления, а совместимые с Ark компоненты
@@ -149,11 +155,12 @@ Fieldset.Root | Fieldset.RootProvider
   <FieldsetDisabled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/fieldset/disabled.tsx"
+```tsx pure file="../../../src/components/examples/fieldset/disabled.tsx"
 ```
 
     </Tab>
@@ -166,6 +173,8 @@ Fieldset.Root | Fieldset.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Field
 
 Используйте вложенные компоненты `Field`, если для каждого элемента управления нужно отдельно задать метку, поясняющий текст
@@ -175,11 +184,12 @@ Fieldset.Root | Fieldset.RootProvider
   <FieldsetField />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/fieldset/field.tsx"
+```tsx pure file="../../../src/components/examples/fieldset/field.tsx"
 ```
 
     </Tab>
@@ -192,6 +202,8 @@ Fieldset.Root | Fieldset.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Input с Select
 
 Объедините `Select` с кодом страны и `Input` для номера телефона под одним заголовком, если вместе они составляют один номер.
@@ -200,11 +212,12 @@ Fieldset.Root | Fieldset.RootProvider
   <FieldsetInputWithSelect />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/fieldset/input-with-select.tsx"
+```tsx pure file="../../../src/components/examples/fieldset/input-with-select.tsx"
 ```
 
     </Tab>
@@ -217,6 +230,8 @@ Fieldset.Root | Fieldset.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Недопустимое состояние
 
 Установите `invalid` у `Fieldset`, чтобы пометить всю группу как невалидную и показать общее сообщение об ошибке. Установите
@@ -227,11 +242,12 @@ ARIA-состояние.
   <FieldsetInvalid />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/fieldset/invalid.tsx"
+```tsx pure file="../../../src/components/examples/fieldset/invalid.tsx"
 ```
 
     </Tab>
@@ -244,6 +260,8 @@ ARIA-состояние.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Расширенная настройка
 
 Создайте состояние fieldset вне JSX-дерева с помощью `useFieldset` и передайте его в `Fieldset.RootProvider`, если им должны
@@ -253,11 +271,12 @@ ARIA-состояние.
   <FieldsetRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/fieldset/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/fieldset/root-provider.tsx"
 ```
 
     </Tab>
@@ -269,6 +288,8 @@ ARIA-состояние.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

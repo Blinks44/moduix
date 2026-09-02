@@ -52,16 +52,19 @@ const collection = createListCollection({
   <ListCollectionBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/list-collection/basic.tsx"
+```tsx pure file="../../../src/components/examples/list-collection/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 Храните статическую коллекцию за пределами компонента, если её элементы не меняются. Если данные
 приходят через свойства компонента, состояние или запрос, оберните `createListCollection` в

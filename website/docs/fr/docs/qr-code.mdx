@@ -28,16 +28,19 @@ explicitement `QrCode.Frame` et `QrCode.Pattern` pour rendre le SVG généré. D
   <QrCodeBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/qr-code/basic.tsx"
+```tsx pure file="../../../src/components/examples/qr-code/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -137,11 +140,12 @@ l’application.
   <ControlledQrCode />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/qr-code/controlled.tsx"
+```tsx pure file="../../../src/components/examples/qr-code/controlled.tsx"
 ```
 
     </Tab>
@@ -154,6 +158,8 @@ l’application.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Téléchargement
 
 Ajoutez `QrCode.DownloadTrigger` lorsque les utilisateurs doivent enregistrer le code généré sous forme
@@ -163,16 +169,19 @@ d’image. Définissez `fileName` et `mimeType` sur le déclencheur.
   <DownloadQrCode />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/qr-code/download.tsx"
+```tsx pure file="../../../src/components/examples/qr-code/download.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Correction d’erreurs
 
@@ -189,11 +198,12 @@ risque d’être rayé ou déformé.
   <ErrorCorrectionQrCode />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/qr-code/error-correction.tsx"
+```tsx pure file="../../../src/components/examples/qr-code/error-correction.tsx"
 ```
 
     </Tab>
@@ -206,6 +216,8 @@ risque d’être rayé ou déformé.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Remplissage
 
 Les modules du code QR utilisent `currentColor` par défaut. Modifiez le remplissage du SVG avec
@@ -215,11 +227,12 @@ Les modules du code QR utilisent `currentColor` par défaut. Modifiez le remplis
   <FillQrCode />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/qr-code/fill.tsx"
+```tsx pure file="../../../src/components/examples/qr-code/fill.tsx"
 ```
 
     </Tab>
@@ -232,6 +245,8 @@ Les modules du code QR utilisent `currentColor` par défaut. Modifiez le remplis
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Champ de saisie
 
 Liez `value` à un champ de texte lorsque les utilisateurs doivent saisir ou modifier le contenu encodé
@@ -241,11 +256,12 @@ dans le code QR. Donnez à `QrCode.Frame` un nom accessible qui explique ce que 
   <InputQrCode />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/qr-code/input.tsx"
+```tsx pure file="../../../src/components/examples/qr-code/input.tsx"
 ```
 
     </Tab>
@@ -258,6 +274,8 @@ dans le code QR. Donnez à `QrCode.Frame` un nom accessible qui explique ce que 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Superposition
 
 Utilisez `QrCode.Overlay` pour un petit logo ou une marque textuelle. Définissez un niveau élevé de
@@ -268,11 +286,12 @@ lire le code.
   <OverlayQrCode />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/qr-code/overlay.tsx"
+```tsx pure file="../../../src/components/examples/qr-code/overlay.tsx"
 ```
 
     </Tab>
@@ -285,6 +304,8 @@ lire le code.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Créez l’état du code QR avec `useQrCode()` lorsqu’il doit être partagé avec des contrôles situés en
@@ -294,16 +315,19 @@ dehors de l’arbre du code QR, puis transmettez cet état à `QrCode.RootProvid
   <RootProviderQrCode />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/qr-code/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/qr-code/root-provider.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

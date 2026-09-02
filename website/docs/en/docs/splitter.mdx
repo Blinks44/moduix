@@ -28,11 +28,12 @@ one of those ids. When you omit the trigger's children, moduix renders a resize 
   <SplitterBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/splitter/basic.tsx"
+```tsx pure file="../../../src/components/examples/splitter/basic.tsx"
 ```
 
     </Tab>
@@ -44,6 +45,8 @@ one of those ids. When you omit the trigger's children, moduix renders a resize 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -123,11 +126,12 @@ size. If `minSize` is larger, the splitter snaps between the expanded minimum an
   <SplitterCollapsiblePanels />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/splitter/collapsible-panels.tsx"
+```tsx pure file="../../../src/components/examples/splitter/collapsible-panels.tsx"
 ```
 
     </Tab>
@@ -140,6 +144,8 @@ size. If `minSize` is larger, the splitter snaps between the expanded minimum an
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Controlled
 
 Keep panel sizes in React state and update that state from `details.size` in `onResize`.
@@ -148,11 +154,12 @@ Keep panel sizes in React state and update that state from `details.size` in `on
   <SplitterControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/splitter/controlled.tsx"
+```tsx pure file="../../../src/components/examples/splitter/controlled.tsx"
 ```
 
     </Tab>
@@ -165,6 +172,8 @@ Keep panel sizes in React state and update that state from `details.size` in `on
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Responsive collapse
 
 Use `collapsePanel()` and `expandPanel()` when a sidebar should react to the available width measured
@@ -174,11 +183,12 @@ by the application.
   <SplitterDynamicCollapsible />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/splitter/dynamic-collapsible.tsx"
+```tsx pure file="../../../src/components/examples/splitter/dynamic-collapsible.tsx"
 ```
 
     </Tab>
@@ -191,6 +201,8 @@ by the application.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Multiple panels
 
 Add another `Panel` and an adjacent `ResizeTrigger` for a three-panel layout. Every panel needs a
@@ -200,11 +212,12 @@ matching entry in `panels`, and every trigger id must connect its two neighbors.
   <SplitterMultiplePanels />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/splitter/multiple-panels.tsx"
+```tsx pure file="../../../src/components/examples/splitter/multiple-panels.tsx"
 ```
 
     </Tab>
@@ -217,6 +230,8 @@ matching entry in `panels`, and every trigger id must connect its two neighbors.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Nested
 
 Pass the same registry to nested splitters to support multi-drag at intersections between horizontal
@@ -226,11 +241,12 @@ and vertical handles.
   <SplitterNested />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/splitter/nested.tsx"
+```tsx pure file="../../../src/components/examples/splitter/nested.tsx"
 ```
 
     </Tab>
@@ -243,6 +259,8 @@ and vertical handles.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### RootProvider
 
 Use `useSplitter()` with `Splitter.RootProvider` when state or controls need to live outside the
@@ -253,11 +271,12 @@ rendered splitter parts. The returned API includes methods such as `getSizes()`,
   <SplitterRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/splitter/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/splitter/root-provider.tsx"
 ```
 
     </Tab>
@@ -270,6 +289,8 @@ rendered splitter parts. The returned API includes methods such as `getSizes()`,
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Vertical
 
 Set `orientation="vertical"` and give the root a stable height so stacked panels have room to resize.
@@ -278,11 +299,12 @@ Set `orientation="vertical"` and give the root a stable height so stacked panels
   <SplitterVertical />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/splitter/vertical.tsx"
+```tsx pure file="../../../src/components/examples/splitter/vertical.tsx"
 ```
 
     </Tab>
@@ -294,6 +316,8 @@ Set `orientation="vertical"` and give the root a stable height so stacked panels
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Accessibility
 

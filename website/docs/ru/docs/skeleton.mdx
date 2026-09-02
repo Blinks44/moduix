@@ -28,11 +28,12 @@ import SkeletonVariants from '@/components/examples/skeleton/variants.tsx';
   <SkeletonBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/skeleton/basic.tsx"
+```tsx pure file="../../../src/components/examples/skeleton/basic.tsx"
 ```
 
     </Tab>
@@ -44,6 +45,8 @@ import SkeletonVariants from '@/components/examples/skeleton/variants.tsx';
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка с помощью shadcn
 
@@ -111,11 +114,12 @@ Skeleton.Root
   <SkeletonCard />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/skeleton/card.tsx"
+```tsx pure file="../../../src/components/examples/skeleton/card.tsx"
 ```
 
     </Tab>
@@ -128,6 +132,8 @@ Skeleton.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Загруженное содержимое
 
 Используйте `loading`, чтобы переключаться между заполнителем и реальным содержимым в одном и том же корневом элементе.
@@ -136,11 +142,12 @@ Skeleton.Root
   <SkeletonLoadedContent />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/skeleton/loaded-content.tsx"
+```tsx pure file="../../../src/components/examples/skeleton/loaded-content.tsx"
 ```
 
     </Tab>
@@ -153,6 +160,8 @@ Skeleton.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Медиаобъект
 
 Используйте `boxSize` с полным скруглением для заполнителя аватара, а строки текста разместите рядом.
@@ -161,11 +170,12 @@ Skeleton.Root
   <SkeletonMediaObject />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/skeleton/media-object.tsx"
+```tsx pure file="../../../src/components/examples/skeleton/media-object.tsx"
 ```
 
     </Tab>
@@ -178,6 +188,8 @@ Skeleton.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Адаптивная раскладка
 
 Оставьте логику адаптивной компоновки в обёртке, а каждый `Skeleton` используйте как отдельный визуальный блок.
@@ -186,11 +198,12 @@ Skeleton.Root
   <SkeletonResponsiveLayout />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/skeleton/responsive-layout.tsx"
+```tsx pure file="../../../src/components/examples/skeleton/responsive-layout.tsx"
 ```
 
     </Tab>
@@ -203,6 +216,8 @@ Skeleton.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Варианты
 
 Используйте `variant`, чтобы выбрать пульсирующее или статичное отображение заполнителя.
@@ -211,11 +226,12 @@ Skeleton.Root
   <SkeletonVariants />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/skeleton/variants.tsx"
+```tsx pure file="../../../src/components/examples/skeleton/variants.tsx"
 ```
 
     </Tab>
@@ -228,6 +244,8 @@ Skeleton.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Расширенная настройка
 
 Используйте `asChild`, когда корневым элементом должен стать семантический `section`, а не стандартный `div`.
@@ -236,16 +254,19 @@ Skeleton.Root
   <SkeletonCustomHost />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/skeleton/custom-host.tsx"
+```tsx pure file="../../../src/components/examples/skeleton/custom-host.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

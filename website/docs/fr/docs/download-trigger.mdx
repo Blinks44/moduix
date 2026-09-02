@@ -33,11 +33,12 @@ transmet le comportement de téléchargement à l’élément enfant. Ici, l’�
   <DownloadTriggerBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/download-trigger/basic.tsx"
+```tsx pure file="../../../src/components/examples/download-trigger/basic.tsx"
 ```
 
     </Tab>
@@ -50,6 +51,8 @@ transmet le comportement de téléchargement à l’élément enfant. Ici, l’�
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ## Générer les données à la demande
 
 Passez une fonction lorsque le fichier doit être créé avant le téléchargement. Ark l’appelle après l’activation du
@@ -59,11 +62,12 @@ déclencheur. Si elle renvoie une promesse, Ark attend sa résolution avant d’
   <DownloadTriggerAsyncData />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/download-trigger/async-data.tsx"
+```tsx pure file="../../../src/components/examples/download-trigger/async-data.tsx"
 ```
 
     </Tab>
@@ -75,6 +79,8 @@ déclencheur. Si elle renvoie une promesse, Ark attend sa résolution avant d’
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 `DownloadTrigger` n’expose ni état de chargement ni gestionnaire d’erreur. Si la génération peut prendre du temps, suivez
 son état dans votre application et gérez les erreurs dans la fonction passée à `data`. Désactivez ou remplacez le

@@ -43,11 +43,12 @@ import LightboxRootProviderAndContext from '@/components/examples/lightbox/root-
   <LightboxBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/lightbox/basic.tsx"
+```tsx pure file="../../../src/components/examples/lightbox/basic.tsx"
 ```
 
     </Tab>
@@ -59,6 +60,8 @@ import LightboxRootProviderAndContext from '@/components/examples/lightbox/root-
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -191,11 +194,12 @@ Lightbox.RootProvider
   <LightboxBindCmsContent />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/lightbox/bind-cms-content.tsx"
+```tsx pure file="../../../src/components/examples/lightbox/bind-cms-content.tsx"
 ```
 
     </Tab>
@@ -208,6 +212,8 @@ Lightbox.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Закрытие по клику на изображение
 
 Используйте `Lightbox.Image closeOnClick`, если клик по изображению должен закрывать окно просмотра.
@@ -217,11 +223,12 @@ Lightbox.RootProvider
   <LightboxClickToCloseImage />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/lightbox/click-to-close-image.tsx"
+```tsx pure file="../../../src/components/examples/lightbox/click-to-close-image.tsx"
 ```
 
     </Tab>
@@ -234,6 +241,8 @@ Lightbox.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Управляемое состояние
 
 Используйте обработчик `onOpenChange(details)` из Ark UI, если состояние Lightbox нужно синхронизировать с React.
@@ -242,11 +251,12 @@ Lightbox.RootProvider
   <LightboxControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/lightbox/controlled.tsx"
+```tsx pure file="../../../src/components/examples/lightbox/controlled.tsx"
 ```
 
     </Tab>
@@ -259,6 +269,8 @@ Lightbox.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Фокус и идентификаторы
 
 Используйте `initialFocusEl`, `finalFocusEl` и `ids`, если нужно явно задать элементы, которые получают
@@ -269,11 +281,12 @@ Lightbox.RootProvider
   <LightboxFocusAndIds />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/lightbox/focus-and-ids.tsx"
+```tsx pure file="../../../src/components/examples/lightbox/focus-and-ids.tsx"
 ```
 
     </Tab>
@@ -286,6 +299,8 @@ Lightbox.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Галерея
 
 Если CMS или API возвращает структурированный массив изображений, храните выбранное изображение и
@@ -297,11 +312,12 @@ Lightbox.RootProvider
   <LightboxGallery />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/lightbox/gallery.tsx"
+```tsx pure file="../../../src/components/examples/lightbox/gallery.tsx"
 ```
 
     </Tab>
@@ -314,6 +330,8 @@ Lightbox.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Несколько триггеров
 
 Используйте `Lightbox.Trigger.value` и `onTriggerValueChange(details)` для миниатюр галереи.
@@ -323,11 +341,12 @@ Lightbox.RootProvider
   <LightboxMultipleTriggers />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/lightbox/multiple-triggers.tsx"
+```tsx pure file="../../../src/components/examples/lightbox/multiple-triggers.tsx"
 ```
 
     </Tab>
@@ -340,6 +359,8 @@ Lightbox.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Немодальный режим
 
 Задайте `modal={false}`, если страница должна оставаться интерактивной во время просмотра. В этом
@@ -350,11 +371,12 @@ Lightbox.RootProvider
   <LightboxNonModal />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/lightbox/non-modal.tsx"
+```tsx pure file="../../../src/components/examples/lightbox/non-modal.tsx"
 ```
 
     </Tab>
@@ -367,6 +389,8 @@ Lightbox.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Создайте состояние с помощью `useLightbox()`, если кнопка открытия находится за пределами корневого
@@ -377,11 +401,12 @@ Lightbox.RootProvider
   <LightboxRootProviderAndContext />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/lightbox/root-provider-and-context.tsx"
+```tsx pure file="../../../src/components/examples/lightbox/root-provider-and-context.tsx"
 ```
 
     </Tab>
@@ -394,6 +419,8 @@ Lightbox.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Расширенная настройка
 
 Не используйте необязательные компоненты компоновки, если для медиаконтента нужны собственные классы
@@ -403,11 +430,12 @@ Lightbox.RootProvider
   <LightboxAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/lightbox/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/lightbox/advanced-customization.tsx"
 ```
 
     </Tab>
@@ -419,6 +447,8 @@ Lightbox.RootProvider
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

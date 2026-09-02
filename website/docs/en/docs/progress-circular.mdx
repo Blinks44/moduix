@@ -33,11 +33,12 @@ visible label.
   <ProgressCircularBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/progress-circular/basic.tsx"
+```tsx pure file="../../../src/components/examples/progress-circular/basic.tsx"
 ```
 
     </Tab>
@@ -49,6 +50,8 @@ visible label.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -147,11 +150,12 @@ external task.
   <ControlledProgressCircular />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/progress-circular/controlled.tsx"
+```tsx pure file="../../../src/components/examples/progress-circular/controlled.tsx"
 ```
 
     </Tab>
@@ -164,6 +168,8 @@ external task.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Indeterminate
 
 Set `defaultValue={null}` or `value={null}` when the task is running but its progress cannot be
@@ -173,11 +179,12 @@ measured yet.
   <IndeterminateProgressCircular />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/progress-circular/indeterminate.tsx"
+```tsx pure file="../../../src/components/examples/progress-circular/indeterminate.tsx"
 ```
 
     </Tab>
@@ -190,6 +197,8 @@ measured yet.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Min and max
 
 Use `min` and `max` to map values to a range other than the default `0` to `100`.
@@ -198,11 +207,12 @@ Use `min` and `max` to map values to a range other than the default `0` to `100`
   <MinMaxProgressCircular />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/progress-circular/min-max.tsx"
+```tsx pure file="../../../src/components/examples/progress-circular/min-max.tsx"
 ```
 
     </Tab>
@@ -215,6 +225,8 @@ Use `min` and `max` to map values to a range other than the default `0` to `100`
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Value text
 
 Use `Context` with `translations.value(details)` when visible value text needs task-specific wording.
@@ -225,16 +237,19 @@ value string.
   <ValueTextProgressCircular />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/progress-circular/value-text.tsx"
+```tsx pure file="../../../src/components/examples/progress-circular/value-text.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Advanced customization
 
@@ -250,11 +265,12 @@ component needs to read or update progress outside the rendered tree.
   <RootProviderProgressCircular />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/progress-circular/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/progress-circular/root-provider.tsx"
 ```
 
     </Tab>
@@ -267,6 +283,8 @@ component needs to read or update progress outside the rendered tree.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 #### State views
 
 Use `ProgressCircular.View` when supporting text or UI should change with the Ark progress state.
@@ -276,11 +294,12 @@ This keeps state checks out of your own component.
   <StateViewsProgressCircular />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/progress-circular/state-views.tsx"
+```tsx pure file="../../../src/components/examples/progress-circular/state-views.tsx"
 ```
 
     </Tab>
@@ -292,6 +311,8 @@ This keeps state checks out of your own component.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

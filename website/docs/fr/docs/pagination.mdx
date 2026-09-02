@@ -30,11 +30,12 @@ points de suspension correspondant à la plage courante.
   <PaginationBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/pagination/basic.tsx"
+```tsx pure file="../../../src/components/examples/pagination/basic.tsx"
 ```
     </Tab>
     <Tab value="Styles">
@@ -44,6 +45,8 @@ points de suspension correspondant à la plage courante.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -132,11 +135,12 @@ Passez la page active avec `page` et mettez-la à jour dans `onPageChange(detail
   <PaginationControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/pagination/controlled.tsx"
+```tsx pure file="../../../src/components/examples/pagination/controlled.tsx"
 ```
     </Tab>
     <Tab value="Styles">
@@ -147,6 +151,8 @@ Passez la page active avec `page` et mettez-la à jour dans `onPageChange(detail
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Contexte
 
 Utilisez `Pagination.Context` pour placer des contrôles personnalisés à côté de la liste et appeler des
@@ -156,15 +162,18 @@ méthodes de navigation telles que `goToFirstPage()` ou `goToLastPage()`.
   <PaginationContext />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/pagination/context.tsx"
+```tsx pure file="../../../src/components/examples/pagination/context.tsx"
 ```
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Données côté client
 
@@ -175,11 +184,12 @@ correspondant à la page courante.
   <PaginationDataSlicing />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/pagination/data-slicing.tsx"
+```tsx pure file="../../../src/components/examples/pagination/data-slicing.tsx"
 ```
     </Tab>
     <Tab value="Styles">
@@ -190,6 +200,8 @@ correspondant à la page courante.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Navigation par liens
 
 Utilisez `type="link"`, `getPageUrl(details)` et des ancres `asChild` lorsque le changement de page doit
@@ -199,11 +211,12 @@ naviguer vers une URL réelle.
   <PaginationLink />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/pagination/link.tsx"
+```tsx pure file="../../../src/components/examples/pagination/link.tsx"
 ```
     </Tab>
     <Tab value="Styles">
@@ -214,6 +227,8 @@ naviguer vers une URL réelle.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Plage d’éléments
 
 Utilisez `pagination.pageRange` pour indiquer quels éléments sont visibles sur la page courante.
@@ -222,11 +237,12 @@ Utilisez `pagination.pageRange` pour indiquer quels éléments sont visibles sur
   <PaginationPageRange />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/pagination/page-range.tsx"
+```tsx pure file="../../../src/components/examples/pagination/page-range.tsx"
 ```
     </Tab>
     <Tab value="Styles">
@@ -237,6 +253,8 @@ Utilisez `pagination.pageRange` pour indiquer quels éléments sont visibles sur
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Nombre d’éléments par page
 
 Appelez `pagination.setPageSize(nextSize)` depuis le contexte lorsqu’un contrôle distinct modifie le
@@ -246,11 +264,12 @@ nombre d’éléments par page.
   <PaginationPageSizeControl />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/pagination/page-size-control.tsx"
+```tsx pure file="../../../src/components/examples/pagination/page-size-control.tsx"
 ```
     </Tab>
     <Tab value="Styles">
@@ -261,6 +280,8 @@ nombre d’éléments par page.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Créez l’état avec `Pagination.usePagination()` et transmettez-le à `Pagination.RootProvider` lorsque
@@ -270,11 +291,12 @@ l’état est géré en dehors de l’arborescence qui affiche la pagination.
   <PaginationRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/pagination/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/pagination/root-provider.tsx"
 ```
     </Tab>
     <Tab value="Styles">
@@ -285,6 +307,8 @@ l’état est géré en dehors de l’arborescence qui affiche la pagination.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Traductions
 
 Utilisez `translations` pour personnaliser les libellés d’accessibilité. Ajustez la fenêtre de pages
@@ -294,11 +318,12 @@ visible avec `siblingCount`, `boundaryCount` et les propriétés liées au nombr
   <PaginationCustomized />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/pagination/customized.tsx"
+```tsx pure file="../../../src/components/examples/pagination/customized.tsx"
 ```
     </Tab>
     <Tab value="Styles">
@@ -309,6 +334,8 @@ visible avec `siblingCount`, `boundaryCount` et les propriétés liées au nombr
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Boutons de première et de dernière page
 
 Ajoutez `Pagination.FirstTrigger` et `Pagination.LastTrigger` lorsque les utilisateurs ont besoin d’un
@@ -318,11 +345,12 @@ accès rapide à la première et à la dernière page.
   <PaginationWithEdges />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/pagination/with-edges.tsx"
+```tsx pure file="../../../src/components/examples/pagination/with-edges.tsx"
 ```
     </Tab>
     <Tab value="Styles">
@@ -332,6 +360,8 @@ accès rapide à la première et à la dernière page.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Personnalisation avancée
 
@@ -343,11 +373,12 @@ de suspension doivent afficher un contenu personnalisé. Transmettez chaque obje
   <PaginationAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/pagination/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/pagination/advanced-customization.tsx"
 ```
     </Tab>
     <Tab value="Styles">
@@ -357,6 +388,8 @@ de suspension doivent afficher un contenu personnalisé. Transmettez chaque obje
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

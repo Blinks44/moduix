@@ -33,11 +33,12 @@ import ToastUpdate from '@/components/examples/toast/update.tsx';
   <ToastBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toast/basic.tsx"
+```tsx pure file="../../../src/components/examples/toast/basic.tsx"
 ```
 
     </Tab>
@@ -49,6 +50,8 @@ import ToastUpdate from '@/components/examples/toast/update.tsx';
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -162,11 +165,12 @@ Ark сохраняет поведение live region, группировку у
   <ToastAction />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toast/action.tsx"
+```tsx pure file="../../../src/components/examples/toast/action.tsx"
 ```
 
     </Tab>
@@ -179,6 +183,8 @@ Ark сохраняет поведение live region, группировку у
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Длительность
 
 Задайте `duration` в миллисекундах, если уведомление должно исчезнуть раньше, оставаться дольше или
@@ -188,11 +194,12 @@ Ark сохраняет поведение live region, группировку у
   <ToastDuration />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toast/duration.tsx"
+```tsx pure file="../../../src/components/examples/toast/duration.tsx"
 ```
 
     </Tab>
@@ -205,6 +212,8 @@ Ark сохраняет поведение live region, группировку у
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Максимум видимых уведомлений
 
 Установите `max` на toaster, если всплески уведомлений должны вставать в очередь, а не заполнять
@@ -214,11 +223,12 @@ Ark сохраняет поведение live region, группировку у
   <ToastMaximumVisible />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toast/max-toasts.tsx"
+```tsx pure file="../../../src/components/examples/toast/max-toasts.tsx"
 ```
 
     </Tab>
@@ -231,6 +241,8 @@ Ark сохраняет поведение live region, группировку у
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Стек без перекрытия
 
 Задайте `overlap: false`, если каждое уведомление должно оставаться полностью видимым, а не
@@ -240,11 +252,12 @@ Ark сохраняет поведение live region, группировку у
   <ToastNonOverlapping />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toast/always-expanded.tsx"
+```tsx pure file="../../../src/components/examples/toast/always-expanded.tsx"
 ```
 
     </Tab>
@@ -257,6 +270,8 @@ Ark сохраняет поведение live region, группировку у
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Размещение
 
 Выберите один из шести вариантов Ark, если группа уведомлений должна появляться у определённого
@@ -266,11 +281,12 @@ Ark сохраняет поведение live region, группировку у
   <ToastPlacement />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toast/placement.tsx"
+```tsx pure file="../../../src/components/examples/toast/placement.tsx"
 ```
 
     </Tab>
@@ -283,6 +299,8 @@ Ark сохраняет поведение live region, группировку у
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Promise
 
 Используйте `toaster.promise()`, чтобы одно уведомление переходило из состояния загрузки в состояние
@@ -292,11 +310,12 @@ Ark сохраняет поведение live region, группировку у
   <ToastPromise />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toast/promise-toast.tsx"
+```tsx pure file="../../../src/components/examples/toast/promise-toast.tsx"
 ```
 
     </Tab>
@@ -309,6 +328,8 @@ Ark сохраняет поведение live region, группировку у
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Типы
 
 Используйте типизированные методы toaster для вариантов, зависящих от статуса. Moduix оформляет
@@ -318,11 +339,12 @@ Ark сохраняет поведение live region, группировку у
   <ToastTypes />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toast/types.tsx"
+```tsx pure file="../../../src/components/examples/toast/types.tsx"
 ```
 
     </Tab>
@@ -335,6 +357,8 @@ Ark сохраняет поведение live region, группировку у
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Обновление
 
 Сохраните ID, который возвращает создание уведомления, и передайте его в `toaster.update()`, если
@@ -344,11 +368,12 @@ Ark сохраняет поведение live region, группировку у
   <ToastUpdate />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toast/update.tsx"
+```tsx pure file="../../../src/components/examples/toast/update.tsx"
 ```
 
     </Tab>
@@ -361,6 +386,8 @@ Ark сохраняет поведение live region, группировку у
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Расширенная настройка
 
 Используйте render prop, чтобы заменить стандартную разметку `Toaster`, добавить иконку, изменить
@@ -370,11 +397,12 @@ Ark сохраняет поведение live region, группировку у
   <ToastCustomComposition />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toast/custom-composition.tsx"
+```tsx pure file="../../../src/components/examples/toast/custom-composition.tsx"
 ```
 
     </Tab>
@@ -386,6 +414,8 @@ Ark сохраняет поведение live region, группировку у
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

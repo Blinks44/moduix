@@ -28,11 +28,12 @@ Commencez par quelques lignes `Skeleton` lorsque le texte est encore en cours de
   <SkeletonBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/skeleton/basic.tsx"
+```tsx pure file="../../../src/components/examples/skeleton/basic.tsx"
 ```
 
     </Tab>
@@ -44,6 +45,8 @@ Commencez par quelques lignes `Skeleton` lorsque le texte est encore en cours de
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -114,11 +117,12 @@ Utilisez un grand bloc et des lignes de texte plus courtes pour préserver la mi
   <SkeletonCard />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/skeleton/card.tsx"
+```tsx pure file="../../../src/components/examples/skeleton/card.tsx"
 ```
 
     </Tab>
@@ -131,6 +135,8 @@ Utilisez un grand bloc et des lignes de texte plus courtes pour préserver la mi
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Contenu chargé
 
 Utilisez `loading` pour conserver le même élément racine lors du remplacement de l’espace réservé par le contenu réel.
@@ -139,11 +145,12 @@ Utilisez `loading` pour conserver le même élément racine lors du remplacement
   <SkeletonLoadedContent />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/skeleton/loaded-content.tsx"
+```tsx pure file="../../../src/components/examples/skeleton/loaded-content.tsx"
 ```
 
     </Tab>
@@ -156,6 +163,8 @@ Utilisez `loading` pour conserver le même élément racine lors du remplacement
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Objet média
 
 Utilisez `boxSize` avec un rayon complet pour l’espace réservé d’un avatar, puis placez les lignes de texte à côté.
@@ -164,11 +173,12 @@ Utilisez `boxSize` avec un rayon complet pour l’espace réservé d’un avatar
   <SkeletonMediaObject />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/skeleton/media-object.tsx"
+```tsx pure file="../../../src/components/examples/skeleton/media-object.tsx"
 ```
 
     </Tab>
@@ -181,6 +191,8 @@ Utilisez `boxSize` avec un rayon complet pour l’espace réservé d’un avatar
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Mise en page adaptative
 
 Laissez la logique de mise en page responsive dans le balisage englobant et utilisez chaque `Skeleton` comme un bloc visuel.
@@ -189,11 +201,12 @@ Laissez la logique de mise en page responsive dans le balisage englobant et util
   <SkeletonResponsiveLayout />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/skeleton/responsive-layout.tsx"
+```tsx pure file="../../../src/components/examples/skeleton/responsive-layout.tsx"
 ```
 
     </Tab>
@@ -206,6 +219,8 @@ Laissez la logique de mise en page responsive dans le balisage englobant et util
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Variantes
 
 Utilisez `variant` pour choisir un espace réservé animé par pulsation ou statique.
@@ -214,11 +229,12 @@ Utilisez `variant` pour choisir un espace réservé animé par pulsation ou stat
   <SkeletonVariants />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/skeleton/variants.tsx"
+```tsx pure file="../../../src/components/examples/skeleton/variants.tsx"
 ```
 
     </Tab>
@@ -231,6 +247,8 @@ Utilisez `variant` pour choisir un espace réservé animé par pulsation ou stat
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Personnalisation avancée
 
 Utilisez `asChild` pour qu’un élément sémantique tel que `section` devienne la racine DOM à la place du `div` par défaut.
@@ -239,16 +257,19 @@ Utilisez `asChild` pour qu’un élément sémantique tel que `section` devienne
   <SkeletonCustomHost />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/skeleton/custom-host.tsx"
+```tsx pure file="../../../src/components/examples/skeleton/custom-host.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

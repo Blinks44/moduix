@@ -40,11 +40,12 @@ The example also shows how to keep labels available for icon-only navigation aft
   <SidebarBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/sidebar/basic.tsx"
+```tsx pure file="../../../src/components/examples/sidebar/basic.tsx"
 ```
 
     </Tab>
@@ -56,6 +57,8 @@ The example also shows how to keep labels available for icon-only navigation aft
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -213,11 +216,12 @@ styling stays in your composition.
   <SidebarNestedNavigation />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/sidebar/nested-navigation.tsx"
+```tsx pure file="../../../src/components/examples/sidebar/nested-navigation.tsx"
 ```
 
     </Tab>
@@ -230,6 +234,8 @@ styling stays in your composition.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Custom Scroll Area
 
 Native scrolling is the default. If you need a styled scrollbar thumb or an optional edge fade, put
@@ -240,11 +246,12 @@ a `ScrollArea` inside `Sidebar.Content`. Disable overflow on the outer content p
   <SidebarCustomScrollArea />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/sidebar/custom-scroll-area.tsx"
+```tsx pure file="../../../src/components/examples/sidebar/custom-scroll-area.tsx"
 ```
 
     </Tab>
@@ -257,6 +264,8 @@ a `ScrollArea` inside `Sidebar.Content`. Disable overflow on the outer content p
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Persisted Desktop Layout
 
 Keep the desktop sidebar width outside the component. Control `size`, update it while dragging with
@@ -267,11 +276,12 @@ of the layout while the chosen width survives the next visit.
   <SidebarPersistedLayout />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/sidebar/persisted-layout.tsx"
+```tsx pure file="../../../src/components/examples/sidebar/persisted-layout.tsx"
 ```
 
     </Tab>
@@ -283,6 +293,8 @@ of the layout while the chosen width survives the next visit.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 <span id="recommended-app-shell" />
 
@@ -299,11 +311,12 @@ scrolling inside `Sidebar.Content` and tooltips for the collapsed icon rail.
   <SidebarNestedNavigationAndAccountMenu />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/sidebar/nested-navigation-and-account-menu.tsx"
+```tsx pure file="../../../src/components/examples/sidebar/nested-navigation-and-account-menu.tsx"
 ```
 
     </Tab>
@@ -316,6 +329,8 @@ scrolling inside `Sidebar.Content` and tooltips for the collapsed icon rail.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Right Sidebar
 
 Pass `side="right"` and render `Inset`, `Trigger`, `ResizeTrigger`, and `Panel` in that
@@ -326,11 +341,12 @@ The Inspector example includes grouped tools, activity links, internal scrolling
   <SidebarRightSidebar />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/sidebar/right-sidebar.tsx"
+```tsx pure file="../../../src/components/examples/sidebar/right-sidebar.tsx"
 ```
 
     </Tab>
@@ -342,6 +358,8 @@ The Inspector example includes grouped tools, activity links, internal scrolling
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Workspace Select
 
@@ -355,11 +373,12 @@ scrollable content area, and an account menu.
   <SidebarWorkspaceSelect />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/sidebar/workspace-select.tsx"
+```tsx pure file="../../../src/components/examples/sidebar/workspace-select.tsx"
 ```
 
     </Tab>
@@ -372,6 +391,8 @@ scrollable content area, and an account menu.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Advanced Customization
 
 Use `Splitter` directly when a layout needs different panel constraints, custom inset ids, more than
@@ -381,11 +402,12 @@ two panels, or provider and registry APIs.
   <SidebarCustomSizes />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/sidebar/custom-sizes.tsx"
+```tsx pure file="../../../src/components/examples/sidebar/custom-sizes.tsx"
 ```
 
     </Tab>
@@ -397,6 +419,8 @@ two panels, or provider and registry APIs.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

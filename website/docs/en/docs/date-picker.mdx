@@ -45,16 +45,19 @@ use cases. Use `DatePicker.Field` for a standard field with its input and action
   <DatePickerBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/basic.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -205,11 +208,12 @@ Control the selected `DateValue[]` by updating it with `details.value`.
   <DatePickerControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/controlled.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/controlled.tsx"
 ```
 
     </Tab>
@@ -222,6 +226,8 @@ Control the selected `DateValue[]` by updating it with `details.value`.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Default view and fixed weeks
 
 Use `defaultView` to open a different panel. Add `fixedWeeks` to keep the day view at a stable
@@ -231,16 +237,19 @@ six-row height while users navigate between months.
   <DatePickerDefaultView />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/default-view-and-fixed-weeks.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/default-view-and-fixed-weeks.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Field state
 
@@ -251,11 +260,12 @@ the root when you are not composing it through `Field`.
   <DatePickerFieldState />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/field-state.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/field-state.tsx"
 ```
 
     </Tab>
@@ -268,6 +278,8 @@ the root when you are not composing it through `Field`.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Form
 
 Pass `name` to include the selected date in native form submission. `DatePicker.Field` provides
@@ -277,11 +289,12 @@ Ark's locale-aware placeholder and translated action labels unless you override 
   <DatePickerForm />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/form.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/form.tsx"
 ```
 
     </Tab>
@@ -294,6 +307,8 @@ Ark's locale-aware placeholder and translated action labels unless you override 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Inline calendar and week numbers
 
 Set `inline` when the calendar should stay in the document flow. An inline calendar renders
@@ -303,11 +318,12 @@ Set `inline` when the calendar should stay in the document flow. An inline calen
   <DatePickerInline />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/inline-and-week-numbers.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/inline-and-week-numbers.tsx"
 ```
 
     </Tab>
@@ -320,6 +336,8 @@ Set `inline` when the calendar should stay in the document flow. An inline calen
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Locale and format
 
 `locale`, `startOfWeek`, `format`, and `parse` are passed through to Ark.
@@ -328,16 +346,19 @@ Set `inline` when the calendar should stay in the document flow. An inline calen
   <DatePickerLocale />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/locale-and-format.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/locale-and-format.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Minimum, maximum, and unavailable dates
 
@@ -348,16 +369,19 @@ and calendar cells.
   <DatePickerMinMax />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/min-max-and-unavailable.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/min-max-and-unavailable.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Month and year selects
 
@@ -369,11 +393,12 @@ while still updating Ark's focused date.
   <DatePickerMonthYearSelect />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/month-year-select.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/month-year-select.tsx"
 ```
 
     </Tab>
@@ -386,6 +411,8 @@ while still updating Ark's focused date.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Month picker
 
 Set `defaultView="month"` and `minView="month"` to let users select a month only. Use `format`
@@ -395,16 +422,19 @@ and `parse` when the input should accept a month and year string.
   <DatePickerMonthPicker />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/month-picker.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/month-picker.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Multiple dates
 
@@ -416,11 +446,12 @@ chips through `DatePicker.Context` and call `datePicker.setValue()` when a chip 
   <DatePickerMultiple />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/multiple.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/multiple.tsx"
 ```
 
     </Tab>
@@ -433,6 +464,8 @@ chips through `DatePicker.Context` and call `datePicker.setValue()` when a chip 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Multiple months
 
 Set `numOfMonths` when users need to see more than one month while choosing dates.
@@ -441,11 +474,12 @@ Set `numOfMonths` when users need to see more than one month while choosing date
   <DatePickerMultipleMonths />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/multiple-months.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/multiple-months.tsx"
 ```
 
     </Tab>
@@ -458,6 +492,8 @@ Set `numOfMonths` when users need to see more than one month while choosing date
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Presets
 
 `DatePicker.PresetTrigger` accepts Zag's built-in range preset names, such as `last7Days`, or a
@@ -468,11 +504,12 @@ dates.
   <DatePickerPresets />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/presets.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/presets.tsx"
 ```
 
     </Tab>
@@ -485,6 +522,8 @@ dates.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Range
 
 Use `selectionMode="range"` with two values. Ark manages range hover, the first and last day in the
@@ -495,16 +534,19 @@ end date.
   <DatePickerRange />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/range.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/range.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Root Provider
 
@@ -515,11 +557,12 @@ be shared with controls outside the root tree.
   <DatePickerRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/root-provider.tsx"
 ```
 
     </Tab>
@@ -532,6 +575,8 @@ be shared with controls outside the root tree.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Select today
 
 Use `DatePicker.Context` when a nearby control needs to call Ark helpers such as `selectToday()`.
@@ -540,11 +585,12 @@ Use `DatePicker.Context` when a nearby control needs to call Ark helpers such as
   <DatePickerSelectToday />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/select-today.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/select-today.tsx"
 ```
 
     </Tab>
@@ -557,6 +603,8 @@ Use `DatePicker.Context` when a nearby control needs to call Ark helpers such as
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Date and time
 
 Keep the time in the selected value by storing `CalendarDateTime` objects. Pair the calendar with a
@@ -566,11 +614,12 @@ Keep the time in the selected value by storing `CalendarDateTime` objects. Pair 
   <DatePickerWithTime />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/with-time.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/with-time.tsx"
 ```
 
     </Tab>
@@ -583,6 +632,8 @@ Keep the time in the selected value by storing `CalendarDateTime` objects. Pair 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Year picker
 
 Set `defaultView="year"`, `minView="year"`, and `maxView="year"` to let users select a year only.
@@ -593,16 +644,19 @@ view. The example starts with 2026 selected and formats the field as a year.
   <DatePickerYearPicker />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/year-picker.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/year-picker.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Advanced customization
 
@@ -613,16 +667,19 @@ Use the full Ark composition when the calendar grid needs custom rendering. This
   <DatePickerAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/date-picker/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/date-picker/advanced-customization.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

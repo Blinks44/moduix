@@ -37,16 +37,19 @@ supporting content, or an inline close action.
   <TagBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tag/basic.tsx"
+```tsx pure file="../../../src/components/examples/tag/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -125,11 +128,12 @@ Give each trigger a label that includes the value being removed.
   <TagClosable />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tag/closable.tsx"
+```tsx pure file="../../../src/components/examples/tag/closable.tsx"
 ```
 
     </Tab>
@@ -142,6 +146,8 @@ Give each trigger a label that includes the value being removed.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Icon
 
 Use `Tag.StartElement` and `Tag.EndElement` for icons and actions so `Tag.Label` remains the
@@ -151,11 +157,12 @@ truncation boundary and action sizing stays independent.
   <TagIcon />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tag/icon.tsx"
+```tsx pure file="../../../src/components/examples/tag/icon.tsx"
 ```
 
     </Tab>
@@ -168,6 +175,8 @@ truncation boundary and action sizing stays independent.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Overflow
 
 Constrain the root when long values need to fit a narrow area. `Tag.Label` becomes the truncation
@@ -177,11 +186,12 @@ boundary and shows an ellipsis; add `title` when the full value should remain di
   <TagOverflow />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tag/overflow.tsx"
+```tsx pure file="../../../src/components/examples/tag/overflow.tsx"
 ```
 
     </Tab>
@@ -194,6 +204,8 @@ boundary and shows an ellipsis; add `title` when the full value should remain di
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Sizes
 
 Use `size="sm"` for dense token rows. Keep the default `md` size for standalone tokens and more
@@ -203,11 +215,12 @@ comfortable spacing.
   <TagSizes />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tag/sizes.tsx"
+```tsx pure file="../../../src/components/examples/tag/sizes.tsx"
 ```
 
     </Tab>
@@ -220,6 +233,8 @@ comfortable spacing.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Variants
 
 Use the built-in variants for common moduix color roles while keeping the same part structure.
@@ -228,11 +243,12 @@ Use the built-in variants for common moduix color roles while keeping the same p
   <TagVariants />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tag/variants.tsx"
+```tsx pure file="../../../src/components/examples/tag/variants.tsx"
 ```
 
     </Tab>
@@ -245,6 +261,8 @@ Use the built-in variants for common moduix color roles while keeping the same p
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Advanced Customization
 
 Use `asChild` when the whole token is an action. This replaces the default `span`; the single child
@@ -254,11 +272,12 @@ becomes the semantic and interactive host, so it must provide the behavior expec
   <TagRenderAsButton />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tag/render-as-button.tsx"
+```tsx pure file="../../../src/components/examples/tag/render-as-button.tsx"
 ```
 
     </Tab>
@@ -270,6 +289,8 @@ becomes the semantic and interactive host, so it must provide the behavior expec
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

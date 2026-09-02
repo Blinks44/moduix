@@ -31,11 +31,12 @@ part name.
   <StepsBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/steps/basic.tsx"
+```tsx pure file="../../../src/components/examples/steps/basic.tsx"
 ```
 
     </Tab>
@@ -47,6 +48,8 @@ part name.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -144,11 +147,12 @@ or another part of the interface.
   <StepsControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/steps/controlled.tsx"
+```tsx pure file="../../../src/components/examples/steps/controlled.tsx"
 ```
 
     </Tab>
@@ -161,6 +165,8 @@ or another part of the interface.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Validation
 
 Use `linear`, `isStepValid`, and `onStepInvalid` to prevent navigation until the current step passes
@@ -170,11 +176,12 @@ your validation rule.
   <StepsValidation />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/steps/validation.tsx"
+```tsx pure file="../../../src/components/examples/steps/validation.tsx"
 ```
 
     </Tab>
@@ -187,6 +194,8 @@ your validation rule.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Progress
 
 Add `Steps.Progress` when the flow should show a visual progress track alongside the step list. Add
@@ -196,11 +205,12 @@ your own accessible status if the progress needs to be announced to assistive te
   <StepsProgress />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/steps/progress.tsx"
+```tsx pure file="../../../src/components/examples/steps/progress.tsx"
 ```
 
     </Tab>
@@ -213,6 +223,8 @@ your own accessible status if the progress needs to be announced to assistive te
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### RootProvider
 
 Create the state with `Steps.useSteps()` outside the rendered part tree, then pass it to
@@ -222,11 +234,12 @@ Create the state with `Steps.useSteps()` outside the rendered part tree, then pa
   <StepsRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/steps/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/steps/root-provider.tsx"
 ```
 
     </Tab>
@@ -239,6 +252,8 @@ Create the state with `Steps.useSteps()` outside the rendered part tree, then pa
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Vertical
 
 Set `orientation="vertical"` when the step list should sit beside the active content panel on wide
@@ -248,11 +263,12 @@ layouts and stack above it on narrow screens.
   <StepsVertical />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/steps/vertical.tsx"
+```tsx pure file="../../../src/components/examples/steps/vertical.tsx"
 ```
 
     </Tab>
@@ -265,6 +281,8 @@ layouts and stack above it on narrow screens.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Advanced Customization
 
 Use `asChild` when a trigger must render as an anchor or router link instead of the default button.
@@ -274,11 +292,12 @@ Keep one semantic child so it receives Ark's ARIA, keyboard, and focus behavior.
   <StepsCustomComposition />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/steps/custom-composition.tsx"
+```tsx pure file="../../../src/components/examples/steps/custom-composition.tsx"
 ```
 
     </Tab>
@@ -290,6 +309,8 @@ Keep one semantic child so it receives Ark's ARIA, keyboard, and focus behavior.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

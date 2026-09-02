@@ -28,16 +28,19 @@ ordonnée, les éléments, les liens, la page actuelle et les séparateurs à pa
   <BreadcrumbsBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/breadcrumbs/basic.tsx"
+```tsx pure file="../../../src/components/examples/breadcrumbs/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -125,11 +128,12 @@ explicites plutôt que `Breadcrumbs.Path`.
   <BreadcrumbsCollapsedPath />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/breadcrumbs/collapsed-path.tsx"
+```tsx pure file="../../../src/components/examples/breadcrumbs/collapsed-path.tsx"
 ```
 
     </Tab>
@@ -142,6 +146,8 @@ explicites plutôt que `Breadcrumbs.Path`.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Séparateur personnalisé
 
 Avec `Breadcrumbs.Path`, remplacez le chevron par défaut par une icône ou un symbole lorsque le même séparateur doit apparaître
@@ -151,11 +157,12 @@ dans tous les intervalles visibles.
   <BreadcrumbsCustomSeparator />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/breadcrumbs/custom-separator.tsx"
+```tsx pure file="../../../src/components/examples/breadcrumbs/custom-separator.tsx"
 ```
 
     </Tab>
@@ -168,6 +175,8 @@ dans tous les intervalles visibles.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Lien du routeur
 
 Utilisez `asChild` d’Ark pour intégrer un lien fourni par le routeur du framework utilisé par l’application.
@@ -176,11 +185,12 @@ Utilisez `asChild` d’Ark pour intégrer un lien fourni par le routeur du frame
   <BreadcrumbsFrameworkLink />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/breadcrumbs/framework-link.tsx"
+```tsx pure file="../../../src/components/examples/breadcrumbs/framework-link.tsx"
 ```
 
     </Tab>
@@ -193,6 +203,8 @@ Utilisez `asChild` d’Ark pour intégrer un lien fourni par le routeur du frame
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Libellé long de la page actuelle
 
 Passez un nœud React comme dernier libellé de `Breadcrumbs.Path` lorsque la page actuelle nécessite des attributs
@@ -203,11 +215,12 @@ risquent donc moins de faire déborder le fil d’Ariane.
   <BreadcrumbsLongCurrentLabel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/breadcrumbs/long-current-label.tsx"
+```tsx pure file="../../../src/components/examples/breadcrumbs/long-current-label.tsx"
 ```
 
     </Tab>
@@ -220,6 +233,8 @@ risquent donc moins de faire déborder le fil d’Ariane.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Personnalisation avancée
 
 Utilisez les parties explicites plutôt que `Breadcrumbs.Path` lorsqu’un même fil combine des liens fournis par le routeur du
@@ -229,11 +244,12 @@ framework, un séparateur personnalisé et un libellé de page actuelle enrichi 
   <BreadcrumbsAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/breadcrumbs/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/breadcrumbs/advanced-customization.tsx"
 ```
 
     </Tab>
@@ -245,6 +261,8 @@ framework, un séparateur personnalisé et un libellé de page actuelle enrichi 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

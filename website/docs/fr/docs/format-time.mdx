@@ -34,16 +34,19 @@ composants moduix qui donnent le contexte de l’événement.
   <FormatTimeBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/format-time/basic.tsx"
+```tsx pure file="../../../src/components/examples/format-time/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Format sur 12 heures, secondes et libellés AM/PM
 
@@ -55,6 +58,7 @@ format sur 12 heures, `amLabel` et `pmLabel` remplacent les libellés de périod
   <FormatTimeSecondsAndLabels />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs
     values={[
@@ -65,7 +69,7 @@ format sur 12 heures, `amLabel` et `pmLabel` remplacent les libellés de périod
   >
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/format-time/seconds-and-labels.tsx"
+```tsx pure file="../../../src/components/examples/format-time/seconds-and-labels.tsx"
 ```
 
     </Tab>
@@ -77,6 +81,8 @@ format sur 12 heures, `amLabel` et `pmLabel` remplacent les libellés de périod
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 N’ajoutez pas les secondes à un planning uniquement parce qu’elles existent dans la donnée source. Choisissez la
 précision qui aide réellement la personne à agir.

@@ -34,11 +34,12 @@ import { Format } from '@ark-ui/react';
   <FormatNumberBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/format-number/basic.tsx"
+```tsx pure file="../../../src/components/examples/format-number/basic.tsx"
 ```
 
     </Tab>
@@ -51,6 +52,8 @@ import { Format } from '@ark-ui/react';
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ## Валюта, проценты и компактная запись
 
 `Format.Number` принимает стандартные параметры `Intl.NumberFormat`. Для денежных значений задайте
@@ -61,11 +64,12 @@ import { Format } from '@ark-ui/react';
   <FormatNumberCommonStyles />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/format-number/common-styles.tsx"
+```tsx pure file="../../../src/components/examples/format-number/common-styles.tsx"
 ```
 
     </Tab>
@@ -77,6 +81,8 @@ import { Format } from '@ark-ui/react';
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 Значение для 6,42 % передаётся как дробь `0.0642`, а число `6.42` будет отображено как 642 %. Если нужно сохранить
 два знака после запятой, задайте `maximumFractionDigits={2}`. Используйте `minimumFractionDigits` и

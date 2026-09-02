@@ -28,11 +28,12 @@ Utilisez `mod` au lieu de choisir vous-même entre Control et Command. Le même 
   <HotkeysBasicDemo />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/hotkeys/basic.tsx"
+```tsx pure file="../../../src/components/examples/hotkeys/basic.tsx"
 ```
 
     </Tab>
@@ -44,6 +45,8 @@ Utilisez `mod` au lieu de choisir vous-même entre Control et Command. Le même 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 Si votre application doit intercepter un raccourci habituellement géré par le navigateur, ajoutez `preventDefault`. Sinon, le navigateur peut également exécuter sa propre action.
 
@@ -57,11 +60,12 @@ Séparez les touches d’une séquence par `>`, par exemple `g > i`. Par défaut
   <HotkeysSequencesDemo />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/hotkeys/sequences.tsx"
+```tsx pure file="../../../src/components/examples/hotkeys/sequences.tsx"
 ```
 
     </Tab>
@@ -73,6 +77,8 @@ Séparez les touches d’une séquence par `>`, par exemple `g > i`. Par défaut
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Champs de saisie et portées
 

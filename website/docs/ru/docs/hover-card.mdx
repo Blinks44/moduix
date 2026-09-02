@@ -36,11 +36,12 @@ import HoverCardWithArrow from '@/components/examples/hover-card/with-arrow.tsx'
   <BasicHoverCard />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/hover-card/basic.tsx"
+```tsx pure file="../../../src/components/examples/hover-card/basic.tsx"
 ```
 
     </Tab>
@@ -52,6 +53,8 @@ import HoverCardWithArrow from '@/components/examples/hover-card/with-arrow.tsx'
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -161,11 +164,12 @@ HoverCard.RootProvider
   <ContextHoverCard />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/hover-card/context.tsx"
+```tsx pure file="../../../src/components/examples/hover-card/context.tsx"
 ```
 
     </Tab>
@@ -178,6 +182,8 @@ HoverCard.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Управляемое состояние
 
 Управляйте открытием карточки с помощью `open` и `onOpenChange(details)`.
@@ -186,11 +192,12 @@ HoverCard.RootProvider
   <ControlledHoverCard />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/hover-card/controlled.tsx"
+```tsx pure file="../../../src/components/examples/hover-card/controlled.tsx"
 ```
 
     </Tab>
@@ -203,6 +210,8 @@ HoverCard.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Задержка
 
 Настройте время открытия и закрытия с помощью `openDelay` и `closeDelay` у корневого компонента.
@@ -211,11 +220,12 @@ HoverCard.RootProvider
   <DelayHoverCard />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/hover-card/delay.tsx"
+```tsx pure file="../../../src/components/examples/hover-card/delay.tsx"
 ```
 
     </Tab>
@@ -228,6 +238,8 @@ HoverCard.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Диалог
 
 Размещайте Hover Card непосредственно внутри диалога, если карточка должна оставаться в его
@@ -239,11 +251,12 @@ HoverCard.RootProvider
   <DialogHoverCard />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/hover-card/dialog.tsx"
+```tsx pure file="../../../src/components/examples/hover-card/dialog.tsx"
 ```
 
     </Tab>
@@ -256,6 +269,8 @@ HoverCard.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Отключённое состояние
 
 Установите `disabled`, чтобы запретить открытие карточки, но оставить видимое содержимое
@@ -265,11 +280,12 @@ HoverCard.RootProvider
   <DisabledHoverCard />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/hover-card/disabled.tsx"
+```tsx pure file="../../../src/components/examples/hover-card/disabled.tsx"
 ```
 
     </Tab>
@@ -282,6 +298,8 @@ HoverCard.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Несколько триггеров
 
 Назначьте каждому триггеру `value` и используйте `onTriggerValueChange(details)`, чтобы несколько
@@ -291,11 +309,12 @@ HoverCard.RootProvider
   <MultipleTriggersHoverCard />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/hover-card/multiple-triggers.tsx"
+```tsx pure file="../../../src/components/examples/hover-card/multiple-triggers.tsx"
 ```
 
     </Tab>
@@ -308,6 +327,8 @@ HoverCard.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Позиционирование
 
 Передавайте параметры позиционирования Ark через свойство `positioning`.
@@ -316,11 +337,12 @@ HoverCard.RootProvider
   <PositioningHoverCard />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/hover-card/positioning.tsx"
+```tsx pure file="../../../src/components/examples/hover-card/positioning.tsx"
 ```
 
     </Tab>
@@ -333,6 +355,8 @@ HoverCard.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Используйте `useHoverCard()` с `HoverCard.RootProvider`, когда элементам управления или другим
@@ -342,11 +366,12 @@ HoverCard.RootProvider
   <RootProviderHoverCard />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/hover-card/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/hover-card/root-provider.tsx"
 ```
 
     </Tab>
@@ -359,6 +384,8 @@ HoverCard.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Со стрелкой
 
 Добавьте `HoverCard.Arrow` внутрь `HoverCard.Content`, если нужно визуально связать всплывающее
@@ -368,11 +395,12 @@ HoverCard.RootProvider
   <HoverCardWithArrow />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/hover-card/with-arrow.tsx"
+```tsx pure file="../../../src/components/examples/hover-card/with-arrow.tsx"
 ```
 
     </Tab>
@@ -384,6 +412,8 @@ HoverCard.RootProvider
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

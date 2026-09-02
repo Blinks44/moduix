@@ -45,16 +45,19 @@ loader.
   <AsyncListBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/async-list/basic.tsx"
+```tsx pure file="../../../src/components/examples/async-list/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 Because `reload()` clears the current items before loading fresh data, show a full loading state
 when `list.loading` is true and there are no items. During filtering and sorting, the hook keeps

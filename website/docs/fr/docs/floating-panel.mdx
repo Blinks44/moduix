@@ -38,16 +38,19 @@ déplacement et `ResizeTriggerGroup` ajoute les poignées de redimensionnement a
   <FloatingPanelBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/floating-panel/basic.tsx"
+```tsx pure file="../../../src/components/examples/floating-panel/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -170,16 +173,19 @@ Utilisez `getAnchorPosition` pour calculer la position initiale de la fenêtre �
   <FloatingPanelAnchorPosition />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/floating-panel/anchor-position.tsx"
+```tsx pure file="../../../src/components/examples/floating-panel/anchor-position.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Limiter la zone
 
@@ -190,11 +196,12 @@ pendant son déplacement.
   <FloatingPanelBoundary />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/floating-panel/boundary.tsx"
+```tsx pure file="../../../src/components/examples/floating-panel/boundary.tsx"
 ```
 
     </Tab>
@@ -207,6 +214,8 @@ pendant son déplacement.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Contexte
 
 Utilisez `FloatingPanel.Context` ou `useFloatingPanelContext` pour lire l’état et les méthodes de la fenêtre dans
@@ -216,16 +225,19 @@ l’arbre des composants.
   <FloatingPanelContext />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/floating-panel/context.tsx"
+```tsx pure file="../../../src/components/examples/floating-panel/context.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Ouverture contrôlée
 
@@ -235,16 +247,19 @@ Utilisez `open` avec `onOpenChange` lorsque l’état React doit contrôler la v
   <FloatingPanelControlledOpen />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/floating-panel/controlled-open.tsx"
+```tsx pure file="../../../src/components/examples/floating-panel/controlled-open.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Position contrôlée
 
@@ -254,16 +269,19 @@ Contrôlez `position` lorsqu’une autre partie de l’application doit connaît
   <FloatingPanelControlledPosition />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/floating-panel/controlled-position.tsx"
+```tsx pure file="../../../src/components/examples/floating-panel/controlled-position.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Taille contrôlée
 
@@ -273,16 +291,19 @@ Contrôlez `size` lorsque l’interface doit conserver ou afficher les dimension
   <FloatingPanelControlledSize />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/floating-panel/controlled-size.tsx"
+```tsx pure file="../../../src/components/examples/floating-panel/controlled-size.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Fermeture par Escape
 
@@ -293,16 +314,19 @@ l’ouverture de la fenêtre non modale.
   <FloatingPanelEscapeDismiss />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/floating-panel/escape-dismiss.tsx"
+```tsx pure file="../../../src/components/examples/floating-panel/escape-dismiss.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Montage différé
 
@@ -313,16 +337,19 @@ l’animation de sortie.
   <FloatingPanelLazyMount />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/floating-panel/lazy-mount.tsx"
+```tsx pure file="../../../src/components/examples/floating-panel/lazy-mount.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### RootProvider
 
@@ -334,16 +361,19 @@ conserver le comportement d’animation de fermeture défini par défaut par la 
   <FloatingPanelRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/floating-panel/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/floating-panel/root-provider.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Personnalisation avancée
 
@@ -354,16 +384,19 @@ ou style.
   <FloatingPanelAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/floating-panel/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/floating-panel/advanced-customization.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

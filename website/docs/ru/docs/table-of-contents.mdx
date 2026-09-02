@@ -29,11 +29,12 @@ import * as TocDocs from '@/components/examples/table-of-contents/css-properties
   <TocBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/table-of-contents/basic.tsx"
+```tsx pure file="../../../src/components/examples/table-of-contents/basic.tsx"
 ```
 
     </Tab>
@@ -45,6 +46,8 @@ import * as TocDocs from '@/components/examples/table-of-contents/css-properties
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -159,11 +162,12 @@ Toc.RootProvider
   <TocRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/table-of-contents/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/table-of-contents/root-provider.tsx"
 ```
 
     </Tab>
@@ -176,6 +180,8 @@ Toc.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Rail
 
 Поместите `Toc.Rail` внутрь каждой ссылки, чтобы нарисовать SVG-соединитель между соседними
@@ -187,11 +193,12 @@ Toc.RootProvider
   <TocRail />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/table-of-contents/rail.tsx"
+```tsx pure file="../../../src/components/examples/table-of-contents/rail.tsx"
 ```
 
     </Tab>
@@ -204,6 +211,8 @@ Toc.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### С раскрываемой навигацией
 
 Поместите список навигации внутрь `Collapsible`, если читателю нужно скрывать полное оглавление.
@@ -214,11 +223,12 @@ Toc.RootProvider
   <TocWithCollapsible />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/table-of-contents/with-collapsible.tsx"
+```tsx pure file="../../../src/components/examples/table-of-contents/with-collapsible.tsx"
 ```
 
     </Tab>
@@ -230,6 +240,8 @@ Toc.RootProvider
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

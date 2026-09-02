@@ -23,16 +23,19 @@ changes after an action. Pass the current boolean to `swap`: `false` shows the `
   <SwapBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/swap/basic.tsx"
+```tsx pure file="../../../src/components/examples/swap/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -103,11 +106,12 @@ current value are shown below the demo.
   <SwapAnimationPresets />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/swap/animation-presets.tsx"
+```tsx pure file="../../../src/components/examples/swap/animation-presets.tsx"
 ```
 
     </Tab>
@@ -120,6 +124,8 @@ current value are shown below the demo.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Custom animation
 
 Pass a custom `animation` name and target the root's `data-animation` together with the indicators'
@@ -131,11 +137,12 @@ fallback.
   <SwapCustomAnimation />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/swap/custom-animation.tsx"
+```tsx pure file="../../../src/components/examples/swap/custom-animation.tsx"
 ```
 
     </Tab>
@@ -148,6 +155,8 @@ fallback.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### RootProvider
 
 Create the Swap state separately with `Swap.useSwap()`, then pass it to `Swap.RootProvider` through
@@ -158,11 +167,12 @@ root.
   <SwapRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/swap/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/swap/root-provider.tsx"
 ```
 
     </Tab>
@@ -174,6 +184,8 @@ root.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

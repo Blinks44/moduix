@@ -39,11 +39,12 @@ Keep `FocusTrap` mounted and toggle its `disabled` prop as the workflow starts a
   <FocusTrapBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/focus-trap/basic.tsx"
+```tsx pure file="../../../src/components/examples/focus-trap/basic.tsx"
 ```
 
     </Tab>
@@ -55,6 +56,8 @@ Keep `FocusTrap` mounted and toggle its `disabled` prop as the workflow starts a
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 Click **Start review** to activate the trap. Focus moves to **Review details**, then `Tab` and `Shift + Tab` cycle
 between the two buttons in the card. Click **Finish review** to deactivate the trap. Because **Start review** had focus

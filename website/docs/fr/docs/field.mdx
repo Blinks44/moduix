@@ -40,11 +40,12 @@ puis ajoutez un texte d’aide ou d’erreur lorsque l’utilisateur a besoin d�
   <FieldBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/basic.tsx"
+```tsx pure file="../../../src/components/examples/field/basic.tsx"
 ```
 
     </Tab>
@@ -56,6 +57,8 @@ puis ajoutez un texte d’aide ou d’erreur lorsque l’utilisateur a besoin d�
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -147,11 +150,12 @@ du champ. Transmettez à `Checkbox` ses propres propriétés d’état et de for
   <FieldCheckbox />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/checkbox.tsx"
+```tsx pure file="../../../src/components/examples/field/checkbox.tsx"
 ```
 
     </Tab>
@@ -164,6 +168,8 @@ du champ. Transmettez à `Checkbox` ses propres propriétés d’état et de for
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### État `invalid` contrôlé
 
 Calculez `invalid` à partir de l’état local lorsque la validation doit se mettre à jour pendant la saisie. Le message
@@ -173,11 +179,12 @@ d’erreur n’apparaît que lorsque le champ est invalide.
   <FieldControlledInvalid />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/controlled-invalid.tsx"
+```tsx pure file="../../../src/components/examples/field/controlled-invalid.tsx"
 ```
 
     </Tab>
@@ -190,6 +197,8 @@ d’erreur n’apparaît que lorsque le champ est invalide.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### État désactivé
 
 Définissez `disabled` sur la racine pour transmettre cet état aux parties Ark du champ qui le prennent en charge.
@@ -198,11 +207,12 @@ Définissez `disabled` sur la racine pour transmettre cet état aux parties Ark 
   <FieldDisabled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/disabled.tsx"
+```tsx pure file="../../../src/components/examples/field/disabled.tsx"
 ```
 
     </Tab>
@@ -215,6 +225,8 @@ Définissez `disabled` sur la racine pour transmettre cet état aux parties Ark 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### État invalide
 
 Définissez `invalid` sur la racine lorsque l’état de l’application ou une bibliothèque de formulaires pilote la validation.
@@ -224,11 +236,12 @@ Transmettez aussi cette propriété à la racine d’un contrôle composé lorsq
   <FieldInvalid />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/invalid.tsx"
+```tsx pure file="../../../src/components/examples/field/invalid.tsx"
 ```
 
     </Tab>
@@ -241,6 +254,8 @@ Transmettez aussi cette propriété à la racine d’un contrôle composé lorsq
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Select natif
 
 Utilisez `NativeSelect` pour un select natif du navigateur. `Field` le relie au libellé, à l’état et à la description du champ.
@@ -249,11 +264,12 @@ Utilisez `NativeSelect` pour un select natif du navigateur. `Field` le relie au 
   <FieldNativeSelect />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/native-select.tsx"
+```tsx pure file="../../../src/components/examples/field/native-select.tsx"
 ```
 
     </Tab>
@@ -266,6 +282,8 @@ Utilisez `NativeSelect` pour un select natif du navigateur. `Field` le relie au 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### RadioGroup
 
 Utilisez `Field` avec `RadioGroup` lorsqu’un même libellé, texte d’aide ou message d’erreur doit décrire l’ensemble des
@@ -275,11 +293,12 @@ choix, plutôt que chaque bouton radio. Transmettez les propriétés d’état p
   <FieldRadioGroup />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/radiogroup.tsx"
+```tsx pure file="../../../src/components/examples/field/radiogroup.tsx"
 ```
 
     </Tab>
@@ -292,6 +311,8 @@ choix, plutôt que chaque bouton radio. Transmettez les propriétés d’état p
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Lecture seule
 
 Définissez `readOnly` sur la racine lorsque les utilisateurs peuvent copier la valeur du contrôle, mais pas la modifier.
@@ -300,11 +321,12 @@ Définissez `readOnly` sur la racine lorsque les utilisateurs peuvent copier la 
   <FieldReadOnly />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/read-only.tsx"
+```tsx pure file="../../../src/components/examples/field/read-only.tsx"
 ```
 
     </Tab>
@@ -317,6 +339,8 @@ Définissez `readOnly` sur la racine lorsque les utilisateurs peuvent copier la 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Select
 
 Utilisez le `Select` composé lorsqu’un select natif ne suffit pas et qu’une liste d’options ou une interface de sélection
@@ -327,11 +351,12 @@ valeur. Comme `Select` gère son propre état, transmettez-lui `required`, `inva
   <FieldSelect />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/select.tsx"
+```tsx pure file="../../../src/components/examples/field/select.tsx"
 ```
 
     </Tab>
@@ -344,6 +369,8 @@ valeur. Comme `Select` gère son propre état, transmettez-lui `required`, `inva
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Zone de texte
 
 Utilisez `Textarea` pour la saisie multiligne tout en conservant les associations du champ avec le libellé, la description
@@ -353,11 +380,12 @@ et l’état.
   <FieldTextarea />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/textarea.tsx"
+```tsx pure file="../../../src/components/examples/field/textarea.tsx"
 ```
 
     </Tab>
@@ -370,6 +398,8 @@ et l’état.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Personnalisation avancée
 
 Utilisez `Field.Item` avec la prop `target` de la racine lorsqu’un seul libellé doit cibler un contrôle dans un groupe.
@@ -378,11 +408,12 @@ Utilisez `Field.Item` avec la prop `target` de la racine lorsqu’un seul libell
   <FieldItemTarget />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/item-target.tsx"
+```tsx pure file="../../../src/components/examples/field/item-target.tsx"
 ```
 
     </Tab>
@@ -395,17 +426,20 @@ Utilisez `Field.Item` avec la prop `target` de la racine lorsqu’un seul libell
   </Tabs>
 </div>
 
+</ExampleCode>
+
 Utilisez `useField` avec `Field.RootProvider` lorsque l’état du champ doit être créé en dehors de l’arbre de rendu.
 
 <ExampleFrame variant="component">
   <FieldRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/field/root-provider.tsx"
 ```
 
     </Tab>
@@ -417,6 +451,8 @@ Utilisez `useField` avec `Field.RootProvider` lorsque l’état du champ doit ê
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

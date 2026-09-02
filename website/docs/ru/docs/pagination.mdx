@@ -30,11 +30,12 @@ import PaginationWithEdges from '@/components/examples/pagination/with-edges.tsx
   <PaginationBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/pagination/basic.tsx"
+```tsx pure file="../../../src/components/examples/pagination/basic.tsx"
 ```
     </Tab>
     <Tab value="Styles">
@@ -44,6 +45,8 @@ import PaginationWithEdges from '@/components/examples/pagination/with-edges.tsx
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -132,11 +135,12 @@ Pagination.RootProvider
   <PaginationControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/pagination/controlled.tsx"
+```tsx pure file="../../../src/components/examples/pagination/controlled.tsx"
 ```
     </Tab>
     <Tab value="Styles">
@@ -147,6 +151,8 @@ Pagination.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Контекст
 
 Используйте `Pagination.Context`, чтобы разместить собственные элементы управления рядом со списком
@@ -156,15 +162,18 @@ Pagination.RootProvider
   <PaginationContext />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/pagination/context.tsx"
+```tsx pure file="../../../src/components/examples/pagination/context.tsx"
 ```
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Постраничный вывод данных на клиенте
 
@@ -175,11 +184,12 @@ Pagination.RootProvider
   <PaginationDataSlicing />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/pagination/data-slicing.tsx"
+```tsx pure file="../../../src/components/examples/pagination/data-slicing.tsx"
 ```
     </Tab>
     <Tab value="Styles">
@@ -190,6 +200,8 @@ Pagination.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Навигация по ссылкам
 
 Используйте `type="link"`, `getPageUrl(details)` и якоря с `asChild`, если переход между страницами
@@ -199,11 +211,12 @@ Pagination.RootProvider
   <PaginationLink />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/pagination/link.tsx"
+```tsx pure file="../../../src/components/examples/pagination/link.tsx"
 ```
     </Tab>
     <Tab value="Styles">
@@ -214,6 +227,8 @@ Pagination.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Диапазон элементов
 
 Используйте `pagination.pageRange`, чтобы показать, какие элементы видны на текущей странице.
@@ -222,11 +237,12 @@ Pagination.RootProvider
   <PaginationPageRange />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/pagination/page-range.tsx"
+```tsx pure file="../../../src/components/examples/pagination/page-range.tsx"
 ```
     </Tab>
     <Tab value="Styles">
@@ -237,6 +253,8 @@ Pagination.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Число элементов на странице
 
 Вызывайте `pagination.setPageSize(nextSize)` из контекста, когда отдельный элемент управления меняет
@@ -246,11 +264,12 @@ Pagination.RootProvider
   <PaginationPageSizeControl />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/pagination/page-size-control.tsx"
+```tsx pure file="../../../src/components/examples/pagination/page-size-control.tsx"
 ```
     </Tab>
     <Tab value="Styles">
@@ -261,6 +280,8 @@ Pagination.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Создайте состояние через `Pagination.usePagination()` и передайте его в `Pagination.RootProvider`,
@@ -270,11 +291,12 @@ Pagination.RootProvider
   <PaginationRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/pagination/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/pagination/root-provider.tsx"
 ```
     </Tab>
     <Tab value="Styles">
@@ -285,6 +307,8 @@ Pagination.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Локализация
 
 Передайте `translations`, чтобы настроить подписи для средств доступности. Параметры `siblingCount`,
@@ -294,11 +318,12 @@ Pagination.RootProvider
   <PaginationCustomized />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/pagination/customized.tsx"
+```tsx pure file="../../../src/components/examples/pagination/customized.tsx"
 ```
     </Tab>
     <Tab value="Styles">
@@ -309,6 +334,8 @@ Pagination.RootProvider
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Кнопки первой и последней страницы
 
 Добавьте `Pagination.FirstTrigger` и `Pagination.LastTrigger`, если пользователям нужны быстрые
@@ -318,11 +345,12 @@ Pagination.RootProvider
   <PaginationWithEdges />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/pagination/with-edges.tsx"
+```tsx pure file="../../../src/components/examples/pagination/with-edges.tsx"
 ```
     </Tab>
     <Tab value="Styles">
@@ -332,6 +360,8 @@ Pagination.RootProvider
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Расширенная настройка
 
@@ -343,11 +373,12 @@ Pagination.RootProvider
   <PaginationAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/pagination/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/pagination/advanced-customization.tsx"
 ```
     </Tab>
     <Tab value="Styles">
@@ -357,6 +388,8 @@ Pagination.RootProvider
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

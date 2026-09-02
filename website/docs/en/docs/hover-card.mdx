@@ -36,11 +36,12 @@ does not include an arrow.
   <BasicHoverCard />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/hover-card/basic.tsx"
+```tsx pure file="../../../src/components/examples/hover-card/basic.tsx"
 ```
 
     </Tab>
@@ -52,6 +53,8 @@ does not include an arrow.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -157,11 +160,12 @@ structure.
   <ContextHoverCard />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/hover-card/context.tsx"
+```tsx pure file="../../../src/components/examples/hover-card/context.tsx"
 ```
 
     </Tab>
@@ -174,6 +178,8 @@ structure.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Controlled
 
 Control whether the card is open with `open` and `onOpenChange(details)`.
@@ -182,11 +188,12 @@ Control whether the card is open with `open` and `onOpenChange(details)`.
   <ControlledHoverCard />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/hover-card/controlled.tsx"
+```tsx pure file="../../../src/components/examples/hover-card/controlled.tsx"
 ```
 
     </Tab>
@@ -199,6 +206,8 @@ Control whether the card is open with `open` and `onOpenChange(details)`.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Delay
 
 Set `openDelay` and `closeDelay` on the root to adjust hover and focus timing.
@@ -207,11 +216,12 @@ Set `openDelay` and `closeDelay` on the root to adjust hover and focus timing.
   <DelayHoverCard />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/hover-card/delay.tsx"
+```tsx pure file="../../../src/components/examples/hover-card/delay.tsx"
 ```
 
     </Tab>
@@ -224,6 +234,8 @@ Set `openDelay` and `closeDelay` on the root to adjust hover and focus timing.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Dialog
 
 Render a hover card inline inside a dialog when it must stay in the dialog's overlay layer. The
@@ -234,11 +246,12 @@ dialog's initial focus can land on the Hover Card trigger and open the card afte
   <DialogHoverCard />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/hover-card/dialog.tsx"
+```tsx pure file="../../../src/components/examples/hover-card/dialog.tsx"
 ```
 
     </Tab>
@@ -251,6 +264,8 @@ dialog's initial focus can land on the Hover Card trigger and open the card afte
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Disabled
 
 Set `disabled` to prevent the card from opening while keeping the trigger visible.
@@ -259,11 +274,12 @@ Set `disabled` to prevent the card from opening while keeping the trigger visibl
   <DisabledHoverCard />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/hover-card/disabled.tsx"
+```tsx pure file="../../../src/components/examples/hover-card/disabled.tsx"
 ```
 
     </Tab>
@@ -276,6 +292,8 @@ Set `disabled` to prevent the card from opening while keeping the trigger visibl
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Multiple Triggers
 
 Give each trigger a `value` and use `onTriggerValueChange(details)` to share one content area
@@ -285,11 +303,12 @@ across several triggers.
   <MultipleTriggersHoverCard />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/hover-card/multiple-triggers.tsx"
+```tsx pure file="../../../src/components/examples/hover-card/multiple-triggers.tsx"
 ```
 
     </Tab>
@@ -302,6 +321,8 @@ across several triggers.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Positioning
 
 Pass Ark positioning options through the `positioning` prop.
@@ -310,11 +331,12 @@ Pass Ark positioning options through the `positioning` prop.
   <PositioningHoverCard />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/hover-card/positioning.tsx"
+```tsx pure file="../../../src/components/examples/hover-card/positioning.tsx"
 ```
 
     </Tab>
@@ -327,6 +349,8 @@ Pass Ark positioning options through the `positioning` prop.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Use `useHoverCard()` with `HoverCard.RootProvider` when controls or other UI outside the card tree
@@ -336,11 +360,12 @@ need to read or update its state.
   <RootProviderHoverCard />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/hover-card/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/hover-card/root-provider.tsx"
 ```
 
     </Tab>
@@ -353,6 +378,8 @@ need to read or update its state.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### With Arrow
 
 Add `HoverCard.Arrow` inside `HoverCard.Content` when the popup needs a visual pointer to its
@@ -362,11 +389,12 @@ trigger. The wrapper renders `HoverCard.ArrowTip` by default.
   <HoverCardWithArrow />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/hover-card/with-arrow.tsx"
+```tsx pure file="../../../src/components/examples/hover-card/with-arrow.tsx"
 ```
 
     </Tab>
@@ -378,6 +406,8 @@ trigger. The wrapper renders `HoverCard.ArrowTip` by default.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

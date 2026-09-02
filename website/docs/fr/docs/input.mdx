@@ -38,11 +38,12 @@ Placez `Input` dans `Field` lorsque vous avez besoin d’un libellé, d’un tex
   <InputBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input/basic.tsx"
+```tsx pure file="../../../src/components/examples/input/basic.tsx"
 ```
 
     </Tab>
@@ -54,6 +55,8 @@ Placez `Input` dans `Field` lorsque vous avez besoin d’un libellé, d’un tex
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -113,11 +116,12 @@ dans l’événement natif `onChange(event)` et transmettez-la via `value`.
   <InputControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input/controlled.tsx"
+```tsx pure file="../../../src/components/examples/input/controlled.tsx"
 ```
 
     </Tab>
@@ -130,6 +134,8 @@ dans l’événement natif `onChange(event)` et transmettez-la via `value`.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Désactivé et en lecture seule
 
 Utilisez `disabled` lorsque l’utilisateur ne doit pas interagir avec le contrôle. Utilisez `readOnly`
@@ -141,11 +147,12 @@ le champ doivent partager le même état.
   <InputStates />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input/disabled-and-readonly.tsx"
+```tsx pure file="../../../src/components/examples/input/disabled-and-readonly.tsx"
 ```
 
     </Tab>
@@ -158,6 +165,8 @@ le champ doivent partager le même état.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Validation du champ
 
 Définissez `invalid` sur `Field` lorsque la validation échoue. Ark ajoute `aria-invalid` et
@@ -167,11 +176,12 @@ Définissez `invalid` sur `Field` lorsque la validation échoue. Ark ajoute `ari
   <InputFieldState />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input/field-state.tsx"
+```tsx pure file="../../../src/components/examples/input/field-state.tsx"
 ```
 
     </Tab>
@@ -184,6 +194,8 @@ Définissez `invalid` sur `Field` lorsque la validation échoue. Ark ajoute `ari
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Sélection de fichier
 
 Dans un formulaire simple, `Input` suffit pour proposer le sélecteur de fichiers natif. Utilisez
@@ -194,11 +206,12 @@ une zone de dépôt ou gérer le processus de téléversement.
   <InputFile />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input/file-input.tsx"
+```tsx pure file="../../../src/components/examples/input/file-input.tsx"
 ```
 
     </Tab>
@@ -211,6 +224,8 @@ une zone de dépôt ou gérer le processus de téléversement.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Attributs natifs
 
 Utilisez les attributs natifs pour les comportements du navigateur, comme la validation, le mode
@@ -221,11 +236,12 @@ en caractères et `size` pour modifier la taille visuelle.
   <InputNativeAttributes />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input/native-attributes.tsx"
+```tsx pure file="../../../src/components/examples/input/native-attributes.tsx"
 ```
 
     </Tab>
@@ -238,6 +254,8 @@ en caractères et `size` pour modifier la taille visuelle.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Tailles
 
 La propriété `size` de moduix contrôle la taille visuelle. `htmlSize` est indépendante et définit la
@@ -247,11 +265,12 @@ largeur native exprimée en caractères.
   <InputSizes />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input/sizes.tsx"
+```tsx pure file="../../../src/components/examples/input/sizes.tsx"
 ```
 
     </Tab>
@@ -264,6 +283,8 @@ largeur native exprimée en caractères.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Champ autonome
 
 `Field` est facultatif. Lorsque `Input` est utilisé seul, donnez-lui un nom accessible au moyen d’un
@@ -275,11 +296,12 @@ textes d’aide ou d’erreur ne sont pas associés au champ.
   <InputStandalone />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input/standalone-input.tsx"
+```tsx pure file="../../../src/components/examples/input/standalone-input.tsx"
 ```
 
     </Tab>
@@ -292,6 +314,8 @@ textes d’aide ou d’erreur ne sont pas associés au champ.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Personnalisation avancée
 
 Utilisez `asChild` uniquement lorsqu’un autre nœud DOM doit être rendu à la place de l’élément du
@@ -302,11 +326,12 @@ fusionnées et la `ref`.
   <InputAsChild />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/input/as-child.tsx"
+```tsx pure file="../../../src/components/examples/input/as-child.tsx"
 ```
 
     </Tab>
@@ -318,6 +343,8 @@ fusionnées et la `ref`.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

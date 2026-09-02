@@ -19,11 +19,12 @@ import { LoginSimple } from '@/components/recipes/login-simple/login-simple';
 Предпросмотр отменяет стандартную отправку формы, поэтому не обращается к API аутентификации. Скопированный
 рецепт передаёт обработчик `onSubmit` обычному элементу `<form>`, а за аутентификацию отвечает ваше приложение.
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Стили', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/recipes/login-simple/login-simple.tsx"
+```tsx pure file="../../../src/components/recipes/login-simple/login-simple.tsx"
 
 ```
 
@@ -37,6 +38,8 @@ import { LoginSimple } from '@/components/recipes/login-simple/login-simple';
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка
 

@@ -40,11 +40,12 @@ helper or error text when the user needs more information.
   <FieldBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/basic.tsx"
+```tsx pure file="../../../src/components/examples/field/basic.tsx"
 ```
 
     </Tab>
@@ -56,6 +57,8 @@ helper or error text when the user needs more information.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -148,11 +151,12 @@ state and form props to `Checkbox`.
   <FieldCheckbox />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/checkbox.tsx"
+```tsx pure file="../../../src/components/examples/field/checkbox.tsx"
 ```
 
     </Tab>
@@ -165,6 +169,8 @@ state and form props to `Checkbox`.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Controlled invalid state
 
 Derive `invalid` from local state when validation should update as the user types. The error text
@@ -174,11 +180,12 @@ appears only while the field is invalid.
   <FieldControlledInvalid />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/controlled-invalid.tsx"
+```tsx pure file="../../../src/components/examples/field/controlled-invalid.tsx"
 ```
 
     </Tab>
@@ -191,6 +198,8 @@ appears only while the field is invalid.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Disabled
 
 Set `disabled` on the root to pass the disabled state to the supported Ark field parts.
@@ -199,11 +208,12 @@ Set `disabled` on the root to pass the disabled state to the supported Ark field
   <FieldDisabled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/disabled.tsx"
+```tsx pure file="../../../src/components/examples/field/disabled.tsx"
 ```
 
     </Tab>
@@ -216,6 +226,8 @@ Set `disabled` on the root to pass the disabled state to the supported Ark field
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Invalid
 
 Set `invalid` on the root when application state or a form library controls validation. Pass it to a
@@ -225,11 +237,12 @@ compound child root as well when that component owns its invalid state.
   <FieldInvalid />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/invalid.tsx"
+```tsx pure file="../../../src/components/examples/field/invalid.tsx"
 ```
 
     </Tab>
@@ -242,6 +255,8 @@ compound child root as well when that component owns its invalid state.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Native Select
 
 Use `NativeSelect` for a browser-native select. `Field` connects it to the field label, state, and
@@ -251,11 +266,12 @@ description.
   <FieldNativeSelect />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/native-select.tsx"
+```tsx pure file="../../../src/components/examples/field/native-select.tsx"
 ```
 
     </Tab>
@@ -268,6 +284,8 @@ description.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### RadioGroup
 
 Use `Field` with `RadioGroup` when one field-level label, helper text, or error message should describe
@@ -278,11 +296,12 @@ the whole set of choices rather than individual radio items. Pass the group's ow
   <FieldRadioGroup />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/radiogroup.tsx"
+```tsx pure file="../../../src/components/examples/field/radiogroup.tsx"
 ```
 
     </Tab>
@@ -295,6 +314,8 @@ the whole set of choices rather than individual radio items. Pass the group's ow
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Read Only
 
 Set `readOnly` on the root when users can copy the control's value but cannot edit it.
@@ -303,11 +324,12 @@ Set `readOnly` on the root when users can copy the control's value but cannot ed
   <FieldReadOnly />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/read-only.tsx"
+```tsx pure file="../../../src/components/examples/field/read-only.tsx"
 ```
 
     </Tab>
@@ -320,6 +342,8 @@ Set `readOnly` on the root when users can copy the control's value but cannot ed
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Select
 
 Use the composed `Select` when a native select is not enough and you need a custom option list or
@@ -330,11 +354,12 @@ its state, pass `required`, `invalid`, `disabled`, or `readOnly` to `Select` whe
   <FieldSelect />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/select.tsx"
+```tsx pure file="../../../src/components/examples/field/select.tsx"
 ```
 
     </Tab>
@@ -347,6 +372,8 @@ its state, pass `required`, `invalid`, `disabled`, or `readOnly` to `Select` whe
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Textarea
 
 Use `Textarea` for multi-line input while keeping the field's label, description, and state
@@ -356,11 +383,12 @@ connections.
   <FieldTextarea />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/textarea.tsx"
+```tsx pure file="../../../src/components/examples/field/textarea.tsx"
 ```
 
     </Tab>
@@ -373,6 +401,8 @@ connections.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Advanced Customization
 
 Use `Field.Item` with the root `target` prop when one label should target a control inside a group.
@@ -381,11 +411,12 @@ Use `Field.Item` with the root `target` prop when one label should target a cont
   <FieldItemTarget />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/item-target.tsx"
+```tsx pure file="../../../src/components/examples/field/item-target.tsx"
 ```
 
     </Tab>
@@ -398,6 +429,8 @@ Use `Field.Item` with the root `target` prop when one label should target a cont
   </Tabs>
 </div>
 
+</ExampleCode>
+
 Use `useField` with `Field.RootProvider` when the field state must be created outside the rendered
 tree.
 
@@ -405,11 +438,12 @@ tree.
   <FieldRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/field/root-provider.tsx"
 ```
 
     </Tab>
@@ -421,6 +455,8 @@ tree.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

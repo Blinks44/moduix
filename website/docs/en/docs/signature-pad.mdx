@@ -27,16 +27,19 @@ Ark's `Control`, `Segment`, `ClearTrigger`, and `Guide` parts, plus moduix's def
   <SignaturePadBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/signature-pad/basic.tsx"
+```tsx pure file="../../../src/components/examples/signature-pad/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -153,11 +156,12 @@ controls or autosave logic.
   <SignaturePadControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/signature-pad/controlled.tsx"
+```tsx pure file="../../../src/components/examples/signature-pad/controlled.tsx"
 ```
 
     </Tab>
@@ -170,6 +174,8 @@ controls or autosave logic.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Drawing
 
 Pass `drawing` when stroke width, stroke color, or pressure behavior needs to differ from the
@@ -179,16 +185,19 @@ defaults.
   <SignaturePadDrawing />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/signature-pad/drawing.tsx"
+```tsx pure file="../../../src/components/examples/signature-pad/drawing.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Field
 
@@ -199,11 +208,12 @@ messaging belongs to the same form control.
   <SignaturePadField />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/signature-pad/field.tsx"
+```tsx pure file="../../../src/components/examples/signature-pad/field.tsx"
 ```
 
     </Tab>
@@ -216,6 +226,8 @@ messaging belongs to the same form control.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Form Serialization
 
 Use `getFormValue` when the server should receive another representation of the drawn paths. This
@@ -225,11 +237,12 @@ example sends a JSON array instead of the default space-separated SVG path strin
   <SignaturePadFormSerialization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/signature-pad/form-serialization.tsx"
+```tsx pure file="../../../src/components/examples/signature-pad/form-serialization.tsx"
 ```
 
     </Tab>
@@ -242,6 +255,8 @@ example sends a JSON array instead of the default space-separated SVG path strin
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Image Preview
 
 Use `onDrawEnd` to export the signature and show a preview before saving it.
@@ -250,6 +265,7 @@ Use `onDrawEnd` to export the signature and show a preview before saving it.
   <SignaturePadImagePreview />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
@@ -267,6 +283,8 @@ Use `onDrawEnd` to export the signature and show a preview before saving it.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Create state with `useSignaturePad()` and pass it to `RootProvider` when controls outside the
@@ -277,11 +295,12 @@ rendered tree need direct access to `paths`, `clear()`, or `getDataUrl()`. Pass 
   <SignaturePadRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/signature-pad/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/signature-pad/root-provider.tsx"
 ```
 
     </Tab>
@@ -294,6 +313,8 @@ rendered tree need direct access to `paths`, `clear()`, or `getDataUrl()`. Pass 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Advanced Customization
 
 Use the explicit parts instead of `Canvas` when you need to control the drawing-part tree or provide
@@ -303,16 +324,19 @@ a custom clear trigger.
   <SignaturePadAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/signature-pad/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/signature-pad/advanced-customization.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

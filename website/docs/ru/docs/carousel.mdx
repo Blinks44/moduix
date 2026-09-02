@@ -36,11 +36,12 @@ import VerticalCarousel from '@/components/examples/carousel/vertical.tsx';
   <TravelCarousel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/carousel/basic.tsx"
+```tsx pure file="../../../src/components/examples/carousel/basic.tsx"
 
 ```
 
@@ -53,6 +54,8 @@ import VerticalCarousel from '@/components/examples/carousel/vertical.tsx';
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -165,11 +168,12 @@ Carousel / Carousel.Root
   <AutoplayCarousel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/carousel/autoplay.tsx"
+```tsx pure file="../../../src/components/examples/carousel/autoplay.tsx"
 
 ```
 
@@ -183,6 +187,8 @@ Carousel / Carousel.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 Полный пример галереи с боковой навигацией, текстом на слайдах и индикаторами прогресса, которые заполняются
 по мере переключения, смотрите в [рецепте галереи с автопрокруткой](/recipes/autoplay-gallery).
 
@@ -195,11 +201,12 @@ Carousel / Carousel.Root
   <CardCarousel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/carousel/cards.tsx"
+```tsx pure file="../../../src/components/examples/carousel/cards.tsx"
 
 ```
 
@@ -213,6 +220,8 @@ Carousel / Carousel.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Управляемое состояние
 
 Используйте управляемое состояние, если текущую страницу нужно синхронизировать с внешней навигацией,
@@ -222,11 +231,12 @@ Carousel / Carousel.Root
   <ControlledCarousel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/carousel/controlled.tsx"
+```tsx pure file="../../../src/components/examples/carousel/controlled.tsx"
 
 ```
 
@@ -240,6 +250,8 @@ Carousel / Carousel.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Динамическое изменение
 
 Если количество слайдов меняется после первоначального рендера, обновляйте `slideCount` одновременно
@@ -249,11 +261,12 @@ Carousel / Carousel.Root
   <DynamicSlidesCarousel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/carousel/dynamic.tsx"
+```tsx pure file="../../../src/components/examples/carousel/dynamic.tsx"
 
 ```
 
@@ -267,6 +280,8 @@ Carousel / Carousel.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Зацикливание
 
 Задайте `loop`, чтобы после последнего слайда карусель переходила к первому.
@@ -275,11 +290,12 @@ Carousel / Carousel.Root
   <LoopCarousel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/carousel/loop.tsx"
+```tsx pure file="../../../src/components/examples/carousel/loop.tsx"
 
 ```
 
@@ -293,6 +309,8 @@ Carousel / Carousel.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Перетаскивание мышью
 
 Включите перетаскивание мышью, чтобы на компьютере можно было листать слайды тем же жестом, что и
@@ -302,11 +320,12 @@ Carousel / Carousel.Root
   <MouseDragCarousel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/carousel/mouse-drag.tsx"
+```tsx pure file="../../../src/components/examples/carousel/mouse-drag.tsx"
 
 ```
 
@@ -320,6 +339,8 @@ Carousel / Carousel.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Пауза при наведении
 
 Используйте этот вариант, если автопрокрутка должна останавливаться, пока указатель находится над каруселью.
@@ -330,11 +351,12 @@ Carousel / Carousel.Root
   <PauseOnHoverCarousel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/carousel/pause-on-hover.tsx"
+```tsx pure file="../../../src/components/examples/carousel/pause-on-hover.tsx"
 
 ```
 
@@ -348,6 +370,8 @@ Carousel / Carousel.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Используйте `Carousel.RootProvider`, если состояние карусели нужно создать вне дерева компонентов и
@@ -357,11 +381,12 @@ Carousel / Carousel.Root
   <RootProviderCarousel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/carousel/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/carousel/root-provider.tsx"
 
 ```
 
@@ -375,6 +400,8 @@ Carousel / Carousel.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Переход к слайду
 
 Используйте API карусели через контекст, если другой элемент управления должен сразу перейти к определённому
@@ -384,11 +411,12 @@ Carousel / Carousel.Root
   <ScrollToCarousel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/carousel/scroll-to-slide.tsx"
+```tsx pure file="../../../src/components/examples/carousel/scroll-to-slide.tsx"
 
 ```
 
@@ -402,6 +430,8 @@ Carousel / Carousel.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Слайдов на странице
 
 Увеличьте `slidesPerPage`, чтобы показывать несколько элементов одновременно, а не одну панель на всю ширину.
@@ -410,11 +440,12 @@ Carousel / Carousel.Root
   <SlidesPerPageCarousel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/carousel/slides-per-page.tsx"
+```tsx pure file="../../../src/components/examples/carousel/slides-per-page.tsx"
 
 ```
 
@@ -428,6 +459,8 @@ Carousel / Carousel.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Интервалы
 
 Увеличьте `spacing`, чтобы добавить расстояние между соседними слайдами в редакционных макетах, лентах
@@ -437,11 +470,12 @@ Carousel / Carousel.Root
   <SpacingCarousel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/carousel/spacing.tsx"
+```tsx pure file="../../../src/components/examples/carousel/spacing.tsx"
 
 ```
 
@@ -455,6 +489,8 @@ Carousel / Carousel.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Индикаторы-миниатюры
 
 Выведите собственное содержимое индикаторов, если вместо обычных точек нужно показывать миниатюры слайдов.
@@ -463,11 +499,12 @@ Carousel / Carousel.Root
   <ThumbnailIndicatorCarousel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/carousel/thumbnail-indicators.tsx"
+```tsx pure file="../../../src/components/examples/carousel/thumbnail-indicators.tsx"
 
 ```
 
@@ -481,6 +518,8 @@ Carousel / Carousel.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Переменные размеры
 
 Включите `autoSize`, чтобы ширина слайдов зависела от их содержимого, а не от фиксированной сетки страниц.
@@ -489,11 +528,12 @@ Carousel / Carousel.Root
   <VariableSizeCarousel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/carousel/variable-sizes.tsx"
+```tsx pure file="../../../src/components/examples/carousel/variable-sizes.tsx"
 
 ```
 
@@ -507,6 +547,8 @@ Carousel / Carousel.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Вертикальная ориентация
 
 Переключитесь на вертикальную ориентацию, если карусель и её элементы управления должны работать по вертикали.
@@ -515,11 +557,12 @@ Carousel / Carousel.Root
   <VerticalCarousel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/carousel/vertical.tsx"
+```tsx pure file="../../../src/components/examples/carousel/vertical.tsx"
 
 ```
 
@@ -533,6 +576,8 @@ Carousel / Carousel.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Расширенная настройка
 
 Не используйте `Carousel.Indicators`, если нужно самостоятельно вывести `pageSnapPoints` или разместить
@@ -542,11 +587,12 @@ Carousel / Carousel.Root
   <AdvancedCustomizationCarousel />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/carousel/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/carousel/advanced-customization.tsx"
 
 ```
 
@@ -559,6 +605,8 @@ Carousel / Carousel.Root
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

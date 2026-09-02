@@ -36,11 +36,12 @@ interne recommandé pour les espacements et la mise en page.
   <CollapsibleBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/collapsible/basic.tsx"
+```tsx pure file="../../../src/components/examples/collapsible/basic.tsx"
 ```
 
     </Tab>
@@ -52,6 +53,8 @@ interne recommandé pour les espacements et la mise en page.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -144,11 +147,12 @@ la zone par programmation.
   <CollapsibleContext />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/collapsible/context.tsx"
+```tsx pure file="../../../src/components/examples/collapsible/context.tsx"
 ```
 
     </Tab>
@@ -161,6 +165,8 @@ la zone par programmation.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### État contrôlé
 
 Utilisez `open` avec le callback Ark `onOpenChange(details)` lorsqu’une autre partie de l’interface
@@ -170,11 +176,12 @@ gère l’état.
   <CollapsibleControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/collapsible/controlled.tsx"
+```tsx pure file="../../../src/components/examples/collapsible/controlled.tsx"
 ```
 
     </Tab>
@@ -187,6 +194,8 @@ gère l’état.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Ouvert par défaut
 
 Définissez `defaultOpen` pour qu’un composant non contrôlé soit ouvert dès son rendu initial.
@@ -195,11 +204,12 @@ Définissez `defaultOpen` pour qu’un composant non contrôlé soit ouvert dès
   <CollapsibleDefaultOpen />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/collapsible/default-open.tsx"
+```tsx pure file="../../../src/components/examples/collapsible/default-open.tsx"
 ```
 
     </Tab>
@@ -212,6 +222,8 @@ Définissez `defaultOpen` pour qu’un composant non contrôlé soit ouvert dès
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### État désactivé
 
 Ajoutez `disabled` à la racine pour empêcher l’utilisateur d’ouvrir ou de fermer la zone.
@@ -220,11 +232,12 @@ Ajoutez `disabled` à la racine pour empêcher l’utilisateur d’ouvrir ou de 
   <CollapsibleDisabled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/collapsible/disabled.tsx"
+```tsx pure file="../../../src/components/examples/collapsible/disabled.tsx"
 ```
 
     </Tab>
@@ -237,6 +250,8 @@ Ajoutez `disabled` à la racine pour empêcher l’utilisateur d’ouvrir ou de 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Montage différé
 
 Activez `lazyMount` pour ne monter le contenu qu’à sa première ouverture. Ajoutez `unmountOnExit` pour
@@ -246,11 +261,12 @@ le retirer du DOM après sa fermeture.
   <CollapsibleLazyMount />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/collapsible/lazy-mount.tsx"
+```tsx pure file="../../../src/components/examples/collapsible/lazy-mount.tsx"
 ```
 
     </Tab>
@@ -263,6 +279,8 @@ le retirer du DOM après sa fermeture.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Imbriqué
 
 Imbriquez des racines indépendantes lorsqu’une section ouverte contient un autre niveau de détails facultatif.
@@ -271,11 +289,12 @@ Imbriquez des racines indépendantes lorsqu’une section ouverte contient un au
   <CollapsibleNested />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/collapsible/nested.tsx"
+```tsx pure file="../../../src/components/examples/collapsible/nested.tsx"
 ```
 
     </Tab>
@@ -288,6 +307,8 @@ Imbriquez des racines indépendantes lorsqu’une section ouverte contient un au
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Repli partiel
 
 Utilisez `collapsedHeight` ou `collapsedWidth` pour laisser une partie du contenu visible lorsque la zone
@@ -298,11 +319,12 @@ repliée. Placez donc les actions qui doivent rester disponibles en dehors de `C
   <CollapsiblePartialCollapse />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/collapsible/partial-collapse.tsx"
+```tsx pure file="../../../src/components/examples/collapsible/partial-collapse.tsx"
 ```
 
     </Tab>
@@ -315,6 +337,8 @@ repliée. Placez donc les actions qui doivent rester disponibles en dehors de `C
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Largeur partielle
 
 Utilisez `collapsedWidth` lorsqu’un aperçu horizontal est plus utile qu’un aperçu limité en hauteur.
@@ -323,11 +347,12 @@ Utilisez `collapsedWidth` lorsqu’un aperçu horizontal est plus utile qu’un 
   <CollapsiblePartialCollapseWidth />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/collapsible/partial-collapse-width.tsx"
+```tsx pure file="../../../src/components/examples/collapsible/partial-collapse-width.tsx"
 ```
 
     </Tab>
@@ -340,6 +365,8 @@ Utilisez `collapsedWidth` lorsqu’un aperçu horizontal est plus utile qu’un 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Créez l’état avec `useCollapsible()` et transmettez-le à `Collapsible.RootProvider` lorsque du code
@@ -349,11 +376,12 @@ extérieur à l’arborescence rendue doit y accéder.
   <CollapsibleRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/collapsible/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/collapsible/root-provider.tsx"
 ```
 
     </Tab>
@@ -366,6 +394,8 @@ extérieur à l’arborescence rendue doit y accéder.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Personnalisation avancée
 
 Utilisez `asChild` pour appliquer le comportement du déclencheur à un bouton défini par votre application.
@@ -376,11 +406,12 @@ les attributs d’état sont conservés.
   <CollapsibleCustomComposition />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/collapsible/custom-composition.tsx"
+```tsx pure file="../../../src/components/examples/collapsible/custom-composition.tsx"
 ```
 
     </Tab>
@@ -392,6 +423,8 @@ les attributs d’état sont conservés.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

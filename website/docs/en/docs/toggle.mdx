@@ -36,16 +36,19 @@ Start with a standalone `Toggle`. It is the short form of `Toggle.Root` and pres
   <ToggleBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle/basic.tsx"
+```tsx pure file="../../../src/components/examples/toggle/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -117,16 +120,19 @@ only button, so Ark can add its pressed-state and keyboard behavior without conf
   <ToggleAsChild />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle/aschild.tsx"
+```tsx pure file="../../../src/components/examples/toggle/aschild.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Controlled
 
@@ -136,11 +142,12 @@ Use controlled `pressed` state when the toggle is part of application state or a
   <ToggleControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle/controlled.tsx"
+```tsx pure file="../../../src/components/examples/toggle/controlled.tsx"
 ```
 
     </Tab>
@@ -153,6 +160,8 @@ Use controlled `pressed` state when the toggle is part of application state or a
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Disabled
 
 Use `disabled` to prevent interaction while preserving the current pressed state.
@@ -161,11 +170,12 @@ Use `disabled` to prevent interaction while preserving the current pressed state
   <ToggleDisabled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle/disabled.tsx"
+```tsx pure file="../../../src/components/examples/toggle/disabled.tsx"
 ```
 
     </Tab>
@@ -178,6 +188,8 @@ Use `disabled` to prevent interaction while preserving the current pressed state
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Icons
 
 Pass icons as regular children. Use an icon-only size for compact actions.
@@ -186,11 +198,12 @@ Pass icons as regular children. Use an icon-only size for compact actions.
   <ToggleIcons />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle/icons.tsx"
+```tsx pure file="../../../src/components/examples/toggle/icons.tsx"
 ```
 
     </Tab>
@@ -203,6 +216,8 @@ Pass icons as regular children. Use an icon-only size for compact actions.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Indicator
 
 Use `Toggle.Indicator` when pressed and unpressed states need different inline content.
@@ -211,16 +226,19 @@ Use `Toggle.Indicator` when pressed and unpressed states need different inline c
   <ToggleIndicator />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle/indicator.tsx"
+```tsx pure file="../../../src/components/examples/toggle/indicator.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Sizes
 
@@ -230,11 +248,12 @@ Use text sizes for labeled toggles and icon-only sizes for denser action rows.
   <ToggleSizes />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle/sizes.tsx"
+```tsx pure file="../../../src/components/examples/toggle/sizes.tsx"
 ```
 
     </Tab>
@@ -247,6 +266,8 @@ Use text sizes for labeled toggles and icon-only sizes for denser action rows.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Variants
 
 Use `default` for a secondary action, `outline` for a bordered surface, and `ghost` for compact
@@ -257,11 +278,12 @@ accent surface to remain visually quiet in a dense toolbar.
   <ToggleVariants />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle/variants.tsx"
+```tsx pure file="../../../src/components/examples/toggle/variants.tsx"
 ```
 
     </Tab>
@@ -274,6 +296,8 @@ accent surface to remain visually quiet in a dense toolbar.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Advanced Customization
 
 For a custom descendant that needs the pressed state, read the nearest toggle state through the
@@ -283,16 +307,19 @@ moduix context hook instead of using `Toggle.Indicator`.
   <ToggleAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/toggle/advanced-customization.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

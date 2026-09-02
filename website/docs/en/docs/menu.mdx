@@ -37,11 +37,12 @@ continue to work when the list changes.
   <MenuBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/basic.tsx"
+```tsx pure file="../../../src/components/examples/menu/basic.tsx"
 ```
 
     </Tab>
@@ -53,6 +54,8 @@ continue to work when the list changes.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -198,11 +201,12 @@ options before closing the menu.
   <MenuCheckboxItems />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/checkbox-items.tsx"
+```tsx pure file="../../../src/components/examples/menu/checkbox-items.tsx"
 ```
 
     </Tab>
@@ -215,6 +219,8 @@ options before closing the menu.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Context Menu
 
 Use `Menu.ContextTrigger` when actions should appear after a right-click. On touch and pen input, a long press opens
@@ -224,11 +230,12 @@ the menu as well.
   <MenuContext />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/context-menu.tsx"
+```tsx pure file="../../../src/components/examples/menu/context-menu.tsx"
 ```
 
     </Tab>
@@ -241,6 +248,8 @@ the menu as well.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Controlled
 
 Control `open` with React state when another control needs to open or close the menu.
@@ -249,11 +258,12 @@ Control `open` with React state when another control needs to open or close the 
   <MenuControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/controlled.tsx"
+```tsx pure file="../../../src/components/examples/menu/controlled.tsx"
 ```
 
     </Tab>
@@ -266,6 +276,8 @@ Control `open` with React state when another control needs to open or close the 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Grouping
 
 Use `Menu.ItemGroup` and `Menu.ItemGroupLabel` to organize related items, and `Menu.Separator` to separate groups.
@@ -274,11 +286,12 @@ Use `Menu.ItemGroup` and `Menu.ItemGroupLabel` to organize related items, and `M
   <MenuGrouping />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/grouping.tsx"
+```tsx pure file="../../../src/components/examples/menu/grouping.tsx"
 ```
 
     </Tab>
@@ -291,6 +304,8 @@ Use `Menu.ItemGroup` and `Menu.ItemGroupLabel` to organize related items, and `M
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Indicator Placement
 
 Set `indicator="start"`, `"end"`, or `"none"` on checkbox and radio items to choose the indicator position.
@@ -299,11 +314,12 @@ Set `indicator="start"`, `"end"`, or `"none"` on checkbox and radio items to cho
   <MenuIndicatorPlacement />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/indicator-placement.tsx"
+```tsx pure file="../../../src/components/examples/menu/indicator-placement.tsx"
 ```
 
     </Tab>
@@ -316,6 +332,8 @@ Set `indicator="start"`, `"end"`, or `"none"` on checkbox and radio items to cho
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Item Context
 
 Use `Menu.ItemContext` when the content of an item needs to react to its state, such as whether it is highlighted.
@@ -324,11 +342,12 @@ Use `Menu.ItemContext` when the content of an item needs to react to its state, 
   <MenuItemContext />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/item-context.tsx"
+```tsx pure file="../../../src/components/examples/menu/item-context.tsx"
 ```
 
     </Tab>
@@ -341,6 +360,8 @@ Use `Menu.ItemContext` when the content of an item needs to react to its state, 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Lazy Mounted Context Menu
 
 By default, context-menu content mounts on first open and unmounts after the exit animation. Set
@@ -350,11 +371,12 @@ By default, context-menu content mounts on first open and unmounts after the exi
   <MenuLazyMountedContext />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/lazy-mounted-context-menu.tsx"
+```tsx pure file="../../../src/components/examples/menu/lazy-mounted-context-menu.tsx"
 ```
 
     </Tab>
@@ -367,6 +389,8 @@ By default, context-menu content mounts on first open and unmounts after the exi
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Links
 
 Use `Menu.Item asChild` and make the anchor the item itself. This lets the link receive the menu item's ARIA
@@ -376,11 +400,12 @@ attributes, keyboard behavior, and focus handling.
   <MenuLinks />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/links.tsx"
+```tsx pure file="../../../src/components/examples/menu/links.tsx"
 ```
 
     </Tab>
@@ -393,6 +418,8 @@ attributes, keyboard behavior, and focus handling.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Menu in Dialog
 
 Set `portalled={false}` to keep the popup inside a dialog or scroll container. When the container can scroll, use
@@ -402,11 +429,12 @@ fixed positioning with `hideWhenDetached` so the menu is hidden after it leaves 
   <MenuInDialog />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/menu-in-dialog.tsx"
+```tsx pure file="../../../src/components/examples/menu/menu-in-dialog.tsx"
 ```
 
     </Tab>
@@ -419,6 +447,8 @@ fixed positioning with `hideWhenDetached` so the menu is hidden after it leaves 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Multiple Triggers
 
 Share one menu across several triggers by giving each `Menu.Trigger` a distinct `value`. The menu repositions itself
@@ -428,11 +458,12 @@ relative to the trigger that opened it.
   <MenuMultipleTriggers />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/multiple-triggers.tsx"
+```tsx pure file="../../../src/components/examples/menu/multiple-triggers.tsx"
 ```
 
     </Tab>
@@ -445,6 +476,8 @@ relative to the trigger that opened it.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Nested
 
 Render a child `Menu` inside the parent content and open it with `Menu.TriggerItem`.
@@ -453,11 +486,12 @@ Render a child `Menu` inside the parent content and open it with `Menu.TriggerIt
   <MenuNested />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/nested.tsx"
+```tsx pure file="../../../src/components/examples/menu/nested.tsx"
 ```
 
     </Tab>
@@ -470,6 +504,8 @@ Render a child `Menu` inside the parent content and open it with `Menu.TriggerIt
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Radio Items
 
 Use `Menu.RadioItemGroup` when users must choose one value from a set of options. Set `closeOnSelect={false}` if the
@@ -479,11 +515,12 @@ menu should stay open while they change the selection.
   <MenuRadioItems />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/radio-items.tsx"
+```tsx pure file="../../../src/components/examples/menu/radio-items.tsx"
 ```
 
     </Tab>
@@ -496,6 +533,8 @@ menu should stay open while they change the selection.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Use `useMenu` and `Menu.RootProvider` when code outside the rendered tree needs to read or update the menu state.
@@ -504,11 +543,12 @@ Use `useMenu` and `Menu.RootProvider` when code outside the rendered tree needs 
   <MenuRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/menu/root-provider.tsx"
 ```
 
     </Tab>
@@ -521,6 +561,8 @@ Use `useMenu` and `Menu.RootProvider` when code outside the rendered tree needs 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Select Event
 
 Use `onSelect(details)` on the root when one handler should respond to every item selection. Read the selected item's
@@ -530,11 +572,12 @@ Use `onSelect(details)` on the root when one handler should respond to every ite
   <MenuSelectEvent />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/select-event.tsx"
+```tsx pure file="../../../src/components/examples/menu/select-event.tsx"
 ```
 
     </Tab>
@@ -547,6 +590,8 @@ Use `onSelect(details)` on the root when one handler should respond to every ite
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### With Arrow
 
 Add `Menu.Arrow` and `Menu.ArrowTip` directly inside `Menu.Content` when the popup needs a visual connection to its
@@ -556,16 +601,19 @@ trigger.
   <MenuWithArrow />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/with-arrow.tsx"
+```tsx pure file="../../../src/components/examples/menu/with-arrow.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Advanced Customization
 
@@ -576,16 +624,19 @@ custom structure.
   <MenuAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/menu/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/menu/advanced-customization.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

@@ -33,16 +33,19 @@ dans le composant de texte ou l’élément HTML qui définit la mise en page et
   <HighlightBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/highlight/basic.tsx"
+```tsx pure file="../../../src/components/examples/highlight/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -113,11 +116,12 @@ un filtrage du texte affiché.
   <HighlightDynamicQuery />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/highlight/dynamic-query.tsx"
+```tsx pure file="../../../src/components/examples/highlight/dynamic-query.tsx"
 ```
 
     </Tab>
@@ -130,6 +134,8 @@ un filtrage du texte affiché.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Correspondance exacte
 
 Activez `exactMatch` lorsque les correspondances partielles sont trop larges. Dans cet exemple,
@@ -139,11 +145,12 @@ Activez `exactMatch` lorsque les correspondances partielles sont trop larges. Da
   <HighlightExactMatch />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/highlight/exact-match.tsx"
+```tsx pure file="../../../src/components/examples/highlight/exact-match.tsx"
 ```
 
     </Tab>
@@ -156,6 +163,8 @@ Activez `exactMatch` lorsque les correspondances partielles sont trop larges. Da
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Casse ignorée
 
 Activez `ignoreCase` lorsque la casse du texte source ne doit pas influencer le résultat.
@@ -164,16 +173,19 @@ Activez `ignoreCase` lorsque la casse du texte source ne doit pas influencer le 
   <HighlightIgnoreCase />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/highlight/ignore-case.tsx"
+```tsx pure file="../../../src/components/examples/highlight/ignore-case.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Toutes les correspondances
 
@@ -183,11 +195,12 @@ Activez `matchAll` pour mettre en évidence chaque occurrence au lieu de la prem
   <HighlightMatchAll />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/highlight/match-all.tsx"
+```tsx pure file="../../../src/components/examples/highlight/match-all.tsx"
 ```
 
     </Tab>
@@ -200,6 +213,8 @@ Activez `matchAll` pour mettre en évidence chaque occurrence au lieu de la prem
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Plusieurs requêtes
 
 Transmettez un tableau de chaînes lorsque plusieurs termes doivent être mis en évidence dans le même
@@ -209,16 +224,19 @@ texte. Pour un tableau, `matchAll` vaut `true` par défaut ; définir `matchAll=
   <HighlightMultipleQueries />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/highlight/multiple-queries.tsx"
+```tsx pure file="../../../src/components/examples/highlight/multiple-queries.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

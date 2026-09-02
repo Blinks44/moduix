@@ -28,16 +28,19 @@ name when the QR code conveys information.
   <QrCodeBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/qr-code/basic.tsx"
+```tsx pure file="../../../src/components/examples/qr-code/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -134,11 +137,12 @@ state.
   <ControlledQrCode />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/qr-code/controlled.tsx"
+```tsx pure file="../../../src/components/examples/qr-code/controlled.tsx"
 ```
 
     </Tab>
@@ -151,6 +155,8 @@ state.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Download
 
 Add `QrCode.DownloadTrigger` when users need to save the generated code as an image. Set both
@@ -160,16 +166,19 @@ Add `QrCode.DownloadTrigger` when users need to save the generated code as an im
   <DownloadQrCode />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/qr-code/download.tsx"
+```tsx pure file="../../../src/components/examples/qr-code/download.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Error Correction
 
@@ -185,11 +194,12 @@ an overlay covers part of the code or when the code may be scratched or distorte
   <ErrorCorrectionQrCode />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/qr-code/error-correction.tsx"
+```tsx pure file="../../../src/components/examples/qr-code/error-correction.tsx"
 ```
 
     </Tab>
@@ -202,6 +212,8 @@ an overlay covers part of the code or when the code may be scratched or distorte
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Fill
 
 The QR modules use `currentColor` by default. Change the SVG fill with `style`, a class, or the
@@ -211,11 +223,12 @@ The QR modules use `currentColor` by default. Change the SVG fill with `style`, 
   <FillQrCode />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/qr-code/fill.tsx"
+```tsx pure file="../../../src/components/examples/qr-code/fill.tsx"
 ```
 
     </Tab>
@@ -228,6 +241,8 @@ The QR modules use `currentColor` by default. Change the SVG fill with `style`, 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Input
 
 Bind `value` to a text field when users need to enter or edit the content encoded in the QR code.
@@ -237,11 +252,12 @@ Give the frame an accessible name that explains what the code represents.
   <InputQrCode />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/qr-code/input.tsx"
+```tsx pure file="../../../src/components/examples/qr-code/input.tsx"
 ```
 
     </Tab>
@@ -254,6 +270,8 @@ Give the frame an accessible name that explains what the code represents.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Overlay
 
 Use `QrCode.Overlay` for a compact logo or text mark. Set a high error-correction level and keep the
@@ -263,11 +281,12 @@ overlay small enough that scanners can still read the code.
   <OverlayQrCode />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/qr-code/overlay.tsx"
+```tsx pure file="../../../src/components/examples/qr-code/overlay.tsx"
 ```
 
     </Tab>
@@ -280,6 +299,8 @@ overlay small enough that scanners can still read the code.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Create QR state with `useQrCode()` when it must be shared with controls outside the QR tree, then pass
@@ -289,16 +310,19 @@ that state to `QrCode.RootProvider`.
   <RootProviderQrCode />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/qr-code/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/qr-code/root-provider.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

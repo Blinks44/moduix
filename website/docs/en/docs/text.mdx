@@ -39,11 +39,12 @@ element but should keep `Text`'s typography styles.
   <TextBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/text/basic.tsx"
+```tsx pure file="../../../src/components/examples/text/basic.tsx"
 ```
 
     </Tab>
@@ -55,6 +56,8 @@ element but should keep `Text`'s typography styles.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -119,11 +122,12 @@ Use `align` when alignment belongs to the text rather than its surrounding layou
   <TextAlignment />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/text/alignment.tsx"
+```tsx pure file="../../../src/components/examples/text/alignment.tsx"
 ```
 
     </Tab>
@@ -136,6 +140,8 @@ Use `align` when alignment belongs to the text rather than its surrounding layou
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Semantics
 
 Use `as` to choose a semantic HTML element while keeping `Text`'s typography styles.
@@ -144,11 +150,12 @@ Use `as` to choose a semantic HTML element while keeping `Text`'s typography sty
   <TextSemantics />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/text/semantics.tsx"
+```tsx pure file="../../../src/components/examples/text/semantics.tsx"
 ```
 
     </Tab>
@@ -161,6 +168,8 @@ Use `as` to choose a semantic HTML element while keeping `Text`'s typography sty
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Size
 
 Use `size` to change the visual hierarchy without switching to a different typography component.
@@ -169,11 +178,12 @@ Use `size` to change the visual hierarchy without switching to a different typog
   <TextSize />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/text/size.tsx"
+```tsx pure file="../../../src/components/examples/text/size.tsx"
 ```
 
     </Tab>
@@ -186,6 +196,8 @@ Use `size` to change the visual hierarchy without switching to a different typog
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Tone
 
 Use `tone` to express the role of the copy without adding local color classes.
@@ -194,11 +206,12 @@ Use `tone` to express the role of the copy without adding local color classes.
   <TextTone />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/text/tone.tsx"
+```tsx pure file="../../../src/components/examples/text/tone.tsx"
 ```
 
     </Tab>
@@ -211,6 +224,8 @@ Use `tone` to express the role of the copy without adding local color classes.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Truncation
 
 Use `truncate` for a single-line ellipsis and `lineClamp` for dense multi-line previews. Add the
@@ -220,11 +235,12 @@ expansion or disclosure behavior in the surrounding UI.
   <TextTruncation />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/text/truncation.tsx"
+```tsx pure file="../../../src/components/examples/text/truncation.tsx"
 ```
 
     </Tab>
@@ -237,6 +253,8 @@ expansion or disclosure behavior in the surrounding UI.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Weight
 
 Use `weight` when the emphasis should stay within the same semantic element.
@@ -245,11 +263,12 @@ Use `weight` when the emphasis should stay within the same semantic element.
   <TextWeight />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/text/weight.tsx"
+```tsx pure file="../../../src/components/examples/text/weight.tsx"
 ```
 
     </Tab>
@@ -262,6 +281,8 @@ Use `weight` when the emphasis should stay within the same semantic element.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Advanced Customization
 
 Use `asChild` when the root should be an existing custom element instead of one of the supported
@@ -271,16 +292,19 @@ intrinsic `as` values. The child must be a single element that accepts the forwa
   <TextCustomComposition />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/text/custom-composition.tsx"
+```tsx pure file="../../../src/components/examples/text/custom-composition.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

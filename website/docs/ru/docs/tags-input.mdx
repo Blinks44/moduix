@@ -45,11 +45,12 @@ import TagsInputWithCombobox from '@/components/examples/tags-input/with-combobo
   <TagsInputBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/basic.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/basic.tsx"
 ```
 
     </Tab>
@@ -61,6 +62,8 @@ import TagsInputWithCombobox from '@/components/examples/tags-input/with-combobo
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -180,11 +183,12 @@ Ark `asChild`, а для удаления отдельного тега оста
   <TagsInputAllowDuplicates />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/allow-duplicates.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/allow-duplicates.tsx"
 ```
 
     </Tab>
@@ -197,6 +201,8 @@ Ark `asChild`, а для удаления отдельного тега оста
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Управляемый список тегов
 
 Храните массив тегов в состоянии React, если от него зависит другая часть экрана или список нужно
@@ -206,11 +212,12 @@ Ark `asChild`, а для удаления отдельного тега оста
   <TagsInputControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/controlled.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/controlled.tsx"
 ```
 
     </Tab>
@@ -223,6 +230,8 @@ Ark `asChild`, а для удаления отдельного тега оста
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Управляемое значение поля ввода
 
 Управляйте `inputValue` отдельно, если другой элемент интерфейса должен заранее заполнить или
@@ -232,11 +241,12 @@ Ark `asChild`, а для удаления отдельного тега оста
   <TagsInputControlledInputValue />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/controlled-input-value.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/controlled-input-value.tsx"
 ```
 
     </Tab>
@@ -249,6 +259,8 @@ Ark `asChild`, а для удаления отдельного тега оста
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Разделитель и вставка
 
 Используйте `delimiter` вместе с `addOnPaste`, если вставленный текст должен превратиться в несколько
@@ -258,11 +270,12 @@ Ark `asChild`, а для удаления отдельного тега оста
   <TagsInputDelimiterAndPaste />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/delimiter-and-paste.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/delimiter-and-paste.tsx"
 ```
 
     </Tab>
@@ -275,6 +288,8 @@ Ark `asChild`, а для удаления отдельного тега оста
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Запретить редактирование
 
 Задайте `editable={false}`, если существующие теги можно удалять, но нельзя редактировать на месте.
@@ -283,11 +298,12 @@ Ark `asChild`, а для удаления отдельного тега оста
   <TagsInputDisableEditing />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/disable-editing.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/disable-editing.tsx"
 ```
 
     </Tab>
@@ -300,6 +316,8 @@ Ark `asChild`, а для удаления отдельного тега оста
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Отключённое состояние и режим только для чтения
 
 Используйте `disabled` для полностью неинтерактивного поля. `readOnly` оставляет теги видимыми, но
@@ -309,11 +327,12 @@ Ark `asChild`, а для удаления отдельного тега оста
   <TagsInputDisabledAndReadOnly />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/disabled-and-read-only.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/disabled-and-read-only.tsx"
 ```
 
     </Tab>
@@ -326,6 +345,8 @@ Ark `asChild`, а для удаления отдельного тега оста
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Field
 
 Оберните `TagsInput` в `Field`, если подпись, поясняющий текст, состояние ошибки и
@@ -335,11 +356,12 @@ Ark `asChild`, а для удаления отдельного тега оста
   <TagsInputField />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/field.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/field.tsx"
 ```
 
     </Tab>
@@ -352,6 +374,8 @@ Ark `asChild`, а для удаления отдельного тега оста
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Форма
 
 Передайте корню `name`, чтобы список тегов попал в `FormData`. moduix автоматически добавит скрытое
@@ -361,11 +385,12 @@ Ark `asChild`, а для удаления отдельного тега оста
   <TagsInputForm />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/form.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/form.tsx"
 ```
 
     </Tab>
@@ -378,6 +403,8 @@ Ark `asChild`, а для удаления отдельного тега оста
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Максимальное число тегов с превышением
 
 Используйте `allowOverflow` вместе с `max`, если пользователь может временно превысить лимит, а
@@ -387,11 +414,12 @@ Ark `asChild`, а для удаления отдельного тега оста
   <TagsInputMaxWithOverflow />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/max-with-overflow.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/max-with-overflow.tsx"
 ```
 
     </Tab>
@@ -404,6 +432,8 @@ Ark `asChild`, а для удаления отдельного тега оста
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### RootProvider
 
 Используйте moduix `useTagsInput` с `RootProvider`, когда состояние и императивные методы должны
@@ -413,11 +443,12 @@ Ark `asChild`, а для удаления отдельного тега оста
   <TagsInputRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/root-provider.tsx"
 ```
 
     </Tab>
@@ -430,6 +461,8 @@ Ark `asChild`, а для удаления отдельного тега оста
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Нормализация и потеря фокуса
 
 Используйте `sanitizeValue`, чтобы нормализовать вводимые теги, а `blurBehavior="add"`, чтобы
@@ -439,11 +472,12 @@ Ark `asChild`, а для удаления отдельного тега оста
   <TagsInputSanitizeAndBlur />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/sanitize-and-blur.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/sanitize-and-blur.tsx"
 ```
 
     </Tab>
@@ -456,6 +490,8 @@ Ark `asChild`, а для удаления отдельного тега оста
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Проверка и максимум
 
 Используйте `validate`, `max` и `onValueInvalid`, чтобы отклонять недопустимые значения и понимать,
@@ -466,11 +502,12 @@ Ark `asChild`, а для удаления отдельного тега оста
   <TagsInputValidationAndMax />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/validation-and-max.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/validation-and-max.tsx"
 ```
 
     </Tab>
@@ -483,6 +520,8 @@ Ark `asChild`, а для удаления отдельного тега оста
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Вместе с Combobox
 
 Объедините `TagsInput` с `Combobox`, если поле должно предлагать варианты из известного списка и
@@ -493,11 +532,12 @@ Ark `asChild`, а для удаления отдельного тега оста
   <TagsInputWithCombobox />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/with-combobox.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/with-combobox.tsx"
 ```
 
     </Tab>
@@ -510,6 +550,8 @@ Ark `asChild`, а для удаления отдельного тега оста
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Расширенная настройка
 
 Не используйте `Items`, если каждому тегу нужны собственное содержимое или действия. Свяжите
@@ -520,11 +562,12 @@ Ark `asChild`, а для удаления отдельного тега оста
   <TagsInputAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/advanced-customization.tsx"
 ```
 
     </Tab>
@@ -536,6 +579,8 @@ Ark `asChild`, а для удаления отдельного тега оста
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

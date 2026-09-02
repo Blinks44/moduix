@@ -27,11 +27,12 @@ provides a default accessible name, and shows a `CloseIcon`, but it does not man
   <CloseButtonBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/close-button/basic.tsx"
+```tsx pure file="../../../src/components/examples/close-button/basic.tsx"
 ```
 
     </Tab>
@@ -43,6 +44,8 @@ provides a default accessible name, and shows a `CloseIcon`, but it does not man
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -113,11 +116,12 @@ CloseButton's styles and data attributes. Set `type="button"` on the child and p
   <CloseButtonAsChild />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/close-button/as-child.tsx"
+```tsx pure file="../../../src/components/examples/close-button/as-child.tsx"
 ```
 
     </Tab>
@@ -130,6 +134,8 @@ CloseButton's styles and data attributes. Set `type="button"` on the child and p
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Custom content
 
 Pass custom content through `children` to replace the default icon while keeping the root button contract.
@@ -139,11 +145,12 @@ The example uses a simple X-shaped mark and keeps it decorative with `aria-hidde
   <CloseButtonCustomChildren />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/close-button/custom-children.tsx"
+```tsx pure file="../../../src/components/examples/close-button/custom-children.tsx"
 ```
 
     </Tab>
@@ -156,6 +163,8 @@ The example uses a simple X-shaped mark and keeps it decorative with `aria-hidde
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Disabled state
 
 Use native `disabled` when the button should not be focusable. Use `aria-disabled="true"` when it should
@@ -165,11 +174,12 @@ remain focusable but must not activate.
   <CloseButtonDisabled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/close-button/disabled-state.tsx"
+```tsx pure file="../../../src/components/examples/close-button/disabled-state.tsx"
 ```
 
     </Tab>
@@ -181,6 +191,8 @@ remain focusable but must not activate.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

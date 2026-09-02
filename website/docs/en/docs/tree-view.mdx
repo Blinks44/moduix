@@ -27,16 +27,19 @@ you can render a branch or a leaf without wiring a provider and context into eve
   <TreeViewBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tree-view/basic.tsx"
+```tsx pure file="../../../src/components/examples/tree-view/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -101,16 +104,19 @@ child must accept the Ark props so that focus and keyboard behavior stay intact.
   <LinkedTreeView />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tree-view/links.tsx"
+```tsx pure file="../../../src/components/examples/tree-view/links.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### State and keyboard support
 
@@ -146,16 +152,19 @@ For a branch with a known `childrenCount`, load its children with `loadChildren`
   <AsyncTreeView />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tree-view/async-loading.tsx"
+```tsx pure file="../../../src/components/examples/tree-view/async-loading.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Checkbox tree
 
@@ -166,16 +175,19 @@ the checked and indeterminate states.
   <CheckboxTreeView />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tree-view/checkboxes.tsx"
+```tsx pure file="../../../src/components/examples/tree-view/checkboxes.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### File icons
 
@@ -186,16 +198,19 @@ Put decorative file and folder icons inside `BranchText` and `ItemText`. Keep
   <FileIconsTreeView />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tree-view/file-icons.tsx"
+```tsx pure file="../../../src/components/examples/tree-view/file-icons.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Multiple selection
 
@@ -206,6 +221,7 @@ a selection range. The example keeps the selected values in application state.
   <ControlledSelectionTreeView />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs
     values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
@@ -213,7 +229,7 @@ a selection range. The example keeps the selected values in application state.
   >
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tree-view/controlled-selection.tsx"
+```tsx pure file="../../../src/components/examples/tree-view/controlled-selection.tsx"
 ```
 
     </Tab>
@@ -226,6 +242,8 @@ a selection range. The example keeps the selected values in application state.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root provider
 
 Create tree state with `useTreeView` when controls outside the tree need methods such as `expand()`
@@ -235,6 +253,7 @@ or `collapse()`. Pass that state to `RootProvider` instead of rendering a second
   <RootProviderTreeView />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs
     values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
@@ -242,7 +261,7 @@ or `collapse()`. Pass that state to `RootProvider` instead of rendering a second
   >
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tree-view/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/tree-view/root-provider.tsx"
 ```
 
     </Tab>
@@ -254,6 +273,8 @@ or `collapse()`. Pass that state to `RootProvider` instead of rendering a second
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

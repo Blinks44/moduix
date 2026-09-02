@@ -38,16 +38,19 @@ modal, `Dialog.Positioner` positionne le dialogue et `Dialog.Content` contient s
   <DialogBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/dialog/basic.tsx"
+```tsx pure file="../../../src/components/examples/dialog/basic.tsx"
 
 ```
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -173,16 +176,19 @@ action distincte pour confirmer la décision.
   <DialogAlertDialog />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/dialog/alert-dialog.tsx"
+```tsx pure file="../../../src/components/examples/dialog/alert-dialog.tsx"
 
 ```
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Confirmation
 
@@ -193,16 +199,19 @@ demandez à l’utilisateur s’il souhaite les abandonner.
   <DialogConfirmation />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/dialog/confirmation.tsx"
+```tsx pure file="../../../src/components/examples/dialog/confirmation.tsx"
 
 ```
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### État contrôlé
 
@@ -213,16 +222,19 @@ de l’application.
   <DialogControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/dialog/controlled.tsx"
+```tsx pure file="../../../src/components/examples/dialog/controlled.tsx"
 
 ```
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Défilement du contenu
 
@@ -232,11 +244,12 @@ Rendez uniquement le contenu principal défilable lorsque le titre et les action
   <DialogInsideScroll />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/dialog/inside-scroll.tsx"
+```tsx pure file="../../../src/components/examples/dialog/inside-scroll.tsx"
 
 ```
     </Tab>
@@ -248,6 +261,8 @@ Rendez uniquement le contenu principal défilable lorsque le titre et les action
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Montage et cycle de focus
 
 Utilisez `lazyMount` et `unmountOnExit` pour gérer le cycle de présence. Utilisez `initialFocusEl` et `finalFocusEl` lorsque
@@ -257,16 +272,19 @@ le focus doit aller vers des éléments précis à l’ouverture et à la fermet
   <DialogMountingAndFocusLifecycle />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/dialog/mounting-and-focus-lifecycle.tsx"
+```tsx pure file="../../../src/components/examples/dialog/mounting-and-focus-lifecycle.tsx"
 
 ```
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Plusieurs déclencheurs
 
@@ -277,16 +295,19 @@ Partagez un même dialogue entre plusieurs déclencheurs en attribuant une `valu
   <DialogMultipleTriggers />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/dialog/multiple-triggers.tsx"
+```tsx pure file="../../../src/components/examples/dialog/multiple-triggers.tsx"
 
 ```
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Dialogues imbriqués
 
@@ -297,11 +318,12 @@ utilise cet état pour faire reculer le parent lorsque le dialogue imbriqué est
   <DialogNested />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/dialog/nested.tsx"
+```tsx pure file="../../../src/components/examples/dialog/nested.tsx"
 
 ```
     </Tab>
@@ -313,6 +335,8 @@ utilise cet état pour faire reculer le parent lorsque le dialogue imbriqué est
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Mode non modal
 
 Définissez `modal={false}` et omettez l’arrière-plan lorsque les utilisateurs doivent pouvoir continuer à interagir avec
@@ -322,16 +346,19 @@ la page en dehors du dialogue.
   <DialogNonModal />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/dialog/non-modal.tsx"
+```tsx pure file="../../../src/components/examples/dialog/non-modal.tsx"
 
 ```
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Ouverture depuis un menu
 
@@ -341,16 +368,19 @@ Contrôlez `open` depuis un élément de menu lorsqu’une action contextuelle d
   <DialogOpenFromMenu />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/dialog/open-from-menu.tsx"
+```tsx pure file="../../../src/components/examples/dialog/open-from-menu.tsx"
 
 ```
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Défilement de l’ensemble du dialogue
 
@@ -361,11 +391,12 @@ naturelle.
   <DialogOutsideScroll />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/dialog/outside-scroll.tsx"
+```tsx pure file="../../../src/components/examples/dialog/outside-scroll.tsx"
 
 ```
     </Tab>
@@ -377,6 +408,8 @@ naturelle.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Créez l’état avec `useDialog()` lorsque les contrôles se trouvent en dehors du dialogue. Reliez-le avec
@@ -386,16 +419,19 @@ Créez l’état avec `useDialog()` lorsque les contrôles se trouvent en dehors
   <DialogRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/dialog/root-provider-and-ark-context-hooks.tsx"
+```tsx pure file="../../../src/components/examples/dialog/root-provider-and-ark-context-hooks.tsx"
 
 ```
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Personnalisation avancée
 
@@ -406,11 +442,12 @@ chaque partie du dialogue Ark.
   <DialogAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/dialog/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/dialog/advanced-customization.tsx"
 
 ```
     </Tab>
@@ -421,6 +458,8 @@ chaque partie du dialogue Ark.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

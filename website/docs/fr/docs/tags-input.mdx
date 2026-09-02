@@ -45,11 +45,12 @@ doivent être envoyés avec le formulaire.
   <TagsInputBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/basic.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/basic.tsx"
 ```
 
     </Tab>
@@ -61,6 +62,8 @@ doivent être envoyés avec le formulaire.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -179,11 +182,12 @@ répétition a un sens dans le scénario.
   <TagsInputAllowDuplicates />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/allow-duplicates.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/allow-duplicates.tsx"
 ```
 
     </Tab>
@@ -196,6 +200,8 @@ répétition a un sens dans le scénario.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Liste de tags contrôlée
 
 Conservez le tableau de tags dans l’état React lorsqu’une autre partie de l’écran en dépend ou que
@@ -205,11 +211,12 @@ vous devez le réinitialiser par programmation.
   <TagsInputControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/controlled.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/controlled.tsx"
 ```
 
     </Tab>
@@ -222,6 +229,8 @@ vous devez le réinitialiser par programmation.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Valeur de saisie contrôlée
 
 Contrôlez `inputValue` séparément lorsqu’un autre contrôle doit préremplir ou effacer le champ de
@@ -231,11 +240,12 @@ saisie.
   <TagsInputControlledInputValue />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/controlled-input-value.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/controlled-input-value.tsx"
 ```
 
     </Tab>
@@ -248,6 +258,8 @@ saisie.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Séparateur et collage
 
 Utilisez `delimiter` avec `addOnPaste` lorsque le texte collé doit produire plusieurs tags. L’exemple
@@ -257,11 +269,12 @@ accepte la virgule, le point-virgule et l’espace comme séparateurs.
   <TagsInputDelimiterAndPaste />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/delimiter-and-paste.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/delimiter-and-paste.tsx"
 ```
 
     </Tab>
@@ -274,6 +287,8 @@ accepte la virgule, le point-virgule et l’espace comme séparateurs.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Désactiver la modification
 
 Définissez `editable={false}` lorsque les tags existants doivent rester supprimables, sans être
@@ -283,11 +298,12 @@ modifiables sur place.
   <TagsInputDisableEditing />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/disable-editing.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/disable-editing.tsx"
 ```
 
     </Tab>
@@ -300,6 +316,8 @@ modifiables sur place.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Désactivé et en lecture seule
 
 Utilisez `disabled` pour un contrôle non interactif. Utilisez `readOnly` lorsque les tags doivent
@@ -309,11 +327,12 @@ rester visibles, sans pouvoir être ajoutés, supprimés ou modifiés.
   <TagsInputDisabledAndReadOnly />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/disabled-and-read-only.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/disabled-and-read-only.tsx"
 ```
 
     </Tab>
@@ -326,6 +345,8 @@ rester visibles, sans pouvoir être ajoutés, supprimés ou modifiés.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Field
 
 Enveloppez `TagsInput` dans `Field` lorsque son libellé, son texte d’aide, son état invalide et son
@@ -335,11 +356,12 @@ message d’erreur doivent partager le câblage d’accessibilité des formulair
   <TagsInputField />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/field.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/field.tsx"
 ```
 
     </Tab>
@@ -352,6 +374,8 @@ message d’erreur doivent partager le câblage d’accessibilité des formulair
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Formulaire
 
 Transmettez `name` à la racine pour inclure la liste de tags dans `FormData`. moduix ajoute
@@ -362,11 +386,12 @@ formulaire.
   <TagsInputForm />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/form.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/form.tsx"
 ```
 
     </Tab>
@@ -379,6 +404,8 @@ formulaire.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Dépassement du nombre maximal
 
 Utilisez `allowOverflow` avec `max` lorsque l’utilisateur peut dépasser temporairement la limite,
@@ -388,11 +415,12 @@ mais que le contrôle doit signaler un état invalide.
   <TagsInputMaxWithOverflow />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/max-with-overflow.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/max-with-overflow.tsx"
 ```
 
     </Tab>
@@ -405,6 +433,8 @@ mais que le contrôle doit signaler un état invalide.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### RootProvider
 
 Utilisez `useTagsInput` de moduix avec `RootProvider` lorsque l’état et les méthodes impératives
@@ -414,11 +444,12 @@ doivent être utilisés en dehors de l’arborescence visible du champ.
   <TagsInputRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/root-provider.tsx"
 ```
 
     </Tab>
@@ -431,6 +462,8 @@ doivent être utilisés en dehors de l’arborescence visible du champ.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Normalisation et perte du focus
 
 Utilisez `sanitizeValue` pour normaliser les tags saisis et `blurBehavior="add"` pour ajouter la
@@ -440,11 +473,12 @@ valeur courante lorsque le focus quitte le contrôle.
   <TagsInputSanitizeAndBlur />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/sanitize-and-blur.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/sanitize-and-blur.tsx"
 ```
 
     </Tab>
@@ -457,6 +491,8 @@ valeur courante lorsque le focus quitte le contrôle.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Validation et nombre maximal
 
 Utilisez `validate`, `max` et `onValueInvalid` pour rejeter les valeurs invalides et savoir pourquoi
@@ -467,11 +503,12 @@ longues avant l’exécution de la validation.
   <TagsInputValidationAndMax />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/validation-and-max.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/validation-and-max.tsx"
 ```
 
     </Tab>
@@ -484,6 +521,8 @@ longues avant l’exécution de la validation.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Avec Combobox
 
 Composez `TagsInput` avec `Combobox` lorsque le champ doit suggérer des options connues tout en
@@ -494,11 +533,12 @@ leurs champs avec `asChild`.
   <TagsInputWithCombobox />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/with-combobox.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/with-combobox.tsx"
 ```
 
     </Tab>
@@ -511,6 +551,8 @@ leurs champs avec `asChild`.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Personnalisation avancée
 
 N’utilisez pas `Items` lorsque chaque tag nécessite un contenu ou des actions personnalisés. Reliez
@@ -521,11 +563,12 @@ chaque tag si la modification sur place reste nécessaire.
   <TagsInputAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/tags-input/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/tags-input/advanced-customization.tsx"
 ```
 
     </Tab>
@@ -537,6 +580,8 @@ chaque tag si la modification sur place reste nécessaire.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

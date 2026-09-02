@@ -30,11 +30,12 @@ once the user enters a query.
   <CommandPaletteBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/command-palette/basic.tsx"
+```tsx pure file="../../../src/components/examples/command-palette/basic.tsx"
 ```
 
     </Tab>
@@ -46,6 +47,8 @@ once the user enters a query.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -197,11 +200,12 @@ The example resets the external collection filter when the palette closes.
   <ControlledCommandPalette />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/command-palette/controlled-open-state.tsx"
+```tsx pure file="../../../src/components/examples/command-palette/controlled-open-state.tsx"
 ```
 
     </Tab>
@@ -214,6 +218,8 @@ The example resets the external collection filter when the palette closes.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Enable the Global Shortcut
 
 Set `shortcut="alt+k"` to register a global toggle. This is the only preview on the page that registers
@@ -223,11 +229,12 @@ Set `shortcut="alt+k"` to register a global toggle. This is the only preview on 
   <CommandPaletteShortcutDemo />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/command-palette/enable-the-global-shortcut.tsx"
+```tsx pure file="../../../src/components/examples/command-palette/enable-the-global-shortcut.tsx"
 ```
 
     </Tab>
@@ -240,6 +247,8 @@ Set `shortcut="alt+k"` to register a global toggle. This is the only preview on 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Item Actions
 
 Handle `onSelect(details)` to run a command. With the default `closeOnSelect` value, the palette closes
@@ -249,11 +258,12 @@ after the selected action runs.
   <CommandPaletteActionsDemo />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/command-palette/item-actions.tsx"
+```tsx pure file="../../../src/components/examples/command-palette/item-actions.tsx"
 ```
 
     </Tab>
@@ -266,6 +276,8 @@ after the selected action runs.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Advanced Customization
 
 Render the explicit dialog and search parts when the palette needs a custom header or search layout.
@@ -275,11 +287,12 @@ The example keeps Ark Dialog and Combobox behavior while replacing the convenien
   <AdvancedCommandPalette />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/command-palette/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/command-palette/advanced-customization.tsx"
 ```
 
     </Tab>
@@ -291,6 +304,8 @@ The example keeps Ark Dialog and Combobox behavior while replacing the convenien
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

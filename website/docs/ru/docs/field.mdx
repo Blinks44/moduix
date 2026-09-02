@@ -40,11 +40,12 @@ import FieldTextarea from '@/components/examples/field/textarea.tsx';
   <FieldBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/basic.tsx"
+```tsx pure file="../../../src/components/examples/field/basic.tsx"
 ```
 
     </Tab>
@@ -56,6 +57,8 @@ import FieldTextarea from '@/components/examples/field/textarea.tsx';
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -145,11 +148,12 @@ Field
   <FieldCheckbox />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/checkbox.tsx"
+```tsx pure file="../../../src/components/examples/field/checkbox.tsx"
 ```
 
     </Tab>
@@ -162,6 +166,8 @@ Field
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Управляемое состояние `invalid`
 
 Вычисляйте `invalid` из локального состояния, если валидация должна обновляться во время ввода. Текст ошибки появляется
@@ -171,11 +177,12 @@ Field
   <FieldControlledInvalid />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/controlled-invalid.tsx"
+```tsx pure file="../../../src/components/examples/field/controlled-invalid.tsx"
 ```
 
     </Tab>
@@ -188,6 +195,8 @@ Field
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Отключённое состояние
 
 Установите `disabled` у корня, чтобы передать это состояние поддерживаемым частям поля Ark.
@@ -196,11 +205,12 @@ Field
   <FieldDisabled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/disabled.tsx"
+```tsx pure file="../../../src/components/examples/field/disabled.tsx"
 ```
 
     </Tab>
@@ -213,6 +223,8 @@ Field
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Недопустимое состояние
 
 Установите `invalid` у корня, когда валидацией управляет состояние приложения или библиотека форм. Если составной
@@ -222,11 +234,12 @@ Field
   <FieldInvalid />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/invalid.tsx"
+```tsx pure file="../../../src/components/examples/field/invalid.tsx"
 ```
 
     </Tab>
@@ -239,6 +252,8 @@ Field
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Нативный Select
 
 Используйте `NativeSelect` для нативного браузерного select. `Field` свяжет его с меткой, состоянием и описанием поля.
@@ -247,11 +262,12 @@ Field
   <FieldNativeSelect />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/native-select.tsx"
+```tsx pure file="../../../src/components/examples/field/native-select.tsx"
 ```
 
     </Tab>
@@ -264,6 +280,8 @@ Field
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### RadioGroup
 
 Используйте `Field` с `RadioGroup`, когда одна метка, поясняющий текст или сообщение об ошибке должны описывать весь
@@ -273,11 +291,12 @@ Field
   <FieldRadioGroup />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/radiogroup.tsx"
+```tsx pure file="../../../src/components/examples/field/radiogroup.tsx"
 ```
 
     </Tab>
@@ -290,6 +309,8 @@ Field
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Только для чтения
 
 Установите `readOnly` у корня, если значение элемента управления можно скопировать, но нельзя изменить.
@@ -298,11 +319,12 @@ Field
   <FieldReadOnly />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/read-only.tsx"
+```tsx pure file="../../../src/components/examples/field/read-only.tsx"
 ```
 
     </Tab>
@@ -315,6 +337,8 @@ Field
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Select
 
 Используйте составной `Select`, когда нативного select недостаточно и нужен настраиваемый список вариантов или интерфейс
@@ -325,11 +349,12 @@ Field
   <FieldSelect />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/select.tsx"
+```tsx pure file="../../../src/components/examples/field/select.tsx"
 ```
 
     </Tab>
@@ -342,6 +367,8 @@ Field
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Текстовая область
 
 Используйте `Textarea` для многострочного ввода, сохраняя связи поля с меткой, описанием и состоянием.
@@ -350,11 +377,12 @@ Field
   <FieldTextarea />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/textarea.tsx"
+```tsx pure file="../../../src/components/examples/field/textarea.tsx"
 ```
 
     </Tab>
@@ -367,6 +395,8 @@ Field
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Расширенная настройка
 
 Используйте `Field.Item` с пропом `target` у корня, когда одна метка должна быть связана с элементом управления внутри группы.
@@ -375,11 +405,12 @@ Field
   <FieldItemTarget />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/item-target.tsx"
+```tsx pure file="../../../src/components/examples/field/item-target.tsx"
 ```
 
     </Tab>
@@ -392,17 +423,20 @@ Field
   </Tabs>
 </div>
 
+</ExampleCode>
+
 Используйте `useField` вместе с `Field.RootProvider`, когда состояние поля нужно создать вне дерева отрисовки.
 
 <ExampleFrame variant="component">
   <FieldRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/field/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/field/root-provider.tsx"
 ```
 
     </Tab>
@@ -414,6 +448,8 @@ Field
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

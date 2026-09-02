@@ -40,11 +40,12 @@ la positionne et `Drawer.Backdrop` fournit le calque modal.
   <DrawerBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/basic.tsx"
+```tsx pure file="../../../src/components/examples/drawer/basic.tsx"
 ```
 
     </Tab>
@@ -56,6 +57,8 @@ la positionne et `Drawer.Backdrop` fournit le calque modal.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -196,11 +199,12 @@ Lisez `details.open` dans le callback d’Ark. Celui-ci reçoit un objet `detail
   <DrawerControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/controlled.tsx"
+```tsx pure file="../../../src/components/examples/drawer/controlled.tsx"
 ```
 
     </Tab>
@@ -213,6 +217,8 @@ Lisez `details.open` dans le callback d’Ark. Celui-ci reçoit un objet `detail
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Contrôles du glissement
 
 Ajoutez `data-no-drag` aux zones interactives qui ne doivent pas amorcer le glissement, tout en laissant le reste du
@@ -222,11 +228,12 @@ contenu déplaçable. Définissez `draggable={false}` lorsque le panneau doit bo
   <DrawerDragControls />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/drag-controls.tsx"
+```tsx pure file="../../../src/components/examples/drawer/drag-controls.tsx"
 ```
 
     </Tab>
@@ -239,6 +246,8 @@ contenu déplaçable. Définissez `draggable={false}` lorsque le panneau doit bo
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Grabber flottant
 
 Placez `Drawer.Grabber` au-dessus du panneau si la poignée doit apparaître comme un contrôle séparé. Le style de cet
@@ -248,11 +257,12 @@ exemple laisse 10 px entre la poignée et le bord du panneau.
   <DrawerFloatingGrabber />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/floating-grabber.tsx"
+```tsx pure file="../../../src/components/examples/drawer/floating-grabber.tsx"
 ```
 
     </Tab>
@@ -265,6 +275,8 @@ exemple laisse 10 px entre la poignée et le bord du panneau.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Arrière-plan en retrait
 
 `Drawer.Stack` s’appuie sur l’état de pile Ark et la progression du balayage pour déplacer `IndentBackground` et `Indent`
@@ -274,11 +286,12 @@ ensemble.
   <DrawerIndentBackground />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/indent-background.tsx"
+```tsx pure file="../../../src/components/examples/drawer/indent-background.tsx"
 ```
 
     </Tab>
@@ -291,6 +304,8 @@ ensemble.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Island
 
 Définissez `variant="island"` sur `Drawer.Content` si un panneau compact doit rester à distance des bords de la fenêtre
@@ -300,11 +315,12 @@ plutôt que d’aller jusqu’au bord depuis lequel il s’ouvre.
   <DrawerIsland />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/island.tsx"
+```tsx pure file="../../../src/components/examples/drawer/island.tsx"
 ```
 
     </Tab>
@@ -317,6 +333,8 @@ plutôt que d’aller jusqu’au bord depuis lequel il s’ouvre.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Plusieurs déclencheurs
 
 Attribuez une `value` à chaque déclencheur pour réutiliser un seul panneau dans une liste. Le callback indique quel
@@ -326,11 +344,12 @@ déclencheur est actif.
   <DrawerMultipleTriggers />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/multiple-triggers.tsx"
+```tsx pure file="../../../src/components/examples/drawer/multiple-triggers.tsx"
 ```
 
     </Tab>
@@ -343,6 +362,8 @@ déclencheur est actif.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Panneaux imbriqués
 
 Pour les panneaux imbriqués, utilisez des instances Ark `useDrawer` et des arbres `Drawer.RootProvider` de moduix distincts.
@@ -353,11 +374,12 @@ panneau actif tout en laissant un bord visible.
   <DrawerNested />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/nested.tsx"
+```tsx pure file="../../../src/components/examples/drawer/nested.tsx"
 ```
 
     </Tab>
@@ -369,6 +391,8 @@ panneau actif tout en laissant un bord visible.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Mode non modal
 
@@ -383,11 +407,12 @@ la page est bloqué pendant l’ouverture du panneau.
   <DrawerNonModal />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/non-modal.tsx"
+```tsx pure file="../../../src/components/examples/drawer/non-modal.tsx"
 ```
 
     </Tab>
@@ -400,6 +425,8 @@ la page est bloqué pendant l’ouverture du panneau.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Utilisez l’export `useDrawer` de moduix lorsque des boutons extérieurs à l’arbre du panneau doivent l’ouvrir ou modifier
@@ -409,11 +436,12 @@ ses points d’ancrage.
   <DrawerRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/drawer/root-provider.tsx"
 ```
 
     </Tab>
@@ -426,6 +454,8 @@ ses points d’ancrage.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Panneau défilable
 
 Placez le contenu long dans `Drawer.Body`. Utilisez `ScrollArea` lorsque le panneau doit avoir son propre conteneur de
@@ -435,11 +465,12 @@ défilement et que la poignée et l’en-tête doivent rester fixes.
   <DrawerScrollable />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/scrollable.tsx"
+```tsx pure file="../../../src/components/examples/drawer/scrollable.tsx"
 ```
 
     </Tab>
@@ -452,6 +483,8 @@ défilement et que la poignée et l’en-tête doivent rester fixes.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Points d’ancrage
 
 Définissez les positions intermédiaires sur le composant racine et choisissez la position initiale avec `defaultSnapPoint`.
@@ -460,11 +493,12 @@ Définissez les positions intermédiaires sur le composant racine et choisissez 
   <DrawerSnapPoints />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/snap-points.tsx"
+```tsx pure file="../../../src/components/examples/drawer/snap-points.tsx"
 ```
 
     </Tab>
@@ -477,6 +511,8 @@ Définissez les positions intermédiaires sur le composant racine et choisissez 
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Direction du balayage
 
 Utilisez les valeurs logiques `start` et `end` pour les panneaux latéraux afin que le même code fonctionne en LTR et en
@@ -486,11 +522,12 @@ RTL. Utilisez `up` pour un panneau supérieur et `down` pour un panneau inférie
   <DrawerSwipeDirection />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/swipe-direction.tsx"
+```tsx pure file="../../../src/components/examples/drawer/swipe-direction.tsx"
 ```
 
     </Tab>
@@ -503,6 +540,8 @@ RTL. Utilisez `up` pour un panneau supérieur et `down` pour un panneau inférie
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Personnalisation avancée
 
 N’utilisez pas les utilitaires facultatifs `Header`, `Body`, `Footer` et `CloseIcon` lorsqu’une mise en page personnalisée
@@ -512,11 +551,12 @@ exige toute l’anatomie bas niveau de Drawer.
   <DrawerAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/drawer/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/drawer/advanced-customization.tsx"
 ```
 
     </Tab>
@@ -528,6 +568,8 @@ exige toute l’anatomie bas niveau de Drawer.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styles
 

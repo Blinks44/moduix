@@ -36,11 +36,12 @@ import CollapsibleCustomComposition from '@/components/examples/collapsible/cust
   <CollapsibleBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/collapsible/basic.tsx"
+```tsx pure file="../../../src/components/examples/collapsible/basic.tsx"
 ```
 
     </Tab>
@@ -52,6 +53,8 @@ import CollapsibleCustomComposition from '@/components/examples/collapsible/cust
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -144,11 +147,12 @@ Collapsible.Root
   <CollapsibleContext />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/collapsible/context.tsx"
+```tsx pure file="../../../src/components/examples/collapsible/context.tsx"
 ```
 
     </Tab>
@@ -161,6 +165,8 @@ Collapsible.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Управляемое состояние
 
 Используйте `open` с колбэком Ark `onOpenChange(details)`, когда состояние хранится в другой части
@@ -170,11 +176,12 @@ Collapsible.Root
   <CollapsibleControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/collapsible/controlled.tsx"
+```tsx pure file="../../../src/components/examples/collapsible/controlled.tsx"
 ```
 
     </Tab>
@@ -187,6 +194,8 @@ Collapsible.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Открыт по умолчанию
 
 Задайте `defaultOpen`, чтобы неуправляемый компонент изначально был открыт.
@@ -195,11 +204,12 @@ Collapsible.Root
   <CollapsibleDefaultOpen />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/collapsible/default-open.tsx"
+```tsx pure file="../../../src/components/examples/collapsible/default-open.tsx"
 ```
 
     </Tab>
@@ -212,6 +222,8 @@ Collapsible.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Отключённое состояние
 
 Задайте `disabled` корневому компоненту, чтобы запретить открытие и закрытие области.
@@ -220,11 +232,12 @@ Collapsible.Root
   <CollapsibleDisabled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/collapsible/disabled.tsx"
+```tsx pure file="../../../src/components/examples/collapsible/disabled.tsx"
 ```
 
     </Tab>
@@ -237,6 +250,8 @@ Collapsible.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Отложенное монтирование
 
 Установите `lazyMount`, чтобы монтировать содержимое только после первого открытия. Добавьте
@@ -246,11 +261,12 @@ Collapsible.Root
   <CollapsibleLazyMount />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/collapsible/lazy-mount.tsx"
+```tsx pure file="../../../src/components/examples/collapsible/lazy-mount.tsx"
 ```
 
     </Tab>
@@ -263,6 +279,8 @@ Collapsible.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Вложенные компоненты
 
 Если внутри раскрытой секции нужен ещё один необязательный блок, вкладывайте независимые корневые компоненты.
@@ -271,11 +289,12 @@ Collapsible.Root
   <CollapsibleNested />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/collapsible/nested.tsx"
+```tsx pure file="../../../src/components/examples/collapsible/nested.tsx"
 ```
 
     </Tab>
@@ -288,6 +307,8 @@ Collapsible.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Частичное сворачивание
 
 Укажите `collapsedHeight` или `collapsedWidth`, чтобы после закрытия часть содержимого оставалась видимой.
@@ -299,11 +320,12 @@ Collapsible.Root
   <CollapsiblePartialCollapse />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/collapsible/partial-collapse.tsx"
+```tsx pure file="../../../src/components/examples/collapsible/partial-collapse.tsx"
 ```
 
     </Tab>
@@ -316,6 +338,8 @@ Collapsible.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Частичная ширина
 
 Используйте `collapsedWidth`, когда удобнее оставлять видимой часть содержимого по ширине, а не по высоте.
@@ -324,11 +348,12 @@ Collapsible.Root
   <CollapsiblePartialCollapseWidth />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/collapsible/partial-collapse-width.tsx"
+```tsx pure file="../../../src/components/examples/collapsible/partial-collapse-width.tsx"
 ```
 
     </Tab>
@@ -341,6 +366,8 @@ Collapsible.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Root Provider
 
 Создайте состояние через `useCollapsible()` и передайте его в `Collapsible.RootProvider`, если код за
@@ -350,11 +377,12 @@ Collapsible.Root
   <CollapsibleRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/collapsible/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/collapsible/root-provider.tsx"
 ```
 
     </Tab>
@@ -367,6 +395,8 @@ Collapsible.Root
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Расширенная настройка
 
 Используйте `asChild`, чтобы передать поведение триггера кнопке, которую стилизует ваше приложение.
@@ -376,11 +406,12 @@ Collapsible.Root
   <CollapsibleCustomComposition />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/collapsible/custom-composition.tsx"
+```tsx pure file="../../../src/components/examples/collapsible/custom-composition.tsx"
 ```
 
     </Tab>
@@ -392,6 +423,8 @@ Collapsible.Root
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

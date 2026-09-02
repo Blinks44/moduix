@@ -38,11 +38,12 @@ is the recommended setup for comments, notes, issue descriptions, and similar co
   <TextareaBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/textarea/basic.tsx"
+```tsx pure file="../../../src/components/examples/textarea/basic.tsx"
 ```
 
     </Tab>
@@ -54,6 +55,8 @@ is the recommended setup for comments, notes, issue descriptions, and similar co
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -124,11 +127,12 @@ this option is enabled.
   <TextareaAutoResize />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/textarea/auto-resize.tsx"
+```tsx pure file="../../../src/components/examples/textarea/auto-resize.tsx"
 ```
 
     </Tab>
@@ -141,6 +145,8 @@ this option is enabled.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Controlled value
 
 Use `value` and native `onChange` when React state should control the content.
@@ -149,11 +155,12 @@ Use `value` and native `onChange` when React state should control the content.
   <TextareaControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/textarea/controlled.tsx"
+```tsx pure file="../../../src/components/examples/textarea/controlled.tsx"
 ```
 
     </Tab>
@@ -166,6 +173,8 @@ Use `value` and native `onChange` when React state should control the content.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Disabled and read-only
 
 Use `disabled` when the user must not interact with the control. Use `readOnly` when they can read
@@ -175,11 +184,12 @@ and select the value but must not edit it.
   <TextareaDisabledAndReadonly />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/textarea/disabled-and-readonly.tsx"
+```tsx pure file="../../../src/components/examples/textarea/disabled-and-readonly.tsx"
 ```
 
     </Tab>
@@ -192,6 +202,8 @@ and select the value but must not edit it.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Field validation
 
 Set `invalid` on `Field`. Ark adds `aria-invalid` and `data-invalid` to the textarea and connects
@@ -201,11 +213,12 @@ its error text.
   <TextareaFieldValidation />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/textarea/field-validation.tsx"
+```tsx pure file="../../../src/components/examples/textarea/field-validation.tsx"
 ```
 
     </Tab>
@@ -218,6 +231,8 @@ its error text.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Native attributes and form submission
 
 Use native textarea props such as `rows`, `maxLength`, and `spellCheck` for browser behavior. This
@@ -227,11 +242,12 @@ example also submits the form and reads the current value from `FormData`.
   <TextareaNativeAttributes />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/textarea/native-attributes.tsx"
+```tsx pure file="../../../src/components/examples/textarea/native-attributes.tsx"
 ```
 
     </Tab>
@@ -243,6 +259,8 @@ example also submits the form and reads the current value from `FormData`.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

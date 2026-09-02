@@ -30,11 +30,12 @@ remaining in the normal document flow.
   <BleedBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/bleed/basic.tsx"
+```tsx pure file="../../../src/components/examples/bleed/basic.tsx"
 ```
 
     </Tab>
@@ -46,6 +47,8 @@ remaining in the normal document flow.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
@@ -114,11 +117,12 @@ Add `block` when a surface should extend through the container's block-axis padd
   <BleedBlockBleed />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/bleed/block-bleed.tsx"
+```tsx pure file="../../../src/components/examples/bleed/block-bleed.tsx"
 ```
 
     </Tab>
@@ -131,6 +135,8 @@ Add `block` when a surface should extend through the container's block-axis padd
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Custom Styling
 
 Override `--moduix-bleed-inline-full` and `--moduix-bleed-inline-full-size` locally when a nested shell
@@ -140,11 +146,12 @@ should size the bleed to its own content area instead of the viewport.
   <BleedCustomStyling />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/bleed/custom-styling.tsx"
+```tsx pure file="../../../src/components/examples/bleed/custom-styling.tsx"
 ```
 
     </Tab>
@@ -157,6 +164,8 @@ should size the bleed to its own content area instead of the viewport.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Inline Amounts
 
 Set `inline` to control how far content extends along the inline axis. This example compares the fixed
@@ -166,11 +175,12 @@ Set `inline` to control how far content extends along the inline axis. This exam
   <BleedInlineAmounts />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/bleed/inline-amounts.tsx"
+```tsx pure file="../../../src/components/examples/bleed/inline-amounts.tsx"
 ```
 
     </Tab>
@@ -183,6 +193,8 @@ Set `inline` to control how far content extends along the inline axis. This exam
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Semantic Element
 
 Use `asChild` when the content should use a more specific semantic element. In this example, the `figure`
@@ -192,11 +204,12 @@ element becomes the `Bleed` root.
   <BleedSemanticElement />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/bleed/semantic-element.tsx"
+```tsx pure file="../../../src/components/examples/bleed/semantic-element.tsx"
 ```
 
     </Tab>
@@ -208,6 +221,8 @@ element becomes the `Bleed` root.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Styling
 

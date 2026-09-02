@@ -36,16 +36,19 @@ import ToggleVariants from '@/components/examples/toggle/variants.tsx';
   <ToggleBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle/basic.tsx"
+```tsx pure file="../../../src/components/examples/toggle/basic.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
@@ -118,16 +121,19 @@ Toggle.Context (читает состояние, но не создаёт час
   <ToggleAsChild />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle/aschild.tsx"
+```tsx pure file="../../../src/components/examples/toggle/aschild.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Управляемое состояние
 
@@ -138,11 +144,12 @@ Toggle.Context (читает состояние, но не создаёт час
   <ToggleControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle/controlled.tsx"
+```tsx pure file="../../../src/components/examples/toggle/controlled.tsx"
 ```
 
     </Tab>
@@ -155,6 +162,8 @@ Toggle.Context (читает состояние, но не создаёт час
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Отключённое состояние
 
 Используйте `disabled`, чтобы запретить взаимодействие и сохранить текущее нажатое состояние.
@@ -163,11 +172,12 @@ Toggle.Context (читает состояние, но не создаёт час
   <ToggleDisabled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle/disabled.tsx"
+```tsx pure file="../../../src/components/examples/toggle/disabled.tsx"
 ```
 
     </Tab>
@@ -180,6 +190,8 @@ Toggle.Context (читает состояние, но не создаёт час
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Иконки
 
 Передавайте иконки как обычных дочерних элементов. Для компактных действий используйте размер только для иконки.
@@ -188,11 +200,12 @@ Toggle.Context (читает состояние, но не создаёт час
   <ToggleIcons />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle/icons.tsx"
+```tsx pure file="../../../src/components/examples/toggle/icons.tsx"
 ```
 
     </Tab>
@@ -205,6 +218,8 @@ Toggle.Context (читает состояние, но не создаёт час
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Индикатор
 
 Используйте `Toggle.Indicator`, если в нажатом и ненажатом состояниях нужно показывать разное встроенное содержимое.
@@ -213,16 +228,19 @@ Toggle.Context (читает состояние, но не создаёт час
   <ToggleIndicator />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle/indicator.tsx"
+```tsx pure file="../../../src/components/examples/toggle/indicator.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ### Размеры
 
@@ -232,11 +250,12 @@ Toggle.Context (читает состояние, но не создаёт час
   <ToggleSizes />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle/sizes.tsx"
+```tsx pure file="../../../src/components/examples/toggle/sizes.tsx"
 ```
 
     </Tab>
@@ -249,6 +268,8 @@ Toggle.Context (читает состояние, но не создаёт час
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Варианты
 
 Используйте `default` для вторичного действия, `outline` для поверхности с рамкой и `ghost` для компактных действий
@@ -259,11 +280,12 @@ Toggle.Context (читает состояние, но не создаёт час
   <ToggleVariants />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle/variants.tsx"
+```tsx pure file="../../../src/components/examples/toggle/variants.tsx"
 ```
 
     </Tab>
@@ -276,6 +298,8 @@ Toggle.Context (читает состояние, но не создаёт час
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Расширенная настройка
 
 Если пользовательскому потомку нужно знать нажатое состояние, прочитайте состояние ближайшего `Toggle` через
@@ -285,16 +309,19 @@ Toggle.Context (читает состояние, но не создаёт час
   <ToggleAdvancedCustomization />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/toggle/advanced-customization.tsx"
+```tsx pure file="../../../src/components/examples/toggle/advanced-customization.tsx"
 ```
 
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Стилизация
 

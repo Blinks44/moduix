@@ -29,11 +29,12 @@ poignée, moduix génère automatiquement l'indicateur de redimensionnement.
   <SplitterBasic />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/splitter/basic.tsx"
+```tsx pure file="../../../src/components/examples/splitter/basic.tsx"
 ```
 
     </Tab>
@@ -45,6 +46,8 @@ poignée, moduix génère automatiquement l'indicateur de redimensionnement.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
@@ -130,11 +133,12 @@ déployée et le bandeau réduit.
   <SplitterCollapsiblePanels />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/splitter/collapsible-panels.tsx"
+```tsx pure file="../../../src/components/examples/splitter/collapsible-panels.tsx"
 ```
 
     </Tab>
@@ -147,6 +151,8 @@ déployée et le bandeau réduit.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### État contrôlé
 
 Conservez les tailles des panneaux dans l'état React et mettez cet état à jour avec `details.size`
@@ -156,11 +162,12 @@ dans `onResize`.
   <SplitterControlled />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/splitter/controlled.tsx"
+```tsx pure file="../../../src/components/examples/splitter/controlled.tsx"
 ```
 
     </Tab>
@@ -173,6 +180,8 @@ dans `onResize`.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Réduction adaptative
 
 Utilisez `collapsePanel()` et `expandPanel()` lorsqu'une barre latérale doit réagir à la largeur
@@ -182,11 +191,12 @@ disponible mesurée par l'application.
   <SplitterDynamicCollapsible />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/splitter/dynamic-collapsible.tsx"
+```tsx pure file="../../../src/components/examples/splitter/dynamic-collapsible.tsx"
 ```
 
     </Tab>
@@ -199,6 +209,8 @@ disponible mesurée par l'application.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Plusieurs panneaux
 
 Ajoutez un autre `Panel` et une `ResizeTrigger` adjacente pour créer une mise en page à trois panneaux.
@@ -209,11 +221,12 @@ relier ses deux voisins.
   <SplitterMultiplePanels />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/splitter/multiple-panels.tsx"
+```tsx pure file="../../../src/components/examples/splitter/multiple-panels.tsx"
 ```
 
     </Tab>
@@ -226,6 +239,8 @@ relier ses deux voisins.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Splitters imbriqués
 
 Transmettez le même registre aux splitters imbriqués pour déplacer plusieurs poignées ensemble aux
@@ -235,11 +250,12 @@ intersections des poignées horizontales et verticales.
   <SplitterNested />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/splitter/nested.tsx"
+```tsx pure file="../../../src/components/examples/splitter/nested.tsx"
 ```
 
     </Tab>
@@ -252,6 +268,8 @@ intersections des poignées horizontales et verticales.
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### RootProvider
 
 Utilisez `useSplitter()` avec `Splitter.RootProvider` lorsque l'état ou les contrôles doivent se trouver
@@ -262,11 +280,12 @@ en dehors des parties rendues du splitter. L'API retournée fournit notamment `g
   <SplitterRootProvider />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/splitter/root-provider.tsx"
+```tsx pure file="../../../src/components/examples/splitter/root-provider.tsx"
 ```
 
     </Tab>
@@ -279,6 +298,8 @@ en dehors des parties rendues du splitter. L'API retournée fournit notamment `g
   </Tabs>
 </div>
 
+</ExampleCode>
+
 ### Orientation verticale
 
 Définissez `orientation="vertical"` et donnez une hauteur stable à la racine afin que les panneaux
@@ -288,11 +309,12 @@ empilés disposent de l'espace nécessaire pour être redimensionnés.
   <SplitterVertical />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
   <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="React">
 
-```tsx file="../../../src/components/examples/splitter/vertical.tsx"
+```tsx pure file="../../../src/components/examples/splitter/vertical.tsx"
 ```
 
     </Tab>
@@ -304,6 +326,8 @@ empilés disposent de l'espace nécessaire pour être redimensionnés.
     </Tab>
   </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Accessibilité
 
