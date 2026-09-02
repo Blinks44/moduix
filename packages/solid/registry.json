@@ -424,6 +424,61 @@
       ]
     },
     {
+      "name": "container",
+      "type": "registry:item",
+      "title": "Container",
+      "description": "moduix Solid Container component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/container/Container.tsx",
+          "target": "@components/moduix/container/Container.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/container/Container.module.css",
+          "target": "@components/moduix/container/Container.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/container/index.ts",
+          "target": "@components/moduix/container/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "combobox",
+      "type": "registry:item",
+      "title": "Combobox",
+      "description": "moduix Solid Combobox component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": [
+        "@moduix-solid/foundation",
+        "@moduix-solid/close-button",
+        "@moduix-solid/icons",
+        "@moduix-solid/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/combobox/Combobox.tsx",
+          "target": "@components/moduix/combobox/Combobox.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/Combobox.module.css",
+          "target": "@components/moduix/combobox/Combobox.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/combobox/index.ts",
+          "target": "@components/moduix/combobox/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "color-picker",
       "type": "registry:item",
       "title": "ColorPicker",
@@ -707,6 +762,88 @@
         {
           "path": "src/components/textarea/index.ts",
           "target": "@components/moduix/textarea/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "kbd",
+      "type": "registry:item",
+      "title": "Kbd",
+      "description": "moduix Solid Kbd component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/kbd/Kbd.tsx",
+          "target": "@components/moduix/kbd/Kbd.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/kbd/Kbd.module.css",
+          "target": "@components/moduix/kbd/Kbd.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/kbd/index.ts",
+          "target": "@components/moduix/kbd/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "scroll-area",
+      "type": "registry:item",
+      "title": "ScrollArea",
+      "description": "moduix Solid ScrollArea component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/scroll-area/ScrollArea.tsx",
+          "target": "@components/moduix/scroll-area/ScrollArea.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/scroll-area/ScrollArea.module.css",
+          "target": "@components/moduix/scroll-area/ScrollArea.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/scroll-area/index.ts",
+          "target": "@components/moduix/scroll-area/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "command-palette",
+      "type": "registry:item",
+      "title": "CommandPalette",
+      "description": "moduix Solid CommandPalette component.",
+      "dependencies": ["@ark-ui/solid", "@zag-js/hotkeys", "clsx"],
+      "registryDependencies": [
+        "@moduix-solid/foundation",
+        "@moduix-solid/close-button",
+        "@moduix-solid/icons",
+        "@moduix-solid/kbd",
+        "@moduix-solid/overlay-portal",
+        "@moduix-solid/scroll-area"
+      ],
+      "files": [
+        {
+          "path": "src/components/command-palette/CommandPalette.tsx",
+          "target": "@components/moduix/command-palette/CommandPalette.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPalette.module.css",
+          "target": "@components/moduix/command-palette/CommandPalette.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/command-palette/index.ts",
+          "target": "@components/moduix/command-palette/index.ts",
           "type": "registry:component"
         }
       ]

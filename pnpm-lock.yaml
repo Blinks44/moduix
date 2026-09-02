@@ -129,6 +129,9 @@ importers:
 
   packages/solid:
     dependencies:
+      '@zag-js/hotkeys':
+        specifier: 1.43.3
+        version: 1.43.3
       '@zag-js/solid':
         specifier: 1.43.3
         version: 1.43.3(solid-js@1.9.15)
@@ -196,6 +199,12 @@ importers:
       '@types/react-dom':
         specifier: ^19.2.5
         version: 19.2.5(@types/react@19.2.18)
+      '@zag-js/hotkeys':
+        specifier: 1.43.3
+        version: 1.43.3
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
       react:
         specifier: ^19.2.8
         version: 19.2.8
@@ -220,6 +229,12 @@ importers:
       '@types/node':
         specifier: ^24.13.3
         version: 24.13.3
+      '@zag-js/hotkeys':
+        specifier: 1.43.3
+        version: 1.43.3
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
       solid-js:
         specifier: ^1.9.15
         version: 1.9.15

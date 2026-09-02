@@ -79,6 +79,18 @@
       "types": "./dist/components/collapsible/index.d.ts",
       "import": "./dist/components/collapsible/index.js"
     },
+    "./combobox": {
+      "types": "./dist/components/combobox/index.d.ts",
+      "import": "./dist/components/combobox/index.js"
+    },
+    "./command-palette": {
+      "types": "./dist/components/command-palette/index.d.ts",
+      "import": "./dist/components/command-palette/index.js"
+    },
+    "./container": {
+      "types": "./dist/components/container/index.d.ts",
+      "import": "./dist/components/container/index.js"
+    },
     "./field": {
       "types": "./dist/components/field/index.d.ts",
       "import": "./dist/components/field/index.js"
@@ -86,6 +98,10 @@
     "./input": {
       "types": "./dist/components/input/index.d.ts",
       "import": "./dist/components/input/index.js"
+    },
+    "./kbd": {
+      "types": "./dist/components/kbd/index.d.ts",
+      "import": "./dist/components/kbd/index.js"
     },
     "./menu": {
       "types": "./dist/components/menu/index.d.ts",
@@ -98,6 +114,10 @@
     "./select": {
       "types": "./dist/components/select/index.d.ts",
       "import": "./dist/components/select/index.js"
+    },
+    "./scroll-area": {
+      "types": "./dist/components/scroll-area/index.d.ts",
+      "import": "./dist/components/scroll-area/index.js"
     },
     "./spinner": {
       "types": "./dist/components/spinner/index.d.ts",
@@ -132,6 +152,7 @@
     "tsc:check": "tsc --noEmit"
   },
   "dependencies": {
+    "@zag-js/hotkeys": "1.43.3",
     "@zag-js/solid": "1.43.3",
     "clsx": "^2.1.1"
   },

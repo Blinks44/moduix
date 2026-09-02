@@ -9,6 +9,8 @@
   "devDependencies": {
     "@ark-ui/solid": "^5.39.1",
     "@types/node": "^24.13.3",
+    "@zag-js/hotkeys": "1.43.3",
+    "clsx": "^2.1.1",
     "solid-js": "^1.9.15",
     "storybook": "^10.5.10",
     "storybook-solidjs-vite": "^10.7.1",

@@ -1,0 +1,55 @@
+@layer moduix.components {
+  .root {
+    --_container-gutter: var(
+      --moduix-container-gutter-md,
+      clamp(var(--moduix-spacing-4), 4vw, var(--moduix-spacing-8))
+    );
+    --_container-max-width: var(--moduix-container-max-width-lg, 72rem);
+
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    max-width: calc(var(--_container-max-width) + (var(--_container-gutter) * 2));
+    min-width: 0;
+    margin-inline: auto;
+    padding-inline: var(--_container-gutter);
+
+    &[data-size='xs'] {
+      --_container-max-width: var(--moduix-container-max-width-xs, 40rem);
+    }
+
+    &[data-size='sm'] {
+      --_container-max-width: var(--moduix-container-max-width-sm, 48rem);
+    }
+
+    &[data-size='md'] {
+      --_container-max-width: var(--moduix-container-max-width-md, 64rem);
+    }
+
+    &[data-size='xl'] {
+      --_container-max-width: var(--moduix-container-max-width-xl, 90rem);
+    }
+
+    &[data-size='full'] {
+      max-width: none;
+    }
+
+    &[data-gutter='none'] {
+      --_container-gutter: 0;
+    }
+
+    &[data-gutter='sm'] {
+      --_container-gutter: var(
+        --moduix-container-gutter-sm,
+        clamp(var(--moduix-spacing-3), 3vw, var(--moduix-spacing-6))
+      );
+    }
+
+    &[data-gutter='lg'] {
+      --_container-gutter: var(
+        --moduix-container-gutter-lg,
+        clamp(var(--moduix-spacing-6), 5vw, 3rem)
+      );
+    }
+  }
+}

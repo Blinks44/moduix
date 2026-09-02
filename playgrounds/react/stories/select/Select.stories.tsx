@@ -265,7 +265,7 @@ export const Invalid: Story = {
 
 export const LongContent: Story = {
   render: () => (
-    <Select collection={longLabels} defaultValue={['long-label']}>
+    <Select collection={longLabels} defaultValue={['long-label']} positioning={{ sameWidth: true }}>
       <Select.Label>Delivery preference with a long label</Select.Label>
       <SelectFieldView />
       <SelectPopupContent>
