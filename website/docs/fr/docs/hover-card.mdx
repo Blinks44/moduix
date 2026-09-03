@@ -31,7 +31,9 @@ article.
 
 Composez la carte à partir des parties Ark explicites. `HoverCard.Trigger` ouvre la carte, tandis
 que `HoverCard.Positioner` et `HoverCard.Content` définissent son contenu flottant. La composition
-de base n’inclut pas de flèche.
+de base n’inclut pas de flèche. Placez le contenu long dans `HoverCard.Body` pour qu’il puisse
+défiler dans la hauteur disponible, tandis que `HoverCard.Content` reste visible pour accueillir
+une flèche facultative.
 
 <ExampleFrame variant="component">
   <BasicHoverCard />
@@ -71,7 +73,8 @@ HoverCard / HoverCard.Root
       └─ HoverCard.Content
          ├─ HoverCard.Arrow
          │  └─ HoverCard.ArrowTip
-         └─ contenu
+         └─ HoverCard.Body
+            └─ contenu
 
 HoverCard.RootProvider
 └─ même arborescence reliée à l’état useHoverCard() de moduix
@@ -87,6 +90,7 @@ HoverCard.RootProvider
 | `HoverCard.Content`            | Surface visible de la carte, qui se ferme lors d’une interaction extérieure.   |
 | `HoverCard.Arrow`              | Enveloppe facultative de la flèche positionnée, qui rend `HoverCard.ArrowTip` par défaut. |
 | `HoverCard.ArrowTip`           | Pointe de la flèche, stylée avec les variables de flèche d’Ark.                |
+| `HoverCard.Body`               | Région facultative et défilable pour le contenu des aperçus contraints.         |
 
 `HoverCard` est la forme courte de la racine et `HoverCard.Root` son alias dans l’espace de noms.
 Dans le code de l’application, utilisez la forme courte.
@@ -101,8 +105,9 @@ et styler séparément `HoverCard.Positioner`, le contenu et la flèche.
 ### Composition recommandée
 
 Dans la plupart des cas, utilisez `HoverCard` avec `HoverCard.Trigger`, `HoverCard.Positioner` et
-`HoverCard.Content`. Ajoutez `HoverCard.Arrow` uniquement lorsque la fenêtre flottante doit pointer
-visuellement vers son déclencheur.
+`HoverCard.Content`. Entourez l’aperçu de `HoverCard.Body` lorsqu’il peut dépasser la hauteur
+disponible. Ajoutez `HoverCard.Arrow` dans `HoverCard.Content` uniquement lorsque la fenêtre
+flottante doit pointer visuellement vers son déclencheur.
 
 ### Quand créer une composition personnalisée
 
@@ -152,6 +157,8 @@ doit être rendu dès le départ.
 - Les animations du déclencheur et du contenu sont désactivées lorsque l’utilisateur préfère réduire
   les animations. Les longues chaînes sans séparateur sont renvoyées à la ligne dans le contenu au
   lieu de déborder de la carte.
+- `HoverCard.Content` ne masque pas les débordements afin que la flèche ne soit pas rognée. Utilisez
+  `HoverCard.Body` comme région de défilement lorsque l’aperçu peut dépasser la hauteur disponible.
 - Réservez ce composant aux aperçus complémentaires. Toute information nécessaire pour comprendre ou
   accomplir une tâche doit rester disponible sans ouvrir la carte.
 
@@ -391,7 +398,9 @@ de l’interface situés en dehors de l’arborescence de la carte doivent lire 
 ### Avec une flèche
 
 Ajoutez `HoverCard.Arrow` dans `HoverCard.Content` lorsque la fenêtre flottante doit pointer
-visuellement vers son déclencheur. L’enveloppe rend `HoverCard.ArrowTip` par défaut.
+visuellement vers son déclencheur. L’enveloppe rend `HoverCard.ArrowTip` par défaut ; gardez
+l’aperçu dans `HoverCard.Body` afin que la flèche reste intégrée à la surface avec bordure tout en
+permettant au contenu de défiler.
 
 <ExampleFrame variant="component">
   <HoverCardWithArrow />
@@ -436,9 +445,10 @@ visuellement vers son déclencheur. L’enveloppe rend `HoverCard.ArrowTip` par 
 ### Ciblage des styles
 
 Chaque partie rendue accepte `className`. Moduix ajoute également des attributs
-`data-slot="hover-card-*"` au déclencheur, à `HoverCard.Positioner`, au contenu, à la flèche et à sa pointe.
-`HoverCard` et `HoverCard.RootProvider` fournissent uniquement l’état et ne rendent aucun élément
-DOM : ils n’ont donc pas de point d’accroche CSS propre. Ark ajoute `data-scope="hover-card"` et
+`data-slot="hover-card-*"` au déclencheur, à `HoverCard.Positioner`, au contenu, à la flèche, à sa
+pointe et à la région de contenu. `HoverCard` et `HoverCard.RootProvider` fournissent uniquement
+l’état et ne rendent aucun élément DOM : ils n’ont donc pas de point d’accroche CSS propre. Ark
+ajoute `data-scope="hover-card"` et
 `data-part` à ses parties. Pour adapter les styles à l’état, ciblez `data-state="open|closed"`,
 `data-placement`, `data-side`, `data-value`, `data-current`, `data-nested` et `data-has-nested`.
 

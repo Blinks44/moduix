@@ -1,5 +1,6 @@
 'use client';
 
+import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import {
   HoverCard as HoverCardPrimitive,
   useHoverCard,
@@ -126,6 +127,19 @@ const HoverCardArrowTip = forwardRef<
   );
 });
 
+const HoverCardBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(
+  function HoverCardBody({ className, ...props }, ref) {
+    return (
+      <ark.div
+        ref={ref}
+        data-slot="hover-card-body"
+        className={clsx(styles.body, className)}
+        {...props}
+      />
+    );
+  },
+);
+
 const HoverCard = Object.assign(HoverCardRoot, {
   Root: HoverCardRoot,
   RootProvider: HoverCardRootProvider,
@@ -134,6 +148,7 @@ const HoverCard = Object.assign(HoverCardRoot, {
   Content: HoverCardContent,
   Arrow: HoverCardArrow,
   ArrowTip: HoverCardArrowTip,
+  Body: HoverCardBody,
   Context: HoverCardPrimitive.Context,
 });
 

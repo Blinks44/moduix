@@ -717,6 +717,90 @@
       ]
     },
     {
+      "name": "file-upload",
+      "type": "registry:item",
+      "title": "FileUpload",
+      "description": "moduix Solid FileUpload component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": [
+        "@moduix-solid/foundation",
+        "@moduix-solid/close-button",
+        "@moduix-solid/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/file-upload/FileUpload.tsx",
+          "target": "@components/moduix/file-upload/FileUpload.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUpload.module.css",
+          "target": "@components/moduix/file-upload/FileUpload.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/file-upload/index.ts",
+          "target": "@components/moduix/file-upload/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "heading",
+      "type": "registry:item",
+      "title": "Heading",
+      "description": "moduix Solid Heading component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/heading/Heading.tsx",
+          "target": "@components/moduix/heading/Heading.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/heading/Heading.module.css",
+          "target": "@components/moduix/heading/Heading.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/heading/index.ts",
+          "target": "@components/moduix/heading/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "floating-panel",
+      "type": "registry:item",
+      "title": "FloatingPanel",
+      "description": "moduix Solid FloatingPanel component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": [
+        "@moduix-solid/foundation",
+        "@moduix-solid/close-button",
+        "@moduix-solid/icons",
+        "@moduix-solid/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/floating-panel/FloatingPanel.tsx",
+          "target": "@components/moduix/floating-panel/FloatingPanel.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanel.module.css",
+          "target": "@components/moduix/floating-panel/FloatingPanel.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/floating-panel/index.ts",
+          "target": "@components/moduix/floating-panel/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "input",
       "type": "registry:item",
       "title": "Input",
@@ -1057,6 +1141,31 @@
         {
           "path": "src/components/dialog/index.ts",
           "target": "@components/moduix/dialog/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "hover-card",
+      "type": "registry:item",
+      "title": "HoverCard",
+      "description": "moduix Solid HoverCard component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/overlay-portal"],
+      "files": [
+        {
+          "path": "src/components/hover-card/HoverCard.tsx",
+          "target": "@components/moduix/hover-card/HoverCard.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/hover-card/HoverCard.module.css",
+          "target": "@components/moduix/hover-card/HoverCard.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/hover-card/index.ts",
+          "target": "@components/moduix/hover-card/index.ts",
           "type": "registry:component"
         }
       ]

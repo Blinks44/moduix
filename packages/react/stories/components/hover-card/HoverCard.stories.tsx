@@ -71,7 +71,9 @@ function HoverCardSurface({
     <HoverCard.Positioner>
       <HoverCard.Content>
         {withArrow ? <HoverCard.Arrow /> : null}
-        <ProfileCard profile={profile} />
+        <HoverCard.Body>
+          <ProfileCard profile={profile} />
+        </HoverCard.Body>
       </HoverCard.Content>
     </HoverCard.Positioner>
   );

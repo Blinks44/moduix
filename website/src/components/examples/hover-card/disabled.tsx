@@ -7,19 +7,21 @@ export default function DisabledHoverCard() {
       <HoverCard.Trigger className={styles.trigger}>Profile preview unavailable</HoverCard.Trigger>
       <HoverCard.Positioner>
         <HoverCard.Content>
-          <div className={styles.preview}>
-            <img
-              alt="Sunlit workspace with a laptop and plants"
-              src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=640&q=80"
-              className={styles.image}
-            />
-            <div className={styles.details}>
-              <strong>Design systems that scale</strong>
-              <p className={styles.description}>
-                A practical guide to building clear, consistent product experiences.
-              </p>
+          <HoverCard.Body>
+            <div className={styles.preview}>
+              <img
+                alt="Sunlit workspace with a laptop and plants"
+                src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=640&q=80"
+                className={styles.image}
+              />
+              <div className={styles.details}>
+                <strong>Design systems that scale</strong>
+                <p className={styles.description}>
+                  A practical guide to building clear, consistent product experiences.
+                </p>
+              </div>
             </div>
-          </div>
+          </HoverCard.Body>
         </HoverCard.Content>
       </HoverCard.Positioner>
     </HoverCard>

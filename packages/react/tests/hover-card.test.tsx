@@ -8,7 +8,7 @@ function HoverCardSurface({ children = 'Profile details' }: { children?: string 
     <HoverCard.Positioner>
       <HoverCard.Content data-testid="content">
         <HoverCard.Arrow />
-        {children}
+        <HoverCard.Body>{children}</HoverCard.Body>
       </HoverCard.Content>
     </HoverCard.Positioner>
   );
@@ -85,7 +85,12 @@ test('renders the moduix arrow tip when HoverCard.Arrow has no child', () => {
     </HoverCard>,
   );
 
+  const arrow = document.querySelector('[data-slot="hover-card-arrow"]');
+  const content = screen.getByTestId('content');
+
   expect(document.querySelector('[data-slot="hover-card-arrow-tip"]')).toBeInTheDocument();
+  expect(document.querySelector('[data-slot="hover-card-body"]')).toBeInTheDocument();
+  expect(arrow?.parentElement).toBe(content);
 });
 
 test('keeps RootProvider state available through the moduix context hook', async () => {

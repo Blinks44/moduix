@@ -30,7 +30,8 @@ a profile or article summary.
 
 Compose the card from explicit Ark parts. `HoverCard.Trigger` opens the card, while
 `HoverCard.Positioner` and `HoverCard.Content` define its floating content. The basic composition
-does not include an arrow.
+does not include an arrow. Put long content in `HoverCard.Body` so it can scroll within the
+available height while `HoverCard.Content` stays overflow-visible for an optional arrow.
 
 <ExampleFrame variant="component">
   <BasicHoverCard />
@@ -70,7 +71,8 @@ HoverCard / HoverCard.Root
       └─ HoverCard.Content
          ├─ HoverCard.Arrow
          │  └─ HoverCard.ArrowTip
-         └─ content
+         └─ HoverCard.Body
+            └─ content
 
 HoverCard.RootProvider
 └─ same part tree connected to a moduix useHoverCard() store
@@ -86,6 +88,7 @@ HoverCard.RootProvider
 | `HoverCard.Content`             | Visible card surface that closes on outside interaction.              |
 | `HoverCard.Arrow`               | Optional positioned arrow wrapper that renders `HoverCard.ArrowTip` by default. |
 | `HoverCard.ArrowTip`             | Arrow tip element styled through Ark arrow variables.                 |
+| `HoverCard.Body`                | Optional scrollable content region for constrained previews.          |
 
 `HoverCard` is the short root form, and `HoverCard.Root` is its namespace alias. Use the short form
 in application code.
@@ -100,8 +103,9 @@ independently.
 ### Recommended composition
 
 For most hover cards, use `HoverCard` with `HoverCard.Trigger`, `HoverCard.Positioner`, and
-`HoverCard.Content`. Add `HoverCard.Arrow` only when the popup needs a visual pointer to its
-trigger.
+`HoverCard.Content`. Add `HoverCard.Body` around the preview content when it can exceed the
+available height. Add `HoverCard.Arrow` inside `HoverCard.Content` only when the popup needs a
+visual pointer to its trigger.
 
 ### When to go custom
 
@@ -146,6 +150,8 @@ Portalled content mounts on first open and is removed after its exit animation b
   With `asChild`, the child element owns its styling.
 - Trigger and content motion is disabled when the user prefers reduced motion. Long unbroken words
   wrap inside the content instead of overflowing it.
+- `HoverCard.Content` keeps overflow visible for its arrow. Use `HoverCard.Body` as the scroll
+  region when the preview can exceed the available viewport height.
 - Hover cards are for supplementary previews. Keep information required to understand or complete a
   task visible without opening the card.
 
@@ -383,7 +389,8 @@ need to read or update its state.
 ### With Arrow
 
 Add `HoverCard.Arrow` inside `HoverCard.Content` when the popup needs a visual pointer to its
-trigger. The wrapper renders `HoverCard.ArrowTip` by default.
+trigger. The wrapper renders `HoverCard.ArrowTip` by default; keep the preview in
+`HoverCard.Body` so the arrow remains part of the bordered surface while the preview can scroll.
 
 <ExampleFrame variant="component">
   <HoverCardWithArrow />
@@ -428,8 +435,8 @@ trigger. The wrapper renders `HoverCard.ArrowTip` by default.
 ### Styling hooks
 
 Every rendered part accepts `className`. Moduix also adds `data-slot="hover-card-*"` hooks to the
-trigger, positioner, content, arrow, and arrow tip. `HoverCard` and `HoverCard.RootProvider` only
-provide state and do not render DOM elements, so they have no styling hooks. Ark adds
+trigger, positioner, content, arrow, arrow tip, and body. `HoverCard` and `HoverCard.RootProvider`
+only provide state and do not render DOM elements, so they have no styling hooks. Ark adds
 `data-scope="hover-card"` and `data-part` to its parts. For state-aware styling, target
 `data-state="open|closed"`, `data-placement`, `data-side`, `data-value`, `data-current`,
 `data-nested`, and `data-has-nested`.

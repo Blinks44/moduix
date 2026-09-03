@@ -1,0 +1,491 @@
+@layer moduix.components {
+  .root {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--moduix-file-upload-gap, var(--moduix-spacing-3));
+    width: var(--moduix-file-upload-width, 100%);
+    max-width: var(--moduix-file-upload-max-width, 28rem);
+    color: var(--moduix-file-upload-color, var(--moduix-color-foreground));
+  }
+
+  .label {
+    color: var(
+      --moduix-file-upload-label-color,
+      var(--moduix-file-upload-color, var(--moduix-color-foreground))
+    );
+    font-size: var(--moduix-file-upload-label-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-file-upload-label-font-weight, var(--moduix-weight-medium));
+    line-height: var(--moduix-file-upload-label-line-height, var(--moduix-line-height-text-sm));
+
+    &[data-disabled] {
+      opacity: var(--moduix-file-upload-disabled-opacity, var(--moduix-opacity-disabled));
+    }
+  }
+
+  .dropzone {
+    box-sizing: border-box;
+    display: grid;
+    width: 100%;
+    place-items: center;
+    gap: var(--moduix-file-upload-dropzone-gap, var(--moduix-spacing-3));
+    min-height: var(--moduix-file-upload-dropzone-min-height, 8rem);
+    border: var(--moduix-file-upload-dropzone-border-width, var(--moduix-border-width-sm)) dashed
+      var(--moduix-file-upload-dropzone-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-file-upload-radius, var(--moduix-radius-md));
+    padding: var(--moduix-file-upload-dropzone-padding, var(--moduix-spacing-5));
+    background-color: var(--moduix-file-upload-dropzone-bg, var(--moduix-color-background));
+    color: var(--moduix-file-upload-dropzone-color, var(--moduix-color-muted-foreground));
+    text-align: center;
+    transition:
+      border-color var(--moduix-file-upload-transition, var(--moduix-transition-default)),
+      background-color var(--moduix-file-upload-transition, var(--moduix-transition-default)),
+      color var(--moduix-file-upload-transition, var(--moduix-transition-default)),
+      opacity var(--moduix-file-upload-transition, var(--moduix-transition-default));
+
+    &[data-dragging] {
+      border-color: var(
+        --moduix-file-upload-dropzone-border-color-dragging,
+        var(--moduix-color-primary)
+      );
+      background-color: var(--moduix-file-upload-dropzone-bg-dragging, var(--moduix-color-accent));
+      color: var(--moduix-file-upload-dropzone-color-dragging, var(--moduix-color-foreground));
+    }
+
+    &[data-invalid] {
+      border-color: var(--moduix-file-upload-invalid-color, var(--moduix-color-destructive));
+    }
+
+    &[data-disabled],
+    &[data-readonly] {
+      cursor: default;
+      opacity: var(--moduix-file-upload-disabled-opacity, var(--moduix-opacity-disabled));
+    }
+
+    &[role='button']:not([data-disabled], [data-readonly]) {
+      cursor: pointer;
+    }
+
+    &:focus-visible {
+      outline: var(
+          --moduix-file-upload-focus-ring-width,
+          var(--moduix-focus-ring-width, var(--moduix-border-width-md))
+        )
+        solid var(--moduix-file-upload-focus-ring-color, var(--moduix-color-ring));
+      outline-offset: var(--moduix-file-upload-focus-ring-offset, var(--moduix-border-width-sm));
+    }
+  }
+
+  .dropzoneIcon {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--moduix-file-upload-dropzone-icon-box-size, var(--moduix-spacing-10));
+    height: var(--moduix-file-upload-dropzone-icon-box-size, var(--moduix-spacing-10));
+    border: var(--moduix-file-upload-dropzone-icon-border-width, var(--moduix-border-width-sm))
+      solid var(--moduix-file-upload-dropzone-icon-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-file-upload-dropzone-icon-radius, var(--moduix-radius-full));
+    background-color: var(--moduix-file-upload-dropzone-icon-bg, var(--moduix-color-muted));
+    color: var(--moduix-file-upload-dropzone-icon-color, var(--moduix-color-foreground));
+
+    & > svg {
+      width: var(--moduix-file-upload-dropzone-icon-size, var(--moduix-spacing-4));
+      height: var(--moduix-file-upload-dropzone-icon-size, var(--moduix-spacing-4));
+    }
+  }
+
+  .trigger {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(
+      --moduix-file-upload-trigger-gap,
+      var(--moduix-button-content-gap, var(--moduix-spacing-2))
+    );
+    min-height: var(
+      --moduix-file-upload-trigger-height,
+      var(--moduix-button-size-md, var(--moduix-size-md))
+    );
+    border: var(
+        --moduix-file-upload-trigger-border-width,
+        var(--moduix-button-border-width, var(--moduix-border-width-sm))
+      )
+      solid
+      var(
+        --moduix-file-upload-trigger-border-color,
+        var(--moduix-button-default-border-color, var(--moduix-color-primary))
+      );
+    border-radius: var(
+      --moduix-file-upload-trigger-radius,
+      var(--moduix-button-radius, var(--moduix-radius-md))
+    );
+    padding-inline: var(
+      --moduix-file-upload-trigger-padding-x,
+      var(--moduix-button-padding-x-md, var(--moduix-spacing-4))
+    );
+    background-color: var(
+      --moduix-file-upload-trigger-bg,
+      var(--moduix-button-default-bg, var(--moduix-color-primary))
+    );
+    color: var(
+      --moduix-file-upload-trigger-color,
+      var(--moduix-button-default-color, var(--moduix-color-primary-foreground))
+    );
+    appearance: none;
+    font: inherit;
+    font-size: var(
+      --moduix-file-upload-trigger-font-size,
+      var(--moduix-button-font-size, var(--moduix-text-sm))
+    );
+    font-weight: var(
+      --moduix-file-upload-trigger-font-weight,
+      var(--moduix-button-font-weight, var(--moduix-weight-medium))
+    );
+    line-height: var(
+      --moduix-file-upload-trigger-line-height,
+      var(--moduix-button-line-height, var(--moduix-line-height-text-sm))
+    );
+    user-select: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      border-color
+        var(
+          --moduix-file-upload-transition,
+          var(--moduix-button-transition, var(--moduix-transition-default))
+        ),
+      background-color
+        var(
+          --moduix-file-upload-transition,
+          var(--moduix-button-transition, var(--moduix-transition-default))
+        ),
+      color
+        var(
+          --moduix-file-upload-transition,
+          var(--moduix-button-transition, var(--moduix-transition-default))
+        ),
+      opacity
+        var(
+          --moduix-file-upload-transition,
+          var(--moduix-button-transition, var(--moduix-transition-default))
+        );
+
+    @media (hover: hover) {
+      &:hover:not(:disabled, [data-disabled], [data-readonly]) {
+        background-color: var(
+          --moduix-file-upload-trigger-bg-hover,
+          var(--moduix-button-default-bg-hover, var(--moduix-color-foreground))
+        );
+      }
+    }
+
+    &:focus-visible {
+      outline: var(
+          --moduix-file-upload-focus-ring-width,
+          var(
+            --moduix-button-focus-ring-width,
+            var(--moduix-focus-ring-width, var(--moduix-border-width-md))
+          )
+        )
+        solid
+        var(
+          --moduix-file-upload-focus-ring-color,
+          var(--moduix-button-focus-ring-color, var(--moduix-color-ring))
+        );
+      outline-offset: calc(
+        var(
+            --moduix-file-upload-trigger-border-width,
+            var(--moduix-button-border-width, var(--moduix-border-width-sm))
+          ) *
+          -1
+      );
+    }
+
+    &[data-invalid] {
+      border-color: var(--moduix-file-upload-invalid-color, var(--moduix-color-destructive));
+    }
+
+    &:is(:disabled, [data-disabled], [data-readonly]) {
+      pointer-events: none;
+      cursor: default;
+    }
+  }
+
+  .itemGroup {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: var(--moduix-file-upload-item-group-gap, var(--moduix-spacing-2));
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  .item {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    column-gap: var(--moduix-file-upload-item-gap, var(--moduix-spacing-3));
+    row-gap: var(--moduix-file-upload-item-row-gap, var(--moduix-spacing-1));
+    min-height: var(--moduix-file-upload-item-min-height, var(--moduix-size-md));
+    border: var(--moduix-file-upload-item-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-file-upload-item-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-file-upload-item-radius, var(--moduix-radius-md));
+    padding: var(--moduix-file-upload-item-padding-y, var(--moduix-spacing-2))
+      var(--moduix-file-upload-item-padding-x, var(--moduix-spacing-3));
+    background-color: var(--moduix-file-upload-item-bg, var(--moduix-color-background));
+    color: var(--moduix-file-upload-item-color, var(--moduix-color-foreground));
+    flex: 1 0 100%;
+
+    &[data-type='rejected'] {
+      border-color: var(--moduix-file-upload-invalid-color, var(--moduix-color-destructive));
+    }
+
+    &[data-disabled] {
+      opacity: var(--moduix-file-upload-disabled-opacity, var(--moduix-opacity-disabled));
+    }
+
+    &:has([data-slot='file-upload-item-preview']) {
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      min-height: var(--moduix-file-upload-item-preview-min-height, var(--moduix-size-xl));
+      padding-block: var(--moduix-file-upload-item-preview-padding-y, var(--moduix-spacing-2));
+    }
+  }
+
+  .itemPreview {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--moduix-file-upload-item-preview-size, var(--moduix-spacing-10));
+    height: var(--moduix-file-upload-item-preview-size, var(--moduix-spacing-10));
+    border-radius: var(--moduix-file-upload-item-preview-radius, var(--moduix-radius-sm));
+    background-color: var(--moduix-file-upload-item-preview-bg, var(--moduix-color-muted));
+    color: var(--moduix-file-upload-item-preview-color, var(--moduix-color-muted-foreground));
+    overflow: hidden;
+  }
+
+  .itemPreviewImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .itemPreviewIcon {
+    width: var(--moduix-file-upload-item-preview-icon-size, var(--moduix-spacing-4));
+    height: var(--moduix-file-upload-item-preview-icon-size, var(--moduix-spacing-4));
+  }
+
+  .itemMetadata {
+    grid-column: 1;
+    display: flex;
+    align-items: center;
+    gap: var(--moduix-file-upload-item-row-gap, var(--moduix-spacing-1));
+    color: var(--moduix-file-upload-item-size-color, var(--moduix-color-muted-foreground));
+    font-size: var(--moduix-file-upload-item-size-font-size, var(--moduix-text-xs));
+    line-height: var(--moduix-file-upload-item-size-line-height, var(--moduix-line-height-text-xs));
+
+    & > [data-slot='file-upload-item-size-text']::before {
+      margin-inline-end: var(--moduix-file-upload-item-row-gap, var(--moduix-spacing-1));
+      content: '·';
+    }
+  }
+
+  .itemName {
+    grid-column: 1;
+    min-width: 0;
+    color: var(--moduix-file-upload-item-name-color, currentColor);
+    font-size: var(--moduix-file-upload-item-name-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-file-upload-item-name-font-weight, var(--moduix-weight-medium));
+    line-height: var(--moduix-file-upload-item-name-line-height, var(--moduix-line-height-text-sm));
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+  }
+
+  .item:has([data-slot='file-upload-item-preview']) .itemName {
+    grid-column: 2;
+  }
+
+  .itemSizeText {
+    grid-column: 1;
+    color: var(--moduix-file-upload-item-size-color, var(--moduix-color-muted-foreground));
+    font-size: var(--moduix-file-upload-item-size-font-size, var(--moduix-text-xs));
+    line-height: var(--moduix-file-upload-item-size-line-height, var(--moduix-line-height-text-xs));
+  }
+
+  .item:has([data-slot='file-upload-item-preview']) .itemSizeText {
+    grid-column: 2;
+  }
+
+  .item:has([data-slot='file-upload-item-preview']) .itemMetadata {
+    grid-column: 2;
+  }
+
+  .itemDeleteTrigger {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--moduix-file-upload-action-size, var(--moduix-size-sm));
+    height: var(--moduix-file-upload-action-size, var(--moduix-size-sm));
+    border: 0;
+    border-radius: var(--moduix-file-upload-action-radius, var(--moduix-radius-sm));
+    padding: 0;
+    background-color: var(--moduix-file-upload-action-bg, transparent);
+    color: var(--moduix-file-upload-action-color, var(--moduix-color-muted-foreground));
+    appearance: none;
+    cursor: pointer;
+    transition:
+      background-color var(--moduix-file-upload-transition, var(--moduix-transition-default)),
+      color var(--moduix-file-upload-transition, var(--moduix-transition-default)),
+      opacity var(--moduix-file-upload-transition, var(--moduix-transition-default));
+
+    & > svg {
+      width: var(--moduix-file-upload-action-icon-size, var(--moduix-spacing-4));
+      height: var(--moduix-file-upload-action-icon-size, var(--moduix-spacing-4));
+    }
+
+    @media (hover: hover) {
+      &:hover:not(:disabled, [data-disabled], [data-readonly]) {
+        background-color: var(--moduix-file-upload-action-bg-hover, var(--moduix-color-muted));
+        color: var(--moduix-file-upload-action-color-hover, var(--moduix-color-foreground));
+      }
+    }
+
+    &:focus-visible {
+      outline: var(
+          --moduix-file-upload-focus-ring-width,
+          var(--moduix-focus-ring-width, var(--moduix-border-width-md))
+        )
+        solid var(--moduix-file-upload-focus-ring-color, var(--moduix-color-ring));
+      outline-offset: var(--moduix-file-upload-focus-ring-offset, var(--moduix-border-width-sm));
+    }
+
+    &:is(:disabled, [data-disabled], [data-readonly]) {
+      pointer-events: none;
+      opacity: var(--moduix-file-upload-disabled-opacity, var(--moduix-opacity-disabled));
+      cursor: default;
+    }
+  }
+
+  .itemDeleteTrigger {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+  }
+
+  .item:has([data-slot='file-upload-item-size-text']) .itemDeleteTrigger,
+  .item:has([data-slot='file-upload-item-preview']) .itemDeleteTrigger {
+    grid-row: 1 / span 2;
+  }
+
+  .item:has([data-slot='file-upload-item-preview']) .itemDeleteTrigger {
+    grid-column: 3;
+  }
+
+  .item:has([data-slot='file-upload-item-preview-image']) {
+    flex: 0 1 min(100%, var(--moduix-file-upload-image-item-max-width, 10rem));
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto auto auto;
+    align-items: start;
+    min-height: 0;
+  }
+
+  .item:has([data-slot='file-upload-item-preview-image']) .itemPreview {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+  }
+
+  .item:has([data-slot='file-upload-item-preview-image']) .itemName {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: end;
+  }
+
+  .item:has([data-slot='file-upload-item-preview-image']) .itemMetadata {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  .item:has([data-slot='file-upload-item-preview-image']) .itemDeleteTrigger {
+    grid-column: 2;
+    grid-row: 2 / span 2;
+    align-self: center;
+  }
+
+  .clearTrigger {
+    align-self: flex-start;
+    --moduix-close-button-size: var(--moduix-file-upload-action-size, var(--moduix-size-sm));
+    --moduix-close-button-radius: var(--moduix-file-upload-action-radius, var(--moduix-radius-sm));
+    --moduix-close-button-bg: var(--moduix-file-upload-action-bg, transparent);
+    --moduix-close-button-bg-hover: var(
+      --moduix-file-upload-action-bg-hover,
+      var(--moduix-color-muted)
+    );
+    --moduix-close-button-color: var(
+      --moduix-file-upload-clear-trigger-color,
+      var(--moduix-color-muted-foreground)
+    );
+    --moduix-close-button-color-hover: var(
+      --moduix-file-upload-action-color-hover,
+      var(--moduix-color-foreground)
+    );
+    --moduix-close-button-icon-size: var(
+      --moduix-file-upload-action-icon-size,
+      var(--moduix-spacing-4)
+    );
+    --moduix-close-button-transition: var(
+      --moduix-file-upload-transition,
+      var(--moduix-transition-default)
+    );
+    --moduix-close-button-focus-ring-width: var(
+      --moduix-file-upload-focus-ring-width,
+      var(--moduix-focus-ring-width, var(--moduix-border-width-md))
+    );
+    --moduix-close-button-focus-ring-color: var(
+      --moduix-file-upload-focus-ring-color,
+      var(--moduix-color-ring)
+    );
+    --moduix-close-button-focus-ring-offset: var(
+      --moduix-file-upload-focus-ring-offset,
+      var(--moduix-border-width-sm)
+    );
+    --moduix-close-button-disabled-opacity: var(
+      --moduix-file-upload-disabled-opacity,
+      var(--moduix-opacity-disabled)
+    );
+  }
+
+  .clearTriggerWithContent {
+    gap: var(--moduix-file-upload-clear-trigger-gap, var(--moduix-spacing-2));
+    width: auto;
+    padding-inline: var(--moduix-file-upload-clear-trigger-padding-x, var(--moduix-spacing-2));
+    font: inherit;
+    font-size: var(--moduix-file-upload-clear-trigger-font-size, var(--moduix-text-sm));
+    line-height: var(
+      --moduix-file-upload-clear-trigger-line-height,
+      var(--moduix-line-height-text-sm)
+    );
+  }
+
+  .clearTrigger[data-readonly] {
+    pointer-events: none;
+    opacity: var(--moduix-file-upload-disabled-opacity, var(--moduix-opacity-disabled));
+  }
+}

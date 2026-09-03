@@ -1,6 +1,6 @@
 import { Collapsible } from '@moduix/react/collapsible';
 import { useI18n } from '@rspress/core/runtime';
-import { Link, PackageManagerTabs, Tab, Tabs } from '@rspress/core/theme';
+import { CodeBlockRuntime, Link, PackageManagerTabs, Tab, Tabs } from '@rspress/core/theme';
 import { ArrowUpRight, Code2 } from 'lucide-react';
 import type { ComponentProps, ReactNode } from 'react';
 import { useLocalizedPath } from '@/utils/localized-path';
@@ -53,6 +53,15 @@ function ShadcnInstall({
       <PackageManagerTabs
         command={`shadcn@latest add ${packageNames.map((name) => `@moduix-react/${name}`).join(' ')}`}
         dlx
+      />
+      <p>{t('shadcnImportHint')}</p>
+      <CodeBlockRuntime
+        lang="tsx"
+        code={`// npm
+// import { Component } from '@moduix/react/<component>';
+
+// shadcn
+import { Component } from '@/components/moduix/<component>';`}
       />
       {dependencies.length > 0 ? (
         <>

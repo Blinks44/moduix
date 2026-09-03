@@ -381,6 +381,11 @@
     "ru": "Чтобы добавить этот рецепт в исходный код проекта, а не устанавливать его из node_modules, используйте размещённый реестр moduix:",
     "fr": "Pour ajouter cette recette au code source de votre projet plutôt que dans node_modules, installez-la depuis le registre moduix hébergé :"
   },
+  "shadcnImportHint": {
+    "en": "The examples below use npm imports. With the shadcn CLI, use the local import path shown below instead.",
+    "ru": "В примерах ниже используются npm-импорты. При установке через shadcn CLI используйте вместо них локальный путь импорта из примера ниже.",
+    "fr": "Les exemples ci-dessous utilisent les imports npm. Avec la CLI shadcn, utilisez plutôt le chemin d’import local indiqué ci-dessous."
+  },
   "shadcnCopyComponent": {
     "en": "Copy this component and its CSS from the tabs above, then add the moduix components it uses:",
     "ru": "Скопируйте этот компонент и его CSS из вкладок выше, затем добавьте используемые им компоненты moduix:",

@@ -30,7 +30,9 @@ import HoverCardWithArrow from '@/components/examples/hover-card/with-arrow.tsx'
 
 Соберите карточку из явных частей Ark. `HoverCard.Trigger` открывает карточку, а
 `HoverCard.Positioner` и `HoverCard.Content` задают её всплывающее содержимое. В базовой
-композиции стрелка не используется.
+композиции стрелка не используется. Поместите содержимое в `HoverCard.Body`, если оно может
+превысить доступную высоту: оно будет прокручиваться, а `HoverCard.Content` останется
+необрезанным для дополнительной стрелки.
 
 <ExampleFrame variant="component">
   <BasicHoverCard />
@@ -70,7 +72,8 @@ HoverCard / HoverCard.Root
       └─ HoverCard.Content
          ├─ HoverCard.Arrow
          │  └─ HoverCard.ArrowTip
-         └─ содержимое
+         └─ HoverCard.Body
+            └─ содержимое
 
 HoverCard.RootProvider
 └─ то же дерево частей, связанное с состоянием moduix useHoverCard()
@@ -86,6 +89,7 @@ HoverCard.RootProvider
 | `HoverCard.Content`            | Видимая область карточки, которая закрывается при взаимодействии за её пределами. |
 | `HoverCard.Arrow`              | Необязательная обёртка позиционируемой стрелки, по умолчанию выводящая `HoverCard.ArrowTip`. |
 | `HoverCard.ArrowTip`           | Наконечник стрелки, оформляемый с помощью переменных Ark.                     |
+| `HoverCard.Body`               | Необязательная прокручиваемая область содержимого для ограниченных предпросмотров. |
 
 `HoverCard` - короткая форма корневого компонента, а `HoverCard.Root` - её алиас в пространстве
 имён. В коде приложения используйте короткую форму.
@@ -100,8 +104,9 @@ HoverCard.RootProvider
 ### Рекомендуемая композиция
 
 В большинстве случаев используйте `HoverCard` вместе с `HoverCard.Trigger`,
-`HoverCard.Positioner` и `HoverCard.Content`. Добавляйте `HoverCard.Arrow`, только если нужно
-визуально связать окно с триггером.
+`HoverCard.Positioner` и `HoverCard.Content`. Оборачивайте предпросмотр в `HoverCard.Body`, если
+он может превысить доступную высоту. Добавляйте `HoverCard.Arrow` внутрь `HoverCard.Content`,
+только если нужно визуально связать окно с триггером.
 
 ### Когда нужна собственная композиция
 
@@ -150,6 +155,8 @@ HoverCard.RootProvider
 - Если пользователь предпочитает уменьшенное движение, анимация триггера и содержимого
   отключается. Длинные слова без пробелов переносятся внутри содержимого, а не выходят за границы
   карточки.
+- `HoverCard.Content` оставляет стрелку видимой. Используйте `HoverCard.Body` как область
+  прокрутки, если предпросмотр может превысить доступную высоту окна.
 - Компонент Hover Card предназначен только для дополнительных предпросмотров. Всё необходимое для
   понимания или выполнения задачи должно оставаться доступным без открытия карточки.
 
@@ -389,7 +396,9 @@ HoverCard.RootProvider
 ### Со стрелкой
 
 Добавьте `HoverCard.Arrow` внутрь `HoverCard.Content`, если нужно визуально связать всплывающее
-окно с триггером. Обёртка по умолчанию выводит `HoverCard.ArrowTip`.
+окно с триггером. Обёртка по умолчанию выводит `HoverCard.ArrowTip`; помещайте предпросмотр в
+`HoverCard.Body`, чтобы стрелка оставалась частью поверхности с границей, а содержимое могло
+прокручиваться.
 
 <ExampleFrame variant="component">
   <HoverCardWithArrow />
@@ -434,9 +443,9 @@ HoverCard.RootProvider
 ### Точки для стилизации
 
 У каждой отрисовываемой части можно задать `className`. Кроме того, moduix добавляет атрибуты
-`data-slot="hover-card-*"` к триггеру, позиционеру, содержимому, стрелке и наконечнику стрелки.
-`HoverCard` и `HoverCard.RootProvider` только предоставляют состояние и не создают DOM-элементы,
-поэтому у них нет собственных точек стилизации. Ark добавляет к своим частям `data-scope="hover-card"`
+`data-slot="hover-card-*"` к триггеру, позиционеру, содержимому, стрелке, наконечнику стрелки и
+области содержимого. `HoverCard` и `HoverCard.RootProvider` только предоставляют состояние и не
+создают DOM-элементы, поэтому у них нет собственных точек стилизации. Ark добавляет к своим частям `data-scope="hover-card"`
 и `data-part`. Для стилизации с учётом состояния используйте `data-state="open|closed"`,
 `data-placement`, `data-side`, `data-value`, `data-current`, `data-nested` и `data-has-nested`.
 
