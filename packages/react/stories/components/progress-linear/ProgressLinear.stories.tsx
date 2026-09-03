@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { ProgressLinear } from '@/components/progress-linear/ProgressLinear';
+import { Slider } from '@/components/slider';
 import styles from './ProgressLinear.stories.module.css';
 
 const meta = {
@@ -46,16 +47,22 @@ export const Controlled: Story = {
             <ProgressLinear.Range />
           </ProgressLinear.Track>
         </ProgressLinear>
-        <input
-          className={styles.rangeControl}
-          type="range"
+        <Slider
+          className={styles.slider}
           min={0}
           max={100}
-          value={value ?? 0}
-          onChange={(event) => {
-            setValue(Number(event.target.value));
-          }}
-        />
+          value={[value ?? 0]}
+          onValueChange={(details) => setValue(details.value[0] ?? 0)}
+        >
+          <Slider.Label>Progress value</Slider.Label>
+          <Slider.ValueText />
+          <Slider.Control>
+            <Slider.Track>
+              <Slider.Range />
+            </Slider.Track>
+            <Slider.Thumb index={0} aria-label="Progress value"></Slider.Thumb>
+          </Slider.Control>
+        </Slider>
       </div>
     );
   },

@@ -1138,6 +1138,31 @@
       ]
     },
     {
+      "name": "qr-code",
+      "type": "registry:item",
+      "title": "QR Code",
+      "description": "moduix Solid QR Code component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/qr-code/QrCode.tsx",
+          "target": "@components/ui/qr-code/QrCode.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/qr-code/QrCode.module.css",
+          "target": "@components/ui/qr-code/QrCode.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/qr-code/index.ts",
+          "target": "@components/ui/qr-code/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "radio-group",
       "type": "registry:item",
       "title": "Radio Group",
@@ -1158,6 +1183,31 @@
         {
           "path": "src/components/radio-group/index.ts",
           "target": "@components/ui/radio-group/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "rating-group",
+      "type": "registry:item",
+      "title": "RatingGroup",
+      "description": "moduix Solid RatingGroup component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
+      "files": [
+        {
+          "path": "src/components/rating-group/RatingGroup.tsx",
+          "target": "@components/ui/rating-group/RatingGroup.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/rating-group/RatingGroup.module.css",
+          "target": "@components/ui/rating-group/RatingGroup.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/rating-group/index.ts",
+          "target": "@components/ui/rating-group/index.ts",
           "type": "registry:component"
         }
       ]
@@ -1392,6 +1442,56 @@
         {
           "path": "src/components/scroll-area/index.ts",
           "target": "@components/ui/scroll-area/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "separator",
+      "type": "registry:item",
+      "title": "Separator",
+      "description": "moduix Solid Separator component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/separator/Separator.tsx",
+          "target": "@components/ui/separator/Separator.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/separator/Separator.module.css",
+          "target": "@components/ui/separator/Separator.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/separator/index.ts",
+          "target": "@components/ui/separator/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "segment-group",
+      "type": "registry:item",
+      "title": "SegmentGroup",
+      "description": "moduix Solid SegmentGroup component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/segment-group/SegmentGroup.tsx",
+          "target": "@components/ui/segment-group/SegmentGroup.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/segment-group/SegmentGroup.module.css",
+          "target": "@components/ui/segment-group/SegmentGroup.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/segment-group/index.ts",
+          "target": "@components/ui/segment-group/index.ts",
           "type": "registry:component"
         }
       ]

@@ -1,7 +1,7 @@
 import { Slider as SliderPrimitive, useSlider, useSliderContext } from '@ark-ui/solid/slider';
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
-import { For, onCleanup, onMount, splitProps } from 'solid-js';
+import { Index, onCleanup, onMount, splitProps } from 'solid-js';
 import styles from './Slider.module.css';
 
 function SliderRoot(props: ComponentProps<typeof SliderPrimitive.Root>) {
@@ -150,9 +150,9 @@ function SliderThumbs(props: { class?: string }) {
   const slider = useSliderContext();
 
   return (
-    <For each={slider().value}>
-      {(_, index) => <SliderThumb index={index()} class={props.class} />}
-    </For>
+    <Index each={slider().value}>
+      {(_, index) => <SliderThumb index={index} class={props.class} />}
+    </Index>
   );
 }
 

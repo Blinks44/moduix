@@ -3,10 +3,8 @@
   gap: var(--moduix-spacing-4);
 }
 
-.rangeControl {
+.slider {
   width: 12rem;
-  accent-color: var(--moduix-color-foreground);
-  cursor: pointer;
 }
 
 .customProgress {

@@ -124,6 +124,25 @@ test('preserves keyboard behavior and makes read-only state visible without chan
   expect(disabledSlider).not.toHaveAttribute('tabindex');
 });
 
+test('keeps generated thumbs mounted while their values change', async () => {
+  render(() => (
+    <Slider defaultValue={[40]}>
+      <Slider.Control>
+        <Slider.Thumbs />
+      </Slider.Control>
+    </Slider>
+  ));
+
+  const thumb = screen.getByRole('slider');
+
+  thumb.focus();
+  fireEvent.focusIn(thumb);
+  fireEvent.keyDown(thumb, { key: 'ArrowRight' });
+
+  await waitFor(() => expect(thumb).toHaveAttribute('aria-valuenow', '41'));
+  expect(screen.getByRole('slider')).toBe(thumb);
+});
+
 test('synchronizes uncontrolled values with form reset', async () => {
   const changes: number[][] = [];
   const { container } = render(() => (
@@ -159,6 +178,51 @@ test('synchronizes uncontrolled values with form reset', async () => {
 
   await waitFor(() => expect(changes).toEqual([[41], [40]]));
   await waitFor(() => expect(Array.from(new FormData(form).entries())).toEqual([['volume', '40']]));
+});
+
+test('synchronizes range values with form reset once', async () => {
+  const changes: number[][] = [];
+  const { container } = render(() => (
+    <form>
+      <Slider
+        defaultValue={[40, 60]}
+        name="range"
+        onValueChange={(details) => changes.push(details.value)}
+      >
+        <Slider.Label>Range</Slider.Label>
+        <Slider.Control>
+          <Slider.Track>
+            <Slider.Range />
+          </Slider.Track>
+          <Slider.Thumbs />
+        </Slider.Control>
+      </Slider>
+    </form>
+  ));
+
+  const form = container.querySelector('form')!;
+  const firstThumb = screen.getAllByRole('slider')[0];
+
+  firstThumb.focus();
+  fireEvent.focusIn(firstThumb);
+  fireEvent.keyDown(firstThumb, { key: 'ArrowRight' });
+
+  await waitFor(() => expect(changes).toEqual([[41, 60]]));
+
+  fireEvent.reset(form);
+
+  await waitFor(() =>
+    expect(changes).toEqual([
+      [41, 60],
+      [40, 60],
+    ]),
+  );
+  await waitFor(() =>
+    expect(Array.from(new FormData(form).entries())).toEqual([
+      ['range[]', '40'],
+      ['range[]', '60'],
+    ]),
+  );
 });
 
 test('preserves asChild composition, slots, and automatic form input placement', () => {

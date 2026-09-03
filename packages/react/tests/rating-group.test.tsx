@@ -109,6 +109,21 @@ test('keeps half-state and keyboard focus Ark-shaped', async () => {
   await waitFor(() => expect(document.activeElement).toBe(items[3]));
 });
 
+test('does not mark a mouse-selected item as focus-visible', () => {
+  render(
+    <RatingGroup defaultValue={3}>
+      <RatingGroup.Label>Rating</RatingGroup.Label>
+      <RatingItems />
+    </RatingGroup>,
+  );
+
+  const item = screen.getAllByRole('radio')[2];
+
+  fireEvent.click(item);
+
+  expect(item).not.toHaveAttribute('data-focus-visible');
+});
+
 test('repeats custom indicators with Ark item state', () => {
   render(
     <RatingGroup allowHalf defaultValue={3.5}>

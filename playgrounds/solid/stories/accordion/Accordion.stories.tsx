@@ -6,6 +6,7 @@ import {
   useAccordionContext,
   useAccordionItemContext,
 } from '@/components/accordion/Accordion';
+import { Slider } from '@/components/slider/Slider';
 import styles from './Accordion.stories.module.css';
 
 const meta = {
@@ -160,6 +161,35 @@ export const RootProvider: Story = {
       </>
     );
   },
+};
+
+export const AdvancedCustomization: Story = {
+  render: () => (
+    <Accordion defaultValue={['what-is-ark-ui']} class={styles.demoRoot}>
+      {faqItems.map((item) => (
+        <Accordion.Item value={item.value}>
+          <Accordion.ItemTrigger>
+            {item.title}
+            <Accordion.ItemIndicator />
+          </Accordion.ItemTrigger>
+          <Accordion.ItemContent>
+            <Accordion.ItemBody>
+              <span>{item.description}</span>
+              <Slider defaultValue={[40]}>
+                <Slider.Label>{item.title} priority</Slider.Label>
+                <Slider.Control>
+                  <Slider.Track>
+                    <Slider.Range />
+                  </Slider.Track>
+                  <Slider.Thumb index={0} />
+                </Slider.Control>
+              </Slider>
+            </Accordion.ItemBody>
+          </Accordion.ItemContent>
+        </Accordion.Item>
+      ))}
+    </Accordion>
+  ),
 };
 
 export const ContentStress: Story = {

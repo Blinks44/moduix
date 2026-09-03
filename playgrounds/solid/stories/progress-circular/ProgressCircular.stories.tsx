@@ -1,6 +1,7 @@
 import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import { ProgressCircular } from '@/components/progress-circular/ProgressCircular';
+import { Slider } from '@/components/slider/Slider';
 import styles from './ProgressCircular.stories.module.css';
 
 const meta = {
@@ -35,23 +36,30 @@ export const Basic: Story = {
 
 export const Controlled: Story = {
   render: () => {
-    const [value, setValue] = createSignal(42);
+    const [value, setValue] = createSignal<number | null>(42);
 
     return (
       <div class={styles.stack}>
-        <ProgressCircular value={value()} onValueChange={(details) => setValue(details.value ?? 0)}>
+        <ProgressCircular value={value()} onValueChange={(details) => setValue(details.value)}>
           <ProgressCircular.Label>Upload status</ProgressCircular.Label>
           <CircularParts ariaLabel="Upload status" />
         </ProgressCircular>
-        <input
+        <Slider
           class={styles.slider}
-          type="range"
-          min="0"
-          max="100"
-          value={value()}
-          aria-label="Progress value"
-          onInput={(event) => setValue(event.currentTarget.valueAsNumber)}
-        />
+          min={0}
+          max={100}
+          value={[value() ?? 0]}
+          onValueChange={(details) => setValue(details.value[0] ?? 0)}
+        >
+          <Slider.Label>Progress value</Slider.Label>
+          <Slider.ValueText />
+          <Slider.Control>
+            <Slider.Track>
+              <Slider.Range />
+            </Slider.Track>
+            <Slider.Thumb index={0} aria-label="Progress value" />
+          </Slider.Control>
+        </Slider>
       </div>
     );
   },

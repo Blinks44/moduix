@@ -1,0 +1,163 @@
+import { expect, test } from '@rstest/core';
+import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
+import { createSignal } from 'solid-js';
+import { QrCode, useQrCode, useQrCodeContext } from '../src';
+
+function QrCodeValue() {
+  const qrCode = useQrCodeContext();
+
+  return <output>{qrCode().value}</output>;
+}
+
+test('renders Ark anatomy with stable hooks, accessible SVG output, and forwarded refs', () => {
+  let rootRef!: HTMLDivElement;
+  let frameRef!: SVGSVGElement;
+  let patternRef!: SVGPathElement;
+
+  render(() => (
+    <QrCode ref={(element) => (rootRef = element)} defaultValue="https://moduix.dev/docs/qr-code">
+      <QrCode.Frame
+        ref={(element) => (frameRef = element)}
+        role="img"
+        aria-label="QR code for moduix documentation"
+      >
+        <QrCode.Pattern ref={(element) => (patternRef = element)} />
+      </QrCode.Frame>
+      <QrCode.Overlay>MX</QrCode.Overlay>
+      <QrCode.DownloadTrigger fileName="moduix-qr-code.png" mimeType="image/png">
+        Download PNG
+      </QrCode.DownloadTrigger>
+    </QrCode>
+  ));
+
+  const root = rootRef;
+  const frame = screen.getByRole('img', { name: 'QR code for moduix documentation' });
+  const trigger = screen.getByRole('button', { name: 'Download PNG' });
+
+  expect(QrCode.Root).toBe(QrCode);
+  expect(root).toHaveAttribute('data-scope', 'qr-code');
+  expect(root).toHaveAttribute('data-part', 'root');
+  expect(root).toHaveAttribute('data-slot', 'qr-code-root');
+  expect(frameRef).toBe(frame);
+  expect(frame).toHaveAttribute('data-part', 'frame');
+  expect(frame).toHaveAttribute('data-slot', 'qr-code-frame');
+  expect(patternRef).toHaveAttribute('data-part', 'pattern');
+  expect(patternRef).toHaveAttribute('data-slot', 'qr-code-pattern');
+  expect(screen.getByText('MX')).toHaveAttribute('data-slot', 'qr-code-overlay');
+  expect(trigger).toHaveAttribute('type', 'button');
+  expect(trigger).toHaveAttribute('data-slot', 'qr-code-download-trigger');
+});
+
+test('renders externally controlled values', async () => {
+  function ControlledQrCode() {
+    const [value, setValue] = createSignal('https://ark-ui.com');
+
+    return (
+      <>
+        <QrCode value={value()}>
+          <QrCode.Frame>
+            <QrCode.Pattern />
+          </QrCode.Frame>
+        </QrCode>
+        <button type="button" onClick={() => setValue('https://moduix.dev')}>
+          Update code
+        </button>
+        <output>{value()}</output>
+      </>
+    );
+  }
+
+  const { container } = render(() => <ControlledQrCode />);
+  const pattern = container.querySelector('[data-slot="qr-code-pattern"]')!;
+  const initialPath = pattern.getAttribute('d');
+
+  fireEvent.click(screen.getByRole('button', { name: 'Update code' }));
+
+  await waitFor(() => expect(screen.getByText('https://moduix.dev')).toBeInTheDocument());
+  expect(pattern).not.toHaveAttribute('d', initialPath!);
+});
+
+test('keeps RootProvider, Context, and useQrCodeContext on the moduix surface', () => {
+  function ProviderQrCode() {
+    const qrCode = useQrCode({ defaultValue: 'https://moduix.dev/docs/qr-code' });
+
+    return (
+      <QrCode.RootProvider value={qrCode} data-testid="qr-code-provider">
+        <QrCode.Frame>
+          <QrCode.Pattern />
+        </QrCode.Frame>
+        <QrCodeValue />
+        <QrCode.Context>{(context) => <output>Context: {context().value}</output>}</QrCode.Context>
+      </QrCode.RootProvider>
+    );
+  }
+
+  render(() => <ProviderQrCode />);
+
+  const root = screen.getByTestId('qr-code-provider');
+
+  expect(root).toHaveAttribute('data-slot', 'qr-code-root-provider');
+  expect(root).toHaveAttribute('data-scope', 'qr-code');
+  expect(screen.getByText('https://moduix.dev/docs/qr-code')).toBeTruthy();
+  expect(screen.getByText('Context: https://moduix.dev/docs/qr-code')).toBeTruthy();
+});
+
+test('keeps the disabled download trigger unavailable', () => {
+  render(() => (
+    <QrCode defaultValue="https://moduix.dev/docs/qr-code">
+      <QrCode.Frame>
+        <QrCode.Pattern />
+      </QrCode.Frame>
+      <QrCode.DownloadTrigger disabled fileName="moduix-qr-code.png" mimeType="image/png">
+        Download PNG
+      </QrCode.DownloadTrigger>
+    </QrCode>
+  ));
+
+  expect(screen.getByRole('button', { name: 'Download PNG' })).toBeDisabled();
+});
+
+test('preserves semantic download trigger composition with native asChild', () => {
+  render(() => (
+    <QrCode defaultValue="https://moduix.dev/docs/qr-code">
+      <QrCode.Frame>
+        <QrCode.Pattern />
+      </QrCode.Frame>
+      <QrCode.DownloadTrigger
+        asChild={(props) => (
+          <a {...props()} href="#download">
+            Download SVG
+          </a>
+        )}
+        fileName="moduix-qr-code.svg"
+        mimeType="image/svg+xml"
+      />
+    </QrCode>
+  ));
+
+  const trigger = screen.getByRole('link', { name: 'Download SVG' });
+
+  expect(trigger).toHaveAttribute('data-slot', 'qr-code-download-trigger');
+  expect(trigger).toHaveAttribute('href', '#download');
+});
+
+test('does not forward refs through native Ark Solid asChild composition', () => {
+  let rootRef: HTMLDivElement | undefined;
+
+  render(() => (
+    <QrCode
+      ref={(element) => (rootRef = element)}
+      asChild={(props) => (
+        <section {...props()} aria-label="QR code">
+          QR code
+        </section>
+      )}
+    />
+  ));
+
+  expect(screen.getByRole('region', { name: 'QR code' })).toHaveAttribute(
+    'data-slot',
+    'qr-code-root',
+  );
+  expect(rootRef).toBeUndefined();
+});

@@ -211,6 +211,10 @@
       "types": "./dist/components/progress-circular/index.d.ts",
       "import": "./dist/components/progress-circular/index.js"
     },
+    "./qr-code": {
+      "types": "./dist/components/qr-code/index.d.ts",
+      "import": "./dist/components/qr-code/index.js"
+    },
     "./pin-input": {
       "types": "./dist/components/pin-input/index.d.ts",
       "import": "./dist/components/pin-input/index.js"
@@ -219,6 +223,10 @@
       "types": "./dist/components/radio-group/index.d.ts",
       "import": "./dist/components/radio-group/index.js"
     },
+    "./rating-group": {
+      "types": "./dist/components/rating-group/index.d.ts",
+      "import": "./dist/components/rating-group/index.js"
+    },
     "./select": {
       "types": "./dist/components/select/index.d.ts",
       "import": "./dist/components/select/index.js"
@@ -226,6 +234,14 @@
     "./scroll-area": {
       "types": "./dist/components/scroll-area/index.d.ts",
       "import": "./dist/components/scroll-area/index.js"
+    },
+    "./separator": {
+      "types": "./dist/components/separator/index.d.ts",
+      "import": "./dist/components/separator/index.js"
+    },
+    "./segment-group": {
+      "types": "./dist/components/segment-group/index.d.ts",
+      "import": "./dist/components/segment-group/index.js"
     },
     "./slider": {
       "types": "./dist/components/slider/index.d.ts",

@@ -312,7 +312,7 @@ export const CustomStyling: Story = {
         <Slider.Track class={styles.customTrack}>
           <Slider.Range class={styles.customRange} />
         </Slider.Track>
-        <Slider.Thumb index={0} aria-label="Temperature" />
+        <Slider.Thumb index={0} aria-label="Temperature" class={styles.customThumb} />
       </Slider.Control>
     </Slider>
   ),

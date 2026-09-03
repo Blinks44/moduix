@@ -1,6 +1,7 @@
 import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import { ProgressLinear } from '@/components/progress-linear/ProgressLinear';
+import { Slider } from '@/components/slider/Slider';
 import styles from './ProgressLinear.stories.module.css';
 
 const meta = {
@@ -43,14 +44,22 @@ export const Controlled: Story = {
             <ProgressLinear.Range />
           </ProgressLinear.Track>
         </ProgressLinear>
-        <input
-          class={styles.rangeControl}
-          type="range"
-          min="0"
-          max="100"
-          value={value() ?? 0}
-          onInput={(event) => setValue(event.currentTarget.valueAsNumber)}
-        />
+        <Slider
+          class={styles.slider}
+          min={0}
+          max={100}
+          value={[value() ?? 0]}
+          onValueChange={(details) => setValue(details.value[0] ?? 0)}
+        >
+          <Slider.Label>Progress value</Slider.Label>
+          <Slider.ValueText />
+          <Slider.Control>
+            <Slider.Track>
+              <Slider.Range />
+            </Slider.Track>
+            <Slider.Thumb index={0} aria-label="Progress value" />
+          </Slider.Control>
+        </Slider>
       </div>
     );
   },

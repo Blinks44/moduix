@@ -1,0 +1,52 @@
+@layer storybook {
+  .stack {
+    display: grid;
+    gap: var(--moduix-spacing-3);
+    justify-items: center;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--moduix-spacing-2);
+    justify-content: center;
+  }
+
+  .action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--moduix-size-lg);
+    padding-inline: 1rem;
+    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border-radius: var(--moduix-radius-md);
+    background-color: var(--moduix-color-background);
+    color: var(--moduix-color-foreground);
+    font: inherit;
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+    cursor: pointer;
+  }
+
+  .action:focus-visible {
+    outline: var(--moduix-border-width-md) solid var(--moduix-color-ring);
+    outline-offset: calc(var(--moduix-border-width-sm) * -1);
+  }
+
+  .hint {
+    margin: 0;
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+  }
+
+  .brandFrame {
+    --moduix-qr-code-fill: var(--moduix-color-primary);
+  }
+
+  .overlay {
+    font-size: var(--moduix-text-xs);
+    font-weight: var(--moduix-weight-semibold);
+    line-height: var(--moduix-line-height-text-xs);
+  }
+}
