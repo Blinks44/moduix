@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Skeleton } from '@/components/skeleton/Skeleton';
 import { Stack } from '@/components/stack';
 import styles from './Skeleton.stories.module.css';

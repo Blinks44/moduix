@@ -231,6 +231,10 @@
       "types": "./dist/components/select/index.d.ts",
       "import": "./dist/components/select/index.js"
     },
+    "./signature-pad": {
+      "types": "./dist/components/signature-pad/index.d.ts",
+      "import": "./dist/components/signature-pad/index.js"
+    },
     "./scroll-area": {
       "types": "./dist/components/scroll-area/index.d.ts",
       "import": "./dist/components/scroll-area/index.js"
@@ -239,6 +243,18 @@
       "types": "./dist/components/separator/index.d.ts",
       "import": "./dist/components/separator/index.js"
     },
+    "./sidebar": {
+      "types": "./dist/components/sidebar/index.d.ts",
+      "import": "./dist/components/sidebar/index.js"
+    },
+    "./skeleton": {
+      "types": "./dist/components/skeleton/index.d.ts",
+      "import": "./dist/components/skeleton/index.js"
+    },
+    "./simple-grid": {
+      "types": "./dist/components/simple-grid/index.d.ts",
+      "import": "./dist/components/simple-grid/index.js"
+    },
     "./segment-group": {
       "types": "./dist/components/segment-group/index.d.ts",
       "import": "./dist/components/segment-group/index.js"
@@ -246,6 +262,10 @@
     "./slider": {
       "types": "./dist/components/slider/index.d.ts",
       "import": "./dist/components/slider/index.js"
+    },
+    "./splitter": {
+      "types": "./dist/components/splitter/index.d.ts",
+      "import": "./dist/components/splitter/index.js"
     },
     "./spinner": {
       "types": "./dist/components/spinner/index.d.ts",
@@ -258,6 +278,10 @@
     "./textarea": {
       "types": "./dist/components/textarea/index.d.ts",
       "import": "./dist/components/textarea/index.js"
+    },
+    "./tooltip": {
+      "types": "./dist/components/tooltip/index.d.ts",
+      "import": "./dist/components/tooltip/index.js"
     },
     "./locale": {
       "types": "./dist/locale.d.ts",

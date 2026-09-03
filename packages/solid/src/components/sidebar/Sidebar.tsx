@@ -1,0 +1,588 @@
+import type { HTMLArkProps } from '@ark-ui/solid/factory';
+import { ark } from '@ark-ui/solid/factory';
+import { clsx } from 'clsx';
+import type { Accessor, ComponentProps } from 'solid-js';
+import { createContext, splitProps, useContext } from 'solid-js';
+import { ChevronLeftIcon } from '@/lib/moduix/icons/ui/Icons';
+import { Input } from '../input';
+import { Separator } from '../separator';
+import { Splitter, type SplitterPanelData, useSplitterContext } from '../splitter';
+import { Tooltip } from '../tooltip';
+import styles from './Sidebar.module.css';
+
+type SidebarSide = 'left' | 'right';
+type SidebarConfig = {
+  panelId: Accessor<string>;
+  side: Accessor<SidebarSide>;
+};
+type SidebarRootProps = Omit<ComponentProps<typeof Splitter.Root>, 'orientation' | 'panels'> & {
+  panelId?: string;
+  side?: SidebarSide;
+};
+type SidebarPanelProps = Omit<ComponentProps<typeof Splitter.Panel>, 'id'>;
+type SidebarResizeTriggerProps = Omit<ComponentProps<typeof Splitter.ResizeTrigger>, 'id'>;
+type SidebarDefaultSize = ComponentProps<typeof Splitter.Root>['defaultSize'];
+type SidebarTriggerProps = HTMLArkProps<'button'>;
+
+const sidebarPanel = {
+  id: 'sidebar',
+  minSize: '3rem',
+  maxSize: '18rem',
+  collapsible: true,
+  collapsedSize: '3rem',
+} satisfies SplitterPanelData;
+
+const contentPanel = { id: 'content' } satisfies SplitterPanelData;
+
+const defaultPanelsBySide = {
+  left: [sidebarPanel, contentPanel],
+  right: [contentPanel, sidebarPanel],
+} satisfies Record<SidebarSide, SplitterPanelData[]>;
+
+const SidebarConfigContext = createContext<SidebarConfig>({
+  panelId: () => 'sidebar',
+  side: (): SidebarSide => 'left',
+});
+
+function getDefaultSidebarSize(side: SidebarSide): SidebarDefaultSize {
+  if (side === 'left') {
+    return ['16rem'];
+  }
+
+  const defaultSize: SidebarDefaultSize = [];
+  defaultSize[1] = '16rem';
+  return defaultSize;
+}
+
+function getDefaultPanels(side: SidebarSide, panelId: string) {
+  const panels = defaultPanelsBySide[side];
+  return panels.map((panel) => (panel.id === 'sidebar' ? { ...panel, id: panelId } : panel));
+}
+
+function toggleSidebarPanel(splitter: ReturnType<typeof useSplitterContext>, panelId: string) {
+  if (splitter().isPanelCollapsed(panelId)) {
+    splitter().expandPanel(panelId);
+    return;
+  }
+
+  splitter().collapsePanel(panelId);
+}
+
+function useSidebarConfig() {
+  const config = useContext(SidebarConfigContext);
+  if (!config) {
+    throw new Error('Sidebar components must be used within Sidebar.Root');
+  }
+
+  return config;
+}
+
+function SidebarRoot(props: SidebarRootProps) {
+  const [local, others] = splitProps(props, ['class', 'defaultSize', 'panelId', 'side']);
+  const panelId = () => local.panelId ?? 'sidebar';
+  const side = () => local.side ?? 'left';
+
+  return (
+    <SidebarConfigContext.Provider value={{ panelId, side }}>
+      <Splitter.Root
+        {...others}
+        panels={getDefaultPanels(side(), panelId())}
+        defaultSize={local.defaultSize ?? getDefaultSidebarSize(side())}
+        orientation="horizontal"
+        data-side={side()}
+        data-slot="sidebar-root"
+        class={clsx(styles.root, local.class)}
+      />
+    </SidebarConfigContext.Provider>
+  );
+}
+
+function useSidebar() {
+  const config = useSidebarConfig();
+  const splitter = useSplitterContext();
+  const collapsed = () => splitter().isPanelCollapsed(config.panelId());
+
+  return {
+    collapsed,
+    side: config.side,
+    state: () => (collapsed() ? 'collapsed' : 'expanded'),
+    toggleSidebar: () => toggleSidebarPanel(splitter, config.panelId()),
+  };
+}
+
+function SidebarPanel(props: SidebarPanelProps) {
+  const [local, others] = splitProps(props, ['class']);
+  const config = useSidebarConfig();
+  const splitter = useSplitterContext();
+  const collapsed = () => splitter().isPanelCollapsed(config.panelId());
+
+  return (
+    <Splitter.Panel
+      {...others}
+      id={config.panelId()}
+      data-side={config.side()}
+      data-slot="sidebar-panel"
+      data-state={collapsed() ? 'collapsed' : 'expanded'}
+      class={clsx(styles.panel, local.class)}
+    />
+  );
+}
+
+function SidebarInset(props: SidebarPanelProps) {
+  const [local, others] = splitProps(props, ['class']);
+  const config = useSidebarConfig();
+
+  return (
+    <Splitter.Panel
+      {...others}
+      id="content"
+      data-side={config.side()}
+      data-slot="sidebar-inset"
+      class={clsx(styles.inset, local.class)}
+    />
+  );
+}
+
+function SidebarResizeTrigger(props: SidebarResizeTriggerProps) {
+  const [local, others] = splitProps(props, ['aria-label', 'class', 'children']);
+  const config = useSidebarConfig();
+  const id = (): NonNullable<ComponentProps<typeof Splitter.ResizeTrigger>['id']> =>
+    (config.side() === 'left'
+      ? `${config.panelId()}:content`
+      : `content:${config.panelId()}`) as NonNullable<
+      ComponentProps<typeof Splitter.ResizeTrigger>['id']
+    >;
+
+  return (
+    <Splitter.ResizeTrigger
+      {...others}
+      id={id()}
+      aria-label={local['aria-label'] ?? 'Resize sidebar'}
+      data-side={config.side()}
+      data-slot="sidebar-resize-trigger"
+      class={clsx(styles.resizeTrigger, local.class)}
+    >
+      {local.children}
+    </Splitter.ResizeTrigger>
+  );
+}
+
+function SidebarTrigger(props: SidebarTriggerProps) {
+  const [local, others] = splitProps(props, [
+    'aria-label',
+    'asChild',
+    'children',
+    'class',
+    'onClick',
+    'type',
+  ]);
+  const config = useSidebarConfig();
+  const splitter = useSplitterContext();
+  const collapsed = () => splitter().isPanelCollapsed(config.panelId());
+  const handleClick = (event: MouseEvent) => {
+    (local.onClick as ((event: MouseEvent) => void) | undefined)?.(event);
+    if (event.defaultPrevented) return;
+
+    toggleSidebarPanel(splitter, config.panelId());
+  };
+
+  return (
+    <ark.button
+      asChild={local.asChild}
+      type={local.type ?? 'button'}
+      aria-label={local['aria-label'] ?? 'Toggle sidebar'}
+      aria-expanded={!collapsed()}
+      data-scope="sidebar"
+      data-part="trigger"
+      data-side={config.side()}
+      data-slot="sidebar-trigger"
+      data-state={collapsed() ? 'collapsed' : 'expanded'}
+      class={clsx(styles.trigger, local.class)}
+      onClick={handleClick}
+      {...others}
+    >
+      {local.children === undefined && !local.asChild ? <ChevronLeftIcon /> : local.children}
+    </ark.button>
+  );
+}
+
+function SidebarLabel(props: HTMLArkProps<'span'>) {
+  const [local, others] = splitProps(props, ['class']);
+
+  return (
+    <ark.span
+      data-scope="sidebar"
+      data-part="label"
+      data-slot="sidebar-label"
+      class={clsx(styles.label, local.class)}
+      {...others}
+    />
+  );
+}
+
+function SidebarHeader(props: HTMLArkProps<'header'>) {
+  const [local, others] = splitProps(props, ['class']);
+
+  return (
+    <ark.header
+      data-scope="sidebar"
+      data-part="header"
+      data-slot="sidebar-header"
+      class={clsx(styles.header, local.class)}
+      {...others}
+    />
+  );
+}
+
+function SidebarContent(props: HTMLArkProps<'div'>) {
+  const [local, others] = splitProps(props, ['class']);
+
+  return (
+    <ark.div
+      data-scope="sidebar"
+      data-part="content"
+      data-slot="sidebar-content"
+      class={clsx(styles.content, local.class)}
+      {...others}
+    />
+  );
+}
+
+function SidebarExpandedContent(props: HTMLArkProps<'div'>) {
+  const [local, others] = splitProps(props, ['class']);
+  const { collapsed } = useSidebar();
+
+  return (
+    <ark.div
+      data-scope="sidebar"
+      data-part="expanded-content"
+      data-slot="sidebar-expanded-content"
+      class={local.class}
+      {...others}
+      hidden={collapsed()}
+    />
+  );
+}
+
+function SidebarCollapsedContent(props: HTMLArkProps<'div'>) {
+  const [local, others] = splitProps(props, ['class']);
+  const { collapsed } = useSidebar();
+
+  return (
+    <ark.div
+      data-scope="sidebar"
+      data-part="collapsed-content"
+      data-slot="sidebar-collapsed-content"
+      class={local.class}
+      {...others}
+      hidden={!collapsed()}
+    />
+  );
+}
+
+function SidebarFooter(props: HTMLArkProps<'footer'>) {
+  const [local, others] = splitProps(props, ['class']);
+
+  return (
+    <ark.footer
+      data-scope="sidebar"
+      data-part="footer"
+      data-slot="sidebar-footer"
+      class={clsx(styles.footer, local.class)}
+      {...others}
+    />
+  );
+}
+
+function SidebarGroup(props: HTMLArkProps<'section'>) {
+  const [local, others] = splitProps(props, ['class']);
+
+  return (
+    <ark.section
+      data-scope="sidebar"
+      data-part="group"
+      data-slot="sidebar-group"
+      class={clsx(styles.group, local.class)}
+      {...others}
+    />
+  );
+}
+
+function SidebarGroupLabel(props: HTMLArkProps<'h3'>) {
+  const [local, others] = splitProps(props, ['class']);
+
+  return (
+    <ark.h3
+      data-scope="sidebar"
+      data-part="group-label"
+      data-slot="sidebar-group-label"
+      class={clsx(styles.groupLabel, local.class)}
+      {...others}
+    />
+  );
+}
+
+function SidebarGroupAction(props: HTMLArkProps<'button'>) {
+  const [local, others] = splitProps(props, ['class', 'type']);
+
+  return (
+    <ark.button
+      type={local.type ?? 'button'}
+      data-scope="sidebar"
+      data-part="group-action"
+      data-slot="sidebar-group-action"
+      class={clsx(styles.groupAction, local.class)}
+      {...others}
+    />
+  );
+}
+
+function SidebarGroupContent(props: HTMLArkProps<'div'>) {
+  const [local, others] = splitProps(props, ['class']);
+
+  return (
+    <ark.div
+      data-scope="sidebar"
+      data-part="group-content"
+      data-slot="sidebar-group-content"
+      class={clsx(styles.groupContent, local.class)}
+      {...others}
+    />
+  );
+}
+
+function SidebarNavigationList(props: HTMLArkProps<'ul'>) {
+  const [local, others] = splitProps(props, ['class']);
+
+  return (
+    <ark.ul
+      data-scope="sidebar"
+      data-part="navigation-list"
+      data-slot="sidebar-navigation-list"
+      class={clsx(styles.menu, local.class)}
+      {...others}
+    />
+  );
+}
+
+function SidebarNavigationItem(props: HTMLArkProps<'li'>) {
+  const [local, others] = splitProps(props, ['class']);
+
+  return (
+    <ark.li
+      data-scope="sidebar"
+      data-part="navigation-item"
+      data-slot="sidebar-navigation-item"
+      class={clsx(styles.menuItem, local.class)}
+      {...others}
+    />
+  );
+}
+
+function SidebarNavigationButton(
+  props: HTMLArkProps<'button'> & {
+    active?: boolean;
+    size?: 'sm' | 'md' | 'lg';
+  },
+) {
+  const [local, others] = splitProps(props, [
+    'active',
+    'aria-current',
+    'asChild',
+    'class',
+    'size',
+    'type',
+  ]);
+
+  return (
+    <ark.button
+      asChild={local.asChild}
+      type={local.type ?? 'button'}
+      aria-current={local['aria-current'] ?? (local.active ? 'page' : undefined)}
+      data-scope="sidebar"
+      data-part="navigation-button"
+      data-slot="sidebar-navigation-button"
+      data-active={local.active ? '' : undefined}
+      data-size={local.size ?? 'md'}
+      class={clsx(styles.menuButton, local.class)}
+      {...others}
+    />
+  );
+}
+
+function SidebarNavigationAction(props: HTMLArkProps<'button'>) {
+  const [local, others] = splitProps(props, ['class', 'type']);
+
+  return (
+    <ark.button
+      type={local.type ?? 'button'}
+      data-scope="sidebar"
+      data-part="navigation-action"
+      data-slot="sidebar-navigation-action"
+      class={clsx(styles.menuAction, local.class)}
+      {...others}
+    />
+  );
+}
+
+function SidebarNavigationBadge(props: HTMLArkProps<'div'>) {
+  const [local, others] = splitProps(props, ['class']);
+
+  return (
+    <ark.div
+      data-scope="sidebar"
+      data-part="navigation-badge"
+      data-slot="sidebar-navigation-badge"
+      class={clsx(styles.menuBadge, local.class)}
+      {...others}
+    />
+  );
+}
+
+function SidebarNavigationSubList(props: HTMLArkProps<'ul'>) {
+  const [local, others] = splitProps(props, ['class']);
+
+  return (
+    <ark.ul
+      data-scope="sidebar"
+      data-part="navigation-sub-list"
+      data-slot="sidebar-navigation-sub-list"
+      class={clsx(styles.menuSub, local.class)}
+      {...others}
+    />
+  );
+}
+
+function SidebarNavigationSubItem(props: HTMLArkProps<'li'>) {
+  const [local, others] = splitProps(props, ['class']);
+
+  return (
+    <ark.li
+      data-scope="sidebar"
+      data-part="navigation-sub-item"
+      data-slot="sidebar-navigation-sub-item"
+      class={clsx(styles.menuSubItem, local.class)}
+      {...others}
+    />
+  );
+}
+
+function SidebarNavigationSubButton(
+  props: HTMLArkProps<'a'> & {
+    active?: boolean;
+  },
+) {
+  const [local, others] = splitProps(props, [
+    'active',
+    'aria-current',
+    'asChild',
+    'children',
+    'class',
+  ]);
+
+  return (
+    <ark.a
+      asChild={local.asChild}
+      aria-current={local['aria-current'] ?? (local.active ? 'page' : undefined)}
+      data-scope="sidebar"
+      data-part="navigation-sub-button"
+      data-slot="sidebar-navigation-sub-button"
+      data-active={local.active ? '' : undefined}
+      class={clsx(styles.menuSubButton, local.class)}
+      {...others}
+    >
+      {typeof local.children === 'string' ? (
+        <span data-slot="sidebar-navigation-sub-label">{local.children}</span>
+      ) : (
+        local.children
+      )}
+    </ark.a>
+  );
+}
+
+function SidebarTooltip(
+  props: Omit<ComponentProps<typeof Tooltip>, 'children' | 'disabled' | 'positioning'> & {
+    children: NonNullable<ComponentProps<typeof Tooltip.Trigger>['asChild']>;
+    content: ComponentProps<typeof Tooltip.Content>['children'];
+    positioning?: ComponentProps<typeof Tooltip>['positioning'];
+  },
+) {
+  const [local, others] = splitProps(props, [
+    'children',
+    'closeDelay',
+    'content',
+    'openDelay',
+    'positioning',
+  ]);
+  const { collapsed, side } = useSidebar();
+
+  return (
+    <Tooltip
+      {...others}
+      openDelay={local.openDelay ?? 200}
+      closeDelay={local.closeDelay ?? 0}
+      disabled={!collapsed()}
+      positioning={{
+        placement: side() === 'left' ? 'right' : 'left',
+        gutter: 8,
+        ...local.positioning,
+      }}
+    >
+      <Tooltip.Trigger asChild={local.children} />
+      <Tooltip.Positioner>
+        <Tooltip.Content>{local.content}</Tooltip.Content>
+      </Tooltip.Positioner>
+    </Tooltip>
+  );
+}
+
+function SidebarInput(props: ComponentProps<typeof Input.Root>) {
+  const [local, others] = splitProps(props, ['class']);
+
+  return (
+    <Input.Root data-slot="sidebar-input" class={clsx(styles.input, local.class)} {...others} />
+  );
+}
+
+function SidebarSeparator(props: ComponentProps<typeof Separator.Root>) {
+  const [local, others] = splitProps(props, ['class']);
+
+  return (
+    <Separator.Root
+      data-slot="sidebar-separator"
+      class={clsx(styles.separator, local.class)}
+      {...others}
+    />
+  );
+}
+
+const Sidebar = Object.assign(SidebarRoot, {
+  Root: SidebarRoot,
+  Panel: SidebarPanel,
+  Inset: SidebarInset,
+  ResizeTrigger: SidebarResizeTrigger,
+  Trigger: SidebarTrigger,
+  Label: SidebarLabel,
+  Input: SidebarInput,
+  Header: SidebarHeader,
+  Content: SidebarContent,
+  ExpandedContent: SidebarExpandedContent,
+  CollapsedContent: SidebarCollapsedContent,
+  Footer: SidebarFooter,
+  Separator: SidebarSeparator,
+  Group: SidebarGroup,
+  GroupLabel: SidebarGroupLabel,
+  GroupAction: SidebarGroupAction,
+  GroupContent: SidebarGroupContent,
+  NavigationList: SidebarNavigationList,
+  NavigationItem: SidebarNavigationItem,
+  Tooltip: SidebarTooltip,
+  NavigationButton: SidebarNavigationButton,
+  NavigationAction: SidebarNavigationAction,
+  NavigationBadge: SidebarNavigationBadge,
+  NavigationSubList: SidebarNavigationSubList,
+  NavigationSubItem: SidebarNavigationSubItem,
+  NavigationSubButton: SidebarNavigationSubButton,
+});
+
+export { Sidebar, useSidebar };

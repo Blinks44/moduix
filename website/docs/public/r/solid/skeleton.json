@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "skeleton",
+  "title": "Skeleton",
+  "description": "moduix Solid Skeleton component.",
+  "dependencies": ["@ark-ui/solid", "clsx"],
+  "registryDependencies": ["@moduix-solid/foundation"],
+  "files": [
+    {
+      "path": "src/components/skeleton/Skeleton.tsx",
+      "content": "import type { HTMLArkProps } from '@ark-ui/solid/factory';\nimport { ark } from '@ark-ui/solid/factory';\nimport { clsx } from 'clsx';\nimport type { JSX } from 'solid-js';\nimport { splitProps } from 'solid-js';\nimport styles from './Skeleton.module.css';\n\ntype SkeletonProps = HTMLArkProps<'div'> & {\n  loading?: boolean;\n  variant?: 'pulse' | 'none';\n  width?: number | string;\n  height?: number | string;\n  boxSize?: number | string;\n  borderRadius?: number | string;\n};\n\nconst toCssValue = (value: number | string | undefined) =>\n  typeof value === 'number' ? `${value}px` : value;\n\nfunction SkeletonRoot(props: SkeletonProps) {\n  const [local, others] = splitProps(props, [\n    'aria-hidden',\n    'asChild',\n    'borderRadius',\n    'boxSize',\n    'children',\n    'class',\n    'height',\n    'loading',\n    'style',\n    'variant',\n    'width',\n  ]);\n  const loading = () => local.loading ?? true;\n  const variant = () => local.variant ?? 'pulse';\n  const skeletonStyle = (): JSX.CSSProperties | string => {\n    const width = toCssValue(local.width ?? local.boxSize);\n    const height = toCssValue(local.height ?? local.boxSize);\n    const borderRadius = toCssValue(local.borderRadius);\n\n    if (typeof local.style === 'string') {\n      const generatedStyle = [\n        width === undefined ? undefined : `width: ${width}`,\n        height === undefined ? undefined : `height: ${height}`,\n        borderRadius === undefined ? undefined : `border-radius: ${borderRadius}`,\n      ]\n        .filter(Boolean)\n        .join(';');\n\n      return `${generatedStyle}${generatedStyle && local.style ? ';' : ''}${local.style}`;\n    }\n\n    const generatedStyle: JSX.CSSProperties = {\n      width,\n      height,\n      'border-radius': borderRadius,\n    };\n\n    return local.style === undefined ? generatedStyle : Object.assign(generatedStyle, local.style);\n  };\n\n  return (\n    <ark.div\n      {...others}\n      asChild={local.asChild}\n      data-scope=\"skeleton\"\n      data-part=\"root\"\n      data-slot=\"skeleton-root\"\n      data-state={loading() ? 'loading' : 'loaded'}\n      data-loading={loading() ? '' : undefined}\n      data-variant={variant()}\n      aria-hidden={local['aria-hidden'] ?? (loading() ? true : undefined)}\n      class={clsx(styles.root, local.class)}\n      style={skeletonStyle()}\n    >\n      {local.children}\n    </ark.div>\n  );\n}\n\nconst Skeleton = Object.assign(SkeletonRoot, {\n  Root: SkeletonRoot,\n});\n\nexport { Skeleton };\n",
+      "type": "registry:component",
+      "target": "@components/ui/skeleton/Skeleton.tsx"
+    },
+    {
+      "path": "src/components/skeleton/Skeleton.module.css",
+      "content": "@layer moduix.components {\n  .root {\n    display: block;\n    width: 100%;\n    overflow: hidden;\n    border-radius: var(--moduix-skeleton-border-radius, var(--moduix-radius-md));\n\n    &[data-state='loading'] {\n      height: var(--moduix-skeleton-height, var(--moduix-spacing-4));\n      animation: var(--moduix-skeleton-animation, var(--moduix-animation-pulse));\n      background: var(\n        --moduix-skeleton-bg,\n        color-mix(\n          in oklab,\n          var(--moduix-color-muted-foreground) 18%,\n          var(--moduix-color-background)\n        )\n      );\n      color: transparent;\n      pointer-events: none;\n      user-select: none;\n\n      &::before,\n      &::after,\n      & * {\n        visibility: hidden;\n      }\n\n      &[data-variant='none'] {\n        animation: none;\n      }\n\n      @media (prefers-reduced-motion: reduce) {\n        animation: none;\n      }\n    }\n  }\n}\n",
+      "type": "registry:file",
+      "target": "@components/ui/skeleton/Skeleton.module.css"
+    },
+    {
+      "path": "src/components/skeleton/index.ts",
+      "content": "export { Skeleton } from './Skeleton.js';\n",
+      "type": "registry:component",
+      "target": "@components/ui/skeleton/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

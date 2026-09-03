@@ -1,0 +1,48 @@
+@layer moduix.storybook {
+  .stack {
+    width: 20rem;
+  }
+
+  .card {
+    width: 20rem;
+  }
+
+  .mediaObject {
+    width: 24rem;
+  }
+
+  .layoutExample {
+    width: 24rem;
+    padding-block: var(--moduix-spacing-1);
+  }
+
+  .customBlock {
+    width: 20rem;
+    --moduix-skeleton-bg: var(--moduix-color-primary);
+    --moduix-skeleton-border-radius: var(--moduix-radius-full);
+    --moduix-skeleton-animation: none;
+  }
+
+  .customSkeleton {
+    opacity: 0.28;
+  }
+
+  .loadedContent {
+    display: grid;
+    width: 20rem;
+    min-height: 4.5rem;
+    gap: var(--moduix-spacing-1);
+    padding: var(--moduix-spacing-4);
+    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+
+    & span {
+      color: var(--moduix-color-muted-foreground);
+      font-size: var(--moduix-text-sm);
+      line-height: var(--moduix-line-height-text-sm);
+    }
+  }
+
+  .asChild {
+    width: 20rem;
+  }
+}

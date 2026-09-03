@@ -1243,6 +1243,35 @@
       ]
     },
     {
+      "name": "signature-pad",
+      "type": "registry:item",
+      "title": "Signature Pad",
+      "description": "moduix Solid Signature Pad component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": [
+        "@moduix-solid/foundation",
+        "@moduix-solid/close-button",
+        "@moduix-solid/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/signature-pad/SignaturePad.tsx",
+          "target": "@components/ui/signature-pad/SignaturePad.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/signature-pad/SignaturePad.module.css",
+          "target": "@components/ui/signature-pad/SignaturePad.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/signature-pad/index.ts",
+          "target": "@components/ui/signature-pad/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "carousel",
       "type": "registry:item",
       "title": "Carousel",
@@ -1338,6 +1367,31 @@
         {
           "path": "src/components/textarea/index.ts",
           "target": "@components/ui/textarea/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:item",
+      "title": "Tooltip",
+      "description": "moduix Solid Tooltip component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/overlay-portal"],
+      "files": [
+        {
+          "path": "src/components/tooltip/Tooltip.tsx",
+          "target": "@components/ui/tooltip/Tooltip.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tooltip/Tooltip.module.css",
+          "target": "@components/ui/tooltip/Tooltip.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/tooltip/index.ts",
+          "target": "@components/ui/tooltip/index.ts",
           "type": "registry:component"
         }
       ]
@@ -1472,6 +1526,37 @@
       ]
     },
     {
+      "name": "sidebar",
+      "type": "registry:item",
+      "title": "Sidebar",
+      "description": "moduix Solid Sidebar component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": [
+        "@moduix-solid/input",
+        "@moduix-solid/separator",
+        "@moduix-solid/splitter",
+        "@moduix-solid/tooltip",
+        "@moduix-solid/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/sidebar/Sidebar.tsx",
+          "target": "@components/ui/sidebar/Sidebar.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/Sidebar.module.css",
+          "target": "@components/ui/sidebar/Sidebar.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/sidebar/index.ts",
+          "target": "@components/ui/sidebar/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "segment-group",
       "type": "registry:item",
       "title": "SegmentGroup",
@@ -1497,6 +1582,51 @@
       ]
     },
     {
+      "name": "skeleton",
+      "type": "registry:item",
+      "title": "Skeleton",
+      "description": "moduix Solid Skeleton component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/skeleton/Skeleton.tsx",
+          "target": "@components/ui/skeleton/Skeleton.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/skeleton/Skeleton.module.css",
+          "target": "@components/ui/skeleton/Skeleton.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/skeleton/index.ts",
+          "target": "@components/ui/skeleton/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "simple-grid",
+      "type": "registry:item",
+      "title": "Simple Grid",
+      "description": "Responsive CSS Grid layout with fixed or intrinsic equal-width columns.",
+      "dependencies": ["@ark-ui/solid"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/simple-grid/SimpleGrid.tsx",
+          "target": "@components/ui/simple-grid/SimpleGrid.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/simple-grid/index.ts",
+          "target": "@components/ui/simple-grid/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "slider",
       "type": "registry:item",
       "title": "Slider",
@@ -1517,6 +1647,31 @@
         {
           "path": "src/components/slider/index.ts",
           "target": "@components/ui/slider/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "splitter",
+      "type": "registry:item",
+      "title": "Splitter",
+      "description": "moduix Solid Splitter component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/splitter/Splitter.tsx",
+          "target": "@components/ui/splitter/Splitter.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/splitter/Splitter.module.css",
+          "target": "@components/ui/splitter/Splitter.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/splitter/index.ts",
+          "target": "@components/ui/splitter/index.ts",
           "type": "registry:component"
         }
       ]
