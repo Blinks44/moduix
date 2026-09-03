@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "image",
+  "title": "Image",
+  "description": "moduix Solid Image component.",
+  "dependencies": ["@unpic/core", "clsx"],
+  "registryDependencies": ["@moduix-solid/foundation"],
+  "files": [
+    {
+      "path": "src/components/image/Image.tsx",
+      "content": "import type { UnpicImageProps, UnpicSourceProps } from '@unpic/core';\nimport { transformProps, transformSourceProps } from '@unpic/core';\nimport { clsx } from 'clsx';\nimport { createMemo, splitProps } from 'solid-js';\nimport type { JSX } from 'solid-js';\nimport styles from './Image.module.css';\n\ntype ImageProps = Omit<\n  UnpicImageProps<JSX.ImgHTMLAttributes<HTMLImageElement>>,\n  'fetchpriority'\n> & {\n  fetchpriority?: JSX.ImgHTMLAttributes<HTMLImageElement>['fetchpriority'];\n  style?: JSX.ImgHTMLAttributes<HTMLImageElement>['style'];\n};\n\ntype ImageTransformProps = UnpicImageProps<JSX.ImgHTMLAttributes<HTMLImageElement>> & {\n  style?: JSX.ImgHTMLAttributes<HTMLImageElement>['style'];\n};\n\ntype ImageSourceProps = UnpicSourceProps &\n  Omit<\n    JSX.SourceHTMLAttributes<HTMLSourceElement>,\n    'height' | 'media' | 'sizes' | 'src' | 'srcset' | 'type' | 'width'\n  >;\n\nfunction ImageRoot(props: ImageProps) {\n  const [local, others] = splitProps(props, ['class', 'fetchpriority']);\n  const imageProps = createMemo(() => {\n    const transformed = transformProps<JSX.ImgHTMLAttributes<HTMLImageElement>>(\n      { ...others } as ImageTransformProps,\n    );\n\n    return local.fetchpriority === undefined\n      ? transformed\n      : { ...transformed, fetchpriority: local.fetchpriority };\n  });\n\n  return (\n    <img\n      {...imageProps()}\n      data-slot=\"image-root\"\n      class={clsx(styles.root, local.class)}\n    />\n  );\n}\n\nfunction ImageSource(props: ImageSourceProps) {\n  const [local, others] = splitProps(props, ['class']);\n  const sourceProps = createMemo(() =>\n    transformSourceProps<JSX.SourceHTMLAttributes<HTMLSourceElement>>({ ...others }),\n  );\n\n  return <source {...sourceProps()} data-slot=\"image-source\" class={local.class} />;\n}\n\nconst Image = Object.assign(ImageRoot, {\n  Root: ImageRoot,\n  Source: ImageSource,\n});\n\nexport { Image };\n",
+      "type": "registry:component",
+      "target": "@components/ui/image/Image.tsx"
+    },
+    {
+      "path": "src/components/image/Image.module.css",
+      "content": "@layer moduix.components {\n  .root {\n    box-sizing: border-box;\n    display: block;\n    border-radius: var(--moduix-image-radius, var(--moduix-radius-md));\n  }\n}\n",
+      "type": "registry:file",
+      "target": "@components/ui/image/Image.module.css"
+    },
+    {
+      "path": "src/components/image/index.ts",
+      "content": "export { Image } from './Image.js';\n",
+      "type": "registry:component",
+      "target": "@components/ui/image/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

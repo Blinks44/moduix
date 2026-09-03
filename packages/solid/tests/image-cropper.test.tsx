@@ -1,0 +1,151 @@
+import { expect, test } from '@rstest/core';
+import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
+import type { ComponentProps } from 'solid-js';
+import { ImageCropper, useImageCropper } from '../src';
+
+type CropAreaProps = ComponentProps<typeof ImageCropper.CropArea>;
+
+const cropAreaDoesNotExposeCompositionProps: Extract<
+  keyof CropAreaProps,
+  'asChild' | 'children'
+> extends never
+  ? true
+  : false = true;
+
+test('does not expose unsupported CropArea composition props', () => {
+  expect(cropAreaDoesNotExposeCompositionProps).toBe(true);
+});
+
+test('renders the recommended CropArea anatomy with moduix hooks', () => {
+  let rootRef!: HTMLDivElement;
+  let selectionRef!: HTMLDivElement;
+
+  const { container } = render(() => (
+    <ImageCropper ref={(element) => (rootRef = element)} aria-label="Landscape crop">
+      <ImageCropper.Viewport>
+        <ImageCropper.Image src="/landscape.jpg" />
+        <ImageCropper.CropArea ref={(element) => (selectionRef = element)} />
+      </ImageCropper.Viewport>
+    </ImageCropper>
+  ));
+
+  expect(rootRef).toBe(screen.getByRole('group', { name: 'Landscape crop' }));
+  expect(rootRef).toHaveAttribute('data-slot', 'image-cropper-root');
+  expect(selectionRef).toHaveAttribute('data-slot', 'image-cropper-selection');
+  expect(selectionRef).toBe(screen.getByRole('slider', { hidden: true }));
+  expect(selectionRef).toHaveAttribute('tabindex', '0');
+  expect(container.querySelectorAll('[data-slot="image-cropper-grid"]')).toHaveLength(2);
+  expect(container.querySelectorAll('[data-slot="image-cropper-handle"]')).toHaveLength(
+    ImageCropper.handles.length,
+  );
+});
+
+test('preserves Ark keyboard crop commands after the image is ready', async () => {
+  const { container } = render(() => (
+    <ImageCropper aria-label="Landscape crop">
+      <ImageCropper.Viewport>
+        <ImageCropper.Image src="/landscape.jpg" />
+        <ImageCropper.CropArea />
+      </ImageCropper.Viewport>
+    </ImageCropper>
+  ));
+  const image = container.querySelector<HTMLImageElement>('[data-slot="image-cropper-image"]')!;
+  const selection = screen.getByRole('slider', { hidden: true });
+
+  Object.defineProperties(image, {
+    complete: { configurable: true, value: true },
+    naturalHeight: { configurable: true, value: 400 },
+    naturalWidth: { configurable: true, value: 640 },
+  });
+
+  fireEvent.load(image);
+
+  await waitFor(() => expect(image).toHaveAttribute('data-ready'));
+
+  expect(fireEvent.keyDown(selection, { key: 'ArrowLeft' })).toBe(false);
+});
+
+test('preserves fixed crop area semantics', () => {
+  const { container } = render(() => (
+    <ImageCropper fixedCropArea aria-label="Avatar crop">
+      <ImageCropper.Viewport>
+        <ImageCropper.Image src="/avatar.jpg" />
+        <ImageCropper.CropArea />
+      </ImageCropper.Viewport>
+    </ImageCropper>
+  ));
+  const root = screen.getByRole('group', { name: 'Avatar crop' });
+  const selection = screen.getByRole('slider', { hidden: true });
+  const viewport = container.querySelector('[data-slot="image-cropper-viewport"]');
+
+  expect(root).toHaveAttribute('data-fixed');
+  expect(selection).not.toHaveAttribute('aria-disabled');
+  expect(selection).toHaveAttribute('data-disabled');
+  expect(selection).toHaveAttribute('tabindex', '0');
+  expect(viewport).toHaveAttribute('data-disabled');
+  expect(
+    container.querySelectorAll('[data-slot="image-cropper-handle"][data-disabled]'),
+  ).toHaveLength(ImageCropper.handles.length);
+});
+
+function ProviderImageCropper() {
+  const imageCropper = useImageCropper({ aspectRatio: 16 / 9 });
+
+  return (
+    <ImageCropper.RootProvider value={imageCropper} data-testid="image-cropper-provider">
+      <ImageCropper.Viewport>
+        <ImageCropper.Image src="/landscape.jpg" />
+        <ImageCropper.CropArea />
+      </ImageCropper.Viewport>
+    </ImageCropper.RootProvider>
+  );
+}
+
+test('supports RootProvider with the recommended CropArea anatomy', () => {
+  render(() => <ProviderImageCropper />);
+
+  expect(screen.getByTestId('image-cropper-provider')).toHaveAttribute(
+    'data-slot',
+    'image-cropper-root-provider',
+  );
+});
+
+test('does not forward unsupported CropArea composition props to Ark', () => {
+  const unsupportedProps = {
+    asChild: () => <div />,
+    children: <div />,
+  } as unknown as ComponentProps<typeof ImageCropper.CropArea>;
+
+  const { container } = render(() => (
+    <ImageCropper>
+      <ImageCropper.Viewport>
+        <ImageCropper.Image src="/landscape.jpg" />
+        <ImageCropper.CropArea {...unsupportedProps} />
+      </ImageCropper.Viewport>
+    </ImageCropper>
+  ));
+
+  expect(container.querySelector('[data-slot="image-cropper-selection"]')).toBeTruthy();
+  expect(container.querySelectorAll('[data-slot="image-cropper-handle"]')).toHaveLength(
+    ImageCropper.handles.length,
+  );
+});
+
+test('does not forward refs through native Ark Solid asChild composition', () => {
+  let rootRef: HTMLDivElement | undefined;
+
+  render(() => (
+    <ImageCropper
+      ref={(element) => (rootRef = element)}
+      asChild={(props) => <section {...props()} />}
+      aria-label="Landscape crop"
+    >
+      <ImageCropper.Viewport>
+        <ImageCropper.Image src="/landscape.jpg" />
+        <ImageCropper.CropArea />
+      </ImageCropper.Viewport>
+    </ImageCropper>
+  ));
+
+  expect(rootRef).toBeUndefined();
+});

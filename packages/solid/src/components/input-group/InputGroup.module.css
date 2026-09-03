@@ -1,0 +1,247 @@
+@layer moduix.components {
+  .root {
+    box-sizing: border-box;
+    display: flex;
+    width: var(--moduix-input-group-width, 100%);
+    max-width: var(--moduix-input-group-max-width, none);
+    min-height: var(
+      --moduix-input-group-height,
+      var(--moduix-input-group-height-md, var(--moduix-size-md))
+    );
+    align-items: stretch;
+    overflow: hidden;
+    border: var(--moduix-input-group-border-width, var(--moduix-border-width-sm))
+      var(--moduix-input-group-border-style, solid)
+      var(--moduix-input-group-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-input-group-radius, var(--moduix-radius-md));
+    background-color: var(--moduix-input-group-bg, var(--moduix-color-background));
+    color: var(--moduix-input-group-color, var(--moduix-color-foreground));
+    outline: var(
+        --moduix-input-group-focus-ring-width,
+        var(
+          --moduix-input-group-border-width,
+          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+        )
+      )
+      solid transparent;
+    outline-offset: var(
+      --moduix-input-group-focus-ring-offset,
+      var(--moduix-focus-ring-inset-offset)
+    );
+    transition:
+      border-color var(--moduix-input-group-transition, var(--moduix-transition-default)),
+      outline-color var(--moduix-input-group-transition, var(--moduix-transition-default)),
+      opacity var(--moduix-input-group-transition, var(--moduix-transition-default));
+
+    &:focus-within {
+      outline-color: var(--moduix-input-group-focus-ring-color, var(--moduix-color-ring));
+    }
+
+    &:has([data-slot='input-root'][data-invalid], [data-slot='input-root'][aria-invalid='true']) {
+      border-color: var(--moduix-input-group-border-color-invalid, var(--moduix-color-destructive));
+
+      &:focus-within {
+        outline-color: var(
+          --moduix-input-group-border-color-invalid,
+          var(--moduix-color-destructive)
+        );
+      }
+    }
+
+    &:has([data-slot='input-root'][data-disabled], [data-slot='input-root']:disabled) {
+      opacity: var(--moduix-input-group-disabled-opacity, var(--moduix-opacity-disabled));
+    }
+
+    &:has([data-slot='input-root'][data-readonly], [data-slot='input-root']:read-only) {
+      border-color: var(
+        --moduix-input-group-readonly-border-color,
+        var(--moduix-input-group-border-color, var(--moduix-color-border))
+      );
+      background-color: var(
+        --moduix-input-group-readonly-bg,
+        var(--moduix-input-group-bg, var(--moduix-color-background))
+      );
+      color: var(
+        --moduix-input-group-readonly-color,
+        var(--moduix-input-group-color, var(--moduix-color-foreground))
+      );
+    }
+
+    &[data-size='xs'] {
+      --moduix-input-group-height: var(--moduix-input-group-height-xs, var(--moduix-size-xs));
+      --moduix-input-group-addon-padding-x: var(
+        --moduix-input-group-addon-padding-x-xs,
+        var(--moduix-spacing-2-5)
+      );
+      --moduix-input-group-font-size: var(--moduix-input-group-font-size-xs, var(--moduix-text-xs));
+      --moduix-input-group-line-height: var(
+        --moduix-input-group-line-height-xs,
+        var(--moduix-line-height-text-xs)
+      );
+      --moduix-input-group-input-padding-x: var(
+        --moduix-input-group-input-padding-x-xs,
+        var(--moduix-spacing-2-5)
+      );
+      --moduix-input-group-input-padding-y: var(
+        --moduix-input-group-input-padding-y-xs,
+        var(--moduix-spacing-0-5)
+      );
+    }
+
+    &[data-size='sm'] {
+      --moduix-input-group-height: var(--moduix-input-group-height-sm, var(--moduix-size-sm));
+      --moduix-input-group-addon-padding-x: var(
+        --moduix-input-group-addon-padding-x-sm,
+        var(--moduix-spacing-3)
+      );
+      --moduix-input-group-font-size: var(--moduix-input-group-font-size-sm, var(--moduix-text-sm));
+      --moduix-input-group-line-height: var(
+        --moduix-input-group-line-height-sm,
+        var(--moduix-line-height-text-sm)
+      );
+      --moduix-input-group-input-padding-x: var(
+        --moduix-input-group-input-padding-x-sm,
+        var(--moduix-spacing-3)
+      );
+      --moduix-input-group-input-padding-y: var(--moduix-input-group-input-padding-y-sm, 0.3125rem);
+    }
+
+    &[data-size='md'] {
+      --moduix-input-group-height: var(--moduix-input-group-height-md, var(--moduix-size-md));
+      --moduix-input-group-addon-padding-x: var(
+        --moduix-input-group-addon-padding-x-md,
+        var(--moduix-spacing-3-5)
+      );
+      --moduix-input-group-font-size: var(--moduix-input-group-font-size-md, var(--moduix-text-md));
+      --moduix-input-group-line-height: var(
+        --moduix-input-group-line-height-md,
+        var(--moduix-line-height-text-md)
+      );
+      --moduix-input-group-input-padding-x: var(
+        --moduix-input-group-input-padding-x-md,
+        var(--moduix-spacing-3-5)
+      );
+      --moduix-input-group-input-padding-y: var(
+        --moduix-input-group-input-padding-y-md,
+        var(--moduix-spacing-1)
+      );
+    }
+
+    &[data-size='lg'] {
+      --moduix-input-group-height: var(--moduix-input-group-height-lg, var(--moduix-size-lg));
+      --moduix-input-group-addon-padding-x: var(
+        --moduix-input-group-addon-padding-x-lg,
+        var(--moduix-spacing-4)
+      );
+      --moduix-input-group-font-size: var(--moduix-input-group-font-size-lg, var(--moduix-text-lg));
+      --moduix-input-group-line-height: var(
+        --moduix-input-group-line-height-lg,
+        var(--moduix-line-height-text-lg)
+      );
+      --moduix-input-group-input-padding-x: var(
+        --moduix-input-group-input-padding-x-lg,
+        var(--moduix-spacing-4)
+      );
+      --moduix-input-group-input-padding-y: var(
+        --moduix-input-group-input-padding-y-lg,
+        var(--moduix-spacing-1)
+      );
+    }
+
+    &[data-size='xl'] {
+      --moduix-input-group-height: var(--moduix-input-group-height-xl, var(--moduix-size-xl));
+      --moduix-input-group-addon-padding-x: var(
+        --moduix-input-group-addon-padding-x-xl,
+        var(--moduix-spacing-4-5)
+      );
+      --moduix-input-group-font-size: var(--moduix-input-group-font-size-xl, var(--moduix-text-lg));
+      --moduix-input-group-line-height: var(
+        --moduix-input-group-line-height-xl,
+        var(--moduix-line-height-text-lg)
+      );
+      --moduix-input-group-input-padding-x: var(
+        --moduix-input-group-input-padding-x-xl,
+        var(--moduix-spacing-4-5)
+      );
+      --moduix-input-group-input-padding-y: var(
+        --moduix-input-group-input-padding-y-xl,
+        var(--moduix-spacing-2)
+      );
+    }
+  }
+
+  .input {
+    min-width: 0;
+    min-height: 0;
+    flex: 1 1 auto;
+    border: 0;
+    border-radius: 0;
+    background-color: transparent;
+    font-size: var(--moduix-input-group-font-size, var(--moduix-text-md));
+    line-height: var(--moduix-input-group-line-height, var(--moduix-line-height-text-md));
+    outline: 0;
+    padding-block: var(--moduix-input-group-input-padding-y, var(--moduix-spacing-2));
+    padding-inline: var(--moduix-input-group-input-padding-x, var(--moduix-spacing-3-5));
+  }
+
+  .addon,
+  .text {
+    box-sizing: border-box;
+    display: inline-flex;
+    min-width: 0;
+    align-items: center;
+    justify-content: center;
+    gap: var(--moduix-input-group-addon-gap, var(--moduix-spacing-2));
+    padding-inline: var(--moduix-input-group-addon-padding-x, var(--moduix-spacing-3-5));
+    background-color: var(--moduix-input-group-addon-bg, var(--moduix-color-muted));
+    color: var(--moduix-input-group-addon-color, var(--moduix-color-muted-foreground));
+    font-size: var(--moduix-input-group-font-size, var(--moduix-text-md));
+    line-height: var(--moduix-input-group-line-height, var(--moduix-line-height-text-md));
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    & > svg {
+      width: var(--moduix-input-group-icon-size, var(--moduix-spacing-4));
+      height: var(--moduix-input-group-icon-size, var(--moduix-spacing-4));
+      flex-shrink: 0;
+    }
+  }
+
+  .addon {
+    border-inline: var(--moduix-input-group-separator-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-input-group-separator-color, var(--moduix-color-border));
+
+    &:first-child {
+      border-inline-start: 0;
+    }
+
+    &:last-child {
+      border-inline-end: 0;
+    }
+  }
+
+  .text {
+    background-color: transparent;
+  }
+
+  .button {
+    min-height: auto;
+    height: auto;
+    align-self: stretch;
+    padding-block: 0;
+    padding-inline: var(--moduix-input-group-addon-padding-x, var(--moduix-spacing-3-5));
+    border: 0;
+    border-radius: 0;
+    color: var(--moduix-input-group-button-color, var(--moduix-color-foreground));
+    font-size: var(--moduix-input-group-font-size, var(--moduix-text-sm));
+    line-height: var(--moduix-input-group-line-height, var(--moduix-line-height-text-sm));
+
+    &:focus-visible {
+      outline-offset: var(
+        --moduix-input-group-button-focus-ring-offset,
+        var(--moduix-focus-ring-inset-offset)
+      );
+    }
+  }
+}

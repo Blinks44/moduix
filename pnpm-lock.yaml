@@ -129,6 +129,9 @@ importers:
 
   packages/solid:
     dependencies:
+      '@unpic/core':
+        specifier: ^1.0.3
+        version: 1.0.3
       '@zag-js/hotkeys':
         specifier: 1.43.3
         version: 1.43.3

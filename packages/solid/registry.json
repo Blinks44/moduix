@@ -801,6 +801,31 @@
       ]
     },
     {
+      "name": "image",
+      "type": "registry:item",
+      "title": "Image",
+      "description": "moduix Solid Image component.",
+      "dependencies": ["@unpic/core", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/image/Image.tsx",
+          "target": "@components/ui/image/Image.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/image/Image.module.css",
+          "target": "@components/ui/image/Image.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/image/index.ts",
+          "target": "@components/ui/image/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "input",
       "type": "registry:item",
       "title": "Input",
@@ -821,6 +846,35 @@
         {
           "path": "src/components/input/index.ts",
           "target": "@components/ui/input/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "input-group",
+      "type": "registry:item",
+      "title": "InputGroup",
+      "description": "moduix Solid InputGroup component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": [
+        "@moduix-solid/foundation",
+        "@moduix-solid/button",
+        "@moduix-solid/input"
+      ],
+      "files": [
+        {
+          "path": "src/components/input-group/InputGroup.tsx",
+          "target": "@components/ui/input-group/InputGroup.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/input-group/InputGroup.module.css",
+          "target": "@components/ui/input-group/InputGroup.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/input-group/index.ts",
+          "target": "@components/ui/input-group/index.ts",
           "type": "registry:component"
         }
       ]
@@ -1166,6 +1220,31 @@
         {
           "path": "src/components/hover-card/index.ts",
           "target": "@components/ui/hover-card/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "image-cropper",
+      "type": "registry:item",
+      "title": "ImageCropper",
+      "description": "moduix Solid ImageCropper component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/image-cropper/ImageCropper.tsx",
+          "target": "@components/ui/image-cropper/ImageCropper.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/image-cropper/ImageCropper.module.css",
+          "target": "@components/ui/image-cropper/ImageCropper.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/image-cropper/index.ts",
+          "target": "@components/ui/image-cropper/index.ts",
           "type": "registry:component"
         }
       ]

@@ -135,6 +135,14 @@
       "types": "./dist/components/hover-card/index.d.ts",
       "import": "./dist/components/hover-card/index.js"
     },
+    "./image-cropper": {
+      "types": "./dist/components/image-cropper/index.d.ts",
+      "import": "./dist/components/image-cropper/index.js"
+    },
+    "./image": {
+      "types": "./dist/components/image/index.d.ts",
+      "import": "./dist/components/image/index.js"
+    },
     "./file-upload": {
       "types": "./dist/components/file-upload/index.d.ts",
       "import": "./dist/components/file-upload/index.js"
@@ -142,6 +150,10 @@
     "./input": {
       "types": "./dist/components/input/index.d.ts",
       "import": "./dist/components/input/index.js"
+    },
+    "./input-group": {
+      "types": "./dist/components/input-group/index.d.ts",
+      "import": "./dist/components/input-group/index.js"
     },
     "./kbd": {
       "types": "./dist/components/kbd/index.d.ts",
@@ -200,6 +212,7 @@
     "tsc:check": "tsc --noEmit"
   },
   "dependencies": {
+    "@unpic/core": "^1.0.3",
     "@zag-js/hotkeys": "1.43.3",
     "@zag-js/solid": "1.43.3",
     "clsx": "^2.1.1"
