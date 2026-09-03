@@ -880,6 +880,31 @@
       ]
     },
     {
+      "name": "password-input",
+      "type": "registry:item",
+      "title": "PasswordInput",
+      "description": "moduix Solid PasswordInput component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
+      "files": [
+        {
+          "path": "src/components/password-input/PasswordInput.tsx",
+          "target": "@components/ui/password-input/PasswordInput.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/password-input/PasswordInput.module.css",
+          "target": "@components/ui/password-input/PasswordInput.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/password-input/index.ts",
+          "target": "@components/ui/password-input/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "menu",
       "type": "registry:item",
       "title": "Menu",
@@ -909,6 +934,31 @@
       ]
     },
     {
+      "name": "navigation-menu",
+      "type": "registry:item",
+      "title": "NavigationMenu",
+      "description": "moduix Solid NavigationMenu component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/navigation-menu/NavigationMenu.tsx",
+          "target": "@components/ui/navigation-menu/NavigationMenu.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/navigation-menu/NavigationMenu.module.css",
+          "target": "@components/ui/navigation-menu/NavigationMenu.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/navigation-menu/index.ts",
+          "target": "@components/ui/navigation-menu/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "native-select",
       "type": "registry:item",
       "title": "Native Select",
@@ -929,6 +979,56 @@
         {
           "path": "src/components/native-select/index.ts",
           "target": "@components/ui/native-select/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "number-input",
+      "type": "registry:item",
+      "title": "NumberInput",
+      "description": "moduix Solid NumberInput component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
+      "files": [
+        {
+          "path": "src/components/number-input/NumberInput.tsx",
+          "target": "@components/ui/number-input/NumberInput.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/number-input/NumberInput.module.css",
+          "target": "@components/ui/number-input/NumberInput.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/number-input/index.ts",
+          "target": "@components/ui/number-input/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "pagination",
+      "type": "registry:item",
+      "title": "Pagination",
+      "description": "moduix Solid Pagination component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
+      "files": [
+        {
+          "path": "src/components/pagination/Pagination.tsx",
+          "target": "@components/ui/pagination/Pagination.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/pagination/Pagination.module.css",
+          "target": "@components/ui/pagination/Pagination.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/pagination/index.ts",
+          "target": "@components/ui/pagination/index.ts",
           "type": "registry:component"
         }
       ]
@@ -1114,6 +1214,60 @@
       ]
     },
     {
+      "name": "list",
+      "type": "registry:item",
+      "title": "List",
+      "description": "moduix Solid List component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/list/List.tsx",
+          "target": "@components/ui/list/List.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/list/List.module.css",
+          "target": "@components/ui/list/List.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/list/index.ts",
+          "target": "@components/ui/list/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "listbox",
+      "type": "registry:item",
+      "title": "Listbox",
+      "description": "moduix Solid Listbox component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": [
+        "@moduix-solid/foundation",
+        "@moduix-solid/close-button",
+        "@moduix-solid/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/listbox/Listbox.tsx",
+          "target": "@components/ui/listbox/Listbox.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/listbox/Listbox.module.css",
+          "target": "@components/ui/listbox/Listbox.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/listbox/index.ts",
+          "target": "@components/ui/listbox/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "scroll-area",
       "type": "registry:item",
       "title": "ScrollArea",
@@ -1200,6 +1354,35 @@
       ]
     },
     {
+      "name": "lightbox",
+      "type": "registry:item",
+      "title": "Lightbox",
+      "description": "moduix Solid Lightbox component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": [
+        "@moduix-solid/foundation",
+        "@moduix-solid/close-button",
+        "@moduix-solid/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/lightbox/Lightbox.tsx",
+          "target": "@components/ui/lightbox/Lightbox.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/Lightbox.module.css",
+          "target": "@components/ui/lightbox/Lightbox.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/lightbox/index.ts",
+          "target": "@components/ui/lightbox/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "hover-card",
       "type": "registry:item",
       "title": "HoverCard",
@@ -1245,6 +1428,31 @@
         {
           "path": "src/components/image-cropper/index.ts",
           "target": "@components/ui/image-cropper/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "marquee",
+      "type": "registry:item",
+      "title": "Marquee",
+      "description": "moduix Solid Marquee component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/marquee/Marquee.tsx",
+          "target": "@components/ui/marquee/Marquee.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/marquee/Marquee.module.css",
+          "target": "@components/ui/marquee/Marquee.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/marquee/index.ts",
+          "target": "@components/ui/marquee/index.ts",
           "type": "registry:component"
         }
       ]

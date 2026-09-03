@@ -159,13 +159,45 @@
       "types": "./dist/components/kbd/index.d.ts",
       "import": "./dist/components/kbd/index.js"
     },
+    "./password-input": {
+      "types": "./dist/components/password-input/index.d.ts",
+      "import": "./dist/components/password-input/index.js"
+    },
+    "./lightbox": {
+      "types": "./dist/components/lightbox/index.d.ts",
+      "import": "./dist/components/lightbox/index.js"
+    },
+    "./list": {
+      "types": "./dist/components/list/index.d.ts",
+      "import": "./dist/components/list/index.js"
+    },
+    "./listbox": {
+      "types": "./dist/components/listbox/index.d.ts",
+      "import": "./dist/components/listbox/index.js"
+    },
+    "./marquee": {
+      "types": "./dist/components/marquee/index.d.ts",
+      "import": "./dist/components/marquee/index.js"
+    },
     "./menu": {
       "types": "./dist/components/menu/index.d.ts",
       "import": "./dist/components/menu/index.js"
     },
+    "./navigation-menu": {
+      "types": "./dist/components/navigation-menu/index.d.ts",
+      "import": "./dist/components/navigation-menu/index.js"
+    },
     "./native-select": {
       "types": "./dist/components/native-select/index.d.ts",
       "import": "./dist/components/native-select/index.js"
+    },
+    "./number-input": {
+      "types": "./dist/components/number-input/index.d.ts",
+      "import": "./dist/components/number-input/index.js"
+    },
+    "./pagination": {
+      "types": "./dist/components/pagination/index.d.ts",
+      "import": "./dist/components/pagination/index.js"
     },
     "./radio-group": {
       "types": "./dist/components/radio-group/index.d.ts",

@@ -1,0 +1,201 @@
+import { expect, test } from '@rstest/core';
+import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
+import { createSignal } from 'solid-js';
+import { Marquee, useMarquee, useMarqueeContext } from '../src';
+import { LocaleProvider } from '../src/locale';
+
+function TestMarquee(props: { defaultPaused?: boolean; paused?: boolean }) {
+  return (
+    <Marquee aria-label="Partner logos" defaultPaused={props.defaultPaused} paused={props.paused}>
+      <Marquee.Edge side="start" />
+      <Marquee.Viewport>
+        <Marquee.Content>
+          <Marquee.Item>Atlas</Marquee.Item>
+          <Marquee.Item>Beacon</Marquee.Item>
+        </Marquee.Content>
+      </Marquee.Viewport>
+      <Marquee.Edge side="end" />
+    </Marquee>
+  );
+}
+
+test('preserves Ark marquee anatomy, semantics, and moduix styling hooks', () => {
+  render(() => (
+    <LocaleProvider locale="ar">
+      <TestMarquee />
+    </LocaleProvider>
+  ));
+
+  const root = screen.getByRole('region', { name: 'Partner logos' });
+  const viewport = root.querySelector('[data-part="viewport"]');
+  const content = root.querySelector('[data-part="content"]');
+
+  expect(root).toHaveAttribute('aria-roledescription', 'marquee');
+  expect(root).toHaveAttribute('data-slot', 'marquee-root');
+  expect(root).toHaveAttribute('dir', 'rtl');
+  expect(viewport).toHaveAttribute('data-slot', 'marquee-viewport');
+  expect(content).toHaveAttribute('data-slot', 'marquee-content');
+  expect(root.querySelector('[data-part="item"]')).toHaveAttribute('data-slot', 'marquee-item');
+  expect(root.querySelector('[data-side="start"]')).toHaveAttribute('data-slot', 'marquee-edge');
+  expect(root.querySelector('[data-side="end"]')).toHaveAttribute('data-slot', 'marquee-edge');
+  expect(root.querySelectorAll('[data-part="edge"]')).toHaveLength(2);
+  expect(root.querySelectorAll('[data-part="edge"]')[0]).toHaveAttribute('dir', 'rtl');
+  expect(root.querySelectorAll('[data-part="edge"]')[1]).toHaveAttribute('dir', 'rtl');
+});
+
+test('forwards part refs and keeps cloned content out of the accessibility tree', () => {
+  let rootRef!: HTMLDivElement;
+  let itemRef!: HTMLDivElement;
+
+  render(() => (
+    <Marquee ref={(element) => (rootRef = element)} aria-label="Partner logos">
+      <Marquee.Viewport>
+        <Marquee.Content>
+          <Marquee.Item ref={(element) => (itemRef = element)}>Atlas</Marquee.Item>
+        </Marquee.Content>
+      </Marquee.Viewport>
+    </Marquee>
+  ));
+
+  const root = screen.getByRole('region', { name: 'Partner logos' });
+  const [content, clone] = root.querySelectorAll('[data-part="content"]');
+
+  expect(rootRef).toBe(root);
+  expect(itemRef).toHaveTextContent('Atlas');
+  expect(content).not.toHaveAttribute('aria-hidden');
+  expect(clone).toHaveAttribute('data-clone');
+  expect(clone).toHaveAttribute('aria-hidden', 'true');
+  expect(clone).toHaveAttribute('role', 'presentation');
+});
+
+test('preserves Ark controlled and uncontrolled pause state', async () => {
+  let setPaused!: (paused: boolean | undefined) => void;
+
+  render(() => {
+    const [paused, updatePaused] = createSignal<boolean | undefined>();
+    setPaused = updatePaused;
+
+    return (
+      <Marquee aria-label="Partner logos" defaultPaused paused={paused()}>
+        <Marquee.Viewport>
+          <Marquee.Content>
+            <Marquee.Item>Atlas</Marquee.Item>
+          </Marquee.Content>
+        </Marquee.Viewport>
+      </Marquee>
+    );
+  });
+
+  const root = screen.getByRole('region', { name: 'Partner logos' });
+
+  expect(root).toHaveAttribute('data-state', 'paused');
+  expect(root).toHaveAttribute('data-paused');
+
+  setPaused(false);
+  await waitFor(() => {
+    expect(root).toHaveAttribute('data-state', 'idle');
+    expect(root).not.toHaveAttribute('data-paused');
+  });
+});
+
+function ContextPauseControl() {
+  const marquee = useMarqueeContext();
+
+  return (
+    <button type="button" onClick={() => marquee().pause()}>
+      Pause marquee
+    </button>
+  );
+}
+
+test('preserves interaction pause behavior, callback details, and context controls', async () => {
+  const pauseChanges: Array<{ paused: boolean }> = [];
+
+  render(() => (
+    <Marquee
+      aria-label="Partner logos"
+      pauseOnInteraction
+      onPauseChange={(details) => pauseChanges.push(details)}
+    >
+      <Marquee.Viewport>
+        <Marquee.Content>
+          <Marquee.Item>Atlas</Marquee.Item>
+        </Marquee.Content>
+      </Marquee.Viewport>
+      <ContextPauseControl />
+    </Marquee>
+  ));
+
+  const root = screen.getByRole('region', { name: 'Partner logos' });
+
+  fireEvent.mouseEnter(root);
+
+  await waitFor(() => {
+    expect(root).toHaveAttribute('data-paused');
+    expect(pauseChanges.at(-1)).toEqual({ paused: true });
+  });
+
+  fireEvent.mouseLeave(root);
+
+  await waitFor(() => {
+    expect(root).not.toHaveAttribute('data-paused');
+    expect(pauseChanges.at(-1)).toEqual({ paused: false });
+  });
+
+  fireEvent.click(screen.getByRole('button', { name: 'Pause marquee' }));
+
+  await waitFor(() => {
+    expect(root).toHaveAttribute('data-paused');
+    expect(pauseChanges.at(-1)).toEqual({ paused: true });
+  });
+});
+
+test('preserves the root host element with asChild', () => {
+  render(() => (
+    <Marquee asChild={(props) => <a {...props()} href="/partners" aria-label="Partner logos" />} />
+  ));
+
+  const root = screen.getByRole('region', { name: 'Partner logos' });
+
+  expect(root.tagName).toBe('A');
+  expect(root).toHaveAttribute('href', '/partners');
+  expect(root).toHaveAttribute('data-slot', 'marquee-root');
+  expect(root).toHaveAttribute('data-scope', 'marquee');
+});
+
+test('does not forward refs through native Ark Solid asChild composition', () => {
+  let rootRef: HTMLDivElement | undefined;
+
+  render(() => (
+    <Marquee
+      ref={(element) => (rootRef = element)}
+      asChild={(props) => <section {...props()} />}
+      aria-label="Partner logos"
+    />
+  ));
+
+  expect(rootRef).toBeUndefined();
+});
+
+function ProviderMarquee() {
+  const marquee = useMarquee({ translations: { root: 'Partner logos' } });
+
+  return (
+    <Marquee.RootProvider value={marquee}>
+      <Marquee.Viewport>
+        <Marquee.Content>
+          <Marquee.Item>Atlas</Marquee.Item>
+        </Marquee.Content>
+      </Marquee.Viewport>
+    </Marquee.RootProvider>
+  );
+}
+
+test('styles a RootProvider tree created by the public hook', () => {
+  render(() => <ProviderMarquee />);
+
+  expect(screen.getByRole('region', { name: 'Partner logos' })).toHaveAttribute(
+    'data-slot',
+    'marquee-root-provider',
+  );
+});

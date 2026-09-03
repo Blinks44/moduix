@@ -1,0 +1,198 @@
+@layer moduix.components {
+  .root {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--moduix-number-input-gap, var(--moduix-spacing-1));
+    width: var(--moduix-number-input-width, auto);
+    max-width: var(--moduix-number-input-max-width, none);
+
+    &[data-disabled] {
+      opacity: var(--moduix-number-input-disabled-opacity, var(--moduix-opacity-disabled));
+    }
+  }
+
+  .label {
+    color: var(--moduix-number-input-label-color, var(--moduix-color-foreground));
+    font-size: var(--moduix-number-input-label-font-size, var(--moduix-text-sm));
+    line-height: var(--moduix-number-input-label-line-height, var(--moduix-line-height-text-sm));
+    font-weight: var(--moduix-number-input-label-font-weight, var(--moduix-weight-medium));
+  }
+
+  .scrubber {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--moduix-number-input-scrubber-gap, var(--moduix-spacing-2));
+    color: var(--moduix-number-input-scrubber-color, var(--moduix-color-foreground));
+    user-select: none;
+    cursor: ew-resize;
+
+    &[data-disabled] {
+      cursor: default;
+    }
+  }
+
+  .control {
+    display: inline-flex;
+    align-items: stretch;
+  }
+
+  .decrementTrigger,
+  .incrementTrigger {
+    --_number-input-focus-ring-width: var(
+      --moduix-number-input-focus-ring-width,
+      var(
+        --moduix-number-input-border-width,
+        var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+      )
+    );
+
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--moduix-number-input-control-height, var(--moduix-size-md));
+    min-width: var(--moduix-number-input-control-height, var(--moduix-size-md));
+    height: var(--moduix-number-input-control-height, var(--moduix-size-md));
+    margin: 0;
+    border: var(--moduix-number-input-border-width, var(--moduix-border-width-sm))
+      var(--moduix-number-input-border-style, solid)
+      var(--moduix-number-input-border-color, var(--moduix-color-border));
+    padding: 0;
+    background-color: var(--moduix-number-input-button-bg, var(--moduix-color-background));
+    color: var(--moduix-number-input-button-color, var(--moduix-color-foreground));
+    outline: 0;
+    user-select: none;
+    cursor: pointer;
+    transition:
+      background-color var(--moduix-transition-default),
+      border-color var(--moduix-transition-default),
+      color var(--moduix-transition-default),
+      opacity var(--moduix-transition-default);
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--moduix-number-input-button-bg-hover, var(--moduix-color-accent));
+      }
+    }
+
+    &:active {
+      background-color: var(
+        --moduix-number-input-button-bg-active,
+        var(--moduix-number-input-button-bg-hover, var(--moduix-color-accent))
+      );
+    }
+
+    &:focus-visible,
+    &[data-focus] {
+      outline: var(--_number-input-focus-ring-width) solid
+        var(--moduix-number-input-focus-ring-color, var(--moduix-color-ring));
+      outline-offset: calc(var(--_number-input-focus-ring-width) * -1);
+      z-index: 1;
+    }
+
+    &:is([data-disabled], :disabled) {
+      pointer-events: none;
+    }
+
+    &[data-invalid],
+    .root[data-invalid] & {
+      border-color: var(
+        --moduix-number-input-border-color-invalid,
+        var(--moduix-color-destructive)
+      );
+    }
+
+    & > svg {
+      width: var(--moduix-number-input-icon-size, var(--moduix-spacing-3-5));
+      height: var(--moduix-number-input-icon-size, var(--moduix-spacing-3-5));
+      flex-shrink: 0;
+    }
+  }
+
+  .decrementTrigger {
+    border-start-start-radius: var(--moduix-number-input-radius, var(--moduix-radius-md));
+    border-end-start-radius: var(--moduix-number-input-radius, var(--moduix-radius-md));
+    border-inline-end: 0;
+  }
+
+  .incrementTrigger {
+    border-start-end-radius: var(--moduix-number-input-radius, var(--moduix-radius-md));
+    border-end-end-radius: var(--moduix-number-input-radius, var(--moduix-radius-md));
+    border-inline-start: 0;
+  }
+
+  .input {
+    --_number-input-focus-ring-width: var(
+      --moduix-number-input-focus-ring-width,
+      var(
+        --moduix-number-input-border-width,
+        var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+      )
+    );
+
+    box-sizing: border-box;
+    width: var(--moduix-number-input-input-width, 6rem);
+    height: var(--moduix-number-input-control-height, var(--moduix-size-md));
+    margin: 0;
+    border-top: var(--moduix-number-input-border-width, var(--moduix-border-width-sm))
+      var(--moduix-number-input-border-style, solid)
+      var(--moduix-number-input-border-color, var(--moduix-color-border));
+    border-bottom: var(--moduix-number-input-border-width, var(--moduix-border-width-sm))
+      var(--moduix-number-input-border-style, solid)
+      var(--moduix-number-input-border-color, var(--moduix-color-border));
+    border-inline: 0;
+    border-radius: 0;
+    padding: var(--moduix-number-input-input-padding-y, var(--moduix-spacing-1))
+      var(--moduix-number-input-input-padding-x, var(--moduix-spacing-3));
+    background-color: var(--moduix-number-input-input-bg, var(--moduix-color-background));
+    color: var(--moduix-number-input-input-color, var(--moduix-color-foreground));
+    font: inherit;
+    font-size: var(--moduix-number-input-input-font-size, var(--moduix-text-md));
+    line-height: var(--moduix-number-input-input-line-height, var(--moduix-line-height-text-md));
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+    outline: var(--_number-input-focus-ring-width) solid transparent;
+    outline-offset: calc(var(--_number-input-focus-ring-width) * -1);
+    transition:
+      border-color var(--moduix-transition-default),
+      outline-color var(--moduix-transition-default),
+      opacity var(--moduix-transition-default);
+
+    &:focus-visible,
+    &[data-focus] {
+      outline-color: var(--moduix-number-input-focus-ring-color, var(--moduix-color-ring));
+      z-index: 1;
+    }
+
+    &[data-invalid],
+    .root[data-invalid] & {
+      border-top-color: var(
+        --moduix-number-input-border-color-invalid,
+        var(--moduix-color-destructive)
+      );
+      border-bottom-color: var(
+        --moduix-number-input-border-color-invalid,
+        var(--moduix-color-destructive)
+      );
+
+      &:focus-visible,
+      &[data-focus] {
+        outline-color: var(
+          --moduix-number-input-border-color-invalid,
+          var(--moduix-color-destructive)
+        );
+      }
+    }
+  }
+
+  .valueText {
+    color: var(--moduix-number-input-value-text-color, var(--moduix-color-muted-foreground));
+    font-size: var(--moduix-number-input-value-text-font-size, var(--moduix-text-sm));
+    line-height: var(
+      --moduix-number-input-value-text-line-height,
+      var(--moduix-line-height-text-sm)
+    );
+    font-variant-numeric: tabular-nums;
+  }
+}

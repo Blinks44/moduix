@@ -326,6 +326,27 @@ export function CheckIcon(props: IconProps) {
   );
 }
 
+export function SearchIcon(props: IconProps) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      {...accessibilityProps}
+      {...props}
+    >
+      <path d="m21 21-4.34-4.34" />
+      <circle cx="11" cy="11" r="8" />
+    </svg>
+  );
+}
+
 export function CopyIcon(props: IconProps) {
   return (
     <svg
@@ -388,6 +409,51 @@ export function PipetteIcon(props: IconProps) {
       <path d="m15 6 3.4-3.4a2.1 2.1 0 1 1 3 3L18 9" />
       <path d="m9 12 6 6" />
       <path d="m12 9 3-3 3 3-3 3" />
+    </svg>
+  );
+}
+
+export function EyeIcon(props: IconProps) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      {...accessibilityProps}
+      {...props}
+    >
+      <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  );
+}
+
+export function EyeClosedIcon(props: IconProps) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      {...accessibilityProps}
+      {...props}
+    >
+      <path d="m15 18-.722-3.25" />
+      <path d="M2 8a10.645 10.645 0 0 0 20 0" />
+      <path d="m20 15-1.726-2.05" />
+      <path d="m4 15 1.726-2.05" />
+      <path d="m9 18 .722-3.25" />
     </svg>
   );
 }
