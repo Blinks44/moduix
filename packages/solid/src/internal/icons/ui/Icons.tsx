@@ -637,3 +637,11 @@ export function FileIcon(props: IconProps) {
     </svg>
   );
 }
+
+export function SeparatorMarkIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 16 4" fill="none" {...accessibilityProps} {...props}>
+      <path d="M1 2h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+    </svg>
+  );
+}

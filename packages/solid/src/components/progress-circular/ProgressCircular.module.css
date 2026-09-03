@@ -1,0 +1,102 @@
+@layer moduix.components {
+  .root {
+    box-sizing: border-box;
+    display: inline-grid;
+    justify-items: center;
+    gap: var(--moduix-progress-circular-gap, var(--moduix-spacing-2));
+    width: var(--moduix-progress-circular-root-width, max-content);
+    max-width: 100%;
+    min-width: 0;
+    color: var(--moduix-progress-circular-color, var(--moduix-color-foreground));
+  }
+
+  .label {
+    font-size: var(--moduix-progress-circular-label-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-progress-circular-label-font-weight, var(--moduix-weight-regular));
+    line-height: var(
+      --moduix-progress-circular-label-line-height,
+      var(--moduix-line-height-text-sm)
+    );
+    color: var(--moduix-progress-circular-label-color, currentColor);
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    text-align: center;
+  }
+
+  .valueText {
+    font-size: var(--moduix-progress-circular-value-text-font-size, var(--moduix-text-sm));
+    font-weight: var(
+      --moduix-progress-circular-value-text-font-weight,
+      var(--moduix-weight-medium)
+    );
+    line-height: var(
+      --moduix-progress-circular-value-text-line-height,
+      var(--moduix-line-height-text-sm)
+    );
+    color: var(--moduix-progress-circular-value-text-color, currentColor);
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    text-align: center;
+  }
+
+  .circle {
+    --size: var(--moduix-progress-circular-size, var(--moduix-size-xl));
+    --thickness: var(--moduix-progress-circular-thickness, 0.4rem);
+
+    display: block;
+    overflow: visible;
+  }
+
+  .circleTrack {
+    stroke: var(--moduix-progress-circular-track-bg, var(--moduix-color-muted));
+  }
+
+  .circleRange {
+    stroke: var(--moduix-progress-circular-range-bg, var(--moduix-color-primary));
+    stroke-linecap: var(--moduix-progress-circular-range-linecap, round);
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: stroke-dashoffset
+      var(--moduix-progress-circular-range-transition, var(--moduix-transition-default));
+
+    &[data-state='indeterminate'] {
+      stroke: var(
+        --moduix-progress-circular-range-indeterminate-bg,
+        var(--moduix-progress-circular-range-bg, var(--moduix-color-primary))
+      );
+      animation: var(
+        --moduix-progress-circular-range-indeterminate-animation,
+        progress-circular-indeterminate 1.4s linear infinite
+      );
+      stroke-dasharray: var(--moduix-progress-circular-range-indeterminate-dasharray, 1 200);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+
+      &[data-state='indeterminate'] {
+        animation: none;
+        stroke-dasharray: var(
+          --moduix-progress-circular-range-indeterminate-reduced-motion-dasharray,
+          20 200
+        );
+      }
+    }
+  }
+
+  .view {
+    display: contents;
+  }
+
+  @keyframes progress-circular-indeterminate {
+    from {
+      transform: rotate(-90deg);
+    }
+
+    to {
+      transform: rotate(270deg);
+    }
+  }
+}

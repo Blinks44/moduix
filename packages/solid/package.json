@@ -199,6 +199,22 @@
       "types": "./dist/components/pagination/index.d.ts",
       "import": "./dist/components/pagination/index.js"
     },
+    "./popover": {
+      "types": "./dist/components/popover/index.d.ts",
+      "import": "./dist/components/popover/index.js"
+    },
+    "./progress-linear": {
+      "types": "./dist/components/progress-linear/index.d.ts",
+      "import": "./dist/components/progress-linear/index.js"
+    },
+    "./progress-circular": {
+      "types": "./dist/components/progress-circular/index.d.ts",
+      "import": "./dist/components/progress-circular/index.js"
+    },
+    "./pin-input": {
+      "types": "./dist/components/pin-input/index.d.ts",
+      "import": "./dist/components/pin-input/index.js"
+    },
     "./radio-group": {
       "types": "./dist/components/radio-group/index.d.ts",
       "import": "./dist/components/radio-group/index.js"
@@ -210,6 +226,10 @@
     "./scroll-area": {
       "types": "./dist/components/scroll-area/index.d.ts",
       "import": "./dist/components/scroll-area/index.js"
+    },
+    "./slider": {
+      "types": "./dist/components/slider/index.d.ts",
+      "import": "./dist/components/slider/index.js"
     },
     "./spinner": {
       "types": "./dist/components/spinner/index.d.ts",
