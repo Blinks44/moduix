@@ -22,7 +22,7 @@ description: Сочетайте части moduix, сохраняя поведе
 
 Выберите реестр `shadcn`, если хотите хранить исходный код компонентов в приложении. При добавлении он
 копирует выбранный компонент и необходимые ему стили, иконки и утилиты moduix в проект. После этого код
-можно менять напрямую, а компоненты импортировать из `@/components/moduix/*`.
+можно менять напрямую, а компоненты импортировать из `@/components/ui/*`.
 
 Компоненты, исходный код которых хранится в приложении, не получают обновления пакета автоматически. Когда
 выходит новая версия moduix, снова добавьте компонент через `shadcn`, проверьте получившийся diff и внесите
@@ -78,8 +78,8 @@ Dialog / Dialog.Root
 ```tsx
 import { Button } from '@moduix/react/button';
 import { Popover } from '@moduix/react/popover';
-// shadcn copy-owned: import { Button } from '@/components/moduix/button';
-// shadcn copy-owned: import { Popover } from '@/components/moduix/popover';
+// shadcn copy-owned: import { Button } from '@/components/ui/button';
+// shadcn copy-owned: import { Popover } from '@/components/ui/popover';
 
 export function FiltersPopover() {
   return (
@@ -134,7 +134,7 @@ export function AssigneeTooltip() {
 
 ```tsx
 import { Dialog as ModuixDialog } from '@moduix/react/dialog';
-// shadcn copy-owned: import { Dialog as ModuixDialog } from '@/components/moduix/dialog';
+// shadcn copy-owned: import { Dialog as ModuixDialog } from '@/components/ui/dialog';
 
 export const Dialog = ModuixDialog;
 export const DialogTrigger = ModuixDialog.Trigger;
@@ -148,7 +148,7 @@ export const DialogCloseTrigger = ModuixDialog.CloseTrigger;
 
 Это самый безопасный способ расширения:
 
-- потребители импортируют из слоя продукта, а не напрямую из `@moduix/react/*` или `@/components/moduix/*`;
+- потребители импортируют из слоя продукта, а не напрямую из `@moduix/react/*` или `@/components/ui/*`;
 - поведение Ark не меняется;
 - переход от пакета к версии с исходным кодом в приложении остаётся простым;
 - обёртки можно добавить позже только там, где они действительно нужны.

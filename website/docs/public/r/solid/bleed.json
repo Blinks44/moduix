@@ -10,19 +10,19 @@
       "path": "src/components/bleed/Bleed.tsx",
       "content": "import type { HTMLArkProps } from '@ark-ui/solid/factory';\nimport { ark } from '@ark-ui/solid/factory';\nimport { clsx } from 'clsx';\nimport { splitProps } from 'solid-js';\nimport styles from './Bleed.module.css';\n\ntype BleedAmount = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';\ntype BleedInline = BleedAmount | 'full';\ntype BleedRootProps = HTMLArkProps<'div'> & {\n  inline?: BleedInline;\n  block?: BleedAmount;\n  'data-scope'?: string;\n  'data-part'?: string;\n  'data-slot'?: string;\n  'data-inline'?: string;\n  'data-block'?: string;\n};\n\nfunction BleedRoot(props: BleedRootProps) {\n  const [local, others] = splitProps(props, [\n    'asChild',\n    'block',\n    'class',\n    'inline',\n    'data-scope',\n    'data-part',\n    'data-slot',\n    'data-inline',\n    'data-block',\n  ]);\n\n  return (\n    <ark.div\n      asChild={local.asChild}\n      {...others}\n      data-scope=\"bleed\"\n      data-part=\"root\"\n      data-slot=\"bleed-root\"\n      data-inline={local.inline ?? 'full'}\n      data-block={local.block ?? 'none'}\n      class={clsx(styles.root, local.class)}\n    />\n  );\n}\n\nconst Bleed = Object.assign(BleedRoot, {\n  Root: BleedRoot,\n});\n\nexport { Bleed };",
       "type": "registry:component",
-      "target": "@components/moduix/bleed/Bleed.tsx"
+      "target": "@components/ui/bleed/Bleed.tsx"
     },
     {
       "path": "src/components/bleed/Bleed.module.css",
       "content": "@layer moduix.components {\n  .root {\n    box-sizing: border-box;\n    margin: 0;\n\n    &[data-inline='xs'] {\n      margin-inline: calc(var(--moduix-bleed-inline-xs, var(--moduix-spacing-1)) * -1);\n    }\n\n    &[data-inline='sm'] {\n      margin-inline: calc(var(--moduix-bleed-inline-sm, var(--moduix-spacing-2)) * -1);\n    }\n\n    &[data-inline='md'] {\n      margin-inline: calc(var(--moduix-bleed-inline-md, var(--moduix-spacing-3)) * -1);\n    }\n\n    &[data-inline='lg'] {\n      margin-inline: calc(var(--moduix-bleed-inline-lg, var(--moduix-spacing-4)) * -1);\n    }\n\n    &[data-inline='xl'] {\n      margin-inline: calc(var(--moduix-bleed-inline-xl, var(--moduix-spacing-6)) * -1);\n    }\n\n    &[data-inline='full'] {\n      inline-size: var(--moduix-bleed-inline-full-size, 100vi);\n      margin-inline: var(--moduix-bleed-inline-full, calc(50% - 50vi));\n    }\n\n    &[data-block='xs'] {\n      margin-block: calc(var(--moduix-bleed-block-xs, var(--moduix-spacing-1)) * -1);\n    }\n\n    &[data-block='sm'] {\n      margin-block: calc(var(--moduix-bleed-block-sm, var(--moduix-spacing-2)) * -1);\n    }\n\n    &[data-block='md'] {\n      margin-block: calc(var(--moduix-bleed-block-md, var(--moduix-spacing-3)) * -1);\n    }\n\n    &[data-block='lg'] {\n      margin-block: calc(var(--moduix-bleed-block-lg, var(--moduix-spacing-4)) * -1);\n    }\n\n    &[data-block='xl'] {\n      margin-block: calc(var(--moduix-bleed-block-xl, var(--moduix-spacing-6)) * -1);\n    }\n  }\n}",
       "type": "registry:file",
-      "target": "@components/moduix/bleed/Bleed.module.css"
+      "target": "@components/ui/bleed/Bleed.module.css"
     },
     {
       "path": "src/components/bleed/index.ts",
       "content": "export * from './Bleed.js';",
       "type": "registry:component",
-      "target": "@components/moduix/bleed/index.ts"
+      "target": "@components/ui/bleed/index.ts"
     }
   ],
   "type": "registry:item"

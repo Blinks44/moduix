@@ -22,7 +22,7 @@ composants depuis `@moduix/react/*` et les styles partagés depuis `@moduix/reac
 
 Choisissez le registre `shadcn` si votre application doit posséder le code source des composants. Il copie le
 composant choisi ainsi que les styles, icônes et utilitaires moduix dont il dépend dans votre projet. Vous pouvez
-ensuite modifier ce code directement et importer les composants depuis `@/components/moduix/*`.
+ensuite modifier ce code directement et importer les composants depuis `@/components/ui/*`.
 
 Les composants dont le code source vit dans votre application ne reçoivent pas automatiquement les mises à jour du
 package. Lorsqu’une nouvelle version de moduix est disponible, ajoutez de nouveau le composant avec `shadcn`, puis
@@ -79,8 +79,8 @@ simplement lui ajouter son comportement.
 ```tsx
 import { Button } from '@moduix/react/button';
 import { Popover } from '@moduix/react/popover';
-// shadcn copy-owned: import { Button } from '@/components/moduix/button';
-// shadcn copy-owned: import { Popover } from '@/components/moduix/popover';
+// shadcn copy-owned: import { Button } from '@/components/ui/button';
+// shadcn copy-owned: import { Popover } from '@/components/ui/popover';
 
 export function FiltersPopover() {
   return (
@@ -137,7 +137,7 @@ API locale stable.
 
 ```tsx
 import { Dialog as ModuixDialog } from '@moduix/react/dialog';
-// shadcn copy-owned: import { Dialog as ModuixDialog } from '@/components/moduix/dialog';
+// shadcn copy-owned: import { Dialog as ModuixDialog } from '@/components/ui/dialog';
 
 export const Dialog = ModuixDialog;
 export const DialogTrigger = ModuixDialog.Trigger;
@@ -151,7 +151,7 @@ export const DialogCloseTrigger = ModuixDialog.CloseTrigger;
 
 C’est l’option de personnalisation la moins risquée :
 
-- les consommateurs importent depuis la couche du produit, et non directement depuis `@moduix/react/*` ou `@/components/moduix/*` ;
+- les consommateurs importent depuis la couche du produit, et non directement depuis `@moduix/react/*` ou `@/components/ui/*` ;
 - le comportement Ark reste inchangé ;
 - le passage du package à une version dont le code source appartient à l’application reste simple ;
 - des wrappers peuvent être ajoutés plus tard uniquement là où ils sont réellement nécessaires.

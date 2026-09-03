@@ -61,7 +61,7 @@ function ShadcnInstall({
 // import { Component } from '@moduix/react/<component>';
 
 // shadcn
-import { Component } from '@/components/moduix/<component>';`}
+import { Component } from '@/components/ui/<component>';`}
       />
       {dependencies.length > 0 ? (
         <>

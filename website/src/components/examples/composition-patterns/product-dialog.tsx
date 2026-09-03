@@ -1,5 +1,5 @@
 import { Dialog as ModuixDialog } from '@moduix/react/dialog';
-// shadcn copy-owned: import { Dialog as ModuixDialog } from '@/components/moduix/dialog';
+// shadcn copy-owned: import { Dialog as ModuixDialog } from '@/components/ui/dialog';
 import { forwardRef, type ComponentProps, type ComponentRef } from 'react';
 import styles from './product-dialog.module.css';
 

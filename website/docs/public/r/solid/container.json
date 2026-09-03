@@ -10,19 +10,19 @@
       "path": "src/components/container/Container.tsx",
       "content": "import type { HTMLArkProps } from '@ark-ui/solid/factory';\nimport { ark } from '@ark-ui/solid/factory';\nimport { clsx } from 'clsx';\nimport { splitProps } from 'solid-js';\nimport styles from './Container.module.css';\n\ntype ContainerSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';\ntype ContainerGutter = 'none' | 'sm' | 'md' | 'lg';\n\ntype ContainerRootProps = HTMLArkProps<'div'> & {\n  size?: ContainerSize;\n  gutter?: ContainerGutter;\n  'data-scope'?: string;\n  'data-part'?: string;\n  'data-slot'?: string;\n  'data-size'?: string;\n  'data-gutter'?: string;\n};\n\nfunction ContainerRoot(props: ContainerRootProps) {\n  const [local, others] = splitProps(props, [\n    'asChild',\n    'class',\n    'gutter',\n    'size',\n    'data-scope',\n    'data-part',\n    'data-slot',\n    'data-size',\n    'data-gutter',\n  ]);\n\n  return (\n    <ark.div\n      asChild={local.asChild}\n      {...others}\n      data-scope=\"container\"\n      data-part=\"root\"\n      data-slot=\"container-root\"\n      data-size={local.size ?? 'lg'}\n      data-gutter={local.gutter ?? 'md'}\n      class={clsx(styles.root, local.class)}\n    />\n  );\n}\n\nconst Container = Object.assign(ContainerRoot, {\n  Root: ContainerRoot,\n});\n\nexport { Container };",
       "type": "registry:component",
-      "target": "@components/moduix/container/Container.tsx"
+      "target": "@components/ui/container/Container.tsx"
     },
     {
       "path": "src/components/container/Container.module.css",
       "content": "@layer moduix.components {\n  .root {\n    --_container-gutter: var(\n      --moduix-container-gutter-md,\n      clamp(var(--moduix-spacing-4), 4vw, var(--moduix-spacing-8))\n    );\n    --_container-max-width: var(--moduix-container-max-width-lg, 72rem);\n\n    box-sizing: border-box;\n    display: block;\n    width: 100%;\n    max-width: calc(var(--_container-max-width) + (var(--_container-gutter) * 2));\n    min-width: 0;\n    margin-inline: auto;\n    padding-inline: var(--_container-gutter);\n\n    &[data-size='xs'] {\n      --_container-max-width: var(--moduix-container-max-width-xs, 40rem);\n    }\n\n    &[data-size='sm'] {\n      --_container-max-width: var(--moduix-container-max-width-sm, 48rem);\n    }\n\n    &[data-size='md'] {\n      --_container-max-width: var(--moduix-container-max-width-md, 64rem);\n    }\n\n    &[data-size='xl'] {\n      --_container-max-width: var(--moduix-container-max-width-xl, 90rem);\n    }\n\n    &[data-size='full'] {\n      max-width: none;\n    }\n\n    &[data-gutter='none'] {\n      --_container-gutter: 0;\n    }\n\n    &[data-gutter='sm'] {\n      --_container-gutter: var(\n        --moduix-container-gutter-sm,\n        clamp(var(--moduix-spacing-3), 3vw, var(--moduix-spacing-6))\n      );\n    }\n\n    &[data-gutter='lg'] {\n      --_container-gutter: var(\n        --moduix-container-gutter-lg,\n        clamp(var(--moduix-spacing-6), 5vw, 3rem)\n      );\n    }\n  }\n}",
       "type": "registry:file",
-      "target": "@components/moduix/container/Container.module.css"
+      "target": "@components/ui/container/Container.module.css"
     },
     {
       "path": "src/components/container/index.ts",
       "content": "export * from './Container.js';",
       "type": "registry:component",
-      "target": "@components/moduix/container/index.ts"
+      "target": "@components/ui/container/index.ts"
     }
   ],
   "type": "registry:item"

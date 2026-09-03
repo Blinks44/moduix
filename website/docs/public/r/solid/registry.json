@@ -108,17 +108,17 @@
       "files": [
         {
           "path": "src/components/accordion/Accordion.tsx",
-          "target": "@components/moduix/accordion/Accordion.tsx",
+          "target": "@components/ui/accordion/Accordion.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/accordion/Accordion.module.css",
-          "target": "@components/moduix/accordion/Accordion.module.css",
+          "target": "@components/ui/accordion/Accordion.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/accordion/index.ts",
-          "target": "@components/moduix/accordion/index.ts",
+          "target": "@components/ui/accordion/index.ts",
           "type": "registry:component"
         }
       ]
@@ -133,17 +133,17 @@
       "files": [
         {
           "path": "src/components/angle-slider/AngleSlider.tsx",
-          "target": "@components/moduix/angle-slider/AngleSlider.tsx",
+          "target": "@components/ui/angle-slider/AngleSlider.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/angle-slider/AngleSlider.module.css",
-          "target": "@components/moduix/angle-slider/AngleSlider.module.css",
+          "target": "@components/ui/angle-slider/AngleSlider.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/angle-slider/index.ts",
-          "target": "@components/moduix/angle-slider/index.ts",
+          "target": "@components/ui/angle-slider/index.ts",
           "type": "registry:component"
         }
       ]
@@ -158,17 +158,17 @@
       "files": [
         {
           "path": "src/components/alert/Alert.tsx",
-          "target": "@components/moduix/alert/Alert.tsx",
+          "target": "@components/ui/alert/Alert.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/alert/Alert.module.css",
-          "target": "@components/moduix/alert/Alert.module.css",
+          "target": "@components/ui/alert/Alert.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/alert/index.ts",
-          "target": "@components/moduix/alert/index.ts",
+          "target": "@components/ui/alert/index.ts",
           "type": "registry:component"
         }
       ]
@@ -183,17 +183,17 @@
       "files": [
         {
           "path": "src/components/aspect-ratio/AspectRatio.tsx",
-          "target": "@components/moduix/aspect-ratio/AspectRatio.tsx",
+          "target": "@components/ui/aspect-ratio/AspectRatio.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/aspect-ratio/AspectRatio.module.css",
-          "target": "@components/moduix/aspect-ratio/AspectRatio.module.css",
+          "target": "@components/ui/aspect-ratio/AspectRatio.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/aspect-ratio/index.ts",
-          "target": "@components/moduix/aspect-ratio/index.ts",
+          "target": "@components/ui/aspect-ratio/index.ts",
           "type": "registry:component"
         }
       ]
@@ -208,17 +208,17 @@
       "files": [
         {
           "path": "src/components/avatar/Avatar.tsx",
-          "target": "@components/moduix/avatar/Avatar.tsx",
+          "target": "@components/ui/avatar/Avatar.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/avatar/Avatar.module.css",
-          "target": "@components/moduix/avatar/Avatar.module.css",
+          "target": "@components/ui/avatar/Avatar.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/avatar/index.ts",
-          "target": "@components/moduix/avatar/index.ts",
+          "target": "@components/ui/avatar/index.ts",
           "type": "registry:component"
         }
       ]
@@ -233,17 +233,17 @@
       "files": [
         {
           "path": "src/components/badge/Badge.tsx",
-          "target": "@components/moduix/badge/Badge.tsx",
+          "target": "@components/ui/badge/Badge.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/badge/Badge.module.css",
-          "target": "@components/moduix/badge/Badge.module.css",
+          "target": "@components/ui/badge/Badge.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/badge/index.ts",
-          "target": "@components/moduix/badge/index.ts",
+          "target": "@components/ui/badge/index.ts",
           "type": "registry:component"
         }
       ]
@@ -258,17 +258,17 @@
       "files": [
         {
           "path": "src/components/bleed/Bleed.tsx",
-          "target": "@components/moduix/bleed/Bleed.tsx",
+          "target": "@components/ui/bleed/Bleed.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/bleed/Bleed.module.css",
-          "target": "@components/moduix/bleed/Bleed.module.css",
+          "target": "@components/ui/bleed/Bleed.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/bleed/index.ts",
-          "target": "@components/moduix/bleed/index.ts",
+          "target": "@components/ui/bleed/index.ts",
           "type": "registry:component"
         }
       ]
@@ -283,17 +283,17 @@
       "files": [
         {
           "path": "src/components/breadcrumbs/Breadcrumbs.tsx",
-          "target": "@components/moduix/breadcrumbs/Breadcrumbs.tsx",
+          "target": "@components/ui/breadcrumbs/Breadcrumbs.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/breadcrumbs/Breadcrumbs.module.css",
-          "target": "@components/moduix/breadcrumbs/Breadcrumbs.module.css",
+          "target": "@components/ui/breadcrumbs/Breadcrumbs.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/breadcrumbs/index.ts",
-          "target": "@components/moduix/breadcrumbs/index.ts",
+          "target": "@components/ui/breadcrumbs/index.ts",
           "type": "registry:component"
         }
       ]
@@ -308,17 +308,17 @@
       "files": [
         {
           "path": "src/components/button/Button.tsx",
-          "target": "@components/moduix/button/Button.tsx",
+          "target": "@components/ui/button/Button.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/button/Button.module.css",
-          "target": "@components/moduix/button/Button.module.css",
+          "target": "@components/ui/button/Button.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/button/index.ts",
-          "target": "@components/moduix/button/index.ts",
+          "target": "@components/ui/button/index.ts",
           "type": "registry:component"
         }
       ]
@@ -333,17 +333,17 @@
       "files": [
         {
           "path": "src/components/card/Card.tsx",
-          "target": "@components/moduix/card/Card.tsx",
+          "target": "@components/ui/card/Card.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/card/Card.module.css",
-          "target": "@components/moduix/card/Card.module.css",
+          "target": "@components/ui/card/Card.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/card/index.ts",
-          "target": "@components/moduix/card/index.ts",
+          "target": "@components/ui/card/index.ts",
           "type": "registry:component"
         }
       ]
@@ -358,17 +358,17 @@
       "files": [
         {
           "path": "src/components/checkbox/Checkbox.tsx",
-          "target": "@components/moduix/checkbox/Checkbox.tsx",
+          "target": "@components/ui/checkbox/Checkbox.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/checkbox/Checkbox.module.css",
-          "target": "@components/moduix/checkbox/Checkbox.module.css",
+          "target": "@components/ui/checkbox/Checkbox.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/checkbox/index.ts",
-          "target": "@components/moduix/checkbox/index.ts",
+          "target": "@components/ui/checkbox/index.ts",
           "type": "registry:component"
         }
       ]
@@ -383,17 +383,17 @@
       "files": [
         {
           "path": "src/components/close-button/CloseButton.tsx",
-          "target": "@components/moduix/close-button/CloseButton.tsx",
+          "target": "@components/ui/close-button/CloseButton.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/close-button/CloseButton.module.css",
-          "target": "@components/moduix/close-button/CloseButton.module.css",
+          "target": "@components/ui/close-button/CloseButton.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/close-button/index.ts",
-          "target": "@components/moduix/close-button/index.ts",
+          "target": "@components/ui/close-button/index.ts",
           "type": "registry:component"
         }
       ]
@@ -408,17 +408,17 @@
       "files": [
         {
           "path": "src/components/collapsible/Collapsible.tsx",
-          "target": "@components/moduix/collapsible/Collapsible.tsx",
+          "target": "@components/ui/collapsible/Collapsible.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/collapsible/Collapsible.module.css",
-          "target": "@components/moduix/collapsible/Collapsible.module.css",
+          "target": "@components/ui/collapsible/Collapsible.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/collapsible/index.ts",
-          "target": "@components/moduix/collapsible/index.ts",
+          "target": "@components/ui/collapsible/index.ts",
           "type": "registry:component"
         }
       ]
@@ -433,17 +433,17 @@
       "files": [
         {
           "path": "src/components/container/Container.tsx",
-          "target": "@components/moduix/container/Container.tsx",
+          "target": "@components/ui/container/Container.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/container/Container.module.css",
-          "target": "@components/moduix/container/Container.module.css",
+          "target": "@components/ui/container/Container.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/container/index.ts",
-          "target": "@components/moduix/container/index.ts",
+          "target": "@components/ui/container/index.ts",
           "type": "registry:component"
         }
       ]
@@ -463,17 +463,17 @@
       "files": [
         {
           "path": "src/components/combobox/Combobox.tsx",
-          "target": "@components/moduix/combobox/Combobox.tsx",
+          "target": "@components/ui/combobox/Combobox.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/combobox/Combobox.module.css",
-          "target": "@components/moduix/combobox/Combobox.module.css",
+          "target": "@components/ui/combobox/Combobox.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/combobox/index.ts",
-          "target": "@components/moduix/combobox/index.ts",
+          "target": "@components/ui/combobox/index.ts",
           "type": "registry:component"
         }
       ]
@@ -492,17 +492,17 @@
       "files": [
         {
           "path": "src/components/color-picker/ColorPicker.tsx",
-          "target": "@components/moduix/color-picker/ColorPicker.tsx",
+          "target": "@components/ui/color-picker/ColorPicker.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/color-picker/ColorPicker.module.css",
-          "target": "@components/moduix/color-picker/ColorPicker.module.css",
+          "target": "@components/ui/color-picker/ColorPicker.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/color-picker/index.ts",
-          "target": "@components/moduix/color-picker/index.ts",
+          "target": "@components/ui/color-picker/index.ts",
           "type": "registry:component"
         }
       ]
@@ -517,17 +517,17 @@
       "files": [
         {
           "path": "src/components/clipboard/Clipboard.tsx",
-          "target": "@components/moduix/clipboard/Clipboard.tsx",
+          "target": "@components/ui/clipboard/Clipboard.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/clipboard/Clipboard.module.css",
-          "target": "@components/moduix/clipboard/Clipboard.module.css",
+          "target": "@components/ui/clipboard/Clipboard.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/clipboard/index.ts",
-          "target": "@components/moduix/clipboard/index.ts",
+          "target": "@components/ui/clipboard/index.ts",
           "type": "registry:component"
         }
       ]
@@ -547,17 +547,17 @@
       "files": [
         {
           "path": "src/components/date-picker/DatePicker.tsx",
-          "target": "@components/moduix/date-picker/DatePicker.tsx",
+          "target": "@components/ui/date-picker/DatePicker.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/date-picker/DatePicker.module.css",
-          "target": "@components/moduix/date-picker/DatePicker.module.css",
+          "target": "@components/ui/date-picker/DatePicker.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/date-picker/index.ts",
-          "target": "@components/moduix/date-picker/index.ts",
+          "target": "@components/ui/date-picker/index.ts",
           "type": "registry:component"
         }
       ]
@@ -572,17 +572,17 @@
       "files": [
         {
           "path": "src/components/date-input/DateInput.tsx",
-          "target": "@components/moduix/date-input/DateInput.tsx",
+          "target": "@components/ui/date-input/DateInput.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/date-input/DateInput.module.css",
-          "target": "@components/moduix/date-input/DateInput.module.css",
+          "target": "@components/ui/date-input/DateInput.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/date-input/index.ts",
-          "target": "@components/moduix/date-input/index.ts",
+          "target": "@components/ui/date-input/index.ts",
           "type": "registry:component"
         }
       ]
@@ -601,17 +601,17 @@
       "files": [
         {
           "path": "src/components/drawer/Drawer.tsx",
-          "target": "@components/moduix/drawer/Drawer.tsx",
+          "target": "@components/ui/drawer/Drawer.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/drawer/Drawer.module.css",
-          "target": "@components/moduix/drawer/Drawer.module.css",
+          "target": "@components/ui/drawer/Drawer.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/drawer/index.ts",
-          "target": "@components/moduix/drawer/index.ts",
+          "target": "@components/ui/drawer/index.ts",
           "type": "registry:component"
         }
       ]
@@ -626,17 +626,17 @@
       "files": [
         {
           "path": "src/components/empty/Empty.tsx",
-          "target": "@components/moduix/empty/Empty.tsx",
+          "target": "@components/ui/empty/Empty.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/empty/Empty.module.css",
-          "target": "@components/moduix/empty/Empty.module.css",
+          "target": "@components/ui/empty/Empty.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/empty/index.ts",
-          "target": "@components/moduix/empty/index.ts",
+          "target": "@components/ui/empty/index.ts",
           "type": "registry:component"
         }
       ]
@@ -651,17 +651,17 @@
       "files": [
         {
           "path": "src/components/editable/Editable.tsx",
-          "target": "@components/moduix/editable/Editable.tsx",
+          "target": "@components/ui/editable/Editable.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/editable/Editable.module.css",
-          "target": "@components/moduix/editable/Editable.module.css",
+          "target": "@components/ui/editable/Editable.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/editable/index.ts",
-          "target": "@components/moduix/editable/index.ts",
+          "target": "@components/ui/editable/index.ts",
           "type": "registry:component"
         }
       ]
@@ -676,17 +676,17 @@
       "files": [
         {
           "path": "src/components/field/Field.tsx",
-          "target": "@components/moduix/field/Field.tsx",
+          "target": "@components/ui/field/Field.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/field/Field.module.css",
-          "target": "@components/moduix/field/Field.module.css",
+          "target": "@components/ui/field/Field.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/field/index.ts",
-          "target": "@components/moduix/field/index.ts",
+          "target": "@components/ui/field/index.ts",
           "type": "registry:component"
         }
       ]
@@ -701,17 +701,17 @@
       "files": [
         {
           "path": "src/components/fieldset/Fieldset.tsx",
-          "target": "@components/moduix/fieldset/Fieldset.tsx",
+          "target": "@components/ui/fieldset/Fieldset.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/fieldset/Fieldset.module.css",
-          "target": "@components/moduix/fieldset/Fieldset.module.css",
+          "target": "@components/ui/fieldset/Fieldset.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/fieldset/index.ts",
-          "target": "@components/moduix/fieldset/index.ts",
+          "target": "@components/ui/fieldset/index.ts",
           "type": "registry:component"
         }
       ]
@@ -730,17 +730,17 @@
       "files": [
         {
           "path": "src/components/file-upload/FileUpload.tsx",
-          "target": "@components/moduix/file-upload/FileUpload.tsx",
+          "target": "@components/ui/file-upload/FileUpload.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/file-upload/FileUpload.module.css",
-          "target": "@components/moduix/file-upload/FileUpload.module.css",
+          "target": "@components/ui/file-upload/FileUpload.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/file-upload/index.ts",
-          "target": "@components/moduix/file-upload/index.ts",
+          "target": "@components/ui/file-upload/index.ts",
           "type": "registry:component"
         }
       ]
@@ -755,17 +755,17 @@
       "files": [
         {
           "path": "src/components/heading/Heading.tsx",
-          "target": "@components/moduix/heading/Heading.tsx",
+          "target": "@components/ui/heading/Heading.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/heading/Heading.module.css",
-          "target": "@components/moduix/heading/Heading.module.css",
+          "target": "@components/ui/heading/Heading.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/heading/index.ts",
-          "target": "@components/moduix/heading/index.ts",
+          "target": "@components/ui/heading/index.ts",
           "type": "registry:component"
         }
       ]
@@ -785,17 +785,17 @@
       "files": [
         {
           "path": "src/components/floating-panel/FloatingPanel.tsx",
-          "target": "@components/moduix/floating-panel/FloatingPanel.tsx",
+          "target": "@components/ui/floating-panel/FloatingPanel.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/floating-panel/FloatingPanel.module.css",
-          "target": "@components/moduix/floating-panel/FloatingPanel.module.css",
+          "target": "@components/ui/floating-panel/FloatingPanel.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/floating-panel/index.ts",
-          "target": "@components/moduix/floating-panel/index.ts",
+          "target": "@components/ui/floating-panel/index.ts",
           "type": "registry:component"
         }
       ]
@@ -810,17 +810,17 @@
       "files": [
         {
           "path": "src/components/input/Input.tsx",
-          "target": "@components/moduix/input/Input.tsx",
+          "target": "@components/ui/input/Input.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/input/Input.module.css",
-          "target": "@components/moduix/input/Input.module.css",
+          "target": "@components/ui/input/Input.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/input/index.ts",
-          "target": "@components/moduix/input/index.ts",
+          "target": "@components/ui/input/index.ts",
           "type": "registry:component"
         }
       ]
@@ -839,17 +839,17 @@
       "files": [
         {
           "path": "src/components/menu/Menu.tsx",
-          "target": "@components/moduix/menu/Menu.tsx",
+          "target": "@components/ui/menu/Menu.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/menu/Menu.module.css",
-          "target": "@components/moduix/menu/Menu.module.css",
+          "target": "@components/ui/menu/Menu.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/menu/index.ts",
-          "target": "@components/moduix/menu/index.ts",
+          "target": "@components/ui/menu/index.ts",
           "type": "registry:component"
         }
       ]
@@ -864,17 +864,17 @@
       "files": [
         {
           "path": "src/components/native-select/NativeSelect.tsx",
-          "target": "@components/moduix/native-select/NativeSelect.tsx",
+          "target": "@components/ui/native-select/NativeSelect.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/native-select/NativeSelect.module.css",
-          "target": "@components/moduix/native-select/NativeSelect.module.css",
+          "target": "@components/ui/native-select/NativeSelect.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/native-select/index.ts",
-          "target": "@components/moduix/native-select/index.ts",
+          "target": "@components/ui/native-select/index.ts",
           "type": "registry:component"
         }
       ]
@@ -889,17 +889,17 @@
       "files": [
         {
           "path": "src/components/radio-group/RadioGroup.tsx",
-          "target": "@components/moduix/radio-group/RadioGroup.tsx",
+          "target": "@components/ui/radio-group/RadioGroup.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/radio-group/RadioGroup.module.css",
-          "target": "@components/moduix/radio-group/RadioGroup.module.css",
+          "target": "@components/ui/radio-group/RadioGroup.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/radio-group/index.ts",
-          "target": "@components/moduix/radio-group/index.ts",
+          "target": "@components/ui/radio-group/index.ts",
           "type": "registry:component"
         }
       ]
@@ -919,17 +919,17 @@
       "files": [
         {
           "path": "src/components/select/Select.tsx",
-          "target": "@components/moduix/select/Select.tsx",
+          "target": "@components/ui/select/Select.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/select/Select.module.css",
-          "target": "@components/moduix/select/Select.module.css",
+          "target": "@components/ui/select/Select.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/select/index.ts",
-          "target": "@components/moduix/select/index.ts",
+          "target": "@components/ui/select/index.ts",
           "type": "registry:component"
         }
       ]
@@ -944,17 +944,17 @@
       "files": [
         {
           "path": "src/components/carousel/Carousel.tsx",
-          "target": "@components/moduix/carousel/Carousel.tsx",
+          "target": "@components/ui/carousel/Carousel.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/carousel/Carousel.module.css",
-          "target": "@components/moduix/carousel/Carousel.module.css",
+          "target": "@components/ui/carousel/Carousel.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/carousel/index.ts",
-          "target": "@components/moduix/carousel/index.ts",
+          "target": "@components/ui/carousel/index.ts",
           "type": "registry:component"
         }
       ]
@@ -969,17 +969,17 @@
       "files": [
         {
           "path": "src/components/spinner/Spinner.tsx",
-          "target": "@components/moduix/spinner/Spinner.tsx",
+          "target": "@components/ui/spinner/Spinner.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/spinner/Spinner.module.css",
-          "target": "@components/moduix/spinner/Spinner.module.css",
+          "target": "@components/ui/spinner/Spinner.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/spinner/index.ts",
-          "target": "@components/moduix/spinner/index.ts",
+          "target": "@components/ui/spinner/index.ts",
           "type": "registry:component"
         }
       ]
@@ -994,17 +994,17 @@
       "files": [
         {
           "path": "src/components/text/Text.tsx",
-          "target": "@components/moduix/text/Text.tsx",
+          "target": "@components/ui/text/Text.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/text/Text.module.css",
-          "target": "@components/moduix/text/Text.module.css",
+          "target": "@components/ui/text/Text.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/text/index.ts",
-          "target": "@components/moduix/text/index.ts",
+          "target": "@components/ui/text/index.ts",
           "type": "registry:component"
         }
       ]
@@ -1019,17 +1019,17 @@
       "files": [
         {
           "path": "src/components/textarea/Textarea.tsx",
-          "target": "@components/moduix/textarea/Textarea.tsx",
+          "target": "@components/ui/textarea/Textarea.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/textarea/Textarea.module.css",
-          "target": "@components/moduix/textarea/Textarea.module.css",
+          "target": "@components/ui/textarea/Textarea.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/textarea/index.ts",
-          "target": "@components/moduix/textarea/index.ts",
+          "target": "@components/ui/textarea/index.ts",
           "type": "registry:component"
         }
       ]
@@ -1044,17 +1044,17 @@
       "files": [
         {
           "path": "src/components/kbd/Kbd.tsx",
-          "target": "@components/moduix/kbd/Kbd.tsx",
+          "target": "@components/ui/kbd/Kbd.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/kbd/Kbd.module.css",
-          "target": "@components/moduix/kbd/Kbd.module.css",
+          "target": "@components/ui/kbd/Kbd.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/kbd/index.ts",
-          "target": "@components/moduix/kbd/index.ts",
+          "target": "@components/ui/kbd/index.ts",
           "type": "registry:component"
         }
       ]
@@ -1069,17 +1069,17 @@
       "files": [
         {
           "path": "src/components/scroll-area/ScrollArea.tsx",
-          "target": "@components/moduix/scroll-area/ScrollArea.tsx",
+          "target": "@components/ui/scroll-area/ScrollArea.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/scroll-area/ScrollArea.module.css",
-          "target": "@components/moduix/scroll-area/ScrollArea.module.css",
+          "target": "@components/ui/scroll-area/ScrollArea.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/scroll-area/index.ts",
-          "target": "@components/moduix/scroll-area/index.ts",
+          "target": "@components/ui/scroll-area/index.ts",
           "type": "registry:component"
         }
       ]
@@ -1101,17 +1101,17 @@
       "files": [
         {
           "path": "src/components/command-palette/CommandPalette.tsx",
-          "target": "@components/moduix/command-palette/CommandPalette.tsx",
+          "target": "@components/ui/command-palette/CommandPalette.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/command-palette/CommandPalette.module.css",
-          "target": "@components/moduix/command-palette/CommandPalette.module.css",
+          "target": "@components/ui/command-palette/CommandPalette.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/command-palette/index.ts",
-          "target": "@components/moduix/command-palette/index.ts",
+          "target": "@components/ui/command-palette/index.ts",
           "type": "registry:component"
         }
       ]
@@ -1130,17 +1130,17 @@
       "files": [
         {
           "path": "src/components/dialog/Dialog.tsx",
-          "target": "@components/moduix/dialog/Dialog.tsx",
+          "target": "@components/ui/dialog/Dialog.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/dialog/Dialog.module.css",
-          "target": "@components/moduix/dialog/Dialog.module.css",
+          "target": "@components/ui/dialog/Dialog.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/dialog/index.ts",
-          "target": "@components/moduix/dialog/index.ts",
+          "target": "@components/ui/dialog/index.ts",
           "type": "registry:component"
         }
       ]
@@ -1155,17 +1155,17 @@
       "files": [
         {
           "path": "src/components/hover-card/HoverCard.tsx",
-          "target": "@components/moduix/hover-card/HoverCard.tsx",
+          "target": "@components/ui/hover-card/HoverCard.tsx",
           "type": "registry:component"
         },
         {
           "path": "src/components/hover-card/HoverCard.module.css",
-          "target": "@components/moduix/hover-card/HoverCard.module.css",
+          "target": "@components/ui/hover-card/HoverCard.module.css",
           "type": "registry:file"
         },
         {
           "path": "src/components/hover-card/index.ts",
-          "target": "@components/moduix/hover-card/index.ts",
+          "target": "@components/ui/hover-card/index.ts",
           "type": "registry:component"
         }
       ]

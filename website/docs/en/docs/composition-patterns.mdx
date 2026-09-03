@@ -22,7 +22,7 @@ Choose the npm package when you want your package manager to handle updates. Imp
 
 Choose the `shadcn` registry when your application should own the component source. It copies the
 selected component and its required moduix styles, icons, and utilities into your project. You can
-then change that code directly and import it from `@/components/moduix/*`.
+then change that code directly and import it from `@/components/ui/*`.
 
 Components whose source lives in your application do not receive package updates automatically. When
 a new moduix version is available, add the component again through `shadcn`, then review and merge
@@ -79,8 +79,8 @@ add its behavior to that element.
 ```tsx
 import { Button } from '@moduix/react/button';
 import { Popover } from '@moduix/react/popover';
-// shadcn copy-owned: import { Button } from '@/components/moduix/button';
-// shadcn copy-owned: import { Popover } from '@/components/moduix/popover';
+// shadcn copy-owned: import { Button } from '@/components/ui/button';
+// shadcn copy-owned: import { Popover } from '@/components/ui/popover';
 
 export function FiltersPopover() {
   return (
@@ -136,7 +136,7 @@ API.
 
 ```tsx
 import { Dialog as ModuixDialog } from '@moduix/react/dialog';
-// shadcn copy-owned: import { Dialog as ModuixDialog } from '@/components/moduix/dialog';
+// shadcn copy-owned: import { Dialog as ModuixDialog } from '@/components/ui/dialog';
 
 export const Dialog = ModuixDialog;
 export const DialogTrigger = ModuixDialog.Trigger;
@@ -151,7 +151,7 @@ export const DialogCloseTrigger = ModuixDialog.CloseTrigger;
 This is the lowest-risk customization path:
 
 - consumers import from your product layer instead of directly from `@moduix/react/*` or
-  `@/components/moduix/*`;
+  `@/components/ui/*`;
 - Ark behavior stays untouched;
 - moving from package usage to source-owned usage stays straightforward;
 - wrappers can be added later only where they are actually needed.
