@@ -5,6 +5,7 @@ export default function CheckboxIndeterminateDemo() {
     <Checkbox checked="indeterminate">
       <Checkbox.Control />
       <Checkbox.Label>Select all team members</Checkbox.Label>
+      <Checkbox.HiddenInput />
     </Checkbox>
   );
 }

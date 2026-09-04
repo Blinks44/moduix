@@ -1,7 +1,7 @@
 # PinInput (Solid)
 
 `PinInput` preserves the React wrapper's Ark parts, string-array value state, callback details,
-native form behavior, and automatic indexed inputs.
+native form behavior, and explicit `HiddenInput` composition.
 
 ## Composition
 
@@ -23,8 +23,7 @@ export function VerificationCodeField() {
 `PinInput.Inputs` renders one indexed input for every item in the Ark context. Use explicit
 `PinInput.Input` parts and `PinInput.Separator` for grouped layouts.
 
-The wrapper renders Ark's hidden native input automatically. `Root` and `RootProvider` also
-synchronize uncontrolled state with native form resets.
+Compose Ark's `PinInput.HiddenInput` explicitly. Ark synchronizes it with native form resets.
 
 `usePinInput`, `usePinInputContext`, and `PinInput.Context` expose Ark's accessor-based Solid API:
 

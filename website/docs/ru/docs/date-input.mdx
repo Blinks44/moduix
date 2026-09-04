@@ -34,7 +34,7 @@ import DateInputTimeOnly from '@/components/examples/date-input/time-only.tsx';
 
 Поместите `DateInput.Segments` внутрь `DateInput.Control`, чтобы получить группу сегментов даты с учётом текущей
 локали. Ark UI управляет порядком сегментов, вводом с клавиатуры, фокусом, плейсхолдерами и синхронизацией с формой.
-moduix добавляет стилизованные части и скрытые нативные поля, поэтому стандартная композиция остаётся компактной.
+moduix добавляет стилизованные части и предоставляет нативное поле Ark для явной композиции.
 
 <ExampleFrame variant="component">
   <DateInputBasic />
@@ -72,7 +72,7 @@ DateInput.Root
 ├─ DateInput.Control
 │  ├─ DateInput.Segments
 │  └─ DateInput.Separator (необязательно, для диапазонов)
-└─ скрытые нативные поля (автоматически)
+└─ DateInput.HiddenInput[index] (явно, по одному на отправляемую дату)
 
 Расширенная настройка:
 
@@ -104,11 +104,9 @@ DateInput.RootProvider
 Используйте сокращённую запись `DateInput`, а не `DateInput.Root`. Поместите `DateInput.Segments` внутрь
 `DateInput.Control`, чтобы получить стандартную группу сегментов с учётом локали.
 
-Корневой компонент автоматически добавляет скрытые нативные поля, необходимые для отправки и сброса формы. Передайте
-`name` для одной даты или общее базовое имя для диапазона. Для диапазона отрисуйте две группы
-`DateInput.Segments` с индексами `0` и `1`. При общем `name="date"` имена отправляемых полей будут `date[0]` и
-`date[1]`. Чтобы задать разные базовые имена, передайте в `names` кортеж из двух элементов, например
-`names={['check-in', 'check-out']}`. В этом случае имена полей будут `check-in[0]` и `check-out[1]`.
+Добавьте `DateInput.HiddenInput` явно, когда нужны нативная отправка и сброс формы. Для диапазона отрисуйте две
+индексированные группы `DateInput.Segments` и соответствующие скрытые поля с `index={0}` и `index={1}`.
+Передайте каждому скрытому полю нужный `name`.
 
 ### Когда нужна своя композиция
 
@@ -133,7 +131,7 @@ DateInput.RootProvider
 - `onValueChange(details)` передаёт объект `details` Ark UI с полями `details.value` и `details.valueAsString`.
 - `focused`, `defaultFocused` и `onFocusChange(details)` управляют фокусом корневого компонента.
 - `placeholderValue`, `defaultPlaceholderValue` и `onPlaceholderChange(details)` задают дату для пустых сегментов.
-- `selectionMode="range"` включает группы сегментов с индексами и автоматически добавляемые нативные поля.
+- `selectionMode="range"` включает группы с индексами; для формы добавьте соответствующие скрытые поля.
 - `shouldForceLeadingZeros` определяет, нужно ли дополнять числовые сегменты ведущими нулями.
 - `min`, `max` и `isDateUnavailable` проверяют допустимость дат, а `invalid` задаёт состояние ошибки.
 - `locale`, `timeZone`, `hourCycle`, `granularity`, `formatter`, `format`, `translations`, `dir` и
@@ -348,8 +346,8 @@ DateInput.RootProvider
 
 ### Диапазон
 
-Используйте `selectionMode="range"` и передайте `index` каждой группе сегментов. moduix автоматически добавит
-нативные поля с соответствующими индексами.
+Используйте `selectionMode="range"`, передайте `index` каждой группе сегментов и добавьте соответствующие
+`DateInput.HiddenInput`, если значения входят в форму.
 
 <ExampleFrame variant="component">
   <DateInputRange />
@@ -516,7 +514,6 @@ DateInput.RootProvider
 - `data-slot="date-input-control"` на визуальной рамке.
 - `data-slot="date-input-segment-group"` на каждой группе сегментов.
 - `data-slot="date-input-segment"` на редактируемых и неизменяемых сегментах.
-- `data-slot="date-input-hidden-input"` на скрытом нативном поле ввода.
 - `data-slot="date-input-separator"` на разделителе диапазона, который предоставляет moduix.
 - Атрибуты состояния Ark UI включают `data-disabled`, `data-readonly`, `data-invalid` и `data-focus` на
   `DateInput.Control` и группах сегментов, а также `data-type`, `data-editable` и `data-placeholder-shown`.

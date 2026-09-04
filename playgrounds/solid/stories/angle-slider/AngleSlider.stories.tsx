@@ -25,6 +25,7 @@ function AngleSliderMarkedParts() {
         <AngleSlider.Marks values={markerValues} />
       </AngleSlider.Dial>
       <AngleSlider.ValueText />
+      <AngleSlider.HiddenInput />
     </>
   );
 }
@@ -33,6 +34,7 @@ export const Basic: Story = {
   render: () => (
     <AngleSlider defaultValue={135} aria-label="Rotation" class={styles.demoRoot}>
       <AngleSlider.Dial />
+      <AngleSlider.HiddenInput />
     </AngleSlider>
   ),
 };
@@ -45,6 +47,7 @@ export const AsChild: Story = {
       aria-label="Rotation"
     >
       <AngleSlider.Dial />
+      <AngleSlider.HiddenInput />
     </AngleSlider>
   ),
 };

@@ -41,8 +41,8 @@ Utilisez `Slider` lorsque l’utilisateur doit ajuster une valeur numérique dan
 
 ## Exemple de base
 
-`Slider.Thumbs` est la solution recommandée pour générer une poignée stylisée par valeur. Chaque poignée,
-y compris un `Slider.Thumb` explicite, ajoute automatiquement son champ natif pour le formulaire.
+`Slider.Thumbs` est le raccourci visuel recommandé. Pour participer à un formulaire natif, composez
+chaque `Slider.Thumb` explicitement et placez `Slider.HiddenInput` à l’intérieur.
 
 <ExampleFrame variant="component">
   <SliderBasic />
@@ -84,7 +84,7 @@ Slider / Slider.Root
 │  └─ Slider.Thumbs
 │     └─ Slider.Thumb[index]
 │        ├─ Slider.DraggingIndicator
-│        └─ champ natif (automatique)
+│        └─ Slider.HiddenInput (explicite)
 └─ Slider.MarkerGroup
    └─ Slider.Marker[value]
 ```
@@ -108,7 +108,7 @@ Slider / Slider.Root
 ### Composition recommandée
 
 Utilisez l’arbre de parties Ark : racine, libellé, texte de valeur facultatif, zone de contrôle, piste, plage et
-`Slider.Thumbs`. Le composant génère une poignée par valeur ; chaque poignée ajoute automatiquement son champ natif au formulaire.
+`Slider.Thumbs`. Le composant génère une poignée visuelle par valeur. Utilisez des poignées explicites pour les champs masqués.
 
 `Slider` est la forme abrégée de la racine, équivalente à `Slider.Root`.
 
@@ -116,7 +116,7 @@ Utilisez l’arbre de parties Ark : racine, libellé, texte de valeur facultatif
 
 Utilisez `asChild` lorsqu’une partie doit être rendue avec un élément personnalisé. Conservez un seul enfant sémantique
 capable de recevoir les propriétés Ark. Utilisez un `Slider.Thumb` explicite lorsque certaines poignées nécessitent des
-enfants personnalisés, des noms accessibles ou un ordre particulier ; le champ natif est toujours ajouté automatiquement.
+enfants personnalisés, des noms accessibles, un ordre particulier ou un `Slider.HiddenInput` imbriqué.
 Pour accéder à l’état de façon avancée, utilisez `Slider.Context` ou `useSliderContext` pour lire l’état sous la racine.
 Pour créer l’état en dehors de l’arbre affiché, importez `useSlider` depuis `@moduix/react/slider` et utilisez-le avec
 `Slider.RootProvider`.
@@ -149,8 +149,8 @@ stables lorsque d’autres éléments doivent référencer les parties du slider
 verticaux utilisent les flèches haut et bas. `Page Up`, `Page Down` et `Shift + ArrowUp` ou `Shift + ArrowDown` utilisent
 `largeStep` (par défaut, `10 * step`). `Home` et `End` placent la poignée active sur les valeurs minimale et maximale.
 
-Chaque `Slider.Thumb` ajoute automatiquement un champ de formulaire natif masqué. Il participe à la soumission du
-formulaire et à sa réinitialisation. `id`, `asChild`, `disabled`, `invalid`, `readOnly`, `name`, `form`, `ids`,
+Placez un `Slider.HiddenInput` dans chaque `Slider.Thumb` explicite pour la soumission et la
+réinitialisation. `id`, `asChild`, `disabled`, `invalid`, `readOnly`, `name`, `form`, `ids`,
 `aria-label`, `aria-labelledby` et `getAriaValueText(details)` sont transmis à Ark.
 
 ## Exemples
@@ -293,8 +293,7 @@ Utilisez `disabled` pour garder la valeur visible tout en désactivant les inter
 
 ### Formulaire
 
-Définissez `name` pour envoyer la valeur actuelle avec un formulaire natif. moduix ajoute et synchronise automatiquement
-le champ masqué.
+Définissez `name` et placez `Slider.HiddenInput` dans chaque poignée explicite pour envoyer la valeur actuelle.
 
 <ExampleFrame variant="component">
   <SliderForm />

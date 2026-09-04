@@ -45,6 +45,7 @@ export default function ErrorHandlingFileUploadDemo() {
             }
           </FileUpload.Context>
         </FileUpload.ItemGroup>
+        <FileUpload.HiddenInput />
       </FileUpload>
       <PreviewMeta>
         <output>Status: {message || 'No files selected'}</output>

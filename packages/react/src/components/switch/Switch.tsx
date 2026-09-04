@@ -7,8 +7,8 @@ import {
   useSwitchContext,
 } from '@ark-ui/react/switch';
 import { clsx } from 'clsx';
-import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
-import { Children, cloneElement, forwardRef } from 'react';
+import type { ComponentProps, ComponentRef } from 'react';
+import { forwardRef } from 'react';
 import styles from './Switch.module.css';
 
 type SwitchSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -28,7 +28,7 @@ const SwitchRoot = forwardRef<ComponentRef<typeof SwitchPrimitive.Root>, SwitchR
         className={clsx(styles.root, className)}
         {...props}
       >
-        {withHiddenInput(children, asChild)}
+        {children}
       </SwitchPrimitive.Root>
     );
   },
@@ -47,7 +47,7 @@ const SwitchRootProvider = forwardRef<
       className={clsx(styles.root, className)}
       {...props}
     >
-      {withHiddenInput(children, asChild)}
+      {children}
     </SwitchPrimitive.RootProvider>
   );
 });
@@ -96,39 +96,10 @@ const SwitchLabel = forwardRef<
   );
 });
 
-function withHiddenInput(children: ReactNode, asChild?: boolean) {
-  const hiddenInput = <SwitchHiddenInput />;
-
-  if (!asChild) {
-    return (
-      <>
-        {children}
-        {hiddenInput}
-      </>
-    );
-  }
-
-  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
-
-  return cloneElement(child, {}, child.props.children, hiddenInput);
-}
-
-function SwitchHiddenInput() {
-  const switchApi = useSwitchContext();
-  const readOnly =
-    (switchApi.getRootProps() as { 'data-readonly'?: string })['data-readonly'] !== undefined;
-
-  return (
-    <SwitchPrimitive.HiddenInput
-      aria-readonly={readOnly || undefined}
-      data-slot="switch-hidden-input"
-    />
-  );
-}
-
 const Switch = Object.assign(SwitchRoot, {
   Root: SwitchRoot,
   RootProvider: SwitchRootProvider,
+  HiddenInput: SwitchPrimitive.HiddenInput,
   Control: SwitchControl,
   Thumb: SwitchThumb,
   Label: SwitchLabel,

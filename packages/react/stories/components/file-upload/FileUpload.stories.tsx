@@ -58,6 +58,7 @@ function FileUploadDemo(props: ComponentProps<typeof FileUpload.Root>) {
       <FileUpload.ItemGroup>
         <FileUpload.Items />
       </FileUpload.ItemGroup>
+      <FileUpload.HiddenInput />
     </FileUpload>
   );
 }
@@ -70,6 +71,7 @@ export const Dropzone: Story = {
   render: () => (
     <FileUpload maxFiles={5}>
       <FileUpload.Label>Project files</FileUpload.Label>
+      <FileUpload.HiddenInput />
       <FileUpload.Dropzone disableClick>
         <FileUpload.DropzoneIcon />
         <div className={styles.dropzoneContent}>
@@ -117,6 +119,7 @@ export const RejectedFiles: Story = {
   render: () => (
     <FileUpload accept="image/*" maxFiles={2} maxFileSize={120_000}>
       <FileUpload.Label>Images</FileUpload.Label>
+      <FileUpload.HiddenInput />
       <FileUpload.Dropzone disableClick>
         <FileUpload.DropzoneIcon />
         <div className={styles.dropzoneContent}>
@@ -155,6 +158,7 @@ export const WithField: Story = {
     <Field.Root required>
       <FileUpload name="attachments" maxFiles={3}>
         <FileUpload.Label>Required attachments</FileUpload.Label>
+        <FileUpload.HiddenInput />
         <FileUpload.Trigger>Choose files</FileUpload.Trigger>
         <FileUpload.ItemGroup>
           <FileUploadItems />
@@ -173,6 +177,7 @@ export const RootProvider: Story = {
     return (
       <FileUpload.RootProvider value={fileUpload}>
         <FileUpload.Label>Images</FileUpload.Label>
+        <FileUpload.HiddenInput />
         <FileUpload.Dropzone disableClick>
           <FileUpload.DropzoneIcon />
           <div className={styles.dropzoneContent}>
@@ -193,6 +198,7 @@ export const CustomStyling: Story = {
   render: () => (
     <FileUpload maxFiles={2}>
       <FileUpload.Label>Brand assets</FileUpload.Label>
+      <FileUpload.HiddenInput />
       <FileUpload.Dropzone className={styles.customDropzone} disableClick>
         <FileUpload.DropzoneIcon />
         <div className={styles.dropzoneContent}>

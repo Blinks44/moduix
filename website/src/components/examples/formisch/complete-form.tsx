@@ -187,6 +187,7 @@ export default function ProjectForm() {
                 >
                   <Checkbox.Control />
                   <Checkbox.Label>Send status notifications</Checkbox.Label>
+                  <Checkbox.HiddenInput />
                 </Checkbox>
                 <Field.ErrorText>{field.errors?.[0]}</Field.ErrorText>
               </Field>

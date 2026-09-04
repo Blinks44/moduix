@@ -10,6 +10,7 @@ export default function DateInputFieldDemo() {
         <DateInput.Control>
           <DateInput.Segments />
         </DateInput.Control>
+        <DateInput.HiddenInput />
       </DateInput>
       <Field.ErrorText>Enter a valid deadline.</Field.ErrorText>
     </Field>

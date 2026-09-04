@@ -1347,6 +1347,56 @@
       ]
     },
     {
+      "name": "typeset",
+      "type": "registry:item",
+      "title": "Typeset",
+      "description": "moduix Solid Typeset component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/typeset/Typeset.tsx",
+          "target": "@components/ui/typeset/Typeset.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/typeset/Typeset.module.css",
+          "target": "@components/ui/typeset/Typeset.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/typeset/index.ts",
+          "target": "@components/ui/typeset/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "tree-view",
+      "type": "registry:item",
+      "title": "TreeView",
+      "description": "moduix Solid TreeView component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
+      "files": [
+        {
+          "path": "src/components/tree-view/TreeView.tsx",
+          "target": "@components/ui/tree-view/TreeView.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tree-view/TreeView.module.css",
+          "target": "@components/ui/tree-view/TreeView.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/tree-view/index.ts",
+          "target": "@components/ui/tree-view/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "textarea",
       "type": "registry:item",
       "title": "Textarea",
@@ -1471,6 +1521,31 @@
         {
           "path": "src/components/toggle/index.ts",
           "target": "@components/ui/toggle/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "toggle-group",
+      "type": "registry:item",
+      "title": "ToggleGroup",
+      "description": "moduix Solid ToggleGroup component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/toggle"],
+      "files": [
+        {
+          "path": "src/components/toggle-group/ToggleGroup.tsx",
+          "target": "@components/ui/toggle-group/ToggleGroup.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toggle-group/ToggleGroup.module.css",
+          "target": "@components/ui/toggle-group/ToggleGroup.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/toggle-group/index.ts",
+          "target": "@components/ui/toggle-group/index.ts",
           "type": "registry:component"
         }
       ]
@@ -2150,6 +2225,35 @@
         {
           "path": "src/components/tags-input/index.ts",
           "target": "@components/ui/tags-input/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "tour",
+      "type": "registry:item",
+      "title": "Tour",
+      "description": "moduix Solid Tour component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": [
+        "@moduix-solid/foundation",
+        "@moduix-solid/close-button",
+        "@moduix-solid/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/tour/Tour.tsx",
+          "target": "@components/ui/tour/Tour.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/Tour.module.css",
+          "target": "@components/ui/tour/Tour.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/tour/index.ts",
+          "target": "@components/ui/tour/index.ts",
           "type": "registry:component"
         }
       ]

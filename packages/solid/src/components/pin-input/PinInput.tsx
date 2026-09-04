@@ -6,7 +6,7 @@ import {
   type UsePinInputReturn,
 } from '@ark-ui/solid/pin-input';
 import { clsx } from 'clsx';
-import { children, For, onCleanup, onMount, splitProps } from 'solid-js';
+import { children, For, splitProps } from 'solid-js';
 import type { ComponentProps } from 'solid-js';
 import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './PinInput.module.css';
@@ -30,7 +30,6 @@ function PinInputRoot(props: ComponentProps<typeof PinInputPrimitive.Root>) {
       {...others}
     >
       {local.children}
-      <PinInputFormReset />
     </PinInputPrimitive.Root>
   );
 }
@@ -46,7 +45,6 @@ function PinInputRootProvider(props: ComponentProps<typeof PinInputPrimitive.Roo
       {...others}
     >
       {local.children}
-      <PinInputFormReset />
     </PinInputPrimitive.RootProvider>
   );
 }
@@ -97,32 +95,6 @@ function PinInputInputs(props: { class?: string }) {
   );
 }
 
-function PinInputFormReset() {
-  const pinInput = usePinInputContext();
-  const defaultValue = [...pinInput().value];
-  let hiddenInput: HTMLInputElement | undefined;
-
-  onMount(() => {
-    const form = hiddenInput?.form;
-
-    if (!form) return;
-
-    const handleReset = () => {
-      queueMicrotask(() => pinInput().setValue(defaultValue));
-    };
-
-    form.addEventListener('reset', handleReset);
-    onCleanup(() => form.removeEventListener('reset', handleReset));
-  });
-
-  return (
-    <PinInputPrimitive.HiddenInput
-      ref={(element) => (hiddenInput = element)}
-      data-slot="pin-input-hidden-input"
-    />
-  );
-}
-
 function PinInputSeparator(props: ComponentProps<'span'>) {
   const [local, others] = splitProps(props, ['aria-hidden', 'children', 'class', 'role']);
   const resolvedChildren = children(() => local.children);
@@ -151,6 +123,7 @@ const PinInput = Object.assign(PinInputRoot, {
   Root: PinInputRoot,
   RootProvider: PinInputRootProvider,
   Context: PinInputPrimitive.Context,
+  HiddenInput: PinInputPrimitive.HiddenInput,
   Label: PinInputLabel,
   Control: PinInputControl,
   Input: PinInputInput,

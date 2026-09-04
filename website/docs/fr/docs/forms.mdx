@@ -80,41 +80,38 @@ l’élément racine du composant moduix.
    composant, comme `name`, `form` et l’état de validation. moduix fournit le contrôle de formulaire
    nécessaire aux composants ci-dessous.
 
-Intégration native au formulaire :
+Parties Ark explicites pour les formulaires :
 
 | Composant | Participation au formulaire |
 | --------- | -------------------------- |
-| `AngleSlider` | `Root` et `RootProvider` ajoutent automatiquement un champ de formulaire natif. |
-| `Checkbox` | `Root` et `RootProvider` ajoutent automatiquement un champ de formulaire natif. |
-| `ColorPicker` | `Root` et `RootProvider` ajoutent automatiquement un champ de formulaire natif. |
-| `DateInput` | `Root` et `RootProvider` ajoutent automatiquement des champs de formulaire natifs. |
-| `FileUpload` | `Root` et `RootProvider` ajoutent automatiquement un champ de formulaire natif. |
-| `PinInput` | `Root` et `RootProvider` ajoutent automatiquement un champ de formulaire natif. |
-| `RadioGroup` | Chaque `Item` ajoute automatiquement un champ de formulaire natif. |
-| `RatingGroup` | `Root` et `RootProvider` ajoutent automatiquement un champ de formulaire natif. |
-| `SegmentGroup` | Chaque `Item` ajoute automatiquement un champ de formulaire natif. |
-| `Select` | `Root` et `RootProvider` ajoutent automatiquement un select natif. |
-| `SignaturePad` | `Root` et `RootProvider` sérialisent les tracés dans un champ natif. |
-| `Slider` | Chaque `Thumb` ajoute automatiquement un champ de formulaire natif. |
-| `Switch` | `Root` et `RootProvider` ajoutent automatiquement un champ de formulaire natif. |
-| `TagsInput` | `Root` et `RootProvider` ajoutent automatiquement un champ de formulaire natif. |
+| `AngleSlider` | Ajoutez `HiddenInput` dans la racine. |
+| `Checkbox` | Ajoutez `HiddenInput` dans la racine. |
+| `ColorPicker` | Ajoutez `HiddenInput` dans la racine. |
+| `DateInput` | Ajoutez un `HiddenInput` indexé pour chaque date envoyée. |
+| `FileUpload` | Ajoutez `HiddenInput` dans la racine. |
+| `PinInput` | Ajoutez `HiddenInput` dans la racine. |
+| `RadioGroup` | Ajoutez `ItemHiddenInput` à chaque `Item` composé explicitement. |
+| `RatingGroup` | Ajoutez `HiddenInput` dans la racine. |
+| `SegmentGroup` | Ajoutez `ItemHiddenInput` à chaque `Item` composé explicitement. |
+| `Select` | Ajoutez `HiddenSelect` dans la racine. |
+| `SignaturePad` | Ajoutez `HiddenInput` avec une valeur dérivée du contexte. |
+| `Slider` | Ajoutez `HiddenInput` dans chaque `Thumb` envoyé. |
+| `Switch` | Ajoutez `HiddenInput` dans la racine. |
+| `TagsInput` | Ajoutez `HiddenInput` dans la racine. |
 | `Combobox` | Définissez `name` sur la racine ; aucune partie supplémentaire n’est nécessaire. |
 
-N’ajoutez pas de champ masqué supplémentaire à ces composants. Un doublon pourrait envoyer une valeur
-contradictoire et perturber la réinitialisation.
+Ajoutez chaque partie de formulaire une seule fois. Un doublon pourrait envoyer une valeur contradictoire.
 
 Pour les contrôles qui proposent des options liées au formulaire, conservez la configuration sur
 l’élément racine sémantique :
 
-- `DateInput` : une plage avec `name="date"` soumet `date[0]` et `date[1]` ; utilisez
-  `names={['start-date', 'end-date']}` pour obtenir `start-date[0]` et `end-date[1]`.
-- `Select` : le select natif préserve par défaut le remplissage automatique du navigateur, la
-  validation native et l’amélioration progressive. Utilisez `nativeFormControl="input"` pour une
-  très grande collection virtualisée ; cette option soumet des champs masqués plus légers et renonce
-  volontairement à ces fonctionnalités du select natif.
-- `SignaturePad` : par défaut, le formulaire reçoit une chaîne contenant les tracés SVG séparés par
-  des espaces. Utilisez `getFormValue={(paths) => JSON.stringify(paths)}` lorsque le serveur attend
-  un tableau JSON.
+- `DateInput` : pour une plage, utilisez `HiddenInput index={0} name="start-date"` et
+  `HiddenInput index={1} name="end-date"` si les dates envoyées ont besoin de noms distincts.
+- `Select` : `HiddenSelect` préserve le remplissage du navigateur, la validation native et
+  l’amélioration progressive. Une collection virtualisée qui ne peut pas rendre les options natives
+  doit gérer l’intégration au formulaire côté application.
+- `SignaturePad` : `HiddenInput` exige une chaîne `value` explicite. Lisez `paths` avec
+  `useSignaturePadContext()` et sérialisez-les dans le format attendu par le serveur.
 
 Pour un groupe de cases à cocher, d’options radio ou d’autres champs liés, utilisez `Fieldset` avec
 un `Fieldset.Legend` visible. Il fournit le libellé, le texte d’aide, le message d’erreur et l’état
@@ -167,8 +164,8 @@ une erreur simplement parce que le champ est obligatoire : attendez que le cycle
 détecte le problème.
 
 Dans un formulaire natif, `type="reset"` ou `form.reset()` restaure les valeurs initiales des
-contrôles. Les composants basés sur Ark synchronisent leur état interne au moyen du contrôle natif
-ajouté par moduix. Pour les champs contrôlés par une bibliothèque, appelez l’API de réinitialisation
+contrôles. Les composants basés sur Ark synchronisent leur état interne au moyen de la partie native
+que vous composez. Pour les champs contrôlés par une bibliothèque, appelez l’API de réinitialisation
 de cette bibliothèque au lieu de vous fier uniquement à celle du DOM ; sinon, le rendu suivant peut
 restaurer l’ancienne valeur depuis l’état de l’application.
 

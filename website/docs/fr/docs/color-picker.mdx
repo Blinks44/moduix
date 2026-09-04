@@ -36,7 +36,7 @@ connue doit simplement être saisie, sans modifier directement la couleur, utili
 
 Commencez par un champ compact composé du composant racine, d’un champ pour un canal, de la pastille par défaut du bouton
 d’ouverture et du contenu explicite de la fenêtre contextuelle. Les parties internes peuvent rester sans enfants : le
-composant leur applique alors sa composition intégrée. Il rend également un champ natif masqué. Donnez-lui un `name` si
+composant leur applique alors sa composition intégrée. Ajoutez explicitement `ColorPicker.HiddenInput` et un `name` si
 la couleur doit être envoyée avec le formulaire.
 
 <ExampleFrame variant="component">
@@ -97,7 +97,7 @@ ColorPicker
 │        │        └─ ColorPicker.SwatchIndicator
 │        └─ ColorPicker.View[format]
 │           └─ ColorPicker.ChannelInput[channel]
-└─ champ natif masqué (ajouté automatiquement)
+└─ ColorPicker.HiddenInput (explicite)
 ```
 
 | Partie | Rôle |
@@ -133,9 +133,8 @@ avec `data-channel` ou les variables CSS. N’ajoutez des enfants que lorsqu’u
 personnalisée. Définissez `data-fit-content` lorsque la largeur du bouton doit suivre son contenu, par exemple une pastille
 accompagnée de `ValueText`.
 
-Pour inclure la couleur dans l’envoi et la réinitialisation du formulaire, transmettez `name` à `ColorPicker`. Le
-composant crée et synchronise automatiquement le champ natif : `FormData` et `form.reset()` ne demandent aucune
-configuration supplémentaire.
+Pour inclure la couleur dans l’envoi et la réinitialisation du formulaire, transmettez `name` à
+`ColorPicker` et composez explicitement `ColorPicker.HiddenInput`. Ark gère sa synchronisation.
 
 ### Quand créer une composition personnalisée
 
@@ -313,8 +312,7 @@ trouve dans un conteneur de champ et doit exposer cet état avec les attributs d
 
 ### Utilisation dans un formulaire
 
-Définissez `name` sur `ColorPicker`. Le composant ajoute automatiquement un champ natif dont la valeur sera envoyée avec
-le formulaire.
+Définissez `name` sur `ColorPicker` et ajoutez explicitement `ColorPicker.HiddenInput`.
 
 <ExampleFrame variant="component">
   <ColorPickerFormUsage />

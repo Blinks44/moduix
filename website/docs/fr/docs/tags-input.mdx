@@ -37,9 +37,7 @@ dans un même contrôle de formulaire.
 ## Exemple de base
 
 Commencez par la racine, le libellé, `Control`, `Items`, le champ de saisie et le déclencheur
-d’effacement. `Items` génère la structure standard des tags modifiables. La racine ajoute aussi
-automatiquement un champ de formulaire natif masqué. Passez-lui par exemple `name` si les tags
-doivent être envoyés avec le formulaire.
+d’effacement. Ajoutez explicitement `TagsInput.HiddenInput` si les tags doivent être envoyés avec le formulaire.
 
 <ExampleFrame variant="component">
   <TagsInputBasic />
@@ -83,7 +81,7 @@ TagsInput / TagsInput.Root
 │     └─ TagsInput.ItemInput
 │  ├─ TagsInput.Input
 │  └─ TagsInput.ClearTrigger
-└─ champ de formulaire natif masqué (automatique)
+└─ TagsInput.HiddenInput (explicite)
 ```
 
 | Partie                                  | Rôle                                                                    |
@@ -112,8 +110,8 @@ TagsInput / TagsInput.Root
 
 Utilisez la forme courte `<TagsInput>`, équivalente à `<TagsInput.Root>`. Placez
 `TagsInput.Items`, `TagsInput.Input` et `TagsInput.ClearTrigger` dans `TagsInput.Control`.
-Vous obtenez ainsi le comportement standard des tags modifiables et conservez le champ de formulaire
-natif masqué.
+Vous obtenez ainsi le comportement standard des tags modifiables. Ajoutez explicitement
+`TagsInput.HiddenInput` pour les formulaires.
 
 Pour participer à l’envoi d’un formulaire, transmettez `name` à la racine. Utilisez `form` lorsque
 le formulaire associé se trouve en dehors de l’arborescence DOM du composant.
@@ -132,8 +130,7 @@ accessibles en dehors de l’arborescence visible du champ. Utilisez `ids` lorsq
 un champ ou un contrôle avec une autre primitive Ark, comme `Combobox`.
 
 Chaque partie primitive prend en charge `asChild` avec un seul enfant sémantique qui relaie ses
-propriétés et sa `ref`. Lorsque la racine utilise `asChild`, cet enfant doit aussi rendre ses
-`children` afin que moduix puisse ajouter le champ de formulaire natif masqué. `TagsInput.Items`
+propriétés et sa `ref`. `TagsInput.Items`
 est un rendu pratique qui n’accepte pas les propriétés des parties ; utilisez les parties de bas
 niveau pour personnaliser la structure des tags.
 
@@ -378,9 +375,8 @@ message d’erreur doivent partager le câblage d’accessibilité des formulair
 
 ### Formulaire
 
-Transmettez `name` à la racine pour inclure la liste de tags dans `FormData`. moduix ajoute
-automatiquement le champ de formulaire natif masqué et le synchronise avec la réinitialisation du
-formulaire.
+Transmettez `name` à la racine et ajoutez `TagsInput.HiddenInput` pour inclure la liste dans
+`FormData`. Ark synchronise le champ avec la réinitialisation du formulaire.
 
 <ExampleFrame variant="component">
   <TagsInputForm />
@@ -611,7 +607,7 @@ chaque tag si la modification sur place reste nécessaire.
 ## Accessibilité
 
 Ark gère le lien avec le libellé, la mise en évidence et la modification des tags, leur suppression,
-le collage et le champ de formulaire masqué. Le champ masqué de la racine sérialise la liste des tags
+le collage et le champ de formulaire masqué. Le champ masqué explicite sérialise la liste des tags
 pour l’envoi natif du formulaire ; transmettez `name` et, si nécessaire, `form` pour l’associer au
 bon formulaire.
 

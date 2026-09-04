@@ -27,12 +27,12 @@ strings or local callback shapes in the wrapper.
 
 Release comparison:
 
-| Source    | Useful difference                                                                                                         | Decision                                                                                                |
-| --------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| Ark UI    | Its explicit `HiddenInput` composition is required for native form fields; its segment and state semantics are canonical. | Required correctness; moduix inserts indexed native inputs without changing Ark values or callbacks.    |
-| Chakra UI | Its date picker combines field, calendar, and triggers in one composition.                                                | Intentional difference; use `DatePicker` when a calendar is needed and keep `DateInput` keyboard-first. |
-| shadcn/ui | Its date picker teaches a button, popover, and calendar convenience flow.                                                 | Rejected complexity for this component; moduix already exposes that workflow as `DatePicker`.           |
-| moduix    | `Segments` removes only the repeated segment render callback.                                                             | Optional sugar; preserve `SegmentGroup`, `SegmentContext`, and `Segment` for custom rendering.          |
+| Source    | Useful difference                                                                                                         | Decision                                                                                                          |
+| --------- | ------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Ark UI    | Its explicit `HiddenInput` composition is required for native form fields; its segment and state semantics are canonical. | Required correctness; moduix exposes the same indexed input composition without changing Ark values or callbacks. |
+| Chakra UI | Its date picker combines field, calendar, and triggers in one composition.                                                | Intentional difference; use `DatePicker` when a calendar is needed and keep `DateInput` keyboard-first.           |
+| shadcn/ui | Its date picker teaches a button, popover, and calendar convenience flow.                                                 | Rejected complexity for this component; moduix already exposes that workflow as `DatePicker`.                     |
+| moduix    | `Segments` removes only the repeated segment render callback.                                                             | Optional sugar; preserve `SegmentGroup`, `SegmentContext`, and `Segment` for custom rendering.                    |
 
 ## Current behavior contract
 
@@ -43,8 +43,8 @@ Release comparison:
   inside a `DateInput.Control`.
 - `DateInput.SegmentContext` remains the advanced customization path
   for custom segment rendering inside a `DateInput.SegmentGroup`.
-- `Root` and `RootProvider` render one native input per date automatically. Pass `name` for a
-  shared base name, or a two-item `names` tuple for separate range base names; Ark appends each index.
+- Render one `DateInput.HiddenInput` per submitted date. Pass its `index` and `name` explicitly for
+  range values.
 - `DateInput.Separator` is moduix sugar for non-interactive text between segment groups.
 - No local calendar popup, string parser, automatic segment renderer, or date-picker bundle is added.
 
@@ -56,7 +56,7 @@ DateInput.Root
 ├─ DateInput.Control
 │  ├─ DateInput.Segments
 │  └─ DateInput.Separator (optional, range layouts)
-└─ native input(s) (automatic)
+└─ DateInput.HiddenInput[index] (explicit, one per submitted date)
 
 Advanced customization:
 
@@ -102,9 +102,8 @@ export function ReleaseDateInput() {
 }
 ```
 
-For ranges, set `selectionMode="range"`, render indexed `DateInput.Segments`, and pass
-`names={['check-in', 'check-out']}` only when the submitted values need different base names. Ark
-submits these as `check-in[0]` and `check-out[1]`; `name="date"` becomes `date[0]` and `date[1]`.
+For ranges, set `selectionMode="range"`, render indexed `DateInput.Segments`, and compose matching
+`DateInput.HiddenInput` parts with `index={0}` and `index={1}`. Give each input the desired `name`.
 Use `DateInput.RootProvider` only with Ark state created through
 moduix `useDateInput()`; do not also render `DateInput.Root` for the same state instance.
 
@@ -125,7 +124,7 @@ segment classes or rendering need to vary per segment.
 - Locale and formatting: supported with `locale`, `timeZone`, `hourCycle`, `granularity`,
   `formatter`, `format`, `translations`, and `createCalendar`.
 - Validation: supported with `min`, `max`, `isDateUnavailable`, and `invalid`.
-- Forms: supported by automatic native inputs plus `name`, `names`, `form`, and `required`.
+- Forms: supported by explicit indexed `DateInput.HiddenInput` parts plus Ark form props.
 - Provider/state hooks: use moduix `useDateInput()` with `DateInput.RootProvider`, and read in-tree
   state through `DateInput.Context` or moduix `useDateInputContext()`.
 - `asChild` and `ids`: preserved on Ark parts and root props.
@@ -138,9 +137,8 @@ text, and label association. `Field` can provide surrounding helper and error te
 `required`, `disabled`, or `invalid` to `DateInput` when those state attributes must be present on
 the date input itself.
 
-The automatic native inputs keep native form submission and form reset synchronized with Ark state.
-For range inputs, pass a two-item `names` tuple only when start/end fields need separate base names;
-Ark appends `[0]` and `[1]` to both custom and shared names.
+Ark's explicit native inputs keep native form submission and form reset synchronized with Ark state.
+For ranges, render one input per index and assign names at the input level.
 
 Ark emits `data-scope="date-input"` and `data-part` attributes for `root`, `label`, `control`,
 `segment-group`, `segment`, and `hidden-input`. State attributes include `data-disabled`,
@@ -204,8 +202,8 @@ segment shortcuts, or local event aliases.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Reduced the default date control to `--moduix-size-md` and compacted its block padding.
 
-- 2026-07-13: Rendered native date inputs automatically and added `names` for range fields that
-  require distinct form keys.
+- 2026-09-04: Exposed Ark `HiddenInput` explicitly and removed the wrapper-specific `names` prop.
+- 2026-07-13: Native date inputs were rendered automatically at this point in the wrapper history.
 
 - 2026-07-12: Exported `DateInput.Context`, `DateInput.SegmentContext`, `useDateInput`,
   `useDateInputContext`, and `DateInputDateValue` through the moduix implementation and normal-path

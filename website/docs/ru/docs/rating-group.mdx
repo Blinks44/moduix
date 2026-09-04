@@ -60,7 +60,7 @@ RatingGroup / RatingGroup.Root
    ├─ RatingGroup.Context (расширенный вариант, необязательно)
    │  └─ RatingGroup.Item[index]
    │     └─ RatingGroup.ItemIndicator
-   └─ скрытое нативное поле формы (добавляется автоматически)
+   └─ RatingGroup.HiddenInput (явно)
 
 RatingGroup.RootProvider
 └─ та же структура, подключённая к состоянию moduix из useRatingGroup()
@@ -85,8 +85,8 @@ RatingGroup.RootProvider
 `RatingGroup` - сокращённая форма `RatingGroup.Root`. Компонент хранит состояние оценки, управляет
 фокусом, подписями и интеграцией с формами, а также обрабатывает взаимодействие с клавиатурой и указателем. Для стандартного ряда звёзд
 добавьте `RatingGroup.Items`: он создаёт элемент для каждого значения до `count` и добавляет звезду
-по умолчанию. Корневой компонент также автоматически добавляет синхронизированное нативное поле
-формы. Чтобы заменить значок, сохранив прежнее поведение, передайте свой
+по умолчанию. Для нативной формы явно добавьте `RatingGroup.HiddenInput`. Чтобы заменить значок,
+сохранив прежнее поведение, передайте свой
 `RatingGroup.ItemIndicator` дочерним элементом `RatingGroup.Items`.
 
 ### Когда нужна собственная композиция
@@ -119,8 +119,7 @@ DOM-части Ark, доступные через компонент, подде
   связанного интерфейса.
 - `allowHalf` включает выбор с шагом в половину и отображение половины звезды.
 - `autoFocus` переводит фокус на рейтинг сразу после монтирования.
-- `name`, `form` и `required` применяются к нативному полю формы, которое корневой компонент
-  добавляет автоматически.
+- `name`, `form` и `required` применяются к явно добавленному `RatingGroup.HiddenInput`.
 - Ark обрабатывает `disabled` и `readOnly` и отражает эти состояния через атрибуты данных.
 - Ark управляет клавиатурной навигацией: `ArrowRight` и `ArrowLeft` перемещают фокус между
   элементами, а `Enter` выбирает элемент в фокусе. При `allowHalf` стрелки также перемещают фокус
@@ -224,7 +223,7 @@ Ark. `ItemIndicator` передаёт ref своей визуальной обё
 ### Field
 
 Оберните группу рейтинга в `Field`, если поясняющий текст или сообщение о валидации нужно связать с её
-автоматическим полем формы. Ark передаёт группе состояния `disabled`, `readOnly` и `required` от поля;
+`RatingGroup.HiddenInput`. Ark передаёт группе состояния `disabled`, `readOnly` и `required` от поля;
 состоянием валидации по-прежнему управляют `Field` и код приложения.
 
 <ExampleFrame variant="component">
@@ -253,8 +252,7 @@ Ark. `ItemIndicator` передаёт ref своей визуальной обё
 
 ### Формы
 
-Передайте `name`, чтобы выбранная оценка попала в `FormData`; корневой компонент автоматически добавит
-синхронизированное нативное поле формы.
+Передайте `name` и добавьте `RatingGroup.HiddenInput`, чтобы выбранная оценка попала в `FormData`.
 
 <ExampleFrame variant="component">
   <RatingGroupForms />
@@ -389,7 +387,6 @@ Ark. `ItemIndicator` передаёт ref своей визуальной обё
 - `data-slot="rating-group-item"`
 - `data-slot="rating-group-item-indicator"`
 - `data-slot="rating-group-item-indicator-bg"` и `data-slot="rating-group-item-indicator-fg"`
-- `data-slot="rating-group-hidden-input"`
 - `data-size="xs" | "sm" | "md" | "lg" | "xl"` на `RatingGroup.Root` или `RatingGroup.RootProvider`
 - Атрибуты подписи Ark: `data-disabled` и `data-required`
 - Атрибуты контрола Ark: `data-disabled` и `data-readonly`

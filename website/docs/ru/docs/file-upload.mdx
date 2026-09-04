@@ -32,8 +32,8 @@ import FileUploadWithField from '@/components/examples/file-upload/with-field.ts
 ## Базовый пример
 
 Начните с `FileUpload` как корневого компонента. Добавьте `Label`, а затем используйте `Trigger` для компактного
-элемента управления или `Dropzone` для загрузки перетаскиванием. Поместите `Items` в `ItemGroup`, чтобы показывать
-выбранные файлы. Корневой компонент автоматически рендерит скрытое нативное поле выбора файлов. `Items` показывает
+элемента управления или `Dropzone` для загрузки перетаскиванием. Явно добавьте `FileUpload.HiddenInput`, чтобы
+открывать нативное окно выбора. Поместите `Items` в `ItemGroup`, чтобы показывать выбранные файлы. `Items` показывает
 миниатюру только для файлов с MIME-типом `image/*`; для остальных используется универсальное превью.
 
 <ExampleFrame variant="component">
@@ -85,7 +85,7 @@ FileUpload / FileUpload.Root
 │        ├─ FileUpload.ItemSizeText
 │        └─ FileUpload.ItemDeleteTrigger
 ├─ FileUpload.ClearTrigger
-└─ скрытое нативное поле выбора файлов (добавляется автоматически)
+└─ FileUpload.HiddenInput (явно)
 ```
 
 | Часть                            | Назначение                                                               |
@@ -117,7 +117,7 @@ FileUpload / FileUpload.Root
 перетаскивания файлов - `Dropzone`. Если `Trigger` вложен в `Dropzone`, передайте `disableClick`, чтобы системное окно
 выбора файлов открылось только один раз.
 
-Корневой компонент всегда рендерит скрытое нативное поле выбора файлов. Используйте `Items` внутри `ItemGroup` для
+Явно добавьте `FileUpload.HiddenInput`. Используйте `Items` внутри `ItemGroup` для
 компактного списка выбранных файлов. Если нужны собственные строки, берите принятые файлы из
 `FileUpload.Context.acceptedFiles`, а отклонённые - из `FileUpload.Context.rejectedFiles`.
 
@@ -362,8 +362,8 @@ FileUpload / FileUpload.Root
 
 ### Использование в форме
 
-Передайте `name` корневому компоненту. Он автоматически добавит скрытое нативное поле выбора файлов, поэтому выбранные
-файлы будут участвовать в обычной отправке и сбросе формы.
+Передайте `name` корневому компоненту и добавьте `FileUpload.HiddenInput`; выбранные файлы будут
+участвовать в обычной отправке и сбросе формы.
 
 <ExampleFrame variant="component">
   <FileUploadFormUsage />

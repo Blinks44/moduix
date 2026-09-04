@@ -1,6 +1,6 @@
 # ColorPicker (Solid)
 
-`ColorPicker` preserves the React wrapper's Ark anatomy, popup structure, automatic form input,
+`ColorPicker` preserves the React wrapper's Ark anatomy, popup structure, explicit form input,
 default visual children, color callbacks, and CSS-variable contract.
 
 ## Ark Solid composition

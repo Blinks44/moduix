@@ -16,6 +16,7 @@ export default function AdvancedCustomizationAngleSliderDemo() {
         <AngleSlider.Thumb />
       </AngleSlider.Control>
       <AngleSlider.ValueText />
+      <AngleSlider.HiddenInput />
     </AngleSlider>
   );
 }

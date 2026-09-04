@@ -33,8 +33,8 @@ distinctes.
 Pour la disposition standard, utilisez `<PinInput>`. Il s’agit d’un raccourci pour `<PinInput.Root>`. Indiquez
 `count` pour que le rendu SSR et les attributs ARIA soient prévisibles.
 
-moduix rend automatiquement un champ natif masqué dans la racine. Passez `name` lorsque la valeur doit être envoyée
-avec un formulaire, et indiquez aussi `form` lorsque le composant ne se trouve pas dans ce formulaire.
+Composez explicitement `PinInput.HiddenInput`. Passez `name` lorsque la valeur doit être envoyée avec
+un formulaire, et indiquez aussi `form` lorsque le composant ne se trouve pas dans ce formulaire.
 
 <ExampleFrame variant="component">
   <PinInputBasic />
@@ -67,7 +67,7 @@ PinInput / PinInput.Root
 │  ├─ PinInput.Input[index=0]
 │  ├─ PinInput.Input[index=1]
 │  └─ PinInput.Input[index=2]
-└─ champ natif masqué (ajouté automatiquement)
+└─ PinInput.HiddenInput (explicite)
 ```
 
 | Partie                                  | Rôle                                                                                                  |
@@ -345,8 +345,8 @@ et le remplissage automatique des codes à usage unique. Ajoutez un `Label` pour
 `PinInput.Separator` est décoratif par défaut et rend les attributs `aria-hidden` et `role="presentation"`. Placez
 tout texte porteur de sens en dehors du séparateur.
 
-Pour la soumission native d’un formulaire, passez `name` à la racine. Utilisez aussi `form` lorsque le composant
-appartient à un formulaire situé ailleurs dans le document. La racine rend automatiquement le champ natif masqué.
+Pour la soumission native, passez `name` à la racine, ajoutez `PinInput.HiddenInput` et utilisez
+`form` lorsque le composant appartient à un formulaire situé ailleurs dans le document.
 
 ## Styles
 
@@ -367,8 +367,8 @@ appartient à un formulaire situé ailleurs dans le document. La racine rend aut
 ### Points d’accroche CSS
 
 - La racine et `RootProvider` exposent `data-slot="pin-input-root"` et `data-slot="pin-input-root-provider"`.
-- `Label`, `Control`, `Input` et le champ masqué exposent respectivement `data-slot="pin-input-label"`,
-  `data-slot="pin-input-control"`, `data-slot="pin-input-input"` et `data-slot="pin-input-hidden-input"`.
+- `Label`, `Control` et `Input` exposent respectivement `data-slot="pin-input-label"`,
+  `data-slot="pin-input-control"` et `data-slot="pin-input-input"`.
 - Les parties Ark utilisent `data-scope="pin-input"` et `data-part="root" | "label" | "control" | "input"`.
 - Les styles de l’état racine utilisent `data-disabled`, `data-invalid`, `data-complete` et `data-readonly`.
 - Les styles d’état du champ utilisent `data-disabled`, `data-invalid`, `data-complete`, `data-filled` et

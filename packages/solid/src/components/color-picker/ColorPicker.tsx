@@ -40,7 +40,6 @@ function ColorPickerRoot(props: ColorPickerRootProps) {
         {...others}
       >
         {local.children}
-        <ColorPickerPrimitive.HiddenInput data-slot="color-picker-hidden-input" />
       </ColorPickerPrimitive.Root>
     </OverlayPortalProvider>
   );
@@ -68,7 +67,6 @@ function ColorPickerRootProvider(props: ColorPickerRootProviderProps) {
         {...others}
       >
         {local.children}
-        <ColorPickerPrimitive.HiddenInput data-slot="color-picker-hidden-input" />
       </ColorPickerPrimitive.RootProvider>
     </OverlayPortalProvider>
   );
@@ -490,6 +488,7 @@ const ColorPicker = Object.assign(ColorPickerRoot, {
   Root: ColorPickerRoot,
   RootProvider: ColorPickerRootProvider,
   Context: ColorPickerPrimitive.Context,
+  HiddenInput: ColorPickerPrimitive.HiddenInput,
   Label: ColorPickerLabel,
   Control: ColorPickerControl,
   Trigger: ColorPickerTrigger,

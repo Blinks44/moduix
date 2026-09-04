@@ -22,6 +22,7 @@ export default function FileUploadWithFieldDemo() {
             }
           </FileUpload.Context>
         </FileUpload.ItemGroup>
+        <FileUpload.HiddenInput />
       </FileUpload>
       <Field.HelperText>Upload up to three files.</Field.HelperText>
       <Field.ErrorText>Upload at least one file.</Field.ErrorText>

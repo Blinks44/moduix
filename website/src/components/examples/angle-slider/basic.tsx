@@ -5,6 +5,7 @@ export default function AngleSliderDemo() {
   return (
     <AngleSlider defaultValue={135} aria-label="Rotation" className={styles.root}>
       <AngleSlider.Dial />
+      <AngleSlider.HiddenInput />
     </AngleSlider>
   );
 }

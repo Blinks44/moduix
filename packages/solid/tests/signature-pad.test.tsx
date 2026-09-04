@@ -1,6 +1,6 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
-import { Field, SignaturePad, useSignaturePad } from '../src';
+import { Field, SignaturePad, useSignaturePad, useSignaturePadContext } from '../src';
 
 const defaultPaths = ['M1,1 L2,2'];
 const translations = {
@@ -9,34 +9,31 @@ const translations = {
 };
 
 function SignaturePadParts(props: { label?: string }) {
+  const signaturePad = useSignaturePadContext();
+
   return (
     <>
       <SignaturePad.Label>{props.label ?? 'Signature'}</SignaturePad.Label>
       <SignaturePad.Canvas />
+      <SignaturePad.HiddenInput value={signaturePad().paths.join(' ')} />
     </>
   );
 }
 
-test('serializes the automatic hidden input with the configured form value', () => {
+test('serializes an explicit hidden input with Ark defaults', () => {
   const { container } = render(() => (
     <form>
-      <SignaturePad
-        defaultPaths={defaultPaths}
-        getFormValue={(paths) => JSON.stringify(paths)}
-        name="signature"
-      >
+      <SignaturePad defaultPaths={defaultPaths} name="signature">
         <SignaturePadParts />
       </SignaturePad>
     </form>
   ));
 
   const form = container.querySelector('form');
-  const input = container.querySelector('[data-slot="signature-pad-hidden-input"]');
+  const input = container.querySelector('input[hidden]');
 
   expect(input).toHaveAttribute('name', 'signature');
-  expect(new FormData(form! as HTMLFormElement).get('signature')).toBe(
-    JSON.stringify(defaultPaths),
-  );
+  expect(new FormData(form! as HTMLFormElement).get('signature')).toBe(defaultPaths.join(' '));
 });
 
 test('keeps the clear action and callback details Ark-shaped', async () => {
@@ -54,7 +51,7 @@ test('keeps the clear action and callback details Ark-shaped', async () => {
   fireEvent.click(screen.getByRole('button', { name: 'Clear signature' }));
 
   await waitFor(() => {
-    expect(container.querySelector('[data-slot="signature-pad-hidden-input"]')).toHaveValue('');
+    expect(container.querySelector('input[hidden]')).toHaveValue('');
     expect(drawEnds).toEqual([[]]);
   });
 });
@@ -142,13 +139,9 @@ test('preserves root asChild composition and RootProvider state', () => {
   ));
 
   expect(rootRef).toBeUndefined();
+  expect(container.querySelector('section input[hidden]')).not.toBeNull();
   expect(
-    container.querySelector('section [data-slot="signature-pad-hidden-input"]'),
-  ).not.toBeNull();
-  expect(
-    container.querySelector(
-      '[data-slot="signature-pad-root-provider"] [data-slot="signature-pad-hidden-input"]',
-    ),
+    container.querySelector('[data-slot="signature-pad-root-provider"] input[hidden]'),
   ).toHaveValue(defaultPaths.join(' '));
 });
 

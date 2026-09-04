@@ -33,8 +33,7 @@ boolean value.
 
 ## Basic
 
-A basic switch has a root, a visual control, and a label. The control adds the default thumb, and the
-root adds the hidden form input used for native form behavior.
+A basic switch has a root, a visual control, a label, and an explicit `Switch.HiddenInput` for native interaction and form behavior.
 
 <ExampleFrame variant="component">
   <SwitchBasic />
@@ -65,7 +64,7 @@ Switch / Switch.Root
 ├─ Switch.Control
 │  └─ Switch.Thumb
 ├─ Switch.Label
-└─ hidden input (added automatically)
+└─ Switch.HiddenInput (explicit)
 ```
 
 | Part                          | Role                                                                 |
@@ -83,8 +82,8 @@ Switch / Switch.Root
 
 ### Recommended composition
 
-Use the short `<Switch>` form for ordinary cases. Put `Switch.Control` and `Switch.Label` inside it.
-The root adds the hidden form input automatically, but it does not add a visible control or label.
+Use the short `<Switch>` form for ordinary cases. Put `Switch.Control`, `Switch.Label`, and
+`Switch.HiddenInput` inside it.
 
 `Switch.Control` adds the default `Switch.Thumb` when it has no children. Add `Switch.Thumb`
 explicitly when the thumb needs custom content or styling.
@@ -112,8 +111,8 @@ rendered switch tree. Do not render `Switch` and `Switch.RootProvider` for the s
 - Use `defaultChecked` for uncontrolled mode. Use `checked` with `onCheckedChange(details)` for
   controlled mode.
 - `onCheckedChange` receives a details object. Use `details.checked` as the next boolean state.
-- The root always adds the native form input. Set `name`, `value`, `form`, and `required` to control
-  its form participation. For an uncontrolled switch, resetting the form restores its initial state.
+- Render `Switch.HiddenInput` explicitly. Set `name`, `value`, `form`, and `required` on the root to
+  control form participation. Ark owns reset synchronization.
 - `readOnly` preserves the current state and sets `aria-readonly="true"` on the native control.
 - The track and thumb respect `prefers-reduced-motion` by disabling their transitions.
 - Use `Switch.Context` or `useSwitchContext` for advanced state reads. Use `useSwitch` with
@@ -416,5 +415,3 @@ Style `Switch` through `className`, public `data-slot` hooks, Ark state attribut
 - `Switch.Thumb` exposes `data-slot="switch-thumb"` and receives the same Ark state attributes for
   thumb movement and custom content styling.
 - `Switch.Label` exposes `data-slot="switch-label"` for typography overrides.
-- The native form input exposes `data-slot="switch-hidden-input"` for inspection, but it should
-  remain visually hidden by Ark.

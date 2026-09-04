@@ -19,6 +19,7 @@ export default function FileUploadFormDemo() {
     >
       <FileUpload className={styles.root} name={name} maxFiles={maxFiles}>
         <FileUpload.Label>Project assets</FileUpload.Label>
+        <FileUpload.HiddenInput />
         <FileUpload.Trigger>Choose files</FileUpload.Trigger>
         <FileUpload.ItemGroup>
           <FileUpload.Context>

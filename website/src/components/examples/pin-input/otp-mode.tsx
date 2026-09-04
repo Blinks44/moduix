@@ -7,6 +7,7 @@ export default function OtpModePinInput() {
       <PinInput.Control>
         <PinInput.Inputs />
       </PinInput.Control>
+      <PinInput.HiddenInput />
     </PinInput>
   );
 }

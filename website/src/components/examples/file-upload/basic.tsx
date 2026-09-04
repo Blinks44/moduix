@@ -6,6 +6,7 @@ export default function FileUploadDemo() {
   return (
     <FileUpload className={styles.root} maxFiles={maxFiles}>
       <FileUpload.Label>Attachments</FileUpload.Label>
+      <FileUpload.HiddenInput />
       <FileUpload.Trigger>Choose files</FileUpload.Trigger>
       <FileUpload.ItemGroup>
         <FileUpload.Items />

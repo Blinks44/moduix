@@ -25,6 +25,7 @@ export default function FormUsageColorPickerDemo() {
             <ColorPicker.Area />
           </ColorPicker.Content>
         </ColorPicker.Positioner>
+        <ColorPicker.HiddenInput />
       </ColorPicker>
       <PreviewMeta>
         <output>Submitted: {submitted}</output>

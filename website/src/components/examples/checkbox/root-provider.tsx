@@ -11,6 +11,7 @@ export default function RootProviderCheckboxDemo() {
       <Checkbox.RootProvider value={checkbox}>
         <Checkbox.Control />
         <Checkbox.Label>Managed outside the tree</Checkbox.Label>
+        <Checkbox.HiddenInput />
       </Checkbox.RootProvider>
       <PreviewMeta>
         <Button

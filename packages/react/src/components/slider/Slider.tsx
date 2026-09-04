@@ -2,8 +2,8 @@
 
 import { Slider as SliderPrimitive, useSlider, useSliderContext } from '@ark-ui/react/slider';
 import { clsx } from 'clsx';
-import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
-import { Children, cloneElement, forwardRef } from 'react';
+import type { ComponentProps, ComponentRef } from 'react';
+import { forwardRef } from 'react';
 import styles from './Slider.module.css';
 
 const SliderRoot = forwardRef<
@@ -118,33 +118,18 @@ const SliderThumb = forwardRef<
       className={clsx(styles.thumb, className)}
       {...props}
     >
-      {withHiddenInput(children, asChild)}
+      {children}
     </SliderPrimitive.Thumb>
   );
 });
-
-function withHiddenInput(children: ReactNode, asChild?: boolean) {
-  const hiddenInput = <SliderPrimitive.HiddenInput data-slot="slider-hidden-input" />;
-
-  if (!asChild) {
-    return (
-      <>
-        {children}
-        {hiddenInput}
-      </>
-    );
-  }
-
-  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
-
-  return cloneElement(child, {}, child.props.children, hiddenInput);
-}
 
 function SliderThumbs({ className }: { className?: string }) {
   const slider = useSliderContext();
 
   return slider.value.map((_, index) => (
-    <SliderThumb key={index} index={index} className={className} />
+    <SliderThumb key={index} index={index} className={className}>
+      <SliderPrimitive.HiddenInput />
+    </SliderThumb>
   ));
 }
 
@@ -199,6 +184,7 @@ const Slider = Object.assign(SliderRoot, {
   Label: SliderLabel,
   ValueText: SliderValueText,
   Control: SliderControl,
+  HiddenInput: SliderPrimitive.HiddenInput,
   Track: SliderTrack,
   Range: SliderRange,
   Thumb: SliderThumb,

@@ -41,6 +41,7 @@ test('keeps native form, disabled, and controlled file-change contracts intact',
         <FileUpload.Label>Attachments</FileUpload.Label>
         <FileUpload.Dropzone data-testid="disabled-dropzone" />
         <FileUpload.Trigger>Choose files</FileUpload.Trigger>
+        <FileUpload.HiddenInput />
       </FileUpload>
     </form>
   ));
@@ -59,7 +60,7 @@ test('keeps native form, disabled, and controlled file-change contracts intact',
   expect(changes).toEqual([]);
 });
 
-test('preserves RootProvider state and the automatic hidden input', () => {
+test('preserves RootProvider state with an explicit hidden input', () => {
   function ProviderUpload() {
     const upload = useFileUpload({ defaultAcceptedFiles: [file] });
 
@@ -69,6 +70,7 @@ test('preserves RootProvider state and the automatic hidden input', () => {
         <FileUpload.ItemGroup>
           <FileUpload.Items />
         </FileUpload.ItemGroup>
+        <FileUpload.HiddenInput />
       </FileUpload.RootProvider>
     );
   }
@@ -95,7 +97,7 @@ test('uses a generic preview when an image filename has no image MIME type', () 
   expect(screen.getByRole('button', { name: 'Remove moduix.png' })).toBeTruthy();
 });
 
-test('preserves Root asChild composition and the automatic hidden input', () => {
+test('preserves Root asChild composition and an explicit hidden input', () => {
   let rootRef: HTMLDivElement | undefined;
   let triggerRef!: HTMLButtonElement;
 
@@ -108,6 +110,7 @@ test('preserves Root asChild composition and the automatic hidden input', () => 
       <FileUpload.Trigger ref={(element) => (triggerRef = element)}>
         Choose files
       </FileUpload.Trigger>
+      <FileUpload.HiddenInput />
     </FileUpload>
   ));
 

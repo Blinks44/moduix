@@ -32,10 +32,9 @@ explicit popup composition, native form behavior, and `RootProvider` / context h
 
 - `Select` is the short root form and is equivalent to `Select.Root`.
 - The root renders a DOM element with `data-slot="select-root"` and moduix root styling.
-- `Root` and `RootProvider` render Ark's native select automatically. Use
-  `nativeFormControl="input"` for virtualized collections; it emits one lightweight hidden input
-  per selected value instead of an option for every collection item while retaining form reset and
-  fieldset disabled synchronization.
+- Compose `Select.HiddenSelect` explicitly inside `Root` or `RootProvider` for native submission,
+  autofill, validation, and reset. Virtualized collections should provide application-owned form
+  integration when rendering all native options is undesirable.
 - `Select.Field` renders the standard control, value text, and an indicator; pass `clearLabel` to add a labeled clear action or `indicator` to replace the default chevron.
 - Consumers must pass a `collection`; items render with `Select.Item item={item}`.
 - `value` and `defaultValue` are string arrays, including single selection.
@@ -77,7 +76,7 @@ Select / Select.Root
 │           └─ Select.Item[item]
 │              ├─ Select.ItemText
 │              └─ Select.ItemIndicator
-└─ native select (automatic)
+└─ Select.HiddenSelect (explicit)
 ```
 
 | Export                   | `data-slot`                | Notes                               |
@@ -149,11 +148,9 @@ export function SelectDemo() {
 
 ## Accessibility and state
 
-- The root renders a native select for form submission, browser autofill, and form reset behavior.
-  For very large virtualized collections, set `nativeFormControl="input"` to avoid rendering an
-  option for every item. This lightweight mode submits selected values and preserves form reset and
-  fieldset disabled behavior, but does not provide native select autofill, validation, or progressive
-  enhancement.
+- Add `Select.HiddenSelect` for form submission, browser autofill, native validation, and reset.
+  Very large virtualized collections can instead provide application-owned form integration when
+  rendering an option for every item is undesirable.
 - Forward refs to the Ark DOM part for root, trigger, control, content, and item parts.
 - Preserve Ark state attributes: `data-state`, `data-focus`, `data-invalid`, `data-disabled`,
   `data-readonly`, `data-required`, `data-placeholder-shown`, `data-highlighted`, and item
@@ -166,7 +163,7 @@ export function SelectDemo() {
 - Use `Select.useSelect` with `Select.RootProvider`; do not render `Select.Root` for the same state
   instance.
 - Use `asChild` only with a single semantic container that can receive the required Ark props and
-  the automatic native form control; do not use an interactive host such as `button`.
+  render its children; do not use an interactive host such as `button`.
 
 ## Defaults and styling
 
@@ -227,8 +224,9 @@ content after the first open; set both props to `false` only when eager initial 
 
 - 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
 
-- 2026-07-30: Restored reset and fieldset-disabled synchronization for
-  `nativeFormControl="input"`, added Select tests/stories, standardized popup animation fill mode,
+- 2026-09-04: Exposed Ark `HiddenSelect` explicitly and removed root child mutation and the
+  wrapper-specific virtual form-control mode.
+- 2026-07-30: Added Select tests/stories, standardized popup animation fill mode,
   and migrated docs previews to `PreviewFrame`/`PreviewMeta`.
 
 - 2026-07-22: Removed `Select.Indicators` from the public API. Indicators belong inside
@@ -251,8 +249,7 @@ content after the first open; set both props to `false` only when eager initial 
 - 2026-07-17: Composed the default clear action with `CloseButton.Root` and mapped select action
   tokens to the shared close-button visual contract.
 - 2026-07-16: Added shared `--moduix-popup-motion-*` fallbacks for project-wide popup content motion.
-- 2026-07-13: Rendered native select form controls automatically and added
-  `nativeFormControl="input"` for virtualized collections.
+- 2026-07-13: Native select form controls were rendered automatically at this point in the wrapper history.
 
 - 2026-07-11: Added `Select.Field` for the standard control, including `indicator` customization, and restored moduix namespace access to Ark state hooks and contexts.
 - 2026-07-03: Kept the trigger focus ring visible while the popup is open and documented the shared

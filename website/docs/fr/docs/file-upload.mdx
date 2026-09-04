@@ -32,8 +32,8 @@ import FileUploadWithField from '@/components/examples/file-upload/with-field.ts
 ## Exemple de base
 
 Commencez par utiliser `FileUpload` comme composant racine. Ajoutez un `Label`, puis utilisez `Trigger` pour un contrôle
-compact ou `Dropzone` pour le glisser-déposer. Placez `Items` dans `ItemGroup` pour afficher les fichiers acceptés. Le
-composant racine génère automatiquement l’input natif masqué. `Items` affiche une vignette uniquement lorsque le fichier
+compact ou `Dropzone` pour le glisser-déposer. Ajoutez explicitement `FileUpload.HiddenInput` pour
+ouvrir le sélecteur natif. Placez `Items` dans `ItemGroup` pour afficher les fichiers acceptés. `Items` affiche une vignette uniquement lorsque le fichier
 possède un type MIME `image/*` ; les autres fichiers utilisent un aperçu générique.
 
 <ExampleFrame variant="component">
@@ -85,7 +85,7 @@ FileUpload / FileUpload.Root
 │        ├─ FileUpload.ItemSizeText
 │        └─ FileUpload.ItemDeleteTrigger
 ├─ FileUpload.ClearTrigger
-└─ champ de fichier natif masqué (automatique)
+└─ FileUpload.HiddenInput (explicite)
 ```
 
 | Partie | Rôle |
@@ -117,7 +117,7 @@ Gardez l’arbre explicite des parties Ark dans votre balisage. Utilisez `Trigge
 `Dropzone` pour une zone de glisser-déposer. Si `Trigger` est imbriqué dans `Dropzone`, passez `disableClick` à
 `Dropzone` afin que le sélecteur de fichiers natif ne s’ouvre qu’une seule fois.
 
-Le composant racine génère toujours le champ de fichier natif masqué. Utilisez `Items` dans `ItemGroup` pour une liste compacte de
+Affichez explicitement `FileUpload.HiddenInput`. Utilisez `Items` dans `ItemGroup` pour une liste compacte de
 fichiers acceptés. Si vous créez des lignes personnalisées, lisez les fichiers acceptés depuis
 `FileUpload.Context.acceptedFiles` et les fichiers rejetés depuis `FileUpload.Context.rejectedFiles`.
 
@@ -363,8 +363,8 @@ l’un des éléments ou ajoutez vos propres fichiers pour tester ces deux prés
 
 ### Utilisation dans un formulaire
 
-Passez `name` au composant racine. Il génère automatiquement le champ de fichier natif masqué ; les fichiers sélectionnés
-sont ainsi pris en compte lors de la soumission et de la réinitialisation du formulaire.
+Passez `name` au composant racine et ajoutez `FileUpload.HiddenInput` ; les fichiers sélectionnés
+participent alors à la soumission et à la réinitialisation du formulaire.
 
 <ExampleFrame variant="component">
   <FileUploadFormUsage />

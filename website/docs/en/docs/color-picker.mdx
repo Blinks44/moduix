@@ -35,8 +35,8 @@ to enter a known value and do not need to manipulate the color directly.
 ## Basic
 
 Start with a compact field that combines a root, one channel input, the trigger's default swatch,
-explicit popup content, and the picker's default internal parts. The component also renders a hidden
-native input. Pass `name` when the color should be submitted with a form.
+explicit popup content, and the picker's default internal parts. Add `ColorPicker.HiddenInput`
+explicitly when the color should be submitted with a form.
 
 <ExampleFrame variant="component">
   <ColorPickerBasic />
@@ -96,7 +96,7 @@ ColorPicker
 │        │        └─ ColorPicker.SwatchIndicator
 │        └─ ColorPicker.View[format]
 │           └─ ColorPicker.ChannelInput[channel]
-└─ native input (automatic)
+└─ ColorPicker.HiddenInput (explicit)
 ```
 
 | Part                               | Role                                                                   |
@@ -132,9 +132,8 @@ through `data-channel` or CSS variables, and pass children only when a part need
 Add `data-fit-content` when the trigger should size to custom content such as a swatch plus
 `ValueText`.
 
-To include the color in native form submission and reset behavior, pass `name` to `ColorPicker`.
-It renders and synchronizes the native input automatically, so `FormData` and `form.reset()` need
-no extra setup.
+To include the color in native form submission and reset behavior, pass `name` to `ColorPicker` and
+compose `ColorPicker.HiddenInput` explicitly. Ark owns its synchronization.
 
 ### When to go custom
 
@@ -311,7 +310,7 @@ field container and should expose the same state through Ark data attributes.
 
 ### Form Usage
 
-Use `name` on `ColorPicker`; it renders its native form input automatically.
+Use `name` on `ColorPicker` and add `ColorPicker.HiddenInput` explicitly.
 
 <ExampleFrame variant="component">
   <ColorPickerFormUsage />

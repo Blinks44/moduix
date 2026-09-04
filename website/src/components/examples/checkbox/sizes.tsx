@@ -5,6 +5,7 @@ export default function CheckboxSizesDemo() {
     <Checkbox size="lg" defaultChecked>
       <Checkbox.Control />
       <Checkbox.Label>Large</Checkbox.Label>
+      <Checkbox.HiddenInput />
     </Checkbox>
   );
 }

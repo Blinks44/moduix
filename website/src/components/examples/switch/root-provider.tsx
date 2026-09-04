@@ -11,6 +11,7 @@ export default function SwitchRootProviderDemo() {
       <Switch.RootProvider value={switchApi}>
         <Switch.Control />
         <Switch.Label>External state owner</Switch.Label>
+        <Switch.HiddenInput />
       </Switch.RootProvider>
       <PreviewMeta>
         <output>Current value: {String(switchApi.checked)}</output>

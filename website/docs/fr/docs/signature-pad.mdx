@@ -56,7 +56,7 @@ SignaturePad / SignaturePad.Root
 │     ├─ SignaturePad.Segment
 │     ├─ SignaturePad.ClearTrigger
 │     └─ SignaturePad.Guide
-└─ champ natif masqué (ajouté automatiquement)
+└─ SignaturePad.HiddenInput value={serializedPaths} (explicite)
 
 SignaturePad.RootProvider
 └─ même arbre de parties connecté à l’état de useSignaturePad()
@@ -95,9 +95,9 @@ dehors du composant. Utilisez `RootProvider` avec `useSignaturePad()` lorsque l�
 Pour lire l’état depuis l’arborescence du composant, utilisez `SignaturePad.Context` ou
 `useSignaturePadContext()` pour les besoins avancés.
 
-Transmettez `name` lorsque la signature doit être incluse dans la soumission native d’un formulaire.
-moduix ajoute automatiquement un champ natif masqué et sérialise les tracés avec `paths.join(' ')` par
-défaut. Transmettez `getFormValue(paths)` lorsque le formulaire a besoin d’une autre représentation.
+Transmettez `name` lorsque la signature doit être incluse dans la soumission native, puis composez
+explicitement `SignaturePad.HiddenInput` avec une `value` sérialisée. Lisez les tracés courants avec
+`useSignaturePadContext()`.
 
 Utilisez `drawing` pour personnaliser chaque trait. `drawing.size` modifie son épaisseur,
 `drawing.simulatePressure` contrôle la simulation de pression et `drawing.fill` définit sa couleur.
@@ -113,7 +113,6 @@ option. Pour utiliser un token du thème, ne définissez pas `fill` et redéfini
 | `paths`          | -                                     | Tableau contrôlé de tracés SVG. Utilisez-le avec `onDraw(details)`. |
 | `drawing`        | `{ size: 2, simulatePressure: false }` | Options de dessin Zag. `fill` doit contenir une couleur CSS valide. |
 | `name`           | -                                     | Nom du champ de formulaire natif.                                |
-| `getFormValue`   | `paths.join(' ')`                     | Sérialisation personnalisée du champ ajouté automatiquement.    |
 | `disabled`       | -                                     | Désactive le dessin et l’interaction avec le bouton d’effacement. |
 | `readOnly`       | -                                     | Empêche le dessin et désactive le bouton d’effacement.            |
 | `required`       | -                                     | Rend le libellé et le champ masqué obligatoires.                  |
@@ -137,9 +136,9 @@ traits terminés, tandis que `details.currentPath` contient le trait en cours.
 `details.getDataUrl(type, quality?)` prend en charge `image/png`, `image/jpeg` et `image/svg+xml`.
 Elle renvoie une chaîne vide lorsque la signature est vide.
 
-Définissez `name` sur la racine lorsque le formulaire doit être soumis nativement. Le champ masqué est
-ajouté automatiquement. Transmettez `getFormValue(paths)` lorsque le formulaire nécessite une
-sérialisation personnalisée. Enveloppez le composant dans `Field.Root` lorsque le texte d’aide, le
+Définissez `name` sur la racine lorsque le formulaire doit être soumis nativement et ajoutez
+explicitement `SignaturePad.HiddenInput value={serializedPaths}`. Enveloppez le composant dans
+`Field.Root` lorsque le texte d’aide, le
 message d’erreur, l’état obligatoire (`required`) ou l’état désactivé (`disabled`) doivent être partagés avec le reste du formulaire.
 L’état `invalid` de `Field` gère les messages et les descriptions du champ, mais n’ajoute pas
 `data-invalid` aux parties de Signature Pad.
@@ -235,8 +234,8 @@ obligatoire (`required`) ou le message de validation concernent un même contrô
 
 ### Sérialisation du formulaire
 
-Utilisez `getFormValue` lorsque le serveur doit recevoir les tracés sous une autre forme. Cet exemple
-envoie un tableau JSON au lieu de la chaîne de tracés SVG séparés par des espaces utilisée par défaut.
+Sérialisez dans le consommateur la valeur transmise à `SignaturePad.HiddenInput` lorsque le serveur
+attend un autre format. Cet exemple envoie un tableau JSON.
 
 <ExampleFrame variant="component">
   <SignaturePadFormSerialization />

@@ -11,6 +11,7 @@ export default function SwitchContextDemo() {
     <Switch defaultChecked>
       <Switch.Control />
       <SwitchContextLabel />
+      <Switch.HiddenInput />
     </Switch>
   );
 }

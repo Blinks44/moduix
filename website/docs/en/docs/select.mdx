@@ -35,8 +35,8 @@ Use `Select` when users choose from a fixed collection and the trigger stays rea
 ## Basic
 
 Pass a collection to `Select`, use `Select.Field` for the standard visible control, and keep the
-popup structure explicit. `clearLabel` adds an accessible clear action. The root automatically
-renders its native form control for submission, autofill, and reset.
+popup structure explicit. `clearLabel` adds an accessible clear action. Add `Select.HiddenSelect`
+explicitly when native submission, autofill, validation, and reset are needed.
 
 <ExampleFrame variant="component">
   <SelectBasic />
@@ -82,7 +82,7 @@ Select / Select.Root
 │              │     ├─ Select.ItemTextIcon
 │              │     └─ Select.ItemTextLabel
 │              └─ Select.ItemIndicator
-└─ native form control (automatic)
+└─ Select.HiddenSelect (explicit)
 ```
 
 | Part                     | Role                                                                   |
@@ -124,8 +124,8 @@ chevron. Keep `Positioner`, `Content`, and items visible in the composition.
 ### When to go custom
 
 Use explicit `Control`, `Trigger`, and visual parts when their layout needs independent
-composition. `asChild` requires one semantic container that can accept the automatic native form
-control; use a container such as `div` or `section`, not an interactive element such as `button`.
+composition. `asChild` requires one semantic container that can accept Ark props and render its
+children; use a container such as `div` or `section`, not an interactive element such as `button`.
 Use `Select.List` for custom list wrappers and virtualization paths.
 
 ### Default props
@@ -142,7 +142,6 @@ eager initial rendering is needed.
 | `lazyMount`             | `true`  | Defers popup content mounting until opened.                    |
 | `loopFocus`             | `false` | Keeps arrow navigation from wrapping by default.               |
 | `multiple`              | `false` | Enables multiple values when set.                              |
-| `nativeFormControl`     | `select`| Uses the native `<select>`; use `input` for virtualized lists. |
 | `unmountOnExit`         | `true`  | Removes popup content after its exit animation.                |
 | `ValueText.placeholder` | -       | Text shown when the value array is empty.                      |
 
@@ -157,11 +156,9 @@ Use `Select.useSelect` with `Select.RootProvider` when state is needed outside t
 `Select.useSelectItemContext` are available for in-tree state reads. `Field.Root` and
 `Fieldset.Root` provide disabled, invalid, required, and read-only state through Ark context.
 
-The default native select preserves browser validation, autofill, reset, and progressive
-enhancement. For a virtualized collection, `nativeFormControl="input"` submits one hidden input per
-selected value instead of an option for every item. It still synchronizes form reset and fieldset
-disabled state, but intentionally does not provide native select autofill, validation, or
-progressive enhancement.
+`Select.HiddenSelect` preserves browser validation, autofill, reset, and progressive enhancement.
+For a virtualized collection where rendering every native option is undesirable, provide
+application-owned form integration.
 
 Select removes trigger transitions and popup enter/exit animation when the user requests reduced
 motion; selection, focus restoration, and mount lifecycle remain unchanged.
@@ -272,7 +269,7 @@ to a form field.
 
 ### Form Usage
 
-The automatic native select keeps native form submission working. Read submitted values from
+The explicitly composed `Select.HiddenSelect` keeps native form submission working. Read submitted values from
 `FormData`.
 
 <ExampleFrame variant="component">
@@ -391,9 +388,8 @@ collection.
 
 ### Native Form Control
 
-Use `nativeFormControl="input"` for large or virtualized collections when rendering a native
-`option` for every item would be too costly. This example focuses on the submitted `FormData`.
-For a virtualized collection, combine this mode with `Select.List` and your virtualization strategy.
+Compose `Select.HiddenSelect` explicitly when the selection should participate in a native form.
+This example focuses on the submitted `FormData`.
 
 <ExampleFrame variant="component">
   <SelectNativeFormControl />

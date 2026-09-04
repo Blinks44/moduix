@@ -24,7 +24,7 @@ export default function NativeFormControlSelectDemo() {
 
   return (
     <form className={styles.root} onSubmit={handleSubmit}>
-      <Select collection={themes} name="theme" nativeFormControl="input" required>
+      <Select collection={themes} name="theme" required>
         <Select.Label>Theme</Select.Label>
         <Select.Control>
           <Select.Trigger>
@@ -43,6 +43,7 @@ export default function NativeFormControlSelectDemo() {
             ))}
           </Select.Content>
         </Select.Positioner>
+        <Select.HiddenSelect />
       </Select>
       <PreviewMeta>
         <output>Submitted: {submitted}</output>

@@ -60,7 +60,7 @@ RatingGroup / RatingGroup.Root
    ├─ RatingGroup.Context (avancé, facultatif)
    │  └─ RatingGroup.Item[index]
    │     └─ RatingGroup.ItemIndicator
-   └─ champ de formulaire natif (automatique)
+   └─ RatingGroup.HiddenInput (explicite)
 
 RatingGroup.RootProvider
 └─ même arborescence reliée à un état moduix créé avec useRatingGroup()
@@ -86,7 +86,7 @@ RatingGroup.RootProvider
 du focus, les libellés, l’intégration aux formulaires ainsi que les interactions au clavier et au
 pointeur. Pour afficher la notation standard en étoiles, ajoutez `RatingGroup.Items` : il crée un
 élément pour chaque valeur jusqu’à `count` et fournit l’indicateur en étoile par défaut. L’élément
-racine rend également le champ de formulaire natif synchronisé. Pour remplacer l’icône tout en
+ajoutez explicitement `RatingGroup.HiddenInput` pour le formulaire natif. Pour remplacer l’icône tout en
 conservant le même comportement, passez un `RatingGroup.ItemIndicator` personnalisé comme enfant de
 `RatingGroup.Items`.
 
@@ -119,7 +119,7 @@ est un élément visuel fourni par moduix et ne remplace pas une partie DOM Ark.
   une interface associée.
 - `allowHalf` active la sélection par demi-pas et l’affichage d’une demi-étoile.
 - `autoFocus` place le focus sur la notation au moment de son montage.
-- `name`, `form` et `required` s’appliquent au champ natif rendu automatiquement par la racine.
+- `name`, `form` et `required` s’appliquent au `RatingGroup.HiddenInput` composé explicitement.
 - Ark gère `disabled` et `readOnly`, et reflète ces états par des attributs de données.
 - Ark gère la navigation au clavier : `ArrowRight` et `ArrowLeft` déplacent le focus entre les
   éléments, et `Enter` sélectionne l’élément ciblé. Avec `allowHalf`, les flèches se déplacent aussi
@@ -252,8 +252,7 @@ Enveloppez le groupe de notation dans `Field` lorsque le texte d’aide ou de va
 
 ### Formulaires
 
-Passez `name` pour inclure la note sélectionnée dans `FormData` ; l’élément racine rend automatiquement
-le champ de formulaire natif synchronisé.
+Passez `name` et ajoutez `RatingGroup.HiddenInput` pour inclure la note sélectionnée dans `FormData`.
 
 <ExampleFrame variant="component">
   <RatingGroupForms />
@@ -388,7 +387,6 @@ les attributs d’état Ark, les points d’accroche moduix `data-slot` et les v
 - `data-slot="rating-group-item"`
 - `data-slot="rating-group-item-indicator"`
 - `data-slot="rating-group-item-indicator-bg"` et `data-slot="rating-group-item-indicator-fg"`
-- `data-slot="rating-group-hidden-input"`
 - `data-size="xs" | "sm" | "md" | "lg" | "xl"` sur `RatingGroup.Root` ou `RatingGroup.RootProvider`
 - Attributs Ark du libellé : `data-disabled` et `data-required`
 - Attributs Ark du contrôle : `data-disabled` et `data-readonly`

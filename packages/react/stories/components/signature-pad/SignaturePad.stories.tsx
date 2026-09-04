@@ -2,7 +2,11 @@ import type { Meta, StoryObj } from '@storybook/react';
 import type { ComponentProps } from 'react';
 import { useState } from 'react';
 import { Field } from '@/components/field';
-import { SignaturePad, useSignaturePad } from '@/components/signature-pad/SignaturePad';
+import {
+  SignaturePad,
+  useSignaturePad,
+  useSignaturePadContext,
+} from '@/components/signature-pad/SignaturePad';
 import styles from './SignaturePad.stories.module.css';
 
 const meta = {
@@ -16,6 +20,12 @@ const meta = {
 export default meta;
 
 type Story = StoryObj<typeof meta>;
+
+function SignaturePadFormInput() {
+  const signaturePad = useSignaturePadContext();
+
+  return <SignaturePad.HiddenInput value={signaturePad.paths.join(' ')} />;
+}
 
 function SignaturePadParts({
   label = 'Sign below',
@@ -70,9 +80,10 @@ export const ImagePreview: Story = {
 export const WithField: Story = {
   render: () => (
     <Field className={styles.field} invalid required>
-      <SignaturePad name="signature" getFormValue={(paths) => paths.join(' ')}>
+      <SignaturePad name="signature">
         <SignaturePad.Label>Sign below</SignaturePad.Label>
         <SignaturePad.Canvas />
+        <SignaturePadFormInput />
       </SignaturePad>
       <Field.HelperText>Use a pointer or touch input to sign.</Field.HelperText>
       <Field.ErrorText>Signature is required.</Field.ErrorText>
@@ -89,6 +100,7 @@ export const RootProvider: Story = {
         <SignaturePad.RootProvider value={signaturePad} className={styles.custom}>
           <SignaturePad.Label>Sign below</SignaturePad.Label>
           <SignaturePad.Canvas />
+          <SignaturePadFormInput />
         </SignaturePad.RootProvider>
         <output className={styles.status}>Paths: {signaturePad.paths.length}</output>
       </div>

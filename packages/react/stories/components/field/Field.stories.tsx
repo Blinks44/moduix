@@ -129,6 +129,7 @@ export const WithCheckbox: Story = {
             <Checkbox.Indicator />
           </Checkbox.Control>
           <Checkbox.Label>Accept support access</Checkbox.Label>
+          <Checkbox.HiddenInput />
         </Checkbox.Root>
         <Field.HelperText>Required before the team can inspect workspace data.</Field.HelperText>
         <Field.ErrorText>Support access must be enabled.</Field.ErrorText>
@@ -146,10 +147,12 @@ export const WithRadioGroup: Story = {
           <RadioGroup.Item value="personal">
             <RadioGroup.ItemControl />
             <RadioGroup.ItemText>Personal account</RadioGroup.ItemText>
+            <RadioGroup.ItemHiddenInput />
           </RadioGroup.Item>
           <RadioGroup.Item value="team">
             <RadioGroup.ItemControl />
             <RadioGroup.ItemText>Team account</RadioGroup.ItemText>
+            <RadioGroup.ItemHiddenInput />
           </RadioGroup.Item>
         </RadioGroup>
         <Field.HelperText>Choose the default account context for new projects.</Field.HelperText>

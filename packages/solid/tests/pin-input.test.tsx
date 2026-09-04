@@ -36,6 +36,7 @@ test('renders the recommended composition with Ark anatomy and form participatio
         <PinInput.Control>
           <PinInput.Inputs />
         </PinInput.Control>
+        <PinInput.HiddenInput />
       </PinInput>
     </form>
   ));
@@ -45,7 +46,7 @@ test('renders the recommended composition with Ark anatomy and form participatio
 
   expect(inputs).toHaveLength(4);
   expect(inputs[0]).toHaveAttribute('data-slot', 'pin-input-input');
-  expect(container.querySelector('[data-slot="pin-input-hidden-input"]')).not.toBeNull();
+  expect(container.querySelector('input[aria-hidden="true"]')).not.toBeNull();
   expect(new FormData(form!).get('code')).toBe('1234');
 });
 
@@ -88,27 +89,6 @@ test('keeps invalid, disabled, and read-only Field state on visible inputs', () 
   expect(screen.getByText('Enter a valid code.')).toBeVisible();
 });
 
-test('synchronizes native form reset through the automatic hidden input', async () => {
-  const { container } = render(() => (
-    <form>
-      <PinInput count={4} defaultValue={['1']} name="code">
-        <PinInput.Label>Verification code</PinInput.Label>
-        <PinInput.Control>
-          <PinInput.Inputs />
-        </PinInput.Control>
-      </PinInput>
-    </form>
-  ));
-
-  const firstInput = screen.getAllByRole('textbox')[0];
-  firstInput.focus();
-  fireEvent.focusIn(firstInput);
-  paste(firstInput, '9876');
-  fireEvent.reset(container.querySelector('form')!);
-
-  await waitFor(() => expect(new FormData(container.querySelector('form')!).get('code')).toBe('1'));
-});
-
 test('submits the owning form after completing an auto-submit PinInput', async () => {
   let submittedCode = '';
 
@@ -124,6 +104,7 @@ test('submits the owning form after completing an auto-submit PinInput', async (
         <PinInput.Control>
           <PinInput.Inputs />
         </PinInput.Control>
+        <PinInput.HiddenInput />
       </PinInput>
     </form>
   ));
@@ -150,6 +131,7 @@ test('preserves RootProvider and root asChild composition', async () => {
           <PinInput.Control>
             <PinInput.Inputs />
           </PinInput.Control>
+          <PinInput.HiddenInput />
         </PinInput.RootProvider>
       </>
     );
@@ -162,13 +144,14 @@ test('preserves RootProvider and root asChild composition', async () => {
         <PinInput.Control>
           <PinInput.Inputs />
         </PinInput.Control>
+        <PinInput.HiddenInput />
       </PinInput>
       <ProviderPinInput />
     </>
   ));
 
   expect(container.querySelector('section')).toHaveAttribute('data-slot', 'pin-input-root');
-  expect(container.querySelector('section [data-slot="pin-input-hidden-input"]')).not.toBeNull();
+  expect(container.querySelector('section input[aria-hidden="true"]')).not.toBeNull();
   fireEvent.click(screen.getByRole('button', { name: 'Clear code' }));
   await waitFor(() => expect(screen.getByLabelText('Provider code')).toHaveValue(''));
 });

@@ -36,7 +36,7 @@ seul choix est possible, et `Switch` lorsqu’un réglage doit s’appliquer imm
 
 Composez une case à cocher avec les parties Ark. Dans la plupart des cas, laissez `Checkbox.Control`
 vide pour utiliser les icônes intégrées de moduix pour les états coché et indéterminé. Ajoutez
-`Checkbox.Label` pour afficher le libellé. moduix ajoute automatiquement le champ natif du formulaire.
+`Checkbox.Label` pour afficher le libellé et `Checkbox.HiddenInput` pour l’interaction et le formulaire natifs.
 
 <ExampleFrame variant="component">
   <CheckboxBasic />
@@ -67,7 +67,7 @@ Checkbox.Root
 │  ├─ Checkbox.Indicator
 │  └─ Checkbox.Indicator[indeterminate] (optional)
 ├─ Checkbox.Label
-└─ native input (automatic)
+└─ Checkbox.HiddenInput (explicite)
 
 Checkbox.RootProvider
 └─ same part tree connected to useCheckbox()
@@ -132,15 +132,13 @@ inclure une case seule dans les données envoyées, transmettez `name` et `value
 Pour un groupe, transmettez `name` à `Checkbox.Group` et `value` à chaque `Checkbox.Root`.
 
 Lors d’une migration depuis shadcn, `Checkbox.Control` inclut déjà l’icône par défaut.
-`Checkbox.Control` et `Checkbox.Label` restent explicites dans l’arborescence, tandis que
-le champ masqué reste interne au composant.
+`Checkbox.Control`, `Checkbox.Label` et `Checkbox.HiddenInput` restent explicites dans l’arborescence.
 
 `Checkbox.Root` et `Checkbox.RootProvider` d’Ark rendent un `label` par défaut. Avec `asChild`,
 l’enfant direct doit aussi être un `label` sémantique ; sinon, la case à cocher n’a plus de libellé de
 formulaire valide.
 
-Lorsque `readOnly` est défini, moduix reflète cet état avec `aria-readonly` sur le champ natif créé
-automatiquement. Ark empêche toujours les interactions.
+Lorsque `readOnly` est défini, Ark empêche les interactions et gère la sémantique du champ natif.
 
 Une `ref` transmise à une partie pointe vers le nœud DOM Ark correspondant. Pour basculer une case à
 cocher qui a le focus, appuyez sur <kbd>Espace</kbd>.
@@ -526,8 +524,7 @@ d’un état de champ partagé.
 
 ### Dans un formulaire
 
-Transmettez `name` et `value` à `Checkbox.Root` pour inclure son champ natif créé automatiquement
-dans `FormData`.
+Transmettez `name` et `value` à `Checkbox.Root`, puis ajoutez `Checkbox.HiddenInput` pour l’inclure dans `FormData`.
 
 <ExampleFrame variant="component">
   <CheckboxWithForm />

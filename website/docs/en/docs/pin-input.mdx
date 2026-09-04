@@ -32,8 +32,8 @@ Use `PinInput` when a short, fixed-length code should be entered one character a
 Use `<PinInput>` for the standard layout. It is a shorthand for `<PinInput.Root>`. Set `count` explicitly so the
 server-rendered markup and ARIA attributes are predictable.
 
-moduix renders a hidden native form input inside the root. Pass `name` when the value should be submitted with a form,
-and pass `form` as well when the component is not inside that form.
+Compose `PinInput.HiddenInput` explicitly. Pass `name` when the value should be submitted with a
+form, and pass `form` as well when the component is not inside that form.
 
 <ExampleFrame variant="component">
   <PinInputBasic />
@@ -66,7 +66,7 @@ PinInput / PinInput.Root
 │  ├─ PinInput.Input[index=0]
 │  ├─ PinInput.Input[index=1]
 │  └─ PinInput.Input[index=2]
-└─ hidden native input (automatic)
+└─ PinInput.HiddenInput (explicit)
 ```
 
 | Part                                   | Role                                                                                         |
@@ -341,8 +341,8 @@ autocomplete. Add a `Label` so the group has an accessible name.
 `PinInput.Separator` is decorative by default and renders with `aria-hidden` and `role="presentation"`. Keep
 meaningful text outside the separator.
 
-For native form submission, pass `name` to the root and use `form` when the component belongs to a form elsewhere in
-the document. The root renders the hidden native input automatically.
+For native form submission, pass `name` to the root, add `PinInput.HiddenInput`, and use `form` when
+the component belongs to a form elsewhere in the document.
 
 ## Styling
 
@@ -363,8 +363,8 @@ the document. The root renders the hidden native input automatically.
 ### Styling hooks
 
 - The root and `RootProvider` expose `data-slot="pin-input-root"` and `data-slot="pin-input-root-provider"`.
-- `Label`, `Control`, `Input`, and the hidden input expose `data-slot="pin-input-label"`,
-  `data-slot="pin-input-control"`, `data-slot="pin-input-input"`, and `data-slot="pin-input-hidden-input"`.
+- `Label`, `Control`, and `Input` expose `data-slot="pin-input-label"`,
+  `data-slot="pin-input-control"`, and `data-slot="pin-input-input"`.
 - Ark parts use `data-scope="pin-input"` and `data-part="root" | "label" | "control" | "input"`.
 - Root state styling uses `data-disabled`, `data-invalid`, `data-complete`, and `data-readonly`.
 - Input state styling uses `data-disabled`, `data-invalid`, `data-complete`, `data-filled`, and `data-index`.

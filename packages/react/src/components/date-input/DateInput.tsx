@@ -7,14 +7,14 @@ import {
   useDateInputContext,
 } from '@ark-ui/react/date-input';
 import { clsx } from 'clsx';
-import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
-import { Children, cloneElement, forwardRef } from 'react';
+import type { ComponentProps, ComponentRef } from 'react';
+import { forwardRef } from 'react';
 import styles from './DateInput.module.css';
 
 const DateInputRoot = forwardRef<
   ComponentRef<typeof DateInputPrimitive.Root>,
-  ComponentProps<typeof DateInputPrimitive.Root> & DateInputFormProps
->(function DateInputRoot({ asChild, children, className, names, ...props }, ref) {
+  ComponentProps<typeof DateInputPrimitive.Root>
+>(function DateInputRoot({ asChild, children, className, ...props }, ref) {
   return (
     <DateInputPrimitive.Root
       ref={ref}
@@ -23,15 +23,15 @@ const DateInputRoot = forwardRef<
       asChild={asChild}
       {...props}
     >
-      {withHiddenInputs(children, asChild, names)}
+      {children}
     </DateInputPrimitive.Root>
   );
 });
 
 const DateInputRootProvider = forwardRef<
   ComponentRef<typeof DateInputPrimitive.RootProvider>,
-  ComponentProps<typeof DateInputPrimitive.RootProvider> & DateInputFormProps
->(function DateInputRootProvider({ asChild, children, className, names, ...props }, ref) {
+  ComponentProps<typeof DateInputPrimitive.RootProvider>
+>(function DateInputRootProvider({ asChild, children, className, ...props }, ref) {
   return (
     <DateInputPrimitive.RootProvider
       ref={ref}
@@ -40,7 +40,7 @@ const DateInputRootProvider = forwardRef<
       asChild={asChild}
       {...props}
     >
-      {withHiddenInputs(children, asChild, names)}
+      {children}
     </DateInputPrimitive.RootProvider>
   );
 });
@@ -114,49 +114,6 @@ const DateInputSegments = forwardRef<
   );
 });
 
-type DateInputFormProps = {
-  names?: readonly [string, string];
-};
-
-function withHiddenInputs(
-  children: ReactNode,
-  asChild: boolean | undefined,
-  names: readonly [string, string] | undefined,
-) {
-  const hiddenInputs = <DateInputFormInputs names={names} />;
-
-  if (!asChild) {
-    return (
-      <>
-        {children}
-        {hiddenInputs}
-      </>
-    );
-  }
-
-  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
-
-  return cloneElement(child, {}, child.props.children, hiddenInputs);
-}
-
-function DateInputFormInputs({ names }: DateInputFormProps) {
-  const dateInput = useDateInputContext();
-  const inputCount = Math.max(dateInput.displayValues.length, 1);
-
-  return (
-    <>
-      {Array.from({ length: inputCount }, (_, index) => (
-        <DateInputPrimitive.HiddenInput
-          key={index}
-          index={index}
-          name={names?.[index]}
-          data-slot="date-input-hidden-input"
-        />
-      ))}
-    </>
-  );
-}
-
 function DateInputSeparator({
   className,
   'aria-hidden': ariaHidden = true,
@@ -177,6 +134,7 @@ function DateInputSeparator({
 const DateInput = Object.assign(DateInputRoot, {
   Root: DateInputRoot,
   RootProvider: DateInputRootProvider,
+  HiddenInput: DateInputPrimitive.HiddenInput,
   Label: DateInputLabel,
   Control: DateInputControl,
   SegmentGroup: DateInputSegmentGroup,

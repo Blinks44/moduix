@@ -119,6 +119,7 @@ export const CustomStyling: Story = {
         <SegmentGroup.Item key={item} value={item} className={styles.customItem}>
           <SegmentGroup.ItemText>{item}</SegmentGroup.ItemText>
           <SegmentGroup.ItemControl />
+          <SegmentGroup.ItemHiddenInput />
         </SegmentGroup.Item>
       ))}
     </SegmentGroup>
@@ -138,6 +139,7 @@ export const AsChild: Story = {
             <SegmentGroup.ItemText className={styles.cardTitle}>{item}</SegmentGroup.ItemText>
             <span className={styles.cardDescription}>{description}</span>
             <SegmentGroup.ItemControl />
+            <SegmentGroup.ItemHiddenInput />
           </label>
         </SegmentGroup.Item>
       ))}

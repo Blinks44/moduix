@@ -53,6 +53,7 @@ export default function SelectFormUsageDemo() {
             ))}
           </Select.Content>
         </Select.Positioner>
+        <Select.HiddenSelect />
       </Select>
       <PreviewMeta>
         <output>Submitted: {submitted}</output>

@@ -109,8 +109,8 @@ situés en dehors de l’arborescence des segments doivent appeler des méthodes
 `SegmentGroup.Context`, `SegmentGroup.ItemContext`, `useSegmentGroupContext` ou
 `useSegmentGroupItemContext` depuis `@moduix/react`.
 
-`ItemHiddenInput` est interne à moduix. Chaque `SegmentGroup.Item` rend déjà exactement un champ natif de type radio
-natif synchronisé, y compris avec `asChild`. N’ajoutez pas une seconde fois `ItemHiddenInput` d’Ark.
+`SegmentGroup.Items` inclut `ItemHiddenInput` dans sa composition fixe. Avec
+`SegmentGroup.Item` directement, ajoutez exactement un `SegmentGroup.ItemHiddenInput`.
 
 ### Propriétés par défaut
 
@@ -235,7 +235,7 @@ l’opacité du groupe, sans la cumuler avec celle de chaque élément.
 
 ### Field
 
-Enveloppez le groupe dans `Field` lorsque son champ natif automatique doit être accompagné d’un texte
+Enveloppez le groupe dans `Field` lorsque ses champs natifs doivent être accompagnés d’un texte
 d’aide ou d’un message d’erreur. Ark hérite des états `disabled`, `invalid`, `required` et `readOnly`
 du champ.
 

@@ -36,7 +36,7 @@ import CheckboxWithForm from '@/components/examples/checkbox/with-form.tsx';
 
 Соберите флажок из частей Ark. Обычно `Checkbox.Control` можно оставить пустым: moduix сам добавит
 встроенные иконки выбранного и неопределённого состояния. Добавьте `Checkbox.Label`, чтобы показать
-подпись. Нативное поле формы moduix добавляет автоматически.
+подпись, а `Checkbox.HiddenInput` — для нативного взаимодействия и работы с формой.
 
 <ExampleFrame variant="component">
   <CheckboxBasic />
@@ -67,7 +67,7 @@ Checkbox.Root
 │  ├─ Checkbox.Indicator
 │  └─ Checkbox.Indicator[indeterminate] (optional)
 ├─ Checkbox.Label
-└─ native input (automatic)
+└─ Checkbox.HiddenInput (явно)
 
 Checkbox.RootProvider
 └─ same part tree connected to useCheckbox()
@@ -131,15 +131,13 @@ Checkbox.Group
 `Checkbox.Group`, а `value` - в каждый `Checkbox.Root`.
 
 При миграции с shadcn `Checkbox.Control` уже содержит стандартное оформление иконки. В разметке
-`Checkbox.Control` и `Checkbox.Label` остаются явными частями, а скрытое поле ввода создаётся внутри
-компонента.
+`Checkbox.Control`, `Checkbox.Label` и `Checkbox.HiddenInput` остаются явными частями разметки.
 
 `Checkbox.Root` и `Checkbox.RootProvider` из Ark по умолчанию отрисовывают `label`. При использовании
 `asChild` непосредственным дочерним элементом тоже должен быть семантический `label`, иначе у
 флажка не будет корректной подписи.
 
-При `readOnly` moduix отражает это состояние в `aria-readonly` автоматически созданного нативного
-поля, а Ark по-прежнему блокирует взаимодействие.
+При `readOnly` Ark блокирует взаимодействие и управляет семантикой нативного поля.
 
 `ref`, переданный части, указывает на соответствующий узел DOM Ark. Чтобы переключить флажок в
 фокусе, нажмите <kbd>Space</kbd>.
@@ -521,8 +519,7 @@ Checkbox.Group
 
 ### С формой
 
-Передайте `name` и `value` в `Checkbox.Root`, чтобы автоматически созданное нативное поле попало в
-`FormData`.
+Передайте `name` и `value` в `Checkbox.Root` и добавьте `Checkbox.HiddenInput`, чтобы значение попало в `FormData`.
 
 <ExampleFrame variant="component">
   <CheckboxWithForm />

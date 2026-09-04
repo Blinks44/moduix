@@ -120,8 +120,8 @@ with `Fieldset.RootProvider` for the same state instance.
 
 ### Checkbox
 
-Use the legend to name a group of related checkbox controls. Each `Checkbox` renders its native input
-automatically, so its value participates in form submission and form reset as expected.
+Use the legend to name a group of related checkbox controls. Add `Checkbox.HiddenInput` to each
+checkbox that needs native focus, form submission, and form reset behavior.
 
 <ExampleFrame variant="component">
   <FieldsetCheckbox />

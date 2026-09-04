@@ -29,6 +29,7 @@ export default function MediaCaptureUploadDemo() {
           }
         </FileUpload.Context>
       </FileUpload.ItemGroup>
+      <FileUpload.HiddenInput />
     </FileUpload>
   );
 }

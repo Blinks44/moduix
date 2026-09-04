@@ -13,7 +13,7 @@ Upstream references, accessed 2026-08-11:
 ## Upstream model to preserve
 
 The wrapper follows Ark UI `PinInput`: `Root`, `Label`, `Control`, indexed `Input`, `RootProvider`,
-and `usePinInput`. `Root` and `RootProvider` render the native form input internally. `PinInput.Inputs`
+and `usePinInput`. Compose `PinInput.HiddenInput` explicitly for native form behavior. `PinInput.Inputs`
 is moduix sugar for the standard sequence of indexed inputs.
 
 The official Ark UI 5.38.1 documentation and installed Ark UI 5.37.2 primitive were reviewed on
@@ -23,7 +23,7 @@ The official Ark UI 5.38.1 documentation and installed Ark UI 5.37.2 primitive w
 
 | Source              | Useful difference                                                                     | Decision                                                                                                                                                 |
 | ------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Ark UI              | Owns indexed input behavior, focus transfer, paste, callbacks, and native form props. | **Required correctness:** preserve the part tree and Ark callback details; moduix automatically renders the native input.                                |
+| Ark UI              | Owns indexed input behavior, focus transfer, paste, callbacks, and native form props. | **Required correctness:** preserve the part tree and Ark callback details; compose its native input explicitly.                                          |
 | Chakra UI           | Adds recipe variants, sizes, and color palettes around the same primitive.            | **Intentional difference:** moduix keeps its token-based CSS contract rather than adding a second visual API.                                            |
 | shadcn/ui Input OTP | Makes grouped slots and separators easy to discover, but uses a different primitive.  | **Consumer friction resolved:** `Inputs` covers the standard sequence and explicit `Input` plus `Separator` covers grouping without a compatibility API. |
 
@@ -32,7 +32,7 @@ The official Ark UI 5.38.1 documentation and installed Ark UI 5.37.2 primitive w
 `PinInput` is the short root form and is equivalent to `PinInput.Root`. It accepts Ark root props:
 `count`, `value`, `defaultValue`, `type`, `pattern`, `placeholder`, `otp`, `mask`,
 `blurOnComplete`, `selectOnFocus`, `autoSubmit`, `sanitizeValue`, `onValueChange(details)`,
-`onValueComplete(details)`, and `onValueInvalid(details)`. Its internal native form input keeps
+`onValueComplete(details)`, and `onValueInvalid(details)`. Its explicit native form input keeps
 uncontrolled values synchronized with native form resets and participates in `autoSubmit`.
 
 moduix overrides Ark's default placeholder behavior by using an empty placeholder string unless the
@@ -90,14 +90,15 @@ export function VerificationCodeField() {
 ## Accessibility and state
 
 Ark owns input labels, focus transfer, paste distribution, keyboard editing, invalid events, and
-hidden input form data. The root renders its native form input automatically; configure form participation with root props such as `name` and `form`.
+hidden input form data. Render `PinInput.HiddenInput` explicitly and configure form participation
+with root props such as `name` and `form`.
 
 `autoSubmit` submits the owning form once every slot is complete. Arrow keys move between cells,
 Backspace clears and moves to the previous cell, Delete clears the current cell, and paste fills the
 remaining cells.
 
 `Field.Root` and `Fieldset.Root` context can provide disabled, invalid, required, and read-only
-state. The internal native form input reads Ark field context for described-by wiring.
+state. The explicit native form input reads Ark field context for described-by wiring.
 
 State callbacks keep Ark detail shapes:
 
@@ -136,13 +137,13 @@ Important hooks:
 - Keep callbacks and value state Ark-shaped; do not adapt arrays back to strings.
 - Keep `Inputs` as fixed convenience sugar; do not turn it into a prop bag or replace explicit
   `Input` composition for grouped layouts.
-- `Root` and `RootProvider` render the native form input automatically for form submission, reset,
-  and autofill behavior.
+- Compose `PinInput.HiddenInput` explicitly for form submission, reset, and autofill behavior.
 - When adding grouped layouts, input indexes must stay continuous across separators.
 
 ## Local changelog
 
-- 2026-08-11: Documented automatic form submission and Ark keyboard behavior; added focused
+- 2026-09-04: Exposed Ark `HiddenInput` explicitly and removed root child mutation and reset synchronization.
+- 2026-08-11: Documented form submission and Ark keyboard behavior; added focused
   regression coverage for `autoSubmit` form participation.
 
 - 2026-07-29: Synced uncontrolled PinInput state with native form resets and added focused regression coverage for form participation, paste, Field state, RootProvider, and `asChild`.
@@ -150,7 +151,7 @@ Important hooks:
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Reduced default square PIN cells to `--moduix-size-md`.
 
-- 2026-07-13: Native form controls are now rendered automatically; the former public form-control part was removed.
+- 2026-07-13: Native form controls were rendered automatically at this point in the wrapper history.
 
 - 2026-07-10: Added `PinInput.Inputs` as the recommended fixed renderer for the standard indexed
   input sequence; explicit `Input` composition remains the advanced path.

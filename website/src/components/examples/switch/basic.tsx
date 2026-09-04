@@ -5,6 +5,7 @@ export default function SwitchDemo() {
     <Switch defaultChecked>
       <Switch.Control />
       <Switch.Label>Enable notifications</Switch.Label>
+      <Switch.HiddenInput />
     </Switch>
   );
 }

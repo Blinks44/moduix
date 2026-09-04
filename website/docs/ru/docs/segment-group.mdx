@@ -109,9 +109,8 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 `SegmentGroup.Context`, `SegmentGroup.ItemContext`, `useSegmentGroupContext` или
 `useSegmentGroupItemContext` из `@moduix/react`.
 
-`ItemHiddenInput` является внутренней частью moduix. Каждый `SegmentGroup.Item` уже создаёт ровно
-одно синхронизированное нативное поле радиокнопки, в том числе при использовании `asChild`. Не добавляйте
-`ItemHiddenInput` Ark повторно.
+`SegmentGroup.Items` включает `ItemHiddenInput` в фиксированную композицию. При прямом использовании
+`SegmentGroup.Item` добавьте в него ровно один `SegmentGroup.ItemHiddenInput`.
 
 ### Свойства по умолчанию
 
@@ -235,7 +234,7 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 
 ### Field
 
-Оберните группу в `Field`, если автоматическое нативное поле должно сопровождаться поясняющим
+Оберните группу в `Field`, если нативные поля должны сопровождаться поясняющим
 текстом или сообщением об ошибке. Ark наследует от поля состояния `disabled`, `invalid`, `required`
 и `readOnly`.
 

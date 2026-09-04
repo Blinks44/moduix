@@ -23,6 +23,7 @@ export default function InitialFilesUploadDemo() {
           }
         </FileUpload.Context>
       </FileUpload.ItemGroup>
+      <FileUpload.HiddenInput />
     </FileUpload>
   );
 }

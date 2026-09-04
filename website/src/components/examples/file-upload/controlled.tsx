@@ -31,6 +31,7 @@ export default function ControlledFileUploadDemo() {
             }
           </FileUpload.Context>
         </FileUpload.ItemGroup>
+        <FileUpload.HiddenInput />
       </FileUpload>
       <PreviewMeta>
         <output>Selected: {files.length}</output>

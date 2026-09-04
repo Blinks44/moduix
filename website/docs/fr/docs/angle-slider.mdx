@@ -74,7 +74,7 @@ AngleSlider.Root
 │  │  └─ AngleSlider.Marker[value]
 │  └─ AngleSlider.Thumb
 ├─ AngleSlider.ValueText
-└─ champ de formulaire natif masqué (ajouté automatiquement)
+└─ AngleSlider.HiddenInput (explicite)
 ```
 
 | Partie                             | Rôle                                                                    |
@@ -90,8 +90,8 @@ AngleSlider.Root
 | `AngleSlider.Thumb`                | Poignée pouvant recevoir le focus et indiquant l’angle courant.          |
 | `AngleSlider.ValueText`            | Affiche la valeur actuelle en degrés.                                   |
 
-moduix ajoute automatiquement le champ de formulaire natif masqué lorsque vous utilisez `Root` ou `RootProvider`.
-Vous n’avez pas besoin de rendre `HiddenInput` vous-même.
+Composez explicitement `AngleSlider.HiddenInput` dans `Root` ou `RootProvider` lorsque la valeur
+doit participer à un formulaire natif.
 
 ## Composition
 
@@ -139,10 +139,8 @@ enveloppée.
 - La poignée reprend le comportement clavier du curseur Ark et le déplacement du pointeur autour du contrôle circulaire.
 - `AngleSlider.Marks` rend le même DOM de marqueurs et les mêmes sélecteurs de style que la composition explicite
   `MarkerGroup` et `Marker`.
-- `Root` et `RootProvider` rendent automatiquement le champ de formulaire natif masqué. Définissez `name` pour
-  inclure l’angle dans les données du formulaire et `form` pour l’associer à un formulaire externe. Une
-  réinitialisation native ramène un `Root` non contrôlé à `defaultValue` et un `RootProvider` à la valeur présente
-  lors de son montage. En mode contrôlé, le code qui gère l’état reste prioritaire.
+- Composez explicitement `AngleSlider.HiddenInput`. Définissez `name` pour inclure l’angle dans les
+  données du formulaire et `form` pour l’associer à un formulaire externe. Ark gère la réinitialisation native.
 - `ValueText` affiche la chaîne en degrés fournie par Ark lorsqu’aucun enfant personnalisé n’est fourni.
 - `data-disabled`, `data-invalid`, `data-readonly`, `data-state` des marqueurs, `--value`, `--angle`,
   `--marker-value` et `--marker-display-value` restent disponibles pour les styles.
@@ -208,9 +206,8 @@ interactions.
 
 ### Dans un formulaire
 
-Ajoutez `name` pour inclure l’angle dans les données envoyées par le formulaire natif. moduix crée automatiquement le
-champ natif masqué et le bouton Reset illustre la réinitialisation native. Utilisez `form` lorsque le formulaire n’est
-pas un ancêtre du curseur.
+Ajoutez `AngleSlider.HiddenInput` et `name` pour inclure l’angle dans les données envoyées. Le bouton
+Reset illustre la réinitialisation native d’Ark. Utilisez `form` lorsque le formulaire n’est pas un ancêtre du curseur.
 
 <ExampleFrame variant="component">
   <AngleSliderForm />

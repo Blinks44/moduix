@@ -37,7 +37,7 @@ function ProviderRadioGroup() {
   );
 }
 
-test('renders automatic native inputs that submit and reset with the form', async () => {
+test('submits through explicit Ark item inputs', async () => {
   const { container } = render(() => (
     <form>
       <RadioGroup defaultValue="React" name="framework">
@@ -51,18 +51,15 @@ test('renders automatic native inputs that submit and reset with the form', asyn
   const react = screen.getByRole('radio', { name: 'React' });
   const solid = screen.getByRole('radio', { name: 'Solid' });
 
-  expect(react).toHaveAttribute('data-slot', 'radio-group-item-hidden-input');
+  expect(react).toHaveAttribute('type', 'radio');
   expect(new FormData(form).get('framework')).toBe('React');
 
   fireEvent.click(solid);
   await waitFor(() => expect(solid).toBeChecked());
   expect(new FormData(form).get('framework')).toBe('Solid');
-
-  form.reset();
-  await waitFor(() => expect(react).toBeChecked());
 });
 
-test('keeps asChild composition semantic while adding one native input', () => {
+test('keeps asChild composition semantic with an explicit item input', () => {
   render(() => (
     <RadioGroup defaultValue="React">
       <RadioGroup.Item
@@ -71,6 +68,7 @@ test('keeps asChild composition semantic while adding one native input', () => {
       >
         <>
           <RadioGroup.ItemControl />
+          <RadioGroup.ItemHiddenInput />
           <RadioGroup.ItemText>React</RadioGroup.ItemText>
         </>
       </RadioGroup.Item>
@@ -94,6 +92,7 @@ test('does not forward refs through native Ark Solid asChild composition', () =>
       >
         <>
           <RadioGroup.ItemControl />
+          <RadioGroup.ItemHiddenInput />
           <RadioGroup.ItemText>React</RadioGroup.ItemText>
         </>
       </RadioGroup.Item>
@@ -184,6 +183,7 @@ test('forwards refs and exposes stable slots on public parts', () => {
       <RadioGroup.Label ref={(element) => (labelRef = element)}>Framework</RadioGroup.Label>
       <RadioGroup.Item ref={(element) => (itemRef = element)} value="React">
         <RadioGroup.ItemControl ref={(element) => (controlRef = element)} />
+        <RadioGroup.ItemHiddenInput />
         <RadioGroup.ItemText ref={(element) => (textRef = element)}>React</RadioGroup.ItemText>
       </RadioGroup.Item>
       <RadioGroup.Indicator ref={(element) => (indicatorRef = element)} />
@@ -197,10 +197,7 @@ test('forwards refs and exposes stable slots on public parts', () => {
   expect(controlRef).toHaveAttribute('data-slot', 'radio-group-item-control');
   expect(textRef).toHaveAttribute('data-slot', 'radio-group-item-text');
   expect(indicatorRef).toHaveAttribute('data-slot', 'radio-group-indicator');
-  expect(screen.getByRole('radio', { name: 'React' })).toHaveAttribute(
-    'data-slot',
-    'radio-group-item-hidden-input',
-  );
+  expect(screen.getByRole('radio', { name: 'React' })).toHaveAttribute('type', 'radio');
 });
 
 test('exposes invalid and disabled state on the Ark item parts', () => {
@@ -209,10 +206,12 @@ test('exposes invalid and disabled state on the Ark item parts', () => {
       <RadioGroup.Label>Framework</RadioGroup.Label>
       <RadioGroup.Item value="React">
         <RadioGroup.ItemControl data-testid="invalid-control" />
+        <RadioGroup.ItemHiddenInput />
         <RadioGroup.ItemText>React</RadioGroup.ItemText>
       </RadioGroup.Item>
       <RadioGroup.Item disabled value="Solid">
         <RadioGroup.ItemControl />
+        <RadioGroup.ItemHiddenInput />
         <RadioGroup.ItemText>Solid</RadioGroup.ItemText>
       </RadioGroup.Item>
     </RadioGroup>

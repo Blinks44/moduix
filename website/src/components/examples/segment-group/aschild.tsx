@@ -14,6 +14,7 @@ export default function SegmentGroupAsChildDemo() {
             <SegmentGroup.ItemText className={styles.title}>{item}</SegmentGroup.ItemText>
             <span className={styles.description}>{description}</span>
             <SegmentGroup.ItemControl />
+            <SegmentGroup.ItemHiddenInput />
           </label>
         </SegmentGroup.Item>
       ))}

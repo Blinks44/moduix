@@ -73,6 +73,7 @@ function CheckboxItem({
       <Checkbox.Label className={customStyled ? styles.customLabel : undefined}>
         {children}
       </Checkbox.Label>
+      <Checkbox.HiddenInput />
     </Checkbox.Root>
   );
 }
@@ -108,6 +109,7 @@ export const RootProvider: Story = {
         <Checkbox.RootProvider value={checkbox}>
           <Checkbox.Control />
           <Checkbox.Label>Managed outside the tree</Checkbox.Label>
+          <Checkbox.HiddenInput />
         </Checkbox.RootProvider>
         <button
           type="button"

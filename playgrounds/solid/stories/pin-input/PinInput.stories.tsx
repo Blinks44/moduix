@@ -29,6 +29,7 @@ export const Basic: Story = {
       <PinInput.Control>
         <PinInput.Inputs />
       </PinInput.Control>
+      <PinInput.HiddenInput />
     </PinInput>
   ),
 };
@@ -82,6 +83,7 @@ export const Placeholder: Story = {
       <PinInput.Control>
         <PinInput.Inputs />
       </PinInput.Control>
+      <PinInput.HiddenInput />
     </PinInput>
   ),
 };
@@ -104,6 +106,7 @@ export const OtpMode: Story = {
       <PinInput.Control>
         <PinInput.Inputs />
       </PinInput.Control>
+      <PinInput.HiddenInput />
     </PinInput>
   ),
 };

@@ -47,6 +47,7 @@ export default function RejectedFilesUploadDemo() {
           }
         </FileUpload.Context>
       </FileUpload.ItemGroup>
+      <FileUpload.HiddenInput />
     </FileUpload>
   );
 }

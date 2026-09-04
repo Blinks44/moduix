@@ -29,6 +29,7 @@ export const Basic: Story = {
       <DateInput.Control>
         <DateInput.Segments />
       </DateInput.Control>
+      <DateInput.HiddenInput />
     </DateInput>
   ),
 };
@@ -55,7 +56,6 @@ export const Range: Story = {
   render: () => (
     <DateInput
       selectionMode="range"
-      names={['check-in', 'check-out']}
       defaultValue={[new CalendarDate(2026, 6, 22), new CalendarDate(2026, 6, 26)]}
     >
       <DateInput.Label>Travel dates</DateInput.Label>
@@ -64,6 +64,8 @@ export const Range: Story = {
         <DateInput.Separator>to</DateInput.Separator>
         <DateInput.Segments index={1} />
       </DateInput.Control>
+      <DateInput.HiddenInput index={0} name="check-in" />
+      <DateInput.HiddenInput index={1} name="check-out" />
     </DateInput>
   ),
 };
@@ -92,6 +94,7 @@ export const DisabledAndReadOnly: Story = {
         <DateInput.Control>
           <DateInput.Segments />
         </DateInput.Control>
+        <DateInput.HiddenInput />
       </DateInput>
 
       <DateInput readOnly name="read-only-date" defaultValue={[new CalendarDate(2026, 6, 22)]}>
@@ -99,6 +102,7 @@ export const DisabledAndReadOnly: Story = {
         <DateInput.Control>
           <DateInput.Segments />
         </DateInput.Control>
+        <DateInput.HiddenInput />
       </DateInput>
     </div>
   ),
@@ -116,6 +120,7 @@ export const Granularity: Story = {
       <DateInput.Control>
         <DateInput.Segments />
       </DateInput.Control>
+      <DateInput.HiddenInput />
     </DateInput>
   ),
 };
@@ -128,6 +133,7 @@ export const WithFieldValidation: Story = {
         <DateInput.Control>
           <DateInput.Segments />
         </DateInput.Control>
+        <DateInput.HiddenInput />
       </DateInput>
       <Field.ErrorText>Enter a valid deadline.</Field.ErrorText>
     </Field>

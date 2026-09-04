@@ -22,6 +22,7 @@ export default function FormTagsInput() {
           <TagsInput.Input placeholder="Add framework" />
           <TagsInput.ClearTrigger aria-label="Clear frameworks" />
         </TagsInput.Control>
+        <TagsInput.HiddenInput />
       </TagsInput>
       <PreviewMeta>
         <output>Submitted: {submittedValue || 'none'}</output>

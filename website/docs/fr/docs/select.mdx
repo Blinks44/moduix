@@ -37,8 +37,8 @@ créer une valeur.
 
 Passez une collection à `Select`, utilisez `Select.Field` pour le champ visible standard et gardez
 la structure de la fenêtre contextuelle explicite. La propriété `clearLabel` ajoute un bouton
-d’effacement accessible. La racine ajoute automatiquement le contrôle de formulaire natif nécessaire
-à la soumission, au remplissage automatique et à la réinitialisation.
+d’effacement accessible. Ajoutez explicitement `Select.HiddenSelect` lorsque la soumission, le
+remplissage automatique, la validation et la réinitialisation natives sont nécessaires.
 
 <ExampleFrame variant="component">
   <SelectBasic />
@@ -84,7 +84,7 @@ Select / Select.Root
 │              │     ├─ Select.ItemTextIcon
 │              │     └─ Select.ItemTextLabel
 │              └─ Select.ItemIndicator
-└─ contrôle de formulaire natif (automatique)
+└─ Select.HiddenSelect (explicite)
 ```
 
 | Partie                    | Rôle                                                                                             |
@@ -130,7 +130,7 @@ noms.
 
 Composez explicitement `Control`, `Trigger` et les parties visuelles lorsque chacune doit être
 assemblée et stylisée indépendamment. `asChild` exige un conteneur sémantique unique capable de
-recevoir le contrôle de formulaire natif ajouté automatiquement. Utilisez `div` ou `section`, et
+recevoir les props Ark et d’afficher ses enfants. Utilisez `div` ou `section`, et
 non un élément interactif tel que `button`. `Select.List` sert aux enveloppes de liste personnalisées
 et à la virtualisation.
 
@@ -149,7 +149,6 @@ initial immédiat est nécessaire.
 | `lazyMount`              | `true`            | Diffère le montage du contenu jusqu’à l’ouverture.                            |
 | `loopFocus`              | `false`           | Par défaut, la navigation avec les flèches ne revient pas au début.           |
 | `multiple`               | `false`           | Autorise plusieurs valeurs lorsqu’elle est activée.                           |
-| `nativeFormControl`      | `select`          | Utilise le `<select>` natif ; utilisez `input` pour les listes virtualisées. |
 | `unmountOnExit`          | `true`            | Supprime le contenu après l’animation de fermeture.                           |
 | `ValueText.placeholder`  | -                 | Texte affiché lorsque le tableau de valeurs est vide.                         |
 
@@ -167,12 +166,9 @@ l’arborescence Select. Pour lire l’état à l’intérieur de cette arboresc
 `Field.Root` et `Fieldset.Root` transmettent via le contexte Ark les états `disabled`, `invalid`,
 `required` et `read-only`.
 
-Le `<select>` natif standard conserve la validation du navigateur, le remplissage automatique, la
-réinitialisation du formulaire et l’amélioration progressive. Pour une collection virtualisée,
-`nativeFormControl="input"` envoie un `<input>` masqué pour chaque valeur sélectionnée au lieu de
-générer une `option` pour chaque élément. Ce mode synchronise toujours la réinitialisation du
-formulaire et l’état `disabled` du `fieldset`, mais ne fournit volontairement ni le remplissage
-automatique natif du `<select>`, ni sa validation, ni l’amélioration progressive.
+`Select.HiddenSelect` conserve la validation du navigateur, le remplissage automatique, la
+réinitialisation du formulaire et l’amélioration progressive. Pour une collection virtualisée où
+le rendu de toutes les options natives est indésirable, fournissez votre propre intégration de formulaire.
 
 Lorsque la réduction des mouvements est activée, Select désactive les transitions du déclencheur et
 les animations d’ouverture et de fermeture de la fenêtre contextuelle. La sélection, la restauration
@@ -285,7 +281,7 @@ Enveloppez Select dans `Field.Root` lorsque le libellé, le texte d’aide ou le
 
 ### Utilisation dans un formulaire
 
-Le `<select>` natif ajouté automatiquement préserve la soumission native du formulaire. Lisez les
+Le `Select.HiddenSelect` explicitement composé préserve la soumission native du formulaire. Lisez les
 valeurs envoyées depuis `FormData`.
 
 <ExampleFrame variant="component">
@@ -406,10 +402,8 @@ libellés des éléments sélectionnés à partir de la collection.
 
 ### Contrôle de formulaire natif
 
-Utilisez `nativeFormControl="input"` pour les grandes collections ou les collections virtualisées
-lorsque générer une `option` native pour chaque élément serait trop coûteux. Cet exemple montre les
-valeurs envoyées dans `FormData`. Pour une collection virtualisée, associez ce mode à `Select.List`
-et à votre stratégie de virtualisation.
+Composez explicitement `Select.HiddenSelect` lorsque la sélection doit participer à un formulaire
+natif. Cet exemple montre les valeurs envoyées dans `FormData`.
 
 <ExampleFrame variant="component">
   <SelectNativeFormControl />

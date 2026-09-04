@@ -23,7 +23,6 @@ function FileUploadRoot(props: ComponentProps<typeof FileUploadPrimitive.Root>) 
       {...others}
     >
       {local.children}
-      <FileUploadPrimitive.HiddenInput data-slot="file-upload-hidden-input" />
     </FileUploadPrimitive.Root>
   );
 }
@@ -39,7 +38,6 @@ function FileUploadRootProvider(props: ComponentProps<typeof FileUploadPrimitive
       {...others}
     >
       {local.children}
-      <FileUploadPrimitive.HiddenInput data-slot="file-upload-hidden-input" />
     </FileUploadPrimitive.RootProvider>
   );
 }
@@ -304,6 +302,7 @@ const FileUpload = Object.assign(FileUploadRoot, {
   Root: FileUploadRoot,
   RootProvider: FileUploadRootProvider,
   Context: FileUploadPrimitive.Context,
+  HiddenInput: FileUploadPrimitive.HiddenInput,
   Label: FileUploadLabel,
   Dropzone: FileUploadDropzone,
   DropzoneIcon: FileUploadDropzoneIcon,

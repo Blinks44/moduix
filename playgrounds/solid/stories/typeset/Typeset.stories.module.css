@@ -1,0 +1,20 @@
+.article {
+  width: min(42rem, 100%);
+}
+
+.compact {
+  --moduix-typeset-flow: 0.875em;
+  --moduix-typeset-leading: 1.6;
+}
+
+.wideTable {
+  min-width: 36rem;
+}
+
+.excluded {
+  margin-block-start: var(--moduix-typeset-flow, 1.25em);
+  padding: var(--moduix-spacing-4);
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-md);
+  background: var(--moduix-color-muted);
+}

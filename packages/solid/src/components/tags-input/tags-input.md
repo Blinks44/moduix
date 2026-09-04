@@ -10,9 +10,8 @@ Upstream docs:
 
 `TagsInput` lets users enter, edit, remove, and submit a list of string tags from one input-like
 control. It is backed by Ark UI `@ark-ui/solid/tags-input` and is a native Solid adapter; Ark owns the state machine, keyboard
-navigation, focus management, validation hooks, form-input props, and data attributes. Moduix
-renders the native form input automatically from the Ark state so it remains available for every
-public root composition.
+navigation, focus management, validation hooks, form-input props, and data attributes. Compose
+`TagsInput.HiddenInput` explicitly when native form participation is needed.
 
 ## Upstream model to preserve
 
@@ -72,7 +71,7 @@ Use root props such as `name` and `form` to configure native form participation.
 ## Composition
 
 Use `TagsInput.Items` inside `Control` for the standard editable tag tree. Keep
-`TagsInput.Input` inside `Control` for entry. The root renders its native form input automatically. For custom tag
+`TagsInput.Input` inside `Control` for entry. Add `TagsInput.HiddenInput` explicitly for form use. For custom tag
 content or actions, map `tagsInput.value` from `TagsInput.Context`, pass `index` and `value` to each
 `TagsInput.Item`, and keep `ItemInput` inside the item so edit mode works.
 
@@ -84,8 +83,7 @@ the shared text field with `Combobox.Input asChild` around `TagsInput.Input`.
 Every Ark part supports `asChild` with one semantic child. In Solid, `asChild` is a render
 function receiving an accessor to the merged props, so custom hosts should spread `props()` onto
 the host element. Native Ark Solid `asChild` composition does not forward refs; use the ordinary
-part path when a ref is required. When the root uses `asChild`, that child must also render its
-children so moduix can append the automatic native form input.
+part path when a ref is required.
 
 ## Upstream feature coverage
 
@@ -144,14 +142,14 @@ for normal provider and state access.
 ## Local changelog
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-31: Preserved Ark translations and anatomy attributes on default delete and clear actions;
-  synchronized the automatic native form input with value changes and form reset.
+- 2026-09-04: Exposed Ark `HiddenInput` explicitly and removed root child mutation and custom reset handling.
+- 2026-07-31: Preserved Ark translations and anatomy attributes on default delete and clear actions.
 - 2026-07-31: Hid the entry input in the read-only presentation so it does not appear editable.
 - 2026-07-21: Aligned the default one-line control with the compact Input `md` baseline.
 
 - 2026-07-17: Routed custom default clear-trigger children through `CloseButton.Root` so every
   non-`asChild` clear action uses the shared visual contract.
-- 2026-07-13: Native form controls are now rendered automatically; the former public form-control part was removed.
+- 2026-07-13: Native form controls were rendered automatically at this point in the wrapper history.
 
 - 2026-07-12: Exposed `ItemContext`, `useTagsInput()`, `useTagsInputContext()`, and
   `useTagsInputItemContext()` through moduix so provider and custom-item examples avoid direct Ark

@@ -6,33 +6,23 @@ import {
   useAngleSliderContext,
 } from '@ark-ui/react/angle-slider';
 import { clsx } from 'clsx';
-import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
-import { Children, cloneElement, forwardRef, useEffect, useRef } from 'react';
+import type { ComponentProps, ComponentRef, ReactNode } from 'react';
+import { forwardRef } from 'react';
 import styles from './AngleSlider.module.css';
 
 const AngleSliderRoot = forwardRef<
   ComponentRef<typeof AngleSliderPrimitive.Root>,
-  ComponentProps<typeof AngleSliderPrimitive.Root> & { form?: string }
->(function AngleSliderRoot(
-  { asChild, children, className, defaultValue, form, value, ...props },
-  ref,
-) {
+  ComponentProps<typeof AngleSliderPrimitive.Root>
+>(function AngleSliderRoot({ asChild, children, className, ...props }, ref) {
   return (
     <AngleSliderPrimitive.Root
       ref={ref}
       data-slot="angle-slider-root"
       className={clsx(styles.root, className)}
       asChild={asChild}
-      defaultValue={defaultValue}
-      value={value}
       {...props}
     >
-      {withHiddenInput(
-        children,
-        asChild,
-        form,
-        value === undefined ? (defaultValue ?? 0) : undefined,
-      )}
+      {children}
     </AngleSliderPrimitive.Root>
   );
 });
@@ -53,10 +43,8 @@ const AngleSliderLabel = forwardRef<
 
 const AngleSliderRootProvider = forwardRef<
   ComponentRef<typeof AngleSliderPrimitive.RootProvider>,
-  ComponentProps<typeof AngleSliderPrimitive.RootProvider> & { form?: string }
->(function AngleSliderRootProvider({ asChild, children, className, form, value, ...props }, ref) {
-  const initialValue = useRef(value.value);
-
+  ComponentProps<typeof AngleSliderPrimitive.RootProvider>
+>(function AngleSliderRootProvider({ asChild, children, className, value, ...props }, ref) {
   return (
     <AngleSliderPrimitive.RootProvider
       ref={ref}
@@ -66,56 +54,10 @@ const AngleSliderRootProvider = forwardRef<
       value={value}
       {...props}
     >
-      {withHiddenInput(children, asChild, form, initialValue.current)}
+      {children}
     </AngleSliderPrimitive.RootProvider>
   );
 });
-
-function AngleSliderHiddenInput({ form, resetValue }: { form?: string; resetValue?: number }) {
-  const angleSlider = useAngleSliderContext();
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    const formElement = inputRef.current?.form;
-
-    if (!formElement || resetValue === undefined) return;
-
-    const handleReset = () => angleSlider.setValue(resetValue);
-
-    formElement.addEventListener('reset', handleReset);
-    return () => formElement.removeEventListener('reset', handleReset);
-  }, [angleSlider, resetValue]);
-
-  return (
-    <AngleSliderPrimitive.HiddenInput
-      ref={inputRef}
-      data-slot="angle-slider-hidden-input"
-      form={form}
-    />
-  );
-}
-
-function withHiddenInput(
-  children: ReactNode,
-  asChild?: boolean,
-  form?: string,
-  resetValue?: number,
-) {
-  const hiddenInput = <AngleSliderHiddenInput form={form} resetValue={resetValue} />;
-
-  if (!asChild) {
-    return (
-      <>
-        {children}
-        {hiddenInput}
-      </>
-    );
-  }
-
-  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
-
-  return cloneElement(child, {}, child.props.children, hiddenInput);
-}
 
 const AngleSliderControl = forwardRef<
   ComponentRef<typeof AngleSliderPrimitive.Control>,
@@ -224,6 +166,7 @@ const AngleSlider = Object.assign(AngleSliderRoot, {
   Root: AngleSliderRoot,
   RootProvider: AngleSliderRootProvider,
   Context: AngleSliderPrimitive.Context,
+  HiddenInput: AngleSliderPrimitive.HiddenInput,
   Label: AngleSliderLabel,
   Control: AngleSliderControl,
   Dial: AngleSliderDial,

@@ -6,19 +6,11 @@ import {
 } from '@ark-ui/solid/date-input';
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
-import { For, splitProps } from 'solid-js';
+import { splitProps } from 'solid-js';
 import styles from './DateInput.module.css';
 
-type DateInputFormProps = {
-  names?: readonly [string, string];
-};
-
-type DateInputRootProps = ComponentProps<typeof DateInputPrimitive.Root> & DateInputFormProps;
-type DateInputRootProviderProps = ComponentProps<typeof DateInputPrimitive.RootProvider> &
-  DateInputFormProps;
-
-function DateInputRoot(props: DateInputRootProps) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class', 'names']);
+function DateInputRoot(props: ComponentProps<typeof DateInputPrimitive.Root>) {
+  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
   return (
     <DateInputPrimitive.Root
@@ -28,13 +20,12 @@ function DateInputRoot(props: DateInputRootProps) {
       {...others}
     >
       {local.children}
-      <DateInputFormInputs names={local.names} />
     </DateInputPrimitive.Root>
   );
 }
 
-function DateInputRootProvider(props: DateInputRootProviderProps) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class', 'names']);
+function DateInputRootProvider(props: ComponentProps<typeof DateInputPrimitive.RootProvider>) {
+  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
   return (
     <DateInputPrimitive.RootProvider
@@ -44,7 +35,6 @@ function DateInputRootProvider(props: DateInputRootProviderProps) {
       {...others}
     >
       {local.children}
-      <DateInputFormInputs names={local.names} />
     </DateInputPrimitive.RootProvider>
   );
 }
@@ -112,27 +102,6 @@ function DateInputSegments(props: DateInputSegmentsProps) {
   );
 }
 
-function DateInputFormInputs(props: DateInputFormProps) {
-  const dateInput = useDateInputContext();
-
-  return (
-    <For
-      each={Array.from(
-        { length: Math.max(dateInput().displayValues.length, 1) },
-        (_, index) => index,
-      )}
-    >
-      {(index) => (
-        <DateInputPrimitive.HiddenInput
-          index={index}
-          name={props.names?.[index]}
-          data-slot="date-input-hidden-input"
-        />
-      )}
-    </For>
-  );
-}
-
 function DateInputSeparator(props: ComponentProps<'span'>) {
   const [local, others] = splitProps(props, ['aria-hidden', 'class', 'role']);
 
@@ -150,6 +119,7 @@ function DateInputSeparator(props: ComponentProps<'span'>) {
 const DateInput = Object.assign(DateInputRoot, {
   Root: DateInputRoot,
   RootProvider: DateInputRootProvider,
+  HiddenInput: DateInputPrimitive.HiddenInput,
   Label: DateInputLabel,
   Control: DateInputControl,
   SegmentGroup: DateInputSegmentGroup,

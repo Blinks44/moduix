@@ -70,7 +70,6 @@ function RadioGroupItem(props: ComponentProps<typeof RadioGroupPrimitive.Item>) 
       class={clsx(styles.item, local.class)}
     >
       {local.children}
-      <RadioGroupPrimitive.ItemHiddenInput data-slot="radio-group-item-hidden-input" />
     </RadioGroupPrimitive.Item>
   );
 }
@@ -80,6 +79,7 @@ function RadioGroupOption(props: RadioGroupOptionProps) {
 
   return (
     <RadioGroupItem {...others}>
+      <RadioGroupPrimitive.ItemHiddenInput />
       <RadioGroupItemControl size={local.size} />
       <RadioGroupItemText>{local.children}</RadioGroupItemText>
     </RadioGroupItem>
@@ -130,6 +130,7 @@ const RadioGroup = Object.assign(RadioGroupRoot, {
   ItemContext: RadioGroupPrimitive.ItemContext,
   Label: RadioGroupLabel,
   Item: RadioGroupItem,
+  ItemHiddenInput: RadioGroupPrimitive.ItemHiddenInput,
   Option: RadioGroupOption,
   ItemControl: RadioGroupItemControl,
   ItemText: RadioGroupItemText,

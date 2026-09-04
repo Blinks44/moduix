@@ -7,6 +7,7 @@ export default function RatingGroupDemo() {
       <RatingGroup.Control>
         <RatingGroup.Items />
       </RatingGroup.Control>
+      <RatingGroup.HiddenInput />
     </RatingGroup>
   );
 }

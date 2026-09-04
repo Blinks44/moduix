@@ -7,8 +7,8 @@ import {
   type UsePinInputProps,
 } from '@ark-ui/react/pin-input';
 import { clsx } from 'clsx';
-import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
-import { Children, cloneElement, forwardRef, useEffect, useRef } from 'react';
+import type { ComponentProps, ComponentRef } from 'react';
+import { forwardRef } from 'react';
 import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui';
 import styles from './PinInput.module.css';
 
@@ -26,7 +26,7 @@ const PinInputRoot = forwardRef<
       placeholder={placeholder}
       {...props}
     >
-      {withHiddenInput(children, asChild)}
+      {children}
     </PinInputPrimitive.Root>
   );
 });
@@ -43,7 +43,7 @@ const PinInputRootProvider = forwardRef<
       className={clsx(styles.root, className)}
       {...props}
     >
-      {withHiddenInput(children, asChild)}
+      {children}
     </PinInputPrimitive.RootProvider>
   );
 });
@@ -96,52 +96,6 @@ function PinInputInputs({ className }: { className?: string }) {
   return items.map((index) => <PinInputInput key={index} index={index} className={className} />);
 }
 
-function withHiddenInput(children: ReactNode, asChild?: boolean) {
-  const formControls = (
-    <>
-      <PinInputFormReset />
-      <PinInputPrimitive.HiddenInput data-slot="pin-input-hidden-input" />
-    </>
-  );
-
-  if (!asChild) {
-    return (
-      <>
-        {children}
-        {formControls}
-      </>
-    );
-  }
-
-  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
-
-  return cloneElement(child, {}, child.props.children, formControls);
-}
-
-function PinInputFormReset() {
-  const pinInput = usePinInputContext();
-  const defaultValue = useRef(pinInput.value);
-
-  useEffect(() => {
-    const hiddenInputId = pinInput.getHiddenInputProps().id;
-    if (!hiddenInputId) return;
-
-    const hiddenInput = document.getElementById(hiddenInputId) as HTMLInputElement | null;
-    const form = hiddenInput?.form;
-
-    if (!form) return;
-
-    const handleReset = () => {
-      queueMicrotask(() => pinInput.setValue(defaultValue.current));
-    };
-
-    form.addEventListener('reset', handleReset);
-    return () => form.removeEventListener('reset', handleReset);
-  }, [pinInput]);
-
-  return null;
-}
-
 function PinInputSeparator({
   className,
   'aria-hidden': ariaHidden = true,
@@ -170,6 +124,7 @@ const PinInput = Object.assign(PinInputRoot, {
   Root: PinInputRoot,
   RootProvider: PinInputRootProvider,
   Context: PinInputPrimitive.Context,
+  HiddenInput: PinInputPrimitive.HiddenInput,
   Label: PinInputLabel,
   Control: PinInputControl,
   Input: PinInputInput,

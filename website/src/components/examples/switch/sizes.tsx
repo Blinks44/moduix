@@ -31,6 +31,7 @@ export default function SwitchSizesDemo() {
         <Switch key={item.value} size={item.value} defaultChecked>
           <Switch.Control />
           <Switch.Label>{item.label}</Switch.Label>
+          <Switch.HiddenInput />
         </Switch>
       ))}
     </div>

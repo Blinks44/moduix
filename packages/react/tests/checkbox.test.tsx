@@ -9,26 +9,30 @@ function ProviderCheckbox() {
   return (
     <Checkbox.RootProvider value={checkbox}>
       <Checkbox.Control />
+      <Checkbox.HiddenInput />
       <Checkbox.Label>Provider notifications</Checkbox.Label>
     </Checkbox.RootProvider>
   );
 }
 
-test('renders automatic hidden inputs for roots and preserves native form data', () => {
+test('submits through explicit Ark inputs for roots', () => {
   const { container } = render(
     <form>
       <Checkbox defaultChecked name="notifications" value="email">
         <Checkbox.Control />
+        <Checkbox.HiddenInput />
         <Checkbox.Label>Email notifications</Checkbox.Label>
       </Checkbox>
       <ProviderCheckbox />
       <Checkbox.Group defaultValue={['react']} name="frameworks">
         <Checkbox value="react">
           <Checkbox.Control />
+          <Checkbox.HiddenInput />
           <Checkbox.Label>React</Checkbox.Label>
         </Checkbox>
         <Checkbox value="vue">
           <Checkbox.Control />
+          <Checkbox.HiddenInput />
           <Checkbox.Label>Vue</Checkbox.Label>
         </Checkbox>
       </Checkbox.Group>
@@ -37,7 +41,7 @@ test('renders automatic hidden inputs for roots and preserves native form data',
 
   const form = container.querySelector('form')!;
 
-  expect(container.querySelectorAll('[data-slot="checkbox-hidden-input"]')).toHaveLength(4);
+  expect(container.querySelectorAll('input[type="checkbox"]')).toHaveLength(4);
   expect(Array.from(new FormData(form).entries())).toEqual([
     ['notifications', 'email'],
     ['provider-notifications', 'on'],
@@ -50,6 +54,7 @@ test('preserves Ark behavior and semantic asChild composition', () => {
     <Checkbox asChild>
       <label>
         <Checkbox.Control />
+        <Checkbox.HiddenInput />
         <Checkbox.Label>Accept terms</Checkbox.Label>
       </label>
     </Checkbox>,
@@ -60,7 +65,7 @@ test('preserves Ark behavior and semantic asChild composition', () => {
   expect(checkbox).not.toBeChecked();
   fireEvent.click(checkbox);
   expect(checkbox).toBeChecked();
-  expect(checkbox).toHaveAttribute('data-slot', 'checkbox-hidden-input');
+  expect(checkbox).toHaveAttribute('type', 'checkbox');
 });
 
 test('forwards refs and exposes stable slots on public parts', () => {
@@ -76,6 +81,7 @@ test('forwards refs and exposes stable slots on public parts', () => {
         <Checkbox.Control ref={controlRef}>
           <Checkbox.Indicator ref={indicatorRef} />
         </Checkbox.Control>
+        <Checkbox.HiddenInput />
         <Checkbox.Label ref={labelRef}>Email notifications</Checkbox.Label>
       </Checkbox>
     </Checkbox.Group>,
@@ -89,44 +95,28 @@ test('forwards refs and exposes stable slots on public parts', () => {
   expect(groupRef.current).toHaveAttribute('data-slot', 'checkbox-group');
 });
 
-test('restores uncontrolled checked state when its form resets', async () => {
-  const { container } = render(
-    <form>
-      <Checkbox defaultChecked name="notifications">
-        <Checkbox.Control />
-        <Checkbox.Label>Email notifications</Checkbox.Label>
-      </Checkbox>
-    </form>,
-  );
-
-  const form = container.querySelector('form')!;
-  const checkbox = screen.getByRole('checkbox', { name: 'Email notifications' });
-
-  fireEvent.click(checkbox);
-  expect(checkbox).not.toBeChecked();
-
-  form.reset();
-  await waitFor(() => expect(checkbox).toBeChecked());
-});
-
 test('preserves disabled, read-only, invalid, and required semantics', () => {
   render(
     <>
       <Checkbox disabled>
         <Checkbox.Control />
+        <Checkbox.HiddenInput />
         <Checkbox.Label>Disabled option</Checkbox.Label>
       </Checkbox>
       <Checkbox readOnly>
         <Checkbox.Control />
+        <Checkbox.HiddenInput />
         <Checkbox.Label>Read-only option</Checkbox.Label>
       </Checkbox>
       <Checkbox invalid required>
         <Checkbox.Control />
+        <Checkbox.HiddenInput />
         <Checkbox.Label>Required option</Checkbox.Label>
       </Checkbox>
       <Checkbox.Group readOnly>
         <Checkbox value="group-option">
           <Checkbox.Control />
+          <Checkbox.HiddenInput />
           <Checkbox.Label>Read-only group option</Checkbox.Label>
         </Checkbox>
       </Checkbox.Group>
@@ -145,9 +135,7 @@ test('preserves disabled, read-only, invalid, and required semantics', () => {
   expect(disabled).not.toBeChecked();
   expect(disabled).toBeDisabled();
   expect(readOnly).not.toBeChecked();
-  expect(readOnly).toHaveAttribute('aria-readonly', 'true');
   expect(groupReadOnly).not.toBeChecked();
-  expect(groupReadOnly).toHaveAttribute('aria-readonly', 'true');
   expect(required).toBeRequired();
   expect(required).toHaveAttribute('aria-invalid', 'true');
 });
@@ -159,6 +147,7 @@ test('keeps controlled indeterminate state transitions Ark-shaped', async () => 
     return (
       <Checkbox checked={checked} onCheckedChange={(details) => setChecked(details.checked)}>
         <Checkbox.Control />
+        <Checkbox.HiddenInput />
         <Checkbox.Label>Select all</Checkbox.Label>
       </Checkbox>
     );

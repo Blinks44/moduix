@@ -12,6 +12,7 @@ export default function RadioGroupAsChildDemo() {
           <label className={styles.cardItem}>
             <RadioGroup.ItemControl />
             <RadioGroup.ItemText>{framework}</RadioGroup.ItemText>
+            <RadioGroup.ItemHiddenInput />
           </label>
         </RadioGroup.Item>
       ))}

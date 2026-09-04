@@ -60,7 +60,7 @@ RatingGroup / RatingGroup.Root
    ├─ RatingGroup.Context (advanced, optional)
    │  └─ RatingGroup.Item[index]
    │     └─ RatingGroup.ItemIndicator
-   └─ native form input (automatic)
+    └─ RatingGroup.HiddenInput (explicit)
 
 RatingGroup.RootProvider
 └─ same part tree connected to a moduix useRatingGroup() store
@@ -85,7 +85,7 @@ RatingGroup.RootProvider
 `RatingGroup` is the short root form of `RatingGroup.Root`. It keeps rating state, focus management,
 labels, form integration, and keyboard and pointer behavior in one place. For the standard star UI,
 add `RatingGroup.Items`; it creates an item for each value up to `count` and supplies the default star
-indicator. The root also renders the synchronized native form input. To change the icon while keeping
+indicator. Add `RatingGroup.HiddenInput` explicitly for native form behavior. To change the icon while keeping
 the same interaction, pass a custom `RatingGroup.ItemIndicator` as the child of `RatingGroup.Items`.
 
 ### When to go custom
@@ -116,7 +116,7 @@ a moduix visual helper and does not replace an Ark DOM part.
 - `onHoverChange(details)` receives Ark hover details; use them for a live preview or related UI.
 - `allowHalf` enables half-step selection and half-star rendering.
 - `autoFocus` focuses the rating when it mounts.
-- `name`, `form`, and `required` apply to the native form input rendered automatically by the root.
+- `name`, `form`, and `required` apply to the explicitly composed `RatingGroup.HiddenInput`.
 - `disabled` and `readOnly` are handled by Ark and reflected through data attributes.
 - Ark handles keyboard navigation. `ArrowRight` and `ArrowLeft` move between items, and `Enter`
   selects the focused item. With `allowHalf`, the arrow keys also move in half-step increments.
@@ -217,8 +217,8 @@ changes.
 
 ### Field
 
-Wrap the rating group in `Field` when helper or validation text should be associated with its automatic
-form input. Ark inherits `disabled`, `readOnly`, and `required` from the field; validation state remains
+Wrap the rating group in `Field` when helper or validation text should be associated with its
+`RatingGroup.HiddenInput`. Ark inherits `disabled`, `readOnly`, and `required` from the field; validation state remains
 owned by `Field` and application code.
 
 <ExampleFrame variant="component">
@@ -247,8 +247,7 @@ owned by `Field` and application code.
 
 ### Forms
 
-Pass `name` when the selected score should be included in `FormData`; the root renders the synchronized
-native form input automatically.
+Pass `name` and render `RatingGroup.HiddenInput` when the selected score should be included in `FormData`.
 
 <ExampleFrame variant="component">
   <RatingGroupForms />
@@ -382,7 +381,6 @@ variables.
 - `data-slot="rating-group-item"`
 - `data-slot="rating-group-item-indicator"`
 - `data-slot="rating-group-item-indicator-bg"` and `data-slot="rating-group-item-indicator-fg"`
-- `data-slot="rating-group-hidden-input"`
 - `data-size="xs" | "sm" | "md" | "lg" | "xl"` on the root or root provider
 - Ark label attributes: `data-disabled` and `data-required`
 - Ark control attributes: `data-disabled` and `data-readonly`

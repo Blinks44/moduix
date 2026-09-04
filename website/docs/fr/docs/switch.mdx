@@ -34,8 +34,8 @@ seule valeur booléenne.
 
 ## Exemple de base
 
-Un interrupteur de base se compose d’une racine, d’un contrôle visuel et d’un libellé. Le contrôle ajoute le curseur
-par défaut, tandis que la racine ajoute l’input de formulaire masqué utilisé pour le comportement natif des formulaires.
+Un interrupteur de base se compose d’une racine, d’un contrôle visuel, d’un libellé et d’un
+`Switch.HiddenInput` explicite pour l’interaction et les formulaires natifs.
 
 <ExampleFrame variant="component">
   <SwitchBasic />
@@ -66,7 +66,7 @@ Switch / Switch.Root
 ├─ Switch.Control
 │  └─ Switch.Thumb
 ├─ Switch.Label
-└─ input masqué (ajouté automatiquement)
+└─ Switch.HiddenInput (explicite)
 ```
 
 | Partie                    | Rôle                                                                    |
@@ -84,8 +84,8 @@ sont exportés depuis `@moduix/react` avec le composant.
 
 ### Composition recommandée
 
-Pour les cas courants, utilisez la forme courte `<Switch>` avec `Switch.Control` et `Switch.Label`. La racine ajoute
-automatiquement l’input de formulaire masqué, mais pas les parties visibles du composant.
+Pour les cas courants, utilisez la forme courte `<Switch>` avec `Switch.Control`, `Switch.Label` et
+`Switch.HiddenInput`.
 
 Lorsque `Switch.Control` n’a pas d’enfants, il ajoute le `Switch.Thumb` par défaut. Ajoutez `Switch.Thumb` explicitement
 lorsque le curseur nécessite un contenu ou des styles personnalisés.
@@ -112,8 +112,8 @@ Ne rendez pas `Switch` et `Switch.RootProvider` pour la même instance d’état
 
 - Utilisez `defaultChecked` en mode non contrôlé. Utilisez `checked` avec `onCheckedChange(details)` en mode contrôlé.
 - `onCheckedChange` reçoit un objet de détails. Utilisez `details.checked` pour obtenir le prochain état booléen.
-- La racine ajoute toujours l’input de formulaire natif. Les props `name`, `value`, `form` et `required` configurent
-  sa participation au formulaire. Pour un interrupteur non contrôlé, la réinitialisation du formulaire restaure son état initial.
+- Ajoutez explicitement `Switch.HiddenInput`. Les props `name`, `value`, `form` et `required` de la
+  racine configurent sa participation au formulaire. Ark gère la réinitialisation.
 - `readOnly` préserve l’état actuel et définit `aria-readonly="true"` sur le contrôle natif.
 - La piste et le curseur désactivent leurs transitions lorsque l’utilisateur préfère réduire les animations (`prefers-reduced-motion`).
 - Utilisez `Switch.Context` ou `useSwitchContext` pour les lectures d’état avancées. Lorsque le propriétaire de l’état
@@ -417,5 +417,3 @@ publiques `--moduix-switch-*` présentées ci-dessous.
 - `Switch.Thumb` expose `data-slot="switch-thumb"` et reçoit les mêmes attributs d’état Ark pour le déplacement du
   curseur et les styles du contenu personnalisé.
 - `Switch.Label` expose `data-slot="switch-label"` pour remplacer les styles typographiques.
-- L’input de formulaire natif expose `data-slot="switch-hidden-input"` à des fins d’inspection, mais doit rester
-  visuellement masqué par Ark.

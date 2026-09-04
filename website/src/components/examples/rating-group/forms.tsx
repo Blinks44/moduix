@@ -20,6 +20,7 @@ export default function FormRatingGroupDemo() {
         <RatingGroup.Control>
           <RatingGroup.Items />
         </RatingGroup.Control>
+        <RatingGroup.HiddenInput />
       </RatingGroup>
       <PreviewMeta>
         <Button type="submit">Submit</Button>

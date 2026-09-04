@@ -10,6 +10,7 @@ export default function DraggingIndicatorSliderDemo() {
         </Slider.Track>
         <Slider.Thumb index={0} aria-label="Gain">
           <Slider.DraggingIndicator />
+          <Slider.HiddenInput />
         </Slider.Thumb>
       </Slider.Control>
     </Slider>

@@ -77,6 +77,7 @@ export default function NativeForm() {
                   ))}
                 </Select.Content>
               </Select.Positioner>
+              <Select.HiddenSelect />
             </Select>
           </Field>
 
@@ -118,6 +119,7 @@ export default function NativeForm() {
           <Checkbox name="notifications">
             <Checkbox.Control />
             <Checkbox.Label>Send status notifications</Checkbox.Label>
+            <Checkbox.HiddenInput />
           </Checkbox>
         </Card.Body>
 

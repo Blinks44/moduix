@@ -43,6 +43,7 @@ export const Controlled: Story = {
           <RatingGroup.Control>
             <RatingGroup.Items />
           </RatingGroup.Control>
+          <RatingGroup.HiddenInput />
         </RatingGroup>
         <span className={storyStyles.hint}>Current value: {value}</span>
       </div>
@@ -98,6 +99,7 @@ export const WithField: Story = {
           <RatingGroup.Control>
             <RatingGroup.Items />
           </RatingGroup.Control>
+          <RatingGroup.HiddenInput />
         </RatingGroup>
         <Field.HelperText>Required score from 1 to 5.</Field.HelperText>
       </Field>
@@ -174,6 +176,7 @@ export const FormUsage: Story = {
           <RatingGroup.Control>
             <RatingGroup.Items />
           </RatingGroup.Control>
+          <RatingGroup.HiddenInput />
         </RatingGroup>
         <Button type="submit">Submit</Button>
       </form>

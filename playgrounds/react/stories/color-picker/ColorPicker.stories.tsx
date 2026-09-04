@@ -40,6 +40,7 @@ function ColorPickerField({ swatchList = swatches }: { swatchList?: string[] }) 
           </ColorPicker.SwatchGroup>
         </ColorPicker.Content>
       </ColorPicker.Positioner>
+      <ColorPicker.HiddenInput />
     </>
   );
 }

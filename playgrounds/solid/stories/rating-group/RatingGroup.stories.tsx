@@ -167,6 +167,7 @@ export const FormUsage: Story = {
       <RatingGroup name="review" defaultValue={4} required>
         <RatingGroup.Label>Review score</RatingGroup.Label>
         <RatingItems />
+        <RatingGroup.HiddenInput />
       </RatingGroup>
       <Button type="submit">Submit</Button>
     </form>

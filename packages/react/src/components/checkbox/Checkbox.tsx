@@ -8,8 +8,8 @@ import {
   useCheckboxGroupContext,
 } from '@ark-ui/react/checkbox';
 import { clsx } from 'clsx';
-import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
-import { Children, cloneElement, forwardRef } from 'react';
+import type { ComponentProps, ComponentRef } from 'react';
+import { forwardRef } from 'react';
 import { CheckIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui';
 import styles from './Checkbox.module.css';
 
@@ -30,7 +30,7 @@ const CheckboxRoot = forwardRef<ComponentRef<typeof CheckboxPrimitive.Root>, Roo
         className={clsx(styles.root, className)}
         {...props}
       >
-        {withHiddenInput(children, asChild)}
+        {children}
       </CheckboxPrimitive.Root>
     );
   },
@@ -49,7 +49,7 @@ const CheckboxRootProvider = forwardRef<
       className={clsx(styles.root, className)}
       {...props}
     >
-      {withHiddenInput(children, asChild)}
+      {children}
     </CheckboxPrimitive.RootProvider>
   );
 });
@@ -100,36 +100,6 @@ const CheckboxControl = forwardRef<
   );
 });
 
-function withHiddenInput(children: ReactNode, asChild?: boolean) {
-  const hiddenInput = <CheckboxHiddenInput />;
-
-  if (!asChild) {
-    return (
-      <>
-        {children}
-        {hiddenInput}
-      </>
-    );
-  }
-
-  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
-
-  return cloneElement(child, {}, child.props.children, hiddenInput);
-}
-
-function CheckboxHiddenInput() {
-  const checkbox = useCheckboxContext();
-  const readOnly =
-    (checkbox.getRootProps() as { 'data-readonly'?: string })['data-readonly'] !== undefined;
-
-  return (
-    <CheckboxPrimitive.HiddenInput
-      aria-readonly={readOnly || undefined}
-      data-slot="checkbox-hidden-input"
-    />
-  );
-}
-
 const CheckboxLabel = forwardRef<
   ComponentRef<typeof CheckboxPrimitive.Label>,
   ComponentProps<typeof CheckboxPrimitive.Label>
@@ -162,6 +132,7 @@ const Checkbox = Object.assign(CheckboxRoot, {
   Root: CheckboxRoot,
   RootProvider: CheckboxRootProvider,
   Context: CheckboxPrimitive.Context,
+  HiddenInput: CheckboxPrimitive.HiddenInput,
   Control: CheckboxControl,
   Indicator: CheckboxIndicator,
   Label: CheckboxLabel,

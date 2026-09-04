@@ -1,4 +1,3 @@
-import { useFieldContext } from '@ark-ui/react/field';
 import {
   TagsInput as TagsInputPrimitive,
   useTagsInput,
@@ -6,8 +5,8 @@ import {
   useTagsInputItemContext,
 } from '@ark-ui/react/tags-input';
 import { clsx } from 'clsx';
-import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
-import { Children, cloneElement, forwardRef, useEffect, useRef } from 'react';
+import type { ComponentProps, ComponentRef } from 'react';
+import { forwardRef } from 'react';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { CloseButton } from '../close-button';
 import styles from './TagsInput.module.css';
@@ -24,7 +23,7 @@ const TagsInputRoot = forwardRef<
       className={clsx(styles.root, className)}
       {...props}
     >
-      {withHiddenInput(children, asChild)}
+      {children}
     </TagsInputPrimitive.Root>
   );
 });
@@ -41,7 +40,7 @@ const TagsInputRootProvider = forwardRef<
       className={clsx(styles.root, className)}
       {...props}
     >
-      {withHiddenInput(children, asChild)}
+      {children}
     </TagsInputPrimitive.RootProvider>
   );
 });
@@ -214,60 +213,7 @@ const TagsInputClearTrigger = forwardRef<
   );
 });
 
-function withHiddenInput(children: ReactNode, asChild?: boolean) {
-  const hiddenInput = <TagsInputHiddenInput />;
-
-  if (!asChild) {
-    return (
-      <>
-        {children}
-        {hiddenInput}
-      </>
-    );
-  }
-
-  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
-
-  return cloneElement(child, {}, child.props.children, hiddenInput);
-}
-
 const TagsInputContext = TagsInputPrimitive.Context;
-
-function TagsInputHiddenInput() {
-  const field = useFieldContext();
-  const tagsInput = useTagsInputContext();
-  const inputRef = useRef<HTMLInputElement>(null);
-  const initialValue = useRef(tagsInput.value);
-  const initialInputValue = useRef(tagsInput.inputValue);
-  const { defaultValue: _, ...hiddenInputProps } = tagsInput.getHiddenInputProps();
-
-  useEffect(() => {
-    const form = inputRef.current?.form;
-
-    if (!form) return;
-
-    const handleReset = () => {
-      queueMicrotask(() => {
-        tagsInput.setValue(initialValue.current);
-        tagsInput.setInputValue(initialInputValue.current);
-      });
-    };
-
-    form.addEventListener('reset', handleReset);
-    return () => form.removeEventListener('reset', handleReset);
-  }, [tagsInput]);
-
-  return (
-    <input
-      {...hiddenInputProps}
-      ref={inputRef}
-      value={tagsInput.valueAsString}
-      readOnly
-      aria-describedby={field?.ariaDescribedby}
-      data-slot="tags-input-hidden-input"
-    />
-  );
-}
 
 function TagsInputItems() {
   return (
@@ -290,6 +236,7 @@ function TagsInputItems() {
 const TagsInput = Object.assign(TagsInputRoot, {
   Root: TagsInputRoot,
   RootProvider: TagsInputRootProvider,
+  HiddenInput: TagsInputPrimitive.HiddenInput,
   Label: TagsInputLabel,
   Control: TagsInputControl,
   Item: TagsInputItem,

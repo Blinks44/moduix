@@ -32,8 +32,8 @@ import PinInputRootProvider from '@/components/examples/pin-input/root-provider.
 Для стандартной разметки используйте `<PinInput>`. Это сокращённая запись `<PinInput.Root>`. Явно задайте
 `count`, чтобы SSR-разметка и ARIA-атрибуты были предсказуемыми.
 
-moduix автоматически добавляет в корневой элемент скрытое нативное поле формы. Передайте `name`, чтобы значение
-попало в отправляемую форму. Если компонент находится вне дерева этой формы, укажите также `form`.
+Явно добавьте `PinInput.HiddenInput`. Передайте `name`, чтобы значение попало в отправляемую форму.
+Если компонент находится вне дерева этой формы, укажите также `form`.
 
 <ExampleFrame variant="component">
   <PinInputBasic />
@@ -66,7 +66,7 @@ PinInput / PinInput.Root
 │  ├─ PinInput.Input[index=0]
 │  ├─ PinInput.Input[index=1]
 │  └─ PinInput.Input[index=2]
-└─ скрытое нативное поле (добавляется автоматически)
+└─ PinInput.HiddenInput (явно)
 ```
 
 | Часть                                  | Назначение                                                                                         |
@@ -342,8 +342,8 @@ Ark управляет переводом фокуса, распределени
 `PinInput.Separator` по умолчанию является декоративным и получает `aria-hidden` и `role="presentation"`. Не
 размещайте внутри него содержательный текст.
 
-Для отправки значения в нативную форму передайте корневому элементу `name`. Используйте также `form`, если форма
-находится в другом месте документа. Корневой элемент автоматически добавляет скрытое нативное поле.
+Для отправки значения в нативную форму передайте корню `name`, добавьте `PinInput.HiddenInput` и
+используйте `form`, если форма находится в другом месте документа.
 
 ## Стилизация
 
@@ -364,8 +364,8 @@ Ark управляет переводом фокуса, распределени
 ### Хуки стилизации
 
 - Корневой элемент и `RootProvider` имеют `data-slot="pin-input-root"` и `data-slot="pin-input-root-provider"`.
-- `Label`, `Control`, `Input` и скрытое поле имеют `data-slot="pin-input-label"`,
-  `data-slot="pin-input-control"`, `data-slot="pin-input-input"` и `data-slot="pin-input-hidden-input"`.
+- `Label`, `Control` и `Input` имеют `data-slot="pin-input-label"`,
+  `data-slot="pin-input-control"` и `data-slot="pin-input-input"`.
 - Части Ark используют `data-scope="pin-input"` и `data-part="root" | "label" | "control" | "input"`.
 - Для стилизации состояния корневого элемента используются `data-disabled`, `data-invalid`, `data-complete` и
   `data-readonly`.

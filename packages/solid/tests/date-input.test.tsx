@@ -15,16 +15,16 @@ function ProviderDateInput() {
       <DateInput.Control>
         <DateInput.Segments />
       </DateInput.Control>
+      <DateInput.HiddenInput name="report-date" />
     </DateInput.RootProvider>
   );
 }
 
-test('renders Ark-shaped range names and automatic form inputs', () => {
+test('submits through explicit Ark hidden inputs', () => {
   const { container } = render(() => (
     <form>
       <DateInput
         selectionMode="range"
-        names={['check-in', 'check-out']}
         defaultValue={[new CalendarDate(2026, 6, 22), new CalendarDate(2026, 6, 26)]}
       >
         <DateInput.Label>Travel dates</DateInput.Label>
@@ -33,6 +33,8 @@ test('renders Ark-shaped range names and automatic form inputs', () => {
           <DateInput.Separator>to</DateInput.Separator>
           <DateInput.Segments index={1} />
         </DateInput.Control>
+        <DateInput.HiddenInput index={0} name="check-in" />
+        <DateInput.HiddenInput index={1} name="check-out" />
       </DateInput>
       <ProviderDateInput />
     </form>
@@ -40,7 +42,7 @@ test('renders Ark-shaped range names and automatic form inputs', () => {
 
   const form = container.querySelector('form')!;
 
-  expect(container.querySelectorAll('[data-slot="date-input-hidden-input"]')).toHaveLength(3);
+  expect(container.querySelectorAll('input[type="hidden"]')).toHaveLength(3);
   expect(Array.from(new FormData(form).entries())).toEqual([
     ['check-in[0]', '6/22/2026'],
     ['check-out[1]', '6/26/2026'],
@@ -48,7 +50,7 @@ test('renders Ark-shaped range names and automatic form inputs', () => {
   ]);
 });
 
-test('keeps automatic inputs inside an asChild root', () => {
+test('keeps explicit inputs inside an asChild root', () => {
   const { container } = render(() => (
     <form>
       <DateInput
@@ -60,11 +62,12 @@ test('keeps automatic inputs inside an asChild root', () => {
         <DateInput.Control>
           <DateInput.Segments />
         </DateInput.Control>
+        <DateInput.HiddenInput name="release-date" />
       </DateInput>
     </form>
   ));
 
-  expect(container.querySelector('fieldset [data-slot="date-input-hidden-input"]')).toHaveAttribute(
+  expect(container.querySelector('fieldset input[type="hidden"]')).toHaveAttribute(
     'name',
     'release-date',
   );

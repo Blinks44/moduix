@@ -307,6 +307,10 @@
       "types": "./dist/components/text/index.d.ts",
       "import": "./dist/components/text/index.js"
     },
+    "./typeset": {
+      "types": "./dist/components/typeset/index.d.ts",
+      "import": "./dist/components/typeset/index.js"
+    },
     "./textarea": {
       "types": "./dist/components/textarea/index.d.ts",
       "import": "./dist/components/textarea/index.js"
@@ -323,9 +327,21 @@
       "types": "./dist/components/toc/index.d.ts",
       "import": "./dist/components/toc/index.js"
     },
+    "./tree-view": {
+      "types": "./dist/components/tree-view/index.d.ts",
+      "import": "./dist/components/tree-view/index.js"
+    },
+    "./tour": {
+      "types": "./dist/components/tour/index.d.ts",
+      "import": "./dist/components/tour/index.js"
+    },
     "./toggle": {
       "types": "./dist/components/toggle/index.d.ts",
       "import": "./dist/components/toggle/index.js"
+    },
+    "./toggle-group": {
+      "types": "./dist/components/toggle-group/index.d.ts",
+      "import": "./dist/components/toggle-group/index.js"
     },
     "./tooltip": {
       "types": "./dist/components/tooltip/index.d.ts",

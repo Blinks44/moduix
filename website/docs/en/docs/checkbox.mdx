@@ -35,8 +35,8 @@ should take effect immediately.
 ## Basic
 
 Compose a checkbox from Ark's parts. In most cases, leave `Checkbox.Control` empty to use moduix's
-built-in checked and indeterminate icons. Add `Checkbox.Label` for the visible text. moduix adds the
-native form input automatically.
+built-in checked and indeterminate icons. Add `Checkbox.Label` for the visible text and
+`Checkbox.HiddenInput` for native interaction and form behavior.
 
 <ExampleFrame variant="component">
   <CheckboxBasic />
@@ -67,7 +67,7 @@ Checkbox.Root
 │  ├─ Checkbox.Indicator
 │  └─ Checkbox.Indicator[indeterminate] (optional)
 ├─ Checkbox.Label
-└─ native input (automatic)
+└─ Checkbox.HiddenInput (explicit)
 
 Checkbox.RootProvider
 └─ same part tree connected to useCheckbox()
@@ -129,14 +129,12 @@ submitted form data, pass `name` and `value` to `Checkbox.Root`. For a group, pa
 `Checkbox.Group` and `value` to each `Checkbox.Root`.
 
 If you are migrating from shadcn, `Checkbox.Control` already includes the default icon treatment.
-`Checkbox.Control` and `Checkbox.Label` remain explicit in the tree, while the hidden input stays
-internal.
+`Checkbox.Control`, `Checkbox.Label`, and `Checkbox.HiddenInput` remain explicit in the tree.
 
 Ark `Checkbox.Root` and `Checkbox.RootProvider` render a `label`. When you use `asChild`, the direct
 child must also be a semantic `label`; otherwise the checkbox no longer has a valid form label.
 
-When `readOnly` is set, moduix mirrors that state to `aria-readonly` on the automatic native input
-while Ark prevents interaction.
+When `readOnly` is set, Ark prevents interaction and owns native-input semantics.
 
 A ref passed to a part points to the corresponding Ark DOM node. Press <kbd>Space</kbd> to toggle a
 focused checkbox.
@@ -517,8 +515,7 @@ Use `Field` when a checkbox needs helper text, validation messages, or shared fi
 
 ### With Form
 
-Pass `name` and `value` to `Checkbox.Root` to include the checkbox's automatic native input in
-`FormData`.
+Pass `name` and `value` to `Checkbox.Root` and render `Checkbox.HiddenInput` to include it in `FormData`.
 
 <ExampleFrame variant="component">
   <CheckboxWithForm />

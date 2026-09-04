@@ -35,8 +35,8 @@ choix indépendants et `Switch` pour un réglage qui s’applique immédiatement
 ## Exemple de base
 
 Pour la plupart des groupes, utilisez `RadioGroup.Option` pour afficher un élément avec libellé,
-contrôle et texte visible. Chaque élément inclut automatiquement son champ natif masqué. Si le groupe
-se trouve dans un formulaire natif, transmettez-lui `name`, comme dans l’exemple Formulaire.
+contrôle et texte visible. `RadioGroup.Option` inclut le champ natif dans sa composition fixe.
+Avec `RadioGroup.Item` directement, ajoutez explicitement `RadioGroup.ItemHiddenInput`.
 
 <ExampleFrame variant="component">
   <RadioGroupBasic />
@@ -69,13 +69,13 @@ RadioGroup.Root
 └─ RadioGroup.Item[value]
    ├─ RadioGroup.ItemControl
    ├─ RadioGroup.ItemText
-   └─ <input> (automatic)
+   └─ RadioGroup.ItemHiddenInput (explicite)
 
 RadioGroup.RootProvider
 └─ RadioGroup.* + useRadioGroup()
 
 RadioGroup.Option
-└─ RadioGroup.Item + ItemControl + ItemText + <input> (automatic)
+└─ RadioGroup.Item + ItemControl + ItemText + ItemHiddenInput (composition fixe)
 ```
 
 | Partie                     | Rôle                                                        |
@@ -127,10 +127,9 @@ Pour lire l’état dans l’arbre, utilisez `RadioGroup.Context`, `RadioGroup.I
 `onValueChange(details)`, `name`, `form`, `orientation`, `disabled`, `invalid`, `readOnly`,
 `required`, `ids` et `asChild`. Dans le callback, lisez la valeur sélectionnée dans `details.value`.
 
-Chaque `RadioGroup.Item` affiche automatiquement son champ natif. Celui-ci participe à l’envoi, à la
-validation et à la réinitialisation du formulaire ; vous n’avez donc pas besoin d’ajouter vous-même
-une partie input. Définissez `name` sur le composant racine lorsque la valeur sélectionnée doit être
-incluse dans `FormData`.
+`RadioGroup.Option` inclut son champ natif. Une composition directe de `RadioGroup.Item` nécessite
+`RadioGroup.ItemHiddenInput` pour l’envoi, la validation et la réinitialisation natives. Définissez
+`name` sur la racine lorsque la valeur doit être incluse dans `FormData`.
 
 Ark gère l’état contrôlé ou non contrôlé, le comportement WAI-ARIA, le déplacement du focus et la
 navigation au clavier. La touche <kbd>Tab</kbd> place le focus sur l’élément sélectionné ou sur le
@@ -141,8 +140,7 @@ focus ; les touches fléchées déplacent le focus et sélectionnent l’option 
 son état à `RadioGroup`. Transmettez `disabled`, `invalid`, `readOnly` et `required` au groupe lui-même.
 `Fieldset.Root` transmet aux groupes radio imbriqués ses états Ark `disabled` et `invalid`.
 
-Chaque partie stylée transmet sa ref à la partie DOM Ark correspondante. Le champ natif automatique
-reste interne et ne constitue pas une cible de ref publique distincte.
+Chaque partie stylée transmet sa ref à la partie DOM Ark correspondante, y compris `ItemHiddenInput`.
 
 ## Exemples
 
@@ -251,9 +249,8 @@ Définissez `disabled` sur un `Item` ou une `Option` précis lorsque seule cette
 
 ### Formulaire
 
-Transmettez `name` à la racine lorsque la valeur sélectionnée doit être envoyée avec le formulaire.
-Le champ natif créé automatiquement pour chaque élément participe à l’envoi et à la réinitialisation
-du formulaire, sans qu’il soit nécessaire d’ajouter une partie input manuellement.
+Transmettez `name` à la racine lorsque la valeur sélectionnée doit être envoyée. `RadioGroup.Option`
+contient déjà le champ ; ajoutez `ItemHiddenInput` à chaque élément personnalisé.
 
 <ExampleFrame variant="component">
   <RadioGroupForm />

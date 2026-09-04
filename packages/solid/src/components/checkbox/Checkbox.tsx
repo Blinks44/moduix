@@ -7,7 +7,7 @@ import {
 } from '@ark-ui/solid/checkbox';
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
-import { children, onMount, splitProps } from 'solid-js';
+import { children, splitProps } from 'solid-js';
 import { CheckIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './Checkbox.module.css';
 
@@ -31,7 +31,6 @@ function CheckboxRoot(props: CheckboxRootProps) {
       {...others}
     >
       {local.children}
-      <CheckboxHiddenInput />
     </CheckboxPrimitive.Root>
   );
 }
@@ -48,7 +47,6 @@ function CheckboxRootProvider(props: CheckboxRootProviderProps) {
       {...others}
     >
       {local.children}
-      <CheckboxHiddenInput />
     </CheckboxPrimitive.RootProvider>
   );
 }
@@ -97,26 +95,6 @@ function CheckboxControl(props: ComponentProps<typeof CheckboxPrimitive.Control>
   );
 }
 
-function CheckboxHiddenInput() {
-  const checkbox = useCheckboxContext();
-  const initialChecked = checkbox().checked;
-  let inputRef: HTMLInputElement | undefined;
-  const readOnly = () =>
-    (checkbox().getRootProps() as { 'data-readonly'?: string })['data-readonly'] !== undefined;
-
-  onMount(() => {
-    if (inputRef) inputRef.defaultChecked = initialChecked;
-  });
-
-  return (
-    <CheckboxPrimitive.HiddenInput
-      ref={(element) => (inputRef = element)}
-      aria-readonly={readOnly() || undefined}
-      data-slot="checkbox-hidden-input"
-    />
-  );
-}
-
 function CheckboxLabel(props: ComponentProps<typeof CheckboxPrimitive.Label>) {
   const [local, others] = splitProps(props, ['class']);
 
@@ -145,6 +123,7 @@ const Checkbox = Object.assign(CheckboxRoot, {
   Root: CheckboxRoot,
   RootProvider: CheckboxRootProvider,
   Context: CheckboxPrimitive.Context,
+  HiddenInput: CheckboxPrimitive.HiddenInput,
   Control: CheckboxControl,
   Indicator: CheckboxIndicator,
   Label: CheckboxLabel,

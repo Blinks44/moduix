@@ -1,7 +1,7 @@
 import { Slider as SliderPrimitive, useSlider, useSliderContext } from '@ark-ui/solid/slider';
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
-import { Index, onCleanup, onMount, splitProps } from 'solid-js';
+import { Index, splitProps } from 'solid-js';
 import styles from './Slider.module.css';
 
 function SliderRoot(props: ComponentProps<typeof SliderPrimitive.Root>) {
@@ -115,34 +115,7 @@ function SliderThumb(props: ComponentProps<typeof SliderPrimitive.Thumb>) {
       {...others}
     >
       {local.children}
-      <SliderHiddenInput />
     </SliderPrimitive.Thumb>
-  );
-}
-
-function SliderHiddenInput() {
-  const slider = useSliderContext();
-  const initialValue = [...slider().value];
-  let inputRef: HTMLInputElement | undefined;
-
-  onMount(() => {
-    const formElement = inputRef?.form;
-
-    if (!formElement) return;
-
-    const handleReset = () => {
-      queueMicrotask(() => slider().setValue(initialValue));
-    };
-
-    formElement.addEventListener('reset', handleReset);
-    onCleanup(() => formElement.removeEventListener('reset', handleReset));
-  });
-
-  return (
-    <SliderPrimitive.HiddenInput
-      ref={(element) => (inputRef = element)}
-      data-slot="slider-hidden-input"
-    />
   );
 }
 
@@ -151,7 +124,11 @@ function SliderThumbs(props: { class?: string }) {
 
   return (
     <Index each={slider().value}>
-      {(_, index) => <SliderThumb index={index} class={props.class} />}
+      {(_, index) => (
+        <SliderThumb index={index} class={props.class}>
+          <SliderPrimitive.HiddenInput />
+        </SliderThumb>
+      )}
     </Index>
   );
 }
@@ -201,6 +178,7 @@ type SliderComponent = typeof SliderRoot & {
   Label: typeof SliderLabel;
   ValueText: typeof SliderValueText;
   Control: typeof SliderControl;
+  HiddenInput: typeof SliderPrimitive.HiddenInput;
   Track: typeof SliderTrack;
   Range: typeof SliderRange;
   Thumb: typeof SliderThumb;
@@ -219,6 +197,7 @@ const Slider: SliderComponent = Object.assign(SliderRoot, {
   Label: SliderLabel,
   ValueText: SliderValueText,
   Control: SliderControl,
+  HiddenInput: SliderPrimitive.HiddenInput,
   Track: SliderTrack,
   Range: SliderRange,
   Thumb: SliderThumb,

@@ -55,7 +55,7 @@ SignaturePad / SignaturePad.Root
 │     ├─ SignaturePad.Segment
 │     ├─ SignaturePad.ClearTrigger
 │     └─ SignaturePad.Guide
-└─ hidden native input (automatic)
+└─ SignaturePad.HiddenInput value={serializedPaths} (explicit)
 
 SignaturePad.RootProvider
 └─ same part tree connected to useSignaturePad()
@@ -92,9 +92,9 @@ direct access to `paths`, `clear()`, or `getDataUrl()`.
 For advanced reads inside the component tree, use `SignaturePad.Context` or
 `useSignaturePadContext()`.
 
-Pass `name` when the signature should be included in native form submission. moduix adds a hidden
-native input automatically and serializes the paths as `paths.join(' ')` by default. Pass
-`getFormValue(paths)` when the form needs a different representation.
+Pass `name` when the signature should be included in native form submission, then compose
+`SignaturePad.HiddenInput` explicitly with a serialized `value`. Read the current paths through
+`useSignaturePadContext()`.
 
 Use `drawing` to customize each stroke. `drawing.size` changes stroke width,
 `drawing.simulatePressure` controls pressure simulation, and `drawing.fill` sets the stroke color.
@@ -110,7 +110,6 @@ instead.
 | `paths`        | -                                     | Controlled SVG path array. Pair with `onDraw(details)`.         |
 | `drawing`      | `{ size: 2, simulatePressure: false }` | Zag stroke options; `fill` must be a valid CSS color string.    |
 | `name`         | -                                     | Native form field name.                                         |
-| `getFormValue` | `paths.join(' ')`                     | Custom serialization for the automatically rendered input.      |
 | `disabled`     | -                                     | Disables drawing and clear trigger interaction.                 |
 | `readOnly`     | -                                     | Prevents drawing and disables the clear trigger.                |
 | `required`     | -                                     | Marks the label and hidden input as required.                   |
@@ -133,8 +132,8 @@ stroke currently in progress.
 `details.getDataUrl(type, quality?)` method supports `image/png`, `image/jpeg`, and `image/svg+xml`.
 It returns an empty string for an empty signature.
 
-Set `name` on the root when native form submission is needed. The hidden input is rendered
-automatically. Pass `getFormValue(paths)` when the form needs custom serialization. Wrap the pad in
+Set `name` on the root when native form submission is needed and render
+`SignaturePad.HiddenInput value={serializedPaths}` explicitly. Wrap the pad in
 `Field.Root` when helper text, error text, required state, or disabled state should be shared with
 surrounding form UI. The `Field` invalid state controls field messaging and descriptions; it does not add
 `data-invalid` to the signature pad parts.
@@ -230,8 +229,8 @@ messaging belongs to the same form control.
 
 ### Form Serialization
 
-Use `getFormValue` when the server should receive another representation of the drawn paths. This
-example sends a JSON array instead of the default space-separated SVG path string.
+Serialize the value passed to `SignaturePad.HiddenInput` in the consumer when the server needs a
+different representation. This example sends a JSON array.
 
 <ExampleFrame variant="component">
   <SignaturePadFormSerialization />

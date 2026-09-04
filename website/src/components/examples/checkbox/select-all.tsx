@@ -22,12 +22,14 @@ export default function CheckboxSelectAllDemo() {
       >
         <Checkbox.Control />
         <Checkbox.Label>Select all</Checkbox.Label>
+        <Checkbox.HiddenInput />
       </Checkbox>
       <Checkbox.Group value={value} onValueChange={setValue} name="frameworks">
         {options.map((option) => (
           <Checkbox key={option.value} value={option.value}>
             <Checkbox.Control />
             <Checkbox.Label>{option.label}</Checkbox.Label>
+            <Checkbox.HiddenInput />
           </Checkbox>
         ))}
       </Checkbox.Group>

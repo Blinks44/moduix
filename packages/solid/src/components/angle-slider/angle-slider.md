@@ -1,8 +1,7 @@
 # AngleSlider (Solid)
 
 `AngleSlider` preserves the React wrapper's Ark parts, circular styling hooks, value callbacks,
-keyboard behavior, native form participation, and automatic hidden input for `Root` and
-`RootProvider`.
+keyboard behavior, native form participation, and explicit `HiddenInput` composition.
 
 ## Ark Solid composition
 

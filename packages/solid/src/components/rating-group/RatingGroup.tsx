@@ -34,7 +34,6 @@ function RatingGroupRoot(props: RatingGroupRootProps) {
       {...others}
     >
       {local.children}
-      <RatingGroupPrimitive.HiddenInput data-slot="rating-group-hidden-input" />
     </RatingGroupPrimitive.Root>
   );
 }
@@ -51,7 +50,6 @@ function RatingGroupRootProvider(props: RatingGroupRootProviderProps) {
       {...others}
     >
       {local.children}
-      <RatingGroupPrimitive.HiddenInput data-slot="rating-group-hidden-input" />
     </RatingGroupPrimitive.RootProvider>
   );
 }
@@ -135,6 +133,7 @@ const RatingGroup = Object.assign(RatingGroupRoot, {
   Root: RatingGroupRoot,
   RootProvider: RatingGroupRootProvider,
   Context: RatingGroupPrimitive.Context,
+  HiddenInput: RatingGroupPrimitive.HiddenInput,
   Label: RatingGroupLabel,
   Control: RatingGroupControl,
   Item: RatingGroupItem,

@@ -18,7 +18,7 @@ return (
 }
 \`\`\`
 
-\`Root\` and \`RootProvider\` append the native hidden input automatically. \`Control\` renders a
+Compose \`Switch.HiddenInput\` explicitly inside \`Root\` or \`RootProvider\`. \`Control\` renders a
 default \`Thumb\` when it has no children. The public parts are \`Root\`, \`RootProvider\`, \`Control\`,
 \`Thumb\`, \`Label\`, and \`Context\`; the barrel also re-exports \`useSwitch\` and \`useSwitchContext\`.
 

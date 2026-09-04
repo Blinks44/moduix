@@ -21,7 +21,7 @@ export function FileUploadDemo() {
 }
 ```
 
-`FileUpload.Root` and `FileUpload.RootProvider` render the Ark hidden input automatically. Use
+Compose `FileUpload.HiddenInput` explicitly inside `Root` or `RootProvider`. Use
 `name`, `form`, `required`, `disabled`, `readOnly`, and the other Ark file-upload props for native
 form behavior and validation. `FileUpload.Context`, `useFileUpload`, and
 `useFileUploadContext` expose the unchanged Ark state and callback details.

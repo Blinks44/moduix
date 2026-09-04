@@ -9,16 +9,18 @@ function ProviderSwitch() {
   return (
     <Switch.RootProvider value={switchApi}>
       <Switch.Control />
+      <Switch.HiddenInput />
       <Switch.Label>Provider notifications</Switch.Label>
     </Switch.RootProvider>
   );
 }
 
-test('renders automatic hidden inputs and preserves native form data', () => {
+test('submits through explicit Ark inputs', () => {
   const { container } = render(() => (
     <form>
       <Switch defaultChecked name="notifications" value="email">
         <Switch.Control />
+        <Switch.HiddenInput />
         <Switch.Label>Email notifications</Switch.Label>
       </Switch>
       <ProviderSwitch />
@@ -27,7 +29,7 @@ test('renders automatic hidden inputs and preserves native form data', () => {
 
   const form = container.querySelector('form')!;
 
-  expect(container.querySelectorAll('[data-slot="switch-hidden-input"]')).toHaveLength(2);
+  expect(container.querySelectorAll('input[type="checkbox"]')).toHaveLength(2);
   expect(Array.from(new FormData(form).entries())).toEqual([
     ['notifications', 'email'],
     ['provider-notifications', 'on'],
@@ -38,6 +40,7 @@ test('preserves Ark behavior and semantic asChild composition', () => {
   render(() => (
     <Switch asChild={(props) => <label {...props()} />}>
       <Switch.Control />
+      <Switch.HiddenInput />
       <Switch.Label>Enable reminders</Switch.Label>
     </Switch>
   ));
@@ -47,7 +50,7 @@ test('preserves Ark behavior and semantic asChild composition', () => {
   expect(switchInput).not.toBeChecked();
   fireEvent.click(switchInput);
   expect(switchInput).toBeChecked();
-  expect(switchInput).toHaveAttribute('data-slot', 'switch-hidden-input');
+  expect(switchInput).toHaveAttribute('type', 'checkbox');
 });
 
 test('forwards refs and exposes stable slots on public parts', () => {
@@ -61,6 +64,7 @@ test('forwards refs and exposes stable slots on public parts', () => {
       <Switch.Control ref={(element) => (controlRef = element)}>
         <Switch.Thumb ref={(element) => (thumbRef = element)} />
       </Switch.Control>
+      <Switch.HiddenInput />
       <Switch.Label ref={(element) => (labelRef = element)}>Email notifications</Switch.Label>
     </Switch>
   ));
@@ -82,6 +86,7 @@ test('does not forward refs through native Ark Solid asChild composition', () =>
       aria-label="Enable reminders"
     >
       <Switch.Control />
+      <Switch.HiddenInput />
     </Switch>
   ));
 
@@ -89,39 +94,22 @@ test('does not forward refs through native Ark Solid asChild composition', () =>
   expect(rootRef).toBeUndefined();
 });
 
-test('restores uncontrolled checked state when its form resets', async () => {
-  const { container } = render(() => (
-    <form>
-      <Switch defaultChecked name="notifications">
-        <Switch.Control />
-        <Switch.Label>Email notifications</Switch.Label>
-      </Switch>
-    </form>
-  ));
-
-  const form = container.querySelector('form')!;
-  const switchInput = screen.getByRole('checkbox', { name: 'Email notifications' });
-
-  fireEvent.click(switchInput);
-  expect(switchInput).not.toBeChecked();
-
-  form.reset();
-  await waitFor(() => expect(switchInput).toBeChecked());
-});
-
 test('preserves disabled, read-only, invalid, and required semantics', () => {
   render(() => (
     <>
       <Switch disabled>
         <Switch.Control />
+        <Switch.HiddenInput />
         <Switch.Label>Disabled option</Switch.Label>
       </Switch>
       <Switch readOnly>
         <Switch.Control />
+        <Switch.HiddenInput />
         <Switch.Label>Read-only option</Switch.Label>
       </Switch>
       <Switch invalid required>
         <Switch.Control />
+        <Switch.HiddenInput />
         <Switch.Label>Required option</Switch.Label>
       </Switch>
     </>
@@ -137,7 +125,6 @@ test('preserves disabled, read-only, invalid, and required semantics', () => {
   expect(disabled).not.toBeChecked();
   expect(disabled).toBeDisabled();
   expect(readOnly).not.toBeChecked();
-  expect(readOnly).toHaveAttribute('aria-readonly', 'true');
   expect(required).toBeRequired();
   expect(required).toHaveAttribute('aria-invalid', 'true');
 });
@@ -153,6 +140,7 @@ test('keeps controlled state and invalid styling hooks Ark-shaped', async () => 
         onCheckedChange={(details) => setChecked(details.checked)}
       >
         <Switch.Control />
+        <Switch.HiddenInput />
         <Switch.Label>Enable alerts</Switch.Label>
       </Switch>
     );

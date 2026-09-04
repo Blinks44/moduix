@@ -22,6 +22,7 @@ export default function AdvancedCustomizationSwitchDemo() {
         </Switch.Thumb>
       </Switch.Control>
       <Switch.Label>Use custom thumb icon</Switch.Label>
+      <Switch.HiddenInput />
     </Switch>
   );
 }

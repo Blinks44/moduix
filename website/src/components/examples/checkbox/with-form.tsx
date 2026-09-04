@@ -19,6 +19,7 @@ export default function CheckboxWithFormDemo() {
       <Checkbox name="terms" value="accepted">
         <Checkbox.Control />
         <Checkbox.Label>I agree to the terms and conditions</Checkbox.Label>
+        <Checkbox.HiddenInput />
       </Checkbox>
       <PreviewMeta>
         <output>{submitted}</output>

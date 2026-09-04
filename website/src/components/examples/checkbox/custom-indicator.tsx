@@ -23,6 +23,7 @@ export default function CheckboxCustomIndicatorDemo() {
         </Checkbox.Indicator>
       </Checkbox.Control>
       <Checkbox.Label>Use a custom indicator icon</Checkbox.Label>
+      <Checkbox.HiddenInput />
     </Checkbox>
   );
 }

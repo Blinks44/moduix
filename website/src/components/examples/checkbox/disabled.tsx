@@ -5,6 +5,7 @@ export default function CheckboxDisabledDemo() {
     <Checkbox disabled>
       <Checkbox.Control />
       <Checkbox.Label>Receive weekly summary</Checkbox.Label>
+      <Checkbox.HiddenInput />
     </Checkbox>
   );
 }

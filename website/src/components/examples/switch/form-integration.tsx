@@ -28,6 +28,7 @@ export default function SwitchFormDemo() {
         >
           <Switch.Control />
           <Switch.Label>Product updates</Switch.Label>
+          <Switch.HiddenInput />
         </Switch>
         <Field.HelperText>Choose whether to receive product updates.</Field.HelperText>
         <Field.ErrorText>Choose a notification preference.</Field.ErrorText>

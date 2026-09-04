@@ -32,8 +32,8 @@ The namespace exposes `Root`, `RootProvider`, `Context`, `Label`, `ValueText`, `
 
 Values are `number[]`; controlled and uncontrolled props, Ark callback detail objects, keyboard
 behavior, pointer dragging, orientation, IDs, and accessibility attributes pass through unchanged.
-`Slider.Thumbs` renders one styled thumb per value. Every explicit or generated thumb adds its
-native hidden form input automatically.
+`Slider.Thumbs` renders one styled thumb per value. For form participation, compose explicit
+`Slider.Thumb` parts and nest `Slider.HiddenInput` inside each thumb.
 
 ## Solid composition
 

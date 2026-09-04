@@ -28,6 +28,7 @@ export default function RootProviderPasteUploadDemo() {
           }
         </FileUpload.Context>
       </FileUpload.ItemGroup>
+      <FileUpload.HiddenInput />
     </FileUpload.RootProvider>
   );
 }

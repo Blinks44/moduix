@@ -8,6 +8,7 @@ export default function AsChildSwitchDemo() {
         <Switch.Control />
         <span className={styles.label}>Enable reminders</span>
       </label>
+      <Switch.HiddenInput />
     </Switch>
   );
 }

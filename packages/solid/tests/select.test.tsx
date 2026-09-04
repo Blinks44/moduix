@@ -11,18 +11,13 @@ const fruits = createListCollection({
   ],
 });
 
-function FruitSelect(props: {
-  defaultOpen?: boolean;
-  defaultValue?: string[];
-  nativeFormControl?: 'input' | 'select';
-}) {
+function FruitSelect(props: { defaultOpen?: boolean; defaultValue?: string[] }) {
   return (
     <Select
       collection={fruits}
       defaultOpen={props.defaultOpen ?? true}
       defaultValue={props.defaultValue}
       name="fruit"
-      nativeFormControl={props.nativeFormControl}
       portalled={false}
     >
       <Select.Label>Fruit</Select.Label>
@@ -37,6 +32,7 @@ function FruitSelect(props: {
           ))}
         </Select.Content>
       </Select.Positioner>
+      <Select.HiddenSelect />
     </Select>
   );
 }
@@ -117,7 +113,7 @@ test('portals popup content by default and forwards root and field refs', () => 
   expect(document.body).toContainElement(listbox);
 });
 
-test('inherits Field state in the trigger and automatic native form control', () => {
+test('inherits Field state in the trigger and explicit native form control', () => {
   const { container } = render(() => (
     <Field.Root disabled invalid required>
       <FruitSelect defaultValue={['apple']} />
@@ -126,7 +122,7 @@ test('inherits Field state in the trigger and automatic native form control', ()
 
   const trigger = screen.getByRole('combobox', { name: 'Fruit' });
   const control = container.querySelector('[data-slot="select-control"]');
-  const nativeSelect = container.querySelector('[data-slot="select-hidden-select"]');
+  const nativeSelect = container.querySelector('select');
 
   expect(trigger).toBeDisabled();
   expect(trigger).toHaveAttribute('aria-invalid', 'true');
@@ -136,30 +132,10 @@ test('inherits Field state in the trigger and automatic native form control', ()
   expect(nativeSelect).toBeRequired();
 });
 
-test('keeps virtualized form controls connected to reset and fieldset state', async () => {
+test('resets an explicit native form control to its default selection', async () => {
   const { container } = render(() => (
     <form>
-      <fieldset disabled>
-        <FruitSelect defaultValue={['apple']} nativeFormControl="input" />
-      </fieldset>
-    </form>
-  ));
-
-  const control = container.querySelector('[data-slot="select-control"]')!;
-  await waitFor(() => expect(control).toHaveAttribute('data-disabled'));
-
-  expect(container.querySelector('[data-slot="select-hidden-input-proxy"]')).toHaveProperty(
-    'options.length',
-    0,
-  );
-  expect(new FormData(container.querySelector('form')!).get('fruit')).toBeNull();
-  expect(container.querySelector('[data-slot="select-hidden-input-proxy"]')).toHaveAttribute('id');
-});
-
-test('resets input form controls to their default selection', async () => {
-  const { container } = render(() => (
-    <form>
-      <FruitSelect defaultValue={['apple']} nativeFormControl="input" />
+      <FruitSelect defaultValue={['apple']} />
     </form>
   ));
 
@@ -212,6 +188,7 @@ test('preserves native asChild composition and its Ark Solid ref limitation', ()
     >
       <Select.Label>Fruit</Select.Label>
       <Select.Field placeholder="Select fruit" />
+      <Select.HiddenSelect />
     </Select>
   ));
 
@@ -219,7 +196,7 @@ test('preserves native asChild composition and its Ark Solid ref limitation', ()
 
   expect(root.tagName).toBe('SECTION');
   expect(root).toHaveAttribute('data-slot', 'select-root');
-  expect(root.querySelector('[data-slot="select-hidden-select"]')).toBeInTheDocument();
+  expect(root.querySelector('select')).toBeInTheDocument();
   expect(container.contains(root)).toBe(true);
   expect(rootRef).toBeUndefined();
 });

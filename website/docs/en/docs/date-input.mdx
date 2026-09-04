@@ -34,7 +34,7 @@ import DateInputTimeOnly from '@/components/examples/date-input/time-only.tsx';
 
 Render `DateInput.Segments` inside `DateInput.Control` to get a locale-aware group of date segments. Ark
 UI handles segment order, keyboard editing, focus, placeholders, and form synchronization. moduix adds
-the styled parts and automatic native form inputs, keeping the common composition small.
+the styled parts and exposes Ark's native form input for explicit composition.
 
 <ExampleFrame variant="component">
   <DateInputBasic />
@@ -72,7 +72,7 @@ DateInput.Root
 ├─ DateInput.Control
 │  ├─ DateInput.Segments
 │  └─ DateInput.Separator (optional, range layouts)
-└─ native hidden input(s) (automatic)
+└─ DateInput.HiddenInput[index] (explicit, one per submitted date)
 
 Advanced customization:
 
@@ -104,11 +104,9 @@ DateInput.RootProvider
 Use the shorthand root, `DateInput`, instead of `DateInput.Root`. Render `DateInput.Segments` inside
 `DateInput.Control` for a standard locale-aware segment group.
 
-The root automatically adds the hidden native inputs needed for form submission and reset. Pass `name`
-for a single date or a shared base name for a range. For ranges, render two indexed
-`DateInput.Segments` groups. With `name="date"`, the submitted names are `date[0]` and `date[1]`. To
-use different base names, pass the two-item `names` tuple, for example
-`names={['check-in', 'check-out']}`, which submits `check-in[0]` and `check-out[1]`.
+Compose `DateInput.HiddenInput` explicitly when native form submission and reset are needed. For a
+range, render two indexed `DateInput.Segments` groups and matching hidden inputs with `index={0}` and
+`index={1}`. Give each hidden input the desired `name`.
 
 ### When to go custom
 
@@ -133,7 +131,7 @@ description needs stable, shared IDs.
 - `onValueChange(details)` retains Ark's details object with `details.value` and `details.valueAsString`.
 - `focused`, `defaultFocused`, and `onFocusChange(details)` control focus on the root.
 - `placeholderValue`, `defaultPlaceholderValue`, and `onPlaceholderChange(details)` control the date used to fill empty segments.
-- `selectionMode="range"` enables indexed segment groups and automatic native inputs.
+- `selectionMode="range"` enables indexed segment groups; add matching indexed hidden inputs for forms.
 - `shouldForceLeadingZeros` controls whether numeric segments are padded.
 - `min`, `max`, `isDateUnavailable`, and `invalid` constrain and report date validity.
 - `locale`, `timeZone`, `hourCycle`, `granularity`, `formatter`, `format`, `translations`, `dir`, and
@@ -347,8 +345,8 @@ Use `min`, `max`, and `isDateUnavailable` to mark entered dates outside business
 
 ### Range
 
-Use `selectionMode="range"` and pass `index` to each segment group. moduix automatically renders
-the indexed native inputs.
+Use `selectionMode="range"`, pass `index` to each segment group, and add matching indexed
+`DateInput.HiddenInput` parts when the values belong to a form.
 
 <ExampleFrame variant="component">
   <DateInputRange />
@@ -516,7 +514,6 @@ For most styling changes, start with `--moduix-date-input-width`, `--moduix-date
 - `data-slot="date-input-control"` on the visual frame.
 - `data-slot="date-input-segment-group"` on each segment group.
 - `data-slot="date-input-segment"` on editable and fixed segments.
-- `data-slot="date-input-hidden-input"` on the hidden native input.
 - `data-slot="date-input-separator"` on moduix range separator sugar.
 - Ark state attributes include `data-disabled`, `data-readonly`, `data-invalid`, `data-focus` on
   control and segment groups, `data-type`, `data-editable`, and `data-placeholder-shown`.

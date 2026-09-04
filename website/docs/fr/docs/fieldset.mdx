@@ -119,8 +119,9 @@ pour une même instance d’état.
 
 ### Checkbox
 
-Utilisez la légende du fieldset pour donner un nom à un groupe de cases à cocher associées. Chaque `Checkbox` rend automatiquement
-son `input` natif, de sorte que sa valeur est incluse dans la soumission et la réinitialisation du formulaire.
+Utilisez la légende du fieldset pour donner un nom à un groupe de cases à cocher associées. Ajoutez
+`Checkbox.HiddenInput` à chaque case qui doit prendre en charge le focus natif, la soumission et la
+réinitialisation du formulaire.
 
 <ExampleFrame variant="component">
   <FieldsetCheckbox />

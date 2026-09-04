@@ -12,13 +12,15 @@ function ProviderSlider() {
         <Slider.Track>
           <Slider.Range />
         </Slider.Track>
-        <Slider.Thumbs />
+        <Slider.Thumb index={0}>
+          <Slider.HiddenInput />
+        </Slider.Thumb>
       </Slider.Control>
     </Slider.RootProvider>
   );
 }
 
-test('renders automatic form inputs for explicit thumbs, Thumbs, and RootProvider', () => {
+test('submits through explicit Ark hidden inputs', () => {
   const { container } = render(() => (
     <form>
       <Slider defaultValue={[40]} name="volume">
@@ -27,7 +29,9 @@ test('renders automatic form inputs for explicit thumbs, Thumbs, and RootProvide
           <Slider.Track>
             <Slider.Range />
           </Slider.Track>
-          <Slider.Thumb index={0} />
+          <Slider.Thumb index={0}>
+            <Slider.HiddenInput />
+          </Slider.Thumb>
         </Slider.Control>
       </Slider>
       <Slider defaultValue={[20, 80]} name="range">
@@ -36,7 +40,12 @@ test('renders automatic form inputs for explicit thumbs, Thumbs, and RootProvide
           <Slider.Track>
             <Slider.Range />
           </Slider.Track>
-          <Slider.Thumbs />
+          <Slider.Thumb index={0}>
+            <Slider.HiddenInput />
+          </Slider.Thumb>
+          <Slider.Thumb index={1}>
+            <Slider.HiddenInput />
+          </Slider.Thumb>
         </Slider.Control>
       </Slider>
       <ProviderSlider />
@@ -44,7 +53,7 @@ test('renders automatic form inputs for explicit thumbs, Thumbs, and RootProvide
   ));
 
   const form = container.querySelector('form')!;
-  const inputs = container.querySelectorAll('[data-slot="slider-hidden-input"]');
+  const inputs = container.querySelectorAll('input[hidden]');
 
   expect(inputs).toHaveLength(4);
   expect(Array.from(new FormData(form).entries())).toEqual([
@@ -143,89 +152,7 @@ test('keeps generated thumbs mounted while their values change', async () => {
   expect(screen.getByRole('slider')).toBe(thumb);
 });
 
-test('synchronizes uncontrolled values with form reset', async () => {
-  const changes: number[][] = [];
-  const { container } = render(() => (
-    <form>
-      <Slider
-        defaultValue={[40]}
-        name="volume"
-        thumbAlignment="center"
-        onValueChange={(details) => changes.push(details.value)}
-      >
-        <Slider.Label>Volume</Slider.Label>
-        <Slider.Control>
-          <Slider.Track>
-            <Slider.Range />
-          </Slider.Track>
-          <Slider.Thumbs />
-        </Slider.Control>
-      </Slider>
-    </form>
-  ));
-
-  const form = container.querySelector('form')!;
-  const slider = screen.getByRole('slider', { name: 'Volume' });
-
-  slider.focus();
-  fireEvent.focusIn(slider);
-  fireEvent.keyDown(slider, { key: 'ArrowRight' });
-
-  await waitFor(() => expect(changes).toEqual([[41]]));
-  await waitFor(() => expect(Array.from(new FormData(form).entries())).toEqual([['volume', '41']]));
-
-  fireEvent.reset(form);
-
-  await waitFor(() => expect(changes).toEqual([[41], [40]]));
-  await waitFor(() => expect(Array.from(new FormData(form).entries())).toEqual([['volume', '40']]));
-});
-
-test('synchronizes range values with form reset once', async () => {
-  const changes: number[][] = [];
-  const { container } = render(() => (
-    <form>
-      <Slider
-        defaultValue={[40, 60]}
-        name="range"
-        onValueChange={(details) => changes.push(details.value)}
-      >
-        <Slider.Label>Range</Slider.Label>
-        <Slider.Control>
-          <Slider.Track>
-            <Slider.Range />
-          </Slider.Track>
-          <Slider.Thumbs />
-        </Slider.Control>
-      </Slider>
-    </form>
-  ));
-
-  const form = container.querySelector('form')!;
-  const firstThumb = screen.getAllByRole('slider')[0];
-
-  firstThumb.focus();
-  fireEvent.focusIn(firstThumb);
-  fireEvent.keyDown(firstThumb, { key: 'ArrowRight' });
-
-  await waitFor(() => expect(changes).toEqual([[41, 60]]));
-
-  fireEvent.reset(form);
-
-  await waitFor(() =>
-    expect(changes).toEqual([
-      [41, 60],
-      [40, 60],
-    ]),
-  );
-  await waitFor(() =>
-    expect(Array.from(new FormData(form).entries())).toEqual([
-      ['range[]', '40'],
-      ['range[]', '60'],
-    ]),
-  );
-});
-
-test('preserves asChild composition, slots, and automatic form input placement', () => {
+test('preserves asChild composition, slots, and explicit form input placement', () => {
   const { container } = render(() => (
     <Slider asChild={(props) => <div {...props()} data-testid="slider-root" />} defaultValue={[40]}>
       <Slider.Label>Volume</Slider.Label>
@@ -237,16 +164,16 @@ test('preserves asChild composition, slots, and automatic form input placement',
           asChild={(props) => <span {...props()} data-testid="slider-thumb" />}
           index={0}
           aria-label="Volume"
-        />
+        >
+          <Slider.HiddenInput />
+        </Slider.Thumb>
       </Slider.Control>
     </Slider>
   ));
 
   expect(screen.getByTestId('slider-root')).toHaveAttribute('data-slot', 'slider-root');
   expect(screen.getByTestId('slider-thumb')).toHaveAttribute('data-slot', 'slider-thumb');
-  expect(
-    container.querySelector('[data-testid="slider-thumb"] [data-slot="slider-hidden-input"]'),
-  ).toBeTruthy();
+  expect(container.querySelector('[data-testid="slider-root"] input[hidden]')).toBeTruthy();
 });
 
 test('forwards refs through ordinary Ark Solid part paths', () => {

@@ -7,8 +7,8 @@ import {
   useRatingGroupItemContext,
 } from '@ark-ui/react/rating-group';
 import { clsx } from 'clsx';
-import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
-import { Children, cloneElement, forwardRef } from 'react';
+import type { ComponentProps, ComponentRef, ReactNode } from 'react';
+import { forwardRef } from 'react';
 import { RatingStarIcon } from '@/lib/moduix/icons/ui';
 import styles from './RatingGroup.module.css';
 
@@ -37,7 +37,7 @@ const RatingGroupRoot = forwardRef<
       className={clsx(styles.root, className)}
       {...props}
     >
-      {withHiddenInput(children, asChild)}
+      {children}
     </RatingGroupPrimitive.Root>
   );
 });
@@ -55,7 +55,7 @@ const RatingGroupRootProvider = forwardRef<
       className={clsx(styles.root, className)}
       {...props}
     >
-      {withHiddenInput(children, asChild)}
+      {children}
     </RatingGroupPrimitive.RootProvider>
   );
 });
@@ -126,23 +126,6 @@ const RatingGroupItemIndicator = forwardRef<HTMLSpanElement, RatingGroupItemIndi
   },
 );
 
-function withHiddenInput(children: ReactNode, asChild?: boolean) {
-  const hiddenInput = <RatingGroupPrimitive.HiddenInput data-slot="rating-group-hidden-input" />;
-
-  if (!asChild) {
-    return (
-      <>
-        {children}
-        {hiddenInput}
-      </>
-    );
-  }
-
-  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
-
-  return cloneElement(child, {}, child.props.children, hiddenInput);
-}
-
 function RatingGroupItems({ children }: { children?: ReactNode }) {
   return (
     <>
@@ -163,6 +146,7 @@ const RatingGroup = Object.assign(RatingGroupRoot, {
   Root: RatingGroupRoot,
   RootProvider: RatingGroupRootProvider,
   Context: RatingGroupPrimitive.Context,
+  HiddenInput: RatingGroupPrimitive.HiddenInput,
   Label: RatingGroupLabel,
   Control: RatingGroupControl,
   Item: RatingGroupItem,

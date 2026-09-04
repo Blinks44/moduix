@@ -6,7 +6,7 @@ import {
 } from '@ark-ui/solid/switch';
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
-import { children, onMount, splitProps } from 'solid-js';
+import { children, splitProps } from 'solid-js';
 import styles from './Switch.module.css';
 
 type SwitchSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -29,7 +29,6 @@ function SwitchRoot(props: SwitchRootProps) {
       {...others}
     >
       {local.children}
-      <SwitchHiddenInput />
     </SwitchPrimitive.Root>
   );
 }
@@ -46,7 +45,6 @@ function SwitchRootProvider(props: SwitchRootProviderProps) {
       {...others}
     >
       {local.children}
-      <SwitchHiddenInput />
     </SwitchPrimitive.RootProvider>
   );
 }
@@ -90,29 +88,10 @@ function SwitchLabel(props: ComponentProps<typeof SwitchPrimitive.Label>) {
   );
 }
 
-function SwitchHiddenInput() {
-  const switchApi = useSwitchContext();
-  const initialChecked = switchApi().checked;
-  let inputRef: HTMLInputElement | undefined;
-  const readOnly = () =>
-    (switchApi().getRootProps() as { 'data-readonly'?: string })['data-readonly'] !== undefined;
-
-  onMount(() => {
-    if (inputRef) inputRef.defaultChecked = initialChecked;
-  });
-
-  return (
-    <SwitchPrimitive.HiddenInput
-      ref={(element) => (inputRef = element)}
-      aria-readonly={readOnly() || undefined}
-      data-slot="switch-hidden-input"
-    />
-  );
-}
-
 const Switch = Object.assign(SwitchRoot, {
   Root: SwitchRoot,
   RootProvider: SwitchRootProvider,
+  HiddenInput: SwitchPrimitive.HiddenInput,
   Control: SwitchControl,
   Thumb: SwitchThumb,
   Label: SwitchLabel,

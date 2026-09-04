@@ -32,8 +32,8 @@ import FileUploadWithField from '@/components/examples/file-upload/with-field.ts
 ## Basic
 
 Start with `FileUpload` as the root. Add a `Label`, then use `Trigger` for a compact control or `Dropzone` for
-drag-and-drop. Put `Items` inside `ItemGroup` to show accepted files. The root renders the hidden native file input
-automatically. `Items` uses an image thumbnail only when the file has an `image/*` MIME type; otherwise it uses the
+drag-and-drop. Add `FileUpload.HiddenInput` explicitly to open the native picker. Put `Items` inside
+`ItemGroup` to show accepted files. `Items` uses an image thumbnail only when the file has an `image/*` MIME type; otherwise it uses the
 generic file preview.
 
 <ExampleFrame variant="component">
@@ -85,7 +85,7 @@ FileUpload / FileUpload.Root
 │        ├─ FileUpload.ItemSizeText
 │        └─ FileUpload.ItemDeleteTrigger
 ├─ FileUpload.ClearTrigger
-└─ hidden native file input (automatic)
+└─ FileUpload.HiddenInput (explicit)
 ```
 
 | Part                             | Role                                                                   |
@@ -117,7 +117,7 @@ Keep the Ark part tree explicit in your markup. Use `Trigger` on its own for a c
 `Dropzone` for a drag-and-drop area. When `Trigger` is nested inside `Dropzone`, pass `disableClick` to `Dropzone`
 so the native file picker opens only once.
 
-The root always renders the hidden native file input. Use `Items` inside `ItemGroup` for a compact list of accepted
+Render `FileUpload.HiddenInput` explicitly. Use `Items` inside `ItemGroup` for a compact list of accepted
 files. When you need custom rows, read accepted files from `FileUpload.Context.acceptedFiles` and rejected files from
 `FileUpload.Context.rejectedFiles`.
 
@@ -357,8 +357,7 @@ the same layouts with your own files.
 
 ### Form Usage
 
-Pass `name` to the root. It renders the hidden native file input automatically, so native form submission and reset
-include the selected files.
+Pass `name` to the root and render `FileUpload.HiddenInput`; native form submission and reset then include the selected files.
 
 <ExampleFrame variant="component">
   <FileUploadFormUsage />

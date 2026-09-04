@@ -16,6 +16,7 @@ export default function FieldStateColorPickerDemo() {
             <ColorPicker.Area />
           </ColorPicker.Content>
         </ColorPicker.Positioner>
+        <ColorPicker.HiddenInput />
       </ColorPicker>
       <Field.HelperText>Used for generated charts and callouts.</Field.HelperText>
       <Field.ErrorText>Choose an accent color.</Field.ErrorText>

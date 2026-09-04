@@ -29,19 +29,25 @@ Use `Control`, `Segment`, `ClearTrigger`, and `Guide` directly when the drawing 
 customized. `ClearTrigger` uses the moduix `CloseButton` and `RotateCcwIcon` by default.
 
 The public parts are `Root`, `RootProvider`, `Context`, `Label`, `Control`, `Canvas`, `Segment`,
-`Guide`, and `ClearTrigger`. The barrel also re-exports `useSignaturePad` and
+`Guide`, `ClearTrigger`, and `HiddenInput`. The barrel also re-exports `useSignaturePad` and
 `useSignaturePadContext`.
 
 ## Form serialization
 
-`Root` and `RootProvider` render Ark's hidden input automatically. Paths use `paths.join(' ')` by
-default; pass `getFormValue(paths)` to provide another representation:
+Compose Ark's hidden input explicitly and pass its required serialized `value`:
 
 ```tsx
-<SignaturePad name="signature" getFormValue={(paths) => JSON.stringify(paths)}>
+function SignaturePadFormInput() {
+  const signaturePad = useSignaturePadContext();
+
+  return <SignaturePad.HiddenInput value={JSON.stringify(signaturePad().paths)} />;
+}
+
+<SignaturePad name="signature">
   <SignaturePad.Label>Signature</SignaturePad.Label>
   <SignaturePad.Canvas />
-</SignaturePad>
+  <SignaturePadFormInput />
+</SignaturePad>;
 ```
 
 ## Read-only behavior

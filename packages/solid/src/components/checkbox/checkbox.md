@@ -19,7 +19,7 @@ export function CheckboxDemo() {
 }
 ```
 
-`Root` and `RootProvider` append Ark's hidden input automatically. `Control` renders the default
+Compose `Checkbox.HiddenInput` explicitly inside `Root` or `RootProvider`. `Control` renders the default
 checked and indeterminate indicators when it has no children, and `Indicator` renders the moduix
 check or indeterminate icon when its children are omitted.
 

@@ -5,6 +5,7 @@ export default function CheckboxReadOnlyDemo() {
     <Checkbox readOnly defaultChecked>
       <Checkbox.Control />
       <Checkbox.Label>Preserve existing setting</Checkbox.Label>
+      <Checkbox.HiddenInput />
     </Checkbox>
   );
 }

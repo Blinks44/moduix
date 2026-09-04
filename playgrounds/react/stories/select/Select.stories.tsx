@@ -335,9 +335,9 @@ export const RootProvider: Story = {
   },
 };
 
-export const LightweightFormControl: Story = {
+export const NativeFormControl: Story = {
   render: () => (
-    <Select collection={fruits} defaultValue={['apple']} name="fruit" nativeFormControl="input">
+    <Select collection={fruits} defaultValue={['apple']} name="fruit">
       <Select.Label>Choose fruit</Select.Label>
       <SelectFieldView />
       <SelectPopupContent>
@@ -346,6 +346,7 @@ export const LightweightFormControl: Story = {
           <FruitItems />
         </Select.ItemGroup>
       </SelectPopupContent>
+      <Select.HiddenSelect />
     </Select>
   ),
 };

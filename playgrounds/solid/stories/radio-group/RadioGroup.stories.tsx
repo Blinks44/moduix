@@ -28,6 +28,7 @@ function RadioItems(props: { items?: readonly string[] }) {
         <RadioGroup.Item value={item}>
           <RadioGroup.ItemControl />
           <RadioGroup.ItemText>{item}</RadioGroup.ItemText>
+          <RadioGroup.ItemHiddenInput />
         </RadioGroup.Item>
       ))}
     </>
@@ -117,6 +118,7 @@ export const Sizes: Story = {
         <RadioGroup.Item value={size}>
           <RadioGroup.ItemControl size={size} />
           <RadioGroup.ItemText>{size.toUpperCase()}</RadioGroup.ItemText>
+          <RadioGroup.ItemHiddenInput />
         </RadioGroup.Item>
       ))}
     </RadioGroup>
@@ -162,6 +164,7 @@ export const CustomStyling: Story = {
         <RadioGroup.Item value={item} class={styles.customItem}>
           <RadioGroup.ItemControl class={styles.customControl} />
           <RadioGroup.ItemText>{item}</RadioGroup.ItemText>
+          <RadioGroup.ItemHiddenInput />
         </RadioGroup.Item>
       ))}
     </RadioGroup>
@@ -184,6 +187,7 @@ export const AsChild: Story = {
           <>
             <RadioGroup.ItemControl />
             <RadioGroup.ItemText>{item}</RadioGroup.ItemText>
+            <RadioGroup.ItemHiddenInput />
           </>
         </RadioGroup.Item>
       ))}

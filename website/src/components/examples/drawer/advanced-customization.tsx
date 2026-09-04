@@ -23,6 +23,7 @@ export default function AdvancedCustomizationDrawerDemo() {
               <Checkbox defaultChecked>
                 <Checkbox.Control />
                 <Checkbox.Label>Email notifications</Checkbox.Label>
+                <Checkbox.HiddenInput />
               </Checkbox>
             </Card.Body>
           </Card>

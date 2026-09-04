@@ -56,7 +56,7 @@ SignaturePad / SignaturePad.Root
 │     ├─ SignaturePad.Segment
 │     ├─ SignaturePad.ClearTrigger
 │     └─ SignaturePad.Guide
-└─ скрытое нативное поле (добавляется автоматически)
+└─ SignaturePad.HiddenInput value={serializedPaths} (явно)
 
 SignaturePad.RootProvider
 └─ то же дерево частей, подключённое к состоянию useSignaturePad()
@@ -94,9 +94,9 @@ SignaturePad.RootProvider
 Для расширенного чтения состояния внутри дерева доступны `SignaturePad.Context` и
 `useSignaturePadContext()`.
 
-Передайте `name`, если подпись должна попасть в нативную отправку формы. moduix автоматически
-добавляет скрытое нативное поле и по умолчанию сериализует пути как `paths.join(' ')`. Передайте
-`getFormValue(paths)`, если нужен другой формат.
+Передайте `name`, если подпись должна попасть в нативную отправку формы, затем явно добавьте
+`SignaturePad.HiddenInput` с сериализованным `value`. Текущие пути можно прочитать через
+`useSignaturePadContext()`.
 
 Используйте `drawing`, чтобы настроить каждый штрих. `drawing.size` меняет его толщину,
 `drawing.simulatePressure` управляет имитацией давления, а `drawing.fill` задаёт цвет штриха.
@@ -112,7 +112,6 @@ SignaturePad.RootProvider
 | `paths`         | -                                     | Управляемый массив SVG-путей. Используйте вместе с `onDraw(details)`. |
 | `drawing`       | `{ size: 2, simulatePressure: false }` | Параметры штриха Zag. `fill` должен быть допустимым CSS-цветом.   |
 | `name`          | -                                     | Имя поля нативной формы.                                          |
-| `getFormValue`  | `paths.join(' ')`                     | Пользовательская сериализация автоматически добавляемого поля.  |
 | `disabled`      | -                                     | Отключает рисование и взаимодействие с кнопкой очистки.           |
 | `readOnly`      | -                                     | Запрещает рисование и отключает кнопку очистки.                   |
 | `required`      | -                                     | Делает подпись и скрытое поле обязательными.                      |
@@ -136,8 +135,8 @@ SignaturePad.RootProvider
 `details.getDataUrl(type, quality?)` поддерживает `image/png`, `image/jpeg` и `image/svg+xml` и
 возвращает пустую строку для пустой подписи.
 
-Задайте `name` корню, когда нужна нативная отправка формы. Скрытое поле добавляется автоматически.
-Передайте `getFormValue(paths)`, если форме нужна собственная сериализация. Оберните компонент в
+Задайте `name` корню, когда нужна нативная отправка формы, и явно добавьте
+`SignaturePad.HiddenInput value={serializedPaths}`. Оберните компонент в
 `Field.Root`, когда текст-подсказка, текст ошибки, обязательность или отключённое состояние должны
 быть общими с остальным интерфейсом формы. Состояние `invalid` у `Field` управляет сообщениями и
 описаниями поля, но не добавляет `data-invalid` к частям `SignaturePad`.
@@ -232,8 +231,8 @@ SignaturePad.RootProvider
 
 ### Сериализация формы
 
-Используйте `getFormValue`, когда сервер должен получить пути в другом формате. В этом примере
-отправляется JSON-массив вместо стандартной строки SVG-путей, разделённых пробелами.
+Сериализуйте в потребителе значение для `SignaturePad.HiddenInput`, когда серверу нужен другой
+формат. В этом примере отправляется JSON-массив.
 
 <ExampleFrame variant="component">
   <SignaturePadFormSerialization />

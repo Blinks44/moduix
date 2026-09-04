@@ -20,8 +20,8 @@ export function RadioGroupDemo() {
 }
 ```
 
-Every `RadioGroup.Item`, including the item used by `RadioGroup.Option`, renders Ark's native
-hidden input automatically.
+`RadioGroup.Option` includes Ark's native input in its fixed tree. Direct `RadioGroup.Item`
+composition requires an explicit `RadioGroup.ItemHiddenInput`.
 
 The public parts are `Root`, `RootProvider`, `Context`, `ItemContext`, `Label`, `Item`, `Option`,
 `ItemControl`, `ItemText`, and `Indicator`. The barrel also re-exports `useRadioGroup`,

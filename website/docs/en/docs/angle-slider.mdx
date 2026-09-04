@@ -72,7 +72,7 @@ AngleSlider.Root
 │  │  └─ AngleSlider.Marker[value]
 │  └─ AngleSlider.Thumb
 ├─ AngleSlider.ValueText
-└─ hidden native form input (added automatically)
+└─ AngleSlider.HiddenInput (explicit)
 ```
 
 | Part                               | Role                                                                  |
@@ -88,8 +88,8 @@ AngleSlider.Root
 | `AngleSlider.Thumb`                | Focusable handle that indicates the current angle.                     |
 | `AngleSlider.ValueText`            | Displays the current value in degrees.                                |
 
-moduix adds the hidden native form input automatically when you use `Root` or `RootProvider`. You
-do not need to render `HiddenInput` yourself.
+Compose `AngleSlider.HiddenInput` explicitly inside `Root` or `RootProvider` when the value should
+participate in a native form.
 
 ## Composition
 
@@ -134,10 +134,8 @@ IDs. Refs are forwarded to the DOM element rendered by each wrapped Ark part.
 - The thumb supports Ark's slider keyboard behavior and pointer dragging around the circular control.
 - `AngleSlider.Marks` renders the same marker DOM and styling hooks as explicit `MarkerGroup` /
   `Marker` composition.
-- `Root` and `RootProvider` render a hidden native form input automatically. Set `name` to include
-  the angle in form submission and `form` to associate it with an external form. A native reset
-  returns an uncontrolled `Root` to `defaultValue` and a `RootProvider` to the value it had when it
-  mounted. In controlled mode, the external owner remains authoritative.
+- Compose `AngleSlider.HiddenInput` explicitly. Set `name` to include the angle in form submission
+  and `form` to associate it with an external form. Ark owns native reset synchronization.
 - `ValueText` renders Ark's degree string when no custom children are provided.
 - `data-disabled`, `data-invalid`, `data-readonly`, marker `data-state`, `--value`, `--angle`,
   `--marker-value`, and `--marker-display-value` remain available for styling.
@@ -202,9 +200,8 @@ Use `disabled` when the control should be unavailable and excluded from focus an
 
 ### In a Form
 
-Add `name` to include the angle in native form submission. moduix renders the hidden native input
-automatically, and the Reset button demonstrates native form reset. Use `form` when the form is not
-an ancestor of the slider.
+Add `AngleSlider.HiddenInput` and `name` to include the angle in native form submission. The Reset
+button demonstrates Ark's native form reset. Use `form` when the form is not an ancestor of the slider.
 
 <ExampleFrame variant="component">
   <AngleSliderForm />

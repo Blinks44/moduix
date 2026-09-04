@@ -34,7 +34,7 @@ import DateInputTimeOnly from '@/components/examples/date-input/time-only.tsx';
 
 Placez `DateInput.Segments` dans `DateInput.Control` pour obtenir un groupe de segments de date adapté à la locale.
 Ark UI gère leur ordre, la saisie au clavier, le focus, les valeurs des segments vides et la synchronisation avec le
-formulaire. moduix ajoute les parties stylées et les champs natifs masqués, ce qui simplifie la composition standard.
+formulaire. moduix ajoute les parties stylées et expose le champ natif Ark pour une composition explicite.
 
 <ExampleFrame variant="component">
   <DateInputBasic />
@@ -72,7 +72,7 @@ DateInput.Root
 ├─ DateInput.Control
 │  ├─ DateInput.Segments
 │  └─ DateInput.Separator (facultatif, pour les plages)
-└─ champs natifs masqués (automatiques)
+└─ DateInput.HiddenInput[index] (explicite, un par date envoyée)
 
 Personnalisation avancée :
 
@@ -104,11 +104,9 @@ DateInput.RootProvider
 Utilisez la forme abrégée du composant racine, `DateInput`, plutôt que `DateInput.Root`. Placez `DateInput.Segments`
 dans `DateInput.Control` pour obtenir un groupe de segments standard adapté à la locale.
 
-Le composant racine ajoute automatiquement les champs natifs masqués nécessaires à la soumission et à la réinitialisation
-du formulaire. Transmettez `name` pour une date seule ou un nom de base commun pour une plage. Pour une plage, affichez
-deux groupes `DateInput.Segments` avec les index `0` et `1`. Avec un `name="date"` commun, les noms envoyés sont
-`date[0]` et `date[1]`. Pour utiliser des noms de base différents, transmettez le tuple `names` à deux éléments, par
-exemple `names={['check-in', 'check-out']}`, qui produit `check-in[0]` et `check-out[1]`.
+Composez explicitement `DateInput.HiddenInput` lorsque la soumission et la réinitialisation natives sont nécessaires.
+Pour une plage, affichez deux groupes `DateInput.Segments` indexés et les champs masqués correspondants avec
+`index={0}` et `index={1}`. Attribuez à chaque champ masqué le `name` souhaité.
 
 ### Quand créer une composition personnalisée
 
@@ -133,7 +131,7 @@ libellé externe ou un texte d’aide doit partager des identifiants stables ave
 - `onValueChange(details)` reçoit l’objet `details` d’Ark UI avec `details.value` et `details.valueAsString`.
 - `focused`, `defaultFocused` et `onFocusChange(details)` contrôlent le focus de la racine.
 - `placeholderValue`, `defaultPlaceholderValue` et `onPlaceholderChange(details)` définissent la date utilisée pour remplir les segments vides.
-- `selectionMode="range"` active les groupes de segments indexés et les champs natifs ajoutés automatiquement.
+- `selectionMode="range"` active les groupes indexés ; ajoutez les champs masqués indexés correspondants pour les formulaires.
 - `shouldForceLeadingZeros` détermine si les segments numériques sont complétés par des zéros initiaux.
 - `min`, `max` et `isDateUnavailable` définissent les dates acceptées ; `invalid` signale l’état invalide.
 - `locale`, `timeZone`, `hourCycle`, `granularity`, `formatter`, `format`, `translations`, `dir` et
@@ -348,8 +346,8 @@ règles de l’application.
 
 ### Plage
 
-Utilisez `selectionMode="range"` et transmettez `index` à chaque groupe de segments. moduix ajoute automatiquement
-les champs natifs avec les index correspondants.
+Utilisez `selectionMode="range"`, transmettez `index` à chaque groupe de segments et ajoutez les
+`DateInput.HiddenInput` indexés correspondants lorsque les valeurs appartiennent à un formulaire.
 
 <ExampleFrame variant="component">
   <DateInputRange />
@@ -517,7 +515,6 @@ Pour la plupart des personnalisations de style, commencez par `--moduix-date-inp
 - `data-slot="date-input-control"` sur le cadre visuel.
 - `data-slot="date-input-segment-group"` sur chaque groupe de segments.
 - `data-slot="date-input-segment"` sur les segments modifiables et fixes.
-- `data-slot="date-input-hidden-input"` sur le champ natif masqué.
 - `data-slot="date-input-separator"` sur le séparateur de plage fourni par moduix.
 - Les attributs d’état Ark UI comprennent `data-disabled`, `data-readonly`, `data-invalid` et `data-focus` sur le
   contrôle et les groupes de segments, ainsi que `data-type`, `data-editable` et `data-placeholder-shown`.

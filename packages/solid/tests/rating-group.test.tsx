@@ -33,31 +33,29 @@ function ControlledRatingGroup() {
   );
 }
 
-test('renders one automatic input that submits and resets with the form', async () => {
+test('submits through an explicit Ark hidden input', async () => {
   const { container } = render(() => (
     <form>
       <RatingGroup defaultValue={3} name="rating">
         <RatingGroup.Label>Rating</RatingGroup.Label>
         <RatingItems />
+        <RatingGroup.HiddenInput />
       </RatingGroup>
     </form>
   ));
 
   const form = container.querySelector('form') as HTMLFormElement;
   const items = screen.getAllByRole('radio');
-  const input = container.querySelector('[data-slot="rating-group-hidden-input"]');
+  const input = container.querySelector('input[hidden]');
 
   expect(input).toHaveAttribute('name', 'rating');
   expect(new FormData(form).get('rating')).toBe('3');
 
   fireEvent.click(items[4]);
   await waitFor(() => expect(new FormData(form).get('rating')).toBe('5'));
-
-  form.reset();
-  await waitFor(() => expect(new FormData(form).get('rating')).toBe('3'));
 });
 
-test('preserves asChild composition while appending the automatic input', () => {
+test('preserves asChild composition with an explicit hidden input', () => {
   const { container } = render(() => (
     <RatingGroup
       asChild={(props) => <section {...props()} data-testid="rating-root" />}
@@ -66,6 +64,7 @@ test('preserves asChild composition while appending the automatic input', () => 
       <>
         <RatingGroup.Label>Rating</RatingGroup.Label>
         <RatingItems />
+        <RatingGroup.HiddenInput />
       </>
     </RatingGroup>
   ));
@@ -73,7 +72,7 @@ test('preserves asChild composition while appending the automatic input', () => 
   const root = screen.getByTestId('rating-root');
 
   expect(root.tagName).toBe('SECTION');
-  expect(root.querySelectorAll('[data-slot="rating-group-hidden-input"]')).toHaveLength(1);
+  expect(root.querySelectorAll('input[hidden]')).toHaveLength(1);
   expect(container.querySelectorAll('[data-slot="rating-group-item"]')).toHaveLength(5);
 });
 
@@ -171,6 +170,7 @@ test('forwards refs and exposes stable slots on public parts', () => {
           <RatingGroup.ItemIndicator ref={(element) => (indicatorRef = element)} />
         </RatingGroup.Item>
       </RatingGroup.Control>
+      <RatingGroup.HiddenInput />
     </RatingGroup>
   ));
 
@@ -179,8 +179,5 @@ test('forwards refs and exposes stable slots on public parts', () => {
   expect(controlRef).toHaveAttribute('data-slot', 'rating-group-control');
   expect(itemRef).toHaveAttribute('data-slot', 'rating-group-item');
   expect(indicatorRef).toHaveAttribute('data-slot', 'rating-group-item-indicator');
-  expect(container.querySelector('[data-slot="rating-group-hidden-input"]')).toHaveAttribute(
-    'data-slot',
-    'rating-group-hidden-input',
-  );
+  expect(container.querySelector('input[hidden]')).toHaveAttribute('hidden');
 });

@@ -213,18 +213,17 @@ Forward focus to the actual control: the native Input, `Select.Trigger`, or `Com
   `details.value[0] ?? ""`.
 - Call `field.handleBlur` from `Select.onInteractOutside` or `Combobox.Input.onBlur` so TanStack
   Form can update touched state.
-- `Select` renders its native select automatically for native semantics and reset synchronization.
-- Map `Checkbox` checked state to a boolean field value; its root renders the native input
-  automatically.
+- Add `Select.HiddenSelect` explicitly for native select semantics.
+- Map `Checkbox` checked state to a boolean field value and add `Checkbox.HiddenInput` explicitly
+  when native form participation is needed.
 - `name={field.name}` enables native `FormData` semantics but does not replace the field's controlled
   `state.value` and `handleChange` mapping.
 - `Combobox` does not render a hidden input. Its visible input can be part of `FormData`; add an
   explicit input when the submitted value must be the selected item, or submit the controlled form
   state instead.
-- For controls with special form options, keep the configuration on their roots: `DateInput` uses a
-  two-item `names` tuple for distinct indexed range keys, `Select` uses
-  `nativeFormControl="input"` for virtualized collections, and `SignaturePad` uses `getFormValue`
-  for custom serialization.
+- For controls with special form options, keep root configuration explicit: use indexed
+  `DateInput.HiddenInput` parts for range keys, `Select.HiddenSelect` for native select semantics,
+  and a serialized `value` on `SignaturePad.HiddenInput`.
 - Do not spread a field object onto `Select` or `Combobox`. Their values and callbacks use Ark detail
   objects, so map them explicitly as shown above.
 - Use `form.Subscribe` for derived form state instead of reading `form.state` during render.

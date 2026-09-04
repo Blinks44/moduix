@@ -11,10 +11,9 @@ import {
   useSelectContext,
   useSelectItemContext,
 } from '@ark-ui/solid/select';
-import { mergeProps } from '@zag-js/solid';
 import { clsx } from 'clsx';
 import type { ComponentProps, JSX } from 'solid-js';
-import { children, For, onMount, splitProps } from 'solid-js';
+import { children, splitProps } from 'solid-js';
 import { CheckIcon, ChevronUpDownIcon } from '@/lib/moduix/icons/ui/Icons';
 import {
   OverlayPortal,
@@ -24,15 +23,11 @@ import {
 import { CloseButton } from '../close-button';
 import styles from './Select.module.css';
 
-type SelectNativeFormControl = 'select' | 'input';
-type SelectRootOwnProps = OverlayPortalProps & {
-  nativeFormControl?: SelectNativeFormControl;
-};
-type SelectRootProps<T extends CollectionItem> = ArkSelectRootProps<T> & SelectRootOwnProps;
+type SelectRootProps<T extends CollectionItem> = ArkSelectRootProps<T> & OverlayPortalProps;
 type SelectRootProviderProps<T extends CollectionItem> = ArkSelectRootProviderProps<T> &
-  SelectRootOwnProps;
-type SelectRootComponent = ArkSelectRootComponent<SelectRootOwnProps>;
-type SelectRootProviderComponent = ArkSelectRootProviderComponent<SelectRootOwnProps>;
+  OverlayPortalProps;
+type SelectRootComponent = ArkSelectRootComponent<OverlayPortalProps>;
+type SelectRootProviderComponent = ArkSelectRootProviderComponent<OverlayPortalProps>;
 type SelectFieldProps = Omit<
   ComponentProps<typeof SelectPrimitive.Control>,
   'asChild' | 'children'
@@ -48,7 +43,6 @@ const SelectRoot = function SelectRoot<T extends CollectionItem>(props: SelectRo
     'children',
     'class',
     'lazyMount',
-    'nativeFormControl',
     'portalled',
     'portalRef',
     'unmountOnExit',
@@ -65,7 +59,6 @@ const SelectRoot = function SelectRoot<T extends CollectionItem>(props: SelectRo
         {...others}
       >
         {local.children}
-        <SelectFormControl nativeFormControl={local.nativeFormControl ?? 'select'} />
       </SelectPrimitive.Root>
     </OverlayPortalProvider>
   );
@@ -79,7 +72,6 @@ const SelectRootProvider = function SelectRootProvider<T extends CollectionItem>
     'children',
     'class',
     'lazyMount',
-    'nativeFormControl',
     'portalled',
     'portalRef',
     'unmountOnExit',
@@ -96,7 +88,6 @@ const SelectRootProvider = function SelectRootProvider<T extends CollectionItem>
         {...others}
       >
         {local.children}
-        <SelectFormControl nativeFormControl={local.nativeFormControl ?? 'select'} />
       </SelectPrimitive.RootProvider>
     </OverlayPortalProvider>
   );
@@ -332,48 +323,6 @@ function SelectItemIndicator(props: ComponentProps<typeof SelectPrimitive.ItemIn
   );
 }
 
-function SelectFormControl(props: { nativeFormControl: SelectNativeFormControl }) {
-  const select = useSelectContext();
-
-  if (props.nativeFormControl === 'select') {
-    return <SelectPrimitive.HiddenSelect data-slot="select-hidden-select" />;
-  }
-
-  const hiddenSelectProps = mergeProps(() => select().getHiddenSelectProps(), {
-    'aria-hidden': true,
-    'data-slot': 'select-hidden-input-proxy',
-    name: undefined,
-    required: false,
-  });
-  let proxyRef: HTMLSelectElement | undefined;
-
-  onMount(() => proxyRef?.removeAttribute('name'));
-
-  return (
-    <>
-      <select
-        ref={(element) => (proxyRef = element)}
-        {...hiddenSelectProps}
-        name={undefined}
-        required={false}
-      />
-      <For each={select().value}>
-        {(value) => (
-          <input
-            type="hidden"
-            data-slot="select-hidden-input"
-            name={hiddenSelectProps.name}
-            form={hiddenSelectProps.form}
-            autocomplete={hiddenSelectProps.autocomplete}
-            disabled={hiddenSelectProps.disabled}
-            value={value}
-          />
-        )}
-      </For>
-    </>
-  );
-}
-
 function SelectItemTextContent(props: HTMLArkProps<'span'>) {
   const [local, others] = splitProps(props, ['class']);
 
@@ -414,6 +363,7 @@ type SelectComponent = SelectRootComponent & {
   Root: SelectRootComponent;
   RootProvider: SelectRootProviderComponent;
   Context: typeof SelectPrimitive.Context;
+  HiddenSelect: typeof SelectPrimitive.HiddenSelect;
   ItemContext: typeof SelectPrimitive.ItemContext;
   useSelect: typeof useSelect;
   useSelectContext: typeof useSelectContext;
@@ -442,6 +392,7 @@ const Select: SelectComponent = Object.assign(SelectRoot, {
   Root: SelectRoot,
   RootProvider: SelectRootProvider,
   Context: SelectPrimitive.Context,
+  HiddenSelect: SelectPrimitive.HiddenSelect,
   ItemContext: SelectPrimitive.ItemContext,
   useSelect,
   useSelectContext,

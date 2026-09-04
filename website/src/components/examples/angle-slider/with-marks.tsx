@@ -11,6 +11,7 @@ export default function AngleSliderWithMarksDemo() {
         <AngleSlider.Marks values={markerValues} />
       </AngleSlider.Dial>
       <AngleSlider.ValueText />
+      <AngleSlider.HiddenInput />
     </AngleSlider>
   );
 }

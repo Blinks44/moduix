@@ -16,7 +16,7 @@ field input, color area, channel sliders, eyedropper, and swatches.
 - Keeps Ark parts, value objects from `parseColor`, format state, controlled/open state, provider
   state, and callback detail objects unchanged.
 - Keeps popup structure explicit through `Positioner` and `Content`; the root owns portalling.
-- `ColorPicker` and `RootProvider` render the native form input internally for native form integration.
+- `ColorPicker.HiddenInput` provides explicit native form integration.
 
 ## Current behavior contract
 
@@ -26,8 +26,8 @@ field input, color area, channel sliders, eyedropper, and swatches.
   `Positioner`, `Content`, `Area`, `AreaBackground`, `AreaThumb`, channel slider parts,
   `Sliders`, `ChannelInput`, `EyeDropperTrigger`, format parts, swatch parts, `TransparencyGrid`,
   `ValueSwatch`, `ValueText`, and `View`.
-- `ColorPicker` and `RootProvider` append the native form input automatically; it is not a public moduix
-  part.
+- `ColorPicker.HiddenInput` exposes Ark's native form input. Compose it explicitly when the selected
+  color should participate in a form.
 - `parseColor`, `useColorPicker`, and `useColorPickerContext` are re-exported for common
   string-to-`Color` and advanced state workflows.
 - `Trigger` renders the current value swatch by default when children are omitted.
@@ -63,7 +63,7 @@ ColorPicker
 │        │        └─ ColorPicker.SwatchIndicator
 │        └─ ColorPicker.View[format]
 │           └─ ColorPicker.ChannelInput[channel]
-└─ native input (automatic)
+└─ ColorPicker.HiddenInput (explicit)
 ```
 
 All styled DOM parts expose matching kebab-case `data-slot` hooks. `RootProvider` accepts a state
@@ -99,8 +99,7 @@ export function ColorPickerExample() {
 - Controlled state through `value`, `format`, `open`, and Ark detail callbacks.
 - Inline mode through `inline` on `ColorPicker`, where `Area`, sliders, inputs, and swatches can render
   directly inside the root.
-- Form usage through `name` on `ColorPicker`; the native form input is automatic and stays in sync
-  with native submission and reset.
+- Form usage combines Ark form props with an explicit `ColorPicker.HiddenInput`.
 - Field integration through Ark `Field.Root` context for disabled, invalid, required, and read-only
   state.
 - Provider state through moduix `useColorPicker` plus `RootProvider`.
@@ -113,8 +112,8 @@ export function ColorPickerExample() {
 
 - Ark owns color area, slider, input, popover, focus, keyboard, outside interaction, and ARIA
   behavior.
-- The root always renders the native form input. `name` and related root props configure form
-  submission and reset synchronization.
+- `ColorPicker.HiddenInput` renders the native form input. `name` and related root props configure
+  form submission and reset synchronization.
 - Important hooks include `data-state`, `data-focus`, `data-invalid`, `data-disabled`,
   `data-readonly`, `data-required`, `data-channel`, `data-orientation`, `data-value`,
   `data-placement`, and `data-side`.
@@ -234,8 +233,7 @@ The public documentation provides the defaults and descriptions for this exact c
   Ark-only type helpers directly only when needed.
 - Do not hide popup structure behind a `Content` convenience wrapper.
 - Preserve Ark `Color` objects and callback detail shapes.
-- Form participation is controlled through root props; the root renders the native form input
-  automatically.
+- Form participation is controlled through root props and an explicit `ColorPicker.HiddenInput`.
 - Upstream review, 2026-08-10: Ark's
   [`Color Picker`](https://ark-ui.com/docs/components/color-picker) defines the preserved behavior
   and lifecycle; [Chakra's Color Picker](https://chakra-ui.com/docs/components/color-picker)
@@ -266,7 +264,8 @@ content after the first open; set both props to `false` only when eager initial 
 - 2026-07-21: Aligned the square trigger, channel controls, and actions to `--moduix-size-md`; swatches now use `--moduix-size-sm`.
 
 - 2026-07-16: Added shared `--moduix-popup-motion-*` fallbacks for project-wide popup content motion.
-- 2026-07-13: Native form controls are now rendered automatically; the former public form-control part was removed.
+- 2026-09-04: Exposed Ark `HiddenInput` explicitly and removed root child mutation.
+- 2026-07-13: Native form controls were rendered automatically at this point in the wrapper history.
 
 - 2026-07-10: Added `Sliders` and moduix state-hook re-exports; recommended them in docs.
 

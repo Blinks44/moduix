@@ -36,9 +36,8 @@ control.
 
 ## Basic
 
-Start with the root, label, control, `Items`, entry input, and clear trigger. `Items` renders the
-standard editable tag structure. The root also adds the hidden native form input automatically, so
-pass root props such as `name` when the tags should be submitted with a form.
+Start with the root, label, control, `Items`, entry input, clear trigger, and an explicit
+`TagsInput.HiddenInput` when the tags should be submitted with a form.
 
 <ExampleFrame variant="component">
   <TagsInputBasic />
@@ -82,7 +81,7 @@ TagsInput / TagsInput.Root
 │     └─ TagsInput.ItemInput
 │  ├─ TagsInput.Input
 │  └─ TagsInput.ClearTrigger
-└─ hidden native form input (automatic)
+└─ TagsInput.HiddenInput (explicit)
 ```
 
 | Part                                   | Role                                                                 |
@@ -111,7 +110,7 @@ TagsInput / TagsInput.Root
 
 Use the short `<TagsInput>` form, which is equivalent to `<TagsInput.Root>`. Place
 `TagsInput.Items`, `TagsInput.Input`, and `TagsInput.ClearTrigger` inside `TagsInput.Control`.
-This gives you the standard editable tag behavior and keeps the hidden native form input in place.
+This gives you the standard editable tag behavior. Add `TagsInput.HiddenInput` explicitly for forms.
 
 To participate in a form, pass `name` to the root. Use `form` when the associated form is outside
 the component's DOM subtree.
@@ -129,8 +128,7 @@ rendered tags input tree. Use `ids` when `TagsInput` shares an input or control 
 primitive, such as `Combobox`.
 
 Every primitive part supports `asChild` with one semantic child that forwards its props and `ref`.
-When the root uses `asChild`, that child must also render its children so moduix can append the
-automatic hidden form input. `TagsInput.Items` is a convenience renderer and does not accept part
+`TagsInput.Items` is a convenience renderer and does not accept part
 props; use the lower-level parts for custom item markup.
 
 ### Default props
@@ -371,8 +369,8 @@ Ark's form accessibility wiring.
 
 ### Form
 
-Pass `name` to the root to include the tag list in `FormData`. Moduix renders the hidden native
-form input automatically and keeps it synchronized with form reset.
+Pass `name` to the root and add `TagsInput.HiddenInput` to include the tag list in `FormData`. Ark
+keeps the input synchronized with form reset.
 
 <ExampleFrame variant="component">
   <TagsInputForm />
@@ -604,7 +602,7 @@ Ark-shaped item tree and keep `ItemInput` in each item if inline editing is stil
 ## Accessibility
 
 Ark wires the label, tag highlighting, inline edit mode, deletion, paste handling, and hidden form
-input. The root's hidden input serializes the tag list for native form submission; pass `name` and,
+input. The explicit hidden input serializes the tag list for native form submission; pass `name` and,
 when needed, `form` to associate it with a form.
 
 ### Keyboard support

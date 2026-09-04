@@ -76,38 +76,37 @@ component's root.
 5. Set form-related props on the component's semantic root, such as `name`, `form`, and validation
    state. moduix supplies the form control needed by the components below.
 
-Automatic form controls:
+Explicit Ark form parts:
 
 | Component      | Form participation                                            |
 | -------------- | -------------------------------------------------------------- |
-| `AngleSlider`  | `Root` and `RootProvider` add a native form input automatically. |
-| `Checkbox`     | `Root` and `RootProvider` add a native form input automatically. |
-| `ColorPicker`  | `Root` and `RootProvider` add a native form input automatically. |
-| `DateInput`    | `Root` and `RootProvider` add native form inputs automatically.  |
-| `FileUpload`   | `Root` and `RootProvider` add a native form input automatically. |
-| `PinInput`     | `Root` and `RootProvider` add a native form input automatically. |
-| `RadioGroup`   | Each `Item` adds a native form input automatically.             |
-| `RatingGroup`  | `Root` and `RootProvider` add a native form input automatically. |
-| `SegmentGroup` | Each `Item` adds a native form input automatically.             |
-| `Select`       | `Root` and `RootProvider` add a native select automatically.    |
-| `SignaturePad` | `Root` and `RootProvider` serialize paths into a native input.  |
-| `Slider`       | Each `Thumb` adds a native form input automatically.            |
-| `Switch`       | `Root` and `RootProvider` add a native form input automatically. |
-| `TagsInput`    | `Root` and `RootProvider` add a native form input automatically. |
+| `AngleSlider`  | Add `HiddenInput` inside the root.                              |
+| `Checkbox`     | Add `HiddenInput` inside the root.                              |
+| `ColorPicker`  | Add `HiddenInput` inside the root.                              |
+| `DateInput`    | Add one indexed `HiddenInput` for each submitted date.          |
+| `FileUpload`   | Add `HiddenInput` inside the root.                              |
+| `PinInput`     | Add `HiddenInput` inside the root.                              |
+| `RadioGroup`   | Add `ItemHiddenInput` to every explicitly composed `Item`.      |
+| `RatingGroup`  | Add `HiddenInput` inside the root.                              |
+| `SegmentGroup` | Add `ItemHiddenInput` to every explicitly composed `Item`.      |
+| `Select`       | Add `HiddenSelect` inside the root.                             |
+| `SignaturePad` | Add `HiddenInput` with a value derived from its context.        |
+| `Slider`       | Add `HiddenInput` inside every submitted `Thumb`.               |
+| `Switch`       | Add `HiddenInput` inside the root.                              |
+| `TagsInput`    | Add `HiddenInput` inside the root.                              |
 | `Combobox`     | Pass `name` to the root; no additional part is required.       |
 
-Do not add another hidden input for these components. A duplicate can submit a competing value and
-interfere with reset behavior.
+Add each form part exactly once. A duplicate can submit a competing value.
 
 For the controls with form-specific options, keep the configuration on the semantic root:
 
-- `DateInput`: a range with `name="date"` submits `date[0]` and `date[1]`; use
-  `names={['start-date', 'end-date']}` for `start-date[0]` and `end-date[1]`.
-- `Select`: the default native select preserves browser autofill, native validation, and progressive
-  enhancement. Use `nativeFormControl="input"` for a very large virtualized collection; it submits
-  lightweight hidden inputs and intentionally does not provide those native-select features.
-- `SignaturePad`: the default form value is the SVG paths joined with spaces. Use
-  `getFormValue={(paths) => JSON.stringify(paths)}` when the server expects a JSON array.
+- `DateInput`: for a range, render `HiddenInput index={0} name="start-date"` and
+  `HiddenInput index={1} name="end-date"` when the submitted dates need distinct names.
+- `Select`: `HiddenSelect` preserves browser autofill, native validation, and progressive
+  enhancement. Virtualized collections that cannot render native options need consumer-owned form
+  integration.
+- `SignaturePad`: `HiddenInput` requires an explicit string `value`. Read `paths` from
+  `useSignaturePadContext()` and serialize them in the format expected by the server.
 
 For a group of checkboxes, radio options, or other related inputs, use `Fieldset` with a visible
 `Fieldset.Legend`. It provides the group-level label, helper text, error text, and shared state. See
@@ -156,8 +155,8 @@ If you compose a custom control that is not built on Ark, apply its native const
 field is required; show it after the chosen validation lifecycle has found a problem.
 
 In a native-only form, `type="reset"` or `form.reset()` restores the controls' default values.
-Ark-backed components synchronize their internal state through the native form control that moduix
-renders. For fields controlled by a library, call the library's reset API instead of relying on a
+Ark-backed components synchronize their internal state through the native form part you compose.
+For fields controlled by a library, call the library's reset API instead of relying on a
 DOM reset alone; otherwise the next render can restore the old application value.
 
 Form libraries need a ref to the element that should receive focus:

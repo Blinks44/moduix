@@ -34,9 +34,9 @@ import RadioGroupFieldset from '@/components/examples/radio-group/with-fieldset.
 
 ## Базовый пример
 
-Для большинства групп используйте `RadioGroup.Option`. Он выводит элемент с подписью, элементом управления
-и видимым текстом. Каждый элемент автоматически получает скрытое нативное поле ввода. Если группа
-находится внутри нативной формы, передайте `name` в `RadioGroup`, как показано в примере «Форма».
+Для большинства групп используйте `RadioGroup.Option`. Он выводит элемент с подписью, управлением,
+текстом и нативным полем. При прямой композиции `RadioGroup.Item` явно добавьте
+`RadioGroup.ItemHiddenInput`.
 
 <ExampleFrame variant="component">
   <RadioGroupBasic />
@@ -69,13 +69,13 @@ RadioGroup.Root
 └─ RadioGroup.Item[value]
    ├─ RadioGroup.ItemControl
    ├─ RadioGroup.ItemText
-   └─ <input> (automatic)
+   └─ RadioGroup.ItemHiddenInput (явно)
 
 RadioGroup.RootProvider
 └─ RadioGroup.* + useRadioGroup()
 
 RadioGroup.Option
-└─ RadioGroup.Item + ItemControl + ItemText + <input> (automatic)
+└─ RadioGroup.Item + ItemControl + ItemText + ItemHiddenInput (фиксированная композиция)
 ```
 
 | Часть                         | Назначение                                                         |
@@ -127,9 +127,9 @@ RadioGroup.Option
 `required`, `ids` и `asChild`. В обработчике изменения читайте выбранное значение из
 `details.value`.
 
-В каждом `RadioGroup.Item` автоматически создаётся нативное поле формы. Оно участвует в отправке и
-проверке формы, а также в её сбросе, поэтому добавлять часть input вручную не нужно. Передайте
-`name` в корневой компонент, если выбранное значение должно попасть в `FormData`.
+`RadioGroup.Option` включает нативное поле. При прямой композиции `RadioGroup.Item` добавьте
+`RadioGroup.ItemHiddenInput` для нативной отправки, проверки и сброса. Передайте `name` корню, если
+выбранное значение должно попасть в `FormData`.
 
 Ark управляет контролируемым и неконтролируемым состоянием, WAI-ARIA-поведением, фокусом и
 клавиатурной навигацией. Клавиша <kbd>Tab</kbd> переводит фокус на выбранный элемент или на первый,
@@ -140,8 +140,7 @@ Ark управляет контролируемым и неконтролиру�
 состояние в `RadioGroup`. Передавайте `disabled`, `invalid`, `readOnly` и `required` самой группе.
 `Fieldset.Root` передаёт вложенным группам своё состояние Ark `disabled` и `invalid`.
 
-Каждая стилизуемая часть передаёт `ref` соответствующей DOM-части Ark. Автоматическое нативное поле
-ввода является внутренней деталью, на него нельзя получить отдельный публичный `ref`.
+Каждая стилизуемая часть передаёт `ref` соответствующей DOM-части Ark, включая `ItemHiddenInput`.
 
 ## Примеры
 
@@ -250,9 +249,8 @@ React или должно синхронно меняться с другими 
 
 ### Форма
 
-Передайте `name` в корневой компонент, если выбранное значение нужно отправить вместе с формой.
-Нативное поле, которое автоматически создаётся для каждого элемента, участвует в отправке и сбросе
-формы, поэтому добавлять часть input вручную не нужно.
+Передайте `name` корню, если выбранное значение нужно отправить с формой. `RadioGroup.Option` уже
+содержит поле; добавьте `ItemHiddenInput` в каждый пользовательский элемент.
 
 <ExampleFrame variant="component">
   <RadioGroupForm />

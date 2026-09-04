@@ -7,8 +7,8 @@ import {
   useRadioGroupItemContext,
 } from '@ark-ui/react/radio-group';
 import { clsx } from 'clsx';
-import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
-import { Children, cloneElement, forwardRef } from 'react';
+import type { ComponentProps, ComponentRef, ReactNode } from 'react';
+import { forwardRef } from 'react';
 import styles from './RadioGroup.module.css';
 
 type RadioGroupItemControlSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -77,7 +77,7 @@ const RadioGroupItem = forwardRef<
       className={clsx(styles.item, className)}
       {...props}
     >
-      {withItemHiddenInput(children, asChild)}
+      {children}
     </RadioGroupPrimitive.Item>
   );
 });
@@ -88,6 +88,7 @@ const RadioGroupOption = forwardRef<
 >(function RadioGroupOption({ children, size, ...props }, ref) {
   return (
     <RadioGroupItem ref={ref} {...props}>
+      <RadioGroupPrimitive.ItemHiddenInput />
       <RadioGroupItemControl size={size} />
       <RadioGroupItemText>{children}</RadioGroupItemText>
     </RadioGroupItem>
@@ -123,25 +124,6 @@ const RadioGroupItemText = forwardRef<
   );
 });
 
-function withItemHiddenInput(children: ReactNode, asChild?: boolean) {
-  const hiddenInput = (
-    <RadioGroupPrimitive.ItemHiddenInput data-slot="radio-group-item-hidden-input" />
-  );
-
-  if (!asChild) {
-    return (
-      <>
-        {children}
-        {hiddenInput}
-      </>
-    );
-  }
-
-  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
-
-  return cloneElement(child, {}, child.props.children, hiddenInput);
-}
-
 const RadioGroupIndicator = forwardRef<
   ComponentRef<typeof RadioGroupPrimitive.Indicator>,
   ComponentProps<typeof RadioGroupPrimitive.Indicator>
@@ -163,6 +145,7 @@ const RadioGroup = Object.assign(RadioGroupRoot, {
   ItemContext: RadioGroupPrimitive.ItemContext,
   Label: RadioGroupLabel,
   Item: RadioGroupItem,
+  ItemHiddenInput: RadioGroupPrimitive.ItemHiddenInput,
   Option: RadioGroupOption,
   ItemControl: RadioGroupItemControl,
   ItemText: RadioGroupItemText,

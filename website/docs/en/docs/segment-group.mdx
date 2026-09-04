@@ -106,9 +106,8 @@ such as `setValue`, `clearValue`, or `focus`. For custom visuals driven by state
 `SegmentGroup.Context`, `SegmentGroup.ItemContext`, `useSegmentGroupContext`, or
 `useSegmentGroupItemContext` from `@moduix/react`.
 
-`ItemHiddenInput` is internal to moduix. Every `SegmentGroup.Item` already renders exactly one
-synchronized native radio input, including when `asChild` is used. Do not add Ark's
-`ItemHiddenInput` a second time.
+`SegmentGroup.Items` includes `ItemHiddenInput` in its fixed composition. When using
+`SegmentGroup.Item` directly, add exactly one `SegmentGroup.ItemHiddenInput` inside it.
 
 ### Default props
 
@@ -229,8 +228,8 @@ opacity of individual items.
 
 ### Field
 
-Wrap the group in `Field` when its automatic native input should be accompanied by helper or error
-text. Ark inherits the field's disabled, invalid, required, and read-only state.
+Wrap the group in `Field` when its native inputs should be accompanied by helper or error text. Ark
+inherits the field's disabled, invalid, required, and read-only state.
 
 <ExampleFrame variant="component">
   <SegmentGroupField />

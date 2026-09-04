@@ -27,6 +27,7 @@ export default function AngleSliderFormDemo() {
           <AngleSlider.Marks values={markerValues} />
         </AngleSlider.Dial>
         <AngleSlider.ValueText />
+        <AngleSlider.HiddenInput />
       </AngleSlider>
       <PreviewMeta>
         <output>Submitted: {submitted}</output>

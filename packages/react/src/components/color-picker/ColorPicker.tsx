@@ -7,8 +7,8 @@ import {
   useColorPickerContext,
 } from '@ark-ui/react/color-picker';
 import { clsx } from 'clsx';
-import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
-import { Children, cloneElement, forwardRef } from 'react';
+import type { ComponentProps, ComponentRef } from 'react';
+import { forwardRef } from 'react';
 import { CheckIcon, ChevronDownIcon, PipetteIcon } from '@/lib/moduix/icons/ui';
 import {
   OverlayPortal,
@@ -48,7 +48,7 @@ const ColorPickerRoot = forwardRef<
         unmountOnExit={unmountOnExit}
         {...props}
       >
-        {withHiddenInput(children, asChild)}
+        {children}
       </ColorPickerPrimitive.Root>
     </OverlayPortalProvider>
   );
@@ -81,7 +81,7 @@ const ColorPickerRootProvider = forwardRef<
         unmountOnExit={unmountOnExit}
         {...props}
       >
-        {withHiddenInput(children, asChild)}
+        {children}
       </ColorPickerPrimitive.RootProvider>
     </OverlayPortalProvider>
   );
@@ -526,27 +526,11 @@ const ColorPickerView = forwardRef<
   );
 });
 
-function withHiddenInput(children: ReactNode, asChild?: boolean) {
-  const hiddenInput = <ColorPickerPrimitive.HiddenInput data-slot="color-picker-hidden-input" />;
-
-  if (!asChild) {
-    return (
-      <>
-        {children}
-        {hiddenInput}
-      </>
-    );
-  }
-
-  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
-
-  return cloneElement(child, {}, child.props.children, hiddenInput);
-}
-
 const ColorPicker = Object.assign(ColorPickerRoot, {
   Root: ColorPickerRoot,
   RootProvider: ColorPickerRootProvider,
   Context: ColorPickerPrimitive.Context,
+  HiddenInput: ColorPickerPrimitive.HiddenInput,
   Label: ColorPickerLabel,
   Control: ColorPickerControl,
   Trigger: ColorPickerTrigger,

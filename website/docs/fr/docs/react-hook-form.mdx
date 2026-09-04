@@ -242,15 +242,12 @@ export function ProjectForm({ createProject }: ProjectFormProps) {
   et la validation au blur restent ainsi synchronisés.
 - Transmettez `field.ref` à `Select.Trigger` ou `Combobox.Input`. React Hook Form utilise cette ref
   pour placer le focus sur le premier champ invalide.
-- `Select` crée automatiquement un `<select>` natif, et `Checkbox` son input natif. Passez `name` et
-  `form` à l’élément racine, sans rajouter de champ masqué.
+- Ajoutez explicitement `Select.HiddenSelect` et `Checkbox.HiddenInput` lorsque la sémantique native
+  du formulaire est nécessaire. Gardez `name` et `form` sur l’élément racine.
 - Pour `Combobox`, définissez également `name` et `form` sur l’élément racine. Le composant n’expose
   pas de part `HiddenInput`, et aucun input supplémentaire n’est nécessaire.
-- Pour une collection `Select` très grande et virtualisée, `nativeFormControl="input"` utilise des
-  champs masqués légers au lieu d’un select natif. La soumission et la réinitialisation restent
-  synchronisées, mais le remplissage automatique, la validation native et l’amélioration progressive du select
-  ne sont plus disponibles.
-- Pour les autres composants qui gèrent automatiquement leur participation au formulaire, gardez les
-  options spécifiques sur leur élément racine. `DateInput` utilise un tuple `names` de deux éléments
-  pour des clés de plage distinctes, et `SignaturePad` utilise `getFormValue` pour une sérialisation
-  personnalisée.
+- Une collection `Select` virtualisée qui ne peut pas rendre les options natives doit gérer
+  l’intégration au formulaire côté application.
+- Pour les autres contrôles Ark, rendez explicitement leur partie de formulaire. Utilisez des
+  `DateInput.HiddenInput` indexés pour une plage et passez une `value` sérialisée explicitement à
+  `SignaturePad.HiddenInput`.

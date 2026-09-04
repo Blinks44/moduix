@@ -43,8 +43,8 @@ keyboard.
 
 ## Basic
 
-`Slider.Thumbs` is the recommended way to render one styled thumb for each value. Every thumb,
-including an explicit `Slider.Thumb`, adds its native form input automatically.
+`Slider.Thumbs` is the recommended visual shortcut. For native form participation, compose each
+`Slider.Thumb` explicitly and nest `Slider.HiddenInput` inside it.
 
 <ExampleFrame variant="component">
   <SliderBasic />
@@ -86,7 +86,7 @@ Slider / Slider.Root
 │  └─ Slider.Thumbs
 │     └─ Slider.Thumb[index]
 │        ├─ Slider.DraggingIndicator
-│        └─ native input (automatic)
+│        └─ Slider.HiddenInput (explicit)
 └─ Slider.MarkerGroup
    └─ Slider.Marker[value]
 ```
@@ -110,7 +110,7 @@ Slider / Slider.Root
 ### Recommended composition
 
 Use the Ark part tree: root, label, optional value text, control, track, range, and `Slider.Thumbs`.
-It creates one thumb per value, and each thumb adds its native form input automatically.
+It creates one visual thumb per value. Use explicit thumbs when hidden inputs are required.
 
 `Slider` is the shorthand root and is equivalent to `Slider.Root`.
 
@@ -118,7 +118,7 @@ It creates one thumb per value, and each thumb adds its native form input automa
 
 Use `asChild` when a part needs to render as a custom element. Keep one semantic child that can
 receive Ark props. Use explicit `Slider.Thumb` when individual thumbs need custom children,
-accessible names, or a specific order; it still adds the native form input automatically. For
+accessible names, a specific order, or a nested `Slider.HiddenInput`. For
 advanced state access, use `Slider.Context` or `useSliderContext` to read state below the root. To
 own the state outside the rendered tree, import `useSlider` from `@moduix/react/slider` and pair
 it with `Slider.RootProvider`.
@@ -152,8 +152,8 @@ arrow keys; vertical sliders use the up and down arrow keys. `Page Up`, `Page Do
 `Shift + ArrowUp` or `Shift + ArrowDown` use `largeStep` (by default, `10 * step`). `Home` and
 `End` move the active thumb to the minimum and maximum values.
 
-Every `Slider.Thumb` adds a hidden native form input automatically. It participates in form
-submission and reset synchronization. `id`, `asChild`, `disabled`, `invalid`, `readOnly`, `name`,
+Nest one `Slider.HiddenInput` inside each explicit `Slider.Thumb` for form submission and reset
+synchronization. `id`, `asChild`, `disabled`, `invalid`, `readOnly`, `name`,
 `form`, `ids`, `aria-label`, `aria-labelledby`, and `getAriaValueText(details)` pass through to Ark.
 
 ## Examples
@@ -297,8 +297,7 @@ Use `disabled` to keep the value visible while preventing interaction.
 
 ### Form
 
-Set `name` to submit the current value with a native form. moduix adds and synchronizes the hidden
-input automatically.
+Set `name` and nest `Slider.HiddenInput` inside each explicit thumb to submit the current value.
 
 <ExampleFrame variant="component">
   <SliderForm />

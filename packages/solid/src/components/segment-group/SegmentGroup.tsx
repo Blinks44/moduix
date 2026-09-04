@@ -118,37 +118,15 @@ function SegmentGroupLabel(props: ComponentProps<typeof SegmentGroupPrimitive.La
 
 function SegmentGroupItem(props: ComponentProps<typeof SegmentGroupPrimitive.Item>) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
-  const itemAsChild: ComponentProps<typeof SegmentGroupPrimitive.Item>['asChild'] = local.asChild
-    ? (itemProps) => {
-        const resolvedProps = itemProps();
-
-        return local.asChild?.(() => ({
-          ...resolvedProps,
-          children: (
-            <>
-              {resolvedProps.children}
-              <SegmentGroupPrimitive.ItemHiddenInput data-slot="segment-group-item-hidden-input" />
-            </>
-          ),
-        }));
-      }
-    : undefined;
 
   return (
     <SegmentGroupPrimitive.Item
-      asChild={itemAsChild}
+      asChild={local.asChild}
       data-slot="segment-group-item"
       class={clsx(styles.item, local.class)}
       {...others}
     >
-      {local.asChild ? (
-        local.children
-      ) : (
-        <>
-          {local.children}
-          <SegmentGroupPrimitive.ItemHiddenInput data-slot="segment-group-item-hidden-input" />
-        </>
-      )}
+      {local.children}
     </SegmentGroupPrimitive.Item>
   );
 }
@@ -199,6 +177,7 @@ function SegmentGroupItems(props: { items: readonly SegmentGroupOption[] }) {
         <SegmentGroupItem value={item.value} disabled={item.disabled}>
           <SegmentGroupItemText>{item.label}</SegmentGroupItemText>
           <SegmentGroupItemControl />
+          <SegmentGroupPrimitive.ItemHiddenInput />
         </SegmentGroupItem>
       )}
     </For>
@@ -212,6 +191,7 @@ const SegmentGroup = Object.assign(SegmentGroupRoot, {
   ItemContext: SegmentGroupPrimitive.ItemContext,
   Label: SegmentGroupLabel,
   Item: SegmentGroupItem,
+  ItemHiddenInput: SegmentGroupPrimitive.ItemHiddenInput,
   ItemControl: SegmentGroupItemControl,
   ItemText: SegmentGroupItemText,
   Indicator: SegmentGroupIndicator,

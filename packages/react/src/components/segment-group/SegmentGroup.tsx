@@ -9,8 +9,8 @@ import {
   useSegmentGroupItemContext,
 } from '@ark-ui/react/segment-group';
 import { clsx } from 'clsx';
-import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
-import { Children, cloneElement, forwardRef } from 'react';
+import type { ComponentProps, ComponentRef, ReactNode } from 'react';
+import { forwardRef } from 'react';
 import styles from './SegmentGroup.module.css';
 
 type SegmentGroupMachineProps = Parameters<typeof useSegmentGroupPrimitive>[0];
@@ -122,7 +122,7 @@ const SegmentGroupItem = forwardRef<
       className={clsx(styles.item, className)}
       {...props}
     >
-      {withItemHiddenInput(children, asChild)}
+      {children}
     </SegmentGroupPrimitive.Item>
   );
 });
@@ -155,25 +155,6 @@ const SegmentGroupItemText = forwardRef<
   );
 });
 
-function withItemHiddenInput(children: ReactNode, asChild?: boolean) {
-  const hiddenInput = (
-    <SegmentGroupPrimitive.ItemHiddenInput data-slot="segment-group-item-hidden-input" />
-  );
-
-  if (!asChild) {
-    return (
-      <>
-        {children}
-        {hiddenInput}
-      </>
-    );
-  }
-
-  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
-
-  return cloneElement(child, {}, child.props.children, hiddenInput);
-}
-
 const SegmentGroupIndicator = forwardRef<
   ComponentRef<typeof SegmentGroupPrimitive.Indicator>,
   ComponentProps<typeof SegmentGroupPrimitive.Indicator>
@@ -197,6 +178,7 @@ function SegmentGroupItems({
     <SegmentGroupItem key={value} value={value} disabled={disabled}>
       <SegmentGroupItemText>{label}</SegmentGroupItemText>
       <SegmentGroupItemControl />
+      <SegmentGroupPrimitive.ItemHiddenInput />
     </SegmentGroupItem>
   ));
 }
@@ -208,6 +190,7 @@ const SegmentGroup = Object.assign(SegmentGroupRoot, {
   ItemContext: SegmentGroupPrimitive.ItemContext,
   Label: SegmentGroupLabel,
   Item: SegmentGroupItem,
+  ItemHiddenInput: SegmentGroupPrimitive.ItemHiddenInput,
   ItemControl: SegmentGroupItemControl,
   ItemText: SegmentGroupItemText,
   Indicator: SegmentGroupIndicator,

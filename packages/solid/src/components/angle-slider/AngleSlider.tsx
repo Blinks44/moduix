@@ -7,37 +7,20 @@ import {
 } from '@ark-ui/solid/angle-slider';
 import { clsx } from 'clsx';
 import type { ComponentProps, JSX } from 'solid-js';
-import { For, onCleanup, onMount, splitProps } from 'solid-js';
+import { For, splitProps } from 'solid-js';
 import styles from './AngleSlider.module.css';
 
-type AngleSliderRootProps = ComponentProps<typeof AngleSliderPrimitive.Root> & {
-  form?: string;
-};
-
-function AngleSliderRoot(props: AngleSliderRootProps) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'children',
-    'class',
-    'defaultValue',
-    'form',
-    'value',
-  ]);
+function AngleSliderRoot(props: ComponentProps<typeof AngleSliderPrimitive.Root>) {
+  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
   return (
     <AngleSliderPrimitive.Root
       asChild={local.asChild}
-      defaultValue={local.defaultValue}
-      value={local.value}
       data-slot="angle-slider-root"
       class={clsx(styles.root, local.class)}
       {...others}
     >
       {local.children}
-      <AngleSliderHiddenInput
-        form={local.form}
-        resetValue={local.value === undefined ? (local.defaultValue ?? 0) : undefined}
-      />
     </AngleSliderPrimitive.Root>
   );
 }
@@ -59,8 +42,7 @@ type AngleSliderRootProviderProps = ComponentProps<typeof AngleSliderPrimitive.R
 };
 
 function AngleSliderRootProvider(props: AngleSliderRootProviderProps) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class', 'form', 'value']);
-  const initialValue = local.value().value;
+  const [local, others] = splitProps(props, ['asChild', 'children', 'class', 'value']);
 
   return (
     <AngleSliderPrimitive.RootProvider
@@ -71,32 +53,7 @@ function AngleSliderRootProvider(props: AngleSliderRootProviderProps) {
       {...others}
     >
       {local.children}
-      <AngleSliderHiddenInput form={local.form} resetValue={initialValue} />
     </AngleSliderPrimitive.RootProvider>
-  );
-}
-
-function AngleSliderHiddenInput(props: { form?: string; resetValue?: number }) {
-  const angleSlider = useAngleSliderContext();
-  let inputRef: HTMLInputElement | undefined;
-
-  onMount(() => {
-    const formElement = inputRef?.form;
-
-    if (!formElement || props.resetValue === undefined) return;
-
-    const handleReset = () => angleSlider().setValue(props.resetValue!);
-
-    formElement.addEventListener('reset', handleReset);
-    onCleanup(() => formElement.removeEventListener('reset', handleReset));
-  });
-
-  return (
-    <AngleSliderPrimitive.HiddenInput
-      ref={(element) => (inputRef = element)}
-      data-slot="angle-slider-hidden-input"
-      form={props.form}
-    />
   );
 }
 
@@ -199,6 +156,7 @@ const AngleSlider = Object.assign(AngleSliderRoot, {
   Root: AngleSliderRoot,
   RootProvider: AngleSliderRootProvider,
   Context: AngleSliderPrimitive.Context,
+  HiddenInput: AngleSliderPrimitive.HiddenInput,
   Label: AngleSliderLabel,
   Control: AngleSliderControl,
   Dial: AngleSliderDial,

@@ -19,6 +19,7 @@ export default function RootProviderAngleSliderDemo() {
           <AngleSlider.Marks values={markerValues} />
         </AngleSlider.Dial>
         <AngleSlider.ValueText />
+        <AngleSlider.HiddenInput />
       </AngleSlider.RootProvider>
       <PreviewMeta>
         <output>Current angle: {angleSlider.value}°</output>

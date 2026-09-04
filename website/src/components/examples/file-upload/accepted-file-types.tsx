@@ -28,6 +28,7 @@ export default function AcceptedTypesFileUploadDemo() {
           }
         </FileUpload.Context>
       </FileUpload.ItemGroup>
+      <FileUpload.HiddenInput />
     </FileUpload>
   );
 }

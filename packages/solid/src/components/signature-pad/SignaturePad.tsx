@@ -14,21 +14,12 @@ import styles from './SignaturePad.module.css';
 const SignaturePadReadOnlyContext = createContext<Accessor<boolean>>(() => false);
 const signaturePadReadOnly = Symbol();
 
-type SignaturePadFormProps = {
-  getFormValue?: (paths: string[]) => string;
-};
-
 type SignaturePadApi = ReturnType<typeof useSignaturePadPrimitive> & {
   [signaturePadReadOnly]: Accessor<boolean>;
 };
 type SignaturePadHookProps = Parameters<typeof useSignaturePadPrimitive>[0];
-type SignaturePadRootProps = ComponentProps<typeof SignaturePadPrimitive.Root> &
-  SignaturePadFormProps;
-type SignaturePadRootProviderProps = ComponentProps<typeof SignaturePadPrimitive.RootProvider> &
-  SignaturePadFormProps;
-
-function SignaturePadRoot(props: SignaturePadRootProps) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class', 'getFormValue']);
+function SignaturePadRoot(props: ComponentProps<typeof SignaturePadPrimitive.Root>) {
+  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
   const field = useFieldContext();
 
   return (
@@ -42,14 +33,15 @@ function SignaturePadRoot(props: SignaturePadRootProps) {
         value={() => others.readOnly ?? field?.().readOnly ?? false}
       >
         {local.children}
-        <SignaturePadFormInput getFormValue={local.getFormValue} />
       </SignaturePadReadOnlyContext.Provider>
     </SignaturePadPrimitive.Root>
   );
 }
 
-function SignaturePadRootProvider(props: SignaturePadRootProviderProps) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class', 'getFormValue']);
+function SignaturePadRootProvider(
+  props: ComponentProps<typeof SignaturePadPrimitive.RootProvider>,
+) {
+  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
   return (
     <SignaturePadReadOnlyContext.Provider
@@ -66,7 +58,6 @@ function SignaturePadRootProvider(props: SignaturePadRootProviderProps) {
         {...others}
       >
         {local.children}
-        <SignaturePadFormInput getFormValue={local.getFormValue} />
       </SignaturePadPrimitive.RootProvider>
     </SignaturePadReadOnlyContext.Provider>
   );
@@ -178,17 +169,6 @@ function SignaturePadClearTrigger(
   );
 }
 
-function SignaturePadFormInput(props: SignaturePadFormProps) {
-  const signaturePad = useSignaturePadContext();
-
-  return (
-    <SignaturePadPrimitive.HiddenInput
-      data-slot="signature-pad-hidden-input"
-      value={props.getFormValue?.(signaturePad().paths) ?? signaturePad().paths.join(' ')}
-    />
-  );
-}
-
 type SignaturePadCanvasProps = Omit<
   ComponentProps<typeof SignaturePadPrimitive.Control>,
   'children'
@@ -210,6 +190,7 @@ const SignaturePad = Object.assign(SignaturePadRoot, {
   Root: SignaturePadRoot,
   RootProvider: SignaturePadRootProvider,
   Context: SignaturePadPrimitive.Context,
+  HiddenInput: SignaturePadPrimitive.HiddenInput,
   Label: SignaturePadLabel,
   Control: SignaturePadControl,
   Canvas: SignaturePadCanvas,

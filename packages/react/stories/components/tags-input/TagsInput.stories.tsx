@@ -28,6 +28,7 @@ export const Basic: Story = {
         <TagsInput.Input placeholder="Add framework" />
         <TagsInput.ClearTrigger aria-label="Clear frameworks" />
       </TagsInput.Control>
+      <TagsInput.HiddenInput />
     </TagsInput>
   ),
 };
@@ -135,6 +136,7 @@ export const WithFieldValidation: Story = {
           <TagsInput.Input placeholder="Add topic" />
           <TagsInput.ClearTrigger aria-label="Clear topics" />
         </TagsInput.Control>
+        <TagsInput.HiddenInput />
       </TagsInput>
       <Field.HelperText>Add at least one topic.</Field.HelperText>
       <Field.ErrorText>Topics are required.</Field.ErrorText>

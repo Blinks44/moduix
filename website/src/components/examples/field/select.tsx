@@ -32,6 +32,7 @@ export default function SelectFieldDemo() {
             ))}
           </Select.Content>
         </Select.Positioner>
+        <Select.HiddenSelect />
       </Select>
       <Field.HelperText>Used for triage queues.</Field.HelperText>
     </Field>

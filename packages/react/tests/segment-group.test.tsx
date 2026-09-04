@@ -35,7 +35,7 @@ function ProviderSegmentGroup() {
   );
 }
 
-test('renders automatic native inputs that submit and reset with the form', async () => {
+test('submits through explicit Ark item inputs', async () => {
   render(
     <form data-testid="form">
       <SegmentGroup defaultValue="React" name="framework">
@@ -48,23 +48,21 @@ test('renders automatic native inputs that submit and reset with the form', asyn
   const react = screen.getByRole('radio', { name: 'React' });
   const solid = screen.getByRole('radio', { name: 'Solid' });
 
-  expect(react).toHaveAttribute('data-slot', 'segment-group-item-hidden-input');
+  expect(react).toHaveAttribute('type', 'radio');
   expect(new FormData(form).get('framework')).toBe('React');
 
   fireEvent.click(solid);
   await waitFor(() => expect(solid).toBeChecked());
   expect(new FormData(form).get('framework')).toBe('Solid');
-
-  form.reset();
-  await waitFor(() => expect(react).toBeChecked());
 });
 
-test('keeps asChild composition semantic while adding one native input', () => {
+test('keeps asChild composition semantic with an explicit item input', () => {
   render(
     <SegmentGroup defaultValue="React">
       <SegmentGroup.Item asChild value="React">
         <label data-testid="custom-item">
           <SegmentGroup.ItemControl />
+          <SegmentGroup.ItemHiddenInput />
           <SegmentGroup.ItemText>React</SegmentGroup.ItemText>
         </label>
       </SegmentGroup.Item>
@@ -101,14 +99,17 @@ test('preserves native radio semantics and disabled items', async () => {
       <SegmentGroup.Item value="React">
         <SegmentGroup.ItemText>React</SegmentGroup.ItemText>
         <SegmentGroup.ItemControl />
+        <SegmentGroup.ItemHiddenInput />
       </SegmentGroup.Item>
       <SegmentGroup.Item value="Solid" disabled>
         <SegmentGroup.ItemText>Solid</SegmentGroup.ItemText>
         <SegmentGroup.ItemControl />
+        <SegmentGroup.ItemHiddenInput />
       </SegmentGroup.Item>
       <SegmentGroup.Item value="Vue">
         <SegmentGroup.ItemText>Vue</SegmentGroup.ItemText>
         <SegmentGroup.ItemControl />
+        <SegmentGroup.ItemHiddenInput />
       </SegmentGroup.Item>
     </SegmentGroup>,
   );
@@ -153,6 +154,7 @@ test('forwards refs through the root, item, and indicator wrappers', () => {
       <SegmentGroup.Item ref={itemRef} value="React">
         <SegmentGroup.ItemText>React</SegmentGroup.ItemText>
         <SegmentGroup.ItemControl />
+        <SegmentGroup.ItemHiddenInput />
       </SegmentGroup.Item>
     </SegmentGroup>,
   );
@@ -162,7 +164,7 @@ test('forwards refs through the root, item, and indicator wrappers', () => {
   expect(indicatorRef.current).toHaveAttribute('data-slot', 'segment-group-indicator');
 });
 
-test('keeps read-only automatic native inputs from changing value', async () => {
+test('keeps read-only native inputs from changing value', async () => {
   render(
     <SegmentGroup defaultValue="React" readOnly>
       <SegmentItems />
@@ -195,6 +197,7 @@ test('inherits Field state on Ark item parts', () => {
       <SegmentGroup defaultValue="React">
         <SegmentGroup.Item value="React">
           <SegmentGroup.ItemControl data-testid="invalid-control" />
+          <SegmentGroup.ItemHiddenInput />
           <SegmentGroup.ItemText>React</SegmentGroup.ItemText>
         </SegmentGroup.Item>
       </SegmentGroup>
@@ -211,6 +214,7 @@ test('inherits Fieldset disabled and invalid state', () => {
       <SegmentGroup defaultValue="React">
         <SegmentGroup.Item value="React">
           <SegmentGroup.ItemControl data-testid="fieldset-invalid-control" />
+          <SegmentGroup.ItemHiddenInput />
           <SegmentGroup.ItemText>React</SegmentGroup.ItemText>
         </SegmentGroup.Item>
       </SegmentGroup>

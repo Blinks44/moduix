@@ -14,6 +14,7 @@ export default function ControlledCheckboxDemo() {
       >
         <Checkbox.Control />
         <Checkbox.Label>{checked ? 'Enabled' : 'Disabled'}</Checkbox.Label>
+        <Checkbox.HiddenInput />
       </Checkbox>
       <PreviewMeta>
         <output>Notifications: {checked ? 'enabled' : 'disabled'}</output>

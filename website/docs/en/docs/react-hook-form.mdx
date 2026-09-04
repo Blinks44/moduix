@@ -237,13 +237,10 @@ export function ProjectForm({ createProject }: ProjectFormProps) {
   and `Combobox.Input.onBlur` for `Combobox`. This keeps touched state and blur validation in sync.
 - Forward `field.ref` to `Select.Trigger` or `Combobox.Input`. React Hook Form uses that ref when it
   focuses the first invalid field.
-- `Select` creates a native `<select>` automatically. `Checkbox` creates its native input
-  automatically. Pass `name` and `form` to the component root; never add a duplicate hidden input.
+- Add `Select.HiddenSelect` and `Checkbox.HiddenInput` explicitly when native form semantics are
+  needed. Keep `name` and `form` on the component root.
 - `Combobox` also takes `name` and `form` on its root. It does not expose a `HiddenInput` part, and no
   extra input is needed for form integration.
-- For a very large virtualized `Select` collection, `nativeFormControl="input"` uses lightweight
-  hidden inputs instead of a native select. This keeps form submission and reset synchronization,
-  but gives up native-select autofill, validation, and progressive enhancement.
-- For other automatic controls, keep form-specific options on their roots. `DateInput` uses a
-  two-item `names` tuple for distinct range keys, and `SignaturePad` uses `getFormValue` for custom
-  serialization.
+- A virtualized `Select` that cannot render native options needs consumer-owned form integration.
+- For other Ark controls, render their form part explicitly. Use indexed `DateInput.HiddenInput`
+  parts for range keys and pass an explicitly serialized `value` to `SignaturePad.HiddenInput`.

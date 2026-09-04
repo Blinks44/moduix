@@ -218,19 +218,17 @@ Placez le focus sur le contrôle réel : un Input natif, `Select.Trigger` ou `Co
   `details.value[0] ?? ""`.
 - Appelez `field.handleBlur` depuis `Select.onInteractOutside` ou `Combobox.Input.onBlur` afin que
   TanStack Form puisse mettre à jour l’état `touched`.
-- `Select` ajoute automatiquement un `select` natif masqué pour la sémantique native et la
-  synchronisation de la réinitialisation.
-- Associez l’état coché de `Checkbox` à la valeur booléenne du champ ; son élément racine ajoute
-  automatiquement un champ natif.
+- Ajoutez explicitement `Select.HiddenSelect` pour la sémantique native du select.
+- Associez l’état coché de `Checkbox` à la valeur booléenne du champ et ajoutez explicitement
+  `Checkbox.HiddenInput` lorsque la participation au formulaire natif est nécessaire.
 - `name={field.name}` active la sémantique native de `FormData`, mais ne remplace pas les
   correspondances contrôlées `state.value` et `handleChange` du champ.
 - `Combobox` n’ajoute pas de champ masqué. Son champ visible peut participer à `FormData` ; si la valeur
   envoyée doit être celle de l’élément sélectionné, ajoutez un champ explicite ou envoyez l’état
   contrôlé du formulaire.
-- Pour les contrôles qui proposent des options de formulaire particulières, gardez la configuration sur
-  leur racine : `DateInput` utilise un tuple `names` de deux éléments pour les clés indexées
-  distinctes d’une plage, `Select` utilise `nativeFormControl="input"` pour les collections
-  virtualisées et `SignaturePad` utilise `getFormValue` pour une sérialisation personnalisée.
+- Pour les contrôles avec des options de formulaire particulières, gardez une composition explicite :
+  utilisez des `DateInput.HiddenInput` indexés pour une plage, `Select.HiddenSelect` pour la
+  sémantique native et une `value` sérialisée sur `SignaturePad.HiddenInput`.
 - N’utilisez pas l’opérateur de décomposition pour passer l’objet `field` à `Select` ou `Combobox`. Leurs
   valeurs et leurs callbacks utilisent les objets `details` fournis par Ark ; faites le raccordement
   explicitement, comme ci-dessus.

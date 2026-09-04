@@ -30,7 +30,9 @@ export default function ControlledProgressCircularDemo() {
             <Slider.Track>
               <Slider.Range />
             </Slider.Track>
-            <Slider.Thumb index={0} aria-label="Progress value"></Slider.Thumb>
+            <Slider.Thumb index={0} aria-label="Progress value">
+              <Slider.HiddenInput />
+            </Slider.Thumb>
           </Slider.Control>
         </Slider>
       </PreviewMeta>

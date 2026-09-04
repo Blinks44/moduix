@@ -35,8 +35,8 @@ attributes, and the `Option` convenience component. The component is exported fr
 ## Basic
 
 For most groups, use `RadioGroup.Option` to render a labelled item with a control and visible text.
-Each item includes its native hidden input automatically. If the group belongs to a native form, pass
-`name` to `RadioGroup` as shown in the Form example.
+`RadioGroup.Option` includes the native input in its fixed composition. When composing
+`RadioGroup.Item` directly, add `RadioGroup.ItemHiddenInput` explicitly.
 
 <ExampleFrame variant="component">
   <RadioGroupBasic />
@@ -69,13 +69,13 @@ RadioGroup.Root
 └─ RadioGroup.Item[value]
    ├─ RadioGroup.ItemControl
    ├─ RadioGroup.ItemText
-   └─ <input> (automatic)
+   └─ RadioGroup.ItemHiddenInput (explicit)
 
 RadioGroup.RootProvider
 └─ RadioGroup.* + useRadioGroup()
 
 RadioGroup.Option
-└─ RadioGroup.Item + ItemControl + ItemText + <input> (automatic)
+└─ RadioGroup.Item + ItemControl + ItemText + ItemHiddenInput (fixed composition)
 ```
 
 | Part                           | Role                                                        |
@@ -125,9 +125,9 @@ For advanced state reads, use `RadioGroup.Context`, `RadioGroup.ItemContext`,
 `onValueChange(details)`, `name`, `form`, `orientation`, `disabled`, `invalid`, `readOnly`,
 `required`, `ids`, and `asChild`. In the callback, read the selected value from `details.value`.
 
-Each `RadioGroup.Item` renders its native form input automatically. The input supports native form
-submission, validation, and reset, so you do not need to add an input part yourself. Set `name` on
-the root when the selected value should be included in `FormData`.
+`RadioGroup.Option` includes its native input. Direct `RadioGroup.Item` composition requires
+`RadioGroup.ItemHiddenInput` for native submission, validation, and reset. Set `name` on the root
+when the selected value should be included in `FormData`.
 
 Ark manages the controlled and uncontrolled value state, roving focus, WAI-ARIA behavior, and
 keyboard navigation. <kbd>Tab</kbd> moves focus to the checked item, or to the first item when none
@@ -138,8 +138,7 @@ or previous item.
 `RadioGroup`. Pass `disabled`, `invalid`, `readOnly`, and `required` to the group itself.
 `Fieldset.Root` passes its Ark `disabled` and `invalid` state to nested radio groups.
 
-Every styled part forwards its ref to the corresponding Ark DOM part. The automatic native input is
-internal and is not a separate public ref target.
+Every styled part forwards its ref to the corresponding Ark DOM part, including `ItemHiddenInput`.
 
 ## Examples
 
@@ -247,8 +246,8 @@ Set `disabled` on an individual `Item` or `Option` when only that choice is unav
 
 ### Form
 
-Pass `name` to the root when the selected value should be submitted. The native input created for
-each item participates in form submission and reset without adding an input part manually.
+Pass `name` to the root when the selected value should be submitted. `RadioGroup.Option` already
+contains the input; add `ItemHiddenInput` to every custom item.
 
 <ExampleFrame variant="component">
   <RadioGroupForm />
