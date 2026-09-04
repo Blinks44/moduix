@@ -25,7 +25,7 @@ function AvatarCustomImage({ alt, src }: AvatarCustomImageProps) {
 export default function AvatarCustomImageDemo() {
   return (
     <Avatar>
-      <Avatar.Fallback name="Alex T." />
+      <Avatar.Fallback>AT</Avatar.Fallback>
       <AvatarCustomImage src={avatarImage} alt="Alex T." />
     </Avatar>
   );

@@ -60,7 +60,7 @@ export function ExpandableAvatarGroup() {
             >
               <Avatar size="lg">
                 <Avatar.Image src={member.image} alt="" />
-                <Avatar.Fallback name={member.name} />
+                <Avatar.Fallback>{member.name.slice(0, 1)}</Avatar.Fallback>
               </Avatar>
             </button>
           </Tooltip.Trigger>

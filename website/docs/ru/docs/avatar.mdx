@@ -9,7 +9,6 @@ import AvatarBasic from '@/components/examples/avatar/basic.tsx';
 import AvatarCustomComposition from '@/components/examples/avatar/custom-composition.tsx';
 import AvatarCustomFallback from '@/components/examples/avatar/custom-fallback.tsx';
 import AvatarCustomImage from '@/components/examples/avatar/custom-image.tsx';
-import AvatarDefaultFallback from '@/components/examples/avatar/default-fallback.tsx';
 import AvatarEvents from '@/components/examples/avatar/events.tsx';
 import AvatarRootProvider from '@/components/examples/avatar/root-provider.tsx';
 import AvatarSizesAndFallbackOnly from '@/components/examples/avatar/sizes-and-fallback-only.tsx';
@@ -57,7 +56,7 @@ Avatar.Root | Avatar.RootProvider
 | ------------------------ | ------------------------------------------------------------------------- |
 | `Avatar` / `Avatar.Root` | Создаёт корневой элемент и хранит состояние аватара Ark UI.                         |
 | `Avatar.RootProvider`    | Подключает состояние Ark UI, созданное за пределами дерева аватара.                 |
-| `Avatar.Fallback`        | Показывает инициалы, иконку или другое содержимое, пока изображение не загрузится.  |
+| `Avatar.Fallback`        | Показывает переданное потребителем содержимое, пока изображение не загрузится.       |
 | `Avatar.Image`           | Показывает изображение после успешной загрузки.                                    |
 
 ## Композиция
@@ -73,10 +72,8 @@ Avatar.Root | Avatar.RootProvider
 помогает идентифицировать пользователя. Используйте `alt=""`, если окружающая ссылка или кнопка уже
 имеет доступное имя.
 
-В обычном случае `Avatar.Fallback name="Alex T."` берёт первый символ первого и последнего слова из
-`name`, не разрывая эмодзи и составные символы. Поэтому инициалы корректно работают с именами на разных
-языках. Передайте дочернее содержимое, если нужен собственный вариант резервного содержимого. Явное
-дочернее содержимое имеет приоритет над `name`.
+Передавайте содержимое `Avatar.Fallback` явно. Это могут быть инициалы, иконка или другой компактный
+маркер, подходящий для приложения-потребителя.
 
 ### Когда нужна своя композиция
 
@@ -103,10 +100,7 @@ Avatar.Root | Avatar.RootProvider
 ### Особенности поведения
 
 - Ark управляет атрибутом `data-state="visible" | "hidden"` на `Avatar.Image` и `Avatar.Fallback`.
-- `Avatar.Fallback` строит инициалы по первым символам первого и последнего слова `name`, не разрывая
-  составные символы, только если дочернее содержимое не передано.
-- `Avatar.Fallback` показывает встроенную декоративную иконку пользователя, если дочернего содержимого нет
-  и из `name` нельзя получить подходящие инициалы.
+- `Avatar.Fallback` показывает только содержимое, переданное потребителем.
 - `onStatusChange` получает объект с полем `details.status`, которое принимает значение `loaded` или `error`.
 - Если изображения нет или его не удалось загрузить, резервное содержимое остаётся видимым.
 - В `Avatar.RootProvider` нужно передать значение, которое возвращает `useAvatar`.
@@ -166,29 +160,6 @@ Avatar.Root | Avatar.RootProvider
     <Tab value="Styles">
 
 ```css file="../../../src/components/examples/avatar/avatar-custom-image.module.css"
-```
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
-
-### Резервная иконка по умолчанию
-
-Оставьте `Avatar.Fallback` без дочернего содержимого, чтобы отобразить встроенную декоративную иконку
-пользователя. Если аватар интерактивный, задайте доступное имя окружающей ссылке или кнопке.
-
-<ExampleFrame variant="component">
-  <AvatarDefaultFallback />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
-
-```tsx pure file="../../../src/components/examples/avatar/default-fallback.tsx"
 ```
 
     </Tab>
@@ -325,8 +296,7 @@ Avatar.Root | Avatar.RootProvider
 
 ### Хуки стилизации
 
-- `data-slot="avatar-root"`, `avatar-root-provider`, `avatar-image`, `avatar-fallback` и
-  `avatar-fallback-icon`.
+- `data-slot="avatar-root"`, `avatar-root-provider`, `avatar-image` и `avatar-fallback`.
 - Атрибуты анатомии Ark: `data-scope="avatar"` и
   `data-part="root" | "image" | "fallback"`.
 - Состояние изображения, которым управляет Ark: `data-state="visible" | "hidden"` на `Avatar.Image` и

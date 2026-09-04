@@ -12,7 +12,7 @@ export default function AvatarStatusDemo() {
   return (
     <div className={styles.root}>
       <Avatar onStatusChange={(details) => setStatus(details.status)}>
-        <Avatar.Fallback name="Alex T." />
+        <Avatar.Fallback>AT</Avatar.Fallback>
         <Avatar.Image src={avatarImage} alt="Alex T." />
       </Avatar>
       <PreviewMeta>

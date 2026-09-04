@@ -23,8 +23,7 @@ externally owned state.
   default consumer path.
 - `Avatar.RootProvider` applies the same visual contract to externally created Ark state.
 - `size` is the only local behavior-neutral prop. It is available on `Root` and `RootProvider`.
-- `Avatar.Fallback` accepts `name` and derives the first grapheme of the first and last words when
-  no children are provided, then falls back to a built-in decorative User icon.
+- `Avatar.Fallback` is an Ark-shaped composition slot; consumers provide its content explicitly.
 - `Avatar.Context`, `useAvatar`, and `useAvatarContext` are re-exported from `@moduix/react` for the normal advanced path; Ark type aliases remain direct imports from `@ark-ui/react/avatar`.
 - No legacy `render`, delay, loading-state adapter, or callback compatibility API remains.
 
@@ -51,7 +50,7 @@ import { Avatar } from '@moduix/react/avatar';
 export function AvatarExample() {
   return (
     <Avatar>
-      <Avatar.Fallback name="Alex T." />
+      <Avatar.Fallback>AT</Avatar.Fallback>
       <Avatar.Image src="/avatar.jpg" alt="Alex T." />
     </Avatar>
   );
@@ -75,15 +74,12 @@ loading state. Keep Ark type aliases on `@ark-ui/react/avatar`. Use
 - Context and custom image integrations use `useAvatarContext` from moduix; rarer Ark context
   surfaces remain available directly from Ark UI.
 - Stable IDs: Ark `ids` remains available on `Avatar.Root`.
-- Fallback sugar: `Avatar.Fallback name` derives initials locally, while an empty fallback renders
-  a decorative User icon without changing Ark loading behavior.
+- Fallback content remains explicit, while Ark controls its loading visibility.
 
 ## Accessibility and state
 
 - `Avatar.Image` renders a native `img`; consumers must provide appropriate `alt` text.
-- `Avatar.Fallback` uses explicit children first and derives grapheme-safe initials from the first
-  and last words of `name` when children are absent. If neither produces content, it renders an
-  `aria-hidden` User icon.
+- `Avatar.Fallback` renders only consumer-provided children.
 - Use `alt=""` when an interactive parent already provides the accessible name.
 - Refs target the rendered Ark DOM parts: root/provider `div`, fallback `span`, and image `img`.
 - `asChild` requires one child with the correct semantics for its role.
@@ -110,7 +106,6 @@ Public CSS variables:
 - `--moduix-avatar-color`
 - `--moduix-avatar-fallback-bg`
 - `--moduix-avatar-fallback-color`
-- `--moduix-avatar-fallback-icon-size`
 - `--moduix-avatar-fallback-padding`
 - `--moduix-avatar-font-size`
 - `--moduix-avatar-font-weight`
@@ -124,17 +119,13 @@ State-dependent styling should target Ark `data-state`; local visual hooks shoul
 or the public CSS variables.
 
 `--moduix-avatar-line-height` is inherited by fallback text. Fallback padding uses `border-box`, so
-`--moduix-avatar-fallback-padding` stays within the configured avatar size. The built-in icon uses
-`data-slot="avatar-fallback-icon"` and `--moduix-avatar-fallback-icon-size`.
+`--moduix-avatar-fallback-padding` stays within the configured avatar size.
 
 ## Intentional sugar and differences from upstream
 
 - moduix supplies visual defaults while Ark UI remains headless.
 - `size="xs" | "sm" | "md" | "lg" | "xl"` maps to moduix tokens on both root components.
-- `Avatar.Fallback name="Alex T."` derives initials for the common case without introducing a
-  closed root API.
-- An empty `Avatar.Fallback` renders a decorative User icon; explicit children remain the custom
-  icon path.
+- `Avatar.Fallback` remains an explicit composition slot; consumers choose its content.
 - moduix adds stable `data-slot` hooks.
 - moduix keeps `RootProvider` and re-exports `useAvatar` and `useAvatarContext`, but does not
   re-export broader Ark context parts or Ark type aliases.
@@ -149,6 +140,8 @@ or the public CSS variables.
 
 ## Local changelog
 
+- 2026-09-04: Removed the `Avatar.Fallback name` convenience API and built-in fallback icon.
+  Consumers now provide fallback content explicitly, matching Ark UI composition.
 - 2026-08-08: Added the default decorative User icon, made generated initials
   Unicode-grapheme-safe, fixed fallback line-height and padding sizing, and added image lifecycle
   regression coverage.

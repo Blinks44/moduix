@@ -16,7 +16,7 @@ export default function AvatarRootProviderDemo() {
   return (
     <div className={styles.root}>
       <Avatar.RootProvider value={avatar}>
-        <Avatar.Fallback name="Alex T." />
+        <Avatar.Fallback>AT</Avatar.Fallback>
         <Avatar.Image src={avatarImages[imageIndex]} alt="Alex T." />
       </Avatar.RootProvider>
       <PreviewMeta>

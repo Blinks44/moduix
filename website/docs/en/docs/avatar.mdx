@@ -9,7 +9,6 @@ import AvatarBasic from '@/components/examples/avatar/basic.tsx';
 import AvatarCustomComposition from '@/components/examples/avatar/custom-composition.tsx';
 import AvatarCustomFallback from '@/components/examples/avatar/custom-fallback.tsx';
 import AvatarCustomImage from '@/components/examples/avatar/custom-image.tsx';
-import AvatarDefaultFallback from '@/components/examples/avatar/default-fallback.tsx';
 import AvatarEvents from '@/components/examples/avatar/events.tsx';
 import AvatarRootProvider from '@/components/examples/avatar/root-provider.tsx';
 import AvatarSizesAndFallbackOnly from '@/components/examples/avatar/sizes-and-fallback-only.tsx';
@@ -57,7 +56,7 @@ Avatar.Root | Avatar.RootProvider
 | ------------------------ | ----------------------------------------------------------------- |
 | `Avatar` / `Avatar.Root` | Creates and owns the Ark UI avatar state.                         |
 | `Avatar.RootProvider`    | Renders an avatar from Ark UI state created outside the component. |
-| `Avatar.Fallback`        | Shows initials, an icon, or custom content until the image loads. |
+| `Avatar.Fallback`        | Shows consumer-provided content until the image loads.             |
 | `Avatar.Image`           | Shows the image after it loads successfully.                     |
 
 ## Composition
@@ -72,9 +71,8 @@ support Ark `asChild`.
 `Avatar.Image` renders an `img`, so provide meaningful `alt` text when the image conveys identity.
 Use `alt=""` when the surrounding link or button already has the accessible name.
 
-`Avatar.Fallback name="Alex T."` uses the first grapheme of the first and last words in the common
-case, so initials stay intact for international names and emoji. Pass children when you need custom
-fallback content; explicit children take precedence over `name`.
+Provide `Avatar.Fallback` content explicitly. This can be initials, an icon, or any other compact
+identity marker that suits the consuming application.
 
 ### When to go custom
 
@@ -100,10 +98,7 @@ When `size` is omitted, Avatar uses the `md` visual tokens without setting `data
 ### Behavioral notes
 
 - Ark controls `data-state="visible" | "hidden"` on `Avatar.Image` and `Avatar.Fallback`.
-- `Avatar.Fallback` derives grapheme-safe initials from the first and last words of `name` only when
-  no children are provided.
-- `Avatar.Fallback` renders a decorative User icon when neither children nor usable `name` initials
-  are available.
+- `Avatar.Fallback` renders only the content provided by the consumer.
 - `onStatusChange` receives a detail object with `details.status` set to `loaded` or `error`.
 - A missing or failed image keeps the fallback visible.
 - `Avatar.RootProvider` requires the `value` returned by `useAvatar`.
@@ -163,29 +158,6 @@ participate in Ark's loading lifecycle.
     <Tab value="Styles">
 
 ```css file="../../../src/components/examples/avatar/avatar-custom-image.module.css"
-```
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
-
-### Default Fallback
-
-Leave `Avatar.Fallback` empty to use the built-in decorative User icon. Provide the accessible name
-on the surrounding link or button when the avatar is interactive.
-
-<ExampleFrame variant="component">
-  <AvatarDefaultFallback />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
-
-```tsx pure file="../../../src/components/examples/avatar/default-fallback.tsx"
 ```
 
     </Tab>
@@ -320,8 +292,7 @@ depend on image state.
 
 ### Styling hooks
 
-- `data-slot="avatar-root"`, `avatar-root-provider`, `avatar-image`, `avatar-fallback`, and
-  `avatar-fallback-icon`.
+- `data-slot="avatar-root"`, `avatar-root-provider`, `avatar-image`, and `avatar-fallback`.
 - Ark anatomy hooks: `data-scope="avatar"` and
   `data-part="root" | "image" | "fallback"`.
 - Ark image state: `data-state="visible" | "hidden"` on `Avatar.Image` and

@@ -40,7 +40,7 @@ function StatusChangeAvatar() {
   return (
     <div className={styles.statusStory}>
       <Avatar onStatusChange={(details) => setStatus(details.status)}>
-        <Avatar.Fallback name="Alex T." />
+        <Avatar.Fallback>AT</Avatar.Fallback>
         <Avatar.Image src={imageUrl} alt="Alex T." />
       </Avatar>
       <span className={styles.statusLabel}>status: {status}</span>
@@ -58,7 +58,7 @@ function RootProviderAvatar() {
         Change avatar
       </button>
       <Avatar.RootProvider value={avatar}>
-        <Avatar.Fallback name="Alex T." />
+        <Avatar.Fallback>AT</Avatar.Fallback>
         <Avatar.Image src={`${imageUrl}&seed=${count}`} alt="Alex T." />
       </Avatar.RootProvider>
     </div>
@@ -69,7 +69,7 @@ export const Basic: Story = {
   render: () => {
     return (
       <Avatar>
-        <Avatar.Fallback name="Alex T." />
+        <Avatar.Fallback>AT</Avatar.Fallback>
         <Avatar.Image src={imageUrl} alt="Alex T." />
       </Avatar>
     );
@@ -100,47 +100,12 @@ export const FallbackOnly: Story = {
   },
 };
 
-export const DefaultFallback: Story = {
-  render: () => {
-    return (
-      <div className={styles.fallbackRow}>
-        {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map((size) => (
-          <Avatar key={size} size={size}>
-            <Avatar.Fallback />
-          </Avatar>
-        ))}
-      </div>
-    );
-  },
-};
-
-export const InternationalInitials: Story = {
-  render: () => {
-    return (
-      <div className={styles.fallbackRow}>
-        <Avatar size="lg">
-          <Avatar.Fallback name="Alex Taylor" />
-        </Avatar>
-        <Avatar size="lg">
-          <Avatar.Fallback name="Алексей Смирнов" />
-        </Avatar>
-        <Avatar size="lg">
-          <Avatar.Fallback name="李 小龙" />
-        </Avatar>
-        <Avatar size="lg">
-          <Avatar.Fallback name="👩🏽‍💻 Developer" />
-        </Avatar>
-      </div>
-    );
-  },
-};
-
 export const AsChildComposition: Story = {
   render: () => {
     return (
       <Avatar asChild size="xl" className={styles.linkAvatar}>
         <a href="mailto:alex@example.com" aria-label="Email Alex T.">
-          <Avatar.Fallback className={styles.linkAvatarFallback} name="Alex T." />
+          <Avatar.Fallback className={styles.linkAvatarFallback}>AT</Avatar.Fallback>
           <Avatar.Image className={styles.linkAvatarImage} src={imageUrl} alt="" />
         </a>
       </Avatar>
@@ -160,7 +125,7 @@ export const CustomImage: Story = {
   render: () => {
     return (
       <Avatar>
-        <Avatar.Fallback name="Alex T." />
+        <Avatar.Fallback>AT</Avatar.Fallback>
         <AvatarCustomImage src={customImageUrl} alt="Alex T." />
       </Avatar>
     );
@@ -171,7 +136,7 @@ export const ImageError: Story = {
   render: () => {
     return (
       <Avatar>
-        <Avatar.Fallback name="No Avatar" />
+        <Avatar.Fallback>NA</Avatar.Fallback>
         <Avatar.Image src="https://example.com/does-not-exist.png" alt="Broken image example" />
       </Avatar>
     );

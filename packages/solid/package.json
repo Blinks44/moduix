@@ -287,6 +287,18 @@
       "types": "./dist/components/steps/index.d.ts",
       "import": "./dist/components/steps/index.js"
     },
+    "./table": {
+      "types": "./dist/components/table/index.d.ts",
+      "import": "./dist/components/table/index.js"
+    },
+    "./tag": {
+      "types": "./dist/components/tag/index.d.ts",
+      "import": "./dist/components/tag/index.js"
+    },
+    "./tabs": {
+      "types": "./dist/components/tabs/index.d.ts",
+      "import": "./dist/components/tabs/index.js"
+    },
     "./text": {
       "types": "./dist/components/text/index.d.ts",
       "import": "./dist/components/text/index.js"
@@ -294,6 +306,10 @@
     "./textarea": {
       "types": "./dist/components/textarea/index.d.ts",
       "import": "./dist/components/textarea/index.js"
+    },
+    "./toc": {
+      "types": "./dist/components/toc/index.d.ts",
+      "import": "./dist/components/toc/index.js"
     },
     "./tooltip": {
       "types": "./dist/components/tooltip/index.d.ts",

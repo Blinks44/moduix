@@ -1372,6 +1372,31 @@
       ]
     },
     {
+      "name": "table-of-contents",
+      "type": "registry:item",
+      "title": "Table of Contents",
+      "description": "moduix Solid Table of Contents component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/toc/Toc.tsx",
+          "target": "@components/ui/toc/Toc.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toc/Toc.module.css",
+          "target": "@components/ui/toc/Toc.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/toc/index.ts",
+          "target": "@components/ui/toc/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "tooltip",
       "type": "registry:item",
       "title": "Tooltip",
@@ -1677,6 +1702,31 @@
       ]
     },
     {
+      "name": "table",
+      "type": "registry:item",
+      "title": "Table",
+      "description": "moduix Solid Table component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/table/Table.tsx",
+          "target": "@components/ui/table/Table.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/table/Table.module.css",
+          "target": "@components/ui/table/Table.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/table/index.ts",
+          "target": "@components/ui/table/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "switch",
       "type": "registry:item",
       "title": "Switch",
@@ -1777,6 +1827,31 @@
         {
           "path": "src/components/steps/index.ts",
           "target": "@components/ui/steps/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:item",
+      "title": "Tabs",
+      "description": "moduix Solid Tabs component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/tabs/Tabs.tsx",
+          "target": "@components/ui/tabs/Tabs.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tabs/Tabs.module.css",
+          "target": "@components/ui/tabs/Tabs.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/tabs/index.ts",
+          "target": "@components/ui/tabs/index.ts",
           "type": "registry:component"
         }
       ]
@@ -1942,6 +2017,31 @@
         {
           "path": "src/components/marquee/index.ts",
           "target": "@components/ui/marquee/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "tag",
+      "type": "registry:item",
+      "title": "Tag",
+      "description": "moduix Solid Tag component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/close-button"],
+      "files": [
+        {
+          "path": "src/components/tag/Tag.tsx",
+          "target": "@components/ui/tag/Tag.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tag/Tag.module.css",
+          "target": "@components/ui/tag/Tag.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/tag/index.ts",
+          "target": "@components/ui/tag/index.ts",
           "type": "registry:component"
         }
       ]

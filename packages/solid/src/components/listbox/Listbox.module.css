@@ -223,10 +223,6 @@
       grid-template-columns: repeat(var(--column-count), minmax(0, 1fr));
       gap: var(--moduix-listbox-grid-gap, var(--moduix-spacing-1));
       padding: var(--moduix-listbox-grid-padding, var(--moduix-spacing-2));
-
-      &:focus-visible {
-        outline: 0;
-      }
     }
 
     &[data-orientation='horizontal']:not([data-layout='grid']) {

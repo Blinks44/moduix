@@ -8,7 +8,7 @@ export default function AvatarLinkDemo() {
   return (
     <Avatar asChild size="xl" className={styles.root}>
       <a href="mailto:alex@example.com" aria-label="Email Alex T.">
-        <Avatar.Fallback className={styles.fallback} name="Alex T." />
+        <Avatar.Fallback className={styles.fallback}>AT</Avatar.Fallback>
         <Avatar.Image className={styles.image} src={avatarImage} alt="" />
       </a>
     </Avatar>

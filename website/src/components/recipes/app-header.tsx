@@ -167,7 +167,7 @@ export function AppHeader() {
               >
                 <Avatar className={styles.avatar} size="sm">
                   <Avatar.Image src={account.image} alt="" />
-                  <Avatar.Fallback name={account.name} />
+                  <Avatar.Fallback>{account.name.slice(0, 1)}</Avatar.Fallback>
                 </Avatar>
                 <span className={styles.accountDetails}>
                   <strong>{account.name}</strong>

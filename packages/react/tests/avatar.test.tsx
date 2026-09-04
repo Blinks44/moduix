@@ -3,13 +3,13 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef } from 'react';
 import { Avatar, useAvatar } from '../src';
 
-test('renders the Ark anatomy with moduix hooks and initials', () => {
+test('renders the Ark anatomy with moduix hooks and explicit fallback content', () => {
   const rootRef = createRef<HTMLDivElement>();
   const fallbackRef = createRef<HTMLSpanElement>();
 
   render(
     <Avatar ref={rootRef} size="lg">
-      <Avatar.Fallback ref={fallbackRef} name="Alex Taylor" />
+      <Avatar.Fallback ref={fallbackRef}>AT</Avatar.Fallback>
       <Avatar.Image src="/alex.jpg" alt="Alex Taylor" />
     </Avatar>,
   );
@@ -33,39 +33,14 @@ test('uses md visual styling without a data-size attribute by default', () => {
   expect(getByTestId('avatar')).not.toHaveAttribute('data-size');
 });
 
-test('prioritizes explicit fallback children over initials', () => {
-  const { container } = render(
+test('renders explicit fallback children', () => {
+  render(
     <Avatar>
-      <Avatar.Fallback name="Alex Taylor">Custom fallback</Avatar.Fallback>
+      <Avatar.Fallback>Custom fallback</Avatar.Fallback>
     </Avatar>,
   );
 
   expect(screen.getByText('Custom fallback')).toBeTruthy();
-  expect(screen.queryByText('AT')).toBeNull();
-  expect(container.querySelector('[data-slot="avatar-fallback-icon"]')).toBeNull();
-});
-
-test('renders a decorative default icon when fallback content is absent', () => {
-  const { container } = render(
-    <Avatar>
-      <Avatar.Fallback />
-    </Avatar>,
-  );
-
-  const icon = container.querySelector('[data-slot="avatar-fallback-icon"]');
-
-  expect(icon).toHaveAttribute('aria-hidden', 'true');
-  expect(icon).toHaveAttribute('focusable', 'false');
-});
-
-test('derives initials from whole Unicode graphemes', () => {
-  render(
-    <Avatar>
-      <Avatar.Fallback name="👩🏽‍💻 Developer" />
-    </Avatar>,
-  );
-
-  expect(screen.getByText('👩🏽‍💻D')).toBeTruthy();
 });
 
 test('preserves the Ark image loading lifecycle and callback details', async () => {
@@ -73,7 +48,7 @@ test('preserves the Ark image loading lifecycle and callback details', async () 
 
   render(
     <Avatar onStatusChange={onStatusChange}>
-      <Avatar.Fallback name="Alex Taylor" />
+      <Avatar.Fallback>AT</Avatar.Fallback>
       <Avatar.Image src="/alex.jpg" alt="Alex Taylor" />
     </Avatar>,
   );
@@ -103,7 +78,7 @@ test('keeps the fallback visible when the image fails', async () => {
 
   render(
     <Avatar onStatusChange={onStatusChange}>
-      <Avatar.Fallback name="Alex Taylor" />
+      <Avatar.Fallback>AT</Avatar.Fallback>
       <Avatar.Image src="/missing.jpg" alt="Alex Taylor" />
     </Avatar>,
   );
@@ -138,7 +113,7 @@ function ProviderAvatar() {
 
   return (
     <Avatar.RootProvider value={avatar} size="sm" data-testid="avatar-provider">
-      <Avatar.Fallback name="Alex Taylor" />
+      <Avatar.Fallback>AT</Avatar.Fallback>
     </Avatar.RootProvider>
   );
 }

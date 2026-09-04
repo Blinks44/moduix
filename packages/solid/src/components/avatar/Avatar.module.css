@@ -76,10 +76,4 @@
       display: none;
     }
   }
-
-  .fallbackIcon {
-    width: var(--moduix-avatar-fallback-icon-size, 55%);
-    height: var(--moduix-avatar-fallback-icon-size, 55%);
-    flex-shrink: 0;
-  }
 }

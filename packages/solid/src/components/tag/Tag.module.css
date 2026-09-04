@@ -1,0 +1,154 @@
+@layer moduix.components {
+  .root {
+    display: inline-flex;
+    width: fit-content;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    align-items: center;
+    gap: var(--moduix-tag-gap, var(--moduix-spacing-1-5));
+    border: var(--moduix-tag-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-tag-border-color, var(--moduix-tag-default-border-color, transparent));
+    border-radius: var(--moduix-tag-radius, var(--moduix-radius-full));
+    background-color: var(
+      --moduix-tag-bg,
+      var(--moduix-tag-default-bg, var(--moduix-color-primary))
+    );
+    color: var(
+      --moduix-tag-color,
+      var(--moduix-tag-default-color, var(--moduix-color-primary-foreground))
+    );
+    font-size: var(--moduix-tag-font-size, var(--moduix-text-xs));
+    font-weight: var(--moduix-tag-font-weight, var(--moduix-weight-medium));
+    line-height: var(--moduix-tag-line-height, var(--moduix-line-height-text-xs));
+    min-height: var(--moduix-tag-height-md, var(--moduix-size-xs));
+    padding-block: var(--moduix-tag-padding-y-md, var(--moduix-spacing-0-5));
+    padding-inline: var(--moduix-tag-padding-x-md, var(--moduix-spacing-2));
+    white-space: nowrap;
+    vertical-align: middle;
+    transition:
+      color var(--moduix-tag-transition, var(--moduix-transition-default)),
+      background-color var(--moduix-tag-transition, var(--moduix-transition-default)),
+      border-color var(--moduix-tag-transition, var(--moduix-transition-default));
+
+    > svg {
+      width: var(--moduix-tag-icon-size, var(--moduix-spacing-3));
+      height: var(--moduix-tag-icon-size, var(--moduix-spacing-3));
+      flex-shrink: 0;
+      pointer-events: none;
+    }
+
+    &[data-size='sm'] {
+      gap: var(--moduix-tag-gap-sm, var(--moduix-spacing-1));
+      min-height: var(--moduix-tag-height-sm, 1.25rem);
+      padding-block: var(--moduix-tag-padding-y-sm, 0);
+      padding-inline: var(--moduix-tag-padding-x-sm, var(--moduix-spacing-1-5));
+    }
+
+    &[data-variant='secondary'] {
+      background-color: var(
+        --moduix-tag-bg,
+        var(--moduix-tag-secondary-bg, var(--moduix-color-secondary))
+      );
+      border-color: var(
+        --moduix-tag-border-color,
+        var(--moduix-tag-secondary-border-color, transparent)
+      );
+      color: var(
+        --moduix-tag-color,
+        var(--moduix-tag-secondary-color, var(--moduix-color-secondary-foreground))
+      );
+    }
+
+    &[data-variant='outline'] {
+      background-color: var(--moduix-tag-bg, var(--moduix-tag-outline-bg, transparent));
+      border-color: var(
+        --moduix-tag-border-color,
+        var(--moduix-tag-outline-border-color, var(--moduix-color-border))
+      );
+      color: var(
+        --moduix-tag-color,
+        var(--moduix-tag-outline-color, var(--moduix-color-foreground))
+      );
+    }
+
+    &[data-variant='ghost'] {
+      background-color: var(--moduix-tag-bg, var(--moduix-tag-ghost-bg, transparent));
+      border-color: var(
+        --moduix-tag-border-color,
+        var(--moduix-tag-ghost-border-color, transparent)
+      );
+      color: var(--moduix-tag-color, var(--moduix-tag-ghost-color, var(--moduix-color-foreground)));
+    }
+
+    &[data-variant='destructive'] {
+      background-color: var(
+        --moduix-tag-bg,
+        var(--moduix-tag-destructive-bg, var(--moduix-color-destructive))
+      );
+      border-color: var(
+        --moduix-tag-border-color,
+        var(--moduix-tag-destructive-border-color, transparent)
+      );
+      color: var(
+        --moduix-tag-color,
+        var(--moduix-tag-destructive-color, var(--moduix-color-destructive-foreground))
+      );
+    }
+  }
+
+  .label {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .startElement,
+  .endElement {
+    display: inline-flex;
+    min-width: 0;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+
+    > svg {
+      width: var(--moduix-tag-icon-size, var(--moduix-spacing-3));
+      height: var(--moduix-tag-icon-size, var(--moduix-spacing-3));
+      flex-shrink: 0;
+      pointer-events: none;
+    }
+  }
+
+  .closeTrigger {
+    --moduix-close-button-size: var(--moduix-tag-close-trigger-size, var(--moduix-spacing-4));
+    --moduix-close-button-radius: var(--moduix-tag-close-trigger-radius, var(--moduix-radius-full));
+    --moduix-close-button-icon-size: var(
+      --moduix-tag-close-trigger-icon-size,
+      var(--moduix-spacing-2-5)
+    );
+    --moduix-close-button-bg: var(--moduix-tag-close-trigger-bg, transparent);
+    --moduix-close-button-bg-hover: var(
+      --moduix-tag-close-trigger-bg-hover,
+      color-mix(in oklab, currentColor 12%, transparent)
+    );
+    --moduix-close-button-color: inherit;
+    --moduix-close-button-color-hover: inherit;
+    --moduix-close-button-disabled-opacity: var(
+      --moduix-tag-disabled-opacity,
+      var(--moduix-opacity-disabled)
+    );
+    --moduix-close-button-focus-ring-width: var(
+      --moduix-tag-close-trigger-focus-ring-width,
+      var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+    );
+    --moduix-close-button-focus-ring-color: var(
+      --moduix-tag-close-trigger-focus-ring-color,
+      var(--moduix-color-ring)
+    );
+    --moduix-close-button-focus-ring-offset: var(--moduix-tag-close-trigger-focus-ring-offset, 0);
+    --moduix-close-button-transition: var(
+      --moduix-tag-transition,
+      var(--moduix-transition-default)
+    );
+  }
+}
