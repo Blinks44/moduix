@@ -271,6 +271,22 @@
       "types": "./dist/components/spinner/index.d.ts",
       "import": "./dist/components/spinner/index.js"
     },
+    "./switch": {
+      "types": "./dist/components/switch/index.d.ts",
+      "import": "./dist/components/switch/index.js"
+    },
+    "./split-button": {
+      "types": "./dist/components/split-button/index.d.ts",
+      "import": "./dist/components/split-button/index.js"
+    },
+    "./stack": {
+      "types": "./dist/components/stack/index.d.ts",
+      "import": "./dist/components/stack/index.js"
+    },
+    "./steps": {
+      "types": "./dist/components/steps/index.d.ts",
+      "import": "./dist/components/steps/index.js"
+    },
     "./text": {
       "types": "./dist/components/text/index.d.ts",
       "import": "./dist/components/text/index.js"

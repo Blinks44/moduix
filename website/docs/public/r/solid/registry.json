@@ -1677,6 +1677,111 @@
       ]
     },
     {
+      "name": "switch",
+      "type": "registry:item",
+      "title": "Switch",
+      "description": "moduix Solid Switch component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/switch/Switch.tsx",
+          "target": "@components/ui/switch/Switch.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/switch/Switch.module.css",
+          "target": "@components/ui/switch/Switch.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/switch/index.ts",
+          "target": "@components/ui/switch/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "stack",
+      "type": "registry:item",
+      "title": "Stack",
+      "description": "moduix Solid Stack component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/stack/Stack.tsx",
+          "target": "@components/ui/stack/Stack.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/stack/Stack.module.css",
+          "target": "@components/ui/stack/Stack.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/stack/index.ts",
+          "target": "@components/ui/stack/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "split-button",
+      "type": "registry:item",
+      "title": "SplitButton",
+      "description": "moduix Solid SplitButton component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": [
+        "@moduix-solid/foundation",
+        "@moduix-solid/button",
+        "@moduix-solid/icons",
+        "@moduix-solid/menu"
+      ],
+      "files": [
+        {
+          "path": "src/components/split-button/SplitButton.tsx",
+          "target": "@components/ui/split-button/SplitButton.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/split-button/SplitButton.module.css",
+          "target": "@components/ui/split-button/SplitButton.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/split-button/index.ts",
+          "target": "@components/ui/split-button/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "steps",
+      "type": "registry:item",
+      "title": "Steps",
+      "description": "moduix Solid Steps component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
+      "files": [
+        {
+          "path": "src/components/steps/Steps.tsx",
+          "target": "@components/ui/steps/Steps.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/steps/Steps.module.css",
+          "target": "@components/ui/steps/Steps.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/steps/index.ts",
+          "target": "@components/ui/steps/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "command-palette",
       "type": "registry:item",
       "title": "CommandPalette",
