@@ -1,0 +1,45 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--moduix-spacing-2);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--moduix-spacing-3);
+}
+
+.hint {
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-xs);
+  line-height: var(--moduix-line-height-text-xs);
+}
+
+.customToggle {
+  --moduix-toggle-outline-bg: color-mix(in oklab, var(--moduix-color-primary) 8%, transparent);
+  --moduix-toggle-outline-bg-hover: color-mix(
+    in oklab,
+    var(--moduix-color-primary) 14%,
+    transparent
+  );
+  --moduix-toggle-outline-bg-active: color-mix(
+    in oklab,
+    var(--moduix-color-primary) 18%,
+    transparent
+  );
+  --moduix-toggle-outline-border-color: color-mix(
+    in oklab,
+    var(--moduix-color-primary) 45%,
+    var(--moduix-color-border)
+  );
+  --moduix-toggle-outline-color: var(--moduix-color-primary);
+  --moduix-toggle-outline-bg-pressed: var(--moduix-color-primary);
+  --moduix-toggle-outline-border-color-pressed: var(--moduix-color-primary);
+  --moduix-toggle-outline-color-pressed: var(--moduix-color-primary-foreground);
+}
+
+.customButton {
+  border-style: dashed;
+}

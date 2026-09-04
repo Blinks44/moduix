@@ -1,0 +1,372 @@
+@layer moduix.components {
+  .root {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: var(--moduix-tags-input-gap, var(--moduix-field-gap, var(--moduix-spacing-1)));
+    width: var(--moduix-tags-input-width, 100%);
+    max-width: var(--moduix-tags-input-max-width, 24rem);
+    color: var(
+      --moduix-tags-input-color,
+      var(--moduix-input-color, var(--moduix-color-foreground))
+    );
+
+    &[data-disabled] {
+      opacity: var(
+        --moduix-tags-input-disabled-opacity,
+        var(
+          --moduix-field-disabled-opacity,
+          var(--moduix-input-disabled-opacity, var(--moduix-opacity-disabled))
+        )
+      );
+    }
+  }
+
+  .label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--moduix-tags-input-label-gap, var(--moduix-field-label-gap, var(--moduix-spacing-1)));
+    color: var(
+      --moduix-tags-input-label-color,
+      var(--moduix-field-label-color, var(--moduix-color-foreground))
+    );
+    font-size: var(
+      --moduix-tags-input-label-font-size,
+      var(--moduix-field-label-font-size, var(--moduix-text-sm))
+    );
+    font-weight: var(
+      --moduix-tags-input-label-font-weight,
+      var(--moduix-field-label-font-weight, var(--moduix-weight-medium))
+    );
+    line-height: var(
+      --moduix-tags-input-label-line-height,
+      var(--moduix-field-label-line-height, var(--moduix-line-height-text-sm))
+    );
+
+    &[data-disabled] {
+      opacity: var(
+        --moduix-tags-input-disabled-opacity,
+        var(
+          --moduix-field-disabled-opacity,
+          var(--moduix-input-disabled-opacity, var(--moduix-opacity-disabled))
+        )
+      );
+    }
+  }
+
+  .control {
+    box-sizing: border-box;
+    display: flex;
+    min-height: var(
+      --moduix-tags-input-min-height,
+      var(--moduix-input-height, var(--moduix-size-md))
+    );
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--moduix-tags-input-control-gap, var(--moduix-spacing-1));
+    width: 100%;
+    border: var(
+        --moduix-tags-input-border-width,
+        var(--moduix-input-border-width, var(--moduix-border-width-sm))
+      )
+      var(--moduix-input-border-style, solid)
+      var(
+        --moduix-tags-input-border-color,
+        var(--moduix-input-border-color, var(--moduix-color-border))
+      );
+    border-radius: var(
+      --moduix-tags-input-radius,
+      var(--moduix-input-radius, var(--moduix-radius-md))
+    );
+    padding: var(--moduix-tags-input-padding-y, 0.3125rem)
+      var(--moduix-tags-input-padding-x, var(--moduix-spacing-2));
+    background-color: var(
+      --moduix-tags-input-bg,
+      var(--moduix-input-bg, var(--moduix-color-background))
+    );
+    color: var(
+      --moduix-tags-input-color,
+      var(--moduix-input-color, var(--moduix-color-foreground))
+    );
+    outline: var(
+        --moduix-tags-input-focus-ring-width,
+        var(
+          --moduix-input-focus-ring-width,
+          var(
+            --moduix-tags-input-border-width,
+            var(
+              --moduix-input-border-width,
+              var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+            )
+          )
+        )
+      )
+      solid transparent;
+    outline-offset: var(
+      --moduix-tags-input-focus-ring-offset,
+      var(
+        --moduix-input-focus-ring-offset,
+        calc(
+          0px -
+            var(
+              --moduix-tags-input-border-width,
+              var(--moduix-input-border-width, var(--moduix-border-width-sm))
+            )
+        )
+      )
+    );
+    transition:
+      border-color
+        var(
+          --moduix-tags-input-transition,
+          var(--moduix-input-transition, var(--moduix-transition-default))
+        ),
+      outline-color
+        var(
+          --moduix-tags-input-transition,
+          var(--moduix-input-transition, var(--moduix-transition-default))
+        ),
+      background-color
+        var(
+          --moduix-tags-input-transition,
+          var(--moduix-input-transition, var(--moduix-transition-default))
+        ),
+      opacity
+        var(
+          --moduix-tags-input-transition,
+          var(--moduix-input-transition, var(--moduix-transition-default))
+        );
+
+    &[data-focus] {
+      outline-color: var(
+        --moduix-tags-input-focus-ring-color,
+        var(--moduix-input-focus-ring-color, var(--moduix-color-ring))
+      );
+    }
+
+    &[data-invalid] {
+      border-color: var(
+        --moduix-tags-input-invalid-border-color,
+        var(--moduix-input-border-color-invalid, var(--moduix-color-destructive))
+      );
+
+      &[data-focus] {
+        outline-color: var(
+          --moduix-tags-input-invalid-focus-ring-color,
+          var(--moduix-input-border-color-invalid, var(--moduix-color-destructive))
+        );
+      }
+    }
+
+    &[data-readonly] {
+      background-color: var(
+        --moduix-tags-input-readonly-bg,
+        var(--moduix-input-readonly-bg, var(--moduix-tags-input-bg, var(--moduix-color-background)))
+      );
+      color: var(
+        --moduix-tags-input-readonly-color,
+        var(
+          --moduix-input-readonly-color,
+          var(--moduix-tags-input-color, var(--moduix-color-foreground))
+        )
+      );
+    }
+
+    &[data-disabled] {
+      pointer-events: none;
+    }
+  }
+
+  .item {
+    display: contents;
+  }
+
+  .itemPreview {
+    box-sizing: border-box;
+    display: inline-flex;
+    min-width: 0;
+    max-width: 100%;
+    align-items: center;
+    gap: var(--moduix-tags-input-item-gap, var(--moduix-spacing-1));
+    min-height: var(--moduix-tags-input-item-height, var(--moduix-size-xs));
+    border: var(--moduix-tags-input-item-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-tags-input-item-border-color, transparent);
+    border-radius: var(--moduix-tags-input-item-radius, var(--moduix-radius-full));
+    padding-block: var(--moduix-tags-input-item-padding-y, var(--moduix-spacing-0-5));
+    padding-inline: var(--moduix-tags-input-item-padding-x, var(--moduix-spacing-2));
+    background-color: var(--moduix-tags-input-item-bg, var(--moduix-color-secondary));
+    color: var(--moduix-tags-input-item-color, var(--moduix-color-secondary-foreground));
+    font-size: var(--moduix-tags-input-item-font-size, var(--moduix-text-xs));
+    font-weight: var(--moduix-tags-input-item-font-weight, var(--moduix-weight-medium));
+    line-height: var(--moduix-tags-input-item-line-height, var(--moduix-line-height-text-xs));
+    transition:
+      border-color var(--moduix-tags-input-transition, var(--moduix-transition-default)),
+      background-color var(--moduix-tags-input-transition, var(--moduix-transition-default)),
+      color var(--moduix-tags-input-transition, var(--moduix-transition-default)),
+      box-shadow var(--moduix-tags-input-transition, var(--moduix-transition-default));
+
+    &[data-highlighted] {
+      box-shadow: 0 0 0
+        var(--moduix-tags-input-item-highlight-ring-width, var(--moduix-border-width-sm))
+        var(--moduix-tags-input-item-highlight-ring-color, var(--moduix-color-ring));
+    }
+
+    &[data-disabled] {
+      opacity: var(--moduix-tags-input-disabled-opacity, var(--moduix-opacity-disabled));
+    }
+  }
+
+  .itemText {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .input,
+  .itemInput {
+    box-sizing: border-box;
+    flex: 1 1 var(--moduix-tags-input-input-min-width, 7rem);
+    min-width: var(--moduix-tags-input-input-min-width, 7rem);
+    height: var(--moduix-tags-input-input-height, var(--moduix-size-xs));
+    margin: 0;
+    border: 0;
+    padding: 0 var(--moduix-tags-input-input-padding-x, var(--moduix-spacing-1));
+    background-color: transparent;
+    color: inherit;
+    font: inherit;
+    font-size: var(
+      --moduix-tags-input-input-font-size,
+      var(--moduix-input-font-size, var(--moduix-text-sm))
+    );
+    line-height: var(
+      --moduix-tags-input-input-line-height,
+      var(--moduix-input-line-height, var(--moduix-line-height-text-sm))
+    );
+    outline: 0;
+
+    &::placeholder {
+      color: var(
+        --moduix-tags-input-placeholder-color,
+        var(--moduix-input-placeholder-color, var(--moduix-color-muted-foreground))
+      );
+    }
+
+    &[data-readonly],
+    &:read-only {
+      cursor: default;
+    }
+  }
+
+  .itemInput {
+    flex: 0 1 var(--moduix-tags-input-item-input-width, 7rem);
+  }
+
+  .input[data-readonly] {
+    display: none;
+  }
+
+  .itemDeleteTrigger {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: var(--moduix-tags-input-trigger-size, var(--moduix-spacing-4));
+    height: var(--moduix-tags-input-trigger-size, var(--moduix-spacing-4));
+    border: 0;
+    border-radius: var(--moduix-tags-input-trigger-radius, var(--moduix-radius-full));
+    padding: 0;
+    background-color: var(--moduix-tags-input-trigger-bg, transparent);
+    color: var(--moduix-tags-input-trigger-color, currentColor);
+    cursor: pointer;
+    outline: 0;
+    transition:
+      background-color var(--moduix-tags-input-transition, var(--moduix-transition-default)),
+      color var(--moduix-tags-input-transition, var(--moduix-transition-default)),
+      opacity var(--moduix-tags-input-transition, var(--moduix-transition-default)),
+      box-shadow var(--moduix-tags-input-transition, var(--moduix-transition-default));
+
+    & > svg {
+      width: var(--moduix-tags-input-trigger-icon-size, var(--moduix-spacing-2-5));
+      height: var(--moduix-tags-input-trigger-icon-size, var(--moduix-spacing-2-5));
+      flex: none;
+      pointer-events: none;
+    }
+
+    &:hover {
+      background-color: var(
+        --moduix-tags-input-trigger-bg-hover,
+        color-mix(in oklab, currentColor 12%, transparent)
+      );
+    }
+
+    &:focus-visible {
+      box-shadow: 0 0 0
+        var(
+          --moduix-tags-input-trigger-focus-ring-width,
+          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+        )
+        var(--moduix-tags-input-trigger-focus-ring-color, var(--moduix-color-ring));
+    }
+
+    &[data-disabled],
+    &:disabled {
+      cursor: default;
+      opacity: var(--moduix-tags-input-disabled-opacity, var(--moduix-opacity-disabled));
+      pointer-events: none;
+    }
+  }
+
+  .clearTrigger {
+    --moduix-close-button-size: var(--moduix-tags-input-clear-trigger-size, var(--moduix-size-xs));
+    --moduix-close-button-icon-size: var(
+      --moduix-tags-input-clear-trigger-icon-size,
+      var(--moduix-spacing-3)
+    );
+    --moduix-close-button-radius: var(
+      --moduix-tags-input-clear-trigger-radius,
+      var(--moduix-radius-sm)
+    );
+    --moduix-close-button-bg: var(--moduix-tags-input-clear-trigger-bg, transparent);
+    --moduix-close-button-bg-hover: var(
+      --moduix-tags-input-clear-trigger-bg-hover,
+      var(--moduix-color-muted)
+    );
+    --moduix-close-button-color: var(
+      --moduix-tags-input-clear-trigger-color,
+      var(--moduix-color-muted-foreground)
+    );
+    --moduix-close-button-color-hover: var(
+      --moduix-tags-input-clear-trigger-color-hover,
+      var(--moduix-color-foreground)
+    );
+    --moduix-close-button-focus-ring-color: var(
+      --moduix-tags-input-trigger-focus-ring-color,
+      var(--moduix-color-ring)
+    );
+    --moduix-close-button-focus-ring-width: var(
+      --moduix-tags-input-trigger-focus-ring-width,
+      var(--moduix-border-width-sm)
+    );
+    --moduix-close-button-focus-ring-offset: var(
+      --moduix-tags-input-trigger-focus-ring-offset,
+      var(--moduix-focus-ring-offset)
+    );
+    --moduix-close-button-transition: var(
+      --moduix-tags-input-transition,
+      var(--moduix-transition-default)
+    );
+    --moduix-close-button-disabled-opacity: var(
+      --moduix-tags-input-disabled-opacity,
+      var(--moduix-opacity-disabled)
+    );
+
+    flex: none;
+    margin-inline-start: auto;
+    align-self: center;
+
+    &[data-readonly] {
+      display: none;
+    }
+  }
+}

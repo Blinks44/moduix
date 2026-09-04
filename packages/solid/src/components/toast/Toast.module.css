@@ -1,0 +1,222 @@
+@layer moduix.components {
+  .toaster {
+    z-index: var(--moduix-toast-z-index, var(--moduix-z-toast));
+  }
+
+  .root {
+    --_toast-trigger-bg-default: transparent;
+    --_toast-trigger-bg-hover-default: var(--moduix-color-accent);
+    --_toast-trigger-border-color-default: var(--moduix-color-border);
+    --_toast-trigger-color-default: var(--moduix-color-foreground);
+    --_toast-trigger-focus-ring-color-default: var(--moduix-color-ring);
+    --_toast-bg-default: var(--moduix-toast-info-bg, var(--moduix-color-card));
+    --_toast-border-color-default: var(
+      --moduix-toast-info-border-color,
+      var(--moduix-color-border)
+    );
+    --_toast-color-default: var(--moduix-toast-info-color, var(--moduix-color-card-foreground));
+    box-sizing: border-box;
+    display: grid;
+    width: var(--moduix-toast-width, 20rem);
+    max-width: calc(100vw - (var(--moduix-toast-viewport-inset, var(--moduix-spacing-4)) * 2));
+    min-height: var(--moduix-toast-min-height, 0);
+    min-width: 0;
+    align-items: start;
+    gap: var(--moduix-toast-content-gap, var(--moduix-spacing-1));
+    border: var(--moduix-toast-border-width, var(--moduix-border-width-sm)) solid
+      var(
+        --moduix-toast-border-color,
+        var(--_toast-border-color-default, var(--moduix-color-border))
+      );
+    border-radius: var(--moduix-toast-radius, var(--moduix-radius-lg));
+    background-color: var(--moduix-toast-bg, var(--_toast-bg-default, var(--moduix-color-popover)));
+    color: var(
+      --moduix-toast-color,
+      var(--_toast-color-default, var(--moduix-color-popover-foreground))
+    );
+    background-clip: padding-box;
+    box-shadow: var(--moduix-toast-shadow, var(--moduix-shadow-lg));
+    padding: var(--moduix-toast-padding, var(--moduix-spacing-4));
+    padding-inline-end: calc(
+      var(--moduix-toast-padding, var(--moduix-spacing-4)) +
+        var(--moduix-toast-close-size, var(--moduix-spacing-7))
+    );
+    pointer-events: auto;
+    translate: var(--x) var(--y);
+    scale: var(--scale);
+    z-index: var(--z-index);
+    height: var(--height);
+    opacity: var(--opacity);
+    will-change: translate, opacity, scale;
+    transition:
+      translate var(--moduix-toast-transition, var(--moduix-duration-slow)),
+      scale var(--moduix-toast-transition, var(--moduix-duration-slow)),
+      opacity var(--moduix-toast-transition, var(--moduix-duration-slow)),
+      height var(--moduix-toast-transition, var(--moduix-duration-slow)),
+      box-shadow var(--moduix-transition-fast);
+    transition-timing-function: cubic-bezier(0.21, 1.02, 0.73, 1);
+
+    &[data-state='closed'] {
+      transition:
+        translate var(--moduix-toast-transition-out, var(--moduix-duration-slow)),
+        scale var(--moduix-toast-transition-out, var(--moduix-duration-slow)),
+        opacity var(--moduix-toast-opacity-transition-out, var(--moduix-duration-normal));
+      transition-timing-function: cubic-bezier(0.06, 0.71, 0.55, 1);
+    }
+
+    &[data-type='success'] {
+      --_toast-bg-default: var(
+        --moduix-toast-success-bg,
+        color-mix(in oklab, var(--moduix-color-success) 10%, var(--moduix-color-background))
+      );
+      --_toast-border-color-default: var(
+        --moduix-toast-success-border-color,
+        color-mix(in oklab, var(--moduix-color-success) 34%, transparent)
+      );
+      --_toast-color-default: var(--moduix-toast-success-color, var(--moduix-color-foreground));
+    }
+
+    &[data-type='warning'] {
+      --_toast-bg-default: var(
+        --moduix-toast-warning-bg,
+        color-mix(in oklab, var(--moduix-color-warning) 13%, var(--moduix-color-background))
+      );
+      --_toast-border-color-default: var(
+        --moduix-toast-warning-border-color,
+        color-mix(in oklab, var(--moduix-color-warning) 38%, transparent)
+      );
+      --_toast-color-default: var(--moduix-toast-warning-color, var(--moduix-color-foreground));
+    }
+
+    &[data-type='error'] {
+      --_toast-bg-default: var(
+        --moduix-toast-error-bg,
+        color-mix(in oklab, var(--moduix-color-destructive) 9%, var(--moduix-color-background))
+      );
+      --_toast-border-color-default: var(
+        --moduix-toast-error-border-color,
+        color-mix(in oklab, var(--moduix-color-destructive) 35%, transparent)
+      );
+      --_toast-color-default: var(--moduix-toast-error-color, var(--moduix-color-foreground));
+    }
+  }
+
+  .title {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: var(--moduix-toast-title-gap, var(--moduix-spacing-2));
+    margin: 0;
+    color: inherit;
+    font-size: var(--moduix-toast-title-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-toast-title-font-weight, var(--moduix-weight-semibold));
+    line-height: var(--moduix-toast-title-line-height, var(--moduix-line-height-text-sm));
+    overflow-wrap: anywhere;
+  }
+
+  .description {
+    margin: 0;
+    min-width: 0;
+    color: var(--moduix-toast-description-color, var(--moduix-color-muted-foreground));
+    font-size: var(--moduix-toast-description-font-size, var(--moduix-text-sm));
+    line-height: var(--moduix-toast-description-line-height, var(--moduix-line-height-text-sm));
+    overflow-wrap: anywhere;
+  }
+
+  .actionTrigger {
+    display: inline-flex;
+    width: max-content;
+    max-width: 100%;
+    min-width: 0;
+    align-items: center;
+    justify-content: center;
+    gap: var(--moduix-toast-action-gap, var(--moduix-spacing-2));
+    min-height: var(--moduix-toast-action-min-height, var(--moduix-size-xs));
+    margin-block-start: var(--moduix-toast-action-margin-top, var(--moduix-spacing-2));
+    border: var(
+        --moduix-toast-action-border-width,
+        var(--moduix-toast-border-width, var(--moduix-border-width-sm))
+      )
+      solid var(--moduix-toast-action-border-color, var(--_toast-trigger-border-color-default));
+    border-radius: var(--moduix-toast-action-radius, var(--moduix-radius-sm));
+    background: var(--moduix-toast-action-bg, var(--_toast-trigger-bg-default));
+    color: var(--moduix-toast-action-color, var(--_toast-trigger-color-default));
+    padding: var(--moduix-toast-action-padding-y, var(--moduix-spacing-1))
+      var(--moduix-toast-action-padding-x, var(--moduix-spacing-2));
+    font: inherit;
+    font-size: var(--moduix-toast-action-font-size, var(--moduix-text-xs));
+    font-weight: var(--moduix-toast-action-font-weight, var(--moduix-weight-medium));
+    line-height: var(--moduix-toast-action-line-height, var(--moduix-line-height-text-xs));
+    cursor: pointer;
+    text-align: start;
+    user-select: none;
+    overflow-wrap: anywhere;
+    transition:
+      background var(--moduix-transition-fast),
+      border-color var(--moduix-transition-fast),
+      color var(--moduix-transition-fast);
+
+    &:hover {
+      background: var(--moduix-toast-action-bg-hover, var(--_toast-trigger-bg-hover-default));
+    }
+
+    &:focus-visible {
+      outline: var(
+          --moduix-toast-focus-ring-width,
+          var(
+            --moduix-toast-action-border-width,
+            var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+          )
+        )
+        solid var(--moduix-toast-focus-ring-color, var(--_toast-trigger-focus-ring-color-default));
+      outline-offset: var(--moduix-toast-focus-ring-offset, 0);
+    }
+  }
+
+  .closeTrigger {
+    position: absolute;
+    inset-block-start: var(--moduix-toast-close-offset-top, var(--moduix-spacing-2));
+    inset-inline-end: var(--moduix-toast-close-offset-right, var(--moduix-spacing-2));
+    --moduix-close-button-size: var(--moduix-toast-close-size, var(--moduix-spacing-7));
+    --moduix-close-button-icon-size: var(--moduix-toast-close-icon-size, var(--moduix-spacing-3));
+    --moduix-close-button-radius: var(--moduix-toast-close-radius, var(--moduix-radius-sm));
+    --moduix-close-button-bg: var(--moduix-toast-close-bg, transparent);
+    --moduix-close-button-bg-hover: var(--moduix-toast-close-bg-hover, var(--moduix-color-muted));
+    --moduix-close-button-color: var(
+      --moduix-toast-close-color,
+      var(--moduix-color-muted-foreground)
+    );
+    --moduix-close-button-color-hover: var(
+      --moduix-toast-close-color-hover,
+      var(--moduix-color-foreground)
+    );
+    --moduix-close-button-focus-ring-color: var(
+      --moduix-toast-focus-ring-color,
+      var(--moduix-color-ring)
+    );
+    --moduix-close-button-focus-ring-offset: var(
+      --moduix-toast-close-focus-ring-offset,
+      var(--moduix-focus-ring-offset)
+    );
+    --moduix-close-button-focus-ring-width: var(
+      --moduix-toast-close-focus-ring-width,
+      var(--moduix-focus-ring-width, var(--moduix-border-width-md))
+    );
+    --moduix-close-button-transition: var(
+      --moduix-toast-close-transition,
+      var(--moduix-transition-default)
+    );
+  }
+
+  @media (max-width: 40rem) {
+    .toaster {
+      width: 100%;
+    }
+
+    .root {
+      inset-inline: 0;
+      width: calc(100% - (var(--gap) * 2));
+      max-width: none;
+    }
+  }
+}

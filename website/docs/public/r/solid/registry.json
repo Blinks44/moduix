@@ -1372,6 +1372,60 @@
       ]
     },
     {
+      "name": "timer",
+      "type": "registry:item",
+      "title": "Timer",
+      "description": "moduix Solid Timer component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/timer/Timer.tsx",
+          "target": "@components/ui/timer/Timer.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/timer/Timer.module.css",
+          "target": "@components/ui/timer/Timer.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/timer/index.ts",
+          "target": "@components/ui/timer/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "toast",
+      "type": "registry:item",
+      "title": "Toast",
+      "description": "moduix Solid Toast component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": [
+        "@moduix-solid/foundation",
+        "@moduix-solid/close-button",
+        "@moduix-solid/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/toast/Toast.tsx",
+          "target": "@components/ui/toast/Toast.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toast/Toast.module.css",
+          "target": "@components/ui/toast/Toast.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/toast/index.ts",
+          "target": "@components/ui/toast/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "table-of-contents",
       "type": "registry:item",
       "title": "Table of Contents",
@@ -1392,6 +1446,31 @@
         {
           "path": "src/components/toc/index.ts",
           "target": "@components/ui/toc/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "toggle",
+      "type": "registry:item",
+      "title": "Toggle",
+      "description": "moduix Solid Toggle component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/toggle/Toggle.tsx",
+          "target": "@components/ui/toggle/Toggle.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toggle/Toggle.module.css",
+          "target": "@components/ui/toggle/Toggle.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/toggle/index.ts",
+          "target": "@components/ui/toggle/index.ts",
           "type": "registry:component"
         }
       ]
@@ -2042,6 +2121,35 @@
         {
           "path": "src/components/tag/index.ts",
           "target": "@components/ui/tag/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "tags-input",
+      "type": "registry:item",
+      "title": "TagsInput",
+      "description": "moduix Solid TagsInput component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": [
+        "@moduix-solid/foundation",
+        "@moduix-solid/close-button",
+        "@moduix-solid/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/tags-input/TagsInput.tsx",
+          "target": "@components/ui/tags-input/TagsInput.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tags-input/TagsInput.module.css",
+          "target": "@components/ui/tags-input/TagsInput.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/tags-input/index.ts",
+          "target": "@components/ui/tags-input/index.ts",
           "type": "registry:component"
         }
       ]
