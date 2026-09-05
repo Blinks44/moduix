@@ -1,0 +1,24 @@
+{
+  "name": "@moduix/playground-solid-tailwind",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:storybook": "storybook build",
+    "storybook": "storybook dev -p 7010 --no-open",
+    "tsc:check": "tsc -p tsconfig.json"
+  },
+  "devDependencies": {
+    "@ark-ui/solid": "^5.39.1",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^26.4.1",
+    "clsx": "^2.1.1",
+    "solid-js": "^1.9.15",
+    "storybook": "^10.6.0",
+    "storybook-solidjs-vite": "^10.7.1",
+    "tailwind-merge": "^3.6.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "~7.0.2",
+    "vite": "^8.2.2",
+    "vite-plugin-solid": "^2.11.14"
+  }
+}

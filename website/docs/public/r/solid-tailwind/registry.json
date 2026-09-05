@@ -1,0 +1,93 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "moduix-solid-tailwind",
+  "homepage": "https://moduix.dev",
+  "items": [
+    {
+      "name": "init",
+      "type": "registry:base",
+      "title": "moduix Solid Tailwind init",
+      "description": "Initialize shadcn for moduix Solid Tailwind and install shared dependencies.",
+      "extends": "none",
+      "config": {
+        "style": "new-york",
+        "rsc": false,
+        "tsx": true,
+        "aliases": {
+          "components": "@/components",
+          "ui": "@/components/ui",
+          "lib": "@/lib",
+          "hooks": "@/hooks",
+          "utils": "@/lib/utils"
+        }
+      },
+      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-solid-tailwind/foundation"]
+    },
+    {
+      "name": "foundation",
+      "type": "registry:item",
+      "title": "moduix Solid Tailwind core",
+      "description": "Shared runtime dependencies and foundation styles for moduix Tailwind components.",
+      "docs": "Import '@/lib/moduix/styles/style.css' once before Tailwind in your application stylesheet. Tailwind Preflight provides the reset layer.",
+      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "registryDependencies": ["https://moduix.dev/r/foundation/core.json"]
+    },
+    {
+      "name": "cn",
+      "type": "registry:item",
+      "title": "moduix class name utility",
+      "description": "Merges conditional and conflicting Tailwind class names.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/internal/cn.ts",
+          "target": "@lib/moduix/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "icons",
+      "type": "registry:item",
+      "title": "moduix icons",
+      "description": "Internal icons used by moduix Solid Tailwind components.",
+      "files": [
+        {
+          "path": "src/internal/icons/ui/index.ts",
+          "target": "@lib/moduix/icons/ui/index.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/Icons.tsx",
+          "target": "@lib/moduix/icons/ui/Icons.tsx",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "accordion",
+      "type": "registry:item",
+      "title": "Accordion",
+      "description": "moduix Solid Tailwind Accordion component.",
+      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-solid-tailwind/foundation",
+        "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/accordion/Accordion.tsx",
+          "target": "@components/ui/accordion/Accordion.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/accordion/index.ts",
+          "target": "@components/ui/accordion/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    }
+  ]
+}

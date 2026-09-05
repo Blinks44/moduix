@@ -1,11 +1,11 @@
-# @moduix/react-tailwind
+# @moduix/solid-tailwind
 
-Tailwind CSS v4 implementation of moduix React components. The pilot release contains Accordion and preserves the public Ark-shaped API from `@moduix/react/accordion`.
+Tailwind CSS v4 implementation of moduix Solid components. The pilot release contains Accordion and preserves the public Ark-shaped API from `@moduix/solid/accordion`.
 
 ## Install
 
 ```sh
-pnpm add @moduix/react-tailwind @ark-ui/react react react-dom tailwindcss
+pnpm add @moduix/solid-tailwind @ark-ui/solid solid-js tailwindcss
 ```
 
 ## Add styles
@@ -13,21 +13,21 @@ pnpm add @moduix/react-tailwind @ark-ui/react react react-dom tailwindcss
 Import the moduix stylesheet before Tailwind. Register the package as an explicit source because Tailwind ignores dependencies by default:
 
 ```css
-@import '@moduix/react-tailwind/style.css';
+@import '@moduix/solid-tailwind/style.css';
 @import 'tailwindcss';
 
 /* Resolve this path relative to this stylesheet. */
-@source '../node_modules/@moduix/react-tailwind';
+@source '../node_modules/@moduix/solid-tailwind';
 ```
 
-Keep `style.css` before the Tailwind import. It provides the foundation tokens and shared keyframes, and establishes the cascade-layer order so Tailwind utilities, including consumer overrides, are applied after the moduix token and component layers. Tailwind Preflight is the reset for this package; do not add the `@moduix/react` reset alongside it.
+Keep `style.css` before the Tailwind import. It provides the foundation tokens and shared keyframes, and establishes the cascade-layer order so Tailwind utilities, including consumer overrides, are applied after the moduix token and component layers. Tailwind Preflight is the reset for this package; do not add the `@moduix/solid` reset alongside it.
 
-In a monorepo, point `@source` at the installed package or at `packages/react-tailwind/src` when consuming workspace source directly.
+In a monorepo, point `@source` at the installed package or at `packages/solid-tailwind/src` when consuming workspace source directly.
 
 ## Use Accordion
 
 ```tsx
-import { Accordion } from '@moduix/react-tailwind/accordion';
+import { Accordion } from '@moduix/solid-tailwind/accordion';
 
 export function Example() {
   return (
@@ -46,7 +46,7 @@ export function Example() {
 }
 ```
 
-Consumer `className` values are merged after defaults with `tailwind-merge`, so utilities such as `p-0` override the component's default padding.
+Consumer `class` values are merged after defaults with `tailwind-merge`, so utilities such as `p-0` override the component's default padding.
 
 ## shadcn registry
 
@@ -55,13 +55,13 @@ Configure the namespace and add the component with the standard CLI:
 ```json
 {
   "registries": {
-    "@moduix-react-tailwind": "https://moduix.dev/r/react-tailwind/{name}.json"
+    "@moduix-solid-tailwind": "https://moduix.dev/r/solid-tailwind/{name}.json"
   }
 }
 ```
 
 ```sh
-pnpm dlx shadcn@latest add @moduix-react-tailwind/accordion
+pnpm dlx shadcn@latest add @moduix-solid-tailwind/accordion
 ```
 
 The registry installs the same foundation stylesheet locally as `@/lib/moduix/styles/style.css`. Import it once before Tailwind in your application stylesheet:
