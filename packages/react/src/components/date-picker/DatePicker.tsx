@@ -255,36 +255,26 @@ const DatePickerClearTrigger = forwardRef<
 ) {
   const triggerClassName = clsx(styles.clearTrigger, className);
 
-  if (asChild) {
-    return (
-      <DatePickerPrimitive.ClearTrigger
-        ref={ref}
-        asChild
-        data-slot="date-picker-clear-trigger"
-        className={triggerClassName}
-        {...(ariaLabel === undefined ? {} : { 'aria-label': ariaLabel })}
-        {...(ariaLabelledBy === undefined ? {} : { 'aria-labelledby': ariaLabelledBy })}
-        {...props}
-      >
-        {children}
-      </DatePickerPrimitive.ClearTrigger>
-    );
-  }
-
   return (
     <DatePickerPrimitive.ClearTrigger
       ref={ref}
       asChild
       data-slot="date-picker-clear-trigger"
       className={triggerClassName}
+      {...(asChild && ariaLabel !== undefined ? { 'aria-label': ariaLabel } : {})}
+      {...(asChild && ariaLabelledBy !== undefined ? { 'aria-labelledby': ariaLabelledBy } : {})}
       {...props}
     >
-      <CloseButton.Root
-        {...(ariaLabel === undefined ? {} : { 'aria-label': ariaLabel })}
-        {...(ariaLabelledBy === undefined ? {} : { 'aria-labelledby': ariaLabelledBy })}
-      >
-        {children}
-      </CloseButton.Root>
+      {asChild ? (
+        children
+      ) : (
+        <CloseButton.Root
+          {...(ariaLabel === undefined ? {} : { 'aria-label': ariaLabel })}
+          {...(ariaLabelledBy === undefined ? {} : { 'aria-labelledby': ariaLabelledBy })}
+        >
+          {children}
+        </CloseButton.Root>
+      )}
     </DatePickerPrimitive.ClearTrigger>
   );
 });

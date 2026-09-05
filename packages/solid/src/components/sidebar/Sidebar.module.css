@@ -165,15 +165,6 @@
       transform: rotate(180deg);
     }
 
-    &:focus-visible {
-      outline: var(
-          --moduix-sidebar-focus-ring-width,
-          var(--moduix-focus-ring-width, var(--moduix-border-width-md))
-        )
-        solid var(--moduix-sidebar-focus-ring-color, var(--moduix-color-ring));
-      outline-offset: var(--moduix-sidebar-focus-ring-offset, var(--moduix-focus-ring-offset));
-    }
-
     &:disabled,
     &[aria-disabled='true'] {
       opacity: var(--moduix-sidebar-disabled-opacity, var(--moduix-opacity-disabled));
@@ -268,15 +259,6 @@
       height: var(--moduix-sidebar-icon-size, var(--moduix-spacing-4));
     }
 
-    &:focus-visible {
-      outline: var(
-          --moduix-sidebar-focus-ring-width,
-          var(--moduix-focus-ring-width, var(--moduix-border-width-md))
-        )
-        solid var(--moduix-sidebar-focus-ring-color, var(--moduix-color-ring));
-      outline-offset: var(--moduix-sidebar-focus-ring-offset, var(--moduix-focus-ring-offset));
-    }
-
     @media (hover: hover) {
       &:hover {
         background-color: var(--moduix-sidebar-accent-bg, var(--moduix-color-accent));
@@ -285,37 +267,34 @@
     }
   }
 
-  .group:has(.groupAction) {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    column-gap: var(--moduix-sidebar-gap, var(--moduix-spacing-2));
-    row-gap: var(--moduix-sidebar-group-gap, var(--moduix-spacing-1));
-  }
-
-  .group:has(.groupAction) .groupLabel {
-    grid-column: 1;
-    display: flex;
-    align-items: center;
-    min-height: var(--moduix-sidebar-group-action-size, var(--moduix-size-xs));
-  }
-
-  .group:has(.groupAction) .groupAction {
-    grid-column: 2;
-    align-self: center;
-    margin-inline-end: var(--moduix-sidebar-navigation-button-padding-x, var(--moduix-spacing-2));
-  }
-
   .groupContent {
     width: 100%;
     min-width: 0;
   }
 
-  .group:has(.groupAction) .groupContent {
-    grid-column: 1 / -1;
-  }
+  .group:has(.groupAction) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: var(--moduix-sidebar-gap, var(--moduix-spacing-2));
+    row-gap: var(--moduix-sidebar-group-gap, var(--moduix-spacing-1));
 
-  .group:has(.groupAction) .menu {
-    grid-column: 1 / -1;
+    .groupLabel {
+      grid-column: 1;
+      display: flex;
+      align-items: center;
+      min-height: var(--moduix-sidebar-group-action-size, var(--moduix-size-xs));
+    }
+
+    .groupAction {
+      grid-column: 2;
+      align-self: center;
+      margin-inline-end: var(--moduix-sidebar-navigation-button-padding-x, var(--moduix-spacing-2));
+    }
+
+    .groupContent,
+    .menu {
+      grid-column: 1 / -1;
+    }
   }
 
   .menu,
@@ -383,15 +362,6 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-    }
-
-    &:focus-visible {
-      outline: var(
-          --moduix-sidebar-focus-ring-width,
-          var(--moduix-focus-ring-width, var(--moduix-border-width-md))
-        )
-        solid var(--moduix-sidebar-focus-ring-color, var(--moduix-color-ring));
-      outline-offset: var(--moduix-sidebar-focus-ring-offset, var(--moduix-focus-ring-offset));
     }
 
     &:disabled,
@@ -488,21 +458,24 @@
       height: var(--moduix-sidebar-icon-size, var(--moduix-spacing-4));
     }
 
-    &:focus-visible {
-      outline: var(
-          --moduix-sidebar-focus-ring-width,
-          var(--moduix-focus-ring-width, var(--moduix-border-width-md))
-        )
-        solid var(--moduix-sidebar-focus-ring-color, var(--moduix-color-ring));
-      outline-offset: var(--moduix-sidebar-focus-ring-offset, var(--moduix-focus-ring-offset));
-    }
-
     @media (hover: hover) {
       &:hover {
         background-color: var(--moduix-sidebar-accent-bg, var(--moduix-color-accent));
         color: var(--moduix-sidebar-accent-color, var(--moduix-color-accent-foreground));
       }
     }
+  }
+
+  .trigger:focus-visible,
+  .groupAction:focus-visible,
+  .menuButton:focus-visible,
+  .menuAction:focus-visible {
+    outline: var(
+        --moduix-sidebar-focus-ring-width,
+        var(--moduix-focus-ring-width, var(--moduix-border-width-md))
+      )
+      solid var(--moduix-sidebar-focus-ring-color, var(--moduix-color-ring));
+    outline-offset: var(--moduix-sidebar-focus-ring-offset, var(--moduix-focus-ring-offset));
   }
 
   .menuBadge {
@@ -543,33 +516,26 @@
 
   .menuItem:has(.menuBadge) .menuButton {
     padding-inline-end: calc(
-      var(--moduix-sidebar-navigation-badge-min-width, 1.125rem) +
-        var(--moduix-sidebar-navigation-button-padding-x, var(--moduix-spacing-2)) * 2 +
-        (var(--moduix-sidebar-navigation-action-size, var(--moduix-size-xs)) -
+      (var(--moduix-sidebar-navigation-action-size, var(--moduix-size-xs)) +
           var(--moduix-sidebar-navigation-badge-min-width, 1.125rem)) /
-        2
+        2 + var(--moduix-sidebar-navigation-button-padding-x, var(--moduix-spacing-2)) * 2
     );
   }
 
   .menuItem:has(.menuAction):has(.menuBadge) {
     .menuButton {
       padding-inline-end: calc(
-        var(--moduix-sidebar-navigation-action-size, var(--moduix-size-xs)) +
-          var(--moduix-sidebar-navigation-badge-min-width, 1.125rem) +
-          var(--moduix-sidebar-navigation-button-padding-x, var(--moduix-spacing-2)) * 3 +
-          (var(--moduix-sidebar-navigation-action-size, var(--moduix-size-xs)) -
+        (var(--moduix-sidebar-navigation-action-size, var(--moduix-size-xs)) * 3 +
             var(--moduix-sidebar-navigation-badge-min-width, 1.125rem)) /
-          2
+          2 + var(--moduix-sidebar-navigation-button-padding-x, var(--moduix-spacing-2)) * 3
       );
     }
 
     .menuAction {
       inset-inline-end: calc(
-        var(--moduix-sidebar-navigation-badge-min-width, 1.125rem) +
-          var(--moduix-sidebar-navigation-button-padding-x, var(--moduix-spacing-2)) * 2 +
-          (var(--moduix-sidebar-navigation-action-size, var(--moduix-size-xs)) -
+        (var(--moduix-sidebar-navigation-action-size, var(--moduix-size-xs)) +
             var(--moduix-sidebar-navigation-badge-min-width, 1.125rem)) /
-          2
+          2 + var(--moduix-sidebar-navigation-button-padding-x, var(--moduix-spacing-2)) * 2
       );
     }
   }

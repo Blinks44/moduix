@@ -14,34 +14,28 @@ import styles from './TagsInput.module.css';
 const TagsInputRoot = forwardRef<
   ComponentRef<typeof TagsInputPrimitive.Root>,
   ComponentProps<typeof TagsInputPrimitive.Root>
->(function TagsInputRoot({ asChild, children, className, ...props }, ref) {
+>(function TagsInputRoot({ className, ...props }, ref) {
   return (
     <TagsInputPrimitive.Root
       ref={ref}
-      asChild={asChild}
       data-slot="tags-input-root"
       className={clsx(styles.root, className)}
       {...props}
-    >
-      {children}
-    </TagsInputPrimitive.Root>
+    />
   );
 });
 
 const TagsInputRootProvider = forwardRef<
   ComponentRef<typeof TagsInputPrimitive.RootProvider>,
   ComponentProps<typeof TagsInputPrimitive.RootProvider>
->(function TagsInputRootProvider({ asChild, children, className, ...props }, ref) {
+>(function TagsInputRootProvider({ className, ...props }, ref) {
   return (
     <TagsInputPrimitive.RootProvider
       ref={ref}
-      asChild={asChild}
       data-slot="tags-input-root-provider"
       className={clsx(styles.root, className)}
       {...props}
-    >
-      {children}
-    </TagsInputPrimitive.RootProvider>
+    />
   );
 });
 
@@ -176,39 +170,29 @@ const TagsInputClearTrigger = forwardRef<
   const triggerClassName = clsx(styles.clearTrigger, className);
   const clearTriggerLabel = useTagsInputContext().getClearTriggerProps()['aria-label'];
 
-  if (asChild) {
-    return (
-      <TagsInputPrimitive.ClearTrigger
-        ref={ref}
-        asChild
-        data-slot="tags-input-clear-trigger"
-        className={triggerClassName}
-        aria-label={ariaLabel}
-        aria-labelledby={ariaLabelledBy}
-        {...props}
-      >
-        {children}
-      </TagsInputPrimitive.ClearTrigger>
-    );
-  }
-
   return (
     <TagsInputPrimitive.ClearTrigger
       ref={ref}
       asChild
       data-slot="tags-input-clear-trigger"
       className={triggerClassName}
+      aria-label={asChild ? ariaLabel : undefined}
+      aria-labelledby={asChild ? ariaLabelledBy : undefined}
       {...props}
     >
-      <CloseButton.Root
-        aria-label={ariaLabel ?? clearTriggerLabel}
-        aria-labelledby={ariaLabelledBy}
-        data-part="clear-trigger"
-        data-scope="tags-input"
-        data-slot="tags-input-clear-trigger"
-      >
-        {children}
-      </CloseButton.Root>
+      {asChild ? (
+        children
+      ) : (
+        <CloseButton.Root
+          aria-label={ariaLabel ?? clearTriggerLabel}
+          aria-labelledby={ariaLabelledBy}
+          data-part="clear-trigger"
+          data-scope="tags-input"
+          data-slot="tags-input-clear-trigger"
+        >
+          {children}
+        </CloseButton.Root>
+      )}
     </TagsInputPrimitive.ClearTrigger>
   );
 });

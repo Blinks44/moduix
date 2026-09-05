@@ -134,21 +134,7 @@ const MenuContent = forwardRef<
   ComponentRef<typeof MenuPrimitive.Content>,
   ComponentProps<typeof MenuPrimitive.Content>
 >(function MenuContent({ asChild, className, children, ...props }, ref) {
-  if (asChild) {
-    return (
-      <MenuPrimitive.Content
-        ref={ref}
-        data-slot="menu-content"
-        asChild
-        className={clsx(styles.content, className)}
-        {...props}
-      >
-        {children}
-      </MenuPrimitive.Content>
-    );
-  }
-
-  const childrenArray = Children.toArray(children);
+  const childrenArray = asChild ? [] : Children.toArray(children);
   const arrows = childrenArray.filter((child) => isValidElement(child) && child.type === MenuArrow);
   const content = childrenArray.filter(
     (child) => !isValidElement(child) || child.type !== MenuArrow,
@@ -162,8 +148,14 @@ const MenuContent = forwardRef<
       className={clsx(styles.content, className)}
       {...props}
     >
-      {arrows}
-      <div className={styles.contentViewport}>{content}</div>
+      {asChild ? (
+        children
+      ) : (
+        <>
+          {arrows}
+          <div className={styles.contentViewport}>{content}</div>
+        </>
+      )}
     </MenuPrimitive.Content>
   );
 });

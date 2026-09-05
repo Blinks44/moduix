@@ -447,22 +447,18 @@
     border-radius: var(--moduix-command-palette-item-icon-radius, var(--moduix-radius-md));
     background-color: var(--moduix-command-palette-item-icon-bg, var(--moduix-color-muted));
     color: var(--moduix-command-palette-item-icon-color, var(--moduix-color-muted-foreground));
-
-    & > svg {
-      width: var(--moduix-command-palette-item-icon-size, var(--moduix-spacing-4));
-      height: var(--moduix-command-palette-item-icon-size, var(--moduix-spacing-4));
-    }
   }
 
   .itemIndicator {
     border-color: transparent;
     background-color: transparent;
     justify-self: end;
+  }
 
-    & > svg {
-      width: var(--moduix-command-palette-item-icon-size, var(--moduix-spacing-4));
-      height: var(--moduix-command-palette-item-icon-size, var(--moduix-spacing-4));
-    }
+  .itemIcon > svg,
+  .itemIndicator > svg {
+    width: var(--moduix-command-palette-item-icon-size, var(--moduix-spacing-4));
+    height: var(--moduix-command-palette-item-icon-size, var(--moduix-spacing-4));
   }
 
   .itemText {

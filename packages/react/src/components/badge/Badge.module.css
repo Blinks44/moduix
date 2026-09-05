@@ -50,46 +50,40 @@
 
       &:not(:disabled, [aria-disabled='true']) {
         cursor: pointer;
+      }
 
-        &[data-variant='default'],
-        &[data-variant='secondary'],
-        &[data-variant='destructive'] {
-          &:hover {
-            opacity: var(--moduix-badge-opacity-hover, var(--moduix-opacity-hover));
-          }
-        }
+      &:not(:disabled, [aria-disabled='true']):is(
+          [data-variant='default'],
+          [data-variant='secondary'],
+          [data-variant='destructive']
+        ):hover {
+        opacity: var(--moduix-badge-opacity-hover, var(--moduix-opacity-hover));
+      }
 
-        &[data-variant='outline'] {
-          &:hover {
-            border-color: var(
-              --moduix-badge-border-color,
-              var(--moduix-badge-outline-border-color-hover, var(--moduix-color-primary))
-            );
-            color: var(
-              --moduix-badge-color,
-              var(--moduix-badge-outline-color-hover, var(--moduix-color-primary))
-            );
-          }
-        }
+      &:not(:disabled, [aria-disabled='true'])[data-variant='outline']:hover {
+        border-color: var(
+          --moduix-badge-border-color,
+          var(--moduix-badge-outline-border-color-hover, var(--moduix-color-primary))
+        );
+        color: var(
+          --moduix-badge-color,
+          var(--moduix-badge-outline-color-hover, var(--moduix-color-primary))
+        );
+      }
 
-        &[data-variant='ghost'] {
-          &:hover {
-            border-color: var(
-              --moduix-badge-border-color,
-              var(--moduix-badge-ghost-border-color-hover, var(--moduix-color-primary))
-            );
-            color: var(
-              --moduix-badge-color,
-              var(--moduix-badge-ghost-color-hover, var(--moduix-color-primary))
-            );
-          }
-        }
+      &:not(:disabled, [aria-disabled='true'])[data-variant='ghost']:hover {
+        border-color: var(
+          --moduix-badge-border-color,
+          var(--moduix-badge-ghost-border-color-hover, var(--moduix-color-primary))
+        );
+        color: var(
+          --moduix-badge-color,
+          var(--moduix-badge-ghost-color-hover, var(--moduix-color-primary))
+        );
+      }
 
-        &[data-variant='link'] {
-          &:hover {
-            text-decoration-color: currentColor;
-          }
-        }
+      &:not(:disabled, [aria-disabled='true'])[data-variant='link']:hover {
+        text-decoration-color: currentColor;
       }
 
       &:is(:disabled, [aria-disabled='true']) {

@@ -137,36 +137,26 @@ const ComboboxClearTrigger = forwardRef<
 ) {
   const triggerClassName = clsx(styles.clearTrigger, className);
 
-  if (asChild) {
-    return (
-      <ComboboxPrimitive.ClearTrigger
-        ref={ref}
-        asChild
-        data-slot="combobox-clear-trigger"
-        className={triggerClassName}
-        aria-label={ariaLabel}
-        aria-labelledby={ariaLabelledBy}
-        {...props}
-      >
-        {children}
-      </ComboboxPrimitive.ClearTrigger>
-    );
-  }
-
   return (
     <ComboboxPrimitive.ClearTrigger
       ref={ref}
       asChild
       data-slot="combobox-clear-trigger"
       className={triggerClassName}
+      aria-label={asChild ? ariaLabel : undefined}
+      aria-labelledby={asChild ? ariaLabelledBy : undefined}
       {...props}
     >
-      <CloseButton.Root
-        aria-label={ariaLabel ?? (ariaLabelledBy == null ? 'Clear selection' : undefined)}
-        aria-labelledby={ariaLabelledBy}
-      >
-        {children}
-      </CloseButton.Root>
+      {asChild ? (
+        children
+      ) : (
+        <CloseButton.Root
+          aria-label={ariaLabel ?? (ariaLabelledBy == null ? 'Clear selection' : undefined)}
+          aria-labelledby={ariaLabelledBy}
+        >
+          {children}
+        </CloseButton.Root>
+      )}
     </ComboboxPrimitive.ClearTrigger>
   );
 });

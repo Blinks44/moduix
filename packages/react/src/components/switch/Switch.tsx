@@ -18,18 +18,15 @@ type SwitchRootProviderProps = ComponentProps<typeof SwitchPrimitive.RootProvide
 };
 
 const SwitchRoot = forwardRef<ComponentRef<typeof SwitchPrimitive.Root>, SwitchRootProps>(
-  function SwitchRoot({ asChild, children, className, size = 'md', ...props }, ref) {
+  function SwitchRoot({ className, size = 'md', ...props }, ref) {
     return (
       <SwitchPrimitive.Root
         ref={ref}
-        asChild={asChild}
         data-slot="switch-root"
         data-size={size}
         className={clsx(styles.root, className)}
         {...props}
-      >
-        {children}
-      </SwitchPrimitive.Root>
+      />
     );
   },
 );
@@ -37,18 +34,15 @@ const SwitchRoot = forwardRef<ComponentRef<typeof SwitchPrimitive.Root>, SwitchR
 const SwitchRootProvider = forwardRef<
   ComponentRef<typeof SwitchPrimitive.RootProvider>,
   SwitchRootProviderProps
->(function SwitchRootProvider({ asChild, children, className, size = 'md', ...props }, ref) {
+>(function SwitchRootProvider({ className, size = 'md', ...props }, ref) {
   return (
     <SwitchPrimitive.RootProvider
       ref={ref}
-      asChild={asChild}
       data-slot="switch-root-provider"
       data-size={size}
       className={clsx(styles.root, className)}
       {...props}
-    >
-      {children}
-    </SwitchPrimitive.RootProvider>
+    />
   );
 });
 

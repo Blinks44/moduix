@@ -132,16 +132,12 @@
       color: var(--moduix-select-placeholder-color, var(--moduix-color-muted-foreground));
     }
 
-    &[data-state='open'] {
-      border-color: var(--moduix-select-focus-ring-color, var(--moduix-color-ring));
-      outline-color: var(--moduix-select-focus-ring-color, var(--moduix-color-ring));
-    }
-
     &[data-disabled],
     &[disabled] {
       cursor: default;
     }
 
+    &[data-state='open'],
     &:focus-visible {
       border-color: var(--moduix-select-focus-ring-color, var(--moduix-color-ring));
       outline-color: var(--moduix-select-focus-ring-color, var(--moduix-color-ring));
@@ -157,7 +153,8 @@
     padding-inline-end: var(--moduix-select-trigger-padding-x-end, 4.25rem);
   }
 
-  .valueText {
+  .valueText,
+  .itemText {
     min-width: 0;
     flex: 1;
     overflow: hidden;
@@ -399,14 +396,6 @@
       color: var(--moduix-select-item-disabled-color, var(--moduix-color-muted-foreground));
       opacity: var(--moduix-select-disabled-opacity, var(--moduix-opacity-disabled));
     }
-  }
-
-  .itemText {
-    min-width: 0;
-    flex: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
   }
 
   .itemIndicator {

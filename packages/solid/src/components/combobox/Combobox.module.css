@@ -101,11 +101,7 @@
       border-color var(--moduix-combobox-transition, var(--moduix-transition-default)),
       outline-color var(--moduix-combobox-transition, var(--moduix-transition-default));
 
-    &[data-state='open'] {
-      border-color: var(--moduix-combobox-focus-ring-color, var(--moduix-color-ring));
-      outline-color: var(--moduix-combobox-focus-ring-color, var(--moduix-color-ring));
-    }
-
+    &[data-state='open'],
     &[data-focus] {
       border-color: var(--moduix-combobox-focus-ring-color, var(--moduix-color-ring));
       outline-color: var(--moduix-combobox-focus-ring-color, var(--moduix-color-ring));

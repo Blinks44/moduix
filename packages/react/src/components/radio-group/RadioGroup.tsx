@@ -68,17 +68,14 @@ const RadioGroupLabel = forwardRef<
 const RadioGroupItem = forwardRef<
   ComponentRef<typeof RadioGroupPrimitive.Item>,
   ComponentProps<typeof RadioGroupPrimitive.Item>
->(function RadioGroupItem({ asChild, children, className, ...props }, ref) {
+>(function RadioGroupItem({ className, ...props }, ref) {
   return (
     <RadioGroupPrimitive.Item
       ref={ref}
-      asChild={asChild}
       data-slot="radio-group-item"
       className={clsx(styles.item, className)}
       {...props}
-    >
-      {children}
-    </RadioGroupPrimitive.Item>
+    />
   );
 });
 

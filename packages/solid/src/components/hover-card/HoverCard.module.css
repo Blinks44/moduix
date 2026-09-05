@@ -90,11 +90,11 @@
     &:has(> .body) {
       display: flex;
       flex-direction: column;
-    }
 
-    &:has(> .body) > .body {
-      min-block-size: 0;
-      overflow: auto;
+      > .body {
+        min-block-size: 0;
+        overflow: auto;
+      }
     }
 
     &[data-state='open'] {

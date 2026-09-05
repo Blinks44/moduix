@@ -41,28 +41,6 @@
         var(--moduix-floating-panel-trigger-bg-hover, var(--moduix-color-accent))
       );
     }
-
-    &:focus-visible {
-      outline: var(
-          --moduix-floating-panel-focus-ring-width,
-          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
-        )
-        solid var(--moduix-floating-panel-focus-ring-color, var(--moduix-color-ring));
-      outline-offset: calc(
-        var(
-            --moduix-floating-panel-focus-ring-width,
-            var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
-          ) *
-          -1
-      );
-    }
-
-    &[data-disabled],
-    &[disabled] {
-      pointer-events: none;
-      opacity: var(--moduix-floating-panel-disabled-opacity, var(--moduix-opacity-disabled));
-      cursor: default;
-    }
   }
 
   .positioner {
@@ -204,28 +182,29 @@
         background-color: var(--moduix-floating-panel-control-bg-hover, var(--moduix-color-accent));
       }
     }
+  }
 
-    &:focus-visible {
-      outline: var(
+  .trigger:focus-visible,
+  .controlButton:focus-visible {
+    outline: var(
+        --moduix-floating-panel-focus-ring-width,
+        var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+      )
+      solid var(--moduix-floating-panel-focus-ring-color, var(--moduix-color-ring));
+    outline-offset: calc(
+      var(
           --moduix-floating-panel-focus-ring-width,
           var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
-        )
-        solid var(--moduix-floating-panel-focus-ring-color, var(--moduix-color-ring));
-      outline-offset: calc(
-        var(
-            --moduix-floating-panel-focus-ring-width,
-            var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
-          ) *
-          -1
-      );
-    }
+        ) *
+        -1
+    );
+  }
 
-    &[data-disabled],
-    &[disabled] {
-      pointer-events: none;
-      opacity: var(--moduix-floating-panel-disabled-opacity, var(--moduix-opacity-disabled));
-      cursor: default;
-    }
+  .trigger:is([data-disabled], [disabled]),
+  .controlButton:is([data-disabled], [disabled]) {
+    pointer-events: none;
+    opacity: var(--moduix-floating-panel-disabled-opacity, var(--moduix-opacity-disabled));
+    cursor: default;
   }
 
   .dragIndicator {

@@ -15,36 +15,30 @@ import styles from './PinInput.module.css';
 const PinInputRoot = forwardRef<
   ComponentRef<typeof PinInputPrimitive.Root>,
   ComponentProps<typeof PinInputPrimitive.Root>
->(function PinInputRoot({ asChild, children, className, count, placeholder = '', ...props }, ref) {
+>(function PinInputRoot({ className, count, placeholder = '', ...props }, ref) {
   return (
     <PinInputPrimitive.Root
       ref={ref}
-      asChild={asChild}
       data-slot="pin-input-root"
       className={clsx(styles.root, className)}
       count={count}
       placeholder={placeholder}
       {...props}
-    >
-      {children}
-    </PinInputPrimitive.Root>
+    />
   );
 });
 
 const PinInputRootProvider = forwardRef<
   ComponentRef<typeof PinInputPrimitive.RootProvider>,
   ComponentProps<typeof PinInputPrimitive.RootProvider>
->(function PinInputRootProvider({ asChild, children, className, ...props }, ref) {
+>(function PinInputRootProvider({ className, ...props }, ref) {
   return (
     <PinInputPrimitive.RootProvider
       ref={ref}
-      asChild={asChild}
       data-slot="pin-input-root-provider"
       className={clsx(styles.root, className)}
       {...props}
-    >
-      {children}
-    </PinInputPrimitive.RootProvider>
+    />
   );
 });
 

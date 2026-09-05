@@ -171,36 +171,26 @@ const SelectClearTrigger = forwardRef<
 ) {
   const triggerClassName = clsx(styles.clearTrigger, className);
 
-  if (asChild) {
-    return (
-      <SelectPrimitive.ClearTrigger
-        ref={ref}
-        asChild
-        data-slot="select-clear-trigger"
-        className={triggerClassName}
-        aria-label={ariaLabel}
-        aria-labelledby={ariaLabelledBy}
-        {...props}
-      >
-        {children}
-      </SelectPrimitive.ClearTrigger>
-    );
-  }
-
   return (
     <SelectPrimitive.ClearTrigger
       ref={ref}
       asChild
       data-slot="select-clear-trigger"
       className={triggerClassName}
+      aria-label={asChild ? ariaLabel : undefined}
+      aria-labelledby={asChild ? ariaLabelledBy : undefined}
       {...props}
     >
-      <CloseButton.Root
-        aria-label={ariaLabel ?? (ariaLabelledBy == null ? 'Clear selection' : undefined)}
-        aria-labelledby={ariaLabelledBy}
-      >
-        {children}
-      </CloseButton.Root>
+      {asChild ? (
+        children
+      ) : (
+        <CloseButton.Root
+          aria-label={ariaLabel ?? (ariaLabelledBy == null ? 'Clear selection' : undefined)}
+          aria-labelledby={ariaLabelledBy}
+        >
+          {children}
+        </CloseButton.Root>
+      )}
     </SelectPrimitive.ClearTrigger>
   );
 });

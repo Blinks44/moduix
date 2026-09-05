@@ -13,17 +13,14 @@ import styles from './AngleSlider.module.css';
 const AngleSliderRoot = forwardRef<
   ComponentRef<typeof AngleSliderPrimitive.Root>,
   ComponentProps<typeof AngleSliderPrimitive.Root>
->(function AngleSliderRoot({ asChild, children, className, ...props }, ref) {
+>(function AngleSliderRoot({ className, ...props }, ref) {
   return (
     <AngleSliderPrimitive.Root
       ref={ref}
       data-slot="angle-slider-root"
       className={clsx(styles.root, className)}
-      asChild={asChild}
       {...props}
-    >
-      {children}
-    </AngleSliderPrimitive.Root>
+    />
   );
 });
 
@@ -44,18 +41,15 @@ const AngleSliderLabel = forwardRef<
 const AngleSliderRootProvider = forwardRef<
   ComponentRef<typeof AngleSliderPrimitive.RootProvider>,
   ComponentProps<typeof AngleSliderPrimitive.RootProvider>
->(function AngleSliderRootProvider({ asChild, children, className, value, ...props }, ref) {
+>(function AngleSliderRootProvider({ className, value, ...props }, ref) {
   return (
     <AngleSliderPrimitive.RootProvider
       ref={ref}
       data-slot="angle-slider-root-provider"
       className={clsx(styles.root, className)}
-      asChild={asChild}
       value={value}
       {...props}
-    >
-      {children}
-    </AngleSliderPrimitive.RootProvider>
+    />
   );
 });
 

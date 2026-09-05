@@ -14,34 +14,28 @@ import styles from './DateInput.module.css';
 const DateInputRoot = forwardRef<
   ComponentRef<typeof DateInputPrimitive.Root>,
   ComponentProps<typeof DateInputPrimitive.Root>
->(function DateInputRoot({ asChild, children, className, ...props }, ref) {
+>(function DateInputRoot({ className, ...props }, ref) {
   return (
     <DateInputPrimitive.Root
       ref={ref}
       data-slot="date-input-root"
       className={clsx(styles.root, className)}
-      asChild={asChild}
       {...props}
-    >
-      {children}
-    </DateInputPrimitive.Root>
+    />
   );
 });
 
 const DateInputRootProvider = forwardRef<
   ComponentRef<typeof DateInputPrimitive.RootProvider>,
   ComponentProps<typeof DateInputPrimitive.RootProvider>
->(function DateInputRootProvider({ asChild, children, className, ...props }, ref) {
+>(function DateInputRootProvider({ className, ...props }, ref) {
   return (
     <DateInputPrimitive.RootProvider
       ref={ref}
       data-slot="date-input-root-provider"
       className={clsx(styles.root, className)}
-      asChild={asChild}
       {...props}
-    >
-      {children}
-    </DateInputPrimitive.RootProvider>
+    />
   );
 });
 

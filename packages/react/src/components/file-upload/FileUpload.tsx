@@ -17,34 +17,28 @@ import styles from './FileUpload.module.css';
 const FileUploadRoot = forwardRef<
   ComponentRef<typeof FileUploadPrimitive.Root>,
   ComponentProps<typeof FileUploadPrimitive.Root>
->(function FileUploadRoot({ asChild, children, className, ...props }, ref) {
+>(function FileUploadRoot({ className, ...props }, ref) {
   return (
     <FileUploadPrimitive.Root
       ref={ref}
-      asChild={asChild}
       data-slot="file-upload-root"
       className={clsx(styles.root, className)}
       {...props}
-    >
-      {children}
-    </FileUploadPrimitive.Root>
+    />
   );
 });
 
 const FileUploadRootProvider = forwardRef<
   ComponentRef<typeof FileUploadPrimitive.RootProvider>,
   ComponentProps<typeof FileUploadPrimitive.RootProvider>
->(function FileUploadRootProvider({ asChild, children, className, ...props }, ref) {
+>(function FileUploadRootProvider({ className, ...props }, ref) {
   return (
     <FileUploadPrimitive.RootProvider
       ref={ref}
-      asChild={asChild}
       data-slot="file-upload-root-provider"
       className={clsx(styles.root, className)}
       {...props}
-    >
-      {children}
-    </FileUploadPrimitive.RootProvider>
+    />
   );
 });
 
@@ -245,15 +239,9 @@ function FileUploadItems() {
 
   return acceptedFiles.map((file) => (
     <FileUploadItem key={`${file.name}-${file.size}`} file={file}>
-      {isImageFile(file) ? (
-        <FileUploadItemPreview>
-          <FileUploadItemPreviewImage />
-        </FileUploadItemPreview>
-      ) : (
-        <FileUploadItemPreview>
-          <FileUploadItemPreviewIcon />
-        </FileUploadItemPreview>
-      )}
+      <FileUploadItemPreview>
+        {isImageFile(file) ? <FileUploadItemPreviewImage /> : <FileUploadItemPreviewIcon />}
+      </FileUploadItemPreview>
       <FileUploadItemName />
       <FileUploadItemMetadata file={file} />
       <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
@@ -282,33 +270,23 @@ const FileUploadClearTrigger = forwardRef<
     className,
   );
 
-  if (asChild) {
-    return (
-      <FileUploadPrimitive.ClearTrigger
-        ref={ref}
-        asChild
-        data-slot="file-upload-clear-trigger"
-        className={triggerClassName}
-        aria-label={clearLabel}
-        aria-labelledby={ariaLabelledBy}
-        {...props}
-      >
-        {children}
-      </FileUploadPrimitive.ClearTrigger>
-    );
-  }
-
   return (
     <FileUploadPrimitive.ClearTrigger
       ref={ref}
       asChild
       data-slot="file-upload-clear-trigger"
       className={triggerClassName}
+      aria-label={asChild ? clearLabel : undefined}
+      aria-labelledby={asChild ? ariaLabelledBy : undefined}
       {...props}
     >
-      <CloseButton.Root aria-label={clearLabel} aria-labelledby={ariaLabelledBy}>
-        {children ?? <CloseIcon />}
-      </CloseButton.Root>
+      {asChild ? (
+        children
+      ) : (
+        <CloseButton.Root aria-label={clearLabel} aria-labelledby={ariaLabelledBy}>
+          {children ?? <CloseIcon />}
+        </CloseButton.Root>
+      )}
     </FileUploadPrimitive.ClearTrigger>
   );
 });

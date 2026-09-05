@@ -109,17 +109,14 @@ const SliderRange = forwardRef<
 const SliderThumb = forwardRef<
   ComponentRef<typeof SliderPrimitive.Thumb>,
   ComponentProps<typeof SliderPrimitive.Thumb>
->(function SliderThumb({ asChild, children, className, ...props }, ref) {
+>(function SliderThumb({ className, ...props }, ref) {
   return (
     <SliderPrimitive.Thumb
       ref={ref}
-      asChild={asChild}
       data-slot="slider-thumb"
       className={clsx(styles.thumb, className)}
       {...props}
-    >
-      {children}
-    </SliderPrimitive.Thumb>
+    />
   );
 });
 

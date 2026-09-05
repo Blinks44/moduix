@@ -27,36 +27,30 @@ type RatingGroupItemIndicatorProps = ComponentProps<'span'>;
 const RatingGroupRoot = forwardRef<
   ComponentRef<typeof RatingGroupPrimitive.Root>,
   RatingGroupRootProps
->(function RatingGroupRoot({ asChild, children, className, size = 'md', ...props }, ref) {
+>(function RatingGroupRoot({ className, size = 'md', ...props }, ref) {
   return (
     <RatingGroupPrimitive.Root
       ref={ref}
-      asChild={asChild}
       data-slot="rating-group-root"
       data-size={size}
       className={clsx(styles.root, className)}
       {...props}
-    >
-      {children}
-    </RatingGroupPrimitive.Root>
+    />
   );
 });
 
 const RatingGroupRootProvider = forwardRef<
   ComponentRef<typeof RatingGroupPrimitive.RootProvider>,
   RatingGroupRootProviderProps
->(function RatingGroupRootProvider({ asChild, children, className, size = 'md', ...props }, ref) {
+>(function RatingGroupRootProvider({ className, size = 'md', ...props }, ref) {
   return (
     <RatingGroupPrimitive.RootProvider
       ref={ref}
-      asChild={asChild}
       data-slot="rating-group-root-provider"
       data-size={size}
       className={clsx(styles.root, className)}
       {...props}
-    >
-      {children}
-    </RatingGroupPrimitive.RootProvider>
+    />
   );
 });
 

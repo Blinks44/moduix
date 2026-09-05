@@ -135,35 +135,24 @@ const SignaturePadClearTrigger = forwardRef<
   const readOnly = useContext(SignaturePadReadOnlyContext);
   const triggerClassName = clsx(styles.clearTrigger, className);
 
-  if (asChild) {
-    return (
-      <SignaturePadPrimitive.ClearTrigger
-        ref={ref}
-        asChild
-        data-slot="signature-pad-clear-trigger"
-        className={triggerClassName}
-        aria-label={ariaLabel}
-        aria-labelledby={ariaLabelledBy}
-        {...props}
-        disabled={readOnly || props.disabled}
-      >
-        {children}
-      </SignaturePadPrimitive.ClearTrigger>
-    );
-  }
-
   return (
     <SignaturePadPrimitive.ClearTrigger
       ref={ref}
       asChild
       data-slot="signature-pad-clear-trigger"
       className={triggerClassName}
+      aria-label={asChild ? ariaLabel : undefined}
+      aria-labelledby={asChild ? ariaLabelledBy : undefined}
       {...props}
       disabled={readOnly || props.disabled}
     >
-      <CloseButton.Root aria-label={ariaLabel} aria-labelledby={ariaLabelledBy}>
-        {children ?? <RotateCcwIcon aria-hidden="true" />}
-      </CloseButton.Root>
+      {asChild ? (
+        children
+      ) : (
+        <CloseButton.Root aria-label={ariaLabel} aria-labelledby={ariaLabelledBy}>
+          {children ?? <RotateCcwIcon aria-hidden="true" />}
+        </CloseButton.Root>
+      )}
     </SignaturePadPrimitive.ClearTrigger>
   );
 });

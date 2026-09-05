@@ -20,18 +20,15 @@ type RootProviderProps = ComponentProps<typeof CheckboxPrimitive.RootProvider> &
 };
 
 const CheckboxRoot = forwardRef<ComponentRef<typeof CheckboxPrimitive.Root>, RootProps>(
-  function CheckboxRoot({ asChild, children, className, size = 'md', ...props }, ref) {
+  function CheckboxRoot({ className, size = 'md', ...props }, ref) {
     return (
       <CheckboxPrimitive.Root
         ref={ref}
-        asChild={asChild}
         data-slot="checkbox-root"
         data-size={size}
         className={clsx(styles.root, className)}
         {...props}
-      >
-        {children}
-      </CheckboxPrimitive.Root>
+      />
     );
   },
 );
@@ -39,18 +36,15 @@ const CheckboxRoot = forwardRef<ComponentRef<typeof CheckboxPrimitive.Root>, Roo
 const CheckboxRootProvider = forwardRef<
   ComponentRef<typeof CheckboxPrimitive.RootProvider>,
   RootProviderProps
->(function CheckboxRootProvider({ asChild, children, className, size = 'md', ...props }, ref) {
+>(function CheckboxRootProvider({ className, size = 'md', ...props }, ref) {
   return (
     <CheckboxPrimitive.RootProvider
       ref={ref}
-      asChild={asChild}
       data-slot="checkbox-root-provider"
       data-size={size}
       className={clsx(styles.root, className)}
       {...props}
-    >
-      {children}
-    </CheckboxPrimitive.RootProvider>
+    />
   );
 });
 

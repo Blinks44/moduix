@@ -54,22 +54,20 @@ const SegmentGroupRoot = forwardRef<
   },
   ref,
 ) {
-  const segmentGroup = useSegmentGroup(
-    omitUndefined({
-      defaultValue,
-      disabled,
-      form,
-      id,
-      ids,
-      invalid,
-      name,
-      onValueChange,
-      orientation,
-      readOnly,
-      required,
-      value,
-    }),
-  );
+  const segmentGroup = useSegmentGroup({
+    defaultValue,
+    disabled,
+    form,
+    id,
+    ids,
+    invalid,
+    name,
+    onValueChange,
+    orientation,
+    readOnly,
+    required,
+    value,
+  });
 
   return (
     <SegmentGroupPrimitive.RootProvider
@@ -113,17 +111,14 @@ const SegmentGroupLabel = forwardRef<
 const SegmentGroupItem = forwardRef<
   ComponentRef<typeof SegmentGroupPrimitive.Item>,
   ComponentProps<typeof SegmentGroupPrimitive.Item>
->(function SegmentGroupItem({ asChild, children, className, ...props }, ref) {
+>(function SegmentGroupItem({ className, ...props }, ref) {
   return (
     <SegmentGroupPrimitive.Item
       ref={ref}
-      asChild={asChild}
       data-slot="segment-group-item"
       className={clsx(styles.item, className)}
       {...props}
-    >
-      {children}
-    </SegmentGroupPrimitive.Item>
+    />
   );
 });
 

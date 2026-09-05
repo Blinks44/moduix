@@ -379,7 +379,8 @@
     }
   }
 
-  .itemText {
+  .itemText,
+  .itemTextLabel {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -428,12 +429,5 @@
     align-items: center;
     justify-content: center;
     color: var(--moduix-listbox-item-text-icon-color, currentColor);
-  }
-
-  .itemTextLabel {
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
   }
 }
