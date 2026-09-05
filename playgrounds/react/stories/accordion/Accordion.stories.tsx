@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { Accordion, useAccordion } from '@/components/accordion/Accordion';
 import { Slider } from '@/components/slider';
+import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import styles from './Accordion.stories.module.css';
 
 const meta = {
@@ -34,12 +35,20 @@ const faqItems = [
   },
 ];
 
-function FaqAccordionItems({ disabledValue }: { disabledValue?: string }) {
+function FaqAccordionItems({
+  disabledValue,
+  icon,
+  iconClassName,
+}: {
+  disabledValue?: string;
+  icon?: ReactNode;
+  iconClassName?: string;
+}) {
   return faqItems.map((item) => (
     <Accordion.Item key={item.value} value={item.value} disabled={item.value === disabledValue}>
       <Accordion.ItemTrigger>
         {item.title}
-        <Accordion.ItemIndicator />
+        <Accordion.ItemIndicator className={iconClassName}>{icon}</Accordion.ItemIndicator>
       </Accordion.ItemTrigger>
       <Accordion.ItemContent>
         <Accordion.ItemBody>{item.description}</Accordion.ItemBody>
@@ -206,6 +215,14 @@ export const ContentStress: Story = {
           </Accordion.ItemBody>
         </Accordion.ItemContent>
       </Accordion.Item>
+    </Accordion>
+  ),
+};
+
+export const CustomStyling: Story = {
+  render: () => (
+    <Accordion defaultValue={['what-is-ark-ui']} className={styles.demoRoot}>
+      <FaqAccordionItems icon={<ChevronDownIcon />} iconClassName={styles.customIcon} />
     </Accordion>
   ),
 };

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import { Skeleton } from '@/components/skeleton/Skeleton';
+import { Stack } from '@/components/stack/Stack';
 import styles from './Skeleton.stories.module.css';
 
 const meta = {
@@ -16,64 +17,58 @@ type Story = StoryObj<typeof meta>;
 
 export const Text: Story = {
   render: () => (
-    <div class={styles.stack}>
+    <Stack gap={10} class={styles.stack}>
       <Skeleton height={18} />
       <Skeleton width="86%" height={18} />
       <Skeleton width="64%" height={18} />
-    </div>
+    </Stack>
   ),
 };
 
 export const Card: Story = {
   render: () => (
-    <div class={styles.card}>
+    <Stack gap={16} class={styles.card}>
       <Skeleton height={148} borderRadius="var(--moduix-radius-lg)" />
-      <div class={styles.stack12}>
+      <Stack gap={12}>
         <Skeleton width="70%" height={20} />
         <Skeleton height={14} />
         <Skeleton width="82%" height={14} />
-      </div>
-    </div>
+      </Stack>
+    </Stack>
   ),
 };
 
 export const MediaObject: Story = {
   render: () => (
-    <div class={styles.mediaObject}>
+    <Stack direction="row" align="center" gap={12} class={styles.mediaObject}>
       <Skeleton boxSize={48} borderRadius="var(--moduix-radius-full)" />
-      <div class={styles.fill}>
-        <div class={styles.stack8}>
-          <Skeleton width="46%" height={16} />
-          <Skeleton height={14} />
-          <Skeleton width="72%" height={14} />
-        </div>
-      </div>
-    </div>
+      <Stack direction="column" gap={8} fill>
+        <Skeleton width="46%" height={16} />
+        <Skeleton height={14} />
+        <Skeleton width="72%" height={14} />
+      </Stack>
+    </Stack>
   ),
 };
 
 export const Composition: Story = {
   render: () => (
-    <div class={styles.layoutExample}>
-      <div class={styles.responsiveRow}>
+    <Stack gap={12} class={styles.layoutExample}>
+      <Stack direction={{ mobile: 'column', desktop: 'row' }} gap={12}>
         <Skeleton width={72} height={48} />
-        <div class={styles.fill}>
-          <div class={styles.stack8}>
-            <Skeleton width="62%" height={14} />
-            <Skeleton height={14} />
-          </div>
-        </div>
-      </div>
-      <div class={styles.responsiveRow}>
+        <Stack direction="column" gap={8} fill>
+          <Skeleton width="62%" height={14} />
+          <Skeleton height={14} />
+        </Stack>
+      </Stack>
+      <Stack direction={{ mobile: 'column', desktop: 'row' }} gap={12}>
         <Skeleton width={72} height={48} />
-        <div class={styles.fill}>
-          <div class={styles.stack8}>
-            <Skeleton width="48%" height={14} />
-            <Skeleton height={14} />
-          </div>
-        </div>
-      </div>
-    </div>
+        <Stack direction="column" gap={8} fill>
+          <Skeleton width="48%" height={14} />
+          <Skeleton height={14} />
+        </Stack>
+      </Stack>
+    </Stack>
   ),
 };
 
@@ -83,16 +78,16 @@ export const Static: Story = {
 
 export const Variants: Story = {
   render: () => (
-    <div class={styles.variants}>
+    <Stack gap={12} class={styles.stack}>
       <Skeleton height={18} variant="pulse" />
       <Skeleton height={18} variant="none" />
-    </div>
+    </Stack>
   ),
 };
 
 export const LoadedContent: Story = {
   render: () => (
-    <div class={styles.loadedContentStack}>
+    <Stack gap={12}>
       <Skeleton loading class={styles.loadedContent}>
         <strong>Loaded content</strong>
         <span>Placeholder state</span>
@@ -101,7 +96,7 @@ export const LoadedContent: Story = {
         <strong>Loaded content</strong>
         <span>Content state</span>
       </Skeleton>
-    </div>
+    </Stack>
   ),
 };
 
@@ -118,10 +113,10 @@ export const AsChild: Story = {
 
 export const CustomStyling: Story = {
   render: () => (
-    <div class={styles.customBlock}>
+    <Stack gap={10} class={styles.customBlock}>
       <Skeleton class={styles.customSkeleton} height={18} />
       <Skeleton class={styles.customSkeleton} width="78%" height={18} />
       <Skeleton class={styles.customSkeleton} width="52%" height={18} />
-    </div>
+    </Stack>
   ),
 };

@@ -349,6 +349,31 @@
       ]
     },
     {
+      "name": "chart",
+      "type": "registry:item",
+      "title": "Chart",
+      "description": "moduix Solid Chart component backed by TanStack Charts.",
+      "dependencies": ["@ark-ui/solid", "@tanstack/charts", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/chart/Chart.tsx",
+          "target": "@components/ui/chart/Chart.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/chart/Chart.module.css",
+          "target": "@components/ui/chart/Chart.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/chart/index.ts",
+          "target": "@components/ui/chart/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "checkbox",
       "type": "registry:item",
       "title": "Checkbox",
@@ -771,6 +796,31 @@
       ]
     },
     {
+      "name": "highlight",
+      "type": "registry:item",
+      "title": "Highlight",
+      "description": "moduix Solid Highlight component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/highlight/Highlight.tsx",
+          "target": "@components/ui/highlight/Highlight.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/highlight/Highlight.module.css",
+          "target": "@components/ui/highlight/Highlight.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/highlight/index.ts",
+          "target": "@components/ui/highlight/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "floating-panel",
       "type": "registry:item",
       "title": "FloatingPanel",
@@ -846,6 +896,31 @@
         {
           "path": "src/components/input/index.ts",
           "target": "@components/ui/input/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "json-tree-view",
+      "type": "registry:item",
+      "title": "JsonTreeView",
+      "description": "moduix Solid JsonTreeView component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
+      "files": [
+        {
+          "path": "src/components/json-tree-view/JsonTreeView.tsx",
+          "target": "@components/ui/json-tree-view/JsonTreeView.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/json-tree-view/JsonTreeView.module.css",
+          "target": "@components/ui/json-tree-view/JsonTreeView.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/json-tree-view/index.ts",
+          "target": "@components/ui/json-tree-view/index.ts",
           "type": "registry:component"
         }
       ]
@@ -2171,6 +2246,31 @@
         {
           "path": "src/components/marquee/index.ts",
           "target": "@components/ui/marquee/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "swap",
+      "type": "registry:item",
+      "title": "Swap",
+      "description": "moduix Solid Swap component.",
+      "dependencies": ["@ark-ui/solid", "clsx"],
+      "registryDependencies": ["@moduix-solid/foundation"],
+      "files": [
+        {
+          "path": "src/components/swap/Swap.tsx",
+          "target": "@components/ui/swap/Swap.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/swap/Swap.module.css",
+          "target": "@components/ui/swap/Swap.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/swap/index.ts",
+          "target": "@components/ui/swap/index.ts",
           "type": "registry:component"
         }
       ]

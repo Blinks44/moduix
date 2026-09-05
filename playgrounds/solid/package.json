@@ -9,6 +9,7 @@
   "devDependencies": {
     "@ark-ui/solid": "^5.39.1",
     "@internationalized/date": "^3.12.3",
+    "@tanstack/charts": "^0.16.0",
     "@types/node": "^24.13.3",
     "@zag-js/hotkeys": "1.43.3",
     "clsx": "^2.1.1",

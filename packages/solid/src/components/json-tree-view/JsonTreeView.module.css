@@ -1,0 +1,179 @@
+@layer moduix.components {
+  .root {
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    flex-direction: column;
+    color: var(--moduix-color-foreground);
+    font-family: var(--moduix-font-mono);
+    font-size: var(--moduix-text-xs);
+    line-height: var(--moduix-line-height-text-xs);
+
+    &[data-disabled] {
+      opacity: var(--moduix-opacity-disabled);
+    }
+  }
+
+  .tree {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: var(--moduix-spacing-1);
+  }
+
+  .root :where([data-scope='json-tree-view'][data-part='branch']) {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: var(--moduix-spacing-1);
+  }
+
+  .root
+    :where(
+      [data-scope='json-tree-view'][data-part='branch-control'],
+      [data-scope='json-tree-view'][data-part='item']
+    ) {
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    min-height: calc(var(--moduix-line-height-text-xs) + (var(--moduix-spacing-0-5) * 2));
+    align-items: center;
+    gap: var(--moduix-spacing-0-5);
+    border: 0;
+    border-radius: var(--moduix-radius-xs);
+    padding-block: var(--moduix-spacing-0-5);
+    padding-inline-end: var(--moduix-spacing-1);
+    padding-inline-start: calc(var(--moduix-spacing-1) + ((var(--depth, 1) - 1) * 1rem));
+    background-color: transparent;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    outline: var(--moduix-border-width-sm) solid transparent;
+    outline-offset: calc(var(--moduix-border-width-sm) * -1);
+    text-align: start;
+    transition:
+      background-color var(--moduix-transition-default),
+      outline-color var(--moduix-transition-default);
+    user-select: none;
+
+    &:not([data-disabled]):hover,
+    &[data-selected] {
+      background-color: color-mix(
+        in oklab,
+        var(--moduix-color-accent) 72%,
+        var(--moduix-color-background)
+      );
+    }
+
+    &:focus-visible,
+    &[data-focus] {
+      outline-color: var(--moduix-color-ring);
+    }
+
+    &[data-disabled] {
+      color: var(--moduix-color-muted-foreground);
+      cursor: default;
+    }
+  }
+
+  .root :where([data-scope='json-tree-view'][data-part='branch-indicator']) {
+    display: inline-flex;
+    width: var(--moduix-spacing-3);
+    height: var(--moduix-spacing-3);
+    flex: 0 0 var(--moduix-spacing-3);
+    align-items: center;
+    justify-content: center;
+    color: color-mix(
+      in oklab,
+      var(--moduix-color-muted-foreground) 42%,
+      var(--moduix-color-foreground)
+    );
+    transition: transform var(--moduix-transition-default);
+
+    &[data-state='open'] {
+      transform: rotate(90deg);
+    }
+
+    & svg {
+      width: var(--moduix-spacing-3);
+      height: var(--moduix-spacing-3);
+    }
+  }
+
+  .root
+    :where(
+      [data-scope='json-tree-view'][data-part='branch-text'],
+      [data-scope='json-tree-view'][data-part='item-text']
+    ) {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .root :where([data-scope='json-tree-view'][data-part='branch-content']) {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: var(--moduix-spacing-1);
+    overflow: hidden;
+  }
+
+  .root :where([data-kind='key']) {
+    color: color-mix(in oklab, var(--moduix-color-chart-1) 72%, var(--moduix-color-foreground));
+    font-weight: var(--moduix-weight-medium);
+  }
+
+  .root :where([data-kind='colon'], [data-kind='brace'], [data-kind='preview-text']) {
+    color: var(--moduix-color-muted-foreground);
+  }
+
+  .root :where([data-kind='brace']) {
+    font-weight: var(--moduix-weight-medium);
+  }
+
+  .root :where([data-kind='preview'][data-type='string']) {
+    color: color-mix(in oklab, var(--moduix-color-success) 78%, var(--moduix-color-foreground));
+  }
+
+  .root
+    :where([data-kind='preview'][data-type='number'], [data-kind='preview'][data-type='bigint']) {
+    color: color-mix(in oklab, var(--moduix-color-chart-3) 78%, var(--moduix-color-foreground));
+  }
+
+  .root :where([data-kind='preview'][data-type='boolean']) {
+    color: color-mix(in oklab, var(--moduix-color-chart-4) 74%, var(--moduix-color-foreground));
+    font-weight: var(--moduix-weight-medium);
+  }
+
+  .root
+    :where([data-kind='preview'][data-type='null'], [data-kind='preview'][data-type='undefined']) {
+    color: var(--moduix-color-muted-foreground);
+    font-style: italic;
+    font-weight: var(--moduix-weight-medium);
+  }
+
+  .root
+    :where(
+      [data-kind='preview'][data-type='error'],
+      [data-kind='error-stack'],
+      [data-kind='operator']
+    ) {
+    color: var(--moduix-color-destructive);
+  }
+
+  .root
+    :where(
+      [data-kind='preview'][data-type='function'],
+      [data-kind='function-type'],
+      [data-kind='function-body']
+    ) {
+    color: color-mix(in oklab, var(--moduix-color-chart-5) 72%, var(--moduix-color-foreground));
+    font-style: italic;
+  }
+
+  .root :where([data-kind='constructor']) {
+    color: var(--moduix-color-muted-foreground);
+    font-weight: var(--moduix-weight-medium);
+  }
+}

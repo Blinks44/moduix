@@ -1,68 +1,23 @@
 @layer moduix.storybook {
   .stack {
-    display: flex;
     width: 20rem;
-    flex-direction: column;
-    gap: var(--moduix-spacing-2-5);
-  }
-
-  .stack8,
-  .stack12,
-  .card,
-  .loadedContentStack,
-  .customBlock {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .stack8 {
-    gap: var(--moduix-spacing-2);
-  }
-
-  .stack12 {
-    gap: var(--moduix-spacing-3);
-  }
-
-  .variants {
-    display: flex;
-    width: 20rem;
-    flex-direction: column;
-    gap: var(--moduix-spacing-3);
   }
 
   .card {
     width: 20rem;
-    gap: var(--moduix-spacing-4);
   }
 
   .mediaObject {
-    display: flex;
     width: 24rem;
-    align-items: center;
-    gap: var(--moduix-spacing-3);
   }
 
   .layoutExample {
-    display: flex;
     width: 24rem;
-    flex-direction: column;
-    gap: var(--moduix-spacing-3);
     padding-block: var(--moduix-spacing-1);
-  }
-
-  .responsiveRow {
-    display: flex;
-    flex-direction: column;
-    gap: var(--moduix-spacing-3);
-  }
-
-  .fill {
-    flex: 1 1 0;
   }
 
   .customBlock {
     width: 20rem;
-    gap: var(--moduix-spacing-2-5);
     --moduix-skeleton-bg: var(--moduix-color-primary);
     --moduix-skeleton-border-radius: var(--moduix-radius-full);
     --moduix-skeleton-animation: none;
@@ -70,10 +25,6 @@
 
   .customSkeleton {
     opacity: 0.28;
-  }
-
-  .loadedContentStack {
-    gap: var(--moduix-spacing-3);
   }
 
   .loadedContent {
@@ -93,11 +44,5 @@
 
   .asChild {
     width: 20rem;
-  }
-
-  @media (min-width: 640px) {
-    .responsiveRow {
-      flex-direction: row;
-    }
   }
 }

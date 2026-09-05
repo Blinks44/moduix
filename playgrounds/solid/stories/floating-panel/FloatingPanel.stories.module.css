@@ -1,4 +1,4 @@
-@layer moduix.storybook {
+@layer moduix.stories {
   .stack {
     display: flex;
     flex-direction: column;

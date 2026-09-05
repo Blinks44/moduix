@@ -10,4 +10,8 @@
     font-size: var(--moduix-text-sm);
     line-height: var(--moduix-line-height-text-sm);
   }
+
+  .customIcon {
+    --moduix-accordion-icon-open-transform: rotate(180deg);
+  }
 }

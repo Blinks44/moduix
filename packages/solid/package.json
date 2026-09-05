@@ -55,6 +55,10 @@
       "types": "./dist/components/card/index.d.ts",
       "import": "./dist/components/card/index.js"
     },
+    "./chart": {
+      "types": "./dist/components/chart/index.d.ts",
+      "import": "./dist/components/chart/index.js"
+    },
     "./carousel": {
       "types": "./dist/components/carousel/index.d.ts",
       "import": "./dist/components/carousel/index.js"
@@ -131,6 +135,10 @@
       "types": "./dist/components/heading/index.d.ts",
       "import": "./dist/components/heading/index.js"
     },
+    "./highlight": {
+      "types": "./dist/components/highlight/index.d.ts",
+      "import": "./dist/components/highlight/index.js"
+    },
     "./hover-card": {
       "types": "./dist/components/hover-card/index.d.ts",
       "import": "./dist/components/hover-card/index.js"
@@ -154,6 +162,10 @@
     "./input-group": {
       "types": "./dist/components/input-group/index.d.ts",
       "import": "./dist/components/input-group/index.js"
+    },
+    "./json-tree-view": {
+      "types": "./dist/components/json-tree-view/index.d.ts",
+      "import": "./dist/components/json-tree-view/index.js"
     },
     "./kbd": {
       "types": "./dist/components/kbd/index.d.ts",
@@ -287,6 +299,10 @@
       "types": "./dist/components/steps/index.d.ts",
       "import": "./dist/components/steps/index.js"
     },
+    "./swap": {
+      "types": "./dist/components/swap/index.d.ts",
+      "import": "./dist/components/swap/index.js"
+    },
     "./table": {
       "types": "./dist/components/table/index.d.ts",
       "import": "./dist/components/table/index.js"
@@ -383,6 +399,7 @@
     "@rstest/adapter-rslib": "^0.11.10",
     "@rstest/core": "^0.11.10",
     "@solidjs/testing-library": "^0.8.10",
+    "@tanstack/charts": "^0.16.0",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.10.0",
     "@testing-library/user-event": "^14.6.6",
@@ -393,6 +410,12 @@
   },
   "peerDependencies": {
     "@ark-ui/solid": "^5.37.2",
+    "@tanstack/charts": "^0.16.0",
     "solid-js": "^1.9.0"
+  },
+  "peerDependenciesMeta": {
+    "@tanstack/charts": {
+      "optional": true
+    }
   }
 }

@@ -44,13 +44,6 @@ const meta = {
   args: {
     defaultValue: ['left'],
     'aria-label': 'Text alignment',
-    children: (
-      <>
-        <ToggleGroup.Item value="left">Left</ToggleGroup.Item>
-        <ToggleGroup.Item value="center">Center</ToggleGroup.Item>
-        <ToggleGroup.Item value="right">Right</ToggleGroup.Item>
-      </>
-    ),
   },
 } satisfies Meta<typeof ToggleGroup>;
 
@@ -58,7 +51,15 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  render: (args) => (
+    <ToggleGroup {...args}>
+      <ToggleGroup.Item value="left">Left</ToggleGroup.Item>
+      <ToggleGroup.Item value="center">Center</ToggleGroup.Item>
+      <ToggleGroup.Item value="right">Right</ToggleGroup.Item>
+    </ToggleGroup>
+  ),
+};
 
 export const Multiple: Story = {
   render: () => (

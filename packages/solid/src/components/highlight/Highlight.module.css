@@ -1,0 +1,18 @@
+@layer moduix.components {
+  .root {
+    padding-block: var(--moduix-highlight-padding-y, 0.0625rem);
+    padding-inline: var(--moduix-highlight-padding-x, var(--moduix-spacing-1));
+    border-radius: var(--moduix-highlight-radius, var(--moduix-radius-xs));
+    background-color: var(
+      --moduix-highlight-bg,
+      color-mix(in oklab, var(--moduix-color-warning) 40%, var(--moduix-color-accent))
+    );
+    color: var(--moduix-highlight-color, var(--moduix-color-foreground));
+    box-shadow: var(--moduix-highlight-shadow, none);
+    font: inherit;
+    font-weight: var(--moduix-highlight-font-weight, var(--moduix-weight-medium));
+    text-decoration: none;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+}
