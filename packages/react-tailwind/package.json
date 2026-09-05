@@ -1,0 +1,91 @@
+{
+  "name": "@moduix/react-tailwind",
+  "version": "0.1.0",
+  "description": "Tailwind CSS implementation of the moduix React component system, built on Ark UI primitives.",
+  "keywords": [
+    "accessible",
+    "ark-ui",
+    "component-library",
+    "react",
+    "tailwindcss",
+    "typescript",
+    "ui"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Blinks44/moduix.git",
+    "directory": "packages/react-tailwind"
+  },
+  "files": [
+    "dist/components",
+    "dist/internal",
+    "dist/presets",
+    "dist/styles/animations.css",
+    "dist/styles/borders.css",
+    "dist/styles/colors.css",
+    "dist/styles/opacity.css",
+    "dist/styles/radius.css",
+    "dist/styles/shadows.css",
+    "dist/styles/sizing.css",
+    "dist/styles/spacing.css",
+    "dist/styles/style.css",
+    "dist/styles/transforms.css",
+    "dist/styles/transitions.css",
+    "dist/styles/typography.css",
+    "dist/styles/z-index.css",
+    "LICENSE.md"
+  ],
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    "./accordion": {
+      "types": "./dist/components/accordion/index.d.ts",
+      "import": "./dist/components/accordion/index.js"
+    },
+    "./style.css": "./dist/styles/style.css",
+    "./presets/*": "./dist/presets/*",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "rslib",
+    "dev": "rslib --watch --no-clean",
+    "test": "rstest run",
+    "test:watch": "rstest --watch",
+    "tsc:check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.6.0"
+  },
+  "devDependencies": {
+    "@ark-ui/react": "^5.39.1",
+    "@rsbuild/core": "^2.2.3",
+    "@rsbuild/plugin-react": "^2.1.0",
+    "@rslib/core": "^1.0.0",
+    "@rstest/adapter-rslib": "^0.11.12",
+    "@rstest/core": "^0.11.12",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@types/node": "^26.4.1",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "happy-dom": "^20.14.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "tailwindcss": "^4.3.3",
+    "typescript": "~7.0.2"
+  },
+  "peerDependencies": {
+    "@ark-ui/react": "^5.37.2",
+    "react": "^18 || ^19",
+    "react-dom": "^18 || ^19",
+    "tailwindcss": "^4"
+  }
+}

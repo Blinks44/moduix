@@ -3,6 +3,10 @@
   "ignorePatterns": ["**/*.gen.ts", "wrangler.jsonc", "package-lock.json", "website/docs/**/*.mdx"],
   "singleQuote": true,
   "semi": true,
+  "sortTailwindcss": {
+    "functions": ["cn"],
+    "stylesheet": "./playgrounds/react-tailwind/.storybook/styles.css"
+  },
   "sortImports": {
     "internalPattern": ["@/", "components/", "data/", "icons/", "lib/"],
     "newlinesBetween": false,

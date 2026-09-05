@@ -1,4 +1,4 @@
-@layer moduix.reset, moduix.tokens, moduix.base, moduix.components;
+@layer theme, base, moduix.reset, moduix.tokens, moduix.base, components, moduix.components, utilities;
 
 @import './animations.css' layer(moduix.tokens);
 @import './borders.css' layer(moduix.tokens);

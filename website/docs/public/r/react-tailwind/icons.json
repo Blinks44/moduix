@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icons",
+  "title": "moduix icons",
+  "description": "Internal icons used by moduix React Tailwind components.",
+  "files": [
+    {
+      "path": "src/internal/icons/ui/index.ts",
+      "content": "export { ChevronDownIcon, PlusIcon } from './Icons.js';",
+      "type": "registry:lib",
+      "target": "@lib/moduix/icons/ui/index.ts"
+    },
+    {
+      "path": "src/internal/icons/ui/Icons.tsx",
+      "content": "import type { ComponentProps } from 'react';\n\ntype IconProps = ComponentProps<'svg'>;\n\nexport function ChevronDownIcon(props: IconProps) {\n  return (\n    <svg\n      xmlns=\"http://www.w3.org/2000/svg\"\n      width=\"24\"\n      height=\"24\"\n      viewBox=\"0 0 24 24\"\n      fill=\"none\"\n      stroke=\"currentColor\"\n      strokeWidth=\"3\"\n      strokeLinecap=\"round\"\n      strokeLinejoin=\"round\"\n      aria-hidden=\"true\"\n      focusable=\"false\"\n      {...props}\n    >\n      <path d=\"m6 9 6 6 6-6\" />\n    </svg>\n  );\n}\n\nexport function PlusIcon(props: IconProps) {\n  return (\n    <svg\n      xmlns=\"http://www.w3.org/2000/svg\"\n      width=\"24\"\n      height=\"24\"\n      viewBox=\"0 0 24 24\"\n      fill=\"none\"\n      stroke=\"currentColor\"\n      strokeWidth=\"3\"\n      strokeLinecap=\"round\"\n      strokeLinejoin=\"round\"\n      aria-hidden=\"true\"\n      focusable=\"false\"\n      {...props}\n    >\n      <path d=\"M5 12h14\" />\n      <path d=\"M12 5v14\" />\n    </svg>\n  );\n}",
+      "type": "registry:lib",
+      "target": "@lib/moduix/icons/ui/Icons.tsx"
+    }
+  ],
+  "type": "registry:item"
+}
