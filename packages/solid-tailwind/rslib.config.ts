@@ -11,10 +11,49 @@ export default defineConfig({
   },
   lib: [
     {
+      id: 'compiled',
       bundle: false,
       dts: { bundle: false },
       format: 'esm',
+      plugins: [
+        pluginBabel({
+          include: /\.(?:jsx|tsx)$/,
+        }),
+        pluginSolid(),
+      ],
       syntax: 'es2023',
+    },
+    {
+      id: 'solid',
+      bundle: false,
+      format: 'esm',
+      output: {
+        filename: {
+          js: '[name].jsx',
+        },
+      },
+      syntax: 'es2023',
+      tools: {
+        swc: {
+          detectSyntax: 'auto',
+          jsc: {
+            transform: {
+              react: {
+                runtime: 'preserve',
+              },
+            },
+          },
+        },
+        rspack: {
+          module: {
+            parser: {
+              javascript: {
+                jsx: true,
+              },
+            },
+          },
+        },
+      },
     },
   ],
   output: {
@@ -30,10 +69,4 @@ export default defineConfig({
     ],
     target: 'web',
   },
-  plugins: [
-    pluginBabel({
-      include: /\.(?:jsx|tsx)$/,
-    }),
-    pluginSolid(),
-  ],
 });

@@ -3,7 +3,6 @@
   "name": "core",
   "title": "moduix core",
   "description": "Runtime styles and utilities required by moduix registry components.",
-  "dependencies": ["clsx"],
   "files": [
     {
       "path": "src/styles/animations.css",

@@ -41,8 +41,8 @@ jobs:
       - name: Check lint
         run: pnpm run lint:check
 
-      - name: Build React
-        run: pnpm run build:react
+      - name: Build public packages
+        run: pnpm run build:packages
 
       - name: Run tests
         run: pnpm run test
@@ -59,5 +59,5 @@ jobs:
       - name: Check generated registry
         run: git diff --exit-code -- website/docs/public/r
 
-      - name: Check package contract
-        run: pnpm run check:package
+      - name: Check public package contracts
+        run: pnpm run check:packages

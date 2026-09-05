@@ -8,7 +8,6 @@
       "type": "registry:item",
       "title": "moduix core",
       "description": "Runtime styles and utilities required by moduix registry components.",
-      "dependencies": ["clsx"],
       "docs": "Required: import the installed style.css once in your app entry. The optional reset is a separate registry item and must be imported before style.css.",
       "files": [
         {

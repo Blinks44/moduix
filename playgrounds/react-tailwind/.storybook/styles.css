@@ -4,5 +4,5 @@
 @import '../../../packages/foundation/src/presets/dense.css';
 @import '../../../packages/foundation/src/presets/soft.css';
 
-@source '../../../packages/react-tailwind/src';
+@source '../../../packages/react-tailwind/src/components';
 @source '../stories';

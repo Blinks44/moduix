@@ -43,7 +43,9 @@
   "exports": {
     "./accordion": {
       "types": "./dist/components/accordion/index.d.ts",
-      "import": "./dist/components/accordion/index.js"
+      "solid": "./dist/components/accordion/index.jsx",
+      "import": "./dist/components/accordion/index.js",
+      "default": "./dist/components/accordion/index.js"
     },
     "./style.css": "./dist/styles/style.css",
     "./presets/*": "./dist/presets/*",

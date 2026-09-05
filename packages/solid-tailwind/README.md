@@ -17,12 +17,12 @@ Import the moduix stylesheet before Tailwind. Register the package as an explici
 @import 'tailwindcss';
 
 /* Resolve this path relative to this stylesheet. */
-@source '../node_modules/@moduix/solid-tailwind';
+@source '../node_modules/@moduix/solid-tailwind/dist/components';
 ```
 
 Keep `style.css` before the Tailwind import. It provides the foundation tokens and shared keyframes, and establishes the cascade-layer order so Tailwind utilities, including consumer overrides, are applied after the moduix token and component layers. Tailwind Preflight is the reset for this package; do not add the `@moduix/solid` reset alongside it.
 
-In a monorepo, point `@source` at the installed package or at `packages/solid-tailwind/src` when consuming workspace source directly.
+In a monorepo, point `@source` at the installed package or at `packages/solid-tailwind/src/components` when consuming workspace source directly.
 
 ## Use Accordion
 
