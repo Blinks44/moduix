@@ -194,6 +194,33 @@ export const AsChild: Story = {
   ),
 };
 
+export const NativeForm: Story = {
+  render: () => {
+    const [submitted, setSubmitted] = createSignal('Nothing submitted');
+    return (
+      <form
+        class={styles.stack}
+        onSubmit={(event) => {
+          event.preventDefault();
+          setSubmitted(JSON.stringify(Array.from(new FormData(event.currentTarget).entries())));
+        }}
+        onReset={() => setSubmitted('Nothing submitted')}
+      >
+        <Switch name="notifications" defaultChecked>
+          <Switch.Control />
+          <Switch.Label>Notifications</Switch.Label>
+          <Switch.HiddenInput />
+        </Switch>
+        <Button type="submit">Submit</Button>
+        <Button type="reset" variant="outline">
+          Reset
+        </Button>
+        <output>{submitted()}</output>
+      </form>
+    );
+  },
+};
+
 export const FormIntegration: Story = {
   render: () => (
     <Field invalid class={styles.formField}>

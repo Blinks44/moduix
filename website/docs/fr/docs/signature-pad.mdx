@@ -65,6 +65,7 @@ SignaturePad.RootProvider
 | Partie                                  | Rôle                                                                                     |
 | --------------------------------------- | ---------------------------------------------------------------------------------------- |
 | `SignaturePad` / `SignaturePad.Root`    | Gère les tracés, les options de dessin, le nom du champ, les identifiants et les fonctions de rappel. |
+| `SignaturePad.HiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
 | `SignaturePad.RootProvider`             | Rend le même arbre de parties à partir de l’état créé avec `useSignaturePad()`.          |
 | `SignaturePad.Label`                    | Associe le libellé visible à la zone de dessin et au champ natif masqué.                 |
 | `SignaturePad.Canvas`                   | Surface prête à l’emploi qui rend les parties standard et transmet les propriétés et le `ref` de `Control`. |
@@ -74,6 +75,16 @@ SignaturePad.RootProvider
 | `SignaturePad.Guide`                    | Ligne repère non interactive dans la zone de dessin.                                    |
 
 ## Composition
+
+### Champ de formulaire natif
+
+`SignaturePad.HiddenInput` est le champ natif d’Ark, exporté directement. Ajoutez-le explicitement dans
+`SignaturePad` ou `SignaturePad.RootProvider` : la racine ne le crée pas automatiquement.
+Définissez `name` sur la racine pour inclure la valeur dans la soumission native du formulaire.
+
+Transmettez une `value` sérialisée à `SignaturePad.HiddenInput`. Récupérez les `paths` actuels avec
+`SignaturePad.Context` ou `useSignaturePadContext` et sérialisez-les dans votre application.
+Pour un formulaire extérieur à l’arbre du composant, définissez `form` directement sur `HiddenInput`.
 
 ### Composition recommandée
 

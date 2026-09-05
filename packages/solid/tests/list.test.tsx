@@ -1,6 +1,22 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
+import { createSignal } from 'solid-js';
 import { List } from '../src';
+
+test('updates the semantic host when as changes', () => {
+  const [ordered, setOrdered] = createSignal(false);
+  render(() => (
+    <List {...(ordered() ? { as: 'ol' as const, start: 3 } : { as: 'ul' as const })}>Tasks</List>
+  ));
+
+  expect(screen.getByRole('list').tagName).toBe('UL');
+  setOrdered(true);
+  expect(screen.getByRole('list').tagName).toBe('OL');
+  expect(screen.getByRole('list')).toHaveAttribute('start', '3');
+  expect(screen.getByRole('list')).toHaveTextContent('Tasks');
+  setOrdered(false);
+  expect(screen.getByRole('list').tagName).toBe('UL');
+});
 
 test('renders semantic unordered-list defaults and forwards the item ref', () => {
   let ref!: HTMLLIElement;

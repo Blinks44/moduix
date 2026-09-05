@@ -81,6 +81,7 @@ RadioGroup.Option
 | Part                           | Role                                                        |
 | ------------------------------ | ----------------------------------------------------------- |
 | `RadioGroup` / `.Root`         | Owns value state, keyboard navigation, orientation, and forms. |
+| `RadioGroup.ItemHiddenInput` | Native Ark form control; compose explicitly as described below. |
 | `RadioGroup.RootProvider`      | Connects parts to state created with `useRadioGroup()`.    |
 | `RadioGroup.Label`             | Accessible label for the group.                             |
 | `RadioGroup.Item`              | One selectable option; renders a `label` by default.        |
@@ -90,6 +91,14 @@ RadioGroup.Option
 | `RadioGroup.Indicator`         | Optional active-item indicator using Ark measurement vars.  |
 
 ## Composition
+
+### Native form control
+
+`RadioGroup.ItemHiddenInput` is exposed directly from Ark. Place one inside every explicit
+`RadioGroup.Item`; the item does not add it. Keep it for native keyboard interaction and form behavior.
+Set `name`, `required`, and `form` on the root, or in the hook options with `RootProvider`.
+
+`RadioGroup.Option` already includes `ItemHiddenInput` in its fixed composition; do not add a second input.
 
 ### Recommended composition
 
@@ -517,5 +526,5 @@ variables below.
   `data-active`, and `data-orientation`.
 - Ark indicator variables: `--transition-property`, `--left`, `--top`, `--width`, and `--height`.
 - moduix hooks: `data-slot="radio-group-root"`, `radio-group-root-provider`, `radio-group-label`,
-  `radio-group-item`, `radio-group-item-control`, `radio-group-item-text`, `radio-group-item-hidden-input`, and
+  `radio-group-item`, `radio-group-item-control`, `radio-group-item-text`, and
   `radio-group-indicator`.

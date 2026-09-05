@@ -177,7 +177,7 @@ export const CustomComposition: Story = {
   render: () => (
     <Collapsible class={styles.customRoot}>
       <Collapsible.Trigger
-        asChild={(props) => <button {...props()} class={styles.customTrigger} />}
+        asChild={(props) => <button {...props()} type="button" class={styles.customTrigger} />}
       >
         <span class={styles.triggerLabel}>Styled recovery keys</span>
         <Collapsible.Indicator class={styles.customIndicator}>

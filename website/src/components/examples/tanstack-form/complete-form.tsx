@@ -133,6 +133,7 @@ export default function ProjectForm() {
                       ))}
                     </Select.Content>
                   </Select.Positioner>
+                  <Select.HiddenSelect />
                 </Select>
                 <Field.ErrorText>{field.state.meta.errors.join(', ')}</Field.ErrorText>
               </Field>

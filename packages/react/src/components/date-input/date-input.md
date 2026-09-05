@@ -190,8 +190,7 @@ segment shortcuts, or local event aliases.
   the point of the example.
 - Keep callback details untouched: `onValueChange(details)` reports `details.value` and
   `details.valueAsString`.
-- Keep form field names semantic: use `name` for one shared base name and `names` only when range
-  values require distinct base names. Ark appends each date index.
+- Set `name` on each explicit `HiddenInput`. For ranges, Ark appends each date index.
 - Keep `@internationalized/date` examples in docs because Ark values are `DateValue` objects.
 
 ## Local changelog

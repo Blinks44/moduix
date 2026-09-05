@@ -156,6 +156,7 @@ describe('NavigationMenu', () => {
     expect(content).toBeInTheDocument();
     expect(content?.children).toHaveLength(2);
     expect(content?.firstElementChild).toBe(screen.getByTestId('content-heading'));
+    expect(content?.querySelector('[data-slot="navigation-menu-indicator"]')).toBeNull();
   });
 
   it('supports refs on regular parts and asChild composition', () => {

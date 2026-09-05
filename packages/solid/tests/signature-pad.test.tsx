@@ -139,6 +139,7 @@ test('preserves root asChild composition and RootProvider state', () => {
   ));
 
   expect(rootRef).toBeUndefined();
+  expect(container.querySelector('section')).toHaveAttribute('data-slot', 'signature-pad-root');
   expect(container.querySelector('section input[hidden]')).not.toBeNull();
   expect(
     container.querySelector('[data-slot="signature-pad-root-provider"] input[hidden]'),

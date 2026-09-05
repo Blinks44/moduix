@@ -78,6 +78,7 @@ export function SwitchDemo() {
     <Switch defaultChecked>
       <Switch.Control />
       <Switch.Label>Enable notifications</Switch.Label>
+      <Switch.HiddenInput />
     </Switch>
   );
 }
@@ -96,6 +97,7 @@ export function ControlledSwitchDemo() {
     <Switch checked={checked} onCheckedChange={(details) => setChecked(details.checked)}>
       <Switch.Control />
       <Switch.Label>{checked ? 'On' : 'Off'}</Switch.Label>
+      <Switch.HiddenInput />
     </Switch>
   );
 }
@@ -113,6 +115,7 @@ export function RootProviderSwitchDemo() {
     <Switch.RootProvider value={switchApi}>
       <Switch.Control />
       <Switch.Label>External state owner</Switch.Label>
+      <Switch.HiddenInput />
     </Switch.RootProvider>
   );
 }

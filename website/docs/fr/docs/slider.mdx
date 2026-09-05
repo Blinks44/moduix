@@ -41,8 +41,8 @@ Utilisez `Slider` lorsque l’utilisateur doit ajuster une valeur numérique dan
 
 ## Exemple de base
 
-`Slider.Thumbs` est le raccourci visuel recommandé. Pour participer à un formulaire natif, composez
-chaque `Slider.Thumb` explicitement et placez `Slider.HiddenInput` à l’intérieur.
+`Slider.Thumbs` crée une poignée avec un champ natif par valeur. Pour personnaliser le contenu,
+composez chaque `Slider.Thumb` explicitement et placez `Slider.HiddenInput` à l’intérieur.
 
 <ExampleFrame variant="component">
   <SliderBasic />
@@ -81,10 +81,9 @@ Slider / Slider.Root
 ├─ Slider.Control
 │  ├─ Slider.Track
 │  │  └─ Slider.Range
-│  └─ Slider.Thumbs
-│     └─ Slider.Thumb[index]
-│        ├─ Slider.DraggingIndicator
-│        └─ Slider.HiddenInput (explicite)
+│  └─ Slider.Thumb[index]
+│     ├─ Slider.DraggingIndicator
+│     └─ Slider.HiddenInput
 └─ Slider.MarkerGroup
    └─ Slider.Marker[value]
 ```
@@ -92,6 +91,7 @@ Slider / Slider.Root
 | Partie                                  | Rôle                                                                    |
 | --------------------------------------- | ----------------------------------------------------------------------- |
 | `Slider` / `Slider.Root`               | Racine Ark stylisée pour un état contrôlé ou non contrôlé.              |
+| `Slider.HiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
 | `Slider.RootProvider`                  | Racine connectée à un état `useSlider` créé à l’extérieur.             |
 | `Slider.Label`                         | Libellé visible du groupe.                                              |
 | `Slider.ValueText`                     | Texte de la valeur actuelle généré par Ark.                             |
@@ -105,10 +105,18 @@ Slider / Slider.Root
 
 ## Composition
 
+### Champ de formulaire natif
+
+`Slider.HiddenInput` est exporté directement depuis Ark. Avec des `Slider.Thumb` explicites,
+placez un champ dans chaque poignée : ni la racine ni `Thumb` ne l’ajoutent.
+`Slider.Thumbs` inclut déjà un champ par poignée dans sa composition fixe. Définissez `name`
+sur la racine pour la soumission et `form` pour un formulaire externe. Les plages sont envoyées
+sous forme d’entrées répétées `name[]`.
+
 ### Composition recommandée
 
 Utilisez l’arbre de parties Ark : racine, libellé, texte de valeur facultatif, zone de contrôle, piste, plage et
-`Slider.Thumbs`. Le composant génère une poignée visuelle par valeur. Utilisez des poignées explicites pour les champs masqués.
+`Slider.Thumbs`. Le composant génère une poignée avec un champ natif par valeur. Utilisez des poignées explicites pour une composition personnalisée.
 
 `Slider` est la forme abrégée de la racine, équivalente à `Slider.Root`.
 
@@ -724,7 +732,7 @@ Personnalisez l’apparence de `Slider` avec `className`, les attributs Ark, les
 
 Ark ajoute `data-scope="slider"` et `data-part` à toutes les parties affichées. moduix ajoute également les valeurs
 `data-slot` suivantes : `slider-root`, `slider-root-provider`, `slider-label`, `slider-value-text`, `slider-control`,
-`slider-track`, `slider-range`, `slider-thumb`, `slider-hidden-input`, `slider-marker-group`, `slider-marker` et
+`slider-track`, `slider-range`, `slider-thumb`, `slider-marker-group`, `slider-marker` et
 `slider-dragging-indicator`.
 
 Les principaux attributs d’état d’Ark sont `data-orientation`, `data-disabled`, `data-invalid`, `data-focus`,

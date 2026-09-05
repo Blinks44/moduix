@@ -32,6 +32,7 @@ export function LoginSimple({ onSubmit }: { onSubmit?: FormEventHandler<HTMLForm
           </Field>
 
           <Checkbox name="remember">
+            <Checkbox.HiddenInput />
             <Checkbox.Control />
             <Checkbox.Label>Remember me</Checkbox.Label>
           </Checkbox>

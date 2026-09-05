@@ -12,6 +12,7 @@ export default function DisabledReadOnlyDateInputDemo() {
         defaultValue={[new CalendarDate(2026, 6, 22)]}
       >
         <DateInput.Label>Disabled date</DateInput.Label>
+        <DateInput.HiddenInput name="disabled-date" />
         <DateInput.Control>
           <DateInput.Segments />
         </DateInput.Control>
@@ -24,6 +25,7 @@ export default function DisabledReadOnlyDateInputDemo() {
         defaultValue={[new CalendarDate(2026, 6, 22)]}
       >
         <DateInput.Label>Read-only date</DateInput.Label>
+        <DateInput.HiddenInput name="read-only-date" />
         <DateInput.Control>
           <DateInput.Segments />
         </DateInput.Control>

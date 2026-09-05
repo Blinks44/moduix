@@ -170,6 +170,7 @@ function HomeShowcase() {
                 className={styles.switchRow}
               >
                 <Switch.Control />
+                <Switch.HiddenInput />
                 <Switch.Label>{t('homeAutoReview')}</Switch.Label>
               </Switch>
               <ProgressLinear value={progressValue} className={styles.heroProgress}>

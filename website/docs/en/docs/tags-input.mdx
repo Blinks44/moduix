@@ -87,6 +87,7 @@ TagsInput / TagsInput.Root
 | Part                                   | Role                                                                 |
 | -------------------------------------- | -------------------------------------------------------------------- |
 | `TagsInput` / `TagsInput.Root`         | Root state, tag values, entry input, validation, and form integration. |
+| `TagsInput.HiddenInput` | Native Ark form control; compose explicitly as described below. |
 | `TagsInput.RootProvider`               | Renders the tags input from state returned by Ark `useTagsInput`.     |
 | `TagsInput.Label`                      | Accessible label for the tags input.                                 |
 | `TagsInput.Control`                    | Visible shell containing tags, the entry input, and the clear trigger. |
@@ -105,6 +106,14 @@ TagsInput / TagsInput.Root
 | `moduix useTagsInput` + `RootProvider` | External state ownership and imperative methods.                     |
 
 ## Composition
+
+### Native form control
+
+`TagsInput.HiddenInput` is Ark's native input, exposed directly. Render it explicitly inside
+`TagsInput` or `TagsInput.RootProvider`; the root does not add it. Set `name` on the root
+to include the value in native form submission.
+
+For a form outside the component tree, set `form` on the root.
 
 ### Recommended composition
 

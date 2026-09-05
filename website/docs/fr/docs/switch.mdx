@@ -72,6 +72,7 @@ Switch / Switch.Root
 | Partie                    | Rôle                                                                    |
 | ------------------------- | ----------------------------------------------------------------------- |
 | `Switch` / `Switch.Root`  | Élément `label` racine. Gère l’état, les ID, les props de formulaire et `size`. |
+| `Switch.HiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
 | `Switch.RootProvider`     | Élément racine piloté par l’état créé avec `useSwitch()`.               |
 | `Switch.Control`          | Piste visuelle et cible de l’anneau de focus. Ajoute un curseur par défaut. |
 | `Switch.Thumb`            | Curseur mobile pour l’apparence par défaut ou un contenu personnalisé.  |
@@ -81,6 +82,16 @@ Switch / Switch.Root
 sont exportés depuis `@moduix/react` avec le composant.
 
 ## Composition
+
+### Champ de formulaire natif
+
+`Switch.HiddenInput` est le champ natif d’Ark, exporté directement. Ajoutez-le explicitement dans
+`Switch` ou `Switch.RootProvider` : la racine ne le crée pas automatiquement.
+Définissez `name` sur la racine pour inclure la valeur dans la soumission native du formulaire.
+
+Conservez ce champ même hors des formulaires : il assure le focus natif, les interactions au clavier
+et l’accessibilité. Définissez `required`, `disabled` et `value` sur la racine.
+Pour un formulaire extérieur à l’arbre du composant, définissez `form` sur la racine.
 
 ### Composition recommandée
 

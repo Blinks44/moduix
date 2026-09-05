@@ -80,6 +80,7 @@ AngleSlider.Root
 | Partie                             | Rôle                                                                    |
 | ---------------------------------- | ----------------------------------------------------------------------- |
 | `AngleSlider` / `AngleSlider.Root` | Racine stylisée qui gère l’état contrôlé ou non contrôlé du curseur.    |
+| `AngleSlider.HiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
 | `AngleSlider.RootProvider`         | Relie les parties à l’état Ark créé en dehors de l’arborescence rendue.  |
 | `AngleSlider.Label`                | Associe une étiquette visible au curseur.                               |
 | `AngleSlider.Control`              | Fournit la zone circulaire d’interaction avec le pointeur.              |
@@ -94,6 +95,14 @@ Composez explicitement `AngleSlider.HiddenInput` dans `Root` ou `RootProvider` l
 doit participer à un formulaire natif.
 
 ## Composition
+
+### Champ de formulaire natif
+
+`AngleSlider.HiddenInput` est le champ natif d’Ark, exporté directement. Ajoutez-le explicitement dans
+`AngleSlider` ou `AngleSlider.RootProvider` : la racine ne le crée pas automatiquement.
+Définissez `name` sur la racine pour inclure la valeur dans la soumission native du formulaire.
+
+Pour un formulaire extérieur à l’arbre du composant, définissez `form` directement sur `HiddenInput`.
 
 ### Composition recommandée
 
@@ -207,7 +216,7 @@ interactions.
 ### Dans un formulaire
 
 Ajoutez `AngleSlider.HiddenInput` et `name` pour inclure l’angle dans les données envoyées. Le bouton
-Reset illustre la réinitialisation native d’Ark. Utilisez `form` lorsque le formulaire n’est pas un ancêtre du curseur.
+Reset illustre la réinitialisation native d’Ark. Définissez `form` sur `AngleSlider.HiddenInput` lorsque le formulaire n’est pas un ancêtre du curseur.
 
 <ExampleFrame variant="component">
   <AngleSliderForm />

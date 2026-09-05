@@ -91,6 +91,7 @@ FileUpload / FileUpload.Root
 | Part                             | Role                                                                   |
 | -------------------------------- | ---------------------------------------------------------------------- |
 | `FileUpload` / `FileUpload.Root` | Owns file state and handles validation, drag-and-drop, paste, and form integration. |
+| `FileUpload.HiddenInput` | Native Ark form control; compose explicitly as described below. |
 | `FileUpload.RootProvider`        | Connects the upload tree to state returned by the `useFileUpload` hook.              |
 | `FileUpload.Label`               | Accessible label for the hidden file input and upload controls.                     |
 | `FileUpload.Dropzone`            | Drag-and-drop target. Pass `disableClick` when it contains a nested trigger.        |
@@ -110,6 +111,15 @@ FileUpload / FileUpload.Root
 | `FileUpload.ClearTrigger`        | Clears selected files. Defaults to the moduix close icon.                           |
 
 ## Composition
+
+### Native form control
+
+`FileUpload.HiddenInput` is Ark's native input, exposed directly. Render it explicitly inside
+`FileUpload` or `FileUpload.RootProvider`; the root does not add it. Set `name` on the root
+to include the value in native form submission.
+
+Keep the input even outside forms: the trigger needs it to open the native file picker.
+For a form outside the component tree, set `form` directly on `HiddenInput`.
 
 ### Recommended composition
 

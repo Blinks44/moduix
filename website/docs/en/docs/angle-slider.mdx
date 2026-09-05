@@ -78,6 +78,7 @@ AngleSlider.Root
 | Part                               | Role                                                                  |
 | ---------------------------------- | --------------------------------------------------------------------- |
 | `AngleSlider` / `AngleSlider.Root` | Styled root that holds controlled or uncontrolled slider state.       |
+| `AngleSlider.HiddenInput` | Native Ark form control; compose explicitly as described below. |
 | `AngleSlider.RootProvider`         | Connects the parts to Ark state created outside the rendered tree.    |
 | `AngleSlider.Label`                | Associates a visible label with the slider.                           |
 | `AngleSlider.Control`              | Provides the circular pointer interaction area.                       |
@@ -92,6 +93,14 @@ Compose `AngleSlider.HiddenInput` explicitly inside `Root` or `RootProvider` whe
 participate in a native form.
 
 ## Composition
+
+### Native form control
+
+`AngleSlider.HiddenInput` is Ark's native input, exposed directly. Render it explicitly inside
+`AngleSlider` or `AngleSlider.RootProvider`; the root does not add it. Set `name` on the root
+to include the value in native form submission.
+
+For a form outside the component tree, set `form` directly on `HiddenInput`.
 
 ### Recommended composition
 
@@ -201,7 +210,7 @@ Use `disabled` when the control should be unavailable and excluded from focus an
 ### In a Form
 
 Add `AngleSlider.HiddenInput` and `name` to include the angle in native form submission. The Reset
-button demonstrates Ark's native form reset. Use `form` when the form is not an ancestor of the slider.
+button demonstrates Ark's native form reset. Set `form` on `AngleSlider.HiddenInput` when the form is not an ancestor of the slider.
 
 <ExampleFrame variant="component">
   <AngleSliderForm />

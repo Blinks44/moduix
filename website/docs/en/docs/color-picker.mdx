@@ -102,6 +102,7 @@ ColorPicker
 | Part                               | Role                                                                   |
 | ---------------------------------- | ---------------------------------------------------------------------- |
 | `ColorPicker`                      | Owns color value, format, popup state, and form integration.           |
+| `ColorPicker.HiddenInput` | Native Ark form control; compose explicitly as described below. |
 | `ColorPicker.Control`              | Groups visible inputs and trigger.                                     |
 | `ColorPicker.Trigger`              | Button that opens the popup and renders the current swatch by default. |
 | `ColorPicker.Content`              | Actual Ark popup content part.                                         |
@@ -116,6 +117,14 @@ ColorPicker
 normal advanced state path. Import Ark-only type helpers directly when needed as an escape hatch.
 
 ## Composition
+
+### Native form control
+
+`ColorPicker.HiddenInput` is Ark's native input, exposed directly. Render it explicitly inside
+`ColorPicker` or `ColorPicker.RootProvider`; the root does not add it. Set `name` on the root
+to include the value in native form submission.
+
+For a form outside the component tree, set `form` directly on `HiddenInput`.
 
 `ColorPicker.Positioner` renders through a portal by default. Set `portalled={false}` to render it
 in the current document structure, or pass `portalRef` to use a custom container. Structural parts

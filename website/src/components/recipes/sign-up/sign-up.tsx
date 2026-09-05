@@ -37,6 +37,7 @@ export function SignUp({ onSubmit }: { onSubmit?: FormEventHandler<HTMLFormEleme
           </Field>
 
           <Checkbox name="terms" required>
+            <Checkbox.HiddenInput />
             <Checkbox.Control />
             <Checkbox.Label>
               I agree to the{' '}

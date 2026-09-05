@@ -41,6 +41,7 @@ export function VerificationCode({ onSubmit }: { onSubmit?: FormEventHandler<HTM
               onValueChange={() => setInvalid(false)}
             >
               <PinInput.Label>Verification code</PinInput.Label>
+              <PinInput.HiddenInput />
               <PinInput.Control>
                 <PinInput.Inputs />
               </PinInput.Control>

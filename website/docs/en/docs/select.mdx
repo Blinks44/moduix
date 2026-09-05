@@ -88,6 +88,7 @@ Select / Select.Root
 | Part                     | Role                                                                   |
 | ------------------------ | ---------------------------------------------------------------------- |
 | `Select` / `Select.Root` | Root state, collection, selection, popup lifecycle, and form data.     |
+| `Select.HiddenSelect` | Native Ark form control; compose explicitly as described below. |
 | `Select.RootProvider`    | Renders a select tree from state returned by `Select.useSelect`.       |
 | `Select.Label`           | Accessible label inherited by the trigger and native form control.     |
 | `Select.Control`         | Visual field wrapper that receives focus, invalid, and open state.     |
@@ -109,6 +110,12 @@ Select / Select.Root
 | `Select.ItemIndicator`   | Selected-state indicator with the moduix default check icon.           |
 
 ## Composition
+
+### Native form control
+
+`Select.HiddenSelect` is Ark’s native select, exposed directly. Render it explicitly inside
+`Select` or `Select.RootProvider`; the root does not add it. Set `name` on the root for native
+submission, and `form` for an external form. The select also supports browser validation and reset.
 
 The root portals `Positioner` automatically. Use `portalled={false}` for inline rendering and
 `portalRef` for a custom container; `Positioner` and `Content` remain explicit and styleable.

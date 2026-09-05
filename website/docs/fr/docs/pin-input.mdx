@@ -73,6 +73,7 @@ PinInput / PinInput.Root
 | Partie                                  | Rôle                                                                                                  |
 | --------------------------------------- | ----------------------------------------------------------------------------------------------------- |
 | `PinInput` / `PinInput.Root`            | Machine à états racine, nombre de cases, tableau de valeurs, validation et options de formulaire.    |
+| `PinInput.HiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
 | `PinInput.RootProvider`                 | Rend l’arborescence à partir de l’état renvoyé par `usePinInput`.                                     |
 | `PinInput.Context`                      | Expose l’état racine aux descendants via une fonction de rendu.                                       |
 | `PinInput.Label`                        | Libellé du groupe de saisie du code PIN ou du code de vérification.                                   |
@@ -84,6 +85,14 @@ PinInput / PinInput.Root
 | `usePinInputContext`                    | Lit l’état actuel de Pin Input dans l’arborescence du composant.                                     |
 
 ## Composition
+
+### Champ de formulaire natif
+
+`PinInput.HiddenInput` est le champ natif d’Ark, exporté directement. Ajoutez-le explicitement dans
+`PinInput` ou `PinInput.RootProvider` : la racine ne le crée pas automatiquement.
+Définissez `name` sur la racine pour inclure la valeur dans la soumission native du formulaire.
+
+Pour un formulaire extérieur à l’arbre du composant, définissez `form` sur la racine.
 
 ### Composition recommandée
 

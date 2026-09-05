@@ -110,6 +110,7 @@ export default function ProjectForm() {
                       ))}
                     </Select.Content>
                   </Select.Positioner>
+                  <Select.HiddenSelect />
                 </Select>
                 <Field.ErrorText>{field.errors?.[0]}</Field.ErrorText>
               </Field>

@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "build:storybook": "storybook build",
     "storybook": "storybook dev -p 7007 --no-open",
     "tsc:check": "tsc -p tsconfig.json"
   },

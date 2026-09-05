@@ -69,6 +69,7 @@ RatingGroup.RootProvider
 | Partie                               | Rôle                                                                       |
 | ------------------------------------ | -------------------------------------------------------------------------- |
 | `RatingGroup` / `RatingGroup.Root`   | Gère l’état de la note, la navigation au clavier, le focus et l’intégration aux formulaires. |
+| `RatingGroup.HiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
 | `RatingGroup.RootProvider`           | Relie les parties à l’état créé avec `useRatingGroup()`.                              |
 | `RatingGroup.Context`                | Donne accès à l’état racine actuel via une render prop.                               |
 | `RatingGroup.ItemContext`            | Donne accès à l’état actuel de l’élément via une render prop.                         |
@@ -79,6 +80,14 @@ RatingGroup.RootProvider
 | `RatingGroup.ItemIndicator`          | Indicateur visuel moduix par défaut qui reflète l’état de l’élément.                  |
 
 ## Composition
+
+### Champ de formulaire natif
+
+`RatingGroup.HiddenInput` est le champ natif d’Ark, exporté directement. Ajoutez-le explicitement dans
+`RatingGroup` ou `RatingGroup.RootProvider` : la racine ne le crée pas automatiquement.
+Définissez `name` sur la racine pour inclure la valeur dans la soumission native du formulaire.
+
+Pour un formulaire extérieur à l’arbre du composant, définissez `form` sur la racine.
 
 ### Composition recommandée
 

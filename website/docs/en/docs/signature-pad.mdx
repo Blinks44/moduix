@@ -64,6 +64,7 @@ SignaturePad.RootProvider
 | Part                                 | Role                                                                    |
 | ------------------------------------ | ----------------------------------------------------------------------- |
 | `SignaturePad` / `SignaturePad.Root` | Owns paths, drawing options, form name, ids, and callbacks.              |
+| `SignaturePad.HiddenInput` | Native Ark form control; compose explicitly as described below. |
 | `SignaturePad.RootProvider`          | Renders the same part tree from state created with `useSignaturePad()`. |
 | `SignaturePad.Label`                 | Associates the visible label with the drawing area and hidden input.    |
 | `SignaturePad.Canvas`                | Ready-made drawing surface that renders the standard parts and forwards `Control` props and ref. |
@@ -73,6 +74,16 @@ SignaturePad.RootProvider
 | `SignaturePad.Guide`                 | Non-interactive baseline inside the drawing area.                       |
 
 ## Composition
+
+### Native form control
+
+`SignaturePad.HiddenInput` is Ark's native input, exposed directly. Render it explicitly inside
+`SignaturePad` or `SignaturePad.RootProvider`; the root does not add it. Set `name` on the root
+to include the value in native form submission.
+
+Pass a serialized `value` to `SignaturePad.HiddenInput`. Read the current `paths` with
+`SignaturePad.Context` or `useSignaturePadContext` and serialize them in your application.
+For a form outside the component tree, set `form` directly on `HiddenInput`.
 
 ### Recommended composition
 

@@ -80,6 +80,7 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 | Часть                                 | Назначение                                                               |
 | ------------------------------------ | ------------------------------------------------------------------------ |
 | `SegmentGroup` / `SegmentGroup.Root` | Управляет выбранным значением, навигацией с клавиатуры и формами.        |
+| `SegmentGroup.ItemHiddenInput` | Нативное поле Ark; правила явной композиции описаны ниже. |
 | `SegmentGroup.RootProvider`          | Подключает части к состоянию, созданному хуком `useSegmentGroup()` из moduix. |
 | `SegmentGroup.Context`               | Даёт расширенный доступ к состоянию корневого элемента через render prop. |
 | `SegmentGroup.ItemContext`           | Даёт расширенный доступ к состоянию текущего элемента через render prop. |
@@ -91,6 +92,15 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 | `SegmentGroup.ItemControl`           | Часть Ark для состояния элемента; по умолчанию скрыта стилями moduix.    |
 
 ## Композиция
+
+### Нативное поле формы
+
+`SegmentGroup.ItemHiddenInput` экспортируется напрямую из Ark. Вложите по одному полю в каждый
+явный `SegmentGroup.Item`: сам элемент его не добавляет. Поле нужно для нативной работы с клавиатурой
+и формами. Задайте `name`, `required` и `form` на корневом компоненте или в параметрах хука
+при использовании `RootProvider`.
+
+`SegmentGroup.Items` уже содержит `ItemHiddenInput` в каждом созданном элементе; второе поле добавлять не нужно.
 
 ### Рекомендуемый вариант
 
@@ -420,7 +430,7 @@ SegmentGroup.Context / SegmentGroup.ItemContext
   `data-focus-visible`.
 - Хуки moduix: `data-slot="segment-group-root"`, `segment-group-root-provider`,
   `segment-group-label`, `segment-group-indicator`, `segment-group-item`,
-  `segment-group-item-text`, `segment-group-item-control` и `segment-group-item-hidden-input`.
+  `segment-group-item-text`, `segment-group-item-control`.
 - Индикатор использует переменные времени выполнения Ark `--left`, `--top`, `--width` и `--height`
   для размера. Его анимация использует `--transition-duration` и `--transition-timing-function`,
   а значения moduix по умолчанию задаются через `--moduix-segment-group-indicator-transition-duration`

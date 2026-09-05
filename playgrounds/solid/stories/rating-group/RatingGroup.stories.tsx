@@ -66,6 +66,7 @@ export const Controlled: Story = {
     return (
       <div class={styles.stack}>
         <RatingGroup value={value()} onValueChange={(details) => setValue(details.value)}>
+          <RatingGroup.HiddenInput />
           <RatingGroup.Label>Support quality</RatingGroup.Label>
           <RatingItems />
         </RatingGroup>
@@ -116,6 +117,7 @@ export const WithField: Story = {
   render: () => (
     <Field class={styles.field}>
       <RatingGroup defaultValue={4} required>
+        <RatingGroup.HiddenInput />
         <RatingGroup.Label>Experience score</RatingGroup.Label>
         <RatingItems />
       </RatingGroup>

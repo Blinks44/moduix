@@ -1,5 +1,6 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen } from '@solidjs/testing-library';
+import { createSignal } from 'solid-js';
 import { Tag } from '../src';
 
 test('renders every part with stable hooks and native defaults', () => {
@@ -56,6 +57,29 @@ test('forwards refs through ordinary rendered parts', () => {
   expect(rootRef).toBe(screen.getByText('Production').parentElement);
   expect(labelRef).toBe(screen.getByText('Production'));
   expect(closeRef).toBe(screen.getByRole('button', { name: 'Remove tag' }));
+});
+
+test('applies the documented root defaults', () => {
+  render(() => <Tag data-testid="tag">TypeScript</Tag>);
+
+  expect(screen.getByTestId('tag')).toHaveAttribute('data-size', 'md');
+  expect(screen.getByTestId('tag')).toHaveAttribute('data-variant', 'default');
+});
+
+test('uses an accessible close button and prevents disabled activation', () => {
+  const [disabled, setDisabled] = createSignal(false);
+  let clickCount = 0;
+  render(() => <Tag.CloseTrigger aria-disabled={disabled()} onClick={() => clickCount++} />);
+
+  const close = screen.getByRole('button', { name: 'Remove tag' });
+  expect(close).toHaveAccessibleName('Remove tag');
+  fireEvent.click(close);
+  expect(clickCount).toBe(1);
+
+  setDisabled(true);
+  expect(close).toHaveAttribute('data-disabled');
+  expect(fireEvent.click(close)).toBe(false);
+  expect(clickCount).toBe(1);
 });
 
 test('preserves semantic root composition with native Ark Solid asChild', () => {

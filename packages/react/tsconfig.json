@@ -21,14 +21,5 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": [
-    "src",
-    ".storybook/**/*.ts",
-    ".storybook/**/*.tsx",
-    "rslib.config.ts",
-    "rstest.config.ts",
-    "rstest.setup.ts",
-    "stories",
-    "tests"
-  ]
+  "include": ["src", "rslib.config.ts", "rstest.config.ts", "rstest.setup.ts", "tests"]
 }

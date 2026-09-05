@@ -87,6 +87,7 @@ DateInput.RootProvider
 | Part                           | Role                                                               |
 | ------------------------------ | ------------------------------------------------------------------ |
 | `DateInput` / `DateInput.Root` | Owns date values, locale formatting, segment focus, and validation. |
+| `DateInput.HiddenInput` | Native Ark form control; compose explicitly as described below. |
 | `DateInput.RootProvider`       | Connects the parts to state created by `useDateInput()`.           |
 | `DateInput.Label`              | Accessible label for the date input.                               |
 | `DateInput.Control`            | Visual frame around one or more segment groups.                    |
@@ -98,6 +99,13 @@ DateInput.RootProvider
 | `DateInput.SegmentContext`     | Render helper for locale-aware segment rendering.                  |
 
 ## Composition
+
+### Native form control
+
+Render one `DateInput.HiddenInput` per date inside `DateInput` or `DateInput.RootProvider`.
+The root does not add inputs. Set `name` on each input; for ranges, use `index={0}` and `index={1}`.
+Ark appends the index to range names: `name="start"` with `index={0}` submits as `start[0]`.
+Values use Ark’s formatted date strings. Set `form` on the root for an external form.
 
 ### Recommended composition
 
@@ -121,7 +129,6 @@ description needs stable, shared IDs.
 | --------------------------------- | -------------- | ----------------------------------------------------- |
 | `DateInput` / `DateInput.Root`    | -              | No local behavioral defaults; Ark defaults apply.     |
 | `DateInput.Segments`              | -              | Renders one locale-aware segment group for one index. |
-| `DateInput.names`                 | -              | Two base names for range inputs; Ark appends indexes. |
 | `DateInput.Separator.aria-hidden` | `true`         | Presentational text is hidden from assistive tech.    |
 | `DateInput.Separator.role`        | `presentation` | Keeps range separators out of the accessibility tree. |
 

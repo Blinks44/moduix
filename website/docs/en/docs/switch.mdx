@@ -70,6 +70,7 @@ Switch / Switch.Root
 | Part                          | Role                                                                 |
 | ----------------------------- | -------------------------------------------------------------------- |
 | `Switch` / `Switch.Root`      | Root `label` element. Owns switch state, ids, form props, and `size`. |
+| `Switch.HiddenInput` | Native Ark form control; compose explicitly as described below. |
 | `Switch.RootProvider`         | Root `label` driven by state created with `useSwitch()`.             |
 | `Switch.Control`              | Visual track and focus-ring target. Adds `Switch.Thumb` by default.  |
 | `Switch.Thumb`                | Movable thumb for the default visuals or custom thumb content.       |
@@ -79,6 +80,16 @@ Switch / Switch.Root
 `useSwitchContext`, and `useSwitch` are exported from `@moduix/react` alongside the component.
 
 ## Composition
+
+### Native form control
+
+`Switch.HiddenInput` is Ark's native input, exposed directly. Render it explicitly inside
+`Switch` or `Switch.RootProvider`; the root does not add it. Set `name` on the root
+to include the value in native form submission.
+
+Keep the input even outside forms: it provides native focus, keyboard interaction, and accessibility.
+`required`, `disabled`, and `value` belong on the root.
+For a form outside the component tree, set `form` on the root.
 
 ### Recommended composition
 

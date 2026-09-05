@@ -22,7 +22,7 @@ callback detail objects, the explicit native form input, `RootProvider`, context
 - Validation uses Ark props such as `accept`, `maxFiles`, `minFileSize`, `maxFileSize`, `validate`, and
   `transformFiles`.
 - Compose `FileUpload.HiddenInput` explicitly inside `Root` or `RootProvider` when native file selection
-  or form participation is needed. Configure it through Ark root props such as `name`, `form`, and `required`.
+  or form participation is needed. Set `name` and `required` on the root, and `form` on `HiddenInput` for an external form.
 - `Dropzone.disableClick` should be used when a nested `Trigger` opens the file picker.
 
 ## Anatomy and exported parts
@@ -83,6 +83,7 @@ export function FileUploadDemo() {
       <FileUpload.ItemGroup>
         <FileUpload.Items />
       </FileUpload.ItemGroup>
+      <FileUpload.HiddenInput />
     </FileUpload>
   );
 }

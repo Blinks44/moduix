@@ -272,6 +272,7 @@ const columns: ColumnDef<typeof features, ComponentRow>[] = [
         onCheckedChange={(details) => table.toggleAllPageRowsSelected(details.checked === true)}
       >
         <Checkbox.Control />
+        <Checkbox.HiddenInput />
       </Checkbox>
     ),
     cell: ({ row }) => (
@@ -281,6 +282,7 @@ const columns: ColumnDef<typeof features, ComponentRow>[] = [
         onCheckedChange={(details) => row.toggleSelected(details.checked === true)}
       >
         <Checkbox.Control />
+        <Checkbox.HiddenInput />
       </Checkbox>
     ),
     enableHiding: false,

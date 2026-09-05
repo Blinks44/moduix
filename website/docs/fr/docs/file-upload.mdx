@@ -91,6 +91,7 @@ FileUpload / FileUpload.Root
 | Partie | Rôle |
 | -------------------------------- | ------------------------------------------------------------------------ |
 | `FileUpload` / `FileUpload.Root` | Gère l’état des fichiers, la validation, le glisser-déposer, le collage et l’intégration aux formulaires. |
+| `FileUpload.HiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
 | `FileUpload.RootProvider` | Relie l’arbre du composant à l’état renvoyé par le hook `useFileUpload`. |
 | `FileUpload.Label` | Libellé accessible pour le champ de fichier masqué et les contrôles de téléversement. |
 | `FileUpload.Dropzone` | Zone de dépôt. Passez `disableClick` si elle contient un `Trigger` imbriqué, afin de ne pas ouvrir deux fois le sélecteur. |
@@ -110,6 +111,15 @@ FileUpload / FileUpload.Root
 | `FileUpload.ClearTrigger` | Efface les fichiers sélectionnés. Utilise par défaut l’icône de fermeture moduix. |
 
 ## Composition
+
+### Champ de formulaire natif
+
+`FileUpload.HiddenInput` est le champ natif d’Ark, exporté directement. Ajoutez-le explicitement dans
+`FileUpload` ou `FileUpload.RootProvider` : la racine ne le crée pas automatiquement.
+Définissez `name` sur la racine pour inclure la valeur dans la soumission native du formulaire.
+
+Conservez ce champ même hors des formulaires : il permet au déclencheur d’ouvrir le sélecteur de fichiers natif.
+Pour un formulaire extérieur à l’arbre du composant, définissez `form` directement sur `HiddenInput`.
 
 ### Composition recommandée
 

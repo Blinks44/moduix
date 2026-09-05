@@ -27,13 +27,13 @@ export function VolumeSlider() {
 ```
 
 The namespace exposes `Root`, `RootProvider`, `Context`, `Label`, `ValueText`, `Control`, `Track`,
-`Range`, `Thumb`, `Thumbs`, `MarkerGroup`, `Marker`, and `DraggingIndicator`, together with
+`Range`, `Thumb`, `Thumbs`, `HiddenInput`, `MarkerGroup`, `Marker`, and `DraggingIndicator`, together with
 `useSlider` and `useSliderContext`.
 
 Values are `number[]`; controlled and uncontrolled props, Ark callback detail objects, keyboard
 behavior, pointer dragging, orientation, IDs, and accessibility attributes pass through unchanged.
-`Slider.Thumbs` renders one styled thumb per value. For form participation, compose explicit
-`Slider.Thumb` parts and nest `Slider.HiddenInput` inside each thumb.
+`Slider.Thumbs` renders one styled thumb with an Ark `HiddenInput` per value. With explicit
+`Slider.Thumb` parts, nest `Slider.HiddenInput` inside each thumb yourself.
 
 ## Solid composition
 

@@ -14,7 +14,9 @@ test('renders the native table anatomy with stable hooks', () => {
         </Table.Caption>
         <Table.Header data-testid="header">
           <Table.Row data-testid="header-row">
-            <Table.ColumnHeader data-testid="column-header">Invoice</Table.ColumnHeader>
+            <Table.ColumnHeader data-testid="column-header" scope="col">
+              Invoice
+            </Table.ColumnHeader>
             <Table.ColumnHeader numeric>Amount</Table.ColumnHeader>
           </Table.Row>
         </Table.Header>
@@ -76,6 +78,7 @@ test('renders the native table anatomy with stable hooks', () => {
   expect(row.tagName).toBe('TR');
   expect(row).toHaveAttribute('data-part', 'row');
   expect(columnHeader.tagName).toBe('TH');
+  expect(columnHeader).toHaveAttribute('scope', 'col');
   expect(columnHeader).toHaveAttribute('data-part', 'column-header');
   expect(numericHeader).toHaveAttribute('data-numeric', 'true');
   expect(cell.tagName).toBe('TD');
@@ -208,11 +211,12 @@ test('does not forward refs through native Ark Solid asChild composition', () =>
 });
 
 test('renders the default and custom empty states', () => {
+  let emptyRef!: HTMLTableCellElement;
   render(() => (
     <Table>
       <Table.Body>
         <Table.Empty colSpan={3} data-testid="default-empty" />
-        <Table.Empty colSpan={3} data-testid="custom-empty">
+        <Table.Empty ref={(element) => (emptyRef = element)} colSpan={3} data-testid="custom-empty">
           No invoices found.
         </Table.Empty>
       </Table.Body>
@@ -228,6 +232,7 @@ test('renders the default and custom empty states', () => {
   expect(defaultEmpty).toHaveAttribute('colspan', '3');
   expect(defaultEmpty.closest('tr')).toHaveAttribute('data-empty');
   expect(customEmpty).toHaveTextContent('No invoices found.');
+  expect(emptyRef).toBe(customEmpty);
   expect(customEmpty).toHaveAttribute('data-part', 'empty');
   expect(customEmpty).toHaveAttribute('colspan', '3');
 });
@@ -238,6 +243,7 @@ test('supports replacing only the generated empty cell with asChild', () => {
       <Table.Body>
         <Table.Empty
           colSpan={2}
+          class="custom-empty"
           asChild={(props) => (
             <td {...props()} data-testid="custom-empty-cell">
               Nothing to review.
@@ -251,9 +257,39 @@ test('supports replacing only the generated empty cell with asChild', () => {
   const emptyCell = screen.getByTestId('custom-empty-cell');
 
   expect(emptyCell.tagName).toBe('TD');
+  expect(emptyCell).toHaveClass('custom-empty');
+  expect(emptyCell.closest('tr')).toHaveAttribute('data-empty');
   expect(emptyCell).toHaveAttribute('data-scope', 'table');
   expect(emptyCell).toHaveAttribute('data-part', 'empty');
   expect(emptyCell).toHaveAttribute('data-slot', 'table-empty');
   expect(emptyCell).toHaveAttribute('colspan', '2');
   expect(emptyCell).toHaveTextContent('Nothing to review.');
+});
+
+test('keeps sticky-column hooks on native table cells', () => {
+  render(() => (
+    <Table.ScrollArea>
+      <Table>
+        <Table.Header>
+          <Table.Row>
+            <Table.ColumnHeader data-sticky="start">Project</Table.ColumnHeader>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          <Table.Row>
+            <Table.Cell data-sticky="start">Docs redesign</Table.Cell>
+          </Table.Row>
+        </Table.Body>
+      </Table>
+    </Table.ScrollArea>
+  ));
+
+  expect(screen.getByRole('columnheader', { name: 'Project' })).toHaveAttribute(
+    'data-sticky',
+    'start',
+  );
+  expect(screen.getByRole('cell', { name: 'Docs redesign' })).toHaveAttribute(
+    'data-sticky',
+    'start',
+  );
 });

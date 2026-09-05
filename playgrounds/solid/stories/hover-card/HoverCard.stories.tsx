@@ -179,7 +179,7 @@ export const Context: Story = {
             Liked by{' '}
             <HoverCard.Trigger
               asChild={(triggerProps) => (
-                <a {...triggerProps()} href="#sarah">
+                <a {...triggerProps()} href="#profile">
                   @sarah_chen {context().open ? <ChevronUpIcon /> : <ChevronDownIcon />}
                 </a>
               )}

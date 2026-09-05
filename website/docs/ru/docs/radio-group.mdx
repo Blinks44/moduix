@@ -81,6 +81,7 @@ RadioGroup.Option
 | Часть                         | Назначение                                                         |
 | ---------------------------- | ------------------------------------------------------------------ |
 | `RadioGroup` / `.Root`       | Хранит значение, управляет клавиатурной навигацией, ориентацией и формами. |
+| `RadioGroup.ItemHiddenInput` | Нативное поле Ark; правила явной композиции описаны ниже. |
 | `RadioGroup.RootProvider`    | Подключает части к состоянию, созданному через `useRadioGroup()`.  |
 | `RadioGroup.Label`           | Доступная подпись группы.                                         |
 | `RadioGroup.Item`            | Один вариант выбора, по умолчанию отображается как `label`.      |
@@ -90,6 +91,15 @@ RadioGroup.Option
 | `RadioGroup.Indicator`       | Необязательный индикатор активного элемента с переменными размеров Ark. |
 
 ## Композиция
+
+### Нативное поле формы
+
+`RadioGroup.ItemHiddenInput` экспортируется напрямую из Ark. Вложите по одному полю в каждый
+явный `RadioGroup.Item`: сам элемент его не добавляет. Поле нужно для нативной работы с клавиатурой
+и формами. Задайте `name`, `required` и `form` на корневом компоненте или в параметрах хука
+при использовании `RootProvider`.
+
+`RadioGroup.Option` уже содержит `ItemHiddenInput` в своей фиксированной композиции; второе поле добавлять не нужно.
 
 ### Рекомендуемая композиция
 
@@ -522,5 +532,5 @@ Ark `data-scope`, `data-part` и `data-state`, а также публичные 
   и `data-orientation`.
 - Переменные индикатора Ark: `--transition-property`, `--left`, `--top`, `--width` и `--height`.
 - Атрибуты moduix: `data-slot="radio-group-root"`, `radio-group-root-provider`, `radio-group-label`,
-  `radio-group-item`, `radio-group-item-control`, `radio-group-item-text`, `radio-group-item-hidden-input` и
+  `radio-group-item`, `radio-group-item-control`, `radio-group-item-text` и
   `radio-group-indicator`.

@@ -10,6 +10,7 @@ export default function CustomSegmentsDateInputDemo() {
       defaultValue={[new CalendarDate(2026, 6, 22)]}
     >
       <DateInput.Label>Custom segments</DateInput.Label>
+      <DateInput.HiddenInput name="custom-date" />
       <DateInput.Control className={styles.control}>
         <DateInput.SegmentGroup>
           <DateInput.SegmentContext>

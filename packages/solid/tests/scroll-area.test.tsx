@@ -100,6 +100,10 @@ test('preserves Ark asChild composition and forwards refs for every visible part
   ));
 
   expect(rootRef).toBeUndefined();
+  const root = screen.getByRole('region', { name: 'Related articles' });
+  expect(root).toHaveAttribute('data-slot', 'scroll-area-root');
+  expect(root).not.toHaveAttribute('data-fade');
+  expect(root).toHaveAttribute('data-variant', 'hover');
   expect(viewportRef).toHaveAttribute('data-slot', 'scroll-area-viewport');
   expect(contentRef).toHaveAttribute('data-slot', 'scroll-area-content');
   expect(scrollbarRef).toHaveAttribute('data-slot', 'scroll-area-scrollbar');

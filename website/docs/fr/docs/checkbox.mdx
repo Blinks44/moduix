@@ -82,6 +82,7 @@ Checkbox.Group
 | Partie                        | Rôle                                                                                                      |
 | ----------------------------- | --------------------------------------------------------------------------------------------------------- |
 | `Checkbox` / `Checkbox.Root`  | Gère l’état d’une case à cocher et rend le `label` qui l’enveloppe.                                      |
+| `Checkbox.HiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
 | `Checkbox.RootProvider`       | Relie les parties à un état Ark créé en dehors de l’arbre rendu.                                          |
 | `Checkbox.Control`            | Partie visible de la case à cocher. Vide, elle affiche les icônes d’état intégrées.                      |
 | `Checkbox.Indicator`          | Emplacement facultatif pour une icône personnalisée. Passez `indeterminate` pour cet état.               |
@@ -89,6 +90,16 @@ Checkbox.Group
 | `Checkbox.Group`              | Gère les valeurs sélectionnées de plusieurs cases à cocher.                                              |
 
 ## Composition
+
+### Champ de formulaire natif
+
+`Checkbox.HiddenInput` est le champ natif d’Ark, exporté directement. Ajoutez-le explicitement dans
+`Checkbox` ou `Checkbox.RootProvider` : la racine ne le crée pas automatiquement.
+Définissez `name` sur la racine pour inclure la valeur dans la soumission native du formulaire.
+
+Conservez ce champ même hors des formulaires : il assure le focus natif, les interactions au clavier
+et l’accessibilité. Définissez `required`, `disabled` et `value` sur la racine.
+Pour un formulaire extérieur à l’arbre du composant, définissez `form` sur la racine.
 
 ### Composition recommandée
 

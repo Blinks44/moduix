@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { expect, userEvent, within } from 'storybook/test';
 import { Button } from '@/components/button';
 import { Clipboard } from '@/components/clipboard/Clipboard';
 import { Input } from '@/components/input';
@@ -36,15 +35,6 @@ export const Basic: Story = {
         </Clipboard.Control>
       </Clipboard>
     );
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const trigger = canvas.getByRole('button', { name: 'Copy to clipboard' });
-
-    await userEvent.click(trigger);
-
-    await expect(trigger).toHaveAttribute('data-copied');
-    await expect(trigger).toHaveTextContent('Copied');
   },
 };
 

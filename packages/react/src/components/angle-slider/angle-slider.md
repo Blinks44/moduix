@@ -28,7 +28,7 @@ Upstream docs:
 - `AngleSlider.Marks` is narrow sugar for `MarkerGroup` plus repeated `Marker` children from a
   `values` array.
 - `useAngleSlider()` is re-exported from moduix for the normal `RootProvider` path.
-- `value`, `defaultValue`, `step`, `disabled`, `invalid`, `readOnly`, `name`, `form`, `ids`,
+- `value`, `defaultValue`, `step`, `disabled`, `invalid`, `readOnly`, `name`, `ids`,
   `onValueChange(details)`, and `onValueChangeEnd(details)` pass through unchanged.
 - The lightest recommended composition is `Dial`, with `Label`, `Marks`, and `ValueText` added only
   when that behavior is needed. Add `AngleSlider.HiddenInput` explicitly for native form behavior.
@@ -104,7 +104,7 @@ per-marker props, or custom ordering.
 - `Label` and `aria-label` / `aria-labelledby` preserve Ark slider naming.
 - `Thumb` remains the focusable slider element with Ark keyboard and ARIA behavior.
 - `AngleSlider.HiddenInput` renders Ark's hidden native input. With `name`, it participates in native
-  form submission; `form` supports an external form owner. Ark owns reset synchronization.
+  form submission; set `form` on `HiddenInput` for an external form owner. Ark owns reset synchronization.
 - `disabled`, `invalid`, and `readOnly` are Ark root props. The wrapper does not add a separate
   moduix form-state adapter.
 - `RootProvider` is the moduix-owned advanced state path; `useAngleSlider()` is re-exported for the

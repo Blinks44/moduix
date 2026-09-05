@@ -82,6 +82,7 @@ Checkbox.Group
 | Part                         | Role                                                                                     |
 | ---------------------------- | ---------------------------------------------------------------------------------------- |
 | `Checkbox` / `Checkbox.Root` | Holds the state for one checkbox and renders its wrapping label.                         |
+| `Checkbox.HiddenInput` | Native Ark form control; compose explicitly as described below. |
 | `Checkbox.RootProvider`      | Connects the parts to Ark state created outside the rendered tree.                        |
 | `Checkbox.Control`           | The visible checkbox. When empty, it renders the built-in state icons.                     |
 | `Checkbox.Indicator`         | Optional slot for a custom icon. Pass `indeterminate` for that state.                      |
@@ -89,6 +90,16 @@ Checkbox.Group
 | `Checkbox.Group`             | Manages the selected values for several checkboxes.                                        |
 
 ## Composition
+
+### Native form control
+
+`Checkbox.HiddenInput` is Ark's native input, exposed directly. Render it explicitly inside
+`Checkbox` or `Checkbox.RootProvider`; the root does not add it. Set `name` on the root
+to include the value in native form submission.
+
+Keep the input even outside forms: it provides native focus, keyboard interaction, and accessibility.
+`required`, `disabled`, and `value` belong on the root.
+For a form outside the component tree, set `form` on the root.
 
 ### Recommended composition
 

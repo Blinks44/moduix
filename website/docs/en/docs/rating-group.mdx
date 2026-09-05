@@ -69,6 +69,7 @@ RatingGroup.RootProvider
 | Part                               | Role                                                      |
 | ---------------------------------- | --------------------------------------------------------- |
 | `RatingGroup` / `RatingGroup.Root` | Owns rating state, keyboard navigation, focus, and form integration. |
+| `RatingGroup.HiddenInput` | Native Ark form control; compose explicitly as described below. |
 | `RatingGroup.RootProvider`         | Connects the parts to state created with `useRatingGroup()`.       |
 | `RatingGroup.Context`              | Render-prop access to the current root state.                      |
 | `RatingGroup.ItemContext`          | Render-prop access to the current item state.                      |
@@ -79,6 +80,14 @@ RatingGroup.RootProvider
 | `RatingGroup.ItemIndicator`        | The default moduix star visual that reflects the item's state.      |
 
 ## Composition
+
+### Native form control
+
+`RatingGroup.HiddenInput` is Ark's native input, exposed directly. Render it explicitly inside
+`RatingGroup` or `RatingGroup.RootProvider`; the root does not add it. Set `name` on the root
+to include the value in native form submission.
+
+For a form outside the component tree, set `form` on the root.
 
 ### Recommended composition
 

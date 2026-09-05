@@ -97,6 +97,7 @@ export function CheckboxDemo() {
     <Checkbox.Root defaultChecked>
       <Checkbox.Control />
       <Checkbox.Label>Enable notifications</Checkbox.Label>
+      <Checkbox.HiddenInput />
     </Checkbox.Root>
   );
 }
@@ -120,6 +121,7 @@ export function CheckboxGroupDemo() {
         <Checkbox.Root key={option.value} value={option.value}>
           <Checkbox.Control />
           <Checkbox.Label>{option.label}</Checkbox.Label>
+          <Checkbox.HiddenInput />
         </Checkbox.Root>
       ))}
     </Checkbox.Group>
@@ -139,6 +141,7 @@ export function CheckboxProviderDemo() {
     <Checkbox.RootProvider value={checkbox}>
       <Checkbox.Control />
       <Checkbox.Label>Managed outside the tree</Checkbox.Label>
+      <Checkbox.HiddenInput />
     </Checkbox.RootProvider>
   );
 }

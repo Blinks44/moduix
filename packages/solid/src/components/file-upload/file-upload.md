@@ -16,15 +16,17 @@ export function FileUploadDemo() {
       <FileUpload.ItemGroup>
         <FileUpload.Items />
       </FileUpload.ItemGroup>
+      <FileUpload.HiddenInput />
     </FileUpload>
   );
 }
 ```
 
 Compose `FileUpload.HiddenInput` explicitly inside `Root` or `RootProvider`. Use
-`name`, `form`, `required`, `disabled`, `readOnly`, and the other Ark file-upload props for native
+`name`, `required`, `disabled`, `readOnly`, and the other Ark file-upload root props for native
 form behavior and validation. `FileUpload.Context`, `useFileUpload`, and
 `useFileUploadContext` expose the unchanged Ark state and callback details.
+Set `form` directly on `HiddenInput` for an external form.
 
 ## Solid composition
 
@@ -34,6 +36,7 @@ Ark Solid uses a render-function `asChild` prop:
 <FileUpload asChild={(props) => <section {...props()} aria-label="Attachments" />}>
   <FileUpload.Label>Attachments</FileUpload.Label>
   <FileUpload.Trigger>Choose files</FileUpload.Trigger>
+  <FileUpload.HiddenInput />
 </FileUpload>
 ```
 

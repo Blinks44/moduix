@@ -14,6 +14,7 @@ export function CheckboxDemo() {
     <Checkbox.Root defaultChecked>
       <Checkbox.Control />
       <Checkbox.Label>Enable notifications</Checkbox.Label>
+      <Checkbox.HiddenInput />
     </Checkbox.Root>
   );
 }
@@ -31,6 +32,7 @@ Solid uses a render-function `asChild` prop:
 <Checkbox.Root asChild={(props) => <label {...props()} />}>
   <Checkbox.Control />
   <Checkbox.Label>Accept terms</Checkbox.Label>
+  <Checkbox.HiddenInput />
 </Checkbox.Root>
 ```
 

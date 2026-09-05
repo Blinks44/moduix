@@ -78,6 +78,7 @@ test('lazily mounts, closes on Escape, and restores focus to its trigger', async
   trigger.focus();
   fireEvent.click(trigger);
   const dialog = await screen.findByRole('dialog');
+  expect(dialog).toHaveAttribute('data-slot', 'floating-panel-content');
   dialog.focus();
   await new Promise<void>((resolve) => setTimeout(resolve, 0));
   fireEvent.keyDown(dialog, { key: 'Escape' });

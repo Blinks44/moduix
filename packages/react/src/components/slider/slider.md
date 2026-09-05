@@ -28,8 +28,8 @@ Upstream docs:
   `onValueChangeEnd(details)`, and `onFocusChange(details)` pass through unchanged.
 - Values are arrays. Single-thumb sliders use `[value]`, not a bare number.
 - When `defaultValue` is omitted, Ark initializes the value to `[min]` (`[0]` by default).
-- `Slider.Thumbs` renders one styled `Thumb` per value from slider context. For form participation,
-  compose `Slider.Thumb` directly and nest `Slider.HiddenInput` inside each thumb.
+- `Slider.Thumbs` renders one styled `Thumb` with an Ark `HiddenInput` per value from slider context.
+  With explicit `Slider.Thumb` parts, nest `Slider.HiddenInput` inside each thumb yourself.
 - `Slider.Context`, `Slider.useSlider`, `Slider.useSliderContext`, `useSlider`, and
   `useSliderContext` are moduix-owned advanced state paths for `RootProvider` and inline state
   reads.
@@ -43,10 +43,9 @@ Slider.Root
 ├─ Slider.Control
 │  ├─ Slider.Track
 │  │  └─ Slider.Range
-│  └─ Slider.Thumbs
-│     └─ Slider.Thumb[index]
-│        ├─ Slider.DraggingIndicator
-│        └─ Slider.HiddenInput (explicit)
+│  └─ Slider.Thumb[index]
+│     ├─ Slider.DraggingIndicator
+│     └─ Slider.HiddenInput
 └─ Slider.MarkerGroup
    └─ Slider.Marker[value]
 ```

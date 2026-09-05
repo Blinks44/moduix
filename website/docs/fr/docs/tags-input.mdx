@@ -87,6 +87,7 @@ TagsInput / TagsInput.Root
 | Partie                                  | Rôle                                                                    |
 | --------------------------------------- | ----------------------------------------------------------------------- |
 | `TagsInput` / `TagsInput.Root`          | Gère l’état, les valeurs, la saisie, la validation et l’intégration au formulaire. |
+| `TagsInput.HiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
 | `TagsInput.RootProvider`                | Rend le champ à partir de l’état renvoyé par `useTagsInput` d’Ark.      |
 | `TagsInput.Label`                       | Libellé accessible du champ de tags.                                    |
 | `TagsInput.Control`                     | Conteneur visible des tags, du champ de saisie et du déclencheur d’effacement. |
@@ -105,6 +106,14 @@ TagsInput / TagsInput.Root
 | `useTagsInput` de moduix + `RootProvider` | Gestion externe de l’état et méthodes impératives.                     |
 
 ## Composition
+
+### Champ de formulaire natif
+
+`TagsInput.HiddenInput` est le champ natif d’Ark, exporté directement. Ajoutez-le explicitement dans
+`TagsInput` ou `TagsInput.RootProvider` : la racine ne le crée pas automatiquement.
+Définissez `name` sur la racine pour inclure la valeur dans la soumission native du formulaire.
+
+Pour un formulaire extérieur à l’arbre du composant, définissez `form` sur la racine.
 
 ### Composition recommandée
 

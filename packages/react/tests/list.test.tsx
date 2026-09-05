@@ -3,6 +3,22 @@ import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
 import { List } from '../src';
 
+test('updates the semantic host when as changes', () => {
+  const { rerender } = render(<List as="ul">Tasks</List>);
+
+  expect(screen.getByRole('list').tagName).toBe('UL');
+  rerender(
+    <List as="ol" start={3}>
+      Tasks
+    </List>,
+  );
+  expect(screen.getByRole('list').tagName).toBe('OL');
+  expect(screen.getByRole('list')).toHaveAttribute('start', '3');
+  expect(screen.getByRole('list')).toHaveTextContent('Tasks');
+  rerender(<List as="ul">Tasks</List>);
+  expect(screen.getByRole('list').tagName).toBe('UL');
+});
+
 test('renders semantic unordered-list defaults and forwards the item ref', () => {
   const ref = createRef<HTMLLIElement>();
 

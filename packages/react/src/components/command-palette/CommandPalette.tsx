@@ -364,6 +364,7 @@ const CommandPaletteClearTrigger = forwardRef<
             onClick?.(event);
 
             if (!event.defaultPrevented) {
+              event.preventDefault();
               combobox.setInputValue('');
             }
           }}
@@ -372,7 +373,6 @@ const CommandPaletteClearTrigger = forwardRef<
 
             if (event.button === 0) {
               event.preventDefault();
-              combobox.setInputValue('');
             }
           }}
         >

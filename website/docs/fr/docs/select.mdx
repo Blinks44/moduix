@@ -90,6 +90,7 @@ Select / Select.Root
 | Partie                    | Rôle                                                                                             |
 | ------------------------- | ------------------------------------------------------------------------------------------------ |
 | `Select` / `Select.Root`  | État racine, collection, sélection, cycle de vie de la fenêtre contextuelle et données du formulaire. |
+| `Select.HiddenSelect` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
 | `Select.RootProvider`     | Affiche l’arborescence Select à partir de l’état renvoyé par `Select.useSelect`.                 |
 | `Select.Label`            | Libellé accessible associé au déclencheur et au contrôle de formulaire natif.                   |
 | `Select.Control`          | Enveloppe du champ visible qui reflète les états de focus, d’erreur et d’ouverture.              |
@@ -111,6 +112,13 @@ Select / Select.Root
 | `Select.ItemIndicator`    | Indicateur de sélection avec l’icône de coche moduix par défaut.                                 |
 
 ## Composition
+
+### Champ de formulaire natif
+
+`Select.HiddenSelect` est le select natif d’Ark, exporté directement. Ajoutez-le explicitement
+dans `Select` ou `Select.RootProvider` : la racine ne le crée pas automatiquement.
+Définissez `name` sur la racine pour la soumission et `form` pour un formulaire externe.
+Le champ prend aussi en charge la validation du navigateur et la réinitialisation.
 
 La racine rend automatiquement `Positioner` via un portail. Utilisez `portalled={false}` pour un
 rendu dans le flux normal et `portalRef` pour cibler un conteneur personnalisé. `Positioner` et

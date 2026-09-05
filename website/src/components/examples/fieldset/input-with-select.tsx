@@ -53,6 +53,7 @@ export default function PhoneInput() {
               ))}
             </Select.Content>
           </Select.Positioner>
+          <Select.HiddenSelect />
         </Select>
         <Field>
           <Field.Label>Phone</Field.Label>

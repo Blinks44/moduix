@@ -20,5 +20,7 @@ You are an expert in JavaScript, Rspack, Rsbuild, Rslib, and library development
 
 ### Storybook
 
-- Run `pnpm --filter @moduix/react storybook` to start Storybook development server
-- Run `pnpm --filter @moduix/react build:storybook` to build Storybook for production
+- Stories live in `playgrounds/react/stories` and `playgrounds/solid/stories`.
+- Run `pnpm run dev:playgrounds` from the repository root to start both playgrounds.
+- Run `pnpm --filter @moduix/playground-react build:storybook` or
+  `pnpm --filter @moduix/playground-solid build:storybook` to build a playground.

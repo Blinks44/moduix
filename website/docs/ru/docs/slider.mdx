@@ -42,8 +42,8 @@ import SliderVerticalWithMarks from '@/components/examples/slider/vertical-with-
 
 ## Базовый пример
 
-`Slider.Thumbs` — рекомендуемый визуальный шорткат. Для участия в нативной форме явно создайте каждый
-`Slider.Thumb` и вложите в него `Slider.HiddenInput`.
+`Slider.Thumbs` создаёт по одному ползунку с нативным полем на значение. Для своего содержимого ползунка
+используйте `Slider.Thumb` явно и вложите в него `Slider.HiddenInput`.
 
 <ExampleFrame variant="component">
   <SliderBasic />
@@ -82,10 +82,9 @@ Slider / Slider.Root
 ├─ Slider.Control
 │  ├─ Slider.Track
 │  │  └─ Slider.Range
-│  └─ Slider.Thumbs
-│     └─ Slider.Thumb[index]
-│        ├─ Slider.DraggingIndicator
-│        └─ Slider.HiddenInput (явно)
+│  └─ Slider.Thumb[index]
+│     ├─ Slider.DraggingIndicator
+│     └─ Slider.HiddenInput
 └─ Slider.MarkerGroup
    └─ Slider.Marker[value]
 ```
@@ -93,6 +92,7 @@ Slider / Slider.Root
 | Часть                                  | Назначение                                                       |
 | -------------------------------------- | ---------------------------------------------------------------- |
 | `Slider` / `Slider.Root`               | Стилизованный корневой элемент Ark для управляемого и неуправляемого состояния. |
+| `Slider.HiddenInput` | Нативное поле Ark; правила явной композиции описаны ниже. |
 | `Slider.RootProvider`                  | Корневой элемент, подключённый к состоянию `useSlider`, созданному отдельно.    |
 | `Slider.Label`                         | Видимая подпись группы.                                                        |
 | `Slider.ValueText`                     | Текст текущего значения, который формирует Ark.                               |
@@ -106,11 +106,19 @@ Slider / Slider.Root
 
 ## Композиция
 
+### Нативное поле формы
+
+`Slider.HiddenInput` экспортируется напрямую из Ark. При явном использовании `Slider.Thumb`
+вложите по одному полю в каждый ползунок: ни корневой компонент, ни `Thumb` не добавляют его.
+`Slider.Thumbs` уже содержит по одному полю на ползунок в своей фиксированной композиции.
+Задайте `name` на корневом компоненте для отправки и `form` для внешней формы.
+Диапазон отправляется повторяющимися записями `name[]`.
+
 ### Рекомендуемая композиция
 
 Используйте дерево частей Ark: корневой элемент, подпись, при необходимости текст значения, область управления, дорожку,
-заполненный диапазон и `Slider.Thumbs`. Компонент создаёт по одному визуальному ползунку на значение.
-Если нужны скрытые поля, используйте явные ползунки.
+заполненный диапазон и `Slider.Thumbs`. Компонент создаёт по одному ползунку с нативным полем на значение.
+Для своей композиции используйте явные ползунки.
 
 `Slider` - короткая запись для корня, эквивалентная `Slider.Root`.
 
@@ -726,7 +734,7 @@ CSS-переменные Ark и публичные CSS-переменные modu
 
 Ark добавляет `data-scope="slider"` и `data-part` ко всем отрендеренным частям. moduix также добавляет
 значения `data-slot`: `slider-root`, `slider-root-provider`, `slider-label`, `slider-value-text`,
-`slider-control`, `slider-track`, `slider-range`, `slider-thumb`, `slider-hidden-input`,
+`slider-control`, `slider-track`, `slider-range`, `slider-thumb`,
 `slider-marker-group`, `slider-marker` и `slider-dragging-indicator`.
 
 К важным атрибутам состояния Ark относятся `data-orientation`, `data-disabled`, `data-invalid`,

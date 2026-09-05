@@ -87,6 +87,7 @@ DateInput.RootProvider
 | Partie                         | Rôle |
 | ------------------------------ | ---- |
 | `DateInput` / `DateInput.Root` | Gère les valeurs, le formatage adapté à la locale, le focus des segments et la validation. |
+| `DateInput.HiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
 | `DateInput.RootProvider`       | Relie les parties à l’état créé avec `useDateInput()`.                              |
 | `DateInput.Label`              | Libellé accessible du champ de date.                                                |
 | `DateInput.Control`            | Cadre visuel autour d’un ou de plusieurs groupes de segments.                       |
@@ -98,6 +99,14 @@ DateInput.RootProvider
 | `DateInput.SegmentContext`     | Utilitaire de rendu Ark UI pour afficher les segments adaptés à la locale.          |
 
 ## Composition
+
+### Champ de formulaire natif
+
+Ajoutez un `DateInput.HiddenInput` par date dans `DateInput` ou `DateInput.RootProvider`.
+La racine ne crée pas les champs automatiquement. Définissez `name` sur chaque champ et, pour une plage,
+utilisez `index={0}` et `index={1}`. Ark ajoute l’index au nom des champs de plage : `name="start"`
+avec `index={0}` est envoyé sous le nom `start[0]`. Les valeurs sont des dates formatées par Ark.
+Définissez `form` sur la racine pour un formulaire externe.
 
 ### Composition recommandée
 
@@ -121,7 +130,6 @@ libellé externe ou un texte d’aide doit partager des identifiants stables ave
 | --------------------------------- | ----------------- | --------- |
 | `DateInput` / `DateInput.Root`    | -                 | Aucun comportement spécifique par défaut ; les valeurs Ark UI s’appliquent. |
 | `DateInput.Segments`              | -                 | Affiche un groupe de segments adapté à la locale pour un index donné.   |
-| `DateInput.names`                 | -                 | Deux noms de base pour les champs d’une plage ; Ark ajoute les index.   |
 | `DateInput.Separator.aria-hidden` | `true`            | Le texte du séparateur est masqué aux technologies d’assistance.       |
 | `DateInput.Separator.role`        | `presentation`    | Garde le séparateur de plage hors de l’arbre d’accessibilité.           |
 

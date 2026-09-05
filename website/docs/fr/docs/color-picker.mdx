@@ -103,6 +103,7 @@ ColorPicker
 | Partie | Rôle |
 | --- | --- |
 | `ColorPicker` | Gère la couleur et son format, l’ouverture de la fenêtre contextuelle et la participation au formulaire. |
+| `ColorPicker.HiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
 | `ColorPicker.Control` | Regroupe les champs visibles et le bouton d’ouverture. |
 | `ColorPicker.Trigger` | Bouton qui ouvre la fenêtre contextuelle et affiche par défaut la pastille de la couleur actuelle. |
 | `ColorPicker.Content` | Contenu de la fenêtre contextuelle basée sur Ark. |
@@ -117,6 +118,14 @@ ColorPicker
 habituels de gestion d’état. Importez directement les types auxiliaires d’Ark uniquement si nécessaire.
 
 ## Composition
+
+### Champ de formulaire natif
+
+`ColorPicker.HiddenInput` est le champ natif d’Ark, exporté directement. Ajoutez-le explicitement dans
+`ColorPicker` ou `ColorPicker.RootProvider` : la racine ne le crée pas automatiquement.
+Définissez `name` sur la racine pour inclure la valeur dans la soumission native du formulaire.
+
+Pour un formulaire extérieur à l’arbre du composant, définissez `form` directement sur `HiddenInput`.
 
 Par défaut, `ColorPicker.Positioner` est rendu dans un portail. Définissez `portalled={false}` pour l’afficher dans la
 structure actuelle du document, ou transmettez `portalRef` pour utiliser un conteneur personnalisé. Les parties de
