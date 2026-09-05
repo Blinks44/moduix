@@ -318,7 +318,30 @@ function FloatingPanelDragIndicator(props: ComponentProps<'span'>) {
   );
 }
 
-const FloatingPanel = Object.assign(FloatingPanelRoot, {
+type FloatingPanelComponent = typeof FloatingPanelRoot & {
+  Context: typeof FloatingPanelPrimitive.Context;
+  Root: typeof FloatingPanelRoot;
+  RootProvider: typeof FloatingPanelRootProvider;
+  Trigger: typeof FloatingPanelTrigger;
+  Positioner: typeof FloatingPanelPositioner;
+  Content: typeof FloatingPanelContent;
+  DragTrigger: typeof FloatingPanelDragTrigger;
+  Header: typeof FloatingPanelHeader;
+  Title: typeof FloatingPanelTitle;
+  Control: typeof FloatingPanelControl;
+  StageTrigger: typeof FloatingPanelStageTrigger;
+  CloseTrigger: typeof FloatingPanelCloseTrigger;
+  CloseIcon: typeof FloatingPanelCloseIcon;
+  Body: typeof FloatingPanelBody;
+  Footer: typeof FloatingPanelFooter;
+  ResizeTrigger: typeof FloatingPanelResizeTrigger;
+  ResizeTriggerGroup: typeof FloatingPanelResizeTriggerGroup;
+  DragIndicator: typeof FloatingPanelDragIndicator;
+  useFloatingPanel: typeof useFloatingPanel;
+  useFloatingPanelContext: typeof useFloatingPanelContext;
+};
+
+const FloatingPanel: FloatingPanelComponent = Object.assign(FloatingPanelRoot, {
   Context: FloatingPanelPrimitive.Context,
   Root: FloatingPanelRoot,
   RootProvider: FloatingPanelRootProvider,
