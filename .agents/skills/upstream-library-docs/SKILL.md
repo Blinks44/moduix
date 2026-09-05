@@ -23,6 +23,8 @@ and keep local contracts aligned with the versions in use.
 - Read upstream sources online when current primitive or shadcn behavior matters.
 - Prefer the exact component page or guide over top-level docs.
 - Use Ark UI for primitive behavior, accessibility, state, lifecycle, part naming, and low-level API.
+- Verify React and Solid exports independently when a contract spans both runtimes; do not infer the
+  Ark Solid API from Ark React or vice versa.
 - Use Chakra UI for the higher-level Ark-aligned composition model, overlay ergonomics, and recipe-level defaults.
 - Use shadcn for docs ergonomics, example flow, and narrow convenience patterns, not as the source of truth for hidden structural composition.
 - Resolve disagreements in that order: preserve Ark behavior, prefer Chakra-like ergonomics where they remain Ark-shaped,

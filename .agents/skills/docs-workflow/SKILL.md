@@ -19,7 +19,9 @@ This skill owns documentation content and source-to-locale consistency. It does 
 
 - Document only the shipped public API. Remove stale props, examples, styling hooks, and guidance in the same task.
 - Keep package implementation, public docs, snippets, registry guidance, and supported imports aligned. Teach the recommended path before lower-level composition.
-- Use public imports from `@moduix/react`; do not recreate library components in the docs app.
+- Use public imports from the package the example documents: `@moduix/react`, `@moduix/solid`,
+  `@moduix/react-tailwind`, or `@moduix/solid-tailwind`. Existing website examples are React-first;
+  do not silently present a React example as a different runtime or styling variant.
 - Keep prose and snippets consumer-facing, complete, and production-like. Do not hide required setup, callbacks, collection data, or Ark composition behind docs-only helpers.
 - Prefer a small local helper to repeated visible ceremony, but never a page builder, hidden DSL, or abstraction that hides the documented composition.
 - Keep demo-only styling in the docs app or example CSS module, separate from library styling.
@@ -76,14 +78,20 @@ Read [preview rules](references/previews.md) whenever adding or changing a previ
 
 ## CSS variables and registry docs
 
-- Cover a component's full public `--<component>-*` contract from `packages/react/src/styles/variables-moduix.css` using the shared CSS variables reference UI; do not duplicate it in prose.
-- Keep styling hooks limited to meaningful `className`, `data-slot`, and state attributes that consumers can target.
-- Keep the full hosted-registry setup in `quick-start.mdx`; component pages show only the relevant install command. Treat `packages/<framework>/registry.json` as the source manifest; shared styles, reset, and presets come from `packages/foundation/registry.json` through `/r/foundation` URL dependencies.
-- Never edit `website/docs/public/r` by hand. Regenerate all `/r/foundation`, `/r/react`, and
-  `/r/solid` artifacts with `pnpm run build:registry`.
+- Cover a component's full public `--<component>-*` contract from
+  `packages/foundation/src/styles/variables-moduix.css` using the shared CSS variables reference UI;
+  do not duplicate it in prose.
+- Keep styling hooks limited to meaningful `className`/`class`, `data-slot`, and state attributes
+  that consumers can target. Explain CSS Modules and Tailwind setup only on the relevant package path.
+- Keep the full hosted-registry setup in `quick-start.mdx`; component pages show only the relevant
+  install command. Treat each `packages/<variant>/registry.json` as its source manifest. Shared
+  styles and presets come from `packages/foundation/registry.json` through `/r/foundation` URL
+  dependencies; the reset applies only to CSS Modules variants because Tailwind uses Preflight.
+- Never edit `website/docs/public/r` by hand. Regenerate `/r/foundation`, `/r/react`, `/r/solid`,
+  `/r/react-tailwind`, and `/r/solid-tailwind` with `pnpm run build:registry`.
 
 ## Local development
 
 - Use `npm run dev:docs` for interactive documentation work. It already watches the library output.
-- Do not run a second React watcher or `build:react` while it is active.
+- Do not run another package watcher or clean package build while it is active.
 - Do not run `build:docs` while `dev:docs` is active. Use it only for an explicit production check after stopping the dev workflow.

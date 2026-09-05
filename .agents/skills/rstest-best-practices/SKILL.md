@@ -13,6 +13,8 @@ Apply these rules when writing or reviewing Rstest test projects.
 - Prefer explicit imports `import { test, expect, describe } from '@rstest/core'` over `globals: true`
 - For Rsbuild projects, use `@rstest/adapter-rsbuild` with `extends: withRsbuildConfig()` to reuse build config
 - For Rslib projects, use `@rstest/adapter-rslib` with `extends: withRslibConfig()` to reuse build config
+- For a Solid package with dual Rslib outputs, give the compiled output an id and pass that `libId`
+  to `withRslibConfig`; otherwise test TSX may be transformed with the wrong JSX runtime.
 - Use `setupFiles` for shared test setup (e.g., custom matchers, cleanup hooks)
 - When using Rsbuild plugins (e.g., `@rsbuild/plugin-react`), add them via the `plugins` field
 - For deep-level or advanced build configuration needs, use `tools.rspack` or `tools.bundlerChain`

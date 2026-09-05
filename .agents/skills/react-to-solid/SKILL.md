@@ -1,20 +1,21 @@
 ---
 name: react-to-solid
-description: Port and synchronize moduix components from packages/react to packages/solid while preserving their public, behavioral, accessibility, DOM, styling, test, and playground-story contracts. Use only for React-to-Solid component work, not Vue ports or framework-neutral foundation work.
+description: Port and synchronize moduix components from React to native Solid in either the CSS Modules or Tailwind package pair while preserving public and behavioral contracts.
 ---
 
 # React to Solid
 
-Port the shipped React component as a native Solid adapter. Preserve moduix and Ark behavior without
-introducing a shared component runtime, generated TSX, or React-compatibility layer.
+Port a shipped React component as a native Solid adapter without introducing a shared component
+runtime, generated TSX, or React-compatibility layer. Use `packages/react` → `packages/solid` for the
+CSS Modules track and `packages/react-tailwind` → `packages/solid-tailwind` for the Tailwind track.
 
 ## Sources of truth
 
-Read the React component implementation, CSS Module, test, package story, local markdown, exports,
-and any internal helpers it uses. Treat the shipped code and tests as the executable contract; use
-the local markdown to identify intentional moduix behavior. When synchronizing an existing port,
-also read its Solid implementation, tests, and playground story before editing. Resolve
-contradictions rather than silently choosing one source.
+Read the React component, test, matching playground story, exports, registry item, and internal
+dependencies. For the CSS Modules track, also read its module and local markdown. For the Tailwind
+track, read the CSS Modules implementations in both runtimes to distinguish styling translation
+from framework translation. Treat shipped code and tests as the executable contract. When
+synchronizing an existing port, read the Solid implementation and tests before editing.
 
 Read the current Ark Solid component page or guide whenever an Ark primitive, factory, provider,
 context, ref, presence behavior, or callback contract is involved. Do not infer the Solid API from
@@ -24,9 +25,9 @@ of recreating Ark internals.
 Use `packages/foundation` as the existing cross-framework source. Do not move component JSX, CSS
 Modules, icons, or framework-specific helpers into foundation as part of an ordinary port.
 
-When the port is ready for copy-owned distribution, add its item to
-`packages/solid/registry.json`. Keep its source paths inside `packages/solid`, use
-`@moduix-solid/*` for registry dependencies, and port every direct component dependency first.
+When the port is ready for copy-owned distribution, add it to the matching Solid registry. Keep
+source paths inside that package, use its `@moduix-solid/*` or `@moduix-solid-tailwind/*` registry
+namespace, and port every direct component dependency first.
 
 ## Parity contract
 
@@ -50,8 +51,8 @@ adapters merely to make those mechanics textually identical.
   according to the target Ark or intrinsic element contract.
 - Preserve prop reactivity. Do not destructure reactive props; use `splitProps`, `mergeProps`, or
   direct property access when values may change.
-- Merge the consumer `class` with the local CSS Module class. Do not port React-only
-  `normalizeClassName` behavior unless the Solid target type demonstrably requires it.
+- Merge the consumer `class` with the local CSS Module class or Tailwind defaults. In a Tailwind
+  package use its local `cn` helper and keep the consumer class last.
 - Resolve `children` with Solid's `children` helper only when the wrapper must inspect, default, or
   read children more than once. Do not eagerly evaluate reactive children.
 - Use Solid JSX and style types for refs, events, and `style`. Preserve public CSS custom-property
@@ -92,9 +93,9 @@ a single component.
 
 ## CSS and foundation
 
-Start by copying the React CSS Module without semantic changes. Keep selectors, tokens, public CSS
-variables, animations, and fallbacks aligned. The target component should emit the same anatomy and
-Ark data attributes so the same CSS remains valid.
+For the CSS Modules track, start by copying the React CSS Module without semantic changes. Keep
+selectors, tokens, public CSS variables, animations, and fallbacks aligned. For the Tailwind track,
+follow `tailwind-component-workflow`; do not introduce a CSS Module.
 
 Keep the CSS Module beside the Solid component; do not import it across framework package boundaries.
 A framework-specific CSS difference is allowed only when the emitted platform contract genuinely
@@ -106,27 +107,25 @@ paths, or introduce symlinks into a framework registry.
 
 ## Registry distribution
 
-`packages/react/registry.json` and `packages/solid/registry.json` are separate source roots. Their
-items may include only files under their own package and their framework-native internal helpers.
-The generated artifacts are published at `/r/react` and `/r/solid`.
+Each React/Solid registry is a separate source root. Its items may include only files under that
+package and framework-native helpers. CSS Modules artifacts are published at `/r/react` and
+`/r/solid`; Tailwind artifacts use `/r/react-tailwind` and `/r/solid-tailwind`.
 
-- Start a Solid item from the matching React item's file and target layout, then use the Solid
+- Start a Solid item from the matching React registry item in the same styling track, then use Solid
   source paths and `@ark-ui/solid` dependencies.
 - Keep registry dependencies framework-specific: a Solid item may depend on
   `@moduix-solid/foundation`, `@moduix-solid/icons`, or another already-ported Solid item, never
   an `@moduix-react/*` item.
 - Do not manually edit `website/docs/public/r`. Run `pnpm run build:registry` to regenerate
-  foundation, React, and Solid artifacts together.
+  foundation and all four package artifact trees together.
 
 ## Playground stories
 
-Every component port includes framework-native stories in both technical playgrounds:
+Every component port includes framework-native stories in both playgrounds for its styling track:
 
-- copy the React package story and its story CSS Module from
-  `packages/react/stories/components/<component>` to
-  `playgrounds/react/stories/<component>`;
-- create the matching Solid story and story CSS Module in
-  `playgrounds/solid/stories/<component>`.
+- CSS Modules: `playgrounds/react/stories/<component>` and `playgrounds/solid/stories/<component>`;
+- Tailwind: `playgrounds/react-tailwind/stories/<component>` and
+  `playgrounds/solid-tailwind/stories/<component>`.
 
 Keep the Storybook title, exported story names, scenario data, layout, visual states, and demo CSS
 equivalent. The React playground story should differ from the package story only where its local
@@ -140,9 +139,9 @@ deferred. Do not add Storybook interaction tests, `play` functions, documentatio
 of a port. The playgrounds are for manual visual and interaction comparison; Rstest owns automated
 behavioral coverage.
 
-Keep component entries in both playground sidebars alphabetically ordered through the shared Storybook
-`storySort` configuration. Keep each playground visibly labelled with its framework (`React` or `Solid`)
-in the preview, so manual parity checks always identify the active runtime.
+Keep component entries in paired playground sidebars alphabetically ordered through the shared
+Storybook `storySort` configuration. Keep each playground visibly labelled with its runtime and
+styling track, so manual parity checks always identify the active variant.
 
 ## Per-component workflow
 
@@ -152,22 +151,16 @@ in the preview, so manual parity checks always identify the active runtime.
    third-party integration. Ensure required moduix dependencies have already been ported.
 3. Verify the matching current Ark Solid API when applicable.
 4. Implement the smallest native Solid equivalent and port only required local helpers or icons.
-5. Copy and compare the CSS Module, then inspect the rendered anatomy and state attributes.
+5. For CSS Modules, copy and compare the module. For Tailwind, translate and compare the class
+   semantics. Then inspect the rendered anatomy and state attributes.
 6. Port the React tests assertion-for-assertion by behavior using Solid testing utilities. Adapt only
    framework mechanics; do not weaken or delete contract assertions to make the port pass.
-7. Copy the package React story into the React playground and create its scenario-equivalent Solid
-   story. Keep their story CSS Modules and exported scenario names aligned.
+7. Copy the package React story into the paired React playground and create its scenario-equivalent
+   Solid story. Keep exported scenarios and styling semantics aligned.
 8. Add component-local and package exports only after implementation and declarations build. Add
    the Solid registry item once all of its registry dependencies are ported.
-9. Run the Solid component tests and build. Start both playgrounds and compare matching React and
-   Solid stories, then run `pnpm run build:registry` and the repository validation required by
-   `AGENTS.md`.
-
-If `packages/solid` does not exist, create only the minimal bundleless ESM Rslib package needed for
-the requested component. Align the Ark Solid version with the Ark React line, keep `solid-js` and Ark
-as peers, copy foundation output like the React package, and use the repository's Rslib and Rstest
-skills. Use the existing technical playgrounds for stories; do not scaffold package-local Storybook,
-documentation, a registry, or every future export unless requested.
+9. Run the Solid component tests and build. Compare the paired playground stories, then run registry
+   generation when registry sources changed and finish the repository validation from `AGENTS.md`.
 
 ## Completion criteria
 
@@ -176,13 +169,12 @@ A port is complete only when:
 - no React runtime or React type import remains in the Solid implementation;
 - the intended public exports and namespaced parts match the React contract;
 - existing React behavior tests have Solid equivalents and pass;
-- the React and Solid playgrounds contain the same component scenarios and demo styling;
+- the paired React and Solid playgrounds contain the same component scenarios and demo styling;
 - DOM anatomy, accessibility, states, callback details, refs, and composition are equivalent;
 - any unavoidable Ark Solid factory difference, including unsupported `ref` with `asChild`, is
   documented and tested as separate native paths;
-- CSS Modules are identical unless a necessary difference is documented;
-- the Solid registry item has only Solid dependencies and the regenerated `/r/solid` artifact is
-  included;
+- CSS Modules are identical, or Tailwind styling is semantically equivalent, unless a necessary difference is documented;
+- the Solid registry item has only Solid dependencies and the matching generated artifact is included;
 - the Solid package build and declaration output succeed;
 - required repository formatting, lint, and type checks pass.
 

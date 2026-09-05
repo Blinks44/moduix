@@ -1,11 +1,18 @@
 ---
 name: local-component-docs
-description: Use for component-local markdown in packages/react/src/components, including wrapper contracts, preservation notes, and concise changelog entries.
+description: Maintain component-local contract markdown in packages/react and packages/solid, including framework differences and preservation notes.
 ---
 
 # Local Component Docs
 
-Own a component's local markdown in `packages/react/src/components`. It records the shipped moduix wrapper contract for maintainers; it is not a second public documentation site or a copy of upstream reference material.
+Own component-local markdown in `packages/react/src/components` and `packages/solid/src/components`.
+It records the shipped moduix wrapper contract for maintainers; it is not a second public
+documentation site or a copy of upstream reference material.
+
+Keep shared contract sections aligned between React and Solid when both files exist. Describe native
+framework mechanics only in the affected file, and never claim parity where Ark exposes a real
+difference. Tailwind variants normally reuse this behavioral contract and do not need duplicated
+local markdown unless they expose a genuine styling-specific contract.
 
 ## Write the wrapper contract
 

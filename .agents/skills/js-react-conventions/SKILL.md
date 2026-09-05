@@ -1,6 +1,6 @@
 ---
 name: js-react-conventions
-description: Use for JS/TS React work in this repo. Prefer plain function components, inline prop typing, and composition over configuration.
+description: Use for React JS/TS work in packages/react and packages/react-tailwind. Prefer plain function components, small public types, and composition over configuration.
 ---
 
 # Skill: js-react-conventions
@@ -9,7 +9,7 @@ Use this skill for JS/TS React work in this repo.
 
 ## Scope
 
-- React components in JS/TS/TSX
+- React components in `packages/react` and `packages/react-tailwind`
 - local helpers and handler naming
 - `memo` and `forwardRef` usage
 
@@ -51,3 +51,5 @@ Use this skill for JS/TS React work in this repo.
 - Preserve Ark callback detail objects. Avoid wrapper callbacks that unpack, rename, or reorder Ark callback payloads.
 - Keep `asChild` children single and semantic. If a custom child replaces a button, input, label, or link, it must
   preserve the required ARIA, keyboard, and focus behavior.
+- Use `className` in both React packages. In `packages/react-tailwind`, merge defaults and the
+  consumer class with the local `cn` helper according to `tailwind-component-workflow`.

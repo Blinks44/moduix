@@ -87,11 +87,11 @@ When the default home page structure (Hero + Features) doesn't meet the design r
 
 ```tsx
 // theme/components/HomeLayout/index.tsx
-import { useSite, useLang } from '@rspress/core/runtime';
+import { useSite } from '@rspress/core/runtime';
+import { Link } from '@rspress/core/theme';
 
 export function HomeLayout() {
   const site = useSite();
-  const lang = useLang();
   const { title, description } = site.siteData;
 
   return (
@@ -100,9 +100,9 @@ export function HomeLayout() {
         <h1>{title}</h1>
         <p>{description}</p>
         <div className="hero-actions">
-          <a href={lang === 'zh' ? '/zh/guide/start' : '/guide/start'} className="primary-btn">
+          <Link href="/guide/start" className="primary-btn">
             Get Started
-          </a>
+          </Link>
           <a href="https://github.com/..." className="secondary-btn">
             GitHub
           </a>

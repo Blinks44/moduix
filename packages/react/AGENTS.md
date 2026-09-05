@@ -9,6 +9,9 @@ You are an expert in JavaScript, Rspack, Rsbuild, Rslib, and library development
 - `pnpm --filter @moduix/react test` - Run tests
 - `pnpm --filter @moduix/react test:watch` - Run tests in watch mode
 
+Component contract changes must also be checked against existing counterparts in `packages/solid`,
+`packages/react-tailwind`, and `packages/solid-tailwind` through the root `ui-component-workflow` skill.
+
 ## Docs
 
 - Rslib: https://rslib.rs/llms.txt
@@ -20,7 +23,7 @@ You are an expert in JavaScript, Rspack, Rsbuild, Rslib, and library development
 
 ### Storybook
 
-- Stories live in `playgrounds/react/stories` and `playgrounds/solid/stories`.
-- Run `pnpm run dev:playgrounds` from the repository root to start both playgrounds.
+- Stories live in the four framework/styling playgrounds under `playgrounds/`.
+- Run `pnpm run dev:playgrounds` from the repository root to start all playgrounds.
 - Run `pnpm --filter @moduix/playground-react build:storybook` or
-  `pnpm --filter @moduix/playground-solid build:storybook` to build a playground.
+  the matching Solid or Tailwind filter to build one playground.

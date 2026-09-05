@@ -57,7 +57,7 @@ description: 'API reference for Rspress configuration: plugins, themes, and buil
 
 ## Step 3 — Batch processing
 
-For sites with many files, use parallel agent calls to process independent files simultaneously. Group by directory (e.g., all files in `guide/`, then all in `api/`) to maintain focus and consistency within each section.
+For sites with many files, process them in coherent directory groups so terminology remains consistent within each section.
 
 After processing all files, do a quick scan to ensure no files were missed — re-glob and check for any remaining files without `description`.
 

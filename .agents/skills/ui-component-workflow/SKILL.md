@@ -1,55 +1,77 @@
 ---
 name: ui-component-workflow
-description: Use for implementation, UX/API review, behavior, composition, stories, exports, registry synchronization, and existing Solid-counterpart checks for components in packages/react.
+description: Coordinate moduix component behavior, API, styles, tests, stories, exports, and registries across React, Solid, React Tailwind, and Solid Tailwind packages.
 ---
 
 # UI Component Workflow
 
-Own the shipped component contract in `packages/react`: behavior, public composition, exports, stories, and registry synchronization. Keep Ark behavior intact while making the moduix API smaller and clearer.
+Own the public component contract across the four package variants:
 
-## Read first
+| Runtime | CSS Modules      | Tailwind                  |
+| ------- | ---------------- | ------------------------- |
+| React   | `packages/react` | `packages/react-tailwind` |
+| Solid   | `packages/solid` | `packages/solid-tailwind` |
 
-1. `AGENTS.md` and the touched component's implementation, styles, story, and local markdown.
-2. The public docs and registry manifest when the change reaches consumers.
-3. Check whether the component already exists in `packages/solid`; if it does, read its
-   implementation, tests, and both playground stories.
-4. Current Ark, Chakra, or shadcn sources only when their behavior materially informs the decision;
-   use `upstream-library-docs` for that research.
+Use framework-native code in every package. Share tokens, animations, reset, and presets through
+`packages/foundation`; do not create a shared component runtime or generate framework source.
 
-## Workflow
+## Start with an impact check
 
-1. Define the changed public contract: behavior, parts, props, refs, state, accessibility, CSS variables, and migration impact.
-2. Implement the smallest Ark-shaped change. Preserve lower-level composition when adding narrow convenience parts.
-3. If a Solid counterpart exists and the changed contract applies to it, synchronize its native
-   implementation, tests, exports, CSS, and playground story using `react-to-solid`. Preserve
-   intentional framework differences rather than copying React mechanics.
-4. Update exports, stories, local markdown, public docs, and registry artifacts that describe the changed contract.
-5. Test the changed behavior and remove obsolete code, examples, and styling paths created by the change.
+Before editing, locate the component in all four packages and their tests, playground stories,
+exports, local markdown, and registry items.
 
-## API decisions
+- Synchronize every counterpart that already exists and is affected by the changed contract.
+- A new component intended for the package family includes all four variants unless the user scopes
+  the task more narrowly or an upstream/dependency gap is reported.
+- Do not create an unrelated missing port merely because another component changed.
+- If a change is genuinely runtime- or styling-specific, keep unaffected variants unchanged and
+  state why in the handoff.
 
-- Keep Ark behavior, callback detail objects, accessibility semantics, lifecycle, part names, and state attributes unless a documented product decision changes them.
-- Prefer an explicit part tree and narrow conveniences over prop-heavy wrapper components, aliases, renamed events, value translators, hidden state machines, or shadcn-shaped compatibility trees.
-- Do not add nested prop bags by default. Add one only for a fixed structure and a small recurring subset that explicit composition cannot express clearly.
-- Every convenience part remains stylable and composable: preserve meaningful `className`, `data-slot`, CSS variables, or lower-level parts.
-- For review-only work, report findings by consumer impact and do not edit implementation.
+## Contract to preserve
 
-## Native form controls
+Keep public names, parts, props, defaults, controlled state, callbacks, refs, DOM anatomy, ARIA,
+keyboard behavior, focus management, native form behavior, Ark state/data attributes, CSS variables,
+and lifecycle equivalent wherever the frameworks support the same contract.
 
-When moduix owns Ark's native hidden control, render it on every public composition path and preserve controlled and uncontrolled state, `name`, `form`, validity, reset synchronization, refs, `ids`, provider/context hooks, and `asChild` validity. Do not scan consumer children or add a compatibility registry. Removing a public hidden-control part is an intentional documented API change.
+React is the established product contract, not source code to copy mechanically. Translate it into
+native Solid and Tailwind forms using `react-to-solid`, `js-react-conventions`,
+`tailwind-component-workflow`, and `css-authoring` as applicable. Preserve intentional framework
+differences and verify current Ark APIs instead of emulating missing primitives.
 
-## Synchronization
+## Synchronization surfaces
 
-- Keep stories, package barrels, local markdown, public docs, and registry output aligned with the shipped API.
-- Keep `playgrounds/react` and `playgrounds/solid` story scenarios and demo styling aligned whenever
-  the component already exists in Solid. The React package story remains the source to copy into the
-  React playground; write the Solid version with framework-native syntax.
-- If a Solid counterpart exists but a React change is genuinely framework-only and does not alter
-  its contract, leave Solid unchanged and state that result in the handoff. If no Solid counterpart
-  exists, do not create a new port unless the task requests one.
-- Cover exposed provider, context, and state surfaces in stories when they are consumer contracts.
-- Update `packages/react/registry.json` and, for an existing Solid counterpart, `packages/solid/registry.json`; then run `pnpm run build:registry` when a registry-shipped component changes its public import, styling, or dependency contract.
-- Each framework manifest owns only sources in its package. Shared styles, reset, and presets are
-  published by `packages/foundation/registry.json` and consumed through `/r/foundation` URL
-  dependencies; do not duplicate them or use symlinks and parent paths.
-- Use existing component directory and import conventions; do not start a development server outside the project workflow.
+For each affected existing variant, update only the surfaces the change reaches:
+
+- implementation and framework-local helpers/icons;
+- CSS Module or Tailwind classes and shared foundation tokens;
+- behavior tests with equivalent assertions;
+- the matching playground story with the same exported scenarios and demo layout;
+- package subpath exports and build output;
+- the package-owned registry item and dependencies;
+- component-local or public documentation when its described contract changed.
+
+Never edit `website/docs/public/r` by hand. When a registry source changes, run
+`pnpm run build:registry` and keep only the generated artifacts belonging to the source changes.
+
+## Stories and tests
+
+The four playgrounds are a comparison matrix, not four independent catalogs. For a component that
+exists in multiple variants, keep story names, scenario data, states, and demo styling aligned;
+adapt only framework syntax and the styling mechanism.
+
+Port tests assertion-for-assertion by behavior. Do not weaken a React assertion to make Solid pass,
+or omit a Tailwind override test because the CSS Modules version does not need it. Add
+variant-specific coverage only for a real variant-specific contract.
+
+## Completion
+
+Before handoff:
+
+1. Re-run the four-package impact check and report any intentional gap.
+2. Run focused tests for every changed package.
+3. Build affected package and Storybook outputs when exports, CSS generation, or distribution changed.
+4. Run registry generation when registry sources changed.
+5. Run the repository validation required by `AGENTS.md`.
+
+For consumer-facing changes, create one multi-package changeset only when explicitly requested; use
+`changeset-workflow` to list exactly the affected public packages.

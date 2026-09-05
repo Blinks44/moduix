@@ -1,6 +1,6 @@
 # moduix Project Skills
 
-Local agent skills for maintaining the shipped `moduix` component library and docs.
+Local agent skills for maintaining the four public `moduix` component packages, registries, playgrounds, and docs.
 
 The library is Ark-backed and actively developed. Skills should preserve current public contracts,
 keep package/docs/registry output aligned, and remove stale instructions when behavior changes.
@@ -17,8 +17,9 @@ Skills are intentionally narrow and composable:
 - `changeset-workflow` — an explicitly requested `.changeset` entry.
 - `css-authoring` — CSS, CSS Modules, selectors, and public CSS-variable contracts.
 - `js-react-conventions` — React and TypeScript implementation conventions.
-- `ui-component-workflow` — shipped component behavior, API, stories, exports, registry synchronization, and checks of existing Solid counterparts.
+- `ui-component-workflow` — coordinates component contracts across React, Solid, React Tailwind, and Solid Tailwind.
 - `react-to-solid` — port and synchronize native Solid equivalents, tests, and paired React/Solid playground stories.
+- `tailwind-component-workflow` — port and synchronize Tailwind implementations without losing framework behavior or consumer overrides.
 - `local-component-docs` — maintainers' markdown beside a component source file.
 - `upstream-library-docs` — current Ark UI, Chakra UI, and shadcn research.
 - `rstest-best-practices` — Rstest configuration and test design.
