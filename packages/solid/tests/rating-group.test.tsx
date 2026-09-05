@@ -107,15 +107,17 @@ test('preserves Ark callback details and controlled and provider paths', async (
   unmount();
   const controlled = render(() => <ControlledRatingGroup />);
   fireEvent.click(screen.getAllByRole('radio')[3]);
-  await waitFor(() =>
-    expect(screen.getAllByRole('radio')[3]).toHaveAttribute('aria-checked', 'true'),
-  );
+  await waitFor(() => {
+    expect(screen.getAllByRole('radio')[3]).toHaveAttribute('aria-checked', 'true');
+    expect(screen.getAllByRole('radio')[3]).toHaveAttribute('data-checked');
+  });
 
   controlled.unmount();
   render(() => <ProviderRatingGroup />);
-  await waitFor(() =>
-    expect(screen.getAllByRole('radio')[2]).toHaveAttribute('aria-checked', 'true'),
-  );
+  await waitFor(() => {
+    expect(screen.getAllByRole('radio')[2]).toHaveAttribute('aria-checked', 'true');
+    expect(screen.getAllByRole('radio')[2]).toHaveAttribute('data-checked');
+  });
 });
 
 test('keeps half-state and keyboard focus Ark-shaped', async () => {
@@ -132,6 +134,19 @@ test('keeps half-state and keyboard focus Ark-shaped', async () => {
   items[2].focus();
   fireEvent.keyDown(items[2], { key: 'ArrowRight' });
   await waitFor(() => expect(document.activeElement).toBe(items[3]));
+});
+
+test('does not mark a mouse-selected item as focus-visible', () => {
+  render(() => (
+    <RatingGroup defaultValue={3}>
+      <RatingGroup.Label>Rating</RatingGroup.Label>
+      <RatingItems />
+    </RatingGroup>
+  ));
+
+  const item = screen.getAllByRole('radio')[2];
+  fireEvent.click(item);
+  expect(item).not.toHaveAttribute('data-focus-visible');
 });
 
 test('repeats custom indicators with Ark item state', () => {
