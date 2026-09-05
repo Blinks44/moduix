@@ -1,1 +1,1 @@
-export { ProgressLinear, useProgress, useProgressContext } from './ProgressLinear.js';
+export { ProgressLinear } from './ProgressLinear.js';

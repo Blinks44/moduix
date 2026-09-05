@@ -118,4 +118,4 @@ const ProgressLinear: ProgressLinearComponent = Object.assign(ProgressLinearRoot
   useProgressContext,
 });
 
-export { ProgressLinear, useProgress, useProgressContext };
+export { ProgressLinear };

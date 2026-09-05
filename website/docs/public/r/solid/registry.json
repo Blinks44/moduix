@@ -353,7 +353,7 @@
       "type": "registry:item",
       "title": "Chart",
       "description": "moduix Solid Chart component backed by TanStack Charts.",
-      "dependencies": ["@tanstack/charts", "@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid", "@tanstack/charts", "clsx"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {

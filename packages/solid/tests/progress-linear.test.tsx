@@ -1,6 +1,6 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
-import { ProgressLinear, useProgressContext } from '../src';
+import { ProgressLinear } from '../src';
 
 test('renders the linear Ark anatomy with stable hooks and an accessible name', () => {
   let rootRef!: HTMLDivElement;
@@ -100,7 +100,7 @@ test('preserves custom bounds and accessible value text', () => {
 });
 
 function ProgressContextValue() {
-  const progress = useProgressContext();
+  const progress = ProgressLinear.useProgressContext();
 
   return <output>{progress().value}</output>;
 }
