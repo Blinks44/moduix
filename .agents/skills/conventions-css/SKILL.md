@@ -60,6 +60,8 @@ Use this skill for CSS, CSS Modules, and styling work in this repo.
 ## Tailwind Variants
 
 - Use each package's local `cn` helper and put the consumer class last so consumer utilities win conflicts.
+- Keep every part's static utility string directly in its JSX `cn(...)` call. Do not extract
+  intermediate class-string constants, including for defaults shared by Root and RootProvider.
 - Preserve the same API, behavior, states, accessibility, and visual defaults as CSS Modules, but
   use Tailwind's native customization model rather than mirroring every component CSS variable.
 - Prefer familiar utilities and the foundation's named semantic theme utilities. Use arbitrary

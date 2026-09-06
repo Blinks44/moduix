@@ -637,6 +637,11 @@
     "fr": "Opacité"
   },
   "tokensOverviewTypography": {
+    "en": "Typography",
+    "ru": "Типографика",
+    "fr": "Typographie"
+  },
+  "tokensOverviewTypographyNote": {
     "en": "Font families, sizes, line heights, weights, and tracking tokens.",
     "ru": "Семейства шрифтов, размеры, межстрочные интервалы, начертания и межбуквенные интервалы.",
     "fr": "Familles de polices, tailles, hauteurs de ligne, graisses et espacement des caractères."
@@ -647,6 +652,11 @@
     "fr": "Familles de polices"
   },
   "tokensOverviewMotion": {
+    "en": "Motion",
+    "ru": "Анимация",
+    "fr": "Animations"
+  },
+  "tokensOverviewMotionNote": {
     "en": "Durations, easing, transition shorthands, and reusable animations.",
     "ru": "Длительности, кривые плавности, сокращённые записи переходов и повторно используемые анимации.",
     "fr": "Durées, fonctions d'accélération, raccourcis de transition et animations réutilisables."
@@ -1105,6 +1115,11 @@
     "en": "Russian, French",
     "ru": "Русский, Французский",
     "fr": "Russe, Français"
+  },
+  "localizationHeroTitle": {
+    "en": "Three languages",
+    "ru": "Три языка",
+    "fr": "Trois langues"
   },
   "localizationHeroSummary": {
     "en": "Russian and French are here. More translations are next.",

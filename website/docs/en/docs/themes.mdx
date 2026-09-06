@@ -26,10 +26,8 @@ provider or runtime. React and Solid packages use the same theme files and token
 | Soft     | 40px / 34px              | Spacious or touch-friendly workflows with rounded surfaces and a warmer accent.  |
 | Contrast | 36px / 32px              | Interfaces that benefit from sharper borders and clearer focus separation.         |
 
-The sizes in the table are the default heights for the preset's main controls and popup rows.
-The preview uses real moduix components. Use the preset and color mode buttons, then open the
-Select and move through its fields with the keyboard to compare control height, popup row height,
-labels, surfaces, and focus styles together.
+The sizes in the table are the default heights for the preset's main controls and popup rows. Use
+the preview to compare density, surfaces, and focus styles with real moduix components.
 
 Preset names describe a visual direction, not an accessibility guarantee. Test text contrast,
 focus visibility, zoom, and interactive target sizes with your content and application overrides
@@ -55,9 +53,8 @@ Import the foundation once, then import a preset. If users can switch between mu
 load every preset they can choose before switching. `Calm` uses the foundation values and does not
 have a `calm.css` file.
 
-Put `data-moduix-theme` on `<html>` so portalled components resolve the same tokens as the rest of
-the document. Set `data-moduix-color-scheme="dark"` on that element for the moduix dark mode; omit
-it for the light mode.
+Set `data-moduix-theme` and the color scheme on `<html>` so the same values reach regular and
+portalled content. Omit `data-moduix-color-scheme` for the light mode.
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
@@ -153,13 +150,12 @@ type Theme = 'calm' | 'dense' | 'soft' | 'contrast';
 
 function setTheme(theme: Theme) {
   document.documentElement.dataset.moduixTheme = theme;
-  localStorage.setItem('moduix-theme', theme);
 }
 ```
 
 The `calm` value leaves the foundation values in place. The CSS for every other selectable preset
-must already be loaded. Apply the saved value before the first paint to avoid a visible theme
-change during startup.
+must already be loaded. If your product remembers the selection, persist it and apply the saved
+value before the first paint to avoid a visible theme change during startup.
 
 ## Customize a preset
 

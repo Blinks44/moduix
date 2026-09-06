@@ -11,16 +11,16 @@ import { children, splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
 
-const rootClass =
-  'box-border flex w-full max-w-full min-w-0 flex-col text-foreground data-[orientation=horizontal]:h-80 data-[orientation=horizontal]:max-h-full data-[orientation=horizontal]:w-auto data-[orientation=horizontal]:flex-row';
-
 function AccordionRoot(props: ComponentProps<typeof AccordionPrimitive.Root>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
     <AccordionPrimitive.Root
       data-slot="accordion-root"
-      class={cn(rootClass, local.class)}
+      class={cn(
+        'box-border flex w-full max-w-full min-w-0 flex-col text-foreground data-[orientation=horizontal]:h-80 data-[orientation=horizontal]:max-h-full data-[orientation=horizontal]:w-auto data-[orientation=horizontal]:flex-row',
+        local.class,
+      )}
       {...others}
     />
   );
@@ -32,7 +32,10 @@ function AccordionRootProvider(props: ComponentProps<typeof AccordionPrimitive.R
   return (
     <AccordionPrimitive.RootProvider
       data-slot="accordion-root-provider"
-      class={cn(rootClass, local.class)}
+      class={cn(
+        'box-border flex w-full max-w-full min-w-0 flex-col text-foreground data-[orientation=horizontal]:h-80 data-[orientation=horizontal]:max-h-full data-[orientation=horizontal]:w-auto data-[orientation=horizontal]:flex-row',
+        local.class,
+      )}
       {...others}
     />
   );

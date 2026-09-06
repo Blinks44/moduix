@@ -12,7 +12,10 @@ pour les surfaces, le texte, les bordures, les anneaux de focus et les superposi
 de conception a besoin d’un autre rythme visuel, ajustez l’espacement, les rayons, les tailles, la
 typographie, les animations, les ombres et les calques.
 
-Avec npm, importez une seule fois le `style.css` correspondant au framework et au mode de style :
+## Charger la couche de tokens
+
+Avec npm, importez une seule fois le `style.css` correspondant au framework et à l’approche de
+stylisation :
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
@@ -63,30 +66,19 @@ import '@moduix/solid/style.css';
   </Tab>
 </Tabs>
 
-Avec le code source installé par shadcn, importez `@/lib/moduix/styles/style.css` une seule fois. Le
-reset facultatif utilise `@moduix/react/reset.css` ou `@moduix/solid/reset.css` avec npm, et l’entrée
-de registre correspondante `@moduix-react/reset` ou `@moduix-solid/reset` avec le code copié.
+Avec le code source installé par shadcn, importez `@/lib/moduix/styles/style.css` une seule fois. La
+réinitialisation facultative utilise `@moduix/react/reset.css` ou `@moduix/solid/reset.css` avec npm,
+et l’entrée de registre correspondante `@moduix-react/reset` ou `@moduix-solid/reset` avec le code
+copié.
 
-Tailwind utilise Preflight : ne combinez donc pas un paquet Tailwind avec le reset facultatif de
-moduix. Le chemin `@source` est relatif à votre feuille de styles ; consultez le
+Tailwind utilise Preflight : ne combinez donc pas un paquet Tailwind avec la réinitialisation
+facultative de moduix. Le chemin `@source` est relatif à votre feuille de styles ; consultez le
 [Démarrage rapide](/docs/quick-start#tailwind-css) pour la configuration complète.
 
-Pour démarrer rapidement, utilisez [Thèmes](/docs/themes). Les préréglages redéfinissent une petite
-couche de tokens sémantiques après `style.css`. Cette page décrit les tokens système et partagés ; les
-pages de composants présentent les alias locaux et les sélecteurs d’état que vous pouvez personnaliser
-en toute sécurité.
-
-## Choisissez le niveau de surcharge adapté
-
-1. Modifiez une primitive de thème comme `--moduix-primary` pour une décision visuelle à l’échelle du
-   produit.
-2. Modifiez une valeur par défaut partagée par une famille quand des composants liés doivent évoluer
-   ensemble.
-3. Modifiez un alias de composant uniquement quand ce composant doit intentionnellement se distinguer.
-4. Limitez la variable au conteneur de la partie concernée pour une exception locale ponctuelle.
-
-En cas de doute, commencez par le niveau le plus haut qui convient. Une petite surcharge sémantique est
-plus facile à maintenir que de répéter la même valeur dans de nombreux alias de composants.
+Pour adopter une direction visuelle prête à l’emploi, choisissez un préréglage dans
+[Thèmes](/docs/themes). Les préréglages redéfinissent une petite couche de tokens sémantiques après
+`style.css`. Cette page décrit les tokens système et partagés ; les pages de composants présentent
+les alias locaux et les sélecteurs d’état que vous pouvez personnaliser en toute sécurité.
 
 ## Modèle de tokens
 
@@ -134,8 +126,7 @@ L’exception concerne les variables d’état définies par Ark UI à l’exéc
 correspondantes des composants. moduix ne déclare pas ces valeurs sur `:root`.
 
 Utilisez cette page pour les décisions à l’échelle du système et la page du composant concerné pour
-les alias locaux. Aucun mode d’installation n’a besoin à l’exécution d’une feuille de styles distincte
-servant de référence pour les variables.
+les alias locaux.
 
 ## Densité et échelle des contrôles
 
@@ -166,7 +157,7 @@ peu plus compactes.
 }
 ```
 
-## Surcharges à l’échelle du système
+## Tokens transversaux
 
 Certaines variables se situent au-dessus du niveau des composants individuels. Les modifier met à jour
 plusieurs composants à la fois, jusqu’à ce qu’une variable de composant
@@ -185,11 +176,6 @@ plusieurs composants à la fois, jusqu’à ce qu’une variable de composant
 Utilisez ces tokens pour apporter un changement visuel étendu à tout le système. Utilisez les tokens
 propres à un composant, comme `--moduix-dialog-backdrop-bg` ou `--moduix-popover-transition`, lorsqu’un
 seul composant doit se distinguer.
-
-Le tableau rapide ci-dessus sert d’index transversal. L’aperçu détaillé ci-dessous présente les mêmes
-tokens dans les sections correspondantes : les animations, l’échelle, puis les valeurs partagées
-d’arrière-plan, de liste contextuelle et d’animation dans la section consacrée aux valeurs par défaut
-communes aux composants.
 
 ```css
 :root {
@@ -212,7 +198,7 @@ décalages de focus suivent automatiquement.
 
 <TokensOverview />
 
-## Portée des surcharges
+## Portée des redéfinitions
 
 Définissez les tokens à l’échelle du projet dans `:root`. Une valeur définie sur
 `[data-moduix-color-scheme='dark']` ou un autre conteneur parent n’est héritée que par les composants
@@ -235,7 +221,7 @@ de la valeur sur la racine du document, `body` ou un conteneur de portail situé
 }
 ```
 
-Pour un thème réutilisable, conservez les surcharges dans une feuille de styles dédiée, chargée après
-`style.css`. Si plusieurs thèmes doivent coexister, limitez le fichier avec un attribut tel que
+Pour un thème réutilisable, conservez les redéfinitions dans une feuille de styles dédiée, chargée
+après `style.css`. Si plusieurs thèmes doivent coexister, limitez le fichier avec un attribut tel que
 `[data-moduix-theme='brand']`. Gardez les ajustements ponctuels d’un composant près de la fonctionnalité
 concernée, afin qu’ils ne deviennent pas discrètement des décisions globales du système de conception.

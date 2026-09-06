@@ -60,6 +60,10 @@ Create the same component directory and re-export-only `index.ts` in both Tailwi
   `data-scope`/`data-part`, state attributes, runtime variables, and semantic hosts.
 - Remove CSS Module imports. Component defaults belong in statically discoverable Tailwind class
   strings; never construct utility names from fragments.
+- Put each part's static default utilities directly in that part's JSX `cn(...)` call. Do not hoist
+  them into intermediate `*Class`, `*ClassName`, or similar constants. If Root and RootProvider share
+  defaults, keep the complete static string on each component so copied shadcn source remains local
+  and readable.
 - Merge defaults with the package-local `cn` helper and pass the consumer `className` or `class`
   last so `tailwind-merge` can resolve conflicts in the consumer's favor.
 - Reuse the foundation's Tailwind semantic theme utilities, shared keyframes, and framework-local

@@ -9,24 +9,6 @@ import type { ComponentProps, ComponentRef, ReactNode } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
-const rootClassName =
-  'box-border inline-flex min-w-0 flex-col items-center gap-3 text-foreground data-disabled:opacity-50';
-
-const labelClassName = 'text-center text-sm/5 font-medium text-foreground';
-
-const controlClassName =
-  "relative box-border flex aspect-square w-32 min-w-0 cursor-pointer items-center justify-center rounded-full bg-muted shadow-[inset_0_0_0_1px_var(--color-border)] outline-0 select-none transition-colors duration-200 after:absolute after:inset-3.5 after:z-1 after:rounded-[inherit] after:bg-background after:shadow-[inset_0_0_0_1px_var(--color-border)] after:content-[''] before:absolute before:z-1 before:size-1.5 before:rounded-[inherit] before:bg-foreground before:content-[''] [@media(hover:hover)]:[&:not([data-disabled]):not([data-readonly]):hover]:bg-muted [&:not([data-disabled]):not([data-readonly]):active]:bg-muted [&:has([data-slot='angle-slider-thumb']:focus-visible)]:shadow-[inset_0_0_0_1px_var(--color-border),0_0_0_3px_var(--color-ring)] data-invalid:shadow-[inset_0_0_0_1px_var(--color-destructive)] data-invalid:after:shadow-[inset_0_0_0_1px_var(--color-destructive)] data-disabled:cursor-default data-readonly:cursor-default motion-reduce:transition-none";
-
-const thumbClassName =
-  "absolute inset-y-0 left-[calc(50%-0.09375rem)] z-2 w-[0.1875rem] outline-0 before:absolute before:top-3.5 before:left-1/2 before:box-border before:size-4 before:-translate-x-1/2 before:rounded-full before:border before:border-border before:bg-primary before:shadow-[var(--moduix-shadow-sm)] before:content-[''] before:transition-[border-color,box-shadow,background-color,scale] before:duration-200 after:absolute after:top-[2.125rem] after:left-1/2 after:h-[calc(50%-2.25rem)] after:w-[0.1875rem] after:-translate-x-1/2 after:rounded-full after:bg-linear-to-b after:from-primary after:to-transparent after:content-[''] focus-visible:before:border-ring focus-visible:before:ring-1 focus-visible:before:ring-ring [&:active:not([data-disabled]):not([data-readonly])]:before:scale-[1.08] data-invalid:before:border-destructive data-invalid:before:bg-destructive data-invalid:after:from-destructive data-disabled:pointer-events-none motion-reduce:before:transition-none";
-
-const markerGroupClassName = 'pointer-events-none absolute inset-0 z-1';
-
-const markerClassName =
-  "absolute inset-0 before:absolute before:top-4 before:left-1/2 before:h-2.5 before:w-0.5 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-muted-foreground before:content-[''] data-[state=under-value]:before:bg-primary data-[state=at-value]:before:bg-foreground";
-
-const valueTextClassName = 'text-center text-sm/5 font-medium text-foreground';
-
 const AngleSliderRoot = forwardRef<
   ComponentRef<typeof AngleSliderPrimitive.Root>,
   ComponentProps<typeof AngleSliderPrimitive.Root>
@@ -35,7 +17,10 @@ const AngleSliderRoot = forwardRef<
     <AngleSliderPrimitive.Root
       ref={ref}
       data-slot="angle-slider-root"
-      className={cn(rootClassName, className)}
+      className={cn(
+        'box-border inline-flex min-w-0 flex-col items-center gap-3 text-foreground data-disabled:opacity-50',
+        className,
+      )}
       {...props}
     />
   );
@@ -49,7 +34,7 @@ const AngleSliderLabel = forwardRef<
     <AngleSliderPrimitive.Label
       ref={ref}
       data-slot="angle-slider-label"
-      className={cn(labelClassName, className)}
+      className={cn('text-center text-sm/5 font-medium text-foreground', className)}
       {...props}
     />
   );
@@ -63,7 +48,10 @@ const AngleSliderRootProvider = forwardRef<
     <AngleSliderPrimitive.RootProvider
       ref={ref}
       data-slot="angle-slider-root-provider"
-      className={cn(rootClassName, className)}
+      className={cn(
+        'box-border inline-flex min-w-0 flex-col items-center gap-3 text-foreground data-disabled:opacity-50',
+        className,
+      )}
       value={value}
       {...props}
     />
@@ -78,7 +66,10 @@ const AngleSliderControl = forwardRef<
     <AngleSliderPrimitive.Control
       ref={ref}
       data-slot="angle-slider-control"
-      className={cn(controlClassName, className)}
+      className={cn(
+        "relative box-border flex aspect-square w-32 min-w-0 cursor-pointer items-center justify-center rounded-full bg-muted shadow-[inset_0_0_0_1px_var(--color-border)] outline-0 transition-colors duration-200 select-none before:absolute before:z-1 before:size-1.5 before:rounded-[inherit] before:bg-foreground before:content-[''] after:absolute after:inset-3.5 after:z-1 after:rounded-[inherit] after:bg-background after:shadow-[inset_0_0_0_1px_var(--color-border)] after:content-[''] data-disabled:cursor-default data-invalid:shadow-[inset_0_0_0_1px_var(--color-destructive)] data-invalid:after:shadow-[inset_0_0_0_1px_var(--color-destructive)] data-readonly:cursor-default motion-reduce:transition-none [&:has([data-slot='angle-slider-thumb']:focus-visible)]:shadow-[inset_0_0_0_1px_var(--color-border),0_0_0_3px_var(--color-ring)] [&:not([data-disabled]):not([data-readonly]):active]:bg-muted [@media(hover:hover)]:[&:not([data-disabled]):not([data-readonly]):hover]:bg-muted",
+        className,
+      )}
       {...props}
     />
   );
@@ -92,7 +83,10 @@ const AngleSliderThumb = forwardRef<
     <AngleSliderPrimitive.Thumb
       ref={ref}
       data-slot="angle-slider-thumb"
-      className={cn(thumbClassName, className)}
+      className={cn(
+        "absolute inset-y-0 left-[calc(50%-0.09375rem)] z-2 w-[0.1875rem] outline-0 before:absolute before:top-3.5 before:left-1/2 before:box-border before:size-4 before:-translate-x-1/2 before:rounded-full before:border before:border-border before:bg-primary before:shadow-[var(--moduix-shadow-sm)] before:transition-[border-color,box-shadow,background-color,scale] before:duration-200 before:content-[''] after:absolute after:top-[2.125rem] after:left-1/2 after:h-[calc(50%-2.25rem)] after:w-[0.1875rem] after:-translate-x-1/2 after:rounded-full after:bg-linear-to-b after:from-primary after:to-transparent after:content-[''] focus-visible:before:border-ring focus-visible:before:ring-1 focus-visible:before:ring-ring data-disabled:pointer-events-none data-invalid:before:border-destructive data-invalid:before:bg-destructive data-invalid:after:from-destructive motion-reduce:before:transition-none [&:active:not([data-disabled]):not([data-readonly])]:before:scale-[1.08]",
+        className,
+      )}
       {...props}
     />
   );
@@ -106,7 +100,7 @@ const AngleSliderMarkerGroup = forwardRef<
     <AngleSliderPrimitive.MarkerGroup
       ref={ref}
       data-slot="angle-slider-marker-group"
-      className={cn(markerGroupClassName, className)}
+      className={cn('pointer-events-none absolute inset-0 z-1', className)}
       {...props}
     />
   );
@@ -120,7 +114,10 @@ const AngleSliderMarker = forwardRef<
     <AngleSliderPrimitive.Marker
       ref={ref}
       data-slot="angle-slider-marker"
-      className={cn(markerClassName, className)}
+      className={cn(
+        "absolute inset-0 before:absolute before:top-4 before:left-1/2 before:h-2.5 before:w-0.5 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-muted-foreground before:content-[''] data-[state=at-value]:before:bg-foreground data-[state=under-value]:before:bg-primary",
+        className,
+      )}
       {...props}
     />
   );
@@ -167,7 +164,7 @@ const AngleSliderValueText = forwardRef<
     <AngleSliderPrimitive.ValueText
       ref={ref}
       data-slot="angle-slider-value-text"
-      className={cn(valueTextClassName, className)}
+      className={cn('text-center text-sm/5 font-medium text-foreground', className)}
       {...props}
     />
   );

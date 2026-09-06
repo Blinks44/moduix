@@ -1,5 +1,7 @@
 import { useI18n } from '@rspress/core/runtime';
-import { ChangelogHero, ChangelogHeroArrow, ChangelogHeroCard } from './hero';
+import { ArrowRight } from 'lucide-react';
+import { ChangelogHero } from './hero';
+import styles from './hero.module.css';
 
 const BaseUiLogo = () => (
   <svg width="48" height="68" viewBox="0 0 17 24" fill="currentColor" aria-hidden="true">
@@ -24,17 +26,23 @@ export function V2MigrationHero() {
   return (
     <ChangelogHero
       id="v200--july-19-2026"
-      eyebrow={t('v2MigrationHeroDate')}
-      title={t('changelogMajorRelease')}
+      category={t('changelogMajorRelease')}
+      version="v2.0.0"
+      date={t('v2MigrationHeroDate')}
+      dateTime="2026-07-19"
+      title="moduix v2"
       summary={t('v2MigrationHeroSummary')}
+      tone="orange"
     >
-      <ChangelogHeroCard label="Base UI">
-        <BaseUiLogo />
-      </ChangelogHeroCard>
-      <ChangelogHeroArrow />
-      <ChangelogHeroCard label="Ark UI">
-        <ArkUiLogo />
-      </ChangelogHeroCard>
+      <div className={styles.migrationPreview}>
+        <div className={styles.migrationLogo}>
+          <BaseUiLogo />
+        </div>
+        <ArrowRight className={styles.migrationArrow} />
+        <div className={styles.migrationLogo}>
+          <ArkUiLogo />
+        </div>
+      </div>
     </ChangelogHero>
   );
 }

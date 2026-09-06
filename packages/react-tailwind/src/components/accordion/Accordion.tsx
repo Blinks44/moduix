@@ -13,9 +13,6 @@ import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
 
-const rootClassName =
-  'box-border flex w-full max-w-full min-w-0 flex-col text-foreground data-[orientation=horizontal]:h-80 data-[orientation=horizontal]:max-h-full data-[orientation=horizontal]:w-auto data-[orientation=horizontal]:flex-row';
-
 const AccordionRoot = forwardRef<
   ComponentRef<typeof AccordionPrimitive.Root>,
   ComponentProps<typeof AccordionPrimitive.Root>
@@ -24,7 +21,10 @@ const AccordionRoot = forwardRef<
     <AccordionPrimitive.Root
       ref={ref}
       data-slot="accordion-root"
-      className={cn(rootClassName, className)}
+      className={cn(
+        'box-border flex w-full max-w-full min-w-0 flex-col text-foreground data-[orientation=horizontal]:h-80 data-[orientation=horizontal]:max-h-full data-[orientation=horizontal]:w-auto data-[orientation=horizontal]:flex-row',
+        className,
+      )}
       {...props}
     />
   );
@@ -38,7 +38,10 @@ const AccordionRootProvider = forwardRef<
     <AccordionPrimitive.RootProvider
       ref={ref}
       data-slot="accordion-root-provider"
-      className={cn(rootClassName, className)}
+      className={cn(
+        'box-border flex w-full max-w-full min-w-0 flex-col text-foreground data-[orientation=horizontal]:h-80 data-[orientation=horizontal]:max-h-full data-[orientation=horizontal]:w-auto data-[orientation=horizontal]:flex-row',
+        className,
+      )}
       {...props}
     />
   );
