@@ -88,6 +88,26 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "alert",
+      "type": "registry:item",
+      "title": "Alert",
+      "description": "moduix Solid Tailwind Alert component.",
+      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/alert/Alert.tsx",
+          "target": "@components/ui/alert/Alert.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/alert/index.ts",
+          "target": "@components/ui/alert/index.ts",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

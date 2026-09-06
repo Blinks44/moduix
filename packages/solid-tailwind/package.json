@@ -47,6 +47,12 @@
       "import": "./dist/components/accordion/index.js",
       "default": "./dist/components/accordion/index.js"
     },
+    "./alert": {
+      "types": "./dist/components/alert/index.d.ts",
+      "solid": "./dist/components/alert/index.jsx",
+      "import": "./dist/components/alert/index.js",
+      "default": "./dist/components/alert/index.js"
+    },
     "./style.css": "./dist/styles/style.css",
     "./presets/*": "./dist/presets/*",
     "./package.json": "./package.json"
