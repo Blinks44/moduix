@@ -61,6 +61,10 @@
       "types": "./dist/components/avatar/index.d.ts",
       "import": "./dist/components/avatar/index.js"
     },
+    "./badge": {
+      "types": "./dist/components/badge/index.d.ts",
+      "import": "./dist/components/badge/index.js"
+    },
     "./style.css": "./dist/styles/style.css",
     "./presets/*": "./dist/presets/*",
     "./package.json": "./package.json"

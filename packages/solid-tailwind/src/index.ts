@@ -4,3 +4,4 @@ export * from './components/alert';
 export * from './components/angle-slider';
 export * from './components/aspect-ratio';
 export * from './components/avatar';
+export * from './components/badge';

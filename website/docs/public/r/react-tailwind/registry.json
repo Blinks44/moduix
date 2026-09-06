@@ -168,6 +168,26 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "badge",
+      "type": "registry:item",
+      "title": "Badge",
+      "description": "moduix React Tailwind Badge component.",
+      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/badge/Badge.tsx",
+          "target": "@components/ui/badge/Badge.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/badge/index.ts",
+          "target": "@components/ui/badge/index.ts",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

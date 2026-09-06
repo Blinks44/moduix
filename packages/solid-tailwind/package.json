@@ -71,6 +71,12 @@
       "import": "./dist/components/avatar/index.js",
       "default": "./dist/components/avatar/index.js"
     },
+    "./badge": {
+      "types": "./dist/components/badge/index.d.ts",
+      "solid": "./dist/components/badge/index.jsx",
+      "import": "./dist/components/badge/index.js",
+      "default": "./dist/components/badge/index.js"
+    },
     "./style.css": "./dist/styles/style.css",
     "./presets/*": "./dist/presets/*",
     "./package.json": "./package.json"
