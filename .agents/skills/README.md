@@ -15,16 +15,16 @@ Skills are intentionally narrow and composable:
 
 - `engineering-principles` — baseline behavior for all coding work.
 - `changeset-workflow` — an explicitly requested `.changeset` entry.
-- `css-authoring` — CSS, CSS Modules, selectors, and public CSS-variable contracts.
-- `js-react-conventions` — React and TypeScript implementation conventions.
-- `ui-component-workflow` — coordinates component contracts across React, Solid, React Tailwind, and Solid Tailwind.
-- `react-to-solid` — port and synchronize native Solid equivalents, tests, and paired React/Solid playground stories.
-- `tailwind-component-workflow` — port and synchronize Tailwind implementations without losing framework behavior or consumer overrides.
-- `local-component-docs` — maintainers' markdown beside a component source file.
-- `upstream-library-docs` — current Ark UI, Chakra UI, and shadcn research.
+- `component-workflow` — coordinates component contracts across React, Solid, React Tailwind, and Solid Tailwind.
+- `migration-react-to-solid` — ports and synchronizes native Solid equivalents, tests, and paired React/Solid playground stories.
+- `migration-css-modules-to-tailwind` — ports a component into both Tailwind packages with tests, stories, npm exports, and shadcn registry items.
+- `conventions-css` — CSS, CSS Modules, Tailwind, selectors, and public CSS-variable contracts.
+- `conventions-react` — React and TypeScript implementation conventions.
+- `component-contract-docs` — maintainers' markdown beside a component source file.
+- `research-upstream-libraries` — current Ark UI, Chakra UI, and shadcn research.
 - `rstest-best-practices` — Rstest configuration and test design.
 - `rslib-best-practices` — Rslib configuration, outputs, and build troubleshooting.
-- `docs-workflow` — consumer-facing MDX, previews, CSS-variable references, and registry guidance in `website`.
+- `docs-workflow` — localized MDX, component and framework synchronization, previews, CSS-variable references, and registry guidance in `website`.
 - `rspress-best-practices` — Rspress configuration, navigation, search, assets, deployment, and debugging.
 - `rspress-custom-theme` — the Rspress visual shell, theme variables, slots, wrappers, and ejection.
 - `rspress-description-generator` — description frontmatter and search/AI metadata.

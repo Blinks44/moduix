@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": false,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "src/styles.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "aliases": {
+    "components": "@/components",
+    "ui": "@/components/ui",
+    "lib": "@/lib",
+    "hooks": "@/hooks",
+    "utils": "@/lib/utils"
+  },
+  "registries": {
+    "@moduix-react-tailwind": "https://moduix.dev/r/react-tailwind/{name}.json",
+    "@moduix-solid-tailwind": "https://moduix.dev/r/solid-tailwind/{name}.json"
+  }
+}

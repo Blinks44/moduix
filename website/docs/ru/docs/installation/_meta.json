@@ -21,6 +21,11 @@
   },
   {
     "type": "file",
+    "name": "solid-start",
+    "label": "SolidStart"
+  },
+  {
+    "type": "file",
     "name": "tanstack-start",
     "label": "TanStack Start"
   },

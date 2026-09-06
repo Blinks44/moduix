@@ -1,9 +1,9 @@
 ---
-name: js-react-conventions
+name: conventions-react
 description: Use for React JS/TS work in packages/react and packages/react-tailwind. Prefer plain function components, small public types, and composition over configuration.
 ---
 
-# Skill: js-react-conventions
+# React Conventions
 
 Use this skill for JS/TS React work in this repo.
 
@@ -52,4 +52,4 @@ Use this skill for JS/TS React work in this repo.
 - Keep `asChild` children single and semantic. If a custom child replaces a button, input, label, or link, it must
   preserve the required ARIA, keyboard, and focus behavior.
 - Use `className` in both React packages. In `packages/react-tailwind`, merge defaults and the
-  consumer class with the local `cn` helper according to `tailwind-component-workflow`.
+  consumer class with the local `cn` helper according to `migration-css-modules-to-tailwind`.

@@ -10,13 +10,15 @@ libraries can coexist while you replace individual screens or component families
 
 The main choice is where each component's source code should live. Use the npm package when you
 want package-managed updates. Use the shadcn-compatible registry when you want the source and styles
-in your own repository.
+in your own repository. Choose React when you are replacing components inside the existing shadcn
+application. Choose Solid only when the application itself already uses Solid or the migration also
+includes a deliberate framework change.
 
 ## Choose where the source code lives
 
 | moduix installation | Choose it when | How updates work |
 | --- | --- | --- |
-| npm package | You want components to remain a dependency and use imports from `@moduix/react/*`. | Update the package with your package manager. |
+| npm package | You want components to remain a dependency and use imports from `@moduix/react/*` or `@moduix/solid/*`. | Update the package with your package manager. |
 | shadcn-compatible registry | You want to version, inspect, and edit component source in your application. | Review and merge each registry update yourself. |
 
 Read the [Quick start](/docs/quick-start) for the complete setup. If your project already has a
@@ -28,16 +30,42 @@ described in the quick start.
 Keep existing shadcn imports and replace them incrementally. For the package workflow, install
 moduix and import each component from its subpath:
 
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
 ```tsx
 import { Dialog } from '@moduix/react/dialog';
 ```
 
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+```tsx
+import { Dialog } from '@moduix/solid/dialog';
+```
+
+  </Tab>
+</Tabs>
+
 For the copy-owned workflow, finish the [shadcn CLI setup](/docs/quick-start#install-with-the-shadcn-cli),
 then add one registry item at a time:
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
 ```bash
 npx shadcn@latest add @moduix-react/dialog
 ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+```bash
+npx shadcn@latest add @moduix-solid/dialog
+```
+
+  </Tab>
+</Tabs>
 
 The CLI writes the component source and its moduix dependencies to the aliases in `components.json`.
 Import the generated component from your application:
@@ -54,7 +82,7 @@ migration.
 
 | Familiar shadcn name | Use in moduix | What to change |
 | --- | --- | --- |
-| Accordion | `Accordion` | Use the namespaced parts such as `Accordion.Item` and `Accordion.Content`. |
+| Accordion | `Accordion` | Use the namespaced parts such as `Accordion.Item` and `Accordion.ItemContent`. |
 | Alert Dialog | `Dialog` | Set `role="alertdialog"` on `Dialog.Content` for a critical confirmation flow. |
 | Avatar | `Avatar` | Put fallback content and the image in `Avatar.Fallback` and `Avatar.Image`. |
 | Breadcrumb | `Breadcrumbs` | The family name is plural; keep semantic links and the current-page state. |
@@ -93,6 +121,9 @@ import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/
 
 moduix keeps the component family under one namespace:
 
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
 ```tsx
 import { Dialog } from '@moduix/react/dialog';
 
@@ -112,6 +143,31 @@ export function ProjectSettingsDialog() {
 }
 ```
 
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+```tsx
+import { Dialog } from '@moduix/solid/dialog';
+
+export function ProjectSettingsDialog() {
+  return (
+    <Dialog>
+      <Dialog.Trigger>Open settings</Dialog.Trigger>
+      <Dialog.Backdrop />
+      <Dialog.Positioner>
+        <Dialog.Content>
+          <Dialog.Title>Project settings</Dialog.Title>
+          <Dialog.CloseTrigger>Close</Dialog.CloseTrigger>
+        </Dialog.Content>
+      </Dialog.Positioner>
+    </Dialog>
+  );
+}
+```
+
+  </Tab>
+</Tabs>
+
 For a copy-owned install, keep the composition and change only the import source:
 
 ```tsx
@@ -126,13 +182,26 @@ positioning, and dialog surface. They can be styled or replaced independently.
 moduix provides finished component styles and shared `--moduix-*` tokens. Import the foundation
 stylesheet once, then put your application overrides in a stylesheet loaded after it.
 
-With the npm package:
+With a CSS Modules npm package:
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
 ```tsx
 import '@moduix/react/style.css';
 ```
 
-With the shadcn-compatible registry:
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+```tsx
+import '@moduix/solid/style.css';
+```
+
+  </Tab>
+</Tabs>
+
+With a CSS Modules registry:
 
 ```tsx
 import '@/lib/moduix/styles/style.css';
@@ -147,14 +216,18 @@ Customize semantic tokens in your own CSS:
 }
 ```
 
-Tailwind can stay in the application for layout and one-off utility classes. You do not need to
-rewrite every existing utility before replacing a component. Use the target component page for its
-stable slots, CSS variables, and `className` props.
+Tailwind can stay in the application for layout and one-off utility classes while you migrate to the
+CSS Modules packages. If you want component styling to remain in Tailwind, use the separate React or
+Solid Tailwind package where that component is available. Use the target component page for stable
+slots, CSS variables, and React `className` or Solid `class` props.
 
 ## Adapt Ark state callbacks and collections
 
 Ark callbacks receive a `details` object. Read the value you need from that object instead of
 copying a shadcn callback that expects a positional value:
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
 ```tsx
 import { useState } from 'react';
@@ -177,6 +250,34 @@ export function ControlledDialog() {
   );
 }
 ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+```tsx
+import { createSignal } from 'solid-js';
+import { Dialog } from '@moduix/solid/dialog';
+
+export function ControlledDialog() {
+  const [open, setOpen] = createSignal(false);
+
+  return (
+    <Dialog open={open()} onOpenChange={(details) => setOpen(details.open)}>
+      <Dialog.Trigger>Open dialog</Dialog.Trigger>
+      <Dialog.Backdrop />
+      <Dialog.Positioner>
+        <Dialog.Content>
+          <Dialog.Title>Project settings</Dialog.Title>
+          <Dialog.CloseTrigger>Close</Dialog.CloseTrigger>
+        </Dialog.Content>
+      </Dialog.Positioner>
+    </Dialog>
+  );
+}
+```
+
+  </Tab>
+</Tabs>
 
 Components with collections, including `Combobox` and `Select`, use explicit Ark collection state.
 For object items, define how an item becomes its visible string and stable value with

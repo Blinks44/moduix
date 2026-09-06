@@ -7,19 +7,59 @@ import { TokensOverview } from '@/components/docs/tokens-overview';
 
 # Tokens
 
-Les styles de moduix reposent sur des variables CSS. Commencez par les tokens de couleur sémantiques
+Les styles de moduix reposent sur les mêmes variables CSS avec React et Solid. Commencez par les tokens de couleur sémantiques
 pour les surfaces, le texte, les bordures, les anneaux de focus et les superpositions. Si votre système
 de conception a besoin d’un autre rythme visuel, ajustez l’espacement, les rayons, les tailles, la
 typographie, les animations, les ombres et les calques.
 
-Si vous utilisez moduix comme paquet npm, importez `@moduix/react/style.css` une seule fois. Si vous
-installez le code source avec `shadcn`, importez `@/lib/moduix/styles/style.css` une seule fois. Les
-deux points d’entrée chargent le même socle de tokens.
+Avec npm, importez une seule fois le `style.css` correspondant au framework et au mode de style :
 
-La réinitialisation des styles reste facultative dans les deux cas. Avec npm, importez
-`@moduix/react/reset.css` avant `style.css`. Pour une installation depuis les sources, exécutez
-d’abord `npx shadcn@latest add @moduix-react/reset`, puis importez
-`@/lib/moduix/styles/reset.css` avant `style.css`.
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+**CSS Modules**
+
+```tsx
+import '@moduix/react/style.css';
+```
+
+**Tailwind CSS**
+
+```css
+@import '@moduix/react-tailwind/style.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/react-tailwind/dist/components';
+```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+**CSS Modules**
+
+```tsx
+import '@moduix/solid/style.css';
+```
+
+**Tailwind CSS**
+
+```css
+@import '@moduix/solid-tailwind/style.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/solid-tailwind/dist/components';
+```
+
+  </Tab>
+</Tabs>
+
+Avec le code source installé par shadcn, importez `@/lib/moduix/styles/style.css` une seule fois. Le
+reset facultatif utilise `@moduix/react/reset.css` ou `@moduix/solid/reset.css` avec npm, et l’entrée
+de registre correspondante `@moduix-react/reset` ou `@moduix-solid/reset` avec le code copié.
+
+Tailwind utilise Preflight : ne combinez donc pas un paquet Tailwind avec le reset facultatif de
+moduix. Le chemin `@source` est relatif à votre feuille de styles ; consultez le
+[Démarrage rapide](/docs/quick-start#configurer-le-paquet-tailwind) pour la configuration complète.
 
 Pour démarrer rapidement, utilisez [Thèmes](/docs/themes). Les préréglages redéfinissent une petite
 couche de tokens sémantiques après `style.css`. Cette page décrit les tokens système et partagés ; les

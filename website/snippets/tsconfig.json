@@ -1,0 +1,10 @@
+{
+  "extends": "../../packages/solid/tsconfig.json",
+  "compilerOptions": {
+    "types": [],
+    "paths": {
+      "@/*": ["../src/*"]
+    }
+  },
+  "include": ["accordion/solid", "../theme/env.d.ts"]
+}

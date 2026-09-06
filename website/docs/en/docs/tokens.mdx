@@ -7,17 +7,57 @@ import { TokensOverview } from '@/components/docs/tokens-overview';
 
 # Tokens
 
-moduix styling is built on CSS custom properties. Start with semantic color tokens for surfaces,
-text, borders, focus rings, and overlays. Then adjust spacing, radius, size, typography, motion,
-shadows, and layers when your product needs a different visual rhythm.
+moduix styling is built on the same CSS custom properties in React and Solid. Start with semantic
+color tokens for surfaces, text, borders, focus rings, and overlays. Then adjust spacing, radius,
+size, typography, motion, shadows, and layers when your product needs a different visual rhythm.
 
-If you use moduix as an npm package, import `@moduix/react/style.css` once. If you install source
-files with `shadcn`, import `@/lib/moduix/styles/style.css` once. Both entrypoints load the same
-token foundation.
+For npm packages, import the `style.css` for your framework and styling track once:
 
-The reset is optional in both workflows. For the npm package, import `@moduix/react/reset.css`
-before `style.css`. For source installation, first run `npx shadcn@latest add @moduix-react/reset`,
-then import `@/lib/moduix/styles/reset.css` before `style.css`.
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+**CSS Modules**
+
+```tsx
+import '@moduix/react/style.css';
+```
+
+**Tailwind CSS**
+
+```css
+@import '@moduix/react-tailwind/style.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/react-tailwind/dist/components';
+```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+**CSS Modules**
+
+```tsx
+import '@moduix/solid/style.css';
+```
+
+**Tailwind CSS**
+
+```css
+@import '@moduix/solid-tailwind/style.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/solid-tailwind/dist/components';
+```
+
+  </Tab>
+</Tabs>
+
+For source installed with shadcn, import `@/lib/moduix/styles/style.css` once. The optional reset is
+also framework-specific on npm (`@moduix/react/reset.css` or `@moduix/solid/reset.css`) and uses the
+matching `@moduix-react/reset` or `@moduix-solid/reset` registry item for copied source.
+
+Tailwind uses Preflight, so do not combine a Tailwind package with the optional moduix reset. Resolve
+`@source` relative to your stylesheet; the complete setup is in [Quick start](/docs/quick-start#tailwind-package-setup).
 
 For a ready-made starting point, use [Themes](/docs/themes). Presets override a small semantic token
 layer after `style.css`. This page explains the system and shared tokens. Each component page lists

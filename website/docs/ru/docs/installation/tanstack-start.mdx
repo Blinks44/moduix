@@ -1,26 +1,58 @@
 ---
 title: TanStack Start
-description: "Подключите moduix к TanStack Start: установите пакет или добавьте компоненты через shadcn CLI, подключите глобальные стили и проверьте гидратацию."
+description: Установка moduix в TanStack Start для React и Solid через npm-пакет или shadcn CLI.
 ---
 
 # TanStack Start
 
-Эта инструкция предполагает, что приложение TanStack Start уже создано. TanStack Start сначала рендерит дерево
-маршрутов на сервере, а затем гидратирует его в браузере. moduix работает и с Vite, и с Rsbuild. В стандартной
-конфигурации без React Server Components директива `use client` не нужна.
+В примерах ниже используются пакеты с CSS Modules, в которых доступен полный каталог компонентов.
+Для компонентов на Tailwind выполните [настройку Tailwind-пакета](/docs/quick-start#настройте-tailwind-пакет)
+и выберите пакет или реестр для React либо Solid.
 
-## Установить как пакет
+TanStack Start поддерживает React и Solid и может собирать приложение с помощью Vite или Rsbuild.
+Дерево маршрутов рендерится на сервере и гидратируется в браузере; в обычной конфигурации moduix не
+требует директивы `use client`.
+
+## Установка из пакета
+
+Установите пакет для выбранного фреймворка:
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
 <PackageManagerTabs command="install @moduix/react @ark-ui/react" />
 
-Один раз импортируйте базовые стили в корневом маршруте. В стандартном проекте TanStack Start корневой маршрут
-находится в `src/routes/__root.tsx`:
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<PackageManagerTabs command="install @moduix/solid @ark-ui/solid solid-js" />
+
+  </Tab>
+</Tabs>
+
+Один раз импортируйте основные стили из `src/routes/__root.tsx`:
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
 ```tsx title="src/routes/__root.tsx"
 import '@moduix/react/style.css';
 ```
 
-Используйте компонент moduix в маршруте:
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+```tsx title="src/routes/__root.tsx"
+import '@moduix/solid/style.css';
+```
+
+  </Tab>
+</Tabs>
+
+Используйте компонент в маршруте:
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
 ```tsx title="src/routes/index.tsx"
 import { createFileRoute } from '@tanstack/react-router';
@@ -35,13 +67,29 @@ function Home() {
 }
 ```
 
-## Установить через shadcn CLI
+  </Tab>
+  <Tab label="Solid" value="solid">
 
-Выберите этот способ, если хотите хранить исходный код компонентов и стили в своём репозитории. Сначала завершите
-[настройку shadcn CLI](/docs/quick-start#установить-через-shadcn-cli).
+```tsx title="src/routes/index.tsx"
+import { createFileRoute } from '@tanstack/solid-router';
+import { Button } from '@moduix/solid/button';
 
-По умолчанию TanStack Start не настраивает алиасы путей. Если стартовый шаблон уже связывает `@/*` с `src/*`,
-оставьте этот алиас. В противном случае добавьте его в корневой `tsconfig.json`:
+export const Route = createFileRoute('/')({
+  component: Home,
+});
+
+function Home() {
+  return <Button>Continue</Button>;
+}
+```
+
+  </Tab>
+</Tabs>
+
+## Установка через shadcn CLI
+
+Выполните [первоначальную настройку shadcn CLI](/docs/quick-start#установка-через-shadcn-cli). Если в
+стартовом проекте ещё нет алиаса `@/*` для `src/*`, добавьте его в корневой `tsconfig.json`:
 
 ```json title="tsconfig.json"
 {
@@ -54,21 +102,34 @@ function Home() {
 }
 ```
 
-Затем настройте тот же алиас в сборщике. Для Vite используйте [руководство TanStack Start по алиасам путей](https://tanstack.com/start/latest/docs/framework/react/guide/path-aliases).
-Rsbuild автоматически читает `paths` из корневого `tsconfig.json`.
+Тот же алиас должен быть доступен сборщику. Rsbuild читает пути TypeScript автоматически, а для Vite
+следуйте руководству TanStack Start по алиасам. Затем добавьте компонент:
 
-Замените импорт стилей пакета в корневом маршруте на сгенерированные стили. Не подключайте обе таблицы стилей:
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<PackageManagerTabs command="shadcn@latest add @moduix-react/button" dlx />
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<PackageManagerTabs command="shadcn@latest add @moduix-solid/button" dlx />
+
+  </Tab>
+</Tabs>
+
+Замените импорт стилей из пакета на импорт сгенерированного файла в корневом маршруте:
 
 ```tsx title="src/routes/__root.tsx"
 import '@/lib/moduix/styles/style.css';
 ```
 
-## Проверьте интеграцию
+## Проверка
 
-Запустите сервер разработки и откройте `/`. Интеграция настроена правильно, если при первой отрисовке применяются
-стили moduix, страница проходит гидратацию без расхождений, а кнопка реагирует на нажатия. Не обращайтесь к API
-браузера и не выводите значения, которые могут отличаться на сервере и в браузере, в коде, выполняемом во время
-серверного рендеринга.
+Запустите сервер разработки и откройте `/`. Серверная версия страницы должна сразу получить стили
+moduix, а гидратация должна пройти без расхождений. Не используйте в серверном рендеринге браузерные
+API и значения, которые могут различаться на сервере и клиенте.
 
-Полную настройку TanStack Start см. в руководствах [«Начало работы»](https://tanstack.com/start/latest/docs/framework/react/getting-started)
-и [«Создание проекта с нуля»](https://tanstack.com/start/latest/docs/framework/react/build-from-scratch).
+Продолжить настройку можно по официальным руководствам TanStack Start для
+[React](https://tanstack.com/start/latest/docs/framework/react/getting-started) или
+[Solid](https://tanstack.com/start/latest/docs/framework/solid/getting-started).

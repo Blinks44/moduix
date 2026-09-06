@@ -1,0 +1,87 @@
+---
+title: SolidStart
+description: Ajoutez moduix à SolidStart par paquet ou avec la CLI shadcn, avec des styles compatibles SSR.
+---
+
+# SolidStart
+
+Les exemples ci-dessous utilisent `@moduix/solid`, qui propose le catalogue CSS Modules complet. Pour
+un composant disponible avec Tailwind, suivez la [configuration du paquet Tailwind](/docs/quick-start#configurer-le-paquet-tailwind)
+et utilisez `@moduix/solid-tailwind` ou le registre `@moduix-solid-tailwind`.
+
+SolidStart rend les applications Solid côté serveur, puis les hydrate dans le navigateur. Ce guide
+part d’un projet SolidStart existant, créé avec `create-solid`.
+
+## Installer le paquet
+
+Installez moduix et ses dépendances Solid :
+
+<PackageManagerTabs command="install @moduix/solid @ark-ui/solid solid-js" />
+
+Importez une seule fois la feuille de styles de base à la racine de l’application :
+
+```tsx title="src/app.tsx"
+import '@moduix/solid/style.css';
+```
+
+Importez les composants depuis les sous-chemins du paquet :
+
+```tsx title="src/routes/index.tsx"
+import { Button } from '@moduix/solid/button';
+
+export default function Home() {
+  return <Button>Continue</Button>;
+}
+```
+
+## Installer avec la CLI shadcn
+
+SolidStart fournit l’alias `~` pour `src`, tandis que les exemples du registre moduix utilisent `@`.
+Effectuez la [configuration initiale de la CLI shadcn](/docs/quick-start#installation-avec-la-cli-shadcn),
+puis faites pointer `@/*` vers `src/*` dans `tsconfig.json` :
+
+```json title="tsconfig.json"
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
+```
+
+Ajoutez le même alias à la configuration Vite existante :
+
+```ts title="vite.config.ts"
+import { fileURLToPath, URL } from 'node:url';
+import { solidStart } from '@solidjs/start/config';
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  plugins: [solidStart()],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
+});
+```
+
+Ajoutez ensuite un composant Solid :
+
+<PackageManagerTabs command="shadcn@latest add @moduix-solid/button" dlx />
+
+Dans `src/app.tsx`, importez la feuille de styles générée à la place de celle du paquet :
+
+```tsx title="src/app.tsx"
+import '@/lib/moduix/styles/style.css';
+```
+
+## Vérifier l’installation
+
+Démarrez le serveur de développement et ouvrez la route d’index. Le HTML rendu côté serveur doit déjà
+inclure les styles moduix, puis s’hydrater sans divergence tout en restant interactif.
+
+Consultez le guide officiel de [prise en main de SolidStart](https://docs.solidjs.com/solid-start/v2/getting-started)
+pour créer le projet et vérifier les exigences actuelles de l’environnement.

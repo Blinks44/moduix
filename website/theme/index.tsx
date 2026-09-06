@@ -11,6 +11,7 @@ import {
 import {
   IconFile,
   IconGithub,
+  CodeBlockRuntime as OriginalCodeBlockRuntime,
   FallbackHeading as OriginalFallbackHeading,
   Layout as OriginalLayout,
   Link,
@@ -46,6 +47,10 @@ function DocDescription() {
     typeof frontmatter.description === 'string' ? frontmatter.description.trim() : '';
 
   return description ? <p className="moduix-doc-description">{description}</p> : null;
+}
+
+function CodeBlockRuntime(props: ComponentProps<typeof OriginalCodeBlockRuntime>) {
+  return <OriginalCodeBlockRuntime height={600} {...props} />;
 }
 
 function SocialMetadata() {
@@ -173,6 +178,7 @@ function ModuixNavTitle() {
 const mdxComponents = {
   Card,
   Cards,
+  CodeBlockRuntime,
   CssPropertiesSection,
   ExampleCode,
   ExampleFrame,

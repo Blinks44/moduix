@@ -322,6 +322,9 @@ body {
 }
 
 .rp-tabs {
+  background: var(--moduix-doc-card);
+
+  .rp-tabs__content,
   .rp-tabs__content__item,
   .rp-tabs__label__item--selected {
     background: var(--moduix-doc-card);

@@ -1,9 +1,9 @@
 ---
-name: ui-component-workflow
+name: component-workflow
 description: Coordinate moduix component behavior, API, styles, tests, stories, exports, and registries across React, Solid, React Tailwind, and Solid Tailwind packages.
 ---
 
-# UI Component Workflow
+# Component Workflow
 
 Own the public component contract across the four package variants:
 
@@ -34,8 +34,8 @@ keyboard behavior, focus management, native form behavior, Ark state/data attrib
 and lifecycle equivalent wherever the frameworks support the same contract.
 
 React is the established product contract, not source code to copy mechanically. Translate it into
-native Solid and Tailwind forms using `react-to-solid`, `js-react-conventions`,
-`tailwind-component-workflow`, and `css-authoring` as applicable. Preserve intentional framework
+native Solid and Tailwind forms using `migration-react-to-solid`, `conventions-react`,
+`migration-css-modules-to-tailwind`, and `conventions-css` as applicable. Preserve intentional framework
 differences and verify current Ark APIs instead of emulating missing primitives.
 
 ## Synchronization surfaces

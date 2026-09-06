@@ -12,12 +12,14 @@ description: "Перенесите приложение с shadcn на moduix п
 Главный выбор касается исходников компонентов. Подключите npm-пакет, если хотите получать
 обновления через пакетный менеджер. Выберите совместимый с shadcn реестр, если исходники и стили
 должны храниться в вашем репозитории.
+Выбирайте React для замены компонентов внутри существующего приложения shadcn. Solid подходит,
+только если приложение уже работает на Solid или переход также включает осознанную смену фреймворка.
 
 ## Где хранить исходники компонентов
 
 | Способ установки moduix | Подходит, если | Как приходят обновления |
 | --- | --- | --- |
-| npm-пакет | Компоненты должны оставаться зависимостью, а импорты идти из `@moduix/react/*`. | Обновляйте пакет через пакетный менеджер. |
+| npm-пакет | Компоненты должны оставаться зависимостью, а импорты идти из `@moduix/react/*` или `@moduix/solid/*`. | Обновляйте пакет через пакетный менеджер. |
 | Реестр, совместимый с shadcn | Вы хотите хранить исходники в приложении, просматривать их и менять напрямую. | Проверяйте и объединяйте каждое обновление реестра вручную. |
 
 Полная настройка описана в [Быстром старте](/docs/quick-start). Если в проекте уже настроены CLI
@@ -28,16 +30,42 @@ shadcn и `components.json`, оставьте их. Добавьте реест�
 Сохраняйте текущие импорты shadcn и переносите компоненты постепенно. При установке через npm
 подключайте каждый компонент из отдельного подпути:
 
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
 ```tsx
 import { Dialog } from '@moduix/react/dialog';
 ```
 
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+```tsx
+import { Dialog } from '@moduix/solid/dialog';
+```
+
+  </Tab>
+</Tabs>
+
 При установке с исходниками сначала выполните [настройку CLI shadcn](/docs/quick-start#установить-через-shadcn-cli),
 а затем добавляйте элементы реестра по одному:
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
 ```bash
 npx shadcn@latest add @moduix-react/dialog
 ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+```bash
+npx shadcn@latest add @moduix-solid/dialog
+```
+
+  </Tab>
+</Tabs>
 
 CLI запишет исходники компонента и нужные зависимости moduix по алиасам из `components.json`.
 Импортируйте созданный компонент из приложения:
@@ -53,7 +81,7 @@ import { Dialog } from '@/components/ui/dialog';
 
 | Знакомое имя shadcn | Используйте в moduix | Что изменить |
 | --- | --- | --- |
-| Accordion | `Accordion` | Используйте именованные части, например `Accordion.Item` и `Accordion.Content`. |
+| Accordion | `Accordion` | Используйте именованные части, например `Accordion.Item` и `Accordion.ItemContent`. |
 | Alert Dialog | `Dialog` | Для критического подтверждения укажите `role="alertdialog"` на `Dialog.Content`. |
 | Avatar | `Avatar` | Поместите резервное содержимое и изображение в `Avatar.Fallback` и `Avatar.Image`. |
 | Breadcrumb | `Breadcrumbs` | Название семейства стоит во множественном числе; сохраните семантические ссылки и отметку текущей страницы. |
@@ -92,6 +120,9 @@ import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/
 
 В moduix всё семейство собрано под одним пространством имён:
 
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
 ```tsx
 import { Dialog } from '@moduix/react/dialog';
 
@@ -111,6 +142,31 @@ export function ProjectSettingsDialog() {
 }
 ```
 
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+```tsx
+import { Dialog } from '@moduix/solid/dialog';
+
+export function ProjectSettingsDialog() {
+  return (
+    <Dialog>
+      <Dialog.Trigger>Open settings</Dialog.Trigger>
+      <Dialog.Backdrop />
+      <Dialog.Positioner>
+        <Dialog.Content>
+          <Dialog.Title>Project settings</Dialog.Title>
+          <Dialog.CloseTrigger>Close</Dialog.CloseTrigger>
+        </Dialog.Content>
+      </Dialog.Positioner>
+    </Dialog>
+  );
+}
+```
+
+  </Tab>
+</Tabs>
+
 При установке с исходниками сохраните композицию и замените только путь импорта:
 
 ```tsx
@@ -125,13 +181,26 @@ import { Dialog } from '@/components/ui/dialog';
 moduix поставляет готовые стили компонентов и общие токены `--moduix-*`. Подключите базовую
 таблицу стилей один раз, а свои переопределения размещайте в CSS, который загружается после неё.
 
-При установке npm-пакета:
+При установке npm-пакета на CSS Modules:
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
 ```tsx
 import '@moduix/react/style.css';
 ```
 
-При установке через реестр shadcn:
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+```tsx
+import '@moduix/solid/style.css';
+```
+
+  </Tab>
+</Tabs>
+
+При установке через реестр на CSS Modules:
 
 ```tsx
 import '@/lib/moduix/styles/style.css';
@@ -146,14 +215,18 @@ import '@/lib/moduix/styles/style.css';
 }
 ```
 
-Tailwind можно оставить в приложении для раскладки и отдельных utility-классов. Перед заменой
-компонента не нужно переписывать все существующие классы. На странице нужного компонента ищите
-стабильные слоты, CSS-переменные и свойства `className`.
+Tailwind можно оставить в приложении для раскладки и отдельных утилитарных классов при переходе на
+пакеты с CSS Modules. Если стили компонентов должны остаться на Tailwind, используйте отдельный
+React- или Solid-пакет там, где нужный компонент уже доступен. На его странице указаны стабильные
+слоты, CSS-переменные и свойства `className` или `class`.
 
 ## Адаптируйте обработчики Ark и коллекции
 
 Обработчики Ark получают объект `details`. Доставайте нужное значение из него, а не переносите
 колбэк shadcn, который ожидает позиционный аргумент:
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
 ```tsx
 import { useState } from 'react';
@@ -177,6 +250,34 @@ export function ControlledDialog() {
 }
 ```
 
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+```tsx
+import { createSignal } from 'solid-js';
+import { Dialog } from '@moduix/solid/dialog';
+
+export function ControlledDialog() {
+  const [open, setOpen] = createSignal(false);
+
+  return (
+    <Dialog open={open()} onOpenChange={(details) => setOpen(details.open)}>
+      <Dialog.Trigger>Open dialog</Dialog.Trigger>
+      <Dialog.Backdrop />
+      <Dialog.Positioner>
+        <Dialog.Content>
+          <Dialog.Title>Project settings</Dialog.Title>
+          <Dialog.CloseTrigger>Close</Dialog.CloseTrigger>
+        </Dialog.Content>
+      </Dialog.Positioner>
+    </Dialog>
+  );
+}
+```
+
+  </Tab>
+</Tabs>
+
 Компоненты с коллекциями, например `Combobox` и `Select`, используют явное состояние коллекции
 Ark. Для элементов-объектов задайте через `itemToString` и `itemToValue`, как получить видимый
 текст и стабильное значение. Перед переносом массива `options` или обработчика из shadcn
@@ -191,7 +292,7 @@ Ark. Для элементов-объектов задайте через `itemT
 5. Проверьте клавиатурное управление, возврат фокуса, подписи и важные ARIA-роли, затем удалите старые исходники и стили компонента.
 
 Прикладная логика должна оставаться в приложении. Подписи, сообщения валидации, права доступа,
-запросы к серверу и сценарии продукта не нужно прятать в общем wrapper-компоненте. Ark отвечает
+запросы к серверу и сценарии продукта не нужно прятать в общем компоненте-обёртке. Ark отвечает
 за поведение примитива, а moduix предоставляет API компонентов, стили и настройки по умолчанию.
 
 Для последующих обновлений пакета или реестра используйте [Обновление и миграция](/docs/updating).

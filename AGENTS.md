@@ -16,15 +16,15 @@
 Use project skills from [`.agents/skills/`](.agents/skills/README.md). Apply only the skills that match the changed surface.
 
 - **Any coding task:** `engineering-principles`.
-- **Any component implementation or public contract change:** `ui-component-workflow`; it owns the four-package impact check and synchronization of existing counterparts, tests, stories, exports, and registries.
-- **React implementation in `packages/react` or `packages/react-tailwind`:** `js-react-conventions`.
-- **React-to-Solid component ports or synchronization:** `react-to-solid`; additionally use `css-authoring` for styles,
-  `upstream-library-docs` for current Ark Solid behavior, `rstest-best-practices` for tests, and
+- **Any component implementation or public contract change:** `component-workflow`; it owns the four-package impact check and synchronization of existing counterparts, tests, stories, exports, and registries.
+- **React implementation in `packages/react` or `packages/react-tailwind`:** `conventions-react`.
+- **React-to-Solid component ports or synchronization:** `migration-react-to-solid`; additionally use `conventions-css` for styles,
+  `research-upstream-libraries` for current Ark Solid behavior, `rstest-best-practices` for tests, and
   `rslib-best-practices` when changing a Solid package build.
-- **Tailwind component work:** `tailwind-component-workflow`; also use `css-authoring`, the applicable framework skill, and `rstest-best-practices` when tests change.
-- **Component styles or shared tokens:** `css-authoring`; synchronize existing CSS Modules and Tailwind counterparts through `ui-component-workflow`.
-- **Component-local markdown:** `local-component-docs`.
-- **Rspress pages, examples, or CSS-variable documentation in `website`:** `docs-workflow`; additionally use
+- **CSS Modules-to-Tailwind component migrations:** `migration-css-modules-to-tailwind`; also use `conventions-css`, the applicable framework skill, and `rstest-best-practices` when tests change.
+- **Component styles or shared tokens:** `conventions-css`; synchronize existing CSS Modules and Tailwind counterparts through `component-workflow`.
+- **Component-local markdown:** `component-contract-docs`.
+- **Rspress pages, examples, framework synchronization, or CSS-variable documentation in `website`:** `docs-workflow`; additionally use
   `rspress-description-generator` for new-page or description-frontmatter work, `rspress-best-practices` for
   Rspress configuration, navigation, build, deployment, or debugging, `rspress-localization` for any localization
   work, and `rspress-custom-theme` for theme
@@ -33,7 +33,7 @@ Use project skills from [`.agents/skills/`](.agents/skills/README.md). Apply onl
 - **Rslib configuration or library build issues:** `rslib-best-practices`.
 - **Changesets:** `changeset-workflow`, only when the user explicitly requests one.
 
-For work that changes packages and `website`, apply component skills first and documentation skills second. Do not duplicate framework mechanics: `ui-component-workflow` coordinates parity, while framework and styling skills own native implementation details.
+For work that changes packages and `website`, apply component skills first and documentation skills second. Do not duplicate framework mechanics: `component-workflow` coordinates parity, while migration and convention skills own native implementation details.
 
 ## Required validation
 

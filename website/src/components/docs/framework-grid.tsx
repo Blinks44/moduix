@@ -8,6 +8,7 @@ type Framework = {
     | 'frameworkNextDescription'
     | 'frameworkReactRouterDescription'
     | 'frameworkRsbuildDescription'
+    | 'frameworkSolidStartDescription'
     | 'frameworkTanStackStartDescription'
     | 'frameworkViteDescription';
   href: string;
@@ -38,6 +39,12 @@ const frameworks: readonly Framework[] = [
     descriptionKey: 'frameworkRsbuildDescription',
     href: '/docs/installation/rsbuild',
     logo: '/frameworks/rsbuild.svg',
+  },
+  {
+    name: 'SolidStart',
+    descriptionKey: 'frameworkSolidStartDescription',
+    href: '/docs/installation/solid-start',
+    logo: '/frameworks/solid-start.svg',
   },
   {
     name: 'TanStack Start',

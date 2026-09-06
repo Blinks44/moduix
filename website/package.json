@@ -8,7 +8,7 @@
     "deploy": "wrangler deploy",
     "dev": "rspress dev --host",
     "preview": "rspress preview",
-    "tsc:check": "tsc -p tsconfig.json"
+    "tsc:check": "tsc -p tsconfig.json && tsc -p snippets/tsconfig.json"
   },
   "dependencies": {
     "@ark-ui/react": "^5.39.1",
@@ -29,11 +29,13 @@
     "valibot": "^1.4.2"
   },
   "devDependencies": {
+    "@moduix/solid": "workspace:*",
     "@rspress/plugin-preview": "^2.0.21",
     "@rspress/plugin-sitemap": "^2.0.21",
     "@types/node": "^26.4.1",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
+    "solid-js": "^1.9.15",
     "typescript": "~7.0.2",
     "wrangler": "^4.129.0"
   }

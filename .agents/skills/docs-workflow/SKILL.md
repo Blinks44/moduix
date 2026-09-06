@@ -1,6 +1,6 @@
 ---
 name: docs-workflow
-description: Use for Rspress documentation content in website across every configured locale - MDX pages, runnable examples, component-page guidance, CSS-variable references, registry documentation, and source-to-locale content consistency.
+description: Maintain localized Rspress documentation, including component pages, React/Solid support, setup guides, runnable examples, CSS-variable references, and registry guidance.
 ---
 
 # Docs Workflow
@@ -14,6 +14,9 @@ This skill owns documentation content and source-to-locale consistency. It does 
 1. `AGENTS.md` and the affected MDX page.
 2. The corresponding default-language page (currently English) and the affected locale pages. Use `rspress-localization` for the translation itself.
 3. The shipped component API, its local markdown, and its existing examples when the page documents a component.
+
+When adding or synchronizing a supported runtime across overview, setup, migration, theme, token,
+or component-index pages, read [the framework-support contract](references/framework-support.md).
 
 ## Documentation contract
 
@@ -54,6 +57,11 @@ default-language and target-locale heading sequences and resolve unexplained dif
 
 For a new, migrated, or substantially restructured component page, read [the component-page contract](references/component-pages.md). It defines section order, Ark-alignment coverage, and styling-reference expectations.
 
+When adding Solid to an existing component page, treat the work as a component-page migration: keep
+the existing example coverage, add native Solid source for every applicable React example, simplify
+the explanatory structure, and update every locale. Use Accordion as the page reference; use Quick
+Start only for shared installation and framework-selection guidance.
+
 ## Runnable previews
 
 - Keep runnable component-page examples in `website/src/components/examples/<component>/<name>.tsx`.
@@ -84,7 +92,8 @@ Read [preview rules](references/previews.md) whenever adding or changing a previ
 - Keep styling hooks limited to meaningful `className`/`class`, `data-slot`, and state attributes
   that consumers can target. Explain CSS Modules and Tailwind setup only on the relevant package path.
 - Keep the full hosted-registry setup in `quick-start.mdx`; component pages show only the relevant
-  install command. Treat each `packages/<variant>/registry.json` as its source manifest. Shared
+  install commands for package variants that actually ship that component. Treat each
+  `packages/<variant>/registry.json` as its source manifest. Shared
   styles and presets come from `packages/foundation/registry.json` through `/r/foundation` URL
   dependencies; the reset applies only to CSS Modules variants because Tailwind uses Preflight.
 - Never edit `website/docs/public/r` by hand. Regenerate `/r/foundation`, `/r/react`, `/r/solid`,

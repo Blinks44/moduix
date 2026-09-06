@@ -146,6 +146,10 @@
     background: var(--rp-c-bg-soft);
     transform: translateY(-1px);
   }
+
+  &:global(.rp-link):hover {
+    text-decoration: none;
+  }
 }
 
 .cardBody {

@@ -1,34 +1,64 @@
 ---
 title: Astro
-description: Utilisez les composants React moduix dans Astro comme des îlots interactifs, avec une feuille de style partagée et des directives client.
+description: Utilisez les composants moduix React ou Solid dans des îlots Astro interactifs avec leurs styles partagés.
 ---
 
 # Astro
 
-moduix est une bibliothèque de composants React. Astro rend les composants React en HTML statique par défaut. Ajoutez
-une directive Astro `client:*` lorsqu’un composant doit devenir interactif dans le navigateur.
+Les exemples ci-dessous utilisent les paquets CSS Modules, qui proposent le catalogue complet. Pour
+un composant disponible avec Tailwind, suivez la [configuration du paquet Tailwind](/docs/quick-start#configurer-le-paquet-tailwind)
+et choisissez le paquet ou le registre React ou Solid correspondant.
 
-## Ajouter React à Astro
+Astro peut afficher les composants moduix grâce à ses intégrations officielles pour React et Solid.
+Par défaut, il produit du HTML statique ; ajoutez une directive `client:*` lorsqu’un composant doit
+devenir interactif dans le navigateur.
 
-Depuis la racine de votre projet, exécutez :
+## Ajouter le framework à Astro
+
+Exécutez la commande correspondant au framework de vos composants :
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
 ```bash
 npx astro add react
 ```
 
-Cette commande installe et configure l’intégration officielle `@astrojs/react` d’Astro.
+Cette commande installe et configure `@astrojs/react`.
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+```bash
+npx astro add solid
+```
+
+Cette commande installe et configure `@astrojs/solid-js`.
+
+  </Tab>
+</Tabs>
 
 ## Installer moduix
 
-Installez `@moduix/react` et sa dépendance peer `@ark-ui/react` :
+Installez le paquet adapté au framework ainsi que la dépendance Ark UI correspondante :
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
 <PackageManagerTabs command="install @moduix/react @ark-ui/react" />
 
-`@moduix/react` prend en charge React 18 et 19 et attend que `react`, `react-dom` et `@ark-ui/react` soient installés
-dans votre projet. La commande `astro add react` configure généralement React et `react-dom`. Si vous avez installé
-`@astrojs/react` manuellement, vérifiez que ces paquets sont présents avant de continuer.
+  </Tab>
+  <Tab label="Solid" value="solid">
 
-Importez une seule fois la feuille de style de base dans un composant de mise en page partagé :
+<PackageManagerTabs command="install @moduix/solid @ark-ui/solid solid-js" />
+
+  </Tab>
+</Tabs>
+
+Importez une seule fois la feuille de styles de base dans une mise en page partagée :
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
 ```astro title="src/layouts/Layout.astro"
 ---
@@ -40,7 +70,26 @@ import '@moduix/react/style.css';
 </html>
 ```
 
-Créez un composant React et importez-le directement dans une page Astro :
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+```astro title="src/layouts/Layout.astro"
+---
+import '@moduix/solid/style.css';
+---
+
+<html lang="en">
+  <body><slot /></body>
+</html>
+```
+
+  </Tab>
+</Tabs>
+
+Créez ensuite un composant dans le framework choisi :
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
 ```tsx title="src/components/ContinueButton.tsx"
 import { Button } from '@moduix/react/button';
@@ -50,7 +99,21 @@ export function ContinueButton() {
 }
 ```
 
-Ajoutez `client:load` pour le rendre interactif dès le chargement de la page :
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+```tsx title="src/components/ContinueButton.tsx"
+import { Button } from '@moduix/solid/button';
+
+export function ContinueButton() {
+  return <Button>Continue</Button>;
+}
+```
+
+  </Tab>
+</Tabs>
+
+Importez-le directement dans une page Astro et ajoutez une directive client :
 
 ```astro title="src/pages/index.astro"
 ---
@@ -60,23 +123,40 @@ import { ContinueButton } from '../components/ContinueButton';
 <ContinueButton client:load />
 ```
 
-Sans directive `client:*`, Astro rend le composant en HTML statique et n’envoie pas son JavaScript au navigateur.
-Choisissez la directive selon le moment où le composant doit devenir interactif : `client:load` convient aux contrôles
-visibles immédiatement, `client:idle` lorsque l’interaction peut attendre que le navigateur soit disponible et
-`client:visible` pour les composants qui peuvent attendre leur entrée dans la fenêtre d’affichage. Un rendu statique côté
-serveur ne suffit pas pour `Dialog`, `Menu`, `Select` et les autres composants interactifs.
+Sans directive `client:*`, Astro envoie du HTML statique sans le JavaScript client du composant.
+Utilisez `client:load` pour un contrôle visible immédiatement, `client:idle` si l’interaction peut
+attendre et `client:visible` pour un composant situé plus bas dans la page. Les composants interactifs
+comme `Dialog`, `Menu` et `Select` ont besoin d’une directive client.
 
 ## Installer avec la CLI shadcn
 
-Terminez la [configuration de la CLI shadcn](/docs/quick-start#installer-avec-la-cli-shadcn). Dans `tsconfig.json`,
-associez l’alias `@/*` à `src/*` et importez `@/lib/moduix/styles/style.css` depuis le composant de mise en page partagé.
-Dans une page Astro, importez directement le composant React généré et ajoutez-lui une directive `client:*`. Astro
-n’accepte une directive client que sur un composant de framework importé directement dans un fichier `.astro`.
+Effectuez la [configuration initiale de la CLI shadcn](/docs/quick-start#installation-avec-la-cli-shadcn),
+faites pointer `@/*` vers `src/*` dans `tsconfig.json`, puis importez
+`@/lib/moduix/styles/style.css` dans la mise en page partagée. Ajoutez ensuite le composant adapté au
+framework :
 
-## Vérifier
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
-La page doit contenir le HTML stylé rendu côté serveur avant l’hydratation, puis le composant doit réagir une fois sa
-directive client exécutée.
+<PackageManagerTabs command="shadcn@latest add @moduix-react/button" dlx />
 
-Consultez le [guide Astro sur les frameworks front-end](https://docs.astro.build/en/guides/framework-components/) pour
-connaître les directives client disponibles. Pour une configuration manuelle de React, consultez le [guide d’intégration de `@astrojs/react`](https://docs.astro.build/en/guides/integrations-guide/react/).
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<PackageManagerTabs command="shadcn@latest add @moduix-solid/button" dlx />
+
+  </Tab>
+</Tabs>
+
+Importez le composant généré directement dans le fichier `.astro` avant de lui appliquer une
+directive `client:*`. Astro n’accepte ces directives que sur les composants de framework importés
+directement dans la page.
+
+## Vérifier l’installation
+
+La page doit contenir du HTML rendu côté serveur et déjà mis en forme, puis le composant doit réagir
+une fois la directive client exécutée.
+
+Consultez le guide Astro sur les [composants de framework](https://docs.astro.build/en/guides/framework-components/),
+ainsi que les intégrations officielles pour [React](https://docs.astro.build/en/guides/integrations-guide/react/)
+et [Solid](https://docs.astro.build/en/guides/integrations-guide/solid-js/).

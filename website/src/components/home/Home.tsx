@@ -7,7 +7,7 @@ import { Switch } from '@moduix/react/switch';
 import { Tabs } from '@moduix/react/tabs';
 import { useI18n } from '@rspress/core/runtime';
 import { Link } from '@rspress/core/theme';
-import { ArrowRight, Code2, Component, Layers3, Sparkles } from 'lucide-react';
+import { ArrowRight, Code2, Component, Layers3, Sparkles, Wind } from 'lucide-react';
 import { useState } from 'react';
 import { FrameworkSupport } from '@/components/home/framework-support';
 import { DataTable } from '@/components/recipes/data-table';
@@ -32,6 +32,10 @@ export function Home() {
             <span className={styles.badge}>
               <Code2 size={14} aria-hidden="true" />
               {t('homeCssModules')}
+            </span>
+            <span className={styles.badge}>
+              <Wind size={14} aria-hidden="true" />
+              {t('homeTailwindSoon')}
             </span>
             <a
               className={styles.badge}

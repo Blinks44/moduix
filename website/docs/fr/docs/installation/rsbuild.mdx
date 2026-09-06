@@ -1,26 +1,59 @@
 ---
 title: Rsbuild
-description: "Intégrez moduix à une application React utilisant Rsbuild : installez le paquet ou ajoutez le code source via la CLI shadcn, puis configurez les styles partagés et les alias TypeScript."
+description: Ajoutez moduix à une application Rsbuild React ou Solid par paquet ou avec la CLI shadcn.
 ---
 
 # Rsbuild
 
-Ce guide part du principe que vous disposez déjà d’une application React construite avec Rsbuild. Si vous partez de
-zéro, suivez d’abord le [démarrage rapide de Rsbuild](https://rsbuild.rs/guide/start/quick-start). Rsbuild prend
-automatiquement en compte les alias de chemins TypeScript. Avec la CLI shadcn, vous n’avez donc pas besoin de
-dupliquer cet alias dans `resolve.alias`.
+Les exemples ci-dessous utilisent les paquets CSS Modules, qui proposent le catalogue complet. Pour
+un composant disponible avec Tailwind, suivez la [configuration du paquet Tailwind](/docs/quick-start#configurer-le-paquet-tailwind)
+et choisissez le paquet ou le registre React ou Solid correspondant.
+
+Ce guide part d’une application Rsbuild déjà configurée pour React ou Solid. Rsbuild prend en compte
+les alias TypeScript, il est donc inutile de les répéter dans `resolve.alias` pour utiliser shadcn.
+
+## Configurer le framework
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+Utilisez une application Rsbuild React configurée avec `@rsbuild/plugin-react`.
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+L’intégration Solid officielle de Rsbuild repose sur les plugins Solid et Babel :
+
+<PackageManagerTabs command="install -D @rsbuild/plugin-solid @rsbuild/plugin-babel" />
+
+```ts title="rsbuild.config.ts"
+import { pluginBabel } from '@rsbuild/plugin-babel';
+import { pluginSolid } from '@rsbuild/plugin-solid';
+import { defineConfig } from '@rsbuild/core';
+
+export default defineConfig({
+  plugins: [
+    pluginBabel({
+      include: /\.(?:jsx|tsx)$/,
+    }),
+    pluginSolid(),
+  ],
+});
+```
+
+  </Tab>
+</Tabs>
 
 ## Installer le paquet
 
-<PackageManagerTabs command="install @moduix/react @ark-ui/react" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
-Importez la feuille de style commune une seule fois depuis le point d’entrée de l’application :
+<PackageManagerTabs command="install @moduix/react @ark-ui/react" />
 
 ```tsx title="src/index.tsx"
 import '@moduix/react/style.css';
 ```
-
-Importez ensuite chaque composant depuis le sous-chemin correspondant du paquet :
 
 ```tsx title="src/App.tsx"
 import { Button } from '@moduix/react/button';
@@ -30,10 +63,30 @@ export function App() {
 }
 ```
 
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<PackageManagerTabs command="install @moduix/solid @ark-ui/solid solid-js" />
+
+```tsx title="src/index.tsx"
+import '@moduix/solid/style.css';
+```
+
+```tsx title="src/App.tsx"
+import { Button } from '@moduix/solid/button';
+
+export function App() {
+  return <Button>Continue</Button>;
+}
+```
+
+  </Tab>
+</Tabs>
+
 ## Installer avec la CLI shadcn
 
-Suivez d’abord la [configuration de la CLI shadcn](/docs/quick-start#installer-avec-la-cli-shadcn), puis ajoutez
-l’alias de chemin `@/*` dans `tsconfig.json` :
+Commencez par la [configuration de la CLI shadcn](/docs/quick-start#installation-avec-la-cli-shadcn),
+puis faites pointer `@/*` vers `src/*` dans `tsconfig.json` :
 
 ```json title="tsconfig.json"
 {
@@ -46,18 +99,33 @@ l’alias de chemin `@/*` dans `tsconfig.json` :
 }
 ```
 
-Rsbuild lit automatiquement `compilerOptions.paths` ; il est donc inutile de recopier cet alias dans `resolve.alias`
-de `rsbuild.config.ts`. Remplacez l’import de la feuille de style du paquet par la feuille générée ci-dessous.
-N’importez pas les deux feuilles en même temps :
+Rsbuild lit automatiquement `compilerOptions.paths`. Ajoutez ensuite le composant adapté au
+framework :
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<PackageManagerTabs command="shadcn@latest add @moduix-react/button" dlx />
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<PackageManagerTabs command="shadcn@latest add @moduix-solid/button" dlx />
+
+  </Tab>
+</Tabs>
+
+Remplacez l’import de la feuille de styles du paquet par celui du fichier généré ; n’importez pas les
+deux :
 
 ```tsx title="src/index.tsx"
 import '@/lib/moduix/styles/style.css';
 ```
 
-## Vérifier
+## Vérifier l’installation
 
-Lancez le serveur de développement Rsbuild. L’intégration fonctionne lorsque le composant s’affiche avec les styles
-moduix et que TypeScript comme Rsbuild résolvent correctement `@/components/ui/*`.
+Démarrez le serveur de développement. Le composant moduix doit être mis en forme, et TypeScript comme
+Rsbuild doivent résoudre `@/components/ui/*` après une installation depuis le registre.
 
-Pour obtenir la configuration complète de Rsbuild, notamment pour créer une application React, consultez le [démarrage rapide de
-Rsbuild](https://rsbuild.rs/guide/start/quick-start) et le [guide React](https://rsbuild.rs/guide/framework/react).
+Consultez le guide Rsbuild pour [React](https://rsbuild.rs/guide/framework/react) ou la documentation
+officielle du [plugin Solid](https://rsbuild.rs/plugins/list/plugin-solid).

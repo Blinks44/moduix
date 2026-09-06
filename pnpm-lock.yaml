@@ -514,6 +514,9 @@ importers:
         specifier: ^1.4.2
         version: 1.4.2(typescript@7.0.2)
     devDependencies:
+      '@moduix/solid':
+        specifier: workspace:*
+        version: link:../packages/solid
       '@rspress/plugin-preview':
         specifier: ^2.0.21
         version: 2.0.21(@rspress/core@2.0.21(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@10.2.2))(supports-color@10.2.2))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -529,6 +532,9 @@ importers:
       '@types/react-dom':
         specifier: ^19.2.7
         version: 19.2.7(@types/react@19.2.18)
+      solid-js:
+        specifier: ^1.9.15
+        version: 1.9.15
       typescript:
         specifier: ~7.0.2
         version: 7.0.2

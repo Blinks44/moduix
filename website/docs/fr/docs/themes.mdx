@@ -12,6 +12,7 @@ Les thèmes moduix sont des couches de tokens CSS. `Calm` correspond aux valeurs
 socle ; `Dense`, `Soft` et `Contrast` sont des préréglages facultatifs pour d’autres directions
 visuelles. Un préréglage peut modifier la palette, les rayons, l’espacement, la densité des
 contrôles et les ombres sans changer l’API des composants ni dépendre d’un moteur de thème distinct.
+Les paquets React et Solid utilisent les mêmes fichiers de thème et le même contrat de tokens.
 
 <ClientOnly fallback={<ThemePresets />}>
   <ThemePresets />
@@ -63,29 +64,63 @@ Ajoutez `data-moduix-theme` sur `<html>` afin que les composants rendus dans un 
 mêmes tokens que le reste du document. Définissez `data-moduix-color-scheme="dark"` sur cet élément
 pour activer le mode sombre de moduix ; vous pouvez omettre l’attribut en mode clair.
 
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+**CSS Modules**
+
 ```tsx
 import '@moduix/react/style.css';
 import '@moduix/react/presets/soft.css';
 ```
 
+**Tailwind CSS**
+
+```css
+@import '@moduix/react-tailwind/style.css';
+@import '@moduix/react-tailwind/presets/soft.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/react-tailwind/dist/components';
+```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+**CSS Modules**
+
+```tsx
+import '@moduix/solid/style.css';
+import '@moduix/solid/presets/soft.css';
+```
+
+**Tailwind CSS**
+
+```css
+@import '@moduix/solid-tailwind/style.css';
+@import '@moduix/solid-tailwind/presets/soft.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/solid-tailwind/dist/components';
+```
+
+  </Tab>
+</Tabs>
+
 ```html
 <html data-moduix-theme="soft" data-moduix-color-scheme="dark"></html>
 ```
 
-Pour utiliser un autre préréglage, remplacez `soft.css` par l’un de ces chemins :
-
-```text
-@moduix/react/presets/dense.css
-@moduix/react/presets/contrast.css
-```
+Pour utiliser un autre préréglage, remplacez `soft.css` par `dense.css` ou `contrast.css` sous le
+même préfixe de paquet.
 
 ## Utiliser le registre
 
-Installez un préréglage depuis le registre moduix hébergé. La CLI copie son CSS source dans votre
-projet ; importez ensuite ce fichier après la feuille de styles du socle.
+Les préréglages sont indépendants du framework. La même URL du registre commun fonctionne avec
+React ou Solid, quel que soit le mode de style. La CLI copie le fichier CSS dans votre projet :
 
 ```bash
-npx shadcn@latest add @moduix-react/theme-dense
+npx shadcn@latest add https://moduix.dev/r/foundation/theme-dense.json
 ```
 
 ```tsx
@@ -99,6 +134,10 @@ import '@/lib/moduix/presets/dense.css';
 
 Remplacez `dense` par `soft` ou `contrast` pour utiliser un autre préréglage. Si les utilisateurs
 peuvent changer de préréglage, installez et importez chacun de ceux qu’ils peuvent sélectionner.
+
+Avec Tailwind, conservez ces imports avant `@import 'tailwindcss'`, comme dans la
+[configuration du paquet Tailwind](/docs/quick-start#configurer-le-paquet-tailwind). N’ajoutez pas
+le reset de moduix.
 
 ## Changer de thème à l’exécution
 
@@ -141,10 +180,48 @@ N’ajoutez des tokens de taille ou d’espacement que si votre thème modifie v
 Utilisez un préréglage comme référence si vous souhaitez remplacer toute la palette, l’espacement
 et les ombres.
 
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+**CSS Modules**
+
 ```tsx
 import '@moduix/react/style.css';
 import './brand.css';
 ```
+
+**Tailwind CSS**
+
+```css
+@import '@moduix/react-tailwind/style.css';
+@import './brand.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/react-tailwind/dist/components';
+```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+**CSS Modules**
+
+```tsx
+import '@moduix/solid/style.css';
+import './brand.css';
+```
+
+**Tailwind CSS**
+
+```css
+@import '@moduix/solid-tailwind/style.css';
+@import './brand.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/solid-tailwind/dist/components';
+```
+
+  </Tab>
+</Tabs>
 
 ```css
 /* brand.css */

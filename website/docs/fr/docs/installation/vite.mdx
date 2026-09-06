@@ -1,24 +1,28 @@
 ---
 title: Vite
-description: Configurez moduix dans une application React avec Vite, comme paquet ou via la CLI shadcn.
+description: Configurez moduix dans une application Vite React ou Solid par paquet ou avec la CLI shadcn.
 ---
 
 # Vite
 
-Ce guide part du principe que vous disposez déjà d’une application créée à partir du modèle React ou React + TypeScript
-de Vite. Pour démarrer un nouveau projet, consultez d’abord le [guide de démarrage de Vite](https://vite.dev/guide/).
+Les exemples ci-dessous utilisent les paquets CSS Modules, qui proposent le catalogue complet. Pour
+un composant disponible avec Tailwind, suivez la [configuration du paquet Tailwind](/docs/quick-start#configurer-le-paquet-tailwind)
+et choisissez le paquet ou le registre React ou Solid correspondant.
 
-## Installer moduix en tant que paquet
+Ce guide part d’une application créée avec un modèle Vite pour React, React + TypeScript, Solid ou
+Solid + TypeScript. Pour un nouveau projet, créez l’application avec Vite et choisissez le framework
+correspondant.
+
+## Installer moduix comme paquet
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
 <PackageManagerTabs command="install @moduix/react @ark-ui/react" />
-
-Importez une seule fois la feuille de style de base depuis `src/main.tsx` :
 
 ```tsx title="src/main.tsx"
 import '@moduix/react/style.css';
 ```
-
-Importez ensuite les composants depuis leurs sous-chemins de paquet :
 
 ```tsx title="src/App.tsx"
 import { Button } from '@moduix/react/button';
@@ -28,14 +32,31 @@ export function App() {
 }
 ```
 
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<PackageManagerTabs command="install @moduix/solid @ark-ui/solid solid-js" />
+
+```tsx title="src/index.tsx"
+import '@moduix/solid/style.css';
+```
+
+```tsx title="src/App.tsx"
+import { Button } from '@moduix/solid/button';
+
+export function App() {
+  return <Button>Continue</Button>;
+}
+```
+
+  </Tab>
+</Tabs>
+
 ## Installer avec la CLI shadcn
 
-Terminez la [configuration de la CLI shadcn](/docs/quick-start#installer-avec-la-cli-shadcn), puis définissez l’alias
-`@/*` vers `src/*`. Dans le modèle TypeScript de Vite, la configuration est répartie entre `tsconfig.json` et
-`tsconfig.app.json`. Ajoutez l’alias dans les deux fichiers et configurez le même alias pour Vite dans
-`vite.config.ts`.
-
-Ajoutez ces propriétés à l’objet `compilerOptions` existant dans `tsconfig.json` :
+Effectuez la [configuration initiale de la CLI shadcn](/docs/quick-start#installation-avec-la-cli-shadcn),
+puis faites pointer `@/*` vers `src/*`. Les modèles TypeScript de Vite répartissent leur
+configuration entre `tsconfig.json` et un fichier propre à l’application. Ajoutez l’alias aux deux :
 
 ```json title="tsconfig.json"
 {
@@ -48,31 +69,19 @@ Ajoutez ces propriétés à l’objet `compilerOptions` existant dans `tsconfig.
 }
 ```
 
-Ajoutez les mêmes propriétés à `compilerOptions` dans `tsconfig.app.json` :
-
-```json title="tsconfig.app.json"
-{
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  }
-}
-```
-
-Ajoutez ensuite l’alias correspondant dans `vite.config.ts`. Vite attend un chemin absolu pour la cible de l’alias :
-dans cet exemple, `@` pointe donc vers le répertoire `src` de l’application.
-
-Cette configuration importe `node:url`. Si votre projet ne contient pas encore les types Node.js, ajoutez-les comme
-dépendance de développement :
+Reprenez ces valeurs dans `compilerOptions` de `tsconfig.app.json`, puis ajoutez à Vite l’alias adapté
+au framework. Comme l’exemple importe `node:url`, installez les types Node.js s’ils ne sont pas déjà
+présents :
 
 <PackageManagerTabs command="install -D @types/node" />
 
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
 ```ts title="vite.config.ts"
 import { fileURLToPath, URL } from 'node:url';
-import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
 
 export default defineConfig({
   plugins: [react()],
@@ -84,30 +93,55 @@ export default defineConfig({
 });
 ```
 
-Une fois l’alias configuré, ajoutez un composant depuis le registre moduix :
-
 <PackageManagerTabs command="shadcn@latest add @moduix-react/button" dlx />
 
-Dans `src/main.tsx`, remplacez la feuille de style du paquet par la feuille générée. N’importez pas les deux :
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+```ts title="vite.config.ts"
+import { fileURLToPath, URL } from 'node:url';
+import { defineConfig } from 'vite';
+import solid from 'vite-plugin-solid';
+
+export default defineConfig({
+  plugins: [solid()],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
+});
+```
+
+<PackageManagerTabs command="shadcn@latest add @moduix-solid/button" dlx />
+
+  </Tab>
+</Tabs>
+
+Dans le point d’entrée du framework, importez la feuille de styles générée à la place de celle du
+paquet ; n’importez pas les deux :
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
 ```tsx title="src/main.tsx"
 import '@/lib/moduix/styles/style.css';
 ```
 
-Importez le composant généré depuis les sources de votre application :
+  </Tab>
+  <Tab label="Solid" value="solid">
 
-```tsx title="src/App.tsx"
-import { Button } from '@/components/ui/button';
-
-export function App() {
-  return <Button>Continue</Button>;
-}
+```tsx title="src/index.tsx"
+import '@/lib/moduix/styles/style.css';
 ```
 
-## Vérifier la configuration
+  </Tab>
+</Tabs>
 
-Lancez le serveur de développement Vite. Avec l’installation du paquet, le bouton importé depuis
-`@moduix/react/button` doit s’afficher avec les styles moduix. Avec la CLI shadcn, l’éditeur et la compilation doivent
-résoudre sans erreur la feuille de style générée et le composant importé depuis `@/components/ui/button`.
+## Vérifier l’installation
 
-Consultez le [guide Vite](https://vite.dev/guide/) pour la configuration complète du framework.
+Démarrez Vite. Avec le paquet, le composant importé depuis le paquet moduix choisi doit être mis en
+forme. Avec shadcn, la feuille de styles générée et l’import `@/components/ui/button` doivent être
+résolus dans l’éditeur comme pendant la compilation.
+
+Consultez le [guide officiel de Vite](https://vite.dev/guide/) pour créer un projet et choisir un modèle.

@@ -1,6 +1,6 @@
 ---
 title: Introduction
-description: How moduix is built, how its styles reach your app, and which ownership model fits your project.
+description: How moduix supports React and Solid, how its styles reach your app, and which ownership model fits your project.
 ---
 
 import { OwnershipLayers } from '@/components/docs/ownership-layers';
@@ -8,9 +8,9 @@ import { Card, Cards } from '@/components/mdx/Components';
 
 # moduix
 
-moduix is a styled component library built on [Ark UI](https://ark-ui.com/). It pairs Ark's
-accessible interaction primitives with considered defaults, explicit composition, and CSS Modules
-backed by shared design tokens.
+moduix is a framework-native React and Solid component library built on
+[Ark UI](https://ark-ui.com/). It pairs Ark's accessible interaction primitives with considered
+defaults, explicit composition, and shared design tokens.
 
 To try it now, choose an installation method in [Quick start](/docs/quick-start), render a Button,
 and return here when you want to understand the broader system.
@@ -24,12 +24,21 @@ easy to adapt in your application.
 Choose the npm package when you want updates through your package manager. Choose the shadcn registry
 when you want the component source, styles, and supporting utilities inside your repository.
 
-| Workflow                   | Imports                 | Best fit                                                               |
-| -------------------------- | ----------------------- | ---------------------------------------------------------------------- |
-| npm package                | `@moduix/react/*`       | Centralized updates and the smallest amount of application-owned code. |
-| Copy-owned shadcn registry | `@/components/ui/*` | Direct source ownership and deliberate local changes.                 |
+| Workflow                   | Imports                                           | Best fit                                                               |
+| -------------------------- | ------------------------------------------------- | ---------------------------------------------------------------------- |
+| npm package                | `@moduix/react/*` or `@moduix/solid/*`            | Centralized updates and the smallest amount of application-owned code. |
+| Copy-owned shadcn registry | `@/components/ui/*`                               | Direct source ownership and deliberate local changes.                  |
 
-Both workflows expose the same component contracts, CSS Modules styling, and token system.
+Both workflows expose the same framework-native component contracts and token system. Choose the
+runtime and styling track independently from where the source lives:
+
+| Runtime | CSS Modules | Tailwind CSS |
+| ------- | ----------- | ------------ |
+| React   | `@moduix/react` | `@moduix/react-tailwind` |
+| Solid   | `@moduix/solid` | `@moduix/solid-tailwind` |
+
+The React and Solid CSS Modules packages contain the complete component catalog. Tailwind packages
+are being expanded component by component; check the target component page before choosing them.
 [Quick start](/docs/quick-start) covers the complete setup for each path.
 
 <OwnershipLayers />
@@ -54,26 +63,29 @@ The influence is practical rather than cosmetic:
 - a shadcn registry for copy-owned installation;
 - documentation that teaches the common path first and keeps escape hatches visible.
 
-moduix does not require Tailwind CSS and does not replace Ark anatomy with shadcn-specific wrapper
-contracts. Its own component styles use CSS Modules and shared CSS tokens.
+The CSS Modules packages do not require Tailwind CSS, and no styling track replaces Ark anatomy with
+shadcn-specific wrapper contracts. Tailwind is available through separate packages for components
+that have already been ported.
 
 ## How styling works
 
-moduix uses CSS Modules for component styles. CSS Modules are regular CSS files with locally scoped
-class names, so a component's selectors do not leak into the rest of your application.
+The full React and Solid packages use CSS Modules: regular CSS files with locally scoped class names,
+so component selectors do not leak into the rest of your application. Their npm packages deliver
+component styles with each imported entry point, while their registries copy the same source and
+`.module.css` files into your repository.
 
-The npm package delivers each component's styles alongside the component entry point you import. The
-shadcn registry copies the same component source and `.module.css` files into your repository. Both
-workflows use the same styling contract:
+The Tailwind packages express the same visual contract as utility classes and use Tailwind Preflight
+instead of the optional moduix reset. Both styling tracks share the same foundation tokens, presets,
+animations, and component behavior:
 
 - import `style.css` once for shared tokens and base layer styles;
-- use `className` on the root or named parts for local selectors;
+- use `className` in React or `class` in Solid on roots and named parts;
 - target stable `data-slot` and Ark state attributes when a state-specific rule is needed;
 - override `--moduix-*` variables for themes and shared visual decisions.
 
 Your application can still use regular CSS, Tailwind CSS, or another styling tool for layout and
-application-owned styles. You do not need to add a utility framework or a CSS-in-JS runtime just to
-use moduix. If you want to edit the component CSS itself, use the copy-owned registry workflow.
+application-owned styles. Choose a CSS Modules package when you do not want Tailwind as a dependency;
+choose a Tailwind package when utilities should remain directly editable with copied source.
 
 ## The styling contract
 

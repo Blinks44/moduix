@@ -7,17 +7,60 @@ import { TokensOverview } from '@/components/docs/tokens-overview';
 
 # Токены
 
-Стили moduix построены на CSS-переменных. Начните с семантических цветовых токенов для поверхностей, текста, границ,
+Стили moduix построены на одинаковых CSS-переменных в React и Solid. Начните с семантических цветовых токенов для поверхностей, текста, границ,
 колец фокуса и оверлеев. Если продукту нужен другой визуальный ритм, настройте интервалы, радиусы, размеры,
 типографику, анимацию, тени и слои.
 
-Если вы используете moduix как npm-пакет, один раз импортируйте `@moduix/react/style.css`. Если устанавливаете исходники
-через `shadcn`, один раз импортируйте `@/lib/moduix/styles/style.css`. Обе точки входа загружают одну и ту же основу
-токенов.
+При установке через npm один раз импортируйте `style.css` для выбранного фреймворка и способа
+стилизации:
 
-Сброс стилей необязателен в обоих вариантах. При использовании npm импортируйте `@moduix/react/reset.css` перед
-`style.css`. Если устанавливаете исходники в проект, сначала выполните `npx shadcn@latest add @moduix-react/reset`,
-затем импортируйте `@/lib/moduix/styles/reset.css` перед `style.css`.
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+**CSS Modules**
+
+```tsx
+import '@moduix/react/style.css';
+```
+
+**Tailwind CSS**
+
+```css
+@import '@moduix/react-tailwind/style.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/react-tailwind/dist/components';
+```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+**CSS Modules**
+
+```tsx
+import '@moduix/solid/style.css';
+```
+
+**Tailwind CSS**
+
+```css
+@import '@moduix/solid-tailwind/style.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/solid-tailwind/dist/components';
+```
+
+  </Tab>
+</Tabs>
+
+При установке исходников через shadcn один раз импортируйте `@/lib/moduix/styles/style.css`.
+Необязательный reset подключается из `@moduix/react/reset.css` или `@moduix/solid/reset.css` для
+npm, а для скопированных исходников — через соответствующий элемент `@moduix-react/reset` или
+`@moduix-solid/reset`.
+
+Tailwind использует Preflight, поэтому не подключайте к Tailwind-пакетам дополнительный сброс
+moduix. Путь `@source` задаётся относительно файла стилей; полная настройка приведена в
+[быстром старте](/docs/quick-start#настройте-tailwind-пакет).
 
 Для быстрого старта используйте [Темы](/docs/themes). Пресеты переопределяют небольшой слой семантических токенов
 после `style.css`. Здесь описаны системные и общие токены, а на страницах компонентов приведены локальные алиасы и

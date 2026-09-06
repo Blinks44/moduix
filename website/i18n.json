@@ -106,15 +106,20 @@
     "ru": "CSS Modules",
     "fr": "CSS Modules"
   },
+  "homeTailwindSoon": {
+    "en": "Tailwind — soon",
+    "ru": "Tailwind — скоро",
+    "fr": "Tailwind — bientôt"
+  },
   "homeShadcnInspired": {
     "en": "shadcn-inspired",
     "ru": "В духе shadcn",
     "fr": "Inspiré par shadcn"
   },
   "homeLead": {
-    "en": "Accessible components with calm defaults and explicit composition. CSS Modules keep component styles scoped, while shared tokens make them easy to theme; your own styles stay in your app.",
-    "ru": "Доступные компоненты с продуманными настройками по умолчанию и явной композицией. CSS Modules изолируют стили компонентов, а общие токены помогают настроить тему привычными средствами; собственные стили остаются в приложении.",
-    "fr": "Des composants accessibles, avec des valeurs par défaut soignées et une composition explicite. Les CSS Modules isolent les styles des composants, tandis que les tokens partagés facilitent la personnalisation du thème ; vos propres styles restent dans l’application."
+    "en": "Framework-native React and Solid components with accessible behavior, calm defaults, and explicit composition. Shared tokens keep the visual system consistent while your application owns the final theme.",
+    "ru": "Нативные компоненты для React и Solid с доступным поведением, продуманными настройками по умолчанию и явной композицией. Общие токены сохраняют единый визуальный язык, а приложение управляет итоговой темой.",
+    "fr": "Des composants natifs pour React et Solid, avec un comportement accessible, des valeurs par défaut soignées et une composition explicite. Les tokens partagés assurent la cohérence visuelle, tandis que l’application garde la main sur le thème final."
   },
   "homeGetStarted": {
     "en": "Get started",
@@ -1017,9 +1022,9 @@
     "fr": "Contrôle"
   },
   "ownershipLayersStyling": {
-    "en": "CSS Modules + tokens",
-    "ru": "CSS Modules + токены",
-    "fr": "CSS Modules + tokens"
+    "en": "CSS Modules or Tailwind + tokens",
+    "ru": "CSS Modules или Tailwind + токены",
+    "fr": "CSS Modules ou Tailwind + tokens"
   },
   "ownershipLayersPackageSource": {
     "en": "Package or source",
@@ -1037,9 +1042,9 @@
     "fr": "Un système, trois couches claires"
   },
   "ownershipLayersSummary": {
-    "en": "Ark UI owns interaction behavior, moduix supplies styled components through CSS Modules and tokens, and your application owns the final theme and composition.",
-    "ru": "Ark UI отвечает за поведение компонентов, moduix предоставляет стилизованные компоненты на CSS Modules и токенах, а приложение управляет итоговой темой и композицией.",
-    "fr": "Ark UI gère le comportement des interactions, moduix fournit des composants stylés avec des CSS Modules et des tokens, et votre application garde la main sur le thème et la composition finaux."
+    "en": "Ark UI owns interaction behavior, moduix supplies framework-native React and Solid components with shared tokens, and your application owns the final theme and composition.",
+    "ru": "Ark UI отвечает за поведение, moduix предоставляет нативные компоненты для React и Solid с общими токенами, а приложение управляет итоговой темой и композицией.",
+    "fr": "Ark UI gère le comportement, moduix fournit des composants natifs pour React et Solid avec des tokens partagés, et l’application garde la main sur le thème et la composition finaux."
   },
   "ownershipLayersTokenFirstStyling": {
     "en": "Token-first styling",
@@ -1167,9 +1172,9 @@
     "fr": "Les valeurs par défaut de l’arrière-plan, des fenêtres contextuelles et de leurs animations sont partagées par les familles de superpositions ; chaque composant peut ensuite appliquer ses tokens locaux."
   },
   "frameworkAstroDescription": {
-    "en": "Interactive React islands in Astro.",
-    "ru": "Интерактивные React-острова для Astro.",
-    "fr": "Îlots React interactifs pour Astro."
+    "en": "Interactive React and Solid islands.",
+    "ru": "Интерактивные острова на React и Solid.",
+    "fr": "Îlots interactifs en React et Solid."
   },
   "frameworkNextDescription": {
     "en": "App Router and React Server Components.",
@@ -1182,19 +1187,24 @@
     "fr": "Applications en mode framework ou en mode data."
   },
   "frameworkRsbuildDescription": {
-    "en": "React apps powered by Rspack.",
-    "ru": "React-приложения на базе Rspack.",
-    "fr": "Applications React basées sur Rspack."
+    "en": "React and Solid apps powered by Rspack.",
+    "ru": "React- и Solid-приложения на базе Rspack.",
+    "fr": "Applications React et Solid basées sur Rspack."
   },
   "frameworkTanStackStartDescription": {
-    "en": "Full-stack React on Vite.",
-    "ru": "Full-stack-приложения на React и Vite.",
-    "fr": "Applications React full-stack sur Vite."
+    "en": "Full-stack React and Solid with TanStack Router.",
+    "ru": "Full-stack-приложения на React и Solid с TanStack Router.",
+    "fr": "Applications full-stack React et Solid avec TanStack Router."
+  },
+  "frameworkSolidStartDescription": {
+    "en": "The full-stack framework for Solid.",
+    "ru": "Full-stack-фреймворк для Solid.",
+    "fr": "Le framework full-stack pour Solid."
   },
   "frameworkViteDescription": {
-    "en": "Standard React apps and SPAs.",
-    "ru": "Обычные React-приложения и SPA.",
-    "fr": "Applications React classiques et SPA."
+    "en": "React and Solid apps and SPAs.",
+    "ru": "React- и Solid-приложения, включая SPA.",
+    "fr": "Applications React et Solid, y compris les SPA."
   },
   "frameworkSupportGroupLabel": {
     "en": "Framework support",
@@ -1206,15 +1216,15 @@
     "ru": "React доступен",
     "fr": "React est disponible"
   },
+  "frameworkSolidAvailable": {
+    "en": "Solid is available",
+    "ru": "Solid доступен",
+    "fr": "Solid est disponible"
+  },
   "frameworkSupportPlanned": {
     "en": "Planned",
     "ru": "Запланировано",
     "fr": "Prévu"
-  },
-  "frameworkSupportInProgress": {
-    "en": "In progress",
-    "ru": "В разработке",
-    "fr": "En cours"
   },
   "copyMarkdownText": {
     "en": "Copy Markdown",

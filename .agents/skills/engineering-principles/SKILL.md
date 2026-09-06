@@ -1,71 +1,67 @@
 ---
 name: engineering-principles
-description: Behavioral guidelines to reduce common LLM coding mistakes, derived from Andrej Karpathy's observations on LLM coding pitfalls.
+description: Apply to any task that implements, changes, or reviews code. Prefer simple, maintainable, and understandable solutions without overengineering.
 ---
 
-# Karpathy Guidelines
+# Engineering Principles
 
-Behavioral guidelines to reduce common LLM coding mistakes, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
+## Goal
 
-**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
+Build the smallest solution that fully solves the current task, follows existing project conventions,
+and remains clear to the next developer.
 
-## 1. Think Before Coding
+Simplicity does not mean weakening requirements or skipping verification. A simple solution handles
+real scenarios correctly without adding capabilities for hypothetical future needs.
 
-**Don't assume. Don't hide confusion. Surface tradeoffs.**
+## Before Implementation
 
-Before implementing:
+- Inspect the existing code, dependencies, configuration, and tests in the affected area first.
+- For a non-trivial or recurring task, evaluate the standard platform capabilities, dependencies
+  already installed in the project, a mature external library, and a local implementation.
+- State the expected outcome and how it will be verified.
+- If requirements are ambiguous or involve a meaningful tradeoff, explain the options and ask for a
+  decision instead of choosing silently.
+- Reuse existing project patterns, utilities, and components when they solve the task without making
+  the result less clear.
 
-- State your assumptions explicitly. If uncertain, ask.
-- If multiple interpretations exist, present them - don't pick silently.
-- If a simpler approach exists, say so. Push back when warranted.
-- If something is unclear, stop. Name what's confusing. Ask.
+## Simplicity and Change Boundaries
 
-## 2. Simplicity First
+- Implement exactly what is required now. Do not add unrequested features, configuration, flags,
+  abstraction layers, or extensibility.
+- Do not extract an abstraction for one simple use. Extract one when it removes existing duplication
+  or materially simplifies complex logic.
+- Do not refactor adjacent code, change unrelated formatting, or remove existing code outside the task
+  without a separate request.
+- Remove imports, variables, and code made unused specifically by your change.
+- Every changed file and meaningful line should be connected to the task.
 
-**Minimum code that solves the problem. Nothing speculative.**
+## Code and Automation
 
-- No features beyond what was asked.
-- No abstractions for single-use code.
-- No "flexibility" or "configurability" that wasn't requested.
-- No error handling for impossible scenarios.
-- If you write 200 lines and it could be 50, rewrite it.
+- Prefer clear names, direct data flow, and small cohesive changes over complex indirection.
+- Use comments to explain a decision or constraint that is not obvious from the code; do not narrate
+  what the code already says.
+- Do not build large one-off scripts, generators, or infrastructure for a single operation. Use
+  existing tools and small direct changes first.
+- Add automation only when an operation genuinely recurs, is unsafe to perform manually, or needs to
+  be reproducible. Keep it small and documented.
 
-Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+## Dependencies
 
-## 3. Surgical Changes
+- Check standard platform capabilities and libraries already installed in the project first.
+- For non-trivial, widely solved functionality, prefer a mature, maintained, and compatible library
+  over a custom implementation.
+- Do not choose a library merely because it exists. Compare implementation and maintenance complexity,
+  API quality, compatibility, size, performance, security, and dependency cost.
+- When several options are reasonable, recommend one and explain its benefits and tradeoffs, including
+  a local implementation as an alternative. Agree on material dependency changes before installation.
+- Prefer a custom solution for small local logic when it is simpler, transparent, and does not
+  reimplement complex, well-known functionality.
+- Do not add a dependency for a few lines of clear code or when it does not fit project constraints.
+- Before adding a library, assess its maintenance activity, license, size, compatibility, security,
+  and practical value. Use only the API surface the task needs.
 
-**Touch only what you must. Clean up only your own mess.**
+## Completion
 
-When editing existing code:
-
-- Don't "improve" adjacent code, comments, or formatting.
-- Don't refactor things that aren't broken.
-- Match existing style, even if you'd do it differently.
-- If you notice unrelated dead code, mention it - don't delete it.
-
-When your changes create orphans:
-
-- Remove imports/variables/functions that YOUR changes made unused.
-- Don't remove pre-existing dead code unless asked.
-
-The test: Every changed line should trace directly to the user's request.
-
-## 4. Goal-Driven Execution
-
-**Define success criteria. Loop until verified.**
-
-Transform tasks into verifiable goals:
-
-- "Add validation" → "Write tests for invalid inputs, then make them pass"
-- "Fix the bug" → "Write a test that reproduces it, then make it pass"
-- "Refactor X" → "Ensure tests pass before and after"
-
-For multi-step tasks, state a brief plan:
-
-```
-1. [Step] → verify: [check]
-2. [Step] → verify: [check]
-3. [Step] → verify: [check]
-```
-
-Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+- Verify the change with the commands and tests established by the project.
+- If verification is not possible, state why and describe the alternative checks performed.
+- Review the diff before finishing; the solution should be no more complex than the task requires.

@@ -1,6 +1,6 @@
 ---
 title: Introduction
-description: Comment moduix est conçu, comment ses styles arrivent dans votre application et quel mode d’intégration choisir.
+description: Comment moduix prend en charge React et Solid, comment ses styles arrivent dans votre application et quel mode d’intégration choisir.
 ---
 
 import { OwnershipLayers } from '@/components/docs/ownership-layers';
@@ -8,9 +8,9 @@ import { Card, Cards } from '@/components/mdx/Components';
 
 # moduix
 
-moduix est une bibliothèque de composants stylés construite sur [Ark UI](https://ark-ui.com/). Elle associe
-les primitives d'interaction accessibles d'Ark à des valeurs par défaut soignées, une composition explicite et des
-CSS Modules qui s’appuient sur des tokens de design partagés.
+moduix est une bibliothèque de composants natifs pour React et Solid, construite sur
+[Ark UI](https://ark-ui.com/). Elle associe les primitives d’interaction accessibles d’Ark à des
+valeurs par défaut soignées, une composition explicite et des tokens de design partagés.
 
 Pour l’essayer, choisissez une méthode d’installation dans le [Démarrage rapide](/docs/quick-start), ajoutez
 `Button` à votre application, puis revenez ici lorsque vous voudrez comprendre le fonctionnement général du système.
@@ -26,11 +26,20 @@ le registre shadcn si vous voulez conserver le code source des composants, les s
 
 | Mode d’installation | Imports | À privilégier si |
 | --- | --- | --- |
-| Paquet npm | `@moduix/react/*` | Vous voulez des mises à jour centralisées et un minimum de code géré par l’application. |
+| Paquet npm | `@moduix/react/*` ou `@moduix/solid/*` | Vous voulez des mises à jour centralisées et un minimum de code géré par l’application. |
 | Registre shadcn avec code source dans le projet | `@/components/ui/*` | Vous voulez garder la main sur le code source et ses modifications locales. |
 
-Les deux approches exposent les mêmes contrats de composants, les mêmes styles fondés sur des CSS Modules et le même
-système de tokens. Le [Démarrage rapide](/docs/quick-start) explique la configuration complète de chacune.
+Les deux approches exposent les mêmes contrats de composants natifs et le même système de tokens.
+Choisissez le framework et le mode de style indépendamment de l’emplacement du code source :
+
+| Framework | CSS Modules | Tailwind CSS |
+| --- | --- | --- |
+| React | `@moduix/react` | `@moduix/react-tailwind` |
+| Solid | `@moduix/solid` | `@moduix/solid-tailwind` |
+
+Les paquets React et Solid fondés sur des CSS Modules contiennent le catalogue complet. Les paquets
+Tailwind s’enrichissent composant par composant ; vérifiez la page du composant avant de les choisir.
+Le [Démarrage rapide](/docs/quick-start) explique la configuration complète de chaque approche.
 
 <OwnershipLayers />
 
@@ -39,7 +48,7 @@ système de tokens. Le [Démarrage rapide](/docs/quick-start) explique la config
 Les composants complexes conservent le modèle Ark UI visible : parties nommées, état contrôlé et non contrôlé,
 objets `details` transmis aux callbacks, fournisseurs de contexte, composition `asChild`, contrôles de formulaire
 natifs et attributs d’état. moduix ajoute les styles des composants, des valeurs par défaut soignées, des compositions
-pratiques et des hooks `data-slot` stables, sans masquer la structure des primitives nécessaire aux scénarios produit avancés.
+pratiques et des points d’accroche `data-slot` stables, sans masquer la structure des primitives nécessaire aux scénarios produit avancés.
 
 Ark UI reste la référence pour le comportement des interactions et l’accessibilité. moduix fournit par-dessus une
 couche produit avec des styles et des choix assumés.
@@ -54,26 +63,28 @@ L’influence de shadcn se retrouve dans des choix pratiques :
 - un registre shadcn pour installer le code source dans le projet ;
 - une documentation qui présente d’abord le chemin principal sans masquer les options de bas niveau.
 
-moduix ne requiert pas Tailwind CSS et ne remplace pas l’anatomie Ark par des contrats de composants propres à shadcn.
-Les styles des composants reposent sur des CSS Modules et des tokens CSS partagés.
+Les paquets CSS Modules ne requièrent pas Tailwind CSS, et aucun mode de style ne remplace l’anatomie
+Ark par des contrats propres à shadcn. Tailwind est proposé dans des paquets séparés pour les
+composants déjà portés.
 
 ## Comment fonctionnent les styles
 
-moduix utilise des CSS Modules pour les styles des composants. Les CSS Modules sont des fichiers CSS classiques dont
-les noms de classe sont isolés localement, afin que les styles d’un composant ne s’appliquent pas au reste de l’application.
+Les paquets complets pour React et Solid utilisent des CSS Modules : des fichiers CSS classiques dont
+les noms de classe sont isolés localement. Le paquet npm fournit les styles avec chaque point
+d’entrée, tandis que le registre copie les mêmes sources et fichiers `.module.css` dans votre dépôt.
 
-Avec le paquet npm, les styles sont fournis avec les points d’entrée des composants que vous importez. Avec le registre
-shadcn, la CLI copie les mêmes sources de composants et les mêmes fichiers `.module.css` dans votre dépôt. Les deux
-approches suivent le même contrat de style :
+Les paquets Tailwind expriment le même contrat visuel avec des classes utilitaires et utilisent
+Preflight à la place du reset optionnel de moduix. Les deux modes partagent les mêmes tokens,
+préréglages, animations et comportements :
 
 - importez `style.css` une seule fois pour charger les tokens partagés et les styles de base ;
-- utilisez `className` sur la racine ou les parties nommées pour vos sélecteurs locaux ;
+- utilisez `className` avec React ou `class` avec Solid sur la racine et les parties nommées ;
 - ciblez les attributs stables `data-slot` et les attributs d’état d’Ark pour les règles liées à un état précis ;
 - surchargez les variables `--moduix-*` pour définir le thème et les choix visuels partagés.
 
-Votre application peut continuer à utiliser du CSS classique, Tailwind CSS ou un autre outil pour la mise en page et
-ses propres styles. Vous n’avez pas besoin d’ajouter un framework utilitaire ou un runtime CSS-in-JS pour utiliser
-moduix. Pour modifier directement le CSS d’un composant, choisissez l’installation via le registre shadcn.
+Votre application peut continuer à utiliser du CSS classique, Tailwind CSS ou un autre outil pour sa
+mise en page. Choisissez un paquet CSS Modules pour ne pas dépendre de Tailwind, ou un paquet Tailwind
+si les classes utilitaires doivent rester directement modifiables avec le code copié.
 
 ## Le contrat de style
 

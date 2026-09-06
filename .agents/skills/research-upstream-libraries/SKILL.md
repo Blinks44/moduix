@@ -1,9 +1,9 @@
 ---
-name: upstream-library-docs
+name: research-upstream-libraries
 description: Use when component work needs current Ark UI, Chakra UI, or shadcn behavior, APIs, composition patterns, or migration references from online sources.
 ---
 
-# Skill: upstream-library-docs
+# Upstream Library Research
 
 Use this skill when component work needs upstream Ark UI, Chakra UI, or shadcn references.
 

@@ -1,9 +1,9 @@
 ---
-name: react-to-solid
+name: migration-react-to-solid
 description: Port and synchronize moduix components from React to native Solid in either the CSS Modules or Tailwind package pair while preserving public and behavioral contracts.
 ---
 
-# React to Solid
+# React to Solid Migration
 
 Port a shipped React component as a native Solid adapter without introducing a shared component
 runtime, generated TSX, or React-compatibility layer. Use `packages/react` → `packages/solid` for the
@@ -95,7 +95,7 @@ a single component.
 
 For the CSS Modules track, start by copying the React CSS Module without semantic changes. Keep
 selectors, tokens, public CSS variables, animations, and fallbacks aligned. For the Tailwind track,
-follow `tailwind-component-workflow`; do not introduce a CSS Module.
+follow `migration-css-modules-to-tailwind`; do not introduce a CSS Module.
 
 Keep the CSS Module beside the Solid component; do not import it across framework package boundaries.
 A framework-specific CSS difference is allowed only when the emitted platform contract genuinely

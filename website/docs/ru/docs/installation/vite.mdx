@@ -1,24 +1,28 @@
 ---
 title: Vite
-description: "Настройте moduix в React-приложении на Vite: установите пакет или подключите компоненты через shadcn CLI."
+description: Настройка moduix в приложениях Vite на React и Solid через npm-пакет или shadcn CLI.
 ---
 
 # Vite
 
-Эта инструкция рассчитана на готовое приложение, созданное из шаблона Vite для React или React + TypeScript. Если вы
-начинаете новый проект, сначала воспользуйтесь [руководством Vite](https://vite.dev/guide/).
+В примерах ниже используются пакеты с CSS Modules, в которых доступен полный каталог компонентов.
+Для компонентов на Tailwind выполните [настройку Tailwind-пакета](/docs/quick-start#настройте-tailwind-пакет)
+и выберите пакет или реестр для React либо Solid.
 
-## Установите moduix как пакет
+В этом руководстве предполагается, что приложение создано из шаблона Vite для React, React +
+TypeScript, Solid или Solid + TypeScript. При создании нового проекта выберите в Vite нужный
+фреймворк.
+
+## Установка moduix из пакета
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
 <PackageManagerTabs command="install @moduix/react @ark-ui/react" />
-
-Один раз подключите базовый файл стилей в `src/main.tsx`:
 
 ```tsx title="src/main.tsx"
 import '@moduix/react/style.css';
 ```
-
-Затем импортируйте компоненты из подпутей пакета:
 
 ```tsx title="src/App.tsx"
 import { Button } from '@moduix/react/button';
@@ -28,13 +32,31 @@ export function App() {
 }
 ```
 
-## Установите через shadcn CLI
+  </Tab>
+  <Tab label="Solid" value="solid">
 
-Сначала выполните [настройку shadcn CLI](/docs/quick-start#установить-через-shadcn-cli), затем настройте алиас `@/*`
-на `src/*`. В TypeScript-шаблоне Vite конфигурация разделена между `tsconfig.json` и `tsconfig.app.json`. Добавьте
-алиас в оба файла и настройте такой же алиас для Vite в `vite.config.ts`.
+<PackageManagerTabs command="install @moduix/solid @ark-ui/solid solid-js" />
 
-Добавьте эти свойства в существующий объект `compilerOptions` файла `tsconfig.json`:
+```tsx title="src/index.tsx"
+import '@moduix/solid/style.css';
+```
+
+```tsx title="src/App.tsx"
+import { Button } from '@moduix/solid/button';
+
+export function App() {
+  return <Button>Continue</Button>;
+}
+```
+
+  </Tab>
+</Tabs>
+
+## Установка через shadcn CLI
+
+Выполните [первоначальную настройку shadcn CLI](/docs/quick-start#установка-через-shadcn-cli), затем
+задайте алиас `@/*` для `src/*`. В шаблонах Vite для TypeScript настройки разделены между
+`tsconfig.json` и конфигурацией приложения. Добавьте алиас в оба файла:
 
 ```json title="tsconfig.json"
 {
@@ -47,31 +69,19 @@ export function App() {
 }
 ```
 
-Добавьте те же свойства в `compilerOptions` файла `tsconfig.app.json`:
-
-```json title="tsconfig.app.json"
-{
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  }
-}
-```
-
-Затем добавьте соответствующий алиас в `vite.config.ts`. Vite ожидает абсолютный путь к каталогу, на который указывает
-алиас, поэтому в примере `@` ведёт в каталог `src` приложения:
-
-Эта конфигурация использует `node:url`. Если в проекте ещё нет типов Node.js, установите их как зависимость для
-разработки:
+Добавьте те же значения `compilerOptions` в `tsconfig.app.json`, а затем настройте алиас в Vite для
+выбранного фреймворка. В примере используется `node:url`, поэтому установите типы Node.js, если их
+ещё нет в проекте:
 
 <PackageManagerTabs command="install -D @types/node" />
 
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
 ```ts title="vite.config.ts"
 import { fileURLToPath, URL } from 'node:url';
-import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
 
 export default defineConfig({
   plugins: [react()],
@@ -83,31 +93,55 @@ export default defineConfig({
 });
 ```
 
-После настройки алиаса добавьте компонент из реестра moduix:
-
 <PackageManagerTabs command="shadcn@latest add @moduix-react/button" dlx />
 
-Вместо пакетного файла стилей подключите сгенерированный файл в `src/main.tsx`. Не подключайте оба файла
-одновременно:
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+```ts title="vite.config.ts"
+import { fileURLToPath, URL } from 'node:url';
+import { defineConfig } from 'vite';
+import solid from 'vite-plugin-solid';
+
+export default defineConfig({
+  plugins: [solid()],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
+});
+```
+
+<PackageManagerTabs command="shadcn@latest add @moduix-solid/button" dlx />
+
+  </Tab>
+</Tabs>
+
+Импортируйте сгенерированные основные стили из точки входа вместо стилей пакета — подключать оба
+файла не нужно:
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
 ```tsx title="src/main.tsx"
 import '@/lib/moduix/styles/style.css';
 ```
 
-Импортируйте сгенерированный компонент из исходников приложения:
+  </Tab>
+  <Tab label="Solid" value="solid">
 
-```tsx title="src/App.tsx"
-import { Button } from '@/components/ui/button';
-
-export function App() {
-  return <Button>Continue</Button>;
-}
+```tsx title="src/index.tsx"
+import '@/lib/moduix/styles/style.css';
 ```
 
-## Проверьте настройку
+  </Tab>
+</Tabs>
 
-Запустите dev-сервер Vite. При установке пакета кнопка, импортированная из `@moduix/react/button`, должна отобразиться
-со стилями moduix. При установке через shadcn CLI редактор и сборка должны без ошибок находить сгенерированный файл
-стилей и компонент из `@/components/ui/button`.
+## Проверка
 
-Полная настройка фреймворка приведена в [руководстве Vite](https://vite.dev/guide/).
+Запустите Vite. При установке из пакета компонент выбранного фреймворка должен отображаться со
+стилями. При установке через shadcn редактор и сборщик должны разрешать сгенерированный файл стилей
+и импорт `@/components/ui/button`.
+
+Создание проекта и доступные шаблоны описаны в официальном [руководстве Vite](https://vite.dev/guide/).

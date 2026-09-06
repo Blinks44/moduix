@@ -12,6 +12,7 @@ import { ClientOnly } from '@ark-ui/react/client-only';
 `Soft` и `Contrast` предлагают дополнительные визуальные направления. Пресет может изменить
 палитру, радиусы, интервалы, плотность элементов управления и тени, не меняя API компонентов и
 не требуя провайдера или отдельного механизма для работы темы.
+Пакеты для React и Solid используют одинаковые файлы тем и общий контракт токенов.
 
 <ClientOnly fallback={<ThemePresets />}>
   <ThemePresets />
@@ -61,29 +62,63 @@ foundation tokens → optional preset → application overrides → component al
 те же токены, что и остальная страница. Для тёмного режима задайте на этом элементе
 `data-moduix-color-scheme="dark"`, а для светлого режима атрибут можно не указывать.
 
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+**CSS Modules**
+
 ```tsx
 import '@moduix/react/style.css';
 import '@moduix/react/presets/soft.css';
 ```
 
+**Tailwind CSS**
+
+```css
+@import '@moduix/react-tailwind/style.css';
+@import '@moduix/react-tailwind/presets/soft.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/react-tailwind/dist/components';
+```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+**CSS Modules**
+
+```tsx
+import '@moduix/solid/style.css';
+import '@moduix/solid/presets/soft.css';
+```
+
+**Tailwind CSS**
+
+```css
+@import '@moduix/solid-tailwind/style.css';
+@import '@moduix/solid-tailwind/presets/soft.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/solid-tailwind/dist/components';
+```
+
+  </Tab>
+</Tabs>
+
 ```html
 <html data-moduix-theme="soft" data-moduix-color-scheme="dark"></html>
 ```
 
-Чтобы использовать другой пресет, замените `soft.css` на один из этих путей:
-
-```text
-@moduix/react/presets/dense.css
-@moduix/react/presets/contrast.css
-```
+Чтобы использовать другой пресет, замените `soft.css` на `dense.css` или `contrast.css`, сохранив
+префикс выбранного пакета.
 
 ## Использование с реестром
 
-Установите пресет из размещённого реестра moduix. CLI скопирует его CSS в проект, после чего
-импортируйте этот файл после основы.
+Пресеты не зависят от фреймворка, поэтому один и тот же URL общего реестра подходит для React
+и Solid с любым способом стилизации. CLI скопирует CSS-файл в проект:
 
 ```bash
-npx shadcn@latest add @moduix-react/theme-dense
+npx shadcn@latest add https://moduix.dev/r/foundation/theme-dense.json
 ```
 
 ```tsx
@@ -97,6 +132,10 @@ import '@/lib/moduix/presets/dense.css';
 
 Замените `dense` на `soft` или `contrast`, чтобы использовать другой пресет. Если пользователь
 может переключаться между пресетами, установите и импортируйте каждый доступный для выбора пресет.
+
+При использовании Tailwind размещайте эти импорты перед `@import 'tailwindcss'`, как показано в
+[настройке Tailwind-пакета](/docs/quick-start#настройте-tailwind-пакет). Сброс стилей moduix здесь
+не нужен.
 
 ## Переключение тем во время выполнения
 
@@ -138,10 +177,48 @@ function setTheme(theme: Theme) {
 интервалов, только если тема намеренно меняет плотность. Используйте пресет как ориентир, если
 хотите полностью заменить палитру, интервалы и тени.
 
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+**CSS Modules**
+
 ```tsx
 import '@moduix/react/style.css';
 import './brand.css';
 ```
+
+**Tailwind CSS**
+
+```css
+@import '@moduix/react-tailwind/style.css';
+@import './brand.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/react-tailwind/dist/components';
+```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+**CSS Modules**
+
+```tsx
+import '@moduix/solid/style.css';
+import './brand.css';
+```
+
+**Tailwind CSS**
+
+```css
+@import '@moduix/solid-tailwind/style.css';
+@import './brand.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/solid-tailwind/dist/components';
+```
+
+  </Tab>
+</Tabs>
 
 ```css
 /* brand.css */

@@ -1,9 +1,9 @@
 ---
-name: css-authoring
+name: conventions-css
 description: Author and synchronize foundation CSS, component CSS Modules, Tailwind classes, and demo styles across moduix package variants.
 ---
 
-# Skill: css-authoring
+# CSS Conventions
 
 Use this skill for CSS, CSS Modules, and styling work in this repo.
 
@@ -21,7 +21,10 @@ Use this skill for CSS, CSS Modules, and styling work in this repo.
 ## Core Rules
 
 - Keep CSS readable, local, and predictable.
-- Prefer flat, understandable styling over clever selector tricks.
+- Prefer flat, low-specificity selectors. Use local nesting to keep pseudo-classes, state attributes,
+  child selectors, and media queries near the rule they modify.
+- Prefer Ark `data-*` hooks and local class names over deep or structure-dependent selector chains.
+- If a selector is difficult to explain in one sentence, simplify it.
 - Use design tokens and public CSS variables instead of hardcoded one-off values when a token already exists.
 - Keep component CSS and demo CSS separate. Library styling belongs in its package; demo-only layout belongs in stories or docs examples.
 - When a component exists in several variants, preserve the same visual and state contract. Keep
@@ -54,13 +57,7 @@ Use this skill for CSS, CSS Modules, and styling work in this repo.
   primitive contract. For responsive or animated overlays, verify opening, closing, interrupted, and reduced-motion
   states at each supported direction and viewport.
 
-## Nesting
-
-- Use modern CSS nesting so states, nested selectors, and media conditions stay close to the base selector.
-- Prefer nesting for `:hover`, `:focus-visible`, data attributes, child selectors, and `@media`.
-- Do not over-nest or move related states far from the base selector.
-
-## Tailwind variants
+## Tailwind Variants
 
 - Use each package's local `cn` helper and put the consumer class last so consumer utilities win conflicts.
 - Prefer named token utilities and CSS-variable-backed arbitrary values over copied literals.
@@ -68,17 +65,3 @@ Use this skill for CSS, CSS Modules, and styling work in this repo.
 - Tailwind Preflight owns reset behavior; do not combine it with `foundation/src/styles/reset.css`.
 - Let oxfmt sort utility classes. Do not add another formatter or hand-maintained ordering scheme.
 - Keep the npm scan path limited to `dist/components`; shadcn-copied source is discovered in the consumer project and needs no package `@source`.
-
-## Selector Complexity
-
-- Do not write clever or overly complex selectors when a simpler selector or local nesting can express the same thing.
-- Prefer the simplest selector that matches the component contract.
-- Avoid deep chaining, unnecessary specificity, and fragile structure-dependent selectors unless the component truly requires them.
-- When choosing between multiple valid selectors, write the one that is easiest to read and maintain.
-
-## Practical Guidance
-
-- Keep state selectors near the class they modify.
-- Prefer `data-*` hooks and local class names over structural selectors when both are available.
-- Use nesting to keep `@media` adjustments near the selector they affect.
-- If a selector starts feeling hard to explain in one sentence, simplify it.

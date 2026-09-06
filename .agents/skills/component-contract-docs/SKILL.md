@@ -1,9 +1,9 @@
 ---
-name: local-component-docs
+name: component-contract-docs
 description: Maintain component-local contract markdown in packages/react and packages/solid, including framework differences and preservation notes.
 ---
 
-# Local Component Docs
+# Component Contract Docs
 
 Own component-local markdown in `packages/react/src/components` and `packages/solid/src/components`.
 It records the shipped moduix wrapper contract for maintainers; it is not a second public
@@ -40,4 +40,4 @@ Use these compact sections when relevant:
 
 ## Keep it current
 
-Update the local markdown with API, behavior, styling, CSS-variable, accessibility, or recommended-composition changes. Add a short dated changelog entry only for material user-facing contract changes; avoid implementation trivia.
+Update the local markdown with API, behavior, styling, CSS-variable, accessibility, or composition changes. Add a short dated changelog entry only for material user-facing contract changes; avoid implementation trivia.

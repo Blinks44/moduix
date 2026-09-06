@@ -5,16 +5,19 @@ description: Установите moduix как пакет или добавьт
 
 import { FrameworkGrid } from '@/components/docs/framework-grid';
 import { Card, Cards } from '@/components/mdx/Components';
+import componentsCssModules from '../../../snippets/quick-start/components-css-modules.json?raw';
+import componentsTailwind from '../../../snippets/quick-start/components-tailwind.json?raw';
 
 # Быстрый старт
 
 moduix можно использовать в приложении двумя равнозначными способами:
 
-- Установить `@moduix/react` и получать обновления через менеджер пакетов.
+- Установить пакет moduix для выбранного фреймворка и способа стилизации и получать обновления через пакетный менеджер.
 - Добавить компоненты через shadcn CLI, чтобы хранить их исходный код, стили и утилиты в своём репозитории.
 
-Оба способа используют одни и те же реализации компонентов, контракты Ark UI и систему токенов. Выбирайте исходя
-из того, где должен находиться исходный код и как вы планируете его обновлять.
+Оба способа используют одинаковые нативные реализации для каждого фреймворка, согласованные с Ark UI
+контракты и систему токенов. Выбирайте исходя из того, где должен находиться исходный код и как вы
+планируете его обновлять.
 
 ## Выберите способ установки
 
@@ -31,8 +34,9 @@ moduix можно использовать в приложении двумя р
   />
 </Cards>
 
-Для начала нужны React 18 или 19, `@ark-ui/react` и фреймворк или сборщик, умеющий импортировать CSS из npm-пакетов.
-Если фреймворк этого требует, размещайте интерактивные компоненты в клиентском компоненте.
+Для начала выберите React 18 или 19 с `@ark-ui/react` либо Solid 1.9 с `@ark-ui/solid`.
+Фреймворк или сборщик должен уметь импортировать CSS из npm-пакетов. Если окружение этого требует,
+размещайте интерактивные компоненты в клиентской границе.
 
 За доступность отвечают все участники: Ark UI реализует поведение примитивов, moduix задаёт контракты обёрток и
 настройки по умолчанию, а приложение предоставляет подписи элементов, контент, сообщения валидации и сценарий
@@ -40,8 +44,17 @@ moduix можно использовать в приложении двумя р
 
 ## Выберите фреймворк
 
-Независимо от способа установки moduix работает одинаково в любом React-стеке. Выберите свой фреймворк, чтобы узнать,
-куда подключать стили, как настроить алиас исходного кода и где разместить клиентские компоненты.
+Выберите нативные для фреймворка пакет и пространство имён реестра. Пакеты на CSS Modules для React
+и Solid содержат полный каталог, а Tailwind-пакеты — только компоненты с завершённым переносом стилей.
+
+| Среда | CSS Modules | Tailwind CSS |
+| --- | --- | --- |
+| React | `@moduix/react` / `@moduix-react` | `@moduix/react-tailwind` / `@moduix-react-tailwind` |
+| Solid | `@moduix/solid` / `@moduix-solid` | `@moduix/solid-tailwind` / `@moduix-solid-tailwind` |
+
+В каждой инструкции ниже указаны поддерживаемые фреймворки. Astro, Rsbuild, TanStack Start и Vite
+описаны для React и Solid; у SolidStart есть отдельная страница, а Next.js и React Router остаются
+вариантами только для React.
 
 <FrameworkGrid />
 
@@ -51,20 +64,45 @@ moduix можно использовать в приложении двумя р
 
 ### 1. Установите пакет
 
-Компоненты, CSS и дизайн-токены поставляются одним пакетом. React 18 или 19 и Ark UI указаны как peer-зависимости:
+Компоненты, CSS и дизайн-токены поставляются вместе. Установите moduix и указанные зависимости для
+выбранного фреймворка:
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
 <PackageManagerTabs command="install @moduix/react @ark-ui/react" />
 
-`react`, `react-dom` и `@ark-ui/react` остаются зависимостями приложения, поэтому moduix не добавляет отдельные копии
-React и примитивов.
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<PackageManagerTabs command="install @moduix/solid @ark-ui/solid solid-js" />
+
+  </Tab>
+</Tabs>
+
+Среда выполнения и соответствующий пакет Ark UI остаются в приложении, поэтому moduix не добавляет
+их отдельные копии.
 
 ### 2. Добавьте стили
 
 Один раз импортируйте обязательный базовый файл стилей в точке входа приложения:
 
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
 ```tsx
 import '@moduix/react/style.css';
 ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+```tsx
+import '@moduix/solid/style.css';
+```
+
+  </Tab>
+</Tabs>
 
 Этот файл задаёт общие дизайн-токены и базовый слой, от которого зависят стили компонентов. Стили конкретных
 компонентов подключаются вместе с самими компонентами.
@@ -74,10 +112,24 @@ import '@moduix/react/style.css';
 
 Если нужен дополнительный сброс стилей, импортируйте `reset.css` перед основным файлом:
 
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
 ```tsx
 import '@moduix/react/reset.css';
 import '@moduix/react/style.css';
 ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+```tsx
+import '@moduix/solid/reset.css';
+import '@moduix/solid/style.css';
+```
+
+  </Tab>
+</Tabs>
 
 Так `style.css` отвечает только за глобальную основу, а стили неиспользуемых компонентов не попадут в бандл.
 
@@ -85,7 +137,10 @@ import '@moduix/react/style.css';
 
 ### 3. Используйте компонент
 
-Импортируйте компоненты из соответствующих подпутей `@moduix/react/*`:
+Импортируйте компоненты из подпутей выбранного пакета:
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
 ```tsx
 import { Button } from '@moduix/react/button';
@@ -116,8 +171,82 @@ export function Example() {
 }
 ```
 
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+```tsx
+import { Button } from '@moduix/solid/button';
+import { Dialog } from '@moduix/solid/dialog';
+
+export function Example() {
+  return (
+    <Dialog>
+      <Dialog.Trigger
+        asChild={(triggerProps) => <Button {...triggerProps()}>Open dialog</Button>}
+      />
+      <Dialog.Backdrop />
+      <Dialog.Positioner>
+        <Dialog.Content>
+          <Dialog.Header>
+            <Dialog.Title>Project settings</Dialog.Title>
+            <Dialog.Description>Review the settings for this project.</Dialog.Description>
+          </Dialog.Header>
+          <Dialog.Footer>
+            <Dialog.CloseTrigger
+              asChild={(triggerProps) => (
+                <Button {...triggerProps()} variant="outline">
+                  Close
+                </Button>
+              )}
+            />
+          </Dialog.Footer>
+        </Dialog.Content>
+      </Dialog.Positioner>
+    </Dialog>
+  );
+}
+```
+
+  </Tab>
+</Tabs>
+
 Установка завершена, если кнопка оформлена стилями moduix, диалог открывается с клавиатуры и мышью, а после
 закрытия фокус возвращается на кнопку.
+
+### Настройте Tailwind-пакет
+
+Используйте Tailwind-пакет только для уже доступных в нём компонентов. Он требует Tailwind CSS v4
+и использует Preflight вместо необязательного reset moduix.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<PackageManagerTabs command="install @moduix/react-tailwind @ark-ui/react tailwindcss" />
+
+```css title="styles.css"
+@import '@moduix/react-tailwind/style.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/react-tailwind/dist/components';
+```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<PackageManagerTabs command="install @moduix/solid-tailwind @ark-ui/solid solid-js tailwindcss" />
+
+```css title="styles.css"
+@import '@moduix/solid-tailwind/style.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/solid-tailwind/dist/components';
+```
+
+  </Tab>
+</Tabs>
+
+Путь `@source` разрешается относительно файла стилей и должен охватывать только каталог
+`dist/components` выбранного пакета.
 
 ## Установить через shadcn CLI
 
@@ -126,40 +255,29 @@ export function Example() {
 
 ### 1. Настройте shadcn
 
-Создайте `components.json` в корне проекта с конфигурацией реестра moduix:
+Создайте `components.json` в корне проекта и выберите конфигурацию для своего способа стилизации:
 
-```json title="components.json"
-{
-  "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "new-york",
-  "rsc": false,
-  "tsx": true,
-  "tailwind": {
-    "config": "",
-    "css": "",
-    "baseColor": "",
-    "cssVariables": true,
-    "prefix": ""
-  },
-  "aliases": {
-    "components": "@/components",
-    "ui": "@/components/ui",
-    "lib": "@/lib",
-    "hooks": "@/hooks",
-    "utils": "@/lib/utils"
-  },
-  "registries": {
-    "@moduix-react": "https://moduix.dev/r/react/{name}.json"
-  }
-}
-```
+<Tabs groupId="styling">
+  <Tab label="CSS Modules" value="css-modules">
 
-Объект `tailwind` требуется схеме конфигурации shadcn, но moduix не использует Tailwind и не требует его установки.
-Пустые пути и `baseColor` не позволяют CLI искать файлы Tailwind или загружать палитру shadcn.
+<CodeBlockRuntime lang="json" title="components.json" code={componentsCssModules} />
 
-Оставьте `rsc: false`, если проект не использует React Server Components. В приложении с RSC установите `rsc: true`.
-При `rsc: true` CLI добавляет `use client` к клиентским компонентам из реестра. Для собственных обёрток, в которых
-есть состояние, эффекты или обработчики событий, добавляйте эту директиву сами.
+  </Tab>
+  <Tab label="Tailwind" value="tailwind">
+
+<CodeBlockRuntime lang="json" title="components.json" code={componentsTailwind} />
+
+  </Tab>
+</Tabs>
+
+В примере для Tailwind предполагается, что входной файл Tailwind CSS v4 находится по пути
+`src/styles.css`. Для версии 4 оставьте `tailwind.config` пустым и измените `tailwind.css`, если
+глобальные стили проекта лежат в другом месте. Реестрам CSS Modules Tailwind не нужен, поэтому в их
+конфигурации используются пустые значения, обязательные для схемы shadcn.
+
+`rsc` относится только к элементам React-реестра. Оставьте `false` для Solid и обычных
+React-приложений. В приложении с React Server Components установите `true`: тогда CLI добавит
+`use client` к клиентским компонентам из реестра.
 
 Проверьте, что проект разрешает алиас `@/*` к каталогу с исходным кодом. Типичная структура с `src` использует:
 
@@ -182,12 +300,28 @@ export function Example() {
 
 Перед тем как добавлять файлы, проверьте конфигурацию и описание нужного компонента:
 
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
 ```bash
 npx shadcn@latest info --json
 npx shadcn@latest search @moduix-react --query "dialog"
 npx shadcn@latest view @moduix-react/dialog
 npx shadcn@latest add @moduix-react/dialog --dry-run
 ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+```bash
+npx shadcn@latest info --json
+npx shadcn@latest search @moduix-solid --query "dialog"
+npx shadcn@latest view @moduix-solid/dialog
+npx shadcn@latest add @moduix-solid/dialog --dry-run
+```
+
+  </Tab>
+</Tabs>
 
 Ищите решение для нужной задачи, а не знакомое название библиотеки. В реестре есть компоненты, темы и их объявленные
 зависимости. Тот же способ поиска через shadcn MCP описан в [руководстве по AI](/docs/ai).
@@ -196,10 +330,23 @@ npx shadcn@latest add @moduix-react/dialog --dry-run
 
 Добавляйте компоненты из реестра moduix:
 
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
 <PackageManagerTabs command="shadcn@latest add @moduix-react/button" dlx />
 
-Чтобы добавить больше компонентов, выполните ту же команду с именем другого компонента, например
-`@moduix-react/accordion`.
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<PackageManagerTabs command="shadcn@latest add @moduix-solid/button" dlx />
+
+  </Tab>
+</Tabs>
+
+Чтобы добавить больше компонентов, используйте другое имя, например `accordion`, в выбранном
+пространстве имён. Для доступного Tailwind-компонента используйте
+`@moduix-react-tailwind/<name>` или `@moduix-solid-tailwind/<name>`; CLI также установит локальную
+утилиту `cn` и её объявленные зависимости.
 
 Реестр добавляет только общие служебные файлы, необходимые компонентам. Глобальный шрифт он не добавляет, поэтому
 типографика продолжает наследоваться от приложения.
@@ -214,9 +361,22 @@ import '@/lib/moduix/styles/style.css';
 
 Если при таком способе установки нужен дополнительный сброс стилей, добавьте отдельный пакет из реестра:
 
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
 ```bash
 npx shadcn@latest add @moduix-react/reset
 ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+```bash
+npx shadcn@latest add @moduix-solid/reset
+```
+
+  </Tab>
+</Tabs>
 
 Затем импортируйте его перед основным файлом стилей:
 
@@ -227,6 +387,15 @@ import '@/lib/moduix/styles/style.css';
 
 В примерах ниже используются `@/components` и `@/lib`. Если проект использует другие алиасы, обновите
 `components.json` и импортируйте сгенерированные файлы по соответствующим путям.
+
+Для установки из Tailwind-реестра загрузите ту же сгенерированную основу перед Tailwind:
+
+```css title="styles.css"
+@import './lib/moduix/styles/style.css';
+@import 'tailwindcss';
+```
+
+В этом варианте reset предоставляет Tailwind Preflight; не устанавливайте reset moduix.
 
 ### 5. Используйте созданные компоненты
 
@@ -249,14 +418,14 @@ import { Accordion } from '@/components/ui/accordion';
 выводят содержимое оверлеев через порталы. Изолируйте корневой элемент приложения, чтобы подложки и всплывающие
 элементы всегда были поверх страницы и не конфликтовали с локальными значениями `z-index`.
 
-```tsx title="layout.tsx"
+```html title="index.html"
 <body>
-  <div className="root">{children}</div>
+  <div id="app-root"></div>
 </body>
 ```
 
 ```css title="styles.css"
-.root {
+#app-root {
   isolation: isolate;
 }
 ```
@@ -276,7 +445,7 @@ body {
 moduix совместим с подходом к стилям, который уже используется в проекте:
 
 - Обычный CSS с глобальными селекторами, каскадными слоями и CSS-переменными.
-- CSS Modules с `className` и классами слотов компонентов.
+- CSS Modules с React-свойством `className` или Solid-свойством `class` и классами слотов компонентов.
 - Утилитарные классы Tailwind CSS для компоновки и точечных изменений.
 - CSS-in-JS-библиотеки, которые добавляют классы или передают стили через собственные обёртки.
 
@@ -292,7 +461,7 @@ moduix совместим с подходом к стилям, который у
 
 | Проблема | Что проверить |
 | --- | --- |
-| Компоненты отображаются без стилей | Один раз импортируйте правильный `style.css` после дополнительного сброса стилей, если он используется. |
+| Компоненты отображаются без стилей | Проверьте порядок импортов для выбранного способа стилизации; дополнительный сброс используйте только с CSS Modules. |
 | Сборщик не находит импорт созданного компонента | Проверьте алиас `@/*` в TypeScript и сборщике, затем `components.json`. |
 | Всплывающий элемент отображается под содержимым страницы | Добавьте `isolation: isolate` корневому элементу приложения и избегайте несвязанных глобальных значений `z-index`. |
 | При серверном рендеринге появляются ошибки о клиентских API | В нужных фреймворках размещайте интерактивные компоненты в клиентском компоненте. |
