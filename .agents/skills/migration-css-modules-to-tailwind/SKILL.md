@@ -96,6 +96,34 @@ Keep the React and Solid Tailwind class semantics equivalent. Let the shared oxf
 sort class strings; do not add a second class-ordering tool. Tailwind Preflight is the reset, so
 Tailwind variants must never import, publish, or registry-install the CSS Modules reset.
 
+## Review anatomy and utility complexity after the port
+
+After the initial port is visually and behaviorally equivalent, review each Tailwind part's anatomy
+and static utility string before declaring the migration complete. The purpose is to identify an
+awkward translation of the CSS Modules structure, not to minimize class count or imitate shadcn by
+default.
+
+Treat a long utility string as justified when it directly represents supported layout modes, Ark
+states, accessibility or reduced-motion behavior, required runtime variables, or a genuinely
+layered visual (for example, a dial built with pseudo-elements). Treat it as suspicious when it
+uses conditional layout or deep structure-dependent selectors to compensate for an unclear public
+anatomy; repeats conflicting layout declarations; targets unrelated parts from a parent; or carries
+ordinary reset and token plumbing that Tailwind utilities or Preflight already express.
+
+For every suspicious case, report it to the user after the port with:
+
+- the component part and the relevant utility sequence;
+- the CSS Modules rule and Tailwind behavior it is trying to preserve;
+- why the complexity appears structural rather than intrinsic;
+- the smallest viable simplification and its effect on public anatomy, visuals, and the four-package
+  parity contract.
+
+Use a comparable current shadcn component only as a reference for ergonomics; account for differences
+in supported orientations, states, and visual scope. Do not silently simplify the component or
+change its anatomy during the migration review. Wait for the user's decision before making an
+architecture-level simplification. If no suspicious case remains, state that the review was performed
+and why the longest utilities are warranted.
+
 ## Port behavioral tests
 
 Create `tests/<component>.test.tsx` in both Tailwind packages from the matching runtime's CSS

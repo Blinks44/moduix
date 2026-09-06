@@ -162,6 +162,20 @@ test('lets consumer Tailwind classes override conflicting defaults', () => {
   expect(root).not.toHaveClass('gap-3');
 });
 
+test('scopes the control focus ring to the Ark thumb part', () => {
+  render(() => (
+    <AngleSlider aria-label="Rotation">
+      <AngleSlider.Dial />
+    </AngleSlider>
+  ));
+
+  const control = screen.getByRole('slider', { name: 'Rotation' }).parentElement;
+
+  expect(control).toHaveClass(
+    "[&:has([data-scope='angle-slider'][data-part='thumb']:focus-visible)]:shadow-[inset_0_0_0_1px_var(--color-border),0_0_0_3px_var(--color-ring)]",
+  );
+});
+
 test('keeps the thumb centered when the active state scales it', () => {
   render(() => (
     <AngleSlider defaultValue={135} aria-label="Rotation">

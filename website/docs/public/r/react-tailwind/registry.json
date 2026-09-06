@@ -128,6 +128,26 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "aspect-ratio",
+      "type": "registry:item",
+      "title": "AspectRatio",
+      "description": "moduix React Tailwind AspectRatio component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/aspect-ratio/AspectRatio.tsx",
+          "target": "@components/ui/aspect-ratio/AspectRatio.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/aspect-ratio/index.ts",
+          "target": "@components/ui/aspect-ratio/index.ts",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

@@ -225,7 +225,6 @@
 .tocLines span:nth-child(2) {
   width: 100%;
   background: var(--hero-accent);
-  box-shadow: -1.08rem 0 0 -0.05rem var(--hero-accent);
 }
 
 .tocLines span:last-child {

@@ -59,6 +59,12 @@
       "import": "./dist/components/angle-slider/index.js",
       "default": "./dist/components/angle-slider/index.js"
     },
+    "./aspect-ratio": {
+      "types": "./dist/components/aspect-ratio/index.d.ts",
+      "solid": "./dist/components/aspect-ratio/index.jsx",
+      "import": "./dist/components/aspect-ratio/index.js",
+      "default": "./dist/components/aspect-ratio/index.js"
+    },
     "./style.css": "./dist/styles/style.css",
     "./presets/*": "./dist/presets/*",
     "./package.json": "./package.json"
