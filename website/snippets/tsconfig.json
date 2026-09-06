@@ -6,5 +6,5 @@
       "@/*": ["../src/*"]
     }
   },
-  "include": ["accordion/solid", "../theme/env.d.ts"]
+  "include": ["**/solid", "../theme/env.d.ts"]
 }

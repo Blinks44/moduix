@@ -11,6 +11,12 @@ import AlertCustomHeading from '@/components/examples/alert/custom-heading.tsx';
 import AlertError from '@/components/examples/alert/error.tsx';
 import AlertStatuses from '@/components/examples/alert/statuses.tsx';
 import AlertWithIcon from '@/components/examples/alert/with-icon.tsx';
+import alertSolidBasic from '../../../snippets/alert/solid/basic.tsx?raw';
+import alertSolidCustomComposition from '../../../snippets/alert/solid/custom-composition.tsx?raw';
+import alertSolidCustomHeading from '../../../snippets/alert/solid/custom-heading.tsx?raw';
+import alertSolidError from '../../../snippets/alert/solid/error.tsx?raw';
+import alertSolidStatuses from '../../../snippets/alert/solid/statuses.tsx?raw';
+import alertSolidWithIcon from '../../../snippets/alert/solid/with-icon.tsx?raw';
 
 ## Справочник API
 
@@ -19,12 +25,14 @@ import AlertWithIcon from '@/components/examples/alert/with-icon.tsx';
 [композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
 [работе с ref](https://ark-ui.com/docs/guides/ref).
 
-Импортируйте `Alert` из `@moduix/react/alert`. Вызов `Alert` и обращение к `Alert.Root` дают одну и
-ту же корневую часть. Остальные публичные части: `Alert.Indicator`, `Alert.Content`, `Alert.Title`,
-`Alert.Description` и `Alert.Actions`.
+Импортируйте `Alert` из `@moduix/react/alert` или `@moduix/solid/alert`. Вызов `Alert` и обращение к
+`Alert.Root` дают одну и ту же корневую часть. Остальные публичные части: `Alert.Indicator`, `Alert.Content`,
+`Alert.Title`, `Alert.Description` и `Alert.Actions`.
 
-Каждая часть принимает стандартные свойства своего HTML-элемента, включая `className` и `asChild`,
-а переданный ref указывает на отрисованный элемент.
+Каждая часть принимает стандартные свойства своего HTML-элемента, включая `className`/`class` и
+`asChild`, а переданный ref указывает на отрисованный элемент. По умолчанию `status` равен `info`,
+корневой элемент получает `role="status"`, а для `status="error"` — `role="alert"`. `Alert.Indicator`
+скрыт от вспомогательных технологий, поэтому основной смысл сообщения должен быть в заголовке или описании.
 
 ## Выбор подходящего компонента
 
@@ -36,6 +44,10 @@ import AlertWithIcon from '@/components/examples/alert/with-icon.tsx';
 
 ## Базовый пример
 
+Alert доступен для React и Solid как в пакетах с CSS Modules, так и в вариантах на Tailwind. Интерактивный
+предварительный просмотр на этой странице использует React и CSS Modules, а вкладки с кодом показывают
+нативную реализацию того же публичного контракта.
+
 Для обычного встроенного сообщения используйте короткую запись `<Alert>` с `Alert.Title` и
 `Alert.Description`. Добавьте `Alert.Indicator`, если значок помогает быстрее понять тип сообщения.
 
@@ -45,11 +57,23 @@ import AlertWithIcon from '@/components/examples/alert/with-icon.tsx';
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/alert/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={alertSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -59,16 +83,38 @@ import AlertWithIcon from '@/components/examples/alert/with-icon.tsx';
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="alert" />
+Выберите реестр, соответствующий фреймворку и способу стилизации. В [быстром старте](/docs/quick-start)
+описаны настройка shadcn и установка общей основы.
 
-Эта команда также добавляет общие файлы основы moduix, необходимые для `Alert`, включая стили,
-иконки и небольшие утилиты.
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+**CSS Modules**
+
+<PackageManagerTabs command="shadcn@latest add @moduix-react/alert" dlx />
+
+**Tailwind CSS**
+
+<PackageManagerTabs command="shadcn@latest add @moduix-react-tailwind/alert" dlx />
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+**CSS Modules**
+
+<PackageManagerTabs command="shadcn@latest add @moduix-solid/alert" dlx />
+
+**Tailwind CSS**
+
+<PackageManagerTabs command="shadcn@latest add @moduix-solid-tailwind/alert" dlx />
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
 Для компактного сообщения поместите `Alert.Title` и `Alert.Description` прямо в корневой элемент.
-Если рядом с индикатором нужно сгруппировать текст и элементы управления, поместите их в
-`Alert.Content`.
+Если рядом с индикатором нужно сгруппировать текст и элементы управления, поместите их в `Alert.Content`.
 
 ```text
 Alert / Alert.Root
@@ -93,49 +139,15 @@ Alert / Alert.Root
 
 ## Композиция
 
-### Рекомендуемая композиция
+`Alert` отвечает только за отображение: компонент, который его рендерит, владеет состоянием видимости
+и закрытия. `Alert` не управляет фокусом и поведением клавиатуры для кнопок и ссылок, которые вы в него
+помещаете. Используйте `Alert.Content`, только если заголовок, описание и элементы управления должны
+находиться в одной колонке рядом с `Alert.Indicator`; для стандартной строки действий с переносом
+поместите их в `Alert.Actions`.
 
-Для обычного встроенного сообщения составьте `<Alert>` из `Alert.Title` и `Alert.Description`.
-
-С помощью `status` выберите тип сообщения: `info`, `success`, `warning` или `error`.
-
-Добавьте `Alert.Indicator`, если нужен явный визуальный ориентир. Действия остаются обычным
-содержимым: поместите их в `Alert.Content`. Компонент не создаёт кнопки и специальные слоты для
-действий.
-
-### Когда нужна собственная композиция
-
-Добавьте `Alert.Content`, если заголовок, описание и дополнительные элементы управления должны
-оставаться в одной колонке рядом с индикатором. Используйте `Alert.Actions` для строки действий с
-переносом внутри этой колонки. При использовании `asChild` передайте ровно один семантически
-подходящий дочерний элемент, который будет отвечать за отрисованный DOM-узел.
-
-Если в структуре заголовков документа нужен другой элемент, используйте `Alert.Title asChild`:
-
-```tsx
-<Alert.Title asChild>
-  <h2>Billing issue</h2>
-</Alert.Title>
-```
-
-### Свойства по умолчанию
-
-| Свойство | По умолчанию | Значения и примечания                                             |
-| -------- | ------------ | ----------------------------------------------------------------- |
-| `status` | `info`       | `info`, `success`, `warning`, `error`                             |
-| `role`   | Автоматически | По умолчанию `role="status"`; при `status="error"` используется `role="alert"` |
-
-### Особенности поведения
-
-- `Alert.Root` по умолчанию использует `role="status"` и переключается на `role="alert"` при `status="error"`.
-- `role="status"` обычно сообщает об обновлении ненавязчиво, а `role="alert"` объявляет его сразу. Если сообщение должно быть озвучено, сначала добавьте `Alert` в документ, а затем обновите его текст. Текст, присутствующий уже при загрузке страницы, может не быть озвучен.
-- Переопределите `role`, если `Alert` служит статическим информационным блоком, а не сообщает об изменении. Для второстепенной статической информации используйте `role="note"`.
-- Для `Alert.Indicator` по умолчанию задано `aria-hidden="true"`.
-- Основной смысл сообщения должен быть в заголовке или описании, поскольку индикатор скрыт от вспомогательных технологий.
-- `Alert.Title` по умолчанию рендерится как `p`. Используйте `asChild` из Ark, если заголовку нужен другой HTML-элемент.
-- `Alert.Content` необязателен. Используйте его, если заголовок, описание и дополнительные элементы управления должны находиться в одной колонке рядом с индикатором.
-- `Alert.Actions` необязателен. Используйте его, если кнопки или ссылки должны использовать стандартные стили строки действий с переносом.
-- Компонент отвечает только за отображение. Он не управляет состоянием закрытия, фокусом и поведением клавиатуры для действий, которые вы в него добавляете.
+Если заголовку нужен другой семантический элемент, используйте `Alert.Title asChild` и передайте ровно
+один семантически подходящий дочерний элемент. В Solid для `asChild` используется функция рендера — она
+показана в примере «Другой уровень заголовка».
 
 ## Примеры
 
@@ -150,11 +162,23 @@ Alert / Alert.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/alert/custom-heading.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={alertSolidCustomHeading} />
 
     </Tab>
   </Tabs>
@@ -172,11 +196,23 @@ Alert / Alert.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/alert/error.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={alertSolidError} />
 
     </Tab>
   </Tabs>
@@ -196,20 +232,31 @@ Alert / Alert.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/alert/statuses.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/alert/alert-statuses.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={alertSolidStatuses} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/alert/alert-statuses.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -224,11 +271,23 @@ Alert / Alert.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/alert/with-icon.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={alertSolidWithIcon} />
 
     </Tab>
   </Tabs>
@@ -238,9 +297,9 @@ Alert / Alert.Root
 
 ### Расширенная настройка
 
-Используйте `Alert.Content` и `Alert.Actions`, когда сообщению нужны кнопки или ссылки для
-исправления проблемы и дальнейших действий. Если локальное сообщение нужно скрывать, храните
-состояние его видимости в компоненте, который выводит `Alert`.
+Используйте `Alert.Content` и `Alert.Actions`, когда сообщению нужны кнопки или ссылки для исправления
+проблемы и дальнейших действий. Если локальное сообщение нужно скрывать, храните состояние его видимости
+в компоненте, который выводит `Alert`.
 
 <ExampleFrame variant="component">
   <AlertCustomComposition />
@@ -248,27 +307,38 @@ Alert / Alert.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/alert/custom-composition.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/alert/alert-custom-composition.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={alertSolidCustomComposition} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/alert/alert-custom-composition.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Стилизация
 
-Используйте `className` на корневой части или отдельных частях для локальных стилей. Задавайте
+Используйте `className` или `class` на корневой части и её частях для локальных стилей. Задавайте
 переменные `--moduix-alert-*` на корневом элементе, если уведомлению нужна локальная тема.
 
 Общие переменные `--moduix-alert-bg`, `--moduix-alert-border-color`, `--moduix-alert-color` и
