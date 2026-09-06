@@ -26,9 +26,6 @@
     "dev:playground:react-tailwind": "pnpm --filter @moduix/playground-react-tailwind storybook",
     "dev:playground:solid": "pnpm --filter @moduix/playground-solid storybook",
     "dev:playground:solid-tailwind": "pnpm --filter @moduix/playground-solid-tailwind storybook",
-    "dev:solid": "turbo run dev -F @moduix/solid",
-    "dev:solid-tailwind": "turbo run dev -F @moduix/solid-tailwind",
-    "dev:storybook": "pnpm run dev:playgrounds",
     "fmt:check": "oxfmt --check",
     "fmt:fix": "oxfmt",
     "lint:check": "oxlint",
@@ -36,6 +33,7 @@
     "prepare": "husky",
     "publish:react": "pnpm --filter @moduix/react publish",
     "publish:react-tailwind": "pnpm --filter @moduix/react-tailwind publish",
+    "publish:solid": "pnpm --filter @moduix/solid publish",
     "publish:solid-tailwind": "pnpm --filter @moduix/solid-tailwind publish",
     "test": "turbo run test",
     "tsc:check": "turbo run tsc:check"

@@ -73,6 +73,7 @@
   {
     "type": "file",
     "name": "angle-slider",
+    "label": "AngleSlider",
     "tag": "component"
   },
   {
