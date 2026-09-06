@@ -61,13 +61,23 @@ Create the same component directory and re-export-only `index.ts` in both Tailwi
 - Remove CSS Module imports. Component defaults belong in statically discoverable Tailwind class
   strings; never construct utility names from fragments.
 - Put each part's static default utilities directly in that part's JSX `cn(...)` call. Do not hoist
-  them into intermediate `*Class`, `*ClassName`, or similar constants. If Root and RootProvider share
-  defaults, keep the complete static string on each component so copied shadcn source remains local
-  and readable.
+  them into intermediate `*Class`, `*ClassName`, or similar constants. When prop-driven visual
+  variants or an identical Root/RootProvider recipe become clearer as a typed variant table, use a
+  component-local `cva` recipe instead. Keep every utility as a statically discoverable literal,
+  pass the selected props to the recipe, and still merge the consumer class last through `cn`.
+  Do not introduce `cva` for Ark-owned runtime `data-*` states, a single fixed style, or merely to
+  reduce the apparent length of a utility string.
 - Merge defaults with the package-local `cn` helper and pass the consumer `className` or `class`
   last so `tailwind-merge` can resolve conflicts in the consumer's favor.
 - Reuse the foundation's Tailwind semantic theme utilities, shared keyframes, and framework-local
   icons. Add a shared foundation primitive only when both Tailwind runtimes genuinely need it.
+- When adding a named foundation theme value, extend both Tailwind packages' local `cn` merge
+  configuration for custom theme suffixes that `tailwind-merge` cannot infer.
+- Namespace custom theme suffixes so they do not replace Tailwind defaults used by another utility
+  family. For example, expose semantic spacing as `space-lg`, not `lg`, because `--spacing-lg`
+  changes standard utilities such as `max-w-lg`.
+- When a registry component uses `cva`, add `class-variance-authority` to both the owning package's
+  runtime dependencies and that component's registry dependencies.
 
 ## Translate styles semantically
 
@@ -82,9 +92,10 @@ Account for every meaningful CSS Module rule instead of converting only the rest
 
 Write Tailwind as Tailwind: prefer familiar utilities such as `gap-3`, `p-3`, `text-sm`,
 `bg-muted`, `border-border`, and state variants. Foundation maps moduix semantic colors and shared
-animations into named Tailwind utilities; use those names instead of embedding token variables in
-arbitrary values. Use an arbitrary value only for a real one-off CSS value, calculation, selector,
-or required Ark runtime variable.
+animations, spacing, control sizes, typography, radii, shadows, and easing into named Tailwind
+utilities; use those names instead of embedding token variables in arbitrary values. Use an
+arbitrary value only for a real one-off CSS value, calculation, selector, required Ark runtime
+variable, or a foundation token category for which Tailwind has no theme namespace.
 
 Do not reproduce ordinary CSS Module customization variables for spacing, sizing, typography,
 borders, opacity, or transitions. A rare component variable is justified only when it represents a

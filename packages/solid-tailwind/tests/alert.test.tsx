@@ -27,7 +27,10 @@ test('applies status semantics and stable data hooks', () => {
   expect(statusAlert).toHaveAttribute('data-part', 'root');
   expect(statusAlert).toHaveAttribute('data-slot', 'alert-root');
   expect(statusAlert).toHaveAttribute('data-status', 'info');
+  expect(statusAlert).toHaveClass('border-border');
   expect(errorAlert).toHaveAttribute('data-status', 'error');
+  expect(errorAlert).toHaveClass('border-destructive/35');
+  expect(errorAlert).not.toHaveClass('border-border');
   expect(container.querySelector('[data-part="indicator"]')).toHaveAttribute('aria-hidden', 'true');
 });
 

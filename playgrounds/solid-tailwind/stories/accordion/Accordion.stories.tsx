@@ -22,9 +22,8 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const demoRootClass = 'w-full max-w-88';
-const stateClass =
-  'mt-[var(--moduix-spacing-3)] text-[length:var(--moduix-text-sm)] leading-[var(--moduix-line-height-text-sm)] text-[var(--moduix-color-muted-foreground)]';
-const customIconClass = '[--moduix-accordion-icon-open-transform:rotate(180deg)]';
+const stateClass = 'mt-3 text-sm text-muted-foreground';
+const customIconClass = 'data-[state=open]:rotate-180';
 
 const faqItems = [
   {

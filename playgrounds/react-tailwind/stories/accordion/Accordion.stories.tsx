@@ -17,9 +17,8 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const demoRootClassName = 'w-full max-w-88';
-const stateClassName =
-  'mt-[var(--moduix-spacing-3)] text-[length:var(--moduix-text-sm)] leading-[var(--moduix-line-height-text-sm)] text-[var(--moduix-color-muted-foreground)]';
-const customIconClassName = '[--moduix-accordion-icon-open-transform:rotate(180deg)]';
+const stateClassName = 'mt-3 text-sm text-muted-foreground';
+const customIconClassName = 'data-[state=open]:rotate-180';
 
 const faqItems = [
   {

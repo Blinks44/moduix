@@ -17,15 +17,19 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const demoRootClass = '[--moduix-angle-slider-size:9rem]';
-const stressRootClass = 'max-w-[12rem] [--moduix-angle-slider-size:9rem]';
-const customRootClass =
-  '[--moduix-angle-slider-color:var(--moduix-color-chart-4)] [--moduix-angle-slider-control-bg:color-mix(in_oklab,var(--moduix-color-chart-4)_10%,var(--moduix-color-card))] [--moduix-angle-slider-indicator-bg:var(--moduix-color-chart-4)] [--moduix-angle-slider-label-color:var(--moduix-color-foreground)] [--moduix-angle-slider-marker-active-color:color-mix(in_oklab,var(--moduix-color-chart-4)_65%,var(--moduix-color-foreground))] [--moduix-angle-slider-marker-color:color-mix(in_oklab,var(--moduix-color-chart-4)_18%,var(--moduix-color-border))] [--moduix-angle-slider-ring-thickness:1rem] [--moduix-angle-slider-size:10rem] [--moduix-angle-slider-thumb-bg:var(--moduix-color-chart-4)] [--moduix-angle-slider-thumb-border-color:var(--moduix-color-background)] [--moduix-angle-slider-thumb-size:1.125rem] [--moduix-angle-slider-track-bg:color-mix(in_oklab,var(--moduix-color-chart-4)_16%,var(--moduix-color-muted))]';
+const demoRootClass = '[&_[data-slot=angle-slider-control]]:w-36';
+const stressRootClass = 'max-w-48 [&_[data-slot=angle-slider-control]]:w-36';
+const customControlClass =
+  'w-40 bg-[color-mix(in_oklab,var(--color-chart-4)_16%,var(--color-muted))] after:inset-4 after:bg-[color-mix(in_oklab,var(--color-chart-4)_10%,var(--color-card))]';
+const customThumbClass =
+  'before:top-4 before:size-[1.125rem] before:border-background before:bg-chart-4 after:top-[2.375rem] after:h-[calc(50%-2.5rem)] after:from-chart-4';
+const customMarkerClass =
+  'before:top-4.5 before:bg-[color-mix(in_oklab,var(--color-chart-4)_18%,var(--color-border))] data-[state=under-value]:before:bg-[color-mix(in_oklab,var(--color-chart-4)_65%,var(--color-foreground))]';
 const providerLayoutClass = 'flex items-center gap-8';
 const providerButtonClass =
-  'min-h-10 cursor-pointer rounded-[var(--moduix-radius-md)] border-[length:var(--moduix-border-width-sm)] border-[var(--moduix-color-border)] bg-[var(--moduix-color-background)] px-4 text-[var(--moduix-color-foreground)] [font:inherit] hover:bg-[var(--moduix-color-muted)] focus-visible:outline-[length:var(--moduix-border-width-md)] focus-visible:outline-[var(--moduix-color-ring)] focus-visible:outline-offset-2';
-const formClass = 'grid justify-items-center gap-[var(--moduix-spacing-3)]';
-const formActionsClass = 'flex flex-wrap items-center justify-center gap-[var(--moduix-spacing-2)]';
+  'min-h-10 cursor-pointer rounded-md border border-border bg-background px-4 text-foreground [font:inherit] hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring';
+const formClass = 'grid justify-items-center gap-3';
+const formActionsClass = 'flex flex-wrap items-center justify-center gap-2';
 
 function AngleSliderMarkedParts() {
   return (
@@ -191,9 +195,18 @@ export const ContentStress: Story = {
 
 export const CustomStyling: Story = {
   render: () => (
-    <AngleSlider defaultValue={45} aria-label="Compass heading" class={customRootClass}>
+    <AngleSlider defaultValue={45} aria-label="Compass heading">
       <AngleSlider.Label>Compass</AngleSlider.Label>
-      <AngleSliderMarkedParts />
+      <AngleSlider.Control class={customControlClass}>
+        <AngleSlider.MarkerGroup>
+          {markerValues.map((value) => (
+            <AngleSlider.Marker value={value} class={customMarkerClass} />
+          ))}
+        </AngleSlider.MarkerGroup>
+        <AngleSlider.Thumb class={customThumbClass} />
+      </AngleSlider.Control>
+      <AngleSlider.ValueText />
+      <AngleSlider.HiddenInput />
     </AngleSlider>
   ),
 };

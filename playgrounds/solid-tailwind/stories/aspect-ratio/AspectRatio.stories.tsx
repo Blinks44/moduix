@@ -22,7 +22,7 @@ const imageClass = 'object-cover';
 const fillImageClass = 'absolute inset-0 size-full object-cover';
 const figureClass = 'm-0';
 const migrationFrameClass = 'bg-muted';
-const roundedFrameClass = '[--moduix-aspect-ratio-radius:var(--moduix-radius-xl)]';
+const roundedFrameClass = 'rounded-xl';
 
 export const Image: Story = {
   render: (args) => (

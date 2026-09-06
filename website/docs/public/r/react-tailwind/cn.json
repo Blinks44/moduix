@@ -7,7 +7,7 @@
   "files": [
     {
       "path": "src/internal/cn.ts",
-      "content": "import { clsx, type ClassValue } from 'clsx';\nimport { twMerge } from 'tailwind-merge';\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs));\n}",
+      "content": "import { clsx, type ClassValue } from 'clsx';\nimport { extendTailwindMerge } from 'tailwind-merge';\n\nconst twMerge = extendTailwindMerge({\n  extend: {\n    theme: {\n      spacing: [\n        'space-xs',\n        'space-sm',\n        'space-md',\n        'space-lg',\n        'space-xl',\n        'space-2xl',\n        'control-xs',\n        'control-sm',\n        'control-md',\n        'control-lg',\n        'control-xl',\n      ],\n      text: ['md'],\n      'font-weight': ['regular'],\n      tracking: ['text-xs', 'text-sm'],\n      ease: ['standard', 'spring', 'emphasized'],\n    },\n  },\n});\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs));\n}",
       "type": "registry:lib",
       "target": "@lib/moduix/cn.ts"
     }

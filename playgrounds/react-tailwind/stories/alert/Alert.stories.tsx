@@ -33,9 +33,10 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const statuses = ['info', 'success', 'warning', 'error'] as const;
-const stackClassName = 'grid w-[min(38rem,calc(100vw-2rem))] gap-[var(--moduix-spacing-3)]';
+const stackClassName = 'grid w-[min(38rem,calc(100vw-2rem))] gap-3';
 const customAlertClassName =
-  '[--moduix-alert-warning-bg:color-mix(in_oklab,var(--moduix-color-primary)_12%,var(--moduix-color-background))] [--moduix-alert-warning-border-color:color-mix(in_oklab,var(--moduix-color-primary)_38%,transparent)] [--moduix-alert-warning-indicator-color:var(--moduix-color-primary)] [--moduix-alert-radius:var(--moduix-radius-md)] [--moduix-alert-shadow:var(--moduix-shadow-sm)] max-w-lg';
+  'max-w-lg rounded-md border-primary/38 bg-[color-mix(in_oklab,var(--color-primary)_12%,var(--color-background))] shadow-sm';
+const customIndicatorClassName = 'group-data-[status=warning]/alert:text-primary';
 
 function DismissibleCustomAlert() {
   const [visible, setVisible] = useState(true);
@@ -44,7 +45,7 @@ function DismissibleCustomAlert() {
 
   return (
     <Alert status="warning" className={customAlertClassName}>
-      <Alert.Indicator>
+      <Alert.Indicator className={customIndicatorClassName}>
         <InfoIcon />
       </Alert.Indicator>
       <Alert.Content>

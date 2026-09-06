@@ -60,12 +60,20 @@ Use this skill for CSS, CSS Modules, and styling work in this repo.
 ## Tailwind Variants
 
 - Use each package's local `cn` helper and put the consumer class last so consumer utilities win conflicts.
-- Keep every part's static utility string directly in its JSX `cn(...)` call. Do not extract
-  intermediate class-string constants, including for defaults shared by Root and RootProvider.
+- Keep every part's fixed static utilities directly in its JSX `cn(...)` call. Do not extract
+  intermediate class-string constants. A component-local `cva` recipe is appropriate when it makes
+  prop-driven visual variants or an identical Root/RootProvider recipe materially clearer. Keep its
+  utilities statically discoverable, use it in both Tailwind runtimes, and merge the consumer class
+  last through `cn`. Do not use `cva` for Ark-owned runtime `data-*` states or fixed styles.
 - Preserve the same API, behavior, states, accessibility, and visual defaults as CSS Modules, but
   use Tailwind's native customization model rather than mirroring every component CSS variable.
 - Prefer familiar utilities and the foundation's named semantic theme utilities. Use arbitrary
   values only for genuine one-off values, calculations, selectors, or required runtime variables.
+- Keep custom theme suffixes synchronized with both Tailwind packages' local `cn` merge
+  configuration when `tailwind-merge` cannot infer their conflict groups.
+- Namespace custom theme suffixes that would otherwise collide with Tailwind defaults across the
+  shared theme namespace. Semantic spacing uses `space-*` rather than bare `xs`/`sm`/`md`/`lg`/`xl`
+  so utilities such as `max-w-lg` keep their standard meaning.
 - Do not add `--moduix-<component>-*` wrappers around ordinary spacing, sizing, typography, border,
   opacity, or transition utilities. Keep detailed component variables in CSS Modules where they are
   useful; Tailwind consumers override defaults through `className`/`class` and `tailwind-merge`.

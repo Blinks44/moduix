@@ -1,9 +1,29 @@
 import { Avatar as AvatarPrimitive, useAvatar, useAvatarContext } from '@ark-ui/react/avatar';
+import { cva } from 'class-variance-authority';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
 type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+const avatarVariants = cva(
+  'relative box-border inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-muted align-middle font-medium text-foreground select-none',
+  {
+    variants: {
+      size: {
+        xs: 'size-control-xs text-xs',
+        sm: 'size-control-sm text-sm',
+        md: 'size-control-md text-md',
+        lg: 'size-control-lg text-lg',
+        xl: 'size-control-xl text-lg',
+      },
+    },
+    defaultVariants: {
+      size: 'md',
+    },
+  },
+);
+
 type AvatarRootProps = ComponentProps<typeof AvatarPrimitive.Root> & {
   size?: AvatarSize;
 };
@@ -18,10 +38,7 @@ const AvatarRoot = forwardRef<ComponentRef<typeof AvatarPrimitive.Root>, AvatarR
         ref={ref}
         data-slot="avatar-root"
         data-size={size}
-        className={cn(
-          'relative box-border inline-flex size-[var(--moduix-size-md)] shrink-0 items-center justify-center overflow-hidden rounded-full bg-muted align-middle text-[length:var(--moduix-text-md)] leading-[var(--moduix-line-height-text-md)] font-medium text-foreground select-none data-[size=lg]:size-[var(--moduix-size-lg)] data-[size=lg]:text-[length:var(--moduix-text-lg)] data-[size=lg]:leading-[var(--moduix-line-height-text-lg)] data-[size=sm]:size-[var(--moduix-size-sm)] data-[size=sm]:text-[length:var(--moduix-text-sm)] data-[size=sm]:leading-[var(--moduix-line-height-text-sm)] data-[size=xl]:size-[var(--moduix-size-xl)] data-[size=xl]:text-[length:var(--moduix-text-lg)] data-[size=xl]:leading-[var(--moduix-line-height-text-lg)] data-[size=xs]:size-[var(--moduix-size-xs)] data-[size=xs]:text-[length:var(--moduix-text-xs)] data-[size=xs]:leading-[var(--moduix-line-height-text-xs)]',
-          className,
-        )}
+        className={cn(avatarVariants({ size }), className)}
         {...props}
       />
     );
@@ -37,10 +54,7 @@ const AvatarRootProvider = forwardRef<
       ref={ref}
       data-slot="avatar-root-provider"
       data-size={size}
-      className={cn(
-        'relative box-border inline-flex size-[var(--moduix-size-md)] shrink-0 items-center justify-center overflow-hidden rounded-full bg-muted align-middle text-[length:var(--moduix-text-md)] leading-[var(--moduix-line-height-text-md)] font-medium text-foreground select-none data-[size=lg]:size-[var(--moduix-size-lg)] data-[size=lg]:text-[length:var(--moduix-text-lg)] data-[size=lg]:leading-[var(--moduix-line-height-text-lg)] data-[size=sm]:size-[var(--moduix-size-sm)] data-[size=sm]:text-[length:var(--moduix-text-sm)] data-[size=sm]:leading-[var(--moduix-line-height-text-sm)] data-[size=xl]:size-[var(--moduix-size-xl)] data-[size=xl]:text-[length:var(--moduix-text-lg)] data-[size=xl]:leading-[var(--moduix-line-height-text-lg)] data-[size=xs]:size-[var(--moduix-size-xs)] data-[size=xs]:text-[length:var(--moduix-text-xs)] data-[size=xs]:leading-[var(--moduix-line-height-text-xs)]',
-        className,
-      )}
+      className={cn(avatarVariants({ size }), className)}
       {...props}
     />
   );

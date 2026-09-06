@@ -21,6 +21,7 @@ test('renders the Ark anatomy with moduix hooks and explicit fallback content', 
   expect(root).toHaveAttribute('data-part', 'root');
   expect(root).toHaveAttribute('data-slot', 'avatar-root');
   expect(root).toHaveAttribute('data-size', 'lg');
+  expect(root).toHaveClass('size-control-lg', 'text-lg');
   expect(fallbackRef).toBe(fallback);
   expect(fallback).toHaveAttribute('data-slot', 'avatar-fallback');
   expect(image).toHaveAttribute('data-slot', 'avatar-image');
@@ -30,6 +31,7 @@ test('uses md visual styling without a data-size attribute by default', () => {
   render(() => <Avatar data-testid="avatar" />);
 
   expect(screen.getByTestId('avatar')).not.toHaveAttribute('data-size');
+  expect(screen.getByTestId('avatar')).toHaveClass('size-control-md', 'text-md');
 });
 
 test('renders explicit fallback children', () => {
@@ -141,12 +143,14 @@ test('styles externally owned Ark state through RootProvider', () => {
 
 test('lets consumer Tailwind classes override conflicting defaults', () => {
   render(() => (
-    <Avatar class="bg-primary" data-testid="avatar">
+    <Avatar class="size-control-xl bg-primary" data-testid="avatar">
       <Avatar.Fallback>AT</Avatar.Fallback>
     </Avatar>
   ));
 
   const root = screen.getByTestId('avatar');
   expect(root).toHaveClass('bg-primary');
+  expect(root).toHaveClass('size-control-xl');
   expect(root).not.toHaveClass('bg-muted');
+  expect(root).not.toHaveClass('size-control-md');
 });

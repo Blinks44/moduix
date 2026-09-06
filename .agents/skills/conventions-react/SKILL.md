@@ -34,8 +34,10 @@ Use this skill for JS/TS React work in this repo.
 - Use `handleX` for internal handlers.
 - Use `onX` for callback props from outside.
 - Keep render flow direct. Avoid intermediate variables when an inline expression is clearer.
-- In Tailwind components, keep static default utilities directly in the rendered part's `cn(...)`
-  call instead of intermediate class-string constants.
+- In Tailwind components, keep fixed static utilities directly in the rendered part's `cn(...)`
+  call instead of intermediate class-string constants. A component-local `cva` recipe may own
+  prop-driven visual variants or an identical Root/RootProvider recipe when that is clearer than
+  repeated state utilities; merge the consumer class last through `cn`.
 - Keep a component's consumer-facing value exports together in one final export statement in its implementation file.
   Import re-exported Ark hooks there and include them in that statement; keep the component-local `index.ts` as a
   re-export-only barrel.

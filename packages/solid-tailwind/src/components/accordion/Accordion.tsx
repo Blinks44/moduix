@@ -63,7 +63,7 @@ function AccordionItemTrigger(props: ComponentProps<typeof AccordionPrimitive.It
     <AccordionPrimitive.ItemTrigger
       data-slot="accordion-item-trigger"
       class={cn(
-        'm-0 flex w-full cursor-pointer items-center justify-between gap-4 border-0 bg-muted px-3 py-2 text-start [font-family:inherit] text-base/6 [font-weight:inherit] text-inherit [font-style:inherit] outline-0 transition-colors duration-200 select-none focus-visible:relative focus-visible:z-1 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:cursor-default disabled:opacity-50 data-disabled:cursor-default data-disabled:opacity-50 data-[orientation=horizontal]:h-full data-[orientation=horizontal]:w-10 data-[orientation=horizontal]:justify-center data-[orientation=horizontal]:[writing-mode:sideways-lr] motion-reduce:transition-none [&:not([disabled]):not([data-disabled]):active]:bg-accent [&:not([disabled]):not([data-disabled]):hover]:bg-accent',
+        'm-0 flex w-full cursor-pointer items-center justify-between gap-4 border-0 bg-muted px-3 py-2 text-start [font-family:inherit] text-md [font-weight:inherit] text-inherit [font-style:inherit] outline-0 transition-colors duration-200 select-none focus-visible:relative focus-visible:z-1 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:cursor-default disabled:opacity-50 data-disabled:cursor-default data-disabled:opacity-50 data-[orientation=horizontal]:h-full data-[orientation=horizontal]:w-10 data-[orientation=horizontal]:justify-center data-[orientation=horizontal]:[writing-mode:sideways-lr] motion-reduce:transition-none [&:not([disabled]):not([data-disabled]):active]:bg-accent [&:not([disabled]):not([data-disabled]):hover]:bg-accent',
         local.class,
       )}
       {...others}
@@ -96,7 +96,7 @@ function AccordionItemContent(props: ComponentProps<typeof AccordionPrimitive.It
     <AccordionPrimitive.ItemContent
       data-slot="accordion-item-content"
       class={cn(
-        "overflow-hidden text-base/6 text-muted-foreground data-[state=closed]:data-[orientation=horizontal]:animate-moduix-accordion-closed-horizontal data-[state=closed]:data-[orientation=vertical]:animate-moduix-accordion-closed data-[state=open]:data-[orientation=horizontal]:animate-moduix-accordion-open-horizontal data-[state=open]:data-[orientation=vertical]:animate-moduix-accordion-open motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms] data-[orientation=horizontal]:[&>*]:w-64 [&[hidden]:not([hidden='until-found'])]:hidden",
+        "overflow-hidden text-md text-muted-foreground data-[state=closed]:data-[orientation=horizontal]:animate-moduix-accordion-closed-horizontal data-[state=closed]:data-[orientation=vertical]:animate-moduix-accordion-closed data-[state=open]:data-[orientation=horizontal]:animate-moduix-accordion-open-horizontal data-[state=open]:data-[orientation=vertical]:animate-moduix-accordion-open motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms] data-[orientation=horizontal]:[&>*]:w-64 [&[hidden]:not([hidden='until-found'])]:hidden",
         local.class,
       )}
       {...others}

@@ -33,7 +33,7 @@ function AngleSliderLabel(props: ComponentProps<typeof AngleSliderPrimitive.Labe
   return (
     <AngleSliderPrimitive.Label
       data-slot="angle-slider-label"
-      class={cn('text-center text-sm/5 font-medium text-foreground', local.class)}
+      class={cn('text-center text-sm font-medium text-foreground', local.class)}
       {...others}
     />
   );
@@ -90,7 +90,7 @@ function AngleSliderThumb(props: ComponentProps<typeof AngleSliderPrimitive.Thum
     <AngleSliderPrimitive.Thumb
       data-slot="angle-slider-thumb"
       class={cn(
-        "absolute inset-y-0 left-[calc(50%-0.09375rem)] z-2 w-[0.1875rem] outline-0 before:absolute before:top-3.5 before:left-1/2 before:box-border before:size-4 before:-translate-x-1/2 before:rounded-full before:border before:border-border before:bg-primary before:shadow-[var(--moduix-shadow-sm)] before:transition-[border-color,box-shadow,background-color,scale] before:duration-200 before:content-[''] after:absolute after:top-[2.125rem] after:left-1/2 after:h-[calc(50%-2.25rem)] after:w-[0.1875rem] after:-translate-x-1/2 after:rounded-full after:bg-linear-to-b after:from-primary after:to-transparent after:content-[''] focus-visible:before:border-ring focus-visible:before:ring-1 focus-visible:before:ring-ring data-disabled:pointer-events-none data-invalid:before:border-destructive data-invalid:before:bg-destructive data-invalid:after:from-destructive motion-reduce:before:transition-none [&:active:not([data-disabled]):not([data-readonly])]:before:scale-[1.08]",
+        "absolute inset-y-0 left-[calc(50%-0.09375rem)] z-2 w-[0.1875rem] outline-0 before:absolute before:top-3.5 before:left-1/2 before:box-border before:size-4 before:-translate-x-1/2 before:rounded-full before:border before:border-border before:bg-primary before:shadow-sm before:transition-[border-color,box-shadow,background-color,scale] before:duration-200 before:content-[''] after:absolute after:top-[2.125rem] after:left-1/2 after:h-[calc(50%-2.25rem)] after:w-[0.1875rem] after:-translate-x-1/2 after:rounded-full after:bg-linear-to-b after:from-primary after:to-transparent after:content-[''] focus-visible:before:border-ring focus-visible:before:ring-1 focus-visible:before:ring-ring data-disabled:pointer-events-none data-invalid:before:border-destructive data-invalid:before:bg-destructive data-invalid:after:from-destructive motion-reduce:before:transition-none [&:active:not([data-disabled]):not([data-readonly])]:before:scale-[1.08]",
         local.class,
       )}
       {...others}
@@ -166,7 +166,7 @@ function AngleSliderValueText(props: ComponentProps<typeof AngleSliderPrimitive.
   return (
     <AngleSliderPrimitive.ValueText
       data-slot="angle-slider-value-text"
-      class={cn('text-center text-sm/5 font-medium text-foreground', local.class)}
+      class={cn('text-center text-sm font-medium text-foreground', local.class)}
       {...others}
     />
   );

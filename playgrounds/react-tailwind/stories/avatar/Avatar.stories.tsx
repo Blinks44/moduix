@@ -41,9 +41,7 @@ function StatusChangeAvatar() {
         <Avatar.Fallback>AT</Avatar.Fallback>
         <Avatar.Image src={imageUrl} alt="Alex T." />
       </Avatar>
-      <span className="text-sm/[var(--moduix-line-height-text-sm)] text-muted-foreground">
-        status: {status}
-      </span>
+      <span className="text-sm text-muted-foreground">status: {status}</span>
     </div>
   );
 }

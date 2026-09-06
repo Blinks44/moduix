@@ -21,7 +21,7 @@
           "utils": "@/lib/utils"
         }
       },
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
       "registryDependencies": ["@moduix-solid-tailwind/foundation"]
     },
     {
@@ -94,7 +94,7 @@
       "type": "registry:item",
       "title": "Alert",
       "description": "moduix Solid Tailwind Alert component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -154,7 +154,7 @@
       "type": "registry:item",
       "title": "Avatar",
       "description": "moduix Solid Tailwind Avatar component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
