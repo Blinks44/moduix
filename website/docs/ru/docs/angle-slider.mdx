@@ -1,7 +1,7 @@
 ---
-title: Angle Slider
+title: Угловой слайдер
 component: angle-slider
-description: Круговой элемент управления для выбора угла от 0 до 360 градусов.
+description: Круговой элемент управления для выбора угла от 0 до 360 градусов в React или Solid.
 ---
 
 import * as AngleSliderDocs from '@/components/examples/angle-slider/css-properties';
@@ -15,6 +15,16 @@ import AngleSliderReadOnly from '@/components/examples/angle-slider/read-only.ts
 import AngleSliderRootProvider from '@/components/examples/angle-slider/root-provider.tsx';
 import AngleSliderSteps from '@/components/examples/angle-slider/steps.tsx';
 import AngleSliderWithMarks from '@/components/examples/angle-slider/with-marks.tsx';
+import angleSliderSolidAdvancedCustomization from '../../../snippets/angle-slider/solid/advanced-customization.tsx?raw';
+import angleSliderSolidBasic from '../../../snippets/angle-slider/solid/basic.tsx?raw';
+import angleSliderSolidControlled from '../../../snippets/angle-slider/solid/controlled.tsx?raw';
+import angleSliderSolidDisabled from '../../../snippets/angle-slider/solid/disabled.tsx?raw';
+import angleSliderSolidForm from '../../../snippets/angle-slider/solid/form.tsx?raw';
+import angleSliderSolidInvalid from '../../../snippets/angle-slider/solid/invalid.tsx?raw';
+import angleSliderSolidReadOnly from '../../../snippets/angle-slider/solid/read-only.tsx?raw';
+import angleSliderSolidRootProvider from '../../../snippets/angle-slider/solid/root-provider.tsx?raw';
+import angleSliderSolidSteps from '../../../snippets/angle-slider/solid/steps.tsx?raw';
+import angleSliderSolidWithMarks from '../../../snippets/angle-slider/solid/with-marks.tsx?raw';
 
 ## Справочник API
 
@@ -22,18 +32,22 @@ import AngleSliderWithMarks from '@/components/examples/angle-slider/with-marks.
 
 ## Выбор подходящего компонента
 
-Используйте `AngleSlider`, когда пользователю нужно задать направление или угол поворота с помощью кругового
-регулятора.
+Используйте `AngleSlider`, когда пользователю нужно задать направление или угол поворота на
+круговом диске.
 
-- Выберите **`AngleSlider`** для поворота объекта, задания курса, направления прожектора и других угловых значений.
-- Выберите **`Slider`**, если значение удобнее выбирать на линейной шкале.
-- Выберите **`NumberInput`**, если важнее ввести точное значение в градусах, чем выбирать его напрямую.
+- Выбирайте **`AngleSlider`** для поворота, направления, ориентации прожектора и других угловых значений.
+- Выбирайте **`Slider`**, если значение удобнее задавать на линейной шкале.
+- Выбирайте **`NumberInput`**, если точный ввод градусов важнее прямого взаимодействия с диском.
 
 ## Базовый пример
 
-Начните с минимальной композиции с `Dial`. `AngleSlider` принимает одно значение угла в диапазоне от 0 до 360
-градусов. По возможности добавьте видимый `Label`. Если у регулятора нет видимой подписи, укажите `aria-label`
-в корневом компоненте.
+AngleSlider доступен для React и Solid в вариантах с CSS Modules и Tailwind. Превью на этой
+странице работает на React с CSS Modules, а вкладки фреймворков показывают нативный код с тем же
+публичным контрактом.
+
+Начните с `Dial`: он объединяет круговой элемент управления и бегунок. `AngleSlider` принимает
+один угол от 0 до 360 градусов. По возможности добавляйте видимую `Label`. Если у диска нет
+видимой подписи, добавьте `aria-label` в корневой компонент.
 
 <ExampleFrame variant="component">
   <AngleSliderBasic />
@@ -41,123 +55,112 @@ import AngleSliderWithMarks from '@/components/examples/angle-slider/with-marks.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/angle-slider/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/angle-slider/angle-slider-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={angleSliderSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/angle-slider/angle-slider-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="angle-slider" />
+Выберите реестр, который соответствует и фреймворку, и варианту стилизации. Настройте реестр по
+инструкции в разделе [«Быстрый старт»](/docs/quick-start), затем выполните команду для нужного пакета.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/angle-slider' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/angle-slider' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/angle-slider' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/angle-slider' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
 ```text
-AngleSlider.Root
+AngleSlider / AngleSlider.Root
 ├─ AngleSlider.Label
-├─ AngleSlider.Control
-│  ├─ AngleSlider.MarkerGroup
-│  │  └─ AngleSlider.Marker[value]
+├─ AngleSlider.Dial
 │  └─ AngleSlider.Thumb
+├─ AngleSlider.Marks (необязательно)
+│  └─ AngleSlider.Marker[value]
 ├─ AngleSlider.ValueText
 └─ AngleSlider.HiddenInput (явно)
+
+AngleSlider.RootProvider
+└─ same part tree connected to a useAngleSlider() store
 ```
 
-| Часть                              | Назначение                                                                  |
-| ---------------------------------- | --------------------------------------------------------------------------- |
-| `AngleSlider` / `AngleSlider.Root` | Стилизованный корневой компонент, который хранит состояние слайдера.       |
-| `AngleSlider.HiddenInput` | Нативное поле Ark; правила явной композиции описаны ниже. |
-| `AngleSlider.RootProvider`         | Подключает части к состоянию Ark, созданному вне дерева компонента.         |
-| `AngleSlider.Label`                | Связывает видимую подпись со слайдером.                                     |
-| `AngleSlider.Control`              | Задаёт круглую область для взаимодействия указателем.                       |
-| `AngleSlider.Dial`                 | Сочетает `Control` и `Thumb`; принимает дочерние элементы.                  |
-| `AngleSlider.MarkerGroup`          | Содержит необязательные опорные маркеры.                                    |
-| `AngleSlider.Marker`               | Размещает числовой маркер и показывает его отношение к текущему значению.   |
-| `AngleSlider.Marks`                | Удобная композиция, создающая маркеры по массиву `values`.                  |
-| `AngleSlider.Thumb`                | Фокусируемый бегунок, показывающий текущий угол.                            |
-| `AngleSlider.ValueText`            | Показывает текущее значение в градусах.                                     |
-
-Явно добавьте `AngleSlider.HiddenInput` внутрь `Root` или `RootProvider`, если значение должно
-участвовать в нативной форме.
+| Часть                              | Назначение                                                            |
+| ---------------------------------- | --------------------------------------------------------------------- |
+| `AngleSlider` / `AngleSlider.Root` | Стилизованный корневой компонент, который хранит состояние слайдера.  |
+| `AngleSlider.RootProvider`         | Подключает части к состоянию, созданному через `useAngleSlider()`.    |
+| `AngleSlider.Label`                | Связывает видимую подпись со слайдером.                               |
+| `AngleSlider.Control`              | Задаёт круглую область для взаимодействия указателем.                 |
+| `AngleSlider.Dial`                 | Удобная композиция из `Control` и `Thumb`.                            |
+| `AngleSlider.Thumb`                | Фокусируемый бегунок, показывающий текущий угол.                      |
+| `AngleSlider.MarkerGroup`          | Содержит необязательные опорные маркеры.                              |
+| `AngleSlider.Marker`               | Размещает числовой маркер вокруг диска.                               |
+| `AngleSlider.Marks`                | Создаёт маркеры по массиву `values`.                                  |
+| `AngleSlider.ValueText`             | Показывает текущее значение в градусах.                               |
+| `AngleSlider.HiddenInput`           | Нативное поле формы; добавляйте его явно для отправки значения.       |
 
 ## Композиция
 
-### Нативное поле формы
+Используйте `defaultValue` для неконтролируемого слайдера, а `value` вместе с
+`onValueChange(details)` — когда состоянием угла управляет другая часть приложения. Используйте
+`AngleSlider.RootProvider` с `useAngleSlider()` из соответствующего пакета только тогда, когда
+store нужно создать вне дерева слайдера; не рендерите `Root` и `RootProvider` для одного состояния.
+В Solid состояние store читается через функцию-аксессор, например `angleSlider().value`.
 
-`AngleSlider.HiddenInput` — нативное поле Ark, экспортируемое без обёртки. Добавьте его явно внутрь
-`AngleSlider` или `AngleSlider.RootProvider`: корневой компонент не создаёт его автоматически.
-Задайте `name` на корневом компоненте, чтобы значение отправлялось с формой.
-
-Если форма находится вне дерева компонента, задайте `form` непосредственно на `HiddenInput`.
-
-### Рекомендуемая композиция
-
-Начните с `Dial` и добавляйте только нужные части:
-
-- добавьте `Label` или `aria-label`, чтобы задать элементу доступное имя
-- добавьте `Marks`, если пользователям нужны опорные точки вокруг регулятора
-- добавьте `ValueText`, если числовое значение угла должно оставаться видимым
-- укажите `name`, если значение угла должно попасть в данные нативной формы
-- укажите `form`, если поле формы относится к форме, расположенной вне дерева слайдера
-
-### Когда нужна собственная композиция
-
-Используйте отдельные части `Control`, `Thumb`, `MarkerGroup` и `Marker`, если нужны свои дочерние элементы,
-особые свойства отдельных маркеров или другой порядок. Создайте состояние с помощью `useAngleSlider()` из
-`@moduix/react/angle-slider` и передайте его в `AngleSlider.RootProvider`, если состояние должно быть доступно
-за пределами дерева слайдера. Чтобы получить состояние во вложенном компоненте, используйте `AngleSlider.Context`
-или `useAngleSliderContext()` из `@moduix/react/angle-slider`. Не используйте `Root` и `RootProvider` для одного
-экземпляра состояния.
-
-DOM-части Ark поддерживают `asChild`. Передайте один совместимый дочерний элемент, который сохраняет обработку
-клавиатуры, фокуса, ARIA и указателя. `Dial` и `Marks` всегда отрисовывают фиксированную композицию из нескольких
-частей, поэтому `asChild` для них недоступен. В `Root` или `RootProvider` используйте контейнер, способный
-вместить внутреннее скрытое поле ввода и части слайдера. Используйте `ids` на `Root`, если составным элементам
-нужны стабильные общие идентификаторы. `ref` передаётся в DOM-элемент, который отрисовывает соответствующая
-обёрнутая часть Ark.
-
-### Свойства по умолчанию
-
-| Свойство       | По умолчанию | Примечания                                            |
-| -------------- | ------------ | ----------------------------------------------------- |
-| `defaultValue` | `0`          | Начальный угол в неуправляемом режиме                 |
-| `step`         | `1`          | Шаг изменения при работе с клавиатурой и указателем   |
-| `disabled`     | `false`      | Запрещает фокус и взаимодействие                      |
-| `readOnly`     | `false`      | Оставляет значение видимым, но запрещает его менять   |
-| `invalid`      | `false`      | Передаёт состояние ошибки в ARIA и стили              |
-
-### Особенности поведения
-
-- `value` содержит одно число. `onValueChange(details)` и `onValueChangeEnd(details)` получают объект с деталями
-  от Ark. Числовое значение находится в `details.value`, а строка с градусами - в `details.valueAsDegree`.
-- Бегунок поддерживает клавиатурное поведение слайдера Ark и перетаскивание указателем по круговой области.
-- `AngleSlider.Marks` создаёт тот же DOM маркеров и те же хуки стилизации, что и явная композиция `MarkerGroup` и
-  `Marker`.
-- Явно добавьте `AngleSlider.HiddenInput`. Укажите `name`, чтобы включить угол в данные формы, а
-  `form` - чтобы связать поле с внешней формой. Синхронизацией нативного сброса управляет Ark.
-- `ValueText` показывает строку с градусами, которую формирует Ark, если не переданы пользовательские дочерние
-  элементы.
-- Для стилизации доступны `data-disabled`, `data-invalid`, `data-readonly`, `data-state` маркера,
-  `--value`, `--angle`, `--marker-value` и `--marker-display-value`.
+`Dial` и `Marks` — удобные составные компоненты. Используйте `Control` с `Thumb` или
+`MarkerGroup` с `Marker`, если нужны собственные дочерние элементы, другой порядок частей или
+индивидуальные свойства маркеров. Для нативной формы явно добавляйте `HiddenInput`. Укажите `name`
+в корневом компоненте для формы в том же дереве или `form` в `HiddenInput`, если форма находится
+отдельно.
 
 ## Примеры
 
-### Управляемый режим
+### Управляемое состояние
 
-Используйте управляемый режим, если угол должен быть синхронизирован с состоянием приложения.
+Используйте управляемое состояние, когда угол должен синхронизироваться с состоянием приложения.
 
 <ExampleFrame variant="component">
   <AngleSliderControlled />
@@ -165,27 +168,39 @@ DOM-части Ark поддерживают `asChild`. Передайте оди
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/angle-slider/controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/angle-slider/angle-slider-controlled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={angleSliderSolidControlled} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/angle-slider/angle-slider-controlled.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Отключённый режим
 
-Используйте `disabled`, если элемент должен быть недоступен, не получать фокус и не реагировать на взаимодействие.
+Используйте `disabled`, когда элемент управления должен быть недоступен, не получать фокус и не
+реагировать на взаимодействие.
 
 <ExampleFrame variant="component">
   <AngleSliderDisabled />
@@ -193,28 +208,40 @@ DOM-части Ark поддерживают `asChild`. Передайте оди
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/angle-slider/disabled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/angle-slider/angle-slider-disabled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={angleSliderSolidDisabled} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/angle-slider/angle-slider-disabled.module.css"
+```
 </div>
 
 </ExampleCode>
 
-### Использование в форме
+### В форме
 
-Добавьте `AngleSlider.HiddenInput` и `name`, чтобы включить угол в данные формы. Кнопка Reset
-показывает нативный сброс Ark. Задайте `form` на `AngleSlider.HiddenInput`, если форма не является предком слайдера.
+Добавьте `AngleSlider.HiddenInput` и `name`, чтобы включить угол в нативную отправку формы. Кнопка
+Reset показывает встроенный в Ark сброс формы. Укажите `form` в `AngleSlider.HiddenInput`, если форма
+не является предком слайдера.
 
 <ExampleFrame variant="component">
   <AngleSliderForm />
@@ -222,28 +249,39 @@ DOM-части Ark поддерживают `asChild`. Передайте оди
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/angle-slider/form.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/angle-slider/angle-slider-form.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={angleSliderSolidForm} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/angle-slider/angle-slider-form.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Недопустимое значение
 
-Используйте `invalid`, если выбранный угол не проходит проверку. Компонент отразит состояние ошибки в стилях и
-ARIA, не меняя способ взаимодействия.
+Используйте `invalid`, когда выбранный угол не проходит проверку. Диск получит стили ошибки и
+соответствующее состояние ARIA, не меняя модель взаимодействия.
 
 <ExampleFrame variant="component">
   <AngleSliderInvalid />
@@ -251,28 +289,39 @@ ARIA, не меняя способ взаимодействия.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/angle-slider/invalid.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/angle-slider/angle-slider-invalid.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={angleSliderSolidInvalid} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/angle-slider/angle-slider-invalid.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Только для чтения
 
-Используйте `readOnly`, если текущее значение должно оставаться видимым и доступным для фокуса, но не должно
-изменяться.
+Используйте `readOnly`, когда текущее значение должно оставаться видимым и доступным для фокуса,
+но не должно изменяться.
 
 <ExampleFrame variant="component">
   <AngleSliderReadOnly />
@@ -280,28 +329,40 @@ ARIA, не меняя способ взаимодействия.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/angle-slider/read-only.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/angle-slider/angle-slider-read-only.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={angleSliderSolidReadOnly} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/angle-slider/angle-slider-read-only.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Root Provider
 
-Используйте `useAngleSlider()` из `@moduix/react/angle-slider` вместе с `AngleSlider.RootProvider`, если другому
-компоненту нужен доступ к тому же состоянию. Внешнее состояние можно использовать в остальной части интерфейса.
+Используйте `useAngleSlider()` из соответствующего пакета вместе с `AngleSlider.RootProvider`, если
+другому компоненту нужен прямой доступ к тому же автомату состояний. Внешнее состояние можно
+использовать для управления соседним интерфейсом.
 
 <ExampleFrame variant="component">
   <AngleSliderRootProvider />
@@ -309,27 +370,39 @@ ARIA, не меняя способ взаимодействия.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/angle-slider/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/angle-slider/angle-slider-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={angleSliderSolidRootProvider} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/angle-slider/angle-slider-root-provider.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Шаги
 
-Используйте `step`, чтобы задать фиксированный шаг изменения угла при работе с указателем и клавиатурой.
+Используйте `step`, чтобы привязать взаимодействие указателем и клавиатурой к фиксированным угловым
+интервалам.
 
 <ExampleFrame variant="component">
   <AngleSliderSteps />
@@ -337,28 +410,40 @@ ARIA, не меняя способ взаимодействия.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/angle-slider/steps.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/angle-slider/angle-slider-steps.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={angleSliderSolidSteps} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/angle-slider/angle-slider-steps.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### С маркерами
 
-Используйте `AngleSlider.Marks`, если нужно показать распространённые опорные углы, не повторяя разметку
-`MarkerGroup` и `Marker`. `AngleSlider.Dial` объединяет `Control` и `Thumb` в одну композицию.
+Используйте `AngleSlider.Marks`, когда на диске нужны основные угловые отметки и не хочется
+повторять `MarkerGroup` и `Marker`. `AngleSlider.Dial` сохраняет вместе композицию `Control` и
+`Thumb`.
 
 <ExampleFrame variant="component">
   <AngleSliderWithMarks />
@@ -366,28 +451,39 @@ ARIA, не меняя способ взаимодействия.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/angle-slider/with-marks.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/angle-slider/angle-slider-with-marks.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={angleSliderSolidWithMarks} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/angle-slider/angle-slider-with-marks.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Расширенная настройка
 
-Используйте отдельные части вместо `AngleSlider.Dial` и `AngleSlider.Marks`, если нужно настроить композицию
-маркеров или добавить дочерние элементы внутрь области управления.
+Используйте явные части вместо `AngleSlider.Dial` и `AngleSlider.Marks`, если диску нужна собственная
+композиция маркеров или дополнительные дочерние элементы внутри области управления.
 
 <ExampleFrame variant="component">
   <AngleSliderAdvancedCustomization />
@@ -395,28 +491,41 @@ ARIA, не меняя способ взаимодействия.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/angle-slider/advanced-customization.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/angle-slider/angle-slider-advanced-customization.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={angleSliderSolidAdvancedCustomization} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/angle-slider/angle-slider-advanced-customization.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Стилизация
 
-Настраивайте внешний вид компонента с помощью `className`, стабильных хуков `data-slot="angle-slider-*"`, атрибутов Ark
-`data-scope="angle-slider"` / `data-part`, атрибутов состояния и публичных CSS-переменных ниже.
+Используйте `className` в React или `class` в Solid для структурных стилей экспортируемых частей.
+Для стилей состояний предпочитайте атрибуты Ark — `data-state`, `data-disabled`, `data-invalid` и
+`data-readonly` — вместе с селекторами moduix `data-slot`. CSS-переменные и хуки стилизации ниже
+общие для пакетов CSS Modules и Tailwind.
 
 ### CSS-свойства
 
@@ -424,16 +533,11 @@ ARIA, не меняя способ взаимодействия.
 
 ### Хуки стилизации
 
-- `data-slot="angle-slider-root"` и `data-slot="angle-slider-root-provider"` отвечают за общую разметку.
-- `data-slot="angle-slider-control"` стилизует круговой регулятор и получает `data-disabled`, `data-invalid`
-  и `data-readonly`.
-- `data-slot="angle-slider-thumb"` обозначает фокусируемый поворотный индикатор, который можно выбирать через
-  `:focus-visible`.
-- `data-slot="angle-slider-marker"` предоставляет `data-value` и
-  `data-state="under-value | at-value | over-value"`.
-- `AngleSlider.Marks` создаёт те же хуки `data-slot="angle-slider-marker-group"` и
-  `data-slot="angle-slider-marker"`, что и явные части маркеров.
-- Корневые переменные Ark `--value` и `--angle`, а также переменные маркеров `--marker-value` и
-  `--marker-display-value` остаются доступными.
-- Цвета кольца при наведении и нажатии применяются только к интерактивному регулятору. В режиме уменьшения
-  движения переходы бегунка отключаются.
+- Стабильные селекторы `data-slot`: `angle-slider-root`, `angle-slider-root-provider`,
+  `angle-slider-label`, `angle-slider-control`, `angle-slider-thumb`, `angle-slider-marker-group`,
+  `angle-slider-marker` и `angle-slider-value-text`.
+- Селекторы частей Ark используют `data-scope="angle-slider"` и `data-part`.
+- `AngleSlider.Marks` создаёт те же хуки маркеров, что и явные части `MarkerGroup` и `Marker`.
+- Для стилизации доступны переменные корня `--value` и `--angle`, а также переменные маркеров
+  `--marker-value` и `--marker-display-value`.
+- При включённом предпочтении пользователя уменьшать движение анимация бегунка отключается.
