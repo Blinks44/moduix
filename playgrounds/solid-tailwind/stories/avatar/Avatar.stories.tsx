@@ -133,7 +133,7 @@ export const AsChildComposition: Story = {
       asChild={(props) => (
         <a {...props()} href="mailto:alex@example.com" aria-label="Email Alex T.">
           <Avatar.Fallback class="bg-primary text-primary-foreground">AT</Avatar.Fallback>
-          <Avatar.Image class="[object-position:50%_35%]" src={imageUrl} alt="" />
+          <Avatar.Image class="object-[50%_35%]" src={imageUrl} alt="" />
         </a>
       )}
       size="xl"

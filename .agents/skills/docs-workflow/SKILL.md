@@ -92,8 +92,10 @@ Read [preview rules](references/previews.md) whenever adding or changing a previ
 - Keep styling hooks limited to meaningful `className`/`class`, `data-slot`, and state attributes
   that consumers can target. Explain that Tailwind variants use native utility and consumer-class
   overrides, and keep CSS Modules variable guidance on the CSS Modules path.
-- Keep the full hosted-registry setup in `quick-start.mdx`; component pages show only the relevant
-  install commands for package variants that actually ship that component. Treat each
+- Keep the full package and hosted-registry setup in `quick-start.mdx`; do not repeat a generic
+  `Install as a package` section on every component page because it duplicates Quick Start and adds
+  no component-specific information. Component pages show only the relevant shadcn registry commands
+  for package variants that actually ship that component. Treat each
   `packages/<variant>/registry.json` as its source manifest. Shared
   styles and presets come from `packages/foundation/registry.json` through `/r/foundation` URL
   dependencies; the reset applies only to CSS Modules variants because Tailwind uses Preflight.

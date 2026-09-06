@@ -128,7 +128,7 @@ export const AsChildComposition: Story = {
     >
       <a href="mailto:alex@example.com" aria-label="Email Alex T.">
         <Avatar.Fallback className="bg-primary text-primary-foreground">AT</Avatar.Fallback>
-        <Avatar.Image className="[object-position:50%_35%]" src={imageUrl} alt="" />
+        <Avatar.Image className="object-[50%_35%]" src={imageUrl} alt="" />
       </a>
     </Avatar>
   ),
