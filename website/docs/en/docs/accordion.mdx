@@ -472,8 +472,9 @@ primitive's part tree explicit so the right component owns keyboard handling and
 
 Use `className` in React or `class` in Solid on exported parts for structural styles. For state-based
 styles, prefer Ark data attributes such as `data-state`, `data-disabled`, and `data-orientation`,
-together with moduix `data-slot` selectors. The CSS variables and selectors below are shared by the
-CSS Modules and Tailwind packages.
+together with moduix `data-slot` selectors. Tailwind variants use native utilities and consumer
+classes; the component variables below customize the CSS Modules variants. Data attributes and
+`data-slot` hooks are shared by both styling tracks.
 
 Put panel spacing on `Accordion.ItemBody`, not `Accordion.ItemContent`, so Ark can measure and
 animate the panel correctly.

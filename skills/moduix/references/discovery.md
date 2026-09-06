@@ -1,26 +1,32 @@
 # moduix discovery
 
-## Start with public context
+## Start with public documentation
 
-- Use `https://moduix.dev/llms.txt` to discover components, themes, recipes, and guides.
+- Use `https://moduix.dev/llms.txt` to discover components, recipes, themes, and guides.
 - Read `https://moduix.dev/docs/<slug>.md` before implementing a focused component or workflow.
-- Use `https://moduix.dev/r/react/registry.json` or
-  `https://moduix.dev/r/solid/registry.json` to inspect the copy-owned registry catalogue that
-  matches the application's runtime, and the matching `<item>.json` URL to inspect one item.
+- Use the component page to confirm its API, framework examples, styling track availability, and
+  required composition.
 
-## Choose an existing building block first
+## Select the matching registry
 
-1. Search the component gallery for the user-facing behavior, not only a familiar library name.
-2. Look in Recipes before composing a repeated application flow from primitives.
-3. Use the documented component API when it fits. Ask before introducing a new primitive or changing
-   the ownership model.
+| Runtime | Styling     | Namespace                | Catalogue                                           |
+| ------- | ----------- | ------------------------ | --------------------------------------------------- |
+| React   | CSS Modules | `@moduix-react`          | `https://moduix.dev/r/react/registry.json`          |
+| Solid   | CSS Modules | `@moduix-solid`          | `https://moduix.dev/r/solid/registry.json`          |
+| React   | Tailwind    | `@moduix-react-tailwind` | `https://moduix.dev/r/react-tailwind/registry.json` |
+| Solid   | Tailwind    | `@moduix-solid-tailwind` | `https://moduix.dev/r/solid-tailwind/registry.json` |
 
-## Copy-owned discovery
+Inspect `https://moduix.dev/r/<track>/<item>.json` when the raw registry item is useful. Do not
+silently fall back to a different framework or styling track when an item is unavailable.
 
-Confirm the configured `@moduix-react` or `@moduix-solid` namespace with
-`shadcn@latest info --json`. Then use the project runner with
-`shadcn@latest search @moduix-<framework> --query "<product need>"` to find items and
-`shadcn@latest view @moduix-<framework>/<item>` to inspect one before adding it. Select `react` or
-`solid` to match the application runtime. Search the component and theme catalogue by user-facing
-behavior. Use the docs to find recipes, then install the registry components they name. Prefer the
-configured shadcn MCP server when it is available; otherwise follow the same CLI workflow.
+## Discover copy-owned items safely
+
+1. Confirm the selected namespace and aliases with `shadcn@latest info --json`.
+2. Search by user-facing behavior with
+   `shadcn@latest search <namespace> --query "<product need>"`.
+3. Inspect the exact item with `shadcn@latest view <namespace>/<item>`.
+4. Use the docs to find recipes, then install the registry components they name. Recipes are not
+   registry items.
+
+Use the configured shadcn MCP server for the same discovery flow when it is available; otherwise use
+the project's package runner and CLI.

@@ -1,12 +1,18 @@
 # @moduix/solid-tailwind
 
-Tailwind CSS v4 implementation of moduix Solid components. The pilot release contains Accordion and preserves the public Ark-shaped API from `@moduix/solid/accordion`.
+Tailwind CSS v4 implementation of moduix Solid components. The current release contains Accordion,
+Alert, and Angle Slider while preserving their public Ark-shaped APIs from `@moduix/solid`.
 
 ## Install
 
+In an existing Solid project configured with Tailwind CSS v4, install the package and its Ark UI
+peer dependency:
+
 ```sh
-pnpm add @moduix/solid-tailwind @ark-ui/solid solid-js tailwindcss
+pnpm add @moduix/solid-tailwind @ark-ui/solid
 ```
+
+`solid-js`, `tailwindcss`, and `@ark-ui/solid` remain peer dependencies.
 
 ## Add styles
 

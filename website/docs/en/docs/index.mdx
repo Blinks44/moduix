@@ -58,6 +58,20 @@ The React and Solid CSS Modules packages contain the complete component catalog.
 are being expanded component by component; check the target component page before choosing them.
 [Quick start](/docs/quick-start) covers the complete setup for each path.
 
+## Supported versions
+
+The package peer dependencies define the supported framework range:
+
+| Technology | Supported versions | Used by |
+| ---------- | ------------------ | ------- |
+| React and React DOM | 18 and 19 | `@moduix/react`, `@moduix/react-tailwind` |
+| Solid | 1.9 and later 1.x releases | `@moduix/solid`, `@moduix/solid-tailwind` |
+| Tailwind CSS | 4.x | Tailwind packages and registries only |
+| Ark UI | `^5.37.2` | The matching React or Solid package |
+
+Your package manager checks these ranges during installation. CSS Modules packages do not require
+Tailwind CSS.
+
 <OwnershipLayers />
 
 ## What Ark-backed means
@@ -91,9 +105,9 @@ so component selectors do not leak into the rest of your application. Their npm 
 component styles with each imported entry point, while their registries copy the same source and
 `.module.css` files into your repository.
 
-The Tailwind packages express the same visual contract as utility classes and use Tailwind Preflight
-instead of the optional moduix reset. Both styling tracks share the same foundation tokens, presets,
-animations, and component behavior:
+The Tailwind packages express the same visual defaults as utility classes and use Tailwind Preflight
+instead of the optional moduix reset. Both styling tracks share semantic foundation colors, selected
+global tokens, animations, and component behavior:
 
 - import `style.css` once for shared tokens and base layer styles;
 - use `className` in React or `class` in Solid on roots and named parts;
@@ -110,11 +124,12 @@ The default density uses `36px` primary controls and `32px` popup rows through `
 and `--moduix-size-sm`. Inputs, buttons, select and combobox triggers, date controls, pagination,
 menu items, and related patterns share the same scale.
 
-Colors, spacing, radii, typography, focus rings, motion, shadows, and component-specific decisions
-are expressed as CSS custom properties. Override a semantic token to change the whole system, a
-shared family token to tune related components, or a `--<component>-*` variable for one local
-exception. See [Tokens](/docs/tokens) for the full hierarchy and [Themes](/docs/themes) for
-ready-made presets.
+In the CSS Modules packages, colors, spacing, radii, typography, focus rings, motion, shadows, and
+component-specific decisions are expressed as CSS custom properties. Override a semantic token to
+change the whole system, a shared family token to tune related components, or a
+`--<component>-*` variable for one local exception. Tailwind variants use semantic utilities and
+consumer classes instead of reproducing that component-variable API. See [Tokens](/docs/tokens) for
+the full hierarchy and [Themes](/docs/themes) for ready-made presets.
 
 ## Start here
 

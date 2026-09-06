@@ -6,12 +6,11 @@ description: Настройка moduix в приложениях Vite на React
 # Vite
 
 В примерах ниже используются пакеты с CSS Modules, в которых доступен полный каталог компонентов.
-Для компонентов на Tailwind выполните [настройку Tailwind-пакета](/docs/quick-start#настройте-tailwind-пакет)
+Для компонентов на Tailwind выполните [настройку Tailwind-пакета](/docs/quick-start#tailwind-css)
 и выберите пакет или реестр для React либо Solid.
 
-В этом руководстве предполагается, что приложение создано из шаблона Vite для React, React +
-TypeScript, Solid или Solid + TypeScript. При создании нового проекта выберите в Vite нужный
-фреймворк.
+В этом руководстве предполагается существующее приложение, созданное из шаблона Vite для React,
+React + TypeScript, Solid или Solid + TypeScript.
 
 ## Установка moduix из пакета
 
@@ -35,7 +34,7 @@ export function App() {
   </Tab>
   <Tab label="Solid" value="solid">
 
-<PackageManagerTabs command="install @moduix/solid @ark-ui/solid solid-js" />
+<PackageManagerTabs command="install @moduix/solid @ark-ui/solid" />
 
 ```tsx title="src/index.tsx"
 import '@moduix/solid/style.css';

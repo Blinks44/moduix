@@ -19,11 +19,13 @@ are composed from named parts and customizable through CSS custom properties, `c
 
 ## Install
 
-Install the package and its peer dependencies:
+Install the package and its Ark UI peer dependency in an existing Solid project:
 
 ```bash
-npm install @moduix/solid @ark-ui/solid solid-js
+npm install @moduix/solid @ark-ui/solid
 ```
+
+`solid-js` and `@ark-ui/solid` are peer dependencies. moduix supports Solid 1.9 and later 1.x releases.
 
 The optional `Chart` component also requires its TanStack peer dependency:
 

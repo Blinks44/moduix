@@ -269,12 +269,15 @@ l’alerte si vous devez pouvoir la masquer localement.
 
 ## Styles
 
-Utilisez `className` sur la racine ou sur les différentes parties pour appliquer des styles locaux.
-Définissez les variables `--moduix-alert-*` sur la racine lorsqu’une alerte nécessite un thème local.
+Utilisez `className` en React ou `class` en Solid sur la racine et ses différentes parties pour
+appliquer des styles locaux. Les variantes Tailwind se personnalisent avec des utilitaires et des
+classes supplémentaires. Dans les variantes CSS Modules, définissez les variables
+`--moduix-alert-*` sur la racine lorsqu’une alerte nécessite un thème local.
 
-Les variables communes `--moduix-alert-bg`, `--moduix-alert-border-color`, `--moduix-alert-color` et
-`--moduix-alert-indicator-color` s’appliquent à tous les statuts. Utilisez les variables
-`--moduix-alert-<status>-*` correspondantes lorsqu’un seul statut doit changer.
+Dans les variantes CSS Modules, les variables communes `--moduix-alert-bg`,
+`--moduix-alert-border-color`, `--moduix-alert-color` et `--moduix-alert-indicator-color`
+s’appliquent à tous les statuts. Utilisez les variables `--moduix-alert-<status>-*` correspondantes
+lorsqu’un seul statut doit changer.
 
 Les statuts intégrés utilisent également les tokens de palette partagée :
 

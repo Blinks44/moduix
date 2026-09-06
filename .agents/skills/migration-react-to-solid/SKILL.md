@@ -36,7 +36,7 @@ Keep these equivalent to the React component:
 - component names, callable roots, namespaced parts, hooks, contexts, and package subpath exports;
 - props, defaults, controlled and uncontrolled state, callback detail objects, and lifecycle;
 - DOM anatomy, semantic hosts, ARIA, keyboard behavior, focus management, and native form behavior;
-- `data-scope`, `data-part`, `data-slot`, state attributes, ids, and runtime CSS variables;
+- `data-scope`, `data-part`, `data-slot`, state attributes, ids, and required runtime CSS variables;
 - visual defaults, responsive behavior, mount and unmount animation, and reduced-motion behavior;
 - `asChild`, refs, providers, context composition, lazy mounting, and presence where exposed.
 
@@ -55,8 +55,9 @@ adapters merely to make those mechanics textually identical.
   package use its local `cn` helper and keep the consumer class last.
 - Resolve `children` with Solid's `children` helper only when the wrapper must inspect, default, or
   read children more than once. Do not eagerly evaluate reactive children.
-- Use Solid JSX and style types for refs, events, and `style`. Preserve public CSS custom-property
-  overrides when adding an internal style fallback.
+- Use Solid JSX and style types for refs, events, and `style`. In CSS Modules preserve public CSS
+  custom-property overrides when adding an internal style fallback; in Tailwind preserve the native
+  utility and consumer-class contract from the React Tailwind implementation.
 - Omit React-only directives and helpers such as `'use client'`, `cloneElement`, and React context.
 - Preserve the callable and namespaced public shape with the smallest native construct; keeping the
   established `Object.assign(Root, { Root, ...parts })` shape is acceptable.

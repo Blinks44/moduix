@@ -122,7 +122,7 @@ test('lets consumer Tailwind classes override conflicting defaults', () => {
     .getByRole('slider', { name: 'Rotation' })
     .closest('[data-slot="angle-slider-root"]');
   expect(root).toHaveClass('gap-0');
-  expect(root?.className).not.toContain('gap-[var(--moduix-angle-slider-gap');
+  expect(root).not.toHaveClass('gap-3');
 });
 
 test('keeps the thumb centered when the active state scales it', () => {
@@ -134,6 +134,8 @@ test('keeps the thumb centered when the active state scales it', () => {
 
   const thumb = screen.getByRole('slider', { name: 'Rotation' });
 
-  expect(thumb).toHaveClass('before:[transform:translateX(-50%)]');
-  expect(thumb).not.toHaveClass('before:-translate-x-1/2');
+  expect(thumb).toHaveClass('before:-translate-x-1/2');
+  expect(thumb).toHaveClass(
+    '[&:active:not([data-disabled]):not([data-readonly])]:before:scale-[1.08]',
+  );
 });

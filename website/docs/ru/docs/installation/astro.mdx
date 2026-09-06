@@ -6,38 +6,14 @@ description: Подключение компонентов moduix для React �
 # Astro
 
 В примерах ниже используются пакеты с CSS Modules, в которых доступен полный каталог компонентов.
-Для компонентов на Tailwind выполните [настройку Tailwind-пакета](/docs/quick-start#настройте-tailwind-пакет)
+Для компонентов на Tailwind выполните [настройку Tailwind-пакета](/docs/quick-start#tailwind-css)
 и выберите пакет или реестр для React либо Solid.
 
-Astro умеет рендерить компоненты moduix через официальные интеграции с React и Solid. По умолчанию
-компонент превращается в статический HTML. Чтобы он работал в браузере, добавьте директиву `client:*`.
+Руководство предполагает существующий Astro-проект с уже настроенной официальной интеграцией React
+или Solid. По умолчанию компонент превращается в статический HTML. Чтобы он работал в браузере,
+добавьте директиву `client:*`.
 
-## Подключите фреймворк к Astro
-
-Выполните команду для выбранного фреймворка:
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-```bash
-npx astro add react
-```
-
-Команда установит и настроит `@astrojs/react`.
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-```bash
-npx astro add solid
-```
-
-Команда установит и настроит `@astrojs/solid-js`.
-
-  </Tab>
-</Tabs>
-
-## Установите moduix
+## Установите пакет
 
 Установите пакет для выбранного фреймворка и соответствующую зависимость Ark UI:
 
@@ -49,7 +25,7 @@ npx astro add solid
   </Tab>
   <Tab label="Solid" value="solid">
 
-<PackageManagerTabs command="install @moduix/solid @ark-ui/solid solid-js" />
+<PackageManagerTabs command="install @moduix/solid @ark-ui/solid" />
 
   </Tab>
 </Tabs>

@@ -101,25 +101,15 @@
     "ru": "На базе Ark UI",
     "fr": "Propulsé par Ark UI"
   },
-  "homeCssModules": {
-    "en": "CSS Modules",
-    "ru": "CSS Modules",
-    "fr": "CSS Modules"
-  },
-  "homeTailwindSoon": {
-    "en": "Tailwind — soon",
-    "ru": "Tailwind — скоро",
-    "fr": "Tailwind — bientôt"
-  },
   "homeShadcnInspired": {
     "en": "shadcn-inspired",
     "ru": "В духе shadcn",
     "fr": "Inspiré par shadcn"
   },
   "homeLead": {
-    "en": "Framework-native React and Solid components with accessible behavior, calm defaults, and explicit composition. Shared tokens keep the visual system consistent while your application owns the final theme.",
-    "ru": "Нативные компоненты для React и Solid с доступным поведением, продуманными настройками по умолчанию и явной композицией. Общие токены сохраняют единый визуальный язык, а приложение управляет итоговой темой.",
-    "fr": "Des composants natifs pour React et Solid, avec un comportement accessible, des valeurs par défaut soignées et une composition explicite. Les tokens partagés assurent la cohérence visuelle, tandis que l’application garde la main sur le thème final."
+    "en": "Framework-native React and Solid components with accessible behavior, calm defaults, and explicit composition. Shared tokens keep the visual system consistent, with CSS Modules available now and Tailwind support on the way.",
+    "ru": "Нативные компоненты для React и Solid с доступным поведением, продуманными настройками по умолчанию и явной композицией. Общие токены сохраняют единый визуальный язык: CSS Modules доступны уже сейчас, а поддержка Tailwind развивается.",
+    "fr": "Des composants natifs pour React et Solid, avec un comportement accessible, des valeurs par défaut soignées et une composition explicite. Les tokens partagés assurent la cohérence visuelle ; CSS Modules est disponible dès maintenant et le support de Tailwind arrive progressivement."
   },
   "homeGetStarted": {
     "en": "Get started",

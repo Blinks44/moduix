@@ -12,7 +12,7 @@ import { cn } from '@/lib/moduix/cn';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
 
 const rootClass =
-  'box-border flex w-[var(--moduix-accordion-width,100%)] max-w-[var(--moduix-accordion-max-width,100%)] min-w-0 flex-col text-[color:var(--moduix-accordion-color,var(--moduix-color-foreground))] data-[orientation=horizontal]:h-[var(--moduix-accordion-horizontal-height,20rem)] data-[orientation=horizontal]:max-h-[var(--moduix-accordion-horizontal-max-height,100%)] data-[orientation=horizontal]:w-[var(--moduix-accordion-horizontal-width,auto)] data-[orientation=horizontal]:flex-row';
+  'box-border flex w-full max-w-full min-w-0 flex-col text-foreground data-[orientation=horizontal]:h-80 data-[orientation=horizontal]:max-h-full data-[orientation=horizontal]:w-auto data-[orientation=horizontal]:flex-row';
 
 function AccordionRoot(props: ComponentProps<typeof AccordionPrimitive.Root>) {
   const [local, others] = splitProps(props, ['class']);
@@ -45,7 +45,7 @@ function AccordionItem(props: ComponentProps<typeof AccordionPrimitive.Item>) {
     <AccordionPrimitive.Item
       data-slot="accordion-item"
       class={cn(
-        "[overflow-anchor:none] data-[orientation=horizontal]:flex [&[data-orientation='horizontal']:not(:last-child)]:border-e-[length:var(--moduix-accordion-item-border-width,var(--moduix-border-width-sm))] [&[data-orientation='horizontal']:not(:last-child)]:border-e-[var(--moduix-accordion-item-border-color,var(--moduix-color-border))] [&[data-orientation='vertical']:not(:last-child)]:border-b-[length:var(--moduix-accordion-item-border-width,var(--moduix-border-width-sm))] [&[data-orientation='vertical']:not(:last-child)]:border-b-[var(--moduix-accordion-item-border-color,var(--moduix-color-border))]",
+        "[overflow-anchor:none] data-[orientation=horizontal]:flex [&[data-orientation='horizontal']:not(:last-child)]:border-e [&[data-orientation='horizontal']:not(:last-child)]:border-border [&[data-orientation='vertical']:not(:last-child)]:border-b [&[data-orientation='vertical']:not(:last-child)]:border-border",
         local.class,
       )}
       {...others}
@@ -60,7 +60,7 @@ function AccordionItemTrigger(props: ComponentProps<typeof AccordionPrimitive.It
     <AccordionPrimitive.ItemTrigger
       data-slot="accordion-item-trigger"
       class={cn(
-        'm-0 flex w-full cursor-pointer items-center justify-between gap-[var(--moduix-accordion-trigger-gap,var(--moduix-spacing-4))] border-0 bg-[var(--moduix-accordion-trigger-bg,var(--moduix-color-muted))] px-[var(--moduix-accordion-trigger-padding-x,var(--moduix-spacing-3))] py-[var(--moduix-accordion-trigger-padding-y,var(--moduix-spacing-2))] text-start text-[length:var(--moduix-accordion-trigger-font-size,var(--moduix-text-md))] leading-[var(--moduix-accordion-trigger-line-height,var(--moduix-line-height-text-md))] text-inherit outline-0 select-none [font:inherit] [transition:background-color_var(--moduix-transition-default),color_var(--moduix-transition-default)] focus-visible:relative focus-visible:z-1 focus-visible:outline-[length:var(--moduix-accordion-focus-ring-width,var(--moduix-focus-ring-width,var(--moduix-border-width-md)))] focus-visible:outline-offset-[calc(var(--moduix-accordion-focus-ring-offset,var(--moduix-border-width-sm))*-1)] focus-visible:outline-[var(--moduix-accordion-focus-ring-color,var(--moduix-color-ring))] focus-visible:outline-solid disabled:cursor-default disabled:opacity-[var(--moduix-accordion-disabled-opacity,var(--moduix-opacity-disabled))] data-disabled:cursor-default data-disabled:opacity-[var(--moduix-accordion-disabled-opacity,var(--moduix-opacity-disabled))] data-[orientation=horizontal]:h-full data-[orientation=horizontal]:w-[var(--moduix-accordion-horizontal-trigger-width,2.5rem)] data-[orientation=horizontal]:justify-center data-[orientation=horizontal]:[writing-mode:sideways-lr] motion-reduce:transition-none [&:not([disabled]):not([data-disabled]):active]:bg-[var(--moduix-accordion-trigger-bg-active,var(--moduix-accordion-trigger-bg-hover,var(--moduix-color-accent)))] [&:not([disabled]):not([data-disabled]):hover]:bg-[var(--moduix-accordion-trigger-bg-hover,var(--moduix-color-accent))]',
+        'm-0 flex w-full cursor-pointer items-center justify-between gap-4 border-0 bg-muted px-3 py-2 text-start [font-family:inherit] text-base/6 [font-weight:inherit] text-inherit [font-style:inherit] outline-0 transition-colors duration-200 select-none focus-visible:relative focus-visible:z-1 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:cursor-default disabled:opacity-50 data-disabled:cursor-default data-disabled:opacity-50 data-[orientation=horizontal]:h-full data-[orientation=horizontal]:w-10 data-[orientation=horizontal]:justify-center data-[orientation=horizontal]:[writing-mode:sideways-lr] motion-reduce:transition-none [&:not([disabled]):not([data-disabled]):active]:bg-accent [&:not([disabled]):not([data-disabled]):hover]:bg-accent',
         local.class,
       )}
       {...others}
@@ -76,7 +76,7 @@ function AccordionItemIndicator(props: ComponentProps<typeof AccordionPrimitive.
     <AccordionPrimitive.ItemIndicator
       data-slot="accordion-item-indicator"
       class={cn(
-        'inline-flex size-[var(--moduix-accordion-icon-size,var(--moduix-spacing-3))] shrink-0 items-center justify-center [transition:transform_var(--moduix-accordion-icon-transition,var(--moduix-transition-default))] data-[state=open]:transform-[var(--moduix-accordion-icon-open-transform,rotate(45deg)_scale(1.1))] motion-reduce:transition-none [&_svg]:size-full',
+        'inline-flex size-3 shrink-0 items-center justify-center transition-transform duration-200 data-[state=open]:scale-110 data-[state=open]:rotate-45 motion-reduce:transition-none [&_svg]:size-full',
         local.class,
       )}
       {...others}
@@ -93,7 +93,7 @@ function AccordionItemContent(props: ComponentProps<typeof AccordionPrimitive.It
     <AccordionPrimitive.ItemContent
       data-slot="accordion-item-content"
       class={cn(
-        "overflow-hidden text-[length:var(--moduix-accordion-item-content-font-size,var(--moduix-text-md))] leading-[var(--moduix-accordion-item-content-line-height,var(--moduix-line-height-text-md))] text-[var(--moduix-accordion-item-content-color,var(--moduix-color-muted-foreground))] data-[state=closed]:data-[orientation=horizontal]:animate-[moduix-accordion-item-content-closed-horizontal_var(--moduix-accordion-item-content-transition,var(--moduix-transition-default))] data-[state=closed]:data-[orientation=vertical]:animate-[moduix-accordion-item-content-closed_var(--moduix-accordion-item-content-transition,var(--moduix-transition-default))] data-[state=open]:data-[orientation=horizontal]:animate-[moduix-accordion-item-content-open-horizontal_var(--moduix-accordion-item-content-transition,var(--moduix-transition-default))] data-[state=open]:data-[orientation=vertical]:animate-[moduix-accordion-item-content-open_var(--moduix-accordion-item-content-transition,var(--moduix-transition-default))] motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms] data-[orientation=horizontal]:[&>*]:w-[var(--moduix-accordion-horizontal-content-width,16rem)] [&[hidden]:not([hidden='until-found'])]:hidden",
+        "overflow-hidden text-base/6 text-muted-foreground data-[state=closed]:data-[orientation=horizontal]:animate-moduix-accordion-closed-horizontal data-[state=closed]:data-[orientation=vertical]:animate-moduix-accordion-closed data-[state=open]:data-[orientation=horizontal]:animate-moduix-accordion-open-horizontal data-[state=open]:data-[orientation=vertical]:animate-moduix-accordion-open motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms] data-[orientation=horizontal]:[&>*]:w-64 [&[hidden]:not([hidden='until-found'])]:hidden",
         local.class,
       )}
       {...others}
@@ -109,10 +109,7 @@ function AccordionItemBody(props: HTMLArkProps<'div'>) {
       data-scope="accordion"
       data-part="item-body"
       data-slot="accordion-item-body"
-      class={cn(
-        'grid min-w-0 gap-[var(--moduix-accordion-item-body-gap,var(--moduix-spacing-3))] p-[var(--moduix-accordion-item-body-padding,var(--moduix-spacing-3))]',
-        local.class,
-      )}
+      class={cn('grid min-w-0 gap-3 p-3', local.class)}
       {...others}
     />
   );

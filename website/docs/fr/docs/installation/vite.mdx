@@ -6,12 +6,11 @@ description: Configurez moduix dans une application Vite React ou Solid par paqu
 # Vite
 
 Les exemples ci-dessous utilisent les paquets CSS Modules, qui proposent le catalogue complet. Pour
-un composant disponible avec Tailwind, suivez la [configuration du paquet Tailwind](/docs/quick-start#configurer-le-paquet-tailwind)
+un composant disponible avec Tailwind, suivez la [configuration du paquet Tailwind](/docs/quick-start#tailwind-css)
 et choisissez le paquet ou le registre React ou Solid correspondant.
 
-Ce guide part d’une application créée avec un modèle Vite pour React, React + TypeScript, Solid ou
-Solid + TypeScript. Pour un nouveau projet, créez l’application avec Vite et choisissez le framework
-correspondant.
+Ce guide part d’une application existante, créée avec un modèle Vite pour React, React + TypeScript,
+Solid ou Solid + TypeScript.
 
 ## Installer moduix comme paquet
 
@@ -35,7 +34,7 @@ export function App() {
   </Tab>
   <Tab label="Solid" value="solid">
 
-<PackageManagerTabs command="install @moduix/solid @ark-ui/solid solid-js" />
+<PackageManagerTabs command="install @moduix/solid @ark-ui/solid" />
 
 ```tsx title="src/index.tsx"
 import '@moduix/solid/style.css';

@@ -11,8 +11,9 @@ documentation site or a copy of upstream reference material.
 
 Keep shared contract sections aligned between React and Solid when both files exist. Describe native
 framework mechanics only in the affected file, and never claim parity where Ark exposes a real
-difference. Tailwind variants normally reuse this behavioral contract and do not need duplicated
-local markdown unless they expose a genuine styling-specific contract.
+difference. Tailwind variants reuse this behavioral contract but not the CSS Modules customization
+mechanism: their normal styling API is utilities plus `className`/`class`. They do not need
+duplicated local markdown unless they expose a genuine styling-specific contract.
 
 ## Write the wrapper contract
 

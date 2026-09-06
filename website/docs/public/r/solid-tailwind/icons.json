@@ -6,13 +6,13 @@
   "files": [
     {
       "path": "src/internal/icons/ui/index.ts",
-      "content": "export { ChevronDownIcon, PlusIcon } from './Icons.js';\n",
+      "content": "export { ChevronDownIcon, PlusIcon } from './Icons.js';",
       "type": "registry:lib",
       "target": "@lib/moduix/icons/ui/index.ts"
     },
     {
       "path": "src/internal/icons/ui/Icons.tsx",
-      "content": "import type { JSX } from 'solid-js';\n\ntype IconProps = JSX.SvgSVGAttributes<SVGSVGElement>;\nconst accessibilityProps = { 'aria-hidden': 'true', focusable: 'false' } as const;\n\nexport function ChevronDownIcon(props: IconProps) {\n  return (\n    <svg\n      xmlns=\"http://www.w3.org/2000/svg\"\n      width=\"24\"\n      height=\"24\"\n      viewBox=\"0 0 24 24\"\n      fill=\"none\"\n      stroke=\"currentColor\"\n      stroke-width=\"3\"\n      stroke-linecap=\"round\"\n      stroke-linejoin=\"round\"\n      {...accessibilityProps}\n      {...props}\n    >\n      <path d=\"m6 9 6 6 6-6\" />\n    </svg>\n  );\n}\n\nexport function PlusIcon(props: IconProps) {\n  return (\n    <svg\n      xmlns=\"http://www.w3.org/2000/svg\"\n      width=\"24\"\n      height=\"24\"\n      viewBox=\"0 0 24 24\"\n      fill=\"none\"\n      stroke=\"currentColor\"\n      stroke-width=\"3\"\n      stroke-linecap=\"round\"\n      stroke-linejoin=\"round\"\n      {...accessibilityProps}\n      {...props}\n    >\n      <path d=\"M5 12h14\" />\n      <path d=\"M12 5v14\" />\n    </svg>\n  );\n}\n",
+      "content": "import type { JSX } from 'solid-js';\n\ntype IconProps = JSX.SvgSVGAttributes<SVGSVGElement>;\nconst accessibilityProps = { 'aria-hidden': 'true', focusable: 'false' } as const;\n\nexport function ChevronDownIcon(props: IconProps) {\n  return (\n    <svg\n      xmlns=\"http://www.w3.org/2000/svg\"\n      width=\"24\"\n      height=\"24\"\n      viewBox=\"0 0 24 24\"\n      fill=\"none\"\n      stroke=\"currentColor\"\n      stroke-width=\"3\"\n      stroke-linecap=\"round\"\n      stroke-linejoin=\"round\"\n      {...accessibilityProps}\n      {...props}\n    >\n      <path d=\"m6 9 6 6 6-6\" />\n    </svg>\n  );\n}\n\nexport function PlusIcon(props: IconProps) {\n  return (\n    <svg\n      xmlns=\"http://www.w3.org/2000/svg\"\n      width=\"24\"\n      height=\"24\"\n      viewBox=\"0 0 24 24\"\n      fill=\"none\"\n      stroke=\"currentColor\"\n      stroke-width=\"3\"\n      stroke-linecap=\"round\"\n      stroke-linejoin=\"round\"\n      {...accessibilityProps}\n      {...props}\n    >\n      <path d=\"M5 12h14\" />\n      <path d=\"M12 5v14\" />\n    </svg>\n  );\n}",
       "type": "registry:lib",
       "target": "@lib/moduix/icons/ui/Icons.tsx"
     }

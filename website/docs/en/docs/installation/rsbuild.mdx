@@ -12,38 +12,6 @@ The examples below use the CSS Modules packages, which contain the full componen
 component available in the Tailwind track, follow the [Tailwind package setup](/docs/quick-start#tailwind-package-setup)
 and choose the matching React or Solid Tailwind package or registry.
 
-## Configure the runtime
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-Use an Rsbuild React app configured with `@rsbuild/plugin-react`.
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-Rsbuild's official Solid integration uses the Solid and Babel plugins:
-
-<PackageManagerTabs command="install -D @rsbuild/plugin-solid @rsbuild/plugin-babel" />
-
-```ts title="rsbuild.config.ts"
-import { pluginBabel } from '@rsbuild/plugin-babel';
-import { pluginSolid } from '@rsbuild/plugin-solid';
-import { defineConfig } from '@rsbuild/core';
-
-export default defineConfig({
-  plugins: [
-    pluginBabel({
-      include: /\.(?:jsx|tsx)$/,
-    }),
-    pluginSolid(),
-  ],
-});
-```
-
-  </Tab>
-</Tabs>
-
 ## Install the package
 
 <Tabs groupId="framework">
@@ -66,7 +34,7 @@ export function App() {
   </Tab>
   <Tab label="Solid" value="solid">
 
-<PackageManagerTabs command="install @moduix/solid @ark-ui/solid solid-js" />
+<PackageManagerTabs command="install @moduix/solid @ark-ui/solid" />
 
 ```tsx title="src/index.tsx"
 import '@moduix/solid/style.css';

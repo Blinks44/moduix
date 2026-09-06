@@ -30,8 +30,10 @@ exports, local markdown, and registry items.
 ## Contract to preserve
 
 Keep public names, parts, props, defaults, controlled state, callbacks, refs, DOM anatomy, ARIA,
-keyboard behavior, focus management, native form behavior, Ark state/data attributes, CSS variables,
-and lifecycle equivalent wherever the frameworks support the same contract.
+keyboard behavior, focus management, native form behavior, Ark state/data attributes, visual defaults,
+and lifecycle equivalent wherever the frameworks support the same contract. Keep React/Solid peers
+within the same styling track equivalent. CSS Modules and Tailwind may intentionally expose different
+styling mechanisms: detailed component variables for CSS Modules and utility/class overrides for Tailwind.
 
 React is the established product contract, not source code to copy mechanically. Translate it into
 native Solid and Tailwind forms using `migration-react-to-solid`, `conventions-react`,

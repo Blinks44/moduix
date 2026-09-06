@@ -474,8 +474,9 @@ Accordion.RootProvider
 
 Для структурных стилей передавайте экспортируемым частям `className` в React или `class` в Solid.
 Состояния лучше оформлять через атрибуты данных Ark, например `data-state`, `data-disabled` и
-`data-orientation`, вместе с селекторами `data-slot` moduix. Переменные и селекторы ниже одинаковы
-для пакетов с CSS Modules и Tailwind.
+`data-orientation`, вместе с селекторами `data-slot` moduix. Варианты на Tailwind настраиваются
+обычными утилитами и пользовательскими классами; перечисленные ниже переменные относятся к
+вариантам с CSS Modules. Атрибуты данных и селекторы `data-slot` общие для обоих подходов.
 
 Задавайте отступы панели на `Accordion.ItemBody`, а не на `Accordion.ItemContent`, чтобы Ark мог
 правильно измерять и анимировать панель.

@@ -5,40 +5,15 @@ description: Use moduix React or Solid components as interactive Astro islands w
 
 # Astro
 
-Astro can render moduix components through its official React and Solid integrations. Components are
-rendered as static HTML by default; add a `client:*` directive when they need to become interactive in
-the browser.
+This guide assumes an existing Astro project with its official React or Solid integration already
+configured. Components render as static HTML by default; add a `client:*` directive when they need
+to become interactive in the browser.
 
 The examples below use the CSS Modules packages, which contain the full component catalog. For a
 component available in the Tailwind track, follow the [Tailwind package setup](/docs/quick-start#tailwind-package-setup)
 and choose the matching React or Solid Tailwind package or registry.
 
-## Add your framework to Astro
-
-Run the command for the runtime used by your components:
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-```bash
-npx astro add react
-```
-
-This installs and configures `@astrojs/react`.
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-```bash
-npx astro add solid
-```
-
-This installs and configures `@astrojs/solid-js`.
-
-  </Tab>
-</Tabs>
-
-## Install moduix
+## Install as a package
 
 Install the framework-native package and its Ark UI peer dependency:
 
@@ -50,7 +25,7 @@ Install the framework-native package and its Ark UI peer dependency:
   </Tab>
   <Tab label="Solid" value="solid">
 
-<PackageManagerTabs command="install @moduix/solid @ark-ui/solid solid-js" />
+<PackageManagerTabs command="install @moduix/solid @ark-ui/solid" />
 
   </Tab>
 </Tabs>

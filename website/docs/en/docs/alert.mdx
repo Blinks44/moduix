@@ -331,12 +331,13 @@ dismissal state in the component that renders the alert when a local alert shoul
 
 ## Styling
 
-Use `className` or `class` on the root or its parts for local styles. Override `--moduix-alert-*`
-variables on the root when the alert needs a local theme.
+Use `className` or `class` on the root or its parts for local styles. Tailwind variants use native
+utilities and consumer classes. In the CSS Modules variants, override `--moduix-alert-*` variables
+on the root when the alert needs a local theme.
 
-The component-wide `--moduix-alert-bg`, `--moduix-alert-border-color`, `--moduix-alert-color`, and
-`--moduix-alert-indicator-color` variables apply to every status. Use the matching
-`--moduix-alert-<status>-*` variables when only one status should change.
+In CSS Modules, the component-wide `--moduix-alert-bg`, `--moduix-alert-border-color`,
+`--moduix-alert-color`, and `--moduix-alert-indicator-color` variables apply to every status. Use
+the matching `--moduix-alert-<status>-*` variables when only one status should change.
 
 Built-in statuses also read shared palette tokens:
 

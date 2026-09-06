@@ -30,11 +30,17 @@ truth. The React implementation defines the established public product contract;
 implementation defines native Solid mechanics. Do not change either CSS Modules package merely to
 make the Tailwind port easier unless the task exposes a real shared bug.
 
+Parity means the same public component API, anatomy, behavior, states, accessibility, and visual
+defaults. It does not mean copying the CSS Modules customization mechanism into Tailwind. CSS
+Modules may expose detailed `--moduix-<component>-*` variables, while Tailwind consumers customize
+the copied or imported component through utilities and `className`/`class`.
+
 Before writing code, check the component in both CSS Modules packages and inventory:
 
 - parts, exports, props, defaults, callbacks, refs, contexts, providers, DOM and accessibility;
 - its CSS Module selectors, tokens, public variables, states, responsive rules, animation, and
-  reduced-motion behavior;
+  reduced-motion behavior; classify variables as visual inputs rather than automatically carrying
+  them into the Tailwind API;
 - the React and Solid tests and their assertion parity;
 - both CSS Modules playground stories and every exported scenario;
 - internal icons, helpers, component dependencies, package exports, and registry dependencies.
@@ -56,9 +62,8 @@ Create the same component directory and re-export-only `index.ts` in both Tailwi
   strings; never construct utility names from fragments.
 - Merge defaults with the package-local `cn` helper and pass the consumer `className` or `class`
   last so `tailwind-merge` can resolve conflicts in the consumer's favor.
-- Reuse already-published foundation tokens, styles, keyframes, and framework-local icons. Add a
-  shared foundation primitive only when the CSS Modules contract already requires it or both
-  Tailwind runtimes genuinely need it.
+- Reuse the foundation's Tailwind semantic theme utilities, shared keyframes, and framework-local
+  icons. Add a shared foundation primitive only when both Tailwind runtimes genuinely need it.
 
 ## Translate styles semantically
 
@@ -69,12 +74,23 @@ Account for every meaningful CSS Module rule instead of converting only the rest
   states;
 - nested parts, SVG sizing, responsive behavior, animations, hidden/presence handling, and reduced
   motion;
-- public `--moduix-*` variables with the same fallback chain and Ark measurement variables.
+- Ark measurement and positioning variables required by the primitive.
 
-Prefer named utilities and CSS-variable-backed arbitrary values. Keep the React and Solid Tailwind
-class semantics equivalent. Let the shared oxfmt configuration sort class strings; do not add a
-second class-ordering tool. Tailwind Preflight is the reset, so Tailwind variants must never import,
-publish, or registry-install the CSS Modules reset.
+Write Tailwind as Tailwind: prefer familiar utilities such as `gap-3`, `p-3`, `text-sm`,
+`bg-muted`, `border-border`, and state variants. Foundation maps moduix semantic colors and shared
+animations into named Tailwind utilities; use those names instead of embedding token variables in
+arbitrary values. Use an arbitrary value only for a real one-off CSS value, calculation, selector,
+or required Ark runtime variable.
+
+Do not reproduce ordinary CSS Module customization variables for spacing, sizing, typography,
+borders, opacity, or transitions. A rare component variable is justified only when it represents a
+meaningful runtime or component-level concept that utilities cannot express clearly. Internal CSS
+variables may coordinate complex selectors, but they are implementation details, not a mirrored
+public token layer.
+
+Keep the React and Solid Tailwind class semantics equivalent. Let the shared oxfmt configuration
+sort class strings; do not add a second class-ordering tool. Tailwind Preflight is the reset, so
+Tailwind variants must never import, publish, or registry-install the CSS Modules reset.
 
 ## Port behavioral tests
 
@@ -138,8 +154,10 @@ A fresh packed-consumer smoke test is required only when shared package exports,
 foundation delivery, `cn`, or registry infrastructure changes; do not recreate that test for every
 ordinary component.
 
-The port is complete only when both Tailwind packages expose the same public contract as their CSS
-Modules counterparts, both test suites preserve the runtime-specific behavior assertions plus the
-consumer-override assertion, both playgrounds expose the same story scenarios, npm exports build,
-and both shadcn registry items contain only valid framework-native dependencies. Report any missing
-prerequisite or unavoidable Ark runtime difference instead of presenting partial work as complete.
+The port is complete only when both Tailwind packages preserve the CSS Modules components' public
+API, behavior, anatomy, accessibility, states, and visual defaults through a native utility-based
+styling implementation; both test suites preserve the runtime-specific behavior assertions plus
+the consumer-override assertion; both playgrounds expose the same story scenarios; npm exports
+build; and both shadcn registry items contain only valid framework-native dependencies. Report any
+missing prerequisite or unavoidable Ark runtime difference instead of presenting partial work as
+complete.

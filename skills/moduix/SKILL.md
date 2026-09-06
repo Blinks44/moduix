@@ -1,56 +1,96 @@
 ---
 name: moduix
-description: Build or modify applications with moduix components and recipes. Use when adding, composing, installing, updating, or reviewing moduix UI; preserve the project's package-managed or copy-owned ownership model.
+description: Build or modify React and Solid applications with moduix CSS Modules or Tailwind components. Use when discovering, installing, composing, updating, or reviewing package-managed or shadcn copy-owned moduix UI.
 ---
 
 # moduix
 
-Build from the public moduix docs. Preserve the project's ownership model and keep Ark composition
-explicit. The Skills CLI installs this guide for AI agents; the shadcn registry is a separate
-distribution channel for component source files. Do not choose package-managed or copy-owned
-installation for the user.
+Use the public moduix documentation as the source of truth. Preserve the project's framework,
+styling track, and ownership model. Do not migrate between React and Solid, CSS Modules and
+Tailwind, or package-managed and copy-owned code unless the user asks.
 
-## Inspect the project
+## Identify the project setup
 
-1. Read existing moduix imports and look for `components.json`.
-2. For package-managed code, use the import path documented for each component, usually
-   `@moduix/react/<component>`, and load `@moduix/react/style.css` once in the application entry
-   point.
-3. For copy-owned code, use the project's package runner to run
-   `shadcn@latest info --json`. Confirm the registry matching the application's runtime
-   (`@moduix-react` or `@moduix-solid`), aliases, installed items, and resolved paths before
-   changing files.
-4. If neither model is established, ask the user which ownership model to use. Do not initialize
-   shadcn only to use package-managed moduix.
+Inspect the package manager, existing imports, application stylesheet, and `components.json` before
+changing code. Select the matching package or registry:
 
-## Discover before generating
+| Runtime        | CSS Modules     | Tailwind CSS v4          |
+| -------------- | --------------- | ------------------------ |
+| React package  | `@moduix/react` | `@moduix/react-tailwind` |
+| Solid package  | `@moduix/solid` | `@moduix/solid-tailwind` |
+| React registry | `@moduix-react` | `@moduix-react-tailwind` |
+| Solid registry | `@moduix-solid` | `@moduix-solid-tailwind` |
 
-Read [references/discovery.md](references/discovery.md) for the docs, registry, and recipe lookup
-paths.
+Assume the application is already configured for its framework. For a Tailwind track, also confirm
+that Tailwind CSS v4 is already configured. Do not scaffold a framework, install Tailwind, or
+initialize shadcn only to use a package. If no ownership model is established, ask the user to
+choose between package-managed and copy-owned components.
 
-1. Read the canonical moduix documentation page for the component, recipe, or guide.
-2. For copy-owned work, use the project's package runner with
-   `shadcn@latest search @moduix-<framework> --query "<product need>"` and
-   `shadcn@latest view @moduix-<framework>/<item>` before adding an item. Select `react` or
-   `solid` to match the application runtime. Search for the interface or workflow; moduix registry
-   items include components, themes, and shared support items. Recipes are documentation and are
-   not registry items.
-3. Use the configured shadcn MCP server for discovery when available; otherwise use the CLI. Do not
-   initialize MCP or change an AI client's configuration unless the user asks. The consumer setup is
-   documented at `https://moduix.dev/docs/ai.md`.
-4. Prefer documented components and recipes to custom markup when they fit the product need. For a
-   recipe, install the registry components it names and connect the application-owned behavior
-   yourself.
+## Discover before installing
+
+Read [references/discovery.md](references/discovery.md), then:
+
+1. Read the canonical moduix page for the component, recipe, or setup task.
+2. Confirm that the component exists in the selected package or registry. The CSS Modules and
+   Tailwind catalogues may differ while components are being ported.
+3. Prefer a documented component or recipe to custom UI when it fits. Recipes are documentation,
+   not registry items; install their listed components and keep application behavior in the app.
+
+## Use package-managed components
+
+1. Use the project's package manager and the install command from the current Quick start. Do not
+   reinstall React or Solid in an initialized application.
+2. Import components from package subpaths such as `@moduix/react/accordion` or
+   `@moduix/solid-tailwind/accordion`.
+3. For CSS Modules, import the matching package's `style.css` once. Component imports carry their
+   own scoped CSS. The package `reset.css` is optional and, when selected, must come before
+   `style.css`.
+4. For Tailwind, import the matching package's `style.css` before `tailwindcss`, then add an
+   explicit `@source` limited to that package's `dist/components` directory. Resolve the path from
+   the application stylesheet. Tailwind Preflight is the reset; do not import the CSS Modules
+   reset.
+
+```css
+@import '@moduix/react-tailwind/style.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/react-tailwind/dist/components';
+```
+
+Replace `react-tailwind` with `solid-tailwind` for Solid.
+
+## Use copy-owned components
+
+1. Run `shadcn@latest info --json` with the project's package runner. Confirm the matching registry
+   namespace, aliases, installed items, and resolved file paths.
+2. Run `shadcn@latest search <namespace> --query "<product need>"` and
+   `shadcn@latest view <namespace>/<item>` before adding an item. Prefer the configured shadcn MCP
+   server for discovery when available, but do not configure an AI client unless asked.
+3. Run `shadcn@latest add <namespace>/<item> --dry-run`, inspect the result, then add it normally.
+   The registry installs the component's declared files, utilities, and dependencies; do not
+   recreate them manually.
+4. Keep the generated foundation stylesheet imported once. For CSS Modules, import
+   `@/lib/moduix/styles/style.css`; the registry reset is a separate optional item. For Tailwind,
+   import the generated foundation before `tailwindcss`. Copied Tailwind components need no package
+   `@source` directive because their source is inside the application.
+
+```css
+@import './lib/moduix/styles/style.css';
+@import 'tailwindcss';
+```
+
+Before updating a copied item, run `shadcn@latest add <namespace>/<item> --diff`. Read existing
+files and preserve local changes. Never use `--overwrite` without explicit user approval.
 
 ## Build and review
 
-1. Follow the documented Ark-shaped part tree, callback detail objects, context hooks, form
-   behavior, and accessibility contract. Do not invent shadcn-like aliases.
-2. Keep package imports and copy-owned imports separate. Preserve the required stylesheet for the
-   selected model.
-3. Read existing copy-owned files before editing them. Do not overwrite local customizations without
-   the user's direction.
-4. Before adding a copy-owned registry item, use `shadcn@latest add <item> --dry-run`. Before
-   updating an installed item, use `shadcn@latest add <item> --diff [path]`. Never use
-   `--overwrite` without explicit approval.
-5. Validate the consumer project with its normal typecheck, tests, and accessibility checks.
+- Preserve the documented Ark-shaped part tree, callback detail objects, context hooks, form
+  behavior, and accessibility contract.
+- Use native framework patterns. Do not translate React-only composition directly into Solid or
+  invent shadcn-style aliases that moduix does not export.
+- Keep package imports and copy-owned imports separate.
+- Customize CSS Modules through documented variables, classes, slots, and state attributes.
+  Customize Tailwind components with consumer utilities; avoid recreating component-specific
+  moduix variable systems.
+- Validate with the consumer project's normal formatter, typecheck, tests, build, and relevant
+  accessibility checks.

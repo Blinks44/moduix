@@ -271,5 +271,5 @@ test('lets consumer Tailwind classes override conflicting defaults', () => {
 
   const body = screen.getByText('First content');
   expect(body).toHaveClass('p-0');
-  expect(body.className).not.toContain('p-[var(--moduix-accordion-item-body-padding');
+  expect(body).not.toHaveClass('p-3');
 });

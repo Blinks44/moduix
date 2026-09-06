@@ -5,8 +5,8 @@ description: Set up moduix in a Vite React or Solid app as a package or through 
 
 # Vite
 
-This guide assumes an app created from Vite's React, React + TypeScript, Solid, or Solid + TypeScript
-template. If you are starting from scratch, create the app with Vite and choose the matching runtime.
+This guide assumes an existing app created from Vite's React, React + TypeScript, Solid, or Solid +
+TypeScript template.
 
 The examples below use the CSS Modules packages, which contain the full component catalog. For a
 component available in the Tailwind track, follow the [Tailwind package setup](/docs/quick-start#tailwind-package-setup)
@@ -34,7 +34,7 @@ export function App() {
   </Tab>
   <Tab label="Solid" value="solid">
 
-<PackageManagerTabs command="install @moduix/solid @ark-ui/solid solid-js" />
+<PackageManagerTabs command="install @moduix/solid @ark-ui/solid" />
 
 ```tsx title="src/index.tsx"
 import '@moduix/solid/style.css';

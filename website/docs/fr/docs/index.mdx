@@ -58,6 +58,20 @@ Les paquets React et Solid fondés sur des CSS Modules contiennent le catalogue 
 Tailwind s’enrichissent composant par composant ; vérifiez la page du composant avant de les choisir.
 Le [Démarrage rapide](/docs/quick-start) explique la configuration complète de chaque approche.
 
+## Versions prises en charge
+
+Les plages déclarées dans `peerDependencies` définissent les versions prises en charge :
+
+| Technologie | Versions prises en charge | Utilisée par |
+| ----------- | ------------------------- | ----------- |
+| React et React DOM | 18 et 19 | `@moduix/react`, `@moduix/react-tailwind` |
+| Solid | 1.9 et versions 1.x ultérieures | `@moduix/solid`, `@moduix/solid-tailwind` |
+| Tailwind CSS | 4.x | Paquets et registres Tailwind uniquement |
+| Ark UI | `^5.37.2` | Le paquet React ou Solid correspondant |
+
+Votre gestionnaire de paquets vérifie ces plages à l’installation. Les paquets CSS Modules ne
+requièrent pas Tailwind CSS.
+
 <OwnershipLayers />
 
 ## Ce que signifie « basé sur Ark »
@@ -90,9 +104,9 @@ Les paquets complets pour React et Solid utilisent des CSS Modules : des fichier
 les noms de classe sont isolés localement. Le paquet npm fournit les styles avec chaque point
 d’entrée, tandis que le registre copie les mêmes sources et fichiers `.module.css` dans votre dépôt.
 
-Les paquets Tailwind expriment le même contrat visuel avec des classes utilitaires et utilisent
-Preflight à la place du reset optionnel de moduix. Les deux modes partagent les mêmes tokens,
-préréglages, animations et comportements :
+Les paquets Tailwind expriment les mêmes valeurs visuelles par défaut avec des classes utilitaires
+et utilisent Preflight à la place du reset optionnel de moduix. Les deux modes partagent les couleurs
+sémantiques de base, certains tokens globaux, les animations et le comportement des composants :
 
 - importez `style.css` une seule fois pour charger les tokens partagés et les styles de base ;
 - utilisez `className` avec React ou `class` avec Solid sur la racine et les parties nommées ;
@@ -109,11 +123,13 @@ Dans l’échelle standard, les principaux contrôles font `36px` de haut et les
 Cette échelle repose sur `--moduix-size-md` et `--moduix-size-sm`. Les champs de saisie, les boutons, les déclencheurs
 Select et Combobox, les contrôles de date, la pagination, les éléments de menu et les composants associés la partagent.
 
-Les couleurs, l’espacement, les rayons, la typographie, les anneaux de focus, les animations, les ombres et les choix
-propres aux composants sont définis par des propriétés CSS personnalisées. Remplacez un token sémantique pour modifier
-tout le système, un token de famille partagé pour ajuster les composants liés, ou une variable `--<component>-*` pour
-une exception locale. Consultez [Tokens](/docs/tokens) pour la hiérarchie complète et [Thèmes](/docs/themes) pour des
-préréglages prêts à l’emploi.
+Dans les paquets CSS Modules, les couleurs, l’espacement, les rayons, la typographie, les anneaux de
+focus, les animations, les ombres et les choix propres aux composants sont définis par des propriétés
+CSS personnalisées. Remplacez un token sémantique pour modifier tout le système, un token de famille
+partagé pour ajuster les composants liés, ou une variable `--<component>-*` pour une exception locale.
+Les variantes Tailwind utilisent des utilitaires sémantiques et les classes fournies par
+l’application au lieu de reproduire cette API de variables. Consultez [Tokens](/docs/tokens) pour la
+hiérarchie complète et [Thèmes](/docs/themes) pour des préréglages prêts à l’emploi.
 
 ## Par où commencer
 

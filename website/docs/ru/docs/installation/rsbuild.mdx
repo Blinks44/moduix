@@ -6,43 +6,11 @@ description: Подключение moduix к приложениям Rsbuild н�
 # Rsbuild
 
 В примерах ниже используются пакеты с CSS Modules, в которых доступен полный каталог компонентов.
-Для компонентов на Tailwind выполните [настройку Tailwind-пакета](/docs/quick-start#настройте-tailwind-пакет)
+Для компонентов на Tailwind выполните [настройку Tailwind-пакета](/docs/quick-start#tailwind-css)
 и выберите пакет или реестр для React либо Solid.
 
 В этом руководстве предполагается, что приложение Rsbuild уже настроено для React или Solid. Rsbuild
 сам учитывает алиасы из TypeScript, поэтому для shadcn не нужно повторять `resolve.alias`.
-
-## Настройте фреймворк
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-Используйте приложение Rsbuild на React, настроенное с помощью `@rsbuild/plugin-react`.
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-Официальная интеграция Solid для Rsbuild использует плагины Solid и Babel:
-
-<PackageManagerTabs command="install -D @rsbuild/plugin-solid @rsbuild/plugin-babel" />
-
-```ts title="rsbuild.config.ts"
-import { pluginBabel } from '@rsbuild/plugin-babel';
-import { pluginSolid } from '@rsbuild/plugin-solid';
-import { defineConfig } from '@rsbuild/core';
-
-export default defineConfig({
-  plugins: [
-    pluginBabel({
-      include: /\.(?:jsx|tsx)$/,
-    }),
-    pluginSolid(),
-  ],
-});
-```
-
-  </Tab>
-</Tabs>
 
 ## Установите пакет
 
@@ -66,7 +34,7 @@ export function App() {
   </Tab>
   <Tab label="Solid" value="solid">
 
-<PackageManagerTabs command="install @moduix/solid @ark-ui/solid solid-js" />
+<PackageManagerTabs command="install @moduix/solid @ark-ui/solid" />
 
 ```tsx title="src/index.tsx"
 import '@moduix/solid/style.css';

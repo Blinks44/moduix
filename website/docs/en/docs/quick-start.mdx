@@ -18,6 +18,9 @@ moduix supports two equivalent ways to use it in an application:
 Both workflows use the same framework-native implementations, Ark-aligned contracts, and token
 system. Choose based on where you want the source to live and how you plan to update it.
 
+Start from an existing React or Solid application. If you choose a Tailwind package or registry,
+the application must already be configured with Tailwind CSS v4.
+
 ## Choose an installation method
 
 <Cards>
@@ -62,7 +65,17 @@ both React and Solid; SolidStart has its own guide, while Next.js and React Rout
 Use this path when you want moduix to stay in `node_modules` and receive updates through normal
 package management.
 
-### 1. Install the package
+Choose the styling track your application uses. Both tabs cover the complete setup.
+
+<Tabs groupId="styling">
+  <Tab label="CSS Modules" value="css-modules">
+
+### CSS Modules package setup
+
+Choose this track when you want component styles to ship with the package and do not want Tailwind
+as a dependency.
+
+#### 1. Install the package
 
 The components, CSS, and design tokens are shipped together. Install moduix and the listed
 dependencies for your runtime:
@@ -75,7 +88,7 @@ dependencies for your runtime:
   </Tab>
   <Tab label="Solid" value="solid">
 
-<PackageManagerTabs command="install @moduix/solid @ark-ui/solid solid-js" />
+<PackageManagerTabs command="install @moduix/solid @ark-ui/solid" />
 
   </Tab>
 </Tabs>
@@ -83,7 +96,7 @@ dependencies for your runtime:
 The framework runtime and matching Ark UI package stay in your application bundle, so moduix does
 not ship duplicate framework or primitive runtimes.
 
-### 2. Add styles
+#### 2. Add styles
 
 Import the required foundation stylesheet once in your application entry point:
 
@@ -137,93 +150,36 @@ the consuming bundle.
 For a curated visual starting point, import one optional preset after `style.css`; see
 [Themes](/docs/themes).
 
-### 3. Use a component
+  </Tab>
+  <Tab label="Tailwind CSS" value="tailwind">
 
-Import each component from its framework package subpath:
+### Tailwind package setup
+
+Choose this track when your application already uses Tailwind CSS v4 and you want component styles
+to remain visible as utilities. Tailwind Preflight supplies the reset.
+
+#### 1. Install the package
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
 
-```tsx
-import { Button } from '@moduix/react/button';
-import { Dialog } from '@moduix/react/dialog';
-
-export function Example() {
-  return (
-    <Dialog>
-      <Dialog.Trigger asChild>
-        <Button>Open dialog</Button>
-      </Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Header>
-            <Dialog.Title>Project settings</Dialog.Title>
-            <Dialog.Description>Review the settings for this project.</Dialog.Description>
-          </Dialog.Header>
-          <Dialog.Footer>
-            <Dialog.CloseTrigger asChild>
-              <Button variant="outline">Close</Button>
-            </Dialog.CloseTrigger>
-          </Dialog.Footer>
-        </Dialog.Content>
-      </Dialog.Positioner>
-    </Dialog>
-  );
-}
-```
+<PackageManagerTabs command="install @moduix/react-tailwind @ark-ui/react" />
 
   </Tab>
   <Tab label="Solid" value="solid">
 
-```tsx
-import { Button } from '@moduix/solid/button';
-import { Dialog } from '@moduix/solid/dialog';
-
-export function Example() {
-  return (
-    <Dialog>
-      <Dialog.Trigger
-        asChild={(triggerProps) => <Button {...triggerProps()}>Open dialog</Button>}
-      />
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Header>
-            <Dialog.Title>Project settings</Dialog.Title>
-            <Dialog.Description>Review the settings for this project.</Dialog.Description>
-          </Dialog.Header>
-          <Dialog.Footer>
-            <Dialog.CloseTrigger
-              asChild={(triggerProps) => (
-                <Button {...triggerProps()} variant="outline">
-                  Close
-                </Button>
-              )}
-            />
-          </Dialog.Footer>
-        </Dialog.Content>
-      </Dialog.Positioner>
-    </Dialog>
-  );
-}
-```
+<PackageManagerTabs command="install @moduix/solid-tailwind @ark-ui/solid" />
 
   </Tab>
 </Tabs>
 
-The setup is working when the button uses moduix styles, opens the dialog from keyboard and pointer
-input, and focus returns to the button after the dialog closes.
+#### 2. Add styles
 
-### Tailwind package setup
-
-Use the Tailwind package only for components already available in that track. It requires Tailwind
-CSS v4 and uses Preflight instead of the optional moduix reset.
+Import the generated foundation before Tailwind and point `@source` at the package's component
+directory:
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
-
-<PackageManagerTabs command="install @moduix/react-tailwind @ark-ui/react tailwindcss" />
 
 ```css title="styles.css"
 @import '@moduix/react-tailwind/style.css';
@@ -235,8 +191,6 @@ CSS v4 and uses Preflight instead of the optional moduix reset.
   </Tab>
   <Tab label="Solid" value="solid">
 
-<PackageManagerTabs command="install @moduix/solid-tailwind @ark-ui/solid solid-js tailwindcss" />
-
 ```css title="styles.css"
 @import '@moduix/solid-tailwind/style.css';
 @import 'tailwindcss';
@@ -247,8 +201,114 @@ CSS v4 and uses Preflight instead of the optional moduix reset.
   </Tab>
 </Tabs>
 
-Resolve `@source` relative to your stylesheet and keep it limited to the package's
-`dist/components` directory.
+Resolve `@source` relative to this stylesheet and keep it limited to `dist/components`. Do not add
+the moduix reset: Tailwind Preflight already provides it.
+
+  </Tab>
+</Tabs>
+
+### 3. Use a component
+
+Accordion is available in all four packages, so it is a useful first check for either styling
+track:
+
+<Tabs groupId="styling">
+  <Tab label="CSS Modules" value="css-modules">
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+```tsx
+import { Accordion } from '@moduix/react/accordion';
+
+export function Example() {
+  return (
+    <Accordion defaultValue={['first']}>
+      <Accordion.Item value="first">
+        <Accordion.ItemTrigger>What is moduix?</Accordion.ItemTrigger>
+        <Accordion.ItemContent>
+          <Accordion.ItemBody>A framework-native component library built on Ark UI.</Accordion.ItemBody>
+        </Accordion.ItemContent>
+      </Accordion.Item>
+    </Accordion>
+  );
+}
+```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+```tsx
+import { Accordion } from '@moduix/solid/accordion';
+
+export function Example() {
+  return (
+    <Accordion defaultValue={['first']}>
+      <Accordion.Item value="first">
+        <Accordion.ItemTrigger>What is moduix?</Accordion.ItemTrigger>
+        <Accordion.ItemContent>
+          <Accordion.ItemBody>A framework-native component library built on Ark UI.</Accordion.ItemBody>
+        </Accordion.ItemContent>
+      </Accordion.Item>
+    </Accordion>
+  );
+}
+```
+
+  </Tab>
+</Tabs>
+
+  </Tab>
+  <Tab label="Tailwind CSS" value="tailwind">
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+```tsx
+import { Accordion } from '@moduix/react-tailwind/accordion';
+
+export function Example() {
+  return (
+    <Accordion defaultValue={['first']}>
+      <Accordion.Item value="first">
+        <Accordion.ItemTrigger>What is moduix?</Accordion.ItemTrigger>
+        <Accordion.ItemContent>
+          <Accordion.ItemBody>A framework-native component library built on Ark UI.</Accordion.ItemBody>
+        </Accordion.ItemContent>
+      </Accordion.Item>
+    </Accordion>
+  );
+}
+```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+```tsx
+import { Accordion } from '@moduix/solid-tailwind/accordion';
+
+export function Example() {
+  return (
+    <Accordion defaultValue={['first']}>
+      <Accordion.Item value="first">
+        <Accordion.ItemTrigger>What is moduix?</Accordion.ItemTrigger>
+        <Accordion.ItemContent>
+          <Accordion.ItemBody>A framework-native component library built on Ark UI.</Accordion.ItemBody>
+        </Accordion.ItemContent>
+      </Accordion.Item>
+    </Accordion>
+  );
+}
+```
+
+  </Tab>
+</Tabs>
+
+  </Tab>
+</Tabs>
+
+The setup is working when the trigger uses moduix styles and the panel opens with both keyboard and
+pointer input.
 
 ## Install with the shadcn CLI
 
@@ -299,67 +359,46 @@ This gives the `shadcn` CLI the aliases and registry URL it needs to place gener
 source tree instead of a literal `@` directory. Your [framework setup](#choose-your-framework)
 shows whether the same alias also belongs in the bundler config and which source root to use.
 
-### 2. Inspect a registry item
+### 2. Add a component
 
-Before writing source files, inspect the current configuration and registry item:
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-```bash
-npx shadcn@latest info --json
-npx shadcn@latest search @moduix-react --query "dialog"
-npx shadcn@latest view @moduix-react/dialog
-npx shadcn@latest add @moduix-react/dialog --dry-run
-```
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-```bash
-npx shadcn@latest info --json
-npx shadcn@latest search @moduix-solid --query "dialog"
-npx shadcn@latest view @moduix-solid/dialog
-npx shadcn@latest add @moduix-solid/dialog --dry-run
-```
-
-  </Tab>
-</Tabs>
-
-Search by the interface you need rather than a familiar library name. The registry contains
-components, themes, and their declared dependencies. See the [AI guide](/docs/ai) to use
-the same discovery flow through shadcn MCP.
-
-### 3. Add a component
-
-Add registry items from the moduix registry:
+Choose the command that matches both your runtime and styling track. The CLI installs the selected
+component together with its foundation and declared dependencies.
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
 
-<PackageManagerTabs command="shadcn@latest add @moduix-react/button" dlx />
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/accordion' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/accordion' },
+  ]}
+/>
 
   </Tab>
   <Tab label="Solid" value="solid">
 
-<PackageManagerTabs command="shadcn@latest add @moduix-solid/button" dlx />
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/accordion' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/accordion' },
+  ]}
+/>
 
   </Tab>
 </Tabs>
 
-Run the same command with another registry item name, such as `accordion`, under the selected
-namespace to add more components.
-
-For a component available in the Tailwind track, use `@moduix-react-tailwind/<name>` or
-`@moduix-solid-tailwind/<name>` instead. The CLI also installs the local `cn` helper and its declared
-dependencies.
+Run the same command with another item name under the selected namespace to add more components.
+Tailwind registries currently contain only components that have completed the Tailwind port.
 
 The registry installs only the shared runtime files each component needs. It does not add a global
 font, so typography continues to inherit from your application.
 
-### 4. Import generated styles
+### 3. Import generated styles
 
-Import the generated foundation stylesheet from the files that `shadcn` added to your project:
+Import the generated foundation using the setup for your styling track:
+
+<Tabs groupId="styling">
+  <Tab label="CSS Modules" value="css-modules">
 
 ```tsx
 import '@/lib/moduix/styles/style.css';
@@ -391,19 +430,25 @@ import '@/lib/moduix/styles/reset.css';
 import '@/lib/moduix/styles/style.css';
 ```
 
-The examples below assume `@/components` and `@/lib`. If your project uses different aliases,
-update `components.json` and import the generated files from the matching paths.
+  </Tab>
+  <Tab label="Tailwind CSS" value="tailwind">
 
-For a Tailwind registry installation, load the same generated foundation before Tailwind instead:
+Load the generated foundation before Tailwind in your application stylesheet:
 
 ```css title="styles.css"
 @import './lib/moduix/styles/style.css';
 @import 'tailwindcss';
 ```
 
-Tailwind Preflight supplies the reset for that track; do not install or import the moduix reset.
+Tailwind Preflight supplies the reset for this track; do not install or import the moduix reset.
 
-### 5. Use the generated component
+  </Tab>
+</Tabs>
+
+The examples below assume `@/components` and `@/lib`. If your project uses different aliases,
+update `components.json` and import the generated files from the matching paths.
+
+### 4. Use the generated component
 
 Import components from the generated files in your own project:
 
@@ -456,14 +501,14 @@ moduix works with the styling approach your project already uses:
 - Tailwind CSS utility classes for layout and one-off styling.
 - CSS-in-JS libraries that attach classes or pass scoped styles through your own wrappers.
 
-In the default density, primary controls use `--moduix-size-md: 36px` and popup rows use
-`--moduix-size-sm: 32px`. Because components consume the shared scale, changing those tokens updates
-related inputs, triggers, buttons, and menu-like items together.
+In the CSS Modules track, the default density uses `--moduix-size-md: 36px` for primary controls and
+`--moduix-size-sm: 32px` for popup rows. Changing those tokens updates related components together.
+Tailwind variants express their sizing with utilities and can be adjusted with consumer classes.
 
-Component pages list their public CSS variables and styling hooks. Use shared semantic tokens for
-system-wide changes and component variables only for deliberate exceptions. See
-[Tokens](/docs/tokens) for the complete hierarchy and [Animations](/docs/animations) for motion
-recipes.
+Component pages list shared styling hooks and the public variables available to CSS Modules.
+Tailwind variants use semantic utilities and consumer classes instead of reproducing those
+component variables. See [Tokens](/docs/tokens) for the complete hierarchy and
+[Animations](/docs/animations) for motion recipes.
 
 ## Troubleshooting
 

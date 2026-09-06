@@ -25,7 +25,7 @@ Use this skill for CSS, CSS Modules, and styling work in this repo.
   child selectors, and media queries near the rule they modify.
 - Prefer Ark `data-*` hooks and local class names over deep or structure-dependent selector chains.
 - If a selector is difficult to explain in one sentence, simplify it.
-- Use design tokens and public CSS variables instead of hardcoded one-off values when a token already exists.
+- In CSS Modules, use design tokens and public CSS variables instead of hardcoded one-off values when a token already exists.
 - Keep component CSS and demo CSS separate. Library styling belongs in its package; demo-only layout belongs in stories or docs examples.
 - When a component exists in several variants, preserve the same visual and state contract. Keep
   React and Solid CSS Modules equivalent, and translate that result into Tailwind utilities for both
@@ -60,7 +60,13 @@ Use this skill for CSS, CSS Modules, and styling work in this repo.
 ## Tailwind Variants
 
 - Use each package's local `cn` helper and put the consumer class last so consumer utilities win conflicts.
-- Prefer named token utilities and CSS-variable-backed arbitrary values over copied literals.
+- Preserve the same API, behavior, states, accessibility, and visual defaults as CSS Modules, but
+  use Tailwind's native customization model rather than mirroring every component CSS variable.
+- Prefer familiar utilities and the foundation's named semantic theme utilities. Use arbitrary
+  values only for genuine one-off values, calculations, selectors, or required runtime variables.
+- Do not add `--moduix-<component>-*` wrappers around ordinary spacing, sizing, typography, border,
+  opacity, or transition utilities. Keep detailed component variables in CSS Modules where they are
+  useful; Tailwind consumers override defaults through `className`/`class` and `tailwind-merge`.
 - Keep Ark state variants next to the base utilities they modify.
 - Tailwind Preflight owns reset behavior; do not combine it with `foundation/src/styles/reset.css`.
 - Let oxfmt sort utility classes. Do not add another formatter or hand-maintained ordering scheme.

@@ -1,12 +1,18 @@
 # @moduix/react-tailwind
 
-Tailwind CSS v4 implementation of moduix React components. The pilot release contains Accordion and preserves the public Ark-shaped API from `@moduix/react/accordion`.
+Tailwind CSS v4 implementation of moduix React components. The current release contains Accordion,
+Alert, and Angle Slider while preserving their public Ark-shaped APIs from `@moduix/react`.
 
 ## Install
 
+In an existing React project configured with Tailwind CSS v4, install the package and its Ark UI
+peer dependency:
+
 ```sh
-pnpm add @moduix/react-tailwind @ark-ui/react react react-dom tailwindcss
+pnpm add @moduix/react-tailwind @ark-ui/react
 ```
+
+`react`, `react-dom`, `tailwindcss`, and `@ark-ui/react` remain peer dependencies.
 
 ## Add styles
 

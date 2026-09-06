@@ -39,10 +39,12 @@ trigger a button.
 
 Before an assistant writes an import or install command, tell it where the moduix code should live:
 
-| Project model              | Tell the assistant to use                                                                    |
-| -------------------------- | -------------------------------------------------------------------------------------------- |
-| Package-managed components | `@moduix/react/*` imports and `@moduix/react/style.css`                                      |
-| Copy-owned components      | The configured `@moduix-react` registry, the project's `components.json`, and its CLI runner |
+| Project model | Tell the assistant to use |
+| --- | --- |
+| Package, CSS Modules | The matching `@moduix/react` or `@moduix/solid` package and its `style.css` |
+| Package, Tailwind | The matching `*-tailwind` package, its `style.css`, and a scoped package `@source` |
+| shadcn, CSS Modules | The matching `@moduix-react` or `@moduix-solid` registry |
+| shadcn, Tailwind | The matching `@moduix-react-tailwind` or `@moduix-solid-tailwind` registry |
 
 For a copy-owned project, the assistant should read the component page and inspect `components.json`
 before adding a registry item. The [Quick start](/docs/quick-start) guide has the complete registry
@@ -60,9 +62,10 @@ Install the moduix Skill from the repository with Skills CLI:
 npx skills add https://github.com/Blinks44/moduix --skill moduix
 ```
 
-Before changing code, the Skill checks existing imports and `components.json`, reads the canonical
-docs, and uses shadcn discovery plus dry-run or diff checks for copy-owned updates. It does not
-choose the ownership model for you. Invoke it as `$moduix` in skill-aware agents.
+Before changing code, the Skill identifies the existing framework, styling track, and ownership
+model from imports, styles, and `components.json`. It reads the canonical docs and uses shadcn
+discovery plus dry-run or diff checks for copy-owned updates. It does not migrate between those
+choices unless you ask. Invoke it as `$moduix` in skill-aware agents.
 
 ## Connect shadcn MCP
 
@@ -71,19 +74,23 @@ server: configure the registry in the consuming project, then connect shadcn to 
 
 ### 1. Configure the registry
 
-Add the moduix registry URL to the consuming project's `components.json`:
+Add the registry namespace that matches the project's framework and styling track to
+`components.json`. These are the available moduix registries:
 
 ```json
 {
   "registries": {
-    "@moduix-react": "https://moduix.dev/r/react/{name}.json"
+    "@moduix-react": "https://moduix.dev/r/react/{name}.json",
+    "@moduix-solid": "https://moduix.dev/r/solid/{name}.json",
+    "@moduix-react-tailwind": "https://moduix.dev/r/react-tailwind/{name}.json",
+    "@moduix-solid-tailwind": "https://moduix.dev/r/solid-tailwind/{name}.json"
   }
 }
 ```
 
-The registry contains components, themes, and shared support items. Recipes remain documentation;
-install the components they list. See [Quick start](/docs/quick-start) for the complete
-`components.json` configuration.
+You only need the namespace for the track you use. Registry items install their declared source,
+styles, utilities, and dependencies. Recipes remain documentation; install the components they
+list. See [Quick start](/docs/quick-start) for the complete `components.json` configuration.
 
 ### 2. Connect the AI client
 
@@ -137,6 +144,8 @@ npx shadcn@latest view @moduix-react/dialog
 npx shadcn@latest add @moduix-react/dialog --dry-run
 ```
 
+Replace `@moduix-react` with the namespace configured for the project's framework and styling track.
+
 For an already-installed item, inspect the generated-file diff before updating it:
 
 ```bash
@@ -151,9 +160,10 @@ model are correct. Do not use `--overwrite` without an explicit decision to repl
 Treat generated code as a draft. Before merging it, check that it:
 
 - uses the documented moduix parts and callback detail objects instead of invented aliases;
-- keeps the correct package or registry ownership model;
+- keeps the correct framework, styling track, and package or registry ownership model;
 - passes your normal typecheck, tests, and accessibility review.
 
 MCP can discover either ownership model, but only copy-owned projects should use registry `add`
-commands. Package-managed projects keep `@moduix/react/*` imports and update through their package
-manager. The [Updating and migration](/docs/updating) guide explains the copy-owned update workflow.
+commands. Package-managed projects keep imports from their selected `@moduix/*` package and update
+through their package manager. The [Updating and migration](/docs/updating) guide explains the
+copy-owned update workflow.
