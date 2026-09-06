@@ -65,6 +65,12 @@
       "import": "./dist/components/aspect-ratio/index.js",
       "default": "./dist/components/aspect-ratio/index.js"
     },
+    "./avatar": {
+      "types": "./dist/components/avatar/index.d.ts",
+      "solid": "./dist/components/avatar/index.jsx",
+      "import": "./dist/components/avatar/index.js",
+      "default": "./dist/components/avatar/index.js"
+    },
     "./style.css": "./dist/styles/style.css",
     "./presets/*": "./dist/presets/*",
     "./package.json": "./package.json"

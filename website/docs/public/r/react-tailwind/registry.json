@@ -148,6 +148,26 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "avatar",
+      "type": "registry:item",
+      "title": "Avatar",
+      "description": "moduix React Tailwind Avatar component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/avatar/Avatar.tsx",
+          "target": "@components/ui/avatar/Avatar.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/avatar/index.ts",
+          "target": "@components/ui/avatar/index.ts",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

@@ -1,7 +1,7 @@
 # @moduix/solid-tailwind
 
 Tailwind CSS v4 implementation of moduix Solid components. The current release contains Accordion,
-Alert, and Angle Slider while preserving their public Ark-shaped APIs from `@moduix/solid`.
+Alert, Angle Slider, and Avatar while preserving their public Ark-shaped APIs from `@moduix/solid`.
 
 ## Install
 
