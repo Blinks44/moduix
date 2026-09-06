@@ -20,7 +20,7 @@ function AlertRoot(props: AlertRootProps) {
       data-slot="alert-root"
       data-status={local.status ?? 'info'}
       class={cn(
-        "box-border grid w-full min-w-0 grid-cols-[auto_minmax(0,1fr)] items-start gap-x-3 gap-y-1 rounded-[var(--moduix-radius-lg)] border border-border bg-card p-3 text-card-foreground data-[status=error]:border-[color-mix(in_oklab,var(--color-destructive)_35%,transparent)] data-[status=error]:bg-[color-mix(in_oklab,var(--color-destructive)_9%,var(--color-background))] data-[status=error]:text-foreground data-[status=success]:border-[color-mix(in_oklab,var(--color-success)_34%,transparent)] data-[status=success]:bg-[color-mix(in_oklab,var(--color-success)_10%,var(--color-background))] data-[status=success]:text-foreground data-[status=warning]:border-[color-mix(in_oklab,var(--color-warning)_38%,transparent)] data-[status=warning]:bg-[color-mix(in_oklab,var(--color-warning)_13%,var(--color-background))] data-[status=warning]:text-foreground [&:not(:has(>[data-part='indicator']))]:grid-cols-[minmax(0,1fr)] [&:not(:has(>[data-part='indicator']))_>[data-part='content']]:[grid-column:1] [&:not(:has(>[data-part='indicator']))_>[data-part='description']]:[grid-column:1] [&:not(:has(>[data-part='indicator']))_>[data-part='title']]:[grid-column:1] [&>[data-part='description']]:[grid-column:2] [&>[data-part='title']]:[grid-column:2] [&[data-status='error']>[data-part='indicator']]:text-destructive [&[data-status='success']>[data-part='indicator']]:text-success [&[data-status='warning']>[data-part='indicator']]:text-warning",
+        'group/alert box-border flex w-full min-w-0 items-start gap-3 rounded-[var(--moduix-radius-lg)] border border-border bg-card p-3 text-card-foreground data-[status=error]:border-destructive/35 data-[status=error]:bg-[color-mix(in_oklab,var(--color-destructive)_9%,var(--color-background))] data-[status=error]:text-foreground data-[status=success]:border-success/34 data-[status=success]:bg-[color-mix(in_oklab,var(--color-success)_10%,var(--color-background))] data-[status=success]:text-foreground data-[status=warning]:border-warning/38 data-[status=warning]:bg-[color-mix(in_oklab,var(--color-warning)_13%,var(--color-background))] data-[status=warning]:text-foreground',
         local.class,
       )}
       {...others}
@@ -38,7 +38,7 @@ function AlertIndicator(props: HTMLArkProps<'span'>) {
       data-slot="alert-indicator"
       aria-hidden="true"
       class={cn(
-        'mt-0.5 inline-flex size-4 shrink-0 items-center justify-center text-muted-foreground [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
+        'mt-0.5 inline-flex size-4 shrink-0 items-center justify-center text-muted-foreground group-data-[status=error]/alert:text-destructive group-data-[status=success]/alert:text-success group-data-[status=warning]/alert:text-warning [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
         local.class,
       )}
       {...others}
@@ -54,7 +54,7 @@ function AlertContent(props: HTMLArkProps<'div'>) {
       data-scope="alert"
       data-part="content"
       data-slot="alert-content"
-      class={cn('grid min-w-0 gap-1', local.class)}
+      class={cn('grid min-w-0 flex-1 gap-1', local.class)}
       {...others}
     />
   );

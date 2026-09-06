@@ -1,6 +1,7 @@
 # Alert (Solid)
 
 `Alert` preserves the React component's compound anatomy, statuses, data hooks, and CSS variables.
+`Alert.Content` is required and owns the title, description, actions, and custom message content.
 
 ## Ark Solid composition
 

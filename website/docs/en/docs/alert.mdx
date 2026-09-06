@@ -48,8 +48,8 @@ Alert ships for React and Solid in both the CSS Modules and Tailwind packages. T
 this page uses the React CSS Modules package; the framework tabs show native source for the same public
 contract.
 
-For a standard inline message, use the short `<Alert>` root form with `Alert.Title` and
-`Alert.Description`. Add `Alert.Indicator` when an icon helps people scan the message.
+For a standard inline message, place `Alert.Title` and `Alert.Description` inside `Alert.Content`.
+Add `Alert.Indicator` when an icon helps people scan the message.
 
 <ExampleFrame variant="component">
   <AlertBasic />
@@ -111,15 +111,13 @@ for shadcn configuration and the shared foundation setup.
 
 ## Anatomy
 
-Use `Alert.Title` and `Alert.Description` directly for a compact message. When an indicator should
-sit beside grouped text and controls, put those elements inside `Alert.Content`.
+Place message content inside `Alert.Content`. `Alert.Indicator` is optional and sits beside that
+content when it helps people scan the message.
 
 ```text
 Alert / Alert.Root
 ├─ Alert.Indicator (optional)
-├─ Alert.Title
-├─ Alert.Description
-└─ Alert.Content (optional)
+└─ Alert.Content
    ├─ Alert.Title
    ├─ Alert.Description
    ├─ Alert.Actions (optional)
@@ -130,7 +128,7 @@ Alert / Alert.Root
 | ---------------------- | ------------------------------------------------------------------ | ------------- |
 | `Alert` / `Alert.Root` | Root element. Applies status styles and automatic live-region semantics. | `root`        |
 | `Alert.Indicator`      | Optional visual cue. Child SVG icons receive a consistent size.   | `indicator`   |
-| `Alert.Content`        | Optional column wrapper for grouped text and actions.              | `content`     |
+| `Alert.Content`        | Required column wrapper for message content and actions.           | `content`     |
 | `Alert.Title`          | Alert title. Renders a `p` by default.                              | `title`       |
 | `Alert.Description`    | Supporting message text.                                           | `description` |
 | `Alert.Actions`        | Optional wrapped row for actions inside `Content`.                 | `actions`     |
@@ -138,9 +136,9 @@ Alert / Alert.Root
 ## Composition
 
 `Alert` is presentational: the component that renders it owns visibility and dismissal state. It does
-not manage focus or keyboard behavior for buttons and links placed inside it. Use `Alert.Content` only
-when the title, description, and controls should share one column beside `Alert.Indicator`; put those
-controls inside `Alert.Actions` when they need the default wrapped action-row styling.
+not manage focus or keyboard behavior for buttons and links placed inside it. `Alert.Content` is
+required and contains the title, description, controls, and other message content. Put controls inside
+`Alert.Actions` when they need the default wrapped action-row styling.
 
 When the title needs a different semantic element, use `Alert.Title asChild` with exactly one semantic
 child. Solid uses Ark's render-function form of `asChild` as shown in the Custom Heading example.

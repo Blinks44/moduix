@@ -8,8 +8,10 @@ const alert = {
 export default function AlertHeadingDemo() {
   return (
     <Alert status="info">
-      <Alert.Title asChild={(titleProps) => <h2 {...titleProps()}>{alert.title}</h2>} />
-      <Alert.Description>{alert.description}</Alert.Description>
+      <Alert.Content>
+        <Alert.Title asChild={(titleProps) => <h2 {...titleProps()}>{alert.title}</h2>} />
+        <Alert.Description>{alert.description}</Alert.Description>
+      </Alert.Content>
     </Alert>
   );
 }

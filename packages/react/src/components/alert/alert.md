@@ -25,12 +25,11 @@ factory and Chakra's Alert part contract.
 
 - Public API is part-first: `Alert.Root`, `Alert.Indicator`, `Alert.Content`, `Alert.Title`,
   `Alert.Description`, and `Alert.Actions`.
-- The callable `Alert` export remains the root part itself. Runnable docs/examples use the short
-  `<Alert>` root form, while anatomy and API notes may still refer to `Alert.Root`.
+- The callable `Alert` export remains the root part itself; anatomy and API notes may still refer to
+  `Alert.Root`.
 - `Alert.Root` defaults `status` to `'info'` and uses the card surface for that default status.
 - `Alert.Root` defaults `role` to `'status'`, and switches to `'alert'` when `status="error"`.
-- `Alert.Content` is optional for the simple title/description path and stays available for grouped
-  text and actions.
+- `Alert.Content` is required and owns the title, description, actions, and custom message content.
 - `Alert.Actions` provides a stylable wrapped action row for buttons or links inside
   `Alert.Content`.
 - `Alert.Title` renders a `p` by default.
@@ -49,9 +48,7 @@ factory and Chakra's Alert part contract.
 ```text
 Alert / Alert.Root
 ├─ Alert.Indicator (optional)
-├─ Alert.Title
-├─ Alert.Description
-└─ Alert.Content (optional)
+└─ Alert.Content
    ├─ Alert.Title
    ├─ Alert.Description
    ├─ Alert.Actions (optional)
@@ -60,14 +57,14 @@ Alert / Alert.Root
 
 Every exported part accepts `className` and receives stable hooks:
 
-| Part                   | `data-part`   | `data-slot`         | Notes                                                           |
-| ---------------------- | ------------- | ------------------- | --------------------------------------------------------------- |
-| `Alert` / `Alert.Root` | `root`        | `alert-root`        | Exposes `data-status` and auto role behavior.                   |
-| `Alert.Indicator`      | `indicator`   | `alert-indicator`   | Defaults to `aria-hidden="true"`.                               |
-| `Alert.Content`        | `content`     | `alert-content`     | Optional content-column wrapper for grouped text and actions.   |
-| `Alert.Title`          | `title`       | `alert-title`       | Renders `p` by default and supports `asChild`.                  |
-| `Alert.Description`    | `description` | `alert-description` | Styled description wrapper with margin resets for child blocks. |
-| `Alert.Actions`        | `actions`     | `alert-actions`     | Optional wrapped action row with default spacing hooks.         |
+| Part                   | `data-part`   | `data-slot`         | Notes                                                            |
+| ---------------------- | ------------- | ------------------- | ---------------------------------------------------------------- |
+| `Alert` / `Alert.Root` | `root`        | `alert-root`        | Exposes `data-status` and auto role behavior.                    |
+| `Alert.Indicator`      | `indicator`   | `alert-indicator`   | Defaults to `aria-hidden="true"`.                                |
+| `Alert.Content`        | `content`     | `alert-content`     | Required content-column wrapper for message content and actions. |
+| `Alert.Title`          | `title`       | `alert-title`       | Renders `p` by default and supports `asChild`.                   |
+| `Alert.Description`    | `description` | `alert-description` | Styled description wrapper with margin resets for child blocks.  |
+| `Alert.Actions`        | `actions`     | `alert-actions`     | Optional wrapped action row with default spacing hooks.          |
 
 ## Composition
 
@@ -80,16 +77,17 @@ export function AlertDemo() {
       <Alert.Indicator>
         <InfoIcon />
       </Alert.Indicator>
-      <Alert.Title>Storage is almost full</Alert.Title>
-      <Alert.Description>Archive old uploads or upgrade the plan.</Alert.Description>
+      <Alert.Content>
+        <Alert.Title>Storage is almost full</Alert.Title>
+        <Alert.Description>Archive old uploads or upgrade the plan.</Alert.Description>
+      </Alert.Content>
     </Alert>
   );
 }
 ```
 
-Use `Alert.Content` when title, description, and extra controls should stay grouped in one content
-column beside the indicator. Use `Alert.Actions` when buttons or links should share the default
-wrapped action-row layout. Use `asChild` on `Alert.Title` when the document outline needs a
+Place all message content inside `Alert.Content`. Use `Alert.Actions` when buttons or links should
+share the default wrapped action-row layout. Use `asChild` on `Alert.Title` when the document outline needs a
 different heading element:
 
 ```tsx
@@ -206,15 +204,15 @@ changing the others, or a component-wide variable when every status should share
   for the parts.
 - moduix keeps one visual recipe instead of Chakra's `variant`, `size`, and palette props.
 - moduix introduces the focused `status` API and automatic role defaulting for that status.
-- `Alert.Content` is optional for the simple title/description path and remains the grouping surface
-  for actions and dismiss controls; no action slot or close state is built into the component.
+- `Alert.Content` is required and remains the grouping surface for actions and dismiss controls; no
+  action slot or close state is built into the component.
 - `Alert.Actions` is narrow sugar for the common wrapped action row. It does not inject buttons,
   dismissal logic, positioning, or hidden layout behavior outside its own container.
 
 ## Agent notes
 
-- Use the short `<Alert>` root form in runnable examples; keep `Alert.Root` for anatomy and API
-  explanations.
+- Use `Alert.Content` for all message content in runnable examples; keep `Alert.Root` for anatomy
+  and API explanations.
 - Do not add local dismiss, keyboard, or focus behavior to the alert wrapper; compose interactive
   controls inside `Alert.Content`.
 - Keep `Alert.Actions` thin and stylable. Do not grow it into an action API with special button
@@ -222,6 +220,8 @@ changing the others, or a component-wide variable when every status should share
 
 ## Local changelog
 
+- 2026-09-06: Made `Alert.Content` required, simplifying the root layout to a single flex row and
+  removing support for direct title and description children.
 - 2026-08-14: Consolidated statuses on the card-based `info` default shared with Toast and removed
   the redundant `neutral` status and variables.
 - 2026-08-08: Added independent background, border, text, and indicator variables for every status;

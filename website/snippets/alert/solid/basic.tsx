@@ -8,8 +8,10 @@ const alert = {
 export default function AlertDemo() {
   return (
     <Alert>
-      <Alert.Title>{alert.title}</Alert.Title>
-      <Alert.Description>{alert.description}</Alert.Description>
+      <Alert.Content>
+        <Alert.Title>{alert.title}</Alert.Title>
+        <Alert.Description>{alert.description}</Alert.Description>
+      </Alert.Content>
     </Alert>
   );
 }

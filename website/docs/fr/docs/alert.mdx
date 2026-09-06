@@ -67,16 +67,13 @@ les icônes et quelques utilitaires.
 
 ## Anatomie
 
-Pour un message compact, placez `Alert.Title` et `Alert.Description` directement dans l’élément racine.
-Lorsque l’indicateur doit être placé à côté d’un texte et de contrôles regroupés, placez-les dans
-`Alert.Content`.
+Placez le contenu du message dans `Alert.Content`. `Alert.Indicator` est facultatif et se place à
+côté de ce contenu lorsqu’il aide à identifier le message.
 
 ```text
 Alert / Alert.Root
 ├─ Alert.Indicator (optional)
-├─ Alert.Title
-├─ Alert.Description
-└─ Alert.Content (optional)
+└─ Alert.Content
    ├─ Alert.Title
    ├─ Alert.Description
    ├─ Alert.Actions (optional)
@@ -87,7 +84,7 @@ Alert / Alert.Root
 | ---------------------- | --------------------------------------------------------------------- | ------------- |
 | `Alert` / `Alert.Root` | Élément racine. Applique les styles du statut et la sémantique automatique de région dynamique. | `root`        |
 | `Alert.Indicator`      | Repère visuel facultatif. Les icônes SVG qu’il contient ont une taille cohérente. | `indicator`   |
-| `Alert.Content`        | Conteneur en colonne facultatif pour regrouper le texte et les actions. | `content`     |
+| `Alert.Content`        | Conteneur en colonne obligatoire pour le contenu et les actions.   | `content`     |
 | `Alert.Title`          | Titre de l’alerte. Rend un `p` par défaut.                              | `title`       |
 | `Alert.Description`    | Texte complémentaire du message.                                       | `description` |
 | `Alert.Actions`        | Ligne d’actions facultative avec retour à la ligne dans `Content`.     | `actions`     |
@@ -96,19 +93,18 @@ Alert / Alert.Root
 
 ### Composition recommandée
 
-Pour le cas courant d’un message intégré à la page, composez `<Alert>` avec `Alert.Title` et
-`Alert.Description`.
+Pour le cas courant d’un message intégré à la page, placez `Alert.Title` et `Alert.Description`
+dans `Alert.Content`.
 
 Définissez `status` pour choisir le type de message : `info`, `success`, `warning` ou `error`.
 
 Ajoutez `Alert.Indicator` lorsque l’alerte a besoin d’un repère visuel explicite. Les actions restent
-du contenu ordinaire à placer dans `Alert.Content` ; le composant ne crée ni boutons ni slots d’action.
+du contenu ordinaire dans `Alert.Content` ; le composant ne crée ni boutons ni slots d’action.
 
 ### Quand personnaliser la composition
 
-Ajoutez `Alert.Content` lorsque le titre, la description et les contrôles supplémentaires doivent
-rester regroupés dans une même colonne à côté de l’indicateur. Utilisez `Alert.Actions` pour une ligne
-d’actions avec retour à la ligne dans cette colonne. Avec `asChild`, fournissez un seul enfant
+`Alert.Content` est obligatoire : il regroupe le titre, la description et les contrôles supplémentaires.
+Utilisez `Alert.Actions` pour une ligne d’actions avec retour à la ligne dans cette colonne. Avec `asChild`, fournissez un seul enfant
 sémantiquement adapté afin qu’il prenne en charge l’élément DOM rendu.
 
 Si la hiérarchie des titres du document exige un autre élément, utilisez `Alert.Title asChild` :
@@ -134,7 +130,7 @@ Si la hiérarchie des titres du document exige un autre élément, utilisez `Ale
 - `Alert.Indicator` utilise `aria-hidden="true"` par défaut.
 - Gardez le sens essentiel dans le titre ou la description, car l’indicateur est masqué pour les technologies d’assistance.
 - `Alert.Title` rend un `p` par défaut. Utilisez `asChild` d’Ark lorsque le titre doit être rendu avec un autre élément.
-- `Alert.Content` est facultatif. Utilisez-le lorsque le titre, la description et les contrôles supplémentaires doivent partager une même colonne à côté de l’indicateur.
+- `Alert.Content` est obligatoire. Il contient le titre, la description et les contrôles supplémentaires.
 - `Alert.Actions` est facultatif. Utilisez-le lorsque des boutons ou des liens doivent utiliser les styles par défaut de la ligne d’actions avec retour à la ligne.
 - Le composant se limite à l’affichage. Il ne gère ni l’état de fermeture, ni le focus, ni le comportement clavier des actions que vous placez à l’intérieur.
 

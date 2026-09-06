@@ -7,12 +7,16 @@ test('applies status semantics and stable data hooks', () => {
   const { container } = render(
     <>
       <Alert>
-        <Alert.Title>Update available</Alert.Title>
-        <Alert.Description>Install the latest version.</Alert.Description>
+        <Alert.Content>
+          <Alert.Title>Update available</Alert.Title>
+          <Alert.Description>Install the latest version.</Alert.Description>
+        </Alert.Content>
       </Alert>
       <Alert status="error">
         <Alert.Indicator>!</Alert.Indicator>
-        <Alert.Title>Payment failed</Alert.Title>
+        <Alert.Content>
+          <Alert.Title>Payment failed</Alert.Title>
+        </Alert.Content>
       </Alert>
     </>,
   );
@@ -35,9 +39,11 @@ test('preserves semantic children and refs with asChild', () => {
   render(
     <Alert ref={rootRef} asChild>
       <section aria-label="Release notes">
-        <Alert.Title ref={titleRef} asChild>
-          <h2>Update available</h2>
-        </Alert.Title>
+        <Alert.Content>
+          <Alert.Title ref={titleRef} asChild>
+            <h2>Update available</h2>
+          </Alert.Title>
+        </Alert.Content>
       </section>
     </Alert>,
   );

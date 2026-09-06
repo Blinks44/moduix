@@ -12,8 +12,10 @@ export default function AlertStatusesDemo() {
         {(status) => (
           <Alert status={status}>
             <Alert.Indicator>{status === 'success' ? <CheckIcon /> : <InfoIcon />}</Alert.Indicator>
-            <Alert.Title>{status}</Alert.Title>
-            <Alert.Description>Use this alert for {status} feedback.</Alert.Description>
+            <Alert.Content>
+              <Alert.Title>{status}</Alert.Title>
+              <Alert.Description>Use this alert for {status} feedback.</Alert.Description>
+            </Alert.Content>
           </Alert>
         )}
       </For>

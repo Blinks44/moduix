@@ -12,8 +12,10 @@ export default function AlertWithIconDemo() {
       <Alert.Indicator>
         <InfoIcon />
       </Alert.Indicator>
-      <Alert.Title>{alert.title}</Alert.Title>
-      <Alert.Description>{alert.description}</Alert.Description>
+      <Alert.Content>
+        <Alert.Title>{alert.title}</Alert.Title>
+        <Alert.Description>{alert.description}</Alert.Description>
+      </Alert.Content>
     </Alert>
   );
 }

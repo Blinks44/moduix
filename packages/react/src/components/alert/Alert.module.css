@@ -1,13 +1,11 @@
 @layer moduix.components {
   .root {
     box-sizing: border-box;
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
+    display: flex;
     align-items: start;
     width: 100%;
     min-width: 0;
-    row-gap: var(--moduix-alert-content-gap, var(--moduix-spacing-1));
-    column-gap: var(--moduix-alert-gap, var(--moduix-spacing-3));
+    gap: var(--moduix-alert-gap, var(--moduix-spacing-3));
     border: var(--moduix-alert-border-width, var(--moduix-border-width-sm)) solid
       var(
         --moduix-alert-border-color,
@@ -31,11 +29,6 @@
       --moduix-alert-info-indicator-color,
       var(--moduix-color-muted-foreground)
     );
-
-    > [data-part='title'],
-    > [data-part='description'] {
-      grid-column: 2;
-    }
 
     &[data-status='success'] {
       --_alert-bg-default: var(
@@ -84,16 +77,6 @@
         var(--moduix-color-destructive)
       );
     }
-
-    &:not(:has(> [data-part='indicator'])) {
-      grid-template-columns: minmax(0, 1fr);
-
-      > [data-part='content'],
-      > [data-part='title'],
-      > [data-part='description'] {
-        grid-column: 1;
-      }
-    }
   }
 
   .indicator {
@@ -115,6 +98,7 @@
 
   .content {
     display: grid;
+    flex: 1;
     min-width: 0;
     gap: var(--moduix-alert-content-gap, var(--moduix-spacing-1));
   }
