@@ -73,6 +73,67 @@ import { Component } from '@/components/ui/<component>';`}
   );
 }
 
+type ShadcnInstallOption = {
+  label: string;
+  command: string;
+};
+
+function StyleTrackCards({ children }: { children: ReactNode }) {
+  if (import.meta.env.SSG_MD) return children;
+
+  return <div className={styles.styleTrackCards}>{children}</div>;
+}
+
+function StyleTrackCard({ label, children }: { label: string; children: ReactNode }) {
+  if (import.meta.env.SSG_MD) {
+    return (
+      <>
+        {`\n**${label}**\n\n`}
+        {children}
+        {'\n'}
+      </>
+    );
+  }
+
+  return (
+    <section className={styles.styleTrackCard}>
+      <div className={styles.styleTrackCardHeader}>
+        <strong>{label}</strong>
+      </div>
+      <div className={styles.styleTrackCardBody}>{children}</div>
+    </section>
+  );
+}
+
+function ShadcnInstallOptions({ options }: { options: ShadcnInstallOption[] }) {
+  const managerCommand = options[0]?.command;
+
+  if (!managerCommand) return null;
+
+  return (
+    <div className={styles.installOptions}>
+      {!import.meta.env.SSG_MD ? (
+        <div className={styles.installManager}>
+          <PackageManagerTabs command={managerCommand} dlx />
+        </div>
+      ) : null}
+
+      <div className={styles.installOptionGrid}>
+        {options.map(({ label, command }) => (
+          <div className={styles.installOption} key={label}>
+            <div className={styles.installOptionHeader}>
+              <strong>{label}</strong>
+            </div>
+            <div className={styles.installOptionCommand}>
+              <PackageManagerTabs command={command} dlx />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function CssPropertiesSection({ properties }: { properties: CssPropertyInput[] }) {
   const t = useI18n<typeof import('i18n')>();
   const normalizedProperties = normalizeCssProperties(properties);
@@ -165,4 +226,7 @@ export {
   PreviewMeta,
   PrimitiveReference,
   ShadcnInstall,
+  ShadcnInstallOptions,
+  StyleTrackCard,
+  StyleTrackCards,
 };

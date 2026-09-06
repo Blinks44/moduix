@@ -32,10 +32,27 @@ le registre shadcn si vous voulez conserver le code source des composants, les s
 Les deux approches exposent les mêmes contrats de composants natifs et le même système de tokens.
 Choisissez le framework et le mode de style indépendamment de l’emplacement du code source :
 
-| Framework | CSS Modules | Tailwind CSS |
-| --- | --- | --- |
-| React | `@moduix/react` | `@moduix/react-tailwind` |
-| Solid | `@moduix/solid` | `@moduix/solid-tailwind` |
+<table className="packageMatrix">
+  <thead>
+    <tr>
+      <th scope="col">Framework</th>
+      <th scope="col">CSS Modules</th>
+      <th scope="col">Tailwind CSS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">React</th>
+      <td><code>@moduix/react</code></td>
+      <td><code>@moduix/react-tailwind</code></td>
+    </tr>
+    <tr>
+      <th scope="row">Solid</th>
+      <td><code>@moduix/solid</code></td>
+      <td><code>@moduix/solid-tailwind</code></td>
+    </tr>
+  </tbody>
+</table>
 
 Les paquets React et Solid fondés sur des CSS Modules contiennent le catalogue complet. Les paquets
 Tailwind s’enrichissent composant par composant ; vérifiez la page du composant avant de les choisir.

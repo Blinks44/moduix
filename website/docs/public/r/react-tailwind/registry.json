@@ -108,6 +108,26 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "angle-slider",
+      "type": "registry:item",
+      "title": "AngleSlider",
+      "description": "moduix React Tailwind AngleSlider component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/angle-slider/AngleSlider.tsx",
+          "target": "@components/ui/angle-slider/AngleSlider.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/angle-slider/index.ts",
+          "target": "@components/ui/angle-slider/index.ts",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

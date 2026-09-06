@@ -32,10 +32,27 @@ when you want the component source, styles, and supporting utilities inside your
 Both workflows expose the same framework-native component contracts and token system. Choose the
 runtime and styling track independently from where the source lives:
 
-| Runtime | CSS Modules | Tailwind CSS |
-| ------- | ----------- | ------------ |
-| React   | `@moduix/react` | `@moduix/react-tailwind` |
-| Solid   | `@moduix/solid` | `@moduix/solid-tailwind` |
+<table className="packageMatrix">
+  <thead>
+    <tr>
+      <th scope="col">Runtime</th>
+      <th scope="col">CSS Modules</th>
+      <th scope="col">Tailwind CSS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">React</th>
+      <td><code>@moduix/react</code></td>
+      <td><code>@moduix/react-tailwind</code></td>
+    </tr>
+    <tr>
+      <th scope="row">Solid</th>
+      <td><code>@moduix/solid</code></td>
+      <td><code>@moduix/solid-tailwind</code></td>
+    </tr>
+  </tbody>
+</table>
 
 The React and Solid CSS Modules packages contain the complete component catalog. Tailwind packages
 are being expanded component by component; check the target component page before choosing them.

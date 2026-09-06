@@ -16,13 +16,15 @@ For npm packages, import the `style.css` for your framework and styling track on
 <Tabs groupId="framework">
   <Tab label="React" value="react">
 
-**CSS Modules**
+<StyleTrackCards>
+  <StyleTrackCard label="CSS Modules">
 
 ```tsx
 import '@moduix/react/style.css';
 ```
 
-**Tailwind CSS**
+  </StyleTrackCard>
+  <StyleTrackCard label="Tailwind CSS">
 
 ```css
 @import '@moduix/react-tailwind/style.css';
@@ -31,16 +33,21 @@ import '@moduix/react/style.css';
 @source '../node_modules/@moduix/react-tailwind/dist/components';
 ```
 
+  </StyleTrackCard>
+</StyleTrackCards>
+
   </Tab>
   <Tab label="Solid" value="solid">
 
-**CSS Modules**
+<StyleTrackCards>
+  <StyleTrackCard label="CSS Modules">
 
 ```tsx
 import '@moduix/solid/style.css';
 ```
 
-**Tailwind CSS**
+  </StyleTrackCard>
+  <StyleTrackCard label="Tailwind CSS">
 
 ```css
 @import '@moduix/solid-tailwind/style.css';
@@ -48,6 +55,9 @@ import '@moduix/solid/style.css';
 
 @source '../node_modules/@moduix/solid-tailwind/dist/components';
 ```
+
+  </StyleTrackCard>
+</StyleTrackCards>
 
   </Tab>
 </Tabs>

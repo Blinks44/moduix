@@ -36,6 +36,9 @@ import {
   PreviewFrame,
   PrimitiveReference,
   ShadcnInstall,
+  ShadcnInstallOptions,
+  StyleTrackCard,
+  StyleTrackCards,
 } from '@/components/mdx/Components';
 import { Tag } from './components/Tag';
 
@@ -187,6 +190,9 @@ const mdxComponents = {
   PackageManagerTabs,
   PrimitiveReference,
   ShadcnInstall,
+  ShadcnInstallOptions,
+  StyleTrackCard,
+  StyleTrackCards,
   Tab,
   Tabs,
 };

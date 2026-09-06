@@ -59,6 +59,144 @@
   margin-block: 1rem 1.5rem;
 }
 
+.installOptions {
+  margin-block: 1rem 1.5rem;
+  overflow: hidden;
+  border: 1px solid var(--rp-c-divider-light);
+  border-radius: 0.875rem;
+  background: color-mix(in srgb, var(--rp-c-bg-soft) 70%, transparent);
+}
+
+.installManager {
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--rp-c-divider-light);
+}
+
+.installManager :global(.rp-tabs) {
+  margin: 0;
+  border: 0;
+  box-shadow: none;
+}
+
+.installManager :global(.rp-tabs__label) {
+  border: 0;
+  background: transparent;
+  padding: 0.25rem 0.5rem;
+}
+
+.installManager :global(.rp-tabs__content) {
+  display: none;
+}
+
+.installOptionGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  padding: 0.75rem;
+}
+
+.installOption {
+  overflow: hidden;
+  border: 1px solid var(--rp-c-divider-light);
+  border-radius: 0.75rem;
+  background: var(--rp-c-bg);
+}
+
+.installOptionHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.625rem 0.875rem;
+  color: var(--rp-c-text-1);
+  font-size: 0.875rem;
+}
+
+.installOptionHeader::before {
+  width: 0.5rem;
+  height: 0.5rem;
+  flex: none;
+  border-radius: 50%;
+  background: var(--rp-c-brand);
+  box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--rp-c-brand) 12%, transparent);
+  content: '';
+}
+
+.installOption:nth-child(2) .installOptionHeader::before {
+  background: var(--rp-c-text-2);
+  box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--rp-c-text-2) 12%, transparent);
+}
+
+.installOptionCommand :global(.rp-tabs) {
+  margin: 0;
+  border: 0;
+  border-top: 1px solid var(--rp-c-divider-light);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.installOptionCommand :global(.rp-tabs__label) {
+  display: none;
+}
+
+.installOptionCommand :global(.rp-tabs__content__item) {
+  padding: 0;
+}
+
+.installOptionCommand :global(.rp-tabs__content__item > .rp-codeblock:only-child) {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.styleTrackCards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin-block: 1rem 1.5rem;
+}
+
+.styleTrackCard {
+  overflow: hidden;
+  border: 1px solid var(--rp-c-divider-light);
+  border-radius: 0.75rem;
+  background: var(--rp-c-bg);
+}
+
+.styleTrackCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.625rem 0.875rem;
+  color: var(--rp-c-text-1);
+  font-size: 0.875rem;
+}
+
+.styleTrackCardHeader::before {
+  width: 0.5rem;
+  height: 0.5rem;
+  flex: none;
+  border-radius: 50%;
+  background: var(--rp-c-brand);
+  box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--rp-c-brand) 12%, transparent);
+  content: '';
+}
+
+.styleTrackCard:nth-child(2) .styleTrackCardHeader::before {
+  background: var(--rp-c-text-2);
+  box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--rp-c-text-2) 12%, transparent);
+}
+
+.styleTrackCardBody :global(.rp-codeblock) {
+  margin: 0;
+  border: 0;
+  border-top: 1px solid var(--rp-c-divider-light);
+  border-radius: 0;
+  box-shadow: none;
+}
+
 .cssProperties {
   margin-block: 1.5rem;
 }

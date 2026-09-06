@@ -89,24 +89,22 @@ Alert доступен для React и Solid как в пакетах с CSS Mod
 <Tabs groupId="framework">
   <Tab label="React" value="react">
 
-**CSS Modules**
-
-<PackageManagerTabs command="shadcn@latest add @moduix-react/alert" dlx />
-
-**Tailwind CSS**
-
-<PackageManagerTabs command="shadcn@latest add @moduix-react-tailwind/alert" dlx />
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/alert' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/alert' },
+  ]}
+/>
 
   </Tab>
   <Tab label="Solid" value="solid">
 
-**CSS Modules**
-
-<PackageManagerTabs command="shadcn@latest add @moduix-solid/alert" dlx />
-
-**Tailwind CSS**
-
-<PackageManagerTabs command="shadcn@latest add @moduix-solid-tailwind/alert" dlx />
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/alert' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/alert' },
+  ]}
+/>
 
   </Tab>
 </Tabs>

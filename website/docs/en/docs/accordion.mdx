@@ -90,24 +90,22 @@ shared foundation, icons, and any helper required by that variant.
 <Tabs groupId="framework">
   <Tab label="React" value="react">
 
-**CSS Modules**
-
-<PackageManagerTabs command="shadcn@latest add @moduix-react/accordion" dlx />
-
-**Tailwind CSS**
-
-<PackageManagerTabs command="shadcn@latest add @moduix-react-tailwind/accordion" dlx />
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/accordion' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/accordion' },
+  ]}
+/>
 
   </Tab>
   <Tab label="Solid" value="solid">
 
-**CSS Modules**
-
-<PackageManagerTabs command="shadcn@latest add @moduix-solid/accordion" dlx />
-
-**Tailwind CSS**
-
-<PackageManagerTabs command="shadcn@latest add @moduix-solid-tailwind/accordion" dlx />
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/accordion' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/accordion' },
+  ]}
+/>
 
   </Tab>
 </Tabs>

@@ -108,6 +108,26 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "angle-slider",
+      "type": "registry:item",
+      "title": "AngleSlider",
+      "description": "moduix Solid Tailwind AngleSlider component.",
+      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/angle-slider/AngleSlider.tsx",
+          "target": "@components/ui/angle-slider/AngleSlider.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/angle-slider/index.ts",
+          "target": "@components/ui/angle-slider/index.ts",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }
