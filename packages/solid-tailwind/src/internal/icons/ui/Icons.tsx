@@ -3,6 +3,26 @@ import type { JSX } from 'solid-js';
 type IconProps = JSX.SvgSVGAttributes<SVGSVGElement>;
 const accessibilityProps = { 'aria-hidden': 'true', focusable: 'false' } as const;
 
+export function CheckIcon(props: IconProps) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="3"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      {...accessibilityProps}
+      {...props}
+    >
+      <path d="M20 6 9 17l-5-5" />
+    </svg>
+  );
+}
+
 export function ChevronDownIcon(props: IconProps) {
   return (
     <svg

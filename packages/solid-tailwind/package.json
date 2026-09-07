@@ -89,6 +89,12 @@
       "import": "./dist/components/button/index.js",
       "default": "./dist/components/button/index.js"
     },
+    "./menu": {
+      "types": "./dist/components/menu/index.d.ts",
+      "solid": "./dist/components/menu/index.jsx",
+      "import": "./dist/components/menu/index.js",
+      "default": "./dist/components/menu/index.js"
+    },
     "./spinner": {
       "types": "./dist/components/spinner/index.d.ts",
       "solid": "./dist/components/spinner/index.jsx",

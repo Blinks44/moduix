@@ -18,6 +18,7 @@
     text-decoration: none;
     user-select: none;
     white-space: nowrap;
+    outline: 0;
     cursor: pointer;
     transition:
       background-color var(--moduix-button-transition, var(--moduix-transition-default)),
@@ -26,7 +27,7 @@
       opacity var(--moduix-button-transition, var(--moduix-transition-default)),
       transform var(--moduix-button-transition, var(--moduix-transition-default));
 
-    &:focus-visible {
+    &:focus[data-focus-visible] {
       outline: var(
           --moduix-button-focus-ring-width,
           var(--moduix-focus-ring-width, var(--moduix-border-width-md))

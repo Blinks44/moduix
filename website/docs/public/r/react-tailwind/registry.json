@@ -66,6 +66,19 @@
       ]
     },
     {
+      "name": "overlay-portal",
+      "type": "registry:item",
+      "title": "moduix overlay portal",
+      "description": "Internal overlay portal helper required only by overlay registry components.",
+      "files": [
+        {
+          "path": "src/internal/overlayPortal.tsx",
+          "target": "@lib/moduix/overlayPortal.tsx",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
       "name": "accordion",
       "type": "registry:item",
       "title": "Accordion",
@@ -225,6 +238,31 @@
         {
           "path": "src/components/button/index.ts",
           "target": "@components/ui/button/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "menu",
+      "type": "registry:item",
+      "title": "Menu",
+      "description": "moduix React Tailwind Menu component.",
+      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-react-tailwind/foundation",
+        "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/icons",
+        "@moduix-react-tailwind/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/menu/Menu.tsx",
+          "target": "@components/ui/menu/Menu.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/index.ts",
+          "target": "@components/ui/menu/index.ts",
           "type": "registry:component"
         }
       ]

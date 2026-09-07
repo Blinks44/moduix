@@ -1,1 +1,1 @@
-export { ChevronDownIcon, ChevronRightIcon, PlusIcon } from './Icons.js';
+export { CheckIcon, ChevronDownIcon, ChevronRightIcon, PlusIcon } from './Icons.js';

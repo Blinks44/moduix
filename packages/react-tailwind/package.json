@@ -73,6 +73,10 @@
       "types": "./dist/components/button/index.d.ts",
       "import": "./dist/components/button/index.js"
     },
+    "./menu": {
+      "types": "./dist/components/menu/index.d.ts",
+      "import": "./dist/components/menu/index.js"
+    },
     "./spinner": {
       "types": "./dist/components/spinner/index.d.ts",
       "import": "./dist/components/spinner/index.js"

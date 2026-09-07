@@ -56,8 +56,7 @@
       );
     }
 
-    &[data-disabled],
-    &:disabled {
+    &[data-disabled] {
       pointer-events: none;
       opacity: var(--moduix-menu-disabled-opacity, var(--moduix-opacity-disabled));
     }

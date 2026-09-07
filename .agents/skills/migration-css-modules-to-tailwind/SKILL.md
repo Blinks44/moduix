@@ -263,6 +263,11 @@ Use shadcn as a complexity and ergonomics reference, not as the behavior source 
 - accessibility, Ark behavior, states, orientations, responsive behavior, and visual capabilities
   that shadcn may not support.
 
+Treat API simplicity as consumer ceremony, not only as an export or line count. Explicitly check the
+callable root and `Root` alias, required wrappers in the smallest useful example, parts that always
+travel together, presentation-only parts, overlapping aliases, styling props, and whether a common
+composition requires more nesting than its behavior or accessibility needs.
+
 Explicitly audit the failure modes that a declaration count alone misses:
 
 - browser resets or inherited values repeated despite Preflight;
@@ -294,6 +299,25 @@ the same task. Keep intentional accessibility and Ark behavior, remove presentat
 move consumer-owned styling into examples, and synchronize tests, stories, contracts,
 documentation, foundation tokens, and registries according to the actual impact. Re-run the
 four-variant checks before deciding whether more simplification is warranted.
+
+### Mandatory simplification handoff gate
+
+Before writing the final response, answer all of these explicitly:
+
+1. How many public parts and component-owned wrapper elements exist before and after the port or
+   simplification?
+2. What is the minimum consumer markup for a representative basic use case, and can any required
+   wrapper or part be removed without weakening behavior, accessibility, styling ownership, or
+   supported customization?
+3. Which parts, aliases, props, selectors, or runtime branches exist only for presentation or
+   historical structure?
+4. Which simplifications were applied, and what concrete complexity did each remove?
+5. What is the smallest remaining justified simplification proposal, including whether it is
+   breaking and which of the four packages and distribution surfaces it affects?
+
+A migration handoff containing only changed files and validation results is incomplete. If the
+audit finds no worthwhile change, answer every gate item briefly and state `No simplification
+recommended`; do not invent a reduction merely to satisfy the gate.
 
 Finish every migration handoff with a `Simplification review` containing:
 

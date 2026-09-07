@@ -125,4 +125,6 @@
     var(--moduix-transition-default);
   --animate-moduix-accordion-closed-horizontal: moduix-accordion-item-content-closed-horizontal
     var(--moduix-transition-default);
+  --animate-moduix-menu-open: moduix-menu-content-open var(--moduix-transition-default);
+  --animate-moduix-menu-closed: moduix-menu-content-closed var(--moduix-transition-default);
 }

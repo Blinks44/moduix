@@ -7,4 +7,5 @@ export * from './components/avatar';
 export * from './components/badge';
 export * from './components/bleed';
 export * from './components/button';
+export * from './components/menu';
 export * from './components/spinner';

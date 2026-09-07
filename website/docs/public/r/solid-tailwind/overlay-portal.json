@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "overlay-portal",
+  "title": "moduix overlay portal",
+  "description": "Internal overlay portal helper required only by overlay registry components.",
+  "files": [
+    {
+      "path": "src/internal/overlayPortal.tsx",
+      "content": "import type { JSX } from 'solid-js';\nimport { createContext, Show, splitProps, useContext } from 'solid-js';\nimport { Portal } from 'solid-js/web';\n\ntype PortalRef = HTMLElement | (() => HTMLElement | null | undefined);\n\nexport type OverlayPortalProps = {\n  portalled?: boolean;\n  portalRef?: PortalRef;\n};\n\nconst OverlayPortalContext = createContext<OverlayPortalProps>({});\n\nexport function OverlayPortalProvider(props: OverlayPortalProps & { children: JSX.Element }) {\n  const [local, value] = splitProps(props, ['children']);\n\n  return (\n    <OverlayPortalContext.Provider value={value}>{local.children}</OverlayPortalContext.Provider>\n  );\n}\n\nfunction resolvePortalMount(portalRef: PortalRef | undefined): HTMLElement | undefined {\n  return typeof portalRef === 'function' ? (portalRef() ?? undefined) : portalRef;\n}\n\nexport function OverlayPortal(props: { children: JSX.Element }) {\n  const context = useContext(OverlayPortalContext);\n\n  return (\n    <Show when={context.portalled !== false} fallback={props.children}>\n      <Portal mount={resolvePortalMount(context.portalRef)}>{props.children}</Portal>\n    </Show>\n  );\n}",
+      "type": "registry:lib",
+      "target": "@lib/moduix/overlayPortal.tsx"
+    }
+  ],
+  "type": "registry:item"
+}
