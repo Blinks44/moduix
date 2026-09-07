@@ -223,6 +223,30 @@
       ]
     },
     {
+      "name": "breadcrumbs",
+      "type": "registry:item",
+      "title": "Breadcrumbs",
+      "description": "moduix Solid Tailwind Breadcrumbs component.",
+      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-solid-tailwind/foundation",
+        "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/breadcrumbs/Breadcrumbs.tsx",
+          "target": "@components/ui/breadcrumbs/Breadcrumbs.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/breadcrumbs/index.ts",
+          "target": "@components/ui/breadcrumbs/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "button",
       "type": "registry:item",
       "title": "Button",

@@ -83,6 +83,12 @@
       "import": "./dist/components/bleed/index.js",
       "default": "./dist/components/bleed/index.js"
     },
+    "./breadcrumbs": {
+      "types": "./dist/components/breadcrumbs/index.d.ts",
+      "solid": "./dist/components/breadcrumbs/index.jsx",
+      "import": "./dist/components/breadcrumbs/index.js",
+      "default": "./dist/components/breadcrumbs/index.js"
+    },
     "./button": {
       "types": "./dist/components/button/index.d.ts",
       "solid": "./dist/components/button/index.jsx",

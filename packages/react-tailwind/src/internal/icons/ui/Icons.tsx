@@ -65,6 +65,14 @@ export function ChevronRightIcon(props: IconProps) {
   );
 }
 
+export function SeparatorMarkIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 16 4" fill="none" aria-hidden="true" focusable="false" {...props}>
+      <path d="M1 2h14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export function PlusIcon(props: IconProps) {
   return (
     <svg

@@ -25,7 +25,6 @@
   .item {
     display: inline-flex;
     min-width: 0;
-    flex: 0 1 auto;
     align-items: center;
   }
 

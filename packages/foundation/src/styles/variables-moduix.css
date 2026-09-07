@@ -251,7 +251,6 @@
   /* Breadcrumbs */
   --moduix-breadcrumbs-color: initial; /* var(--moduix-color-muted-foreground) */
   --moduix-breadcrumbs-ellipsis-color: initial; /* var(--moduix-color-muted-foreground) */
-  --moduix-breadcrumbs-ellipsis-radius: initial; /* var(--moduix-radius-sm) */
   --moduix-breadcrumbs-ellipsis-size: initial; /* var(--moduix-spacing-4) */
   --moduix-breadcrumbs-focus-ring-color: initial; /* var(--moduix-color-ring) */
   --moduix-breadcrumbs-focus-ring-width: initial; /* var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm)) */
