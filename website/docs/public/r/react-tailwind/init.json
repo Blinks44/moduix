@@ -4,7 +4,7 @@
   "name": "init",
   "title": "moduix React Tailwind init",
   "description": "Initialize shadcn for moduix React Tailwind and install shared dependencies.",
-  "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+  "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
   "registryDependencies": ["@moduix-react-tailwind/foundation"],
   "type": "registry:base",
   "config": {

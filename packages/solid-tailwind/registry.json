@@ -208,6 +208,26 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "spinner",
+      "type": "registry:item",
+      "title": "Spinner",
+      "description": "moduix Solid Tailwind Spinner component.",
+      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/spinner/Spinner.tsx",
+          "target": "@components/ui/spinner/Spinner.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/spinner/index.ts",
+          "target": "@components/ui/spinner/index.ts",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

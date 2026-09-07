@@ -1,253 +1,263 @@
 ---
 name: migration-css-modules-to-tailwind
-description: Port a shipped moduix component into both React and Solid Tailwind packages, including utilities, tests, stories, exports, npm output, and shadcn registries.
+description: Port a shipped moduix component to the React and Solid Tailwind packages, verify its distribution, and review all four implementations for avoidable styling or composition complexity against current shadcn.
 ---
 
 # CSS Modules to Tailwind Migration
 
-Port one shipped CSS Modules component into `packages/react-tailwind` and
-`packages/solid-tailwind` as a single parity task. Use this skill with `component-workflow`,
-`conventions-css`, `conventions-react`, `migration-react-to-solid`, and `rstest-best-practices` according to
-`AGENTS.md`; this skill owns the Tailwind-specific sequence and completion boundary.
+Port one shipped component from `packages/react` and `packages/solid` into
+`packages/react-tailwind` and `packages/solid-tailwind` as one parity task. The outcome has two
+parts:
 
-## Reference and scope
+1. a correct, framework-native Tailwind port with tests, stories, exports, builds, and registries;
+2. a post-port review that explains whether the component should later be simplified across all
+   four packages.
 
-Use Accordion as the working reference for file placement, Ark runtime states, and distribution:
+Use this skill with `component-workflow`, `conventions-css`, `conventions-react`,
+`migration-react-to-solid`, and `rstest-best-practices` as routed by `AGENTS.md`. Use
+`research-upstream-libraries` for current Ark and shadcn sources.
 
-- `packages/react-tailwind/src/components/accordion`
-- `packages/solid-tailwind/src/components/accordion`
-- `packages/react-tailwind/tests/accordion.test.tsx`
-- `packages/solid-tailwind/tests/accordion.test.tsx`
-- both Tailwind playground Accordion stories
-- both Tailwind package exports and registry items
-
-Use Alert and Badge as the working references when a public component prop selects visual variants:
-
-- `packages/react-tailwind/src/components/alert`
-- `packages/solid-tailwind/src/components/alert`
-- `packages/react-tailwind/src/components/badge`
-- `packages/solid-tailwind/src/components/badge`
-
-Copy the relevant mechanics, not component-specific classes or dependencies. In particular, do not
-copy Accordion's `data-*` styling for a value that the wrapper already receives as a prop. The existing Tailwind,
-Rslib, Rstest, foundation, `cn`, Storybook, and `@source` configuration is package-wide; an ordinary
-component port must not create or modify another build system.
+## Sources and boundaries
 
 The matching React and Solid CSS Modules implementations are the behavior and visual sources of
-truth. The React implementation defines the established public product contract; the Solid
-implementation defines native Solid mechanics. Do not change either CSS Modules package merely to
-make the Tailwind port easier unless the task exposes a real shared bug.
+truth for the port. React defines the established product contract; Solid defines native Solid
+mechanics. Read both implementations, styles, tests, stories, package exports, registry items, and
+component-local markdown before editing.
 
-Parity means the same public component API, anatomy, behavior, states, accessibility, and visual
-defaults. It does not mean copying the CSS Modules customization mechanism into Tailwind. CSS
-Modules may expose detailed `--moduix-<component>-*` variables, while Tailwind consumers customize
-the copied or imported component through utilities and `className`/`class`.
+Parity means the same public component behavior, anatomy, accessibility, states, and visual defaults.
+It does not mean copying the CSS Modules customization mechanism: detailed component variables may
+remain CSS Modules-only while Tailwind consumers use utilities and `className`/`class`.
 
-Before writing code, check the component in both CSS Modules packages and inventory:
+Use existing Tailwind components as mechanical references:
 
-- parts, exports, props, defaults, callbacks, refs, contexts, providers, DOM and accessibility;
-- its CSS Module selectors, tokens, public variables, states, responsive rules, animation, and
-  reduced-motion behavior; classify variables as visual inputs rather than automatically carrying
-  them into the Tailwind API;
-- the React and Solid tests and their assertion parity;
-- both CSS Modules playground stories and every exported scenario;
-- internal icons, helpers, component dependencies, package exports, and registry dependencies.
+- Accordion for file placement, Ark runtime states, tests, exports, and distribution;
+- Alert and Badge for `cva` recipes selected by public props.
 
-If a required component dependency has no Tailwind port, establish the dependency order before
-continuing. Do not import a CSS Modules component into a public Tailwind implementation and do not
-hide a missing prerequisite behind a local adapter.
+Copy mechanics, not their component-specific classes or dependencies. Do not import a CSS Modules
+component or reset into a Tailwind package. Do not change build, Rslib, Rstest, Storybook, or
+`@source` configuration for an ordinary component port.
 
-## Implement both runtime variants
+Do not change the two CSS Modules implementations merely to make the port easier. The later
+simplification review may recommend a four-package change, but implement it only when the user's
+request already authorizes that broader work or after the user accepts the recommendation. A real
+shared bug discovered during the port must be reported instead of silently copied. Fix it only when
+the request includes that work; then use `component-workflow` to synchronize affected variants.
 
-Create the same component directory and re-export-only `index.ts` in both Tailwind packages.
+If a required component dependency has no Tailwind port, establish and report the dependency order.
+Do not hide the missing dependency behind a CSS Modules import or local adapter.
 
-- Build the React variant from the React CSS Modules contract using native React and `className`.
-- Build the Solid variant from the Solid CSS Modules contract using native Solid, reactive props,
-  `class`, and the verified Ark Solid API. Do not transliterate React hooks or ref mechanics.
-- Preserve callable roots, namespaced parts, hooks, contexts, default children, `data-slot`, Ark
-  `data-scope`/`data-part`, state attributes, required runtime variables, and semantic hosts.
-- Remove CSS Module imports. Component defaults belong in statically discoverable Tailwind class
-  strings; never construct utility names from fragments.
-- Put each part's static default utilities directly in that part's JSX `cn(...)` call. Do not hoist
-  them into intermediate `*Class`, `*ClassName`, or similar constants. When a public prop directly
-  selects mutually exclusive visual classes, use a component-local `cva` recipe and pass that prop
-  to the recipe. Keep every utility as a statically discoverable literal and merge the consumer class
-  last through `cn`. Do not restyle a prop through `data-[<prop>=<value>]` merely because the same
-  value is also emitted as a public data hook. Reserve Tailwind `data-*` variants for Ark-owned or
-  DOM-owned runtime state that is not selected directly by the wrapper's render-time props. Do not
-  introduce `cva` for those runtime states, a single fixed style, or merely to shorten a class string.
-- Merge defaults with the package-local `cn` helper and pass the consumer `className` or `class`
-  last so `tailwind-merge` can resolve conflicts in the consumer's favor.
-- Reuse the foundation's Tailwind semantic theme utilities, shared keyframes, and framework-local
-  icons. Add a shared foundation primitive only when both Tailwind runtimes genuinely need it.
-- When adding a named foundation theme value, extend both Tailwind packages' local `cn` merge
-  configuration for custom theme suffixes that `tailwind-merge` cannot infer.
-- Namespace custom theme suffixes so they do not replace Tailwind defaults used by another utility
-  family. For example, expose semantic spacing as `space-lg`, not `lg`, because `--spacing-lg`
-  changes standard utilities such as `max-w-lg`.
-- When a registry component uses `cva`, add `class-variance-authority` to both the owning package's
-  runtime dependencies and that component's registry dependencies.
+## 1. Inventory the contract and style ownership
 
-## Translate styles semantically
+Record the existing contract:
 
-Account for every meaningful CSS Module rule instead of converting only the resting appearance:
+- public names, callable roots, namespaced parts, props, defaults, callbacks, refs, contexts, and
+  providers;
+- DOM anatomy, semantic hosts, ARIA, keyboard, focus, forms, lifecycle, and `asChild` behavior;
+- Ark `data-scope`/`data-part`, public `data-slot` hooks, states, orientation, presence, responsive
+  behavior, and runtime measurement variables;
+- visual defaults, CSS selectors, tokens, component variables, animations, reduced motion, and
+  every story scenario;
+- helpers, icons, component dependencies, exports, and registry dependencies.
 
-- layout, sizing, logical properties, typography, colors, borders, and overflow;
-- hover, active, focus-visible, disabled, invalid, selected, open/closed, orientation, and other Ark
-  states;
-- nested parts, SVG sizing, responsive behavior, animations, hidden/presence handling, and reduced
-  motion;
-- Ark measurement and positioning variables required by the primitive.
+Make a declaration-level translation ledger for the stylesheet. Every meaningful declaration must
+map to a Tailwind utility or have a concrete reason to remain an arbitrary property or runtime
+variable. This ledger may stay in working notes, but unresolved declarations are not optional.
 
-Write Tailwind as Tailwind: prefer familiar utilities such as `gap-3`, `p-3`, `text-sm`,
-`bg-muted`, `border-border`, and state variants. Foundation maps moduix semantic colors and shared
-animations, spacing, control sizes, typography, radii, shadows, and easing into named Tailwind
-utilities; use those names instead of embedding token variables in arbitrary values. Use an
-arbitrary value only for a real one-off CSS value, calculation, selector, required Ark runtime
-variable, or a foundation token category for which Tailwind has no theme namespace.
+Classify who owns every styled element:
 
-Classify every source CSS variable before translating it:
+1. Wrapper-owned JSX receives utilities directly on that element.
+2. Ark-owned elements receive utilities on the corresponding Ark part.
+3. A focused descendant selector is allowed only for a real child contract such as normalized SVG
+   icons, or for runtime state observable only from an ancestor.
+4. Arbitrary consumer-owned descendants own their own utilities unless the public API exposes a
+   styled part for them.
+
+CSS Modules often repeat a class selector as a `data-scope`/`data-part` fallback. Preserve the data
+hook, but do not recreate that global stylesheet as a chain of
+`[&_[data-slot=...]]:<utility>` classes on a Tailwind root. With `asChild`, merge root defaults onto
+the replacement host; consumer-supplied inner markup remains consumer-owned and consumer-styled.
+
+## 2. Implement native Tailwind variants
+
+Create matching component directories and re-export-only `index.ts` files in both Tailwind
+packages.
+
+- Implement React from the React contract with native React, `className`, and the real ref contract.
+- Implement Solid from the Solid contract with native reactivity, `splitProps`/`mergeProps` where
+  appropriate, `class`, and verified Ark Solid APIs. Do not transliterate React hooks or ref
+  mechanics.
+- Preserve API, default anatomy, semantics, accessibility, behavior, Ark state attributes, public
+  data hooks, runtime variables, and visual defaults.
+- Keep callable and namespaced component shapes aligned with their CSS Modules counterparts.
+- Remove all CSS Module imports. Keep every utility statically discoverable; never assemble utility
+  names from fragments.
+
+Choose styling by ownership and state source:
+
+- Fixed default: put named utilities directly on the owning part.
+- Public part accepting a consumer class: use `cn(defaults, consumerClass)` with the consumer class
+  last.
+- Public prop selecting mutually exclusive visual classes: use a component-local `cva` recipe and
+  pass the prop directly; keep the data attribute only as a hook.
+- Ark or DOM runtime state: use the documented `data-*`, ARIA, pseudo-class, group, or peer variant.
+
+If repeated render branches make part styling awkward, revisit the owned anatomy. Do not hide fixed
+classes in unrelated constants or move them to ancestor descendant selectors merely to avoid local
+duplication.
+
+Do not style a render-time prop through `data-[prop=value]`; its higher selector specificity can
+prevent a plain consumer utility from overriding the selected default. Verify that `cn` and
+`tailwind-merge` remove the actual conflicting default, not merely an unrelated base utility.
+
+## 3. Translate CSS as Tailwind
+
+Account for layout, logical properties, typography, sizing, colors, borders, overflow, interactive
+and Ark states, nested supported parts, responsive behavior, animation, presence, and reduced
+motion.
+
+Prefer existing semantic utilities such as `gap-3`, `size-5`, `rounded-full`, `text-sm`, `bg-muted`,
+and `border-border`. Verify that a claimed foundation utility actually exists. When only a shared
+runtime token or keyframe exists, either use a focused unambiguous arbitrary property or add a named
+foundation utility when both Tailwind runtimes genuinely need that semantic primitive.
+
+When adding a named foundation theme value, update both Tailwind packages' local `cn` merge
+configuration if `tailwind-merge` cannot infer its suffixes. Namespace custom suffixes so they do not
+alter unrelated standard utilities; for example, prefer semantic `space-lg` over a generic `lg`
+spacing token that could also change `max-w-lg`.
+
+Classify every CSS variable:
 
 1. Preserve Ark/runtime measurement and positioning variables required for behavior.
-2. Keep an internal coordination variable only when multiple selectors genuinely need it.
-3. Replace a CSS Modules customization variable that merely wraps spacing, sizing, typography,
-   borders, opacity, transitions, or another foundation token with the corresponding named utility.
+2. Keep an internal coordination variable only when multiple owned parts genuinely share a dynamic
+   value.
+3. Replace a CSS Modules customization variable that only wraps a fixed color, spacing, size,
+   radius, border, typography, opacity, duration, easing, transition, or animation default with the
+   corresponding utility.
 
-Accounting for every CSS variable does not mean copying every variable name into Tailwind. For
-example, `calc(var(--moduix-component-gap, var(--moduix-spacing-3)) * -1)` normally becomes `-m-3`,
-not `m-[calc(var(...))]`. A rare component variable is justified only when it represents a meaningful
-runtime concept that utilities cannot express clearly. If a request explicitly requires cross-track
-CSS-variable API compatibility, treat that as an exception: preserve the requested variables, but
-still use a prop recipe rather than data selectors for prop-driven variants, and call out the reduced
-Tailwind-native customization in the handoff.
+Do not copy `--moduix-<component>-*` fallback chains into Tailwind for styling parity. Tailwind
+consumers customize through utilities and `className`/`class`. Retain a component-prefixed variable
+only for required runtime behavior, genuine internal coordination, or explicitly requested
+cross-track CSS-variable compatibility. Justify every retained variable and report a compatibility
+exception as a non-native Tailwind API.
 
-### Choose the styling mechanism from the source of truth
+Use arbitrary values only for a genuine one-off value, calculation, logical property without a
+utility, documented selector, or required runtime variable. Avoid ambiguous shorthand. For example,
+`border-[var(--width)]` may compile as `border-color`; prefer `border-2`, or use the explicit
+`[border-width:var(--runtime-width)]` when the variable is required. Inspect generated CSS for every
+variable-backed or otherwise ambiguous arbitrary utility.
 
-- Fixed visual default: put named utilities directly in the part's `cn(...)` call.
-- Public prop selects a visual variant: use `cva`, keep the data attribute as a hook, and pass the
-  selected prop to the recipe.
-- Ark or DOM changes runtime state after render: style the documented state with `data-*`, ARIA,
-  pseudo-class, or group/peer variants.
-- One-off calculation or logical property without a named utility: use a focused arbitrary utility.
+Before continuing, search both Tailwind component directories for component-specific variables and
+justify every remaining match. Also confirm that inherited behavior such as `currentColor` has not
+been wrapped in a needless component variable.
 
-For a component with `inline` and `block` spacing props, the intended shape is a two-axis recipe such
-as `inline: { xs: '-mx-1', ... }` and `block: { xs: '-my-1', ... }`. Do not emit every option as
-`data-[inline=xs]:...` on every instance.
+## 4. Tests and stories
 
-### Preserve the consumer override contract
+Port each runtime's own CSS Modules tests into its Tailwind package. Preserve behavioral assertions
+for anatomy, semantics, ARIA, keyboard and focus, callbacks, refs, forms, context, presence, state,
+and public hooks. Adapt framework syntax only.
 
-The consumer class must replace the actual selected default, not merely an unrelated base utility.
-Prop-selected defaults and consumer overrides therefore need the same Tailwind variant scope. A plain
-consumer `mx-8` cannot reliably override `data-[inline=md]:mx-*`: `tailwind-merge` keeps both because
-their modifiers differ, and the attribute selector is more specific. A `cva` result such as `-mx-3`
-can be replaced by a later `mx-8` through `cn`.
+Add Tailwind-specific coverage that:
 
-Keep the React and Solid Tailwind class semantics equivalent. Let the shared oxfmt configuration
-sort class strings; do not add a second class-ordering tool. Tailwind Preflight is the reset, so
-Tailwind variants must never import, publish, or registry-install the CSS Modules reset.
+- proves a conflicting consumer utility replaces the selected default;
+- asserts the small set of utilities that makes each component-owned empty visual part visible,
+  rather than checking only that the DOM node exists.
 
-## Review anatomy and utility complexity after the port
+Do not snapshot complete class strings. JSDOM class assertions complement but do not replace browser
+computed-style checks.
 
-After the initial port is visually and behaviorally equivalent, review each Tailwind part's anatomy
-and static utility string before declaring the migration complete. The purpose is to identify an
-awkward translation of the CSS Modules structure, not to minimize class count or imitate shadcn by
-default.
+Add scenario-equivalent, framework-native stories to both Tailwind playgrounds. Preserve exported
+story names, controls, states, edge cases, and demo layout. Translate demo CSS into small static
+Tailwind strings. Consumer-owned `asChild` content must carry its own visual utilities; do not add a
+descendant bundle to the component root to keep demo markup unstyled.
 
-Treat a long utility string as justified when it directly represents supported layout modes, Ark
-states, accessibility or reduced-motion behavior, required runtime variables, or a genuinely
-layered visual (for example, a dial built with pseudo-elements). Treat it as suspicious when it
-uses conditional layout or deep structure-dependent selectors to compensate for an unclear public
-anatomy; repeats conflicting layout declarations; targets unrelated parts from a parent; or carries
-ordinary reset and token plumbing that Tailwind utilities or Preflight already express.
+Translate CSS by emitted property semantics. In particular, verify shorthands and layered values
+such as `background` versus Tailwind's `background-color` and `background-image` utilities. Confirm
+that empty decorative elements remain visible, sized, colored, and rounded in the browser.
 
-For every suspicious case, report it to the user after the port with:
+Do not silently omit a story that requires an unavailable Tailwind dependency. Port the prerequisite
+first or report the component migration as incomplete.
 
-- the component part and the relevant utility sequence;
-- the CSS Modules rule and Tailwind behavior it is trying to preserve;
-- why the complexity appears structural rather than intrinsic;
-- the smallest viable simplification and its effect on public anatomy, visuals, and the four-package
-  parity contract.
+## 5. Exports and registries
 
-Use a comparable current shadcn component only as a reference for ergonomics; account for differences
-in supported orientations, states, and visual scope. Do not silently simplify the component or
-change its anatomy during the migration review. Wait for the user's decision before making an
-architecture-level simplification. If no suspicious case remains, state that the review was performed
-and why the longest utilities are warranted.
+For both Tailwind packages:
 
-## Port behavioral tests
-
-Create `tests/<component>.test.tsx` in both Tailwind packages from the matching runtime's CSS
-Modules test, not from the other framework's test.
-
-- Preserve behavior assertions for anatomy, semantics, ARIA, keyboard and focus behavior, state,
-  callback details, refs, forms, providers, context, presence, and public data hooks.
-- Adapt only framework syntax and testing-library setup; do not weaken assertions to obtain parity.
-- In both Tailwind tests, add a focused assertion that a conflicting consumer utility replaces the
-  corresponding selected default utility through `cn`/`tailwind-merge`. Choose a class from the
-  component's primary visual behavior—for example, test `mx-*` against the selected inline spacing
-  variant—not an incidental reset such as `m-0`.
-- Assert meaningful hooks and conflict resolution rather than snapshotting a full formatted class
-  string.
-
-## Synchronize playground stories
-
-Add the component to both Tailwind playgrounds. Keep the same Storybook title, exported story
-names, scenario data, controls, layout, edge cases, and visual states as the corresponding React and
-Solid CSS Modules stories.
-
-Translate demo-only CSS Module classes into small, static Tailwind class strings in the story; do
-not move demo layout into the library component. Keep React and Solid story code framework-native
-and do not introduce shared cross-framework story helpers. If a scenario needs a missing Tailwind
-component, port that prerequisite first or report the named scenario as deferred rather than
-silently dropping it.
-
-Translate CSS shorthands by their emitted property semantics, not by visual resemblance. Tailwind
-arbitrary `bg-[...]` values that contain a gradient compile as `background-image`; a source
-`background: linear-gradient(...), <color>` must become separate utilities such as `bg-accent` and
-`bg-[linear-gradient(...)]`. In visual comparison, confirm that empty decorative elements remain
-visible, sized, colored, and rounded; text-only snapshots do not prove story parity.
-
-## Publish through npm and shadcn
-
-For each Tailwind package:
-
-- add the component subpath to `package.json` exports, preserving the package's React or Solid
-  conditions and alphabetical ordering;
-- add the package-owned `registry.json` item with framework-native source files and dependencies;
-- depend on that runtime's Tailwind `foundation` and `cn` registry items, add `icons` only when the
-  component uses them, and declare every direct component registry dependency;
+- add the component subpath export in alphabetical order;
+- add a package-owned registry item with framework-native files and dependencies;
+- depend on that runtime's Tailwind `foundation` and `cn` items, plus icons and component items only
+  when directly used;
+- add `class-variance-authority` to package runtime and registry dependencies when the component uses
+  `cva`;
 - keep React registry items free of Solid dependencies and Solid items free of React dependencies.
 
-The source glob already includes new components, and npm consumers already scan
-`dist/components`; do not add a per-component Rslib entry or Tailwind `@source`. shadcn-copied source
-is scanned inside the consumer project and also needs no package `@source`.
+The existing source globs already build component files and shadcn-copied source is scanned in the
+consumer project. Do not add per-component Rslib entries or `@source` rules.
 
-Run `pnpm run build:registry` after registry source changes and never edit
-`website/docs/public/r` manually. If existing public documentation makes a component-specific
-availability claim, update that claim and its install commands with the documentation skills; do
-not expand an ordinary port into a full documentation rewrite. Create a changeset only when the
-user explicitly requests one.
+Run `pnpm run build:registry` after registry source changes; never edit `website/docs/public/r`
+manually. Update public documentation only when existing availability or install guidance became
+incorrect. Create a changeset only when explicitly requested.
 
-## Verification and completion
+## 6. Verify the port
 
-For an ordinary component port, verify in this order:
+1. Run focused React Tailwind and Solid Tailwind component tests.
+2. Build both Tailwind packages and confirm implementation and declaration output for the subpath.
+3. Build both Tailwind Storybooks and compare matching scenarios in a browser.
+4. Inspect computed styles for default component-owned visual parts and the `asChild` replacement
+   host: dimensions, visible paint, radius, and animation where applicable.
+5. Inspect generated CSS for arbitrary utilities whose emitted property is not self-evident.
+6. Generate and validate registries, then inspect both generated component items.
+7. Run `pnpm run fmt:fix`, `pnpm run lint:check`, and `pnpm run tsc:check` from the repository root.
 
-1. Run the focused React Tailwind and Solid Tailwind component tests.
-2. Build both Tailwind packages and confirm the new JS/JSX declarations and component subpaths are
-   emitted.
-3. Build both Tailwind Storybooks and compare the same scenarios visually at representative states
-   and viewports.
-4. Generate and validate all registries, then inspect the two generated component items.
-5. Run `pnpm run fmt:fix`, `pnpm run lint:check`, and `pnpm run tsc:check` from the repository root.
+A passing unit test, a class token in the DOM, or a text-only Storybook snapshot does not prove visual
+parity. A packed-consumer smoke test is additionally required only when shared exports, build
+configuration, foundation delivery, `cn`, or registry infrastructure changed.
 
-A fresh packed-consumer smoke test is required only when shared package exports, build configuration,
-foundation delivery, `cn`, or registry infrastructure changes; do not recreate that test for every
-ordinary component.
+## 7. Review whether all four variants should be simpler
 
-The port is complete only when both Tailwind packages preserve the CSS Modules components' public
-API, behavior, anatomy, accessibility, states, and visual defaults through a native utility-based
-styling implementation; both test suites preserve the runtime-specific behavior assertions plus
-the consumer-override assertion; both playgrounds expose the same story scenarios; npm exports
-build; and both shadcn registry items contain only valid framework-native dependencies. Report any
-missing prerequisite or unavoidable Ark runtime difference instead of presenting partial work as
-complete.
+Only after the Tailwind port is correct, re-open all four moduix implementations and find the current
+official shadcn documentation and registry source for the same component. Record source URLs and
+access date. If no counterpart exists, say so and still perform the internal four-variant review.
+Use a nearby shadcn component only when its responsibility and anatomy are genuinely comparable, and
+label that comparison approximate. Do not rely on memory or local snapshots.
+
+Use shadcn as a complexity and ergonomics reference, not as the behavior source of truth. Compare:
+
+- public and component-owned parts, wrappers, providers, contexts, and ownership boundaries;
+- styling/composition props and variants;
+- component-owned style-rule or utility volume and the longest style clusters;
+- arbitrary values, component variables, descendant selectors, pseudo-elements, and runtime state
+  selectors;
+- accessibility, Ark behavior, states, orientations, responsive behavior, and visual capabilities
+  that shadcn may not support.
+
+Include compact evidence: part and wrapper counts plus approximate rule/utility counts when the
+difference is material. Do not count React-versus-Solid syntax or required Ark plumbing as styling
+complexity.
+
+If moduix is several times more complex, account for the difference requirement by requirement.
+Extra complexity is justified only by an intentional capability, accessibility or Ark requirement,
+visual contract, runtime measurement, or supported state. Historical CSS structure, copied fallback
+variables, redundant wrappers, speculative flexibility, and selectors compensating for unclear
+ownership are candidates for removal.
+
+Fix ordinary Tailwind translation mistakes during the port. Do not silently change shared anatomy,
+behavior, or CSS Modules implementations merely because shadcn is smaller. A simplification that
+affects the existing contract is a four-package product change: report it and wait for the user's
+decision unless the original request authorizes that broader refactor.
+
+Finish every migration handoff with a `Simplification review` containing:
+
+- the shadcn source, or a statement that no counterpart exists;
+- justified moduix differences;
+- each unnecessary or questionable complication and where it appears;
+- the smallest proposed simplification;
+- affected package variants and any API, anatomy, behavior, visual, test, story, documentation, or
+  registry impact;
+- `No simplification recommended` when all material differences are justified.
+
+## Completion
+
+The migration is complete only when the React and Solid Tailwind implementations preserve the
+existing contract through native utilities; focused tests, package builds, Storybooks, browser
+visual checks, exports, and registries pass; unexplained component styling variables and ambiguous
+arbitrary utilities are absent; and the final report includes the evidence-backed four-variant
+`Simplification review`.

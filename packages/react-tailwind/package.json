@@ -69,6 +69,10 @@
       "types": "./dist/components/bleed/index.d.ts",
       "import": "./dist/components/bleed/index.js"
     },
+    "./spinner": {
+      "types": "./dist/components/spinner/index.d.ts",
+      "import": "./dist/components/spinner/index.js"
+    },
     "./style.css": "./dist/styles/style.css",
     "./presets/*": "./dist/presets/*",
     "./package.json": "./package.json"
