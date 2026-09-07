@@ -166,6 +166,19 @@ only for required runtime behavior, genuine internal coordination, or explicitly
 cross-track CSS-variable compatibility. Justify every retained variable and report a compatibility
 exception as a non-native Tailwind API.
 
+### Fixed-style variable gate
+
+Do not introduce a component-local variable merely to carry a fixed prop variant such as spacing,
+typography, radius, color, or size from a root to its slots. That is CSS Modules translation, not
+internal coordination. Put the selected utilities on the owning part; when a root state must affect
+a slot, prefer a named `group-data-*`/`peer-data-*` variant. Use a local variable only when its
+value is genuinely runtime-dynamic and multiple owned parts must consume it.
+
+Before tests, search both Tailwind component directories with
+`rg -n '\[--[^]]+\]|var\(--' <react-component-dir> <solid-component-dir>`. The result must be empty
+or every match must be named in the handoff as an Ark/runtime variable, with its producer, consumer,
+and reason a utility cannot express it. A fixed-style variable is not an exception.
+
 Use arbitrary values only for a genuine one-off value, calculation, logical property without a
 utility, documented selector, or required runtime variable. Avoid ambiguous shorthand. For example,
 `border-[var(--width)]` may compile as `border-color`; prefer `border-2`, or use the explicit

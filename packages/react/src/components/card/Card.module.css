@@ -14,7 +14,6 @@
       var(--moduix-line-height-text-lg)
     );
 
-    box-sizing: border-box;
     position: relative;
     display: flex;
     width: 100%;
@@ -139,7 +138,6 @@
   .header,
   .body,
   .footer {
-    box-sizing: border-box;
     min-width: 0;
     padding-inline: var(--_card-padding-default);
   }
@@ -198,14 +196,6 @@
     &:first-child {
       padding-block-start: var(--_card-padding-default);
     }
-
-    & > :first-child {
-      margin-block-start: 0;
-    }
-
-    & > :last-child {
-      margin-bottom: 0;
-    }
   }
 
   .footer {
@@ -218,7 +208,6 @@
 
   .title {
     grid-column: 1;
-    margin: 0;
     min-width: 0;
     color: var(--moduix-card-title-color, currentColor);
     font-size: var(--_card-title-font-size-default);
@@ -229,7 +218,6 @@
 
   .description {
     grid-column: 1;
-    margin: 0;
     min-width: 0;
     color: var(--moduix-card-description-color, var(--moduix-color-muted-foreground));
     font-size: var(--moduix-card-description-font-size, var(--moduix-text-sm));

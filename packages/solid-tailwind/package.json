@@ -95,6 +95,12 @@
       "import": "./dist/components/button/index.js",
       "default": "./dist/components/button/index.js"
     },
+    "./card": {
+      "types": "./dist/components/card/index.d.ts",
+      "solid": "./dist/components/card/index.jsx",
+      "import": "./dist/components/card/index.js",
+      "default": "./dist/components/card/index.js"
+    },
     "./menu": {
       "types": "./dist/components/menu/index.d.ts",
       "solid": "./dist/components/menu/index.jsx",

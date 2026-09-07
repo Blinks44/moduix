@@ -267,6 +267,26 @@
       ]
     },
     {
+      "name": "card",
+      "type": "registry:item",
+      "title": "Card",
+      "description": "moduix Solid Tailwind Card component.",
+      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/card/Card.tsx",
+          "target": "@components/ui/card/Card.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/card/index.ts",
+          "target": "@components/ui/card/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "menu",
       "type": "registry:item",
       "title": "Menu",
