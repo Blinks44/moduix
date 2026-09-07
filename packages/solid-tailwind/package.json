@@ -83,6 +83,12 @@
       "import": "./dist/components/bleed/index.js",
       "default": "./dist/components/bleed/index.js"
     },
+    "./button": {
+      "types": "./dist/components/button/index.d.ts",
+      "solid": "./dist/components/button/index.jsx",
+      "import": "./dist/components/button/index.js",
+      "default": "./dist/components/button/index.js"
+    },
     "./spinner": {
       "types": "./dist/components/spinner/index.d.ts",
       "solid": "./dist/components/spinner/index.jsx",

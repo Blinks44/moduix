@@ -210,6 +210,26 @@
       ]
     },
     {
+      "name": "button",
+      "type": "registry:item",
+      "title": "Button",
+      "description": "moduix React Tailwind Button component.",
+      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/button/Button.tsx",
+          "target": "@components/ui/button/Button.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/button/index.ts",
+          "target": "@components/ui/button/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "spinner",
       "type": "registry:item",
       "title": "Spinner",

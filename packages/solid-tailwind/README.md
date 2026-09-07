@@ -1,7 +1,8 @@
 # @moduix/solid-tailwind
 
 Tailwind CSS v4 implementation of moduix Solid components. The current release contains Accordion,
-Alert, Angle Slider, and Avatar while preserving their public Ark-shaped APIs from `@moduix/solid`.
+Alert, Angle Slider, Avatar, and Button while preserving their public Ark-shaped APIs from
+`@moduix/solid`.
 
 ## Install
 
@@ -53,6 +54,16 @@ export function Example() {
 ```
 
 Consumer `class` values are merged after defaults with `tailwind-merge`, so utilities such as `p-0` override the component's default padding.
+
+## Use Button
+
+```tsx
+import { Button } from '@moduix/solid-tailwind/button';
+
+export function Example() {
+  return <Button variant="outline">Save changes</Button>;
+}
+```
 
 ## shadcn registry
 
