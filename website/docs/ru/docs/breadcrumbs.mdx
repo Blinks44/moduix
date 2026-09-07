@@ -1,7 +1,7 @@
 ---
 title: Breadcrumbs
 component: breadcrumbs
-description: Семантическая навигация по иерархии страниц с явными частями компонента и компактным API для коротких цепочек.
+description: Доступная навигация по иерархии страниц для React и Solid с явными частями и компактным API для коротких цепочек.
 ---
 
 import * as BreadcrumbsDocs from '@/components/examples/breadcrumbs/css-properties';
@@ -11,15 +11,25 @@ import BreadcrumbsCollapsedPath from '@/components/examples/breadcrumbs/collapse
 import BreadcrumbsCustomSeparator from '@/components/examples/breadcrumbs/custom-separator.tsx';
 import BreadcrumbsFrameworkLink from '@/components/examples/breadcrumbs/framework-link.tsx';
 import BreadcrumbsLongCurrentLabel from '@/components/examples/breadcrumbs/long-current-label.tsx';
+import breadcrumbsSolidAdvancedCustomization from '../../../snippets/breadcrumbs/solid/advanced-customization.tsx?raw';
+import breadcrumbsSolidBasic from '../../../snippets/breadcrumbs/solid/basic.tsx?raw';
+import breadcrumbsSolidCollapsedPath from '../../../snippets/breadcrumbs/solid/collapsed-path.tsx?raw';
+import breadcrumbsSolidCustomSeparator from '../../../snippets/breadcrumbs/solid/custom-separator.tsx?raw';
+import breadcrumbsSolidFrameworkLink from '../../../snippets/breadcrumbs/solid/framework-link.tsx?raw';
+import breadcrumbsSolidLongCurrentLabel from '../../../snippets/breadcrumbs/solid/long-current-label.tsx?raw';
 
 ## Справочник API
 
-Ark UI не предоставляет отдельного примитива для breadcrumbs. В moduix этот компонент собран с помощью официального
+Ark UI не предоставляет отдельного примитива для Breadcrumbs. В moduix этот компонент собран с помощью официального
 [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по
 [композиции](https://ark-ui.com/docs/guides/composition), [стилям](https://ark-ui.com/docs/guides/styling) и работе с
 [ref](https://ark-ui.com/docs/guides/ref).
 
 ## Базовый пример
+
+Breadcrumbs доступен для React и Solid как в пакетах с CSS Modules, так и в вариантах на Tailwind. Интерактивный
+пример на этой странице использует React и CSS Modules, а вкладки с кодом показывают нативный исходный код для того же
+публичного API.
 
 Используйте `Breadcrumbs.Path`, если у вас уже есть список сегментов пути. На основе небольшого массива `items`
 компонент создаёт упорядоченный список, элементы, ссылки, текущую страницу и разделители.
@@ -30,11 +40,23 @@ Ark UI не предоставляет отдельного примитива �
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/breadcrumbs/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={breadcrumbsSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -44,11 +66,34 @@ Ark UI не предоставляет отдельного примитива �
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="breadcrumbs" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/breadcrumbs' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/breadcrumbs' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/breadcrumbs' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/breadcrumbs' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+Подробнее об установке пакета и настройке реестра читайте в разделе [Быстрый старт](/docs/quick-start).
 
 ## Анатомия
 
-Компонент экспортирует все части через пространство имён в стиле Ark.
+`Breadcrumbs` экспортирует части через пространство имён в стиле Ark.
 
 ```text
 Breadcrumbs / Breadcrumbs.Root
@@ -60,60 +105,34 @@ Breadcrumbs / Breadcrumbs.Root
       └─ Breadcrumbs.Page
 ```
 
-| Часть                              | Роль                                                               |
-| ---------------------------------- | ------------------------------------------------------------------ |
-| `Breadcrumbs` / `Breadcrumbs.Root` | Область навигации с `aria-label` по умолчанию.                     |
-| `Breadcrumbs.List`                 | Упорядоченный список сегментов пути.                               |
-| `Breadcrumbs.Item`                 | Элемент списка, содержащий один сегмент.                           |
+| Часть                              | Назначение                                                       |
+| ---------------------------------- | ---------------------------------------------------------------- |
+| `Breadcrumbs` / `Breadcrumbs.Root` | Область навигации с `aria-label` по умолчанию.                    |
+| `Breadcrumbs.List`                 | Упорядоченный список сегментов пути.                              |
+| `Breadcrumbs.Item`                 | Элемент списка, содержащий один сегмент.                          |
 | `Breadcrumbs.Link`                 | Стилизованная ссылка для сегментов, по которым можно перейти; поддерживает `asChild`. |
-| `Breadcrumbs.Page`                 | Текст текущей страницы с `aria-current="page"`.                   |
-| `Breadcrumbs.Separator`            | Визуальный разделитель без семантической роли, скрытый от вспомогательных технологий. |
-| `Breadcrumbs.Ellipsis`             | Компактный маркер для кнопки меню, открывающей скрытые сегменты.   |
+| `Breadcrumbs.Page`                 | Текст текущей страницы с `aria-current="page"`.                  |
+| `Breadcrumbs.Separator`            | Визуальный разделитель, скрытый от вспомогательных технологий.   |
+| `Breadcrumbs.Ellipsis`             | Компактный маркер для кнопки меню, открывающей скрытые сегменты.  |
 
-`Breadcrumbs.Path` - удобное сокращение от moduix. Оно создаёт `Breadcrumbs.List`, `Breadcrumbs.Item`,
+`Breadcrumbs.Path` — сокращённый API moduix. Он создаёт `Breadcrumbs.List`, `Breadcrumbs.Item`,
 `Breadcrumbs.Link`, `Breadcrumbs.Page` и `Breadcrumbs.Separator` на основе массива `items`.
 
 ## Композиция
 
-### Рекомендуемая композиция
+`Breadcrumbs` не владеет интерактивным состоянием или состоянием формы, поэтому у него нет управляемых свойств,
+колбэков, хуков контекста или `RootProvider`. Состоянием свёрнутой цепочки управляет составной `Menu`, а навигация
+роутера остаётся ответственностью компонента-ссылки приложения.
 
-Используйте `Breadcrumbs.Path` для простых цепочек, где предыдущие страницы представлены ссылками. Последний элемент
-становится текущей страницей, между элементами по умолчанию отображается шеврон, а `separator` заменяет его в каждом
-видимом промежутке. Это сокращение само создаёт дочерние элементы, поэтому не принимает `children` и `asChild`.
-Нативные свойства упорядоченного списка и ref передаются созданному `Breadcrumbs.List`.
+Используйте `Breadcrumbs.Path` для цепочки с обычными ссылками. Он сам управляет дочерними элементами списка,
+делает последний элемент текущей страницей и не принимает `children` или `asChild`. Если нужны ссылки роутера,
+скрытые средние сегменты или другая разметка, используйте отдельные части. Для ссылки роутера передайте в
+`Breadcrumbs.Link asChild` один семантически корректный дочерний элемент, чтобы сохранить ожидаемые `href`, фокус и
+клавиатурное поведение.
 
-### Когда нужна собственная композиция
-
-Перейдите к отдельным частям, если нужны ссылки из роутера фреймворка, скрытые средние сегменты или своя разметка для
-отдельных элементов. С помощью Ark `asChild` можно отрисовать такую ссылку вместо `Breadcrumbs.Link`. Внутри должен
-быть один семантически корректный элемент ссылки, который сохраняет `href`, фокусировку и клавиатурное поведение.
-
-Объедините части `Breadcrumbs` с `Menu`, если средние сегменты нужно скрыть за триггером с многоточием. Структура меню
-должна оставаться явной: `Menu.Positioner`, `Menu.Content` и `Menu.Item asChild`. Компонент `Menu` сам размещает
-всплывающее содержимое через портал.
-
-### Свойства по умолчанию
-
-| Компонент                          | По умолчанию | Примечания                                             |
-| ---------------------------------- | ------------ | ------------------------------------------------------ |
-| `Breadcrumbs` / `Breadcrumbs.Root` | Нет          | Дополнительных поведенческих настроек нет, действуют настройки Ark. |
-| `Breadcrumbs.Path`                 | Шеврон       | Если `separator` не задан, между элементами используются шевроны. |
-
-### Особенности поведения
-
-- `Breadcrumbs` создаёт область навигации `nav`; по умолчанию у неё `aria-label="Breadcrumb"`.
-- `Breadcrumbs.Path` формирует упорядоченный список из `items`; последний элемент всегда становится текущей страницей.
-- Все элементы, кроме последнего, становятся `Breadcrumbs.Link`. Для элементов, по которым нужно переходить, задайте
-  `href`, а у последнего элемента его не указывайте.
-- `Breadcrumbs.Path` передаёт нативные свойства упорядоченного списка и ref, но сам создаёт дочерние элементы, поэтому
-  не поддерживает `children` и `asChild`.
-- `Breadcrumbs.Separator` служит только для оформления и скрыт от вспомогательных технологий.
-- `Breadcrumbs.Ellipsis` служит только для оформления и скрыт от вспомогательных технологий. Поместите его внутрь
-  триггера `Menu`, а доступную метку свёрнутой цепочки задайте на `Menu.Trigger`.
-- Видимые сегменты могут сжиматься, если ширины не хватает. Для текущей страницы действует основной лимит усечения
-  `--moduix-breadcrumbs-item-max-width`.
-- У Breadcrumbs нет управляемых свойств, колбэков, хуков контекста, `RootProvider`, ids, `HiddenInput` или интеграций
-  с состоянием формы, потому что компонент не управляет интерактивным состоянием и состоянием формы.
+Для свёрнутой цепочки поместите `Breadcrumbs.Ellipsis` внутрь `Menu.Trigger`, а части `Positioner`, `Content` и
+`Item asChild` меню оставьте явными. `Breadcrumbs.Ellipsis` отвечает только за отображение; доступная метка и
+взаимодействие принадлежат триггеру.
 
 ## Примеры
 
@@ -129,20 +148,31 @@ Breadcrumbs / Breadcrumbs.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/breadcrumbs/collapsed-path.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/breadcrumbs/breadcrumbs-collapsed-path.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={breadcrumbsSolidCollapsedPath} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/breadcrumbs/breadcrumbs-collapsed-path.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -158,20 +188,31 @@ Breadcrumbs / Breadcrumbs.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/breadcrumbs/custom-separator.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/breadcrumbs/breadcrumbs-custom-separator.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={breadcrumbsSolidCustomSeparator} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/breadcrumbs/breadcrumbs-custom-separator.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -186,27 +227,38 @@ Breadcrumbs / Breadcrumbs.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/breadcrumbs/framework-link.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/breadcrumbs/breadcrumbs-framework-link.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={breadcrumbsSolidFrameworkLink} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/breadcrumbs/breadcrumbs-framework-link.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Длинная метка текущей страницы
 
-Передайте React-узел в качестве последней метки `Breadcrumbs.Path`, если текущей странице нужны дополнительные атрибуты,
+Передайте узел в качестве последней метки `Breadcrumbs.Path`, если текущей странице нужны дополнительные атрибуты,
 например `title`. Предшествующие сегменты тоже могут сжиматься, поэтому длинные промежуточные подписи с меньшей
 вероятностью приведут к переполнению цепочки.
 
@@ -216,20 +268,31 @@ Breadcrumbs / Breadcrumbs.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/breadcrumbs/long-current-label.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/breadcrumbs/breadcrumbs-long-current-label.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={breadcrumbsSolidLongCurrentLabel} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/breadcrumbs/breadcrumbs-long-current-label.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -245,38 +308,51 @@ Breadcrumbs / Breadcrumbs.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/breadcrumbs/advanced-customization.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/breadcrumbs/breadcrumbs-advanced-customization.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={breadcrumbsSolidAdvancedCustomization} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/breadcrumbs/breadcrumbs-advanced-customization.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Стилизация
 
-У каждой экспортируемой части есть стабильный селектор `data-slot` от moduix. Публичные переменные `--moduix-breadcrumbs-*` отвечают за разметку, типографику,
-кольцо фокуса, разделители и размер многоточия.
+Используйте `className` в React или `class` в Solid на экспортируемых частях для структурных стилей. Варианты на
+Tailwind используют нативные классы Tailwind и классы приложения; справочник CSS-переменных ниже относится к вариантам
+с CSS Modules. Для стилей, зависящих от состояния, используйте атрибуты данных Ark вместе с селекторами `data-slot`
+moduix.
 
 ### CSS-свойства
 
 <CssPropertiesSection properties={BreadcrumbsDocs.breadcrumbsCssProperties} />
 
-### Селекторы для стилизации
+### Хуки стилизации
 
-- Значения `data-slot="breadcrumbs-root"`, `breadcrumbs-list`, `breadcrumbs-item`, `breadcrumbs-link`, `breadcrumbs-page`,
-  `breadcrumbs-separator` и `breadcrumbs-ellipsis` служат стабильными селекторами moduix.
-- `Breadcrumbs.Link`, `Breadcrumbs.Page` и `Breadcrumbs.Ellipsis` используют общий горизонтальный внутренний отступ из
-  `--moduix-breadcrumbs-item-padding-x`.
-- Видимые элементы `Breadcrumbs.Item` могут сжиматься, чтобы цепочка помещалась в одну строку. Последний видимый элемент
-  остаётся главной целью усечения и использует `--moduix-breadcrumbs-item-max-width`.
+- `data-slot="breadcrumbs-root"`, `breadcrumbs-list`, `breadcrumbs-item`, `breadcrumbs-link`, `breadcrumbs-page`,
+  `breadcrumbs-separator` и `breadcrumbs-ellipsis` — стабильные селекторы moduix.
+- В вариантах с CSS Modules `Breadcrumbs.Link`, `Breadcrumbs.Page` и `Breadcrumbs.Ellipsis` используют общий
+  горизонтальный внутренний отступ `--moduix-breadcrumbs-item-padding-x`.
+- Видимые элементы `Breadcrumbs.Item` могут сжиматься, чтобы цепочка помещалась в одну строку. В вариантах с CSS
+  Modules последний видимый элемент остаётся главной целью усечения и использует `--moduix-breadcrumbs-item-max-width`.
