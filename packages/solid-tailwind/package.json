@@ -101,6 +101,12 @@
       "import": "./dist/components/card/index.js",
       "default": "./dist/components/card/index.js"
     },
+    "./carousel": {
+      "types": "./dist/components/carousel/index.d.ts",
+      "solid": "./dist/components/carousel/index.jsx",
+      "import": "./dist/components/carousel/index.js",
+      "default": "./dist/components/carousel/index.js"
+    },
     "./menu": {
       "types": "./dist/components/menu/index.d.ts",
       "solid": "./dist/components/menu/index.jsx",

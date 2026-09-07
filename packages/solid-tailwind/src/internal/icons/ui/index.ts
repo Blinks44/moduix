@@ -1,6 +1,7 @@
 export {
   CheckIcon,
   ChevronDownIcon,
+  ChevronLeftIcon,
   ChevronRightIcon,
   PlusIcon,
   SeparatorMarkIcon,

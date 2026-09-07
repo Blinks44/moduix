@@ -287,6 +287,30 @@
       ]
     },
     {
+      "name": "carousel",
+      "type": "registry:item",
+      "title": "Carousel",
+      "description": "moduix Solid Tailwind Carousel component.",
+      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-solid-tailwind/foundation",
+        "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/carousel/Carousel.tsx",
+          "target": "@components/ui/carousel/Carousel.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/carousel/index.ts",
+          "target": "@components/ui/carousel/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "menu",
       "type": "registry:item",
       "title": "Menu",

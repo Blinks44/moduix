@@ -287,6 +287,30 @@
       ]
     },
     {
+      "name": "carousel",
+      "type": "registry:item",
+      "title": "Carousel",
+      "description": "moduix React Tailwind Carousel component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-react-tailwind/foundation",
+        "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/carousel/Carousel.tsx",
+          "target": "@components/ui/carousel/Carousel.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/carousel/index.ts",
+          "target": "@components/ui/carousel/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "menu",
       "type": "registry:item",
       "title": "Menu",
