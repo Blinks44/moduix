@@ -65,6 +65,10 @@
       "types": "./dist/components/badge/index.d.ts",
       "import": "./dist/components/badge/index.js"
     },
+    "./bleed": {
+      "types": "./dist/components/bleed/index.d.ts",
+      "import": "./dist/components/bleed/index.js"
+    },
     "./style.css": "./dist/styles/style.css",
     "./presets/*": "./dist/presets/*",
     "./package.json": "./package.json"

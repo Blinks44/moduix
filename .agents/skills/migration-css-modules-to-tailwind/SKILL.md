@@ -12,7 +12,7 @@ Port one shipped CSS Modules component into `packages/react-tailwind` and
 
 ## Reference and scope
 
-Use Accordion as the working reference for file placement and distribution:
+Use Accordion as the working reference for file placement, Ark runtime states, and distribution:
 
 - `packages/react-tailwind/src/components/accordion`
 - `packages/solid-tailwind/src/components/accordion`
@@ -21,7 +21,15 @@ Use Accordion as the working reference for file placement and distribution:
 - both Tailwind playground Accordion stories
 - both Tailwind package exports and registry items
 
-Copy its mechanics, not its component-specific classes or dependencies. The existing Tailwind,
+Use Alert and Badge as the working references when a public component prop selects visual variants:
+
+- `packages/react-tailwind/src/components/alert`
+- `packages/solid-tailwind/src/components/alert`
+- `packages/react-tailwind/src/components/badge`
+- `packages/solid-tailwind/src/components/badge`
+
+Copy the relevant mechanics, not component-specific classes or dependencies. In particular, do not
+copy Accordion's `data-*` styling for a value that the wrapper already receives as a prop. The existing Tailwind,
 Rslib, Rstest, foundation, `cn`, Storybook, and `@source` configuration is package-wide; an ordinary
 component port must not create or modify another build system.
 
@@ -57,16 +65,17 @@ Create the same component directory and re-export-only `index.ts` in both Tailwi
 - Build the Solid variant from the Solid CSS Modules contract using native Solid, reactive props,
   `class`, and the verified Ark Solid API. Do not transliterate React hooks or ref mechanics.
 - Preserve callable roots, namespaced parts, hooks, contexts, default children, `data-slot`, Ark
-  `data-scope`/`data-part`, state attributes, runtime variables, and semantic hosts.
+  `data-scope`/`data-part`, state attributes, required runtime variables, and semantic hosts.
 - Remove CSS Module imports. Component defaults belong in statically discoverable Tailwind class
   strings; never construct utility names from fragments.
 - Put each part's static default utilities directly in that part's JSX `cn(...)` call. Do not hoist
-  them into intermediate `*Class`, `*ClassName`, or similar constants. When prop-driven visual
-  variants or an identical Root/RootProvider recipe become clearer as a typed variant table, use a
-  component-local `cva` recipe instead. Keep every utility as a statically discoverable literal,
-  pass the selected props to the recipe, and still merge the consumer class last through `cn`.
-  Do not introduce `cva` for Ark-owned runtime `data-*` states, a single fixed style, or merely to
-  reduce the apparent length of a utility string.
+  them into intermediate `*Class`, `*ClassName`, or similar constants. When a public prop directly
+  selects mutually exclusive visual classes, use a component-local `cva` recipe and pass that prop
+  to the recipe. Keep every utility as a statically discoverable literal and merge the consumer class
+  last through `cn`. Do not restyle a prop through `data-[<prop>=<value>]` merely because the same
+  value is also emitted as a public data hook. Reserve Tailwind `data-*` variants for Ark-owned or
+  DOM-owned runtime state that is not selected directly by the wrapper's render-time props. Do not
+  introduce `cva` for those runtime states, a single fixed style, or merely to shorten a class string.
 - Merge defaults with the package-local `cn` helper and pass the consumer `className` or `class`
   last so `tailwind-merge` can resolve conflicts in the consumer's favor.
 - Reuse the foundation's Tailwind semantic theme utilities, shared keyframes, and framework-local
@@ -97,11 +106,41 @@ utilities; use those names instead of embedding token variables in arbitrary val
 arbitrary value only for a real one-off CSS value, calculation, selector, required Ark runtime
 variable, or a foundation token category for which Tailwind has no theme namespace.
 
-Do not reproduce ordinary CSS Module customization variables for spacing, sizing, typography,
-borders, opacity, or transitions. A rare component variable is justified only when it represents a
-meaningful runtime or component-level concept that utilities cannot express clearly. Internal CSS
-variables may coordinate complex selectors, but they are implementation details, not a mirrored
-public token layer.
+Classify every source CSS variable before translating it:
+
+1. Preserve Ark/runtime measurement and positioning variables required for behavior.
+2. Keep an internal coordination variable only when multiple selectors genuinely need it.
+3. Replace a CSS Modules customization variable that merely wraps spacing, sizing, typography,
+   borders, opacity, transitions, or another foundation token with the corresponding named utility.
+
+Accounting for every CSS variable does not mean copying every variable name into Tailwind. For
+example, `calc(var(--moduix-component-gap, var(--moduix-spacing-3)) * -1)` normally becomes `-m-3`,
+not `m-[calc(var(...))]`. A rare component variable is justified only when it represents a meaningful
+runtime concept that utilities cannot express clearly. If a request explicitly requires cross-track
+CSS-variable API compatibility, treat that as an exception: preserve the requested variables, but
+still use a prop recipe rather than data selectors for prop-driven variants, and call out the reduced
+Tailwind-native customization in the handoff.
+
+### Choose the styling mechanism from the source of truth
+
+- Fixed visual default: put named utilities directly in the part's `cn(...)` call.
+- Public prop selects a visual variant: use `cva`, keep the data attribute as a hook, and pass the
+  selected prop to the recipe.
+- Ark or DOM changes runtime state after render: style the documented state with `data-*`, ARIA,
+  pseudo-class, or group/peer variants.
+- One-off calculation or logical property without a named utility: use a focused arbitrary utility.
+
+For a component with `inline` and `block` spacing props, the intended shape is a two-axis recipe such
+as `inline: { xs: '-mx-1', ... }` and `block: { xs: '-my-1', ... }`. Do not emit every option as
+`data-[inline=xs]:...` on every instance.
+
+### Preserve the consumer override contract
+
+The consumer class must replace the actual selected default, not merely an unrelated base utility.
+Prop-selected defaults and consumer overrides therefore need the same Tailwind variant scope. A plain
+consumer `mx-8` cannot reliably override `data-[inline=md]:mx-*`: `tailwind-merge` keeps both because
+their modifiers differ, and the attribute selector is more specific. A `cva` result such as `-mx-3`
+can be replaced by a later `mx-8` through `cn`.
 
 Keep the React and Solid Tailwind class semantics equivalent. Let the shared oxfmt configuration
 sort class strings; do not add a second class-ordering tool. Tailwind Preflight is the reset, so
@@ -144,7 +183,9 @@ Modules test, not from the other framework's test.
   callback details, refs, forms, providers, context, presence, and public data hooks.
 - Adapt only framework syntax and testing-library setup; do not weaken assertions to obtain parity.
 - In both Tailwind tests, add a focused assertion that a conflicting consumer utility replaces the
-  corresponding default utility through `cn`/`tailwind-merge`.
+  corresponding selected default utility through `cn`/`tailwind-merge`. Choose a class from the
+  component's primary visual behavior—for example, test `mx-*` against the selected inline spacing
+  variant—not an incidental reset such as `m-0`.
 - Assert meaningful hooks and conflict resolution rather than snapshotting a full formatted class
   string.
 
@@ -159,6 +200,12 @@ not move demo layout into the library component. Keep React and Solid story code
 and do not introduce shared cross-framework story helpers. If a scenario needs a missing Tailwind
 component, port that prerequisite first or report the named scenario as deferred rather than
 silently dropping it.
+
+Translate CSS shorthands by their emitted property semantics, not by visual resemblance. Tailwind
+arbitrary `bg-[...]` values that contain a gradient compile as `background-image`; a source
+`background: linear-gradient(...), <color>` must become separate utilities such as `bg-accent` and
+`bg-[linear-gradient(...)]`. In visual comparison, confirm that empty decorative elements remain
+visible, sized, colored, and rounded; text-only snapshots do not prove story parity.
 
 ## Publish through npm and shadcn
 

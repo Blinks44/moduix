@@ -21,7 +21,7 @@
           "utils": "@/lib/utils"
         }
       },
-      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
       "registryDependencies": ["@moduix-react-tailwind/foundation"]
     },
     {
@@ -185,6 +185,26 @@
         {
           "path": "src/components/badge/index.ts",
           "target": "@components/ui/badge/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "bleed",
+      "type": "registry:item",
+      "title": "Bleed",
+      "description": "moduix React Tailwind Bleed component.",
+      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/bleed/Bleed.tsx",
+          "target": "@components/ui/bleed/Bleed.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/bleed/index.ts",
+          "target": "@components/ui/bleed/index.ts",
           "type": "registry:component"
         }
       ]

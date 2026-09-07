@@ -77,6 +77,12 @@
       "import": "./dist/components/badge/index.js",
       "default": "./dist/components/badge/index.js"
     },
+    "./bleed": {
+      "types": "./dist/components/bleed/index.d.ts",
+      "solid": "./dist/components/bleed/index.jsx",
+      "import": "./dist/components/bleed/index.js",
+      "default": "./dist/components/bleed/index.js"
+    },
     "./style.css": "./dist/styles/style.css",
     "./presets/*": "./dist/presets/*",
     "./package.json": "./package.json"
