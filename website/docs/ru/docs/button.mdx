@@ -1,7 +1,7 @@
 ---
 title: Button
 component: button
-description: Стилизованная кнопка для запуска действий, построенная на модели композиции Ark factory.
+description: Стилизованный односоставный элемент управления действиями для React и Solid с вариантами на CSS Modules и Tailwind.
 ---
 
 import * as ButtonDocs from '@/components/examples/button/css-properties';
@@ -13,6 +13,14 @@ import ButtonPendingState from '@/components/examples/button/pending-state.tsx';
 import ButtonRef from '@/components/examples/button/ref.tsx';
 import ButtonSizes from '@/components/examples/button/sizes.tsx';
 import ButtonVariants from '@/components/examples/button/variants.tsx';
+import buttonSolidAsChildLink from '../../../snippets/button/solid/as-child-link.tsx?raw';
+import buttonSolidBasic from '../../../snippets/button/solid/basic.tsx?raw';
+import buttonSolidDisabled from '../../../snippets/button/solid/disabled.tsx?raw';
+import buttonSolidIcons from '../../../snippets/button/solid/icons.tsx?raw';
+import buttonSolidPendingState from '../../../snippets/button/solid/pending-state.tsx?raw';
+import buttonSolidRef from '../../../snippets/button/solid/ref.tsx?raw';
+import buttonSolidSizes from '../../../snippets/button/solid/sizes.tsx?raw';
+import buttonSolidVariants from '../../../snippets/button/solid/variants.tsx?raw';
 
 ## Справочник API
 
@@ -23,8 +31,11 @@ import ButtonVariants from '@/components/examples/button/variants.tsx';
 
 ## Базовый пример
 
-Для большинства действий используйте короткую запись `<Button>...</Button>`. Для записи через
-пространство имён используйте `Button.Root`.
+Button доступен в пакетах React и Solid с CSS Modules и Tailwind. Интерактивный пример на этой странице
+использует React и CSS Modules, а вкладки показывают нативный код для того же публичного контракта.
+
+Для большинства действий используйте короткую запись `<Button>...</Button>`. Для записи через пространство
+имён используйте `Button.Root`.
 
 <ExampleFrame variant="component">
   <ButtonBasic />
@@ -32,11 +43,23 @@ import ButtonVariants from '@/components/examples/button/variants.tsx';
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/button/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={buttonSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -46,66 +69,57 @@ import ButtonVariants from '@/components/examples/button/variants.tsx';
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="button" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/button' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/button' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/button' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/button' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+Подробнее об установке пакета и настройке реестра см. в разделе [Быстрый старт](/ru/docs/quick-start).
 
 ## Анатомия
 
 `Button` состоит из одной части.
 
 ```text
-Button.Root
+Button / Button.Root
 └─ root[data-scope="button"][data-part="root"][data-slot="button-root"]
    └─ children
 ```
 
-| Часть                    | Роль                                                   |
-| ------------------------ | ------------------------------------------------------ |
-| `Button` / `Button.Root` | Интерактивный корневой элемент со стилями moduix.      |
-| `Button`                 | Вызываемая форма `Button.Root`.                        |
+| Часть                    | Назначение                                          |
+| ------------------------ | --------------------------------------------------- |
+| `Button` / `Button.Root` | Единый интерактивный корневой элемент со стилями moduix. |
+| `Button`                 | Вызываемая форма `Button.Root`.                     |
 
 ## Композиция
 
-### Рекомендуемая композиция
+`Button` — односоставной корневой элемент. Используйте `asChild`, если итоговым DOM-узлом должен владеть
+другой семантический элемент: в React передаётся ровно один дочерний элемент, а в Solid — render-функция
+`asChild`. Если Button компонует часть Ark, родитель сохраняет `data-scope` и `data-part`, а Button — свои
+классы рецепта и стабильный `data-slot`.
 
-Для действий используйте нативный корневой элемент. По умолчанию он получает `type="button"`, поэтому
-форма не отправится случайно. Если кнопка должна отправлять форму, явно задайте `type="submit"`.
-
-### Свойства по умолчанию
-
-| Свойство  | По умолчанию | Значения                                                                             |
-| --------- | ------------ | ------------------------------------------------------------------------------------ |
-| `loading` | `false`      | `boolean`                                                                            |
-| `variant` | `default`    | `default`, `outline`, `secondary`, `destructive`, `destructive-outline`, `ghost`, `link` |
-| `size`    | `md`         | `xs`, `sm`, `md`, `lg`, `xl`, `icon-sm`, `icon-md`, `icon-lg`                       |
-| `type`    | `button`     | Только нативные корневые элементы                                                    |
-| `asChild` | `false`      | Использует единственный дочерний элемент как корневой DOM-элемент                    |
-
-### Когда нужен собственный элемент
-
-Используйте `asChild`, когда существующий семантический элемент должен стать итоговым DOM-узлом. Ark
-требует ровно одного дочернего элемента. Значение `type="button"` по умолчанию не добавляется к
-элементу при использовании `asChild`.
-
-Если `Dialog.Trigger`, `Menu.Trigger` или другая часть Ark компонует Button как дочерний элемент,
-`data-scope` и `data-part` родительской части имеют приоритет на общем DOM-узле. Button сохраняет свои
-классы стилей и стабильный `data-slot`, а Ark объединяет обработчики триггера и ref.
-
-Для навигации используйте настоящий элемент `<a>`. Если использовать `asChild` с `disabled`, `loading`
-или `aria-disabled="true"`, Button установит `aria-disabled`, применит стили отключённого состояния и
-заблокирует активацию по клику. Нативный атрибут `disabled` к пользовательскому элементу не добавляется.
-
-### Особенности поведения
-
-- Нативные атрибуты, `style` и обработчики событий передаются корневому элементу. `className`
-  объединяется со стилями moduix, а активация отключённой кнопки блокируется.
-- Переданный ref указывает на отрисованный корневой элемент.
-- Свойства `disabled`, `aria-disabled="true"` и `loading` устанавливают `data-disabled`.
-- `loading` - это короткая запись для настройки состояния: она устанавливает `data-loading`, `aria-busy`
-  и стили отключённого состояния, а текст кнопки и индикатор загрузки остаются под контролем приложения.
-- Прямые дочерние элементы `svg` наследуют `currentColor` и используют `--moduix-button-icon-size`.
-- Кнопка только со значком должна иметь доступное имя.
-- API, специфичные для Chakra, например `colorPalette`, адаптивные свойства рецепта, `ButtonGroup` и
-  управляемые свойства загрузки, намеренно не входят в контракт moduix с одним корневым элементом.
+Свойство `loading` отвечает только за состояние занятости и отключения (`data-loading`, `aria-busy` и
+`data-disabled`); индикатор, текст и асинхронный жизненный цикл остаются под контролем приложения. Для
+нативного корневого элемента по умолчанию используется `type="button"`, но при `asChild` это значение не
+добавляется.
 
 ## Примеры
 
@@ -119,27 +133,39 @@ Button.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/button/disabled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/button/button-disabled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={buttonSolidDisabled} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/button/button-disabled.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Иконки
 
-Иконки могут стоять до или после текста. Их порядок в JSX и значение `gap` у корневого элемента Button определяют расположение элементов.
+Иконки могут стоять до или после текста. Их порядок в JSX и значение `gap` у корневого элемента Button
+определяют расположение элементов.
 
 <ExampleFrame variant="component">
   <ButtonIcons />
@@ -147,20 +173,31 @@ Button.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/button/icons.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/button/button-icons.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={buttonSolidIcons} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/button/button-icons.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -175,11 +212,23 @@ Button.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/button/as-child-link.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={buttonSolidAsChildLink} />
 
     </Tab>
   </Tabs>
@@ -189,9 +238,9 @@ Button.Root
 
 ### Состояние загрузки
 
-Используйте `loading`, чтобы обозначить состояние загрузки. Текст кнопки, индикатор и асинхронный
-жизненный цикл при этом остаются под контролем приложения. На элементах, переданных через `asChild`,
-этот проп также блокирует активацию по клику.
+Используйте `loading`, чтобы обозначить состояние занятости, оставив текст, индикатор и асинхронный
+жизненный цикл под контролем приложения. На элементах, переданных через `asChild`, этот проп также
+блокирует активацию по клику.
 
 <ExampleFrame variant="component">
   <ButtonPendingState />
@@ -199,11 +248,23 @@ Button.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/button/pending-state.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={buttonSolidPendingState} />
 
     </Tab>
   </Tabs>
@@ -222,20 +283,31 @@ Button.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/button/ref.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/button/button-ref.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={buttonSolidRef} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/button/button-ref.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -250,20 +322,31 @@ Button.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/button/sizes.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/button/button-sizes.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={buttonSolidSizes} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/button/button-sizes.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -278,36 +361,53 @@ Button.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/button/variants.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/button/button-variants.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={buttonSolidVariants} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/button/button-variants.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Стилизация
 
+Для пользовательских стилей передавайте корневому элементу `className` в React или `class` в Solid. Варианты
+с CSS Modules используют перечисленные ниже переменные Button, а варианты на Tailwind — обычные утилиты и
+классы приложения. Атрибуты состояния и хуки `data-slot` общие для обоих подходов.
+
 ### CSS-свойства
 
 <CssPropertiesSection properties={ButtonDocs.buttonCssProperties} />
 
-### Селекторы для стилизации
+### Хуки стилизации
 
-- `data-slot="button-root"` - стабильный селектор moduix.
-- У самостоятельного корневого элемента по умолчанию используются `data-scope="button"` и `data-part="root"`. Родитель Ark, который компонует Button, может заменить их значениями своей анатомии.
+- `data-slot="button-root"` — стабильный селектор moduix.
+- У самостоятельного корневого элемента по умолчанию используются `data-scope="button"` и `data-part="root"`.
+  Родитель Ark, который компонует Button, может заменить их значениями своей анатомии.
 - `data-variant` и `data-size` показывают активные вариант и размер.
 - `data-disabled` присутствует для нативных `disabled`, `aria-disabled="true"` и `loading`.
 - `data-loading` присутствует, когда `loading={true}`.
 - `[data-disabled]` управляет стилями отключённого состояния для нативных `disabled`, `aria-disabled="true"` и `loading`.
-- В активных вариантах кнопки используется лёгкое смещение при нажатии. Для `link` меняется только прозрачность, а если пользователь предпочитает уменьшить движение, смещение отключается.
+- В активных вариантах кнопки используется лёгкое смещение при нажатии. Для `link` меняется только прозрачность,
+  а если пользователь предпочитает уменьшить движение, смещение отключается.
