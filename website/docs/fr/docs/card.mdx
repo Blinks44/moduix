@@ -138,9 +138,9 @@ Card.Root
 
 ## Composition
 
-Card ne gère aucun état, callback, provider, contexte, comportement clavier ni champ masqué. Utilisez ses parties simples pour le contenu de présentation. Utilisez `asChild` lorsqu’un élément sémantique doit porter la racine ou une autre partie ; il doit rendre exactement un enfant capable de recevoir les propriétés fusionnées. En Solid, `asChild` utilise une fonction de rendu telle que `asChild={(props) => <a {...props()} />}`.
+Card ne gère aucun état, fonction de rappel, contexte, comportement clavier ni champ masqué. Utilisez ses parties simples pour le contenu de présentation. Utilisez `asChild` lorsqu’un élément sémantique doit porter la racine ou une autre partie ; il doit rendre exactement un enfant capable de recevoir les propriétés fusionnées. En Solid, `asChild` utilise une fonction de rendu telle que `asChild={(props) => <a {...props()} />}`.
 
-Lorsqu’une carte est entièrement un lien et ne contient aucun contrôle imbriqué, composez la racine avec `asChild`. Si la carte contient aussi des boutons ou d’autres actions, gardez `Card.Link` dans `Card.Title` et placez ces contrôles dans `Card.Action` ; la zone cliquable étendue du lien ne gênera ainsi pas les autres éléments interactifs. Utilisez `Card.Media` pour un média informatif placé en tête et `Card.Background` pour un média décoratif derrière le contenu. Donnez un `alt` vide aux images d’arrière-plan et gérez dans l’application les éventuels overlays ou styles assurant le contraste du texte.
+Lorsqu’une carte est entièrement un lien et ne contient aucun contrôle imbriqué, composez la racine avec `asChild`. Si la carte contient aussi des boutons ou d’autres actions, gardez `Card.Link` dans `Card.Title` et placez ces contrôles dans `Card.Action` ; la zone cliquable étendue du lien ne gênera ainsi pas les autres éléments interactifs. Utilisez `Card.Media` pour un média informatif placé en tête et `Card.Background` pour un média décoratif derrière le contenu. Donnez un `alt` vide aux images d’arrière-plan et gérez dans l’application les éventuelles superpositions ou styles assurant le contraste du texte.
 ## Exemples
 
 ### Action dans l’en-tête

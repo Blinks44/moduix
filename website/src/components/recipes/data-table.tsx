@@ -519,25 +519,27 @@ function ColumnVisibilityMenu({
       </Menu.Trigger>
       <Menu.Positioner>
         <Menu.Content>
-          <Menu.ItemGroup>
-            <Menu.ItemGroupLabel>Visible columns</Menu.ItemGroupLabel>
-            {table
-              .getAllLeafColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => (
-                <Menu.CheckboxItem
-                  key={column.id}
-                  checked={column.getIsVisible()}
-                  value={column.id}
-                  onCheckedChange={() => column.toggleVisibility()}
-                >
-                  <Menu.ItemIndicator />
-                  <Menu.ItemText>
-                    {column.id === 'installations' ? 'Installs' : column.id}
-                  </Menu.ItemText>
-                </Menu.CheckboxItem>
-              ))}
-          </Menu.ItemGroup>
+          <Menu.Viewport>
+            <Menu.ItemGroup>
+              <Menu.ItemGroupLabel>Visible columns</Menu.ItemGroupLabel>
+              {table
+                .getAllLeafColumns()
+                .filter((column) => column.getCanHide())
+                .map((column) => (
+                  <Menu.CheckboxItem
+                    key={column.id}
+                    checked={column.getIsVisible()}
+                    value={column.id}
+                    onCheckedChange={() => column.toggleVisibility()}
+                  >
+                    <Menu.ItemIndicator />
+                    <Menu.ItemText>
+                      {column.id === 'installations' ? 'Installs' : column.id}
+                    </Menu.ItemText>
+                  </Menu.CheckboxItem>
+                ))}
+            </Menu.ItemGroup>
+          </Menu.Viewport>
         </Menu.Content>
       </Menu.Positioner>
     </Menu>
@@ -560,15 +562,17 @@ function RowActions({ id, name }: { id: string; name: string }) {
       </Menu.Trigger>
       <Menu.Positioner>
         <Menu.Content>
-          <Menu.Item value="open-docs" asChild>
-            <a href={`#${id}`}>Open details</a>
-          </Menu.Item>
-          <Menu.Item
-            value="copy-identifier"
-            onSelect={() => void navigator.clipboard.writeText(id)}
-          >
-            Copy identifier
-          </Menu.Item>
+          <Menu.Viewport>
+            <Menu.Item value="open-docs" asChild>
+              <a href={`#${id}`}>Open details</a>
+            </Menu.Item>
+            <Menu.Item
+              value="copy-identifier"
+              onSelect={() => void navigator.clipboard.writeText(id)}
+            >
+              Copy identifier
+            </Menu.Item>
+          </Menu.Viewport>
         </Menu.Content>
       </Menu.Positioner>
     </Menu>

@@ -72,15 +72,17 @@ export const Collapsed: Story = {
             </Menu.Trigger>
             <Menu.Positioner>
               <Menu.Content style={collapsedMenuContentStyle}>
-                <Menu.Item value="engineering" asChild>
-                  <a href="#">Engineering</a>
-                </Menu.Item>
-                <Menu.Item value="backend" asChild>
-                  <a href="#">Backend</a>
-                </Menu.Item>
-                <Menu.Item value="golang" asChild>
-                  <a href="#">Golang</a>
-                </Menu.Item>
+                <Menu.Viewport>
+                  <Menu.Item value="engineering" asChild>
+                    <a href="#">Engineering</a>
+                  </Menu.Item>
+                  <Menu.Item value="backend" asChild>
+                    <a href="#">Backend</a>
+                  </Menu.Item>
+                  <Menu.Item value="golang" asChild>
+                    <a href="#">Golang</a>
+                  </Menu.Item>
+                </Menu.Viewport>
               </Menu.Content>
             </Menu.Positioner>
           </Menu>

@@ -8,7 +8,7 @@ import {
   useMenuItemContext,
 } from '@ark-ui/solid/menu';
 import { cva } from 'class-variance-authority';
-import type { ComponentProps, JSX } from 'solid-js';
+import type { ComponentProps } from 'solid-js';
 import { children, splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 import { CheckIcon, ChevronDownIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
@@ -183,35 +183,11 @@ function MenuPositioner(props: ComponentProps<typeof MenuPrimitive.Positioner>) 
   );
 }
 
-function isMenuArrow(child: JSX.Element): boolean {
-  if (typeof child !== 'object' || child === null) return false;
-  const element = child as Element;
-  return (
-    typeof element.hasAttribute === 'function' && element.hasAttribute('data-moduix-menu-arrow')
-  );
-}
-
 function MenuContent(props: ComponentProps<typeof MenuPrimitive.Content>) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
-  if (local.asChild)
-    return (
-      <MenuPrimitive.Content
-        asChild={local.asChild}
-        data-slot="menu-content"
-        class={cn(
-          'relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] flex max-w-[min(20rem,var(--available-width,100vw))] min-w-[min(max(var(--reference-width,0px),12rem),var(--available-width,100vw))] origin-[var(--transform-origin)] flex-col overflow-visible rounded-md bg-popover py-1 text-popover-foreground shadow-lg outline-1 outline-border [--arrow-background:var(--color-popover)] [--arrow-size:0.625rem] data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
-          local.class,
-        )}
-        {...others}
-      >
-        {local.children}
-      </MenuPrimitive.Content>
-    );
-  const resolvedChildren = children(() => local.children);
-  const arrows = () => resolvedChildren.toArray().filter(isMenuArrow);
-  const content = () => resolvedChildren.toArray().filter((child) => !isMenuArrow(child));
   return (
     <MenuPrimitive.Content
+      asChild={local.asChild}
       data-slot="menu-content"
       class={cn(
         'relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] flex max-w-[min(20rem,var(--available-width,100vw))] min-w-[min(max(var(--reference-width,0px),12rem),var(--available-width,100vw))] origin-[var(--transform-origin)] flex-col overflow-visible rounded-md bg-popover py-1 text-popover-foreground shadow-lg outline-1 outline-border [--arrow-background:var(--color-popover)] [--arrow-size:0.625rem] data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
@@ -219,11 +195,26 @@ function MenuContent(props: ComponentProps<typeof MenuPrimitive.Content>) {
       )}
       {...others}
     >
-      {arrows()}
-      <div class="flex max-h-[min(24rem,var(--available-height,100dvh))] flex-col overflow-auto">
-        {content()}
-      </div>
+      {local.children}
     </MenuPrimitive.Content>
+  );
+}
+
+function MenuViewport(props: HTMLArkProps<'div'>) {
+  const [local, others] = splitProps(props, ['asChild', 'class']);
+
+  return (
+    <ark.div
+      asChild={local.asChild}
+      data-scope="menu"
+      data-part="viewport"
+      data-slot="menu-viewport"
+      class={cn(
+        'flex max-h-[min(24rem,var(--available-height,100dvh))] flex-col overflow-auto',
+        local.class,
+      )}
+      {...others}
+    />
   );
 }
 
@@ -232,7 +223,6 @@ function MenuArrow(props: ComponentProps<typeof MenuPrimitive.Arrow>) {
   const resolvedChildren = children(() => local.children);
   return (
     <MenuPrimitive.Arrow
-      data-moduix-menu-arrow=""
       data-slot="menu-arrow"
       class={cn('[--arrow-background:var(--color-popover)]', local.class)}
       {...others}
@@ -452,6 +442,7 @@ const Menu = Object.assign(MenuRoot, {
   ContextTrigger: MenuContextTrigger,
   Positioner: MenuPositioner,
   Content: MenuContent,
+  Viewport: MenuViewport,
   Arrow: MenuArrow,
   ArrowTip: MenuArrowTip,
   Item: MenuItem,

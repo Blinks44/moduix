@@ -16,11 +16,13 @@ export default function OpenFromMenuDialogDemo() {
         </Menu.Trigger>
         <Menu.Positioner>
           <Menu.Content>
-            <Menu.Item value="edit">Edit</Menu.Item>
-            <Menu.Item value="duplicate">Duplicate</Menu.Item>
-            <Menu.Item value="delete" tone="destructive" onClick={() => setOpen(true)}>
-              Delete...
-            </Menu.Item>
+            <Menu.Viewport>
+              <Menu.Item value="edit">Edit</Menu.Item>
+              <Menu.Item value="duplicate">Duplicate</Menu.Item>
+              <Menu.Item value="delete" tone="destructive" onClick={() => setOpen(true)}>
+                Delete...
+              </Menu.Item>
+            </Menu.Viewport>
           </Menu.Content>
         </Menu.Positioner>
       </Menu>

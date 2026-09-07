@@ -128,21 +128,22 @@ Menu / Menu.Root
       └─ Menu.Content
          ├─ Menu.Arrow
          │  └─ Menu.ArrowTip
-         ├─ Menu.Item
-         │  ├─ Menu.ItemText
-         │  │  ├─ Menu.ItemTextIcon
-         │  │  └─ Menu.ItemTextLabel
-         │  └─ Menu.ItemShortcut
-         ├─ Menu.CheckboxItem
-         │  └─ Menu.ItemIndicator
-         ├─ Menu.RadioItemGroup
-         │  └─ Menu.RadioItem
-         ├─ Menu.ItemGroup
-         │  └─ Menu.ItemGroupLabel
-         ├─ Menu.Separator
-         └─ Menu
-            └─ Menu.TriggerItem
-               └─ Menu.TriggerItemIcon
+         └─ Menu.Viewport
+            ├─ Menu.Item
+            │  ├─ Menu.ItemText
+            │  │  ├─ Menu.ItemTextIcon
+            │  │  └─ Menu.ItemTextLabel
+            │  └─ Menu.ItemShortcut
+            ├─ Menu.CheckboxItem
+            │  └─ Menu.ItemIndicator
+            ├─ Menu.RadioItemGroup
+            │  └─ Menu.RadioItem
+            ├─ Menu.ItemGroup
+            │  └─ Menu.ItemGroupLabel
+            ├─ Menu.Separator
+            └─ Menu
+               └─ Menu.TriggerItem
+                  └─ Menu.TriggerItemIcon
 ```
 
 | Часть | Назначение |
@@ -155,6 +156,7 @@ Menu / Menu.Root
 | `Menu.ContextTrigger` | Триггер для контекстного меню по правому клику или долгому нажатию. |
 | `Menu.Positioner` | Позиционирует плавающий слой меню. |
 | `Menu.Content` | Всплывающая область с ролью `menu` и коллекцией пунктов. |
+| `Menu.Viewport` | Явный прокручиваемый контейнер вокруг коллекции пунктов. |
 | `Menu.Arrow` / `Menu.ArrowTip` | Необязательная стрелка, визуально связывающая всплывающее меню с триггером. |
 | `Menu.Item` | Обычный пункт, выполняющий команду. |
 | `Menu.CheckboxItem` | Пункт с независимым логическим состоянием. |
@@ -174,11 +176,13 @@ Menu / Menu.Root
 изменения. Используйте `useMenu()` с `Menu.RootProvider`, если хранилище состояния нужно создать
 за пределами дерева компонентов; не добавляйте второй корневой `Menu` для того же хранилища.
 
-`Menu.Positioner` и `Menu.Content` являются разными частями, но позиционер автоматически помещается
+`Menu.Positioner`, `Menu.Content` и `Menu.Viewport` являются разными частями, но позиционер автоматически помещается
 в портал. Установите `portalled={false}` внутри диалога или прокручиваемого контейнера и добавьте
 `positioning={{ strategy: 'fixed', hideWhenDetached: true }}`, если этот контейнер может прокручиваться.
 Используйте `asChild` ровно с одним семантическим потомком, если триггер, пункт или контейнер
-содержимого должны владеть DOM-узлом. Вложенное меню — это ещё один корневой `Menu` внутри
+содержимого должны владеть DOM-узлом. Внутри `Menu.Content` оберните прокручиваемые пункты в
+`Menu.Viewport`. Необязательный `Menu.Arrow` оставьте непосредственным потомком `Menu.Content`, рядом
+с viewport, чтобы стрелка не обрезалась при прокрутке. Вложенное меню — это ещё один корневой `Menu` внутри
 родительского содержимого с собственными `TriggerItem`, `Positioner` и `Content`.
 
 ## Примеры
@@ -730,12 +734,12 @@ ARIA-атрибуты, клавиатурное поведение и обраб
 ### Хуки стилизации
 
 - Атрибуты Ark: `[data-scope='menu']`, `[data-part='trigger']`, `[data-part='indicator']`,
-  `[data-part='content']`, `[data-part='item']`, `[data-type='checkbox' | 'radio']`,
+  `[data-part='content']`, `[data-part='viewport']`, `[data-part='item']`, `[data-type='checkbox' | 'radio']`,
   `[data-state='open' | 'closed' | 'checked' | 'unchecked']`, `[data-current]`, `[data-highlighted]`,
   `[data-disabled]`, `[data-placement]` и `[data-side]`.
 - Атрибуты moduix: `[data-slot='menu-trigger']`, `[data-slot='menu-trigger-icon']`,
   `[data-slot='menu-indicator']`, `[data-slot='menu-context-trigger']`, `[data-slot='menu-positioner']`,
-  `[data-slot='menu-content']`, `[data-slot='menu-arrow']`, `[data-slot='menu-arrow-tip']`,
+  `[data-slot='menu-content']`, `[data-slot='menu-viewport']`, `[data-slot='menu-arrow']`, `[data-slot='menu-arrow-tip']`,
   `[data-slot='menu-item']`, `[data-slot='menu-trigger-item']`, `[data-slot='menu-trigger-item-icon']`,
   `[data-slot='menu-separator']`, `[data-slot='menu-item-group']`, `[data-slot='menu-item-group-label']`,
   `[data-slot='menu-radio-item-group']`, `[data-slot='menu-radio-item']`, `[data-slot='menu-checkbox-item']`,

@@ -149,9 +149,18 @@ function SplitButtonPositioner(props: SplitButtonPositionerProps) {
 }
 
 function SplitButtonContent(props: SplitButtonContentProps) {
-  const [local, others] = splitProps(props, ['class']);
+  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
-  return <Menu.Content {...others} data-slot="split-button-content" class={local.class} />;
+  return (
+    <Menu.Content
+      {...others}
+      asChild={local.asChild}
+      data-slot="split-button-content"
+      class={local.class}
+    >
+      {local.asChild ? local.children : <Menu.Viewport>{local.children}</Menu.Viewport>}
+    </Menu.Content>
+  );
 }
 
 type SplitButtonComponent = typeof SplitButtonRoot & {

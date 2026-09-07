@@ -13,18 +13,20 @@ export default function LinkItemsMenuDemo() {
       </Menu.Trigger>
       <Menu.Positioner>
         <Menu.Content className={styles.content}>
-          <Menu.Item value="docs" asChild>
-            <a href="#menu-docs">Documentation</a>
-          </Menu.Item>
-          <Menu.Item value="github" asChild>
-            <a href="https://github.com/Blinks44/moduix">GitHub</a>
-          </Menu.Item>
-          <Menu.Item value="changelog" asChild>
-            <a href="#menu-changelog">Changelog</a>
-          </Menu.Item>
-          <Menu.Item value="support" asChild>
-            <a href="#menu-support">Support</a>
-          </Menu.Item>
+          <Menu.Viewport>
+            <Menu.Item value="docs" asChild>
+              <a href="#menu-docs">Documentation</a>
+            </Menu.Item>
+            <Menu.Item value="github" asChild>
+              <a href="https://github.com/Blinks44/moduix">GitHub</a>
+            </Menu.Item>
+            <Menu.Item value="changelog" asChild>
+              <a href="#menu-changelog">Changelog</a>
+            </Menu.Item>
+            <Menu.Item value="support" asChild>
+              <a href="#menu-support">Support</a>
+            </Menu.Item>
+          </Menu.Viewport>
         </Menu.Content>
       </Menu.Positioner>
     </Menu>

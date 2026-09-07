@@ -131,16 +131,18 @@ export function AppHeader() {
               </Menu.Trigger>
               <Menu.Positioner>
                 <Menu.Content className={styles.mobileNavigationMenu}>
-                  <Menu.ItemGroup>
-                    <Menu.ItemGroupLabel>Navigation</Menu.ItemGroupLabel>
-                    {navigation.map((item, index) => (
-                      <Menu.Item value={item.href} asChild key={item.href}>
-                        <a href={item.href} aria-current={index === 0 ? 'page' : undefined}>
-                          {item.label}
-                        </a>
-                      </Menu.Item>
-                    ))}
-                  </Menu.ItemGroup>
+                  <Menu.Viewport>
+                    <Menu.ItemGroup>
+                      <Menu.ItemGroupLabel>Navigation</Menu.ItemGroupLabel>
+                      {navigation.map((item, index) => (
+                        <Menu.Item value={item.href} asChild key={item.href}>
+                          <a href={item.href} aria-current={index === 0 ? 'page' : undefined}>
+                            {item.label}
+                          </a>
+                        </Menu.Item>
+                      ))}
+                    </Menu.ItemGroup>
+                  </Menu.Viewport>
                 </Menu.Content>
               </Menu.Positioner>
             </Menu>
@@ -178,30 +180,32 @@ export function AppHeader() {
             </Menu.Trigger>
             <Menu.Positioner>
               <Menu.Content className={styles.accountMenu}>
-                <Menu.ItemGroup>
-                  <Menu.ItemGroupLabel className={styles.accountSummary}>
-                    <strong>{account.name}</strong>
-                    <span>{account.email}</span>
-                  </Menu.ItemGroupLabel>
-                  <Menu.Item value="profile" asChild>
-                    <a className={styles.menuLink} href="#profile">
-                      <UserRound aria-hidden />
-                      Profile
-                    </a>
-                  </Menu.Item>
-                  <Menu.Item value="workspace-settings" asChild>
-                    <a className={styles.menuLink} href="#workspace-settings">
-                      <Settings aria-hidden />
-                      Workspace settings
-                    </a>
-                  </Menu.Item>
-                  <Menu.Item value="help" asChild>
-                    <a className={styles.menuLink} href="#help">
-                      <CircleHelp aria-hidden />
-                      Help and support
-                    </a>
-                  </Menu.Item>
-                </Menu.ItemGroup>
+                <Menu.Viewport>
+                  <Menu.ItemGroup>
+                    <Menu.ItemGroupLabel className={styles.accountSummary}>
+                      <strong>{account.name}</strong>
+                      <span>{account.email}</span>
+                    </Menu.ItemGroupLabel>
+                    <Menu.Item value="profile" asChild>
+                      <a className={styles.menuLink} href="#profile">
+                        <UserRound aria-hidden />
+                        Profile
+                      </a>
+                    </Menu.Item>
+                    <Menu.Item value="workspace-settings" asChild>
+                      <a className={styles.menuLink} href="#workspace-settings">
+                        <Settings aria-hidden />
+                        Workspace settings
+                      </a>
+                    </Menu.Item>
+                    <Menu.Item value="help" asChild>
+                      <a className={styles.menuLink} href="#help">
+                        <CircleHelp aria-hidden />
+                        Help and support
+                      </a>
+                    </Menu.Item>
+                  </Menu.ItemGroup>
+                </Menu.Viewport>
               </Menu.Content>
             </Menu.Positioner>
           </Menu>

@@ -64,7 +64,9 @@ function MenuButtonTrigger(props: ComponentProps<typeof Menu.Trigger>) {
 function DefaultPositionedContent({ children }: { children: ReactNode }) {
   return (
     <Menu.Positioner>
-      <Menu.Content>{children}</Menu.Content>
+      <Menu.Content>
+        <Menu.Viewport>{children}</Menu.Viewport>
+      </Menu.Content>
     </Menu.Positioner>
   );
 }
@@ -295,11 +297,13 @@ export const Nested: Story = {
           </Menu.TriggerItem>
           <Menu.Positioner>
             <Menu.Content>
-              <Menu.Item value="get-up">Get Up!</Menu.Item>
-              <Menu.Item value="inside-out">Inside Out</Menu.Item>
-              <Menu.Item value="night-beats">Night Beats</Menu.Item>
-              <Menu.Separator />
-              <Menu.Item value="new-playlist">New Playlist...</Menu.Item>
+              <Menu.Viewport>
+                <Menu.Item value="get-up">Get Up!</Menu.Item>
+                <Menu.Item value="inside-out">Inside Out</Menu.Item>
+                <Menu.Item value="night-beats">Night Beats</Menu.Item>
+                <Menu.Separator />
+                <Menu.Item value="new-playlist">New Playlist...</Menu.Item>
+              </Menu.Viewport>
             </Menu.Content>
           </Menu.Positioner>
         </Menu>
@@ -321,10 +325,12 @@ export const WithArrow: Story = {
       <Menu.Positioner>
         <Menu.Content>
           <Menu.Arrow />
-          <Menu.Item value="png">Export PNG</Menu.Item>
-          <Menu.Item value="pdf">Export PDF</Menu.Item>
-          <Menu.Separator />
-          <Menu.Item value="copy-link">Copy share link</Menu.Item>
+          <Menu.Viewport>
+            <Menu.Item value="png">Export PNG</Menu.Item>
+            <Menu.Item value="pdf">Export PDF</Menu.Item>
+            <Menu.Separator />
+            <Menu.Item value="copy-link">Copy share link</Menu.Item>
+          </Menu.Viewport>
         </Menu.Content>
       </Menu.Positioner>
     </Menu>
@@ -340,10 +346,12 @@ export const CustomStyling: Story = {
       </MenuButtonTrigger>
       <Menu.Positioner>
         <Menu.Content className="min-w-52 bg-background outline-primary [&_[data-highlighted]]:text-primary-foreground [&_[data-highlighted]]:before:bg-primary [&_[data-slot='menu-separator']]:bg-primary">
-          <Menu.Item value="png">Export PNG</Menu.Item>
-          <Menu.Item value="pdf">Export PDF</Menu.Item>
-          <Menu.Separator />
-          <Menu.Item value="copy-link">Copy share link</Menu.Item>
+          <Menu.Viewport>
+            <Menu.Item value="png">Export PNG</Menu.Item>
+            <Menu.Item value="pdf">Export PDF</Menu.Item>
+            <Menu.Separator />
+            <Menu.Item value="copy-link">Copy share link</Menu.Item>
+          </Menu.Viewport>
         </Menu.Content>
       </Menu.Positioner>
     </Menu>

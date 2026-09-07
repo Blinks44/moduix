@@ -116,40 +116,42 @@ function AccountMenu() {
       </Menu.Trigger>
       <Menu.Positioner>
         <Menu.Content className={styles.accountMenu}>
-          <Menu.ItemGroup>
-            <Menu.ItemGroupLabel>Acme Inc.</Menu.ItemGroupLabel>
-            <Menu.Item value="profile">
+          <Menu.Viewport>
+            <Menu.ItemGroup>
+              <Menu.ItemGroupLabel>Acme Inc.</Menu.ItemGroupLabel>
+              <Menu.Item value="profile">
+                <Menu.ItemText>
+                  <Menu.ItemTextContent>
+                    <Menu.ItemTextIcon>
+                      <PencilIcon />
+                    </Menu.ItemTextIcon>
+                    <Menu.ItemTextLabel>Profile</Menu.ItemTextLabel>
+                  </Menu.ItemTextContent>
+                </Menu.ItemText>
+              </Menu.Item>
+              <Menu.Item value="settings">
+                <Menu.ItemText>
+                  <Menu.ItemTextContent>
+                    <Menu.ItemTextIcon>
+                      <RestartIcon />
+                    </Menu.ItemTextIcon>
+                    <Menu.ItemTextLabel>Settings</Menu.ItemTextLabel>
+                  </Menu.ItemTextContent>
+                </Menu.ItemText>
+              </Menu.Item>
+            </Menu.ItemGroup>
+            <Menu.Separator />
+            <Menu.Item value="sign-out" tone="destructive">
               <Menu.ItemText>
                 <Menu.ItemTextContent>
                   <Menu.ItemTextIcon>
-                    <PencilIcon />
+                    <TrashIcon />
                   </Menu.ItemTextIcon>
-                  <Menu.ItemTextLabel>Profile</Menu.ItemTextLabel>
+                  <Menu.ItemTextLabel>Sign out</Menu.ItemTextLabel>
                 </Menu.ItemTextContent>
               </Menu.ItemText>
             </Menu.Item>
-            <Menu.Item value="settings">
-              <Menu.ItemText>
-                <Menu.ItemTextContent>
-                  <Menu.ItemTextIcon>
-                    <RestartIcon />
-                  </Menu.ItemTextIcon>
-                  <Menu.ItemTextLabel>Settings</Menu.ItemTextLabel>
-                </Menu.ItemTextContent>
-              </Menu.ItemText>
-            </Menu.Item>
-          </Menu.ItemGroup>
-          <Menu.Separator />
-          <Menu.Item value="sign-out" tone="destructive">
-            <Menu.ItemText>
-              <Menu.ItemTextContent>
-                <Menu.ItemTextIcon>
-                  <TrashIcon />
-                </Menu.ItemTextIcon>
-                <Menu.ItemTextLabel>Sign out</Menu.ItemTextLabel>
-              </Menu.ItemTextContent>
-            </Menu.ItemText>
-          </Menu.Item>
+          </Menu.Viewport>
         </Menu.Content>
       </Menu.Positioner>
     </Menu>
@@ -233,12 +235,14 @@ function SidebarNavigation() {
                   </Menu.Trigger>
                   <Menu.Positioner>
                     <Menu.Content>
-                      <Menu.Item asChild value="website">
-                        <a href="#website">Website</a>
-                      </Menu.Item>
-                      <Menu.Item asChild value="mobile">
-                        <a href="#mobile">Mobile app</a>
-                      </Menu.Item>
+                      <Menu.Viewport>
+                        <Menu.Item asChild value="website">
+                          <a href="#website">Website</a>
+                        </Menu.Item>
+                        <Menu.Item asChild value="mobile">
+                          <a href="#mobile">Mobile app</a>
+                        </Menu.Item>
+                      </Menu.Viewport>
                     </Menu.Content>
                   </Menu.Positioner>
                 </Menu>

@@ -147,9 +147,17 @@ const SplitButtonPositioner = forwardRef<
 });
 
 const SplitButtonContent = forwardRef<ComponentRef<typeof Menu.Content>, SplitButtonContentProps>(
-  function SplitButtonContent({ className, ...props }, ref) {
+  function SplitButtonContent({ asChild, children, className, ...props }, ref) {
     return (
-      <Menu.Content ref={ref} data-slot="split-button-content" className={className} {...props} />
+      <Menu.Content
+        ref={ref}
+        asChild={asChild}
+        data-slot="split-button-content"
+        className={className}
+        {...props}
+      >
+        {asChild ? children : <Menu.Viewport>{children}</Menu.Viewport>}
+      </Menu.Content>
     );
   },
 );

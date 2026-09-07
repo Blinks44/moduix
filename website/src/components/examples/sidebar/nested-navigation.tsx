@@ -47,12 +47,14 @@ export default function NestedNavigation() {
                     </Menu.Trigger>
                     <Menu.Positioner>
                       <Menu.Content>
-                        <Menu.Item asChild value="website">
-                          <a href="/projects/website">Website</a>
-                        </Menu.Item>
-                        <Menu.Item asChild value="mobile-app">
-                          <a href="/projects/mobile">Mobile app</a>
-                        </Menu.Item>
+                        <Menu.Viewport>
+                          <Menu.Item asChild value="website">
+                            <a href="/projects/website">Website</a>
+                          </Menu.Item>
+                          <Menu.Item asChild value="mobile-app">
+                            <a href="/projects/mobile">Mobile app</a>
+                          </Menu.Item>
+                        </Menu.Viewport>
                       </Menu.Content>
                     </Menu.Positioner>
                   </Menu>

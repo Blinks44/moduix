@@ -88,12 +88,14 @@ export default function AppSidebar() {
                     </Menu.Trigger>
                     <Menu.Positioner>
                       <Menu.Content>
-                        <Menu.Item value="website" asChild>
-                          <a href="/projects/website">Website</a>
-                        </Menu.Item>
-                        <Menu.Item value="mobile-app" asChild>
-                          <a href="/projects/mobile">Mobile app</a>
-                        </Menu.Item>
+                        <Menu.Viewport>
+                          <Menu.Item value="website" asChild>
+                            <a href="/projects/website">Website</a>
+                          </Menu.Item>
+                          <Menu.Item value="mobile-app" asChild>
+                            <a href="/projects/mobile">Mobile app</a>
+                          </Menu.Item>
+                        </Menu.Viewport>
                       </Menu.Content>
                     </Menu.Positioner>
                   </Menu>
@@ -149,37 +151,39 @@ export default function AppSidebar() {
                 </Menu.Trigger>
                 <Menu.Positioner>
                   <Menu.Content className={styles.menuContent}>
-                    <Menu.Item value="profile">
-                      <Menu.ItemText>
-                        <Menu.ItemTextContent>
-                          <Menu.ItemTextIcon>
-                            <Pencil />
-                          </Menu.ItemTextIcon>
-                          <Menu.ItemTextLabel>Profile</Menu.ItemTextLabel>
-                        </Menu.ItemTextContent>
-                      </Menu.ItemText>
-                    </Menu.Item>
-                    <Menu.Item value="settings">
-                      <Menu.ItemText>
-                        <Menu.ItemTextContent>
-                          <Menu.ItemTextIcon>
-                            <RotateCcw />
-                          </Menu.ItemTextIcon>
-                          <Menu.ItemTextLabel>Settings</Menu.ItemTextLabel>
-                        </Menu.ItemTextContent>
-                      </Menu.ItemText>
-                    </Menu.Item>
-                    <Menu.Separator />
-                    <Menu.Item value="sign-out" tone="destructive">
-                      <Menu.ItemText>
-                        <Menu.ItemTextContent>
-                          <Menu.ItemTextIcon>
-                            <LogOut />
-                          </Menu.ItemTextIcon>
-                          <Menu.ItemTextLabel>Sign out</Menu.ItemTextLabel>
-                        </Menu.ItemTextContent>
-                      </Menu.ItemText>
-                    </Menu.Item>
+                    <Menu.Viewport>
+                      <Menu.Item value="profile">
+                        <Menu.ItemText>
+                          <Menu.ItemTextContent>
+                            <Menu.ItemTextIcon>
+                              <Pencil />
+                            </Menu.ItemTextIcon>
+                            <Menu.ItemTextLabel>Profile</Menu.ItemTextLabel>
+                          </Menu.ItemTextContent>
+                        </Menu.ItemText>
+                      </Menu.Item>
+                      <Menu.Item value="settings">
+                        <Menu.ItemText>
+                          <Menu.ItemTextContent>
+                            <Menu.ItemTextIcon>
+                              <RotateCcw />
+                            </Menu.ItemTextIcon>
+                            <Menu.ItemTextLabel>Settings</Menu.ItemTextLabel>
+                          </Menu.ItemTextContent>
+                        </Menu.ItemText>
+                      </Menu.Item>
+                      <Menu.Separator />
+                      <Menu.Item value="sign-out" tone="destructive">
+                        <Menu.ItemText>
+                          <Menu.ItemTextContent>
+                            <Menu.ItemTextIcon>
+                              <LogOut />
+                            </Menu.ItemTextIcon>
+                            <Menu.ItemTextLabel>Sign out</Menu.ItemTextLabel>
+                          </Menu.ItemTextContent>
+                        </Menu.ItemText>
+                      </Menu.Item>
+                    </Menu.Viewport>
                   </Menu.Content>
                 </Menu.Positioner>
               </Menu>

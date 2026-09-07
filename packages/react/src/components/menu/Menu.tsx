@@ -9,7 +9,7 @@ import {
 } from '@ark-ui/react/menu';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
-import { Children, forwardRef, isValidElement } from 'react';
+import { forwardRef } from 'react';
 import { CheckIcon, ChevronDownIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
 import {
   OverlayPortal,
@@ -134,12 +134,6 @@ const MenuContent = forwardRef<
   ComponentRef<typeof MenuPrimitive.Content>,
   ComponentProps<typeof MenuPrimitive.Content>
 >(function MenuContent({ asChild, className, children, ...props }, ref) {
-  const childrenArray = asChild ? [] : Children.toArray(children);
-  const arrows = childrenArray.filter((child) => isValidElement(child) && child.type === MenuArrow);
-  const content = childrenArray.filter(
-    (child) => !isValidElement(child) || child.type !== MenuArrow,
-  );
-
   return (
     <MenuPrimitive.Content
       ref={ref}
@@ -148,17 +142,25 @@ const MenuContent = forwardRef<
       className={clsx(styles.content, className)}
       {...props}
     >
-      {asChild ? (
-        children
-      ) : (
-        <>
-          {arrows}
-          <div className={styles.contentViewport}>{content}</div>
-        </>
-      )}
+      {children}
     </MenuPrimitive.Content>
   );
 });
+
+const MenuViewport = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(
+  function MenuViewport({ className, ...props }, ref) {
+    return (
+      <ark.div
+        ref={ref}
+        data-scope="menu"
+        data-part="viewport"
+        data-slot="menu-viewport"
+        className={clsx(styles.viewport, className)}
+        {...props}
+      />
+    );
+  },
+);
 
 const MenuArrow = forwardRef<
   ComponentRef<typeof MenuPrimitive.Arrow>,
@@ -409,6 +411,7 @@ const Menu = Object.assign(MenuRoot, {
   ContextTrigger: MenuContextTrigger,
   Positioner: MenuPositioner,
   Content: MenuContent,
+  Viewport: MenuViewport,
   Arrow: MenuArrow,
   ArrowTip: MenuArrowTip,
   Item: MenuItem,

@@ -25,11 +25,13 @@ export default function BreadcrumbsCollapsedDemo() {
             </Menu.Trigger>
             <Menu.Positioner>
               <Menu.Content className={styles.content}>
-                {collapsedItems.map((item) => (
-                  <Menu.Item key={item.href} value={item.href} asChild>
-                    <a href={item.href}>{item.label}</a>
-                  </Menu.Item>
-                ))}
+                <Menu.Viewport>
+                  {collapsedItems.map((item) => (
+                    <Menu.Item key={item.href} value={item.href} asChild>
+                      <a href={item.href}>{item.label}</a>
+                    </Menu.Item>
+                  ))}
+                </Menu.Viewport>
               </Menu.Content>
             </Menu.Positioner>
           </Menu>

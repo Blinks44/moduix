@@ -9,7 +9,7 @@ import {
 } from '@ark-ui/react/menu';
 import { cva } from 'class-variance-authority';
 import type { ComponentProps, ComponentRef } from 'react';
-import { Children, forwardRef, isValidElement } from 'react';
+import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 import { CheckIcon, ChevronDownIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
 import {
@@ -178,12 +178,6 @@ const MenuContent = forwardRef<
   ComponentRef<typeof MenuPrimitive.Content>,
   ComponentProps<typeof MenuPrimitive.Content>
 >(function MenuContent({ asChild, className, children, ...props }, ref) {
-  const childrenArray = asChild ? [] : Children.toArray(children);
-  const arrows = childrenArray.filter((child) => isValidElement(child) && child.type === MenuArrow);
-  const content = childrenArray.filter(
-    (child) => !isValidElement(child) || child.type !== MenuArrow,
-  );
-
   return (
     <MenuPrimitive.Content
       ref={ref}
@@ -195,19 +189,28 @@ const MenuContent = forwardRef<
       )}
       {...props}
     >
-      {asChild ? (
-        children
-      ) : (
-        <>
-          {arrows}
-          <div className="flex max-h-[min(24rem,var(--available-height,100dvh))] flex-col overflow-auto">
-            {content}
-          </div>
-        </>
-      )}
+      {children}
     </MenuPrimitive.Content>
   );
 });
+
+const MenuViewport = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(
+  function MenuViewport({ className, ...props }, ref) {
+    return (
+      <ark.div
+        ref={ref}
+        data-scope="menu"
+        data-part="viewport"
+        data-slot="menu-viewport"
+        className={cn(
+          'flex max-h-[min(24rem,var(--available-height,100dvh))] flex-col overflow-auto',
+          className,
+        )}
+        {...props}
+      />
+    );
+  },
+);
 
 const MenuArrow = forwardRef<
   ComponentRef<typeof MenuPrimitive.Arrow>,
@@ -468,6 +471,7 @@ const Menu = Object.assign(MenuRoot, {
   ContextTrigger: MenuContextTrigger,
   Positioner: MenuPositioner,
   Content: MenuContent,
+  Viewport: MenuViewport,
   Arrow: MenuArrow,
   ArrowTip: MenuArrowTip,
   Item: MenuItem,

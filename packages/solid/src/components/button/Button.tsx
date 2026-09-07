@@ -61,16 +61,6 @@ function ButtonRoot(props: ButtonRootProps) {
 
     local.onClickCapture?.(event);
   };
-  const handleClick = (event: MouseEvent) => {
-    if (isDisabled()) {
-      event.preventDefault();
-      event.stopPropagation();
-      return;
-    }
-
-    (local.onClick as ((event: MouseEvent) => void) | undefined)?.(event);
-  };
-
   return (
     <ArkButton
       asChild={local.asChild}
@@ -80,7 +70,7 @@ function ButtonRoot(props: ButtonRootProps) {
       aria-busy={local.loading ? true : local['aria-busy']}
       aria-disabled={isDisabled() ? true : local['aria-disabled']}
       oncapture:click={handleClickCapture}
-      onClick={handleClick}
+      onClick={local.onClick}
       data-scope={local['data-scope'] ?? 'button'}
       data-part={local['data-part'] ?? 'root'}
       data-slot={local['data-slot'] ?? 'button-root'}

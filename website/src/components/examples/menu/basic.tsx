@@ -32,11 +32,13 @@ export default function MenuDemo() {
       </Menu.Trigger>
       <Menu.Positioner>
         <Menu.Content className={styles.content}>
-          {fileItems.map((item) => (
-            <Menu.Item key={item.value} value={item.value}>
-              {item.label}
-            </Menu.Item>
-          ))}
+          <Menu.Viewport>
+            {fileItems.map((item) => (
+              <Menu.Item key={item.value} value={item.value}>
+                {item.label}
+              </Menu.Item>
+            ))}
+          </Menu.Viewport>
         </Menu.Content>
       </Menu.Positioner>
     </Menu>

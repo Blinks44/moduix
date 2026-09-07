@@ -24,70 +24,72 @@ export default function IndicatorRightMenuDemo() {
       </Menu.Trigger>
       <Menu.Positioner>
         <Menu.Content className={styles.content}>
-          <Menu.CheckboxItem
-            checked={showSearch}
-            value="search"
-            onCheckedChange={setShowSearch}
-            indicator="end"
-          >
-            <Menu.ItemText>
-              <Menu.ItemTextContent>
-                <Menu.ItemTextIcon>
-                  <MapIcon />
-                </Menu.ItemTextIcon>
-                <Menu.ItemTextLabel>Search</Menu.ItemTextLabel>
-              </Menu.ItemTextContent>
-            </Menu.ItemText>
-            <Menu.ItemIndicator />
-          </Menu.CheckboxItem>
-          <Menu.CheckboxItem
-            checked={showGrid}
-            value="grid"
-            onCheckedChange={setShowGrid}
-            indicator="end"
-          >
-            <Menu.ItemText>
-              <Menu.ItemTextContent>
-                <Menu.ItemTextIcon>
-                  <Grid3X3Icon />
-                </Menu.ItemTextIcon>
-                <Menu.ItemTextLabel>Grid</Menu.ItemTextLabel>
-              </Menu.ItemTextContent>
-            </Menu.ItemText>
-            <Menu.ItemIndicator />
-          </Menu.CheckboxItem>
-          <Menu.CheckboxItem
-            checked={showLabels}
-            value="labels"
-            onCheckedChange={setShowLabels}
-            indicator="end"
-          >
-            <Menu.ItemText>
-              <Menu.ItemTextContent>
-                <Menu.ItemTextIcon>
-                  <MapPinIcon />
-                </Menu.ItemTextIcon>
-                <Menu.ItemTextLabel>Place Labels</Menu.ItemTextLabel>
-              </Menu.ItemTextContent>
-            </Menu.ItemText>
-            <Menu.ItemIndicator />
-          </Menu.CheckboxItem>
-          <Menu.CheckboxItem
-            checked={showTraffic}
-            value="traffic"
-            onCheckedChange={setShowTraffic}
-            indicator="end"
-          >
-            <Menu.ItemText>
-              <Menu.ItemTextContent>
-                <Menu.ItemTextIcon>
-                  <TrafficConeIcon />
-                </Menu.ItemTextIcon>
-                <Menu.ItemTextLabel>Traffic</Menu.ItemTextLabel>
-              </Menu.ItemTextContent>
-            </Menu.ItemText>
-            <Menu.ItemIndicator />
-          </Menu.CheckboxItem>
+          <Menu.Viewport>
+            <Menu.CheckboxItem
+              checked={showSearch}
+              value="search"
+              onCheckedChange={setShowSearch}
+              indicator="end"
+            >
+              <Menu.ItemText>
+                <Menu.ItemTextContent>
+                  <Menu.ItemTextIcon>
+                    <MapIcon />
+                  </Menu.ItemTextIcon>
+                  <Menu.ItemTextLabel>Search</Menu.ItemTextLabel>
+                </Menu.ItemTextContent>
+              </Menu.ItemText>
+              <Menu.ItemIndicator />
+            </Menu.CheckboxItem>
+            <Menu.CheckboxItem
+              checked={showGrid}
+              value="grid"
+              onCheckedChange={setShowGrid}
+              indicator="end"
+            >
+              <Menu.ItemText>
+                <Menu.ItemTextContent>
+                  <Menu.ItemTextIcon>
+                    <Grid3X3Icon />
+                  </Menu.ItemTextIcon>
+                  <Menu.ItemTextLabel>Grid</Menu.ItemTextLabel>
+                </Menu.ItemTextContent>
+              </Menu.ItemText>
+              <Menu.ItemIndicator />
+            </Menu.CheckboxItem>
+            <Menu.CheckboxItem
+              checked={showLabels}
+              value="labels"
+              onCheckedChange={setShowLabels}
+              indicator="end"
+            >
+              <Menu.ItemText>
+                <Menu.ItemTextContent>
+                  <Menu.ItemTextIcon>
+                    <MapPinIcon />
+                  </Menu.ItemTextIcon>
+                  <Menu.ItemTextLabel>Place Labels</Menu.ItemTextLabel>
+                </Menu.ItemTextContent>
+              </Menu.ItemText>
+              <Menu.ItemIndicator />
+            </Menu.CheckboxItem>
+            <Menu.CheckboxItem
+              checked={showTraffic}
+              value="traffic"
+              onCheckedChange={setShowTraffic}
+              indicator="end"
+            >
+              <Menu.ItemText>
+                <Menu.ItemTextContent>
+                  <Menu.ItemTextIcon>
+                    <TrafficConeIcon />
+                  </Menu.ItemTextIcon>
+                  <Menu.ItemTextLabel>Traffic</Menu.ItemTextLabel>
+                </Menu.ItemTextContent>
+              </Menu.ItemText>
+              <Menu.ItemIndicator />
+            </Menu.CheckboxItem>
+          </Menu.Viewport>
         </Menu.Content>
       </Menu.Positioner>
     </Menu>

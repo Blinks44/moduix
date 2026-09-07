@@ -15,12 +15,14 @@ export default function RootProviderMenuDemo() {
           </Menu.Trigger>
           <Menu.Positioner>
             <Menu.Content class={styles.content}>
-              <Menu.Item value="cut">Cut</Menu.Item>
-              <Menu.Item value="copy">Copy</Menu.Item>
-              <Menu.Item value="paste">Paste</Menu.Item>
-              <Menu.Item value="delete" tone="destructive">
-                Delete
-              </Menu.Item>
+              <Menu.Viewport>
+                <Menu.Item value="cut">Cut</Menu.Item>
+                <Menu.Item value="copy">Copy</Menu.Item>
+                <Menu.Item value="paste">Paste</Menu.Item>
+                <Menu.Item value="delete" tone="destructive">
+                  Delete
+                </Menu.Item>
+              </Menu.Viewport>
             </Menu.Content>
           </Menu.Positioner>
         </Menu.RootProvider>

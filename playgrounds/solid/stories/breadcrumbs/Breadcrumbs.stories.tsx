@@ -84,30 +84,32 @@ export const Collapsed: Story = {
             />
             <Menu.Positioner>
               <Menu.Content style={collapsedMenuContentStyle}>
-                <Menu.Item
-                  value="engineering"
-                  asChild={(props) => (
-                    <a {...props()} href="#">
-                      Engineering
-                    </a>
-                  )}
-                />
-                <Menu.Item
-                  value="backend"
-                  asChild={(props) => (
-                    <a {...props()} href="#">
-                      Backend
-                    </a>
-                  )}
-                />
-                <Menu.Item
-                  value="golang"
-                  asChild={(props) => (
-                    <a {...props()} href="#">
-                      Golang
-                    </a>
-                  )}
-                />
+                <Menu.Viewport>
+                  <Menu.Item
+                    value="engineering"
+                    asChild={(props) => (
+                      <a {...props()} href="#">
+                        Engineering
+                      </a>
+                    )}
+                  />
+                  <Menu.Item
+                    value="backend"
+                    asChild={(props) => (
+                      <a {...props()} href="#">
+                        Backend
+                      </a>
+                    )}
+                  />
+                  <Menu.Item
+                    value="golang"
+                    asChild={(props) => (
+                      <a {...props()} href="#">
+                        Golang
+                      </a>
+                    )}
+                  />
+                </Menu.Viewport>
               </Menu.Content>
             </Menu.Positioner>
           </Menu>

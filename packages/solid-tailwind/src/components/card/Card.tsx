@@ -1,16 +1,17 @@
 import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { cva } from 'class-variance-authority';
-import { splitProps } from 'solid-js';
+import { createContext, splitProps, useContext } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
+type CardSize = 'sm' | 'md' | 'lg';
 type CardRootProps = HTMLArkProps<'div'> & {
-  size?: 'sm' | 'md' | 'lg';
+  size?: CardSize;
   variant?: 'elevated' | 'outline' | 'subtle';
 };
 
 const cardRootVariants = cva(
-  'group/card relative flex w-full min-w-0 flex-col rounded-lg text-card-foreground focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring has-[>[data-slot=card-background]]:isolate [&:has(>[data-slot=card-background])>*:not([data-slot=card-background])]:z-1 [&:has([data-slot=card-link])_:is(a,button,input,select,textarea,[role=button],[role=checkbox],[role=menuitem],[role=switch],[tabindex]:not([tabindex=-1])):not([data-slot=card-link])]:relative [&:has([data-slot=card-link])_:is(a,button,input,select,textarea,[role=button],[role=checkbox],[role=menuitem],[role=switch],[tabindex]:not([tabindex=-1])):not([data-slot=card-link])]:z-1',
+  'relative flex w-full min-w-0 flex-col rounded-lg text-card-foreground focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring has-[>[data-slot=card-background]]:isolate [&:has(>[data-slot=card-background])>*:not([data-slot=card-background])]:z-1 [&:has([data-slot=card-link])_:is(a,button,input,select,textarea,[role=button],[role=checkbox],[role=menuitem],[role=switch],[tabindex]:not([tabindex=-1])):not([data-slot=card-link])]:relative [&:has([data-slot=card-link])_:is(a,button,input,select,textarea,[role=button],[role=checkbox],[role=menuitem],[role=switch],[tabindex]:not([tabindex=-1])):not([data-slot=card-link])]:z-1',
   {
     variants: {
       variant: {
@@ -25,24 +26,50 @@ const cardRootVariants = cva(
   },
 );
 
+const cardHeaderVariants = cva('grid min-w-0 grid-cols-[minmax(0,1fr)_auto] gap-x-2 gap-y-1', {
+  variants: { size: { sm: 'px-4 pt-4', md: 'px-6 pt-6', lg: 'px-8 pt-8' } },
+});
+const cardBodyVariants = cva('min-w-0 pt-4 text-sm wrap-anywhere text-muted-foreground', {
+  variants: {
+    size: {
+      sm: 'px-4 pb-4 first:pt-4',
+      md: 'px-6 pb-6 first:pt-6',
+      lg: 'px-8 pb-8 first:pt-8',
+    },
+  },
+});
+const cardFooterVariants = cva('flex min-w-0 flex-wrap items-center gap-2', {
+  variants: { size: { sm: 'px-4 pb-4', md: 'px-6 pb-6', lg: 'px-8 pb-8' } },
+});
+const cardTitleVariants = cva('col-start-1 min-w-0 font-semibold wrap-anywhere', {
+  variants: { size: { sm: 'text-md', md: 'text-lg', lg: 'text-xl' } },
+});
+
+const CardSizeContext = createContext<() => CardSize>((): CardSize => 'md');
+
 function CardRoot(props: CardRootProps) {
-  const [local, others] = splitProps(props, ['asChild', 'class', 'size', 'variant']);
+  const [local, others] = splitProps(props, ['asChild', 'children', 'class', 'size', 'variant']);
 
   return (
-    <ark.div
-      asChild={local.asChild}
-      data-scope="card"
-      data-part="root"
-      data-slot="card-root"
-      data-size={local.size ?? 'md'}
-      data-variant={local.variant ?? 'outline'}
-      class={cn(cardRootVariants({ variant: local.variant }), local.class)}
-      {...others}
-    />
+    <CardSizeContext.Provider value={(): CardSize => local.size ?? 'md'}>
+      <ark.div
+        asChild={local.asChild}
+        data-scope="card"
+        data-part="root"
+        data-slot="card-root"
+        data-size={local.size ?? 'md'}
+        data-variant={local.variant ?? 'outline'}
+        class={cn(cardRootVariants({ variant: local.variant }), local.class)}
+        {...others}
+      >
+        {local.children}
+      </ark.div>
+    </CardSizeContext.Provider>
   );
 }
 
 function CardHeader(props: HTMLArkProps<'div'>) {
+  const size = useContext(CardSizeContext)!;
   const [local, others] = splitProps(props, ['asChild', 'class']);
   return (
     <ark.div
@@ -50,16 +77,14 @@ function CardHeader(props: HTMLArkProps<'div'>) {
       data-scope="card"
       data-part="header"
       data-slot="card-header"
-      class={cn(
-        'grid min-w-0 grid-cols-[minmax(0,1fr)_auto] gap-x-2 gap-y-1 px-6 pt-6 group-data-[size=lg]/card:px-8 group-data-[size=lg]/card:pt-8 group-data-[size=sm]/card:px-4 group-data-[size=sm]/card:pt-4',
-        local.class,
-      )}
+      class={cn(cardHeaderVariants({ size: size() }), local.class)}
       {...others}
     />
   );
 }
 
 function CardBody(props: HTMLArkProps<'div'>) {
+  const size = useContext(CardSizeContext)!;
   const [local, others] = splitProps(props, ['asChild', 'class']);
   return (
     <ark.div
@@ -67,10 +92,7 @@ function CardBody(props: HTMLArkProps<'div'>) {
       data-scope="card"
       data-part="body"
       data-slot="card-body"
-      class={cn(
-        'min-w-0 px-6 pt-4 pb-6 text-sm wrap-anywhere text-muted-foreground group-data-[size=lg]/card:px-8 group-data-[size=lg]/card:pb-8 group-data-[size=sm]/card:px-4 group-data-[size=sm]/card:pb-4 first:pt-6 group-data-[size=lg]/card:first:pt-8 group-data-[size=sm]/card:first:pt-4',
-        local.class,
-      )}
+      class={cn(cardBodyVariants({ size: size() }), local.class)}
       {...others}
     />
   );
@@ -111,6 +133,7 @@ function CardBackground(props: HTMLArkProps<'div'>) {
 }
 
 function CardFooter(props: HTMLArkProps<'div'>) {
+  const size = useContext(CardSizeContext)!;
   const [local, others] = splitProps(props, ['asChild', 'class']);
   return (
     <ark.div
@@ -118,16 +141,14 @@ function CardFooter(props: HTMLArkProps<'div'>) {
       data-scope="card"
       data-part="footer"
       data-slot="card-footer"
-      class={cn(
-        'flex min-w-0 flex-wrap items-center gap-2 px-6 pb-6 group-data-[size=lg]/card:px-8 group-data-[size=lg]/card:pb-8 group-data-[size=sm]/card:px-4 group-data-[size=sm]/card:pb-4',
-        local.class,
-      )}
+      class={cn(cardFooterVariants({ size: size() }), local.class)}
       {...others}
     />
   );
 }
 
 function CardTitle(props: HTMLArkProps<'h3'>) {
+  const size = useContext(CardSizeContext)!;
   const [local, others] = splitProps(props, ['asChild', 'class']);
   return (
     <ark.h3
@@ -135,10 +156,7 @@ function CardTitle(props: HTMLArkProps<'h3'>) {
       data-scope="card"
       data-part="title"
       data-slot="card-title"
-      class={cn(
-        'col-start-1 min-w-0 text-lg font-semibold wrap-anywhere group-data-[size=lg]/card:text-xl group-data-[size=sm]/card:text-md',
-        local.class,
-      )}
+      class={cn(cardTitleVariants({ size: size() }), local.class)}
       {...others}
     />
   );

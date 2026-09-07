@@ -9,11 +9,13 @@ function TestMenu() {
       <Menu.Trigger asChild={(props) => <Button {...props()} />}>Actions</Menu.Trigger>
       <Menu.Positioner>
         <Menu.Content>
-          <Menu.Item value="edit">Edit</Menu.Item>
-          <Menu.CheckboxItem checked={false} value="toolbar">
-            <Menu.ItemIndicator />
-            <Menu.ItemText>Show toolbar</Menu.ItemText>
-          </Menu.CheckboxItem>
+          <Menu.Viewport>
+            <Menu.Item value="edit">Edit</Menu.Item>
+            <Menu.CheckboxItem checked={false} value="toolbar">
+              <Menu.ItemIndicator />
+              <Menu.ItemText>Show toolbar</Menu.ItemText>
+            </Menu.CheckboxItem>
+          </Menu.Viewport>
         </Menu.Content>
       </Menu.Positioner>
     </Menu>
@@ -50,10 +52,12 @@ test('renders the controlled checked state for checkbox items', async () => {
       <Menu.Trigger>Actions</Menu.Trigger>
       <Menu.Positioner>
         <Menu.Content>
-          <Menu.CheckboxItem checked value="toolbar">
-            <Menu.ItemIndicator />
-            <Menu.ItemText>Show toolbar</Menu.ItemText>
-          </Menu.CheckboxItem>
+          <Menu.Viewport>
+            <Menu.CheckboxItem checked value="toolbar">
+              <Menu.ItemIndicator />
+              <Menu.ItemText>Show toolbar</Menu.ItemText>
+            </Menu.CheckboxItem>
+          </Menu.Viewport>
         </Menu.Content>
       </Menu.Positioner>
     </Menu>
@@ -69,7 +73,9 @@ test('preserves a custom content host with asChild', () => {
       <Menu.Trigger>Actions</Menu.Trigger>
       <Menu.Positioner>
         <Menu.Content asChild={(props) => <section {...props()} aria-label="Actions" />}>
-          <Menu.Item value="edit">Edit</Menu.Item>
+          <Menu.Viewport>
+            <Menu.Item value="edit">Edit</Menu.Item>
+          </Menu.Viewport>
         </Menu.Content>
       </Menu.Positioner>
     </Menu>
@@ -89,7 +95,9 @@ test('supports inline Positioner rendering', () => {
       <Menu.Trigger>Actions</Menu.Trigger>
       <Menu.Positioner>
         <Menu.Content>
-          <Menu.Item value="edit">Edit</Menu.Item>
+          <Menu.Viewport>
+            <Menu.Item value="edit">Edit</Menu.Item>
+          </Menu.Viewport>
         </Menu.Content>
       </Menu.Positioner>
     </Menu>
@@ -106,7 +114,9 @@ test('reactively moves the Positioner into a portal', async () => {
         <Menu.Trigger>Actions</Menu.Trigger>
         <Menu.Positioner>
           <Menu.Content>
-            <Menu.Item value="edit">Edit</Menu.Item>
+            <Menu.Viewport>
+              <Menu.Item value="edit">Edit</Menu.Item>
+            </Menu.Viewport>
           </Menu.Content>
         </Menu.Positioner>
       </Menu>
@@ -117,21 +127,24 @@ test('reactively moves the Positioner into a portal', async () => {
   await waitFor(() => expect(container.querySelector('[data-slot="menu-positioner"]')).toBeNull());
 });
 
-test('does not treat a consumer data-slot as a menu arrow', () => {
+test('exposes the scroll viewport as an explicit part', () => {
   render(() => (
     <Menu defaultOpen portalled={false}>
       <Menu.Trigger>Actions</Menu.Trigger>
       <Menu.Positioner>
         <Menu.Content>
-          <div data-slot="menu-arrow">Consumer content</div>
-          <Menu.Item value="edit">Edit</Menu.Item>
+          <Menu.Viewport>
+            <Menu.Item value="edit">Edit</Menu.Item>
+          </Menu.Viewport>
         </Menu.Content>
       </Menu.Positioner>
     </Menu>
   ));
-  const menu = screen.getByRole('menu');
-  expect(menu.firstElementChild).not.toHaveAttribute('data-slot', 'menu-arrow');
-  expect(screen.getByText('Consumer content').parentElement).toBe(menu.firstElementChild);
+  const viewport = screen.getByRole('menu').firstElementChild;
+  expect(viewport).toHaveAttribute('data-scope', 'menu');
+  expect(viewport).toHaveAttribute('data-part', 'viewport');
+  expect(viewport).toHaveAttribute('data-slot', 'menu-viewport');
+  expect(viewport).toHaveClass('overflow-auto');
 });
 
 test('preserves custom context trigger styling', () => {
@@ -143,7 +156,9 @@ test('preserves custom context trigger styling', () => {
       <Menu.Positioner>
         <Menu.Content>
           <Menu.Arrow />
-          <Menu.Item value="edit">Edit</Menu.Item>
+          <Menu.Viewport>
+            <Menu.Item value="edit">Edit</Menu.Item>
+          </Menu.Viewport>
         </Menu.Content>
       </Menu.Positioner>
     </Menu>
@@ -171,14 +186,16 @@ test('forwards refs through ordinary menu parts', () => {
             contentRef = element;
           }}
         >
-          <Menu.Item
-            ref={(element) => {
-              itemRef = element;
-            }}
-            value="edit"
-          >
-            Edit
-          </Menu.Item>
+          <Menu.Viewport>
+            <Menu.Item
+              ref={(element) => {
+                itemRef = element;
+              }}
+              value="edit"
+            >
+              Edit
+            </Menu.Item>
+          </Menu.Viewport>
         </Menu.Content>
       </Menu.Positioner>
     </Menu>
@@ -205,13 +222,15 @@ test('preserves provider and item context composition', async () => {
         <Menu.Trigger>Actions</Menu.Trigger>
         <Menu.Positioner>
           <Menu.Content>
-            <Menu.CheckboxItem checked value="toolbar">
-              <Menu.ItemIndicator />
-              <Menu.ItemText>
-                Show toolbar
-                <ItemState />
-              </Menu.ItemText>
-            </Menu.CheckboxItem>
+            <Menu.Viewport>
+              <Menu.CheckboxItem checked value="toolbar">
+                <Menu.ItemIndicator />
+                <Menu.ItemText>
+                  Show toolbar
+                  <ItemState />
+                </Menu.ItemText>
+              </Menu.CheckboxItem>
+            </Menu.Viewport>
           </Menu.Content>
         </Menu.Positioner>
       </Menu.RootProvider>
@@ -236,7 +255,9 @@ test('supports a custom portal mount', () => {
         <Menu.Trigger>Actions</Menu.Trigger>
         <Menu.Positioner>
           <Menu.Content>
-            <Menu.Item value="edit">Edit</Menu.Item>
+            <Menu.Viewport>
+              <Menu.Item value="edit">Edit</Menu.Item>
+            </Menu.Viewport>
           </Menu.Content>
         </Menu.Positioner>
       </Menu>
@@ -252,16 +273,18 @@ test('lets consumer classes override defaults and keeps empty visual parts visib
       <Menu.Positioner>
         <Menu.Content class="py-0">
           <Menu.Arrow class="[--arrow-size:1rem]" />
-          <Menu.Item value="edit" tone="destructive" class="px-0 text-primary">
-            Edit
-          </Menu.Item>
-          <Menu.RadioItemGroup value="radio">
-            <Menu.RadioItem value="radio" indicator="end" class="grid-cols-1">
-              <Menu.ItemIndicator />
-              <Menu.ItemText>Radio</Menu.ItemText>
-            </Menu.RadioItem>
-          </Menu.RadioItemGroup>
-          <Menu.Separator class="h-0.5" />
+          <Menu.Viewport>
+            <Menu.Item value="edit" tone="destructive" class="px-0 text-primary">
+              Edit
+            </Menu.Item>
+            <Menu.RadioItemGroup value="radio">
+              <Menu.RadioItem value="radio" indicator="end" class="grid-cols-1">
+                <Menu.ItemIndicator />
+                <Menu.ItemText>Radio</Menu.ItemText>
+              </Menu.RadioItem>
+            </Menu.RadioItemGroup>
+            <Menu.Separator class="h-0.5" />
+          </Menu.Viewport>
         </Menu.Content>
       </Menu.Positioner>
     </Menu>

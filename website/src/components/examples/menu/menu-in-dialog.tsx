@@ -27,13 +27,15 @@ export default function MenuInDialogDemo() {
               </Menu.Trigger>
               <Menu.Positioner>
                 <Menu.Content>
-                  <Menu.Item value="rename">Rename project</Menu.Item>
-                  <Menu.Item value="duplicate">Duplicate project</Menu.Item>
-                  <Menu.Item value="move">Move to folder</Menu.Item>
-                  <Menu.Separator />
-                  <Menu.Item value="archive" tone="destructive">
-                    Archive project
-                  </Menu.Item>
+                  <Menu.Viewport>
+                    <Menu.Item value="rename">Rename project</Menu.Item>
+                    <Menu.Item value="duplicate">Duplicate project</Menu.Item>
+                    <Menu.Item value="move">Move to folder</Menu.Item>
+                    <Menu.Separator />
+                    <Menu.Item value="archive" tone="destructive">
+                      Archive project
+                    </Menu.Item>
+                  </Menu.Viewport>
                 </Menu.Content>
               </Menu.Positioner>
             </Menu>

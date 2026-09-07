@@ -85,9 +85,11 @@ export default function RightSidebar() {
             </Menu.Trigger>
             <Menu.Positioner>
               <Menu.Content>
-                <Menu.Item value="preferences">Preferences</Menu.Item>
-                <Menu.Item value="shortcuts">Keyboard shortcuts</Menu.Item>
-                <Menu.Item value="reset">Reset panels</Menu.Item>
+                <Menu.Viewport>
+                  <Menu.Item value="preferences">Preferences</Menu.Item>
+                  <Menu.Item value="shortcuts">Keyboard shortcuts</Menu.Item>
+                  <Menu.Item value="reset">Reset panels</Menu.Item>
+                </Menu.Viewport>
               </Menu.Content>
             </Menu.Positioner>
           </Menu>

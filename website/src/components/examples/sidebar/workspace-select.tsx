@@ -174,19 +174,21 @@ export default function WorkspaceSidebar() {
             </Menu.Trigger>
             <Menu.Positioner>
               <Menu.Content>
-                <Menu.Item value="profile">Profile</Menu.Item>
-                <Menu.Item value="settings">Account settings</Menu.Item>
-                <Menu.Separator />
-                <Menu.Item value="sign-out" tone="destructive">
-                  <Menu.ItemText>
-                    <Menu.ItemTextContent>
-                      <Menu.ItemTextIcon>
-                        <LogOut />
-                      </Menu.ItemTextIcon>
-                      <Menu.ItemTextLabel>Sign out</Menu.ItemTextLabel>
-                    </Menu.ItemTextContent>
-                  </Menu.ItemText>
-                </Menu.Item>
+                <Menu.Viewport>
+                  <Menu.Item value="profile">Profile</Menu.Item>
+                  <Menu.Item value="settings">Account settings</Menu.Item>
+                  <Menu.Separator />
+                  <Menu.Item value="sign-out" tone="destructive">
+                    <Menu.ItemText>
+                      <Menu.ItemTextContent>
+                        <Menu.ItemTextIcon>
+                          <LogOut />
+                        </Menu.ItemTextIcon>
+                        <Menu.ItemTextLabel>Sign out</Menu.ItemTextLabel>
+                      </Menu.ItemTextContent>
+                    </Menu.ItemText>
+                  </Menu.Item>
+                </Menu.Viewport>
               </Menu.Content>
             </Menu.Positioner>
           </Menu>

@@ -2,13 +2,13 @@ import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { cva } from 'class-variance-authority';
 import type { ComponentRef } from 'react';
-import { forwardRef } from 'react';
+import { createContext, forwardRef, useContext } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
 type AlertStatus = 'info' | 'success' | 'warning' | 'error';
 
 const alertVariants = cva(
-  'group/alert box-border flex w-full min-w-0 items-start gap-3 rounded-lg border bg-card p-3 text-card-foreground',
+  'box-border flex w-full min-w-0 items-start gap-3 rounded-lg border bg-card p-3 text-card-foreground',
   {
     variants: {
       status: {
@@ -27,6 +27,22 @@ const alertVariants = cva(
   },
 );
 
+const alertIndicatorVariants = cva(
+  'mt-0.5 inline-flex size-4 shrink-0 items-center justify-center [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
+  {
+    variants: {
+      status: {
+        info: 'text-muted-foreground',
+        success: 'text-success',
+        warning: 'text-warning',
+        error: 'text-destructive',
+      },
+    },
+  },
+);
+
+const AlertStatusContext = createContext<AlertStatus>('info');
+
 type AlertRootProps = HTMLArkProps<'div'> & {
   status?: AlertStatus;
 };
@@ -36,23 +52,27 @@ const AlertRoot = forwardRef<ComponentRef<typeof ark.div>, AlertRootProps>(funct
   ref,
 ) {
   return (
-    <ark.div
-      ref={ref}
-      role={role ?? (status === 'error' ? 'alert' : 'status')}
-      data-scope="alert"
-      data-part="root"
-      data-slot="alert-root"
-      data-status={status}
-      className={cn(alertVariants({ status }), className)}
-      {...props}
-    >
-      {children}
-    </ark.div>
+    <AlertStatusContext.Provider value={status}>
+      <ark.div
+        ref={ref}
+        role={role ?? (status === 'error' ? 'alert' : 'status')}
+        data-scope="alert"
+        data-part="root"
+        data-slot="alert-root"
+        data-status={status}
+        className={cn(alertVariants({ status }), className)}
+        {...props}
+      >
+        {children}
+      </ark.div>
+    </AlertStatusContext.Provider>
   );
 });
 
 const AlertIndicator = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
   function AlertIndicator({ className, ...props }, ref) {
+    const status = useContext(AlertStatusContext);
+
     return (
       <ark.span
         ref={ref}
@@ -60,10 +80,7 @@ const AlertIndicator = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'s
         data-part="indicator"
         data-slot="alert-indicator"
         aria-hidden="true"
-        className={cn(
-          'mt-0.5 inline-flex size-4 shrink-0 items-center justify-center text-muted-foreground group-data-[status=error]/alert:text-destructive group-data-[status=success]/alert:text-success group-data-[status=warning]/alert:text-warning [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
-          className,
-        )}
+        className={cn(alertIndicatorVariants({ status }), className)}
         {...props}
       />
     );

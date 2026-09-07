@@ -20,12 +20,14 @@ export default function MultipleTriggersMenuDemo() {
       </div>
       <Menu.Positioner>
         <Menu.Content class={styles.content}>
-          <Menu.Item value="reply">Reply</Menu.Item>
-          <Menu.Item value="forward">Forward</Menu.Item>
-          <Menu.Item value="archive">Archive</Menu.Item>
-          <Menu.Item value="delete" tone="destructive">
-            Delete
-          </Menu.Item>
+          <Menu.Viewport>
+            <Menu.Item value="reply">Reply</Menu.Item>
+            <Menu.Item value="forward">Forward</Menu.Item>
+            <Menu.Item value="archive">Archive</Menu.Item>
+            <Menu.Item value="delete" tone="destructive">
+              Delete
+            </Menu.Item>
+          </Menu.Viewport>
         </Menu.Content>
       </Menu.Positioner>
     </Menu>

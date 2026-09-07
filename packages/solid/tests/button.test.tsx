@@ -78,6 +78,18 @@ test('preserves root event handlers while enabled', () => {
   expect(calls).toEqual(['button capture', 'link click', 'button click']);
 });
 
+test('supports Solid bound click handlers', () => {
+  const calls: string[] = [];
+
+  render(() => (
+    <Button onClick={[(value: string) => calls.push(value), 'saved']}>Save changes</Button>
+  ));
+
+  fireEvent.click(screen.getByRole('button', { name: 'Save changes' }));
+
+  expect(calls).toEqual(['saved']);
+});
+
 test('disables custom hosts accessibly and prevents activation', () => {
   let activationCount = 0;
 

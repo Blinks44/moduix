@@ -8,7 +8,7 @@ import {
   useMenuItemContext,
 } from '@ark-ui/solid/menu';
 import { clsx } from 'clsx';
-import type { ComponentProps, JSX } from 'solid-js';
+import type { ComponentProps } from 'solid-js';
 import { children, splitProps } from 'solid-js';
 import { CheckIcon, ChevronDownIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
 import {
@@ -146,44 +146,33 @@ function MenuPositioner(props: ComponentProps<typeof MenuPrimitive.Positioner>) 
   );
 }
 
-function isMenuArrow(child: JSX.Element): boolean {
-  if (typeof child !== 'object' || child === null) return false;
-
-  const element = child as Element;
-  return (
-    typeof element.hasAttribute === 'function' && element.hasAttribute('data-moduix-menu-arrow')
-  );
-}
-
 function MenuContent(props: ComponentProps<typeof MenuPrimitive.Content>) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
-  if (local.asChild) {
-    return (
-      <MenuPrimitive.Content
-        asChild={local.asChild}
-        data-slot="menu-content"
-        class={clsx(styles.content, local.class)}
-        {...others}
-      >
-        {local.children}
-      </MenuPrimitive.Content>
-    );
-  }
-
-  const resolvedChildren = children(() => local.children);
-  const arrows = () => resolvedChildren.toArray().filter(isMenuArrow);
-  const content = () => resolvedChildren.toArray().filter((child) => !isMenuArrow(child));
-
   return (
     <MenuPrimitive.Content
+      asChild={local.asChild}
       data-slot="menu-content"
       class={clsx(styles.content, local.class)}
       {...others}
     >
-      {arrows()}
-      <div class={styles.contentViewport}>{content()}</div>
+      {local.children}
     </MenuPrimitive.Content>
+  );
+}
+
+function MenuViewport(props: HTMLArkProps<'div'>) {
+  const [local, others] = splitProps(props, ['asChild', 'class']);
+
+  return (
+    <ark.div
+      asChild={local.asChild}
+      data-scope="menu"
+      data-part="viewport"
+      data-slot="menu-viewport"
+      class={clsx(styles.viewport, local.class)}
+      {...others}
+    />
   );
 }
 
@@ -192,12 +181,7 @@ function MenuArrow(props: ComponentProps<typeof MenuPrimitive.Arrow>) {
   const resolvedChildren = children(() => local.children);
 
   return (
-    <MenuPrimitive.Arrow
-      data-moduix-menu-arrow=""
-      data-slot="menu-arrow"
-      class={clsx(styles.arrow, local.class)}
-      {...others}
-    >
+    <MenuPrimitive.Arrow data-slot="menu-arrow" class={clsx(styles.arrow, local.class)} {...others}>
       {resolvedChildren() ?? <MenuArrowTip />}
     </MenuPrimitive.Arrow>
   );
@@ -416,6 +400,7 @@ const Menu = Object.assign(MenuRoot, {
   ContextTrigger: MenuContextTrigger,
   Positioner: MenuPositioner,
   Content: MenuContent,
+  Viewport: MenuViewport,
   Arrow: MenuArrow,
   ArrowTip: MenuArrowTip,
   Item: MenuItem,

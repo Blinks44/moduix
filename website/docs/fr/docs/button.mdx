@@ -114,7 +114,7 @@ Button.Root
 
 `Button` est une racine à partie unique. Utilisez `asChild` lorsqu’un autre élément sémantique doit porter le nœud DOM rendu : React reçoit exactement un enfant, tandis que Solid utilise une fonction de rendu avec `asChild`. Lorsqu’une partie Ark compose Button, le parent reste propriétaire de `data-scope` et `data-part` ; Button conserve ses classes de recette et son `data-slot` stable.
 
-La propriété `loading` ne gère que l’état occupé et désactivé (`data-loading`, `aria-busy` et `data-disabled`) ; l’application reste responsable du spinner, du libellé et du cycle asynchrone. Les racines natives utilisent `type="button"` par défaut, mais les cibles `asChild` ne reçoivent pas cette valeur par défaut.
+La propriété `loading` ne gère que l’état occupé et désactivé (`data-loading`, `aria-busy` et `data-disabled`) ; l’application reste responsable de l’indicateur de chargement, du libellé et du cycle asynchrone. Les racines natives utilisent `type="button"` par défaut, mais les cibles `asChild` ne reçoivent pas cette valeur par défaut.
 ## Exemples
 
 ### État désactivé

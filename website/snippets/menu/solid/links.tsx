@@ -11,24 +11,26 @@ export default function LinkItemsMenuDemo() {
       </Menu.Trigger>
       <Menu.Positioner>
         <Menu.Content class={styles.content}>
-          <Menu.Item asChild={(props) => <a {...props()} href="#menu-docs" />} value="docs">
-            Documentation
-          </Menu.Item>
-          <Menu.Item
-            asChild={(props) => <a {...props()} href="https://github.com/Blinks44/moduix" />}
-            value="github"
-          >
-            GitHub
-          </Menu.Item>
-          <Menu.Item
-            asChild={(props) => <a {...props()} href="#menu-changelog" />}
-            value="changelog"
-          >
-            Changelog
-          </Menu.Item>
-          <Menu.Item asChild={(props) => <a {...props()} href="#menu-support" />} value="support">
-            Support
-          </Menu.Item>
+          <Menu.Viewport>
+            <Menu.Item asChild={(props) => <a {...props()} href="#menu-docs" />} value="docs">
+              Documentation
+            </Menu.Item>
+            <Menu.Item
+              asChild={(props) => <a {...props()} href="https://github.com/Blinks44/moduix" />}
+              value="github"
+            >
+              GitHub
+            </Menu.Item>
+            <Menu.Item
+              asChild={(props) => <a {...props()} href="#menu-changelog" />}
+              value="changelog"
+            >
+              Changelog
+            </Menu.Item>
+            <Menu.Item asChild={(props) => <a {...props()} href="#menu-support" />} value="support">
+              Support
+            </Menu.Item>
+          </Menu.Viewport>
         </Menu.Content>
       </Menu.Positioner>
     </Menu>

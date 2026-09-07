@@ -127,21 +127,22 @@ Menu / Menu.Root
       └─ Menu.Content
          ├─ Menu.Arrow
          │  └─ Menu.ArrowTip
-         ├─ Menu.Item
-         │  ├─ Menu.ItemText
-         │  │  ├─ Menu.ItemTextIcon
-         │  │  └─ Menu.ItemTextLabel
-         │  └─ Menu.ItemShortcut
-         ├─ Menu.CheckboxItem
-         │  └─ Menu.ItemIndicator
-         ├─ Menu.RadioItemGroup
-         │  └─ Menu.RadioItem
-         ├─ Menu.ItemGroup
-         │  └─ Menu.ItemGroupLabel
-         ├─ Menu.Separator
-         └─ Menu
-            └─ Menu.TriggerItem
-               └─ Menu.TriggerItemIcon
+         └─ Menu.Viewport
+            ├─ Menu.Item
+            │  ├─ Menu.ItemText
+            │  │  ├─ Menu.ItemTextIcon
+            │  │  └─ Menu.ItemTextLabel
+            │  └─ Menu.ItemShortcut
+            ├─ Menu.CheckboxItem
+            │  └─ Menu.ItemIndicator
+            ├─ Menu.RadioItemGroup
+            │  └─ Menu.RadioItem
+            ├─ Menu.ItemGroup
+            │  └─ Menu.ItemGroupLabel
+            ├─ Menu.Separator
+            └─ Menu
+               └─ Menu.TriggerItem
+                  └─ Menu.TriggerItemIcon
 ```
 
 | Part | Role |
@@ -154,6 +155,7 @@ Menu / Menu.Root
 | `Menu.ContextTrigger` | Trigger for right-click and long-press context menus. |
 | `Menu.Positioner` | Positions the floating menu layer. |
 | `Menu.Content` | Popup surface with the menu role and its item collection. |
+| `Menu.Viewport` | Explicit scroll container around the item collection. |
 | `Menu.Arrow` / `Menu.ArrowTip` | Optional visual anchor for the popup. |
 | `Menu.Item` | Standard command item. |
 | `Menu.CheckboxItem` | Item with an independent boolean state. |
@@ -173,10 +175,12 @@ highlighted state, pass `open` or `highlightedValue` with the matching change ha
 `useMenu()` with `Menu.RootProvider` when the state store must be created outside the rendered tree;
 do not render a second `Menu` root for the same store.
 
-`Menu.Positioner` and `Menu.Content` are separate parts, but the positioner is portalled automatically.
+`Menu.Positioner`, `Menu.Content`, and `Menu.Viewport` are separate parts, but the positioner is portalled automatically.
 Set `portalled={false}` inside a dialog or scroll container and use
 `positioning={{ strategy: 'fixed', hideWhenDetached: true }}` when that container can scroll. Use
 `asChild` with exactly one semantic child when a trigger, item, or content host must own the DOM node.
+A `Menu.Content` must contain `Menu.Viewport` around its scrollable items. Keep an optional
+`Menu.Arrow` directly under `Menu.Content`, next to the viewport, so it is not clipped while items scroll.
 A nested menu is another `Menu` root inside the parent content, paired with its own `TriggerItem`,
 `Positioner`, and `Content`.
 
@@ -726,12 +730,12 @@ hooks are shared by both styling tracks.
 ### Styling hooks
 
 - Ark attributes: `[data-scope='menu']`, `[data-part='trigger']`, `[data-part='indicator']`,
-  `[data-part='content']`, `[data-part='item']`, `[data-type='checkbox' | 'radio']`,
+  `[data-part='content']`, `[data-part='viewport']`, `[data-part='item']`, `[data-type='checkbox' | 'radio']`,
   `[data-state='open' | 'closed' | 'checked' | 'unchecked']`, `[data-current]`, `[data-highlighted]`,
   `[data-disabled]`, `[data-placement]`, and `[data-side]`.
 - Moduix attributes: `[data-slot='menu-trigger']`, `[data-slot='menu-trigger-icon']`,
   `[data-slot='menu-indicator']`, `[data-slot='menu-context-trigger']`, `[data-slot='menu-positioner']`,
-  `[data-slot='menu-content']`, `[data-slot='menu-arrow']`, `[data-slot='menu-arrow-tip']`,
+  `[data-slot='menu-content']`, `[data-slot='menu-viewport']`, `[data-slot='menu-arrow']`, `[data-slot='menu-arrow-tip']`,
   `[data-slot='menu-item']`, `[data-slot='menu-trigger-item']`, `[data-slot='menu-trigger-item-icon']`,
   `[data-slot='menu-separator']`, `[data-slot='menu-item-group']`, `[data-slot='menu-item-group-label']`,
   `[data-slot='menu-radio-item-group']`, `[data-slot='menu-radio-item']`, `[data-slot='menu-checkbox-item']`,

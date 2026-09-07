@@ -127,21 +127,22 @@ Menu / Menu.Root
       └─ Menu.Content
          ├─ Menu.Arrow
          │  └─ Menu.ArrowTip
-         ├─ Menu.Item
-         │  ├─ Menu.ItemText
-         │  │  ├─ Menu.ItemTextIcon
-         │  │  └─ Menu.ItemTextLabel
-         │  └─ Menu.ItemShortcut
-         ├─ Menu.CheckboxItem
-         │  └─ Menu.ItemIndicator
-         ├─ Menu.RadioItemGroup
-         │  └─ Menu.RadioItem
-         ├─ Menu.ItemGroup
-         │  └─ Menu.ItemGroupLabel
-         ├─ Menu.Separator
-         └─ Menu
-            └─ Menu.TriggerItem
-               └─ Menu.TriggerItemIcon
+         └─ Menu.Viewport
+            ├─ Menu.Item
+            │  ├─ Menu.ItemText
+            │  │  ├─ Menu.ItemTextIcon
+            │  │  └─ Menu.ItemTextLabel
+            │  └─ Menu.ItemShortcut
+            ├─ Menu.CheckboxItem
+            │  └─ Menu.ItemIndicator
+            ├─ Menu.RadioItemGroup
+            │  └─ Menu.RadioItem
+            ├─ Menu.ItemGroup
+            │  └─ Menu.ItemGroupLabel
+            ├─ Menu.Separator
+            └─ Menu
+               └─ Menu.TriggerItem
+                  └─ Menu.TriggerItemIcon
 ```
 
 | Partie | Rôle |
@@ -154,6 +155,7 @@ Menu / Menu.Root
 | `Menu.ContextTrigger` | Déclencheur pour les menus contextuels ouverts par clic droit ou appui prolongé. |
 | `Menu.Positioner` | Positionne le calque flottant du menu. |
 | `Menu.Content` | Surface de la fenêtre contextuelle avec le rôle `menu` et sa collection d’éléments. |
+| `Menu.Viewport` | Conteneur de défilement explicite autour de la collection d’éléments. |
 | `Menu.Arrow` / `Menu.ArrowTip` | Flèche facultative qui relie visuellement la fenêtre contextuelle à son déclencheur. |
 | `Menu.Item` | Élément de commande standard. |
 | `Menu.CheckboxItem` | Élément doté d’un état booléen indépendant. |
@@ -168,9 +170,9 @@ Menu / Menu.Root
 
 ## Composition
 
-Utilisez `defaultOpen` pour un menu non contrôlé. Lorsque l’ouverture ou l’élément mis en surbrillance est géré par une autre partie de l’application, passez `open` ou `highlightedValue` avec le callback correspondant. Utilisez `useMenu()` avec `Menu.RootProvider` lorsque le store doit être créé en dehors de l’arbre rendu ; ne rendez pas une seconde racine `Menu` pour le même store.
+Utilisez `defaultOpen` pour un menu non contrôlé. Lorsque l’ouverture ou l’élément mis en surbrillance est géré par une autre partie de l’application, passez `open` ou `highlightedValue` avec la fonction de rappel correspondante. Utilisez `useMenu()` avec `Menu.RootProvider` lorsque le store doit être créé en dehors de l’arbre rendu ; ne rendez pas une seconde racine `Menu` pour le même store.
 
-`Menu.Positioner` et `Menu.Content` sont des parties distinctes, mais le positionneur est automatiquement rendu dans un portail. Définissez `portalled={false}` dans une boîte de dialogue ou un conteneur défilant, et utilisez `positioning={{ strategy: 'fixed', hideWhenDetached: true }}` lorsque ce conteneur peut défiler. Utilisez `asChild` avec exactement un enfant sémantique lorsqu’un trigger, un item ou l’hôte du contenu doit porter le nœud DOM. Un menu imbriqué est une autre racine `Menu` dans le contenu parent, avec ses propres parties `TriggerItem`, `Positioner` et `Content`.
+`Menu.Positioner`, `Menu.Content` et `Menu.Viewport` sont des parties distinctes, mais le positionneur est automatiquement rendu dans un portail. Définissez `portalled={false}` dans une boîte de dialogue ou un conteneur défilant, et utilisez `positioning={{ strategy: 'fixed', hideWhenDetached: true }}` lorsque ce conteneur peut défiler. Utilisez `asChild` avec exactement un enfant sémantique lorsqu’un déclencheur, un élément ou l’hôte du contenu doit porter le nœud DOM. Dans `Menu.Content`, entourez les éléments défilants avec `Menu.Viewport`. Conservez l’éventuel `Menu.Arrow` comme enfant direct de `Menu.Content`, à côté du viewport, afin qu’il ne soit pas rogné pendant le défilement. Un menu imbriqué est une autre racine `Menu` dans le contenu parent, avec ses propres parties `TriggerItem`, `Positioner` et `Content`.
 ## Exemples
 
 ### Options avec case à cocher
@@ -641,7 +643,7 @@ Utilisez `Menu.RadioItemGroup` lorsque l’utilisateur doit choisir une seule va
 
 </ExampleCode>
 
-### Root Provider
+### Utiliser `RootProvider`
 
 Utilisez `useMenu` et `Menu.RootProvider` lorsque du code situé en dehors de l’arbre rendu doit lire ou modifier l’état du menu.
 
@@ -809,6 +811,6 @@ Utilisez les composants utilitaires pour les mises en page courantes, puis compo
 
 Utilisez les attributs d’état d’Ark pour styliser le menu et ses éléments :
 
-- Attributs Ark : `[data-scope='menu']`, `[data-part='trigger']`, `[data-part='indicator']`, `[data-part='content']`, `[data-part='item']`, `[data-type='checkbox' | 'radio']`, `[data-state='open' | 'closed' | 'checked' | 'unchecked']`, `[data-current]`, `[data-highlighted]`, `[data-disabled]`, `[data-placement]` et `[data-side]`.
-- Attributs moduix : `[data-slot='menu-trigger']`, `[data-slot='menu-trigger-icon']`, `[data-slot='menu-indicator']`, `[data-slot='menu-context-trigger']`, `[data-slot='menu-positioner']`, `[data-slot='menu-content']`, `[data-slot='menu-arrow']`, `[data-slot='menu-arrow-tip']`, `[data-slot='menu-item']`, `[data-slot='menu-trigger-item']`, `[data-slot='menu-trigger-item-icon']`, `[data-slot='menu-separator']`, `[data-slot='menu-item-group']`, `[data-slot='menu-item-group-label']`, `[data-slot='menu-radio-item-group']`, `[data-slot='menu-radio-item']`, `[data-slot='menu-checkbox-item']`, `[data-slot='menu-item-indicator']`, `[data-slot='menu-item-text']`, `[data-slot='menu-item-text-content']`, `[data-slot='menu-item-text-icon']`, `[data-slot='menu-item-text-label']`, `[data-slot='menu-item-shortcut']` et `[data-indicator-position='start' | 'end' | 'none']`.
+- Attributs Ark : `[data-scope='menu']`, `[data-part='trigger']`, `[data-part='indicator']`, `[data-part='content']`, `[data-part='viewport']`, `[data-part='item']`, `[data-type='checkbox' | 'radio']`, `[data-state='open' | 'closed' | 'checked' | 'unchecked']`, `[data-current]`, `[data-highlighted]`, `[data-disabled]`, `[data-placement]` et `[data-side]`.
+- Attributs moduix : `[data-slot='menu-trigger']`, `[data-slot='menu-trigger-icon']`, `[data-slot='menu-indicator']`, `[data-slot='menu-context-trigger']`, `[data-slot='menu-positioner']`, `[data-slot='menu-content']`, `[data-slot='menu-viewport']`, `[data-slot='menu-arrow']`, `[data-slot='menu-arrow-tip']`, `[data-slot='menu-item']`, `[data-slot='menu-trigger-item']`, `[data-slot='menu-trigger-item-icon']`, `[data-slot='menu-separator']`, `[data-slot='menu-item-group']`, `[data-slot='menu-item-group-label']`, `[data-slot='menu-radio-item-group']`, `[data-slot='menu-radio-item']`, `[data-slot='menu-checkbox-item']`, `[data-slot='menu-item-indicator']`, `[data-slot='menu-item-text']`, `[data-slot='menu-item-text-content']`, `[data-slot='menu-item-text-icon']`, `[data-slot='menu-item-text-label']`, `[data-slot='menu-item-shortcut']` et `[data-indicator-position='start' | 'end' | 'none']`.
 - Variables de positionnement : `--reference-width`, `--available-width`, `--available-height`, `--transform-origin`, `--layer-index`, `--arrow-size` et `--arrow-background`.

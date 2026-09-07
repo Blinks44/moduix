@@ -37,13 +37,15 @@ function RowActionsMenu({ itemName }: { itemName: string }) {
       </Menu.Trigger>
       <Menu.Positioner>
         <Menu.Content>
-          <Menu.Item value="open">Open project</Menu.Item>
-          <Menu.Item value="copy-link">Copy link</Menu.Item>
-          <Menu.Item value="duplicate">Duplicate</Menu.Item>
-          <Menu.Separator />
-          <Menu.Item value="archive" tone="destructive">
-            Archive
-          </Menu.Item>
+          <Menu.Viewport>
+            <Menu.Item value="open">Open project</Menu.Item>
+            <Menu.Item value="copy-link">Copy link</Menu.Item>
+            <Menu.Item value="duplicate">Duplicate</Menu.Item>
+            <Menu.Separator />
+            <Menu.Item value="archive" tone="destructive">
+              Archive
+            </Menu.Item>
+          </Menu.Viewport>
         </Menu.Content>
       </Menu.Positioner>
     </Menu>

@@ -18,12 +18,14 @@ export default function SelectEventMenuDemo() {
           </Menu.Trigger>
           <Menu.Positioner>
             <Menu.Content className={styles.content}>
-              <Menu.Item value="edit">Edit</Menu.Item>
-              <Menu.Item value="duplicate">Duplicate</Menu.Item>
-              <Menu.Item value="archive">Archive</Menu.Item>
-              <Menu.Item value="delete" tone="destructive">
-                Delete
-              </Menu.Item>
+              <Menu.Viewport>
+                <Menu.Item value="edit">Edit</Menu.Item>
+                <Menu.Item value="duplicate">Duplicate</Menu.Item>
+                <Menu.Item value="archive">Archive</Menu.Item>
+                <Menu.Item value="delete" tone="destructive">
+                  Delete
+                </Menu.Item>
+              </Menu.Viewport>
             </Menu.Content>
           </Menu.Positioner>
         </Menu>

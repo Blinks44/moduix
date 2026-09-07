@@ -69,9 +69,11 @@ export default function SizedSidebar() {
             </Menu.Trigger>
             <Menu.Positioner>
               <Menu.Content>
-                <Menu.Item value="workspace">Workspace settings</Menu.Item>
-                <Menu.Item value="members">Manage members</Menu.Item>
-                <Menu.Item value="billing">Billing</Menu.Item>
+                <Menu.Viewport>
+                  <Menu.Item value="workspace">Workspace settings</Menu.Item>
+                  <Menu.Item value="members">Manage members</Menu.Item>
+                  <Menu.Item value="billing">Billing</Menu.Item>
+                </Menu.Viewport>
               </Menu.Content>
             </Menu.Positioner>
           </Menu>

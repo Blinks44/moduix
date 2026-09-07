@@ -13,17 +13,19 @@ export default function GroupingMenuDemo() {
       </Menu.Trigger>
       <Menu.Positioner>
         <Menu.Content className={styles.content}>
-          <Menu.ItemGroup>
-            <Menu.ItemGroupLabel>Clipboard</Menu.ItemGroupLabel>
-            <Menu.Item value="cut">Cut</Menu.Item>
-            <Menu.Item value="copy">Copy</Menu.Item>
-            <Menu.Item value="paste">Paste</Menu.Item>
-          </Menu.ItemGroup>
-          <Menu.Separator />
-          <Menu.ItemGroup>
-            <Menu.ItemGroupLabel>Selection</Menu.ItemGroupLabel>
-            <Menu.Item value="select-all">Select All</Menu.Item>
-          </Menu.ItemGroup>
+          <Menu.Viewport>
+            <Menu.ItemGroup>
+              <Menu.ItemGroupLabel>Clipboard</Menu.ItemGroupLabel>
+              <Menu.Item value="cut">Cut</Menu.Item>
+              <Menu.Item value="copy">Copy</Menu.Item>
+              <Menu.Item value="paste">Paste</Menu.Item>
+            </Menu.ItemGroup>
+            <Menu.Separator />
+            <Menu.ItemGroup>
+              <Menu.ItemGroupLabel>Selection</Menu.ItemGroupLabel>
+              <Menu.Item value="select-all">Select All</Menu.Item>
+            </Menu.ItemGroup>
+          </Menu.Viewport>
         </Menu.Content>
       </Menu.Positioner>
     </Menu>
