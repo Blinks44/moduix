@@ -13,6 +13,14 @@ import BadgeVariants from '@/components/examples/badge/variants.tsx';
 import BadgeWithDot from '@/components/examples/badge/with-dot.tsx';
 import BadgeWithIcon from '@/components/examples/badge/with-icon.tsx';
 
+import badgeSolidBasic from '../../../snippets/badge/solid/basic.tsx?raw';
+import badgeSolidCustomStyling from '../../../snippets/badge/solid/custom-styling.tsx?raw';
+import badgeSolidLink from '../../../snippets/badge/solid/link.tsx?raw';
+import badgeSolidLongLabels from '../../../snippets/badge/solid/long-labels.tsx?raw';
+import badgeSolidVariants from '../../../snippets/badge/solid/variants.tsx?raw';
+import badgeSolidWithDot from '../../../snippets/badge/solid/with-dot.tsx?raw';
+import badgeSolidWithIcon from '../../../snippets/badge/solid/with-icon.tsx?raw';
+
 ## Référence de l’API
 
 Ark UI ne fournit pas de primitive `Badge` dédiée. moduix construit `Badge` avec la [factory Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory)
@@ -27,22 +35,38 @@ pas un contrôle qui permet à l’utilisateur de sélectionner ou de modifier u
 - Choisissez **`Badge`** pour de courtes métadonnées comme un statut, une catégorie, une version ou un nombre.
 - Choisissez **`Tag`** pour des valeurs sélectionnées, des filtres, des affectations ou des libellés qui font partie de l’état actuel de l’interface.
 
+
+Les mêmes exports sont disponibles depuis `@moduix/solid/badge` pour Solid.
 ## Exemple de base
 
 Commencez par un `<Badge>` simple. Par défaut, le composant rend un `span` de présentation. Définissez `variant` pour
 choisir un style intégré et ajoutez `Badge.Dot` uniquement lorsqu’un statut a besoin d’un indicateur visuel.
 
+
+Ce composant est disponible pour React et Solid, avec des variantes CSS Modules et Tailwind. L’aperçu utilise React avec CSS Modules ; les onglets affichent le code natif correspondant à chaque framework.
 <ExampleFrame variant="component">
   <BadgeBasic />
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/badge/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={badgeSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -52,8 +76,30 @@ choisir un style intégré et ajoutez `Badge.Dot` uniquement lorsqu’un statut 
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="badge" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/badge' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/badge' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/badge' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/badge' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+Consultez [Quick Start](/docs/quick-start) pour la configuration du package, du registre et des feuilles de style.
 ## Anatomie
 
 `Badge` est le raccourci de `Badge.Root`. Son API publique reste volontairement réduite aux parties visibles.
@@ -73,47 +119,7 @@ Badge / Badge.Root
 
 ## Composition
 
-### Composition recommandée
-
-Pour la plupart des statuts courts, catégories, versions et compteurs, utilisez directement `<Badge>`.
-`Badge.Root` est son équivalent dans l’espace de noms `Badge`.
-
-Utilisez `variant` pour les styles intégrés : `default`, `secondary`, `destructive`, `outline`, `ghost` et `link`.
-
-Lorsque le badge a besoin d’un point ou d’une icône, placez `Badge.Dot` ou une icône enfant directe à côté de
-`Badge.Label`. Le texte direct reste inchangé ; utilisez `Badge.Label` explicitement lorsqu’un libellé contraint
-doit être tronqué.
-
-`Badge.Root`, `Badge.Label` et `Badge.Dot` transmettent leur `ref` aux éléments DOM qu’ils rendent.
-
-### Quand créer une composition personnalisée
-
-Utilisez `Badge asChild` lorsqu’un élément sémantique, comme `<a>` ou `<button>`, doit devenir l’élément racine du DOM.
-La composition Ark exige un seul enfant. Celui-ci conserve sa sémantique native et reçoit le style de focus visible.
-Les racines de type lien reçoivent aussi le curseur et le survol de la variante ; les styles d’interaction propres
-aux boutons restent gérés par l’application.
-
-Utilisez une variable CSS locale ou redéfinissez `className` lorsque le badge nécessite une taille ou un style personnalisé.
-Il n’existe pas de prop `size` : ajustez les dimensions avec les variables CSS publiques.
-
-### Propriétés par défaut
-
-| Propriété | Valeur par défaut | Valeurs / remarques                                         |
-| --------- | ----------------- | ----------------------------------------------------------- |
-| `variant` | `default`         | `default`, `secondary`, `destructive`, `outline`, `ghost`, `link` |
-| `asChild` | `false`           | Rend un enfant unique à la place de l’élément racine `span` |
-
-### Comportement
-
-- Par défaut, `Badge` sert uniquement à afficher une information et rend un `span`.
-- `Badge.Dot` est décoratif et masqué pour les technologies d’assistance ; le texte visible doit donc transmettre la signification du statut.
-- `Badge` n’ajoute à lui seul ni interaction ni sémantique de lien ou de bouton.
-- Les éléments sémantiques rendus avec `asChild` conservent leur comportement natif et reçoivent le style de focus visible. Seules les racines de type lien reçoivent le curseur et le survol de la variante.
-- Les libellés longs restent sur une seule ligne et sont tronqués lorsqu’ils sont placés explicitement dans `Badge.Label`. Ajoutez `title` pour rendre la valeur complète visible au survol.
-- Le texte fourni directement reste inchangé. Utilisez `Badge.Label` lorsque le texte est composé avec un point, une icône ou un autre élément, ou lorsqu’il doit être tronqué.
-- Les icônes `svg` placées directement comme enfants héritent de `currentColor` et utilisent `--moduix-badge-icon-size`.
-- Le contenu numérique utilise des chiffres tabulaires et, par défaut, le texte du badge n’est pas sélectionnable.
-
+`Badge` est un composant de présentation et ne gère aucun état. Le texte direct reste inchangé ; utilisez `Badge.Label` lorsqu’un libellé contraint doit être tronqué ou lorsqu’il est combiné avec `Badge.Dot` ou une icône. Pour un lien ou un bouton sémantique, utilisez `asChild` avec exactement un enfant en React. En Solid, passez une fonction de rendu à `asChild` ; l’enfant rendu conserve ses sémantiques natives. `Badge.Root` est l’équivalent avec espace de noms de `Badge`.
 ## Exemples
 
 ### Styles personnalisés
@@ -127,20 +133,31 @@ ou définissez des variables CSS directement sur le badge.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/badge/custom-styling.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/badge/badge-custom-styling.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={badgeSolidCustomStyling} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/badge/badge-custom-styling.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -156,11 +173,23 @@ enfant reste un véritable lien et conserve sa sémantique native.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/badge/link.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={badgeSolidLink} />
 
     </Tab>
   </Tabs>
@@ -179,20 +208,31 @@ rendre le libellé complet visible au survol. Dans les interfaces tactiles, choi
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/badge/long-labels.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/badge/badge-long-labels.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={badgeSolidLongLabels} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/badge/badge-long-labels.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -207,20 +247,31 @@ Utilisez les variantes intégrées pour les styles courants.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/badge/variants.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/badge/badge-variants.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={badgeSolidVariants} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/badge/badge-variants.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -236,20 +287,31 @@ porter le sens du statut, car le point est décoratif.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/badge/with-dot.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/badge/badge-with-dot.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={badgeSolidWithDot} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/badge/badge-with-dot.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -264,20 +326,31 @@ Placez une icône SVG enfant directe à côté du libellé lorsque les métadonn
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/badge/with-icon.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/badge/badge-with-icon.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={badgeSolidWithIcon} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/badge/badge-with-icon.module.css"
+```
 </div>
 
 </ExampleCode>

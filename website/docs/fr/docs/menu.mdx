@@ -23,42 +23,97 @@ import MenuRootProvider from '@/components/examples/menu/root-provider.tsx';
 import MenuSelectEvent from '@/components/examples/menu/select-event.tsx';
 import MenuWithArrow from '@/components/examples/menu/with-arrow.tsx';
 
+import menuSolidAdvancedCustomization from '../../../snippets/menu/solid/advanced-customization.tsx?raw';
+import menuSolidBasic from '../../../snippets/menu/solid/basic.tsx?raw';
+import menuSolidCheckboxItems from '../../../snippets/menu/solid/checkbox-items.tsx?raw';
+import menuSolidContext from '../../../snippets/menu/solid/context-menu.tsx?raw';
+import menuSolidControlled from '../../../snippets/menu/solid/controlled.tsx?raw';
+import menuSolidGrouping from '../../../snippets/menu/solid/grouping.tsx?raw';
+import menuSolidIndicatorPlacement from '../../../snippets/menu/solid/indicator-placement.tsx?raw';
+import menuSolidItemContext from '../../../snippets/menu/solid/item-context.tsx?raw';
+import menuSolidLazyMountedContext from '../../../snippets/menu/solid/lazy-mounted-context-menu.tsx?raw';
+import menuSolidLinks from '../../../snippets/menu/solid/links.tsx?raw';
+import menuSolidInDialog from '../../../snippets/menu/solid/menu-in-dialog.tsx?raw';
+import menuSolidMultipleTriggers from '../../../snippets/menu/solid/multiple-triggers.tsx?raw';
+import menuSolidNested from '../../../snippets/menu/solid/nested.tsx?raw';
+import menuSolidRadioItems from '../../../snippets/menu/solid/radio-items.tsx?raw';
+import menuSolidRootProvider from '../../../snippets/menu/solid/root-provider.tsx?raw';
+import menuSolidSelectEvent from '../../../snippets/menu/solid/select-event.tsx?raw';
+import menuSolidWithArrow from '../../../snippets/menu/solid/with-arrow.tsx?raw';
+
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/menu" />
 
+
+Les mêmes exports sont disponibles depuis `@moduix/solid/menu` pour Solid.
 ## Exemple de base
 
 Utilisez la composition standard pour un menu ouvert par un bouton, un déclencheur personnalisé ou un déclencheur contextuel. Le composant racine gère la navigation au clavier, la recherche par saisie, le focus et la fermeture. Attribuez une valeur `value` stable à chaque élément afin de préserver la sélection et la recherche par saisie lorsque la liste change.
 
+
+Ce composant est disponible pour React et Solid, avec des variantes CSS Modules et Tailwind. L’aperçu utilise React avec CSS Modules ; les onglets affichent le code natif correspondant à chaque framework.
 <ExampleFrame variant="component">
   <MenuBasic />
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/menu/menu-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={menuSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/menu/menu-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="menu" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/menu' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/menu' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/menu' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/menu' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+Consultez [Quick Start](/docs/quick-start) pour la configuration du package, du registre et des feuilles de style.
 ## Anatomie
 
 ```text
@@ -113,70 +168,9 @@ Menu / Menu.Root
 
 ## Composition
 
-`Menu` place automatiquement `Menu.Positioner` dans un portail. Définissez `portalled={false}` pour afficher le menu dans son conteneur courant, ou passez `portalRef` pour utiliser un conteneur de portail précis. `Menu.Positioner` et `Menu.Content` restent explicites, ce qui permet de les styliser et de les composer séparément.
+Utilisez `defaultOpen` pour un menu non contrôlé. Lorsque l’ouverture ou l’élément mis en surbrillance est géré par une autre partie de l’application, passez `open` ou `highlightedValue` avec le callback correspondant. Utilisez `useMenu()` avec `Menu.RootProvider` lorsque le store doit être créé en dehors de l’arbre rendu ; ne rendez pas une seconde racine `Menu` pour le même store.
 
-### Composition recommandée
-
-Gardez la structure de la fenêtre contextuelle visible dans votre code. `Menu.Content` est la partie de contenu Ark, tandis que `Menu.Positioner` gère le positionnement séparément.
-
-```tsx
-import { Button } from '@moduix/react/button';
-import { Menu } from '@moduix/react/menu';
-
-export function ActionsMenu() {
-  return (
-    <Menu positioning={{ placement: 'bottom-start', gutter: 8 }}>
-      <Menu.Trigger asChild>
-        <Button>
-          Actions
-          <Menu.Indicator />
-        </Button>
-      </Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content>
-          <Menu.Item value="edit">Edit</Menu.Item>
-        </Menu.Content>
-      </Menu.Positioner>
-    </Menu>
-  );
-}
-```
-
-### Quand créer une composition personnalisée
-
-Utilisez `asChild` lorsqu’une partie du déclencheur, de l’élément ou du contenu doit être rendue avec un autre élément sémantique. Passez exactement un enfant sémantique afin qu’Ark puisse fusionner ses attributs ARIA, ses gestionnaires d’événements et sa ref. Pour les liens, placez `asChild` sur `Menu.Item` afin que l’ancre elle-même reçoive le comportement du menu. Pour fournir un conteneur personnalisé à la fenêtre contextuelle, placez-le sur `Menu.Content`.
-
-Un menu imbriqué est une racine `Menu` standard placée dans le contenu du menu parent. Ajoutez-y `Menu.TriggerItem`, puis son propre `Menu.Positioner` et son propre `Menu.Content`.
-
-### Propriétés par défaut
-
-Par défaut, moduix monte le contenu de la fenêtre contextuelle à la première ouverture, puis le démonte après l’animation de sortie. Définissez `unmountOnExit={false}` pour conserver le contenu monté après sa première ouverture. Définissez `lazyMount={false}` et `unmountOnExit={false}` uniquement si le contenu doit être rendu immédiatement et rester monté.
-
-| Propriété ou partie | Par défaut | Remarques |
-| --- | --- | --- |
-| `lazyMount` | `true` | Diffère le montage de la fenêtre contextuelle jusqu’à sa première ouverture. |
-| `unmountOnExit` | `true` | Démonte la fenêtre contextuelle après son animation de sortie. |
-| `closeOnSelect` | `true` | Valeur par défaut d’Ark. Passez `false` si l’utilisateur doit effectuer plusieurs sélections avant de fermer le menu. |
-| `loopFocus` | `false` | Valeur par défaut d’Ark. Le focus clavier ne revient pas du dernier élément au premier. |
-| `typeahead` | `true` | Valeur par défaut d’Ark. Les caractères saisis déplacent la mise en évidence vers l’élément correspondant. |
-| `indicator` de `Menu.CheckboxItem` / `Menu.RadioItem` | `start` | Propriété propre à moduix qui contrôle la colonne de l’indicateur. Utilisez `end` ou `none` si nécessaire. |
-
-### Comportement
-
-- Contrôlez le menu avec `open`, `defaultOpen` et `onOpenChange(details)`. La fonction reçoit l’objet de détails d’Ark.
-- Utilisez `value` pour identifier un élément. Utilisez `valueText` lorsque le texte affiché doit différer du texte utilisé par la recherche par saisie. N’attribuez pas d’`id` arbitraire aux éléments : Ark génère et utilise ces identifiants en interne.
-- Utilisez `highlightedValue` et `onHighlightChange(details)` pour contrôler ou observer l’élément mis en évidence. Utilisez `present` uniquement lorsque le cycle de vie du contenu monté doit être contrôlé depuis l’extérieur.
-- `onSelect(details)` sur la racine s’exécute pour chaque élément sélectionné. Des gestionnaires `onSelect` sont également disponibles au niveau des éléments.
-- `Menu.CheckboxItem.onCheckedChange` reçoit le nouvel état booléen.
-- `Menu.RadioItemGroup.onValueChange` reçoit un objet de détails. Lisez la valeur sélectionnée dans `details.value`.
-- Pour plusieurs déclencheurs, utilisez `triggerValue`, `defaultTriggerValue` et `onTriggerValueChange(details)` lorsque le déclencheur actif doit être contrôlé ou observé.
-- Utilisez `Menu.RootProvider` avec une instance créée par `useMenu` lorsque du code situé en dehors de l’arbre rendu doit accéder à l’API du menu. Ne rendez pas une seconde racine pour la même instance d’état.
-- `Menu.Context`, `useMenuContext`, `Menu.ItemContext` et `useMenuItemContext` exposent l’état pour les compositions avancées.
-- La racine place automatiquement `Menu.Positioner` dans un portail. Utilisez `portalled={false}` dans une boîte de dialogue ou un conteneur défilant. Si ce conteneur défile, ajoutez `positioning={{ strategy: 'fixed', hideWhenDetached: true }}`.
-- `Menu.ContextTrigger` s’ouvre au clic droit et, sur les appareils tactiles ou avec un stylet, après un appui prolongé d’environ 700 ms.
-- Les animations d’ouverture et de fermeture respectent `prefers-reduced-motion`.
-- moduix ajoute `tone="destructive"` pour les actions destructives ainsi que des composants utilitaires comme `Menu.TriggerIcon`, `Menu.TriggerItemIcon`, `Menu.ItemTextContent`, `Menu.ItemTextIcon`, `Menu.ItemTextLabel` et `Menu.ItemShortcut`.
-
+`Menu.Positioner` et `Menu.Content` sont des parties distinctes, mais le positionneur est automatiquement rendu dans un portail. Définissez `portalled={false}` dans une boîte de dialogue ou un conteneur défilant, et utilisez `positioning={{ strategy: 'fixed', hideWhenDetached: true }}` lorsque ce conteneur peut défiler. Utilisez `asChild` avec exactement un enfant sémantique lorsqu’un trigger, un item ou l’hôte du contenu doit porter le nœud DOM. Un menu imbriqué est une autre racine `Menu` dans le contenu parent, avec ses propres parties `TriggerItem`, `Positioner` et `Content`.
 ## Exemples
 
 ### Options avec case à cocher
@@ -189,20 +183,31 @@ Utilisez ces éléments pour des options indépendantes qui peuvent être activ�
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/checkbox-items.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/menu/menu-checkbox-items.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={menuSolidCheckboxItems} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/menu/menu-checkbox-items.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -217,20 +222,31 @@ Utilisez `Menu.ContextTrigger` lorsque les actions doivent apparaître après un
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/context-menu.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/menu/menu-context-menu.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={menuSolidContext} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/menu/menu-context-menu.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -245,20 +261,31 @@ Contrôlez `open` avec l’état React lorsqu’un autre contrôle doit ouvrir o
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/menu/menu-controlled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={menuSolidControlled} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/menu/menu-controlled.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -273,20 +300,31 @@ Utilisez `Menu.ItemGroup` et `Menu.ItemGroupLabel` pour organiser les éléments
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/grouping.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/menu/menu-grouping.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={menuSolidGrouping} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/menu/menu-grouping.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -301,20 +339,31 @@ Définissez `indicator="start"`, `"end"` ou `"none"` sur les éléments avec cas
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/indicator-placement.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/menu/menu-indicator-placement.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={menuSolidIndicatorPlacement} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/menu/menu-indicator-placement.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -329,20 +378,31 @@ Utilisez `Menu.ItemContext` lorsque le contenu d’un élément doit réagir à 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/item-context.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/menu/menu-item-context.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={menuSolidItemContext} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/menu/menu-item-context.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -357,20 +417,31 @@ Par défaut, le contenu du menu contextuel est monté à la première ouverture 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/lazy-mounted-context-menu.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/menu/menu-lazy-mounted-context-menu.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={menuSolidLazyMountedContext} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/menu/menu-lazy-mounted-context-menu.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -385,20 +456,31 @@ Utilisez `Menu.Item asChild` et faites de l’ancre l’élément de menu lui-m�
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/links.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/menu/menu-links.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={menuSolidLinks} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/menu/menu-links.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -413,20 +495,31 @@ Définissez `portalled={false}` pour garder la fenêtre contextuelle dans une bo
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/menu-in-dialog.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/menu/menu-menu-in-dialog.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={menuSolidInDialog} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/menu/menu-menu-in-dialog.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -441,20 +534,31 @@ Partagez un même menu entre plusieurs déclencheurs en attribuant une valeur `v
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/multiple-triggers.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/menu/menu-multiple-triggers.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={menuSolidMultipleTriggers} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/menu/menu-multiple-triggers.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -469,20 +573,31 @@ Rendez un `Menu` enfant dans le contenu du menu parent et ouvrez-le avec `Menu.T
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/nested.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/menu/menu-nested.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={menuSolidNested} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/menu/menu-nested.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -497,20 +612,31 @@ Utilisez `Menu.RadioItemGroup` lorsque l’utilisateur doit choisir une seule va
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/radio-items.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/menu/menu-radio-items.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={menuSolidRadioItems} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/menu/menu-radio-items.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -525,20 +651,31 @@ Utilisez `useMenu` et `Menu.RootProvider` lorsque du code situé en dehors de l�
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/menu/menu-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={menuSolidRootProvider} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/menu/menu-root-provider.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -553,20 +690,31 @@ Utilisez `onSelect(details)` sur la racine lorsqu’un seul gestionnaire doit r�
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/select-event.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/menu/menu-select-event.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={menuSolidSelectEvent} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/menu/menu-select-event.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -581,11 +729,23 @@ Ajoutez `Menu.Arrow` et `Menu.ArrowTip` directement dans `Menu.Content` lorsque 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/with-arrow.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={menuSolidWithArrow} />
 
     </Tab>
   </Tabs>
@@ -603,11 +763,23 @@ Utilisez les composants utilitaires pour les mises en page courantes, puis compo
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/advanced-customization.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={menuSolidAdvancedCustomization} />
 
     </Tab>
   </Tabs>

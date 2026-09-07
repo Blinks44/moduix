@@ -16,6 +16,17 @@ import AngleSliderRootProvider from '@/components/examples/angle-slider/root-pro
 import AngleSliderSteps from '@/components/examples/angle-slider/steps.tsx';
 import AngleSliderWithMarks from '@/components/examples/angle-slider/with-marks.tsx';
 
+import angleSliderSolidAdvancedCustomization from '../../../snippets/angle-slider/solid/advanced-customization.tsx?raw';
+import angleSliderSolidBasic from '../../../snippets/angle-slider/solid/basic.tsx?raw';
+import angleSliderSolidControlled from '../../../snippets/angle-slider/solid/controlled.tsx?raw';
+import angleSliderSolidDisabled from '../../../snippets/angle-slider/solid/disabled.tsx?raw';
+import angleSliderSolidForm from '../../../snippets/angle-slider/solid/form.tsx?raw';
+import angleSliderSolidInvalid from '../../../snippets/angle-slider/solid/invalid.tsx?raw';
+import angleSliderSolidReadOnly from '../../../snippets/angle-slider/solid/read-only.tsx?raw';
+import angleSliderSolidRootProvider from '../../../snippets/angle-slider/solid/root-provider.tsx?raw';
+import angleSliderSolidSteps from '../../../snippets/angle-slider/solid/steps.tsx?raw';
+import angleSliderSolidWithMarks from '../../../snippets/angle-slider/solid/with-marks.tsx?raw';
+
 ## Référence API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/angle-slider" />
@@ -31,39 +42,76 @@ circulaire.
 - Choisissez **`NumberInput`** lorsque la saisie précise d’une valeur en degrés est plus importante qu’une
   manipulation directe.
 
+
+Les mêmes exports sont disponibles depuis `@moduix/solid/angle-slider` pour Solid.
 ## Exemple de base
 
 Commencez par la composition minimale avec `Dial`. `AngleSlider` accepte une seule valeur d’angle comprise entre 0
 et 360 degrés. Ajoutez si possible un `Label` visible. Si le cadran n’en a pas, ajoutez `aria-label` à la racine.
 
+
+Ce composant est disponible pour React et Solid, avec des variantes CSS Modules et Tailwind. L’aperçu utilise React avec CSS Modules ; les onglets affichent le code natif correspondant à chaque framework.
 <ExampleFrame variant="component">
   <AngleSliderBasic />
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/angle-slider/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/angle-slider/angle-slider-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={angleSliderSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/angle-slider/angle-slider-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="angle-slider" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/angle-slider' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/angle-slider' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/angle-slider' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/angle-slider' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+Consultez [Quick Start](/docs/quick-start) pour la configuration du package, du registre et des feuilles de style.
 ## Anatomie
 
 ```text
@@ -96,64 +144,9 @@ doit participer à un formulaire natif.
 
 ## Composition
 
-### Champ de formulaire natif
+Utilisez `defaultValue` pour un curseur non contrôlé et `value` avec `onValueChange(details)` lorsque l’angle est géré par une autre partie de l’application. Utilisez `AngleSlider.RootProvider` avec `useAngleSlider()` du framework concerné uniquement lorsque le store doit être créé en dehors de l’arbre du curseur ; ne rendez pas `Root` et `RootProvider` pour la même instance d’état. En Solid, lisez le store fourni via son accessor, par exemple `angleSlider().value`.
 
-`AngleSlider.HiddenInput` est le champ natif d’Ark, exporté directement. Ajoutez-le explicitement dans
-`AngleSlider` ou `AngleSlider.RootProvider` : la racine ne le crée pas automatiquement.
-Définissez `name` sur la racine pour inclure la valeur dans la soumission native du formulaire.
-
-Pour un formulaire extérieur à l’arbre du composant, définissez `form` directement sur `HiddenInput`.
-
-### Composition recommandée
-
-Commencez par `Dial`, puis ajoutez uniquement les parties dont vous avez besoin :
-
-- ajoutez `Label` ou `aria-label` pour donner au contrôle un nom accessible
-- ajoutez `Marks` lorsque les utilisateurs ont besoin de points de référence autour du cadran
-- ajoutez `ValueText` lorsque l’angle numérique doit rester visible
-- définissez `name` lorsque l’angle doit être inclus dans les données envoyées par un formulaire natif
-- définissez `form` lorsque le champ natif dépend d’un formulaire situé en dehors de l’arborescence du curseur
-
-### Quand créer une composition personnalisée
-
-Utilisez explicitement les parties `Control`, `Thumb`, `MarkerGroup` et `Marker` lorsque vous avez besoin d’enfants
-personnalisés, de props spécifiques à chaque marqueur ou d’un ordre différent. Créez l’état avec `useAngleSlider()`
-depuis `@moduix/react/angle-slider`, puis transmettez-le à `AngleSlider.RootProvider` lorsque cet état doit rester
-accessible en dehors de l’arborescence rendue du curseur. Pour lire cet état dans un composant descendant, utilisez
-`AngleSlider.Context` ou `useAngleSliderContext()` depuis `@moduix/react/angle-slider`. Ne rendez pas `Root` et
-`RootProvider` pour la même instance d’état.
-
-Les parties DOM d’Ark prennent en charge `asChild`. Fournissez un seul enfant compatible qui conserve la gestion du
-clavier, du focus, de l’ARIA et du pointeur. `Dial` et `Marks` rendent toujours une composition fixe en plusieurs
-parties et ne prennent donc pas en charge `asChild`. Avec `Root` ou `RootProvider`, choisissez un conteneur pouvant
-accueillir l’entrée native masquée et les parties du curseur. Utilisez `ids` sur `Root` lorsque les éléments composés
-ont besoin d’identifiants communs et stables. Les refs sont transmises à l’élément DOM rendu par chaque partie Ark
-enveloppée.
-
-### Propriétés par défaut
-
-| Prop                             | Par défaut | Remarques                                            |
-| -------------------------------- | ---------- | ---------------------------------------------------- |
-| `defaultValue`                   | `0`        | Angle initial en mode non contrôlé                   |
-| `step`                           | `1`        | Pas utilisé par le clavier et le pointeur            |
-| `disabled`                       | `false`    | Désactive le focus et les interactions               |
-| `readOnly`                       | `false`    | Laisse la valeur visible, mais empêche sa modification |
-| `invalid`                        | `false`    | Expose l’état invalide à ARIA et aux styles          |
-
-### Comportement
-
-- `value` est un nombre unique. `onValueChange(details)` et `onValueChangeEnd(details)` reçoivent l’objet `details`
-  transmis par Ark. La valeur numérique se trouve dans `details.value` et la chaîne en degrés dans
-  `details.valueAsDegree`.
-- La poignée reprend le comportement clavier du curseur Ark et le déplacement du pointeur autour du contrôle circulaire.
-- `AngleSlider.Marks` rend le même DOM de marqueurs et les mêmes sélecteurs de style que la composition explicite
-  `MarkerGroup` et `Marker`.
-- Composez explicitement `AngleSlider.HiddenInput`. Définissez `name` pour inclure l’angle dans les
-  données du formulaire et `form` pour l’associer à un formulaire externe. Ark gère la réinitialisation native.
-- `ValueText` affiche la chaîne en degrés fournie par Ark lorsqu’aucun enfant personnalisé n’est fourni.
-- `data-disabled`, `data-invalid`, `data-readonly`, `data-state` des marqueurs, `--value`, `--angle`,
-  `--marker-value` et `--marker-display-value` restent disponibles pour les styles.
-
+`Dial` et `Marks` sont des compositions pratiques. Utilisez `Control` avec `Thumb`, ou `MarkerGroup` avec `Marker`, lorsque vous avez besoin d’enfants personnalisés, d’un ordre différent ou de propriétés propres à chaque marqueur. Composez explicitement `HiddenInput` pour les formulaires natifs. Définissez `name` sur la racine si le formulaire se trouve dans le même arbre, ou `form` sur `HiddenInput` si le formulaire est ailleurs.
 ## Exemples
 
 ### Mode contrôlé
@@ -166,20 +159,31 @@ Utilisez le mode contrôlé lorsque l’angle doit rester synchronisé avec l’
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/angle-slider/controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/angle-slider/angle-slider-controlled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={angleSliderSolidControlled} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/angle-slider/angle-slider-controlled.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -195,20 +199,31 @@ interactions.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/angle-slider/disabled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/angle-slider/angle-slider-disabled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={angleSliderSolidDisabled} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/angle-slider/angle-slider-disabled.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -224,20 +239,31 @@ Reset illustre la réinitialisation native d’Ark. Définissez `form` sur `Angl
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/angle-slider/form.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/angle-slider/angle-slider-form.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={angleSliderSolidForm} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/angle-slider/angle-slider-form.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -253,20 +279,31 @@ dans ses styles et ses attributs ARIA, sans modifier son mode d’interaction.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/angle-slider/invalid.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/angle-slider/angle-slider-invalid.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={angleSliderSolidInvalid} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/angle-slider/angle-slider-invalid.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -282,20 +319,31 @@ modifiée.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/angle-slider/read-only.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/angle-slider/angle-slider-read-only.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={angleSliderSolidReadOnly} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/angle-slider/angle-slider-read-only.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -311,20 +359,31 @@ composant doit accéder au même état. L’état externe peut alors alimenter l
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/angle-slider/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/angle-slider/angle-slider-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={angleSliderSolidRootProvider} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/angle-slider/angle-slider-root-provider.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -339,20 +398,31 @@ Utilisez `step` pour faire suivre aux interactions du pointeur et du clavier des
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/angle-slider/steps.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/angle-slider/angle-slider-steps.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={angleSliderSolidSteps} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/angle-slider/angle-slider-steps.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -368,20 +438,31 @@ composition de `MarkerGroup` et `Marker`. `AngleSlider.Dial` regroupe `Control` 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/angle-slider/with-marks.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/angle-slider/angle-slider-with-marks.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={angleSliderSolidWithMarks} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/angle-slider/angle-slider-with-marks.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -397,20 +478,31 @@ une composition de marqueurs personnalisée ou des enfants supplémentaires dans
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/angle-slider/advanced-customization.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/angle-slider/angle-slider-advanced-customization.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={angleSliderSolidAdvancedCustomization} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/angle-slider/angle-slider-advanced-customization.module.css"
+```
 </div>
 
 </ExampleCode>

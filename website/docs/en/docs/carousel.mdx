@@ -21,6 +21,22 @@ import SpacingCarousel from '@/components/examples/carousel/spacing.tsx';
 import ThumbnailIndicatorCarousel from '@/components/examples/carousel/thumbnail-indicators.tsx';
 import VariableSizeCarousel from '@/components/examples/carousel/variable-sizes.tsx';
 import VerticalCarousel from '@/components/examples/carousel/vertical.tsx';
+import carouselSolidAdvancedCustomization from '../../../snippets/carousel/solid/advanced-customization.tsx?raw';
+import carouselSolidAutoplay from '../../../snippets/carousel/solid/autoplay.tsx?raw';
+import carouselSolidBasic from '../../../snippets/carousel/solid/basic.tsx?raw';
+import carouselSolidCards from '../../../snippets/carousel/solid/cards.tsx?raw';
+import carouselSolidControlled from '../../../snippets/carousel/solid/controlled.tsx?raw';
+import carouselSolidDynamic from '../../../snippets/carousel/solid/dynamic.tsx?raw';
+import carouselSolidLoop from '../../../snippets/carousel/solid/loop.tsx?raw';
+import carouselSolidMouseDrag from '../../../snippets/carousel/solid/mouse-drag.tsx?raw';
+import carouselSolidPauseOnHover from '../../../snippets/carousel/solid/pause-on-hover.tsx?raw';
+import carouselSolidRootProvider from '../../../snippets/carousel/solid/root-provider.tsx?raw';
+import carouselSolidScrollToSlide from '../../../snippets/carousel/solid/scroll-to-slide.tsx?raw';
+import carouselSolidSlidesPerPage from '../../../snippets/carousel/solid/slides-per-page.tsx?raw';
+import carouselSolidSpacing from '../../../snippets/carousel/solid/spacing.tsx?raw';
+import carouselSolidThumbnailIndicators from '../../../snippets/carousel/solid/thumbnail-indicators.tsx?raw';
+import carouselSolidVariableSizes from '../../../snippets/carousel/solid/variable-sizes.tsx?raw';
+import carouselSolidVertical from '../../../snippets/carousel/solid/vertical.tsx?raw';
 
 ## API Reference
 
@@ -32,34 +48,72 @@ Start with `Carousel` as the root. Add `Carousel.ItemGroup` for the slide track,
 next buttons in `Carousel.Control`, and use `Carousel.Indicators` with `Carousel.ProgressText`
 for the default pager.
 
+Carousel ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered
+preview on this page uses the React CSS Modules package; the framework tabs show native source for
+the same public contract.
+
 <ExampleFrame variant="component">
   <TravelCarousel />
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/basic.tsx"
-
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/carousel/carousel-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={carouselSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/carousel/carousel-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="carousel" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/carousel' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/carousel' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/carousel' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/carousel' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+See [Quick Start](/docs/quick-start) for package setup, registry configuration, and stylesheet
+requirements.
 
 ## Anatomy
 
@@ -73,84 +127,40 @@ Carousel / Carousel.Root
 ├─ Carousel.IndicatorGroup
 │  └─ Carousel.Indicator[index]
 └─ Carousel.ProgressText
+
+Carousel.RootProvider
+└─ same part tree connected to a useCarousel() store
 ```
 
 | Part                         | Role                                                               |
 | ---------------------------- | ------------------------------------------------------------------ |
 | `Carousel` / `Carousel.Root` | Owns carousel state, navigation, and the slide collection.         |
 | `Carousel.RootProvider`      | Connects the parts to state created with `useCarousel()`.          |
-| `Carousel.Control`           | Container for navigation buttons and other controls.               |
-| `Carousel.ItemGroup`         | Slide track that contains `Carousel.Item` parts.                   |
-| `Carousel.Item`              | A single slide with a stable `index`.                              |
-| `Carousel.PrevTrigger`       | Button that moves to the previous page.                            |
-| `Carousel.NextTrigger`       | Button that moves to the next page.                                |
-| `Carousel.Indicators`        | moduix convenience component that renders the default page dots.   |
-| `Carousel.IndicatorGroup`    | Container for custom page indicators.                               |
-| `Carousel.Indicator`         | Button that moves to the page with the given index.                 |
-| `Carousel.ProgressText`      | Text showing the current page and the total number of pages.        |
-
-`Carousel.Indicators` reads `pageSnapPoints` from context and renders one `Carousel.Indicator` per
-page. Use it instead of manually rendering `Carousel.IndicatorGroup` when the default indicators
-are enough. It also accepts `indicatorClassName` for styling the generated indicators.
-
-For advanced compositions, these parts are also available:
-
-- `Carousel.Context`
-- `Carousel.AutoplayTrigger`
-- `Carousel.AutoplayIndicator`
-- `Carousel.RootProvider`
-
-`Carousel`, `useCarousel`, and `useCarouselContext` are available from `@moduix/react`. The
-component can also be imported from `@moduix/react/carousel`.
+| `Carousel.Control`            | Container for navigation buttons and other controls.               |
+| `Carousel.ItemGroup`          | Slide track that contains `Carousel.Item` parts.                   |
+| `Carousel.Item`               | A single slide with a stable `index`.                              |
+| `Carousel.PrevTrigger`        | Button that moves to the previous page.                            |
+| `Carousel.NextTrigger`        | Button that moves to the next page.                                |
+| `Carousel.Indicators`         | moduix convenience component that renders the default page dots.   |
+| `Carousel.IndicatorGroup`     | Container for custom page indicators.                               |
+| `Carousel.Indicator`          | Button that moves to the page with the given index.                 |
+| `Carousel.ProgressText`       | Text showing the current page and the total number of pages.        |
 
 ## Composition
 
-### Recommended composition
+`Carousel` owns state inside the root. Use `defaultPage` for an uncontrolled carousel; use `page`
+with `onPageChange(details)` when routing, filters, or another part of the application owns the
+current page. `slideCount` is required and must stay in sync with rendered items when the collection
+changes.
 
-Use `Carousel` as the root, `Carousel.ItemGroup` as the slide track, and `Carousel.Control` for
-navigation. Add `Carousel.Indicators` when the default dot indicators are enough.
+Use `Carousel.RootProvider` with `useCarousel()` when the store must be created outside the rendered
+tree or shared across composition boundaries. Pass that store to `RootProvider` and do not render a
+second `Carousel` root for the same store.
 
-`Carousel.Control` is usually a sibling of `Carousel.ItemGroup` and works as a toolbar. For a
-compact inline layout, you can place `Carousel.ItemGroup` inside `Carousel.Control` instead.
-
-`Carousel.Root` is an explicit alias for `Carousel`. Use it when you prefer the namespaced form in
-your code.
-
-### When to go custom
-
-Use `Carousel.Context` with `Carousel.IndicatorGroup` and `Carousel.Indicator` when you need a
-custom pager, thumbnail indicators, or direct access to `pageSnapPoints`.
-
-Use `Carousel.RootProvider` with `useCarousel()` when carousel state must be created outside the
-rendered subtree and shared across composition boundaries.
-
-Use `useCarouselContext()` inside custom child components that need the carousel API without
-passing a render function as a child.
-
-Use `Carousel.AutoplayTrigger` and `Carousel.AutoplayIndicator` when autoplay controls should be
-visible in the UI instead of being configured only through a root prop.
-
-### Default props
-
-| Prop         | Default | Notes                                                                                  |
-| ------------ | ------- | -------------------------------------------------------------------------------------- |
-| `slideCount` | -       | Required on `Carousel` / `Carousel.Root`; pass it to `useCarousel()` for `RootProvider`. |
-
-### Behavioral notes
-
-- `onPageChange(details)` uses Ark's callback shape and exposes the active page as `details.page`.
-- Give `Carousel` or `Carousel.RootProvider` an `aria-label` or `aria-labelledby` so the carousel
-  landmark has an accessible name.
-- `spacing`, `padding`, `slidesPerPage`, `slidesPerMove`, and `autoSize` use Ark's sizing and
-  snap-point behavior directly.
-- Vertical carousels use the same public API. The default moduix chevrons rotate automatically,
-  and `--moduix-carousel-height` controls the root height in vertical orientation.
-- With `dir="rtl"`, default horizontal triggers mirror automatically.
-- `Carousel.ProgressText` keeps the numeric `current / total` order readable in RTL carousels.
-- `--moduix-carousel-indicator-size` controls the compact indicator button, so its focus ring
-  follows the dot or current capsule geometry.
-- With `prefers-reduced-motion: reduce`, the track scrolls immediately, and moduix disables
-  transitions for controls and indicators.
+`Carousel.Indicators` reads `pageSnapPoints` from context and creates the standard indicators. For
+custom indicator content, render `Carousel.IndicatorGroup` and `Carousel.Indicator` inside
+`Carousel.Context`; use the context API's `pageSnapPoints` when the number of indicators must match
+the calculated pages.
 
 ## Examples
 
@@ -166,23 +176,25 @@ start it again with `Carousel.AutoplayTrigger`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/autoplay.tsx"
-
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/carousel/carousel-autoplay.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={carouselSolidAutoplay} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/carousel/carousel-autoplay.module.css"
+```
+</div>
 </ExampleCode>
 
 For a complete gallery with side navigation, slide text, and progress indicators that fill as the
@@ -199,23 +211,25 @@ narrower than the slide.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/cards.tsx"
-
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/carousel/carousel-cards.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={carouselSolidCards} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/carousel/carousel-cards.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Controlled
@@ -229,23 +243,25 @@ or analytics.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/controlled.tsx"
-
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/carousel/carousel-controlled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={carouselSolidControlled} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/carousel/carousel-controlled.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Dynamic
@@ -259,23 +275,25 @@ the rendered items.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/dynamic.tsx"
-
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/carousel/carousel-dynamic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={carouselSolidDynamic} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/carousel/carousel-dynamic.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Loop
@@ -288,23 +306,25 @@ Set `loop` to make the carousel wrap from the last slide back to the first.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/loop.tsx"
-
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/carousel/carousel-loop.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={carouselSolidLoop} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/carousel/carousel-loop.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Mouse Dragging
@@ -318,23 +338,25 @@ touch screens.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/mouse-drag.tsx"
-
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/carousel/carousel-mouse-drag.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={carouselSolidMouseDrag} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/carousel/carousel-mouse-drag.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Pause on Hover
@@ -349,23 +371,25 @@ focus.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/pause-on-hover.tsx"
-
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/carousel/carousel-pause-on-hover.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={carouselSolidPauseOnHover} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/carousel/carousel-pause-on-hover.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Root Provider
@@ -379,23 +403,25 @@ shared across composition boundaries.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/root-provider.tsx"
-
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/carousel/carousel-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={carouselSolidRootProvider} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/carousel/carousel-root-provider.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Scroll to Slide
@@ -408,23 +434,25 @@ Use the carousel API from context when another control needs to jump directly to
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/scroll-to-slide.tsx"
-
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/carousel/carousel-scroll-to-slide.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={carouselSolidScrollToSlide} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/carousel/carousel-scroll-to-slide.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Slides Per Page
@@ -437,23 +465,25 @@ Increase `slidesPerPage` to show several items at once instead of one full-width
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/slides-per-page.tsx"
-
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/carousel/carousel-slides-per-page.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={carouselSolidSlidesPerPage} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/carousel/carousel-slides-per-page.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Spacing
@@ -467,23 +497,25 @@ branded interfaces.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/spacing.tsx"
-
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/carousel/carousel-spacing.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={carouselSolidSpacing} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/carousel/carousel-spacing.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Thumbnail Indicators
@@ -497,23 +529,25 @@ plain dots.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/thumbnail-indicators.tsx"
-
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/carousel/carousel-thumbnail-indicators.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={carouselSolidThumbnailIndicators} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/carousel/carousel-thumbnail-indicators.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Variable Sizes
@@ -526,23 +560,25 @@ Enable `autoSize` to size slides to their content instead of a fixed page grid.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/variable-sizes.tsx"
-
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/carousel/carousel-variable-sizes.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={carouselSolidVariableSizes} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/carousel/carousel-variable-sizes.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Vertical
@@ -556,23 +592,25 @@ axis.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/vertical.tsx"
-
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/carousel/carousel-vertical.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={carouselSolidVertical} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/carousel/carousel-vertical.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Advanced Customization
@@ -586,30 +624,33 @@ alongside other context-driven controls.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/advanced-customization.tsx"
-
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/carousel/carousel-advanced-customization.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={carouselSolidAdvancedCustomization} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/carousel/carousel-advanced-customization.module.css"
+```
+</div>
 </ExampleCode>
 
 ## Styling
 
-Use `className` on exported parts for structural styling. For state styles, prefer Ark data
-attributes (`data-part`, `data-orientation`, `data-current`, `data-dragging`) and moduix `data-slot`
-hooks.
+Use `className` in React or `class` in Solid on exported parts for structural styling. For state-based
+styles, prefer Ark data attributes such as `data-orientation`, `data-current`, and `data-dragging`,
+together with moduix `data-slot` selectors. Tailwind variants use native utility classes and consumer
+class overrides; the CSS Properties reference below applies to the CSS Modules packages.
 
 ### CSS Properties
 

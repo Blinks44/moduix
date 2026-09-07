@@ -13,26 +13,50 @@ import AvatarEvents from '@/components/examples/avatar/events.tsx';
 import AvatarRootProvider from '@/components/examples/avatar/root-provider.tsx';
 import AvatarSizesAndFallbackOnly from '@/components/examples/avatar/sizes-and-fallback-only.tsx';
 
+import avatarSolidBasic from '../../../snippets/avatar/solid/basic.tsx?raw';
+import avatarSolidCustomComposition from '../../../snippets/avatar/solid/custom-composition.tsx?raw';
+import avatarSolidCustomFallback from '../../../snippets/avatar/solid/custom-fallback.tsx?raw';
+import avatarSolidCustomImage from '../../../snippets/avatar/solid/custom-image.tsx?raw';
+import avatarSolidEvents from '../../../snippets/avatar/solid/events.tsx?raw';
+import avatarSolidRootProvider from '../../../snippets/avatar/solid/root-provider.tsx?raw';
+import avatarSolidSizesAndFallbackOnly from '../../../snippets/avatar/solid/sizes-and-fallback-only.tsx?raw';
+
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/avatar" />
 
+
+Les mêmes exports sont disponibles depuis `@moduix/solid/avatar` pour Solid.
 ## Exemple de base
 
 Utilisez `Avatar`, `Avatar.Fallback` et `Avatar.Image` ensemble. Gardez `Avatar.Fallback` dans l’arbre
 pour qu’Ark UI puisse basculer entre le contenu de remplacement et l’image lorsque l’état de chargement change.
 
+
+Ce composant est disponible pour React et Solid, avec des variantes CSS Modules et Tailwind. L’aperçu utilise React avec CSS Modules ; les onglets affichent le code natif correspondant à chaque framework.
 <ExampleFrame variant="component">
   <AvatarBasic />
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/avatar/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={avatarSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -42,8 +66,30 @@ pour qu’Ark UI puisse basculer entre le contenu de remplacement et l’image l
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="avatar" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/avatar' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/avatar' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/avatar' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/avatar' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+Consultez [Quick Start](/docs/quick-start) pour la configuration du package, du registre et des feuilles de style.
 ## Anatomie
 
 ```text
@@ -61,52 +107,7 @@ Avatar.Root | Avatar.RootProvider
 
 ## Composition
 
-### Composition recommandée
-
-Utilisez `Avatar` dans le cas général. `Avatar.Root` reste disponible si vous préférez le nom explicite de la
-racine utilisé par Ark. `onStatusChange(details)` signale l’état de chargement géré par Ark, tandis que `ids`
-permet de fournir des identifiants stables pour la racine, l’image et le contenu de remplacement. Toutes les
-parties DOM transmettent leur `ref` et prennent en charge la propriété `asChild` d’Ark.
-
-`Avatar.Image` génère un élément `img` natif. Indiquez un texte `alt` pertinent lorsque l’image aide à
-identifier l’utilisateur. Utilisez `alt=""` lorsque le lien ou le bouton environnant possède déjà un nom accessible.
-
-Fournissez explicitement le contenu de `Avatar.Fallback`. Il peut s’agir d’initiales, d’une icône ou de
-tout autre repère compact adapté à l’application qui utilise le composant.
-
-### Quand personnaliser la composition
-
-Utilisez `useAvatar` depuis `@moduix/react` avec `Avatar.RootProvider` lorsque vous devez créer l’état
-en dehors de l’arbre de l’avatar. Transmettez cet état à `Avatar.RootProvider`. N’utilisez pas `Avatar.Root`
-et `Avatar.RootProvider` en même temps pour la même instance d’état.
-
-Pour intégrer un composant d’image fourni par un framework, utilisez `useAvatarContext()` depuis
-`@moduix/react` et conservez la gestion des états `hidden` et `visible` assurée par Ark. Importez les API
-de contexte Ark plus avancées et les alias de types depuis `@ark-ui/react/avatar`.
-
-Utilisez `asChild` avec un seul enfant sémantiquement adapté lorsqu’un lien, un bouton ou un composant de
-framework doit contrôler le nœud DOM d’une partie.
-
-### Propriétés par défaut
-
-| Composant | Propriété | Valeur visuelle par défaut | Valeurs |
-| ----------------------------------------------- | ------ | -------------- | ---------------------------- |
-| `Avatar` / `Avatar.Root`, `Avatar.RootProvider` | `size` | `md` | `xs`, `sm`, `md`, `lg`, `xl` |
-
-Lorsque `size` est omis, Avatar utilise la taille visuelle `md` sans ajouter `data-size`. Passez
-`size="md"` si vos sélecteurs ont besoin de cet attribut.
-
-### Comportement
-
-- Ark gère `data-state="visible" | "hidden"` sur `Avatar.Image` et `Avatar.Fallback`.
-- `Avatar.Fallback` affiche uniquement le contenu fourni par le consommateur.
-- `onStatusChange` reçoit un objet dont `details.status` vaut `loaded` ou `error`.
-- Si l’image est absente ou ne peut pas être chargée, le contenu de remplacement reste visible.
-- `Avatar.RootProvider` doit recevoir la valeur renvoyée par `useAvatar`.
-- `useAvatar` et `useAvatarContext` sont exportés par `@moduix/react`.
-- `Avatar.Context` est également exporté par `@moduix/react`. Les alias de types Ark restent disponibles depuis `@ark-ui/react/avatar`.
-- moduix ajoute uniquement des réglages visuels par défaut, des points d’accroche `data-slot` stables, des variables CSS et `size`.
-
+Gardez `Avatar.Fallback` et `Avatar.Image` sous la même racine afin qu’Ark UI puisse gérer leur visibilité. Lorsqu’une autre partie de l’application possède l’état, créez-le avec `useAvatar()` du framework concerné et transmettez-le directement à `Avatar.RootProvider` ; ne rendez pas une seconde racine pour le même store. React reçoit le store comme un objet, tandis que Solid reçoit un accessor réactif. Pour un rendu d’image personnalisé, utilisez `useAvatarContext()` et conservez les états masqué et visible renvoyés par `getImageProps()`. Utilisez `asChild` avec un seul enfant sémantique lorsqu’un autre élément doit porter le nœud DOM racine.
 ## Exemples
 
 ### Contenu de remplacement personnalisé
@@ -120,20 +121,31 @@ un nom accessible si ce contenu apporte une information absente du texte voisin.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/avatar/custom-fallback.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/avatar/avatar-custom-fallback.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={avatarSolidCustomFallback} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/avatar/avatar-custom-fallback.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -149,20 +161,31 @@ moteur de rendu personnalisé doit s’intégrer au cycle de chargement géré p
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/avatar/custom-image.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/avatar/avatar-custom-image.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={avatarSolidCustomImage} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/avatar/avatar-custom-image.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -177,20 +200,31 @@ Utilisez `onStatusChange(details)` lorsque l’interface voisine doit réagir au
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/avatar/events.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/avatar/avatar-events.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={avatarSolidEvents} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/avatar/avatar-events.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -206,20 +240,31 @@ interagir avec lui. Transmettez-le à `Avatar.RootProvider` à la place de `Avat
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/avatar/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/avatar/avatar-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={avatarSolidRootProvider} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/avatar/avatar-root-provider.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -236,20 +281,31 @@ d’image n’est disponible.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/avatar/sizes-and-fallback-only.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/avatar/avatar-sizes-and-fallback-only.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={avatarSolidSizesAndFallbackOnly} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/avatar/avatar-sizes-and-fallback-only.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -266,20 +322,31 @@ de remplacement et la composition explicite des parties.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/avatar/custom-composition.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/avatar/avatar-custom-composition.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={avatarSolidCustomComposition} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/avatar/avatar-custom-composition.module.css"
+```
 </div>
 
 </ExampleCode>
