@@ -1,0 +1,35 @@
+import { Button } from '@moduix/solid/button';
+import { Menu } from '@moduix/solid/menu';
+import styles from '@/components/examples/menu/menu-nested.module.css';
+
+export default function NestedMenuDemo() {
+  return (
+    <Menu>
+      <Menu.Trigger asChild={(props) => <Button {...props()} />}>
+        File
+        <Menu.Indicator />
+      </Menu.Trigger>
+      <Menu.Positioner>
+        <Menu.Content class={styles.content}>
+          <Menu.Item value="open">Open...</Menu.Item>
+          <Menu.Item value="save">Save</Menu.Item>
+          <Menu>
+            <Menu.TriggerItem>
+              Share
+              <Menu.TriggerItemIcon />
+            </Menu.TriggerItem>
+            <Menu.Positioner>
+              <Menu.Content class={styles.content}>
+                <Menu.Item value="email">Email</Menu.Item>
+                <Menu.Item value="message">Message</Menu.Item>
+                <Menu.Item value="copy-link">Copy Link</Menu.Item>
+                <Menu.Item value="invite">Invite people</Menu.Item>
+              </Menu.Content>
+            </Menu.Positioner>
+          </Menu>
+          <Menu.Item value="print">Print</Menu.Item>
+        </Menu.Content>
+      </Menu.Positioner>
+    </Menu>
+  );
+}

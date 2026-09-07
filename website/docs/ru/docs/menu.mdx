@@ -22,6 +22,23 @@ import MenuRadioItems from '@/components/examples/menu/radio-items.tsx';
 import MenuRootProvider from '@/components/examples/menu/root-provider.tsx';
 import MenuSelectEvent from '@/components/examples/menu/select-event.tsx';
 import MenuWithArrow from '@/components/examples/menu/with-arrow.tsx';
+import menuSolidAdvancedCustomization from '../../../snippets/menu/solid/advanced-customization.tsx?raw';
+import menuSolidBasic from '../../../snippets/menu/solid/basic.tsx?raw';
+import menuSolidCheckboxItems from '../../../snippets/menu/solid/checkbox-items.tsx?raw';
+import menuSolidContext from '../../../snippets/menu/solid/context-menu.tsx?raw';
+import menuSolidControlled from '../../../snippets/menu/solid/controlled.tsx?raw';
+import menuSolidGrouping from '../../../snippets/menu/solid/grouping.tsx?raw';
+import menuSolidIndicatorPlacement from '../../../snippets/menu/solid/indicator-placement.tsx?raw';
+import menuSolidItemContext from '../../../snippets/menu/solid/item-context.tsx?raw';
+import menuSolidLazyMountedContext from '../../../snippets/menu/solid/lazy-mounted-context-menu.tsx?raw';
+import menuSolidLinks from '../../../snippets/menu/solid/links.tsx?raw';
+import menuSolidInDialog from '../../../snippets/menu/solid/menu-in-dialog.tsx?raw';
+import menuSolidMultipleTriggers from '../../../snippets/menu/solid/multiple-triggers.tsx?raw';
+import menuSolidNested from '../../../snippets/menu/solid/nested.tsx?raw';
+import menuSolidRadioItems from '../../../snippets/menu/solid/radio-items.tsx?raw';
+import menuSolidRootProvider from '../../../snippets/menu/solid/root-provider.tsx?raw';
+import menuSolidSelectEvent from '../../../snippets/menu/solid/select-event.tsx?raw';
+import menuSolidWithArrow from '../../../snippets/menu/solid/with-arrow.tsx?raw';
 
 ## Справочник API
 
@@ -29,7 +46,14 @@ import MenuWithArrow from '@/components/examples/menu/with-arrow.tsx';
 
 ## Базовый пример
 
-Используйте стандартную композицию для меню, которое открывается кнопкой, собственным триггером или контекстным триггером. Корневой компонент управляет клавиатурной навигацией, поиском по начальным символам, фокусом и закрытием меню. Задайте каждому пункту стабильное значение `value`, чтобы выбор и поиск по начальным символам работали и после изменения списка.
+Menu доступен для React и Solid как в пакетах с CSS Modules, так и в вариантах на Tailwind. На этой
+странице интерактивное превью использует пакет React с CSS Modules, а во вкладках показан нативный
+код для обоих фреймворков с тем же публичным контрактом.
+
+Используйте `Menu` как корневой компонент и задайте каждому `Menu.Item` стабильное значение
+`value`. Оставляйте `Menu.Positioner` и `Menu.Content` явными, а внутрь содержимого добавляйте
+пункты, группы, разделители или вложенные меню. `Menu.Indicator` необязателен и по умолчанию
+отображает шеврон moduix.
 
 <ExampleFrame variant="component">
   <MenuBasic />
@@ -37,27 +61,59 @@ import MenuWithArrow from '@/components/examples/menu/with-arrow.tsx';
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/menu/menu-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={menuSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/menu/menu-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="menu" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/menu' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/menu' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/menu' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/menu' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -113,75 +169,24 @@ Menu / Menu.Root
 
 ## Композиция
 
-`Menu` автоматически помещает `Menu.Positioner` в портал. Установите `portalled={false}`, чтобы отрисовать меню в текущем контейнере, или передайте `portalRef`, чтобы использовать определённый контейнер портала. `Menu.Positioner` и `Menu.Content` остаются явными частями, поэтому их можно независимо стилизовать и компоновать.
+Используйте `defaultOpen` для неуправляемого меню. Если другая часть приложения владеет состоянием
+открытия или подсветки, передайте `open` или `highlightedValue` вместе с соответствующим обработчиком
+изменения. Используйте `useMenu()` с `Menu.RootProvider`, если хранилище состояния нужно создать
+за пределами дерева компонентов; не добавляйте второй корневой `Menu` для того же хранилища.
 
-### Рекомендуемая композиция
-
-Оставляйте структуру всплывающего меню видимой в коде. `Menu.Content` является частью содержимого Ark, а `Menu.Positioner` отвечает за отдельное позиционирование.
-
-```tsx
-import { Button } from '@moduix/react/button';
-import { Menu } from '@moduix/react/menu';
-
-export function ActionsMenu() {
-  return (
-    <Menu positioning={{ placement: 'bottom-start', gutter: 8 }}>
-      <Menu.Trigger asChild>
-        <Button>
-          Actions
-          <Menu.Indicator />
-        </Button>
-      </Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content>
-          <Menu.Item value="edit">Edit</Menu.Item>
-        </Menu.Content>
-      </Menu.Positioner>
-    </Menu>
-  );
-}
-```
-
-### Когда нужна собственная композиция
-
-Используйте `asChild`, если триггер, пункт или содержимое должны отображаться другим семантическим элементом. Передавайте ровно одного семантического потомка, чтобы Ark мог объединить его ARIA-атрибуты, обработчики событий и ref. Для ссылок указывайте `asChild` на `Menu.Item`, чтобы сама ссылка получила поведение пункта меню. Для собственного контейнера всплывающего меню указывайте `asChild` на `Menu.Content`.
-
-Вложенное меню представляет собой обычный корневой `Menu` внутри содержимого родительского меню. Добавьте в него `Menu.TriggerItem`, а затем собственные `Menu.Positioner` и `Menu.Content`.
-
-### Свойства по умолчанию
-
-По умолчанию moduix добавляет содержимое всплывающего меню в DOM при первом открытии и удаляет его после анимации закрытия. Установите `unmountOnExit={false}`, чтобы сохранить содержимое в DOM после первого открытия. Указывайте одновременно `lazyMount={false}` и `unmountOnExit={false}` только если содержимое нужно отрисовать сразу и оставить в DOM.
-
-| Свойство или часть | По умолчанию | Примечания |
-| --- | --- | --- |
-| `lazyMount` | `true` | Откладывает монтирование всплывающего меню до первого открытия. |
-| `unmountOnExit` | `true` | Удаляет всплывающее меню после анимации закрытия. |
-| `closeOnSelect` | `true` | Значение Ark по умолчанию. Установите `false`, если пользователь должен выбрать несколько пунктов до закрытия меню. |
-| `loopFocus` | `false` | Значение Ark по умолчанию. При навигации с клавиатуры фокус не переходит с последнего пункта на первый. |
-| `typeahead` | `true` | Значение Ark по умолчанию. Ввод печатных символов переводит подсветку на подходящий пункт. |
-| `indicator` у `Menu.CheckboxItem` / `Menu.RadioItem` | `start` | Свойство только moduix, которое управляет столбцом индикатора. При необходимости используйте `end` или `none`. |
-
-### Особенности поведения
-
-- Управляйте меню с помощью `open`, `defaultOpen` и `onOpenChange(details)`. Колбэк получает объект с деталями Ark.
-- Используйте `value` для идентификации пункта. Свойство `valueText` позволяет задать отдельный текст для поиска по начальным символам. Не задавайте пунктам произвольные значения `id`: Ark сам создаёт эти идентификаторы и использует их внутри компонента.
-- Используйте `highlightedValue` и `onHighlightChange(details)`, чтобы управлять подсветкой пункта или реагировать на её изменение. Свойство `present` нужно только для внешнего управления жизненным циклом уже смонтированного содержимого.
-- `onSelect(details)` на корневом компоненте вызывается при выборе любого пункта. У отдельных пунктов также есть собственные обработчики `onSelect`.
-- `Menu.CheckboxItem.onCheckedChange` получает новое логическое значение состояния.
-- `Menu.RadioItemGroup.onValueChange` получает объект с деталями. Выбранное значение находится в `details.value`.
-- Для нескольких триггеров используйте `triggerValue`, `defaultTriggerValue` и `onTriggerValueChange(details)`, если активный триггер нужно контролировать или отслеживать.
-- Используйте `Menu.RootProvider` с экземпляром `useMenu`, если коду за пределами дерева компонентов нужен доступ к API меню. Не создавайте второй корневой компонент для того же экземпляра состояния.
-- `Menu.Context`, `useMenuContext`, `Menu.ItemContext` и `useMenuItemContext` открывают доступ к состоянию для расширенной композиции.
-- Корневой компонент автоматически помещает `Menu.Positioner` в портал. Используйте `portalled={false}` внутри диалога или прокручиваемого контейнера. Если контейнер прокручивается, добавьте `positioning={{ strategy: 'fixed', hideWhenDetached: true }}`.
-- `Menu.ContextTrigger` открывает меню по правому клику, а на сенсорных устройствах и при использовании пера также после долгого нажатия примерно 700 мс.
-- Анимации открытия и закрытия учитывают настройку `prefers-reduced-motion`.
-- В moduix есть `tone="destructive"` для опасных действий и вспомогательные компоненты `Menu.TriggerIcon`, `Menu.TriggerItemIcon`, `Menu.ItemTextContent`, `Menu.ItemTextIcon`, `Menu.ItemTextLabel` и `Menu.ItemShortcut`.
+`Menu.Positioner` и `Menu.Content` являются разными частями, но позиционер автоматически помещается
+в портал. Установите `portalled={false}` внутри диалога или прокручиваемого контейнера и добавьте
+`positioning={{ strategy: 'fixed', hideWhenDetached: true }}`, если этот контейнер может прокручиваться.
+Используйте `asChild` ровно с одним семантическим потомком, если триггер, пункт или контейнер
+содержимого должны владеть DOM-узлом. Вложенное меню — это ещё один корневой `Menu` внутри
+родительского содержимого с собственными `TriggerItem`, `Positioner` и `Content`.
 
 ## Примеры
 
 ### Пункты с флажками
 
-Используйте пункты с флажками для независимых параметров, которые можно включать и выключать. Установите `closeOnSelect={false}`, если пользователь должен изменить несколько настроек до закрытия меню.
+Используйте пункты с флажками для независимых параметров. Установите `closeOnSelect={false}`, если
+пользователь должен изменить несколько настроек до закрытия меню.
 
 <ExampleFrame variant="component">
   <MenuCheckboxItems />
@@ -189,27 +194,32 @@ export function ActionsMenu() {
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/checkbox-items.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/menu/menu-checkbox-items.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={menuSolidCheckboxItems} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/menu/menu-checkbox-items.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Контекстное меню
 
-Используйте `Menu.ContextTrigger`, если действия должны появляться по правому клику. На сенсорных устройствах и при использовании пера меню также открывается долгим нажатием.
+Используйте `Menu.ContextTrigger`, если действия должны появляться по правому клику. На сенсорных
+устройствах и при использовании пера меню также открывается долгим нажатием.
 
 <ExampleFrame variant="component">
   <MenuContext />
@@ -217,27 +227,32 @@ export function ActionsMenu() {
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/context-menu.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/menu/menu-context-menu.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={menuSolidContext} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/menu/menu-context-menu.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Управляемое состояние
 
-Управляйте `open` через состояние React, если меню должно открываться или закрываться другим элементом управления.
+Управляйте `open` через состояние выбранного фреймворка, если меню должно открываться или закрываться
+другим элементом управления.
 
 <ExampleFrame variant="component">
   <MenuControlled />
@@ -245,27 +260,32 @@ export function ActionsMenu() {
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/menu/menu-controlled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={menuSolidControlled} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/menu/menu-controlled.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Группировка
 
-Используйте `Menu.ItemGroup` и `Menu.ItemGroupLabel`, чтобы объединить связанные пункты, а `Menu.Separator` - чтобы разделить группы.
+Используйте `Menu.ItemGroup` и `Menu.ItemGroupLabel`, чтобы объединить связанные пункты, а
+`Menu.Separator` — чтобы разделить группы.
 
 <ExampleFrame variant="component">
   <MenuGrouping />
@@ -273,27 +293,32 @@ export function ActionsMenu() {
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/grouping.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/menu/menu-grouping.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={menuSolidGrouping} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/menu/menu-grouping.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Размещение индикатора
 
-Задайте для пунктов с флажками и вариантами с единственным выбором `indicator="start"`, `"end"` или `"none"`, чтобы выбрать положение индикатора.
+Задайте для пунктов с флажками и вариантами с единственным выбором `indicator="start"`, `"end"`
+или `"none"`, чтобы выбрать положение индикатора.
 
 <ExampleFrame variant="component">
   <MenuIndicatorPlacement />
@@ -301,27 +326,32 @@ export function ActionsMenu() {
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/indicator-placement.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/menu/menu-indicator-placement.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={menuSolidIndicatorPlacement} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/menu/menu-indicator-placement.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Контекст элемента
 
-Используйте `Menu.ItemContext`, если содержимое пункта должно реагировать на его состояние, например на наличие подсветки.
+Используйте `Menu.ItemContext`, если содержимое пункта должно реагировать на его состояние, например
+на наличие подсветки.
 
 <ExampleFrame variant="component">
   <MenuItemContext />
@@ -329,27 +359,33 @@ export function ActionsMenu() {
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/item-context.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/menu/menu-item-context.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={menuSolidItemContext} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/menu/menu-item-context.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Контекстное меню с отложенным монтированием
 
-По умолчанию содержимое контекстного меню добавляется в DOM при первом открытии и удаляется после анимации закрытия. Установите `unmountOnExit={false}`, если поддерево должно оставаться смонтированным после закрытия меню.
+По умолчанию содержимое контекстного меню добавляется в DOM при первом открытии и удаляется после
+анимации закрытия. Установите `unmountOnExit={false}`, если поддерево должно оставаться смонтированным
+после закрытия меню.
 
 <ExampleFrame variant="component">
   <MenuLazyMountedContext />
@@ -357,27 +393,32 @@ export function ActionsMenu() {
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/lazy-mounted-context-menu.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/menu/menu-lazy-mounted-context-menu.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={menuSolidLazyMountedContext} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/menu/menu-lazy-mounted-context-menu.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Ссылки
 
-Используйте `Menu.Item asChild` и сделайте саму ссылку пунктом меню. Тогда ссылка получит ARIA-атрибуты, клавиатурное поведение и обработку фокуса пункта.
+Используйте `Menu.Item asChild` и сделайте саму ссылку пунктом меню. Тогда ссылка получит
+ARIA-атрибуты, клавиатурное поведение и обработку фокуса пункта.
 
 <ExampleFrame variant="component">
   <MenuLinks />
@@ -385,27 +426,33 @@ export function ActionsMenu() {
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/links.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/menu/menu-links.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={menuSolidLinks} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/menu/menu-links.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Меню в диалоге
 
-Установите `portalled={false}`, чтобы оставить всплывающее меню внутри диалога или прокручиваемого контейнера. Если контейнер может прокручиваться, используйте фиксированное позиционирование и `hideWhenDetached`, чтобы скрывать меню после выхода за видимую область.
+Установите `portalled={false}`, чтобы оставить всплывающее меню внутри диалога или прокручиваемого
+контейнера. Если контейнер может прокручиваться, используйте фиксированное позиционирование и
+`hideWhenDetached`, чтобы скрывать меню после выхода за видимую область.
 
 <ExampleFrame variant="component">
   <MenuInDialog />
@@ -413,27 +460,32 @@ export function ActionsMenu() {
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/menu-in-dialog.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/menu/menu-menu-in-dialog.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={menuSolidInDialog} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/menu/menu-menu-in-dialog.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Несколько триггеров
 
-Чтобы использовать одно меню с несколькими триггерами, передайте каждому `Menu.Trigger` своё значение `value`. Меню будет позиционироваться относительно триггера, который его открыл.
+Чтобы использовать одно меню с несколькими триггерами, передайте каждому `Menu.Trigger` своё
+значение `value`. Меню будет позиционироваться относительно триггера, который его открыл.
 
 <ExampleFrame variant="component">
   <MenuMultipleTriggers />
@@ -441,27 +493,32 @@ export function ActionsMenu() {
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/multiple-triggers.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/menu/menu-multiple-triggers.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={menuSolidMultipleTriggers} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/menu/menu-multiple-triggers.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Вложенное меню
 
-Разместите дочерний `Menu` внутри содержимого родительского меню и открывайте его с помощью `Menu.TriggerItem`.
+Разместите дочерний `Menu` внутри содержимого родительского меню и открывайте его с помощью
+`Menu.TriggerItem`.
 
 <ExampleFrame variant="component">
   <MenuNested />
@@ -469,27 +526,32 @@ export function ActionsMenu() {
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/nested.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/menu/menu-nested.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={menuSolidNested} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/menu/menu-nested.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Пункты с выбором одного варианта
 
-Используйте `Menu.RadioItemGroup`, если пользователь должен выбрать одно значение из нескольких вариантов. Установите `closeOnSelect={false}`, если меню должно оставаться открытым во время выбора.
+Используйте `Menu.RadioItemGroup`, если пользователь должен выбрать одно значение из нескольких
+вариантов. Установите `closeOnSelect={false}`, если меню должно оставаться открытым во время выбора.
 
 <ExampleFrame variant="component">
   <MenuRadioItems />
@@ -497,27 +559,32 @@ export function ActionsMenu() {
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/radio-items.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/menu/menu-radio-items.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={menuSolidRadioItems} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/menu/menu-radio-items.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Root Provider
 
-Используйте `useMenu` и `Menu.RootProvider`, если коду за пределами дерева компонентов нужно читать состояние меню или изменять его.
+Используйте `useMenu` и `Menu.RootProvider`, если коду за пределами дерева компонентов нужно читать
+состояние меню или изменять его.
 
 <ExampleFrame variant="component">
   <MenuRootProvider />
@@ -525,27 +592,32 @@ export function ActionsMenu() {
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/menu/menu-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={menuSolidRootProvider} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/menu/menu-root-provider.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Событие выбора
 
-Используйте `onSelect(details)` на корневом компоненте, если один обработчик должен реагировать на выбор любого пункта. Выбранное значение находится в `details.value`.
+Используйте `onSelect(details)` на корневом компоненте, если один обработчик должен реагировать на
+выбор любого пункта. Выбранное значение находится в `details.value`.
 
 <ExampleFrame variant="component">
   <MenuSelectEvent />
@@ -553,27 +625,32 @@ export function ActionsMenu() {
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/select-event.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/menu/menu-select-event.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={menuSolidSelectEvent} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/menu/menu-select-event.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Со стрелкой
 
-Добавьте `Menu.Arrow` и `Menu.ArrowTip` непосредственно внутрь `Menu.Content`, если нужно визуально связать всплывающее меню с триггером.
+Добавьте `Menu.Arrow` и `Menu.ArrowTip` непосредственно внутрь `Menu.Content`, если нужно визуально
+связать всплывающее меню с триггером.
 
 <ExampleFrame variant="component">
   <MenuWithArrow />
@@ -581,11 +658,16 @@ export function ActionsMenu() {
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/with-arrow.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={menuSolidWithArrow} />
 
     </Tab>
   </Tabs>
@@ -595,7 +677,8 @@ export function ActionsMenu() {
 
 ### Расширенная настройка
 
-Используйте вспомогательные компоненты для типовой разметки пунктов, а если пункту или ссылке нужна особая структура, компонуйте части Ark напрямую.
+Используйте вспомогательные компоненты для типовой разметки пунктов, а если пункту или ссылке нужна
+особая структура, компонуйте части Ark напрямую.
 
 <ExampleFrame variant="component">
   <MenuAdvancedCustomization />
@@ -603,11 +686,16 @@ export function ActionsMenu() {
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/advanced-customization.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={menuSolidAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -616,6 +704,12 @@ export function ActionsMenu() {
 </ExampleCode>
 
 ## Стилизация
+
+Используйте `className` в React или `class` в Solid на экспортируемых частях для структурных стилей.
+Для стилей по состоянию предпочитайте атрибуты Ark, такие как `data-state`, `data-disabled` и
+`data-highlighted`, вместе с селекторами `data-slot` moduix. Варианты Tailwind используют нативные
+утилиты и классы потребителя; CSS-переменные ниже настраивают варианты с CSS Modules. Атрибуты
+состояния и хуки `data-slot` общие для обоих вариантов стилизации.
 
 ### CSS-свойства
 
@@ -635,8 +729,18 @@ export function ActionsMenu() {
 
 ### Хуки стилизации
 
-Используйте атрибуты состояния Ark, чтобы стилизовать меню и его пункты:
-
-- Атрибуты Ark: `[data-scope='menu']`, `[data-part='trigger']`, `[data-part='indicator']`, `[data-part='content']`, `[data-part='item']`, `[data-type='checkbox' | 'radio']`, `[data-state='open' | 'closed' | 'checked' | 'unchecked']`, `[data-current]`, `[data-highlighted]`, `[data-disabled]`, `[data-placement]` и `[data-side]`.
-- Атрибуты moduix: `[data-slot='menu-trigger']`, `[data-slot='menu-trigger-icon']`, `[data-slot='menu-indicator']`, `[data-slot='menu-context-trigger']`, `[data-slot='menu-positioner']`, `[data-slot='menu-content']`, `[data-slot='menu-arrow']`, `[data-slot='menu-arrow-tip']`, `[data-slot='menu-item']`, `[data-slot='menu-trigger-item']`, `[data-slot='menu-trigger-item-icon']`, `[data-slot='menu-separator']`, `[data-slot='menu-item-group']`, `[data-slot='menu-item-group-label']`, `[data-slot='menu-radio-item-group']`, `[data-slot='menu-radio-item']`, `[data-slot='menu-checkbox-item']`, `[data-slot='menu-item-indicator']`, `[data-slot='menu-item-text']`, `[data-slot='menu-item-text-content']`, `[data-slot='menu-item-text-icon']`, `[data-slot='menu-item-text-label']`, `[data-slot='menu-item-shortcut']` и `[data-indicator-position='start' | 'end' | 'none']`.
-- Переменные позиционирования: `--reference-width`, `--available-width`, `--available-height`, `--transform-origin`, `--layer-index`, `--arrow-size` и `--arrow-background`.
+- Атрибуты Ark: `[data-scope='menu']`, `[data-part='trigger']`, `[data-part='indicator']`,
+  `[data-part='content']`, `[data-part='item']`, `[data-type='checkbox' | 'radio']`,
+  `[data-state='open' | 'closed' | 'checked' | 'unchecked']`, `[data-current]`, `[data-highlighted]`,
+  `[data-disabled]`, `[data-placement]` и `[data-side]`.
+- Атрибуты moduix: `[data-slot='menu-trigger']`, `[data-slot='menu-trigger-icon']`,
+  `[data-slot='menu-indicator']`, `[data-slot='menu-context-trigger']`, `[data-slot='menu-positioner']`,
+  `[data-slot='menu-content']`, `[data-slot='menu-arrow']`, `[data-slot='menu-arrow-tip']`,
+  `[data-slot='menu-item']`, `[data-slot='menu-trigger-item']`, `[data-slot='menu-trigger-item-icon']`,
+  `[data-slot='menu-separator']`, `[data-slot='menu-item-group']`, `[data-slot='menu-item-group-label']`,
+  `[data-slot='menu-radio-item-group']`, `[data-slot='menu-radio-item']`, `[data-slot='menu-checkbox-item']`,
+  `[data-slot='menu-item-indicator']`, `[data-slot='menu-item-text']`, `[data-slot='menu-item-text-content']`,
+  `[data-slot='menu-item-text-icon']`, `[data-slot='menu-item-text-label']`, `[data-slot='menu-item-shortcut']`
+  и `[data-indicator-position='start' | 'end' | 'none']`.
+- Переменные позиционирования: `--reference-width`, `--available-width`, `--available-height`,
+  `--transform-origin`, `--layer-index`, `--arrow-size` и `--arrow-background`.
