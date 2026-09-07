@@ -10,6 +10,11 @@ import BleedBlockBleed from '@/components/examples/bleed/block-bleed.tsx';
 import BleedCustomStyling from '@/components/examples/bleed/custom-styling.tsx';
 import BleedInlineAmounts from '@/components/examples/bleed/inline-amounts.tsx';
 import BleedSemanticElement from '@/components/examples/bleed/semantic-element.tsx';
+import bleedSolidBasic from '../../../snippets/bleed/solid/basic.tsx?raw';
+import bleedSolidBlockBleed from '../../../snippets/bleed/solid/block-bleed.tsx?raw';
+import bleedSolidCustomStyling from '../../../snippets/bleed/solid/custom-styling.tsx?raw';
+import bleedSolidInlineAmounts from '../../../snippets/bleed/solid/inline-amounts.tsx?raw';
+import bleedSolidSemanticElement from '../../../snippets/bleed/solid/semantic-element.tsx?raw';
 
 ## API Reference
 
@@ -21,7 +26,14 @@ Ark UI does not include a dedicated `bleed` primitive. moduix builds `Bleed` wit
 Use [Container](/docs/container) to keep the main content at a readable width. Put `Bleed` inside it when
 only a media block, background, divider, or banner should extend beyond the container.
 
+Import `Bleed` from the matching runtime and styling package: `@moduix/react/bleed` or
+`@moduix/solid/bleed` for CSS Modules, and the corresponding `@moduix/react-tailwind/bleed` or
+`@moduix/solid-tailwind/bleed` subpath for Tailwind.
+
 ## Basic
+
+Bleed ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered preview on this page
+uses the React CSS Modules package; the framework tabs show native source for the same public contract.
 
 The default `inline="full"` makes media, banners, and section decorations reach the viewport edges while
 remaining in the normal document flow.
@@ -32,27 +44,61 @@ remaining in the normal document flow.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/bleed/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/bleed/bleed-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={bleedSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/bleed/bleed-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="bleed" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/bleed' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/bleed' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/bleed' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/bleed' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+See [Quick start](/docs/quick-start) for full package setup and registry configuration.
 
 ## Anatomy
 
@@ -60,52 +106,26 @@ remaining in the normal document flow.
 and/or block axis, without adding an inner wrapper.
 
 ```text
-Bleed.Root
+Bleed / Bleed.Root
 └─ root[data-scope="bleed"][data-part="root"][data-slot="bleed-root"]
    └─ children
 ```
 
-| Part                   | Role                                                                    |
-| ---------------------- | ----------------------------------------------------------------------- |
-| `Bleed` / `Bleed.Root` | Root component for extending content along the inline and block axes.  |
-| `Bleed`                | Short form of `Bleed.Root`, usable directly as a component.             |
+| Part                   | Role                                                                   |
+| ---------------------- | ---------------------------------------------------------------------- |
+| `Bleed` / `Bleed.Root` | Root component for extending content along the inline and block axes. |
 
 ## Composition
 
-### Recommended composition
+`Bleed` is presentational and owns no state. It has one root part, so there are no child parts to coordinate;
+`Bleed.Root` is an alias for `Bleed`. The defaults are `inline="full"`, `block="none"`, and `asChild={false}`.
+When `asChild` should give the rendered root to one semantic element, provide exactly one child that accepts DOM
+props and a ref in React, or use the Solid render-function form. React refs target the rendered root or child;
+the Solid form does not forward the component ref through the custom host.
 
-Use the shorter `Bleed` form when the layout needs one wrapper with controlled negative margins.
-`Bleed.Root` exposes the same root through a namespace form for codebases that follow Ark's naming pattern.
-Use either form for full-width media, section backgrounds, dividers, and banners inside centered or padded shells.
-
-### When to go custom
-
-Use `className` and local `--moduix-bleed-*` overrides when a side panel, nested scroll area, or application shell
-needs the content to extend to its own boundaries rather than the viewport.
-
-### Default props
-
-| Property    | Default | Values / Notes                               |
-| ----------- | ------- | -------------------------------------------- |
-| `inline`    | `full`  | `none`, `xs`, `sm`, `md`, `lg`, `xl`, `full` |
-| `block`     | `none`  | `none`, `xs`, `sm`, `md`, `lg`, `xl`         |
-| `asChild`   | `false` | Ark factory composition                      |
-| `className` | not set | Applied to the root                          |
-
-### Behavioral notes
-
-- `Bleed.Root` renders a single root element and accepts the supported Ark factory `div` props.
-- `ref` targets the rendered root element. With `asChild`, it targets the single child element.
-- `asChild` requires a single semantic child that accepts DOM props and a ref.
-- Use `inline` to extend through inline-axis padding. Add `block` when a surface should also extend
-  through block-axis padding. These logical axes follow the document's writing mode.
-- Use one of the fixed scale values when content only needs to extend through container padding rather than
-  reach the viewport edge.
-- `inline="full"` is viewport-relative, so nested shells may need local overrides for
-  `--moduix-bleed-inline-full` and `--moduix-bleed-inline-full-size`.
-- Ancestors with `overflow: hidden` or `overflow: clip` can crop the bleed.
-- `Bleed` is presentational only. It does not manage state, add ARIA behavior, handle keyboard or focus
-  interactions, or portal its content.
+Combine `inline` and `block` when a surface should extend through padding on both logical axes. `inline="full"`
+is viewport-relative, so a nested shell may need local `--moduix-bleed-inline-full` and
+`--moduix-bleed-inline-full-size` overrides.
 
 ## Examples
 
@@ -119,20 +139,31 @@ Add `block` when a surface should extend through the container's block-axis padd
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/bleed/block-bleed.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/bleed/bleed-block-bleed.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={bleedSolidBlockBleed} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/bleed/bleed-block-bleed.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -148,20 +179,31 @@ should size the bleed to its own content area instead of the viewport.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/bleed/custom-styling.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/bleed/bleed-custom-styling.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={bleedSolidCustomStyling} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/bleed/bleed-custom-styling.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -177,20 +219,31 @@ Set `inline` to control how far content extends along the inline axis. This exam
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/bleed/inline-amounts.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/bleed/bleed-inline-amounts.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={bleedSolidInlineAmounts} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/bleed/bleed-inline-amounts.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -206,28 +259,41 @@ element becomes the `Bleed` root.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/bleed/semantic-element.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/bleed/bleed-semantic-element.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={bleedSolidSemanticElement} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/bleed/bleed-semantic-element.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Styling
 
-`Bleed` exposes CSS variables and stable data attributes on its root. Use the variables to adjust how far
-it extends, and use `className` to style the surface itself.
+`Bleed` exposes CSS variables and stable data attributes on its root. Use `className` in React or `class` in
+Solid for structural styles. Tailwind variants use native utilities and consumer classes; the variables below
+customize the CSS Modules variants. Data attributes and `data-slot` hooks are shared by both styling tracks.
+Ancestors with `overflow: hidden` or `overflow: clip` can crop the bleed.
 
 ### CSS Properties
 

@@ -10,6 +10,11 @@ import BleedBlockBleed from '@/components/examples/bleed/block-bleed.tsx';
 import BleedCustomStyling from '@/components/examples/bleed/custom-styling.tsx';
 import BleedInlineAmounts from '@/components/examples/bleed/inline-amounts.tsx';
 import BleedSemanticElement from '@/components/examples/bleed/semantic-element.tsx';
+import bleedSolidBasic from '../../../snippets/bleed/solid/basic.tsx?raw';
+import bleedSolidBlockBleed from '../../../snippets/bleed/solid/block-bleed.tsx?raw';
+import bleedSolidCustomStyling from '../../../snippets/bleed/solid/custom-styling.tsx?raw';
+import bleedSolidInlineAmounts from '../../../snippets/bleed/solid/inline-amounts.tsx?raw';
+import bleedSolidSemanticElement from '../../../snippets/bleed/solid/semantic-element.tsx?raw';
 
 ## Справочник API
 
@@ -21,7 +26,15 @@ import BleedSemanticElement from '@/components/examples/bleed/semantic-element.t
 Используйте [Container](/docs/container), чтобы сохранить удобную для чтения ширину основного содержимого.
 Размещайте внутри него `Bleed`, если за границы контейнера должен выйти только медиаблок, фон, разделитель или баннер.
 
+Импортируйте `Bleed` из пакета, соответствующего фреймворку и способу стилизации: для CSS Modules это
+`@moduix/react/bleed` или `@moduix/solid/bleed`, а для Tailwind — по соответствующему пути
+`@moduix/react-tailwind/bleed` или `@moduix/solid-tailwind/bleed`.
+
 ## Базовый пример
+
+Bleed доступен для React и Solid в пакетах с CSS Modules и в вариантах на Tailwind. Интерактивный пример
+на этой странице использует пакет React с CSS Modules, а вкладки с фреймворками показывают нативный исходный код
+того же публичного API.
 
 Значение `inline="full"` по умолчанию позволяет медиаблоку, баннеру или декоративному элементу секции растянуться
 до краёв окна браузера и при этом остаться в обычном потоке документа.
@@ -32,27 +45,61 @@ import BleedSemanticElement from '@/components/examples/bleed/semantic-element.t
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/bleed/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/bleed/bleed-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={bleedSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/bleed/bleed-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="bleed" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/bleed' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/bleed' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/bleed' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/bleed' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+Полную настройку пакета и registry см. в руководстве [Quick start](/docs/quick-start).
 
 ## Анатомия
 
@@ -60,53 +107,27 @@ import BleedSemanticElement from '@/components/examples/bleed/semantic-element.t
 отступы по строчной и/или блочной оси и не добавляет внутреннюю обёртку.
 
 ```text
-Bleed.Root
+Bleed / Bleed.Root
 └─ root[data-scope="bleed"][data-part="root"][data-slot="bleed-root"]
    └─ children
 ```
 
-| Часть                  | Назначение                                                          |
-| ---------------------- | ------------------------------------------------------------------- |
-| `Bleed` / `Bleed.Root` | Корневой компонент, который позволяет содержимому выйти по строчной и блочной оси. |
-| `Bleed`                | Короткая форма `Bleed.Root`, которую можно использовать напрямую.  |
+| Часть                  | Назначение                                                                  |
+| ---------------------- | --------------------------------------------------------------------------- |
+| `Bleed` / `Bleed.Root` | Корневой компонент для выхода содержимого по строчной и блочной оси.       |
 
 ## Композиция
 
-### Рекомендуемая композиция
+`Bleed` отвечает только за визуальное оформление и не владеет состоянием. У него одна корневая часть, поэтому
+дополнительные части не нужно согласовывать; `Bleed.Root` — псевдоним `Bleed`. По умолчанию `inline` равен
+`full`, `block` — `none`, а `asChild` выключен. Если через `asChild` корневым элементом должен стать другой
+семантический элемент, передайте в React ровно одного дочернего элемента, который принимает DOM-свойства и ref,
+или используйте функцию рендера в Solid. В React ref указывает на отрисованный корневой или дочерний элемент;
+функция рендера Solid не передаёт ref от компонента к пользовательскому элементу.
 
-Используйте короткую форму `Bleed`, если макету нужна одна корневая обёртка с управляемыми отрицательными отступами.
-`Bleed.Root` предоставляет тот же компонент через пространство имён, следуя соглашениям Ark.
-Обе формы подходят для полноширинных медиа, фонов секций, разделителей и баннеров внутри центрированных контейнеров
-или контейнеров с внутренними отступами.
-
-### Когда нужна собственная композиция
-
-Используйте `className` и локальные переопределения `--moduix-bleed-*`, если боковой панели, вложенной области
-прокрутки или контейнеру приложения нужно растягивать содержимое относительно собственных границ, а не окна браузера.
-
-### Свойства по умолчанию
-
-| Свойство    | По умолчанию | Значения / примечания                       |
-| ----------- | ------------ | ------------------------------------------- |
-| `inline`    | `full`       | `none`, `xs`, `sm`, `md`, `lg`, `xl`, `full` |
-| `block`     | `none`       | `none`, `xs`, `sm`, `md`, `lg`, `xl`        |
-| `asChild`   | `false`      | Композиция фабрики Ark                      |
-| `className` | не задано   | Применяется к корневому элементу            |
-
-### Особенности поведения
-
-- `Bleed.Root` создаёт ровно один корневой элемент и принимает свойства `div`, поддерживаемые фабрикой Ark.
-- `ref` указывает на отрисованный корневой элемент. С `asChild` он указывает на единственный дочерний элемент.
-- `asChild` требует ровно одного семантического дочернего элемента, который принимает DOM-свойства и ref.
-- Используйте `inline`, чтобы выйти за внутренние отступы по строчной оси. Добавляйте `block`, если поверхности
-  нужно выйти за отступы и по блочной оси. Эти логические оси следуют режиму письма документа.
-- Используйте одно из фиксированных значений шкалы, если содержимому нужно выйти только за внутренние отступы
-  контейнера, а не дойти до края окна браузера.
-- `inline="full"` рассчитывается относительно окна браузера, поэтому во вложенных оболочках могут понадобиться
-  локальные переопределения `--moduix-bleed-inline-full` и `--moduix-bleed-inline-full-size`.
-- Предки с `overflow: hidden` или `overflow: clip` могут обрезать выход за границы.
-- `Bleed` отвечает только за визуальное оформление. Он не управляет состоянием, не добавляет ARIA-поведение,
-  обработку клавиатуры или фокуса и не переносит содержимое в портал.
+Сочетайте `inline` и `block`, если поверхность должна выйти за отступы по обеим логическим осям. `inline="full"`
+рассчитывается относительно окна браузера, поэтому во вложенной оболочке могут понадобиться локальные переопределения
+`--moduix-bleed-inline-full` и `--moduix-bleed-inline-full-size`.
 
 ## Примеры
 
@@ -120,20 +141,31 @@ Bleed.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/bleed/block-bleed.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/bleed/bleed-block-bleed.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={bleedSolidBlockBleed} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/bleed/bleed-block-bleed.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -149,20 +181,31 @@ Bleed.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/bleed/custom-styling.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/bleed/bleed-custom-styling.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={bleedSolidCustomStyling} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/bleed/bleed-custom-styling.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -178,20 +221,31 @@ Bleed.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/bleed/inline-amounts.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/bleed/bleed-inline-amounts.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={bleedSolidInlineAmounts} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/bleed/bleed-inline-amounts.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -207,28 +261,41 @@ Bleed.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/bleed/semantic-element.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/bleed/bleed-semantic-element.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={bleedSolidSemanticElement} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/bleed/bleed-semantic-element.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Стилизация
 
-`Bleed` предоставляет CSS-переменные и стабильные data-атрибуты на корневом элементе. Переменные позволяют настроить
-величину выхода за границы, а `className` - оформить саму поверхность.
+`Bleed` предоставляет CSS-переменные и стабильные data-атрибуты на корневом элементе. Для структурных стилей
+используйте `className` в React или `class` в Solid. Варианты Tailwind используют обычные utility-классы и классы
+приложения, а переменные ниже настраивают варианты с CSS Modules. Data-атрибуты и `data-slot` общие для обоих
+способов стилизации. Предки с `overflow: hidden` или `overflow: clip` могут обрезать выход за границы.
 
 ### CSS-свойства
 
