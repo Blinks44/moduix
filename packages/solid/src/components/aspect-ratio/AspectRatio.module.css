@@ -6,18 +6,5 @@
     display: block;
     width: 100%;
     aspect-ratio: var(--_aspect-ratio-value);
-    overflow: hidden;
-    border-radius: var(--moduix-aspect-ratio-radius, var(--moduix-radius-md));
-
-    & > :where(img, video, iframe, canvas, svg) {
-      box-sizing: border-box;
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
-
-    & > iframe {
-      border: 0;
-    }
   }
 }

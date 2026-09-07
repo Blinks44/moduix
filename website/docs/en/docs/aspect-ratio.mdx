@@ -4,7 +4,6 @@ component: aspect-ratio
 description: Keeps media and embedded content inside a responsive frame with a fixed aspect ratio.
 ---
 
-import * as AspectRatioDocs from '@/components/examples/aspect-ratio/css-properties';
 import AspectRatioAdvancedCustomization from '@/components/examples/aspect-ratio/advanced-customization.tsx';
 import AspectRatioBasic from '@/components/examples/aspect-ratio/basic.tsx';
 import AspectRatioCardGrid from '@/components/examples/aspect-ratio/card-grid.tsx';
@@ -36,9 +35,9 @@ Use `AspectRatio` as the root for a responsive frame. It fills the width of its 
 Add `width` or `max-width` to the root when the frame needs a different size, then pass a finite, positive
 number to `ratio`.
 
-Direct `img`, `video`, `iframe`, `canvas`, and `svg` children fill the frame automatically. Other children are not
-sized automatically, so add the styles they need. Set `object-fit` on images and videos when you want to crop
-their content or contain it within the frame.
+`AspectRatio` owns only the ratio layout. Size and style its children explicitly—for example, apply full width,
+full height, and `object-fit` to an image. Put clipping and border radius on the root when the composition needs
+them.
 
 <ExampleFrame variant="component">
   <AspectRatioBasic />
@@ -109,14 +108,15 @@ AspectRatio / AspectRatio.Root
 
 | Part                               | Role                                      |
 | ---------------------------------- | ----------------------------------------- |
-| `AspectRatio` / `AspectRatio.Root` | Responsive frame that clips its contents. |
+| `AspectRatio` / `AspectRatio.Root` | Responsive ratio container. |
 
 ## Composition
 
 `AspectRatio` is presentational and owns no state. Use the callable `AspectRatio` root in the usual case;
 `AspectRatio.Root` is an alias when you want to make the root part explicit. The component has one root part and
 no child parts to combine. Use `asChild` only when another semantic element must own the rendered root, and provide
-exactly one child in React or the Solid render-function form shown in Advanced customization.
+exactly one child in React or the Solid render-function form shown in Advanced customization. Child sizing,
+fitting, borders, radius, and clipping remain owned by the application.
 
 ## Examples
 
@@ -201,8 +201,8 @@ Wrap a video or another embed in `AspectRatio` to keep the frame stable while ex
 
 ### Migrating from shadcn
 
-If you are migrating from shadcn, put width and radius classes on `AspectRatio` itself. The same root setup
-also works with Next.js `Image` using `fill`.
+If you are migrating from shadcn, put width, clipping, and radius classes on `AspectRatio`, and size the media
+inside it explicitly. The same root setup also works with Next.js `Image` using `fill`.
 
 <ExampleFrame variant="component">
   <AspectRatioMigration />
@@ -281,20 +281,11 @@ component props into its only child element.
 
 ## Styling
 
-### CSS Properties
-
-The CSS Modules packages expose the public variable below. Tailwind packages use utility classes and consumer
-class overrides instead; this variable is not a Tailwind styling contract.
-
-<CssPropertiesSection properties={AspectRatioDocs.aspectRatioCssProperties} />
-
 ### Styling hooks
 
 - `data-scope="aspect-ratio"` and `data-part="root"` are Ark-aligned hooks on the root.
 - `data-slot="aspect-ratio-root"` is the stable moduix root hook.
 - Put width, max-width, and layout styles on the root. Override `aspect-ratio` in your own CSS when the frame
   needs a different ratio at a particular breakpoint.
-- Direct media uses border-box sizing. Images and videos keep their own `object-fit` value, so you can choose
-  between cropping and containment.
-- `overflow: hidden` is intentional. If decoration must extend beyond the frame, put it on an outer wrapper
-  instead of removing clipping from the root.
+- The component does not style its children. Apply media sizing and `object-fit` directly to the child.
+- Add `overflow: hidden` and a border radius to the root only when the composition needs clipping.

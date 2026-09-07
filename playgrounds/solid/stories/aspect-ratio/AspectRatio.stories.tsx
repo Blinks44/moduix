@@ -33,6 +33,7 @@ export const EmbeddedContent: Story = {
       <iframe
         src="https://www.youtube.com/embed/dQw4w9WgXcQ"
         title="Video embed"
+        class={styles.iframe}
         allow="autoplay; encrypted-media"
         allowfullscreen
       />

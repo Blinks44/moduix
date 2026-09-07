@@ -60,14 +60,14 @@ choisir un style intégré et ajoutez `Badge.Dot` uniquement lorsqu’un statut 
 
 ```text
 Badge / Badge.Root
-├─ Badge.Label (facultatif ; le texte direct est automatiquement placé dans Badge.Label)
+├─ Badge.Label (facultatif ; à utiliser explicitement pour la troncature)
 ├─ Badge.Dot (facultatif)
 └─ icône svg (facultative)
 ```
 
 | Partie                 | Rôle                                                                                  |
 | ---------------------- | ------------------------------------------------------------------------------------- |
-| `Badge` / `Badge.Root` | Partie racine. Applique la variante, la bordure, les espacements et la troncature du texte. |
+| `Badge` / `Badge.Root` | Partie racine. Applique la variante, la bordure et les espacements.                    |
 | `Badge.Label`          | Partie de texte explicite. Permet de tronquer correctement un badge composé.          |
 | `Badge.Dot`            | Partie décorative. Affiche un marqueur circulaire qui reprend la couleur du texte.    |
 
@@ -81,15 +81,17 @@ Pour la plupart des statuts courts, catégories, versions et compteurs, utilisez
 Utilisez `variant` pour les styles intégrés : `default`, `secondary`, `destructive`, `outline`, `ghost` et `link`.
 
 Lorsque le badge a besoin d’un point ou d’une icône, placez `Badge.Dot` ou une icône enfant directe à côté de
-`Badge.Label`. Le texte fourni directement est automatiquement placé dans `Badge.Label`.
+`Badge.Label`. Le texte direct reste inchangé ; utilisez `Badge.Label` explicitement lorsqu’un libellé contraint
+doit être tronqué.
 
 `Badge.Root`, `Badge.Label` et `Badge.Dot` transmettent leur `ref` aux éléments DOM qu’ils rendent.
 
 ### Quand créer une composition personnalisée
 
 Utilisez `Badge asChild` lorsqu’un élément sémantique, comme `<a>` ou `<button>`, doit devenir l’élément racine du DOM.
-La composition Ark exige un seul enfant. Celui-ci conserve sa sémantique native, et les liens, boutons et éléments
-portant `role="button"` reçoivent les styles par défaut du badge pour le curseur, le survol et le focus visible.
+La composition Ark exige un seul enfant. Celui-ci conserve sa sémantique native et reçoit le style de focus visible.
+Les racines de type lien reçoivent aussi le curseur et le survol de la variante ; les styles d’interaction propres
+aux boutons restent gérés par l’application.
 
 Utilisez une variable CSS locale ou redéfinissez `className` lorsque le badge nécessite une taille ou un style personnalisé.
 Il n’existe pas de prop `size` : ajustez les dimensions avec les variables CSS publiques.
@@ -106,10 +108,9 @@ Il n’existe pas de prop `size` : ajustez les dimensions avec les variables CSS
 - Par défaut, `Badge` sert uniquement à afficher une information et rend un `span`.
 - `Badge.Dot` est décoratif et masqué pour les technologies d’assistance ; le texte visible doit donc transmettre la signification du statut.
 - `Badge` n’ajoute à lui seul ni interaction ni sémantique de lien ou de bouton.
-- Les liens, boutons et autres éléments sémantiques rendus avec `asChild` conservent leur sémantique native et reçoivent les styles par défaut du curseur, du survol et du focus visible.
-- Les boutons désactivés et les éléments avec `aria-disabled="true"` conservent leur sémantique, n’appliquent pas les styles de survol et utilisent la variable publique d’opacité dédiée à l’état désactivé.
-- Les libellés longs restent sur une seule ligne et sont tronqués par l’élément racine. Ajoutez `title` pour rendre la valeur complète visible au survol. Dans les interfaces tactiles, choisissez un libellé qui tient dans l’espace disponible.
-- Le texte fourni directement est automatiquement placé dans `Badge.Label`. Utilisez explicitement `Badge.Label` lorsque le texte est composé avec un point, une icône ou un autre élément.
+- Les éléments sémantiques rendus avec `asChild` conservent leur comportement natif et reçoivent le style de focus visible. Seules les racines de type lien reçoivent le curseur et le survol de la variante.
+- Les libellés longs restent sur une seule ligne et sont tronqués lorsqu’ils sont placés explicitement dans `Badge.Label`. Ajoutez `title` pour rendre la valeur complète visible au survol.
+- Le texte fourni directement reste inchangé. Utilisez `Badge.Label` lorsque le texte est composé avec un point, une icône ou un autre élément, ou lorsqu’il doit être tronqué.
 - Les icônes `svg` placées directement comme enfants héritent de `currentColor` et utilisent `--moduix-badge-icon-size`.
 - Le contenu numérique utilise des chiffres tabulaires et, par défaut, le texte du badge n’est pas sélectionnable.
 
@@ -169,8 +170,8 @@ enfant reste un véritable lien et conserve sa sémantique native.
 
 ### Libellés longs
 
-Par défaut, les badges tronquent les libellés longs. Ajoutez `title` pour rendre le libellé complet visible au survol. Dans
-les interfaces tactiles, choisissez un libellé qui tient dans l’espace disponible.
+Placez un libellé long dans `Badge.Label` pour le tronquer dans un badge de largeur contrainte. Ajoutez `title` pour
+rendre le libellé complet visible au survol. Dans les interfaces tactiles, choisissez un libellé adapté à l’espace disponible.
 
 <ExampleFrame variant="component">
   <BadgeLongLabels />
@@ -298,6 +299,6 @@ pour un badge donné.
 - `data-slot="badge-root"`, `data-slot="badge-label"` et `data-slot="badge-dot"` sont des sélecteurs stables pour cibler les parties exportées en CSS.
 - `Badge.Root` expose également `data-scope="badge"` et `data-part="root"`. `Badge.Label` et `Badge.Dot` exposent `data-part="label"` et `data-part="dot"`.
 - `Badge.Root` indique la variante sélectionnée dans l’attribut `data-variant`.
-- Les liens et boutons sémantiques rendus avec `Badge asChild` ou `Badge.Root asChild` reçoivent les styles par défaut du focus visible définis par la racine.
+- Les hôtes focalisables rendus avec `Badge asChild` ou `Badge.Root asChild` reçoivent le style de focus visible. Les racines de type lien reçoivent aussi le survol de la variante et le curseur pointeur ; les styles propres aux boutons restent gérés par l’application.
 - Les icônes `svg` placées directement comme enfants héritent de `currentColor`, ne capturent pas les événements du pointeur et utilisent `--moduix-badge-icon-size`.
 - `Badge` ne dispose ni d’une primitive Ark dédiée ni d’une machine de comportement ; il n’expose donc aucun état géré par Ark ni aucune variable CSS d’exécution.

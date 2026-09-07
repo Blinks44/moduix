@@ -7,7 +7,7 @@ import { cn } from '@/lib/moduix/cn';
 type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 const avatarVariants = cva(
-  'relative box-border inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-muted align-middle font-medium text-foreground select-none',
+  'relative inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-muted align-middle font-medium text-foreground select-none',
   {
     variants: {
       size: {
@@ -79,7 +79,7 @@ function AvatarFallback(props: ComponentProps<typeof AvatarPrimitive.Fallback>) 
     <AvatarPrimitive.Fallback
       data-slot="avatar-fallback"
       class={cn(
-        'box-border inline-flex size-full items-center justify-center rounded-[inherit] bg-[inherit] p-0 leading-[inherit] text-inherit data-[state=hidden]:hidden',
+        'inline-flex size-full items-center justify-center rounded-[inherit] bg-[inherit] data-[state=hidden]:hidden',
         local.class,
       )}
       {...others}

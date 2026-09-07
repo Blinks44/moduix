@@ -108,7 +108,9 @@ export const DisabledButton: Story = {
   render: () => {
     return (
       <Badge.Root asChild variant="secondary">
-        <button disabled>Archived</button>
+        <button className={styles.disabledButton} disabled>
+          Archived
+        </button>
       </Badge.Root>
     );
   },

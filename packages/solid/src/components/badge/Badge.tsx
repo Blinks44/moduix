@@ -1,7 +1,7 @@
 import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
-import { children, splitProps } from 'solid-js';
+import { splitProps } from 'solid-js';
 import styles from './Badge.module.css';
 
 type BadgeDataProps = {
@@ -39,8 +39,6 @@ function BadgeLabel(props: BadgeLabelProps) {
 
 function BadgeRoot(props: BadgeRootProps) {
   const [local, others] = splitProps(props, [
-    'asChild',
-    'children',
     'class',
     'data-scope',
     'data-part',
@@ -48,30 +46,16 @@ function BadgeRoot(props: BadgeRootProps) {
     'data-variant',
     'variant',
   ]);
-  const resolvedChildren = children(() => local.children);
 
   return (
     <ark.span
-      asChild={local.asChild}
       {...others}
       data-scope="badge"
       data-part="root"
       data-slot="badge-root"
       data-variant={local.variant ?? 'default'}
       class={clsx(styles.root, local.class)}
-    >
-      {local.asChild
-        ? undefined
-        : resolvedChildren
-            .toArray()
-            .map((child) =>
-              typeof child === 'string' || typeof child === 'number' ? (
-                <BadgeLabel>{child}</BadgeLabel>
-              ) : (
-                child
-              ),
-            )}
-    </ark.span>
+    />
   );
 }
 

@@ -1,145 +1,44 @@
 # AspectRatio
 
-Upstream docs:
+## Upstream reference
 
-- Ark UI factory: https://ark-ui.com/docs/guides/composition#the-ark-factory
-- Ark UI composition: https://ark-ui.com/docs/guides/composition
-- Ark UI styling: https://ark-ui.com/docs/guides/styling
-- Ark UI ref: https://ark-ui.com/docs/guides/ref
+Ark UI has no dedicated AspectRatio primitive. Moduix uses the
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) and follows its
+[composition](https://ark-ui.com/docs/guides/composition) and
+[styling](https://ark-ui.com/docs/guides/styling) guides.
 
 ## Purpose
 
-`AspectRatio` constrains media and embed content inside a responsive box with a fixed numeric
-width-to-height ratio.
+`AspectRatio` provides a responsive root whose width-to-height ratio is controlled by a required
+finite positive `ratio`.
 
-Ark UI does not ship a dedicated `aspect-ratio` primitive. Moduix builds this component with the official
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
-[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
-[ref](https://ark-ui.com/docs/guides/ref) guidance.
+## Public contract
 
-## Upstream model to preserve
+- `AspectRatio` and `AspectRatio.Root` expose the same single root part.
+- The root renders as an Ark factory `div`, supports `asChild`, forwards its ref, and writes
+  `data-scope="aspect-ratio"`, `data-part="root"`, and `data-slot="aspect-ratio-root"`.
+- Invalid ratios throw a `RangeError`.
+- The ratio is written to the internal `--_aspect-ratio-value` property. An explicit
+  `style.aspectRatio` or consumer CSS can override the default rule.
 
-- Uses the Ark factory composition model instead of a dedicated Ark primitive.
-- Keeps the API intentionally small: one root part with polymorphic DOM ownership through `asChild`.
-- Keeps the ratio expressed as a plain numeric prop instead of preset aliases or ratio-name sugar.
+## Preservation notes
 
-## Current behavior contract
+- Keep the root block-level, full-width, and `position: relative` for absolute-fill content.
+- Do not add preset ratio aliases or managed state.
+- `asChild` requires one semantic child and transfers root props to that host.
 
-- `AspectRatio` is the recommended root export; `AspectRatio.Root` is the same component exposed for
-  namespace consistency.
-- `ratio` is a required `number` applied to the CSS `aspect-ratio` property. Consumers must pass a
-  finite value greater than zero for valid CSS behavior.
-- Root sizing is meant to live on the root itself through `className` or `style`.
-- Root supports Ark factory polymorphism via `asChild`.
-- Root renders with `data-scope="aspect-ratio"`, `data-part="root"`, and
-  `data-slot="aspect-ratio-root"`.
-- Invalid ratios throw: pass only finite numbers greater than zero.
-- The resolved ratio is written to an internal CSS custom property and consumed by the root
-  `aspect-ratio` rule; consumer `style.aspectRatio` or root CSS can still override it.
-- Direct `img`, `video`, `iframe`, `canvas`, and `svg` children automatically fill the frame. Set
-  `object-fit` on images and video to choose whether their content is cropped or letterboxed.
-- Root default styles keep a block formatting context, `position: relative`, `overflow: hidden`,
-  border-box sizing, and a moduix radius token.
-- Direct `iframe` children have their user-agent border removed.
+## Styling and accessibility
 
-## Anatomy and exported parts
+The component owns only the ratio layout. Consumer content owns its sizing, `object-fit`, border,
+radius, and overflow. In particular, the root must not style arbitrary `img`, `video`, `iframe`,
+`canvas`, or `svg` children.
 
-```text
-AspectRatio / AspectRatio.Root
-└─ media | iframe | canvas | svg | custom content
-```
+## Differences from upstream
 
-Every exported part accepts `className` and uses the standard hooks below:
-
-| Part                               | Hook                            | Notes                        |
-| ---------------------------------- | ------------------------------- | ---------------------------- |
-| `AspectRatio` / `AspectRatio.Root` | `data-slot="aspect-ratio-root"` | Single exported root part.   |
-| `AspectRatio` / `AspectRatio.Root` | `data-scope="aspect-ratio"`     | Ark-aligned component scope. |
-| `AspectRatio` / `AspectRatio.Root` | `data-part="root"`              | Ark-aligned part name.       |
-
-## Composition
-
-```tsx
-import { AspectRatio } from '@moduix/react/aspect-ratio';
-
-export function AspectRatioExample() {
-  return (
-    <AspectRatio ratio={16 / 9} className="media-frame">
-      <img src="/hero.jpg" alt="Hero" style={{ objectFit: 'cover' }} />
-    </AspectRatio>
-  );
-}
-```
-
-Apply width or max-width to the root itself instead of introducing an extra wrapper only for sizing.
-
-Use `asChild` with exactly one child when another semantic element must own the rendered DOM node:
-
-```tsx
-<AspectRatio ratio={16 / 9} asChild>
-  <figure>
-    <img src="/hero.jpg" alt="Hero" style={{ objectFit: 'cover' }} />
-  </figure>
-</AspectRatio>
-```
-
-## Upstream feature coverage
-
-- `Composition`: preserved through Ark factory `asChild` behavior.
-- `Polymorphic root`: preserved through the single root part.
-- `Dedicated primitive features`: not applicable because Ark has no dedicated `AspectRatio`
-  component page for this wrapper to mirror.
-- `Preset ratios`: intentionally unsupported; moduix keeps a numeric `ratio` only.
-
-## Accessibility and state
-
-- The component is presentational and does not add managed state, callbacks, or ARIA behavior.
-- Ark-style ownership changes remain available through `asChild`.
-- `asChild` requires one valid React element; consumers remain responsible for choosing semantic,
-  accessible host elements.
-- The forwarded ref targets the rendered root element, or the composed child when `asChild` is used.
-- The root keeps stable hooks for styling and test targeting: `data-scope`, `data-part`, and
-  `data-slot`.
-
-## Defaults and styling
-
-Primary CSS variable:
-
-| Variable                       | Default                   |
-| ------------------------------ | ------------------------- |
-| `--moduix-aspect-ratio-radius` | `var(--moduix-radius-md)` |
-
-## Intentional sugar and differences from upstream
-
-- moduix adds the namespace surface `AspectRatio.Root` for consistency with the rest of the library.
-- moduix adds a styled default radius token, direct-media auto-fill rules, and a borderless iframe
-  default.
-- moduix removes the previous local preset aliases and keeps only the Ark-aligned numeric ratio.
-
-## Agent notes
-
-- Keep the wrapper thin; do not reintroduce preset aliases or compatibility translation.
-- Keep `position: relative` on the root for absolute-fill patterns such as Next.js `Image fill`.
-- Keep child auto-fill limited to direct `img`, `video`, `iframe`, `canvas`, and `svg` children.
-- Keep media fitting opt-in: callers set `object-fit` according to whether cropping or containment
-  is appropriate for their content.
+Moduix adds numeric ratio validation, stable data hooks, and the namespaced `AspectRatio.Root`
+alias around the Ark factory model.
 
 ## Local changelog
 
-- 2026-08-08: Protected stable root hooks from prop overrides, isolated the internal ratio variable
-  from Ark's runtime-variable reference, made `asChild` hosts reliably block-level, normalized
-  media sizing, and removed native iframe borders.
-- 2026-07-07: Moved ratio handling from inline `style.aspectRatio` to an internal CSS custom
-  property so consumer CSS can override the root ratio more easily, and updated docs/examples to
-  size the root directly and show the shadcn-style `Image fill` path.
-- 2026-07-02: Removed the duplicate root prop type from the public moduix surface while preserving
-  the callable root, `AspectRatio.Root`, `asChild`, refs, numeric ratio contract, and styled media
-  frame behavior.
-- 2026-06-17: Migrated `AspectRatio` to an Ark-aligned factory wrapper, added `AspectRatio.Root`,
-  removed preset ratio aliases, and aligned docs/examples to numeric `ratio`.
-- 2026-07-25: Reject invalid ratios, reserve the internal ratio variable for the component contract,
-  and document explicit media fitting.
-- 2026-06-18: Audited the Ark factory contract, documented valid ratio constraints and `asChild`,
-  aligned the recommended short root form, and fixed the registry dependency.
-- 2026-06-24: Re-audited the local-only Ark factory contract, refreshed the official Ark guide
-  references, documented the root ref target, and simplified docs/examples after migration.
+- 2026-09-07: Reduced the component to ratio layout and moved media sizing, clipping, radius, and
+  iframe presentation to consumer-owned styles.

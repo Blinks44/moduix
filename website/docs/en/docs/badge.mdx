@@ -107,24 +107,24 @@ you can see.
 
 ```text
 Badge / Badge.Root
-├─ Badge.Label (optional; direct text is wrapped automatically)
+├─ Badge.Label (optional; use explicitly for truncation)
 ├─ Badge.Dot (optional)
 └─ svg icon (optional)
 ```
 
 | Part                   | Role                                                                                 |
 | ---------------------- | ------------------------------------------------------------------------------------ |
-| `Badge` / `Badge.Root` | Root part. Applies the variant, border, spacing, and text truncation.                |
+| `Badge` / `Badge.Root` | Root part. Applies the variant, border, and spacing.                                |
 | `Badge.Label`          | Explicit text part. Keeps a composed label truncatable.                              |
 | `Badge.Dot`            | Optional decorative part. Renders a circular marker that inherits the text color.    |
 
 ## Composition
 
-`Badge` is presentational and owns no state. Direct text children are wrapped in `Badge.Label`
-automatically; use `Badge.Label` explicitly when combining text with `Badge.Dot` or an icon so the
-label can truncate as one part. For a semantic link or button, use `asChild` with exactly one child
-in React. In Solid, pass a render function to `asChild`; the rendered child keeps its native
-semantics. `Badge.Root` is the namespaced equivalent of `Badge`.
+`Badge` is presentational and owns no state. Direct text remains unchanged; use `Badge.Label`
+explicitly when a constrained label must truncate or when combining text with `Badge.Dot` or an
+icon. For a semantic link or button, use `asChild` with exactly one child in React. In Solid, pass
+a render function to `asChild`; the rendered child keeps its native semantics. `Badge.Root` is the
+namespaced equivalent of `Badge`.
 
 ## Examples
 
@@ -205,8 +205,9 @@ element remains a real link and keeps its native semantics.
 
 ### Long Labels
 
-Badges truncate long labels by default. Add `title` to expose the full label on pointer hover. On
-touch-first interfaces, choose a label that fits the available space.
+Wrap a long value in `Badge.Label` to truncate it inside a constrained badge. Add `title` to expose
+the full label on pointer hover. On touch-first interfaces, choose a label that fits the available
+space.
 
 <ExampleFrame variant="component">
   <BadgeLongLabels />
@@ -382,6 +383,6 @@ Ark data attributes are shared by both styling tracks.
 - `data-slot="badge-root"`, `data-slot="badge-label"`, and `data-slot="badge-dot"` are stable selectors for styling the exported parts.
 - `Badge.Root` also exposes `data-scope="badge"` and `data-part="root"`. `Badge.Label` and `Badge.Dot` expose `data-part="label"` and `data-part="dot"`.
 - `Badge.Root` writes the selected variant to `data-variant`.
-- Semantic links and buttons rendered through `Badge asChild` or `Badge.Root asChild` receive the root's default focus-visible styling.
+- Focusable hosts rendered through `Badge asChild` or `Badge.Root asChild` receive the root focus-visible styling. Anchor roots also receive the variant hover and pointer-cursor styles; button-specific interaction styles remain application-owned.
 - Direct child `svg` icons inherit `currentColor`, do not receive pointer events, and use `--moduix-badge-icon-size`.
 - Badge has no dedicated Ark primitive or behavior machine, so it does not expose Ark-managed states or runtime CSS variables.

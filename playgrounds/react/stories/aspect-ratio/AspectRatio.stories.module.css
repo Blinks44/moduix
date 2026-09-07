@@ -1,9 +1,21 @@
 .container {
   width: 480px;
+  overflow: hidden;
+  border-radius: var(--moduix-radius-md);
 }
 
 .image {
+  display: block;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+}
+
+.iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 
 .fillImage {
@@ -23,5 +35,5 @@
 }
 
 .roundedFrame {
-  --moduix-aspect-ratio-radius: var(--moduix-radius-xl);
+  border-radius: var(--moduix-radius-xl);
 }

@@ -1,6 +1,6 @@
 ---
 name: migration-css-modules-to-tailwind
-description: Port a shipped moduix component to the React and Solid Tailwind packages, verify its distribution, and review all four implementations for avoidable styling or composition complexity against current shadcn.
+description: Port a shipped moduix component to the React and Solid Tailwind packages, verify its distribution, and review or, when authorized, simplify all four implementations against current shadcn.
 ---
 
 # CSS Modules to Tailwind Migration
@@ -10,8 +10,8 @@ Port one shipped component from `packages/react` and `packages/solid` into
 parts:
 
 1. a correct, framework-native Tailwind port with tests, stories, exports, builds, and registries;
-2. a post-port review that explains whether the component should later be simplified across all
-   four packages.
+2. a post-port review that identifies justified differences and avoidable styling or composition
+   complexity across all four packages, and implements shared simplifications only when authorized.
 
 Use this skill with `component-workflow`, `conventions-css`, `conventions-react`,
 `migration-react-to-solid`, and `rstest-best-practices` as routed by `AGENTS.md`. Use
@@ -27,6 +27,13 @@ component-local markdown before editing.
 Parity means the same public component behavior, anatomy, accessibility, states, and visual defaults.
 It does not mean copying the CSS Modules customization mechanism: detailed component variables may
 remain CSS Modules-only while Tailwind consumers use utilities and `className`/`class`.
+
+Parity and ownership can expose a conflict: an existing CSS Modules default may style arbitrary
+consumer children even though those children should own their presentation. Do not silently make
+the Tailwind packages behave differently. For a parity-only migration, preserve the established
+behavior with the narrowest temporary selector and record the ownership problem in the
+`Simplification review`. When the task authorizes shared simplification, remove that behavior from
+all four packages and move the presentation into stories and examples that own the content.
 
 Use existing Tailwind components as mechanical references:
 
@@ -59,9 +66,18 @@ Record the existing contract:
   every story scenario;
 - helpers, icons, component dependencies, exports, and registry dependencies.
 
-Make a declaration-level translation ledger for the stylesheet. Every meaningful declaration must
-map to a Tailwind utility or have a concrete reason to remain an arbitrary property or runtime
-variable. This ledger may stay in working notes, but unresolved declarations are not optional.
+Make a declaration-level translation ledger for the stylesheet. Classify every meaningful
+declaration as one of:
+
+1. component-owned behavior or presentation to translate into a utility;
+2. required Ark/runtime behavior or internal coordination to preserve explicitly;
+3. already guaranteed by Tailwind Preflight, the semantic host, or inheritance, and therefore omit;
+4. consumer-owned presentation that should not become a Tailwind default;
+5. questionable shared behavior to preserve temporarily for parity and report for four-package
+   simplification.
+
+This ledger may stay in working notes, but unresolved declarations are not optional. Do not treat a
+CSS declaration as meaningful merely because it exists in the source stylesheet.
 
 Classify who owns every styled element:
 
@@ -76,6 +92,10 @@ CSS Modules often repeat a class selector as a `data-scope`/`data-part` fallback
 hook, but do not recreate that global stylesheet as a chain of
 `[&_[data-slot=...]]:<utility>` classes on a Tailwind root. With `asChild`, merge root defaults onto
 the replacement host; consumer-supplied inner markup remains consumer-owned and consumer-styled.
+
+Record any contradiction between visual parity and ownership instead of resolving it accidentally.
+Do not introduce a public part, wrapper, context, child transformation, or implicit label merely to
+make styling convenient.
 
 ## 2. Implement native Tailwind variants
 
@@ -114,6 +134,12 @@ prevent a plain consumer utility from overriding the selected default. Verify th
 Account for layout, logical properties, typography, sizing, colors, borders, overflow, interactive
 and Ark states, nested supported parts, responsive behavior, animation, presence, and reduced
 motion.
+
+Before translating reset-looking declarations, inspect the actual semantic host and Tailwind
+Preflight. Omit defaults already guaranteed by them, including redundant margin, border,
+`box-sizing`, font, color, line-height, and media display rules. Do not assume a reset is redundant:
+remove or omit it only after verifying the relevant computed styles in both Tailwind Storybooks.
+Keep a declaration when it protects a supported `asChild` host that Preflight does not normalize.
 
 Prefer existing semantic utilities such as `gap-3`, `size-5`, `rounded-full`, `text-sm`, `bg-muted`,
 and `border-border`. Verify that a claimed foundation utility actually exists. When only a shared
@@ -193,8 +219,11 @@ The existing source globs already build component files and shadcn-copied source
 consumer project. Do not add per-component Rslib entries or `@source` rules.
 
 Run `pnpm run build:registry` after registry source changes; never edit `website/docs/public/r`
-manually. Update public documentation only when existing availability or install guidance became
-incorrect. Create a changeset only when explicitly requested.
+manually. For a parity-only port, update public documentation only when existing availability or
+install guidance became incorrect. If an authorized shared simplification changes ownership,
+anatomy, behavior, visual defaults, or customization, synchronize component-local contracts,
+runnable examples, CSS-variable references, and every maintained locale. Create a changeset only
+when explicitly requested.
 
 ## 6. Verify the port
 
@@ -210,6 +239,11 @@ incorrect. Create a changeset only when explicitly requested.
 A passing unit test, a class token in the DOM, or a text-only Storybook snapshot does not prove visual
 parity. A packed-consumer smoke test is additionally required only when shared exports, build
 configuration, foundation delivery, `cn`, or registry infrastructure changed.
+
+When an authorized simplification changes the CSS Modules implementations or shared public
+contract, repeat the relevant tests, package builds, Storybook scenarios, and browser checks for all
+four variants, not only the Tailwind pair. Search for and remove dead foundation variables,
+documentation references, test assumptions, and generated registry content before completing.
 
 ## 7. Review whether all four variants should be simpler
 
@@ -229,6 +263,17 @@ Use shadcn as a complexity and ergonomics reference, not as the behavior source 
 - accessibility, Ark behavior, states, orientations, responsive behavior, and visual capabilities
   that shadcn may not support.
 
+Explicitly audit the failure modes that a declaration count alone misses:
+
+- browser resets or inherited values repeated despite Preflight;
+- arbitrary descendants styled from a root instead of by an exposed owned part;
+- children wrapped, rewritten, or assigned an implicit part only to support styling;
+- wrappers, providers, contexts, or runtime branches that exist only for presentation;
+- interaction inferred broadly from tag names or roles instead of a documented component/Ark state;
+- hover, disabled, cursor, truncation, or media-fit policy imposed on consumer-owned content;
+- component variables that only alias fixed utilities or `currentColor`;
+- styling rules, tokens, parts, tests, or documentation left dead after simplification.
+
 Include compact evidence: part and wrapper counts plus approximate rule/utility counts when the
 difference is material. Do not count React-versus-Solid syntax or required Ark plumbing as styling
 complexity.
@@ -244,12 +289,20 @@ behavior, or CSS Modules implementations merely because shadcn is smaller. A sim
 affects the existing contract is a four-package product change: report it and wait for the user's
 decision unless the original request authorizes that broader refactor.
 
+When broader simplification is authorized, implement the smallest coherent four-package change in
+the same task. Keep intentional accessibility and Ark behavior, remove presentation-only plumbing,
+move consumer-owned styling into examples, and synchronize tests, stories, contracts,
+documentation, foundation tokens, and registries according to the actual impact. Re-run the
+four-variant checks before deciding whether more simplification is warranted.
+
 Finish every migration handoff with a `Simplification review` containing:
 
 - the shadcn source, or a statement that no counterpart exists;
 - justified moduix differences;
-- each unnecessary or questionable complication and where it appears;
-- the smallest proposed simplification;
+- ordinary Tailwind translation mistakes fixed during the port;
+- each unnecessary or questionable shared complication and where it appears;
+- shared simplifications already applied when authorized, with before/after evidence;
+- the smallest remaining proposed simplification;
 - affected package variants and any API, anatomy, behavior, visual, test, story, documentation, or
   registry impact;
 - `No simplification recommended` when all material differences are justified.
@@ -259,5 +312,7 @@ Finish every migration handoff with a `Simplification review` containing:
 The migration is complete only when the React and Solid Tailwind implementations preserve the
 existing contract through native utilities; focused tests, package builds, Storybooks, browser
 visual checks, exports, and registries pass; unexplained component styling variables and ambiguous
-arbitrary utilities are absent; and the final report includes the evidence-backed four-variant
+arbitrary utilities are absent; redundant Preflight defaults and unresolved ownership conflicts are
+absent or explicitly reported; any authorized shared simplification is verified across all affected
+variants and documentation; and the final report includes the evidence-backed four-variant
 `Simplification review`.

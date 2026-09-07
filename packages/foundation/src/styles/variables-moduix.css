@@ -61,9 +61,6 @@
   --moduix-popup-motion-ending-translate-x: initial; /* component default */
   --moduix-popup-motion-ending-translate-y: initial; /* component default */
 
-  /* AspectRatio */
-  --moduix-aspect-ratio-radius: initial; /* var(--moduix-radius-md) */
-
   /* Accordion */
   --moduix-accordion-color: initial; /* var(--moduix-color-foreground) */
   --moduix-accordion-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
@@ -230,7 +227,6 @@
   --moduix-badge-outline-border-color-hover: initial; /* var(--moduix-color-primary) */
   --moduix-badge-outline-color: initial; /* var(--moduix-color-foreground) */
   --moduix-badge-outline-color-hover: initial; /* var(--moduix-color-primary) */
-  --moduix-badge-opacity-disabled: initial; /* var(--moduix-opacity-disabled) */
   --moduix-badge-opacity-hover: initial; /* var(--moduix-opacity-hover) */
   --moduix-badge-padding-x: initial; /* var(--moduix-spacing-2-5) */
   --moduix-badge-padding-y: initial; /* 0 */

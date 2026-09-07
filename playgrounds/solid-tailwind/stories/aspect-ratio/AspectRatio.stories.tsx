@@ -17,8 +17,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const imageUrl = 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80';
-const containerClass = 'w-[480px]';
-const imageClass = 'object-cover';
+const containerClass = 'w-[480px] overflow-hidden rounded-md';
+const imageClass = 'block size-full object-cover';
+const iframeClass = 'block size-full border-0';
 const fillImageClass = 'absolute inset-0 size-full object-cover';
 const figureClass = 'm-0';
 const migrationFrameClass = 'bg-muted';
@@ -38,6 +39,7 @@ export const EmbeddedContent: Story = {
       <iframe
         src="https://www.youtube.com/embed/dQw4w9WgXcQ"
         title="Video embed"
+        class={iframeClass}
         allow="autoplay; encrypted-media"
         allowfullscreen
       />

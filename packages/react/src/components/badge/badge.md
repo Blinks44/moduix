@@ -1,220 +1,50 @@
 # Badge
 
-Upstream docs:
+## Upstream reference
 
-- Ark UI: https://ark-ui.com/docs/guides/composition
-- Ark UI styling: https://ark-ui.com/docs/guides/styling
-- Chakra UI: https://chakra-ui.com/docs/components/badge
+Ark UI has no dedicated Badge primitive. Moduix uses the
+[Ark factory](https://ark-ui.com/docs/guides/composition), with visual direction from
+[Chakra Badge](https://chakra-ui.com/docs/components/badge) and
+[shadcn Badge](https://ui.shadcn.com/docs/components/badge).
 
 ## Purpose
 
-`Badge` is a compact presentational label for short metadata such as status, category, version, or
-small counts.
+`Badge` is a compact presentational label for status, category, version, or a small count.
 
-Ark UI does not ship a dedicated `Badge` primitive, so moduix models the component as an Ark-style
-factory wrapper with explicit parts.
+## Public contract
 
-## Upstream model to preserve
+- `Badge` and `Badge.Root` expose the same root part with `default`, `secondary`, `destructive`,
+  `outline`, `ghost`, and `link` variants.
+- `Badge.Label` is an explicit text part for composed or truncatable labels.
+- `Badge.Dot` is an optional decorative part and always renders `aria-hidden="true"`.
+- Every part exposes stable `data-scope`, `data-part`, and `data-slot` hooks and forwards its ref.
+- Direct text remains direct text; the component does not rewrite children or insert an implicit
+  `Badge.Label`.
 
-- Uses the Ark factory composition model instead of a dedicated Ark primitive.
-- Keeps the public surface intentionally small: `Badge` / `Badge.Root`, `Badge.Label`, and
-  `Badge.Dot`.
-- Keeps Ark-style DOM ownership through `asChild` without adding managed state or behavior.
+## Preservation notes
 
-## Current behavior contract
+- Keep Badge presentational: it owns no state, disabled model, or button behavior.
+- Preserve semantic root composition through Ark factory `asChild`.
+- Use `Badge.Label` explicitly when a constrained composed label must ellipsize.
+- Direct child SVG icons are the one normalized child contract: they inherit `currentColor`, use
+  the public icon-size variable, and do not receive pointer events.
 
-- `Badge` is the root shorthand and `Badge.Root` exposes the same root part explicitly.
-- `Badge.Label` is the text slot for explicit compositions and long labels.
-- `Badge.Dot` is the optional decorative indicator part.
-- `Badge.Root` accepts Ark factory span props plus local `variant`.
-- `Badge.Dot` accepts Ark factory span props and renders `aria-hidden="true"` by default.
-- `Badge` remains presentational. It does not add managed state, disabled state, controlled
-  behavior, or button/link semantics of its own.
-- Semantic links and buttons rendered through `asChild` inherit default cursor, hover, and
-  focus-visible styling from the root class.
-- Badge numbers use tabular figures, and badge text is not user-selectable by default.
+## Styling and accessibility
 
-## Anatomy and exported parts
+Focusable composed hosts receive the root focus treatment. Anchor roots also receive the Badge
+cursor and variant hover treatment. Buttons and custom interactive roles retain their native
+semantics, while their hover, disabled, and action-specific presentation remains consumer-owned.
 
-```text
-Badge / Badge.Root
-├─ Badge.Label (optional; direct text is wrapped automatically)
-├─ Badge.Dot (optional)
-└─ svg icon (optional)
-```
+CSS Modules expose the component's `--moduix-badge-*` variables listed in
+`packages/foundation/src/styles/variables-moduix.css`. Tailwind variants use utilities and consumer
+class overrides instead.
 
-Every exported part accepts `className` and receives stable hooks:
+## Differences from upstream
 
-| Part                   | `data-slot`   | Notes                                                    |
-| ---------------------- | ------------- | -------------------------------------------------------- |
-| `Badge` / `Badge.Root` | `badge-root`  | Root label with variant colors, spacing, and truncation. |
-| `Badge.Label`          | `badge-label` | Explicit truncating text slot.                           |
-| `Badge.Dot`            | `badge-dot`   | Optional decorative dot that inherits `currentColor`.    |
-
-Direct child `svg` icons are styled by the root and inherit `currentColor`.
-
-## Composition
-
-```tsx
-import { Badge } from '@moduix/react/badge';
-
-export function BadgeDemo() {
-  return <Badge>New</Badge>;
-}
-```
-
-Use `Badge.Dot` or a direct child icon next to the label when a badge needs an extra visual cue:
-
-```tsx
-<Badge variant="default">
-  <Badge.Dot />
-  <Badge.Label>Online</Badge.Label>
-</Badge>
-```
-
-## Upstream feature coverage
-
-- `Composition`: preserved through Ark factory `asChild` behavior on the exported parts.
-- `Refs`: forwarded to the rendered root, label, and dot DOM elements.
-- `Styling`: follows Ark `data-scope` / `data-part` targeting and accepts `className`.
-- `Chakra Badge examples`: variants and inline icons are covered; sizing remains a CSS-variable
-  contract instead of a local `size` prop.
-- `shadcn Link`: covered by `variant="link"` together with Ark factory `asChild`.
-- `Dedicated primitive features`: not applicable because Ark has no dedicated `Badge` component
-  page for this wrapper to mirror.
-- `Stateful or interactive patterns`: intentionally unsupported; `Badge` stays presentational.
-
-## Accessibility and state
-
-- `Badge.Root` writes:
-  - `data-scope="badge"`
-  - `data-part="root"`
-  - `data-slot="badge-root"`
-  - `data-variant="<variant>"`
-- `Badge.Label` writes:
-  - `data-scope="badge"`
-  - `data-part="label"`
-  - `data-slot="badge-label"`
-- `Badge.Dot` writes:
-  - `data-scope="badge"`
-  - `data-part="dot"`
-  - `data-slot="badge-dot"`
-- `Badge.Dot` is hidden from assistive technology by default with `aria-hidden="true"`.
-- `Badge asChild` and `Badge.Root asChild` require one semantic child. Interactive children keep
-  their native keyboard and accessibility behavior while inheriting the badge root's default
-  cursor, hover, and focus-visible styling.
-- Disabled buttons and elements with `aria-disabled="true"` keep their semantics, suppress hover
-  styling, and use the public disabled-opacity hook.
-- Long labels stay on one line and are clipped with ellipsis. Add `title` to expose the full value
-  on pointer hover; on touch-first interfaces, prefer a label that fits the available space.
-- Direct text children are wrapped in `Badge.Label` automatically. Use `Badge.Label` explicitly
-  when composing text with a dot, icon, or other element; other elements keep their own layout and
-  truncation behavior.
-
-## Defaults and styling
-
-| Entry     | Default   | Values / Notes                                                    |
-| --------- | --------- | ----------------------------------------------------------------- |
-| `variant` | `default` | `default`, `secondary`, `destructive`, `outline`, `ghost`, `link` |
-| `asChild` | `false`   | Ark factory composition on `Badge.Root`                           |
-
-Public CSS variables:
-
-| Variable                                    | Default                                                         | Applies to                |
-| ------------------------------------------- | --------------------------------------------------------------- | ------------------------- |
-| `--moduix-badge-bg`                         | variant-specific background                                     | `Badge.Root`              |
-| `--moduix-badge-border-color`               | `transparent`; `var(--moduix-color-border)` for `outline`       | `Badge.Root`              |
-| `--moduix-badge-border-width`               | `var(--moduix-border-width-sm)`                                 | `Badge.Root`              |
-| `--moduix-badge-color`                      | variant-specific foreground                                     | `Badge.Root`              |
-| `--moduix-badge-default-bg`                 | `var(--moduix-color-primary)`                                   | default root              |
-| `--moduix-badge-default-border-color`       | `transparent`                                                   | default root              |
-| `--moduix-badge-default-color`              | `var(--moduix-color-primary-foreground)`                        | default root              |
-| `--moduix-badge-destructive-bg`             | `var(--moduix-color-destructive)`                               | destructive root          |
-| `--moduix-badge-destructive-border-color`   | `transparent`                                                   | destructive root          |
-| `--moduix-badge-destructive-color`          | `var(--moduix-color-destructive-foreground)`                    | destructive root          |
-| `--moduix-badge-dot-size`                   | `var(--moduix-spacing-1-5)`                                     | `Badge.Dot`               |
-| `--moduix-badge-font-size`                  | `var(--moduix-text-xs)`                                         | `Badge.Root`              |
-| `--moduix-badge-font-weight`                | `var(--moduix-weight-medium)`                                   | `Badge.Root`              |
-| `--moduix-badge-focus-ring-color`           | `var(--moduix-color-ring)`                                      | interactive `Badge.Root`  |
-| `--moduix-badge-focus-ring-offset`          | `var(--moduix-focus-ring-offset)`                               | interactive `Badge.Root`  |
-| `--moduix-badge-focus-ring-width`           | `var(--moduix-focus-ring-width, var(--moduix-border-width-md))` | interactive `Badge.Root`  |
-| `--moduix-badge-gap`                        | `var(--moduix-spacing-1-5)`                                     | `Badge.Root`              |
-| `--moduix-badge-ghost-bg`                   | `transparent`                                                   | ghost root                |
-| `--moduix-badge-ghost-border-color`         | `transparent`                                                   | ghost root                |
-| `--moduix-badge-ghost-border-color-hover`   | `var(--moduix-color-primary)`                                   | interactive ghost root    |
-| `--moduix-badge-ghost-color`                | `var(--moduix-color-foreground)`                                | ghost root                |
-| `--moduix-badge-ghost-color-hover`          | `var(--moduix-color-primary)`                                   | interactive ghost root    |
-| `--moduix-badge-height`                     | `1.25rem`                                                       | `Badge.Root`              |
-| `--moduix-badge-icon-size`                  | `var(--moduix-spacing-3)`                                       | child `svg`               |
-| `--moduix-badge-line-height`                | `var(--moduix-line-height-text-xs)`                             | `Badge.Root`              |
-| `--moduix-badge-link-bg`                    | `transparent`                                                   | link root                 |
-| `--moduix-badge-link-border-color`          | `transparent`                                                   | link root                 |
-| `--moduix-badge-link-color`                 | `var(--moduix-color-primary)`                                   | link root                 |
-| `--moduix-badge-link-underline-offset`      | `0.15em`                                                        | link `Badge.Root`         |
-| `--moduix-badge-outline-bg`                 | `transparent`                                                   | outline root              |
-| `--moduix-badge-outline-border-color`       | `var(--moduix-color-border)`                                    | outline root              |
-| `--moduix-badge-outline-border-color-hover` | `var(--moduix-color-primary)`                                   | interactive outline root  |
-| `--moduix-badge-outline-color`              | `var(--moduix-color-foreground)`                                | outline root              |
-| `--moduix-badge-outline-color-hover`        | `var(--moduix-color-primary)`                                   | interactive outline root  |
-| `--moduix-badge-opacity-disabled`           | `var(--moduix-opacity-disabled)`                                | disabled interactive root |
-| `--moduix-badge-opacity-hover`              | `var(--moduix-opacity-hover)`                                   | filled interactive root   |
-| `--moduix-badge-padding-x`                  | `var(--moduix-spacing-2-5)`                                     | `Badge.Root`              |
-| `--moduix-badge-padding-y`                  | `0`                                                             | `Badge.Root`              |
-| `--moduix-badge-radius`                     | `var(--moduix-radius-full)`                                     | `Badge.Root`              |
-| `--moduix-badge-secondary-bg`               | `var(--moduix-color-secondary)`                                 | secondary root            |
-| `--moduix-badge-secondary-border-color`     | `transparent`                                                   | secondary root            |
-| `--moduix-badge-secondary-color`            | `var(--moduix-color-secondary-foreground)`                      | secondary root            |
-| `--moduix-badge-transition`                 | `var(--moduix-transition-default)`                              | `Badge.Root`              |
-
-The shared `--moduix-badge-bg`, `--moduix-badge-border-color`, and `--moduix-badge-color`
-overrides take precedence for an individual badge. Theme defaults can target a variant with
-`--moduix-badge-<variant>-bg`, `--moduix-badge-<variant>-border-color`, and
-`--moduix-badge-<variant>-color`. `outline` and `ghost` also provide matching `*-hover`
-border and color variables.
-
-## Intentional sugar and differences from upstream
-
-- Ark UI has no dedicated `Badge` primitive here; moduix uses Ark factory parts.
-- moduix adds the local `variant` styling API and ships pre-styled defaults, including a `link`
-  tone for shadcn-style inline actions.
-- moduix adds the decorative `Badge.Dot` part; Chakra's upstream recipe is single-part.
-- moduix exposes sizing through CSS variables rather than Chakra's `size` recipe prop.
-- moduix keeps the part surface narrow and does not add interactive or stateful behavior.
-
-## Agent notes
-
-- Keep `Badge` presentational.
-- Keep the base mental model presentational: `Badge` does not own interaction. When `asChild` is
-  appropriate, use one semantic interactive child and preserve the default focus treatment on the
-  rendered host.
-- Keep direct child icon sizing tied to `--moduix-badge-icon-size` and `currentColor`.
+Moduix adds `Badge.Label`, `Badge.Dot`, stable Ark-style hooks, and a `link` visual variant while
+keeping the root composition explicit.
 
 ## Local changelog
 
-- 2026-08-09: Exposed `Badge.Label`, protected stable data and accessibility hooks from rest-prop
-  overrides, and aligned interactive disabled, hover, transition, and constrained sizing behavior.
-- 2026-08-06: Added variant-specific color variables so themes can retune Badge defaults without
-  changing one-off overrides.
-- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-21: Made the interactive `asChild` focus ring fully theme-overridable without changing
-  its visual default.
-
-- 2026-07-26: Kept link badges inside the shared truncation contract and clarified that `title`
-  only exposes the complete value on pointer hover.
-
-- 2026-07-26: Wrapped direct text children internally so constrained badges render an ellipsis
-  instead of clipping text in the flex layout.
-
-- 2026-07-07: Added the `link` variant and default interactive host styling for `asChild` links and
-  buttons, then aligned docs and stories around the new recommended path.
-- 2026-07-09: Clarified the presentational `asChild` contract, promoted `<Badge>` as the default
-  docs path, and added public custom-styling guidance.
-- 2026-07-02: Removed redundant public Badge prop and variant type aliases while preserving the
-  callable root, `Badge.Dot`, Ark factory composition, refs, variants, and styling contract.
-- 2026-06-24: Reconfirmed the local Ark factory contract, aligned docs around the `Badge` root
-  shorthand, simplified variant CSS selectors, and fixed the registry dependency on Ark UI.
-- 2026-06-18: Completed the Ark factory audit, documented Chakra parity and intentional
-  differences, added `asChild` guidance, and aligned numeric/presentational styling.
-- 2026-06-17: Migrated the component to an Ark-style wrapper built with `@ark-ui/react/factory`.
-- 2026-06-17: Replaced the legacy flat `BadgeDot` export with `Badge.Dot`.
-- 2026-06-17: Added Ark-style `asChild`, `data-scope`, and `data-part` hooks on exported parts.
+- 2026-09-07: Removed implicit text wrapping and button-specific hover/disabled styling; labels are
+  now explicit and interactive presentation is limited to focus plus anchor hover behavior.

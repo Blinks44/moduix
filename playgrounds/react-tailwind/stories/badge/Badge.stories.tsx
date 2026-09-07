@@ -104,7 +104,9 @@ export const Link: Story = {
 export const DisabledButton: Story = {
   render: () => (
     <Badge.Root asChild variant="secondary">
-      <button disabled>Archived</button>
+      <button className="cursor-not-allowed opacity-50" disabled>
+        Archived
+      </button>
     </Badge.Root>
   ),
 };

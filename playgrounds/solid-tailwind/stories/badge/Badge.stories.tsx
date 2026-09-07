@@ -104,7 +104,7 @@ export const DisabledButton: Story = {
     <Badge.Root
       variant="secondary"
       asChild={(props) => (
-        <button {...props()} disabled>
+        <button {...props({ class: 'cursor-not-allowed opacity-50' })} disabled>
           Archived
         </button>
       )}

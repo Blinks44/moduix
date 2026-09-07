@@ -60,15 +60,12 @@ test('keeps the ratio contract while allowing style.aspectRatio to override the 
 
 test('lets consumer Tailwind classes override conflicting defaults', () => {
   const { getByTestId } = render(
-    <AspectRatio ratio={16 / 9} data-testid="frame" className="w-1/2 rounded-none" />,
+    <AspectRatio ratio={16 / 9} data-testid="frame" className="static w-1/2" />,
   );
   const frame = getByTestId('frame');
 
-  expect(frame).toHaveClass('w-1/2', 'rounded-none');
-  expect(frame).not.toHaveClass('w-full');
-  expect(frame).not.toHaveClass(
-    'rounded-[var(--moduix-aspect-ratio-radius,var(--moduix-radius-md))]',
-  );
+  expect(frame).toHaveClass('static', 'w-1/2');
+  expect(frame).not.toHaveClass('relative', 'w-full');
 });
 
 test('rejects invalid ratios', () => {

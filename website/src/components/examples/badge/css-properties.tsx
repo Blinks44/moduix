@@ -51,7 +51,7 @@ export const badgeCssProperties: CssPropertyInput[] = [
   [
     '--moduix-badge-ghost-border-color-hover',
     'var(--moduix-color-primary)',
-    'Controls ghost badge border color on hover.',
+    'Controls ghost anchor badge border color on hover.',
   ],
   [
     '--moduix-badge-ghost-color',
@@ -61,7 +61,7 @@ export const badgeCssProperties: CssPropertyInput[] = [
   [
     '--moduix-badge-ghost-color-hover',
     'var(--moduix-color-primary)',
-    'Controls ghost badge text and icon color on hover.',
+    'Controls ghost anchor badge text and icon color on hover.',
   ],
   ['--moduix-badge-height', '1.25rem', 'Controls badge minimum height.'],
   ['--moduix-badge-icon-size', 'var(--moduix-spacing-3)', 'Controls direct child SVG icon size.'],
@@ -87,7 +87,7 @@ export const badgeCssProperties: CssPropertyInput[] = [
   [
     '--moduix-badge-outline-border-color-hover',
     'var(--moduix-color-primary)',
-    'Controls outline badge border color on hover.',
+    'Controls outline anchor badge border color on hover.',
   ],
   [
     '--moduix-badge-outline-color',
@@ -97,17 +97,12 @@ export const badgeCssProperties: CssPropertyInput[] = [
   [
     '--moduix-badge-outline-color-hover',
     'var(--moduix-color-primary)',
-    'Controls outline badge text and icon color on hover.',
-  ],
-  [
-    '--moduix-badge-opacity-disabled',
-    'var(--moduix-opacity-disabled)',
-    'Controls disabled interactive badge opacity.',
+    'Controls outline anchor badge text and icon color on hover.',
   ],
   [
     '--moduix-badge-opacity-hover',
     'var(--moduix-opacity-hover)',
-    'Controls filled interactive badge opacity on hover.',
+    'Controls filled anchor badge opacity on hover.',
   ],
   ['--moduix-badge-padding-x', 'var(--moduix-spacing-2-5)', 'Controls horizontal badge padding.'],
   ['--moduix-badge-padding-y', '0', 'Controls vertical badge padding.'],

@@ -13,6 +13,7 @@ export default function AspectRatioEmbedDemo() {
       <iframe
         src={embed.src}
         title={embed.title}
+        class={styles.iframe}
         allow="autoplay; encrypted-media"
         allowfullscreen
       />

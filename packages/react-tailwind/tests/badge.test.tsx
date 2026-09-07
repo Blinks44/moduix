@@ -48,7 +48,7 @@ test('preserves semantic children and refs with asChild', () => {
   expect(link).toHaveAttribute('data-variant', 'link');
 });
 
-test('wraps direct text so long labels can truncate', () => {
+test('renders direct text without inserting an implicit label part', () => {
   const { getByTestId } = render(
     <Badge className="constrained" data-testid="badge">
       Ready for stakeholder review after legal approval
@@ -56,12 +56,8 @@ test('wraps direct text so long labels can truncate', () => {
   );
   const badge = getByTestId('badge');
 
-  expect(badge.firstElementChild?.tagName).toBe('SPAN');
-  expect(badge.firstElementChild).toHaveAttribute('data-part', 'label');
-  expect(badge.firstElementChild).toHaveAttribute('data-slot', 'badge-label');
-  expect(badge.firstElementChild).toHaveTextContent(
-    'Ready for stakeholder review after legal approval',
-  );
+  expect(badge.firstElementChild).toBeNull();
+  expect(badge).toHaveTextContent('Ready for stakeholder review after legal approval');
 });
 
 test('exposes a composable label with a forwarded ref', () => {

@@ -42,10 +42,7 @@ function AspectRatioRoot(props: AspectRatioRootProps) {
       data-scope="aspect-ratio"
       data-part="root"
       data-slot="aspect-ratio-root"
-      class={cn(
-        'relative box-border block aspect-[var(--_aspect-ratio-value)] w-full overflow-hidden rounded-md [&>:where(img,video,iframe,canvas,svg)]:box-border [&>:where(img,video,iframe,canvas,svg)]:block [&>:where(img,video,iframe,canvas,svg)]:h-full [&>:where(img,video,iframe,canvas,svg)]:w-full [&>iframe]:border-0',
-        local.class,
-      )}
+      class={cn('relative block aspect-[var(--_aspect-ratio-value)] w-full', local.class)}
       style={aspectRatioStyle()}
     />
   );

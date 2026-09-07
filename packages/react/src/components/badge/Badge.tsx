@@ -1,7 +1,7 @@
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
-import { Children, forwardRef, type ComponentRef } from 'react';
+import { forwardRef, type ComponentRef } from 'react';
 import styles from './Badge.module.css';
 
 type BadgeRootProps = HTMLArkProps<'span'> & {
@@ -24,7 +24,7 @@ const BadgeLabel = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'
 );
 
 const BadgeRoot = forwardRef<ComponentRef<typeof ark.span>, BadgeRootProps>(function BadgeRoot(
-  { asChild, children, className, variant = 'default', ...props },
+  { className, variant = 'default', ...props },
   ref,
 ) {
   return (
@@ -36,18 +36,7 @@ const BadgeRoot = forwardRef<ComponentRef<typeof ark.span>, BadgeRootProps>(func
       data-slot="badge-root"
       data-variant={variant}
       className={clsx(styles.root, className)}
-      asChild={asChild}
-    >
-      {asChild
-        ? children
-        : Children.map(children, (child) =>
-            typeof child === 'string' || typeof child === 'number' ? (
-              <BadgeLabel>{child}</BadgeLabel>
-            ) : (
-              child
-            ),
-          )}
-    </ark.span>
+    />
   );
 });
 

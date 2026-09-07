@@ -99,7 +99,7 @@ export const DisabledButton: Story = {
     <Badge.Root
       variant="secondary"
       asChild={(props) => (
-        <button {...props()} disabled>
+        <button {...props({ class: styles.disabledButton })} disabled>
           Archived
         </button>
       )}

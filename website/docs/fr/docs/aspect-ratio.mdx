@@ -4,7 +4,6 @@ component: aspect-ratio
 description: Place les médias et les contenus intégrés dans un cadre adaptatif dont le rapport hauteur/largeur reste fixe.
 ---
 
-import * as AspectRatioDocs from '@/components/examples/aspect-ratio/css-properties';
 import AspectRatioAdvancedCustomization from '@/components/examples/aspect-ratio/advanced-customization.tsx';
 import AspectRatioBasic from '@/components/examples/aspect-ratio/basic.tsx';
 import AspectRatioCardGrid from '@/components/examples/aspect-ratio/card-grid.tsx';
@@ -24,9 +23,9 @@ Utilisez `AspectRatio` comme racine du cadre adaptatif. Par défaut, il occupe t
 son conteneur parent. Ajoutez `width` ou `max-width` à la racine si le cadre doit avoir une autre largeur, puis
 transmettez à `ratio` un nombre fini strictement positif.
 
-Les enfants directs `img`, `video`, `iframe`, `canvas` et `svg` remplissent automatiquement le cadre. Les autres
-enfants ne sont pas dimensionnés automatiquement : appliquez-leur les styles nécessaires. Définissez `object-fit`
-sur les images et les vidéos pour choisir entre le recadrage et l’affichage complet du contenu dans le cadre.
+`AspectRatio` ne gère que le rapport des dimensions. Dimensionnez et stylisez explicitement ses enfants : appliquez
+par exemple une largeur et une hauteur complètes ainsi que `object-fit` à une image. Ajoutez le masquage des
+débordements et le rayon à la racine uniquement lorsque la composition en a besoin.
 
 <ExampleFrame variant="component">
   <AspectRatioBasic />
@@ -65,30 +64,26 @@ AspectRatio / AspectRatio.Root
 
 | Partie                             | Rôle                                      |
 | ---------------------------------- | ----------------------------------------- |
-| `AspectRatio` / `AspectRatio.Root` | Cadre adaptatif qui masque les débordements. |
+| `AspectRatio` / `AspectRatio.Root` | Conteneur adaptatif avec un rapport fixe. |
 
 ## Composition
 
 ### Composition recommandée
 
 Dans la plupart des cas, utilisez `AspectRatio` pour vos cadres média. Placez sur la racine les classes qui
-définissent la largeur, le rayon et la mise en page. `AspectRatio.Root` expose la même racine sous un espace de
+définissent la largeur et la mise en page. `AspectRatio.Root` expose la même racine sous un espace de
 noms, pour rester cohérent avec le reste de la bibliothèque. La racine accepte aussi les propriétés standard d’un
 `div` prises en charge par la fabrique Ark.
 
 - `ratio` est obligatoire et doit être un nombre fini strictement positif. Une valeur invalide déclenche une `RangeError`.
 - `asChild` utilise la composition de la fabrique Ark et nécessite exactement un élément React.
-- Les enfants directs `img`, `video`, `iframe`, `canvas` et `svg` remplissent automatiquement le cadre. Définissez
-  `object-fit` sur les images et les vidéos pour choisir entre recadrer le contenu et l’afficher en entier.
-- Les autres enfants ne reçoivent pas de taille automatiquement. Ajoutez les styles dont ils ont besoin dans le cadre.
+- Tous les enfants conservent leurs propres styles. Définissez leur taille et `object-fit` explicitement.
 - `className` applique directement les styles et les dimensions à la racine.
-- `--moduix-aspect-ratio-radius` définit le rayon par défaut des coins du cadre.
 
 ### Quand utiliser un conteneur extérieur
 
-Ajoutez un conteneur extérieur si l’ombre, l’anneau de focus ou des éléments décoratifs doivent dépasser du cadre.
-Laissez le masquage des débordements sur la racine. Pour modifier le rapport selon la largeur de l’écran,
-redéfinissez `aspect-ratio` dans votre CSS.
+Ajoutez `overflow: hidden` à la racine lorsque son contenu doit être rogné. Pour modifier le rapport selon la largeur
+de l’écran, redéfinissez `aspect-ratio` dans votre CSS.
 
 ### Propriétés par défaut
 
@@ -99,7 +94,6 @@ redéfinissez `aspect-ratio` dans votre CSS.
 | `style`                       | `undefined`               | Peut remplacer `aspect-ratio` directement     |
 | `asChild`                     | `undefined`               | Composition via la fabrique Ark               |
 | Propriétés standard de `div` | -                         | Transmises à l’élément racine rendu           |
-| `--moduix-aspect-ratio-radius` | `var(--moduix-radius-md)` | Longueur CSS ou valeur de token                |
 
 ### Comportement
 
@@ -110,7 +104,7 @@ redéfinissez `aspect-ratio` dans votre CSS.
 - La `ref` transmise pointe vers la racine rendue, ou vers l’unique enfant lorsque `asChild` est utilisé.
 - `position: relative` est appliqué intentionnellement à la racine. Il permet d’utiliser des enfants positionnés
   en absolu qui remplissent le cadre, par exemple `Image` de Next.js avec `fill`.
-- Les enfants directs `iframe` remplissent le cadre sans la bordure par défaut du navigateur.
+- Les enfants, y compris les `iframe`, restent entièrement stylés par l’application.
 - Les anciennes valeurs prédéfinies (`square`, `video`, `portrait`, `photo`) ont été supprimées lors de la migration
   vers Ark. Utilisez des valeurs numériques telles que `1`, `16 / 9`, `9 / 16` et `4 / 3`.
 
@@ -241,17 +235,11 @@ propriétés du composant à son unique enfant.
 
 ## Styles
 
-### Propriétés CSS
-
-<CssPropertiesSection properties={AspectRatioDocs.aspectRatioCssProperties} />
-
 ### Sélecteurs utiles pour le style
 
 - `data-scope="aspect-ratio"` et `data-part="root"` sont disponibles sur la racine et servent de sélecteurs compatibles avec Ark.
 - `data-slot="aspect-ratio-root"` est le sélecteur stable de la racine moduix.
 - Placez les styles de largeur, de largeur maximale et de mise en page sur la racine. Si le rapport doit changer
   selon la largeur de l’écran, redéfinissez `aspect-ratio` dans votre CSS.
-- Les médias directs utilisent `box-sizing: border-box`. Les images et les vidéos conservent leur valeur
-  `object-fit`, afin que vous puissiez choisir entre recadrer le contenu et l’afficher en entier.
-- `overflow: hidden` est volontaire. Si un élément décoratif doit dépasser du cadre, placez-le dans un conteneur
-  extérieur au lieu de désactiver le masquage de la racine.
+- Le composant ne style pas ses enfants. Appliquez directement au média sa taille et son `object-fit`.
+- Ajoutez `overflow: hidden` et un rayon à la racine uniquement lorsque la composition doit rogner son contenu.
