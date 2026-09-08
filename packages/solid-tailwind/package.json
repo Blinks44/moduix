@@ -101,6 +101,12 @@
       "import": "./dist/components/card/index.js",
       "default": "./dist/components/card/index.js"
     },
+    "./checkbox": {
+      "types": "./dist/components/checkbox/index.d.ts",
+      "solid": "./dist/components/checkbox/index.jsx",
+      "import": "./dist/components/checkbox/index.js",
+      "default": "./dist/components/checkbox/index.js"
+    },
     "./carousel": {
       "types": "./dist/components/carousel/index.d.ts",
       "solid": "./dist/components/carousel/index.jsx",
@@ -112,6 +118,12 @@
       "solid": "./dist/components/chart/index.jsx",
       "import": "./dist/components/chart/index.js",
       "default": "./dist/components/chart/index.js"
+    },
+    "./clipboard": {
+      "types": "./dist/components/clipboard/index.d.ts",
+      "solid": "./dist/components/clipboard/index.jsx",
+      "import": "./dist/components/clipboard/index.js",
+      "default": "./dist/components/clipboard/index.js"
     },
     "./menu": {
       "types": "./dist/components/menu/index.d.ts",

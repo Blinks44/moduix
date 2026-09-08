@@ -287,6 +287,54 @@
       ]
     },
     {
+      "name": "checkbox",
+      "type": "registry:item",
+      "title": "Checkbox",
+      "description": "moduix React Tailwind Checkbox component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-react-tailwind/foundation",
+        "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/checkbox/Checkbox.tsx",
+          "target": "@components/ui/checkbox/Checkbox.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/checkbox/index.ts",
+          "target": "@components/ui/checkbox/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "clipboard",
+      "type": "registry:item",
+      "title": "Clipboard",
+      "description": "moduix React Tailwind Clipboard component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-react-tailwind/foundation",
+        "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/clipboard/Clipboard.tsx",
+          "target": "@components/ui/clipboard/Clipboard.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/clipboard/index.ts",
+          "target": "@components/ui/clipboard/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "carousel",
       "type": "registry:item",
       "title": "Carousel",

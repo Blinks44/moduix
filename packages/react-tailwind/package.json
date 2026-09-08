@@ -81,6 +81,10 @@
       "types": "./dist/components/card/index.d.ts",
       "import": "./dist/components/card/index.js"
     },
+    "./checkbox": {
+      "types": "./dist/components/checkbox/index.d.ts",
+      "import": "./dist/components/checkbox/index.js"
+    },
     "./carousel": {
       "types": "./dist/components/carousel/index.d.ts",
       "import": "./dist/components/carousel/index.js"
@@ -88,6 +92,10 @@
     "./chart": {
       "types": "./dist/components/chart/index.d.ts",
       "import": "./dist/components/chart/index.js"
+    },
+    "./clipboard": {
+      "types": "./dist/components/clipboard/index.d.ts",
+      "import": "./dist/components/clipboard/index.js"
     },
     "./menu": {
       "types": "./dist/components/menu/index.d.ts",
