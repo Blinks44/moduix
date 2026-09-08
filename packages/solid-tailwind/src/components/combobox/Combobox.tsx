@@ -144,7 +144,7 @@ function ComboboxClearTrigger(props: ComponentProps<typeof ComboboxPrimitive.Cle
   ]);
   const resolvedChildren = children(() => local.children);
   const triggerClass = cn(
-    'absolute end-[2.125rem] top-1/2 size-control-xs -translate-y-1/2 transition-[background-color,color,opacity] duration-200 ease-in-out focus-visible:outline-1 focus-visible:outline-offset-1 motion-reduce:transition-none motion-safe:[&:active:not([data-disabled])]:!-translate-y-1/2 motion-safe:[&:active:not([data-disabled])]:!scale-100 [&>svg]:size-4',
+    'absolute inset-y-0 end-[2.125rem] my-auto size-control-xs transition-[background-color,color,opacity,translate,scale] duration-200 ease-in-out focus-visible:outline-1 focus-visible:outline-offset-1 motion-reduce:transition-none [&>svg]:size-4',
     local.class,
   );
 

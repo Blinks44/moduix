@@ -195,10 +195,11 @@ test('lets consumer utilities replace defaults and keeps visual parts visible', 
   expect(input).not.toHaveClass('h-control-md');
   expect(clear).toHaveClass(
     'size-5',
-    'motion-safe:[&:active:not([data-disabled])]:!-translate-y-1/2',
-    'motion-safe:[&:active:not([data-disabled])]:!scale-100',
+    'inset-y-0',
+    'my-auto',
+    'transition-[background-color,color,opacity,translate,scale]',
   );
-  expect(clear).not.toHaveClass('size-control-xs');
+  expect(clear).not.toHaveClass('size-control-xs', 'top-1/2', '-translate-y-1/2');
   expect(trigger).toHaveClass('size-6');
   expect(trigger).not.toHaveClass('size-control-xs');
   expect(content).toHaveClass('p-0');
