@@ -23,6 +23,24 @@ import CheckboxSelectAll from '@/components/examples/checkbox/select-all.tsx';
 import CheckboxSizes from '@/components/examples/checkbox/sizes.tsx';
 import CheckboxWithField from '@/components/examples/checkbox/with-field.tsx';
 import CheckboxWithForm from '@/components/examples/checkbox/with-form.tsx';
+import checkboxSolidBasic from '../../../snippets/checkbox/solid/basic.tsx?raw';
+import checkboxSolidControlled from '../../../snippets/checkbox/solid/controlled.tsx?raw';
+import checkboxSolidControlledGroup from '../../../snippets/checkbox/solid/controlled-group.tsx?raw';
+import checkboxSolidCustomIndicator from '../../../snippets/checkbox/solid/custom-indicator.tsx?raw';
+import checkboxSolidDefaultChecked from '../../../snippets/checkbox/solid/default-checked.tsx?raw';
+import checkboxSolidDisabled from '../../../snippets/checkbox/solid/disabled.tsx?raw';
+import checkboxSolidGroup from '../../../snippets/checkbox/solid/group.tsx?raw';
+import checkboxSolidGroupWithFieldset from '../../../snippets/checkbox/solid/group-with-fieldset.tsx?raw';
+import checkboxSolidGroupWithForm from '../../../snippets/checkbox/solid/group-with-form.tsx?raw';
+import checkboxSolidIndeterminate from '../../../snippets/checkbox/solid/indeterminate.tsx?raw';
+import checkboxSolidInvalidGroup from '../../../snippets/checkbox/solid/invalid-group.tsx?raw';
+import checkboxSolidMaxSelected from '../../../snippets/checkbox/solid/max-selected.tsx?raw';
+import checkboxSolidReadOnly from '../../../snippets/checkbox/solid/read-only.tsx?raw';
+import checkboxSolidRootProvider from '../../../snippets/checkbox/solid/root-provider.tsx?raw';
+import checkboxSolidSelectAll from '../../../snippets/checkbox/solid/select-all.tsx?raw';
+import checkboxSolidSizes from '../../../snippets/checkbox/solid/sizes.tsx?raw';
+import checkboxSolidWithField from '../../../snippets/checkbox/solid/with-field.tsx?raw';
+import checkboxSolidWithForm from '../../../snippets/checkbox/solid/with-form.tsx?raw';
 
 Use `Checkbox` when people need to select one or more independent options in a form, settings panel,
 or filter list. Use `RadioGroup` when only one option can be selected. Use `Switch` when a setting
@@ -34,9 +52,13 @@ should take effect immediately.
 
 ## Basic
 
-Compose a checkbox from Ark's parts. In most cases, leave `Checkbox.Control` empty to use moduix's
-built-in checked and indeterminate icons. Add `Checkbox.Label` for the visible text and
-`Checkbox.HiddenInput` for native interaction and form behavior.
+Checkbox ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered
+preview on this page uses the React CSS Modules package; the framework tabs show native source for
+the same public contract.
+
+Compose a checkbox from Ark's parts. Leave `Checkbox.Control` empty to use moduix's built-in checked
+and indeterminate icons. Add `Checkbox.Label` for the visible text and `Checkbox.HiddenInput` for
+native interaction and form behavior.
 
 <ExampleFrame variant="component">
   <CheckboxBasic />
@@ -44,25 +66,58 @@ built-in checked and indeterminate icons. Add `Checkbox.Label` for the visible t
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidBasic} />
+
     </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="checkbox" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/checkbox' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/checkbox' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/checkbox' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/checkbox' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
 ```text
-Checkbox.Root
+Checkbox / Checkbox.Root
 ├─ Checkbox.Control
 │  ├─ Checkbox.Indicator
 │  └─ Checkbox.Indicator[indeterminate] (optional)
@@ -76,79 +131,32 @@ Checkbox.Group
 └─ Checkbox.Root[value]
    ├─ Checkbox.Control
    ├─ Checkbox.Label
-   └─ the native form input
+   └─ Checkbox.HiddenInput
 ```
 
-| Part                         | Role                                                                                     |
-| ---------------------------- | ---------------------------------------------------------------------------------------- |
-| `Checkbox` / `Checkbox.Root` | Holds the state for one checkbox and renders its wrapping label.                         |
-| `Checkbox.HiddenInput` | Native Ark form control; compose explicitly as described below. |
-| `Checkbox.RootProvider`      | Connects the parts to Ark state created outside the rendered tree.                        |
-| `Checkbox.Control`           | The visible checkbox. When empty, it renders the built-in state icons.                     |
-| `Checkbox.Indicator`         | Optional slot for a custom icon. Pass `indeterminate` for that state.                      |
-| `Checkbox.Label`             | The visible label for the checkbox.                                                        |
-| `Checkbox.Group`             | Manages the selected values for several checkboxes.                                        |
+| Part                         | Role                                                                                  |
+| ---------------------------- | ------------------------------------------------------------------------------------- |
+| `Checkbox` / `Checkbox.Root` | Holds the state for one checkbox and renders its wrapping label.                      |
+| `Checkbox.HiddenInput`       | Native Ark form control; compose it explicitly inside the root.                       |
+| `Checkbox.RootProvider`      | Connects the parts to Ark state created outside the rendered tree.                    |
+| `Checkbox.Control`           | The visible checkbox; empty, it renders the built-in state icons.                     |
+| `Checkbox.Indicator`         | Optional slot for a custom icon. Pass `indeterminate` for that state.                 |
+| `Checkbox.Label`             | The visible label for the checkbox.                                                   |
+| `Checkbox.Group`             | Manages the selected values for several checkboxes.                                   |
 
 ## Composition
 
-### Native form control
+`Checkbox.HiddenInput` is Ark's native input. Render it explicitly inside `Checkbox.Root` or
+`Checkbox.RootProvider`, even outside a form: it owns native focus, keyboard interaction,
+accessibility, and form participation. Put `name` and `value` on the root for a standalone field;
+for a group, put `name` on `Checkbox.Group` and `value` on each `Checkbox.Root`.
 
-`Checkbox.HiddenInput` is Ark's native input, exposed directly. Render it explicitly inside
-`Checkbox` or `Checkbox.RootProvider`; the root does not add it. Set `name` on the root
-to include the value in native form submission.
+`Checkbox.Group` owns an array of selected values, and each child is a `Checkbox.Root` with its own
+`value`. Leave `Checkbox.Control` empty for moduix's built-in icons. Add `Checkbox.Indicator` inside
+`Checkbox.Control` only for a custom indicator.
 
-Keep the input even outside forms: it provides native focus, keyboard interaction, and accessibility.
-`required`, `disabled`, and `value` belong on the root.
-For a form outside the component tree, set `form` on the root.
-
-### Recommended composition
-
-Keep the Ark part tree in your markup. `Checkbox.Root` accepts standard Ark root props such as `checked`,
-`defaultChecked`, `onCheckedChange(details)`, `disabled`, `readOnly`, `invalid`, `required`,
-`name`, `value`, `form`, `ids`, and `asChild`. The `checked` and `defaultChecked` props accept
-`true`, `false`, or `"indeterminate"`.
-
-`Checkbox.Group` accepts `value`, `defaultValue`, `onValueChange(value)`, `disabled`, `readOnly`,
-`invalid`, `maxSelectedValues`, and `name`.
-
-`Checkbox.Control` is moduix's convenient default. Leave it empty to use the built-in icons, or pass
-children to provide a custom indicator. `size` is the only moduix-specific prop on `Checkbox.Root`
-and `Checkbox.RootProvider`.
-
-### When to go custom
-
-Use `Checkbox.RootProvider` when checkbox state needs to live outside the rendered tree. moduix
-re-exports `useCheckbox()` for this pattern. Pass the returned state to `Checkbox.RootProvider` via
-its `value` prop. `Checkbox.Context`, `useCheckboxContext()`, `useCheckboxGroup()`, and
-`useCheckboxGroupContext()` expose Ark state for more advanced compositions. For a group whose state
-lives outside the tree, pair `useCheckboxGroup()` with Ark's `Checkbox.GroupProvider` from
-`@ark-ui/react/checkbox`. Render
-`Checkbox.Indicator` explicitly only when you need a custom icon or indicator layout.
-
-### Default props
-
-| Surface                      | Default | Notes                                                   |
-| ---------------------------- | ------- | ------------------------------------------------------- |
-| `Checkbox` / `Checkbox.Root` | -       | No extra behavior is added; Ark defaults apply.         |
-| `size`                       | `md`    | Applied to `Checkbox.Root` and `Checkbox.RootProvider`. |
-
-### Behavioral notes
-
-Both `Checkbox.Root` and `Checkbox.RootProvider` always render a native input, so the checkbox can
-participate in native form validation, reset, and submission. To include a standalone checkbox in
-submitted form data, pass `name` and `value` to `Checkbox.Root`. For a group, pass `name` to
-`Checkbox.Group` and `value` to each `Checkbox.Root`.
-
-If you are migrating from shadcn, `Checkbox.Control` already includes the default icon treatment.
-`Checkbox.Control`, `Checkbox.Label`, and `Checkbox.HiddenInput` remain explicit in the tree.
-
-Ark `Checkbox.Root` and `Checkbox.RootProvider` render a `label`. When you use `asChild`, the direct
-child must also be a semantic `label`; otherwise the checkbox no longer has a valid form label.
-
-When `readOnly` is set, Ark prevents interaction and owns native-input semantics.
-
-A ref passed to a part points to the corresponding Ark DOM node. Press <kbd>Space</kbd> to toggle a
-focused checkbox.
+When state must be created outside the rendered tree, create it with `useCheckbox()` and pass the
+store to `Checkbox.RootProvider`. Do not render `Checkbox` or `Checkbox.Root` for the same store.
 
 ## Examples
 
@@ -162,20 +170,25 @@ Use a controlled checkbox when another part of your UI owns its value.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/controlled.tsx"
 ```
+
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidControlled} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/checkbox/checkbox-controlled.module.css"
 ```
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Controlled Group
@@ -188,15 +201,20 @@ Use a controlled group when selected options drive filters, summaries, or action
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/controlled-group.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidControlledGroup} />
+
     </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Custom Indicator
@@ -210,15 +228,20 @@ accessibility semantics.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/custom-indicator.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidCustomIndicator} />
+
     </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Default Checked
@@ -232,15 +255,20 @@ rendering.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/default-checked.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidDefaultChecked} />
+
     </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Disabled
@@ -253,15 +281,20 @@ Use `disabled` when an option is unavailable and must not be interactive.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/disabled.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidDisabled} />
+
     </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Group
@@ -274,15 +307,20 @@ Use `Checkbox.Group` when several checkboxes share an array of selected values.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/group.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidGroup} />
+
     </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Group With Fieldset
@@ -295,20 +333,25 @@ Use `Fieldset` when the group represents one form field and needs a shared legen
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/group-with-fieldset.tsx"
 ```
+
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidGroupWithFieldset} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/checkbox/checkbox-group-with-fieldset.module.css"
 ```
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Group With Form
@@ -322,20 +365,25 @@ Put `Checkbox.Group` inside a form when you need all selected values in `FormDat
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/group-with-form.tsx"
 ```
+
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidGroupWithForm} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/checkbox/checkbox-group-with-form.module.css"
 ```
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Indeterminate
@@ -349,15 +397,20 @@ Select all control.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/indeterminate.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidIndeterminate} />
+
     </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Invalid Group
@@ -370,15 +423,20 @@ Set `invalid` on the group when validation applies to the selection as a whole.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/invalid-group.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidInvalidGroup} />
+
     </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Max Selected
@@ -391,15 +449,20 @@ Use `maxSelectedValues` to limit how many options can be selected at once.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/max-selected.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidMaxSelected} />
+
     </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Read Only
@@ -412,21 +475,26 @@ Use `readOnly` to show a value without allowing users to change it.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/read-only.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidReadOnly} />
+
     </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Root Provider
 
 Use `Checkbox.RootProvider` when checkbox state needs to live outside the rendered tree. Import
-`useCheckbox` from `@moduix/react/checkbox`.
+`useCheckbox` from the matching framework package.
 
 <ExampleFrame variant="component">
   <CheckboxRootProvider />
@@ -434,20 +502,25 @@ Use `Checkbox.RootProvider` when checkbox state needs to live outside the render
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/root-provider.tsx"
 ```
+
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/checkbox/checkbox-root-provider.module.css"
 ```
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Select All
@@ -461,20 +534,25 @@ option.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/select-all.tsx"
 ```
+
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidSelectAll} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/checkbox/checkbox-select-all.module.css"
 ```
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Sizes
@@ -487,15 +565,20 @@ Use moduix `size` to match the checkbox density to the surrounding form or setti
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/sizes.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidSizes} />
+
     </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### With Field
@@ -508,25 +591,31 @@ Use `Field` when a checkbox needs helper text, validation messages, or shared fi
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/with-field.tsx"
 ```
+
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidWithField} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/checkbox/checkbox-with-field.module.css"
 ```
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
 ### With Form
 
-Pass `name` and `value` to `Checkbox.Root` and render `Checkbox.HiddenInput` to include it in `FormData`.
+Pass `name` and `value` to `Checkbox.Root` and render `Checkbox.HiddenInput` to include it in
+`FormData`.
 
 <ExampleFrame variant="component">
   <CheckboxWithForm />
@@ -534,23 +623,34 @@ Pass `name` and `value` to `Checkbox.Root` and render `Checkbox.HiddenInput` to 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/with-form.tsx"
 ```
+
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidWithForm} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/checkbox/checkbox-with-form.module.css"
 ```
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
 ## Styling
+
+Use `className` in React or `class` in Solid on exported parts for structural styles. For state-based
+styles, prefer Ark data attributes such as `data-state`, `data-disabled`, and `data-invalid`,
+together with moduix `data-slot` selectors. Tailwind variants use native utilities and consumer
+classes; the variables below customize the CSS Modules variants. Data attributes and `data-slot`
+hooks are shared by both styling tracks.
 
 ### CSS Properties
 
