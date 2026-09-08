@@ -1,6 +1,7 @@
 import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import { Clipboard } from '@/components/clipboard/Clipboard';
+import { cn } from '@/lib/moduix/cn';
 
 const meta = {
   title: 'Components/Clipboard',
@@ -176,16 +177,29 @@ export const AsChildBridge: Story = {
       <Clipboard.Label>Native elements through asChild</Clipboard.Label>
       <Clipboard.Control>
         <Clipboard.Input
-          asChild={(props) => (
-            <input
-              {...props()}
-              class="min-h-control-md min-w-0 flex-1 rounded-md border border-border bg-background px-3.5 py-1 text-md text-foreground"
-              readOnly
-            />
-          )}
+          asChild={(props) => {
+            const childProps = props();
+
+            return (
+              <input
+                {...childProps}
+                class={cn(
+                  childProps.class,
+                  'min-h-control-md min-w-0 flex-1 rounded-md border border-border bg-background px-3.5 py-1 text-md text-foreground',
+                )}
+                readOnly
+              />
+            );
+          }}
         />
         <Clipboard.Trigger
-          asChild={(props) => <button {...props()} class={actionClass} type="button" />}
+          asChild={(props) => {
+            const childProps = props();
+
+            return (
+              <button {...childProps} class={cn(childProps.class, actionClass)} type="button" />
+            );
+          }}
         >
           <Clipboard.Indicator />
           <Clipboard.CopyText />

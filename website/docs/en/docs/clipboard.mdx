@@ -1,7 +1,7 @@
 ---
 title: Clipboard
 component: clipboard
-description: Ark-based primitives for displaying, editing, and copying text values.
+description: Build accessible clipboards in React or Solid with package and shadcn installation options.
 ---
 
 import AsChildClipboardDemo from '@/components/examples/clipboard/as-child.tsx';
@@ -14,6 +14,15 @@ import RootProviderClipboardDemo from '@/components/examples/clipboard/root-prov
 import TimeoutClipboardDemo from '@/components/examples/clipboard/timeout.tsx';
 import ValueTextClipboardDemo from '@/components/examples/clipboard/value-text.tsx';
 import * as ClipboardDocs from '@/components/examples/clipboard/css-properties';
+import clipboardSolidAsChild from '../../../snippets/clipboard/solid/as-child.tsx?raw';
+import clipboardSolidBasic from '../../../snippets/clipboard/solid/basic.tsx?raw';
+import clipboardSolidContext from '../../../snippets/clipboard/solid/context.tsx?raw';
+import clipboardSolidCopyStatus from '../../../snippets/clipboard/solid/copy-status.tsx?raw';
+import clipboardSolidCustomCopyText from '../../../snippets/clipboard/solid/custom-copy-text.tsx?raw';
+import clipboardSolidDisabled from '../../../snippets/clipboard/solid/disabled.tsx?raw';
+import clipboardSolidRootProvider from '../../../snippets/clipboard/solid/root-provider.tsx?raw';
+import clipboardSolidTimeout from '../../../snippets/clipboard/solid/timeout.tsx?raw';
+import clipboardSolidValueText from '../../../snippets/clipboard/solid/value-text.tsx?raw';
 
 Use `Clipboard` when users need to copy a text value. The value can be editable, read-only, or
 rendered as ordinary text, depending on which parts you use.
@@ -24,10 +33,14 @@ rendered as ordinary text, depending on which parts you use.
 
 ## Basic
 
-Use `Clipboard` to show a value that users can copy. Add `Clipboard.Input` when users should see
-the value in a field, and set `readOnly` when they should not edit it. `Clipboard.Trigger` is the
-copy button. `Clipboard.Indicator` and `Clipboard.CopyText` provide the default icon and text for
-the idle and copied states.
+Clipboard ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered
+preview on this page uses the React CSS Modules package; the framework tabs show native source for
+the same public contract. See [Quick Start](/docs/quick-start) for package setup and styling-track
+guidance.
+
+Use `Clipboard` as the root. Put one value surface, `Clipboard.Input` or `Clipboard.ValueText`, and
+`Clipboard.Trigger` inside `Clipboard.Control`. `Clipboard.Label` is optional. The trigger can
+contain `Clipboard.Indicator`, `Clipboard.CopyText`, or both.
 
 <ExampleFrame variant="component">
   <ClipboardBasic />
@@ -35,30 +48,59 @@ the idle and copied states.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/clipboard/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/clipboard/component-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={clipboardSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/clipboard/component-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="clipboard" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
-This command also adds the shared moduix files that `Clipboard` needs, including its styles, icons,
-and small utilities.
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/clipboard' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/clipboard' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/clipboard' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/clipboard' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
@@ -81,68 +123,32 @@ Clipboard | Clipboard.RootProvider
 | `Clipboard.Input` | Renders the value in an input. It is editable unless you set `readOnly`. |
 | `Clipboard.Trigger` | Copies the current value when activated. It renders a button by default. |
 | `Clipboard.Indicator` | Shows different content for the idle and copied states. |
-| `Clipboard.CopyText` | A text convenience for the same states. Its defaults are `Copy` and `Copied`. |
+| `Clipboard.CopyText` | Text convenience for the same states. Its defaults are `Copy` and `Copied`. |
 | `Clipboard.ValueText` | Renders the value as text when an input is not the right surface. |
 
 ## Composition
 
-### Recommended composition
+`Clipboard` owns the value and copied state. Keep one value surface (`Input` or `ValueText`) and
+`Trigger` inside `Control`; `Indicator` and `CopyText` are optional and can be combined in the
+trigger. They follow the same copied state, and moduix supplies the default copy/check icons and
+`Copy`/`Copied` labels when their content is omitted.
 
-Use the short `<Clipboard>` root in most cases. Compose it from `Clipboard.Label`,
-`Clipboard.Control`, `Clipboard.Input`, and `Clipboard.Trigger`. Add `Clipboard.Indicator` for an
-icon, `Clipboard.CopyText` for a status label, or both.
+Use `defaultValue` for an uncontrolled value. When another part of the application owns the value
+or needs to react to copying, use `value` with `onValueChange(details)` and
+`onStatusChange(details)`; `timeout` controls how long the copied state remains active.
 
-The Ark root props pass through unchanged. Use `defaultValue` for an uncontrolled value, `value`
-with `onValueChange(details)` for a controlled value, and `onStatusChange(details)` to observe the
-copied state. `timeout` controls how long that state remains active, and `ids` lets you provide
-stable ids for the parts.
-
-`Clipboard.Indicator` and `Clipboard.CopyText` are optional conveniences. When you do not provide
-their content, moduix renders its copy and check icons and the `Copy` and `Copied` labels.
-
-### When to use another composition
-
-Use `Clipboard.ValueText` when the value belongs in running text or a compact text-only layout
-rather than an input field.
-
-Use `Clipboard.useClipboard()` with `Clipboard.RootProvider` when the store must be created or
-shared separately from the rendered component tree. Descendants can read it through
-`Clipboard.Context` or `useClipboardContext()`.
-
-Use `asChild` on `Clipboard.Input` or `Clipboard.Trigger` only when another semantic element should
-own the rendered DOM node. For example, you can provide a moduix `Input` or `Button` while keeping
-the Clipboard parts explicit in the markup.
-
-### Default props
-
-| Prop | Default | Notes |
-| --- | --- | --- |
-| `timeout` | `3000` | Duration of the copied state, in milliseconds. |
-| `Indicator.children` | not set | Uses moduix `CopyIcon` while idle. |
-| `Indicator.copied` | not set | Uses moduix `CheckIcon` while copied. |
-| `CopyText.children` | `Copy` | Text shown before copying. |
-| `CopyText.copied` | `Copied` | Text shown while the copied state is active. |
-
-### Behavioral notes
-
-- `onValueChange(details)` provides the new value as `details.value`.
-- `onStatusChange(details)` reports copied-state changes. Check `details.copied` when you need to
-  update nearby UI, analytics, or a counter.
-- Ark adds `data-copied` to `Root`, `Label`, `Control`, `Input`, and `Trigger` while the copied
-  state is active. moduix does not change the input or trigger appearance by default, so you can
-  use that attribute for your own styles.
-- The root has no `disabled` prop. Pass the native `disabled` prop to both `Clipboard.Input` and
-  `Clipboard.Trigger` when users should not be able to edit or copy the value.
-- `Clipboard` does not limit its width by default. Set `--moduix-clipboard-max-width` when your
-  layout needs a maximum width.
-- If you are migrating from `CopyButton`, use the Clipboard parts instead. `copiedDuration`,
-  `copyLabels`, `onCopy`, and `onCopyError` are not part of this API.
+Use `Clipboard.useClipboard()` with `Clipboard.RootProvider` only when the store must be created or
+shared outside the rendered tree. Descendants can read that state through `Clipboard.Context` or
+`useClipboardContext()`. In Solid, `useClipboard()` returns an accessor, so pass it as
+`value={clipboard}` and read state as `clipboard().copied` or `clipboard().value`. The root has no
+disabled state: pass the native `disabled` prop to both `Clipboard.Input` and `Clipboard.Trigger`.
+Use `asChild` on those parts only when another semantic element should own the rendered DOM node.
 
 ## Examples
 
 ### Context
 
-Read the clipboard state from nested content with `Clipboard.Context`, or use
+Read clipboard state from nested content with `Clipboard.Context`, or use
 `useClipboardContext()` in a child component. The context exposes `copied`, `value`, `setValue`, and
 `copy`.
 
@@ -152,20 +158,31 @@ Read the clipboard state from nested content with `Clipboard.Context`, or use
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/clipboard/context.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/clipboard/component-context.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={clipboardSolidContext} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/clipboard/component-context.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -181,20 +198,31 @@ The example keeps a count based on `details.copied`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/clipboard/copy-status.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/clipboard/component-copy-status.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={clipboardSolidCopyStatus} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/clipboard/component-copy-status.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -210,20 +238,31 @@ match your product.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/clipboard/custom-copy-text.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/clipboard/component-custom-copy-text.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={clipboardSolidCustomCopyText} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/clipboard/component-custom-copy-text.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -239,20 +278,31 @@ copy it.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/clipboard/disabled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/clipboard/component-disabled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={clipboardSolidDisabled} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/clipboard/component-disabled.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -268,20 +318,31 @@ needs to be shared or created separately from the rendered component tree.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/clipboard/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/clipboard/component-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={clipboardSolidRootProvider} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/clipboard/component-root-provider.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -297,20 +358,31 @@ three seconds.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/clipboard/timeout.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/clipboard/component-timeout.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={clipboardSolidTimeout} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/clipboard/component-timeout.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -325,20 +397,31 @@ Use `Clipboard.ValueText` when the value should appear as text instead of inside
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/clipboard/value-text.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/clipboard/component-value-text.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={clipboardSolidValueText} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/clipboard/component-value-text.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -354,25 +437,41 @@ the component's state and behavior.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/clipboard/as-child.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/clipboard/component-advanced-customization.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={clipboardSolidAsChild} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/clipboard/component-advanced-customization.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Styling
+
+Use `className` in React or `class` in Solid on exported parts for structural styles. Tailwind
+variants use native utilities and consumer classes; the CSS Modules variants use the CSS variables
+below. For copied-state styles, use Ark's `data-copied` attribute together with moduix's
+`data-slot` hooks.
 
 ### CSS Properties
 
