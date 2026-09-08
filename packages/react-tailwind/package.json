@@ -85,6 +85,10 @@
       "types": "./dist/components/carousel/index.d.ts",
       "import": "./dist/components/carousel/index.js"
     },
+    "./chart": {
+      "types": "./dist/components/chart/index.d.ts",
+      "import": "./dist/components/chart/index.js"
+    },
     "./menu": {
       "types": "./dist/components/menu/index.d.ts",
       "import": "./dist/components/menu/index.js"
@@ -119,6 +123,7 @@
     "@rslib/core": "^1.0.0",
     "@rstest/adapter-rslib": "^0.11.12",
     "@rstest/core": "^0.11.12",
+    "@tanstack/charts": "^0.16.0",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
@@ -133,8 +138,14 @@
   },
   "peerDependencies": {
     "@ark-ui/react": "^5.37.2",
+    "@tanstack/charts": "^0.16.0",
     "react": "^18 || ^19",
     "react-dom": "^18 || ^19",
     "tailwindcss": "^4"
+  },
+  "peerDependenciesMeta": {
+    "@tanstack/charts": {
+      "optional": true
+    }
   }
 }

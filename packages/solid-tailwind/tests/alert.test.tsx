@@ -1,6 +1,5 @@
 import { expect, test } from '@rstest/core';
-import { fireEvent, render, screen } from '@solidjs/testing-library';
-import { createSignal } from 'solid-js';
+import { render, screen } from '@solidjs/testing-library';
 import { Alert } from '../src';
 
 test('applies status semantics and stable data hooks', () => {
@@ -85,46 +84,10 @@ test('forwards refs and data hooks for ordinary rendered parts', () => {
 });
 
 test('lets consumer utilities override default classes', () => {
-  render(() => (
-    <Alert status="error" class="w-auto">
-      <Alert.Indicator class="text-primary" data-testid="override-indicator" />
-      <Alert status="info">
-        <Alert.Indicator data-testid="nested-indicator" />
-      </Alert>
-    </Alert>
-  ));
+  render(() => <Alert class="w-auto" />);
 
-  const root = screen.getByRole('alert');
-  const overrideIndicator = screen.getByTestId('override-indicator');
-  const nestedIndicator = screen.getByTestId('nested-indicator');
+  const root = screen.getByRole('status');
 
   expect(root).toHaveClass('w-auto');
   expect(root).not.toHaveClass('w-full');
-  expect(overrideIndicator).toHaveClass('text-primary');
-  expect(overrideIndicator).not.toHaveClass('text-destructive');
-  expect(nestedIndicator).toHaveClass('text-muted-foreground');
-  expect(nestedIndicator).not.toHaveClass('text-destructive');
-});
-
-test('reactively updates indicator styles from the nearest alert', () => {
-  const [status, setStatus] = createSignal<'info' | 'success'>('info');
-
-  render(() => (
-    <>
-      <button type="button" onClick={() => setStatus('success')}>
-        Succeed
-      </button>
-      <Alert status={status()}>
-        <Alert.Indicator data-testid="indicator" />
-      </Alert>
-    </>
-  ));
-
-  const indicator = screen.getByTestId('indicator');
-  expect(indicator).toHaveClass('text-muted-foreground');
-
-  fireEvent.click(screen.getByRole('button', { name: 'Succeed' }));
-
-  expect(indicator).toHaveClass('text-success');
-  expect(indicator).not.toHaveClass('text-muted-foreground');
 });

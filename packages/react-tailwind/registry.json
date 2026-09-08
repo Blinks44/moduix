@@ -311,6 +311,26 @@
       ]
     },
     {
+      "name": "chart",
+      "type": "registry:item",
+      "title": "Chart",
+      "description": "moduix React Tailwind Chart component backed by TanStack Charts.",
+      "dependencies": ["@ark-ui/react", "@tanstack/charts", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/chart/Chart.tsx",
+          "target": "@components/ui/chart/Chart.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/chart/index.ts",
+          "target": "@components/ui/chart/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "menu",
       "type": "registry:item",
       "title": "Menu",

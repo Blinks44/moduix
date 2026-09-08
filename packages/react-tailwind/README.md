@@ -1,7 +1,7 @@
 # @moduix/react-tailwind
 
 Tailwind CSS v4 implementation of moduix React components. The current release contains Accordion,
-Alert, Angle Slider, Avatar, and Button while preserving their public Ark-shaped APIs from
+Alert, Angle Slider, Avatar, Button, and Chart while preserving their public Ark-shaped APIs from
 `@moduix/react`.
 
 ## Install
@@ -14,6 +14,12 @@ pnpm add @moduix/react-tailwind @ark-ui/react
 ```
 
 `react`, `react-dom`, `tailwindcss`, and `@ark-ui/react` remain peer dependencies.
+
+The optional `Chart` component also requires `@tanstack/charts`:
+
+```sh
+pnpm add @tanstack/charts
+```
 
 ## Add styles
 

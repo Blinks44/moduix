@@ -107,6 +107,12 @@
       "import": "./dist/components/carousel/index.js",
       "default": "./dist/components/carousel/index.js"
     },
+    "./chart": {
+      "types": "./dist/components/chart/index.d.ts",
+      "solid": "./dist/components/chart/index.jsx",
+      "import": "./dist/components/chart/index.js",
+      "default": "./dist/components/chart/index.js"
+    },
     "./menu": {
       "types": "./dist/components/menu/index.d.ts",
       "solid": "./dist/components/menu/index.jsx",
@@ -147,6 +153,7 @@
     "@rstest/adapter-rslib": "^0.11.12",
     "@rstest/core": "^0.11.12",
     "@solidjs/testing-library": "^0.8.10",
+    "@tanstack/charts": "^0.16.0",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^7.0.1",
     "@types/node": "^26.4.1",
@@ -157,7 +164,13 @@
   },
   "peerDependencies": {
     "@ark-ui/solid": "^5.37.2",
+    "@tanstack/charts": "^0.16.0",
     "solid-js": "^1.9.0",
     "tailwindcss": "^4"
+  },
+  "peerDependenciesMeta": {
+    "@tanstack/charts": {
+      "optional": true
+    }
   }
 }

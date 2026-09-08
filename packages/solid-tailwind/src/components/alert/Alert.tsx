@@ -1,13 +1,13 @@
 import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { cva } from 'class-variance-authority';
-import { createContext, splitProps, useContext } from 'solid-js';
+import { splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
 type AlertStatus = 'info' | 'success' | 'warning' | 'error';
 
 const alertVariants = cva(
-  'box-border flex w-full min-w-0 items-start gap-3 rounded-lg border bg-card p-3 text-card-foreground',
+  'group/alert box-border flex w-full min-w-0 items-start gap-3 rounded-lg border bg-card p-3 text-card-foreground',
   {
     variants: {
       status: {
@@ -26,48 +26,27 @@ const alertVariants = cva(
   },
 );
 
-const alertIndicatorVariants = cva(
-  'mt-0.5 inline-flex size-4 shrink-0 items-center justify-center [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
-  {
-    variants: {
-      status: {
-        info: 'text-muted-foreground',
-        success: 'text-success',
-        warning: 'text-warning',
-        error: 'text-destructive',
-      },
-    },
-  },
-);
-
-const AlertStatusContext = createContext<() => AlertStatus>((): AlertStatus => 'info');
-
 type AlertRootProps = HTMLArkProps<'div'> & {
   status?: AlertStatus;
 };
 
 function AlertRoot(props: AlertRootProps) {
-  const [local, others] = splitProps(props, ['children', 'class', 'role', 'status']);
+  const [local, others] = splitProps(props, ['class', 'role', 'status']);
 
   return (
-    <AlertStatusContext.Provider value={(): AlertStatus => local.status ?? 'info'}>
-      <ark.div
-        role={local.role ?? (local.status === 'error' ? 'alert' : 'status')}
-        data-scope="alert"
-        data-part="root"
-        data-slot="alert-root"
-        data-status={local.status ?? 'info'}
-        class={cn(alertVariants({ status: local.status }), local.class)}
-        {...others}
-      >
-        {local.children}
-      </ark.div>
-    </AlertStatusContext.Provider>
+    <ark.div
+      role={local.role ?? (local.status === 'error' ? 'alert' : 'status')}
+      data-scope="alert"
+      data-part="root"
+      data-slot="alert-root"
+      data-status={local.status ?? 'info'}
+      class={cn(alertVariants({ status: local.status }), local.class)}
+      {...others}
+    />
   );
 }
 
 function AlertIndicator(props: HTMLArkProps<'span'>) {
-  const status = useContext(AlertStatusContext)!;
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -76,7 +55,10 @@ function AlertIndicator(props: HTMLArkProps<'span'>) {
       data-part="indicator"
       data-slot="alert-indicator"
       aria-hidden="true"
-      class={cn(alertIndicatorVariants({ status: status() }), local.class)}
+      class={cn(
+        'mt-0.5 inline-flex size-4 shrink-0 items-center justify-center text-muted-foreground group-data-[status=error]/alert:text-destructive group-data-[status=success]/alert:text-success group-data-[status=warning]/alert:text-warning [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
+        local.class,
+      )}
       {...others}
     />
   );

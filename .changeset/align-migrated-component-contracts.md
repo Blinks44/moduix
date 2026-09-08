@@ -5,4 +5,4 @@
 '@moduix/solid-tailwind': minor
 ---
 
-Add explicit Menu viewport composition, preserve Solid bound button handlers, and isolate nested Tailwind Card and Alert styles.
+Add explicit Menu viewport composition and preserve Solid bound button handlers.

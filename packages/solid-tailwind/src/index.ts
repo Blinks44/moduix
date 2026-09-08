@@ -10,5 +10,6 @@ export * from './components/breadcrumbs';
 export * from './components/button';
 export * from './components/card';
 export * from './components/carousel';
+export * from './components/chart';
 export * from './components/menu';
 export * from './components/spinner';

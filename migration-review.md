@@ -8,8 +8,7 @@
 
 - Solid Button передаёт `onClick` в runtime Solid без ручного вызова, поэтому поддерживает как функцию, так и bound tuple handler. Disabled/loading guard остаётся на capture-фазе.
 - Во всех четырёх Menu добавлен явный `Menu.Viewport`. `Menu.Content` больше не анализирует и не переставляет потомков, поэтому структура одинакова при client render и SSR. Все внутренние usages, stories, website examples и registry artifacts обновлены.
-- React и Solid Tailwind Card получают размер ближайшего root через framework-native context и формируют конкретные cva-классы частей. Вложенные Card изолированы, а обычные consumer utilities снова заменяют defaults через `cn`.
-- React и Solid Tailwind Alert получают status ближайшего root через framework-native context. Вложенные Alert изолированы, а consumer-класс Indicator имеет ожидаемый приоритет.
+- Card и Alert Tailwind намеренно оставлены на простой shadcn-подобной модели `group/*`; добавленный context откатан как избыточный для текущего API. Ограничение повторно вложенных экземпляров с одним именем группы принято как trade-off в пользу простоты.
 
 ## Замечания
 
@@ -63,7 +62,7 @@ CSS Modules устанавливают значения на каждом root �
 | Компонент    | Частей | Результат и оценка композиции                                                                                                             |
 | ------------ | -----: | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | accordion    |      9 | Конкретных ошибок не обнаружено. Нативные Ark accessors и children; ItemBody отделяет внутренний padding от измеряемого animated content. |
-| alert        |      6 | Исправлено: status ограничен ближайшим Tailwind Alert через framework-native context.                                                     |
+| alert        |      6 | Context откатили: Tailwind сохраняет shadcn-подобный `group/alert`; вложенные одноимённые группы остаются известным ограничением.         |
 | angle-slider |     12 | Конкретных ошибок не обнаружено. Нативный For, Ark HiddenInput, Dial и Marks — небольшие удобные композиции.                              |
 | aspect-ratio |      1 | Конкретных ошибок не обнаружено. Проверка ratio и reactive style сохранены; Solid поддерживает строковый style.                           |
 | avatar       |      5 | Конкретных ошибок не обнаружено. Ark state и RootProvider сохранены, размеры выбираются cva.                                              |
@@ -71,7 +70,7 @@ CSS Modules устанавливают значения на каждом root �
 | bleed        |      1 | Конкретных ошибок не обнаружено. Фиксированные варианты переведены в cva без локальных styling variables.                                 |
 | breadcrumbs  |      8 | Конкретных ошибок не обнаружено. Path использует For; nav/ol/li и текущая страница сохранены.                                             |
 | button       |      1 | Исправлено: Solid tuple handler передаётся нативному runtime; варианты и размеры Tailwind остаются в cva.                                 |
-| card         |     10 | Исправлено: размер ограничен ближайшей Card, а consumer utilities заменяют конкретные cva defaults.                                       |
+| card         |     10 | Context откатили: Tailwind сохраняет `group/card`; size API и простой shadcn-подобный styling остаются без дополнительного runtime слоя.  |
 | carousel     |     14 | Конкретных ошибок не обнаружено. Нативные context accessor и For; Ark остаётся владельцем состояния и измерений.                          |
 | menu         |     28 | Исправлено: явный `Viewport` заменил скрытую обёртку и сортировку children во всех четырёх пакетах.                                       |
 | spinner      |      1 | Конкретных ошибок не обнаружено. Семантика status/decorative и native asChild проверяются отдельно.                                       |
@@ -80,7 +79,7 @@ CSS Modules устанавливают значения на каждом root �
 
 ## Валидация и ограничения
 
-- Полные package tests: React — 88 файлов / 488 тестов; Solid — 88 / 597; React Tailwind — 13 / 93; Solid Tailwind — 13 / 107. Все проходят.
+- Полные package tests: React — 88 файлов / 488 тестов; Solid — 88 / 597; React Tailwind — 13 / 93; Solid Tailwind — 13 / 104. Все проходят.
 - Все четыре package build и все четыре Storybook build проходят. `lint:check`, `tsc:check`, `fmt:check` проходят.
 - Во всех 52 комбинациях component/package есть subpath export и registry item. Содержимое файлов и registryDependencies сгенерированных items совпадает с исходными manifests/files.
 - Имена экспортированных Storybook-сценариев совпадают по всем 13 компонентам во всех четырёх playgrounds. Это проверка набора сценариев, не утверждение о попиксельной идентичности.
@@ -109,6 +108,6 @@ Root aliases не создают DOM и сохраняют callable/namespaced A
 3. Preflight-дубли вроде `box-border` встречаются у Accordion, Alert, AngleSlider, Bleed, Carousel/Spinner, `m-0` — у Alert.Title и Bleed. Это кандидаты на удаление после проверки поддержанных asChild hosts; не подтверждённые функциональные дефекты.
 4. Переменные Tailwind: фиксированные `--moduix-<component>-*` цепочки в проверенных компонентах не обнаружены. Menu сохраняет Ark positioning/measurement variables (`--available-*`, `--reference-width`, `--transform-origin`, `--layer-index`, `--z-index`, `--positioner-width`) и arrow coordination. `--color-*`, `--moduix-z-popup`, `--moduix-animation-spin` — shared foundation tokens. `--_aspect-ratio-value` задаётся из динамического ratio и читается aspect utility; это не фиксированный variant token, но его можно отдельно оценить против inline `aspect-ratio`, учитывая utility override contract.
 
-В результате исправления Menu удалены скрытая production-обёртка и эвристика сортировки; вместо них добавлена одна явная публичная часть. Для accordion, angle-slider, aspect-ratio, avatar, badge, bleed, breadcrumbs, carousel и spinner: **No simplification recommended** по результатам этого прохода, кроме перечисленных небольших кандидатов на проверку resets. Не следует сокращать Ark providers, hidden inputs или доступность ради сходства с shadcn.
+В результате исправления Menu удалены скрытая production-обёртка и эвристика сортировки; вместо них добавлена одна явная публичная часть. Card и Alert context не оставлены: для них выбран более простой shadcn-подобный `group/*` trade-off. Для accordion, angle-slider, aspect-ratio, avatar, badge, bleed, breadcrumbs, carousel и spinner: **No simplification recommended** по результатам этого прохода, кроме перечисленных небольших кандидатов на проверку resets. Не следует сокращать Ark providers, hidden inputs или доступность ради сходства с shadcn.
 
-Все подтверждённые замечания этого ревью закрыты. Отдельным будущим решением остаётся возможное упрощение descendant media/interactive policy Card; оно не является найденной ошибкой переноса.
+Замечания Button и Menu закрыты. Для Card и Alert context намеренно откатан после повторного сравнения с shadcn; ограничение nested same-name groups документировано как осознанный trade-off. Отдельным будущим решением остаётся возможное упрощение descendant media/interactive policy Card.

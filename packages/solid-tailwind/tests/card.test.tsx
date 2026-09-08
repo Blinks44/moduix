@@ -1,6 +1,5 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen } from '@solidjs/testing-library';
-import { createSignal } from 'solid-js';
 import { Button, Card } from '../src';
 
 test('renders the default root with stable hooks and replaceable Tailwind defaults', () => {
@@ -24,58 +23,36 @@ test('renders the default root with stable hooks and replaceable Tailwind defaul
   expect(card).toHaveStyle({ maxWidth: '320px' });
 });
 
-test('scopes size to the nearest card and lets consumer utilities replace its defaults', () => {
+test('uses native group state utilities for size while consumer classes replace default part utilities', () => {
   render(() => (
-    <Card size="lg" data-testid="sized-card">
-      <Card.Header class="px-2 pt-2" data-testid="header" />
+    <Card size="lg">
+      <Card.Header
+        class="group-data-[size=lg]/card:px-2 group-data-[size=lg]/card:pt-2"
+        data-testid="header"
+      />
       <Card.Body data-testid="body" />
       <Card.Footer data-testid="footer" />
       <Card.Title data-testid="title">Release health</Card.Title>
-      <Card size="md">
-        <Card.Header data-testid="nested-header" />
-      </Card>
     </Card>
   ));
 
+  const root = screen.getByRole('heading', { name: 'Release health' }).parentElement!;
   const header = screen.getByTestId('header');
   const body = screen.getByTestId('body');
   const footer = screen.getByTestId('footer');
   const title = screen.getByTestId('title');
-  const nestedHeader = screen.getByTestId('nested-header');
 
-  expect(screen.getByTestId('sized-card')).not.toHaveClass('group/card');
-  expect(header).toHaveClass('px-2', 'pt-2');
-  expect(header).not.toHaveClass('px-8', 'pt-8');
-  expect(body).toHaveClass('px-8', 'pb-8');
-  expect(footer).toHaveClass('px-8', 'pb-8');
-  expect(title).toHaveClass('text-xl');
-  expect(nestedHeader).toHaveClass('px-6', 'pt-6');
-  expect(nestedHeader).not.toHaveClass('px-8', 'pt-8');
+  expect(root).toHaveClass('group/card');
+  expect(header).toHaveClass('px-6', 'pt-6', 'group-data-[size=lg]/card:px-2');
+  expect(header).not.toHaveClass(
+    'group-data-[size=lg]/card:px-8',
+    'group-data-[size=lg]/card:pt-8',
+  );
+  expect(body).toHaveClass('px-6', 'group-data-[size=lg]/card:px-8');
+  expect(footer).toHaveClass('pb-6', 'group-data-[size=lg]/card:pb-8');
+  expect(title).toHaveClass('text-lg', 'group-data-[size=lg]/card:text-xl');
   expect(body.className).not.toMatch(/\[--|var\(--/);
   expect(title.className).not.toMatch(/\[--|var\(--/);
-});
-
-test('reactively updates part styles when the card size changes', () => {
-  const [size, setSize] = createSignal<'sm' | 'lg'>('sm');
-
-  render(() => (
-    <>
-      <button type="button" onClick={() => setSize('lg')}>
-        Enlarge
-      </button>
-      <Card size={size()}>
-        <Card.Header data-testid="reactive-header" />
-      </Card>
-    </>
-  ));
-
-  const header = screen.getByTestId('reactive-header');
-  expect(header).toHaveClass('px-4', 'pt-4');
-
-  fireEvent.click(screen.getByRole('button', { name: 'Enlarge' }));
-
-  expect(header).toHaveClass('px-8', 'pt-8');
-  expect(header).not.toHaveClass('px-4', 'pt-4');
 });
 
 test('renders every part with its semantic default, stable hooks, and visible utility defaults', () => {

@@ -1,7 +1,7 @@
 # @moduix/solid-tailwind
 
 Tailwind CSS v4 implementation of moduix Solid components. The current release contains Accordion,
-Alert, Angle Slider, Avatar, and Button while preserving their public Ark-shaped APIs from
+Alert, Angle Slider, Avatar, Button, and Chart while preserving their public Ark-shaped APIs from
 `@moduix/solid`.
 
 ## Install
@@ -14,6 +14,12 @@ pnpm add @moduix/solid-tailwind @ark-ui/solid
 ```
 
 `solid-js`, `tailwindcss`, and `@ark-ui/solid` remain peer dependencies.
+
+The optional `Chart` component also requires `@tanstack/charts`:
+
+```sh
+pnpm add @tanstack/charts
+```
 
 ## Add styles
 

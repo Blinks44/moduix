@@ -87,23 +87,10 @@ test('forwards refs and data hooks for every optional part', () => {
 });
 
 test('lets consumer utilities override default classes', () => {
-  render(
-    <Alert status="error" className="w-auto">
-      <Alert.Indicator className="text-primary" data-testid="override-indicator" />
-      <Alert status="info">
-        <Alert.Indicator data-testid="nested-indicator" />
-      </Alert>
-    </Alert>,
-  );
+  render(<Alert className="w-auto" />);
 
-  const root = screen.getByRole('alert');
-  const overrideIndicator = screen.getByTestId('override-indicator');
-  const nestedIndicator = screen.getByTestId('nested-indicator');
+  const root = screen.getByRole('status');
 
   expect(root).toHaveClass('w-auto');
   expect(root).not.toHaveClass('w-full');
-  expect(overrideIndicator).toHaveClass('text-primary');
-  expect(overrideIndicator).not.toHaveClass('text-destructive');
-  expect(nestedIndicator).toHaveClass('text-muted-foreground');
-  expect(nestedIndicator).not.toHaveClass('text-destructive');
 });

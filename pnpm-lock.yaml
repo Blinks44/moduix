@@ -142,6 +142,9 @@ importers:
       '@rstest/core':
         specifier: ^0.11.12
         version: 0.11.12(happy-dom@20.14.0)
+      '@tanstack/charts':
+        specifier: ^0.16.0
+        version: 0.16.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(solid-js@1.9.15)
       '@testing-library/dom':
         specifier: ^10.4.1
         version: 10.4.1
@@ -279,6 +282,9 @@ importers:
       '@solidjs/testing-library':
         specifier: ^0.8.10
         version: 0.8.10(solid-js@1.9.15)
+      '@tanstack/charts':
+        specifier: ^0.16.0
+        version: 0.16.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(solid-js@1.9.15)
       '@testing-library/dom':
         specifier: ^10.4.1
         version: 10.4.1
@@ -357,6 +363,9 @@ importers:
       '@tailwindcss/vite':
         specifier: ^4.3.3
         version: 4.3.3(vite@8.2.2(@types/node@26.4.1)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.50.0)(yaml@2.9.0))
+      '@tanstack/charts':
+        specifier: ^0.16.0
+        version: 0.16.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(solid-js@1.9.15)
       '@types/node':
         specifier: ^26.4.1
         version: 26.4.1
@@ -438,6 +447,9 @@ importers:
       '@tailwindcss/vite':
         specifier: ^4.3.3
         version: 4.3.3(vite@8.2.2(@types/node@26.4.1)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.50.0)(yaml@2.9.0))
+      '@tanstack/charts':
+        specifier: ^0.16.0
+        version: 0.16.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(solid-js@1.9.15)
       '@types/node':
         specifier: ^26.4.1
         version: 26.4.1
