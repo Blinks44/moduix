@@ -479,6 +479,26 @@
       ]
     },
     {
+      "name": "kbd",
+      "type": "registry:item",
+      "title": "Kbd",
+      "description": "moduix React Tailwind Kbd component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/kbd/Kbd.tsx",
+          "target": "@components/ui/kbd/Kbd.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/kbd/index.ts",
+          "target": "@components/ui/kbd/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "menu",
       "type": "registry:item",
       "title": "Menu",

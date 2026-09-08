@@ -479,6 +479,26 @@
       ]
     },
     {
+      "name": "kbd",
+      "type": "registry:item",
+      "title": "Kbd",
+      "description": "moduix Solid Tailwind Kbd component.",
+      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/kbd/Kbd.tsx",
+          "target": "@components/ui/kbd/Kbd.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/kbd/index.ts",
+          "target": "@components/ui/kbd/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "menu",
       "type": "registry:item",
       "title": "Menu",

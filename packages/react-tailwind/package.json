@@ -114,6 +114,10 @@
       "types": "./dist/components/color-picker/index.d.ts",
       "import": "./dist/components/color-picker/index.js"
     },
+    "./kbd": {
+      "types": "./dist/components/kbd/index.d.ts",
+      "import": "./dist/components/kbd/index.js"
+    },
     "./menu": {
       "types": "./dist/components/menu/index.d.ts",
       "import": "./dist/components/menu/index.js"

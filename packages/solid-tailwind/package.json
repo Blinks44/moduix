@@ -150,6 +150,12 @@
       "import": "./dist/components/color-picker/index.js",
       "default": "./dist/components/color-picker/index.js"
     },
+    "./kbd": {
+      "types": "./dist/components/kbd/index.d.ts",
+      "solid": "./dist/components/kbd/index.jsx",
+      "import": "./dist/components/kbd/index.js",
+      "default": "./dist/components/kbd/index.js"
+    },
     "./menu": {
       "types": "./dist/components/menu/index.d.ts",
       "solid": "./dist/components/menu/index.jsx",
