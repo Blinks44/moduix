@@ -98,6 +98,10 @@
       "types": "./dist/components/clipboard/index.d.ts",
       "import": "./dist/components/clipboard/index.js"
     },
+    "./close-button": {
+      "types": "./dist/components/close-button/index.d.ts",
+      "import": "./dist/components/close-button/index.js"
+    },
     "./menu": {
       "types": "./dist/components/menu/index.d.ts",
       "import": "./dist/components/menu/index.js"

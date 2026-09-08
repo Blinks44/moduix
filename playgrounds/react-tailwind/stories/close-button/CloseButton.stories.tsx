@@ -1,0 +1,91 @@
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { ComponentProps } from 'react';
+import { CloseButton } from '@/components/close-button/CloseButton';
+
+const meta = {
+  title: 'Components/CloseButton',
+  component: CloseButton,
+  tags: ['autodocs'],
+  parameters: {
+    layout: 'centered',
+  },
+  args: {
+    'aria-label': 'Close',
+  },
+} satisfies Meta<typeof CloseButton>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {};
+
+export const CustomChildren: Story = {
+  args: {
+    className: 'size-10',
+    'aria-label': 'Close panel',
+    children: <CircleXIcon className="size-5" />,
+  },
+};
+
+export const AsChild: Story = {
+  render: (args) => (
+    <CloseButton asChild {...args}>
+      <button type="button">
+        <CircleXIcon className="size-3" />
+      </button>
+    </CloseButton>
+  ),
+};
+
+export const Styled: Story = {
+  args: {
+    className:
+      'size-10 bg-primary text-primary-foreground [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-foreground [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-primary-foreground',
+    'aria-label': 'Close message',
+    children: <CircleXIcon className="size-4" />,
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+  },
+};
+
+export const AriaDisabled: Story = {
+  args: {
+    'aria-disabled': 'true',
+  },
+};
+
+export const DisabledAsChild: Story = {
+  render: (args) => (
+    <CloseButton asChild disabled {...args}>
+      <button type="button">
+        <CircleXIcon className="size-3" />
+      </button>
+    </CloseButton>
+  ),
+};
+
+function CircleXIcon(props: ComponentProps<'svg'>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+      focusable="false"
+      stroke="currentColor"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <circle cx="12" cy="12" r="10" />
+      <path d="m15 9-6 6" />
+      <path d="m9 9 6 6" />
+    </svg>
+  );
+}

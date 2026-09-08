@@ -13,5 +13,6 @@ export * from './components/checkbox';
 export * from './components/carousel';
 export * from './components/chart';
 export * from './components/clipboard';
+export * from './components/close-button';
 export * from './components/menu';
 export * from './components/spinner';

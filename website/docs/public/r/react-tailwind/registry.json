@@ -336,6 +336,30 @@
       ]
     },
     {
+      "name": "close-button",
+      "type": "registry:item",
+      "title": "CloseButton",
+      "description": "moduix React Tailwind CloseButton component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-react-tailwind/foundation",
+        "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/close-button/CloseButton.tsx",
+          "target": "@components/ui/close-button/CloseButton.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/close-button/index.ts",
+          "target": "@components/ui/close-button/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "carousel",
       "type": "registry:item",
       "title": "Carousel",

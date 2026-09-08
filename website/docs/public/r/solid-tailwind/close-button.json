@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "close-button",
+  "title": "CloseButton",
+  "description": "moduix Solid Tailwind CloseButton component.",
+  "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+  "registryDependencies": [
+    "@moduix-solid-tailwind/foundation",
+    "@moduix-solid-tailwind/cn",
+    "@moduix-solid-tailwind/icons"
+  ],
+  "files": [
+    {
+      "path": "src/components/close-button/CloseButton.tsx",
+      "content": "import type { HTMLArkProps } from '@ark-ui/solid/factory';\nimport { ark } from '@ark-ui/solid/factory';\nimport type { JSX } from 'solid-js';\nimport { children as resolveChildren, splitProps } from 'solid-js';\nimport { cn } from '@/lib/moduix/cn';\nimport { CloseIcon } from '@/lib/moduix/icons/ui/Icons';\n\ntype CloseButtonRootProps = HTMLArkProps<'button'> & {\n  'data-disabled'?: string;\n  'data-part'?: string;\n  'data-scope'?: string;\n  'data-slot'?: string;\n  onClickCapture?: (event: MouseEvent) => void;\n};\n\nconst ArkButton = ark.button as (\n  props: CloseButtonRootProps & {\n    'oncapture:click'?: (event: MouseEvent) => void;\n  },\n) => JSX.Element;\n\nfunction CloseButtonRoot(props: CloseButtonRootProps) {\n  const [local, others] = splitProps(props, [\n    'asChild',\n    'aria-disabled',\n    'aria-label',\n    'aria-labelledby',\n    'children',\n    'class',\n    'data-disabled',\n    'data-part',\n    'data-scope',\n    'data-slot',\n    'disabled',\n    'onClick',\n    'onClickCapture',\n    'type',\n  ]);\n  const resolvedChildren = resolveChildren(() => local.children);\n  const isDisabled = () =>\n    local.disabled ||\n    local['aria-disabled'] === true ||\n    local['aria-disabled'] === 'true' ||\n    local['data-disabled'] !== undefined;\n  const handleClickCapture = (event: MouseEvent) => {\n    if (isDisabled()) {\n      event.preventDefault();\n      event.stopPropagation();\n      return;\n    }\n\n    local.onClickCapture?.(event);\n  };\n  const handleClick = (event: MouseEvent) => {\n    if (isDisabled()) {\n      event.preventDefault();\n      event.stopPropagation();\n      return;\n    }\n\n    (local.onClick as ((event: MouseEvent) => void) | undefined)?.(event);\n  };\n\n  return (\n    <ArkButton\n      asChild={local.asChild}\n      {...others}\n      type={local.asChild ? local.type : (local.type ?? 'button')}\n      disabled={local.asChild ? undefined : local.disabled}\n      data-scope={local['data-scope'] ?? 'close-button'}\n      data-part={local['data-part'] ?? 'root'}\n      data-slot={local['data-slot'] ?? 'close-button-root'}\n      data-disabled={local['data-disabled'] ?? (isDisabled() ? '' : undefined)}\n      class={cn(\n        \"m-0 box-border inline-flex size-7 shrink-0 cursor-pointer appearance-none items-center justify-center rounded-sm border-0 bg-transparent p-0 text-muted-foreground transition-[background-color,color,opacity,translate,scale] duration-200 ease-in-out select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 [&:active:not([data-disabled])]:opacity-[0.94] motion-safe:[&:active:not([data-disabled])]:translate-y-px motion-safe:[&:active:not([data-disabled])]:scale-[0.985] [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-3 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-muted [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-foreground\",\n        local.class,\n      )}\n      aria-disabled={local.asChild && local.disabled ? true : local['aria-disabled']}\n      aria-label={local['aria-label'] ?? (local['aria-labelledby'] == null ? 'Close' : undefined)}\n      aria-labelledby={local['aria-labelledby']}\n      oncapture:click={handleClickCapture}\n      onClick={handleClick}\n    >\n      {local.asChild ? undefined : resolvedChildren() || <CloseIcon class=\"size-3 shrink-0\" />}\n    </ArkButton>\n  );\n}\n\nconst CloseButton = Object.assign(CloseButtonRoot, {\n  Root: CloseButtonRoot,\n});\n\nexport { CloseButton };",
+      "type": "registry:component",
+      "target": "@components/ui/close-button/CloseButton.tsx"
+    },
+    {
+      "path": "src/components/close-button/index.ts",
+      "content": "export { CloseButton } from './CloseButton.js';",
+      "type": "registry:component",
+      "target": "@components/ui/close-button/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

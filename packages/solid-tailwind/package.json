@@ -126,6 +126,12 @@
       "import": "./dist/components/clipboard/index.js",
       "default": "./dist/components/clipboard/index.js"
     },
+    "./close-button": {
+      "types": "./dist/components/close-button/index.d.ts",
+      "solid": "./dist/components/close-button/index.jsx",
+      "import": "./dist/components/close-button/index.js",
+      "default": "./dist/components/close-button/index.js"
+    },
     "./menu": {
       "types": "./dist/components/menu/index.d.ts",
       "solid": "./dist/components/menu/index.jsx",
