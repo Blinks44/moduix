@@ -360,6 +360,30 @@
       ]
     },
     {
+      "name": "collapsible",
+      "type": "registry:item",
+      "title": "Collapsible",
+      "description": "moduix React Tailwind Collapsible component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-react-tailwind/foundation",
+        "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/collapsible/Collapsible.tsx",
+          "target": "@components/ui/collapsible/Collapsible.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/collapsible/index.ts",
+          "target": "@components/ui/collapsible/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "carousel",
       "type": "registry:item",
       "title": "Carousel",

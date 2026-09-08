@@ -132,6 +132,12 @@
       "import": "./dist/components/close-button/index.js",
       "default": "./dist/components/close-button/index.js"
     },
+    "./collapsible": {
+      "types": "./dist/components/collapsible/index.d.ts",
+      "solid": "./dist/components/collapsible/index.jsx",
+      "import": "./dist/components/collapsible/index.js",
+      "default": "./dist/components/collapsible/index.js"
+    },
     "./menu": {
       "types": "./dist/components/menu/index.d.ts",
       "solid": "./dist/components/menu/index.jsx",

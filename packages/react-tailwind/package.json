@@ -102,6 +102,10 @@
       "types": "./dist/components/close-button/index.d.ts",
       "import": "./dist/components/close-button/index.js"
     },
+    "./collapsible": {
+      "types": "./dist/components/collapsible/index.d.ts",
+      "import": "./dist/components/collapsible/index.js"
+    },
     "./menu": {
       "types": "./dist/components/menu/index.d.ts",
       "import": "./dist/components/menu/index.js"
