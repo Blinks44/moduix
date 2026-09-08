@@ -384,6 +384,31 @@
       ]
     },
     {
+      "name": "color-picker",
+      "type": "registry:item",
+      "title": "ColorPicker",
+      "description": "moduix React Tailwind ColorPicker component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-react-tailwind/foundation",
+        "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/icons",
+        "@moduix-react-tailwind/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/color-picker/ColorPicker.tsx",
+          "target": "@components/ui/color-picker/ColorPicker.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/index.ts",
+          "target": "@components/ui/color-picker/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "carousel",
       "type": "registry:item",
       "title": "Carousel",

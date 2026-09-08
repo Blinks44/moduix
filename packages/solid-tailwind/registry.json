@@ -384,6 +384,31 @@
       ]
     },
     {
+      "name": "color-picker",
+      "type": "registry:item",
+      "title": "ColorPicker",
+      "description": "moduix Solid Tailwind ColorPicker component.",
+      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-solid-tailwind/foundation",
+        "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/icons",
+        "@moduix-solid-tailwind/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/color-picker/ColorPicker.tsx",
+          "target": "@components/ui/color-picker/ColorPicker.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/index.ts",
+          "target": "@components/ui/color-picker/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "carousel",
       "type": "registry:item",
       "title": "Carousel",

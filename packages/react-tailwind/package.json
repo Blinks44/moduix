@@ -106,6 +106,10 @@
       "types": "./dist/components/collapsible/index.d.ts",
       "import": "./dist/components/collapsible/index.js"
     },
+    "./color-picker": {
+      "types": "./dist/components/color-picker/index.d.ts",
+      "import": "./dist/components/color-picker/index.js"
+    },
     "./menu": {
       "types": "./dist/components/menu/index.d.ts",
       "import": "./dist/components/menu/index.js"
