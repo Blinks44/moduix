@@ -20,6 +20,7 @@
     "@tanstack/react-form": "^1.33.5",
     "@tanstack/react-table": "^9.2.4",
     "@tanstack/react-virtual": "^3.14.10",
+    "@tanstack/solid-virtual": "^3.13.38",
     "clsx": "^2.1.1",
     "lucide-react": "^1.40.0",
     "react": "^19.2.8",
@@ -29,6 +30,7 @@
     "valibot": "^1.4.2"
   },
   "devDependencies": {
+    "@ark-ui/solid": "^5.39.1",
     "@moduix/solid": "workspace:*",
     "@rspress/plugin-preview": "^2.0.21",
     "@rspress/plugin-sitemap": "^2.0.21",

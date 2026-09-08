@@ -1,7 +1,7 @@
 ---
 title: Combobox
 component: combobox
-description: An input for searching and selecting one or more values from an Ark UI collection.
+description: A searchable input for selecting one or more values from an Ark UI collection in React or Solid.
 ---
 
 import * as ComboboxDocs from '@/components/examples/combobox/css-properties';
@@ -19,6 +19,20 @@ import ComboboxMultiple from '@/components/examples/combobox/multiple.tsx';
 import ComboboxRootProvider from '@/components/examples/combobox/root-provider.tsx';
 import ComboboxVirtualized from '@/components/examples/combobox/virtualized.tsx';
 import ComboboxWithTagsInput from '@/components/examples/combobox/with-tags-input.tsx';
+import comboboxSolidAdvancedCustomization from '../../../snippets/combobox/solid/advanced-customization.tsx?raw';
+import comboboxSolidAsyncSearch from '../../../snippets/combobox/solid/async-search.tsx?raw';
+import comboboxSolidAutoHighlight from '../../../snippets/combobox/solid/auto-highlight.tsx?raw';
+import comboboxSolidBasic from '../../../snippets/combobox/solid/basic.tsx?raw';
+import comboboxSolidControlled from '../../../snippets/combobox/solid/controlled.tsx?raw';
+import comboboxSolidCreatable from '../../../snippets/combobox/solid/creatable.tsx?raw';
+import comboboxSolidCustomObjectsAndGrouping from '../../../snippets/combobox/solid/custom-objects-and-grouping.tsx?raw';
+import comboboxSolidDynamic from '../../../snippets/combobox/solid/dynamic.tsx?raw';
+import comboboxSolidInlineAutocomplete from '../../../snippets/combobox/solid/inline-autocomplete.tsx?raw';
+import comboboxSolidLimitResults from '../../../snippets/combobox/solid/limit-results.tsx?raw';
+import comboboxSolidMultiple from '../../../snippets/combobox/solid/multiple.tsx?raw';
+import comboboxSolidRootProvider from '../../../snippets/combobox/solid/root-provider.tsx?raw';
+import comboboxSolidVirtualized from '../../../snippets/combobox/solid/virtualized.tsx?raw';
+import comboboxSolidWithTagsInput from '../../../snippets/combobox/solid/with-tags-input.tsx?raw';
 
 ## API Reference
 
@@ -31,6 +45,10 @@ Use `Select` when the same predefined choice does not need an editable input.
 
 ## Basic
 
+Combobox ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered preview
+on this page uses the React CSS Modules package; the framework tabs show native source for the same
+public contract.
+
 Create an Ark collection with `useListCollection`, pass it to `Combobox`, and keep the popup structure
 explicit. Use `Combobox.Option` for ordinary rows; use `Combobox.Item` when a row needs custom structure.
 `onInputValueChange` receives an Ark details object.
@@ -41,27 +59,59 @@ explicit. Use `Combobox.Option` for ordinary rows; use `Combobox.Item` when a ro
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/combobox/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/combobox/component-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={comboboxSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/combobox/component-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="combobox" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/combobox' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/combobox' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/combobox' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/combobox' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
@@ -111,107 +161,18 @@ Read combobox state inside the tree with `Combobox.Context` or `useComboboxConte
 
 ## Composition
 
-The root automatically renders `Positioner` through a portal. Set `portalled={false}` to render the popup in the current
-tree, or pass `portalRef` to use a specific container. You still compose `Positioner` and `Content`
-explicitly, and can style each part independently.
+Use `createListCollection` for static items and `useListCollection` when filtering or other updates
+change the collection. For object items, provide `itemToString` and `itemToValue`.
 
-### Recommended composition
+The root portals `Positioner` automatically, but `Positioner` and `Content` stay explicit in the
+composition. Set `portalled={false}` to keep the popup in the current tree, or pass `portalRef` for
+a specific container. Use `Combobox.Option` for simple rows and `Combobox.Item` with `asChild` for
+custom rows.
 
-Use `createListCollection` for static data. Use `useListCollection` when filtering or other updates
-change the collection. Object collections should define `itemToString` and `itemToValue`.
-
-Keep `Combobox.Positioner` and `Combobox.Content` in your JSX. `Content` is the actual Ark content part;
-the root only manages where it is rendered.
-
-If you repeat this popup structure, extract a small local helper. Use `Combobox.Option` for simple
-rows and keep `Combobox.Item` for links, rich rows, or custom indicator placement:
-
-```tsx
-function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: string }> }) {
-  return (
-    <Combobox.Positioner>
-      <Combobox.Content>
-        <Combobox.Empty>No fruits found.</Combobox.Empty>
-        <Combobox.List>
-          {items.map((item) => (
-            <Combobox.Option key={item.value} item={item}>
-              {item.label}
-            </Combobox.Option>
-          ))}
-        </Combobox.List>
-      </Combobox.Content>
-    </Combobox.Positioner>
-  );
-}
-```
-
-### When to go custom
-
-Use controlled `value` and Ark detail callbacks when another part of the interface needs the selected
-values. If state must be created outside the rendered subtree, create it with moduix's `useCombobox`
-and render `Combobox.RootProvider`. Use moduix `Combobox.ItemContext` or `useComboboxItemContext` for
-item state; import only collection helpers and types that moduix does not expose from Ark.
-
-Multiple selection does not provide combobox-specific chips. Render tags or another value summary from
-controlled state; the combobox still owns selection behavior through `multiple`.
-
-Ark does not expose a combobox status part. moduix `Combobox.Status` is a styled `div` for messages
-owned by your application. It does not manage loading or error state and does not add an ARIA role.
-
-### Default props
-
-By default, the portalled content mounts on first open and unmounts after its exit animation. Set
-`unmountOnExit={false}` to retain it after the first open. Keep both lifecycle props set to `false`
-only when eager initial rendering is needed.
-
-| Surface                            | Default               | Notes                                                                  |
-| ---------------------------------- | --------------------- | ---------------------------------------------------------------------- |
-| `Combobox.Trigger`                 | moduix chevron icon   | Used when children are omitted.                                        |
-| `Combobox.ClearTrigger`            | moduix close icon     | Used when children are omitted.                                        |
-| `Combobox.ItemIndicator`           | moduix check icon     | Used when children are omitted.                                        |
-| `Combobox.Option.indicator`        | check icon            | Pass `false` to hide it or a React node to replace the icon.           |
-| `Combobox` `portalled`             | `true`                | Renders `Positioner` through a portal automatically.                    |
-| `Combobox` `portalRef`             | -                     | Optional container for the portal.                                     |
-| `Combobox` `lazyMount`             | `true`                | Mounts popup content when it is first opened.                           |
-| `Combobox` `unmountOnExit`         | `true`                | Removes popup content after its exit animation.                        |
-| `Combobox` width                   | `16rem` (max `100%`)  | Styled root width defaults.                                            |
-| `Combobox.Positioner` variables    | Ark runtime variables | Uses `--reference-width`, `--available-height`, `--transform-origin`.  |
-
-### Behavioral notes
-
-- `collection` is required.
-- `value` and `defaultValue` are string arrays, including single selection.
-- `onValueChange(details)` reads the current values from `details.value`.
-- `onInputValueChange(details)` reads input text from `details.inputValue` and its source from
-  `details.reason`.
-- `onOpenChange`, `onHighlightChange`, and `onSelect` keep their Ark detail shapes.
-- All Ark DOM parts support `asChild`. `Combobox.Option` is the exception: it is a convenience
-  wrapper for simple rows and does not accept `asChild`.
-- `Combobox.Input asChild` keeps Ark input behavior but leaves visual styling to the child element.
-- The current Ark Combobox package does not expose a `HiddenInput` part. Use the root `name` and
-  `form` props for Ark's built-in form submission behavior.
-- `Combobox.RootProvider` preserves moduix root styling and portal configuration for externally
-  created Ark state. Use moduix `useCombobox`, `Combobox.Context`, `useComboboxContext`,
-  `Combobox.ItemContext`, and `useComboboxItemContext` for provider and context paths.
-- Ark `Field.Root` state inheritance remains available through the Ark-backed moduix `Field.Root`;
-  `readOnly` and `required` keep their Ark behavior.
-- Use `ids` when externally composed parts need shared accessibility IDs. `lazyMount` and
-  `unmountOnExit` default to `true`; `present` keeps Ark's presence lifecycle for exit animations.
-- `selectionBehavior` and `closeOnSelect` pass through to Ark. In multiple mode, Ark clears the
-  input after selection.
-
-### Migrating from shadcn
-
-Keep the Ark-shaped moduix API and map common shadcn conveniences explicitly:
-
-| shadcn pattern          | moduix path                                                          |
-| ----------------------- | -------------------------------------------------------------------- |
-| `items` on the root     | `createListCollection()` or `useListCollection()`, then `collection` |
-| `itemToStringValue`     | `itemToString` and usually `itemToValue` on the collection           |
-| `showClear`             | Render `Combobox.ClearTrigger` when needed                           |
-| Plain `ComboboxItem`    | Use `Combobox.Option`; use `Combobox.Item` for custom row structure  |
-| Built-in chips surface  | Controlled `value` plus custom tags, or `TagsInput` composition      |
-| `ComboboxContent` sugar | Explicit `Combobox.Positioner` and `Combobox.Content`                |
+Keep selection in `value` when other UI needs it. When state is created outside the rendered tree,
+pass `useCombobox` to `Combobox.RootProvider`. In multiple mode, tags and other value summaries are
+application-owned; compose with `TagsInput` when they should share one field. `Combobox.Status` is
+also an application-owned message container and does not manage loading or error state.
 
 ## Examples
 
@@ -227,20 +188,31 @@ show a `Start typing to search…` status so the popup remains informative.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/combobox/async-search.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/combobox/component-async-search.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={comboboxSolidAsyncSearch} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/combobox/component-async-search.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -256,20 +228,31 @@ Enter can select it without an extra arrow-key press.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/combobox/auto-highlight.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/combobox/component-auto-highlight.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={comboboxSolidAutoHighlight} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/combobox/component-auto-highlight.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -284,20 +267,31 @@ Control the selected string array and read the next value from `details.value`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/combobox/controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/combobox/component-controlled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={comboboxSolidControlled} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/combobox/component-controlled.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -313,20 +307,31 @@ replace that sentinel value with the user-entered value after selection.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/combobox/creatable.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/combobox/component-creatable.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={comboboxSolidCreatable} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/combobox/component-creatable.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -342,20 +347,31 @@ Map object labels and values on the collection, then render Ark item groups from
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/combobox/custom-objects-and-grouping.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/combobox/component-custom-objects-and-grouping.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={comboboxSolidCustomObjectsAndGrouping} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/combobox/component-custom-objects-and-grouping.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -371,20 +387,31 @@ typing. Check `details.reason` to avoid rebuilding it after selection-driven inp
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/combobox/dynamic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/combobox/component-dynamic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={comboboxSolidDynamic} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/combobox/component-dynamic.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -400,20 +427,31 @@ first matching item while preserving Ark keyboard navigation.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/combobox/inline-autocomplete.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/combobox/component-inline-autocomplete.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={comboboxSolidInlineAutocomplete} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/combobox/component-inline-autocomplete.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -429,20 +467,31 @@ popup harder to scan. Filtering still runs against the complete initial collecti
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/combobox/limit-results.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/combobox/component-limit-results.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={comboboxSolidLimitResults} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/combobox/component-limit-results.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -458,20 +507,31 @@ when they must live inside the same field shell, compose `Combobox` with `TagsIn
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/combobox/multiple.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/combobox/component-multiple.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={comboboxSolidMultiple} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/combobox/component-multiple.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -488,28 +548,40 @@ configuration.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/combobox/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/combobox/component-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={comboboxSolidRootProvider} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/combobox/component-root-provider.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Virtualized
 
-For large collections, render only visible rows with TanStack Virtual and connect Ark keyboard
-navigation through `scrollToIndexFn`. Keep `aria-setsize` and `aria-posinset` on virtualized rows.
+For large collections, render only visible rows with TanStack Virtual. Use `@tanstack/react-virtual`
+with React and `@tanstack/solid-virtual` with Solid, then connect Ark keyboard navigation through
+`scrollToIndexFn`. Keep `aria-setsize` and `aria-posinset` on virtualized rows.
 
 <ExampleFrame variant="component">
   <ComboboxVirtualized />
@@ -517,20 +589,31 @@ navigation through `scrollToIndexFn`. Keep `aria-setsize` and `aria-posinset` on
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/combobox/virtualized.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/combobox/component-virtualized.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={comboboxSolidVirtualized} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/combobox/component-virtualized.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -546,11 +629,23 @@ live inside one editable chip field.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/combobox/with-tags-input.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={comboboxSolidWithTagsInput} />
 
     </Tab>
   </Tabs>
@@ -569,25 +664,40 @@ renders each result as a link with `Combobox.Item asChild`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/combobox/advanced-customization.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/combobox/component-advanced-customization.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={comboboxSolidAdvancedCustomization} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/combobox/component-advanced-customization.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Styling
+
+Use `className` in React or `class` in Solid on exported parts for structural styles. Tailwind
+variants use native utilities and consumer classes; the CSS variables below customize CSS Modules
+variants. Data attributes and `data-slot` hooks are shared by both styling tracks.
 
 ### CSS Properties
 

@@ -180,6 +180,7 @@ test('lets consumer utilities replace defaults and keeps visual parts visible', 
       <Combobox.Label>Styled fruit</Combobox.Label>
       <Combobox.Control class="rounded-lg">
         <Combobox.Input class="h-8" />
+        <Combobox.ClearTrigger class="size-5" aria-label="Clear styled fruits" />
         <Combobox.Trigger class="size-6" aria-label="Open styled fruits" />
       </Combobox.Control>
       <Combobox.Positioner>
@@ -198,6 +199,7 @@ test('lets consumer utilities replace defaults and keeps visual parts visible', 
   const root = container.querySelector('[data-slot="combobox-root"]')!;
   const control = container.querySelector('[data-slot="combobox-control"]')!;
   const input = container.querySelector('[data-slot="combobox-input"]')!;
+  const clear = container.querySelector('[data-slot="combobox-clear-trigger"]')!;
   const trigger = container.querySelector('[data-slot="combobox-trigger"]')!;
   const content = container.querySelector('[data-slot="combobox-content"]')!;
   const status = container.querySelector('[data-slot="combobox-status"]')!;
@@ -211,12 +213,18 @@ test('lets consumer utilities replace defaults and keeps visual parts visible', 
   expect(control).not.toHaveClass('rounded-md');
   expect(input).toHaveClass('h-8');
   expect(input).not.toHaveClass('h-control-md');
+  expect(clear).toHaveClass(
+    'size-5',
+    'motion-safe:[&:active:not([data-disabled])]:!-translate-y-1/2',
+    'motion-safe:[&:active:not([data-disabled])]:!scale-100',
+  );
+  expect(clear).not.toHaveClass('size-control-xs');
   expect(trigger).toHaveClass('size-6');
   expect(trigger).not.toHaveClass('size-control-xs');
   expect(content).toHaveClass('p-0');
   expect(content).not.toHaveClass('py-1');
   expect(status).toHaveClass('px-4', 'py-1', 'text-sm');
-  expect(item).toHaveClass('min-h-control-sm', 'px-0');
+  expect(item).toHaveClass('min-h-control-sm', 'px-0', 'text-sm');
   expect(item).not.toHaveClass('px-3');
   expect(itemText).toHaveClass('min-w-0', 'flex-1');
   expect(indicator).toHaveClass('size-3');
