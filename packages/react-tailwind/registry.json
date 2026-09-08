@@ -479,6 +479,33 @@
       ]
     },
     {
+      "name": "command-palette",
+      "type": "registry:item",
+      "title": "CommandPalette",
+      "description": "moduix React Tailwind CommandPalette component.",
+      "dependencies": ["@ark-ui/react", "@zag-js/hotkeys", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-react-tailwind/foundation",
+        "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/icons",
+        "@moduix-react-tailwind/kbd",
+        "@moduix-react-tailwind/overlay-portal",
+        "@moduix-react-tailwind/scroll-area"
+      ],
+      "files": [
+        {
+          "path": "src/components/command-palette/CommandPalette.tsx",
+          "target": "@components/ui/command-palette/CommandPalette.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/index.ts",
+          "target": "@components/ui/command-palette/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "kbd",
       "type": "registry:item",
       "title": "Kbd",

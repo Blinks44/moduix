@@ -114,6 +114,10 @@
       "types": "./dist/components/color-picker/index.d.ts",
       "import": "./dist/components/color-picker/index.js"
     },
+    "./command-palette": {
+      "types": "./dist/components/command-palette/index.d.ts",
+      "import": "./dist/components/command-palette/index.js"
+    },
     "./kbd": {
       "types": "./dist/components/kbd/index.d.ts",
       "import": "./dist/components/kbd/index.js"
@@ -145,6 +149,7 @@
     "tsc:check": "tsc --noEmit"
   },
   "dependencies": {
+    "@zag-js/hotkeys": "1.43.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^1.40.0",

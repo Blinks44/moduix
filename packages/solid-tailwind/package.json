@@ -144,6 +144,12 @@
       "import": "./dist/components/combobox/index.js",
       "default": "./dist/components/combobox/index.js"
     },
+    "./command-palette": {
+      "types": "./dist/components/command-palette/index.d.ts",
+      "solid": "./dist/components/command-palette/index.jsx",
+      "import": "./dist/components/command-palette/index.js",
+      "default": "./dist/components/command-palette/index.js"
+    },
     "./color-picker": {
       "types": "./dist/components/color-picker/index.d.ts",
       "solid": "./dist/components/color-picker/index.jsx",
@@ -189,6 +195,7 @@
     "tsc:check": "tsc --noEmit"
   },
   "dependencies": {
+    "@zag-js/hotkeys": "1.43.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-solid": "^1.41.0",
