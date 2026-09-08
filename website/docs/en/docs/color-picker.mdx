@@ -23,6 +23,24 @@ import ColorPickerSwatchOnly from '@/components/examples/color-picker/swatch-onl
 import ColorPickerSwatches from '@/components/examples/color-picker/swatches.tsx';
 import ColorPickerValueSwatch from '@/components/examples/color-picker/value-swatch.tsx';
 
+import colorPickerSolidAdvancedCustomization from '../../../snippets/color-picker/solid/advanced-customization.tsx?raw';
+import colorPickerSolidBasic from '../../../snippets/color-picker/solid/basic.tsx?raw';
+import colorPickerSolidCompactTrigger from '../../../snippets/color-picker/solid/compact-trigger.tsx?raw';
+import colorPickerSolidControlled from '../../../snippets/color-picker/solid/controlled.tsx?raw';
+import colorPickerSolidDisabled from '../../../snippets/color-picker/solid/disabled.tsx?raw';
+import colorPickerSolidFieldState from '../../../snippets/color-picker/solid/field-state.tsx?raw';
+import colorPickerSolidFormUsage from '../../../snippets/color-picker/solid/form-usage.tsx?raw';
+import colorPickerSolidFormatViews from '../../../snippets/color-picker/solid/format-views.tsx?raw';
+import colorPickerSolidInline from '../../../snippets/color-picker/solid/inline.tsx?raw';
+import colorPickerSolidInsideDialog from '../../../snippets/color-picker/solid/inside-dialog.tsx?raw';
+import colorPickerSolidInputOnly from '../../../snippets/color-picker/solid/input-only.tsx?raw';
+import colorPickerSolidOpenControlled from '../../../snippets/color-picker/solid/open-controlled.tsx?raw';
+import colorPickerSolidRootProvider from '../../../snippets/color-picker/solid/root-provider.tsx?raw';
+import colorPickerSolidSliderOnly from '../../../snippets/color-picker/solid/slider-only.tsx?raw';
+import colorPickerSolidSwatchOnly from '../../../snippets/color-picker/solid/swatch-only.tsx?raw';
+import colorPickerSolidSwatches from '../../../snippets/color-picker/solid/swatches.tsx?raw';
+import colorPickerSolidValueSwatch from '../../../snippets/color-picker/solid/value-swatch.tsx?raw';
+
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/color-picker" />
@@ -44,35 +62,64 @@ explicitly when the color should be submitted with a form.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/color-picker/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/color-picker/color-picker-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={colorPickerSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/color-picker/color-picker-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="color-picker" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
-This also installs the shared moduix foundation files that `ColorPicker` depends on, including
-styles, icons, and small utilities.
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/color-picker' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/color-picker' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/color-picker' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/color-picker' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
 ```text
-ColorPicker
+ColorPicker / ColorPicker.Root
 ├─ ColorPicker.Label
 ├─ ColorPicker.Control
 │  ├─ ColorPicker.ChannelInput[channel]
@@ -101,7 +148,7 @@ ColorPicker
 
 | Part                               | Role                                                                   |
 | ---------------------------------- | ---------------------------------------------------------------------- |
-| `ColorPicker`                      | Owns color value, format, popup state, and form integration.           |
+| `ColorPicker` / `ColorPicker.Root` | Owns color value, format, popup state, and form integration.           |
 | `ColorPicker.HiddenInput` | Native Ark form control; compose explicitly as described below. |
 | `ColorPicker.Control`              | Groups visible inputs and trigger.                                     |
 | `ColorPicker.Trigger`              | Button that opens the popup and renders the current swatch by default. |
@@ -118,76 +165,9 @@ normal advanced state path. Import Ark-only type helpers directly when needed as
 
 ## Composition
 
-### Native form control
+Use `defaultValue` for local state. When application state owns the selected color or popup, pass `value` with `onValueChange(details)` or `open` with `onOpenChange(details)`. For state created outside the rendered tree, pass `useColorPicker()` to `ColorPicker.RootProvider`; do not render `ColorPicker` or `ColorPicker.Root` for the same store.
 
-`ColorPicker.HiddenInput` is Ark's native input, exposed directly. Render it explicitly inside
-`ColorPicker` or `ColorPicker.RootProvider`; the root does not add it. Set `name` on the root
-to include the value in native form submission.
-
-For a form outside the component tree, set `form` directly on `HiddenInput`.
-
-`ColorPicker.Positioner` renders through a portal by default. Set `portalled={false}` to render it
-in the current document structure, or pass `portalRef` to use a custom container. Structural parts
-remain explicit and styleable.
-
-### Recommended composition
-
-Keep `ColorPicker.Positioner` and `ColorPicker.Content` explicit for popup-based pickers. `Content`
-is the Ark part that contains the popup, while `Positioner` places it in the configured portal.
-
-Leave `Trigger`, `Area`, `ChannelSlider`, and `SwatchTrigger` without children to use their default
-visual composition. Use `ColorPicker.Sliders` for the usual hue and alpha pair. Style its channels
-through `data-channel` or CSS variables, and pass children only when a part needs custom structure.
-Add `data-fit-content` when the trigger should size to custom content such as a swatch plus
-`ValueText`.
-
-To include the color in native form submission and reset behavior, pass `name` to `ColorPicker` and
-compose `ColorPicker.HiddenInput` explicitly. Ark owns its synchronization.
-
-### When to go custom
-
-Use `inline` on `ColorPicker` when the area, sliders, inputs, and swatches should stay visible in a
-panel instead of a popup. Use `ColorPicker.View` to show inputs for one format at a time.
-
-Use `useColorPicker` with `ColorPicker.RootProvider` when the state needs to live outside the
-rendered subtree. Do not render `Root` and `RootProvider` for the same state instance.
-
-Use `asChild` on exported Ark parts when another semantic element must own the DOM node. The child
-must stay a single element and preserve the required focus and interaction behavior.
-
-### Default props
-
-By default, the portalled overlay content mounts on first open and unmounts after its exit
-animation. Set `unmountOnExit={false}` to keep it mounted after the first open. Set both lifecycle
-props to `false` only when eager initial rendering is needed.
-
-| Surface / Prop                           | Default                 | Notes                                         |
-| ---------------------------------------- | ----------------------- | --------------------------------------------- |
-| `defaultValue`                           | `parseColor("#000000")` | Ark default color value.                      |
-| `defaultFormat`                          | `"rgba"`                | Ark default format.                           |
-| `ColorPicker.Content` width              | `16rem`                 | Prevents collapse to trigger swatch width.    |
-| `ColorPicker.EyeDropperTrigger`          | moduix pipette icon     | Used when children are omitted.               |
-| `ColorPicker.Trigger` children           | current swatch          | Renders `TransparencyGrid` and `ValueSwatch`. |
-| `ColorPicker.Area` children              | background and thumb    | Used when children are omitted.               |
-| `ColorPicker.ChannelSlider` children     | track and thumb         | Alpha sliders also render `TransparencyGrid`. |
-| `ColorPicker.Sliders`                    | hue and alpha pair      | Style with `data-channel` or CSS variables.   |
-| `ColorPicker.SwatchTrigger` children     | swatch and indicator    | Uses the trigger `value` for the swatch.      |
-| `ColorPicker.SwatchIndicator`            | moduix check icon       | Used when children are omitted.               |
-| `ColorPicker` width                      | `16rem` (max `100%`)    | Styled root width defaults.                   |
-
-### Behavioral notes
-
-- `value` and `defaultValue` use Ark `Color` objects. Use `parseColor()` for string defaults.
-- `onValueChange(details)` and `onValueChangeEnd(details)` preserve Ark detail objects.
-- `onFormatChange(details)` and `onOpenChange(details)` preserve Ark detail objects.
-- `ids` is forwarded to Ark for shared accessibility IDs across custom compositions.
-- Field and fieldset state can flow through Ark-compatible `disabled`, `invalid`, `required`, and
-  `readOnly` root props.
-- Use `positioning`, `initialFocusEl`, and `openAutoFocus` when popup placement or focus needs to
-  follow a surrounding workflow.
-- `lazyMount` and `unmountOnExit` default to `true`; `present` and `onExitComplete` preserve Ark's
-  presence lifecycle for custom mount or exit-animation control.
-- All Ark DOM parts preserve `asChild`.
+`ColorPicker.Positioner` is portalled by default. Set `portalled={false}` for an overlay inside another stacking context. To submit the color with a native form, set `name` on the root and render `ColorPicker.HiddenInput` explicitly. Parts such as `Area`, `ChannelSlider`, and `SwatchTrigger` provide default visual children; pass children only when changing their structure.
 
 ## Examples
 
@@ -202,11 +182,23 @@ typed channel input.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/color-picker/slider-only.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={colorPickerSolidSliderOnly} />
 
     </Tab>
   </Tabs>
@@ -225,20 +217,31 @@ square swatch, such as when replacing a button-based color field.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/color-picker/compact-trigger.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/color-picker/color-picker-compact-trigger.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={colorPickerSolidCompactTrigger} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/color-picker/color-picker-compact-trigger.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -253,11 +256,23 @@ Use controlled state when the selected color must stay in sync with application 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/color-picker/controlled.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={colorPickerSolidControlled} />
 
     </Tab>
   </Tabs>
@@ -276,11 +291,23 @@ the current color visible.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/color-picker/disabled.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={colorPickerSolidDisabled} />
 
     </Tab>
   </Tabs>
@@ -299,20 +326,31 @@ field container and should expose the same state through Ark data attributes.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/color-picker/field-state.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/color-picker/color-picker-field-state.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={colorPickerSolidFieldState} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/color-picker/color-picker-field-state.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -327,11 +365,23 @@ Use `name` on `ColorPicker` and add `ColorPicker.HiddenInput` explicitly.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/color-picker/form-usage.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={colorPickerSolidFormUsage} />
 
     </Tab>
   </Tabs>
@@ -352,20 +402,31 @@ presents the RGBA, HSLA, and HSBA options. The browser controls the options popu
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/color-picker/format-views.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/color-picker/color-picker-format-views.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={colorPickerSolidFormatViews} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/color-picker/color-picker-format-views.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -380,20 +441,31 @@ Use `inline` in settings panels where the color tools should stay visible withou
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/color-picker/inline.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/color-picker/color-picker-inline.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={colorPickerSolidInline} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/color-picker/color-picker-inline.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -409,20 +481,31 @@ unnecessary complexity to the interface.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/color-picker/input-only.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/color-picker/color-picker-input-only.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={colorPickerSolidInputOnly} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/color-picker/color-picker-input-only.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -438,20 +521,31 @@ dialog's stacking context and stays interactive above the dialog surface.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/color-picker/inside-dialog.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/color-picker/color-picker-inside-dialog.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={colorPickerSolidInsideDialog} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/color-picker/color-picker-inside-dialog.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -466,20 +560,31 @@ Use controlled `open` state when another control or workflow owns the popup's vi
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/color-picker/open-controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/color-picker/color-picker-open-controlled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={colorPickerSolidOpenControlled} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/color-picker/color-picker-open-controlled.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -495,20 +600,31 @@ the rendered tree and shared with nearby controls.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/color-picker/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/color-picker/color-picker-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={colorPickerSolidRootProvider} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/color-picker/color-picker-root-provider.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -524,20 +640,31 @@ unnecessary.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/color-picker/swatch-only.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/color-picker/color-picker-swatch-only.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={colorPickerSolidSwatchOnly} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/color-picker/color-picker-swatch-only.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -553,11 +680,23 @@ Use popup swatches when the picker should offer a curated set of colors alongsid
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/color-picker/swatches.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={colorPickerSolidSwatches} />
 
     </Tab>
   </Tabs>
@@ -576,20 +715,31 @@ the full picker.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/color-picker/value-swatch.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/color-picker/color-picker-value-swatch.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={colorPickerSolidValueSwatch} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/color-picker/color-picker-value-swatch.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -604,11 +754,23 @@ Use explicit parts and children when the default composition needs a different v
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/color-picker/advanced-customization.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={colorPickerSolidAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -618,10 +780,7 @@ Use explicit parts and children when the default composition needs a different v
 
 ## Styling
 
-Style `ColorPicker` through `className`, stable `data-slot="color-picker-*"` hooks, Ark
-`data-scope` / `data-part` attributes, and the public `--moduix-color-picker-*` CSS variables shown
-below.
-
+Use `className` in React or `class` in Solid on exported parts. Tailwind variants use native utilities and consumer classes; CSS Modules variants use the public `--moduix-color-picker-*` CSS variables shown below. Both styling tracks expose stable `data-slot="color-picker-*"` hooks and Ark `data-scope` / `data-part` attributes.
 ### CSS Properties
 
 <CssPropertiesSection properties={ColorPickerDocs.colorPickerOverrideCssProperties} />
