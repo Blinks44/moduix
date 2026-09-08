@@ -9,12 +9,22 @@ import CloseButtonAsChild from '@/components/examples/close-button/as-child.tsx'
 import CloseButtonBasic from '@/components/examples/close-button/basic.tsx';
 import CloseButtonCustomChildren from '@/components/examples/close-button/custom-children.tsx';
 import CloseButtonDisabled from '@/components/examples/close-button/disabled-state.tsx';
+import closeButtonSolidAsChild from '../../../snippets/close-button/solid/as-child.tsx?raw';
+import closeButtonSolidBasic from '../../../snippets/close-button/solid/basic.tsx?raw';
+import closeButtonSolidCustomChildren from '../../../snippets/close-button/solid/custom-children.tsx?raw';
+import closeButtonSolidDisabled from '../../../snippets/close-button/solid/disabled-state.tsx?raw';
 
 ## Référence de l’API
 
-Ark UI ne fournit pas de primitive dédiée à la fermeture. moduix construit `CloseButton` à partir de l’[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations d’Ark pour la [composition](https://ark-ui.com/docs/guides/composition), les [styles](https://ark-ui.com/docs/guides/styling) et les [refs](https://ark-ui.com/docs/guides/ref).
+Ark UI ne fournit pas de primitive dédiée à la fermeture. moduix construit `CloseButton` à partir de l’[Ark factory][ark-factory]
+officielle et suit les recommandations d’Ark pour la
+[composition](https://ark-ui.com/docs/guides/composition), les [styles](https://ark-ui.com/docs/guides/styling) et
+les [refs](https://ark-ui.com/docs/guides/ref).
 
 ## Exemple de base
+
+`CloseButton` est disponible pour React et Solid dans les variantes CSS Modules et Tailwind. L’aperçu de cette page
+utilise React CSS Modules ; les onglets présentent le code natif correspondant au même contrat public.
 
 Utilisez `CloseButton` pour ajouter un bouton de fermeture à une notification, une carte, un panneau superposé
 ou une autre surface d’interface. Reliez son gestionnaire `onClick` à l’état qui masque ou supprime cette surface.
@@ -27,30 +37,62 @@ mais il ne gère pas lui-même l’état de la surface.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/close-button/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/close-button/close-button-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={closeButtonSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/close-button/close-button-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="close-button" />
+Choisissez le framework et la solution de styles utilisés par votre application. La configuration complète des
+packages et le choix du package sont présentés dans le [Démarrage rapide](/docs/quick-start).
 
-Cette commande installe également les fichiers partagés de la base moduix dont dépend `CloseButton`, notamment les
-styles, les icônes et quelques utilitaires.
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/close-button' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/close-button' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/close-button' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/close-button' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
@@ -68,76 +110,21 @@ CloseButton / CloseButton.Root
 
 ## Composition
 
-### Composition recommandée
+`CloseButton` ne gère pas l’état de la surface qu’il ferme. Reliez `onClick` à l’état qui masque ou supprime cette
+surface. Si un Dialog, un Drawer ou un autre panneau superposé fournit déjà un bouton de fermeture, utilisez ce
+bouton afin que le composant parent conserve la gestion de la fermeture et du retour du focus.
 
-Utilisez directement `CloseButton` lorsque le composant doit rendre un élément `<button>` natif. Il transmet les
-props de bouton de l’Ark factory, les attributs HTML natifs, les gestionnaires d’événements et la `ref`.
-
-### Quand utiliser un élément personnalisé
-
-Utilisez `asChild` lorsqu’un autre composant bouton doit fournir le nœud DOM rendu. Passez un seul enfant et placez
-le contenu de l’icône dans cet enfant.
-
-Si un panneau superposé fournit déjà un bouton de fermeture, utilisez-le afin qu’il gère l’état de fermeture et le
-retour du focus.
-
-### Propriétés par défaut
-
-| Propriété    | Valeur par défaut                          | Valeurs et remarques                                      |
-| ------------ | ------------------------------------------ | -------------------------------------------------------- |
-| `type`       | `button`                                   | S’applique uniquement au composant racine natif          |
-| `aria-label` | `Close` si les deux attributs de nom sont absents | Préférez un libellé qui précise ce qui sera fermé |
-| `children`   | `CloseIcon`                                      | Remplace le contenu par défaut                    |
-| `asChild`    | `false`                                          | Utilise un seul enfant comme racine rendue        |
-
-### Comportement
-
-- `CloseButton` ne ferme aucun élément tout seul. Reliez `onClick` à votre logique ou utilisez le bouton de fermeture
-  fourni par le panneau superposé.
-- Si `aria-label` et `aria-labelledby` sont tous les deux absents, le nom accessible est `Close`. Dans une interface
-  réelle, utilisez un libellé qui précise la surface concernée, par exemple `Dismiss notification`.
-- Les propriétés `disabled` et `aria-disabled="true"` définissent `data-disabled` et bloquent l’activation par clic.
-- La racine native utilise `type="button"` par défaut. Avec `asChild`, définissez vous-même `type` sur l’enfant,
-  en particulier si le bouton se trouve dans un formulaire.
-- Avec `asChild`, `disabled` est représenté par `aria-disabled="true"` et non par l’attribut natif `disabled`.
-  L’activation par clic reste bloquée.
-- Vous pouvez aussi utiliser `CloseButton.Root` ; cette forme est équivalente.
+Utilisez `asChild` lorsqu’un bouton sémantique fourni par un autre composant doit posséder le nœud DOM. L’enfant doit
+rendre l’icône ; définissez-y `type="button"` si nécessaire, notamment dans un formulaire. Avec Solid, passez une
+fonction de rendu à `asChild` et propagez `props()` à l’enfant.
 
 ## Exemples
-
-### Utiliser `asChild`
-
-Utilisez `asChild` pour conserver un bouton sémantique existant comme élément rendu, tout en lui appliquant les styles
-et les attributs `data-*` de `CloseButton`. Définissez `type="button"` sur l’enfant et fournissez-y l’icône.
-
-<ExampleFrame variant="component">
-  <CloseButtonAsChild />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
-
-```tsx pure file="../../../src/components/examples/close-button/as-child.tsx"
-```
-
-    </Tab>
-    <Tab value="Styles">
-
-```css file="../../../src/components/examples/close-button/close-button-as-child.module.css"
-```
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
 
 ### Contenu personnalisé
 
 Passez votre propre contenu à `children` pour remplacer l’icône par défaut tout en conservant le contrat du bouton
-racine. L’exemple utilise une simple croix décorative avec `aria-hidden="true"`.
+racine. Lorsque le nom accessible vient du libellé du bouton, rendez l’icône personnalisée décorative avec
+`aria-hidden="true"`.
 
 <ExampleFrame variant="component">
   <CloseButtonCustomChildren />
@@ -145,28 +132,39 @@ racine. L’exemple utilise une simple croix décorative avec `aria-hidden="true
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/close-button/custom-children.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/close-button/close-button-custom-children.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={closeButtonSolidCustomChildren} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/close-button/close-button-custom-children.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### État désactivé
 
-Utilisez l’attribut natif `disabled` lorsque le bouton ne doit pas recevoir le focus. Utilisez
-`aria-disabled="true"` lorsqu’il doit rester focusable sans pouvoir être activé.
+Utilisez l’attribut natif `disabled` lorsque le bouton ne doit pas recevoir le focus. Utilisez `aria-disabled="true"`
+lorsqu’il doit rester focusable sans pouvoir être activé.
 
 <ExampleFrame variant="component">
   <CloseButtonDisabled />
@@ -174,35 +172,92 @@ Utilisez l’attribut natif `disabled` lorsque le bouton ne doit pas recevoir le
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/close-button/disabled-state.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/close-button/close-button-disabled-state.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={closeButtonSolidDisabled} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/close-button/close-button-disabled-state.module.css"
+```
+</div>
+
+</ExampleCode>
+
+### Utiliser `asChild`
+
+Utilisez `asChild` pour conserver un bouton sémantique existant comme élément rendu, tout en lui appliquant les styles
+et les attributs `data-*` de `CloseButton`. Placez l’icône dans cet enfant et définissez explicitement son type.
+
+<ExampleFrame variant="component">
+  <CloseButtonAsChild />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/close-button/as-child.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={closeButtonSolidAsChild} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/close-button/close-button-as-child.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Styles
 
+Utilisez `className` avec React ou `class` avec Solid sur la racine pour les styles structurels. Les variantes Tailwind
+utilisent des classes utilitaires natives et les classes de l’application ; les variables ci-dessous s’appliquent aux
+variantes CSS Modules. Les attributs d’état et les hooks `data-slot` sont communs aux deux solutions de styles.
+
 ### Propriétés CSS
 
 <CssPropertiesSection properties={CloseButtonDocs.closeButtonOverrideCssProperties} />
 
-### Sélecteurs de style
+### Points d’accroche CSS
 
 - `data-scope="close-button"` identifie la famille du composant.
 - `data-part="root"` identifie l’unique partie exportée.
-- `data-slot="close-button-root"` fournit le sélecteur de slot stable de moduix.
-- `data-disabled` indique un état désactivé normalisé pour `disabled` et `aria-disabled="true"`.
-- `className` est combiné avec les styles par défaut du composant sur la racine.
-- Les éléments SVG enfants directs utilisent `--moduix-close-button-icon-size` pour leur largeur et leur hauteur.
+- `data-slot="close-button-root"` fournit le hook de slot de moduix.
+- `data-disabled` expose l’état désactivé normalisé de `disabled` et `aria-disabled="true"`.
+- `className`/`class` est combiné avec les styles par défaut du composant sur la racine.
+- Dans les variantes CSS Modules, les éléments SVG enfants directs utilisent `--moduix-close-button-icon-size` pour leur largeur et leur hauteur.
+
+[ark-factory]: https://ark-ui.com/docs/guides/composition#the-ark-factory
