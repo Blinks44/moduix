@@ -506,6 +506,26 @@
       ]
     },
     {
+      "name": "container",
+      "type": "registry:item",
+      "title": "Container",
+      "description": "moduix Solid Tailwind Container component.",
+      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/container/Container.tsx",
+          "target": "@components/ui/container/Container.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/container/index.ts",
+          "target": "@components/ui/container/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "kbd",
       "type": "registry:item",
       "title": "Kbd",

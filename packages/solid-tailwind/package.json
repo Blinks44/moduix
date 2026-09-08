@@ -150,6 +150,12 @@
       "import": "./dist/components/command-palette/index.js",
       "default": "./dist/components/command-palette/index.js"
     },
+    "./container": {
+      "types": "./dist/components/container/index.d.ts",
+      "solid": "./dist/components/container/index.jsx",
+      "import": "./dist/components/container/index.js",
+      "default": "./dist/components/container/index.js"
+    },
     "./color-picker": {
       "types": "./dist/components/color-picker/index.d.ts",
       "solid": "./dist/components/color-picker/index.jsx",

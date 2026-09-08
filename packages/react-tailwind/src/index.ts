@@ -18,6 +18,7 @@ export * from './components/collapsible';
 export * from './components/combobox';
 export * from './components/color-picker';
 export * from './components/command-palette';
+export * from './components/container';
 export * from './components/kbd';
 export * from './components/menu';
 export * from './components/scroll-area';

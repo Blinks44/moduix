@@ -118,6 +118,10 @@
       "types": "./dist/components/command-palette/index.d.ts",
       "import": "./dist/components/command-palette/index.js"
     },
+    "./container": {
+      "types": "./dist/components/container/index.d.ts",
+      "import": "./dist/components/container/index.js"
+    },
     "./kbd": {
       "types": "./dist/components/kbd/index.d.ts",
       "import": "./dist/components/kbd/index.js"
