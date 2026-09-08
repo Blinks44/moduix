@@ -10,6 +10,11 @@ import KbdCompactDensity from '@/components/examples/kbd/compact-density.tsx';
 import KbdCustomElement from '@/components/examples/kbd/custom-element.tsx';
 import KbdShortcutList from '@/components/examples/kbd/shortcut-list.tsx';
 import KbdSingleKey from '@/components/examples/kbd/single-key.tsx';
+import kbdSolidBasic from '../../../snippets/kbd/solid/basic.tsx?raw';
+import kbdSolidCompactDensity from '../../../snippets/kbd/solid/compact-density.tsx?raw';
+import kbdSolidCustomElement from '../../../snippets/kbd/solid/custom-element.tsx?raw';
+import kbdSolidShortcutList from '../../../snippets/kbd/solid/shortcut-list.tsx?raw';
+import kbdSolidSingleKey from '../../../snippets/kbd/solid/single-key.tsx?raw';
 
 ## API Reference
 
@@ -21,6 +26,9 @@ customize the rendered elements.
 
 ## Basic
 
+Kbd ships for React and Solid in both the CSS Modules and Tailwind packages. The preview on this page uses the React
+CSS Modules package; the framework tabs show native source for the same public contract.
+
 Use `Kbd` to show one key. For a shortcut made of several keys, place the keycaps and their text separators inside
 `Kbd.Group`.
 
@@ -30,27 +38,59 @@ Use `Kbd` to show one key. For a shortcut made of several keys, place the keycap
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/kbd/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/kbd/kbd-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={kbdSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/kbd/kbd-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="kbd" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/kbd' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/kbd' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/kbd' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/kbd' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
@@ -70,26 +110,12 @@ Kbd.Group
 
 ## Composition
 
-### Recommended composition
+Use `Kbd` as the shorthand for `Kbd.Root` when you need an individual key, and use `Kbd.Group` to combine related
+keycaps. Keep separators such as `+` as plain text inside the group, and give the group an `aria-label` when visual
+symbols or abbreviations need a clearer accessible name.
 
-Use `Kbd` as the shorthand for `Kbd.Root` when you need to show an individual key. Use `Kbd.Group` to keep a shortcut
-together, or for shortcut hints in command menus and inline help.
-
-`Kbd` and `Kbd.Root` accept `HTMLArkProps<'kbd'>`. `Kbd.Group` accepts `HTMLArkProps<'span'>` and uses
-`role="group"` by default. Every part forwards its ref to the rendered element and supports `asChild`.
-The component has no API for variants, sizes, separators, callbacks, or state.
-
-### When to go custom
-
-Use `asChild` when another component already renders a semantic `<kbd>` element and you want to apply Kbd's styles to
-it. Pass exactly one child and preserve its keyboard-label semantics.
-
-### Behavioral notes
-
-- `Kbd`, `Kbd.Root`, and `Kbd.Group` render static keyboard labels. They are not interactive controls.
-- Keep separators such as `+`, `/`, or `then` as regular text outside `Kbd`.
-- Give `Kbd.Group` an `aria-label` when an abbreviation or symbol could be unclear when announced.
-- The parts expose `data-scope="kbd"`, `data-part`, and stable `data-slot` attributes.
+Kbd is static and owns no state or keyboard interaction. Use `asChild` only when another component must render the
+semantic `<kbd>` element, and pass exactly one child.
 
 ## Examples
 
@@ -103,20 +129,31 @@ Use local CSS variables when one part of your interface needs more compact keyca
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/kbd/compact-density.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/kbd/kbd-compact-density.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={kbdSolidCompactDensity} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/kbd/kbd-compact-density.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -131,11 +168,23 @@ Use `asChild` when another component renders the semantic `<kbd>` element and yo
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/kbd/custom-element.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={kbdSolidCustomElement} />
 
     </Tab>
   </Tabs>
@@ -153,20 +202,31 @@ Combine `Kbd.Group` with explanatory text to present a list of available shortcu
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/kbd/shortcut-list.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/kbd/kbd-shortcut-list.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={kbdSolidShortcutList} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/kbd/kbd-shortcut-list.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -181,11 +241,23 @@ Use `Kbd` directly when you need to show one key, such as `Esc`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/kbd/single-key.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={kbdSolidSingleKey} />
 
     </Tab>
   </Tabs>
@@ -195,8 +267,9 @@ Use `Kbd` directly when you need to show one key, such as `Esc`.
 
 ## Styling
 
-Customize `Kbd` and `Kbd.Group` with `className`, Ark anatomy attributes, stable `data-slot` hooks, and the public
-`--moduix-kbd-*` CSS variables listed below.
+Customize `Kbd` and `Kbd.Group` with `className` in React or `class` in Solid, Ark anatomy attributes, stable
+`data-slot` hooks, and the public `--moduix-kbd-*` CSS variables listed below. Tailwind variants use native utility
+classes, while CSS Modules variants use the component variables and consumer CSS.
 
 ### CSS Properties
 
