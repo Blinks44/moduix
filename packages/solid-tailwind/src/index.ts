@@ -19,4 +19,5 @@ export * from './components/combobox';
 export * from './components/color-picker';
 export * from './components/kbd';
 export * from './components/menu';
+export * from './components/scroll-area';
 export * from './components/spinner';

@@ -162,6 +162,12 @@
       "import": "./dist/components/menu/index.js",
       "default": "./dist/components/menu/index.js"
     },
+    "./scroll-area": {
+      "types": "./dist/components/scroll-area/index.d.ts",
+      "solid": "./dist/components/scroll-area/index.jsx",
+      "import": "./dist/components/scroll-area/index.js",
+      "default": "./dist/components/scroll-area/index.js"
+    },
     "./spinner": {
       "types": "./dist/components/spinner/index.d.ts",
       "solid": "./dist/components/spinner/index.jsx",

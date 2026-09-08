@@ -524,6 +524,26 @@
       ]
     },
     {
+      "name": "scroll-area",
+      "type": "registry:item",
+      "title": "ScrollArea",
+      "description": "moduix React Tailwind ScrollArea component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/scroll-area/ScrollArea.tsx",
+          "target": "@components/ui/scroll-area/ScrollArea.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/scroll-area/index.ts",
+          "target": "@components/ui/scroll-area/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "spinner",
       "type": "registry:item",
       "title": "Spinner",
