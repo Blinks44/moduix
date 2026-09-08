@@ -52,6 +52,7 @@
       "type": "registry:item",
       "title": "moduix icons",
       "description": "Internal icons used by moduix Solid Tailwind components.",
+      "dependencies": ["lucide-solid"],
       "files": [
         {
           "path": "src/internal/icons/ui/index.ts",

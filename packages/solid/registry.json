@@ -45,6 +45,7 @@
       "type": "registry:item",
       "title": "moduix icons",
       "description": "Internal icon components required only by registry components that render them.",
+      "dependencies": ["lucide-solid"],
       "files": [
         {
           "path": "src/internal/icons/ui/Icons.tsx",

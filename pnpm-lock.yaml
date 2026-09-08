@@ -50,6 +50,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      lucide-react:
+        specifier: ^1.40.0
+        version: 1.40.0(react@19.2.8)
     devDependencies:
       '@ark-ui/react':
         specifier: ^5.39.1
@@ -120,6 +123,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      lucide-react:
+        specifier: ^1.40.0
+        version: 1.40.0(react@19.2.8)
       tailwind-merge:
         specifier: ^3.6.0
         version: 3.6.0
@@ -193,6 +199,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      lucide-solid:
+        specifier: ^1.41.0
+        version: 1.41.0(solid-js@1.9.15)
     devDependencies:
       '@ark-ui/solid':
         specifier: ^5.39.1
@@ -254,6 +263,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      lucide-solid:
+        specifier: ^1.41.0
+        version: 1.41.0(solid-js@1.9.15)
       tailwind-merge:
         specifier: ^3.6.0
         version: 3.6.0

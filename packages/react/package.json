@@ -40,7 +40,8 @@
     "dist/styles/transitions.css",
     "dist/styles/typography.css",
     "dist/styles/z-index.css",
-    "LICENSE.md"
+    "LICENSE.md",
+    "THIRD_PARTY_NOTICES.md"
   ],
   "type": "module",
   "sideEffects": [
@@ -420,7 +421,8 @@
     "@unpic/core": "^1.0.3",
     "@unpic/react": "^1.0.2",
     "@zag-js/hotkeys": "1.43.3",
-    "clsx": "^2.1.1"
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.40.0"
   },
   "devDependencies": {
     "@ark-ui/react": "^5.39.1",

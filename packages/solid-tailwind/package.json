@@ -34,7 +34,8 @@
     "dist/styles/transitions.css",
     "dist/styles/typography.css",
     "dist/styles/z-index.css",
-    "LICENSE.md"
+    "LICENSE.md",
+    "THIRD_PARTY_NOTICES.md"
   ],
   "type": "module",
   "sideEffects": [
@@ -154,6 +155,7 @@
   "dependencies": {
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "lucide-solid": "^1.41.0",
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {

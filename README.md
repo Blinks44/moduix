@@ -170,6 +170,7 @@ moduix is possible because of the work and ideas of these projects:
   craft.
 - [shadcn/ui](https://ui.shadcn.com/) for open-code distribution, beautiful defaults, and a
   documentation style centered on practical ownership.
+- [Lucide](https://lucide.dev/) for the open-source icon set used throughout the component library.
 - [UnoCSS](https://unocss.dev/) and [Tailwind CSS](https://tailwindcss.com/) for the foundations
   adapted by the optional reset.
 - [Rstack](https://rstack.rs/) for its Rust-based ecosystem: Rspress for documentation, Rslib for
@@ -179,3 +180,6 @@ moduix is possible because of the work and ideas of these projects:
 ## License
 
 [MIT](./LICENSE.md)
+
+Third-party licenses and attribution are listed in
+[THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md).

@@ -22,7 +22,8 @@
   },
   "files": [
     "dist",
-    "LICENSE.md"
+    "LICENSE.md",
+    "THIRD_PARTY_NOTICES.md"
   ],
   "type": "module",
   "sideEffects": [
@@ -586,7 +587,8 @@
     "@unpic/core": "^1.0.3",
     "@zag-js/hotkeys": "1.43.3",
     "@zag-js/solid": "1.43.3",
-    "clsx": "^2.1.1"
+    "clsx": "^2.1.1",
+    "lucide-solid": "^1.41.0"
   },
   "devDependencies": {
     "@ark-ui/solid": "^5.39.1",
