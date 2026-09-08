@@ -109,7 +109,6 @@ const stackedDefinition = defineChart({
       color: 'segment',
       layout: stack(),
       inset: 3,
-      radius: 4,
     }),
   ],
   scales: {
