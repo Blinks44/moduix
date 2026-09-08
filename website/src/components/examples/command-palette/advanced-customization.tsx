@@ -39,7 +39,10 @@ export default function AdvancedCommandPalette() {
               onInputValueChange={(details) => filter(details.inputValue)}
             >
               <CommandPalette.Control>
-                <CommandPalette.Input placeholder="Search commands..." />
+                <CommandPalette.Input
+                  aria-label="Search commands"
+                  placeholder="Search commands..."
+                />
                 <CommandPalette.ClearTrigger />
               </CommandPalette.Control>
               <CommandPalette.List>
