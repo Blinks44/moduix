@@ -1,7 +1,7 @@
 ---
 title: Collapsible
 component: collapsible
-description: Компонент для раскрытия и сворачивания одной области содержимого.
+description: Доступный компонент для раскрытия и сворачивания одной области содержимого в React и Solid.
 ---
 
 import * as CollapsibleDocs from '@/components/examples/collapsible/css-properties';
@@ -16,6 +16,17 @@ import CollapsiblePartialCollapse from '@/components/examples/collapsible/partia
 import CollapsiblePartialCollapseWidth from '@/components/examples/collapsible/partial-collapse-width.tsx';
 import CollapsibleRootProvider from '@/components/examples/collapsible/root-provider.tsx';
 import CollapsibleCustomComposition from '@/components/examples/collapsible/custom-composition.tsx';
+import collapsibleSolidBasic from '../../../snippets/collapsible/solid/basic.tsx?raw';
+import collapsibleSolidContext from '../../../snippets/collapsible/solid/context.tsx?raw';
+import collapsibleSolidControlled from '../../../snippets/collapsible/solid/controlled.tsx?raw';
+import collapsibleSolidDefaultOpen from '../../../snippets/collapsible/solid/default-open.tsx?raw';
+import collapsibleSolidDisabled from '../../../snippets/collapsible/solid/disabled.tsx?raw';
+import collapsibleSolidLazyMount from '../../../snippets/collapsible/solid/lazy-mount.tsx?raw';
+import collapsibleSolidNested from '../../../snippets/collapsible/solid/nested.tsx?raw';
+import collapsibleSolidPartialCollapse from '../../../snippets/collapsible/solid/partial-collapse.tsx?raw';
+import collapsibleSolidPartialCollapseWidth from '../../../snippets/collapsible/solid/partial-collapse-width.tsx?raw';
+import collapsibleSolidRootProvider from '../../../snippets/collapsible/solid/root-provider.tsx?raw';
+import collapsibleSolidCustomComposition from '../../../snippets/collapsible/solid/custom-composition.tsx?raw';
 
 ## Справочник API
 
@@ -28,6 +39,10 @@ import CollapsibleCustomComposition from '@/components/examples/collapsible/cust
 
 ## Базовый пример
 
+Collapsible доступен для React и Solid как в пакетах с CSS Modules, так и в вариантах на Tailwind.
+Интерактивный пример на этой странице использует React и CSS Modules, а вкладки с кодом показывают
+нативную реализацию того же публичного контракта.
+
 Используйте `Collapsible` с частями `Trigger`, необязательным `Indicator` и `Content`, чтобы
 раскрывать и сворачивать одну область содержимого. Размещайте содержимое внутри `Collapsible.Body`,
 если нужна рекомендуемая внутренняя обёртка для отступов и размещения.
@@ -38,38 +53,76 @@ import CollapsibleCustomComposition from '@/components/examples/collapsible/cust
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/collapsible/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={collapsibleSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/collapsible/collapsible-basic.module.css"
 ```
 
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="collapsible" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/collapsible' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/collapsible' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/collapsible' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/collapsible' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+Подробнее о настройке пакета, registry и таблицах стилей см. в разделе [Быстрый старт](/docs/quick-start).
 
 ## Анатомия
 
 ```text
-Collapsible.Root
+Collapsible / Collapsible.Root
 ├─ Collapsible.Trigger
 │  ├─ метка
 │  └─ Collapsible.Indicator (необязательно)
 └─ Collapsible.Content
    └─ Collapsible.Body
        └─ содержимое
+
+Collapsible.RootProvider
+└─ то же дерево частей, подключённое к состоянию из useCollapsible()
 ```
 
 | Часть                              | Назначение                                                               |
@@ -83,58 +136,21 @@ Collapsible.Root
 
 ## Композиция
 
-### Рекомендуемая композиция
+`Collapsible` хранит состояние в корневом компоненте. Используйте `defaultOpen` для неконтролируемого
+раскрытия, а `open` с `onOpenChange(details)`, если состоянием управляет другая часть приложения.
+Колбэк сохраняет объект `details` из Ark, поэтому управляемое состояние нужно брать из `details.open`.
 
-Начните с `Collapsible`, `Collapsible.Trigger`, `Collapsible.Content` и `Collapsible.Body`.
-Добавляйте `Collapsible.Indicator`, если нужен визуальный признак состояния. Корневой компонент
-принимает свойства `open`, `defaultOpen`, `onOpenChange(details)`, `disabled`, `collapsedHeight`,
-`collapsedWidth`, `hideMode`, `lazyMount`, `unmountOnExit`, `ids` и `onExitComplete`.
+Используйте `Collapsible.RootProvider` вместе с `useCollapsible()` из пакета нужного фреймворка, если
+хранилище нужно создать вне дерева или разделить между границами композиции. Передайте это хранилище
+в `RootProvider` и не рендерите второй корневой `Collapsible` для того же состояния.
 
-Размещайте отступы и стили поверхности на `Collapsible.Body`, а не на `Collapsible.Content`. Ark
-измеряет содержимое и предоставляет переменные `--height`, `--width`, `--collapsed-height` и
-`--collapsed-width`.
+Размещайте отступы и стили поверхности на `Collapsible.Body`, а не на `Collapsible.Content`, чтобы Ark
+корректно измерял анимируемую область. `Collapsible.Indicator` необязателен и по умолчанию показывает
+шеврон moduix.
 
-При переходе с shadcn замените `CollapsibleTrigger` на `Collapsible.Trigger`, а `CollapsibleContent`
-на `Collapsible.Content`. В moduix сохраняется объект `details` из Ark, поэтому в управляемом режиме
-следующее состояние берите из `details.open`, а не из самого аргумента.
-
-### Когда нужна своя композиция
-
-Используйте `asChild`, если итоговый DOM-узел должен принадлежать другому семантическому элементу.
-Часть добавляет к этому элементу поведение Ark и атрибуты состояния, а внешний вид остаётся под вашим
-контролем. Пользовательский триггер должен оставаться доступным с клавиатуры и вести себя как кнопка.
-
-Используйте `useCollapsible()` из `@moduix/react/collapsible` вместе с `Collapsible.RootProvider`, когда
-состояние нужно создать за пределами дерева отрисованных компонентов. В moduix также доступны
-`Collapsible.Context` и `useCollapsibleContext()`.
-
-`Collapsible.Indicator` необязателен. Если не передать дочерние элементы, он выводит шеврон moduix,
-направленный вниз. При необходимости передайте собственное содержимое.
-
-### Свойства по умолчанию
-
-| Свойство          | По умолчанию | Примечания                                                                    |
-| ----------------- | ------------ | ----------------------------------------------------------------------------- |
-| `collapsedHeight` | не задано    | Высота, которая сохраняется, когда содержимое свёрнуто.                       |
-| `collapsedWidth`  | не задано    | Ширина, которая сохраняется, когда содержимое свёрнуто.                       |
-| `defaultOpen`     | `false`      | При первом рендере область свёрнута.                                          |
-| `disabled`        | `false`      | Триггер не может открыть или закрыть содержимое.                              |
-| `hideMode`        | `display-none` | Смонтированное закрытое содержимое скрывается через `hidden`. `activity` требует React 19. |
-| `lazyMount`       | `false`      | Содержимое монтируется при первом открытии.                                   |
-| `open`            | не задано    | Управляемое состояние. Используйте вместе с `onOpenChange`.                  |
-| `unmountOnExit`   | `false`      | После закрытия содержимое удаляется из DOM.                                   |
-
-### Особенности поведения
-
-- `onOpenChange` получает объект `details` от Ark. Следующее состояние находится в `details.open`.
-- `open` описывает целевое состояние. `visible` остаётся равным `true`, пока закрывающееся содержимое
-  смонтировано для анимации выхода.
-- Триггер рендерится как нативная кнопка. Клавиши `Enter` и `Space` открывают и закрывают область.
-- Не помещайте интерактивные элементы внутрь `Collapsible.Trigger`, чтобы триггер оставался кнопкой.
-- При `hideMode="activity"` смонтированное закрытое содержимое использует режим Activity React 19,
-  а его эффекты приостанавливаются. По умолчанию `hideMode="display-none"` используется атрибут
-  `hidden`.
-- Анимации содержимого и индикатора учитывают `prefers-reduced-motion`.
+Используйте `asChild`, только если поведение триггера должен получить семантический элемент приложения.
+Он должен оставаться доступной с клавиатуры кнопкой. В Solid передайте функцию рендера, например
+`asChild={(props) => <button {...props()} />}`.
 
 ## Примеры
 
@@ -149,20 +165,32 @@ Collapsible.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/collapsible/context.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={collapsibleSolidContext} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/collapsible/collapsible-context.module.css"
 ```
 
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -178,20 +206,32 @@ Collapsible.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/collapsible/controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={collapsibleSolidControlled} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/collapsible/collapsible-controlled.module.css"
 ```
 
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -206,20 +246,32 @@ Collapsible.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/collapsible/default-open.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={collapsibleSolidDefaultOpen} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/collapsible/collapsible-default-open.module.css"
 ```
 
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -234,20 +286,32 @@ Collapsible.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/collapsible/disabled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={collapsibleSolidDisabled} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/collapsible/collapsible-disabled.module.css"
 ```
 
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -263,20 +327,32 @@ Collapsible.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/collapsible/lazy-mount.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={collapsibleSolidLazyMount} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/collapsible/collapsible-lazy-mount.module.css"
 ```
 
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -291,20 +367,32 @@ Collapsible.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/collapsible/nested.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={collapsibleSolidNested} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/collapsible/collapsible-nested.module.css"
 ```
 
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -322,20 +410,32 @@ Collapsible.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/collapsible/partial-collapse.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={collapsibleSolidPartialCollapse} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/collapsible/collapsible-partial-collapse.module.css"
 ```
 
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -350,20 +450,32 @@ Collapsible.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/collapsible/partial-collapse-width.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={collapsibleSolidPartialCollapseWidth} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/collapsible/collapsible-partial-collapse-width.module.css"
 ```
 
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -379,20 +491,32 @@ Collapsible.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/collapsible/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={collapsibleSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/collapsible/collapsible-root-provider.module.css"
 ```
 
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -408,29 +532,46 @@ Collapsible.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/collapsible/custom-composition.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={collapsibleSolidCustomComposition} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/collapsible/collapsible-custom-composition.module.css"
 ```
 
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
 
 ## Стилизация
 
-Используйте `className` у экспортируемых частей для структурных стилей. Для стилей, зависящих от
-состояния, предпочитайте атрибуты данных Ark, например `data-state` и `data-disabled`, вместе с
-селекторами `data-slot` библиотеки moduix.
+Используйте `className` в React или `class` в Solid у экспортируемых частей для структурных стилей.
+Для стилей, зависящих от состояния, предпочитайте атрибуты данных Ark, например `data-state` и
+`data-disabled`, вместе с селекторами `data-slot` библиотеки moduix. Варианты на Tailwind используют
+нативные утилиты и классы приложения, а переменные ниже настраивают варианты с CSS Modules. Атрибуты
+данных и хуки `data-slot` общие для обоих способов стилизации.
+
+Размещайте отступы на `Collapsible.Body`, а не на `Collapsible.Content`, чтобы Ark мог корректно
+измерять и анимировать содержимое.
 
 ### CSS-свойства
 

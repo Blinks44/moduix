@@ -1,7 +1,7 @@
 ---
 title: Collapsible
 component: collapsible
-description: Un composant qui permet de déplier ou de replier une seule zone de contenu.
+description: Un composant accessible pour déplier ou replier une seule zone de contenu avec React ou Solid.
 ---
 
 import * as CollapsibleDocs from '@/components/examples/collapsible/css-properties';
@@ -16,6 +16,17 @@ import CollapsiblePartialCollapse from '@/components/examples/collapsible/partia
 import CollapsiblePartialCollapseWidth from '@/components/examples/collapsible/partial-collapse-width.tsx';
 import CollapsibleRootProvider from '@/components/examples/collapsible/root-provider.tsx';
 import CollapsibleCustomComposition from '@/components/examples/collapsible/custom-composition.tsx';
+import collapsibleSolidBasic from '../../../snippets/collapsible/solid/basic.tsx?raw';
+import collapsibleSolidContext from '../../../snippets/collapsible/solid/context.tsx?raw';
+import collapsibleSolidControlled from '../../../snippets/collapsible/solid/controlled.tsx?raw';
+import collapsibleSolidDefaultOpen from '../../../snippets/collapsible/solid/default-open.tsx?raw';
+import collapsibleSolidDisabled from '../../../snippets/collapsible/solid/disabled.tsx?raw';
+import collapsibleSolidLazyMount from '../../../snippets/collapsible/solid/lazy-mount.tsx?raw';
+import collapsibleSolidNested from '../../../snippets/collapsible/solid/nested.tsx?raw';
+import collapsibleSolidPartialCollapse from '../../../snippets/collapsible/solid/partial-collapse.tsx?raw';
+import collapsibleSolidPartialCollapseWidth from '../../../snippets/collapsible/solid/partial-collapse-width.tsx?raw';
+import collapsibleSolidRootProvider from '../../../snippets/collapsible/solid/root-provider.tsx?raw';
+import collapsibleSolidCustomComposition from '../../../snippets/collapsible/solid/custom-composition.tsx?raw';
 
 ## Référence de l’API
 
@@ -28,6 +39,10 @@ sections liées doivent partager la navigation au clavier ou un état coordonné
 
 ## Exemple de base
 
+Collapsible est disponible pour React et Solid, dans les paquets CSS Modules comme dans les variantes
+Tailwind. L’aperçu interactif de cette page utilise React avec CSS Modules ; les onglets de code
+présentent la source native correspondant au même contrat public.
+
 Utilisez `Collapsible` avec `Trigger`, `Content` et, si besoin, `Indicator` pour déplier ou replier une
 seule zone de contenu. Placez le contenu dans `Collapsible.Body` lorsque vous avez besoin du conteneur
 interne recommandé pour les espacements et la mise en page.
@@ -38,38 +53,76 @@ interne recommandé pour les espacements et la mise en page.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/collapsible/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={collapsibleSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/collapsible/collapsible-basic.module.css"
 ```
 
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="collapsible" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/collapsible' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/collapsible' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/collapsible' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/collapsible' },
+  ]}
+/>
+
+  </Tab>
+  </Tabs>
+
+Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration du paquet, du registre et des feuilles de style.
 
 ## Anatomie
 
 ```text
-Collapsible.Root
+Collapsible / Collapsible.Root
 ├─ Collapsible.Trigger
 │  ├─ libellé
 │  └─ Collapsible.Indicator (facultatif)
 └─ Collapsible.Content
    └─ Collapsible.Body
        └─ contenu
+
+Collapsible.RootProvider
+└─ même arbre de parties relié à un store useCollapsible()
 ```
 
 | Partie                             | Rôle                                                                    |
@@ -83,58 +136,21 @@ Collapsible.Root
 
 ## Composition
 
-### Composition recommandée
+`Collapsible` conserve son état dans la racine. Utilisez `defaultOpen` pour une zone non contrôlée, ou
+`open` avec `onOpenChange(details)` lorsqu’une autre partie de l’application gère l’état. Le callback
+conserve l’objet `details` d’Ark : l’état contrôlé se lit donc avec `details.open`.
 
-Commencez par `Collapsible`, `Collapsible.Trigger`, `Collapsible.Content` et `Collapsible.Body`.
-Ajoutez `Collapsible.Indicator` lorsqu’un repère visuel de l’état est utile. Les propriétés de la
-racine comprennent `open`, `defaultOpen`, `onOpenChange(details)`, `disabled`, `collapsedHeight`,
-`collapsedWidth`, `hideMode`, `lazyMount`, `unmountOnExit`, `ids` et `onExitComplete`.
+Utilisez `Collapsible.RootProvider` avec `useCollapsible()` du paquet correspondant au framework lorsque
+le store doit être créé en dehors de l’arbre rendu ou partagé entre plusieurs limites de composition.
+Transmettez ce store à `RootProvider` et ne rendez pas une seconde racine `Collapsible` pour le même état.
 
 Placez les espacements et les styles de surface sur `Collapsible.Body`, et non sur
-`Collapsible.Content`. Ark mesure le contenu et expose `--height`, `--width`, `--collapsed-height` et
-`--collapsed-width`.
+`Collapsible.Content`, afin qu’Ark puisse mesurer correctement la partie animée. `Collapsible.Indicator`
+est facultatif et affiche par défaut le chevron moduix.
 
-Pour migrer depuis shadcn, remplacez `CollapsibleTrigger` par `Collapsible.Trigger` et
-`CollapsibleContent` par `Collapsible.Content`. moduix conserve l’objet `details` d’Ark : dans une
-utilisation contrôlée, l’état se lit via `details.open` au lieu d’être transmis directement sous
-forme de valeur booléenne.
-
-### Quand personnaliser la composition
-
-Utilisez `asChild` lorsqu’un autre élément sémantique doit porter le nœud DOM rendu. La partie lui
-ajoute le comportement et les attributs d’état d’Ark, tout en vous laissant la maîtrise de ses styles
-visuels. Un déclencheur personnalisé doit rester accessible au clavier et se comporter comme un bouton.
-
-Utilisez `useCollapsible()` depuis `@moduix/react/collapsible` avec `Collapsible.RootProvider` lorsque
-vous devez créer l’état en dehors de l’arborescence rendue. moduix exporte également
-`Collapsible.Context` et `useCollapsibleContext()`.
-
-`Collapsible.Indicator` est facultatif. Sans contenu enfant, il affiche le chevron moduix orienté vers
-le bas. Fournissez-lui un contenu personnalisé si nécessaire.
-
-### Propriétés par défaut
-
-| Propriété          | Valeur par défaut | Remarques                                                                    |
-| ------------------ | ----------------- | ----------------------------------------------------------------------------- |
-| `collapsedHeight`  | non défini        | Hauteur conservée lorsque le contenu est replié.                              |
-| `collapsedWidth`   | non défini        | Largeur conservée lorsque le contenu est replié.                              |
-| `defaultOpen`      | `false`           | La zone est repliée au premier rendu.                                         |
-| `disabled`         | `false`           | Le déclencheur ne peut pas ouvrir ou fermer le contenu.                       |
-| `hideMode`         | `display-none`    | Utilise `hidden` pour masquer le contenu monté et fermé. `activity` nécessite React 19. |
-| `lazyMount`        | `false`           | Monte le contenu lors de sa première ouverture.                               |
-| `open`             | non défini        | État contrôlé, à utiliser avec `onOpenChange`.                                |
-| `unmountOnExit`    | `false`           | Retire le contenu du DOM après sa fermeture.                                  |
-
-### Comportement
-
-- `onOpenChange` reçoit un objet `details` d’Ark. L’état suivant se trouve dans `details.open`.
-- `open` correspond à l’état visé. `visible` reste à `true` tant que le contenu en cours de fermeture
-  reste monté pour l’animation de sortie.
-- Le déclencheur est rendu comme un bouton natif. `Enter` et `Space` ouvrent ou referment la zone.
-- Gardez les éléments interactifs en dehors de `Collapsible.Trigger` afin que le déclencheur reste un bouton.
-- Avec `hideMode="activity"`, le contenu fermé et monté utilise le mode Activity de React 19 et met ses
-  effets en pause. Par défaut, `hideMode="display-none"` utilise l’attribut `hidden`.
-- Les animations du contenu et de l’indicateur respectent `prefers-reduced-motion`.
+Utilisez `asChild` uniquement lorsqu’un élément sémantique appartenant à l’application doit recevoir le
+comportement du déclencheur ; il doit rester un bouton accessible au clavier. Avec Solid, transmettez une
+fonction de rendu, par exemple `asChild={(props) => <button {...props()} />}`.
 
 ## Exemples
 
@@ -149,20 +165,32 @@ la zone par programmation.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/collapsible/context.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={collapsibleSolidContext} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/collapsible/collapsible-context.module.css"
 ```
 
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -178,20 +206,32 @@ gère l’état.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/collapsible/controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={collapsibleSolidControlled} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/collapsible/collapsible-controlled.module.css"
 ```
 
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -206,20 +246,32 @@ Définissez `defaultOpen` pour qu’un composant non contrôlé soit ouvert dès
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/collapsible/default-open.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={collapsibleSolidDefaultOpen} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/collapsible/collapsible-default-open.module.css"
 ```
 
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -234,20 +286,32 @@ Ajoutez `disabled` à la racine pour empêcher l’utilisateur d’ouvrir ou de 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/collapsible/disabled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={collapsibleSolidDisabled} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/collapsible/collapsible-disabled.module.css"
 ```
 
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -263,20 +327,32 @@ le retirer du DOM après sa fermeture.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/collapsible/lazy-mount.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={collapsibleSolidLazyMount} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/collapsible/collapsible-lazy-mount.module.css"
 ```
 
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -291,20 +367,32 @@ Imbriquez des racines indépendantes lorsqu’une section ouverte contient un au
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/collapsible/nested.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={collapsibleSolidNested} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/collapsible/collapsible-nested.module.css"
 ```
 
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -321,20 +409,32 @@ repliée. Placez donc les actions qui doivent rester disponibles en dehors de `C
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/collapsible/partial-collapse.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={collapsibleSolidPartialCollapse} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/collapsible/collapsible-partial-collapse.module.css"
 ```
 
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -349,20 +449,32 @@ Utilisez `collapsedWidth` lorsqu’un aperçu horizontal est plus utile qu’un 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/collapsible/partial-collapse-width.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={collapsibleSolidPartialCollapseWidth} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/collapsible/collapsible-partial-collapse-width.module.css"
 ```
 
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -378,20 +490,32 @@ extérieur à l’arborescence rendue doit y accéder.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/collapsible/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={collapsibleSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/collapsible/collapsible-root-provider.module.css"
 ```
 
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -408,29 +532,47 @@ les attributs d’état sont conservés.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/collapsible/custom-composition.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={collapsibleSolidCustomComposition} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/collapsible/collapsible-custom-composition.module.css"
 ```
 
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
 
 ## Styles
 
-Utilisez `className` sur les parties exportées pour appliquer les styles structurels. Pour les styles
-qui dépendent de l’état, privilégiez les attributs de données Ark tels que `data-state` et
-`data-disabled`, ainsi que les sélecteurs `data-slot` de moduix.
+Utilisez `className` avec React ou `class` avec Solid sur les parties exportées pour les styles
+structurels. Pour les styles qui dépendent de l’état, privilégiez les attributs de données Ark tels
+que `data-state` et `data-disabled`, ainsi que les sélecteurs `data-slot` de moduix. Les variantes
+Tailwind utilisent les utilitaires natifs et les classes de l’application ; les variables ci-dessous
+personnalisent les variantes CSS Modules. Les attributs de données et les hooks `data-slot` sont
+communs aux deux modes de style.
+
+Placez les espacements sur `Collapsible.Body`, et non sur `Collapsible.Content`, afin qu’Ark puisse
+mesurer et animer correctement le contenu.
 
 ### Propriétés CSS
 
