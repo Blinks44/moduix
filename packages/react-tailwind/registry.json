@@ -384,6 +384,32 @@
       ]
     },
     {
+      "name": "combobox",
+      "type": "registry:item",
+      "title": "Combobox",
+      "description": "moduix React Tailwind Combobox component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-react-tailwind/foundation",
+        "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/icons",
+        "@moduix-react-tailwind/close-button",
+        "@moduix-react-tailwind/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/combobox/Combobox.tsx",
+          "target": "@components/ui/combobox/Combobox.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/index.ts",
+          "target": "@components/ui/combobox/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "color-picker",
       "type": "registry:item",
       "title": "ColorPicker",

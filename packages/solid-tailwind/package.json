@@ -138,6 +138,12 @@
       "import": "./dist/components/collapsible/index.js",
       "default": "./dist/components/collapsible/index.js"
     },
+    "./combobox": {
+      "types": "./dist/components/combobox/index.d.ts",
+      "solid": "./dist/components/combobox/index.jsx",
+      "import": "./dist/components/combobox/index.js",
+      "default": "./dist/components/combobox/index.js"
+    },
     "./color-picker": {
       "types": "./dist/components/color-picker/index.d.ts",
       "solid": "./dist/components/color-picker/index.jsx",
