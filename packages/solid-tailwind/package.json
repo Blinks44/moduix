@@ -168,6 +168,12 @@
       "import": "./dist/components/date-input/index.js",
       "default": "./dist/components/date-input/index.js"
     },
+    "./date-picker": {
+      "types": "./dist/components/date-picker/index.d.ts",
+      "solid": "./dist/components/date-picker/index.jsx",
+      "import": "./dist/components/date-picker/index.js",
+      "default": "./dist/components/date-picker/index.js"
+    },
     "./kbd": {
       "types": "./dist/components/kbd/index.d.ts",
       "solid": "./dist/components/kbd/index.jsx",

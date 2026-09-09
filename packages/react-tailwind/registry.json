@@ -455,6 +455,32 @@
       ]
     },
     {
+      "name": "date-picker",
+      "type": "registry:item",
+      "title": "DatePicker",
+      "description": "moduix React Tailwind DatePicker component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-react-tailwind/foundation",
+        "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/icons",
+        "@moduix-react-tailwind/close-button",
+        "@moduix-react-tailwind/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/date-picker/DatePicker.tsx",
+          "target": "@components/ui/date-picker/DatePicker.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/index.ts",
+          "target": "@components/ui/date-picker/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "carousel",
       "type": "registry:item",
       "title": "Carousel",

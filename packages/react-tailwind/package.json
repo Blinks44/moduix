@@ -126,6 +126,10 @@
       "types": "./dist/components/date-input/index.d.ts",
       "import": "./dist/components/date-input/index.js"
     },
+    "./date-picker": {
+      "types": "./dist/components/date-picker/index.d.ts",
+      "import": "./dist/components/date-picker/index.js"
+    },
     "./kbd": {
       "types": "./dist/components/kbd/index.d.ts",
       "import": "./dist/components/kbd/index.js"
