@@ -180,6 +180,12 @@
       "import": "./dist/components/dialog/index.js",
       "default": "./dist/components/dialog/index.js"
     },
+    "./drawer": {
+      "types": "./dist/components/drawer/index.d.ts",
+      "solid": "./dist/components/drawer/index.jsx",
+      "import": "./dist/components/drawer/index.js",
+      "default": "./dist/components/drawer/index.js"
+    },
     "./kbd": {
       "types": "./dist/components/kbd/index.d.ts",
       "solid": "./dist/components/kbd/index.jsx",

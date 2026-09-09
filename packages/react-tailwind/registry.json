@@ -506,6 +506,31 @@
       ]
     },
     {
+      "name": "drawer",
+      "type": "registry:item",
+      "title": "Drawer",
+      "description": "moduix React Tailwind Drawer component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-react-tailwind/foundation",
+        "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/close-button",
+        "@moduix-react-tailwind/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/drawer/Drawer.tsx",
+          "target": "@components/ui/drawer/Drawer.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/index.ts",
+          "target": "@components/ui/drawer/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "carousel",
       "type": "registry:item",
       "title": "Carousel",

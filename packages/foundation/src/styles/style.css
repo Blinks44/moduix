@@ -135,4 +135,22 @@
     var(--moduix-transition-default);
   --animate-moduix-menu-open: moduix-menu-content-open var(--moduix-transition-default);
   --animate-moduix-menu-closed: moduix-menu-content-closed var(--moduix-transition-default);
+  --animate-moduix-drawer-backdrop-in: moduix-drawer-backdrop-in var(--moduix-transition-spring);
+  --animate-moduix-drawer-backdrop-out: moduix-drawer-backdrop-out var(--moduix-transition-spring)
+    forwards;
+  --animate-moduix-drawer-content-in-down: moduix-drawer-content-in-down
+    var(--moduix-transition-spring);
+  --animate-moduix-drawer-content-out-down: moduix-drawer-content-out-down
+    var(--moduix-transition-spring) forwards;
+  --animate-moduix-drawer-content-in-up: moduix-drawer-content-in-up var(--moduix-transition-spring);
+  --animate-moduix-drawer-content-out-up: moduix-drawer-content-out-up
+    var(--moduix-transition-spring) forwards;
+  --animate-moduix-drawer-content-in-left: moduix-drawer-content-in-left
+    var(--moduix-transition-spring);
+  --animate-moduix-drawer-content-out-left: moduix-drawer-content-out-left
+    var(--moduix-transition-spring) forwards;
+  --animate-moduix-drawer-content-in-right: moduix-drawer-content-in-right
+    var(--moduix-transition-spring);
+  --animate-moduix-drawer-content-out-right: moduix-drawer-content-out-right
+    var(--moduix-transition-spring) forwards;
 }

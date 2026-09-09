@@ -157,6 +157,68 @@
   }
 }
 
+@keyframes moduix-drawer-backdrop-in {
+  from {
+    opacity: 0;
+    backdrop-filter: none;
+  }
+}
+
+@keyframes moduix-drawer-backdrop-out {
+  to {
+    opacity: 0;
+    backdrop-filter: none;
+  }
+}
+
+@keyframes moduix-drawer-content-in-down {
+  from {
+    transform: translate3d(0, calc(100% + max(1rem, env(safe-area-inset-bottom, 0px))), 0);
+  }
+}
+
+@keyframes moduix-drawer-content-out-down {
+  to {
+    transform: translate3d(0, calc(100% + max(1rem, env(safe-area-inset-bottom, 0px))), 0);
+  }
+}
+
+@keyframes moduix-drawer-content-in-up {
+  from {
+    transform: translate3d(0, calc(-100% - max(1rem, env(safe-area-inset-top, 0px))), 0);
+  }
+}
+
+@keyframes moduix-drawer-content-out-up {
+  to {
+    transform: translate3d(0, calc(-100% - max(1rem, env(safe-area-inset-top, 0px)) - 40px), 0);
+  }
+}
+
+@keyframes moduix-drawer-content-in-left {
+  from {
+    transform: translate3d(calc(-100% - max(1rem, env(safe-area-inset-left, 0px))), 0, 0);
+  }
+}
+
+@keyframes moduix-drawer-content-out-left {
+  to {
+    transform: translate3d(calc(-100% - max(1rem, env(safe-area-inset-left, 0px))), 0, 0);
+  }
+}
+
+@keyframes moduix-drawer-content-in-right {
+  from {
+    transform: translate3d(calc(100% + max(1rem, env(safe-area-inset-right, 0px))), 0, 0);
+  }
+}
+
+@keyframes moduix-drawer-content-out-right {
+  to {
+    transform: translate3d(calc(100% + max(1rem, env(safe-area-inset-right, 0px))), 0, 0);
+  }
+}
+
 :root {
   --moduix-animation-pulse: moduix-pulse 2.5s ease-in-out infinite;
   --moduix-animation-fade-in: moduix-fade-in var(--moduix-duration-normal) var(--moduix-ease-out);
