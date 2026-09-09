@@ -1,7 +1,7 @@
 import type { CssProperty } from '../../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
-const dateInputOverrideCssProperties: CssProperty[] = [
+export const dateInputOverrideCssProperties: CssProperty[] = [
   {
     name: '--moduix-date-input-bg',
     defaultValue: 'var(--moduix-color-background)',

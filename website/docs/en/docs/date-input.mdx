@@ -1,7 +1,7 @@
 ---
 title: Date Input
 component: date-input
-description: A segmented date input built on Ark UI for single dates and ranges, with locale-aware editing and native form submission.
+description: Build accessible segmented date inputs in React or Solid with CSS Modules or Tailwind, including locale-aware editing and native form submission.
 ---
 
 import * as DateInputDocs from '@/components/examples/date-input/css-properties';
@@ -18,6 +18,19 @@ import DateInputRange from '@/components/examples/date-input/range.tsx';
 import DateInputRightToLeft from '@/components/examples/date-input/right-to-left.tsx';
 import DateInputRootProvider from '@/components/examples/date-input/root-provider.tsx';
 import DateInputTimeOnly from '@/components/examples/date-input/time-only.tsx';
+import dateInputSolidAdvancedCustomization from '../../../snippets/date-input/solid/advanced-customization.tsx?raw';
+import dateInputSolidBasic from '../../../snippets/date-input/solid/basic.tsx?raw';
+import dateInputSolidControlled from '../../../snippets/date-input/solid/controlled.tsx?raw';
+import dateInputSolidDisabledAndReadOnly from '../../../snippets/date-input/solid/disabled-and-read-only.tsx?raw';
+import dateInputSolidFieldState from '../../../snippets/date-input/solid/field-state.tsx?raw';
+import dateInputSolidGranularity from '../../../snippets/date-input/solid/granularity.tsx?raw';
+import dateInputSolidLeadingZeros from '../../../snippets/date-input/solid/leading-zeros.tsx?raw';
+import dateInputSolidLocale from '../../../snippets/date-input/solid/locale.tsx?raw';
+import dateInputSolidMinMaxAndUnavailableDates from '../../../snippets/date-input/solid/min-max-and-unavailable-dates.tsx?raw';
+import dateInputSolidRange from '../../../snippets/date-input/solid/range.tsx?raw';
+import dateInputSolidRightToLeft from '../../../snippets/date-input/solid/right-to-left.tsx?raw';
+import dateInputSolidRootProvider from '../../../snippets/date-input/solid/root-provider.tsx?raw';
+import dateInputSolidTimeOnly from '../../../snippets/date-input/solid/time-only.tsx?raw';
 
 ## API Reference
 
@@ -32,9 +45,9 @@ import DateInputTimeOnly from '@/components/examples/date-input/time-only.tsx';
 
 ## Basic
 
-Render `DateInput.Segments` inside `DateInput.Control` to get a locale-aware group of date segments. Ark
-UI handles segment order, keyboard editing, focus, placeholders, and form synchronization. moduix adds
-the styled parts and exposes Ark's native form input for explicit composition.
+`DateInput` renders locale-aware date segments that users can edit with the keyboard. Put
+`DateInput.Segments` inside `DateInput.Control` for the standard composition. The preview uses the
+React CSS Modules package; the framework tabs show native React and Solid source for the same API.
 
 <ExampleFrame variant="component">
   <DateInputBasic />
@@ -42,32 +55,66 @@ the styled parts and exposes Ark's native form input for explicit composition.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/date-input/date-input-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={dateInputSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/date-input/date-input-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="date-input" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/date-input' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/date-input' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/date-input' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/date-input' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+See [Quick Start](/docs/quick-start) for package setup, registry configuration, and stylesheet setup.
 
 ## Anatomy
 
 ```text
-DateInput.Root
+DateInput / DateInput.Root
 ├─ DateInput.Label
 ├─ DateInput.Control
 │  ├─ DateInput.Segments
@@ -84,70 +131,31 @@ DateInput.RootProvider
 └─ same part tree connected to a useDateInput() store
 ```
 
-| Part                           | Role                                                               |
-| ------------------------------ | ------------------------------------------------------------------ |
+| Part | Role |
+| ---- | ---- |
 | `DateInput` / `DateInput.Root` | Owns date values, locale formatting, segment focus, and validation. |
-| `DateInput.HiddenInput` | Native Ark form control; compose explicitly as described below. |
-| `DateInput.RootProvider`       | Connects the parts to state created by `useDateInput()`.           |
-| `DateInput.Label`              | Accessible label for the date input.                               |
-| `DateInput.Control`            | Visual frame around one or more segment groups.                    |
-| `DateInput.SegmentGroup`       | Groups segments for one date index.                                |
-| `DateInput.Segment`            | Editable or literal segment supplied by Ark UI.                    |
-| `DateInput.Segments`           | Renders one locale-aware segment group for the common case.        |
-| `DateInput.Separator`          | Presentational text used between range groups.                     |
-| `DateInput.Context`            | Renderless access to the current date input state.                 |
-| `DateInput.SegmentContext`     | Render helper for locale-aware segment rendering.                  |
+| `DateInput.HiddenInput` | Native Ark form control that must be composed explicitly for submission. |
+| `DateInput.RootProvider` | Connects the parts to state created by `useDateInput()`. |
+| `DateInput.Label` | Accessible label for the date input. |
+| `DateInput.Control` | Visual frame around one or more segment groups. |
+| `DateInput.SegmentGroup` | Groups segments for one date index. |
+| `DateInput.Segment` | Editable or literal segment supplied by Ark UI. |
+| `DateInput.Segments` | Renders one locale-aware segment group for the common case. |
+| `DateInput.Separator` | Presentational text used between range groups. |
+| `DateInput.Context` | Renderless access to the current date input state. |
+| `DateInput.SegmentContext` | Render helper for locale-aware segment rendering. |
 
 ## Composition
 
-### Native form control
+Use `DateInput` with `DateInput.Control` and `DateInput.Segments` for the standard field. Keep the
+state uncontrolled with `defaultValue`, control it with `value` and `onValueChange(details)`, or
+create it with `useDateInput()` and connect the parts through `DateInput.RootProvider`. Values use
+the `DateInputDateValue[]` shape from `@internationalized/date`, not strings.
 
-Render one `DateInput.HiddenInput` per date inside `DateInput` or `DateInput.RootProvider`.
-The root does not add inputs. Set `name` on each input; for ranges, use `index={0}` and `index={1}`.
-Ark appends the index to range names: `name="start"` with `index={0}` submits as `start[0]`.
-Values use Ark’s formatted date strings. Set `form` on the root for an external form.
-
-### Recommended composition
-
-Use the shorthand root, `DateInput`, instead of `DateInput.Root`. Render `DateInput.Segments` inside
-`DateInput.Control` for a standard locale-aware segment group.
-
-Compose `DateInput.HiddenInput` explicitly when native form submission and reset are needed. For a
-range, render two indexed `DateInput.Segments` groups and matching hidden inputs with `index={0}` and
-`index={1}`. Give each hidden input the desired `name`.
-
-### When to go custom
-
-Use `DateInput.SegmentGroup`, `DateInput.SegmentContext`, and `DateInput.Segment` directly when
-segment classes or rendering need to vary by segment. Use `asChild` on Ark-backed parts when you need
-a custom host element, and keep the child as one semantic element. Use `ids` when an external label or
-description needs stable, shared IDs.
-
-### Default props
-
-| Prop                              | Default        | Notes                                                 |
-| --------------------------------- | -------------- | ----------------------------------------------------- |
-| `DateInput` / `DateInput.Root`    | -              | No local behavioral defaults; Ark defaults apply.     |
-| `DateInput.Segments`              | -              | Renders one locale-aware segment group for one index. |
-| `DateInput.Separator.aria-hidden` | `true`         | Presentational text is hidden from assistive tech.    |
-| `DateInput.Separator.role`        | `presentation` | Keeps range separators out of the accessibility tree. |
-
-### Behavioral notes
-
-- Values use the `DateInputDateValue[]` shape from `@internationalized/date`, not strings.
-- `onValueChange(details)` retains Ark's details object with `details.value` and `details.valueAsString`.
-- `focused`, `defaultFocused`, and `onFocusChange(details)` control focus on the root.
-- `placeholderValue`, `defaultPlaceholderValue`, and `onPlaceholderChange(details)` control the date used to fill empty segments.
-- `selectionMode="range"` enables indexed segment groups; add matching indexed hidden inputs for forms.
-- `shouldForceLeadingZeros` controls whether numeric segments are padded.
-- `min`, `max`, `isDateUnavailable`, and `invalid` constrain and report date validity.
-- `locale`, `timeZone`, `hourCycle`, `granularity`, `formatter`, `format`, `translations`, `dir`, and
-  `createCalendar` are passed through to Ark. For time-only input, use a time-only formatter with
-  `granularity="minute"` or `"second"`.
-- Import `useDateInput()`, `useDateInputContext()`, and `DateInputDateValue` from `@moduix/react`.
-  Use `DateInput.Context` or `useDateInputContext()` to read root state from inside the component tree,
-  and use `DateInput.SegmentContext` for custom segment rendering. Direct Ark imports are for lower-level
-  types and helpers that moduix does not export.
+`DateInput.HiddenInput` is explicit because the root does not add native inputs. Render one hidden
+input for each submitted date and use matching `index` values for a range. Use
+`DateInput.SegmentGroup`, `DateInput.SegmentContext`, and `DateInput.Segment` only when the default
+`DateInput.Segments` rendering is not enough.
 
 ## Examples
 
@@ -161,20 +169,31 @@ Pass the selected date array to `value` and update it from `details.value` in `o
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/date-input/date-input-controlled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={dateInputSolidControlled} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/date-input/date-input-controlled.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -190,28 +209,39 @@ editable.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/disabled-and-read-only.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/date-input/date-input-disabled-and-read-only.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={dateInputSolidDisabledAndReadOnly} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/date-input/date-input-disabled-and-read-only.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Field state
 
-Wrap `DateInput` in `Field` to provide surrounding form text. Pass `required`, `disabled`, or `invalid`
-directly to `DateInput` when Ark state attributes should appear on the date input itself.
+Wrap `DateInput` in `Field` to provide surrounding form text. Pass `required`, `disabled`, or
+`invalid` directly to `DateInput` when Ark state attributes should appear on the date input itself.
 
 <ExampleFrame variant="component">
   <DateInputFieldState />
@@ -219,20 +249,31 @@ directly to `DateInput` when Ark state attributes should appear on the date inpu
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/field-state.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/date-input/date-input-field-state.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={dateInputSolidFieldState} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/date-input/date-input-field-state.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -247,20 +288,31 @@ Set `granularity` to include time segments in the input.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/granularity.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/date-input/date-input-granularity.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={dateInputSolidGranularity} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/date-input/date-input-granularity.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -275,20 +327,31 @@ Set `shouldForceLeadingZeros={false}` when numeric segments should not include l
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/leading-zeros.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/date-input/date-input-leading-zeros.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={dateInputSolidLeadingZeros} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/date-input/date-input-leading-zeros.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -304,20 +367,31 @@ should follow regional conventions.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/locale.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/date-input/date-input-locale.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={dateInputSolidLocale} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/date-input/date-input-locale.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -332,20 +406,31 @@ Use `min`, `max`, and `isDateUnavailable` to mark entered dates outside business
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/min-max-and-unavailable-dates.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/date-input/date-input-min-max-and-unavailable-dates.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={dateInputSolidMinMaxAndUnavailableDates} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/date-input/date-input-min-max-and-unavailable-dates.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -361,20 +446,31 @@ Use `selectionMode="range"`, pass `index` to each segment group, and add matchin
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/range.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/date-input/date-input-range.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={dateInputSolidRange} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/date-input/date-input-range.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -389,28 +485,39 @@ Set `dir="rtl"` with an RTL locale to keep the locale's segment order and direct
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/right-to-left.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/date-input/date-input-right-to-left.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={dateInputSolidRightToLeft} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/date-input/date-input-right-to-left.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Root Provider
 
-Use `useDateInput()` from `@moduix/react` with `DateInput.RootProvider` when state actions need to
-be available outside the rendered root tree.
+Use `useDateInput()` from `@moduix/react` or `@moduix/solid` with `DateInput.RootProvider` when
+state actions need to be available outside the rendered root tree.
 
 <ExampleFrame variant="component">
   <DateInputRootProvider />
@@ -418,20 +525,31 @@ be available outside the rendered root tree.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/date-input/date-input-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={dateInputSolidRootProvider} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/date-input/date-input-root-provider.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -447,20 +565,31 @@ of the value users edit.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/time-only.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/date-input/date-input-time-only.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={dateInputSolidTimeOnly} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/date-input/date-input-time-only.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -476,51 +605,51 @@ Use the full segment composition when rendering needs to vary based on Ark segme
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/advanced-customization.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/date-input/date-input-advanced-customization.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={dateInputSolidAdvancedCustomization} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/date-input/date-input-advanced-customization.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Styling
 
-For most styling changes, start with `--moduix-date-input-width`, `--moduix-date-input-control-width`,
-`--moduix-date-input-border-color`, `--moduix-date-input-radius`, `--moduix-date-input-focus-ring-color`, and
-`--moduix-date-input-segment-bg-focus`. The full public variable contract appears below.
+Use `className` in React or `class` in Solid on exported parts for structural styles. Tailwind
+variants use native utilities and consumer classes. CSS Modules variants also expose the component
+variables below. Data attributes and `data-slot` hooks are shared by both styling tracks.
 
-### CSS properties
+### CSS Properties
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <DateInputDocs.DateInputCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={DateInputDocs.dateInputOverrideCssProperties} />
 
 ### Styling hooks
 
-- `data-slot="date-input-root"` on the root.
-- `data-slot="date-input-label"` on the label.
-- `data-slot="date-input-control"` on the visual frame.
-- `data-slot="date-input-segment-group"` on each segment group.
-- `data-slot="date-input-segment"` on editable and fixed segments.
-- `data-slot="date-input-separator"` on moduix range separator sugar.
-- Ark state attributes include `data-disabled`, `data-readonly`, `data-invalid`, `data-focus` on
-  control and segment groups, `data-type`, `data-editable`, and `data-placeholder-shown`.
+- Stable `data-slot` selectors: `date-input-root`, `date-input-root-provider`, `date-input-label`,
+  `date-input-control`, `date-input-segment-group`, `date-input-segment`, and
+  `date-input-separator`.
+- Ark part selectors use `data-scope="date-input"` and the corresponding `data-part` values.
+- Ark state attributes include `data-disabled`, `data-readonly`, `data-invalid`, and `data-focus`
+  on the control and segment groups, together with `data-type`, `data-editable`, and
+  `data-placeholder-shown` on segments.

@@ -1,7 +1,7 @@
 ---
-title: Date Input
+title: Ввод даты
 component: date-input
-description: Сегментированное поле для ввода дат на базе Ark UI. Поддерживает одиночные даты и диапазоны, учитывает локаль и отправляет значение через нативную форму.
+description: Доступное сегментированное поле для ввода дат в React и Solid с CSS Modules или Tailwind, поддержкой локали и нативных форм.
 ---
 
 import * as DateInputDocs from '@/components/examples/date-input/css-properties';
@@ -18,6 +18,19 @@ import DateInputRange from '@/components/examples/date-input/range.tsx';
 import DateInputRightToLeft from '@/components/examples/date-input/right-to-left.tsx';
 import DateInputRootProvider from '@/components/examples/date-input/root-provider.tsx';
 import DateInputTimeOnly from '@/components/examples/date-input/time-only.tsx';
+import dateInputSolidAdvancedCustomization from '../../../snippets/date-input/solid/advanced-customization.tsx?raw';
+import dateInputSolidBasic from '../../../snippets/date-input/solid/basic.tsx?raw';
+import dateInputSolidControlled from '../../../snippets/date-input/solid/controlled.tsx?raw';
+import dateInputSolidDisabledAndReadOnly from '../../../snippets/date-input/solid/disabled-and-read-only.tsx?raw';
+import dateInputSolidFieldState from '../../../snippets/date-input/solid/field-state.tsx?raw';
+import dateInputSolidGranularity from '../../../snippets/date-input/solid/granularity.tsx?raw';
+import dateInputSolidLeadingZeros from '../../../snippets/date-input/solid/leading-zeros.tsx?raw';
+import dateInputSolidLocale from '../../../snippets/date-input/solid/locale.tsx?raw';
+import dateInputSolidMinMaxAndUnavailableDates from '../../../snippets/date-input/solid/min-max-and-unavailable-dates.tsx?raw';
+import dateInputSolidRange from '../../../snippets/date-input/solid/range.tsx?raw';
+import dateInputSolidRightToLeft from '../../../snippets/date-input/solid/right-to-left.tsx?raw';
+import dateInputSolidRootProvider from '../../../snippets/date-input/solid/root-provider.tsx?raw';
+import dateInputSolidTimeOnly from '../../../snippets/date-input/solid/time-only.tsx?raw';
 
 ## Справочник API
 
@@ -27,14 +40,14 @@ import DateInputTimeOnly from '@/components/examples/date-input/time-only.tsx';
 
 - Выберите **`Input`** для обычных текстовых значений.
 - Выберите **`DateInput`**, когда пользователям нужно вводить дату с клавиатуры по отдельным сегментам.
-- Выберите **`DatePicker`**, когда пользователям нужен встроенный или всплывающий календарь. `DateInput` рассчитан
-  на ввод с клавиатуры и не включает календарь.
+- Выберите **`DatePicker`**, когда нужен встроенный или всплывающий календарь. `DateInput` рассчитан
+  на ввод с клавиатуры и не содержит календаря.
 
 ## Базовый пример
 
-Поместите `DateInput.Segments` внутрь `DateInput.Control`, чтобы получить группу сегментов даты с учётом текущей
-локали. Ark UI управляет порядком сегментов, вводом с клавиатуры, фокусом, плейсхолдерами и синхронизацией с формой.
-moduix добавляет стилизованные части и предоставляет нативное поле Ark для явной композиции.
+`DateInput` отображает сегменты даты с учётом локали, которые можно редактировать с клавиатуры. Поместите
+`DateInput.Segments` внутрь `DateInput.Control` для стандартной композиции. Preview на этой странице
+использует пакет React CSS Modules, а вкладки показывают нативный код React и Solid для одного API.
 
 <ExampleFrame variant="component">
   <DateInputBasic />
@@ -42,32 +55,66 @@ moduix добавляет стилизованные части и предос�
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/date-input/date-input-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={dateInputSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/date-input/date-input-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="date-input" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/date-input' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/date-input' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/date-input' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/date-input' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+Подробнее об установке пакета, настройке registry и таблиц стилей см. в разделе [Quick Start](/docs/quick-start).
 
 ## Анатомия
 
 ```text
-DateInput.Root
+DateInput / DateInput.Root
 ├─ DateInput.Label
 ├─ DateInput.Control
 │  ├─ DateInput.Segments
@@ -81,74 +128,34 @@ DateInput.SegmentGroup
    └─ DateInput.Segment
 
 DateInput.RootProvider
-└─ то же дерево частей, подключённое к состоянию, созданному через `useDateInput()`
+└─ то же дерево частей, подключённое к состоянию из useDateInput()
 ```
 
-| Часть                          | Назначение                                                              |
-| ------------------------------ | ----------------------------------------------------------------------- |
+| Часть | Назначение |
+| ---- | ---- |
 | `DateInput` / `DateInput.Root` | Отвечает за значения дат, форматирование с учётом локали, фокус сегментов и валидацию. |
-| `DateInput.HiddenInput` | Нативное поле Ark; правила явной композиции описаны ниже. |
-| `DateInput.RootProvider`       | Подключает части к состоянию из `useDateInput()`.                                  |
-| `DateInput.Label`              | Подпись поля даты, доступная вспомогательным технологиям.                           |
-| `DateInput.Control`            | Визуальная рамка вокруг одной или нескольких групп сегментов.                       |
-| `DateInput.SegmentGroup`       | Объединяет сегменты для одного индекса даты.                                       |
-| `DateInput.Segment`            | Редактируемый или фиксированный сегмент, предоставляемый Ark UI.                    |
-| `DateInput.Segments`           | Отображает одну группу сегментов с учётом локали для стандартного сценария.         |
-| `DateInput.Separator`          | Текстовый разделитель между группами диапазона.                                    |
-| `DateInput.Context`            | Даёт доступ к текущему состоянию поля без собственной разметки.                    |
-| `DateInput.SegmentContext`     | Вспомогательный компонент Ark UI для отображения сегментов с учётом локали.         |
+| `DateInput.HiddenInput` | Нативное поле Ark, которое для отправки формы нужно добавить явно. |
+| `DateInput.RootProvider` | Подключает части к состоянию из `useDateInput()`. |
+| `DateInput.Label` | Подпись поля даты, доступная вспомогательным технологиям. |
+| `DateInput.Control` | Визуальная рамка вокруг одной или нескольких групп сегментов. |
+| `DateInput.SegmentGroup` | Объединяет сегменты для одного индекса даты. |
+| `DateInput.Segment` | Редактируемый или фиксированный сегмент, предоставляемый Ark UI. |
+| `DateInput.Segments` | Отображает одну группу сегментов с учётом локали для обычного сценария. |
+| `DateInput.Separator` | Текстовый разделитель между группами диапазона. |
+| `DateInput.Context` | Даёт доступ к текущему состоянию поля без собственной разметки. |
+| `DateInput.SegmentContext` | Помогает отображать сегменты с учётом локали. |
 
 ## Композиция
 
-### Нативное поле формы
+Для обычного поля используйте `DateInput` с `DateInput.Control` и `DateInput.Segments`. Оставьте состояние
+неконтролируемым через `defaultValue`, управляйте им через `value` и `onValueChange(details)` или создайте
+его с помощью `useDateInput()` и подключите части через `DateInput.RootProvider`. Значения имеют форму
+`DateInputDateValue[]` из `@internationalized/date`, а не строк.
 
-Добавьте по одному `DateInput.HiddenInput` на дату внутри `DateInput` или `DateInput.RootProvider`.
-Корневой компонент не создаёт поля автоматически. Задайте `name` на каждом поле, а для диапазона —
-ещё и `index={0}` и `index={1}`. Ark добавляет индекс к имени поля диапазона: `name="start"`
-с `index={0}` отправляется как `start[0]`. Значения — строки дат в формате Ark.
-Для внешней формы задайте `form` на корневом компоненте.
-
-### Рекомендуемая композиция
-
-Используйте сокращённую запись `DateInput`, а не `DateInput.Root`. Поместите `DateInput.Segments` внутрь
-`DateInput.Control`, чтобы получить стандартную группу сегментов с учётом локали.
-
-Добавьте `DateInput.HiddenInput` явно, когда нужны нативная отправка и сброс формы. Для диапазона отрисуйте две
-индексированные группы `DateInput.Segments` и соответствующие скрытые поля с `index={0}` и `index={1}`.
-Передайте каждому скрытому полю нужный `name`.
-
-### Когда нужна своя композиция
-
-Используйте `DateInput.SegmentGroup`, `DateInput.SegmentContext` и `DateInput.Segment` напрямую, когда
-классы сегментов или способ их отображения должны зависеть от типа сегмента. Используйте `asChild` для частей Ark UI,
-если нужен собственный элемент-обёртка. Передаваемый дочерний элемент должен быть единственным и подходить по семантике.
-Используйте `ids`, когда внешнюю подпись или вспомогательный текст нужно связать с полем по стабильным идентификаторам.
-
-### Свойства по умолчанию
-
-| Свойство                          | По умолчанию  | Примечания                                                           |
-| --------------------------------- | ------------- | -------------------------------------------------------------------- |
-| `DateInput` / `DateInput.Root`    | -             | Дополнительных поведенческих значений по умолчанию нет, используются значения Ark UI. |
-| `DateInput.Segments`              | -             | Отображает одну группу сегментов с учётом локали для одного индекса.                  |
-| `DateInput.Separator.aria-hidden` | `true`        | Текст разделителя скрыт от вспомогательных технологий.                              |
-| `DateInput.Separator.role`        | `presentation` | Исключает разделитель диапазона из дерева доступности.                               |
-
-### Особенности поведения
-
-- Значения имеют форму `DateInputDateValue[]` и основаны на типах `@internationalized/date`; это не строки.
-- `onValueChange(details)` передаёт объект `details` Ark UI с полями `details.value` и `details.valueAsString`.
-- `focused`, `defaultFocused` и `onFocusChange(details)` управляют фокусом корневого компонента.
-- `placeholderValue`, `defaultPlaceholderValue` и `onPlaceholderChange(details)` задают дату для пустых сегментов.
-- `selectionMode="range"` включает группы с индексами; для формы добавьте соответствующие скрытые поля.
-- `shouldForceLeadingZeros` определяет, нужно ли дополнять числовые сегменты ведущими нулями.
-- `min`, `max` и `isDateUnavailable` проверяют допустимость дат, а `invalid` задаёт состояние ошибки.
-- `locale`, `timeZone`, `hourCycle`, `granularity`, `formatter`, `format`, `translations`, `dir` и
-  `createCalendar` передаются в Ark UI. Если нужен только ввод времени, используйте форматтер, настроенный на время,
-  с `granularity="minute"` или `"second"`.
-- Импортируйте `useDateInput()`, `useDateInputContext()` и `DateInputDateValue` из `@moduix/react`.
-  Используйте `DateInput.Context` или `useDateInputContext()`, чтобы получить состояние внутри дерева компонентов,
-  а `DateInput.SegmentContext` - для собственной разметки сегментов. Прямые импорты Ark UI нужны только для
-  низкоуровневых типов и вспомогательных функций, которые moduix не экспортирует.
+`DateInput.HiddenInput` нужно добавлять явно: корневой компонент не создаёт нативные поля. Добавьте по одному
+скрытому полю на каждую отправляемую дату, а для диапазона используйте соответствующие значения `index`.
+Используйте `DateInput.SegmentGroup`, `DateInput.SegmentContext` и `DateInput.Segment` только тогда, когда
+стандартного отображения `DateInput.Segments` недостаточно.
 
 ## Примеры
 
@@ -162,28 +169,30 @@ DateInput.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+<CodeBlockRuntime lang="tsx" code={dateInputSolidControlled} />
+    </Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/date-input/date-input-controlled.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
 
 ### Отключённое состояние и только для чтения
 
-Используйте `disabled`, чтобы запретить взаимодействие. Используйте `readOnly`, когда значение должно оставаться
-доступным для фокуса, но недоступным для редактирования.
+Используйте `disabled`, чтобы запретить взаимодействие, и `readOnly`, чтобы оставить значение доступным для
+фокуса, но запретить редактирование.
 
 <ExampleFrame variant="component">
   <DateInputDisabledAndReadOnly />
@@ -191,28 +200,30 @@ DateInput.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/disabled-and-read-only.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+<CodeBlockRuntime lang="tsx" code={dateInputSolidDisabledAndReadOnly} />
+    </Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/date-input/date-input-disabled-and-read-only.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
 
 ### Состояние поля
 
-Оберните `DateInput` в `Field`, чтобы добавить к полю вспомогательный текст и сообщение об ошибке. Передавайте `required`,
-`disabled` или `invalid` непосредственно в `DateInput`, если атрибуты состояния Ark UI должны появляться на самом поле.
+Оберните `DateInput` в `Field`, чтобы добавить к полю вспомогательный текст. Передавайте `required`, `disabled`
+или `invalid` непосредственно в `DateInput`, если атрибуты состояния Ark UI должны появляться на самом поле.
 
 <ExampleFrame variant="component">
   <DateInputFieldState />
@@ -220,27 +231,29 @@ DateInput.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/field-state.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+<CodeBlockRuntime lang="tsx" code={dateInputSolidFieldState} />
+    </Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/date-input/date-input-field-state.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
 
 ### Гранулярность
 
-Укажите `granularity`, чтобы добавить к полю сегменты времени.
+Укажите `granularity`, чтобы добавить в поле сегменты времени.
 
 <ExampleFrame variant="component">
   <DateInputGranularity />
@@ -248,27 +261,29 @@ DateInput.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/granularity.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+<CodeBlockRuntime lang="tsx" code={dateInputSolidGranularity} />
+    </Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/date-input/date-input-granularity.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
 
 ### Ведущие нули
 
-Установите `shouldForceLeadingZeros={false}`, если числовые сегменты не должны содержать ведущие нули.
+Укажите `shouldForceLeadingZeros={false}`, если числовые сегменты не должны дополняться ведущими нулями.
 
 <ExampleFrame variant="component">
   <DateInputLeadingZeros />
@@ -276,28 +291,30 @@ DateInput.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/leading-zeros.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+<CodeBlockRuntime lang="tsx" code={dateInputSolidLeadingZeros} />
+    </Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/date-input/date-input-leading-zeros.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
 
 ### Локаль
 
-Укажите `locale`, `timeZone`, `hourCycle` или `granularity` на корневом компоненте, если порядок и подписи сегментов
-должны соответствовать региональным правилам.
+Укажите на корневом компоненте `locale`, `timeZone`, `hourCycle` или `granularity`, если порядок сегментов и
+их подписи должны соответствовать региональным правилам.
 
 <ExampleFrame variant="component">
   <DateInputLocale />
@@ -305,28 +322,30 @@ DateInput.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/locale.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+<CodeBlockRuntime lang="tsx" code={dateInputSolidLocale} />
+    </Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/date-input/date-input-locale.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
 
-### Минимум, максимум и недоступные даты
+### Минимальная, максимальная и недоступные даты
 
-Используйте `min`, `max` и `isDateUnavailable`, чтобы ограничить допустимые даты правилами приложения и отметить
-недоступные даты.
+Используйте `min`, `max` и `isDateUnavailable`, чтобы ограничить даты правилами приложения и отмечать
+недопустимые значения.
 
 <ExampleFrame variant="component">
   <DateInputMinMaxAndUnavailableDates />
@@ -334,20 +353,22 @@ DateInput.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/min-max-and-unavailable-dates.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+<CodeBlockRuntime lang="tsx" code={dateInputSolidMinMaxAndUnavailableDates} />
+    </Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/date-input/date-input-min-max-and-unavailable-dates.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -355,7 +376,7 @@ DateInput.RootProvider
 ### Диапазон
 
 Используйте `selectionMode="range"`, передайте `index` каждой группе сегментов и добавьте соответствующие
-`DateInput.HiddenInput`, если значения входят в форму.
+индексированные `DateInput.HiddenInput`, если значения отправляются вместе с формой.
 
 <ExampleFrame variant="component">
   <DateInputRange />
@@ -363,27 +384,29 @@ DateInput.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/range.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+<CodeBlockRuntime lang="tsx" code={dateInputSolidRange} />
+    </Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/date-input/date-input-range.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
 
 ### Справа налево
 
-Установите `dir="rtl"` вместе с RTL-локалью, чтобы сохранить порядок сегментов и направление письма.
+Укажите `dir="rtl"` вместе с RTL-локалью, чтобы сохранить направление и порядок сегментов локали.
 
 <ExampleFrame variant="component">
   <DateInputRightToLeft />
@@ -391,28 +414,30 @@ DateInput.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/right-to-left.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+<CodeBlockRuntime lang="tsx" code={dateInputSolidRightToLeft} />
+    </Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/date-input/date-input-right-to-left.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
 
 ### Root Provider
 
-Используйте `useDateInput()` из `@moduix/react` вместе с `DateInput.RootProvider`, когда состояние и его методы нужно
-контролировать за пределами дерева компонентов.
+Используйте `useDateInput()` из `@moduix/react` или `@moduix/solid` вместе с `DateInput.RootProvider`, когда
+методы управления состоянием нужны за пределами дерева корневого компонента.
 
 <ExampleFrame variant="component">
   <DateInputRootProvider />
@@ -420,27 +445,30 @@ DateInput.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+<CodeBlockRuntime lang="tsx" code={dateInputSolidRootProvider} />
+    </Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/date-input/date-input-root-provider.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
 
 ### Только время
 
-Используйте форматтер только для времени с гранулярностью до минут или секунд, если пользователю не нужно вводить дату.
+Используйте форматтер, настроенный только на время, с гранулярностью минут или секунд, если дата не входит в
+значение, которое редактирует пользователь.
 
 <ExampleFrame variant="component">
   <DateInputTimeOnly />
@@ -448,28 +476,30 @@ DateInput.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/time-only.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+<CodeBlockRuntime lang="tsx" code={dateInputSolidTimeOnly} />
+    </Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/date-input/date-input-time-only.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
 
 ### Расширенная настройка
 
-Используйте полную композицию сегментов, если отображение должно зависеть от данных, которые Ark UI передаёт для каждого
-сегмента. Для стандартного отображения остаётся `DateInput.Segments`.
+Используйте полную композицию сегментов, если отображение должно зависеть от данных сегмента Ark UI.
+Для стандартного отображения остаётся `DateInput.Segments`.
 
 <ExampleFrame variant="component">
   <DateInputAdvancedCustomization />
@@ -477,51 +507,40 @@ DateInput.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/advanced-customization.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+<CodeBlockRuntime lang="tsx" code={dateInputSolidAdvancedCustomization} />
+    </Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/date-input/date-input-advanced-customization.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
 
 ## Стилизация
 
-Для большинства задач по настройке стилей начните с `--moduix-date-input-width`, `--moduix-date-input-control-width`,
-`--moduix-date-input-border-color`, `--moduix-date-input-radius`, `--moduix-date-input-focus-ring-color` и
-`--moduix-date-input-segment-bg-focus`. Полный список публичных переменных приведён ниже.
+В React используйте `className`, а в Solid `class` на экспортируемых частях для структурных стилей. Варианты
+Tailwind используют обычные utility-классы и классы потребителя. Варианты CSS Modules также предоставляют
+перечисленные ниже переменные компонентов. Атрибуты данных и хуки `data-slot` общие для обоих вариантов.
 
 ### CSS-свойства
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <DateInputDocs.DateInputCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={DateInputDocs.dateInputOverrideCssProperties} />
 
 ### Хуки стилизации
 
-- `data-slot="date-input-root"` на корневом компоненте.
-- `data-slot="date-input-label"` на метке.
-- `data-slot="date-input-control"` на визуальной рамке.
-- `data-slot="date-input-segment-group"` на каждой группе сегментов.
-- `data-slot="date-input-segment"` на редактируемых и неизменяемых сегментах.
-- `data-slot="date-input-separator"` на разделителе диапазона, который предоставляет moduix.
+- Стабильные селекторы `data-slot`: `date-input-root`, `date-input-root-provider`, `date-input-label`,
+  `date-input-control`, `date-input-segment-group`, `date-input-segment` и `date-input-separator`.
+- Селекторы частей Ark UI используют `data-scope="date-input"` и соответствующие значения `data-part`.
 - Атрибуты состояния Ark UI включают `data-disabled`, `data-readonly`, `data-invalid` и `data-focus` на
-  `DateInput.Control` и группах сегментов, а также `data-type`, `data-editable` и `data-placeholder-shown`.
+  control и группах сегментов, а также `data-type`, `data-editable` и `data-placeholder-shown` на сегментах.
