@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "@ark-ui/solid": "^5.39.1",
+    "@internationalized/date": "3.12.3",
     "@tailwindcss/vite": "^4.3.3",
     "@tanstack/charts": "^0.16.0",
     "@types/node": "^26.4.1",

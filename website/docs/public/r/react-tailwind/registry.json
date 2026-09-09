@@ -435,6 +435,26 @@
       ]
     },
     {
+      "name": "date-input",
+      "type": "registry:item",
+      "title": "DateInput",
+      "description": "moduix React Tailwind DateInput component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/date-input/DateInput.tsx",
+          "target": "@components/ui/date-input/DateInput.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-input/index.ts",
+          "target": "@components/ui/date-input/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "carousel",
       "type": "registry:item",
       "title": "Carousel",

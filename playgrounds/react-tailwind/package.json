@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "@ark-ui/react": "^5.39.1",
+    "@internationalized/date": "3.12.3",
     "@storybook/react-vite": "^10.6.0",
     "@tailwindcss/vite": "^4.3.3",
     "@tanstack/charts": "^0.16.0",

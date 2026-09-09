@@ -122,6 +122,10 @@
       "types": "./dist/components/container/index.d.ts",
       "import": "./dist/components/container/index.js"
     },
+    "./date-input": {
+      "types": "./dist/components/date-input/index.d.ts",
+      "import": "./dist/components/date-input/index.js"
+    },
     "./kbd": {
       "types": "./dist/components/kbd/index.d.ts",
       "import": "./dist/components/kbd/index.js"
@@ -161,6 +165,7 @@
   },
   "devDependencies": {
     "@ark-ui/react": "^5.39.1",
+    "@internationalized/date": "3.12.3",
     "@rsbuild/core": "^2.2.3",
     "@rsbuild/plugin-react": "^2.1.0",
     "@rslib/core": "^1.0.0",

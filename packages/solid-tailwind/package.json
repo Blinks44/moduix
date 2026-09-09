@@ -162,6 +162,12 @@
       "import": "./dist/components/color-picker/index.js",
       "default": "./dist/components/color-picker/index.js"
     },
+    "./date-input": {
+      "types": "./dist/components/date-input/index.d.ts",
+      "solid": "./dist/components/date-input/index.jsx",
+      "import": "./dist/components/date-input/index.js",
+      "default": "./dist/components/date-input/index.js"
+    },
     "./kbd": {
       "types": "./dist/components/kbd/index.d.ts",
       "solid": "./dist/components/kbd/index.jsx",
@@ -209,6 +215,7 @@
   },
   "devDependencies": {
     "@ark-ui/solid": "^5.39.1",
+    "@internationalized/date": "3.12.3",
     "@rsbuild/core": "^2.2.3",
     "@rsbuild/plugin-babel": "^2.1.0",
     "@rsbuild/plugin-solid": "^1.2.2",
