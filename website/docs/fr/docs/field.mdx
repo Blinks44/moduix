@@ -1,7 +1,7 @@
 ---
 title: Field
 component: field
-description: Contexte de champ qui relie un contrôle de formulaire à son libellé, à son texte d’aide, à son message d’erreur et à son état partagé.
+description: Contexte de champ accessible pour React et Solid, avec des paquets CSS Modules et Tailwind.
 ---
 
 import * as FieldDocs from '@/components/examples/field/css-properties';
@@ -17,6 +17,18 @@ import FieldReadOnly from '@/components/examples/field/read-only.tsx';
 import FieldRootProvider from '@/components/examples/field/root-provider.tsx';
 import FieldSelect from '@/components/examples/field/select.tsx';
 import FieldTextarea from '@/components/examples/field/textarea.tsx';
+import fieldSolidBasic from '../../../snippets/field/solid/basic.tsx?raw';
+import fieldSolidCheckbox from '../../../snippets/field/solid/checkbox.tsx?raw';
+import fieldSolidControlledInvalid from '../../../snippets/field/solid/controlled-invalid.tsx?raw';
+import fieldSolidDisabled from '../../../snippets/field/solid/disabled.tsx?raw';
+import fieldSolidInvalid from '../../../snippets/field/solid/invalid.tsx?raw';
+import fieldSolidItemTarget from '../../../snippets/field/solid/item-target.tsx?raw';
+import fieldSolidNativeSelect from '../../../snippets/field/solid/native-select.tsx?raw';
+import fieldSolidRadioGroup from '../../../snippets/field/solid/radiogroup.tsx?raw';
+import fieldSolidReadOnly from '../../../snippets/field/solid/read-only.tsx?raw';
+import fieldSolidRootProvider from '../../../snippets/field/solid/root-provider.tsx?raw';
+import fieldSolidSelect from '../../../snippets/field/solid/select.tsx?raw';
+import fieldSolidTextarea from '../../../snippets/field/solid/textarea.tsx?raw';
 
 ## Référence de l’API
 
@@ -33,6 +45,10 @@ d’un message d’erreur ou d’un état partagé `disabled`, `invalid`, `requi
 
 ## Exemple de base
 
+Field est disponible pour React et Solid, dans les paquets CSS Modules comme dans les variantes Tailwind.
+L’aperçu interactif de cette page utilise React avec CSS Modules ; les onglets de code présentent la
+source native correspondant au même contrat public pour chaque framework.
+
 Utilisez `Field` comme conteneur d’un contrôle de formulaire. Placez `Field.Label` avant le contrôle,
 puis ajoutez un texte d’aide ou d’erreur lorsque l’utilisateur a besoin d’informations supplémentaires.
 
@@ -42,33 +58,67 @@ puis ajoutez un texte d’aide ou d’erreur lorsque l’utilisateur a besoin d�
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/field/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/field/field-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={fieldSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/field/field-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="field" />
+Pour configurer le paquet et choisir entre CSS Modules et Tailwind, consultez le [guide de démarrage](/docs/quick-start).
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/field' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/field' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/field' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/field' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
-L’espace de noms public `Field` reprend les noms de parties d’Ark UI. Utilisez les parties `Field.*` pour
-une composition Ark explicite. Pour les formulaires courants, préférez les composants moduix correspondants,
-comme `Input`, `Textarea` ou `NativeSelect`.
+L’espace de noms public `Field` reprend les noms de parties d’Ark UI. Utilisez les parties `Field.*`
+pour une composition Ark explicite. Pour les formulaires courants, préférez les composants moduix
+correspondants, comme `Input`, `Textarea` ou `NativeSelect`.
 
 ```text
 Field
@@ -77,74 +127,40 @@ Field
 ├─ Field.HelperText
 ├─ Field.ErrorText
 └─ Field.RequiredIndicator
+
+Field.RootProvider
+└─ même arbre de parties relié à l’état fourni par useField()
 ```
 
-| Partie                    | Rôle                                                                                                  |
-| ------------------------ | ----------------------------------------------------------------------------------------------------- |
-| `Field` / `Field.Root`   | Contexte racine. Il rend par défaut un `<div role="group">`.                                         |
-| `Field.RootProvider`     | Racine qui utilise un objet d’état `useField()` créé en dehors de l’arbre de rendu.                  |
-| `Field.Context`          | Permet de lire l’état courant du champ sans ajouter d’élément au DOM.                                |
-| `Field.Label`            | Libellé accessible associé au contrôle courant.                                                        |
-| `Field.Input`            | Champ natif de bas niveau. Pour un champ standard, préférez `Input`.                               |
-| `Field.Textarea`         | Zone de texte native de bas niveau. Pour le composant standard, préférez `Textarea`.               |
-| `Field.Select`           | Select natif de bas niveau. Pour un select standard, préférez `NativeSelect`.                       |
-| `Field.HelperText`       | Texte d’aide associé au contrôle via `aria-describedby`.                                               |
-| `Field.ErrorText`        | Message d’erreur rendu lorsque la racine est dans l’état `invalid`.                                  |
+| Partie                    | Rôle                                                                                           |
+| ------------------------ | ---------------------------------------------------------------------------------------------- |
+| `Field` / `Field.Root`   | Contexte racine. Il rend par défaut un `<div role="group">`.                                 |
+| `Field.RootProvider`     | Racine utilisant un état `useField()` créé en dehors de l’arbre de rendu.                      |
+| `Field.Context`          | Permet de lire l’état courant du champ sans ajouter d’élément au DOM.                          |
+| `Field.Label`            | Libellé accessible associé au contrôle courant.                                                |
+| `Field.Input`            | Champ natif de bas niveau. Pour le champ standard, préférez `Input`.                          |
+| `Field.Textarea`         | Zone de texte native de bas niveau. Pour la version standard, préférez `Textarea`.             |
+| `Field.Select`           | Select natif de bas niveau. Pour la version standard, préférez `NativeSelect`.                 |
+| `Field.HelperText`       | Texte d’aide associé au contrôle via `aria-describedby`.                                       |
+| `Field.ErrorText`        | Message d’erreur rendu lorsque la racine est dans l’état `invalid`.                           |
 | `Field.RequiredIndicator` | Marqueur visuel d’un champ obligatoire. Utilisez `fallback` pour remplacer le marqueur par défaut. |
-| `Field.Item`             | Contexte imbriqué pour un contrôle groupé identifié par `value` ; sa ref pointe vers le wrapper de ligne local. |
+| `Field.Item`             | Contexte imbriqué pour un contrôle groupé identifié par `value` ; sa ref pointe vers le wrapper local. |
 
 ## Composition
 
-### Composition recommandée
-
-Gardez un seul libellé visible dans la racine et placez ensuite un contrôle moduix principal, par exemple
-`Input`, `Textarea` ou `NativeSelect`. Ajoutez un texte d’aide ou d’erreur lorsque l’utilisateur a besoin
-d’une description ou d’un message de validation.
-
-Les contrôles qui possèdent leur propre racine composée, comme `Checkbox`, `RadioGroup` ou `Select`,
-peuvent également être placés dans `Field`. Ils conservent leurs propres propriétés d’état : transmettez
-`required`, `invalid`, `disabled` ou `readOnly` à la racine enfant lorsque le contrôle gère cet état.
-
-### Quand créer une composition personnalisée
-
-Utilisez `Field.Item value` avec la prop `target` de la racine lorsqu’un champ contient plusieurs contrôles
-natifs et que le libellé racine doit cibler l’un d’eux. `Field.Input`, `Field.Textarea` et `Field.Select`
-restent disponibles pour une composition bas niveau basée sur Ark, mais le code applicatif doit en général
-préférer les contrôles moduix dédiés.
-
-Pour un contrôle personnalisé qui ne consomme pas le contexte Ark Field, utilisez `Field.Context` ou
-`useFieldContext` depuis `@moduix/react` pour lire l’état du champ et relier ses identifiants et ses attributs ARIA.
-
-### Propriétés par défaut
-
-| Propriété  | Valeur par défaut | Remarques                                                                                             |
-| ---------- | ----------------- | ----------------------------------------------------------------------------------------------------- |
-| `disabled` | `false`           | Marque le champ comme désactivé et se propage aux parties de champ compatibles.                      |
-| `invalid`  | `false`           | Contrôle `Field.ErrorText` ; transmettez aussi cette propriété à un contrôle composé qui gère sa propre validation. |
-| `readOnly` | `false`           | Marque le champ en lecture seule et se propage aux parties compatibles.                              |
-| `required` | `false`           | Marque le champ comme obligatoire. `Field.RequiredIndicator` reste un enfant explicite.             |
-| `target`   | -                 | Valeur `value` du `Field.Item` que le libellé racine doit cibler.                                     |
-
-### Comportement
-
-- `Field.ErrorText` n’est pas présent dans le DOM tant que la racine n’est pas dans l’état `invalid`.
-- Le champ ne valide pas les valeurs. L’application ou la bibliothèque de formulaires décide quand `invalid` doit être
-  défini à `true`.
-- Les libellés, textes d’aide et messages d’erreur longs passent à la ligne dans le champ sans déborder de son conteneur.
-- Passez à `Field.RootProvider` la valeur renvoyée par `useField()` depuis `@moduix/react`. N’utilisez pas
-  `Field.Root` et `Field.RootProvider` pour une même instance de champ.
-- Utilisez `Field.Context` ou `useFieldContext` depuis `@moduix/react` lorsqu’un contrôle personnalisé a besoin de
-  l’état courant du champ. Les props Ark comme `ids`, `target` et `asChild` restent disponibles sur les parties concernées.
-- `Field.Item` transmet sa ref au wrapper de ligne que moduix rend autour de ses enfants.
-- Les contrôles composés comme `Checkbox` et `RadioGroup` gèrent eux-mêmes leurs éléments natifs de formulaire. Field
-  ne rend pas d’input caché.
+Utilisez la racine pour associer un contrôle à `Field.Label`, `Field.HelperText`, `Field.ErrorText` et
+`Field.RequiredIndicator`. Les contrôles composés comme `Checkbox`, `RadioGroup` et `Select` gèrent leur
+propre état : transmettez `required`, `invalid`, `disabled` ou `readOnly` à leur racine lorsqu’ils en
+sont responsables. Pour plusieurs contrôles natifs, entourez chacun d’un `Field.Item value` et définissez
+`target` sur la racine. Utilisez `Field.RootProvider` avec `useField()` lorsque l’état est créé en dehors
+de l’arbre rendu ; les contrôles personnalisés peuvent lire l’état via `Field.Context` ou `useFieldContext`.
 
 ## Exemples
 
 ### Checkbox
 
-Utilisez `Field` autour d’une case à cocher lorsqu’elle a besoin d’un texte d’aide ou d’un message d’erreur au niveau
-du champ. Transmettez à `Checkbox` ses propres propriétés d’état et de formulaire.
+Utilisez `Field` autour d’une case à cocher lorsqu’elle a besoin d’un texte d’aide ou d’un message d’erreur
+au niveau du champ. Transmettez à `Checkbox` ses propres propriétés d’état et de formulaire.
 
 <ExampleFrame variant="component">
   <FieldCheckbox />
@@ -152,28 +168,32 @@ du champ. Transmettez à `Checkbox` ses propres propriétés d’état et de for
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/field/checkbox.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/field/field-checkbox.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={fieldSolidCheckbox} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/field/field-checkbox.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### État `invalid` contrôlé
 
-Calculez `invalid` à partir de l’état local lorsque la validation doit se mettre à jour pendant la saisie. Le message
-d’erreur n’apparaît que lorsque le champ est invalide.
+Calculez `invalid` à partir de l’état local lorsque la validation doit se mettre à jour pendant la saisie.
+Le message d’erreur n’apparaît que lorsque le champ est invalide.
 
 <ExampleFrame variant="component">
   <FieldControlledInvalid />
@@ -181,20 +201,24 @@ d’erreur n’apparaît que lorsque le champ est invalide.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/field/controlled-invalid.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/field/field-controlled-invalid.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={fieldSolidControlledInvalid} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/field/field-controlled-invalid.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -209,28 +233,32 @@ Définissez `disabled` sur la racine pour transmettre cet état aux parties Ark 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/field/disabled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/field/field-disabled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={fieldSolidDisabled} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/field/field-disabled.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### État invalide
 
-Définissez `invalid` sur la racine lorsque l’état de l’application ou une bibliothèque de formulaires pilote la validation.
-Transmettez aussi cette propriété à la racine d’un contrôle composé lorsque celui-ci gère son propre état invalide.
+Définissez `invalid` sur la racine lorsque l’état de l’application ou une bibliothèque de formulaires gère
+la validation. Transmettez également cette prop à la racine d’un contrôle composé lorsqu’il gère sa propre validation.
 
 <ExampleFrame variant="component">
   <FieldInvalid />
@@ -238,171 +266,32 @@ Transmettez aussi cette propriété à la racine d’un contrôle composé lorsq
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/field/invalid.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fieldSolidInvalid} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/field/field-invalid.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
 
-### Select natif
+### Cible de `Field.Item`
 
-Utilisez `NativeSelect` pour un select natif du navigateur. `Field` le relie au libellé, à l’état et à la description du champ.
-
-<ExampleFrame variant="component">
-  <FieldNativeSelect />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
-
-```tsx pure file="../../../src/components/examples/field/native-select.tsx"
-```
-
-    </Tab>
-    <Tab value="Styles">
-
-```css file="../../../src/components/examples/field/field-native-select.module.css"
-```
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
-
-### RadioGroup
-
-Utilisez `Field` avec `RadioGroup` lorsqu’un même libellé, texte d’aide ou message d’erreur doit décrire l’ensemble des
-choix, plutôt que chaque bouton radio. Transmettez les propriétés d’état propres au groupe à `RadioGroup`.
-
-<ExampleFrame variant="component">
-  <FieldRadioGroup />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
-
-```tsx pure file="../../../src/components/examples/field/radiogroup.tsx"
-```
-
-    </Tab>
-    <Tab value="Styles">
-
-```css file="../../../src/components/examples/field/field-radiogroup.module.css"
-```
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
-
-### Lecture seule
-
-Définissez `readOnly` sur la racine lorsque les utilisateurs peuvent copier la valeur du contrôle, mais pas la modifier.
-
-<ExampleFrame variant="component">
-  <FieldReadOnly />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
-
-```tsx pure file="../../../src/components/examples/field/read-only.tsx"
-```
-
-    </Tab>
-    <Tab value="Styles">
-
-```css file="../../../src/components/examples/field/field-read-only.module.css"
-```
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
-
-### Select
-
-Utilisez le `Select` composé lorsqu’un select natif ne suffit pas et qu’une liste d’options ou une interface de sélection
-personnalisée est nécessaire. Utilisez `Combobox` lorsque l’utilisateur doit saisir du texte pour rechercher ou créer une
-valeur. Comme `Select` gère son propre état, transmettez-lui `required`, `invalid`, `disabled` ou `readOnly` lorsque nécessaire.
-
-<ExampleFrame variant="component">
-  <FieldSelect />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
-
-```tsx pure file="../../../src/components/examples/field/select.tsx"
-```
-
-    </Tab>
-    <Tab value="Styles">
-
-```css file="../../../src/components/examples/field/field-select.module.css"
-```
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
-
-### Zone de texte
-
-Utilisez `Textarea` pour la saisie multiligne tout en conservant les associations du champ avec le libellé, la description
-et l’état.
-
-<ExampleFrame variant="component">
-  <FieldTextarea />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
-
-```tsx pure file="../../../src/components/examples/field/textarea.tsx"
-```
-
-    </Tab>
-    <Tab value="Styles">
-
-```css file="../../../src/components/examples/field/field-textarea.module.css"
-```
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
-
-### Personnalisation avancée
-
-Utilisez `Field.Item` avec la prop `target` de la racine lorsqu’un seul libellé doit cibler un contrôle dans un groupe.
+Utilisez `Field.Item` avec la prop `target` de la racine lorsqu’un seul libellé doit cibler un contrôle
+à l’intérieur d’un groupe.
 
 <ExampleFrame variant="component">
   <FieldItemTarget />
@@ -410,25 +299,129 @@ Utilisez `Field.Item` avec la prop `target` de la racine lorsqu’un seul libell
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/field/item-target.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/field/field-item-target.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={fieldSolidItemTarget} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/field/field-item-target.module.css"
+```
 </div>
 
 </ExampleCode>
 
-Utilisez `useField` avec `Field.RootProvider` lorsque l’état du champ doit être créé en dehors de l’arbre de rendu.
+### Select natif
+
+Utilisez `NativeSelect` pour un select natif du navigateur. `Field` le relie au libellé, à l’état et à la
+description du champ.
+
+<ExampleFrame variant="component">
+  <FieldNativeSelect />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/field/native-select.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fieldSolidNativeSelect} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/field/field-native-select.module.css"
+```
+</div>
+
+</ExampleCode>
+
+### RadioGroup
+
+Utilisez `Field` avec `RadioGroup` lorsqu’un seul libellé, texte d’aide ou message d’erreur doit décrire
+l’ensemble des choix plutôt que chaque option. Transmettez à `RadioGroup` ses propres propriétés d’état.
+
+<ExampleFrame variant="component">
+  <FieldRadioGroup />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/field/radiogroup.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fieldSolidRadioGroup} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/field/field-radiogroup.module.css"
+```
+</div>
+
+</ExampleCode>
+
+### Lecture seule
+
+Définissez `readOnly` sur la racine lorsque l’utilisateur peut copier la valeur du contrôle sans la modifier.
+
+<ExampleFrame variant="component">
+  <FieldReadOnly />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/field/read-only.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fieldSolidReadOnly} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/field/field-read-only.module.css"
+```
+</div>
+
+</ExampleCode>
+
+### Root Provider
+
+Utilisez `useField` avec `Field.RootProvider` lorsque l’état du champ doit être créé en dehors de l’arbre rendu.
 
 <ExampleFrame variant="component">
   <FieldRootProvider />
@@ -436,46 +429,111 @@ Utilisez `useField` avec `Field.RootProvider` lorsque l’état du champ doit ê
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/field/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/field/field-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={fieldSolidRootProvider} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/field/field-root-provider.module.css"
+```
+</div>
+
+</ExampleCode>
+
+### Select
+
+Utilisez le `Select` composé lorsqu’un select natif ne suffit pas et que vous avez besoin d’une liste
+d’options ou d’une interface de sélection personnalisée. Puisque `Select` gère son propre état, transmettez
+`required`, `invalid`, `disabled` ou `readOnly` à `Select` lorsque cet état lui appartient.
+
+<ExampleFrame variant="component">
+  <FieldSelect />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/field/select.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fieldSolidSelect} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/field/field-select.module.css"
+```
+</div>
+
+</ExampleCode>
+
+### Textarea
+
+Utilisez `Textarea` pour une saisie multiligne tout en conservant les liens du champ avec son libellé,
+sa description et son état.
+
+<ExampleFrame variant="component">
+  <FieldTextarea />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/field/textarea.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fieldSolidTextarea} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/field/field-textarea.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Styles
 
-Personnalisez `Field` avec `className`, les attributs Ark `data-scope="field"` et `data-part="..."`,
-les points d’accroche moduix `data-slot="field-*"` et les variables CSS publiques `--moduix-field-*` ci-dessous.
+Utilisez `className` en React ou `class` en Solid sur les parties exportées pour la structure. Pour les
+styles liés à l’état, préférez les attributs de données Ark comme `data-disabled`, `data-invalid`,
+`data-readonly` et `data-required`, avec les sélecteurs `data-slot` de moduix. Les variantes Tailwind
+utilisent les utilitaires natifs et les classes du consommateur ; les variables CSS ci-dessous personnalisent
+les variantes CSS Modules.
 
 ### Propriétés CSS
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <FieldDocs.FieldCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={FieldDocs.fieldOverrideCssProperties} />
 
 ### Points d’accroche CSS
 
 Ark ajoute `data-disabled`, `data-invalid`, `data-readonly` et `data-required` aux parties concernées.
-`Field.ErrorText` existe uniquement lorsque le contexte du champ courant est invalide. L’identifiant du texte d’aide
-est inclus dans `aria-describedby` du contrôle, et celui du message d’erreur actif dans `aria-errormessage`. Chaque
-partie DOM conserve également un point d’accroche stable `data-slot="field-*"`.
+`Field.ErrorText` n’existe que lorsque le contexte courant du champ est invalide. L’identifiant du texte
+d’aide est inclus dans `aria-describedby` du contrôle et l’identifiant du message d’erreur actif dans
+`aria-errormessage`. Chaque partie DOM conserve également un point d’accroche stable
+`data-slot="field-*"`.

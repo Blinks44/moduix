@@ -1,7 +1,7 @@
 ---
 title: Field
 component: field
-description: Контекст поля, который связывает элемент управления формы с подписью, пояснением, сообщением об ошибке и общим состоянием.
+description: Доступный контекст поля формы для React и Solid с вариантами пакетов CSS Modules и Tailwind.
 ---
 
 import * as FieldDocs from '@/components/examples/field/css-properties';
@@ -17,15 +17,27 @@ import FieldReadOnly from '@/components/examples/field/read-only.tsx';
 import FieldRootProvider from '@/components/examples/field/root-provider.tsx';
 import FieldSelect from '@/components/examples/field/select.tsx';
 import FieldTextarea from '@/components/examples/field/textarea.tsx';
+import fieldSolidBasic from '../../../snippets/field/solid/basic.tsx?raw';
+import fieldSolidCheckbox from '../../../snippets/field/solid/checkbox.tsx?raw';
+import fieldSolidControlledInvalid from '../../../snippets/field/solid/controlled-invalid.tsx?raw';
+import fieldSolidDisabled from '../../../snippets/field/solid/disabled.tsx?raw';
+import fieldSolidInvalid from '../../../snippets/field/solid/invalid.tsx?raw';
+import fieldSolidItemTarget from '../../../snippets/field/solid/item-target.tsx?raw';
+import fieldSolidNativeSelect from '../../../snippets/field/solid/native-select.tsx?raw';
+import fieldSolidRadioGroup from '../../../snippets/field/solid/radiogroup.tsx?raw';
+import fieldSolidReadOnly from '../../../snippets/field/solid/read-only.tsx?raw';
+import fieldSolidRootProvider from '../../../snippets/field/solid/root-provider.tsx?raw';
+import fieldSolidSelect from '../../../snippets/field/solid/select.tsx?raw';
+import fieldSolidTextarea from '../../../snippets/field/solid/textarea.tsx?raw';
 
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/field" />
 
-## Выбор подходящего компонента
+## Какой компонент выбрать
 
-Используйте `Field`, когда одному элементу управления формы нужны видимая метка, пояснение, сообщение об ошибке
-или общее состояние `disabled`, `invalid`, `required` либо `readOnly`.
+Используйте `Field`, когда одному элементу управления формы нужны доступная метка, поясняющий текст,
+сообщение об ошибке или общее состояние `disabled`, `invalid`, `required` либо `readOnly`.
 
 - Выбирайте **`Field`** для одного элемента управления с меткой или поясняющим текстом.
 - Выбирайте **`Fieldset`**, когда нескольким связанным элементам управления нужен общий заголовок группы.
@@ -33,8 +45,12 @@ import FieldTextarea from '@/components/examples/field/textarea.tsx';
 
 ## Базовый пример
 
-Используйте `Field` как оболочку для одного элемента управления формы. Разместите `Field.Label` перед ним,
-а затем при необходимости добавьте поясняющий текст или сообщение об ошибке.
+Field доступен для React и Solid в пакетах с CSS Modules и Tailwind. Интерактивный пример на этой
+странице использует React и CSS Modules, а вкладки с кодом показывают нативную реализацию того же
+публичного контракта для каждого фреймворка.
+
+Используйте `Field` как оболочку для одного элемента управления формы. Разместите `Field.Label` перед
+ним, а затем при необходимости добавьте поясняющий текст или сообщение об ошибке.
 
 <ExampleFrame variant="component">
   <FieldBasic />
@@ -42,33 +58,67 @@ import FieldTextarea from '@/components/examples/field/textarea.tsx';
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/field/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/field/field-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={fieldSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/field/field-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="field" />
+Настройку пакета и выбор между CSS Modules и Tailwind см. в разделе [Быстрый старт](/docs/quick-start).
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/field' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/field' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/field' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/field' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
-Публичное пространство имён `Field` сохраняет названия частей из Ark UI. Используйте части `Field.*` для
-явной композиции Ark. В обычных формах лучше выбирать соответствующие компоненты moduix, например `Input`,
-`Textarea` или `NativeSelect`.
+Публичное пространство имён `Field` сохраняет названия частей из Ark UI. Используйте части `Field.*`
+для явной композиции Ark. В обычных формах лучше выбирать соответствующие компоненты moduix, например
+`Input`, `Textarea` или `NativeSelect`.
 
 ```text
 Field
@@ -77,72 +127,41 @@ Field
 ├─ Field.HelperText
 ├─ Field.ErrorText
 └─ Field.RequiredIndicator
+
+Field.RootProvider
+└─ то же дерево частей, подключённое к состоянию из useField()
 ```
 
-| Часть                     | Назначение                                                                                           |
-| ------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `Field` / `Field.Root`    | Корневой контекст. По умолчанию рендерит `<div role="group">`.                                        |
-| `Field.RootProvider`      | Корень, использующий объект состояния `useField()`, созданный вне дерева компонентов.                |
-| `Field.Context`           | Даёт доступ к текущему состоянию поля, не добавляя элемент в DOM.                                     |
-| `Field.Label`             | Метка, связанная с текущим элементом управления.                                                      |
-| `Field.Input`             | Низкоуровневый нативный input. Для обычного стилизованного поля используйте `Input`.                  |
-| `Field.Textarea`          | Низкоуровневая нативная текстовая область. Для обычной текстовой области moduix используйте `Textarea`. |
-| `Field.Select`            | Низкоуровневый нативный select. Для обычного стилизованного select используйте `NativeSelect`.        |
-| `Field.HelperText`        | Поясняющий текст, связанный с элементом через `aria-describedby`.                                     |
-| `Field.ErrorText`         | Текст ошибки, который рендерится, когда корень находится в состоянии `invalid`.                       |
-| `Field.RequiredIndicator` | Визуальный маркер обязательного поля. С помощью `fallback` можно заменить маркер по умолчанию.        |
-| `Field.Item`              | Вложенный контекст для группового элемента управления с `value`; ref указывает на локальную обёртку строки. |
+| Часть                     | Назначение                                                                                       |
+| ------------------------ | ------------------------------------------------------------------------------------------------- |
+| `Field` / `Field.Root`   | Корневой контекст. По умолчанию рендерит `<div role="group">`.                                   |
+| `Field.RootProvider`     | Корень, использующий состояние `useField()`, созданное вне дерева компонентов.                  |
+| `Field.Context`          | Даёт доступ к текущему состоянию поля, не добавляя элемент в DOM.                                |
+| `Field.Label`            | Доступная метка, связанная с текущим элементом управления.                                       |
+| `Field.Input`            | Низкоуровневый нативный input. Для обычного стилизованного поля используйте `Input`.             |
+| `Field.Textarea`         | Низкоуровневая нативная текстовая область. Для обычной используйте `Textarea`.                   |
+| `Field.Select`           | Низкоуровневый нативный select. Для обычного используйте `NativeSelect`.                         |
+| `Field.HelperText`       | Поясняющий текст, связанный с элементом через `aria-describedby`.                                |
+| `Field.ErrorText`        | Текст ошибки, который рендерится при состоянии корня `invalid`.                                  |
+| `Field.RequiredIndicator` | Визуальный маркер обязательного поля. С помощью `fallback` можно заменить маркер по умолчанию.  |
+| `Field.Item`             | Вложенный контекст для группового элемента с `value`; ref указывает на локальную обёртку строки. |
 
 ## Композиция
 
-### Рекомендуемая композиция
-
-Оставьте в корне одну видимую метку, а под ней разместите основной элемент управления moduix, например `Input`,
-`Textarea` или `NativeSelect`. Добавьте поясняющий текст или сообщение об ошибке, если пользователю нужны дополнительные
-сведения или результат валидации.
-
-Компоненты со своей составной корневой частью, например `Checkbox`, `RadioGroup` или `Select`, тоже можно размещать
-внутри `Field`. У таких компонентов собственные свойства состояния, поэтому передавайте `required`, `invalid`,
-`disabled` или `readOnly` в корень дочернего компонента, если именно он управляет этим состоянием.
-
-### Когда нужна собственная композиция
-
-Используйте `Field.Item value` вместе с пропом `target` у корня, когда в поле несколько нативных элементов управления,
-а корневая метка должна быть связана только с одним из них. `Field.Input`, `Field.Textarea` и `Field.Select` доступны
-для низкоуровневой композиции в стиле Ark, но в прикладном коде обычно лучше использовать отдельные компоненты moduix.
-
-Если пользовательский элемент управления не работает с контекстом Ark Field, используйте `Field.Context` или
-`useFieldContext` из `@moduix/react`, чтобы получить состояние поля и настроить его идентификаторы и ARIA-атрибуты.
-
-### Свойства по умолчанию
-
-| Свойство   | По умолчанию | Примечания                                                                                          |
-| ---------- | ------------ | --------------------------------------------------------------------------------------------------- |
-| `disabled` | `false`      | Помечает поле как отключённое и передаёт состояние поддерживаемым частям поля.                      |
-| `invalid`  | `false`      | Управляет `Field.ErrorText`; передавайте свойство и составному дочернему компоненту, если он сам управляет валидацией. |
-| `readOnly` | `false`      | Помечает поле доступным только для чтения и передаёт состояние поддерживаемым частям.               |
-| `required` | `false`      | Помечает поле как обязательное. `Field.RequiredIndicator` по-прежнему нужно добавить явно.            |
-| `target`   | -            | Значение `value` у `Field.Item`, на которое должна указывать корневая метка.                            |
-
-### Особенности поведения
-
-- `Field.ErrorText` не появляется в DOM, пока корень не находится в состоянии `invalid`.
-- Поле не проверяет значения. Приложение или библиотека форм сами решают, когда нужно установить `invalid` в `true`.
-- Длинные подписи, поясняющие тексты и сообщения об ошибках переносятся внутри поля и не выходят за пределы контейнера.
-- Передайте в `Field.RootProvider` значение, возвращённое `useField()` из `@moduix/react`. Не используйте `Field.Root`
-  и `Field.RootProvider` для одного и того же экземпляра поля.
-- Используйте `Field.Context` или `useFieldContext` из `@moduix/react`, когда пользовательскому элементу управления нужно
-  текущее состояние поля. Свойства Ark, например `ids`, `target` и `asChild`, доступны у соответствующих частей.
-- `Field.Item` передаёт ref обёртке строки moduix, которую рендерит вокруг дочерних элементов.
-- Составные компоненты, такие как `Checkbox` и `RadioGroup`, сами управляют своими нативными элементами формы. Сам `Field`
-  не рендерит скрытый input.
+Используйте корень, чтобы объединить один элемент управления с `Field.Label`, `Field.HelperText`,
+`Field.ErrorText` и `Field.RequiredIndicator`. Составные компоненты `Checkbox`, `RadioGroup` и `Select`
+управляют собственным состоянием, поэтому передавайте `required`, `invalid`, `disabled` или `readOnly`
+в их корень, когда состояние принадлежит им. Для нескольких нативных элементов оберните каждый в
+`Field.Item value` и задайте корню `target`. Используйте `Field.RootProvider` с `useField()`, если
+состояние создаётся вне дерева компонентов; пользовательские элементы могут читать его через
+`Field.Context` или `useFieldContext`.
 
 ## Примеры
 
 ### Checkbox
 
-Используйте `Field` вокруг флажка, если ему нужны поясняющий текст или сообщение об ошибке на уровне поля. Передавайте
-в `Checkbox` его собственные свойства состояния и формы.
+Используйте `Field` вокруг флажка, если ему нужны поясняющий текст или сообщение об ошибке на уровне
+поля. Передавайте в `Checkbox` его собственные свойства состояния и формы.
 
 <ExampleFrame variant="component">
   <FieldCheckbox />
@@ -150,28 +169,32 @@ Field
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/field/checkbox.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/field/field-checkbox.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={fieldSolidCheckbox} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/field/field-checkbox.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Управляемое состояние `invalid`
 
-Вычисляйте `invalid` из локального состояния, если валидация должна обновляться во время ввода. Текст ошибки появляется
-только пока поле находится в невалидном состоянии.
+Вычисляйте `invalid` из локального состояния, если валидация должна обновляться во время ввода. Текст
+ошибки появляется только пока поле находится в невалидном состоянии.
 
 <ExampleFrame variant="component">
   <FieldControlledInvalid />
@@ -179,20 +202,24 @@ Field
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/field/controlled-invalid.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/field/field-controlled-invalid.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={fieldSolidControlledInvalid} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/field/field-controlled-invalid.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -207,28 +234,32 @@ Field
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/field/disabled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/field/field-disabled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={fieldSolidDisabled} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/field/field-disabled.module.css"
+```
 </div>
 
 </ExampleCode>
 
-### Недопустимое состояние
+### Невалидное состояние
 
-Установите `invalid` у корня, когда валидацией управляет состояние приложения или библиотека форм. Если составной
-дочерний компонент сам управляет невалидным состоянием, передайте это свойство и в его корень.
+Устанавливайте `invalid` у корня, когда валидацией управляет состояние приложения или библиотека форм.
+Если составной дочерний компонент сам управляет валидацией, передайте свойство и ему.
 
 <ExampleFrame variant="component">
   <FieldInvalid />
@@ -236,27 +267,65 @@ Field
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/field/invalid.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/field/field-invalid.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={fieldSolidInvalid} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/field/field-invalid.module.css"
+```
+</div>
+
+</ExampleCode>
+
+### Целевой элемент
+
+Используйте `Field.Item` вместе с пропом `target` у корня, когда одна метка должна указывать на элемент
+управления внутри группы.
+
+<ExampleFrame variant="component">
+  <FieldItemTarget />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/field/item-target.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fieldSolidItemTarget} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/field/field-item-target.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Нативный Select
 
-Используйте `NativeSelect` для нативного браузерного select. `Field` свяжет его с меткой, состоянием и описанием поля.
+Используйте `NativeSelect` для нативного select браузера. `Field` связывает его с меткой поля,
+состоянием и описанием.
 
 <ExampleFrame variant="component">
   <FieldNativeSelect />
@@ -264,28 +333,33 @@ Field
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/field/native-select.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/field/field-native-select.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={fieldSolidNativeSelect} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/field/field-native-select.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### RadioGroup
 
-Используйте `Field` с `RadioGroup`, когда одна метка, поясняющий текст или сообщение об ошибке должны описывать весь
-набор вариантов, а не отдельные радиокнопки. Собственные свойства состояния передавайте в `RadioGroup`.
+Используйте `Field` с `RadioGroup`, когда одна метка поля, поясняющий текст или сообщение об ошибке
+должны описывать весь набор вариантов, а не отдельные radio. Передавайте в `RadioGroup` его собственные
+свойства состояния.
 
 <ExampleFrame variant="component">
   <FieldRadioGroup />
@@ -293,27 +367,31 @@ Field
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/field/radiogroup.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/field/field-radiogroup.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={fieldSolidRadioGroup} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/field/field-radiogroup.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Только для чтения
 
-Установите `readOnly` у корня, если значение элемента управления можно скопировать, но нельзя изменить.
+Установите `readOnly` у корня, если пользователь может скопировать значение, но не может его изменить.
 
 <ExampleFrame variant="component">
   <FieldReadOnly />
@@ -321,29 +399,66 @@ Field
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/field/read-only.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/field/field-read-only.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={fieldSolidReadOnly} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/field/field-read-only.module.css"
+```
+</div>
+
+</ExampleCode>
+
+### Root Provider
+
+Используйте `useField` вместе с `Field.RootProvider`, когда состояние поля нужно создать вне дерева
+рендера.
+
+<ExampleFrame variant="component">
+  <FieldRootProvider />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/field/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fieldSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/field/field-root-provider.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Select
 
-Используйте составной `Select`, когда нативного select недостаточно и нужен настраиваемый список вариантов или интерфейс
-выбора. Если пользователю нужно вводить текст для поиска или создания значения, используйте `Combobox`. Поскольку `Select`
-сам управляет своим состоянием, при необходимости передавайте ему `required`, `invalid`, `disabled` или `readOnly`.
+Используйте составной `Select`, когда нативного select недостаточно и нужен собственный список вариантов
+или интерфейс выбора. Поскольку `Select` управляет своим состоянием, передавайте `required`, `invalid`,
+`disabled` или `readOnly` в `Select`, когда состояние принадлежит ему.
 
 <ExampleFrame variant="component">
   <FieldSelect />
@@ -351,25 +466,29 @@ Field
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/field/select.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/field/field-select.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={fieldSolidSelect} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/field/field-select.module.css"
+```
 </div>
 
 </ExampleCode>
 
-### Текстовая область
+### Textarea
 
 Используйте `Textarea` для многострочного ввода, сохраняя связи поля с меткой, описанием и состоянием.
 
@@ -379,100 +498,43 @@ Field
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/field/textarea.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fieldSolidTextarea} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/field/field-textarea.module.css"
 ```
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
-
-### Расширенная настройка
-
-Используйте `Field.Item` с пропом `target` у корня, когда одна метка должна быть связана с элементом управления внутри группы.
-
-<ExampleFrame variant="component">
-  <FieldItemTarget />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
-
-```tsx pure file="../../../src/components/examples/field/item-target.tsx"
-```
-
-    </Tab>
-    <Tab value="Styles">
-
-```css file="../../../src/components/examples/field/field-item-target.module.css"
-```
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
-
-Используйте `useField` вместе с `Field.RootProvider`, когда состояние поля нужно создать вне дерева отрисовки.
-
-<ExampleFrame variant="component">
-  <FieldRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
-
-```tsx pure file="../../../src/components/examples/field/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="Styles">
-
-```css file="../../../src/components/examples/field/field-root-provider.module.css"
-```
-
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
 
 ## Стилизация
 
-Настраивайте `Field` через `className`, атрибуты Ark `data-scope="field"` и `data-part="..."`, хуки moduix
-`data-slot="field-*"` и публичные CSS-переменные `--moduix-field-*`, приведённые ниже.
+Используйте `className` в React или `class` в Solid для структурной стилизации экспортируемых частей.
+Для стилей состояний применяйте атрибуты Ark, такие как `data-disabled`, `data-invalid`, `data-readonly`
+и `data-required`, вместе с селекторами moduix `data-slot`. Варианты на Tailwind используют нативные
+утилиты и классы потребителя, а CSS Modules настраиваются с помощью переменных ниже.
 
 ### CSS-свойства
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <FieldDocs.FieldCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={FieldDocs.fieldOverrideCssProperties} />
 
 ### Хуки стилизации
 
-Ark добавляет `data-disabled`, `data-invalid`, `data-readonly` и `data-required` к соответствующим частям.
-`Field.ErrorText` существует только пока текущий контекст поля находится в невалидном состоянии. Идентификатор
-поясняющего текста входит в `aria-describedby` элемента управления, а идентификатор активного сообщения об ошибке
-передаётся в `aria-errormessage`. Каждая часть DOM также сохраняет стабильный хук `data-slot="field-*"`.
+Ark добавляет `data-disabled`, `data-invalid`, `data-readonly` и `data-required` к соответствующим
+частям. `Field.ErrorText` существует только пока текущий контекст поля находится в состоянии `invalid`.
+Идентификатор поясняющего текста входит в `aria-describedby` элемента управления, а активный идентификатор
+текста ошибки входит в `aria-errormessage`. У каждой DOM-части также есть стабильный хук
+`data-slot="field-*"`.

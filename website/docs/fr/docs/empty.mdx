@@ -9,6 +9,10 @@ import EmptyAdvancedCustomization from '@/components/examples/empty/advanced-cus
 import EmptyBasic from '@/components/examples/empty/basic.tsx';
 import EmptyWithoutActions from '@/components/examples/empty/without-actions.tsx';
 import EmptyWithoutIcon from '@/components/examples/empty/without-icon.tsx';
+import emptySolidAdvancedCustomization from '../../../snippets/empty/solid/advanced-customization.tsx?raw';
+import emptySolidBasic from '../../../snippets/empty/solid/basic.tsx?raw';
+import emptySolidWithoutActions from '../../../snippets/empty/solid/without-actions.tsx?raw';
+import emptySolidWithoutIcon from '../../../snippets/empty/solid/without-icon.tsx?raw';
 
 ## Référence de l’API
 
@@ -16,11 +20,16 @@ Ark UI ne propose pas de primitive dédiée aux états vides. `moduix` construit
 [fabrique Ark](https://ark-ui.com/react/docs/guides/composition#the-ark-factory) officielle et suit
 les recommandations d’Ark pour la [composition](https://ark-ui.com/react/docs/guides/composition),
 les [styles](https://ark-ui.com/react/docs/guides/styling) et les
-[références](https://ark-ui.com/react/docs/guides/ref). Sa composition s’inspire également du composant [Empty State de Chakra UI](https://chakra-ui.com/docs/components/empty-state). Contrairement à Chakra UI,
+[références](https://ark-ui.com/react/docs/guides/ref). Sa composition s’inspire également du composant
+[Empty State de Chakra UI](https://chakra-ui.com/docs/components/empty-state). Contrairement à Chakra UI,
 `moduix` expose `Empty.Icon` et `Empty.Actions` comme des parties placées directement sous la racine,
 au même niveau que `Empty.Content`. Vous pouvez ainsi les placer dans l’ordre adapté à votre écran.
 
 ## Exemple de base
+
+`Empty` est disponible pour React et Solid, dans les paquets CSS Modules comme dans les variantes
+Tailwind. L’aperçu interactif de cette page utilise React avec CSS Modules ; les onglets de code
+présentent la source native correspondant au même contrat public.
 
 Commencez par `<Empty />` et ajoutez les parties du composant dont vous avez besoin. Ajoutez
 `Empty.Icon` et `Empty.Actions` uniquement si l’état vide a besoin d’un repère visuel ou d’une action claire.
@@ -32,29 +41,58 @@ Commencez par `<Empty />` et ajoutez les parties du composant dont vous avez bes
 <ExampleCode>
 <div className="docs-reference">
   <Tabs
-    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
     className="docs-tabs"
   >
-    <Tab value="React">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/empty/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/empty/empty-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={emptySolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/empty/empty-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="empty" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/empty' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/empty' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/empty' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/empty' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
@@ -72,54 +110,21 @@ Empty / Empty.Root
 | `Empty` / `Empty.Root` | Conteneur racine pour les espacements, la bordure, l’arrière-plan et l’alignement.                    |
 | `Empty.Icon`           | Conteneur facultatif pour une icône ou un autre petit élément visuel.                                 |
 | `Empty.Content`        | Regroupe le titre et la description avec des espacements plus compacts.                               |
-| `Empty.Title`          | Titre principal de l’état vide.                                                                      |
+| `Empty.Title`          | Titre principal de l’état vide.                                                                       |
 | `Empty.Description`    | Contenu complémentaire sous le titre. Il peut contenir des paragraphes, des liens ou d’autres éléments de type bloc. |
 | `Empty.Actions`        | Ligne facultative d’actions qui revient à la ligne si nécessaire.                                      |
 
 ## Composition
 
-### Composition recommandée
+Composez `Empty` à partir de ses parties placées directement sous la racine. `Empty.Content`
+regroupe le titre et la description, tandis que `Empty.Icon` et `Empty.Actions` sont des parties
+facultatives au même niveau. Vous pouvez les omettre ou les réorganiser selon l’écran. `Empty` est
+uniquement présentatif et ne gère ni l’état de l’application ni le comportement `aria-live`.
 
-Dans la plupart des cas, les parties exportées suffisent :
-
-- `Empty` pour le conteneur et le centrage du contenu
-- `Empty.Content` pour le bloc de texte
-- `Empty.Title` pour le titre
-- `Empty.Description` pour le contenu complémentaire
-- `Empty.Icon` et `Empty.Actions` lorsqu’elles apportent une réelle valeur
-
-Cette structure rend le cas courant facile à comprendre tout en laissant la place à des descriptions
-plus riches, à des liens ou à vos propres boutons. Ajoutez ou retirez les parties avec la composition JSX habituelle.
-
-### Quand créer une composition personnalisée
-
-Si la structure par défaut ne convient pas, assemblez directement les parties du composant avec JSX :
-
-- n’ajoutez pas `Empty.Icon` ou `Empty.Actions`
-- ajoutez du contenu de type bloc plus riche dans `Empty.Description`
-- utilisez la propriété `asChild` sur `Empty` ou `Empty.Title` lorsque la section qui l’accueille a besoin d’un
-  autre élément sémantique ou d’un autre niveau de titre
-- appliquez `className` et les variables `--moduix-empty-*` aux parties qui contrôlent la propriété visuelle concernée
-
-### Propriétés par défaut
-
-| Partie                 | Élément par défaut | Remarques                                                                          |
-| ---------------------- | ------------------ | ---------------------------------------------------------------------------------- |
-| `Empty` / `Empty.Root` | `div`              | La racine sert uniquement à la présentation ; elle n’ajoute ni rôle ni état.      |
-| `Empty.Title`          | `h3`               | Utilisez `asChild` si la structure du document nécessite un autre niveau de titre. |
-| `Empty.Description`    | `div`              | Peut contenir des paragraphes, des liens et d’autres éléments de type bloc.        |
-
-### Comportement
-
-- Chaque partie transmet sa référence DOM (`ref`) à l’élément rendu et accepte la propriété `asChild` de la
-  fabrique Ark. Passez un seul enfant sémantiquement approprié, capable de recevoir les propriétés et la référence de la partie.
-- Chaque partie ajoute `data-scope="empty"` et l’attribut `data-part` correspondant pour appliquer les
-  styles selon les conventions d’Ark, ainsi qu’un attribut `data-slot="empty-*"` stable pour les surcharges moduix.
-- `Empty.Actions` centre ses enfants et les fait passer à la ligne si nécessaire. Les paires d’actions
-  et les longs libellés de boutons ou de liens restent ainsi lisibles dans les mises en page étroites.
-- `Empty` gère uniquement la présentation. Il n’ajoute ni région sémantique, ni rôle, ni comportement de
-  région dynamique (`aria-live`), ni gestion du focus. Ajoutez la sémantique nécessaire au contexte environnant.
-  Utilisez `aria-hidden` pour les icônes décoratives et donnez un nom accessible aux icônes porteuses de sens.
+Utilisez `asChild` sur `Empty` ou `Empty.Title` lorsque la section qui l’accueille nécessite un
+conteneur sémantique ou un autre niveau de titre. Passez un seul enfant à une partie `asChild` pour
+qu’elle puisse lui transmettre ses propriétés et sa référence. Ajoutez la région, le rôle, la gestion
+du focus ou le comportement `aria-live` nécessaires dans l’interface environnante.
 
 ## Exemples
 
@@ -134,22 +139,30 @@ N’ajoutez pas `Empty.Actions` lorsque l’état est informatif et ne nécessit
 <ExampleCode>
 <div className="docs-reference">
   <Tabs
-    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
     className="docs-tabs"
   >
-    <Tab value="React">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/empty/without-actions.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/empty/empty-without-actions.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={emptySolidWithoutActions} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/empty/empty-without-actions.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -165,32 +178,40 @@ L’icône est facultative : un état vide composé uniquement de texte peut don
 <ExampleCode>
 <div className="docs-reference">
   <Tabs
-    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
     className="docs-tabs"
   >
-    <Tab value="React">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/empty/without-icon.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/empty/empty-without-icon.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={emptySolidWithoutIcon} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/empty/empty-without-icon.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Personnalisation avancée
 
-Utilisez la propriété `asChild` sur `Empty` lorsque l’état vide doit être rendu dans un conteneur sémantique,
-tel que `section`. Utilisez-la sur `Empty.Title` lorsque le titre doit avoir un autre niveau. Comme
-`Empty.Description` est rendu sous la forme d’un `div`, il peut contenir des paragraphes, des liens et
-d’autres éléments de type bloc.
+Utilisez la propriété `asChild` sur `Empty` lorsque l’état vide doit être rendu dans un conteneur
+sémantique, tel que `section`. Utilisez-la sur `Empty.Title` lorsque le titre doit avoir un autre niveau.
+Comme `Empty.Description` est rendu sous la forme d’un `div`, il peut contenir des paragraphes, des liens
+et d’autres éléments de type bloc.
 
 <ExampleFrame variant="component">
   <EmptyAdvancedCustomization />
@@ -199,22 +220,30 @@ d’autres éléments de type bloc.
 <ExampleCode>
 <div className="docs-reference">
   <Tabs
-    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
     className="docs-tabs"
   >
-    <Tab value="React">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/empty/advanced-customization.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/empty/empty-advanced-customization.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={emptySolidAdvancedCustomization} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/empty/empty-advanced-customization.module.css"
+```
 </div>
 
 </ExampleCode>
