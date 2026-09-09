@@ -10,6 +10,11 @@ import ContainerFullWidth from '@/components/examples/container/full-width.tsx';
 import ContainerGutters from '@/components/examples/container/gutters.tsx';
 import ContainerSemanticElement from '@/components/examples/container/semantic-element.tsx';
 import ContainerWithBleed from '@/components/examples/container/with-bleed.tsx';
+import containerSolidBasic from '../../../snippets/container/solid/basic.tsx?raw';
+import containerSolidFullWidth from '../../../snippets/container/solid/full-width.tsx?raw';
+import containerSolidGutters from '../../../snippets/container/solid/gutters.tsx?raw';
+import containerSolidSemanticElement from '../../../snippets/container/solid/semantic-element.tsx?raw';
+import containerSolidWithBleed from '../../../snippets/container/solid/with-bleed.tsx?raw';
 
 ## API Reference
 
@@ -20,8 +25,14 @@ Ark UI does not provide a dedicated `container` primitive. moduix implements `Co
 
 ## Basic
 
-Import `Container` from `@moduix/react/container` when you need a centered content column with a readable width.
-It adds responsive horizontal gutters and leaves vertical spacing to the surrounding layout.
+Container ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered preview on this page
+uses the React CSS Modules package; the framework tabs show native source for the same public contract.
+
+Import `Container` from the matching package: `@moduix/react/container` or `@moduix/solid/container` for CSS Modules,
+and `@moduix/react-tailwind/container` or `@moduix/solid-tailwind/container` for Tailwind CSS.
+
+Use `Container` for a centered content column with a readable width. It adds responsive horizontal gutters and leaves
+vertical spacing to the surrounding layout.
 
 <ExampleFrame variant="component">
   <ContainerBasic />
@@ -29,29 +40,61 @@ It adds responsive horizontal gutters and leaves vertical spacing to the surroun
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/container/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/container/container-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={containerSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/container/container-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="container" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
-The command adds `Container` to your project source along with the shared moduix foundation it depends on.
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/container' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/container' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/container' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/container' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+See [Quick start](/docs/quick-start) for full package setup and registry configuration.
 
 ## Anatomy
 
@@ -68,58 +111,19 @@ Container / Container.Root
 
 ## Composition
 
-### Recommended composition
+`Container` has no managed state and no child parts to coordinate. Use it as the root and place the page or section
+content directly inside it. `Container.Root` is an alias for the same root when that namespace form fits the rest of
+your composition.
 
-Use `Container` for page shells, article bodies, documentation sections, settings screens, and any other layout
-that needs a centered content column with predictable space at the edges.
-
-`Container.Root` is the same component exposed through a namespace alias. Use it when that naming pattern is useful
-for consistency with other Ark-style component APIs.
-
-Set `size` to choose the content width and `gutter` to choose the horizontal padding. Use `asChild` to replace the
-default `div` with exactly one child element. Choose a semantic element such as `main`, `section`, or `article` when
-the wrapper should describe the document structure. The forwarded `ref` points to the rendered root, or to that child
-when `asChild` is used.
-
-All standard `<div>` props are forwarded, including `className` and `style`.
-
-### When to go custom
-
-`Container` has one root and no subcomponents, slots, or nested layout helpers.
-
-Most custom layouts only need one of these options:
-
-- pass `className` for local layout or surface styles;
-- override `--moduix-container-*` variables when the page needs different width or gutter values;
-- use `asChild` when another element should own the rendered DOM node;
-- compose with `Bleed` when a child needs to extend beyond the constrained text column.
-
-### Default props
-
-| Prop      | Default | Values / Notes                       |
-| --------- | ------- | ------------------------------------ |
-| `size`    | `lg`    | `xs` (40rem), `sm` (48rem), `md` (64rem), `lg` (72rem), `xl` (90rem), `full` (uncapped) |
-| `gutter`  | `md`    | `none`, `sm`, `md`, `lg`                                                                |
-| `asChild` | `false` | Replaces the root `div` with one child element                                          |
-
-### Behavioral notes
-
-- `Container` does not manage vertical rhythm. Add section spacing outside it or on its children.
-- `size="full"` removes only the max-width cap. The selected gutter still applies unless
-  `gutter="none"` is used.
-- The max-width calculation includes both horizontal gutters, so the constrained shell keeps its selected padding.
-- With `asChild`, pass exactly one child element. The forwarded `ref` then points to that element.
-- `Container` is presentational. It adds no ARIA roles, labels, focus management, or keyboard behavior. Use `asChild`
-  with `main`, `section`, or `article` when the wrapper should carry semantic meaning.
-- The root exposes `data-scope="container"`, `data-part="root"`, `data-slot="container-root"`, `data-size`, and
-  `data-gutter` for styling and tests.
+Use `asChild` when a semantic element should own the rendered root. Pass exactly one child: React nests that element
+inside `Container`, while Solid uses the render-function form `asChild={(props) => <main {...props()} />}`. Use `Bleed`
+inside `Container` when only one child needs to extend beyond the constrained text column.
 
 ## Examples
 
 ### Full Width
 
-Use `size="full"` for a wide section that should use its parent width while keeping a responsive
-edge gutter.
+Use `size="full"` for a wide section that should use its parent width while keeping a responsive edge gutter.
 
 <ExampleFrame variant="component">
   <ContainerFullWidth />
@@ -127,20 +131,31 @@ edge gutter.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/container/full-width.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/container/container-full-width.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={containerSolidFullWidth} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/container/container-full-width.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -155,20 +170,31 @@ Use `gutter` to choose the amount of responsive horizontal padding.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/container/gutters.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/container/container-gutters.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={containerSolidGutters} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/container/container-gutters.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -183,20 +209,31 @@ Use `asChild` when the layout wrapper should also describe document structure.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/container/semantic-element.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/container/container-semantic-element.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={containerSolidSemanticElement} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/container/container-semantic-element.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -211,32 +248,47 @@ Keep the text column constrained and let only the wider child extend beyond it.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/container/with-bleed.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/container/container-with-bleed.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={containerSolidWithBleed} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/container/container-with-bleed.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Styling
 
-Override the CSS variables on the root when a page shell needs different width or gutter values. Use `className` for
-local block styles such as padding, borders, or backgrounds.
+For CSS Modules packages, override the CSS variables on the root when a page shell needs different width or gutter
+values. Tailwind packages use utility classes and consumer class overrides instead of these CSS variables. Use
+`className` in React or `class` in Solid for local block styles such as padding, borders, or backgrounds.
 
 ### CSS Properties
 
 <CssPropertiesSection properties={ContainerDocs.containerOverrideCssProperties} />
+
+These variables apply to the CSS Modules packages. Tailwind packages expose the same `size` and `gutter` choices
+through utilities.
 
 ### Styling hooks
 
@@ -244,5 +296,5 @@ local block styles such as padding, borders, or backgrounds.
 - `data-scope="container"` and `data-part="root"` follow Ark's styling conventions.
 - `data-size` selects the width preset: `xs`, `sm`, `md`, `lg`, `xl`, `full`.
 - `data-gutter` selects the gutter preset: `none`, `sm`, `md`, `lg`.
-- `--moduix-container-*` variables control horizontal gutters and max-width math only. Vertical spacing and child layout
-  remain the responsibility of the surrounding CSS.
+- `--moduix-container-*` variables control horizontal gutters and max-width math for CSS Modules. Vertical spacing and
+  child layout remain the responsibility of the surrounding CSS.
