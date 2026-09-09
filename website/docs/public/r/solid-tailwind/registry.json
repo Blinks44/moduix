@@ -531,6 +531,26 @@
       ]
     },
     {
+      "name": "empty",
+      "type": "registry:item",
+      "title": "Empty",
+      "description": "Composable empty-state surface for no-results, no-data, and first-run screens.",
+      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/empty/Empty.tsx",
+          "target": "@components/ui/empty/Empty.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/empty/index.ts",
+          "target": "@components/ui/empty/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "editable",
       "type": "registry:item",
       "title": "Editable",
@@ -574,6 +594,46 @@
         {
           "path": "src/components/carousel/index.ts",
           "target": "@components/ui/carousel/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "field",
+      "type": "registry:item",
+      "title": "Field",
+      "description": "moduix Solid Tailwind Field component.",
+      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/field/Field.tsx",
+          "target": "@components/ui/field/Field.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/field/index.ts",
+          "target": "@components/ui/field/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "fieldset",
+      "type": "registry:item",
+      "title": "Fieldset",
+      "description": "moduix Solid Tailwind Fieldset component.",
+      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/fieldset/Fieldset.tsx",
+          "target": "@components/ui/fieldset/Fieldset.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/fieldset/index.ts",
+          "target": "@components/ui/fieldset/index.ts",
           "type": "registry:component"
         }
       ]

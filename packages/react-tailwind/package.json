@@ -138,9 +138,21 @@
       "types": "./dist/components/drawer/index.d.ts",
       "import": "./dist/components/drawer/index.js"
     },
+    "./empty": {
+      "types": "./dist/components/empty/index.d.ts",
+      "import": "./dist/components/empty/index.js"
+    },
     "./editable": {
       "types": "./dist/components/editable/index.d.ts",
       "import": "./dist/components/editable/index.js"
+    },
+    "./field": {
+      "types": "./dist/components/field/index.d.ts",
+      "import": "./dist/components/field/index.js"
+    },
+    "./fieldset": {
+      "types": "./dist/components/fieldset/index.d.ts",
+      "import": "./dist/components/fieldset/index.js"
     },
     "./kbd": {
       "types": "./dist/components/kbd/index.d.ts",

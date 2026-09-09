@@ -186,11 +186,29 @@
       "import": "./dist/components/drawer/index.js",
       "default": "./dist/components/drawer/index.js"
     },
+    "./empty": {
+      "types": "./dist/components/empty/index.d.ts",
+      "solid": "./dist/components/empty/index.jsx",
+      "import": "./dist/components/empty/index.js",
+      "default": "./dist/components/empty/index.js"
+    },
     "./editable": {
       "types": "./dist/components/editable/index.d.ts",
       "solid": "./dist/components/editable/index.jsx",
       "import": "./dist/components/editable/index.js",
       "default": "./dist/components/editable/index.js"
+    },
+    "./field": {
+      "types": "./dist/components/field/index.d.ts",
+      "solid": "./dist/components/field/index.jsx",
+      "import": "./dist/components/field/index.js",
+      "default": "./dist/components/field/index.js"
+    },
+    "./fieldset": {
+      "types": "./dist/components/fieldset/index.d.ts",
+      "solid": "./dist/components/fieldset/index.jsx",
+      "import": "./dist/components/fieldset/index.js",
+      "default": "./dist/components/fieldset/index.js"
     },
     "./kbd": {
       "types": "./dist/components/kbd/index.d.ts",
