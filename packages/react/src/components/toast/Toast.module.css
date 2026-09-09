@@ -202,10 +202,6 @@
       --moduix-toast-close-focus-ring-width,
       var(--moduix-focus-ring-width, var(--moduix-border-width-md))
     );
-    --moduix-close-button-transition: var(
-      --moduix-toast-close-transition,
-      var(--moduix-transition-default)
-    );
   }
 
   @media (max-width: 40rem) {

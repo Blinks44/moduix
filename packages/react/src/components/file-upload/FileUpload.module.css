@@ -446,10 +446,6 @@
       --moduix-file-upload-action-icon-size,
       var(--moduix-spacing-4)
     );
-    --moduix-close-button-transition: var(
-      --moduix-file-upload-transition,
-      var(--moduix-transition-default)
-    );
     --moduix-close-button-focus-ring-width: var(
       --moduix-file-upload-focus-ring-width,
       var(--moduix-focus-ring-width, var(--moduix-border-width-md))

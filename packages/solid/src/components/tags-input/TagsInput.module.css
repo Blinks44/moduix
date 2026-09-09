@@ -352,10 +352,6 @@
       --moduix-tags-input-trigger-focus-ring-offset,
       var(--moduix-focus-ring-offset)
     );
-    --moduix-close-button-transition: var(
-      --moduix-tags-input-transition,
-      var(--moduix-transition-default)
-    );
     --moduix-close-button-disabled-opacity: var(
       --moduix-tags-input-disabled-opacity,
       var(--moduix-opacity-disabled)

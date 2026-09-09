@@ -217,7 +217,7 @@ test('lets consumer utilities replace defaults and keeps visual parts visible', 
     'size-5',
     'inset-y-0',
     'my-auto',
-    'transition-[background-color,color,opacity,translate,scale]',
+    'transition-[background-color,color,opacity]',
   );
   expect(clear).not.toHaveClass('size-control-xs', 'top-1/2', '-translate-y-1/2');
   expect(trigger).toHaveClass('size-6');

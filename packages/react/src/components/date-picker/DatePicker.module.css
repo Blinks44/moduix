@@ -253,11 +253,6 @@
       var(--moduix-color-ring)
     );
     --moduix-close-button-focus-ring-offset: var(--moduix-date-picker-action-focus-ring-offset, 0);
-    --moduix-close-button-transition: var(
-      --moduix-date-picker-transition,
-      var(--moduix-transition-default)
-    );
-
     position: absolute;
     top: 50%;
     inset-inline-end: calc(

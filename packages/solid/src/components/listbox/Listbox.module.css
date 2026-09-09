@@ -170,10 +170,6 @@
       --moduix-listbox-filter-icon-size,
       var(--moduix-spacing-4)
     );
-    --moduix-close-button-transition: var(
-      --moduix-listbox-transition,
-      var(--moduix-transition-default)
-    );
   }
 
   .content {

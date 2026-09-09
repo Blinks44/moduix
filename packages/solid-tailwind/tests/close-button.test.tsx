@@ -16,6 +16,11 @@ test('renders an accessible native button with safe defaults and a forwarded ref
   expect(button).toHaveAccessibleName('Close');
   expect(icon).toHaveClass('size-3', 'shrink-0');
   expect(button).toHaveClass('size-7', 'rounded-sm', 'bg-transparent', 'text-muted-foreground');
+  expect(button).not.toHaveClass(
+    'transition-[background-color,color,opacity,translate,scale]',
+    'motion-safe:[&:active:not([data-disabled])]:translate-y-px',
+    'motion-safe:[&:active:not([data-disabled])]:scale-[0.985]',
+  );
   expect(button).toHaveAttribute('data-scope', 'close-button');
   expect(button).toHaveAttribute('data-part', 'root');
   expect(button).toHaveAttribute('data-slot', 'close-button-root');

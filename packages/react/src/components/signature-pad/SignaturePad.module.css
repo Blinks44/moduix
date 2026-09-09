@@ -103,10 +103,6 @@
       --moduix-signature-pad-clear-trigger-icon-size,
       var(--moduix-spacing-4)
     );
-    --moduix-close-button-transition: var(
-      --moduix-signature-pad-transition,
-      var(--moduix-transition-default)
-    );
     --moduix-close-button-focus-ring-width: var(
       --moduix-signature-pad-clear-trigger-focus-ring-width,
       var(--moduix-focus-ring-width, var(--moduix-border-width-md))

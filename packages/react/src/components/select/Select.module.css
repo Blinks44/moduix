@@ -224,11 +224,6 @@
       --moduix-select-action-color-hover,
       var(--moduix-color-foreground)
     );
-    --moduix-close-button-transition: var(
-      --moduix-select-transition,
-      var(--moduix-transition-default)
-    );
-
     pointer-events: auto;
   }
 
@@ -443,10 +438,6 @@
     .trigger,
     .indicator {
       transition: none;
-    }
-
-    .clearTrigger {
-      --moduix-close-button-transition: none;
     }
 
     .content[data-state] {

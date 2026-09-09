@@ -146,9 +146,5 @@
       var(--moduix-color-ring)
     );
     --moduix-close-button-focus-ring-offset: var(--moduix-tag-close-trigger-focus-ring-offset, 0);
-    --moduix-close-button-transition: var(
-      --moduix-tag-transition,
-      var(--moduix-transition-default)
-    );
   }
 }
