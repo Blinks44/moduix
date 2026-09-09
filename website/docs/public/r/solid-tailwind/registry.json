@@ -531,6 +531,30 @@
       ]
     },
     {
+      "name": "editable",
+      "type": "registry:item",
+      "title": "Editable",
+      "description": "moduix Solid Tailwind Editable component.",
+      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-solid-tailwind/foundation",
+        "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/editable/Editable.tsx",
+          "target": "@components/ui/editable/Editable.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/index.ts",
+          "target": "@components/ui/editable/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "carousel",
       "type": "registry:item",
       "title": "Carousel",

@@ -138,6 +138,10 @@
       "types": "./dist/components/drawer/index.d.ts",
       "import": "./dist/components/drawer/index.js"
     },
+    "./editable": {
+      "types": "./dist/components/editable/index.d.ts",
+      "import": "./dist/components/editable/index.js"
+    },
     "./kbd": {
       "types": "./dist/components/kbd/index.d.ts",
       "import": "./dist/components/kbd/index.js"

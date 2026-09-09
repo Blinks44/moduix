@@ -186,6 +186,12 @@
       "import": "./dist/components/drawer/index.js",
       "default": "./dist/components/drawer/index.js"
     },
+    "./editable": {
+      "types": "./dist/components/editable/index.d.ts",
+      "solid": "./dist/components/editable/index.jsx",
+      "import": "./dist/components/editable/index.js",
+      "default": "./dist/components/editable/index.js"
+    },
     "./kbd": {
       "types": "./dist/components/kbd/index.d.ts",
       "solid": "./dist/components/kbd/index.jsx",

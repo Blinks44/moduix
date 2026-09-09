@@ -23,6 +23,7 @@ export * from './components/date-input';
 export * from './components/date-picker';
 export * from './components/dialog';
 export * from './components/drawer';
+export * from './components/editable';
 export * from './components/kbd';
 export * from './components/menu';
 export * from './components/scroll-area';
