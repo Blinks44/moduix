@@ -1,7 +1,7 @@
 ---
 title: Dialog
 component: dialog
-description: Модальное окно для форм, подтверждений и других задач, требующих внимания.
+description: Модальное окно для сосредоточенных задач, например форм, подтверждений и просмотра деталей.
 ---
 
 import { DialogCssPropertiesPanel } from '@/components/examples/dialog/css-properties';
@@ -18,21 +18,39 @@ import DialogNonModal from '@/components/examples/dialog/non-modal.tsx';
 import DialogOpenFromMenu from '@/components/examples/dialog/open-from-menu.tsx';
 import DialogOutsideScroll from '@/components/examples/dialog/outside-scroll.tsx';
 import DialogRootProvider from '@/components/examples/dialog/root-provider-and-ark-context-hooks.tsx';
+import dialogSolidAdvancedCustomization from '../../../snippets/dialog/solid/advanced-customization.tsx?raw';
+import dialogSolidAlertDialog from '../../../snippets/dialog/solid/alert-dialog.tsx?raw';
+import dialogSolidBasic from '../../../snippets/dialog/solid/basic.tsx?raw';
+import dialogSolidConfirmation from '../../../snippets/dialog/solid/confirmation.tsx?raw';
+import dialogSolidControlled from '../../../snippets/dialog/solid/controlled.tsx?raw';
+import dialogSolidInsideScroll from '../../../snippets/dialog/solid/inside-scroll.tsx?raw';
+import dialogSolidMountingAndFocusLifecycle from '../../../snippets/dialog/solid/mounting-and-focus-lifecycle.tsx?raw';
+import dialogSolidMultipleTriggers from '../../../snippets/dialog/solid/multiple-triggers.tsx?raw';
+import dialogSolidNested from '../../../snippets/dialog/solid/nested.tsx?raw';
+import dialogSolidNonModal from '../../../snippets/dialog/solid/non-modal.tsx?raw';
+import dialogSolidOpenFromMenu from '../../../snippets/dialog/solid/open-from-menu.tsx?raw';
+import dialogSolidOutsideScroll from '../../../snippets/dialog/solid/outside-scroll.tsx?raw';
+import dialogSolidRootProvider from '../../../snippets/dialog/solid/root-provider-and-ark-context-hooks.tsx?raw';
 
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/dialog" />
 
-## Выбор подходящего компонента
+## Какой компонент выбрать
 
-Используйте `Dialog` для форм, подтверждений, просмотра подробной информации и других задач, которые должны выполняться
-в контексте текущей страницы. Выбирайте `Drawer`, если панель должна оставаться у края окна или поддерживать
-перетаскивание.
+Используйте `Dialog` для форм, подтверждений, просмотра деталей и других задач, которые пользователь
+выполняет на текущей странице. Выбирайте `Drawer`, если панель должна быть прикреплена к краю
+экрана или поддерживать перетаскивание.
 
 ## Базовый пример
 
-Используйте `Dialog` как корневой компонент и явно соберите его структурные части. `Dialog.Backdrop` отвечает за фон
-модального окна, `Dialog.Positioner` размещает диалог, а `Dialog.Content` содержит его поверхность.
+Dialog доступен для React и Solid как в пакетах с CSS Modules, так и в вариантах на Tailwind.
+Интерактивный пример на этой странице использует React и CSS Modules, а вкладки с кодом показывают
+нативную реализацию того же публичного API для каждого фреймворка.
+
+Используйте `Dialog` как корневой компонент и явно соберите его структурные части.
+`Dialog.Backdrop` отвечает за модальный фон, `Dialog.Positioner` размещает диалог, а
+`Dialog.Content` содержит его поверхность.
 
 <ExampleFrame variant="component">
   <DialogBasic />
@@ -40,12 +58,24 @@ import DialogRootProvider from '@/components/examples/dialog/root-provider-and-a
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/dialog/basic.tsx"
-
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidBasic} />
+
     </Tab>
   </Tabs>
 </div>
@@ -54,14 +84,38 @@ import DialogRootProvider from '@/components/examples/dialog/root-provider-and-a
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="dialog" />
+Установку пакета и выбор между CSS Modules и Tailwind смотрите в разделе [Быстрый старт](/docs/quick-start).
+Команды ниже добавляют Dialog в уже настроенное приложение.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/dialog' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/dialog' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/dialog' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/dialog' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
 ```text
 Dialog / Dialog.Root
 ├─ Dialog.Trigger
-└─ Поддерево оверлея (автоматически помещается в портал)
+└─ Содержимое overlay (автоматически переносится в portal)
    ├─ Dialog.Backdrop (необязательно)
    └─ Dialog.Positioner
       └─ Dialog.Content
@@ -73,104 +127,51 @@ Dialog / Dialog.Root
          └─ Dialog.Footer (вспомогательная часть moduix для разметки)
 
 Dialog.RootProvider
-└─ то же дерево частей, подключённое к состоянию из useDialog() moduix
+└─ то же дерево частей, подключённое к состоянию из moduix useDialog()
 
 Dialog.Context
-└─ функция рендера с текущим состоянием и методами диалога
+└─ render-функция с текущим состоянием и методами диалога
 ```
 
-| Часть                    | Назначение                                                            |
-| ------------------------ | --------------------------------------------------------------------- |
-| `Dialog` / `Dialog.Root` | Управляет состоянием открытия, фокусом и закрытием диалога.           |
-| `Dialog.RootProvider`    | Подключает части к состоянию, созданному через `useDialog()`.         |
-| `Dialog.Trigger`         | Открывает диалог.                                                     |
-| `Dialog.Backdrop`        | Необязательный фоновый слой модального диалога.                       |
-| `Dialog.Positioner`      | Размещает содержимое диалога.                                         |
-| `Dialog.Content`         | Содержит видимую поверхность диалога.                                |
-| `Dialog.Title`           | Задаёт доступное имя диалога в виде заголовка.                        |
-| `Dialog.Description`     | Добавляет вспомогательный доступный текст.                            |
-| `Dialog.CloseTrigger`    | Закрывает диалог.                                                      |
-| `Dialog.CloseIcon`       | Вспомогательная кнопка moduix, которая закрывает диалог.              |
-| `Dialog.Header`          | Вспомогательная часть moduix для разметки заголовка.                  |
+| Часть                    | Назначение                                                          |
+| ------------------------ | ------------------------------------------------------------------- |
+| `Dialog` / `Dialog.Root` | Управляет состоянием открытия, фокусом и закрытием.                 |
+| `Dialog.RootProvider`    | Подключает части к состоянию, созданному с помощью `useDialog()`.   |
+| `Dialog.Trigger`         | Открывает диалог.                                                    |
+| `Dialog.Backdrop`        | Необязательный фон модального диалога.                              |
+| `Dialog.Positioner`      | Размещает содержимое диалога.                                        |
+| `Dialog.Content`         | Содержит видимую поверхность диалога.                               |
+| `Dialog.Title`           | Задаёт доступное имя диалога.                                       |
+| `Dialog.Description`     | Добавляет дополнительный доступный текст.                           |
+| `Dialog.CloseTrigger`    | Закрывает диалог.                                                    |
+| `Dialog.CloseIcon`       | Вспомогательная кнопка moduix, которая закрывает диалог.             |
+| `Dialog.Header`          | Вспомогательная часть moduix для разметки заголовка.                 |
 | `Dialog.Body`            | Вспомогательная часть moduix для основного содержимого.              |
-| `Dialog.Footer`          | Вспомогательная часть moduix для действий.                            |
-| `Dialog.Context`         | Рендерит дочерние элементы с текущим состоянием и методами диалога.   |
+| `Dialog.Footer`          | Вспомогательная часть moduix для действий.                          |
+| `Dialog.Context`         | Передаёт дочерним элементам состояние и методы диалога.             |
 
-Импортируйте `useDialog()`, если состояние должно находиться вне дерева, в котором отрисован диалог. Читайте или
-изменяйте его через `Dialog.Context` или `useDialogContext()` из `@moduix/react`.
+Импортируйте `useDialog()`, если состояние диалога должно находиться за пределами его дерева.
+Читайте или обновляйте это состояние через `Dialog.Context` или `useDialogContext()` из выбранного
+пакета.
 
 ## Композиция
 
-Корневой компонент автоматически помещает `Dialog.Backdrop` и `Dialog.Positioner` в портал. Задайте `portalled={false}`
-для рендера в текущем дереве или передайте `portalRef`, чтобы использовать свой контейнер. Оставляйте структурные
-части явными, чтобы настраивать и стилизовать их независимо.
+По умолчанию `Dialog` сам управляет состоянием открытия. Используйте `open` и
+`onOpenChange(details)`, если состояние принадлежит другой части приложения. Если состояние нужно
+создать за пределами дерева диалога, создайте одно хранилище через `useDialog()` и передайте его в
+`Dialog.RootProvider`; не создавайте для того же хранилища второй корневой компонент.
 
-### Рекомендуемая композиция
-
-Явно отрендерите `Dialog.Backdrop`, `Dialog.Positioner` и `Dialog.Content`. Добавляйте фон для модального диалога и
-не добавляйте его, если диалог должен быть немодальным.
-
-Используйте `Dialog.Trigger asChild` и `Dialog.CloseTrigger asChild` с одним семантическим дочерним элементом. Он должен
-получать фокус и сохранять поведение кнопки. `Dialog.CloseIcon` - вспомогательная часть moduix, которая объединяет
-триггер закрытия Ark с кнопкой закрытия библиотеки.
-
-### Когда нужна собственная композиция
-
-Используйте `open` и `onOpenChange(details)`, если состоянием открытия должен управлять React. Колбэк получает объект
-`details` от Ark, поэтому следующее состояние нужно читать из `details.open`.
-
-Используйте `useDialog()` вместе с `Dialog.RootProvider`, если состояние или методы должны быть доступны за пределами
-дерева диалога. Не создавайте второй `Dialog` для того же хранилища. Если переиспользуемому дочернему компоненту нужно
-читать это состояние, используйте `Dialog.Context` или `useDialogContext()`.
-
-Используйте `ids`, если отдельно собранным частям нужны стабильные общие идентификаторы доступности. С помощью
-`initialFocusEl` и `finalFocusEl` можно явно задать элементы, которым передаётся фокус. Укажите `role="alertdialog"`
-для опасных или других критически важных решений.
-
-Не размонтируйте корневой компонент при изменении состояния открытия. Используйте `lazyMount` и `unmountOnExit`, чтобы
-управлять появлением и удалением содержимого из DOM. Задавайте `present`, только если JavaScript-анимация закрытия сама
-должна управлять тем, остаётся ли содержимое в DOM.
-
-### Свойства по умолчанию
-
-Первые два значения задаёт moduix, остальные компонент наследует из Ark UI.
-
-| Свойство                 | По умолчанию | Примечания                                                       |
-| ------------------------ | ------------ | ---------------------------------------------------------------- |
-| `lazyMount`              | `true`       | Монтирует содержимое в портале только после первого открытия.    |
-| `unmountOnExit`          | `true`       | Удаляет содержимое после анимации закрытия.                      |
-| `modal`                  | `true`       | Запрещает взаимодействие с содержимым за пределами диалога.     |
-| `preventScroll`          | `true`       | Запрещает прокрутку страницы, пока диалог открыт.               |
-| `trapFocus`              | `true`       | Удерживает фокус внутри модального диалога.                     |
-| `closeOnEscape`          | `true`       | Закрывает диалог при нажатии `Escape`.                           |
-| `closeOnInteractOutside` | `true`       | Закрывает диалог после взаимодействия за его пределами.         |
-| `role`                   | `"dialog"`   | По умолчанию использует обычную семантику диалога.              |
-
-### Особенности поведения
-
-- Модальный диалог удерживает фокус внутри окна, блокирует прокрутку страницы, скрывает содержимое за диалогом от
-  вспомогательных технологий и возвращает фокус после закрытия.
-- Укажите `modal={false}`, чтобы отключить удержание фокуса и блокировку прокрутки. В этом режиме не добавляйте
-  `Dialog.Backdrop`, чтобы страница оставалась доступной для взаимодействия.
-- `closeOnEscape`, `closeOnInteractOutside`, `trapFocus`, `preventScroll`, `restoreFocus`, `persistentElements` и
-  колбэки внешнего взаимодействия без изменений передаются в Ark UI.
-- Отрендерите `Dialog.Title` или задайте `aria-label` на корневом компоненте, чтобы у диалога было доступное имя.
-  Используйте `Dialog.Description`, если пользователю нужно дополнительное объяснение задачи.
-- Если пользователь включил настройку уменьшения анимации, moduix сокращает анимации открытия и закрытия, а Ark UI
-  завершает обычный жизненный цикл присутствия компонента.
-- Если в диалоге несколько элементов закрытия, задайте каждому `Dialog.CloseTrigger` явный уникальный `id`. Для одного
-  `Dialog.CloseIcon` идентификатор не нужен.
-- При вложении диалогов родительский `Content` получает `data-has-nested` и `--nested-layer-count`. Moduix использует
-  их, чтобы уменьшить и немного сместить родительский диалог, пока вложенный диалог открыт.
-- Не размонтируйте корневой компонент условно, чтобы закрыть диалог. Оставьте его в дереве и управляйте `open`, а для
-  удаления содержимого из DOM используйте `lazyMount` и `unmountOnExit`.
+Корневой компонент автоматически переносит `Dialog.Backdrop` и `Dialog.Positioner` в portal.
+Укажите `portalled={false}`, чтобы оставить их в текущем дереве, или передайте `portalRef` для
+своего контейнера. Держите дерево частей явным, а `Dialog.Header`, `Dialog.Body` и `Dialog.Footer`
+используйте только тогда, когда их готовая разметка подходит композиции.
 
 ## Примеры
 
-### Диалог с предупреждением
+### Alert Dialog
 
-Используйте `role="alertdialog"` для решений с серьёзными последствиями. Добавьте понятное действие отмены и отдельную
-кнопку для подтверждения решения.
+Используйте `role="alertdialog"` для решений с серьёзными последствиями. Добавьте понятное действие
+отмены и отдельное действие для подтверждения.
 
 <ExampleFrame variant="component">
   <DialogAlertDialog />
@@ -178,12 +179,24 @@ Dialog.Context
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/dialog/alert-dialog.tsx"
-
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidAlertDialog} />
+
     </Tab>
   </Tabs>
 </div>
@@ -192,8 +205,8 @@ Dialog.Context
 
 ### Подтверждение
 
-Перехватывайте запрос на закрытие родительского диалога, если в форме есть несохранённые изменения и нужно спросить,
-хочет ли пользователь их отменить.
+Если в форме есть несохранённые изменения, перехватите запрос на закрытие родительского диалога и
+спросите пользователя, нужно ли их отменить.
 
 <ExampleFrame variant="component">
   <DialogConfirmation />
@@ -201,12 +214,24 @@ Dialog.Context
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/dialog/confirmation.tsx"
-
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidConfirmation} />
+
     </Tab>
   </Tabs>
 </div>
@@ -215,8 +240,8 @@ Dialog.Context
 
 ### Управляемое состояние
 
-Храните `open` в состоянии React и читайте `details.open` из `onOpenChange`, чтобы синхронизировать диалог с остальной
-частью приложения.
+Храните `open` в состоянии React или в сигнале Solid и читайте `details.open` из `onOpenChange`,
+чтобы синхронизировать диалог с остальным приложением.
 
 <ExampleFrame variant="component">
   <DialogControlled />
@@ -224,12 +249,24 @@ Dialog.Context
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/dialog/controlled.tsx"
-
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidControlled} />
+
     </Tab>
   </Tabs>
 </div>
@@ -238,7 +275,8 @@ Dialog.Context
 
 ### Прокрутка содержимого
 
-Сделайте прокручиваемым только основное содержимое, если заголовок и действия должны оставаться на месте.
+Сделайте прокручиваемым только основное содержимое, если заголовок и действия должны оставаться
+видимыми.
 
 <ExampleFrame variant="component">
   <DialogInsideScroll />
@@ -246,27 +284,40 @@ Dialog.Context
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/dialog/inside-scroll.tsx"
-
 ```
+
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidInsideScroll} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/dialog/dialog-inside-scroll.module.css"
 ```
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
 
-### Монтирование и жизненный цикл фокуса
+### Жизненный цикл монтирования и фокуса
 
-Используйте `lazyMount` и `unmountOnExit` для управления жизненным циклом содержимого. Задайте `initialFocusEl` и
-`finalFocusEl`, если при открытии и закрытии фокус должен переходить на определённые элементы.
+Используйте `lazyMount` и `unmountOnExit` для управления жизненным циклом присутствия. Укажите
+`initialFocusEl` и `finalFocusEl`, если при открытии или закрытии фокус должен переходить на
+определённые элементы.
 
 <ExampleFrame variant="component">
   <DialogMountingAndFocusLifecycle />
@@ -274,12 +325,24 @@ Dialog.Context
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/dialog/mounting-and-focus-lifecycle.tsx"
-
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidMountingAndFocusLifecycle} />
+
     </Tab>
   </Tabs>
 </div>
@@ -288,7 +351,7 @@ Dialog.Context
 
 ### Несколько триггеров
 
-Используйте один диалог для нескольких триггеров: задайте каждому `value` и обработайте
+Свяжите один диалог с несколькими триггерами: задайте каждому `value` и обработайте
 `onTriggerValueChange(details)`.
 
 <ExampleFrame variant="component">
@@ -297,12 +360,24 @@ Dialog.Context
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/dialog/multiple-triggers.tsx"
-
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidMultipleTriggers} />
+
     </Tab>
   </Tabs>
 </div>
@@ -311,8 +386,8 @@ Dialog.Context
 
 ### Вложенные диалоги
 
-Создайте отдельное хранилище `useDialog()` для каждого вложенного диалога. Ark UI управляет стеком слоёв, а moduix
-отодвигает родительский диалог, пока вложенный открыт.
+Используйте отдельные хранилища `useDialog()` для вложенных диалогов. Ark UI управляет слоями, а
+moduix использует это состояние, чтобы отодвинуть родительский диалог, пока открыт вложенный.
 
 <ExampleFrame variant="component">
   <DialogNested />
@@ -320,27 +395,39 @@ Dialog.Context
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/dialog/nested.tsx"
-
 ```
+
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidNested} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/dialog/dialog-nested.module.css"
 ```
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
 
-### Немодальный режим
+### Немодальный диалог
 
-Задайте `modal={false}` и не добавляйте фон, если пользователи должны продолжать взаимодействовать со страницей за
-пределами диалога.
+Укажите `modal={false}` и не добавляйте backdrop, если пользователь должен взаимодействовать со
+страницей за пределами диалога.
 
 <ExampleFrame variant="component">
   <DialogNonModal />
@@ -348,12 +435,24 @@ Dialog.Context
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/dialog/non-modal.tsx"
-
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidNonModal} />
+
     </Tab>
   </Tabs>
 </div>
@@ -362,7 +461,7 @@ Dialog.Context
 
 ### Открытие из меню
 
-Управляйте `open` из элемента меню, если контекстное действие должно открыть диалог подтверждения.
+Управляйте `open` из пункта меню, если контекстное действие должно открыть диалог подтверждения.
 
 <ExampleFrame variant="component">
   <DialogOpenFromMenu />
@@ -370,21 +469,34 @@ Dialog.Context
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/dialog/open-from-menu.tsx"
-
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidOpenFromMenu} />
+
     </Tab>
   </Tabs>
 </div>
 
 </ExampleCode>
 
-### Прокрутка всего диалога
+### Прокрутка позиционера
 
-Разрешите `Dialog.Positioner` прокручивать весь диалог, если длинное содержимое должно сохранять естественную высоту.
+Позвольте `Dialog.Positioner` прокручивать весь диалог, если длинное содержимое должно сохранять
+естественную высоту.
 
 <ExampleFrame variant="component">
   <DialogOutsideScroll />
@@ -392,27 +504,40 @@ Dialog.Context
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/dialog/outside-scroll.tsx"
-
 ```
+
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidOutsideScroll} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/dialog/dialog-outside-scroll.module.css"
 ```
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
 
 ### Root Provider
 
-Создайте состояние через `useDialog()`, если элементы управления находятся вне диалога. Подключите его с помощью
-`Dialog.RootProvider`, а затем читайте через `Dialog.Context` или `useDialogContext()` в переиспользуемых компонентах.
+Создайте состояние через `useDialog()`, если элементы управления находятся за пределами диалога.
+Подключите его с помощью `Dialog.RootProvider`, а затем читайте через `Dialog.Context` или
+`useDialogContext()` в переиспользуемых компонентах.
 
 <ExampleFrame variant="component">
   <DialogRootProvider />
@@ -420,12 +545,24 @@ Dialog.Context
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/dialog/root-provider-and-ark-context-hooks.tsx"
-
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidRootProvider} />
+
     </Tab>
   </Tabs>
 </div>
@@ -434,8 +571,8 @@ Dialog.Context
 
 ### Расширенная настройка
 
-Не используйте `Header`, `Body`, `Footer` и `CloseIcon`, если собственной разметке нужен прямой контроль над каждой
-частью диалога Ark.
+Пропустите `Header`, `Body`, `Footer` и `CloseIcon`, если пользовательская разметка требует прямого
+управления каждой частью диалога Ark.
 
 <ExampleFrame variant="component">
   <DialogAdvancedCustomization />
@@ -443,30 +580,48 @@ Dialog.Context
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/dialog/advanced-customization.tsx"
-
 ```
+
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidAdvancedCustomization} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/dialog/dialog-advanced-customization.module.css"
 ```
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
 
 ## Стилизация
 
+Для структурных стилей передавайте экспортируемым частям `className` в React или `class` в Solid.
+Для стилей состояний используйте атрибуты данных Ark, например `data-state` и `data-has-nested`,
+вместе с селекторами `data-slot` moduix. Варианты на Tailwind настраиваются обычными утилитами и
+пользовательскими классами; перечисленные ниже переменные относятся к вариантам с CSS Modules.
+Атрибуты данных и селекторы `data-slot` общие для обоих подходов.
+
 ### CSS-свойства
 
 <div className="docs-reference">
   <Tabs
-    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
     className="docs-reference-tabs"
     contentItemClassName="docs-reference-panel"
   >
@@ -478,10 +633,13 @@ Dialog.Context
 
 ### Хуки стилизации
 
-- Значения `data-slot` moduix: `dialog-trigger`, `dialog-backdrop`, `dialog-positioner`, `dialog-content`, `dialog-title`,
-  `dialog-description`, `dialog-close-trigger`, `dialog-close-icon`, `dialog-header`, `dialog-body` и `dialog-footer`.
-- Атрибуты Ark: `data-scope="dialog"` и `data-part="trigger|backdrop|positioner|content|title|description|close-trigger"`.
-- Атрибуты состояния: `data-state="open|closed"`, `data-has-nested`, `data-nested`, `data-current` и `data-value`.
-- Переменные времени выполнения: `--layer-index` и `--nested-layer-count`.
-- `Dialog.CloseIcon` позиционируется относительно угла `Dialog.Content`, поэтому его расположение не зависит от
-  `Dialog.Header`.
+- Значения `data-slot` moduix: `dialog-trigger`, `dialog-backdrop`, `dialog-positioner`,
+  `dialog-content`, `dialog-title`, `dialog-description`, `dialog-close-trigger`,
+  `dialog-close-icon`, `dialog-header`, `dialog-body` и `dialog-footer`.
+- Атрибуты Ark: `data-scope="dialog"` и
+  `data-part="trigger|backdrop|positioner|content|title|description|close-trigger"`.
+- Атрибуты состояния: `data-state="open|closed"`, `data-has-nested`, `data-nested`, `data-current`,
+  `data-value`.
+- Переменные рантайма: `--layer-index` и `--nested-layer-count`.
+- `Dialog.CloseIcon` позиционируется относительно угла `Dialog.Content`, поэтому его размещение не
+  зависит от `Dialog.Header`.

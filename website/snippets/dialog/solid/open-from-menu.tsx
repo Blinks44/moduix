@@ -1,0 +1,54 @@
+import { Button } from '@moduix/solid/button';
+import { Dialog } from '@moduix/solid/dialog';
+import { Menu } from '@moduix/solid/menu';
+import { createSignal } from 'solid-js';
+
+export default function OpenFromMenuDialogDemo() {
+  const [open, setOpen] = createSignal(false);
+
+  return (
+    <>
+      <Menu onSelect={(details) => details.value === 'delete' && setOpen(true)}>
+        <Menu.Trigger
+          asChild={(props) => (
+            <Button {...props()} variant="outline">
+              Actions
+              <Menu.Indicator />
+            </Button>
+          )}
+        />
+        <Menu.Positioner>
+          <Menu.Content>
+            <Menu.Viewport>
+              <Menu.Item value="edit">Edit</Menu.Item>
+              <Menu.Item value="duplicate">Duplicate</Menu.Item>
+              <Menu.Item value="delete" tone="destructive">
+                Delete...
+              </Menu.Item>
+            </Menu.Viewport>
+          </Menu.Content>
+        </Menu.Positioner>
+      </Menu>
+
+      <Dialog open={open()} onOpenChange={(details) => setOpen(details.open)} role="alertdialog">
+        <Dialog.Backdrop />
+        <Dialog.Positioner>
+          <Dialog.Content>
+            <Dialog.Title>Confirm delete</Dialog.Title>
+            <Dialog.Description>This action cannot be undone.</Dialog.Description>
+            <Dialog.Footer>
+              <Dialog.CloseTrigger
+                asChild={(props) => (
+                  <Button {...props()} variant="outline">
+                    Cancel
+                  </Button>
+                )}
+              />
+              <Button onClick={() => setOpen(false)}>Delete</Button>
+            </Dialog.Footer>
+          </Dialog.Content>
+        </Dialog.Positioner>
+      </Dialog>
+    </>
+  );
+}

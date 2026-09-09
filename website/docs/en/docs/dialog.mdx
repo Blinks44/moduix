@@ -18,6 +18,19 @@ import DialogNonModal from '@/components/examples/dialog/non-modal.tsx';
 import DialogOpenFromMenu from '@/components/examples/dialog/open-from-menu.tsx';
 import DialogOutsideScroll from '@/components/examples/dialog/outside-scroll.tsx';
 import DialogRootProvider from '@/components/examples/dialog/root-provider-and-ark-context-hooks.tsx';
+import dialogSolidAdvancedCustomization from '../../../snippets/dialog/solid/advanced-customization.tsx?raw';
+import dialogSolidAlertDialog from '../../../snippets/dialog/solid/alert-dialog.tsx?raw';
+import dialogSolidBasic from '../../../snippets/dialog/solid/basic.tsx?raw';
+import dialogSolidConfirmation from '../../../snippets/dialog/solid/confirmation.tsx?raw';
+import dialogSolidControlled from '../../../snippets/dialog/solid/controlled.tsx?raw';
+import dialogSolidInsideScroll from '../../../snippets/dialog/solid/inside-scroll.tsx?raw';
+import dialogSolidMountingAndFocusLifecycle from '../../../snippets/dialog/solid/mounting-and-focus-lifecycle.tsx?raw';
+import dialogSolidMultipleTriggers from '../../../snippets/dialog/solid/multiple-triggers.tsx?raw';
+import dialogSolidNested from '../../../snippets/dialog/solid/nested.tsx?raw';
+import dialogSolidNonModal from '../../../snippets/dialog/solid/non-modal.tsx?raw';
+import dialogSolidOpenFromMenu from '../../../snippets/dialog/solid/open-from-menu.tsx?raw';
+import dialogSolidOutsideScroll from '../../../snippets/dialog/solid/outside-scroll.tsx?raw';
+import dialogSolidRootProvider from '../../../snippets/dialog/solid/root-provider-and-ark-context-hooks.tsx?raw';
 
 ## API Reference
 
@@ -31,6 +44,10 @@ support dragging.
 
 ## Basic
 
+Dialog ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered
+preview on this page uses the React CSS Modules package; the framework tabs show native source for
+the same public contract.
+
 Use `Dialog` as the root and compose its structural parts explicitly. `Dialog.Backdrop` is the
 modal background, `Dialog.Positioner` places the dialog, and `Dialog.Content` contains its surface.
 
@@ -40,12 +57,24 @@ modal background, `Dialog.Positioner` places the dialog, and `Dialog.Content` co
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/dialog/basic.tsx"
-
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidBasic} />
+
     </Tab>
   </Tabs>
 </div>
@@ -54,7 +83,31 @@ modal background, `Dialog.Positioner` places the dialog, and `Dialog.Content` co
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="dialog" />
+See [Quick Start](/docs/quick-start) for package installation and choosing between CSS Modules and
+Tailwind. The commands below add Dialog to an existing setup.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/dialog' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/dialog' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/dialog' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/dialog' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
@@ -79,92 +132,37 @@ Dialog.Context
 └─ a render function with the current dialog state and methods
 ```
 
-| Part                     | Role                                                                 |
-| ------------------------ | -------------------------------------------------------------------- |
-| `Dialog` / `Dialog.Root` | Owns the open state, focus management, and dismissal behavior.        |
-| `Dialog.RootProvider`    | Connects the parts to state created with `useDialog()`.              |
-| `Dialog.Trigger`         | Opens the dialog.                                                     |
-| `Dialog.Backdrop`        | Optional background layer for a modal dialog.                        |
+| Part                     | Role                                                                |
+| ------------------------ | ------------------------------------------------------------------- |
+| `Dialog` / `Dialog.Root` | Owns open state, focus management, and dismissal behavior.          |
+| `Dialog.RootProvider`    | Connects parts to state created with `useDialog()`.                 |
+| `Dialog.Trigger`         | Opens the dialog.                                                    |
+| `Dialog.Backdrop`        | Optional background layer for a modal dialog.                       |
 | `Dialog.Positioner`      | Positions the dialog content.                                        |
 | `Dialog.Content`         | Contains the visible dialog surface.                                 |
 | `Dialog.Title`           | Gives the dialog an accessible title.                                |
 | `Dialog.Description`     | Provides supporting accessible text.                                 |
-| `Dialog.CloseTrigger`    | Closes the dialog.                                                    |
+| `Dialog.CloseTrigger`    | Closes the dialog.                                                   |
 | `Dialog.CloseIcon`       | Moduix close-button helper that also closes the dialog.              |
 | `Dialog.Header`          | Moduix layout helper for the header.                                 |
 | `Dialog.Body`            | Moduix layout helper for the main content.                           |
 | `Dialog.Footer`          | Moduix layout helper for actions.                                    |
-| `Dialog.Context`         | Renders children with the current state and dialog methods.          |
+| `Dialog.Context`         | Renders children with current state and dialog methods.              |
 
 Import `useDialog()` when the dialog state needs to live outside the rendered dialog tree. Read or
-update that state with `Dialog.Context` or `useDialogContext()` from `@moduix/react`.
+update that state with `Dialog.Context` or `useDialogContext()` from the matching package.
 
 ## Composition
 
+Dialog owns its open state by default. Use `open` with `onOpenChange(details)` when another part of
+the application owns that state. When state must live outside the dialog tree, create one
+`useDialog()` store and pass it to `Dialog.RootProvider`; do not render another root for the same
+store.
+
 The root automatically portals `Dialog.Backdrop` and `Dialog.Positioner`. Set `portalled={false}`
-to render them in the current tree, or pass `portalRef` to use a custom container. Keep the
-structural parts explicit so each part can be styled or customized independently.
-
-### Recommended composition
-
-Render `Dialog.Backdrop`, `Dialog.Positioner`, and `Dialog.Content` explicitly. Add the backdrop for
-modal dialogs and leave it out when the dialog should be non-modal.
-
-Use `Dialog.Trigger asChild` and `Dialog.CloseTrigger asChild` with one semantic child element. The
-child must be able to receive focus and keep the behavior of a button. `Dialog.CloseIcon` is a
-moduix helper that combines Ark's close trigger with the library close button.
-
-### When to go custom
-
-Use `open` with `onOpenChange(details)` when React should own the open state. The callback receives
-an Ark details object, so read the next state from `details.open`.
-
-Use `useDialog()` with `Dialog.RootProvider` when the state or methods must be available outside the
-dialog tree. Do not render a second `Dialog` for the same store. Use `Dialog.Context` or
-`useDialogContext()` when a reusable child needs to read that state.
-
-Use `ids` when separately composed parts need stable, shared accessibility IDs. Use `initialFocusEl`
-and `finalFocusEl` to choose explicit focus targets. Set `role="alertdialog"` for destructive or
-otherwise critical decisions.
-
-Keep the root mounted when the open state changes. Use `lazyMount` and `unmountOnExit` to control
-when the portalled content enters and leaves the DOM. Set `present` only when JavaScript-controlled
-presence is needed for a custom exit animation.
-
-### Default props
-
-The first two defaults come from moduix. The remaining defaults are inherited from Ark UI.
-
-| Prop                    | Default | Notes                                                        |
-| ----------------------- | ------- | ------------------------------------------------------------ |
-| `lazyMount`             | `true`  | Mounts the portalled content only after its first open.      |
-| `unmountOnExit`          | `true`  | Removes the content after its exit animation.                |
-| `modal`                  | `true`  | Prevents interaction with content outside the dialog.        |
-| `preventScroll`          | `true`  | Prevents the page from scrolling while the dialog is open.   |
-| `trapFocus`              | `true`  | Keeps focus inside a modal dialog.                            |
-| `closeOnEscape`          | `true`  | Closes the dialog when the user presses `Escape`.             |
-| `closeOnInteractOutside` | `true`  | Closes the dialog after interaction outside it.               |
-| `role`                   | `"dialog"` | Uses the regular dialog semantics by default.                |
-
-### Behavioral notes
-
-- A modal dialog traps focus, prevents page scrolling, hides content behind the dialog from
-  assistive technologies, and restores focus after it closes.
-- Set `modal={false}` to disable focus trapping and scroll prevention. Leave out
-  `Dialog.Backdrop` in this mode so the page remains interactive.
-- `closeOnEscape`, `closeOnInteractOutside`, `trapFocus`, `preventScroll`, `restoreFocus`,
-  `persistentElements`, and the outside-interaction callbacks are passed through to Ark UI.
-- Render `Dialog.Title` or set `aria-label` on the root to give the dialog an accessible name. Use
-  `Dialog.Description` for supporting text when it helps users understand the task.
-- When the user prefers reduced motion, moduix shortens the entry and exit animations while Ark UI
-  still completes the normal presence lifecycle.
-- If a dialog has more than one close control, give each `Dialog.CloseTrigger` an explicit, unique
-  `id`. A single `Dialog.CloseIcon` does not need one.
-- For nested dialogs, the parent content receives `data-has-nested` and
-  `--nested-layer-count`. Moduix uses them to scale the parent back and move it down while the
-  nested dialog is active.
-- Do not conditionally unmount the root to close the dialog. Keep it mounted and control `open`, or
-  use `lazyMount` and `unmountOnExit` when the portalled content should not stay in the DOM.
+to keep them in the current tree, or pass `portalRef` to use a custom container. Keep the part tree
+explicit, and use `Dialog.Header`, `Dialog.Body`, and `Dialog.Footer` only when their layout
+helpers fit the composition.
 
 ## Examples
 
@@ -179,12 +177,24 @@ and a separate action that confirms the decision.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/dialog/alert-dialog.tsx"
-
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidAlertDialog} />
+
     </Tab>
   </Tabs>
 </div>
@@ -202,12 +212,24 @@ user wants to discard them.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/dialog/confirmation.tsx"
-
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidConfirmation} />
+
     </Tab>
   </Tabs>
 </div>
@@ -216,8 +238,8 @@ user wants to discard them.
 
 ### Controlled
 
-Keep `open` in React state and read `details.open` from `onOpenChange` to synchronize the dialog
-with the rest of the application.
+Keep `open` in React state or a Solid signal and read `details.open` from `onOpenChange` to
+synchronize the dialog with the rest of the application.
 
 <ExampleFrame variant="component">
   <DialogControlled />
@@ -225,12 +247,24 @@ with the rest of the application.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/dialog/controlled.tsx"
-
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidControlled} />
+
     </Tab>
   </Tabs>
 </div>
@@ -247,19 +281,31 @@ Make only the main content scrollable when the title and actions should remain v
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/dialog/inside-scroll.tsx"
-
 ```
+
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidInsideScroll} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/dialog/dialog-inside-scroll.module.css"
 ```
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -275,12 +321,24 @@ Use `lazyMount` and `unmountOnExit` for the presence lifecycle. Use `initialFocu
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/dialog/mounting-and-focus-lifecycle.tsx"
-
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidMountingAndFocusLifecycle} />
+
     </Tab>
   </Tabs>
 </div>
@@ -298,12 +356,24 @@ Share one dialog between several triggers by giving each trigger a `value` and h
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/dialog/multiple-triggers.tsx"
-
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidMultipleTriggers} />
+
     </Tab>
   </Tabs>
 </div>
@@ -321,19 +391,31 @@ uses the resulting state to make the parent recede while the nested dialog is op
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/dialog/nested.tsx"
-
 ```
+
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidNested} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/dialog/dialog-nested.module.css"
 ```
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -349,12 +431,24 @@ outside the dialog.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/dialog/non-modal.tsx"
-
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidNonModal} />
+
     </Tab>
   </Tabs>
 </div>
@@ -371,12 +465,24 @@ Control `open` from a menu item when a contextual action should open a confirmat
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/dialog/open-from-menu.tsx"
-
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidOpenFromMenu} />
+
     </Tab>
   </Tabs>
 </div>
@@ -393,19 +499,31 @@ Let `Dialog.Positioner` scroll the whole dialog when long content should keep it
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/dialog/outside-scroll.tsx"
-
 ```
+
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidOutsideScroll} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/dialog/dialog-outside-scroll.module.css"
 ```
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -422,12 +540,24 @@ components.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/dialog/root-provider-and-ark-context-hooks.tsx"
-
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidRootProvider} />
+
     </Tab>
   </Tabs>
 </div>
@@ -445,24 +575,42 @@ Ark dialog part.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/dialog/advanced-customization.tsx"
-
 ```
+
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidAdvancedCustomization} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/dialog/dialog-advanced-customization.module.css"
 ```
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
 
 ## Styling
+
+Use `className` in React or `class` in Solid on exported parts for structural styles. For state-based
+styles, prefer Ark data attributes such as `data-state` and `data-has-nested`, together with moduix
+`data-slot` selectors. Tailwind variants use native utilities and consumer classes; the component
+variables below customize the CSS Modules variants. Data attributes and `data-slot` hooks are shared
+by both styling tracks.
 
 ### CSS Properties
 
@@ -483,7 +631,8 @@ Ark dialog part.
 - Moduix `data-slot` values: `dialog-trigger`, `dialog-backdrop`, `dialog-positioner`,
   `dialog-content`, `dialog-title`, `dialog-description`, `dialog-close-trigger`,
   `dialog-close-icon`, `dialog-header`, `dialog-body`, and `dialog-footer`.
-- Ark attributes: `data-scope="dialog"` and `data-part="trigger|backdrop|positioner|content|title|description|close-trigger"`.
+- Ark attributes: `data-scope="dialog"` and
+  `data-part="trigger|backdrop|positioner|content|title|description|close-trigger"`.
 - State attributes: `data-state="open|closed"`, `data-has-nested`, `data-nested`, `data-current`,
   and `data-value`.
 - Runtime variables: `--layer-index` and `--nested-layer-count`.
