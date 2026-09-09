@@ -1,7 +1,7 @@
 ---
 title: Editable
 component: editable
-description: "Редактирование текста прямо в интерфейсе с помощью Ark UI: режимы просмотра и ввода, кнопки управления и поддержка нативных форм."
+description: Доступное редактирование текста в React и Solid с установкой из пакета или через shadcn CLI.
 ---
 
 import * as EditableDocs from '@/components/examples/editable/css-properties';
@@ -14,25 +14,38 @@ import EditableGuides from '@/components/examples/editable/guides.tsx';
 import EditableRootProvider from '@/components/examples/editable/root-provider.tsx';
 import EditableStates from '@/components/examples/editable/disabled-and-read-only.tsx';
 import EditableTextarea from '@/components/examples/editable/textarea.tsx';
+import editableSolidAdvancedCustomization from '../../../snippets/editable/solid/advanced-customization.tsx?raw';
+import editableSolidBasic from '../../../snippets/editable/solid/basic.tsx?raw';
+import editableSolidControlled from '../../../snippets/editable/solid/controlled.tsx?raw';
+import editableSolidField from '../../../snippets/editable/solid/field.tsx?raw';
+import editableSolidForm from '../../../snippets/editable/solid/form.tsx?raw';
+import editableSolidGuides from '../../../snippets/editable/solid/guides.tsx?raw';
+import editableSolidRootProvider from '../../../snippets/editable/solid/root-provider.tsx?raw';
+import editableSolidStates from '../../../snippets/editable/solid/disabled-and-read-only.tsx?raw';
+import editableSolidTextarea from '../../../snippets/editable/solid/textarea.tsx?raw';
 
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/editable" />
 
-## Выбор подходящего компонента
+## Какой компонент выбрать
 
-- Выберите **`Input`** или **`Textarea`**, если значение всегда должно быть доступно для редактирования.
-- Выберите **`Editable`**, если значение обычно доступно только для чтения, а редактирование должно запускаться отдельным действием.
-- Поместите **`Editable`** внутрь **`Field`**, если пояснение, сообщение об ошибке или общее состояние формы должны отображаться
+- Выбирайте **`Input`** или **`Textarea`**, если значение всегда должно быть доступно для редактирования.
+- Выбирайте **`Editable`**, если значение обычно доступно только для чтения, а редактирование должно быть явным действием.
+- Оберните **`Editable`** в **`Field`**, если вспомогательный текст, сообщение об ошибке или общее состояние формы должны отображаться
   за пределами компонента.
 
 ## Базовый пример
 
+`Editable` доступен для React и Solid в пакетах с CSS Modules и в вариантах на Tailwind. Интерактивный
+пример на странице использует пакет React с CSS Modules, а вкладки показывают нативный исходный код
+с тем же публичным контрактом.
+
 Используйте `Editable` как корневой компонент и составьте его из `Editable.Label`, `Editable.Area`,
-`Editable.Input` и `Editable.Preview`. Добавьте `Editable.Controls`, чтобы получить готовый сценарий
-с кнопками редактирования, подтверждения и отмены. Обёртка moduix добавляет стили, атрибуты `data-slot`
-и встроенные иконки для кнопок. По умолчанию пользователь переходит в режим редактирования двойным
-щелчком, что помогает избежать случайных изменений.
+`Editable.Input` и `Editable.Preview`. Добавьте `Editable.Controls` для стандартного сценария
+редактирования, сохранения и отмены. moduix добавляет стили, хуки `data-slot` и иконки по умолчанию
+для кнопок управления. По умолчанию режим редактирования включается двойным щелчком, что помогает
+избежать случайных изменений.
 
 <ExampleFrame variant="component">
   <EditableBasic />
@@ -40,11 +53,23 @@ import EditableTextarea from '@/components/examples/editable/textarea.tsx';
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/editable/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={editableSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -54,7 +79,30 @@ import EditableTextarea from '@/components/examples/editable/textarea.tsx';
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="editable" />
+Для установки пакета и выбора фреймворка или способа стилизации откройте [быстрый старт](/docs/quick-start).
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/editable' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/editable' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/editable' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/editable' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -70,68 +118,37 @@ Editable.Root
 │  └─ Editable.CancelTrigger
 
 Editable.RootProvider
-└─ то же дерево частей, подключённое к состоянию Ark `useEditable()`
+└─ то же дерево частей, подключённое к состоянию Ark из `useEditable()`
 ```
 
-| Часть                        | Назначение                                                        |
-| ---------------------------- | ----------------------------------------------------------------- |
-| `Editable` / `Editable.Root` | Корневой компонент, который управляет состоянием, колбэками, свойствами формы и доступностью. |
-| `Editable.RootProvider`      | Корневой компонент, подключённый к экземпляру `useEditable()`.                               |
-| `Editable.Label`             | Видимая подпись поля ввода и отображаемого значения.                                             |
-| `Editable.Area`              | Общая область для поля ввода и отображаемого значения.                                            |
-| `Editable.Input`             | Поле ввода, которое появляется в режиме редактирования.                                         |
-| `Editable.Preview`           | Значение или плейсхолдер, отображаемый вне режима редактирования.                                |
-| `Editable.Control`           | Необязательная обёртка для кнопок редактирования, подтверждения и отмены.                         |
-| `Editable.Controls`          | Готовая группа для стандартного сценария редактирования, подтверждения и отмены.                 |
-| `Editable.EditTrigger`       | Кнопка перехода в режим редактирования.                                                          |
-| `Editable.SubmitTrigger`     | Кнопка подтверждения текущего значения.                                                          |
-| `Editable.CancelTrigger`     | Кнопка отмены текущего значения.                                                                 |
+| Часть                        | Назначение                                             |
+| ---------------------------- | ------------------------------------------------------ |
+| `Editable` / `Editable.Root` | Состояние компонента, callbacks, свойства формы и доступность. |
+| `Editable.RootProvider`      | Корневая часть, подключённая к экземпляру `useEditable()`. |
+| `Editable.Label`             | Видимая подпись поля и отображаемого значения.         |
+| `Editable.Area`              | Общий контейнер для поля ввода и отображаемого значения. |
+| `Editable.Input`             | Текстовое поле в режиме редактирования.               |
+| `Editable.Preview`           | Значение или плейсхолдер вне режима редактирования.    |
+| `Editable.Control`           | Необязательный контейнер кнопок редактирования, сохранения и отмены. |
+| `Editable.Controls`           | Удобная обёртка стандартного сценария управления.     |
+| `Editable.EditTrigger`       | Кнопка перехода в режим редактирования.               |
+| `Editable.SubmitTrigger`     | Кнопка сохранения текущего значения.                   |
+| `Editable.CancelTrigger`     | Кнопка отмены текущих изменений.                       |
 
 ## Композиция
 
-### Рекомендуемая композиция
-
-Разместите `Editable.Input` и `Editable.Preview` рядом внутри `Editable.Area`. Поместите
-`Editable.Controls` после области, чтобы использовать стандартную схему кнопок. В однострочном поле
-кнопки появляются справа и выравниваются по вертикальному центру. Для многострочного поля структура
-та же. Задайте `--moduix-editable-control-align: start`, чтобы выровнять кнопки по верхнему краю области.
-
-### Когда нужна собственная композиция
-
-Используйте `Editable.Context` или `useEditableContext()` из moduix, когда переиспользуемым дочерним
-элементам или собственному содержимому нужен доступ к текущему состоянию редактирования. Используйте
-`useEditable()` и `Editable.RootProvider`, если состояние или методы должны находиться за пределами
-отрисованного дерева `Editable`. `RootProvider` заменяет `Editable.Root` для этого экземпляра состояния.
-Применяйте `asChild`, когда поле нужно отрисовать другим семантически подходящим элементом, например
-нативным `<textarea>`.
-
-### Свойства по умолчанию
-
-| Свойство         | По умолчанию | Примечания                                                                                                           |
-| ---------------- | ------------ | -------------------------------------------------------------------------------------------------------------------- |
-| `activationMode` | `dblclick`   | По умолчанию moduix использует двойной щелчок. Передайте `focus`, `click` или `none`, чтобы выбрать другой режим активации Ark. |
-| `selectOnFocus`  | `true`       | Ark выделяет текст поля при получении фокуса.                                                                                |
-| `submitMode`     | `both`       | По умолчанию значение подтверждается при нажатии `Enter` и при потере фокуса. Используйте `none`, если подтверждать его должна только явная кнопка. |
-
-### Особенности поведения
-
-Свойства `value` и `defaultValue` задают текстовое значение. Свойства `edit` и `defaultEdit` управляют
-режимом редактирования. Колбэки Ark сохраняют объект `details`, поэтому `onValueChange`, `onValueCommit`,
-`onValueRevert` и `onEditChange` получают данные в том же формате, что и в Ark UI.
-
-Нажмите `Enter`, чтобы подтвердить значение, и `Escape`, чтобы отменить изменения. Если через `asChild`
-`Editable.Input` отрисован как `<textarea>`, сочетание Cmd/Ctrl + Enter подтверждает значение.
-Свойства `name` и `form` передаются в Ark и позволяют отправлять значение через нативную форму.
-`disabled` запрещает взаимодействие, а `readOnly` оставляет значение видимым, но запрещает его изменять.
-
-Задайте `translations.input`, чтобы передать полю ввода доступное имя, подходящее для конкретного контекста.
-`Editable.Label` при этом остаётся видимой подписью.
+Размещайте `Editable.Input` и `Editable.Preview` рядом внутри `Editable.Area`, а `Editable.Controls`
+добавляйте после области для стандартного сценария редактирования, сохранения и отмены. Используйте
+`Editable.RootProvider` вместо `Editable.Root`, если состояние из `useEditable()` должны разделять
+элементы управления за пределами дерева. Для своего содержимого, зависящего от режима редактирования,
+используйте `Editable.Context` или `useEditableContext()`. В Solid состояние из `useEditable()` и
+контекста представлено реактивной функцией, поэтому его можно читать как `editable().editing`.
 
 ## Примеры
 
-### Управляемое состояние
+### Управляемое значение
 
-Используйте `value` и `onValueChange`, если значение должно храниться в состоянии приложения.
+Используйте `value` и `onValueChange`, если источником значения должно быть состояние приложения.
 
 <ExampleFrame variant="component">
   <EditableControlled />
@@ -139,11 +156,23 @@ Editable.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/editable/controlled.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={editableSolidControlled} />
 
     </Tab>
   </Tabs>
@@ -151,9 +180,50 @@ Editable.RootProvider
 
 </ExampleCode>
 
+### Отключённое состояние и режим только для чтения
+
+Используйте `disabled`, когда поле должно быть недоступно для взаимодействия. Используйте `readOnly`,
+если значение должно оставаться видимым, но недоступным для редактирования.
+
+<ExampleFrame variant="component">
+  <EditableStates />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/editable/disabled-and-read-only.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={editableSolidStates} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/editable/editable-disabled-and-read-only.module.css"
+```
+</div>
+
+</ExampleCode>
+
 ### Field
 
-Поместите `Editable` в `Field`, если состояние валидации или сообщение об ошибке должны отображаться за пределами компонента.
+Поместите `Editable` в `Field`, если состояние валидации или сообщение об ошибке должны отображаться
+за пределами компонента.
 
 <ExampleFrame variant="component">
   <EditableField />
@@ -161,20 +231,70 @@ Editable.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/editable/field.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/editable/editable-field.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={editableSolidField} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/editable/editable-field.module.css"
+```
+</div>
+
+</ExampleCode>
+
+### В форме
+
+Передайте `name`, чтобы включить текущее значение в отправку нативной формы.
+
+<ExampleFrame variant="component">
+  <EditableForm />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/editable/form.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={editableSolidForm} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/editable/editable-form.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -192,11 +312,23 @@ Editable.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/editable/guides.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={editableSolidGuides} />
 
     </Tab>
   </Tabs>
@@ -209,7 +341,7 @@ Editable.RootProvider
 Используйте `useEditable()` и `Editable.RootProvider` из moduix, когда элементам управления за пределами
 дерева компонента нужен доступ к состоянию и методам `Editable`. Передайте в хук
 `activationMode: 'dblclick'`, чтобы сохранить режим активации, установленный по умолчанию у корневого
-компонента. Для этого экземпляра состояния `RootProvider` заменяет `Editable.Root`.
+компонента. Для этого экземпляра состояния provider заменяет `Editable.Root`.
 
 <ExampleFrame variant="component">
   <EditableRootProvider />
@@ -217,28 +349,39 @@ Editable.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/editable/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/editable/editable-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={editableSolidRootProvider} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/editable/editable-root-provider.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Textarea
 
-Используйте `Editable.Input` с `asChild` и нативным `<textarea>` для многострочного текста. В примере
-размер textarea задан так, чтобы скопированный фрагмент можно было использовать сразу.
+Используйте `Editable.Input asChild` с нативным `<textarea>` для многострочного текста. В примере задан
+размер textarea и выравнивание элементов управления, поэтому скопированный код можно использовать сразу.
 
 <ExampleFrame variant="component">
   <EditableTextarea />
@@ -246,29 +389,40 @@ Editable.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/editable/textarea.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/editable/editable-textarea.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={editableSolidTextarea} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/editable/editable-textarea.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Расширенная настройка
 
-Обращайтесь напрямую к `Editable.Context`, если индивидуальная компоновка зависит от состояния редактирования.
-В этом примере `Editable.Controls` не используется: вместо него во время редактирования показывается подсказка
-с сочетаниями клавиш.
+Используйте `Editable.Context`, если индивидуальная компоновка зависит от текущего режима
+редактирования. В этом примере `Editable.Controls` не используется: вместо него во время редактирования
+показывается подсказка с сочетаниями клавиш.
 
 <ExampleFrame variant="component">
   <EditableAdvancedCustomization />
@@ -276,68 +430,23 @@ Editable.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/editable/advanced-customization.tsx"
 ```
 
     </Tab>
-  </Tabs>
-</div>
+    <Tab value="solid">
 
-</ExampleCode>
-
-### Отключённое состояние и режим только для чтения
-
-Используйте `disabled`, когда поле должно быть недоступно для взаимодействия. Используйте `readOnly`, когда значение
-должно оставаться видимым, но недоступным для редактирования.
-
-<ExampleFrame variant="component">
-  <EditableStates />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
-
-```tsx pure file="../../../src/components/examples/editable/disabled-and-read-only.tsx"
-```
-
-    </Tab>
-    <Tab value="Styles">
-
-```css file="../../../src/components/examples/editable/editable-disabled-and-read-only.module.css"
-```
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
-
-### В форме
-
-Передайте `name`, чтобы включить текущее значение в отправку нативной формы.
-
-<ExampleFrame variant="component">
-  <EditableForm />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
-
-```tsx pure file="../../../src/components/examples/editable/form.tsx"
-```
-
-    </Tab>
-    <Tab value="Styles">
-
-```css file="../../../src/components/examples/editable/editable-form.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={editableSolidAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -346,6 +455,10 @@ Editable.RootProvider
 </ExampleCode>
 
 ## Стилизация
+
+Пакеты с CSS Modules предоставляют CSS-переменные ниже. В пакетах на Tailwind используются utility-классы
+и классы потребителя, переданные через `className` или `class`; для точечных переопределений доступны
+`data-slot` и атрибуты состояния Ark.
 
 ### CSS-свойства
 
@@ -360,14 +473,3 @@ Editable.RootProvider
     </Tab>
   </Tabs>
 </div>
-
-### Хуки стилизации
-
-- `data-slot="editable-root"`, `editable-root-provider`, `editable-label`, `editable-area`,
-  `editable-input`, `editable-preview`, `editable-control`, `editable-edit-trigger`,
-  `editable-submit-trigger` и `editable-cancel-trigger`.
-- Ark также добавляет атрибуты `data-scope="editable"` и `data-part` для каждой примитивной части.
-- Селекторы состояния включают `data-focus` на `Label` и `Area`; `data-disabled` на `Area`, `Input`
-  и `Preview`; `data-readonly` / `aria-readonly` на элементах управления только для чтения; `data-invalid` на
-  `Label`, `Input` и `Preview`; `data-required` на `Label`; `data-placeholder-shown` на `Area`
-  и `Preview`; а также `data-autoresize` на `Input` и `Preview`.
