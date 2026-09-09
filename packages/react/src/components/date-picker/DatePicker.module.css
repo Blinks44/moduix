@@ -324,7 +324,7 @@
     }
   }
 
-  .root[data-inline] .content {
+  .content[data-inline] {
     min-width: var(--moduix-date-picker-inline-content-min-width, 18rem);
     box-shadow: var(--moduix-date-picker-inline-content-shadow, none);
   }
