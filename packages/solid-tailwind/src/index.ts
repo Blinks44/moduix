@@ -21,6 +21,7 @@ export * from './components/command-palette';
 export * from './components/container';
 export * from './components/date-input';
 export * from './components/date-picker';
+export * from './components/dialog';
 export * from './components/kbd';
 export * from './components/menu';
 export * from './components/scroll-area';

@@ -481,6 +481,31 @@
       ]
     },
     {
+      "name": "dialog",
+      "type": "registry:item",
+      "title": "Dialog",
+      "description": "moduix Solid Tailwind Dialog component.",
+      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-solid-tailwind/foundation",
+        "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/close-button",
+        "@moduix-solid-tailwind/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/dialog/Dialog.tsx",
+          "target": "@components/ui/dialog/Dialog.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/index.ts",
+          "target": "@components/ui/dialog/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "carousel",
       "type": "registry:item",
       "title": "Carousel",

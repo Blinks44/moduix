@@ -130,6 +130,10 @@
       "types": "./dist/components/date-picker/index.d.ts",
       "import": "./dist/components/date-picker/index.js"
     },
+    "./dialog": {
+      "types": "./dist/components/dialog/index.d.ts",
+      "import": "./dist/components/dialog/index.js"
+    },
     "./kbd": {
       "types": "./dist/components/kbd/index.d.ts",
       "import": "./dist/components/kbd/index.js"
