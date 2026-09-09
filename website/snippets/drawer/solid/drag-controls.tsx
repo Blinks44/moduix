@@ -1,15 +1,14 @@
-import { Button } from '@moduix/react/button';
-import { Card } from '@moduix/react/card';
-import { Drawer } from '@moduix/react/drawer';
+import { Button } from '@moduix/solid/button';
+import { Card } from '@moduix/solid/card';
+import { Drawer } from '@moduix/solid/drawer';
 import styles from '@/components/examples/drawer/drawer-drag-controls.module.css';
 
 const snapPoints = [0.18, 1];
+
 export default function DragControlsDrawerDemo() {
   return (
     <Drawer snapPoints={snapPoints} defaultSnapPoint={snapPoints[0]}>
-      <Drawer.Trigger asChild>
-        <Button>Open drawer</Button>
-      </Drawer.Trigger>
+      <Drawer.Trigger asChild={(props) => <Button {...props()}>Open drawer</Button>} />
       <Drawer.Backdrop />
       <Drawer.Positioner>
         <Drawer.Content>
@@ -23,8 +22,8 @@ export default function DragControlsDrawerDemo() {
               Content dragging is enabled; the interactive region does not start a drag.
             </Drawer.Description>
           </Drawer.Header>
-          <Drawer.Body className={styles.body}>
-            <Card size="sm" className={styles.card}>
+          <Drawer.Body class={styles.body}>
+            <Card size="sm" class={styles.card}>
               <Card.Body>
                 <Button data-no-drag variant="outline">
                   Interactive no-drag region

@@ -1,7 +1,7 @@
 ---
 title: Drawer
 component: drawer
-description: Доступная панель, которая выезжает от края экрана и подходит для навигации и форм. Поддерживает свайпы, точки привязки и вложенные панели.
+description: Доступная панель от края экрана для навигации, форм, нижних панелей, точек привязки и сценариев со свайпами в React и Solid.
 ---
 
 import * as DrawerDocs from '@/components/examples/drawer/css-properties';
@@ -19,22 +19,41 @@ import DrawerRootProvider from '@/components/examples/drawer/root-provider.tsx';
 import DrawerScrollable from '@/components/examples/drawer/scrollable.tsx';
 import DrawerSnapPoints from '@/components/examples/drawer/snap-points.tsx';
 import DrawerSwipeDirection from '@/components/examples/drawer/swipe-direction.tsx';
+import drawerSolidAdvancedCustomization from '../../../snippets/drawer/solid/advanced-customization.tsx?raw';
+import drawerSolidBasic from '../../../snippets/drawer/solid/basic.tsx?raw';
+import drawerSolidControlled from '../../../snippets/drawer/solid/controlled.tsx?raw';
+import drawerSolidDragControls from '../../../snippets/drawer/solid/drag-controls.tsx?raw';
+import drawerSolidFloatingGrabber from '../../../snippets/drawer/solid/floating-grabber.tsx?raw';
+import drawerSolidIndentBackground from '../../../snippets/drawer/solid/indent-background.tsx?raw';
+import drawerSolidIsland from '../../../snippets/drawer/solid/island.tsx?raw';
+import drawerSolidMultipleTriggers from '../../../snippets/drawer/solid/multiple-triggers.tsx?raw';
+import drawerSolidNested from '../../../snippets/drawer/solid/nested.tsx?raw';
+import drawerSolidNonModal from '../../../snippets/drawer/solid/non-modal.tsx?raw';
+import drawerSolidRootProvider from '../../../snippets/drawer/solid/root-provider.tsx?raw';
+import drawerSolidScrollable from '../../../snippets/drawer/solid/scrollable.tsx?raw';
+import drawerSolidSnapPoints from '../../../snippets/drawer/solid/snap-points.tsx?raw';
+import drawerSolidSwipeDirection from '../../../snippets/drawer/solid/swipe-direction.tsx?raw';
 
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/drawer" />
 
-## Выбор подходящего компонента
+## Как выбрать компонент
 
-Используйте `Drawer` для панели, которая выезжает от края экрана. Компонент подходит для навигации, форм, мобильных
-нижних панелей и сценариев, где панель нужно перетаскивать или переводить из одной точки привязки в другую. Выбирайте
-`Dialog`, если окно должно оставаться по центру и его не нужно перетаскивать.
+Используйте `Drawer` для панели, которая выезжает от края окна. Компонент подходит для навигации,
+форм, мобильных нижних панелей и сценариев, где панель нужно перетаскивать или переводить между
+точками привязки. Выбирайте `Dialog`, если поверхность должна оставаться по центру и её не нужно
+перетаскивать.
 
 ## Базовый пример
 
-Соберите панель из структурных частей Ark UI. В этом примере она открывается на компактной точке привязки, а затем её
-можно перетащить на полную высоту. `Drawer.Content` отвечает за интерактивную область, `Drawer.Positioner` размещает
-её, а `Drawer.Backdrop` добавляет модальный фон.
+Drawer доступен для React и Solid в пакетах с CSS Modules и Tailwind. Превью на этой странице
+использует пакет React CSS Modules, а вкладки показывают нативный исходный код для каждого фреймворка
+с тем же публичным контрактом.
+
+Соберите панель из структурных частей Ark. В этом примере она открывается на компактной точке
+привязки, а затем её можно перетащить на полную высоту. `Drawer.Content` отвечает за интерактивную
+поверхность, `Drawer.Positioner` размещает её, а `Drawer.Backdrop` добавляет модальный фон.
 
 <ExampleFrame variant="component">
   <DrawerBasic />
@@ -42,32 +61,67 @@ import DrawerSwipeDirection from '@/components/examples/drawer/swipe-direction.t
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/drawer/drawer-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={drawerSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/drawer/drawer-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="drawer" />
+Выберите фреймворк и вариант стилизации, которые соответствуют вашему приложению. Полная установка
+и выбор пакета описаны в разделе [Быстрый старт](/docs/quick-start).
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/drawer' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/drawer' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/drawer' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/drawer' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
 ```text
-Drawer.Root
+Drawer / Drawer.Root
 ├─ Drawer.Trigger
 ├─ Drawer.SwipeArea (необязательно)
 ├─ Drawer.Backdrop
@@ -75,124 +129,59 @@ Drawer.Root
    └─ Drawer.Content
       ├─ Drawer.Grabber
       │  └─ Drawer.GrabberIndicator
-      ├─ Drawer.Title
-      ├─ Drawer.Description
-      └─ Drawer.CloseTrigger
+      ├─ Drawer.Header (необязательный помощник для компоновки)
+      │  ├─ Drawer.Title
+      │  ├─ Drawer.Description
+      │  └─ Drawer.CloseIcon (необязательный помощник)
+      ├─ Drawer.Body (необязательный помощник для компоновки)
+      └─ Drawer.Footer (необязательный помощник для компоновки)
+
+Drawer.RootProvider
+└─ то же дерево частей, подключённое к хранилищу useDrawer()
 ```
 
-| Часть                     | Назначение                                                        |
-| ------------------------- | ------------------------------------------------------------ |
-| `Drawer` / `Drawer.Root`  | Хранит состояние панели, её точки привязки и поведение свайпа.   |
-| `Drawer.Trigger`          | Открывает панель.                                            |
-| `Drawer.Backdrop`         | Модальный фон.                                               |
-| `Drawer.Positioner`       | Размещает содержимое панели.                                 |
-| `Drawer.Content`          | Интерактивная область панели.                                     |
-| `Drawer.Grabber`          | Контейнер ручки для перетаскивания.                          |
-| `Drawer.GrabberIndicator` | Визуальный индикатор внутри ручки.                           |
-| `Drawer.CloseTrigger`     | Закрывает панель.                                            |
-| `Drawer.SwipeArea`        | Необязательная область у края экрана для открытия свайпом.        |
-| `Drawer.Stack`            | Координирует вложенные панели и поверхности с отступом.      |
-| `Drawer.Indent`           | Поверхность, которая отодвигается при открытии панели из стека. |
-| `Drawer.IndentBackground` | Фон за поверхностью с отступом.                                   |
-| `Drawer.Header`           | Необязательный помощник для компоновки заголовка.                 |
-| `Drawer.Body`             | Необязательная гибкая область содержимого.                   |
-| `Drawer.Footer`           | Необязательный помощник для компоновки действий.                  |
-| `Drawer.CloseIcon`        | Стилизованный элемент управления закрытием.                       |
-| `Drawer.RootProvider`     | Подключает части к состоянию, созданному через `useDrawer()`.     |
-
-`Drawer.Header`, `Drawer.Body`, `Drawer.Footer` и `Drawer.CloseIcon` - необязательные помощники moduix для компоновки и
-оформления. Они не заменяют и не скрывают структурные части Ark.
-
-`Drawer` и `Drawer.Root` - равнозначные корневые компоненты. В коде приложения используйте короткую форму `<Drawer>`,
-а `Drawer.Root` пригодится, если вы предпочитаете записывать компоненты через пространство имён.
+| Часть | Назначение |
+| --- | --- |
+| `Drawer` / `Drawer.Root` | Корневая часть, которая хранит состояние открытия, точки привязки и поведение свайпа. |
+| `Drawer.RootProvider` | Подключает части к состоянию, созданному через `useDrawer()`. |
+| `Drawer.Trigger` | Открывает панель. |
+| `Drawer.SwipeArea` | Необязательная область у края экрана, открывающая панель свайпом. |
+| `Drawer.Backdrop` | Модальный фон. |
+| `Drawer.Positioner` | Размещает содержимое панели. |
+| `Drawer.Content` | Интерактивная поверхность панели. |
+| `Drawer.Grabber` | Контейнер ручки для перетаскивания. |
+| `Drawer.GrabberIndicator` | Визуальный индикатор внутри ручки. |
+| `Drawer.Title` | Доступное имя панели. |
+| `Drawer.Description` | Доступное описание панели. |
+| `Drawer.CloseTrigger` | Закрывает панель. |
+| `Drawer.CloseIcon` | Кнопка закрытия moduix, собранная из `CloseTrigger`. |
+| `Drawer.Stack` | Координирует вложенные панели и поверхности с отступом. |
+| `Drawer.Indent` | Поверхность, которая отодвигается при открытии панели из стека. |
+| `Drawer.IndentBackground` | Фон за поверхностью с отступом. |
+| `Drawer.Header`, `Drawer.Body`, `Drawer.Footer` | Необязательные помощники для компоновки без собственного состояния. |
 
 ## Композиция
 
-Корневой компонент автоматически помещает `Backdrop` и `Positioner` в портал. Панель в портале позиционируется
-относительно окна просмотра, поэтому размер предпросмотра влияет только на триггер. Используйте `portalled={false}`
-для обычной отрисовки в текущем дереве или передайте `portalRef`, чтобы выбрать свой контейнер. Структурные части
-остаются явными и их можно стилизовать.
+По умолчанию `Drawer` хранит состояние сам и рендерит `Backdrop` и `Positioner` через портал.
+Оставляйте эти структурные части явными. Укажите `portalled={false}`, чтобы отрисовать их внутри
+текущего дерева, или передайте `portalRef` для собственного контейнера.
 
-### Рекомендуемая композиция
+Если состояние нужно создать за пределами дерева панели, создайте одно хранилище через `useDrawer()`
+и передайте его в один `Drawer.RootProvider`. Не используйте для этого же хранилища `Drawer` или
+`Drawer.Root`. Для вложенных панелей создавайте отдельные хранилища и деревья `RootProvider`, чтобы
+каждая панель сохраняла собственное состояние открытия и фокуса.
 
-Используйте `Drawer` как корневой компонент, если он должен сам управлять состоянием и поведением. Явно отрендерите
-`Backdrop`, `Positioner` и `Content`, а затем поместите `Grabber` и `GrabberIndicator` внутрь `Content`, если нужна
-видимая ручка для перетаскивания.
-
-Используйте `asChild`, чтобы объединить `Drawer.Trigger` или `Drawer.CloseTrigger` с `Button`. Дочерним элементом
-должен быть один семантический элемент, который может получить фокус.
-
-Колбэки Ark передают объект `details`:
-
-- `onOpenChange(details)` → `details.open`
-- `onSnapPointChange(details)` → `details.snapPoint`
-- `onTriggerValueChange(details)` → `details.value` и `details.triggerElement`
-
-### Когда нужна собственная композиция
-
-Передавайте `className` напрямую любой экспортируемой части. Если состояние должно находиться за пределами дерева
-панели, импортируйте `useDrawer` из `@moduix/react` и передайте его результат в `Drawer.RootProvider`. Не используйте
-`Drawer` и `Drawer.RootProvider` для одного и того же состояния. Для сложной композиции `@moduix/react` также экспортирует
-`useDrawerContext`, `useDrawerStackContext` и `Drawer.Context`.
-
-Объедините в `Drawer.Stack` поверхности, которые должны перемещаться вместе, затем отрендерите
-`Drawer.IndentBackground` и `Drawer.Indent`.
-
-### Свойства по умолчанию
-
-По умолчанию содержимое оверлея в портале монтируется только при первом открытии и размонтируется после анимации
-закрытия. Установите `unmountOnExit={false}`, чтобы оставить его в DOM после первого открытия. Отключайте оба свойства
-жизненного цикла только если содержимое нужно отрендерить сразу при загрузке.
-
-| Свойство                 | По умолчанию | Примечания                                                        |
-| ------------------------ | ------------ | ----------------------------------------------------------------- |
-| `modal`                  | `true`       | Скрывает страницу и блокирует взаимодействие за пределами панели. |
-| `swipeDirection`         | `"down"`     | По умолчанию открывает панель снизу.                              |
-| `snapPoints`             | `[1]`        | Использует всю высоту, если точки привязки не заданы.             |
-| `closeOnEscape`          | `true`       | Позволяет закрывать панель клавишей Escape.                       |
-| `closeOnInteractOutside` | `true`       | Закрывает модальную панель при взаимодействии за её пределами.   |
-| `preventDragOnScroll`    | `true`       | Не позволяет начинать перетаскивание из прокручиваемого содержимого. |
-| `preventScroll`          | `true`       | Блокирует прокрутку фона, пока панель открыта.                    |
-| `restoreFocus`           | `true`       | Возвращает фокус элементу, который был активен до открытия.       |
-| `trapFocus`              | `true`       | Удерживает фокус внутри модального содержимого.                  |
-| `lazyMount`              | `true`       | Значение по умолчанию в moduix, в Ark по умолчанию `false`.       |
-| `unmountOnExit`          | `true`       | Значение по умолчанию в moduix, в Ark по умолчанию `false`.       |
-| `Drawer.Content draggable` | `true`       | Перетаскивание из содержимого включено. Если задать `false`, панель можно будет двигать только за ручку. |
-| `closeThreshold`         | `0.25`       | Доля расстояния свайпа, необходимая для закрытия панели.         |
-| `snapToSequentialPoints` | `false`      | Переходит между точками привязки по одному шагу.                  |
-| `swipeVelocityThreshold` | `700`        | Порог скорости свайпа, при котором панель закрывается.            |
-| `role`                   | `"dialog"`  | Установите `"alertdialog"` для срочного блокирующего содержимого. |
-
-### Особенности поведения
-
-- В API направления задаются логически: `up`, `down`, `start` и `end`. Для стилизации Ark записывает в
-  `data-swipe-direction` фактическое направление `left` или `right`.
-- `Drawer.Content draggable={false}` отключает перетаскивание из содержимого, но оставляет ручку активной.
-- `Drawer.Content variant="island"` добавляет отступ от краёв окна, скругляет все углы и убирает расширение фона,
-  которое используется при перетаскивании за край.
-- `data-no-drag` запрещает начинать жест перетаскивания внутри заданного поддерева.
-- Модальный фон остаётся полностью видимым, пока панель перемещается между точками привязки, и исчезает, когда начинается закрытие.
-- `ids` задаёт идентификаторы для доступности, когда части панели собраны в разных деревьях.
-- `Drawer.CloseIcon` по умолчанию задаёт доступную метку `Close drawer`. Передайте свой `aria-label`,
-  если в конкретном контексте нужен другой текст.
-- `Drawer.Content` передаёт `ref` на поверхность диалога. Это удобно, если нужно измерить панель или
-  программно перевести на неё фокус.
-- `stack` принимает внешнее хранилище стека Ark, чтобы управлять визуальными эффектами стека на уровне приложения.
-- `immediate` и `skipAnimationOnMount` управляют моментом монтирования и размонтирования панели в Ark, если анимацией
-  управляете самостоятельно.
-- `present`, `lazyMount`, `unmountOnExit` и `onExitComplete` управляют жизненным циклом рендера. В moduix параметры
-  `lazyMount` и `unmountOnExit` по умолчанию равны `true`: анимации выхода успевают завершиться, а скрытые панели не
-  рендерятся при первой загрузке.
-- При `prefers-reduced-motion: reduce` анимации появления, выхода и стека длятся 1 мс, но Ark всё равно корректно
-  завершает жизненный цикл.
-- Ark сохраняет стандартное поведение диалога: удерживает фокус, обрабатывает Escape, связывает заголовок с описанием
-  и возвращает фокус после закрытия.
+Поместите поверхности, которые должны двигаться вместе, в `Drawer.Stack`, а затем объедините
+`Drawer.IndentBackground` и `Drawer.Indent`. Для собственного элемента триггера или закрытия
+используйте `asChild`: в React передаётся один доступный для фокуса дочерний элемент, а в Solid
+рендер-функция должна передать ему `props()`. Обработчики Ark получают объект деталей, например
+`details.open`, `details.snapPoint` и `details.value`.
 
 ## Примеры
 
-### Управляемое состояние
+### Управляемый режим
 
-Читайте `details.open` в обработчике Ark. Колбэк получает объект `details`, а не логическое значение напрямую.
+Читайте `details.open` в callback Ark. Callback получает объект деталей, а не логическое значение напрямую.
 
 <ExampleFrame variant="component">
   <DrawerControlled />
@@ -200,28 +189,31 @@ Drawer.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/drawer/drawer-controlled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={drawerSolidControlled} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/drawer/drawer-controlled.module.css"
+```
+</div>
 </ExampleCode>
 
-### Элементы управления перетаскиванием
+### Управление перетаскиванием
 
-Добавьте `data-no-drag` к интерактивным областям, которые не должны запускать перетаскивание, а остальное содержимое
-оставьте перетаскиваемым. Задайте `draggable={false}`, если панель должна двигаться только за ручку.
+Добавьте `data-no-drag` на интерактивные области, которые не должны запускать перетаскивание.
+Укажите `draggable={false}` на `Drawer.Content`, если панель должна двигаться только за ручку.
 
 <ExampleFrame variant="component">
   <DrawerDragControls />
@@ -229,28 +221,31 @@ Drawer.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/drag-controls.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/drawer/drawer-drag-controls.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={drawerSolidDragControls} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/drawer/drawer-drag-controls.module.css"
+```
+</div>
 </ExampleCode>
 
-### Плавающий Grabber
+### Плавающая ручка
 
-Разместите `Drawer.Grabber` над панелью, если ручка должна выглядеть отдельным элементом управления. Стиль в примере
-оставляет между ручкой и краем панели расстояние 10 px.
+Разместите `Drawer.Grabber` над поверхностью, если ручка должна выглядеть отдельным элементом.
+В этом примере между ручкой и краем панели оставлено 10px.
 
 <ExampleFrame variant="component">
   <DrawerFloatingGrabber />
@@ -258,28 +253,31 @@ Drawer.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/floating-grabber.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/drawer/drawer-floating-grabber.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={drawerSolidFloatingGrabber} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/drawer/drawer-floating-grabber.module.css"
+```
+</div>
 </ExampleCode>
 
-### Фон отступа
+### Фон с отступом
 
-`Drawer.Stack` использует состояние стека Ark и прогресс свайпа, чтобы согласованно перемещать `IndentBackground` и
-`Indent`.
+`Drawer.Stack` использует состояние стека и прогресс свайпа Ark, чтобы перемещать
+`IndentBackground` и `Indent` вместе.
 
 <ExampleFrame variant="component">
   <DrawerIndentBackground />
@@ -287,28 +285,31 @@ Drawer.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/indent-background.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/drawer/drawer-indent-background.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={drawerSolidIndentBackground} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/drawer/drawer-indent-background.module.css"
+```
+</div>
 </ExampleCode>
 
-### Island
+### Островная панель
 
-Задайте `variant="island"` для `Drawer.Content`, если компактная панель должна оставаться с отступом от краёв окна,
-а не доходить до края, от которого она открывается.
+Укажите `variant="island"` на `Drawer.Content`, если компактная панель должна располагаться с
+отступом внутри окна, а не визуально выходить за край, откуда она открывается.
 
 <ExampleFrame variant="component">
   <DrawerIsland />
@@ -316,28 +317,31 @@ Drawer.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/island.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/drawer/drawer-island.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={drawerSolidIsland} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/drawer/drawer-island.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Несколько триггеров
 
-Назначьте каждому триггеру `value`, чтобы использовать одну панель для всего списка. Колбэк сообщит, какой триггер
-активен.
+Задайте каждому триггеру `value`, чтобы использовать одну панель для списка. Callback сообщает,
+какой триггер активен.
 
 <ExampleFrame variant="component">
   <DrawerMultipleTriggers />
@@ -345,29 +349,32 @@ Drawer.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/multiple-triggers.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/drawer/drawer-multiple-triggers.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={drawerSolidMultipleTriggers} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/drawer/drawer-multiple-triggers.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Вложенные панели
 
-Для вложенных панелей создайте отдельные экземпляры Ark `useDrawer` и отдельные деревья `Drawer.RootProvider` из
-moduix. Так каждая панель сохраняет собственное состояние открытия и жизненный цикл фокуса. Родительская поверхность
-отодвигается за активную панель, оставляя видимый край.
+Используйте отдельные экземпляры Ark `useDrawer` и отдельные деревья moduix
+`Drawer.RootProvider` для вложенных панелей. Тогда каждая панель сохраняет собственное состояние
+открытия и жизненный цикл фокуса.
 
 <ExampleFrame variant="component">
   <DrawerNested />
@@ -375,32 +382,31 @@ moduix. Так каждая панель сохраняет собственно
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/nested.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/drawer/drawer-nested.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={drawerSolidNested} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/drawer/drawer-nested.module.css"
+```
+</div>
 </ExampleCode>
 
-### Немодальный режим
+### Немодальная панель
 
-Задайте `modal={false}`, если пользователь должен взаимодействовать со страницей и прокручивать её при открытой панели.
-На сенсорных устройствах отключите перетаскивание у `Content` и используйте `Header` как `Grabber`: вертикальный жест
-тогда не будет одновременно двигать панель и страницу. Добавьте `data-no-drag` каждому интерактивному элементу в
-`Header`, например кнопке закрытия. Если панель должна перетаскиваться за любое место содержимого, оставьте его
-перетаскиваемым и включите `preventScroll={true}`. Элементы управления за пределами панели останутся доступными, но
-прокрутка страницы будет заблокирована на время её открытия.
+Укажите `modal={false}`, если страница должна оставаться доступной для взаимодействия, пока панель
+открыта. В этом примере ручка отвечает за перетаскивание, а `ScrollArea` содержит длинный контент.
 
 <ExampleFrame variant="component">
   <DrawerNonModal />
@@ -408,28 +414,31 @@ moduix. Так каждая панель сохраняет собственно
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/non-modal.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/drawer/drawer-non-modal.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={drawerSolidNonModal} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/drawer/drawer-non-modal.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Root Provider
 
-Используйте экспорт `useDrawer` из moduix, когда кнопки вне дерева панели должны открывать её или менять её точки
-привязки.
+Используйте экспорт moduix `useDrawer`, если кнопки за пределами дерева панели должны открывать её
+или менять её точки привязки.
 
 <ExampleFrame variant="component">
   <DrawerRootProvider />
@@ -437,28 +446,31 @@ moduix. Так каждая панель сохраняет собственно
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/drawer/drawer-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={drawerSolidRootProvider} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/drawer/drawer-root-provider.module.css"
+```
+</div>
 </ExampleCode>
 
-### Прокручиваемая панель
+### Прокручиваемое содержимое
 
-Поместите длинное содержимое в `Drawer.Body`. Используйте `ScrollArea`, когда панели нужен отдельный контейнер
-прокрутки, а ручка и заголовок должны оставаться на месте.
+Поместите длинный контент в `Drawer.Body`. Используйте `ScrollArea`, если панели нужен отдельный
+контейнер прокрутки, а ручка и заголовок должны оставаться на месте.
 
 <ExampleFrame variant="component">
   <DrawerScrollable />
@@ -466,27 +478,31 @@ moduix. Так каждая панель сохраняет собственно
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/scrollable.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/drawer/drawer-scrollable.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={drawerSolidScrollable} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/drawer/drawer-scrollable.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Точки привязки
 
-Задайте промежуточные положения на корневом компоненте и выберите начальное положение с помощью `defaultSnapPoint`.
+Задайте промежуточные позиции в корневом компоненте и выберите начальную позицию через
+`defaultSnapPoint`.
 
 <ExampleFrame variant="component">
   <DrawerSnapPoints />
@@ -494,28 +510,31 @@ moduix. Так каждая панель сохраняет собственно
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/snap-points.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/drawer/drawer-snap-points.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={drawerSolidSnapPoints} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/drawer/drawer-snap-points.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Направление свайпа
 
-Используйте логические значения `start` и `end` для боковых панелей, чтобы один и тот же код работал в LTR и RTL. Для
-верхней панели используйте `up`, а для нижней задайте `down`.
+Используйте логические значения `start` и `end` для боковых панелей, чтобы один и тот же код
+работал в LTR и RTL. Для верхней панели используйте `up`, для нижней - `down`.
 
 <ExampleFrame variant="component">
   <DrawerSwipeDirection />
@@ -523,28 +542,31 @@ moduix. Так каждая панель сохраняет собственно
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/swipe-direction.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/drawer/drawer-swipe-direction.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={drawerSolidSwipeDirection} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/drawer/drawer-swipe-direction.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Расширенная настройка
 
-Не используйте необязательные помощники `Header`, `Body`, `Footer` и `CloseIcon`, если строите собственную разметку
-на основе полной низкоуровневой анатомии Drawer.
+Не используйте необязательные помощники `Header`, `Body`, `Footer` и `CloseIcon`, если собственной
+разметке нужен полный низкоуровневый набор частей Drawer.
 
 <ExampleFrame variant="component">
   <DrawerAdvancedCustomization />
@@ -552,31 +574,40 @@ moduix. Так каждая панель сохраняет собственно
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/advanced-customization.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/drawer/drawer-advanced-customization.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={drawerSolidAdvancedCustomization} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/drawer/drawer-advanced-customization.module.css"
+```
+</div>
 </ExampleCode>
 
 ## Стилизация
+
+Используйте `className` в React или `class` в Solid на экспортируемых частях для структурных
+стилей. Для стилей по состоянию предпочитайте атрибуты данных Ark, например `data-state`,
+`data-swipe-direction` и `data-dragging`, вместе с селекторами moduix `data-slot`. Варианты Tailwind
+используют нативные utility-классы и классы потребителя, а приведённые ниже переменные настраивают
+варианты CSS Modules. Атрибуты данных и хуки `data-slot` общие для обоих вариантов стилизации.
 
 ### CSS-свойства
 
 <div className="docs-reference">
   <Tabs
-    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
     className="docs-reference-tabs"
     contentItemClassName="docs-reference-panel"
   >
@@ -588,17 +619,17 @@ moduix. Так каждая панель сохраняет собственно
 
 ### Хуки стилизации
 
-- Значения `data-slot`, которые добавляет moduix: `drawer-trigger`, `drawer-backdrop`, `drawer-positioner`, `drawer-content`,
+- значения moduix `data-slot`: `drawer-trigger`, `drawer-backdrop`, `drawer-positioner`, `drawer-content`,
   `drawer-grabber`, `drawer-grabber-indicator`, `drawer-title`, `drawer-description`,
   `drawer-close-trigger`, `drawer-close-icon`, `drawer-swipe-area`, `drawer-indent`,
   `drawer-indent-background`, `drawer-header`, `drawer-body` и `drawer-footer`.
-- `Drawer.Content` записывает `data-variant="island"`, когда активно представление island.
-- Атрибуты частей Ark: `data-scope="drawer"` с `data-part`.
-- Атрибуты состояния: `data-state="open|closed"`, `data-swipe-direction`, `data-swiping`,
+- `Drawer.Content` записывает `data-variant="island"`, когда включено островное представление.
+- хуки частей Ark: `data-scope="drawer"` вместе с `data-part`.
+- хуки состояния: `data-state="open|closed"`, `data-swipe-direction`, `data-swiping`,
   `data-dragging`, `data-expanded`, `data-current`, `data-value`, `data-disabled`,
   `data-nested-drawer-open` и `data-nested-drawer-swiping`.
-- Переменные во время выполнения: `--drawer-translate`, `--drawer-translate-x`, `--drawer-translate-y`,
-  `--drawer-snap-point-offset-x`, `--drawer-snap-point-offset-y`,
-  `--drawer-swipe-movement-x`, `--drawer-swipe-movement-y`, `--drawer-swipe-progress`,
-  `--drawer-swipe-strength`, `--drawer-height`, `--drawer-frontmost-height`,
-  `--nested-drawers`, `--nested-layer-count` и `--layer-index`.
+- runtime-переменные: `--drawer-translate`, `--drawer-translate-x`, `--drawer-translate-y`,
+  `--drawer-snap-point-offset-x`, `--drawer-snap-point-offset-y`, `--drawer-swipe-movement-x`,
+  `--drawer-swipe-movement-y`, `--drawer-swipe-progress`, `--drawer-swipe-strength`,
+  `--drawer-height`, `--drawer-frontmost-height`, `--nested-drawers`, `--nested-layer-count`
+  и `--layer-index`.
