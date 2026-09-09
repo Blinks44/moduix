@@ -1,7 +1,17 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { Button, Drawer, useDrawer } from '../src';
+import { Button, Drawer, useDrawer, useDrawerContext } from '../src';
+
+function DrawerStateReadout() {
+  const drawer = useDrawerContext();
+
+  return (
+    <output data-testid="drawer-state">
+      {`${drawer().swipeDirection}:${drawer().snapPoints.join(',')}:${String(drawer().snapPoint)}`}
+    </output>
+  );
+}
 
 test('keeps page interaction available for a non-modal drawer', () => {
   render(() => (
@@ -155,14 +165,15 @@ test('opens a RootProvider drawer from external state', async () => {
 
 test('marks an island drawer and closes it through its accessible close icon', async () => {
   render(() => (
-    <Drawer>
+    <Drawer variant="island">
       <Drawer.Trigger>Open drawer</Drawer.Trigger>
       <Drawer.Positioner>
-        <Drawer.Content variant="island">
+        <Drawer.Content>
           <Drawer.Title>Preferences</Drawer.Title>
           <Drawer.CloseIcon />
         </Drawer.Content>
       </Drawer.Positioner>
+      <DrawerStateReadout />
     </Drawer>
   ));
 
@@ -171,6 +182,8 @@ test('marks an island drawer and closes it through its accessible close icon', a
   fireEvent.click(trigger);
 
   expect(await screen.findByRole('dialog')).toHaveAttribute('data-variant', 'island');
+  expect(screen.getByTestId('drawer-state')).toHaveTextContent('down:1:1');
+  expect(screen.getByRole('dialog').parentElement).toHaveAttribute('data-swipe-direction', 'down');
   fireEvent.click(screen.getByRole('button', { name: 'Close drawer' }));
 
   await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());

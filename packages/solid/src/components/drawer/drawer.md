@@ -32,6 +32,10 @@ callbacks, focus behavior, lifecycle, stack coordination, runtime variables, and
 `Drawer` and `Drawer.Root` are equivalent roots. `Backdrop` and `Positioner` are portalled by
 default; use `portalled={false}` or `portalRef` on the root to control overlay placement.
 `lazyMount` and `unmountOnExit` default to `true`.
+`variant="island"` uses the full default snap point (`[1]`), passes the island presentation to
+`Content`, and keeps `swipeDirection` controlled by the caller. The surface is inset from the
+viewport, rounded on all sides, and has no directional overdrag bleed. `Content variant="island"`
+remains supported when the presentation needs to be selected on the content part.
 
 ## API surface
 
@@ -66,6 +70,7 @@ composition are supported as separate native paths because Ark Solid does not fo
 `asChild`. `Drawer.CloseIcon` composes `CloseButton.Root` through the same native render-function
 contract and defaults its accessible label to `Close drawer`.
 
-`Content variant="island"` adds the detached, safe-area-aware surface styling from the React
-component. `Header`, `Body`, and `Footer` are layout helpers only; all Ark structural parts remain
-explicit and independently styleable.
+`Root variant="island"` adds the detached, safe-area-aware surface styling from the React
+component and defaults to the full snap point. `Content variant="island"` remains supported for
+explicit presentation selection. `Header`, `Body`, and `Footer` are layout helpers only; all Ark
+structural parts remain explicit and independently styleable.

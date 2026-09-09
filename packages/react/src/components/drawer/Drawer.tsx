@@ -9,7 +9,7 @@ import {
 import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
-import { forwardRef } from 'react';
+import { createContext, forwardRef, useContext } from 'react';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -19,8 +19,11 @@ import { CloseButton } from '../close-button';
 import styles from './Drawer.module.css';
 
 const DEFAULT_CLOSE_BUTTON_LABEL = 'Close drawer';
+type DrawerVariant = 'island';
+const DrawerVariantContext = createContext<DrawerVariant | undefined>(undefined);
 
-type DrawerRootProps = ComponentProps<typeof DrawerPrimitive.Root> & OverlayPortalProps;
+type DrawerRootProps = ComponentProps<typeof DrawerPrimitive.Root> &
+  OverlayPortalProps & { variant?: DrawerVariant };
 type DrawerRootProviderProps = ComponentProps<typeof DrawerPrimitive.RootProvider> &
   OverlayPortalProps;
 type DrawerContentProps = ComponentProps<typeof DrawerPrimitive.Content> & {
@@ -32,11 +35,26 @@ function DrawerRoot({
   portalled,
   portalRef,
   unmountOnExit = true,
+  variant,
+  swipeDirection,
+  snapPoints,
+  defaultSnapPoint,
   ...props
 }: DrawerRootProps) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
-      <DrawerPrimitive.Root lazyMount={lazyMount} unmountOnExit={unmountOnExit} {...props} />
+      <DrawerVariantContext.Provider value={variant}>
+        <DrawerPrimitive.Root
+          {...props}
+          lazyMount={lazyMount}
+          unmountOnExit={unmountOnExit}
+          swipeDirection={swipeDirection}
+          snapPoints={snapPoints ?? (variant === 'island' ? [1] : undefined)}
+          defaultSnapPoint={
+            defaultSnapPoint !== undefined ? defaultSnapPoint : variant === 'island' ? 1 : undefined
+          }
+        />
+      </DrawerVariantContext.Provider>
     </OverlayPortalProvider>
   );
 }
@@ -110,11 +128,13 @@ const DrawerPositioner = forwardRef<
 
 const DrawerContent = forwardRef<ComponentRef<typeof DrawerPrimitive.Content>, DrawerContentProps>(
   function DrawerContent({ className, variant, ...props }, ref) {
+    const rootVariant = useContext(DrawerVariantContext);
+
     return (
       <DrawerPrimitive.Content
         ref={ref}
         data-slot="drawer-content"
-        data-variant={variant}
+        data-variant={variant ?? rootVariant}
         className={clsx(styles.content, className)}
         {...props}
       />

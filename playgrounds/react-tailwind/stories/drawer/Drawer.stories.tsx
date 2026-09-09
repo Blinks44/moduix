@@ -27,20 +27,18 @@ function DrawerSurface({
   children,
   draggable,
   backdrop = true,
-  variant,
 }: {
   title: string;
   description?: string;
   children?: ReactNode;
   draggable?: boolean;
   backdrop?: boolean;
-  variant?: 'island';
 }) {
   return (
     <>
       {backdrop ? <Drawer.Backdrop /> : null}
       <Drawer.Positioner>
-        <Drawer.Content draggable={draggable} variant={variant}>
+        <Drawer.Content draggable={draggable}>
           <Drawer.Grabber>
             <Drawer.GrabberIndicator />
           </Drawer.Grabber>
@@ -112,12 +110,11 @@ export const SnapPoints: Story = {
 
 export const Island: Story = {
   render: () => (
-    <Drawer.Root defaultSnapPoint={DEFAULT_DEMO_SNAP_POINT} snapPoints={DEFAULT_DEMO_SNAP_POINTS}>
+    <Drawer.Root variant="island" swipeDirection="end">
       <Drawer.Trigger asChild>
         <Button>Open island drawer</Button>
       </Drawer.Trigger>
       <DrawerSurface
-        variant="island"
         title="Floating drawer"
         description="This compact drawer stays inset from the viewport edge."
       >

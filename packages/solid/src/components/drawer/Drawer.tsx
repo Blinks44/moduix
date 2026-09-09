@@ -7,7 +7,7 @@ import {
 import { ark, type HTMLArkProps } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
-import { children as resolveChildren, splitProps } from 'solid-js';
+import { children as resolveChildren, createContext, splitProps, useContext } from 'solid-js';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -17,8 +17,11 @@ import { CloseButton } from '../close-button';
 import styles from './Drawer.module.css';
 
 const DEFAULT_CLOSE_BUTTON_LABEL = 'Close drawer';
+type DrawerVariant = 'island';
+const DrawerVariantContext = createContext<DrawerVariant>();
 
-type DrawerRootProps = ComponentProps<typeof DrawerPrimitive.Root> & OverlayPortalProps;
+type DrawerRootProps = ComponentProps<typeof DrawerPrimitive.Root> &
+  OverlayPortalProps & { variant?: DrawerVariant };
 type DrawerRootProviderProps = ComponentProps<typeof DrawerPrimitive.RootProvider> &
   OverlayPortalProps;
 type DrawerContentProps = ComponentProps<typeof DrawerPrimitive.Content> & {
@@ -33,17 +36,32 @@ function DrawerRoot(props: DrawerRootProps) {
     'portalled',
     'portalRef',
     'unmountOnExit',
+    'variant',
+    'swipeDirection',
+    'snapPoints',
+    'defaultSnapPoint',
   ]);
 
   return (
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
-      <DrawerPrimitive.Root
-        lazyMount={local.lazyMount ?? true}
-        unmountOnExit={local.unmountOnExit ?? true}
-        {...others}
-      >
-        {local.children}
-      </DrawerPrimitive.Root>
+      <DrawerVariantContext.Provider value={local.variant}>
+        <DrawerPrimitive.Root
+          lazyMount={local.lazyMount ?? true}
+          unmountOnExit={local.unmountOnExit ?? true}
+          swipeDirection={local.swipeDirection}
+          snapPoints={local.snapPoints ?? (local.variant === 'island' ? [1] : undefined)}
+          defaultSnapPoint={
+            local.defaultSnapPoint !== undefined
+              ? local.defaultSnapPoint
+              : local.variant === 'island'
+                ? 1
+                : undefined
+          }
+          {...others}
+        >
+          {local.children}
+        </DrawerPrimitive.Root>
+      </DrawerVariantContext.Provider>
     </OverlayPortalProvider>
   );
 }
@@ -113,11 +131,12 @@ function DrawerPositioner(props: ComponentProps<typeof DrawerPrimitive.Positione
 
 function DrawerContent(props: DrawerContentProps) {
   const [local, others] = splitProps(props, ['class', 'draggable', 'variant']);
+  const rootVariant = useContext(DrawerVariantContext);
 
   return (
     <DrawerPrimitive.Content
       data-slot="drawer-content"
-      data-variant={local.variant}
+      data-variant={local.variant ?? rootVariant}
       class={clsx(styles.content, local.class)}
       draggable={local.draggable ?? true}
       {...others}

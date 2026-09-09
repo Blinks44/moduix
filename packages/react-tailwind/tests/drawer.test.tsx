@@ -1,7 +1,17 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { useState } from 'react';
-import { Button, Drawer, useDrawer } from '../src';
+import { Button, Drawer, useDrawer, useDrawerContext } from '../src';
+
+function DrawerStateReadout() {
+  const drawer = useDrawerContext();
+
+  return (
+    <output data-testid="drawer-state">
+      {`${drawer.swipeDirection}:${drawer.snapPoints.join(',')}:${String(drawer.snapPoint)}`}
+    </output>
+  );
+}
 
 test('keeps page interaction available for a non-modal drawer', () => {
   render(
@@ -125,16 +135,17 @@ test('opens a RootProvider drawer from external state', async () => {
 
 test('marks an island drawer and closes it through its accessible close icon', async () => {
   render(
-    <Drawer>
+    <Drawer variant="island">
       <Drawer.Trigger asChild>
         <Button>Open drawer</Button>
       </Drawer.Trigger>
       <Drawer.Positioner>
-        <Drawer.Content variant="island">
+        <Drawer.Content>
           <Drawer.Title>Preferences</Drawer.Title>
           <Drawer.CloseIcon />
         </Drawer.Content>
       </Drawer.Positioner>
+      <DrawerStateReadout />
     </Drawer>,
   );
 
@@ -142,6 +153,8 @@ test('marks an island drawer and closes it through its accessible close icon', a
   fireEvent.click(trigger);
 
   expect(await screen.findByRole('dialog')).toHaveAttribute('data-variant', 'island');
+  expect(screen.getByTestId('drawer-state')).toHaveTextContent('down:1:1');
+  expect(screen.getByRole('dialog').parentElement).toHaveAttribute('data-swipe-direction', 'down');
   fireEvent.click(screen.getByRole('button', { name: 'Close drawer' }));
 
   await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
@@ -187,6 +200,11 @@ test('applies Tailwind defaults and lets consumer utilities win', () => {
   );
   expect(content).toHaveClass('w-96', 'bg-card', 'p-4');
   expect(content).not.toHaveClass('bg-popover', 'px-6', 'pt-3');
+  expect(content).toHaveClass(
+    'data-[swipe-direction=left]:after:inset-y-0',
+    'data-[swipe-direction=right]:after:inset-y-0',
+    '[transition:transform_calc(var(--drawer-swipe-strength,1)*450ms)_cubic-bezier(0,0,0.2,1),scale_450ms_cubic-bezier(0.32,0.72,0,1),translate_450ms_cubic-bezier(0.32,0.72,0,1)]',
+  );
   expect(document.querySelector('[data-slot="drawer-grabber-indicator"]')).toHaveClass(
     'h-1',
     'w-12',
