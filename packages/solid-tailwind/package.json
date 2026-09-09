@@ -210,6 +210,12 @@
       "import": "./dist/components/fieldset/index.js",
       "default": "./dist/components/fieldset/index.js"
     },
+    "./input": {
+      "types": "./dist/components/input/index.d.ts",
+      "solid": "./dist/components/input/index.jsx",
+      "import": "./dist/components/input/index.js",
+      "default": "./dist/components/input/index.js"
+    },
     "./kbd": {
       "types": "./dist/components/kbd/index.d.ts",
       "solid": "./dist/components/kbd/index.jsx",
@@ -222,17 +228,41 @@
       "import": "./dist/components/menu/index.js",
       "default": "./dist/components/menu/index.js"
     },
+    "./radio-group": {
+      "types": "./dist/components/radio-group/index.d.ts",
+      "solid": "./dist/components/radio-group/index.jsx",
+      "import": "./dist/components/radio-group/index.js",
+      "default": "./dist/components/radio-group/index.js"
+    },
+    "./rating-group": {
+      "types": "./dist/components/rating-group/index.d.ts",
+      "solid": "./dist/components/rating-group/index.jsx",
+      "import": "./dist/components/rating-group/index.js",
+      "default": "./dist/components/rating-group/index.js"
+    },
     "./scroll-area": {
       "types": "./dist/components/scroll-area/index.d.ts",
       "solid": "./dist/components/scroll-area/index.jsx",
       "import": "./dist/components/scroll-area/index.js",
       "default": "./dist/components/scroll-area/index.js"
     },
+    "./select": {
+      "types": "./dist/components/select/index.d.ts",
+      "solid": "./dist/components/select/index.jsx",
+      "import": "./dist/components/select/index.js",
+      "default": "./dist/components/select/index.js"
+    },
     "./spinner": {
       "types": "./dist/components/spinner/index.d.ts",
       "solid": "./dist/components/spinner/index.jsx",
       "import": "./dist/components/spinner/index.js",
       "default": "./dist/components/spinner/index.js"
+    },
+    "./switch": {
+      "types": "./dist/components/switch/index.d.ts",
+      "solid": "./dist/components/switch/index.jsx",
+      "import": "./dist/components/switch/index.js",
+      "default": "./dist/components/switch/index.js"
     },
     "./style.css": "./dist/styles/style.css",
     "./presets/*": "./dist/presets/*",

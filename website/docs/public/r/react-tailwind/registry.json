@@ -21,7 +21,7 @@
           "utils": "@/lib/utils"
         }
       },
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
       "registryDependencies": ["@moduix-react-tailwind/foundation"]
     },
     {
@@ -108,7 +108,7 @@
       "type": "registry:item",
       "title": "Alert",
       "description": "moduix React Tailwind Alert component.",
-      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -639,6 +639,26 @@
       ]
     },
     {
+      "name": "input",
+      "type": "registry:item",
+      "title": "Input",
+      "description": "moduix React Tailwind Input component.",
+      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/input/Input.tsx",
+          "target": "@components/ui/input/Input.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/input/index.ts",
+          "target": "@components/ui/input/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "chart",
       "type": "registry:item",
       "title": "Chart",
@@ -751,6 +771,50 @@
       ]
     },
     {
+      "name": "radio-group",
+      "type": "registry:item",
+      "title": "RadioGroup",
+      "description": "moduix React Tailwind RadioGroup component.",
+      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/radio-group/RadioGroup.tsx",
+          "target": "@components/ui/radio-group/RadioGroup.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/radio-group/index.ts",
+          "target": "@components/ui/radio-group/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "rating-group",
+      "type": "registry:item",
+      "title": "RatingGroup",
+      "description": "moduix React Tailwind RatingGroup component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-react-tailwind/foundation",
+        "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/rating-group/RatingGroup.tsx",
+          "target": "@components/ui/rating-group/RatingGroup.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/rating-group/index.ts",
+          "target": "@components/ui/rating-group/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "scroll-area",
       "type": "registry:item",
       "title": "ScrollArea",
@@ -771,6 +835,32 @@
       ]
     },
     {
+      "name": "select",
+      "type": "registry:item",
+      "title": "Select",
+      "description": "moduix React Tailwind Select component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-react-tailwind/foundation",
+        "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/icons",
+        "@moduix-react-tailwind/close-button",
+        "@moduix-react-tailwind/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/select/Select.tsx",
+          "target": "@components/ui/select/Select.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/index.ts",
+          "target": "@components/ui/select/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "spinner",
       "type": "registry:item",
       "title": "Spinner",
@@ -786,6 +876,26 @@
         {
           "path": "src/components/spinner/index.ts",
           "target": "@components/ui/spinner/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "switch",
+      "type": "registry:item",
+      "title": "Switch",
+      "description": "moduix React Tailwind Switch component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/switch/Switch.tsx",
+          "target": "@components/ui/switch/Switch.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/switch/index.ts",
+          "target": "@components/ui/switch/index.ts",
           "type": "registry:component"
         }
       ]

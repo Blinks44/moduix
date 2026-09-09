@@ -3,7 +3,7 @@
   "name": "alert",
   "title": "Alert",
   "description": "moduix Solid Tailwind Alert component.",
-  "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+  "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
   "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
   "files": [
     {

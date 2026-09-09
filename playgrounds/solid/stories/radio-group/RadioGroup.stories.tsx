@@ -1,6 +1,7 @@
 import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import { Field } from '@/components/field';
+import { Fieldset } from '@/components/fieldset';
 import { RadioGroup, useRadioGroup } from '@/components/radio-group';
 import styles from './RadioGroup.stories.module.css';
 
@@ -209,12 +210,12 @@ export const WithIndicator: Story = {
 
 export const WithFieldset: Story = {
   render: () => (
-    <fieldset class={styles.fieldset}>
-      <legend class={styles.groupHeading}>Select a framework</legend>
+    <Fieldset class={styles.fieldset}>
+      <Fieldset.Legend>Select a framework</Fieldset.Legend>
       <RadioGroup defaultValue="React">
         <RadioItems />
       </RadioGroup>
-    </fieldset>
+    </Fieldset>
   ),
 };
 
