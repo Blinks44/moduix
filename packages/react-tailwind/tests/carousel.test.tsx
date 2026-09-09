@@ -100,12 +100,20 @@ test('keeps component-owned visual utilities visible and lets consumers override
   );
 
   const root = screen.getByRole('region', { name: 'Styled gallery' });
+  const itemGroup = document.querySelector('[data-slot="carousel-item-group"]')!;
   const previous = screen.getByRole('button', { name: 'Previous slide' });
   const indicator = screen.getByRole('button', { name: 'Go to slide 1' });
   const progress = screen.getByText('1 / 2');
 
   expect(root).toHaveClass('gap-0');
   expect(root).not.toHaveClass('gap-3');
+  expect(itemGroup).toHaveClass(
+    'rounded-xl',
+    'outline-0',
+    'focus-visible:outline-1',
+    'focus-visible:-outline-offset-1',
+    'focus-visible:outline-ring',
+  );
   expect(previous).toHaveClass('size-5', 'bg-primary', 'rounded-full');
   expect(previous).not.toHaveClass('size-control-md', 'bg-card');
   expect(indicator).toHaveClass('size-2', 'rounded-full', 'bg-muted');

@@ -33,11 +33,24 @@
     overscroll-behavior-x: contain;
     overscroll-behavior-y: auto;
     border-radius: var(--moduix-carousel-track-radius, var(--moduix-radius-xl));
+    outline: 0;
     scrollbar-width: none;
     scroll-behavior: smooth;
 
     &::-webkit-scrollbar {
       display: none;
+    }
+
+    &:focus-visible {
+      outline: var(
+          --moduix-carousel-focus-ring-width,
+          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+        )
+        solid var(--moduix-carousel-focus-ring-color, var(--moduix-color-ring));
+      outline-offset: var(
+        --moduix-carousel-focus-ring-offset,
+        var(--moduix-focus-ring-inset-offset)
+      );
     }
 
     &[data-dragging] {
