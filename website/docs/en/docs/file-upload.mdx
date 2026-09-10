@@ -21,6 +21,22 @@ import FileUploadRejectedFiles from '@/components/examples/file-upload/rejected-
 import FileUploadRootProviderAndPaste from '@/components/examples/file-upload/root-provider-and-paste.tsx';
 import FileUploadTransformFiles from '@/components/examples/file-upload/transform-files.tsx';
 import FileUploadWithField from '@/components/examples/file-upload/with-field.tsx';
+import fileUploadSolidAcceptedFileTypes from '../../../snippets/file-upload/solid/accepted-file-types.tsx?raw';
+import fileUploadSolidAdvancedCustomization from '../../../snippets/file-upload/solid/advanced-customization.tsx?raw';
+import fileUploadSolidBasic from '../../../snippets/file-upload/solid/basic.tsx?raw';
+import fileUploadSolidClearTrigger from '../../../snippets/file-upload/solid/clear-trigger.tsx?raw';
+import fileUploadSolidControlled from '../../../snippets/file-upload/solid/controlled.tsx?raw';
+import fileUploadSolidDirectoryUpload from '../../../snippets/file-upload/solid/directory-upload.tsx?raw';
+import fileUploadSolidDropzone from '../../../snippets/file-upload/solid/dropzone.tsx?raw';
+import fileUploadSolidErrorHandling from '../../../snippets/file-upload/solid/error-handling.tsx?raw';
+import fileUploadSolidFilePreviews from '../../../snippets/file-upload/solid/file-previews.tsx?raw';
+import fileUploadSolidFormUsage from '../../../snippets/file-upload/solid/form-usage.tsx?raw';
+import fileUploadSolidInitialFiles from '../../../snippets/file-upload/solid/initial-files.tsx?raw';
+import fileUploadSolidMediaCapture from '../../../snippets/file-upload/solid/media-capture.tsx?raw';
+import fileUploadSolidRejectedFiles from '../../../snippets/file-upload/solid/rejected-files.tsx?raw';
+import fileUploadSolidRootProviderAndPaste from '../../../snippets/file-upload/solid/root-provider-and-paste.tsx?raw';
+import fileUploadSolidTransformFiles from '../../../snippets/file-upload/solid/transform-files.tsx?raw';
+import fileUploadSolidWithField from '../../../snippets/file-upload/solid/with-field.tsx?raw';
 
 ## API Reference
 
@@ -29,7 +45,14 @@ import FileUploadWithField from '@/components/examples/file-upload/with-field.ts
 `FileUpload` is available from `@moduix/react/file-upload`. `FileUpload`, `useFileUpload`, and
 `useFileUploadContext` are also exported from `@moduix/react`.
 
+The same component is available from `@moduix/solid/file-upload`, `@moduix/react-tailwind/file-upload`, and
+`@moduix/solid-tailwind/file-upload`. The four package variants expose the same component parts and state model.
+Choose the package that matches your framework and styling path.
+
 ## Basic
+
+FileUpload ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered preview on this page
+uses the React CSS Modules package; the framework tabs show native source for the same public contract.
 
 Start with `FileUpload` as the root. Add a `Label`, then use `Trigger` for a compact control or `Dropzone` for
 drag-and-drop. Add `FileUpload.HiddenInput` explicitly to open the native picker. Put `Items` inside
@@ -42,27 +65,61 @@ generic file preview.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/file-upload/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/file-upload/file-upload-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={fileUploadSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/file-upload/file-upload-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="file-upload" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/file-upload' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/file-upload' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/file-upload' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/file-upload' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+See [Quick Start](/docs/quick-start) for package setup and choosing a styling path.
 
 ## Anatomy
 
@@ -112,55 +169,16 @@ FileUpload / FileUpload.Root
 
 ## Composition
 
-### Native form control
+`FileUpload` keeps file state internally by default. Use `defaultAcceptedFiles` for an uncontrolled initial value, or pair
+`acceptedFiles` with `onFileChange(details)` when the application owns the files. Use `useFileUpload()` with
+`FileUpload.RootProvider` when state or methods must be created outside the rendered tree.
 
-`FileUpload.HiddenInput` is Ark's native input, exposed directly. Render it explicitly inside
-`FileUpload` or `FileUpload.RootProvider`; the root does not add it. Set `name` on the root
-to include the value in native form submission.
+Render `FileUpload.HiddenInput` explicitly inside the root or provider, even outside a form, because `Trigger` uses it
+to open the native picker. Set `name` on the root for native form submission. For a dropzone with a nested `Trigger`, pass
+`disableClick` so the picker opens only once.
 
-Keep the input even outside forms: the trigger needs it to open the native file picker.
-For a form outside the component tree, set `form` directly on `HiddenInput`.
-
-### Recommended composition
-
-Keep the Ark part tree explicit in your markup. Use `Trigger` on its own for a compact upload control and
-`Dropzone` for a drag-and-drop area. When `Trigger` is nested inside `Dropzone`, pass `disableClick` to `Dropzone`
-so the native file picker opens only once.
-
-Render `FileUpload.HiddenInput` explicitly. Use `Items` inside `ItemGroup` for a compact list of accepted
-files. When you need custom rows, read accepted files from `FileUpload.Context.acceptedFiles` and rejected files from
-`FileUpload.Context.rejectedFiles`.
-
-Use `FileUpload.Context`, `useFileUpload()`, and `useFileUploadContext()` when you need advanced access to state.
-The context and hooks are direct Ark re-exports, so callback details and the state contract are unchanged.
-
-### When to go custom
-
-`Items` renders image files as compact vertical cards and other files as horizontal rows with metadata. Use explicit
-`Context` composition for custom rows. `ItemPreview.type` is a regular-expression predicate, not a priority list,
-so render exactly one preview for each file. For example, use `file.type.startsWith("image/")` to choose
-`ItemPreviewImage`. For other files, render `ItemPreviewIcon`, then compose `ItemName`, `ItemMetadata file={file}`, and
-`ItemDeleteTrigger`. Use `asChild` only when the child is a single semantic element that preserves the required
-button, label, or input behavior.
-
-### Default props
-
-| Prop                  | Default | Notes                                                        |
-| --------------------- | ------- | ------------------------------------------------------------ |
-| `allowDrop`           | `true`  | Allows dropping files on `Dropzone`.                                      |
-| `maxFiles`            | `1`     | Increase the value or remove the limit to accept multiple files or directories. |
-| `minFileSize`         | `0`     | Smallest accepted file size in bytes.                                    |
-| `maxFileSize`         | `∞`     | Largest accepted file size in bytes.                                     |
-| `preventDocumentDrop` | `true`  | Prevents accidental navigation when a file is dropped outside the target. |
-| `locale`              | `en-US` | Locale used to format file sizes.                                        |
-
-### Behavioral notes
-
-`acceptedFiles`, `defaultAcceptedFiles`, and `onFileChange(details)` follow Ark's controlled and uncontrolled
-state model. `onFileChange` is called when the value changes, whether files are accepted or rejected. The
-`onFileAccept(details)` and `onFileReject(details)` callbacks receive Ark's original detail objects, including
-rejected-file errors. `Field.Root` and `Fieldset.Root` can provide `disabled`, `invalid`, `required`, and `readOnly`
-state. Use `ids` when separate labels or descriptions need stable accessibility associations.
+Use `FileUpload.Items` inside `ItemGroup` for the default file rows. For custom rows, render `FileUpload.Context` and
+choose one preview per file from `acceptedFiles` or `rejectedFiles`.
 
 ## Examples
 
@@ -174,20 +192,31 @@ Use `accept` to restrict both the native file picker and drop validation. Pass M
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/file-upload/accepted-file-types.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/file-upload/file-upload-accepted-file-types.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={fileUploadSolidAcceptedFileTypes} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/file-upload/file-upload-accepted-file-types.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -202,20 +231,31 @@ Use `ClearTrigger` to remove all accepted files at once.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/file-upload/clear-trigger.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/file-upload/file-upload-clear-trigger.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={fileUploadSolidClearTrigger} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/file-upload/file-upload-clear-trigger.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -231,20 +271,31 @@ value from `onFileChange(details)`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/file-upload/controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/file-upload/file-upload-controlled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={fileUploadSolidControlled} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/file-upload/file-upload-controlled.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -260,20 +311,31 @@ Use `directory` to let users select a folder. Supported browsers expose each fil
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/file-upload/directory-upload.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/file-upload/file-upload-directory-upload.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={fileUploadSolidDirectoryUpload} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/file-upload/file-upload-directory-upload.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -288,20 +350,31 @@ Use `Dropzone` for drag-and-drop uploads. Keep a nested `Trigger` so users can a
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/file-upload/dropzone.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/file-upload/file-upload-dropzone.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={fileUploadSolidDropzone} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/file-upload/file-upload-dropzone.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -317,20 +390,31 @@ Use `onFileReject(details)` to show application-specific feedback. Keep built-in
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/file-upload/error-handling.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/file-upload/file-upload-error-handling.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={fileUploadSolidErrorHandling} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/file-upload/file-upload-error-handling.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -347,20 +431,31 @@ the same layouts with your own files.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/file-upload/file-previews.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/file-upload/file-upload-file-previews.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={fileUploadSolidFilePreviews} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/file-upload/file-upload-file-previews.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -375,20 +470,31 @@ Pass `name` to the root and render `FileUpload.HiddenInput`; native form submiss
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/file-upload/form-usage.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/file-upload/file-upload-form-usage.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={fileUploadSolidFormUsage} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/file-upload/file-upload-form-usage.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -403,20 +509,31 @@ Use `defaultAcceptedFiles` to preload files and then let the component manage th
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/file-upload/initial-files.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/file-upload/file-upload-initial-files.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={fileUploadSolidInitialFiles} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/file-upload/file-upload-initial-files.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -433,20 +550,31 @@ the camera will open.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/file-upload/media-capture.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/file-upload/file-upload-media-capture.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={fileUploadSolidMediaCapture} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/file-upload/file-upload-media-capture.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -461,20 +589,31 @@ Render `rejectedFiles` in a separate `ItemGroup type="rejected"` when users need
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/file-upload/rejected-files.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/file-upload/file-upload-rejected-files.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={fileUploadSolidRejectedFiles} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/file-upload/file-upload-rejected-files.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -490,20 +629,31 @@ example, `setClipboardFiles` forwards files pasted into a text area to the uploa
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/file-upload/root-provider-and-paste.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/file-upload/file-upload-root-provider-and-paste.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={fileUploadSolidRootProviderAndPaste} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/file-upload/file-upload-root-provider-and-paste.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -518,20 +668,31 @@ Use `transformFiles(files)` to process files asynchronously before adding them t
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/file-upload/transform-files.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/file-upload/file-upload-transform-files.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={fileUploadSolidTransformFiles} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/file-upload/file-upload-transform-files.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -546,20 +707,31 @@ Wrap the upload in `Field.Root` when helper text, an error message, required sta
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/file-upload/with-field.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/file-upload/file-upload-with-field.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={fileUploadSolidWithField} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/file-upload/file-upload-with-field.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -576,25 +748,40 @@ for each file.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/file-upload/advanced-customization.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/file-upload/file-upload-advanced-customization.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={fileUploadSolidAdvancedCustomization} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/file-upload/file-upload-advanced-customization.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Styling
+
+Use `className` in React or `class` in Solid on exported parts for structural styles. Tailwind variants use native
+utilities and consumer classes; CSS Modules variants expose the variables below. Both styling tracks share Ark state
+attributes and moduix `data-slot` hooks.
 
 ### CSS Properties
 

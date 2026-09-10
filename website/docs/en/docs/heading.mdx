@@ -11,6 +11,12 @@ import SemanticLevelAndVisualSize from '@/components/examples/heading/semantic-l
 import HeadingVisualSizes from '@/components/examples/heading/visual-sizes.tsx';
 import HeadingWeights from '@/components/examples/heading/weights.tsx';
 import CustomHostHeading from '@/components/examples/heading/custom-host.tsx';
+import headingSolidBasic from '../../../snippets/heading/solid/basic.tsx?raw';
+import headingSolidLevels from '../../../snippets/heading/solid/heading-levels.tsx?raw';
+import headingSolidSemanticLevelAndVisualSize from '../../../snippets/heading/solid/semantic-level-and-visual-size.tsx?raw';
+import headingSolidVisualSizes from '../../../snippets/heading/solid/visual-sizes.tsx?raw';
+import headingSolidWeights from '../../../snippets/heading/solid/weights.tsx?raw';
+import headingSolidCustomHost from '../../../snippets/heading/solid/custom-host.tsx?raw';
 
 ## API Reference
 
@@ -20,6 +26,10 @@ Ark UI does not provide a dedicated heading primitive. moduix implements `Headin
 [ref forwarding](https://ark-ui.com/docs/guides/ref).
 
 ## Basic
+
+Heading ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered preview
+on this page uses the React CSS Modules package; the framework tabs show native source for the same
+public contract.
 
 `Heading` renders an `h1` by default. Use it for document headings and choose the `as` value that
 matches the heading's place in the document outline. Set `size` separately when the visual emphasis
@@ -31,11 +41,23 @@ should differ from the semantic level.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/heading/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={headingSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -45,7 +67,30 @@ should differ from the semantic level.
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="heading" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/heading' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/heading' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/heading' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/heading' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+See [Quick Start](/docs/quick-start) for complete package and registry setup.
 
 ## Anatomy
 
@@ -62,46 +107,11 @@ Heading / Heading.Root
 
 ## Composition
 
-### Recommended composition
-
-Use `<Heading>` for the common `h1` case. For another semantic level, pass an `as` value from
-`h2` through `h6`:
-
-```tsx
-import { Heading } from '@moduix/react/heading';
-
-<Heading as="h2" size="2xl">
-  Page title rendered as h2
-</Heading>
-```
-
-Use `asChild` for factory composition when a single semantic heading child should own the rendered
-DOM node. The child receives the component's props, class name, data attributes, and forwarded ref.
-
-### When to go custom
-
-Use `className` and the public `--moduix-heading-*` variables for local visual adjustments. Use
-`Text` for body copy, helper text, or inline text instead of a document heading.
-
-### Default props
-
-| Prop        | Default             | Values / Notes                          |
-| ----------- | ------------------- | --------------------------------------- |
-| `as`        | `h1`                | `h1` through `h6`                       |
-| `size`      | by rendered element | `xs`, `sm`, `md`, `lg`, `xl`, `2xl`     |
-| `weight`    | `semibold`          | `regular`, `medium`, `semibold`, `bold` |
-| `asChild`   | `false`             | Ark factory composition                 |
-| `className` | -                   | Applied to the rendered heading root    |
-
-### Behavioral notes
-
-- When `size` is omitted, the rendered element determines the visual size: `h1 -> 2xl`, `h2 -> xl`,
-  `h3 -> lg`, `h4 -> md`, `h5 -> sm`, and `h6 -> xs`.
-- An explicit `size` overrides the element-based default without changing semantics.
-- The root forwards its ref to the rendered heading element.
-- Native heading elements provide the required semantics and need no additional ARIA attributes. Do not
-  pass a non-heading child to `asChild`.
-- `Heading` manages no state and exposes no callbacks, keyboard interactions, providers, or context hooks.
+`Heading` is a root-only, stateless component, so it does not need a provider or coordinated parts.
+Use `<Heading>` or the equivalent `<Heading.Root>` form, pass `as` for the semantic `h1` through `h6`
+level, and set `size` independently when visual emphasis should differ. Without an explicit `size`,
+the rendered element selects the scale from `2xl` for `h1` through `xs` for `h6`; `weight` defaults to
+`semibold`. Use `asChild` only when a custom semantic heading host must own the rendered DOM node.
 
 ## Examples
 
@@ -116,11 +126,23 @@ heading element.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/heading/heading-levels.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={headingSolidLevels} />
 
     </Tab>
   </Tabs>
@@ -139,11 +161,23 @@ for the visual size.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/heading/semantic-level-and-visual-size.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={headingSolidSemanticLevelAndVisualSize} />
 
     </Tab>
   </Tabs>
@@ -161,11 +195,23 @@ Use `size` when multiple headings share one semantic level but need different vi
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/heading/visual-sizes.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={headingSolidVisualSizes} />
 
     </Tab>
   </Tabs>
@@ -183,11 +229,23 @@ Use `weight` to choose one of the built-in font-weight presets.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/heading/weights.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={headingSolidWeights} />
 
     </Tab>
   </Tabs>
@@ -206,11 +264,23 @@ Use `asChild` when another semantic heading element must own the rendered DOM no
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/heading/custom-host.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={headingSolidCustomHost} />
 
     </Tab>
   </Tabs>
@@ -220,8 +290,9 @@ Use `asChild` when another semantic heading element must own the rendered DOM no
 
 ## Styling
 
-Style `Heading` through `className`, root data attributes, and the public `--moduix-heading-*`
-variables listed in the CSS reference below.
+Style `Heading` through `className` in React or `class` in Solid, root data attributes, and the public
+`--moduix-heading-*` variables listed in the CSS reference below. The CSS Modules packages expose
+these variables; the Tailwind packages use native utility classes and consumer class overrides.
 
 ### CSS Properties
 
@@ -244,4 +315,4 @@ variables listed in the CSS reference below.
 - `data-size` is present when `size` is explicitly set.
 - `data-weight` reflects `regular`, `medium`, `semibold`, or `bold`.
 - `Heading` owns these attributes. Matching `data-*` props cannot replace its styling contract.
-- Use `className` and `--moduix-heading-*` variables for local visual adjustments.
+- Use `className` or `class` for consumer utility or local style overrides.

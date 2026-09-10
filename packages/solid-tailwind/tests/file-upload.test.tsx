@@ -53,7 +53,9 @@ test('keeps native form, disabled, and controlled file-change contracts intact',
   expect(input).toHaveAttribute('multiple');
   expect(input).toHaveAttribute('aria-hidden', 'true');
   expect(screen.getByTestId('disabled-dropzone')).toHaveAttribute('aria-disabled', 'true');
-  expect(screen.getByRole('button', { name: 'Choose files' })).toBeDisabled();
+  const trigger = screen.getByRole('button', { name: 'Choose files' });
+  expect(trigger).toHaveClass('text-primary-foreground');
+  expect(trigger).toBeDisabled();
 
   fireEvent.change(input!, { target: { files: [file] } });
 

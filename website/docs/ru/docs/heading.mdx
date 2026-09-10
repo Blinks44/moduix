@@ -11,6 +11,12 @@ import SemanticLevelAndVisualSize from '@/components/examples/heading/semantic-l
 import HeadingVisualSizes from '@/components/examples/heading/visual-sizes.tsx';
 import HeadingWeights from '@/components/examples/heading/weights.tsx';
 import CustomHostHeading from '@/components/examples/heading/custom-host.tsx';
+import headingSolidBasic from '../../../snippets/heading/solid/basic.tsx?raw';
+import headingSolidLevels from '../../../snippets/heading/solid/heading-levels.tsx?raw';
+import headingSolidSemanticLevelAndVisualSize from '../../../snippets/heading/solid/semantic-level-and-visual-size.tsx?raw';
+import headingSolidVisualSizes from '../../../snippets/heading/solid/visual-sizes.tsx?raw';
+import headingSolidWeights from '../../../snippets/heading/solid/weights.tsx?raw';
+import headingSolidCustomHost from '../../../snippets/heading/solid/custom-host.tsx?raw';
 
 ## Справочник API
 
@@ -20,6 +26,10 @@ import CustomHostHeading from '@/components/examples/heading/custom-host.tsx';
 [передаче ref](https://ark-ui.com/docs/guides/ref).
 
 ## Базовый пример
+
+`Heading` доступен для React и Solid в вариантах CSS Modules и Tailwind. Превью на этой странице
+работает через пакет React CSS Modules, а вкладки фреймворков показывают нативный исходный код с тем же
+публичным контрактом.
 
 По умолчанию `Heading` создаёт `h1`. Используйте его для заголовков документа и выбирайте значение
 `as` в соответствии с местом заголовка в структуре документа. Если визуальный акцент должен
@@ -31,11 +41,23 @@ import CustomHostHeading from '@/components/examples/heading/custom-host.tsx';
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/heading/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={headingSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -45,7 +67,30 @@ import CustomHostHeading from '@/components/examples/heading/custom-host.tsx';
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="heading" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/heading' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/heading' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/heading' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/heading' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+Полная настройка пакета и реестра описана в разделе [Быстрый старт](/docs/quick-start).
 
 ## Анатомия
 
@@ -62,49 +107,12 @@ Heading / Heading.Root
 
 ## Композиция
 
-### Рекомендуемая композиция
-
-Используйте `<Heading>` в обычном случае для `h1`. Чтобы выбрать другой семантический уровень,
-передайте в `as` значение от `h2` до `h6`:
-
-```tsx
-import { Heading } from '@moduix/react/heading';
-
-<Heading as="h2" size="2xl">
-  Page title rendered as h2
-</Heading>
-```
-
-Используйте `asChild` для композиции через фабрику, когда единственный дочерний семантический элемент
-заголовка должен стать DOM-узлом. Он получит свойства компонента, значение `className`, атрибуты
-`data-*` и переданный `ref`.
-
-### Когда нужна собственная композиция
-
-Для локальных изменений внешнего вида используйте `className` и публичные переменные
-`--moduix-heading-*`. Для обычного, вспомогательного или встроенного текста используйте `Text`,
-а не заголовок документа.
-
-### Свойства по умолчанию
-
-| Свойство    | По умолчанию          | Значения и примечания                       |
-| ----------- | --------------------- | ------------------------------------------- |
-| `as`        | `h1`                  | `h1`-`h6`                                   |
-| `size`      | зависит от элемента   | `xs`, `sm`, `md`, `lg`, `xl`, `2xl`         |
-| `weight`    | `semibold`            | `regular`, `medium`, `semibold`, `bold`     |
-| `asChild`   | `false`               | Композиция через фабрику Ark                |
-| `className` | -                     | Применяется к корневому элементу заголовка  |
-
-### Особенности поведения
-
-- Если `size` не задан, визуальный размер определяется элементом: `h1 -> 2xl`, `h2 -> xl`,
-  `h3 -> lg`, `h4 -> md`, `h5 -> sm` и `h6 -> xs`.
-- Явно заданный `size` переопределяет это соответствие, но не меняет семантический уровень.
-- Корневой элемент передаёт `ref` итоговому элементу заголовка.
-- Нативные элементы заголовков уже обеспечивают нужную семантику, поэтому дополнительные ARIA-атрибуты
-  не нужны. Не передавайте в `asChild` дочерний элемент, который не является заголовком.
-- `Heading` не управляет состоянием и не предоставляет колбэки, клавиатурные взаимодействия, провайдеры
-  или контекстные хуки.
+`Heading` состоит только из корневого элемента и не управляет состоянием, поэтому ему не нужны провайдер
+или связанные части. Используйте `<Heading>` или эквивалентную форму `<Heading.Root>`, передавайте `as`
+для семантического уровня от `h1` до `h6`, а `size` задавайте отдельно, если визуальный акцент должен
+отличаться. Если `size` не задан, элемент выбирает визуальный размер от `2xl` для `h1` до `xs` для `h6`,
+а значение `weight` по умолчанию равно `semibold`. Используйте `asChild` только в случае, когда другой
+семантический элемент заголовка должен стать итоговым DOM-узлом.
 
 ## Примеры
 
@@ -119,11 +127,23 @@ import { Heading } from '@moduix/react/heading';
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/heading/heading-levels.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={headingSolidLevels} />
 
     </Tab>
   </Tabs>
@@ -142,11 +162,23 @@ import { Heading } from '@moduix/react/heading';
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/heading/semantic-level-and-visual-size.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={headingSolidSemanticLevelAndVisualSize} />
 
     </Tab>
   </Tabs>
@@ -164,11 +196,23 @@ import { Heading } from '@moduix/react/heading';
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/heading/visual-sizes.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={headingSolidVisualSizes} />
 
     </Tab>
   </Tabs>
@@ -186,11 +230,23 @@ import { Heading } from '@moduix/react/heading';
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/heading/weights.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={headingSolidWeights} />
 
     </Tab>
   </Tabs>
@@ -209,11 +265,23 @@ import { Heading } from '@moduix/react/heading';
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/heading/custom-host.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={headingSolidCustomHost} />
 
     </Tab>
   </Tabs>
@@ -223,8 +291,10 @@ import { Heading } from '@moduix/react/heading';
 
 ## Стилизация
 
-Стилизуйте `Heading` с помощью `className`, data-атрибутов корневого элемента и публичных переменных
-`--moduix-heading-*`, перечисленных в справочнике CSS ниже.
+Стилизуйте `Heading` с помощью `className` в React или `class` в Solid, data-атрибутов корневого элемента
+и публичных переменных `--moduix-heading-*`, перечисленных в справочнике CSS ниже. Пакеты CSS Modules
+предоставляют эти переменные, а Tailwind-пакеты используют нативные utility-классы и переопределения
+классов потребителя.
 
 ### CSS-свойства
 
@@ -247,4 +317,4 @@ import { Heading } from '@moduix/react/heading';
 - `data-size` появляется, если `size` задан явно.
 - `data-weight` содержит выбранное значение: `regular`, `medium`, `semibold` или `bold`.
 - `Heading` сам задаёт эти атрибуты. Одноимённые свойства `data-*` не могут заменить контракт стилизации компонента.
-- Используйте `className` и переменные `--moduix-heading-*` для локальных изменений внешнего вида.
+- Используйте `className` или `class` для utility-классов потребителя и локальных переопределений стилей.

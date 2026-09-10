@@ -15,6 +15,16 @@ import MultipleTriggersHoverCard from '@/components/examples/hover-card/multiple
 import PositioningHoverCard from '@/components/examples/hover-card/positioning.tsx';
 import RootProviderHoverCard from '@/components/examples/hover-card/root-provider.tsx';
 import HoverCardWithArrow from '@/components/examples/hover-card/with-arrow.tsx';
+import hoverCardSolidBasic from '../../../snippets/hover-card/solid/basic.tsx?raw';
+import hoverCardSolidContext from '../../../snippets/hover-card/solid/context.tsx?raw';
+import hoverCardSolidControlled from '../../../snippets/hover-card/solid/controlled.tsx?raw';
+import hoverCardSolidDelay from '../../../snippets/hover-card/solid/delay.tsx?raw';
+import hoverCardSolidDialog from '../../../snippets/hover-card/solid/dialog.tsx?raw';
+import hoverCardSolidDisabled from '../../../snippets/hover-card/solid/disabled.tsx?raw';
+import hoverCardSolidMultipleTriggers from '../../../snippets/hover-card/solid/multiple-triggers.tsx?raw';
+import hoverCardSolidPositioning from '../../../snippets/hover-card/solid/positioning.tsx?raw';
+import hoverCardSolidRootProvider from '../../../snippets/hover-card/solid/root-provider.tsx?raw';
+import hoverCardSolidWithArrow from '../../../snippets/hover-card/solid/with-arrow.tsx?raw';
 
 ## API Reference
 
@@ -28,6 +38,10 @@ a profile or article summary.
 
 ## Basic
 
+HoverCard ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered
+preview on this page uses the React CSS Modules package; the framework tabs show native source for
+the same public contract.
+
 Compose the card from explicit Ark parts. `HoverCard.Trigger` opens the card, while
 `HoverCard.Positioner` and `HoverCard.Content` define its floating content. The basic composition
 does not include an arrow. Put long content in `HoverCard.Body` so it can scroll within the
@@ -39,27 +53,59 @@ available height while `HoverCard.Content` stays overflow-visible for an optiona
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/hover-card/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/hover-card/hover-card-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={hoverCardSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/hover-card/hover-card-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="hover-card" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/hover-card' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/hover-card' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/hover-card' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/hover-card' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
@@ -95,65 +141,16 @@ in application code.
 
 ## Composition
 
-The root automatically renders `HoverCard.Positioner` in a portal. Set `portalled={false}` to keep
-it in the current DOM tree, or pass `portalRef` to choose a different portal container. Keep the
-structural parts explicit so you can style and configure the positioner, content, and arrow
-independently.
+`HoverCard` owns the state and portals `HoverCard.Positioner` by default. Set `portalled={false}`
+inside another overlay, or pass `portalRef` for a custom container. Use `HoverCard.RootProvider`
+with `useHoverCard()` when state belongs outside the card tree; React reads the store as an object,
+while Solid reads it through its accessor.
 
-### Recommended composition
-
-For most hover cards, use `HoverCard` with `HoverCard.Trigger`, `HoverCard.Positioner`, and
-`HoverCard.Content`. Add `HoverCard.Body` around the preview content when it can exceed the
-available height. Add `HoverCard.Arrow` inside `HoverCard.Content` only when the popup needs a
-visual pointer to its trigger.
-
-### When to go custom
-
-Use `asChild` on `HoverCard.Trigger` when the trigger should be a link or another semantic element.
-Pass one focusable child that can preserve the trigger behavior. Use `HoverCard.RootProvider` with
-`useHoverCard()` when state must be shared with controls outside the card tree. Use
-`HoverCard.Context` or `useHoverCardContext()` to read state inside the tree. Render
-`HoverCard.ArrowTip` directly only when you need to customize its markup.
-
-### Default props
-
-Portalled content mounts on first open and is removed after its exit animation by default. Set
-`unmountOnExit={false}` to keep it mounted after the first open. Set both lifecycle props to
-`false` only when the content must render eagerly.
-
-| Prop                   | Default | Notes                                                                    |
-| ---------------------- | ------- | ------------------------------------------------------------------------ |
-| `openDelay`            | `600`   | Delay before opening after the trigger is hovered or focused.            |
-| `closeDelay`           | `300`   | Delay before closing after the pointer leaves the trigger or content.    |
-| `lazyMount`            | `true`  | Mounts the content only after its first opening.                         |
-| `unmountOnExit`        | `true`  | Removes the content after its exit animation.                            |
-| `skipAnimationOnMount` | `false` | Keeps the initial presence animation enabled.                            |
-| `portalled`            | `true`  | Renders the positioner in a portal.                                     |
-| `portalRef`            | `-`     | Targets a custom portal container.                                      |
-| `positioning`          | `-`     | Ark positioning options.                                                 |
-| `ids`                  | `-`     | Stable IDs for the trigger, content, positioner, and arrow.             |
-| `defaultOpen`          | `-`     | Initial open state for uncontrolled usage.                              |
-| `open`                 | `-`     | Controlled open state.                                                    |
-| `disabled`             | `false` | Disables hover-card interaction.                                         |
-
-### Behavioral notes
-
-- `onOpenChange(details)` receives an object such as `{ open }`. Read the next open state from
-  `details.open`.
-- Give each trigger a `value` and use `onTriggerValueChange(details)` when several triggers share
-  one content area. Read the active trigger from `details.value`.
-- `HoverCard.RootProvider`, `HoverCard.Context`, `useHoverCard`, and `useHoverCardContext` are
-  available for advanced state access. Create the store with `useHoverCard()` when state belongs
-  outside the rendered card tree, then pass it to `RootProvider` through its `value` prop.
-- Ark presence props such as `present`, `immediate`, and `onExitComplete` pass through unchanged.
-- `HoverCard.Trigger` receives moduix's default trigger styling only when `asChild` is not used.
-  With `asChild`, the child element owns its styling.
-- Trigger and content motion is disabled when the user prefers reduced motion. Long unbroken words
-  wrap inside the content instead of overflowing it.
-- `HoverCard.Content` keeps overflow visible for its arrow. Use `HoverCard.Body` as the scroll
-  region when the preview can exceed the available viewport height.
-- Hover cards are for supplementary previews. Keep information required to understand or complete a
-  task visible without opening the card.
+Keep `HoverCard.Arrow` inside `HoverCard.Content` and wrap long previews in `HoverCard.Body`:
+`Content` stays overflow-visible for the arrow, while `Body` provides the scroll region. Use
+`asChild` with one focusable child when the trigger should be a link or another semantic element.
+For several triggers sharing one content area, give each trigger a `value` and update external
+content from `onTriggerValueChange(details)`.
 
 ## Examples
 
@@ -168,20 +165,31 @@ structure.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/hover-card/context.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/hover-card/hover-card-context.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={hoverCardSolidContext} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/hover-card/hover-card-context.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -196,20 +204,31 @@ Control whether the card is open with `open` and `onOpenChange(details)`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/hover-card/controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/hover-card/hover-card-controlled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={hoverCardSolidControlled} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/hover-card/hover-card-controlled.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -224,20 +243,31 @@ Set `openDelay` and `closeDelay` on the root to adjust hover and focus timing.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/hover-card/delay.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/hover-card/hover-card-delay.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={hoverCardSolidDelay} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/hover-card/hover-card-delay.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -254,20 +284,31 @@ dialog's initial focus can land on the Hover Card trigger and open the card afte
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/hover-card/dialog.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/hover-card/hover-card-dialog.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={hoverCardSolidDialog} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/hover-card/hover-card-dialog.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -282,20 +323,31 @@ Set `disabled` to prevent the card from opening while keeping the trigger visibl
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/hover-card/disabled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/hover-card/hover-card-disabled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={hoverCardSolidDisabled} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/hover-card/hover-card-disabled.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -311,20 +363,31 @@ across several triggers.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/hover-card/multiple-triggers.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/hover-card/hover-card-multiple-triggers.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={hoverCardSolidMultipleTriggers} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/hover-card/hover-card-multiple-triggers.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -339,20 +402,31 @@ Pass Ark positioning options through the `positioning` prop.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/hover-card/positioning.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/hover-card/hover-card-positioning.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={hoverCardSolidPositioning} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/hover-card/hover-card-positioning.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -368,20 +442,31 @@ need to read or update its state.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/hover-card/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/hover-card/hover-card-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={hoverCardSolidRootProvider} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/hover-card/hover-card-root-provider.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -398,25 +483,40 @@ trigger. The wrapper renders `HoverCard.ArrowTip` by default; keep the preview i
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/hover-card/with-arrow.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/hover-card/hover-card-with-arrow.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={hoverCardSolidWithArrow} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/hover-card/hover-card-with-arrow.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Styling
+
+Use `className` in React or `class` in Solid on exported parts for structural styles. Tailwind
+variants use native utilities and consumer classes; the variables below customize the CSS Modules
+variants. Data attributes and `data-slot` hooks are shared by both styling tracks.
 
 ### CSS Properties
 
@@ -434,9 +534,9 @@ trigger. The wrapper renders `HoverCard.ArrowTip` by default; keep the preview i
 
 ### Styling hooks
 
-Every rendered part accepts `className`. Moduix also adds `data-slot="hover-card-*"` hooks to the
-trigger, positioner, content, arrow, arrow tip, and body. `HoverCard` and `HoverCard.RootProvider`
-only provide state and do not render DOM elements, so they have no styling hooks. Ark adds
+Moduix adds `data-slot="hover-card-*"` hooks to the trigger, positioner, content, arrow, arrow tip,
+and body.
+`HoverCard` and `HoverCard.RootProvider` only provide state and do not render DOM elements, so they have no styling hooks. Ark adds
 `data-scope="hover-card"` and `data-part` to its parts. For state-aware styling, target
 `data-state="open|closed"`, `data-placement`, `data-side`, `data-value`, `data-current`,
 `data-nested`, and `data-has-nested`.

@@ -15,6 +15,16 @@ import MultipleTriggersHoverCard from '@/components/examples/hover-card/multiple
 import PositioningHoverCard from '@/components/examples/hover-card/positioning.tsx';
 import RootProviderHoverCard from '@/components/examples/hover-card/root-provider.tsx';
 import HoverCardWithArrow from '@/components/examples/hover-card/with-arrow.tsx';
+import hoverCardSolidBasic from '../../../snippets/hover-card/solid/basic.tsx?raw';
+import hoverCardSolidContext from '../../../snippets/hover-card/solid/context.tsx?raw';
+import hoverCardSolidControlled from '../../../snippets/hover-card/solid/controlled.tsx?raw';
+import hoverCardSolidDelay from '../../../snippets/hover-card/solid/delay.tsx?raw';
+import hoverCardSolidDialog from '../../../snippets/hover-card/solid/dialog.tsx?raw';
+import hoverCardSolidDisabled from '../../../snippets/hover-card/solid/disabled.tsx?raw';
+import hoverCardSolidMultipleTriggers from '../../../snippets/hover-card/solid/multiple-triggers.tsx?raw';
+import hoverCardSolidPositioning from '../../../snippets/hover-card/solid/positioning.tsx?raw';
+import hoverCardSolidRootProvider from '../../../snippets/hover-card/solid/root-provider.tsx?raw';
+import hoverCardSolidWithArrow from '../../../snippets/hover-card/solid/with-arrow.tsx?raw';
 
 ## Référence de l’API
 
@@ -29,6 +39,10 @@ article.
 
 ## Exemple de base
 
+HoverCard est disponible pour React et Solid dans les variantes CSS Modules et Tailwind. L’aperçu
+de cette page utilise React CSS Modules ; les onglets de framework montrent le code natif pour le
+même contrat public.
+
 Composez la carte à partir des parties Ark explicites. `HoverCard.Trigger` ouvre la carte, tandis
 que `HoverCard.Positioner` et `HoverCard.Content` définissent son contenu flottant. La composition
 de base n’inclut pas de flèche. Placez le contenu long dans `HoverCard.Body` pour qu’il puisse
@@ -41,27 +55,59 @@ une flèche facultative.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/hover-card/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/hover-card/hover-card-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={hoverCardSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/hover-card/hover-card-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="hover-card" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/hover-card' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/hover-card' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/hover-card' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/hover-card' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
@@ -97,70 +143,17 @@ Dans le code de l’application, utilisez la forme courte.
 
 ## Composition
 
-Par défaut, la racine place automatiquement `HoverCard.Positioner` dans un portail. Définissez
-`portalled={false}` pour le conserver dans l’arbre DOM courant, ou passez `portalRef` pour choisir
-un autre conteneur de portail. Gardez les parties structurelles explicites afin de pouvoir configurer
-et styler séparément `HoverCard.Positioner`, le contenu et la flèche.
+`HoverCard` gère l’état et place `HoverCard.Positioner` dans un portail par défaut. Définissez
+`portalled={false}` dans une autre fenêtre flottante, ou passez `portalRef` pour choisir un conteneur
+personnalisé. Utilisez `HoverCard.RootProvider` avec `useHoverCard()` lorsque l’état doit vivre en
+dehors de l’arborescence de la carte : React lit le store comme un objet, tandis que Solid le lit
+via son accessor.
 
-### Composition recommandée
-
-Dans la plupart des cas, utilisez `HoverCard` avec `HoverCard.Trigger`, `HoverCard.Positioner` et
-`HoverCard.Content`. Entourez l’aperçu de `HoverCard.Body` lorsqu’il peut dépasser la hauteur
-disponible. Ajoutez `HoverCard.Arrow` dans `HoverCard.Content` uniquement lorsque la fenêtre
-flottante doit pointer visuellement vers son déclencheur.
-
-### Quand créer une composition personnalisée
-
-Utilisez `asChild` sur `HoverCard.Trigger` lorsque le déclencheur doit être un lien ou un autre
-élément sémantique. Son enfant doit être unique, pouvoir recevoir le focus et conserver le
-comportement du déclencheur. Utilisez `HoverCard.RootProvider` avec `useHoverCard()` lorsque l’état
-doit être partagé avec des contrôles situés en dehors de l’arborescence de la carte. Utilisez
-`HoverCard.Context` ou `useHoverCardContext()` pour lire l’état dans cette arborescence. Rendez
-`HoverCard.ArrowTip` directement uniquement lorsque vous devez personnaliser son balisage.
-
-### Propriétés par défaut
-
-Par défaut, le contenu rendu dans un portail est monté à la première ouverture, puis retiré après
-son animation de fermeture. Définissez `unmountOnExit={false}` pour le conserver après cette
-première ouverture. Ne définissez les deux propriétés de cycle de vie sur `false` que si le contenu
-doit être rendu dès le départ.
-
-| Propriété              | Valeur par défaut | Remarques                                                                    |
-| ---------------------- | ----------------- | ----------------------------------------------------------------------------- |
-| `openDelay`            | `600`             | Délai avant l’ouverture lorsque le déclencheur est survolé ou reçoit le focus. |
-| `closeDelay`           | `300`             | Délai avant la fermeture lorsque le pointeur quitte le déclencheur ou le contenu. |
-| `lazyMount`            | `true`            | Monte le contenu seulement après sa première ouverture.                      |
-| `unmountOnExit`        | `true`            | Retire le contenu après son animation de fermeture.                          |
-| `skipAnimationOnMount` | `false`           | Conserve l’animation d’apparition initiale.                                  |
-| `portalled`            | `true`            | Place `HoverCard.Positioner` dans un portail.                                |
-| `portalRef`            | `-`               | Cible un conteneur de portail personnalisé.                                  |
-| `positioning`          | `-`               | Options de positionnement d’Ark.                                             |
-| `ids`                  | `-`               | Identifiants stables du déclencheur, du contenu, de `HoverCard.Positioner` et de la flèche. |
-| `defaultOpen`          | `-`               | État initial ouvert en mode non contrôlé.                                    |
-| `open`                 | `-`               | État ouvert contrôlé.                                                        |
-| `disabled`             | `false`           | Désactive les interactions avec la carte.                                    |
-
-### Comportement
-
-- `onOpenChange(details)` reçoit un objet tel que `{ open }`. Lisez le nouvel état dans
-  `details.open`.
-- Lorsque plusieurs déclencheurs partagent un même contenu, donnez une `value` à chacun et utilisez
-  `onTriggerValueChange(details)`. Le déclencheur actif est disponible dans `details.value`.
-- `HoverCard.RootProvider`, `HoverCard.Context`, `useHoverCard` et `useHoverCardContext` sont
-  disponibles pour les besoins avancés liés à l’état. Créez l’état avec `useHoverCard()` lorsqu’il
-  doit vivre en dehors de l’arborescence rendue, puis transmettez-le à `RootProvider` via sa
-  propriété `value`.
-- Les propriétés de présence d’Ark, notamment `present`, `immediate` et `onExitComplete`, sont
-  transmises sans modification.
-- `HoverCard.Trigger` reçoit les styles de déclencheur par défaut de moduix uniquement lorsque
-  `asChild` n’est pas utilisé. Avec `asChild`, l’élément enfant contrôle ses propres styles.
-- Les animations du déclencheur et du contenu sont désactivées lorsque l’utilisateur préfère réduire
-  les animations. Les longues chaînes sans séparateur sont renvoyées à la ligne dans le contenu au
-  lieu de déborder de la carte.
-- `HoverCard.Content` ne masque pas les débordements afin que la flèche ne soit pas rognée. Utilisez
-  `HoverCard.Body` comme région de défilement lorsque l’aperçu peut dépasser la hauteur disponible.
-- Réservez ce composant aux aperçus complémentaires. Toute information nécessaire pour comprendre ou
-  accomplir une tâche doit rester disponible sans ouvrir la carte.
+Gardez `HoverCard.Arrow` dans `HoverCard.Content` et placez les aperçus longs dans
+`HoverCard.Body` : `Content` laisse la flèche visible et `Body` devient la région défilable. Utilisez
+`asChild` avec un seul enfant pouvant recevoir le focus lorsque le déclencheur doit être un lien ou
+un autre élément sémantique. Si plusieurs déclencheurs partagent un même contenu, donnez une
+`value` à chacun et mettez à jour le contenu externe avec `onTriggerValueChange(details)`.
 
 ## Exemples
 
@@ -175,20 +168,31 @@ structure visible.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/hover-card/context.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/hover-card/hover-card-context.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={hoverCardSolidContext} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/hover-card/hover-card-context.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -203,20 +207,31 @@ Contrôlez l’ouverture de la carte avec `open` et `onOpenChange(details)`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/hover-card/controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/hover-card/hover-card-controlled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={hoverCardSolidControlled} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/hover-card/hover-card-controlled.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -231,20 +246,31 @@ Ajustez les délais d’ouverture et de fermeture avec `openDelay` et `closeDela
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/hover-card/delay.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/hover-card/hover-card-delay.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={hoverCardSolidDelay} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/hover-card/hover-card-delay.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -262,20 +288,31 @@ fermé jusqu’au survol ou à la réception du focus.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/hover-card/dialog.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/hover-card/hover-card-dialog.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={hoverCardSolidDialog} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/hover-card/hover-card-dialog.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -291,20 +328,31 @@ déclencheur.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/hover-card/disabled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/hover-card/hover-card-disabled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={hoverCardSolidDisabled} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/hover-card/hover-card-disabled.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -320,20 +368,31 @@ un même contenu entre plusieurs déclencheurs.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/hover-card/multiple-triggers.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/hover-card/hover-card-multiple-triggers.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={hoverCardSolidMultipleTriggers} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/hover-card/hover-card-multiple-triggers.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -348,20 +407,31 @@ Transmettez les options de positionnement d’Ark via la propriété `positionin
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/hover-card/positioning.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/hover-card/hover-card-positioning.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={hoverCardSolidPositioning} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/hover-card/hover-card-positioning.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -377,20 +447,31 @@ de l’interface situés en dehors de l’arborescence de la carte doivent lire 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/hover-card/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/hover-card/hover-card-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={hoverCardSolidRootProvider} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/hover-card/hover-card-root-provider.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -408,25 +489,41 @@ permettant au contenu de défiler.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/hover-card/with-arrow.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/hover-card/hover-card-with-arrow.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={hoverCardSolidWithArrow} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/hover-card/hover-card-with-arrow.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Styles
+
+Utilisez `className` en React ou `class` en Solid sur les parties exportées pour les styles
+structurels. Les variantes Tailwind utilisent les utilitaires natifs et les classes du consommateur ;
+les variables ci-dessous personnalisent les variantes CSS Modules. Les attributs d’état et les hooks
+`data-slot` sont communs aux deux modes de style.
 
 ### Propriétés CSS
 
@@ -444,11 +541,10 @@ permettant au contenu de défiler.
 
 ### Ciblage des styles
 
-Chaque partie rendue accepte `className`. Moduix ajoute également des attributs
-`data-slot="hover-card-*"` au déclencheur, à `HoverCard.Positioner`, au contenu, à la flèche, à sa
-pointe et à la région de contenu. `HoverCard` et `HoverCard.RootProvider` fournissent uniquement
-l’état et ne rendent aucun élément DOM : ils n’ont donc pas de point d’accroche CSS propre. Ark
-ajoute `data-scope="hover-card"` et
+Moduix ajoute également des attributs `data-slot="hover-card-*"` au déclencheur, à `HoverCard.Positioner`, au contenu, à la
+flèche, à sa pointe et à la région de contenu. `HoverCard` et `HoverCard.RootProvider` fournissent
+uniquement l’état et ne rendent aucun élément DOM : ils n’ont donc pas de point d’accroche CSS propre.
+Ark ajoute `data-scope="hover-card"` et
 `data-part` à ses parties. Pour adapter les styles à l’état, ciblez `data-state="open|closed"`,
 `data-placement`, `data-side`, `data-value`, `data-current`, `data-nested` et `data-has-nested`.
 
