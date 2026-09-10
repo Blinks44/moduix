@@ -19,24 +19,43 @@ import RadioGroupRootProvider from '@/components/examples/radio-group/root-provi
 import RadioGroupSizes from '@/components/examples/radio-group/sizes.tsx';
 import RadioGroupField from '@/components/examples/radio-group/with-field.tsx';
 import RadioGroupFieldset from '@/components/examples/radio-group/with-fieldset.tsx';
+import radioGroupSolidAdvancedCustomization from '../../../snippets/radio-group/solid/advanced-customization.tsx?raw';
+import radioGroupSolidAsChild from '../../../snippets/radio-group/solid/aschild.tsx?raw';
+import radioGroupSolidBasic from '../../../snippets/radio-group/solid/basic.tsx?raw';
+import radioGroupSolidControlled from '../../../snippets/radio-group/solid/controlled.tsx?raw';
+import radioGroupSolidDisabled from '../../../snippets/radio-group/solid/disabled.tsx?raw';
+import radioGroupSolidDisabledItem from '../../../snippets/radio-group/solid/item-disabled.tsx?raw';
+import radioGroupSolidForm from '../../../snippets/radio-group/solid/form.tsx?raw';
+import radioGroupSolidIndicator from '../../../snippets/radio-group/solid/indicator.tsx?raw';
+import radioGroupSolidInitialValue from '../../../snippets/radio-group/solid/initial-value.tsx?raw';
+import radioGroupSolidOrientation from '../../../snippets/radio-group/solid/orientation.tsx?raw';
+import radioGroupSolidRootProvider from '../../../snippets/radio-group/solid/root-provider.tsx?raw';
+import radioGroupSolidSizes from '../../../snippets/radio-group/solid/sizes.tsx?raw';
+import radioGroupSolidField from '../../../snippets/radio-group/solid/with-field.tsx?raw';
+import radioGroupSolidFieldset from '../../../snippets/radio-group/solid/with-fieldset.tsx?raw';
+
+## API Reference
+
+`RadioGroup` follows the Ark UI radio-group primitive and adds moduix styling, stable `data-slot`
+attributes, and the `Option` convenience component. It is exported from
+`@moduix/react/radio-group` and `@moduix/solid/radio-group`.
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/radio-group" />
+
+## Choosing the right component
 
 Use `RadioGroup` when people need to choose exactly one option from a visible set, such as a
 framework, plan, or account type. Use `Checkbox` for independent choices and `Switch` for a setting
 that takes effect immediately.
 
-## API Reference
-
-`RadioGroup` follows the Ark UI radio-group primitive and adds moduix styling, stable `data-slot`
-attributes, and the `Option` convenience component. The component is exported from
-`@moduix/react/radio-group`.
-
-<PrimitiveReference href="https://ark-ui.com/docs/components/radio-group" />
-
 ## Basic
 
-For most groups, use `RadioGroup.Option` to render a labelled item with a control and visible text.
-`RadioGroup.Option` includes the native input in its fixed composition. When composing
-`RadioGroup.Item` directly, add `RadioGroup.ItemHiddenInput` explicitly.
+RadioGroup ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered
+preview on this page uses the React CSS Modules package. The framework tabs show native source for
+the same public contract.
+
+Use `RadioGroup` as the root and give every option a value. `RadioGroup.Option` renders a labelled
+item with its control, text, and native input.
 
 <ExampleFrame variant="component">
   <RadioGroupBasic />
@@ -44,110 +63,101 @@ For most groups, use `RadioGroup.Option` to render a labelled item with a contro
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/radio-group/basic.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={radioGroupSolidBasic} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="radio-group" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/radio-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/radio-group' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/radio-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/radio-group' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
 ```text
-RadioGroup.Root
+RadioGroup / RadioGroup.Root
 ├─ RadioGroup.Label
-├─ RadioGroup.Indicator
+├─ RadioGroup.Indicator (optional)
 └─ RadioGroup.Item[value]
    ├─ RadioGroup.ItemControl
    ├─ RadioGroup.ItemText
    └─ RadioGroup.ItemHiddenInput (explicit)
 
 RadioGroup.RootProvider
-└─ RadioGroup.* + useRadioGroup()
+└─ the same item tree connected to useRadioGroup()
 
 RadioGroup.Option
-└─ RadioGroup.Item + ItemControl + ItemText + ItemHiddenInput (fixed composition)
+└─ Item + ItemControl + ItemText + ItemHiddenInput (fixed composition)
 ```
 
-| Part                           | Role                                                        |
-| ------------------------------ | ----------------------------------------------------------- |
-| `RadioGroup` / `.Root`         | Owns value state, keyboard navigation, orientation, and forms. |
-| `RadioGroup.ItemHiddenInput` | Native Ark form control; compose explicitly as described below. |
-| `RadioGroup.RootProvider`      | Connects parts to state created with `useRadioGroup()`.    |
-| `RadioGroup.Label`             | Accessible label for the group.                             |
-| `RadioGroup.Item`              | One selectable option; renders a `label` by default.        |
-| `RadioGroup.Option`            | Convenience item with a control, text, and hidden input.   |
-| `RadioGroup.ItemControl`       | Visual radio control; supports the moduix `size` prop.      |
-| `RadioGroup.ItemText`          | Visible option text.                                        |
-| `RadioGroup.Indicator`         | Optional active-item indicator using Ark measurement vars.  |
+| Part                         | Role                                                            |
+| ---------------------------- | --------------------------------------------------------------- |
+| `RadioGroup` / `.Root`       | Owns value state, keyboard navigation, orientation, and forms. |
+| `RadioGroup.RootProvider`    | Connects parts to state created with `useRadioGroup()`.         |
+| `RadioGroup.Label`           | Accessible label for the group.                                 |
+| `RadioGroup.Item`            | One selectable option; renders a `label` by default.            |
+| `RadioGroup.Option`          | Convenience item with a control, text, and hidden input.        |
+| `RadioGroup.ItemControl`     | Visual radio control; supports the moduix `size` prop.          |
+| `RadioGroup.ItemText`        | Visible option text.                                             |
+| `RadioGroup.ItemHiddenInput` | Native form control for explicit `Item` composition.             |
+| `RadioGroup.Indicator`       | Optional active-item indicator using Ark measurement variables.  |
 
 ## Composition
 
-### Native form control
+Use `defaultValue` for an uncontrolled group. Use `value` with `onValueChange(details)` when another
+part of the application owns the selected value. When state must be created outside the rendered
+tree, use `RootProvider` with `useRadioGroup()` from the matching framework package. Do not render
+`RadioGroup` and `RadioGroup.RootProvider` for the same state instance. React reads the store as an
+object; Solid reads its reactive state through the returned accessor.
 
-`RadioGroup.ItemHiddenInput` is exposed directly from Ark. Place one inside every explicit
-`RadioGroup.Item`; the item does not add it. Keep it for native keyboard interaction and form behavior.
-Set `name`, `required`, and `form` on the root, or in the hook options with `RootProvider`.
-
-`RadioGroup.Option` already includes `ItemHiddenInput` in its fixed composition; do not add a second input.
-
-### Recommended composition
-
-`RadioGroup` is the short form of `RadioGroup.Root`. Use `RadioGroup.Option` for the common labelled
-item. It accepts the Ark item props, the moduix `size` prop, and `className`. The class is applied to
-the underlying `Item`, so nested parts remain targetable through their `data-slot` hooks.
-
-### When to go custom
-
-Use `RadioGroup.RootProvider` with `useRadioGroup()` from `@moduix/react` when the state must be
-created before the group renders, shared with controls outside the rendered tree, or read by a
-separate part of the interface. Pass the returned store to `RootProvider` and do not render `Root`
-and `RootProvider` for the same state instance.
-
-Use the explicit `Item` tree when nested parts need their own placement or class names, or when
-`RadioGroup.Item asChild` must let another element own the item DOM node. The direct child of an
-`Item` using `asChild` must still be a semantic `label`.
-
-For advanced state reads, use `RadioGroup.Context`, `RadioGroup.ItemContext`,
-`useRadioGroupContext()`, or `useRadioGroupItemContext()` from `@moduix/react`.
-
-### Default props
-
-| Prop                             | Default | Notes                                                   |
-| -------------------------------- | ------- | ------------------------------------------------------- |
-| `RadioGroup` / `RadioGroup.Root` | -       | Ark defaults apply; moduix adds no root behavior defaults. |
-| `RadioGroup.Option size`         | `md`    | Control diameter and indicator-dot scale.               |
-| `RadioGroup.ItemControl size`    | `md`    | Moduix control diameter and indicator-dot scale.        |
-
-### Behavioral notes
-
-`RadioGroup.Root` accepts Ark props such as `value`, `defaultValue`,
-`onValueChange(details)`, `name`, `form`, `orientation`, `disabled`, `invalid`, `readOnly`,
-`required`, `ids`, and `asChild`. In the callback, read the selected value from `details.value`.
-
-`RadioGroup.Option` includes its native input. Direct `RadioGroup.Item` composition requires
-`RadioGroup.ItemHiddenInput` for native submission, validation, and reset. Set `name` on the root
-when the selected value should be included in `FormData`.
-
-Ark manages the controlled and uncontrolled value state, roving focus, WAI-ARIA behavior, and
-keyboard navigation. <kbd>Tab</kbd> moves focus to the checked item, or to the first item when none
-is checked. <kbd>Space</kbd> checks the focused item, and the arrow keys move to and check the next
-or previous item.
+`RadioGroup.Option` includes `ItemHiddenInput` in its fixed composition. When composing
+`RadioGroup.Item` directly, add `RadioGroup.ItemHiddenInput` yourself. Use the explicit item tree
+when nested parts need custom placement or when `asChild` should let another element own the item
+DOM node. In Solid, `asChild` uses a render function and the direct child must remain a semantic
+`label`.
 
 `Field.Root` provides a visible label, helper text, and error text, but it does not pass its state to
-`RadioGroup`. Pass `disabled`, `invalid`, `readOnly`, and `required` to the group itself.
+the group. Pass `disabled`, `invalid`, `readOnly`, and `required` to `RadioGroup` itself.
 `Fieldset.Root` passes its Ark `disabled` and `invalid` state to nested radio groups.
-
-Every styled part forwards its ref to the corresponding Ark DOM part, including `ItemHiddenInput`.
 
 ## Examples
 
@@ -162,28 +172,38 @@ semantic `label` as the direct child.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/radio-group/aschild.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/radio-group/radio-group-aschild.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={radioGroupSolidAsChild} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/radio-group/radio-group-aschild.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Controlled
 
-Use `value` with `onValueChange(details)` when the selected value is owned by React state or must
-stay in sync with other parts of the interface.
+Manage `value` with `useState` in React or `createSignal` in Solid when the selected value needs to
+stay in sync with routing, filters, or surrounding UI.
 
 <ExampleFrame variant="component">
   <RadioGroupControlled />
@@ -191,22 +211,32 @@ stay in sync with other parts of the interface.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/radio-group/controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/radio-group/radio-group-controlled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={radioGroupSolidControlled} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/radio-group/radio-group-controlled.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Disabled
@@ -219,16 +249,27 @@ Set `disabled` on the root to make every item unavailable while keeping the sele
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/radio-group/disabled.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={radioGroupSolidDisabled} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Disabled Item
@@ -241,16 +282,27 @@ Set `disabled` on an individual `Item` or `Option` when only that choice is unav
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/radio-group/item-disabled.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={radioGroupSolidDisabledItem} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Form
@@ -264,29 +316,39 @@ contains the input; add `ItemHiddenInput` to every custom item.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/radio-group/form.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/radio-group/radio-group-form.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={radioGroupSolidForm} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/radio-group/radio-group-form.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Indicator
 
 Render `RadioGroup.Indicator` when the active item needs an additional measured highlight. Keep the
-indicator and the radio items in the same positioning context, and keep unrelated content outside it,
-so the indicator follows the item geometry.
+indicator and the radio items in the same positioning context so the indicator follows the item
+geometry.
 
 <ExampleFrame variant="component">
   <RadioGroupIndicator />
@@ -294,22 +356,32 @@ so the indicator follows the item geometry.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/radio-group/indicator.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/radio-group/radio-group-indicator.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={radioGroupSolidIndicator} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/radio-group/radio-group-indicator.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Initial Value
@@ -323,16 +395,27 @@ itself.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/radio-group/initial-value.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={radioGroupSolidInitialValue} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Orientation
@@ -346,22 +429,32 @@ the items in a row with an inline wrapper when the visual layout should be horiz
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/radio-group/orientation.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/radio-group/radio-group-orientation.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={radioGroupSolidOrientation} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/radio-group/radio-group-orientation.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Root Provider
@@ -375,27 +468,37 @@ group tree. The example also shows how to update the selected value from outside
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/radio-group/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/radio-group/radio-group-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={radioGroupSolidRootProvider} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/radio-group/radio-group-root-provider.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Sizes
 
-Use the moduix `size` prop on `ItemControl` or `Option` when the radio control needs a different
+Use the moduix `size` prop on `Option` or `ItemControl` when the radio control needs a different
 diameter. Supported values are `xs`, `sm`, `md`, `lg`, and `xl`.
 
 <ExampleFrame variant="component">
@@ -404,16 +507,27 @@ diameter. Supported values are `xs`, `sm`, `md`, `lg`, and `xl`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/radio-group/sizes.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={radioGroupSolidSizes} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### With Field
@@ -427,22 +541,32 @@ Use `Field.Root` when a radio group needs a field-level label, helper text, or e
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/radio-group/with-field.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/radio-group/radio-group-with-field.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={radioGroupSolidField} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/radio-group/radio-group-with-field.module.css"
+```
+</div>
 </ExampleCode>
 
 ### With Fieldset
@@ -456,22 +580,32 @@ section. `Fieldset` can also provide its disabled and invalid state to the neste
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/radio-group/with-fieldset.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/radio-group/radio-group-with-fieldset.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={radioGroupSolidFieldset} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/radio-group/radio-group-with-fieldset.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Advanced Customization
@@ -485,37 +619,40 @@ styling.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/radio-group/advanced-customization.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={radioGroupSolidAdvancedCustomization} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ## Styling
 
-Style `RadioGroup` through `className`, stable `data-slot="radio-group-*"` hooks, Ark
-`data-scope`, `data-part`, and `data-state` attributes, and the public `--moduix-radio-*` CSS
-variables below.
+Use `className` in React or `class` in Solid on exported parts for structural styles. For state-based
+styles, prefer Ark data attributes such as `data-state`, `data-disabled`, and `data-orientation`,
+together with moduix `data-slot` selectors. Tailwind variants use native utilities and consumer
+classes; the component variables below customize the CSS Modules variants. Data attributes and
+`data-slot` hooks are shared by both styling tracks.
 
 ### CSS Properties
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <RadioGroupDocs.RadioGroupCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={RadioGroupDocs.radioGroupOverrideCssProperties} />
 
 ### Styling hooks
 
@@ -525,6 +662,6 @@ variables below.
   `data-invalid`, `data-required`, `data-focus`, `data-focus-visible`, `data-hover`,
   `data-active`, and `data-orientation`.
 - Ark indicator variables: `--transition-property`, `--left`, `--top`, `--width`, and `--height`.
-- moduix hooks: `data-slot="radio-group-root"`, `radio-group-root-provider`, `radio-group-label`,
-  `radio-group-item`, `radio-group-item-control`, `radio-group-item-text`, and
-  `radio-group-indicator`.
+- moduix hooks: `data-slot="radio-group-root"`, `radio-group-root-provider`,
+  `radio-group-label`, `radio-group-item`, `radio-group-item-control`, `radio-group-item-text`,
+  and `radio-group-indicator`.

@@ -22,6 +22,23 @@ import SelectRootProvider from '@/components/examples/select/root-provider.tsx';
 import SelectSearchInPopup from '@/components/examples/select/search-in-popup.tsx';
 import SelectSelectAll from '@/components/examples/select/select-all.tsx';
 import SelectSelectOnHighlight from '@/components/examples/select/select-on-highlight.tsx';
+import selectSolidAdvancedCustomization from '../../../snippets/select/solid/advanced-customization.tsx?raw';
+import selectSolidBasic from '../../../snippets/select/solid/basic.tsx?raw';
+import selectSolidControlled from '../../../snippets/select/solid/controlled.tsx?raw';
+import selectSolidCustomItemLayout from '../../../snippets/select/solid/custom-item-layout.tsx?raw';
+import selectSolidDynamicItems from '../../../snippets/select/solid/dynamic-items.tsx?raw';
+import selectSolidField from '../../../snippets/select/solid/field.tsx?raw';
+import selectSolidFormUsage from '../../../snippets/select/solid/form-usage.tsx?raw';
+import selectSolidGrouping from '../../../snippets/select/solid/grouping.tsx?raw';
+import selectSolidLazyMount from '../../../snippets/select/solid/lazy-mount.tsx?raw';
+import selectSolidMaxSelection from '../../../snippets/select/solid/max-selection.tsx?raw';
+import selectSolidMultiple from '../../../snippets/select/solid/multiple.tsx?raw';
+import selectSolidNativeFormControl from '../../../snippets/select/solid/native-form-control.tsx?raw';
+import selectSolidOverflow from '../../../snippets/select/solid/overflow.tsx?raw';
+import selectSolidRootProvider from '../../../snippets/select/solid/root-provider.tsx?raw';
+import selectSolidSearchInPopup from '../../../snippets/select/solid/search-in-popup.tsx?raw';
+import selectSolidSelectAll from '../../../snippets/select/solid/select-all.tsx?raw';
+import selectSolidSelectOnHighlight from '../../../snippets/select/solid/select-on-highlight.tsx?raw';
 
 ## Référence de l’API
 
@@ -35,10 +52,7 @@ créer une valeur.
 
 ## Exemple de base
 
-Passez une collection à `Select`, utilisez `Select.Field` pour le champ visible standard et gardez
-la structure de la fenêtre contextuelle explicite. La propriété `clearLabel` ajoute un bouton
-d’effacement accessible. Ajoutez explicitement `Select.HiddenSelect` lorsque la soumission, le
-remplissage automatique, la validation et la réinitialisation natives sont nécessaires.
+Passez une collection à `Select`, utilisez `Select.Field` pour le contrôle visible standard et gardez la structure de la fenêtre contextuelle explicite. `clearLabel` ajoute une action d’effacement accessible. Ajoutez explicitement `Select.HiddenSelect` lorsque la soumission, le remplissage automatique, la validation et la réinitialisation natives sont nécessaires. L’aperçu ci-dessous utilise le package React CSS Modules ; les onglets de framework montrent le code natif React et Solid pour la même composition.
 
 <ExampleFrame variant="component">
   <SelectBasic />
@@ -46,11 +60,23 @@ remplissage automatique, la validation et la réinitialisation natives sont néc
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={selectSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -60,7 +86,28 @@ remplissage automatique, la validation et la réinitialisation natives sont néc
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="select" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/select' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/select' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/select' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/select' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
@@ -113,80 +160,17 @@ Select / Select.Root
 
 ## Composition
 
-### Champ de formulaire natif
+`Select.Field` est le raccourci pour `Control`, `Trigger`, `ValueText` et l’`Indicator` par défaut. Ajoutez `clearLabel` pour une action d’effacement libellée, ou utilisez les parties explicites lorsque la mise en page du déclencheur doit être stylisée indépendamment. Gardez `Positioner`, `Content` et les éléments de la collection dans la même arborescence Select.
 
-`Select.HiddenSelect` est le select natif d’Ark, exporté directement. Ajoutez-le explicitement
-dans `Select` ou `Select.RootProvider` : la racine ne le crée pas automatiquement.
-Définissez `name` sur la racine pour la soumission et `form` pour un formulaire externe.
-Le champ prend aussi en charge la validation du navigateur et la réinitialisation.
+Ajoutez explicitement `Select.HiddenSelect` dans `Select` ou `Select.RootProvider` lorsque la sélection doit participer à la soumission native, à la validation, au remplissage automatique ou à la réinitialisation du formulaire. La racine ne l’affiche pas automatiquement. `Positioner` est rendu dans un portail par défaut ; utilisez `portalled={false}` pour le rendre dans le flux normal ou `portalRef` pour un conteneur personnalisé.
 
-La racine rend automatiquement `Positioner` via un portail. Utilisez `portalled={false}` pour un
-rendu dans le flux normal et `portalRef` pour cibler un conteneur personnalisé. `Positioner` et
-`Content` restent explicites et peuvent être stylisés séparément.
-
-### Composition recommandée
-
-`Select.Field` affiche `Control`, `Trigger`, `ValueText` et l’indicateur par défaut. Transmettez
-`clearLabel` pour ajouter une action d’effacement avec libellé, ou `indicator={<Icon />}` pour
-remplacer uniquement l’icône de flèche. Gardez `Positioner`, `Content` et les éléments de la liste
-explicitement dans la composition.
-
-`Select` est la forme abrégée de la racine. `Select.Root` est le membre équivalent de l’espace de
-noms.
-
-### Quand créer une composition personnalisée
-
-Composez explicitement `Control`, `Trigger` et les parties visuelles lorsque chacune doit être
-assemblée et stylisée indépendamment. `asChild` exige un conteneur sémantique unique capable de
-recevoir les props Ark et d’afficher ses enfants. Utilisez `div` ou `section`, et
-non un élément interactif tel que `button`. `Select.List` sert aux enveloppes de liste personnalisées
-et à la virtualisation.
-
-### Propriétés par défaut
-
-Par défaut, le contenu de la fenêtre contextuelle est monté uniquement à la première ouverture, puis
-démonté après l’animation de fermeture. Définissez `unmountOnExit={false}` pour le conserver après
-la première ouverture. Ne définissez les deux propriétés du cycle de vie sur `false` que si un rendu
-initial immédiat est nécessaire.
-
-| Propriété                | Valeur par défaut | Remarques                                                                     |
-| ------------------------ | ----------------- | ----------------------------------------------------------------------------- |
-| `closeOnSelect`          | `true`            | Ferme la fenêtre contextuelle après la sélection d’un élément.                |
-| `composite`              | `true`            | Active la navigation au clavier dans la listbox.                              |
-| `defaultValue`           | `[]`              | Tableau de chaînes, y compris en sélection unique.                            |
-| `lazyMount`              | `true`            | Diffère le montage du contenu jusqu’à l’ouverture.                            |
-| `loopFocus`              | `false`           | Par défaut, la navigation avec les flèches ne revient pas au début.           |
-| `multiple`               | `false`           | Autorise plusieurs valeurs lorsqu’elle est activée.                           |
-| `unmountOnExit`          | `true`            | Supprime le contenu après l’animation de fermeture.                           |
-| `ValueText.placeholder`  | -                 | Texte affiché lorsque le tableau de valeurs est vide.                         |
-
-### Comportement
-
-`value` et `defaultValue` sont des tableaux de chaînes de caractères, y compris en sélection unique.
-Le callback `onValueChange(details)` expose les clés sélectionnées dans `details.value` et les
-éléments de la collection dans `details.items`. Les callbacks `onOpenChange(details)`,
-`onHighlightChange(details)` et `onSelect(details)` reçoivent les objets details d’Ark UI sans
-modification.
-
-Utilisez `Select.useSelect` avec `Select.RootProvider` lorsque l’état doit être lu en dehors de
-l’arborescence Select. Pour lire l’état à l’intérieur de cette arborescence, utilisez
-`Select.Context`, `Select.ItemContext`, `Select.useSelectContext` et `Select.useSelectItemContext`.
-`Field.Root` et `Fieldset.Root` transmettent via le contexte Ark les états `disabled`, `invalid`,
-`required` et `read-only`.
-
-`Select.HiddenSelect` conserve la validation du navigateur, le remplissage automatique, la
-réinitialisation du formulaire et l’amélioration progressive. Pour une collection virtualisée où
-le rendu de toutes les options natives est indésirable, fournissez votre propre intégration de formulaire.
-
-Lorsque la réduction des mouvements est activée, Select désactive les transitions du déclencheur et
-les animations d’ouverture et de fermeture de la fenêtre contextuelle. La sélection, la restauration
-du focus et le cycle de montage restent inchangés.
+Utilisez `Select.useSelect` avec `Select.RootProvider` lorsque l’état doit être partagé avec des contrôles situés en dehors de l’arborescence Select. Le store renvoyé est un objet en React et un accessor en Solid.
 
 ## Exemples
 
 ### État contrôlé
 
-Contrôlez les valeurs sélectionnées depuis l’état React et mettez-les à jour avec `details.value`.
+Contrôlez le tableau de chaînes sélectionnées avec l’état React ou un signal Solid, puis mettez-le à jour avec `details.value`.
 
 <ExampleFrame variant="component">
   <SelectControlled />
@@ -194,11 +178,23 @@ Contrôlez les valeurs sélectionnées depuis l’état React et mettez-les à j
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/controlled.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={selectSolidControlled} />
 
     </Tab>
   </Tabs>
@@ -217,11 +213,23 @@ lorsqu’un élément doit afficher une icône stable et un libellé tronqué.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/custom-item-layout.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={selectSolidCustomItemLayout} />
 
     </Tab>
   </Tabs>
@@ -240,20 +248,31 @@ identique.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/dynamic-items.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/select/select-dynamic-items.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={selectSolidDynamicItems} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/select/select-dynamic-items.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -269,20 +288,31 @@ Enveloppez Select dans `Field.Root` lorsque le libellé, le texte d’aide ou le
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/field.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/select/select-field.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={selectSolidField} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/select/select-field.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -298,20 +328,31 @@ valeurs envoyées depuis `FormData`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/form-usage.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/select/select-form-usage.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={selectSolidFormUsage} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/select/select-form-usage.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -327,11 +368,23 @@ Définissez `groupBy` dans la collection et affichez `collection.group()` avec `
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/grouping.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={selectSolidGrouping} />
 
     </Tab>
   </Tabs>
@@ -350,11 +403,23 @@ monté que pendant l’utilisation de Select.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/lazy-mount.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={selectSolidLazyMount} />
 
     </Tab>
   </Tabs>
@@ -373,11 +438,23 @@ Limitez le nombre d’éléments sélectionnés en rejetant les tableaux trop lo
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/max-selection.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={selectSolidMaxSelection} />
 
     </Tab>
   </Tabs>
@@ -396,11 +473,23 @@ libellés des éléments sélectionnés à partir de la collection.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/multiple.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={selectSolidMultiple} />
 
     </Tab>
   </Tabs>
@@ -419,20 +508,31 @@ natif. Cet exemple montre les valeurs envoyées dans `FormData`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/native-form-control.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/select/select-native-form-control.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={selectSolidNativeFormControl} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/select/select-native-form-control.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -448,11 +548,23 @@ la variable Ark `--available-height` et reste défilable.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/overflow.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={selectSolidOverflow} />
 
     </Tab>
   </Tabs>
@@ -471,20 +583,31 @@ dehors de l’arborescence Select rendue.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/select/select-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={selectSolidRootProvider} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/select/select-root-provider.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -500,20 +623,31 @@ la requête et la collection filtrée dans votre composant, sans étendre l’AP
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/search-in-popup.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/select/select-search-in-popup.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={selectSolidSearchInPopup} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/select/select-search-in-popup.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -529,20 +663,31 @@ Select avec la même instance d’état Ark.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/select-all.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/select/select-select-all.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={selectSolidSelectAll} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/select/select-select-all.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -558,11 +703,23 @@ immédiatement à jour la sélection.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/select-on-highlight.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={selectSolidSelectOnHighlight} />
 
     </Tab>
   </Tabs>
@@ -581,11 +738,23 @@ N’utilisez pas `Select.Field` lorsque le déclencheur, le texte de la valeur o
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/advanced-customization.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={selectSolidAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -595,8 +764,7 @@ N’utilisez pas `Select.Field` lorsque le déclencheur, le texte de la valeur o
 
 ## Styles
 
-Personnalisez Select avec `className`, les hooks stables `data-slot="select-*"`, les attributs Ark
-et les variables CSS publiques `--moduix-select-*`.
+Stylisez Select avec `className` en React ou `class` en Solid, les hooks stables `data-slot="select-*"`, les attributs Ark et les variables CSS publiques `--moduix-select-*`. Les variantes Tailwind utilisent des classes utilitaires natives et les classes du consommateur ; les variantes CSS Modules utilisent les variables documentées ci-dessous.
 
 ### Propriétés CSS
 

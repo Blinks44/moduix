@@ -14,14 +14,23 @@ import InputNativeAttributes from '@/components/examples/input/native-attributes
 import InputSizes from '@/components/examples/input/sizes.tsx';
 import InputStandalone from '@/components/examples/input/standalone-input.tsx';
 import InputStates from '@/components/examples/input/disabled-and-readonly.tsx';
+import inputSolidAsChild from '../../../snippets/input/solid/as-child.tsx?raw';
+import inputSolidBasic from '../../../snippets/input/solid/basic.tsx?raw';
+import inputSolidControlled from '../../../snippets/input/solid/controlled.tsx?raw';
+import inputSolidFieldState from '../../../snippets/input/solid/field-state.tsx?raw';
+import inputSolidFile from '../../../snippets/input/solid/file-input.tsx?raw';
+import inputSolidNativeAttributes from '../../../snippets/input/solid/native-attributes.tsx?raw';
+import inputSolidSizes from '../../../snippets/input/solid/sizes.tsx?raw';
+import inputSolidStandalone from '../../../snippets/input/solid/standalone-input.tsx?raw';
+import inputSolidStates from '../../../snippets/input/solid/disabled-and-readonly.tsx?raw';
 
 ## API Reference
 
 `Input` is a styled wrapper around [Ark's `Field.Input`](https://ark-ui.com/docs/components/field).
 It follows Ark's guidance for [composition](https://ark-ui.com/docs/guides/composition),
 [styling](https://ark-ui.com/docs/guides/styling), and [ref forwarding](https://ark-ui.com/docs/guides/ref).
-It renders a native single-line `<input>` and preserves browser form behavior and React's native
-event API.
+It renders a native single-line `<input>` and preserves browser form behavior and each framework's
+native event API.
 
 Use `Field` when the control needs a label, helper or error text, generated ids, or shared state.
 
@@ -36,6 +45,9 @@ Use `Field` when the control needs a label, helper or error text, generated ids,
 
 ## Basic
 
+`Input` ships for React and Solid in both the CSS Modules and Tailwind packages. The preview on this
+page uses React with CSS Modules; the framework tabs show native source for the same public API.
+
 Place `Input` inside `Field` when you need a label, helper text, or an error message. `Field`
 connects that content to the control, generates the necessary ids, and provides its state.
 
@@ -45,27 +57,59 @@ connects that content to the control, generates the necessary ids, and provides 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/input/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/input/input-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={inputSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/input/input-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="input" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/input' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/input' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/input' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/input' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
@@ -82,45 +126,22 @@ Field (optional wrapper)
 
 ## Composition
 
-### Recommended composition
+Use `Field` as the owner of the label, helper or error text, generated ids, and shared `disabled`,
+`invalid`, `required`, or `readOnly` state. `Input` remains the native control: use `value` with
+`onChange(event)` for controlled React state or `defaultValue` for an uncontrolled input. It does
+not manage validation, focus, or keyboard navigation.
 
-Use `Input` inside `Field` when the field needs an accessible label, helper or error text, generated
-ids, or shared `disabled`, `invalid`, `required`, or `readOnly` state. `Fieldset` can disable several
-nested fields at once.
-
-Pass native `<input>` props and event handlers directly to `Input`. For a controlled input, pass
-`value` and update it from `onChange(event)`; for an uncontrolled input, use `defaultValue`.
-
-### When to go custom
-
-Use `asChild` only when another input-compatible element must be the actual DOM node. Provide one
-semantic, focusable input child. Ark merges the component and `Field` props, class, and ref into
-that child.
-
-If the control is not input-compatible, use the component that provides the appropriate Ark control
-primitive instead of forcing it through `Input`.
-
-### Default props
-
-| Prop       | Default | Notes                                                  |
-| ---------- | ------- | ------------------------------------------------------ |
-| `size`     | `md`    | Visual size: `xs`, `sm`, `md`, `lg`, or `xl`.          |
-| `htmlSize` | Not set | Sets the native `input[size]` value in characters. The input width follows it by default. |
-| `asChild`  | `false` | When enabled, passes props into one semantic child through Ark Slot. |
-
-### Behavioral notes
-
-- `ref` points to the real `HTMLInputElement`, so a form library can focus the control after an invalid submission.
-- No `HiddenInput` is needed because `Input` is already the native form control.
-- Ark `Field` supplies `aria-describedby`, `aria-invalid`, ids, and state props.
-- `Input` does not manage the value, its validity, focus, or keyboard navigation.
+For a standalone control, provide its accessible name yourself. Use `asChild` only with one
+focusable, input-compatible child; Ark merges the `Input` and `Field` props, class, and ref into
+that DOM node.
 
 ## Examples
 
 ### Controlled value
 
-Use this pattern when React owns the current value. Read the next value from the native
-`onChange(event)` and pass it back through `value`.
+Use this pattern when the surrounding component owns the current value. In React, read the next
+value from native `onChange(event)`; in Solid, use `onInput`. Pass the current value back through
+`value`.
 
 <ExampleFrame variant="component">
   <InputControlled />
@@ -128,20 +149,31 @@ Use this pattern when React owns the current value. Read the next value from the
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/input/controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/input/input-controlled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={inputSolidControlled} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/input/input-controlled.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -158,20 +190,31 @@ and select the value but must not edit it. Set them directly on `Input` for one 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/input/disabled-and-readonly.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/input/input-disabled-and-readonly.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={inputSolidStates} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/input/input-disabled-and-readonly.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -187,20 +230,31 @@ input and connects it to the error text.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/input/field-state.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/input/input-field-state.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={inputSolidFieldState} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/input/input-field-state.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -216,20 +270,31 @@ needs to keep selected files in state, show a dropzone, or manage an upload flow
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/input/file-input.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/input/input-file-input.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={inputSolidFile} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/input/input-file-input.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -237,7 +302,8 @@ needs to keep selected files in state, show a dropzone, or manage an upload flow
 ### Native attributes
 
 Use native attributes for browser behavior such as validation, input mode, autocomplete, and form
-submission. Use `htmlSize` for a character-based width and `size` for visual density.
+submission. Use `htmlSize` for a character-based width and `size` for visual density in both React
+and Solid.
 
 <ExampleFrame variant="component">
   <InputNativeAttributes />
@@ -245,20 +311,31 @@ submission. Use `htmlSize` for a character-based width and `size` for visual den
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/input/native-attributes.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/input/input-native-attributes.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={inputSolidNativeAttributes} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/input/input-native-attributes.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -274,20 +351,31 @@ native character-based width.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/input/sizes.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/input/input-sizes.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={inputSolidSizes} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/input/input-sizes.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -304,20 +392,31 @@ ids are not generated automatically and helper or error text is not connected to
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/input/standalone-input.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/input/input-standalone-input.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={inputSolidStandalone} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/input/input-standalone-input.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -333,25 +432,40 @@ focusable input element that can receive the merged props and `ref`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/input/as-child.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/input/input-as-child.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={inputSolidAsChild} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/input/input-as-child.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Styling
+
+Use `className` in React or `class` in Solid on `Input`. CSS Modules variants expose the variables
+below, while Tailwind variants use native utility classes and consumer classes. Use the shared data
+attributes and native state selectors when styling field state.
 
 ### CSS Properties
 

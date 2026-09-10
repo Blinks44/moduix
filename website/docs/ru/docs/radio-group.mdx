@@ -1,7 +1,7 @@
 ---
 title: Radio Group
 component: radio-group
-description: Группа радиокнопок для выбора одного варианта из нескольких.
+description: Группа радиокнопок для выбора одного варианта из видимого списка.
 ---
 
 import * as RadioGroupDocs from '@/components/examples/radio-group/css-properties';
@@ -19,24 +19,43 @@ import RadioGroupRootProvider from '@/components/examples/radio-group/root-provi
 import RadioGroupSizes from '@/components/examples/radio-group/sizes.tsx';
 import RadioGroupField from '@/components/examples/radio-group/with-field.tsx';
 import RadioGroupFieldset from '@/components/examples/radio-group/with-fieldset.tsx';
+import radioGroupSolidAdvancedCustomization from '../../../snippets/radio-group/solid/advanced-customization.tsx?raw';
+import radioGroupSolidAsChild from '../../../snippets/radio-group/solid/aschild.tsx?raw';
+import radioGroupSolidBasic from '../../../snippets/radio-group/solid/basic.tsx?raw';
+import radioGroupSolidControlled from '../../../snippets/radio-group/solid/controlled.tsx?raw';
+import radioGroupSolidDisabled from '../../../snippets/radio-group/solid/disabled.tsx?raw';
+import radioGroupSolidDisabledItem from '../../../snippets/radio-group/solid/item-disabled.tsx?raw';
+import radioGroupSolidForm from '../../../snippets/radio-group/solid/form.tsx?raw';
+import radioGroupSolidIndicator from '../../../snippets/radio-group/solid/indicator.tsx?raw';
+import radioGroupSolidInitialValue from '../../../snippets/radio-group/solid/initial-value.tsx?raw';
+import radioGroupSolidOrientation from '../../../snippets/radio-group/solid/orientation.tsx?raw';
+import radioGroupSolidRootProvider from '../../../snippets/radio-group/solid/root-provider.tsx?raw';
+import radioGroupSolidSizes from '../../../snippets/radio-group/solid/sizes.tsx?raw';
+import radioGroupSolidField from '../../../snippets/radio-group/solid/with-field.tsx?raw';
+import radioGroupSolidFieldset from '../../../snippets/radio-group/solid/with-fieldset.tsx?raw';
+
+## Справочник API
+
+`RadioGroup` следует примитиву radio-group из Ark UI и добавляет стили moduix, стабильные атрибуты
+`data-slot` и вспомогательный компонент `Option`. Компонент экспортируется из
+`@moduix/react/radio-group` и `@moduix/solid/radio-group`.
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/radio-group" />
+
+## Какой компонент выбрать
 
 Используйте `RadioGroup`, когда пользователь должен выбрать ровно один вариант из видимого списка,
 например фреймворк, тариф или тип аккаунта. Для независимых вариантов используйте `Checkbox`, а для
 настройки, которая применяется сразу, `Switch`.
 
-## Справочник API
-
-`RadioGroup` следует примитиву radio-group из Ark UI и добавляет стили moduix, стабильные атрибуты
-`data-slot` и вспомогательный компонент `Option`. Компонент импортируется из
-`@moduix/react/radio-group`.
-
-<PrimitiveReference href="https://ark-ui.com/docs/components/radio-group" />
-
 ## Базовый пример
 
-Для большинства групп используйте `RadioGroup.Option`. Он выводит элемент с подписью, управлением,
-текстом и нативным полем. При прямой композиции `RadioGroup.Item` явно добавьте
-`RadioGroup.ItemHiddenInput`.
+RadioGroup доступен для React и Solid в пакетах с CSS Modules и Tailwind. Предпросмотр на этой
+странице использует пакет React CSS Modules. Во вкладках показан нативный код для обоих фреймворков
+с тем же публичным контрактом.
+
+Используйте `RadioGroup` как корневой компонент и задайте `value` для каждого варианта.
+`RadioGroup.Option` выводит элемент с подписью, управлением, текстом и нативным полем.
 
 <ExampleFrame variant="component">
   <RadioGroupBasic />
@@ -44,113 +63,101 @@ import RadioGroupFieldset from '@/components/examples/radio-group/with-fieldset.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/radio-group/basic.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={radioGroupSolidBasic} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="radio-group" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/radio-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/radio-group' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/radio-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/radio-group' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
 ```text
-RadioGroup.Root
+RadioGroup / RadioGroup.Root
 ├─ RadioGroup.Label
-├─ RadioGroup.Indicator
+├─ RadioGroup.Indicator (необязательно)
 └─ RadioGroup.Item[value]
    ├─ RadioGroup.ItemControl
    ├─ RadioGroup.ItemText
    └─ RadioGroup.ItemHiddenInput (явно)
 
 RadioGroup.RootProvider
-└─ RadioGroup.* + useRadioGroup()
+└─ то же дерево частей, подключённое к useRadioGroup()
 
 RadioGroup.Option
-└─ RadioGroup.Item + ItemControl + ItemText + ItemHiddenInput (фиксированная композиция)
+└─ Item + ItemControl + ItemText + ItemHiddenInput (фиксированная композиция)
 ```
 
-| Часть                         | Назначение                                                         |
-| ---------------------------- | ------------------------------------------------------------------ |
+| Часть                         | Назначение                                                        |
+| ---------------------------- | ----------------------------------------------------------------- |
 | `RadioGroup` / `.Root`       | Хранит значение, управляет клавиатурной навигацией, ориентацией и формами. |
-| `RadioGroup.ItemHiddenInput` | Нативное поле Ark; правила явной композиции описаны ниже. |
-| `RadioGroup.RootProvider`    | Подключает части к состоянию, созданному через `useRadioGroup()`.  |
-| `RadioGroup.Label`           | Доступная подпись группы.                                         |
-| `RadioGroup.Item`            | Один вариант выбора, по умолчанию отображается как `label`.      |
-| `RadioGroup.Option`          | Упрощённый элемент с элементом управления, текстом и скрытым полем ввода. |
-| `RadioGroup.ItemControl`     | Визуальный элемент управления радиокнопки с поддержкой `size` из moduix. |
-| `RadioGroup.ItemText`        | Видимый текст варианта.                                           |
-| `RadioGroup.Indicator`       | Необязательный индикатор активного элемента с переменными размеров Ark. |
+| `RadioGroup.RootProvider`    | Подключает части к состоянию, созданному через `useRadioGroup()`. |
+| `RadioGroup.Label`            | Доступная подпись группы.                                         |
+| `RadioGroup.Item`             | Один вариант выбора; по умолчанию выводит `label`.                |
+| `RadioGroup.Option`           | Упрощённый элемент с управлением, текстом и скрытым полем.         |
+| `RadioGroup.ItemControl`      | Визуальное управление радиокнопкой с поддержкой `size` из moduix. |
+| `RadioGroup.ItemText`         | Видимый текст варианта.                                           |
+| `RadioGroup.ItemHiddenInput`  | Нативное поле формы для явной композиции `Item`.                  |
+| `RadioGroup.Indicator`        | Необязательный индикатор активного элемента с переменными Ark.    |
 
 ## Композиция
 
-### Нативное поле формы
+Используйте `defaultValue` для неконтролируемой группы. Если выбранное значение хранит другая часть
+приложения, используйте `value` и `onValueChange(details)`. Когда состояние нужно создать вне дерева
+группы, используйте `RootProvider` с `useRadioGroup()` из соответствующего пакета. Не используйте
+`RadioGroup` и `RadioGroup.RootProvider` для одного экземпляра состояния одновременно. В React
+состояние читается как объект, а в Solid реактивное состояние читается через возвращённый accessor.
 
-`RadioGroup.ItemHiddenInput` экспортируется напрямую из Ark. Вложите по одному полю в каждый
-явный `RadioGroup.Item`: сам элемент его не добавляет. Поле нужно для нативной работы с клавиатурой
-и формами. Задайте `name`, `required` и `form` на корневом компоненте или в параметрах хука
-при использовании `RootProvider`.
+`RadioGroup.Option` уже содержит `ItemHiddenInput` в фиксированной композиции. При прямой композиции
+`RadioGroup.Item` добавьте `RadioGroup.ItemHiddenInput` самостоятельно. Используйте явное дерево
+частей, когда вложенным частям нужны собственное размещение или свойства, либо когда `asChild` должен
+передать DOM-узел варианта другому элементу. В Solid `asChild` принимает render-функцию, а её прямым
+дочерним элементом должен оставаться семантический `label`.
 
-`RadioGroup.Option` уже содержит `ItemHiddenInput` в своей фиксированной композиции; второе поле добавлять не нужно.
-
-### Рекомендуемая композиция
-
-`RadioGroup` является короткой формой `RadioGroup.Root`. Для обычного варианта с подписью
-используйте `RadioGroup.Option`. Он принимает свойства элемента Ark, свойство `size` из moduix и
-`className`. Класс применяется к базовому `Item`, поэтому к вложенным частям по-прежнему можно
-настраивать через атрибуты `data-slot`.
-
-### Когда нужна собственная композиция
-
-Используйте `RadioGroup.RootProvider` вместе с `useRadioGroup()` из `@moduix/react`, когда состояние
-нужно создать до отрисовки группы, разделить с элементами вне её дерева или читать в другой части
-интерфейса. Передайте возвращённый объект состояния в `RootProvider` и не используйте `Root` и
-`RootProvider` для одного экземпляра состояния одновременно.
-
-Используйте явное дерево `Item`, когда вложенным частям нужны собственное размещение или классы, либо
-когда `RadioGroup.Item asChild` должен использовать другой элемент как DOM-узел варианта. Прямым
-дочерним элементом `Item` с `asChild` по-прежнему должен быть семантический `label`.
-
-Для чтения состояния внутри дерева используйте `RadioGroup.Context`, `RadioGroup.ItemContext`,
-`useRadioGroupContext()` или `useRadioGroupItemContext()` из `@moduix/react`.
-
-### Свойства по умолчанию
-
-| Свойство                           | По умолчанию | Примечания                                                        |
-| ---------------------------------- | ------------ | ----------------------------------------------------------------- |
-| `RadioGroup` / `RadioGroup.Root`   | -            | Применяются значения Ark, дополнительных настроек поведения moduix нет. |
-| `RadioGroup.Option size`           | `md`         | Диаметр элемента управления и размер точки индикатора.            |
-| `RadioGroup.ItemControl size`      | `md`         | Диаметр элемента управления moduix и размер точки индикатора.     |
-
-### Особенности поведения
-
-`RadioGroup.Root` принимает свойства Ark, в том числе `value`, `defaultValue`,
-`onValueChange(details)`, `name`, `form`, `orientation`, `disabled`, `invalid`, `readOnly`,
-`required`, `ids` и `asChild`. В обработчике изменения читайте выбранное значение из
-`details.value`.
-
-`RadioGroup.Option` включает нативное поле. При прямой композиции `RadioGroup.Item` добавьте
-`RadioGroup.ItemHiddenInput` для нативной отправки, проверки и сброса. Передайте `name` корню, если
-выбранное значение должно попасть в `FormData`.
-
-Ark управляет контролируемым и неконтролируемым состоянием, WAI-ARIA-поведением, фокусом и
-клавиатурной навигацией. Клавиша <kbd>Tab</kbd> переводит фокус на выбранный элемент или на первый,
-если выбор ещё не сделан. <kbd>Space</kbd> выбирает элемент в фокусе, а клавиши со стрелками
-перемещают фокус и выбирают следующий или предыдущий вариант.
-
-`Field.Root` предоставляет видимую подпись, вспомогательный текст и сообщение об ошибке, но не передаёт
-состояние в `RadioGroup`. Передавайте `disabled`, `invalid`, `readOnly` и `required` самой группе.
-`Fieldset.Root` передаёт вложенным группам своё состояние Ark `disabled` и `invalid`.
-
-Каждая стилизуемая часть передаёт `ref` соответствующей DOM-части Ark, включая `ItemHiddenInput`.
+`Field.Root` предоставляет видимую подпись, вспомогательный текст и сообщение об ошибке, но не
+передаёт своё состояние в `RadioGroup`. Передавайте `disabled`, `invalid`, `readOnly` и `required`
+самой группе. `Fieldset.Root` передаёт вложенным группам состояние Ark `disabled` и `invalid`.
 
 ## Примеры
 
@@ -165,28 +172,38 @@ Ark управляет контролируемым и неконтролиру�
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/radio-group/aschild.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/radio-group/radio-group-aschild.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={radioGroupSolidAsChild} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Стили**
+
+```css file="../../../src/components/examples/radio-group/radio-group-aschild.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Управляемое состояние
 
-Используйте `value` вместе с `onValueChange(details)`, когда выбранное значение хранится в состоянии
-React или должно синхронно меняться с другими частями интерфейса.
+Управляйте `value` через `useState` в React или `createSignal` в Solid, когда выбранное значение
+должно синхронизироваться с маршрутизацией, фильтрами или другими частями интерфейса.
 
 <ExampleFrame variant="component">
   <RadioGroupControlled />
@@ -194,28 +211,38 @@ React или должно синхронно меняться с другими 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/radio-group/controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/radio-group/radio-group-controlled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={radioGroupSolidControlled} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Стили**
+
+```css file="../../../src/components/examples/radio-group/radio-group-controlled.module.css"
+```
+</div>
 </ExampleCode>
 
-### Отключённое состояние
+### Отключённая группа
 
-Установите `disabled` на корневом компоненте, чтобы сделать недоступными все варианты и при этом
-оставить выбранное значение видимым.
+Задайте `disabled` на корневом компоненте, чтобы сделать все варианты недоступными и сохранить
+видимым выбранное значение.
 
 <ExampleFrame variant="component">
   <RadioGroupDisabled />
@@ -223,21 +250,33 @@ React или должно синхронно меняться с другими 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/radio-group/disabled.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={radioGroupSolidDisabled} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Отключённый элемент
 
-Установите `disabled` на отдельном `Item` или `Option`, если недоступен только один вариант.
+Задайте `disabled` на отдельном `Item` или `Option`, если недоступным должен быть только один
+вариант.
 
 <ExampleFrame variant="component">
   <RadioGroupDisabledItem />
@@ -245,22 +284,34 @@ React или должно синхронно меняться с другими 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/radio-group/item-disabled.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={radioGroupSolidDisabledItem} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Форма
 
-Передайте `name` корню, если выбранное значение нужно отправить с формой. `RadioGroup.Option` уже
-содержит поле; добавьте `ItemHiddenInput` в каждый пользовательский элемент.
+Передайте `name` корневому компоненту, если выбранное значение нужно отправлять в форму.
+`RadioGroup.Option` уже содержит поле ввода, а в каждом пользовательском `Item` нужно добавить
+`ItemHiddenInput`.
 
 <ExampleFrame variant="component">
   <RadioGroupForm />
@@ -268,29 +319,39 @@ React или должно синхронно меняться с другими 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/radio-group/form.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/radio-group/radio-group-form.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={radioGroupSolidForm} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Стили**
+
+```css file="../../../src/components/examples/radio-group/radio-group-form.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Индикатор
 
-Отрисуйте `RadioGroup.Indicator`, если активному элементу нужно дополнительное измеряемое
-выделение. Размещайте индикатор и радиокнопки в одном контексте позиционирования, а постороннее
-содержимое выносите за его пределы, чтобы индикатор точно следовал геометрии элементов.
+Используйте `RadioGroup.Indicator`, если для активного варианта нужен дополнительный измеряемый
+фон. Держите индикатор и радиокнопки в одном контексте позиционирования, чтобы индикатор следовал
+геометрии вариантов.
 
 <ExampleFrame variant="component">
   <RadioGroupIndicator />
@@ -298,28 +359,38 @@ React или должно синхронно меняться с другими 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/radio-group/indicator.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/radio-group/radio-group-indicator.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={radioGroupSolidIndicator} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Стили**
+
+```css file="../../../src/components/examples/radio-group/radio-group-indicator.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Начальное значение
 
-Установите `defaultValue`, если исходный выбранный элемент известен, а дальнейшими изменениями
-должна управлять сама группа.
+Задайте `defaultValue`, если выбранный при инициализации вариант известен, а дальше группа должна
+управлять изменениями самостоятельно.
 
 <ExampleFrame variant="component">
   <RadioGroupInitialValue />
@@ -327,23 +398,33 @@ React или должно синхронно меняться с другими 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/radio-group/initial-value.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={radioGroupSolidInitialValue} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Ориентация
 
-Установите `orientation="horizontal"`, если поведение клавиш со стрелками должно соответствовать
-горизонтальной группе. Если визуальная раскладка тоже должна быть горизонтальной, поместите элементы
-в строку с помощью встроенной обёртки.
+Задайте `orientation="horizontal"`, если клавиши со стрелками должны перемещаться по горизонтальной
+группе. Для горизонтальной визуальной раскладки разместите варианты в строчном контейнере.
 
 <ExampleFrame variant="component">
   <RadioGroupOrientation />
@@ -351,28 +432,38 @@ React или должно синхронно меняться с другими 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/radio-group/orientation.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/radio-group/radio-group-orientation.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={radioGroupSolidOrientation} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Стили**
+
+```css file="../../../src/components/examples/radio-group/radio-group-orientation.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Root Provider
 
-Используйте `RootProvider`, когда хранилище `useRadioGroup()` нужно разделить с элементами вне
-дерева группы. В примере показано, как изменить выбранное значение из внешнего элемента управления.
+Используйте `RootProvider`, когда хранилище `useRadioGroup()` нужно разделить с элементами за
+пределами дерева группы. Пример также показывает, как изменить выбранное значение извне.
 
 <ExampleFrame variant="component">
   <RadioGroupRootProvider />
@@ -380,28 +471,38 @@ React или должно синхронно меняться с другими 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/radio-group/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/radio-group/radio-group-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={radioGroupSolidRootProvider} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Стили**
+
+```css file="../../../src/components/examples/radio-group/radio-group-root-provider.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Размеры
 
-Используйте свойство `size` из moduix у `ItemControl` или `Option`, если элементу управления радиокнопки нужен
-другой диаметр. Поддерживаются значения `xs`, `sm`, `md`, `lg` и `xl`.
+Используйте свойство `size` из moduix у `Option` или `ItemControl`, если нужен другой диаметр
+радиокнопки. Поддерживаются значения `xs`, `sm`, `md`, `lg` и `xl`.
 
 <ExampleFrame variant="component">
   <RadioGroupSizes />
@@ -409,22 +510,33 @@ React или должно синхронно меняться с другими 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/radio-group/sizes.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={radioGroupSolidSizes} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### С Field
 
-Используйте `Field.Root`, если группе нужны общие подпись, вспомогательный текст или сообщение об
-ошибке. Передайте `invalid` и в `RadioGroup`, потому что `Field.Root` не устанавливает состояние
+Используйте `Field.Root`, если группе нужны собственные подпись, вспомогательный текст или сообщение
+об ошибке. Передайте `invalid` также в `RadioGroup`, потому что `Field.Root` не меняет состояние
 валидации группы.
 
 <ExampleFrame variant="component">
@@ -433,27 +545,37 @@ React или должно синхронно меняться с другими 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/radio-group/with-field.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/radio-group/radio-group-with-field.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={radioGroupSolidField} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Стили**
+
+```css file="../../../src/components/examples/radio-group/radio-group-with-field.module.css"
+```
+</div>
 </ExampleCode>
 
 ### С Fieldset
 
-Оберните группу в `Fieldset`, если несколько вариантов используют общую легенду и относятся к одному
+Оберните группу в `Fieldset`, если несколько вариантов используют одну легенду и относятся к одному
 разделу формы. `Fieldset` также может передать вложенной группе состояния `disabled` и `invalid`.
 
 <ExampleFrame variant="component">
@@ -462,28 +584,38 @@ React или должно синхронно меняться с другими 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/radio-group/with-fieldset.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/radio-group/radio-group-with-fieldset.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={radioGroupSolidFieldset} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Стили**
+
+```css file="../../../src/components/examples/radio-group/radio-group-with-fieldset.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Расширенная настройка
 
-Не используйте `Option`, если вложенным частям нужны собственные свойства, размещение или стили.
-Соберите полное дерево из `Item`, `ItemControl` и `ItemText`.
+Откажитесь от `Option` и используйте полное дерево `Item`, если каждой вложенной части нужны своё
+размещение, свойства или стили.
 
 <ExampleFrame variant="component">
   <RadioGroupAdvancedCustomization />
@@ -491,46 +623,49 @@ React или должно синхронно меняться с другими 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/radio-group/advanced-customization.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={radioGroupSolidAdvancedCustomization} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ## Стилизация
 
-Стилизуйте `RadioGroup` через `className`, стабильные атрибуты `data-slot="radio-group-*"`, атрибуты
-Ark `data-scope`, `data-part` и `data-state`, а также публичные CSS-переменные `--moduix-radio-*`,
-перечисленные ниже.
+Используйте `className` в React или `class` в Solid на экспортируемых частях для структурных стилей.
+Для стилей состояний используйте атрибуты Ark, например `data-state`, `data-disabled` и
+`data-orientation`, вместе с селекторами moduix `data-slot`. Варианты Tailwind используют нативные
+утилиты и классы потребителя, а переменные ниже настраивают варианты CSS Modules. Атрибуты данных и
+хуки `data-slot` общие для обоих способов стилизации.
 
 ### CSS-свойства
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <RadioGroupDocs.RadioGroupCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={RadioGroupDocs.radioGroupOverrideCssProperties} />
 
-### Точки стилизации
+### Хуки стилизации
 
-- Атрибуты анатомии Ark: `data-scope="radio-group"` и `data-part` у root, label, item, item-control,
-  item-text, item-hidden-input и indicator.
-- Атрибуты состояний Ark: `data-state="checked|unchecked"`, `data-disabled`, `data-readonly`,
-  `data-invalid`, `data-required`, `data-focus`, `data-focus-visible`, `data-hover`, `data-active`
-  и `data-orientation`.
+- Анатомия Ark: `data-scope="radio-group"` и `data-part` на корне, подписи, варианте,
+  управлении, тексте, скрытом поле и индикаторе.
+- Состояния Ark: `data-state="checked|unchecked"`, `data-disabled`, `data-readonly`,
+  `data-invalid`, `data-required`, `data-focus`, `data-focus-visible`, `data-hover`,
+  `data-active` и `data-orientation`.
 - Переменные индикатора Ark: `--transition-property`, `--left`, `--top`, `--width` и `--height`.
-- Атрибуты moduix: `data-slot="radio-group-root"`, `radio-group-root-provider`, `radio-group-label`,
-  `radio-group-item`, `radio-group-item-control`, `radio-group-item-text` и
+- Хуки moduix: `data-slot="radio-group-root"`, `radio-group-root-provider`,
+  `radio-group-label`, `radio-group-item`, `radio-group-item-control`, `radio-group-item-text` и
   `radio-group-indicator`.

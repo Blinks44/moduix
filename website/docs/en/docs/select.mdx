@@ -22,6 +22,23 @@ import SelectRootProvider from '@/components/examples/select/root-provider.tsx';
 import SelectSearchInPopup from '@/components/examples/select/search-in-popup.tsx';
 import SelectSelectAll from '@/components/examples/select/select-all.tsx';
 import SelectSelectOnHighlight from '@/components/examples/select/select-on-highlight.tsx';
+import selectSolidAdvancedCustomization from '../../../snippets/select/solid/advanced-customization.tsx?raw';
+import selectSolidBasic from '../../../snippets/select/solid/basic.tsx?raw';
+import selectSolidControlled from '../../../snippets/select/solid/controlled.tsx?raw';
+import selectSolidCustomItemLayout from '../../../snippets/select/solid/custom-item-layout.tsx?raw';
+import selectSolidDynamicItems from '../../../snippets/select/solid/dynamic-items.tsx?raw';
+import selectSolidField from '../../../snippets/select/solid/field.tsx?raw';
+import selectSolidFormUsage from '../../../snippets/select/solid/form-usage.tsx?raw';
+import selectSolidGrouping from '../../../snippets/select/solid/grouping.tsx?raw';
+import selectSolidLazyMount from '../../../snippets/select/solid/lazy-mount.tsx?raw';
+import selectSolidMaxSelection from '../../../snippets/select/solid/max-selection.tsx?raw';
+import selectSolidMultiple from '../../../snippets/select/solid/multiple.tsx?raw';
+import selectSolidNativeFormControl from '../../../snippets/select/solid/native-form-control.tsx?raw';
+import selectSolidOverflow from '../../../snippets/select/solid/overflow.tsx?raw';
+import selectSolidRootProvider from '../../../snippets/select/solid/root-provider.tsx?raw';
+import selectSolidSearchInPopup from '../../../snippets/select/solid/search-in-popup.tsx?raw';
+import selectSolidSelectAll from '../../../snippets/select/solid/select-all.tsx?raw';
+import selectSolidSelectOnHighlight from '../../../snippets/select/solid/select-on-highlight.tsx?raw';
 
 ## API Reference
 
@@ -34,9 +51,7 @@ Use `Select` when users choose from a fixed collection and the trigger stays rea
 
 ## Basic
 
-Pass a collection to `Select`, use `Select.Field` for the standard visible control, and keep the
-popup structure explicit. `clearLabel` adds an accessible clear action. Add `Select.HiddenSelect`
-explicitly when native submission, autofill, validation, and reset are needed.
+Pass a collection to `Select`, use `Select.Field` for the standard visible control, and keep the popup structure explicit. `clearLabel` adds an accessible clear action. Add `Select.HiddenSelect` explicitly when native submission, autofill, validation, and reset are needed. The preview below uses the React CSS Modules package; the framework tabs show native React and Solid source for the same composition.
 
 <ExampleFrame variant="component">
   <SelectBasic />
@@ -44,11 +59,23 @@ explicitly when native submission, autofill, validation, and reset are needed.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={selectSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -58,7 +85,28 @@ explicitly when native submission, autofill, validation, and reset are needed.
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="select" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/select' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/select' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/select' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/select' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
@@ -111,70 +159,17 @@ Select / Select.Root
 
 ## Composition
 
-### Native form control
+`Select.Field` is the shortcut for `Control`, `Trigger`, `ValueText`, and the default `Indicator`. Add `clearLabel` for a labelled clear action, or use the explicit parts when the trigger layout needs independent styling. Keep `Positioner`, `Content`, and the collection items in the same Select tree.
 
-`Select.HiddenSelect` is Ark’s native select, exposed directly. Render it explicitly inside
-`Select` or `Select.RootProvider`; the root does not add it. Set `name` on the root for native
-submission, and `form` for an external form. The select also supports browser validation and reset.
+Add `Select.HiddenSelect` explicitly inside `Select` or `Select.RootProvider` when the selection must participate in native form submission, validation, autofill, or reset. The root does not render it automatically. `Positioner` is portalled automatically; set `portalled={false}` for inline rendering or use `portalRef` for a custom container.
 
-The root portals `Positioner` automatically. Use `portalled={false}` for inline rendering and
-`portalRef` for a custom container; `Positioner` and `Content` remain explicit and styleable.
-
-### Recommended composition
-
-`Select.Field` renders `Control`, `Trigger`, `ValueText`, and the default indicator. Pass
-`clearLabel` to include a labelled clear action, or `indicator={<Icon />}` to replace only the
-chevron. Keep `Positioner`, `Content`, and items visible in the composition.
-
-`Select` is the concise root form. `Select.Root` is the equivalent member of the namespace.
-
-### When to go custom
-
-Use explicit `Control`, `Trigger`, and visual parts when their layout needs independent
-composition. `asChild` requires one semantic container that can accept Ark props and render its
-children; use a container such as `div` or `section`, not an interactive element such as `button`.
-Use `Select.List` for custom list wrappers and virtualization paths.
-
-### Default props
-
-The portalled overlay content lazily mounts and unmounts after its exit animation by default. Set
-`unmountOnExit={false}` to retain it after first open; set both lifecycle props to `false` only when
-eager initial rendering is needed.
-
-| Prop                    | Default | Notes                                                          |
-| ----------------------- | ------- | -------------------------------------------------------------- |
-| `closeOnSelect`         | `true`  | Closes the popup after item selection.                         |
-| `composite`             | `true`  | Enables listbox keyboard composition.                          |
-| `defaultValue`          | `[]`    | Values are string arrays, including single selection.          |
-| `lazyMount`             | `true`  | Defers popup content mounting until opened.                    |
-| `loopFocus`             | `false` | Keeps arrow navigation from wrapping by default.               |
-| `multiple`              | `false` | Enables multiple values when set.                              |
-| `unmountOnExit`         | `true`  | Removes popup content after its exit animation.                |
-| `ValueText.placeholder` | -       | Text shown when the value array is empty.                      |
-
-### Behavioral notes
-
-`value`, `defaultValue`, and `onValueChange(details)` use string arrays. Read `details.value` for
-selected keys and `details.items` for collection items. `onOpenChange(details)`,
-`onHighlightChange(details)`, and `onSelect(details)` keep Ark detail objects unchanged.
-
-Use `Select.useSelect` with `Select.RootProvider` when state is needed outside the select tree.
-`Select.Context`, `Select.ItemContext`, `Select.useSelectContext`, and
-`Select.useSelectItemContext` are available for in-tree state reads. `Field.Root` and
-`Fieldset.Root` provide disabled, invalid, required, and read-only state through Ark context.
-
-`Select.HiddenSelect` preserves browser validation, autofill, reset, and progressive enhancement.
-For a virtualized collection where rendering every native option is undesirable, provide
-application-owned form integration.
-
-Select removes trigger transitions and popup enter/exit animation when the user requests reduced
-motion; selection, focus restoration, and mount lifecycle remain unchanged.
+Use `Select.useSelect` with `Select.RootProvider` when state must be shared with controls outside the Select tree. The returned store is an object in React and an accessor in Solid.
 
 ## Examples
 
 ### Controlled
 
-Control the selected string array from React state and update it from `details.value`.
+Control the selected string array from React state or a Solid signal and update it from `details.value`.
 
 <ExampleFrame variant="component">
   <SelectControlled />
@@ -182,11 +177,23 @@ Control the selected string array from React state and update it from `details.v
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/controlled.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={selectSolidControlled} />
 
     </Tab>
   </Tabs>
@@ -205,11 +212,23 @@ when an item needs a stable icon and an ellipsized label.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/custom-item-layout.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={selectSolidCustomItemLayout} />
 
     </Tab>
   </Tabs>
@@ -227,20 +246,31 @@ Update the collection when available items change; the existing Select compositi
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/dynamic-items.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/select/select-dynamic-items.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={selectSolidDynamicItems} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/select/select-dynamic-items.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -256,20 +286,31 @@ to a form field.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/field.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/select/select-field.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={selectSolidField} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/select/select-field.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -285,20 +326,31 @@ The explicitly composed `Select.HiddenSelect` keeps native form submission worki
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/form-usage.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/select/select-form-usage.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={selectSolidFormUsage} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/select/select-form-usage.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -314,11 +366,23 @@ Use `groupBy` on the collection and render `collection.group()` with `ItemGroup`
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/grouping.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={selectSolidGrouping} />
 
     </Tab>
   </Tabs>
@@ -336,11 +400,23 @@ Use `lazyMount` and `unmountOnExit` when popup content should exist only while t
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/lazy-mount.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={selectSolidLazyMount} />
 
     </Tab>
   </Tabs>
@@ -358,11 +434,23 @@ Limit multiple selection by rejecting oversized value arrays and disabling the r
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/max-selection.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={selectSolidMaxSelection} />
 
     </Tab>
   </Tabs>
@@ -381,11 +469,23 @@ collection.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/multiple.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={selectSolidMultiple} />
 
     </Tab>
   </Tabs>
@@ -404,20 +504,31 @@ This example focuses on the submitted `FormData`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/native-form-control.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/select/select-native-form-control.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={selectSolidNativeFormControl} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/select/select-native-form-control.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -433,11 +544,23 @@ Use `positioning.fitViewport` for long lists. The content already limits its hei
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/overflow.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={selectSolidOverflow} />
 
     </Tab>
   </Tabs>
@@ -456,20 +579,31 @@ rendered Select tree.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/select/select-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={selectSolidRootProvider} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/select/select-root-provider.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -485,20 +619,31 @@ collection in your component rather than extending the Select API.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/search-in-popup.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/select/select-search-in-popup.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={selectSolidSearchInPopup} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/select/select-search-in-popup.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -514,20 +659,31 @@ the same Ark state instance.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/select-all.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/select/select-select-all.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={selectSolidSelectAll} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/select/select-select-all.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -542,11 +698,23 @@ Use `onHighlightChange(details)` when moving through options should immediately 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/select-on-highlight.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={selectSolidSelectOnHighlight} />
 
     </Tab>
   </Tabs>
@@ -565,11 +733,23 @@ styling.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/select/advanced-customization.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={selectSolidAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -579,8 +759,7 @@ styling.
 
 ## Styling
 
-Style Select through `className`, stable `data-slot="select-*"` hooks, Ark attributes, and the
-public `--moduix-select-*` CSS variables.
+Style Select with `className` in React or `class` in Solid, stable `data-slot="select-*"` hooks, Ark attributes, and public `--moduix-select-*` CSS variables. Tailwind variants use native utility classes and consumer classes; CSS Modules variants use the variables documented below.
 
 ### CSS Properties
 

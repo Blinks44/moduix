@@ -16,6 +16,17 @@ import SwitchInitialChecked from '@/components/examples/switch/initial-checked.t
 import SwitchReadOnly from '@/components/examples/switch/read-only.tsx';
 import SwitchRootProvider from '@/components/examples/switch/root-provider.tsx';
 import SwitchSizes from '@/components/examples/switch/sizes.tsx';
+import switchSolidAdvancedCustomization from '../../../snippets/switch/solid/advanced-customization.tsx?raw';
+import switchSolidAsChild from '../../../snippets/switch/solid/as-child.tsx?raw';
+import switchSolidBasic from '../../../snippets/switch/solid/basic.tsx?raw';
+import switchSolidContext from '../../../snippets/switch/solid/context.tsx?raw';
+import switchSolidControlled from '../../../snippets/switch/solid/controlled.tsx?raw';
+import switchSolidDisabled from '../../../snippets/switch/solid/disabled.tsx?raw';
+import switchSolidFormIntegration from '../../../snippets/switch/solid/form-integration.tsx?raw';
+import switchSolidInitialChecked from '../../../snippets/switch/solid/initial-checked.tsx?raw';
+import switchSolidReadOnly from '../../../snippets/switch/solid/read-only.tsx?raw';
+import switchSolidRootProvider from '../../../snippets/switch/solid/root-provider.tsx?raw';
+import switchSolidSizes from '../../../snippets/switch/solid/sizes.tsx?raw';
 
 ## API Reference
 
@@ -33,7 +44,12 @@ boolean value.
 
 ## Basic
 
-A basic switch has a root, a visual control, a label, and an explicit `Switch.HiddenInput` for native interaction and form behavior.
+Switch ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered preview
+on this page uses the React CSS Modules package; the framework tabs show native source for the same
+public contract.
+
+A basic switch has a root, a visual control, a label, and an explicit `Switch.HiddenInput` for native
+interaction and form behavior. The control receives a default thumb when it has no children.
 
 <ExampleFrame variant="component">
   <SwitchBasic />
@@ -41,11 +57,23 @@ A basic switch has a root, a visual control, a label, and an explicit `Switch.Hi
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/switch/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={switchSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -55,7 +83,28 @@ A basic switch has a root, a visual control, a label, and an explicit `Switch.Hi
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="switch" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/switch' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/switch' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/switch' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/switch' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
@@ -70,65 +119,31 @@ Switch / Switch.Root
 | Part                          | Role                                                                 |
 | ----------------------------- | -------------------------------------------------------------------- |
 | `Switch` / `Switch.Root`      | Root `label` element. Owns switch state, ids, form props, and `size`. |
-| `Switch.HiddenInput` | Native Ark form control; compose explicitly as described below. |
-| `Switch.RootProvider`         | Root `label` driven by state created with `useSwitch()`.             |
-| `Switch.Control`              | Visual track and focus-ring target. Adds `Switch.Thumb` by default.  |
-| `Switch.Thumb`                | Movable thumb for the default visuals or custom thumb content.       |
-| `Switch.Label`                | Ark-connected label text.                                            |
+| `Switch.HiddenInput`           | Native Ark form control; compose explicitly as described below.      |
+| `Switch.RootProvider`          | Root `label` driven by state created with `useSwitch()`.             |
+| `Switch.Control`               | Visual track and focus-ring target. Adds `Switch.Thumb` by default.  |
+| `Switch.Thumb`                 | Movable thumb for the default visuals or custom thumb content.       |
+| `Switch.Label`                 | Ark-connected label text.                                            |
 
 `Switch` and `Switch.Root` are two names for the same root component. `Switch.Context`,
 `useSwitchContext`, and `useSwitch` are exported from `@moduix/react` alongside the component.
+The matching Solid exports are available from `@moduix/solid` and `@moduix/solid/switch`.
 
 ## Composition
 
-### Native form control
+Render `Switch.HiddenInput` explicitly inside `Switch` or `Switch.RootProvider`, including when the
+switch is not in a form. It provides the native input that Ark uses for focus, keyboard interaction,
+accessibility, and form submission.
 
-`Switch.HiddenInput` is Ark's native input, exposed directly. Render it explicitly inside
-`Switch` or `Switch.RootProvider`; the root does not add it. Set `name` on the root
-to include the value in native form submission.
+When `Switch.Control` has no children, it adds the default `Switch.Thumb`. Add `Switch.Thumb`
+explicitly only when it needs custom content or styling.
 
-Keep the input even outside forms: it provides native focus, keyboard interaction, and accessibility.
-`required`, `disabled`, and `value` belong on the root.
-For a form outside the component tree, set `form` on the root.
+Use `Switch.Context` or `useSwitchContext` when nearby UI needs to read the switch state. Use
+`useSwitch` with `Switch.RootProvider` when the state must be created outside the rendered switch
+tree. Do not render `Switch` and `Switch.RootProvider` for the same state instance.
 
-### Recommended composition
-
-Use the short `<Switch>` form for ordinary cases. Put `Switch.Control`, `Switch.Label`, and
-`Switch.HiddenInput` inside it.
-
-`Switch.Control` adds the default `Switch.Thumb` when it has no children. Add `Switch.Thumb`
-explicitly when the thumb needs custom content or styling.
-
-### When to go custom
-
-Use `asChild` when you need to provide the root DOM element yourself. Its direct child must be a
-single label-compatible element so the switch keeps a valid accessible name.
-
-Use `Switch.Context` or `useSwitchContext` when surrounding UI needs to read the switch state. Use
-`useSwitch` with `Switch.RootProvider` when the state should be created and controlled outside the
-rendered switch tree. Do not render `Switch` and `Switch.RootProvider` for the same state instance.
-
-### Default props
-
-| Prop        | Default     | Notes                                        |
-| ----------- | ----------- | -------------------------------------------- |
-| `size`      | `md`        | moduix option: `xs`, `sm`, `md`, `lg`, `xl`. |
-| `value`     | `on`        | Value submitted by the hidden form input.    |
-| `children`  | `undefined` | Compose the visible parts explicitly.        |
-| `className` | `undefined` | Applied to the root `label` element.         |
-
-### Behavioral notes
-
-- Use `defaultChecked` for uncontrolled mode. Use `checked` with `onCheckedChange(details)` for
-  controlled mode.
-- `onCheckedChange` receives a details object. Use `details.checked` as the next boolean state.
-- Render `Switch.HiddenInput` explicitly. Set `name`, `value`, `form`, and `required` on the root to
-  control form participation. Ark owns reset synchronization.
-- `readOnly` preserves the current state and sets `aria-readonly="true"` on the native control.
-- The track and thumb respect `prefers-reduced-motion` by disabling their transitions.
-- Use `Switch.Context` or `useSwitchContext` for advanced state reads. Use `useSwitch` with
-  `Switch.RootProvider` when the state owner lives outside the switch tree.
-- With `asChild`, the child must remain a single semantic element that is compatible with `label`.
+With `asChild`, provide one semantic element compatible with `label` so Ark can keep the switch
+accessible.
 
 ## Examples
 
@@ -142,28 +157,38 @@ Use `asChild` when you need a custom root element while Ark continues to manage 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/switch/as-child.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/switch/switch-as-child.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={switchSolidAsChild} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/switch/switch-as-child.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Context
 
-Use `useSwitchContext` from `@moduix/react` when a nearby label or supporting element needs to read
-the current switch state.
+Use `useSwitchContext` from `@moduix/react` when nearby UI needs to read the current switch state.
 
 <ExampleFrame variant="component">
   <SwitchContext />
@@ -171,11 +196,23 @@ the current switch state.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/switch/context.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={switchSolidContext} />
 
     </Tab>
   </Tabs>
@@ -193,20 +230,31 @@ Use controlled mode when the switch needs to stay in sync with other UI or appli
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/switch/controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/switch/switch-controlled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={switchSolidControlled} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/switch/switch-controlled.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -221,20 +269,31 @@ Use `disabled` to prevent interaction while keeping the current visual state.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/switch/disabled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/switch/switch-disabled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={switchSolidDisabled} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/switch/switch-disabled.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -250,20 +309,31 @@ error after the form is submitted while the switch is still off.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/switch/form-integration.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/switch/switch-form-integration.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={switchSolidFormIntegration} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/switch/switch-form-integration.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -278,11 +348,23 @@ Use `defaultChecked` when the switch should start enabled and manage its own sta
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/switch/initial-checked.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={switchSolidInitialChecked} />
 
     </Tab>
   </Tabs>
@@ -300,20 +382,31 @@ Use `readOnly` when the current state should remain visible but users must not b
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/switch/read-only.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/switch/switch-read-only.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={switchSolidReadOnly} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/switch/switch-read-only.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -329,20 +422,31 @@ and control the state outside the rendered switch tree.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/switch/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/switch/switch-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={switchSolidRootProvider} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/switch/switch-root-provider.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -357,20 +461,31 @@ Use moduix `size` to match different form densities without changing the Ark par
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/switch/sizes.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/switch/switch-sizes.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={switchSolidSizes} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/switch/switch-sizes.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -385,11 +500,23 @@ Add `Switch.Thumb` explicitly when the thumb needs custom content or styling.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/switch/advanced-customization.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={switchSolidAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -399,8 +526,10 @@ Add `Switch.Thumb` explicitly when the thumb needs custom content or styling.
 
 ## Styling
 
-Style `Switch` through `className`, public `data-slot` hooks, Ark state attributes, and the public
-`--moduix-switch-*` CSS variables shown below.
+Style `Switch` with `className` in React or `class` in Solid, public `data-slot` hooks, Ark state
+attributes, and the public `--moduix-switch-*` CSS variables shown below. Tailwind variants use
+utilities and consumer classes; the variables below apply to CSS Modules, while data attributes are
+shared by both approaches.
 
 ### CSS Properties
 

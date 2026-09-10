@@ -1,7 +1,7 @@
 ---
 title: Switch
 component: switch
-description: Un interrupteur Ark UI pour activer ou désactiver immédiatement un réglage booléen.
+description: Un switch Ark UI composable pour activer ou désactiver un réglage booléen immédiatement.
 ---
 
 import * as SwitchDocs from '@/components/examples/switch/css-properties';
@@ -16,6 +16,17 @@ import SwitchInitialChecked from '@/components/examples/switch/initial-checked.t
 import SwitchReadOnly from '@/components/examples/switch/read-only.tsx';
 import SwitchRootProvider from '@/components/examples/switch/root-provider.tsx';
 import SwitchSizes from '@/components/examples/switch/sizes.tsx';
+import switchSolidAdvancedCustomization from '../../../snippets/switch/solid/advanced-customization.tsx?raw';
+import switchSolidAsChild from '../../../snippets/switch/solid/as-child.tsx?raw';
+import switchSolidBasic from '../../../snippets/switch/solid/basic.tsx?raw';
+import switchSolidContext from '../../../snippets/switch/solid/context.tsx?raw';
+import switchSolidControlled from '../../../snippets/switch/solid/controlled.tsx?raw';
+import switchSolidDisabled from '../../../snippets/switch/solid/disabled.tsx?raw';
+import switchSolidFormIntegration from '../../../snippets/switch/solid/form-integration.tsx?raw';
+import switchSolidInitialChecked from '../../../snippets/switch/solid/initial-checked.tsx?raw';
+import switchSolidReadOnly from '../../../snippets/switch/solid/read-only.tsx?raw';
+import switchSolidRootProvider from '../../../snippets/switch/solid/root-provider.tsx?raw';
+import switchSolidSizes from '../../../snippets/switch/solid/sizes.tsx?raw';
 
 ## Référence de l’API
 
@@ -23,19 +34,22 @@ import SwitchSizes from '@/components/examples/switch/sizes.tsx';
 
 ## Choisir le bon composant
 
-Utilisez `Switch` pour un réglage qui prend effet dès que l’utilisateur le modifie. Un interrupteur représente une
-seule valeur booléenne.
+Utilisez `Switch` pour un réglage qui s’applique dès que l’utilisateur le modifie. Un switch représente une
+valeur booléenne.
 
 - Choisissez **`Switch`** pour des réglages comme les notifications, les rappels ou l’activation de fonctionnalités.
-- Choisissez **`Checkbox`** lorsque le contrôle représente une sélection à envoyer avec un formulaire plutôt qu’un
-  réglage appliqué immédiatement.
-- Choisissez **`RadioGroup`** lorsque les utilisateurs doivent sélectionner une option parmi plusieurs valeurs
-  mutuellement exclusives.
+- Choisissez **`Checkbox`** lorsque le contrôle représente un choix envoyé avec un formulaire,
+  plutôt qu’un réglage appliqué immédiatement.
+- Choisissez **`RadioGroup`** lorsque l’utilisateur doit sélectionner une option parmi plusieurs valeurs mutuellement exclusives.
 
 ## Exemple de base
 
-Un interrupteur de base se compose d’une racine, d’un contrôle visuel, d’un libellé et d’un
-`Switch.HiddenInput` explicite pour l’interaction et les formulaires natifs.
+Switch est disponible pour React et Solid dans les packages CSS Modules et Tailwind. L’aperçu rendu
+sur cette page utilise le package React CSS Modules ; les onglets de framework affichent le code natif correspondant au même
+contrat public.
+
+Un switch de base comprend une racine, un contrôle visuel, un libellé et `Switch.HiddenInput` explicitement rendu pour les interactions
+natives et les formulaires. Le contrôle reçoit un thumb par défaut lorsqu’il n’a pas d’enfants.
 
 <ExampleFrame variant="component">
   <SwitchBasic />
@@ -43,11 +57,23 @@ Un interrupteur de base se compose d’une racine, d’un contrôle visuel, d’
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/switch/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={switchSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -57,7 +83,28 @@ Un interrupteur de base se compose d’une racine, d’un contrôle visuel, d’
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="switch" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/switch' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/switch' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/switch' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/switch' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
@@ -66,77 +113,43 @@ Switch / Switch.Root
 ├─ Switch.Control
 │  └─ Switch.Thumb
 ├─ Switch.Label
-└─ Switch.HiddenInput (explicite)
+└─ Switch.HiddenInput (explicit)
 ```
 
-| Partie                    | Rôle                                                                    |
-| ------------------------- | ----------------------------------------------------------------------- |
-| `Switch` / `Switch.Root`  | Élément `label` racine. Gère l’état, les ID, les props de formulaire et `size`. |
-| `Switch.HiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
-| `Switch.RootProvider`     | Élément racine piloté par l’état créé avec `useSwitch()`.               |
-| `Switch.Control`          | Piste visuelle et cible de l’anneau de focus. Ajoute un curseur par défaut. |
-| `Switch.Thumb`            | Curseur mobile pour l’apparence par défaut ou un contenu personnalisé.  |
-| `Switch.Label`            | Libellé relié à l’interrupteur par Ark.                                 |
+| Partie                        | Rôle                                                                    |
+| ----------------------------- | ----------------------------------------------------------------------- |
+| `Switch` / `Switch.Root`      | Élément `label` racine. Gère l’état, les identifiants, les props de formulaire et `size`. |
+| `Switch.HiddenInput`          | Contrôle de formulaire natif d’Ark ; composez-le explicitement comme indiqué ci-dessous. |
+| `Switch.RootProvider`         | Élément `label` racine piloté par l’état créé avec `useSwitch()`.     |
+| `Switch.Control`              | Piste visuelle et cible de l’anneau de focus. Ajoute `Switch.Thumb` par défaut. |
+| `Switch.Thumb`                | Thumb mobile pour l’apparence par défaut ou un contenu personnalisé.  |
+| `Switch.Label`                | Texte du libellé relié à Ark.                                         |
 
-`Switch` et `Switch.Root` sont deux noms pour la même racine. `Switch.Context`, `useSwitchContext` et `useSwitch`
-sont exportés depuis `@moduix/react` avec le composant.
+`Switch` et `Switch.Root` sont deux noms pour la même racine. `Switch.Context`,
+`useSwitchContext` et `useSwitch` sont exportés depuis `@moduix/react` avec le composant.
+Les exports Solid correspondants sont disponibles depuis `@moduix/solid` et `@moduix/solid/switch`.
 
 ## Composition
 
-### Champ de formulaire natif
+Rendez `Switch.HiddenInput` explicitement à l’intérieur de `Switch` ou `Switch.RootProvider`, y compris lorsque le
+switch ne se trouve pas dans un formulaire. Il fournit le champ natif qu’Ark utilise pour le focus, le clavier,
+l’accessibilité et l’envoi du formulaire.
 
-`Switch.HiddenInput` est le champ natif d’Ark, exporté directement. Ajoutez-le explicitement dans
-`Switch` ou `Switch.RootProvider` : la racine ne le crée pas automatiquement.
-Définissez `name` sur la racine pour inclure la valeur dans la soumission native du formulaire.
+Lorsque `Switch.Control` n’a pas d’enfants, il ajoute `Switch.Thumb` par défaut. Ajoutez `Switch.Thumb`
+explicitement uniquement lorsque le thumb a besoin d’un contenu ou de styles personnalisés.
 
-Conservez ce champ même hors des formulaires : il assure le focus natif, les interactions au clavier
-et l’accessibilité. Définissez `required`, `disabled` et `value` sur la racine.
-Pour un formulaire extérieur à l’arbre du composant, définissez `form` sur la racine.
-
-### Composition recommandée
-
-Pour les cas courants, utilisez la forme courte `<Switch>` avec `Switch.Control`, `Switch.Label` et
-`Switch.HiddenInput`.
-
-Lorsque `Switch.Control` n’a pas d’enfants, il ajoute le `Switch.Thumb` par défaut. Ajoutez `Switch.Thumb` explicitement
-lorsque le curseur nécessite un contenu ou des styles personnalisés.
-
-### Quand créer une composition personnalisée
-
-Utilisez `asChild` lorsque vous devez fournir vous-même l’élément DOM racine. Son enfant direct doit être un seul
-élément compatible avec `label`, afin que l’interrupteur conserve un nom accessible valide.
-
-Utilisez `Switch.Context` ou `useSwitchContext` lorsque l’interface environnante doit lire l’état de l’interrupteur.
-Utilisez `useSwitch` avec `Switch.RootProvider` lorsque l’état doit être créé et contrôlé en dehors de l’arbre rendu.
+Utilisez `Switch.Context` ou `useSwitchContext` lorsque l’interface voisine doit lire l’état du switch. Utilisez
+`useSwitch` avec `Switch.RootProvider` lorsque l’état doit être créé en dehors de l’arbre rendu du switch.
 Ne rendez pas `Switch` et `Switch.RootProvider` pour la même instance d’état.
 
-### Propriétés par défaut
-
-| Propriété   | Par défaut  | Remarques                                                    |
-| ----------- | ----------- | ------------------------------------------------------------ |
-| `size`      | `md`        | Facilitation moduix : `xs`, `sm`, `md`, `lg`, `xl`.          |
-| `value`     | `on`        | Valeur envoyée par l’input de formulaire masqué.      |
-| `children`  | `undefined` | Composez explicitement les parties visibles.          |
-| `className` | `undefined` | Appliquée à l’élément `label` racine.                 |
-
-### Comportement
-
-- Utilisez `defaultChecked` en mode non contrôlé. Utilisez `checked` avec `onCheckedChange(details)` en mode contrôlé.
-- `onCheckedChange` reçoit un objet de détails. Utilisez `details.checked` pour obtenir le prochain état booléen.
-- Ajoutez explicitement `Switch.HiddenInput`. Les props `name`, `value`, `form` et `required` de la
-  racine configurent sa participation au formulaire. Ark gère la réinitialisation.
-- `readOnly` préserve l’état actuel et définit `aria-readonly="true"` sur le contrôle natif.
-- La piste et le curseur désactivent leurs transitions lorsque l’utilisateur préfère réduire les animations (`prefers-reduced-motion`).
-- Utilisez `Switch.Context` ou `useSwitchContext` pour les lectures d’état avancées. Lorsque le propriétaire de l’état
-  se trouve en dehors de l’arbre, utilisez `useSwitch` avec `Switch.RootProvider`.
-- Avec `asChild`, l’enfant doit rester un unique élément sémantique compatible avec `label`.
+Avec `asChild`, fournissez un seul élément sémantique compatible avec `label` afin qu’Ark conserve l’accessibilité
+du switch.
 
 ## Exemples
 
 ### asChild
 
-Utilisez `asChild` lorsque vous avez besoin d’un élément racine personnalisé tout en laissant Ark gérer le comportement
-de l’interrupteur.
+Utilisez `asChild` lorsque vous avez besoin d’un élément racine personnalisé tout en laissant Ark gérer le comportement du switch.
 
 <ExampleFrame variant="component">
   <SwitchAsChild />
@@ -144,28 +157,38 @@ de l’interrupteur.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/switch/as-child.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/switch/switch-as-child.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={switchSolidAsChild} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/switch/switch-as-child.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Contexte
 
-Importez `useSwitchContext` depuis `@moduix/react` lorsqu’un libellé proche ou un élément complémentaire doit lire
-l’état courant de l’interrupteur.
+Utilisez `useSwitchContext` depuis `@moduix/react` lorsque l’interface voisine doit lire l’état actuel du switch.
 
 <ExampleFrame variant="component">
   <SwitchContext />
@@ -173,11 +196,23 @@ l’état courant de l’interrupteur.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/switch/context.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={switchSolidContext} />
 
     </Tab>
   </Tabs>
@@ -187,7 +222,7 @@ l’état courant de l’interrupteur.
 
 ### État contrôlé
 
-Utilisez le mode contrôlé lorsque l’interrupteur doit rester synchronisé avec l’interface ou l’état de l’application.
+Utilisez le mode contrôlé lorsque le switch doit rester synchronisé avec une autre partie de l’interface ou avec l’état de l’application.
 
 <ExampleFrame variant="component">
   <SwitchControlled />
@@ -195,27 +230,38 @@ Utilisez le mode contrôlé lorsque l’interrupteur doit rester synchronisé av
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/switch/controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/switch/switch-controlled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={switchSolidControlled} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/switch/switch-controlled.module.css"
+```
 </div>
 
 </ExampleCode>
 
-### État désactivé
+### Désactivé
 
-Utilisez `disabled` pour empêcher les interactions tout en conservant l’état visuel courant.
+Utilisez `disabled` pour empêcher les interactions tout en conservant l’état visuel actuel.
 
 <ExampleFrame variant="component">
   <SwitchDisabled />
@@ -223,28 +269,39 @@ Utilisez `disabled` pour empêcher les interactions tout en conservant l’état
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/switch/disabled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/switch/switch-disabled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={switchSolidDisabled} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/switch/switch-disabled.module.css"
+```
 </div>
 
 </ExampleCode>
 
-### Intégration à un formulaire
+### Intégration au formulaire
 
-Utilisez `Field` lorsque l’interrupteur a besoin d’un libellé, d’une validation ou d’une soumission avec le formulaire.
-Dans cet exemple, l’erreur s’affiche après l’envoi du formulaire si l’option est restée désactivée.
+Utilisez `Field` lorsque le switch doit gérer son libellé, sa validation ou son envoi dans un formulaire. Cet exemple affiche une
+erreur après l’envoi du formulaire si le switch est toujours désactivé.
 
 <ExampleFrame variant="component">
   <SwitchFormIntegration />
@@ -252,27 +309,38 @@ Dans cet exemple, l’erreur s’affiche après l’envoi du formulaire si l’o
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/switch/form-integration.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/switch/switch-form-integration.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={switchSolidFormIntegration} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/switch/switch-form-integration.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### État initial activé
 
-Utilisez `defaultChecked` lorsque l’interrupteur doit être activé au premier rendu, puis gérer lui-même son état.
+Utilisez `defaultChecked` lorsque le switch doit être activé au premier rendu, puis gérer lui-même son état.
 
 <ExampleFrame variant="component">
   <SwitchInitialChecked />
@@ -280,11 +348,23 @@ Utilisez `defaultChecked` lorsque l’interrupteur doit être activé au premier
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/switch/initial-checked.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={switchSolidInitialChecked} />
 
     </Tab>
   </Tabs>
@@ -294,7 +374,7 @@ Utilisez `defaultChecked` lorsque l’interrupteur doit être activé au premier
 
 ### Lecture seule
 
-Utilisez `readOnly` lorsque l’état courant doit rester visible sans que l’utilisateur puisse le modifier.
+Utilisez `readOnly` lorsque l’état actuel doit rester visible sans que l’utilisateur puisse le modifier.
 
 <ExampleFrame variant="component">
   <SwitchReadOnly />
@@ -302,28 +382,39 @@ Utilisez `readOnly` lorsque l’état courant doit rester visible sans que l’u
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/switch/read-only.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/switch/switch-read-only.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={switchSolidReadOnly} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/switch/switch-read-only.module.css"
+```
 </div>
 
 </ExampleCode>
 
-### État avec RootProvider
+### Root Provider
 
-Importez `useSwitch` depuis `@moduix/react` et transmettez l’état créé à `Switch.RootProvider` lorsque vous devez le
-contrôler en dehors de l’arbre rendu de l’interrupteur.
+Importez `useSwitch` depuis `@moduix/react` et associez-le à `Switch.RootProvider` lorsque l’état doit être créé
+et contrôlé en dehors de l’arbre rendu du switch.
 
 <ExampleFrame variant="component">
   <SwitchRootProvider />
@@ -331,28 +422,38 @@ contrôler en dehors de l’arbre rendu de l’interrupteur.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/switch/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/switch/switch-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={switchSolidRootProvider} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/switch/switch-root-provider.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Tailles
 
-Utilisez la propriété `size` de moduix pour adapter la taille à différentes densités de formulaire sans modifier
-l’arbre de parties Ark.
+Utilisez `size` de moduix pour adapter la densité du formulaire sans modifier l’arbre des parties Ark.
 
 <ExampleFrame variant="component">
   <SwitchSizes />
@@ -360,27 +461,38 @@ l’arbre de parties Ark.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/switch/sizes.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/switch/switch-sizes.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={switchSolidSizes} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/switch/switch-sizes.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Personnalisation avancée
 
-Ajoutez `Switch.Thumb` explicitement lorsque le curseur nécessite un contenu ou des styles personnalisés.
+Ajoutez `Switch.Thumb` explicitement lorsque le thumb a besoin d’un contenu ou de styles personnalisés.
 
 <ExampleFrame variant="component">
   <SwitchAdvancedCustomization />
@@ -388,11 +500,23 @@ Ajoutez `Switch.Thumb` explicitement lorsque le curseur nécessite un contenu ou
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/switch/advanced-customization.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={switchSolidAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -402,8 +526,10 @@ Ajoutez `Switch.Thumb` explicitement lorsque le curseur nécessite un contenu ou
 
 ## Styles
 
-Stylisez `Switch` avec `className`, les hooks publics `data-slot`, les attributs d’état d’Ark et les variables CSS
-publiques `--moduix-switch-*` présentées ci-dessous.
+Stylisez `Switch` avec `className` en React ou `class` en Solid, les hooks publics `data-slot` et les attributs d’état Ark,
+ainsi que les variables CSS publiques `--moduix-switch-*` présentées ci-dessous. Les variantes Tailwind utilisent
+des utilitaires et des classes supplémentaires ; les variables ci-dessous concernent CSS Modules, tandis que les attributs de données sont
+communs aux deux approches.
 
 ### Propriétés CSS
 
@@ -421,10 +547,11 @@ publiques `--moduix-switch-*` présentées ci-dessous.
 
 ### Points d’accroche CSS
 
-- `Switch` et `Switch.RootProvider` exposent `data-slot="switch-root"` / `data-slot="switch-root-provider"` et
-  définissent l’attribut `data-size` de moduix.
-- `Switch.Control` expose `data-slot="switch-control"` et reçoit les attributs d’état Ark comme `data-state`,
-  `data-focus-visible`, `data-hover`, `data-active`, `data-disabled`, `data-readonly`, `data-invalid` et `data-required`.
-- `Switch.Thumb` expose `data-slot="switch-thumb"` et reçoit les mêmes attributs d’état Ark pour le déplacement du
-  curseur et les styles du contenu personnalisé.
-- `Switch.Label` expose `data-slot="switch-label"` pour remplacer les styles typographiques.
+- `Switch` et `Switch.RootProvider` exposent `data-slot="switch-root"` /
+  `data-slot="switch-root-provider"` et définissent l’attribut `data-size` de moduix.
+- `Switch.Control` expose `data-slot="switch-control"` et reçoit les attributs d’état Ark comme
+  `data-state`, `data-focus-visible`, `data-hover`, `data-active`, `data-disabled`, `data-readonly`,
+  `data-invalid` et `data-required`.
+- `Switch.Thumb` expose `data-slot="switch-thumb"` et reçoit les mêmes attributs d’état Ark pour
+  le déplacement du thumb et le style de son contenu personnalisé.
+- `Switch.Label` expose `data-slot="switch-label"` pour personnaliser la typographie.

@@ -14,6 +14,15 @@ import RatingGroupForms from '@/components/examples/rating-group/forms.tsx';
 import RatingGroupHalfRating from '@/components/examples/rating-group/half-rating.tsx';
 import RatingGroupSizes from '@/components/examples/rating-group/sizes.tsx';
 import RatingGroupAdvancedCustomization from '@/components/examples/rating-group/advanced-customization.tsx';
+import ratingGroupSolidAdvancedCustomization from '../../../snippets/rating-group/solid/advanced-customization.tsx?raw';
+import ratingGroupSolidBasic from '../../../snippets/rating-group/solid/basic.tsx?raw';
+import ratingGroupSolidControlled from '../../../snippets/rating-group/solid/controlled.tsx?raw';
+import ratingGroupSolidCustomIcon from '../../../snippets/rating-group/solid/custom-icon.tsx?raw';
+import ratingGroupSolidDisabledAndReadonly from '../../../snippets/rating-group/solid/disabled-and-readonly.tsx?raw';
+import ratingGroupSolidField from '../../../snippets/rating-group/solid/field.tsx?raw';
+import ratingGroupSolidForms from '../../../snippets/rating-group/solid/forms.tsx?raw';
+import ratingGroupSolidHalfRating from '../../../snippets/rating-group/solid/half-rating.tsx?raw';
+import ratingGroupSolidSizes from '../../../snippets/rating-group/solid/sizes.tsx?raw';
 
 Use `RatingGroup` when people need to choose a numeric score from a row of stars or another repeated icon.
 
@@ -23,8 +32,13 @@ Use `RatingGroup` when people need to choose a numeric score from a row of stars
 
 ## Basic
 
-For the common case, use the shorthand with `RatingGroup.Label`, `RatingGroup.Control`, and
-`RatingGroup.Items`.
+`RatingGroup` ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered
+preview on this page uses the React CSS Modules package; the framework tabs show native source for
+the same public contract.
+
+Use `RatingGroup` as the root and add `RatingGroup.Label`, `RatingGroup.Control`, and
+`RatingGroup.Items` for the standard star rating. Render `RatingGroup.HiddenInput` explicitly when
+the value should participate in native form submission.
 
 <ExampleFrame variant="component">
   <RatingGroupBasic />
@@ -32,11 +46,20 @@ For the common case, use the shorthand with `RatingGroup.Label`, `RatingGroup.Co
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/rating-group/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={ratingGroupSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -46,7 +69,30 @@ For the common case, use the shorthand with `RatingGroup.Label`, `RatingGroup.Co
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="rating-group" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/rating-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/rating-group' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/rating-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/rating-group' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+See [Quick Start](/docs/quick-start) for full package setup and registry configuration.
 
 ## Anatomy
 
@@ -54,92 +100,49 @@ For the common case, use the shorthand with `RatingGroup.Label`, `RatingGroup.Co
 RatingGroup / RatingGroup.Root
 ├─ RatingGroup.Label
 └─ RatingGroup.Control
-   ├─ RatingGroup.Items (recommended)
+   ├─ RatingGroup.Items
    │  └─ RatingGroup.Item[index]
    │     └─ RatingGroup.ItemIndicator
-   ├─ RatingGroup.Context (advanced, optional)
+   ├─ RatingGroup.Context
    │  └─ RatingGroup.Item[index]
    │     └─ RatingGroup.ItemIndicator
-    └─ RatingGroup.HiddenInput (explicit)
+   └─ RatingGroup.HiddenInput (explicit)
 
 RatingGroup.RootProvider
 └─ same part tree connected to a moduix useRatingGroup() store
 ```
 
-| Part                               | Role                                                      |
-| ---------------------------------- | --------------------------------------------------------- |
+| Part                               | Role                                                               |
+| ---------------------------------- | ------------------------------------------------------------------ |
 | `RatingGroup` / `RatingGroup.Root` | Owns rating state, keyboard navigation, focus, and form integration. |
-| `RatingGroup.HiddenInput` | Native Ark form control; compose explicitly as described below. |
-| `RatingGroup.RootProvider`         | Connects the parts to state created with `useRatingGroup()`.       |
-| `RatingGroup.Context`              | Render-prop access to the current root state.                      |
-| `RatingGroup.ItemContext`          | Render-prop access to the current item state.                      |
-| `RatingGroup.Label`                | Accessible label for the rating group.                             |
-| `RatingGroup.Control`              | Groups the interactive rating items.                               |
-| `RatingGroup.Items`                | Creates one item for each value and supplies the default star.     |
-| `RatingGroup.Item`                 | One selectable rating item; requires a numeric `index`.            |
-| `RatingGroup.ItemIndicator`        | The default moduix star visual that reflects the item's state.      |
+| `RatingGroup.HiddenInput`          | Native Ark form control that must be composed explicitly.          |
+| `RatingGroup.RootProvider`          | Connects the parts to state created with `useRatingGroup()`.       |
+| `RatingGroup.Context`               | Render-prop access to the current root state.                      |
+| `RatingGroup.ItemContext`           | Render-prop access to the current item state.                      |
+| `RatingGroup.Label`                 | Accessible label for the rating group.                             |
+| `RatingGroup.Control`               | Groups the interactive rating items.                               |
+| `RatingGroup.Items`                 | Creates one item for each value and supplies the default star.     |
+| `RatingGroup.Item`                  | One selectable rating item; requires a numeric `index`.            |
+| `RatingGroup.ItemIndicator`         | The default moduix star visual for an item.                        |
 
 ## Composition
 
-### Native form control
+Use `RatingGroup.Items` for the standard generated item tree. To replace the repeated visual, pass a
+custom `RatingGroup.ItemIndicator` as its child. `RatingGroup.HiddenInput` is independent of
+`Items`, so compose it explicitly inside the root or `RatingGroup.RootProvider`; set `name` on the
+root when the value should be submitted by a native form.
 
-`RatingGroup.HiddenInput` is Ark's native input, exposed directly. Render it explicitly inside
-`RatingGroup` or `RatingGroup.RootProvider`; the root does not add it. Set `name` on the root
-to include the value in native form submission.
-
-For a form outside the component tree, set `form` on the root.
-
-### Recommended composition
-
-`RatingGroup` is the short root form of `RatingGroup.Root`. It keeps rating state, focus management,
-labels, form integration, and keyboard and pointer behavior in one place. For the standard star UI,
-add `RatingGroup.Items`; it creates an item for each value up to `count` and supplies the default star
-indicator. Add `RatingGroup.HiddenInput` explicitly for native form behavior. To change the icon while keeping
-the same interaction, pass a custom `RatingGroup.ItemIndicator` as the child of `RatingGroup.Items`.
-
-### When to go custom
-
-Use `RatingGroup.Context` or `RatingGroup.ItemContext` when you need to render your own item tree or
-build visuals from the current root or item state. For the same state in a custom component, use
-`useRatingGroupContext()` or `useRatingGroupItemContext()` from `@moduix/react`. Use
-`RatingGroup.RootProvider` with `useRatingGroup()` when the rating state must be created outside the
-rendered tree.
-
-The Ark DOM parts exposed by the component support `asChild`. Keep the direct child a single semantic
-element that can preserve the part's focus and interaction behavior. `RatingGroup.ItemIndicator` is
-a moduix visual helper and does not replace an Ark DOM part.
-
-### Default props
-
-| Surface                     | Default | Notes                                                        |
-| --------------------------- | ------- | ------------------------------------------------------------ |
-| `count`                     | `5`     | Number of rating items.                                     |
-| `size`                      | `md`    | moduix styling size: `xs`, `sm`, `md`, `lg`, or `xl`.        |
-| `RatingGroup.Items`         | -       | Creates items from `1` through `count`.                     |
-| `RatingGroup.ItemIndicator` | star    | Renders layered background and foreground stars by default. |
-
-### Behavioral notes
-
-- `value` and `defaultValue` are numbers. Use `defaultValue` for an uncontrolled rating.
-- `onValueChange(details)` receives Ark details; read the selected value from `details.value`.
-- `onHoverChange(details)` receives Ark hover details; use them for a live preview or related UI.
-- `allowHalf` enables half-step selection and half-star rendering.
-- `autoFocus` focuses the rating when it mounts.
-- `name`, `form`, and `required` apply to the explicitly composed `RatingGroup.HiddenInput`.
-- `disabled` and `readOnly` are handled by Ark and reflected through data attributes.
-- Ark handles keyboard navigation. `ArrowRight` and `ArrowLeft` move between items, and `Enter`
-  selects the focused item. With `allowHalf`, the arrow keys also move in half-step increments.
-- Use `ids` to provide deterministic IDs for composed markup and `translations` to customize Ark's
-  localized accessible messages.
-
-Refs on `Root`, `RootProvider`, `Label`, `Control`, and `Item` point to their corresponding Ark DOM
-parts. `ItemIndicator` forwards its ref to its own visual wrapper.
+For a custom item tree, use `RatingGroup.Context` with `RatingGroup.Item`; use
+`RatingGroup.RootProvider` with `useRatingGroup()` when the store must be created outside the
+rendered tree. React reads the store as an object, while Solid reads its reactive state through the
+returned accessor.
 
 ## Examples
 
 ### Controlled
 
-Use controlled mode when the score depends on other state, drives nearby UI, or must be reset by a parent.
+Manage `value` with `useState` in React or `createSignal` in Solid when the score depends on other
+state, drives nearby UI, or must be reset by a parent.
 
 <ExampleFrame variant="component">
   <RatingGroupControlled />
@@ -147,20 +150,28 @@ Use controlled mode when the score depends on other state, drives nearby UI, or 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/rating-group/controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/rating-group/component-controlled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={ratingGroupSolidControlled} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/rating-group/component-controlled.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -177,20 +188,28 @@ attributes for styling.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/rating-group/custom-icon.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/rating-group/component-custom-icon.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={ratingGroupSolidCustomIcon} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/rating-group/component-custom-icon.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -206,20 +225,28 @@ changes.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/rating-group/disabled-and-readonly.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/rating-group/component-disabled-and-readonly.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={ratingGroupSolidDisabledAndReadonly} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/rating-group/component-disabled-and-readonly.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -227,8 +254,8 @@ changes.
 ### Field
 
 Wrap the rating group in `Field` when helper or validation text should be associated with its
-`RatingGroup.HiddenInput`. Ark inherits `disabled`, `readOnly`, and `required` from the field; validation state remains
-owned by `Field` and application code.
+`RatingGroup.HiddenInput`. Ark inherits `disabled`, `readOnly`, and `required` from the field;
+validation state remains owned by `Field` and application code.
 
 <ExampleFrame variant="component">
   <RatingGroupField />
@@ -236,27 +263,36 @@ owned by `Field` and application code.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/rating-group/field.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/rating-group/component-field.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={ratingGroupSolidField} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/rating-group/component-field.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Forms
 
-Pass `name` and render `RatingGroup.HiddenInput` when the selected score should be included in `FormData`.
+Pass `name` and render `RatingGroup.HiddenInput` when the selected score should be included in
+`FormData`.
 
 <ExampleFrame variant="component">
   <RatingGroupForms />
@@ -264,20 +300,28 @@ Pass `name` and render `RatingGroup.HiddenInput` when the selected score should 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/rating-group/forms.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/rating-group/component-forms.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={ratingGroupSolidForms} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/rating-group/component-forms.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -292,11 +336,20 @@ Set `allowHalf` to enable half-step selection and rendering.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/rating-group/half-rating.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={ratingGroupSolidHalfRating} />
 
     </Tab>
   </Tabs>
@@ -306,7 +359,8 @@ Set `allowHalf` to enable half-step selection and rendering.
 
 ### Sizes
 
-Use the moduix `size` prop when the rating needs to keep the same Ark behavior at a different visual density.
+Use the moduix `size` prop when the rating needs to keep the same Ark behavior at a different visual
+density.
 
 <ExampleFrame variant="component">
   <RatingGroupSizes />
@@ -314,29 +368,37 @@ Use the moduix `size` prop when the rating needs to keep the same Ark behavior a
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/rating-group/sizes.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/rating-group/component-sizes.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={ratingGroupSolidSizes} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/rating-group/component-sizes.module.css"
+```
 </div>
 
 </ExampleCode>
 
-### Advanced Composition
+### Advanced Customization
 
-Use `RatingGroup.RootProvider` with `useRatingGroup()` when the rating state must be created outside the
-rendered rating tree. Use `RatingGroup.Context` when `RatingGroup.Items` is not enough and you need to
-render each item yourself.
+Use `RatingGroup.RootProvider` with `useRatingGroup()` when the rating state must be created outside
+the rendered rating tree. Use `RatingGroup.Context` when `RatingGroup.Items` is not enough and you
+need to render each item yourself.
 
 <ExampleFrame variant="component">
   <RatingGroupAdvancedCustomization />
@@ -344,29 +406,39 @@ render each item yourself.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/rating-group/advanced-customization.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/rating-group/component-advanced-customization.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={ratingGroupSolidAdvancedCustomization} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/rating-group/component-advanced-customization.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Styling
 
-Style `RatingGroup` with `className`, Ark `data-scope="rating-group"` and `data-part` attributes,
-Ark state attributes, moduix `data-slot` hooks, and the registered `--moduix-rating-group-*` CSS
-variables.
+Use `className` in React or `class` in Solid on exported parts for structural styles. Ark also exposes
+`data-scope="rating-group"` and `data-part` attributes. For state-based styles, use data attributes such as `data-disabled`, `data-readonly`, `data-checked`,
+`data-highlighted`, and `data-half`, together with moduix `data-slot` hooks. Tailwind variants use
+native utilities and consumer classes; the CSS Modules variants also expose the registered
+`--moduix-rating-group-*` variables.
 
 ### CSS Properties
 
