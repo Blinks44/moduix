@@ -117,6 +117,9 @@ importers:
 
   packages/react-tailwind:
     dependencies:
+      '@unpic/react':
+        specifier: ^1.0.2
+        version: 1.0.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@zag-js/hotkeys':
         specifier: 1.43.3
         version: 1.43.3
@@ -266,6 +269,9 @@ importers:
 
   packages/solid-tailwind:
     dependencies:
+      '@unpic/core':
+        specifier: ^1.0.3
+        version: 1.0.3
       '@zag-js/hotkeys':
         specifier: 1.43.3
         version: 1.43.3

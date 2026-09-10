@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "image",
+  "title": "Image",
+  "description": "moduix React Tailwind Image component.",
+  "dependencies": ["@unpic/react", "clsx", "tailwind-merge"],
+  "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+  "files": [
+    {
+      "path": "src/components/image/Image.tsx",
+      "content": "import type { ImageProps as UnpicImageProps, SourceProps as UnpicSourceProps } from '@unpic/react';\nimport { Image as ImagePrimitive, Source as ImageSourcePrimitive } from '@unpic/react';\nimport {\n  forwardRef,\n  type CSSProperties,\n  type ForwardRefExoticComponent,\n  type RefAttributes,\n} from 'react';\nimport { cn } from '@/lib/moduix/cn';\n\ntype ImageProps = UnpicImageProps & { style?: CSSProperties };\n\nconst ImageRoot = forwardRef<HTMLImageElement, ImageProps>(function ImageRoot(\n  { className, fetchPriority, fetchpriority, ...props },\n  ref,\n) {\n  return (\n    <ImagePrimitive\n      ref={ref}\n      {...(props as UnpicImageProps)}\n      fetchpriority={(fetchPriority ?? fetchpriority) as 'high' | 'low' | undefined}\n      data-slot=\"image-root\"\n      className={cn('rounded-md', className)}\n    />\n  );\n});\n\nconst ImageSource: ForwardRefExoticComponent<UnpicSourceProps & RefAttributes<HTMLSourceElement>> =\n  forwardRef<HTMLSourceElement, UnpicSourceProps>(function ImageSource(props, ref) {\n    return <ImageSourcePrimitive ref={ref} {...props} data-slot=\"image-source\" />;\n  });\n\ntype ImageComponent = typeof ImageRoot & {\n  Root: typeof ImageRoot;\n  Source: typeof ImageSource;\n};\n\nconst Image: ImageComponent = Object.assign(ImageRoot, {\n  Root: ImageRoot,\n  Source: ImageSource,\n});\n\nexport { Image };",
+      "type": "registry:component",
+      "target": "@components/ui/image/Image.tsx"
+    },
+    {
+      "path": "src/components/image/index.ts",
+      "content": "export * from './Image.js';",
+      "type": "registry:component",
+      "target": "@components/ui/image/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

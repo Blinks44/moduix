@@ -531,6 +531,31 @@
       ]
     },
     {
+      "name": "lightbox",
+      "type": "registry:item",
+      "title": "Lightbox",
+      "description": "moduix React Tailwind Lightbox component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-react-tailwind/foundation",
+        "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/close-button",
+        "@moduix-react-tailwind/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/lightbox/Lightbox.tsx",
+          "target": "@components/ui/lightbox/Lightbox.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/index.ts",
+          "target": "@components/ui/lightbox/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "empty",
       "type": "registry:item",
       "title": "Empty",
@@ -734,6 +759,46 @@
       ]
     },
     {
+      "name": "image",
+      "type": "registry:item",
+      "title": "Image",
+      "description": "moduix React Tailwind Image component.",
+      "dependencies": ["@unpic/react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/image/Image.tsx",
+          "target": "@components/ui/image/Image.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/image/index.ts",
+          "target": "@components/ui/image/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "image-cropper",
+      "type": "registry:item",
+      "title": "ImageCropper",
+      "description": "moduix React Tailwind ImageCropper component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/image-cropper/ImageCropper.tsx",
+          "target": "@components/ui/image-cropper/ImageCropper.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/image-cropper/index.ts",
+          "target": "@components/ui/image-cropper/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "input",
       "type": "registry:item",
       "title": "Input",
@@ -749,6 +814,31 @@
         {
           "path": "src/components/input/index.ts",
           "target": "@components/ui/input/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "input-group",
+      "type": "registry:item",
+      "title": "InputGroup",
+      "description": "moduix React Tailwind InputGroup component.",
+      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-react-tailwind/foundation",
+        "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/button",
+        "@moduix-react-tailwind/input"
+      ],
+      "files": [
+        {
+          "path": "src/components/input-group/InputGroup.tsx",
+          "target": "@components/ui/input-group/InputGroup.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/input-group/index.ts",
+          "target": "@components/ui/input-group/index.ts",
           "type": "registry:component"
         }
       ]

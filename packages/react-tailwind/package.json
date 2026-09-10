@@ -170,13 +170,29 @@
       "types": "./dist/components/hover-card/index.d.ts",
       "import": "./dist/components/hover-card/index.js"
     },
+    "./image": {
+      "types": "./dist/components/image/index.d.ts",
+      "import": "./dist/components/image/index.js"
+    },
+    "./image-cropper": {
+      "types": "./dist/components/image-cropper/index.d.ts",
+      "import": "./dist/components/image-cropper/index.js"
+    },
     "./input": {
       "types": "./dist/components/input/index.d.ts",
       "import": "./dist/components/input/index.js"
     },
+    "./input-group": {
+      "types": "./dist/components/input-group/index.d.ts",
+      "import": "./dist/components/input-group/index.js"
+    },
     "./kbd": {
       "types": "./dist/components/kbd/index.d.ts",
       "import": "./dist/components/kbd/index.js"
+    },
+    "./lightbox": {
+      "types": "./dist/components/lightbox/index.d.ts",
+      "import": "./dist/components/lightbox/index.js"
     },
     "./menu": {
       "types": "./dist/components/menu/index.d.ts",
@@ -221,6 +237,7 @@
     "tsc:check": "tsc --noEmit"
   },
   "dependencies": {
+    "@unpic/react": "^1.0.2",
     "@zag-js/hotkeys": "1.43.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
