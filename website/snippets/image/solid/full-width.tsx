@@ -1,0 +1,12 @@
+import { Image } from '@moduix/solid/image';
+
+export default function FullWidthImageDemo() {
+  return (
+    <Image
+      src="https://images.unsplash.com/photo-1497366754035-f200968a6e72"
+      alt="Sunlit modern office interior"
+      layout="fullWidth"
+      height={360}
+    />
+  );
+}

@@ -1,7 +1,6 @@
 import type { CssPropertyInput } from '../../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
-const inputGroupOverrideCssProperties: CssPropertyInput[] = [
+export const inputGroupOverrideCssProperties: CssPropertyInput[] = [
   [
     '--moduix-input-group-addon-bg',
     'var(--moduix-color-muted)',
@@ -236,16 +235,3 @@ const inputGroupOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--moduix-input-group-width', '100%', 'Controls group width.'],
 ];
-
-export function InputGroupCssPropertiesPanel() {
-  return (
-    <CSSPropertiesReferenceTable
-      properties={inputGroupOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-const normalizeCssProperty = (property: CssPropertyInput) =>
-  'name' in property
-    ? property
-    : { name: property[0], defaultValue: property[1], description: property[2] };

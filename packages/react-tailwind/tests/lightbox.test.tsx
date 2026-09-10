@@ -245,5 +245,6 @@ test('applies component-owned visual utilities to every visual part', () => {
   );
   expect(document.querySelector('[data-slot="lightbox-gallery"]')).toHaveClass(
     'justify-self-center',
+    '[&_[data-slot=carousel-indicator-group]]:mx-auto',
   );
 });

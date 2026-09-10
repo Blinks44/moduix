@@ -9,18 +9,27 @@ import ImageArtDirection from '@/components/examples/image/art-direction.tsx';
 import ImageBasic from '@/components/examples/image/basic.tsx';
 import ImageFixed from '@/components/examples/image/fixed.tsx';
 import ImageFullWidth from '@/components/examples/image/full-width.tsx';
+import imageSolidArtDirection from '../../../snippets/image/solid/art-direction.tsx?raw';
+import imageSolidBasic from '../../../snippets/image/solid/basic.tsx?raw';
+import imageSolidFixed from '../../../snippets/image/solid/fixed.tsx?raw';
+import imageSolidFullWidth from '../../../snippets/image/solid/full-width.tsx?raw';
 
 ## Справочник API
 
 Компонент `Image` в moduix представляет собой лёгкую обёртку над компонентом `<img>` из [Unpic React](https://unpic.pics/img/react/).
-В Ark UI нет отдельного примитива для изображений. Поэтому `Image` использует нативную композицию `<img>` и `<picture>`,
-а не композицию из частей Ark UI. Подробнее о модели нативных элементов рассказывает [руководство Ark по композиции](https://ark-ui.com/docs/guides/composition).
+В Ark UI нет отдельного примитива для изображений. Поэтому `Image` использует нативную композицию `<img>` и `<picture>`
+вместо части Ark UI. Подробнее о модели нативных элементов рассказывает [руководство Ark по композиции](https://ark-ui.com/docs/guides/composition).
 
 ## Базовый пример
 
-Используйте `Image` с URL из поддерживаемого CDN или с обычным URL изображения. В режиме `layout="constrained"` укажите
-`width` и `height`. Если Unpic распознаёт провайдера, он генерирует адаптивные атрибуты `srcset` и `sizes`. Для остальных
-URL Unpic сохраняет исходный адрес без изменений. Браузер заранее резервирует место под изображение до его загрузки.
+`Image` доступен для React и Solid в вариантах с CSS Modules и Tailwind. Пример на этой странице
+отрисовывается пакетом React CSS Modules, а во вкладках показан нативный исходный код для обоих
+фреймворков с тем же публичным контрактом.
+
+Используйте `Image` с URL из поддерживаемого CDN или с обычным URL изображения. В режиме
+`layout="constrained"` укажите `width` и `height`. Если Unpic распознаёт провайдера, он генерирует
+адаптивные атрибуты `srcset` и `sizes`. Для остальных URL Unpic сохраняет исходный адрес без изменений.
+Браузер заранее резервирует место под изображение до его загрузки.
 
 <ExampleFrame variant="component">
   <ImageBasic />
@@ -28,11 +37,23 @@ URL Unpic сохраняет исходный адрес без изменени
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/image/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={imageSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -42,7 +63,30 @@ URL Unpic сохраняет исходный адрес без изменени
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="image" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/image' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/image' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/image' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/image' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+Полную информацию об установке пакета и выборе варианта стилизации смотрите в разделе [Быстрый старт](/docs/quick-start).
 
 ## Анатомия
 
@@ -55,73 +99,26 @@ picture (native)
 └─ Image / Image.Root
 ```
 
-| Часть                  | Роль                                                                            |
-| ---------------------- | ------------------------------------------------------------------------------ |
+| Часть                  | Роль                                                                   |
+| ---------------------- | ---------------------------------------------------------------------- |
 | `Image` / `Image.Root` | Адаптивный нативный элемент `<img>`; Unpic генерирует `srcset`, `sizes` и стили. |
-| `Image.Source`         | Адаптивный `<source>` для нативного элемента `<picture>`.                      |
+| `Image.Source`         | Адаптивный `<source>` для нативного элемента `<picture>`.              |
 
 ## Композиция
 
-### Рекомендуемая композиция
-
-Короткая запись `Image` соответствует корневому компоненту `Image.Root`. Для режимов `layout="constrained"` и
-`layout="fixed"` укажите `width` и `height`, чтобы браузер зарезервировал место перед загрузкой. В режиме
-`constrained` эти размеры сохраняют соотношение сторон и позволяют изображению уменьшаться, если контейнер стал уже.
-Если URL получен от поддерживаемого провайдера, Unpic определит его и автоматически сгенерирует `srcset` с
-преобразованными вариантами изображения.
-
-Используйте `priority` только для изображений, которые должны загрузиться сразу, например для главного изображения,
-видимого при открытии страницы. Свойство включает немедленную загрузку и повышает приоритет загрузки, если явно не задать
-нативный `loading` или React-свойство `fetchPriority` в camelCase.
-
-### Когда нужна собственная композиция
-
-Используйте нативный `<picture>` с `Image.Source`, если для разных экранов нужно менять кадрирование или выбирать разные
-источники по медиазапросам. Всегда оставляйте `Image` последним дочерним элементом. Он служит запасным изображением,
-если браузер не выберет ни один элемент `<source>`. Передавайте `fallback`, `options` или `operations`, если Unpic не
-распознаёт URL и должен использовать конкретного провайдера.
-
-Чтобы выбрать формат, поставьте `Image.Source` со значением `type` перед эквивалентным источником без `type`. Браузер
-выберет первый поддерживаемый формат.
-
-### Свойства по умолчанию
-
-| Свойство                | По умолчанию                       | Примечания                                                               |
-| ----------------------- | --------------------------------- | ------------------------------------------------------------------------ |
-| `layout`                | `constrained`                     | Вписывается в указанные размеры и при необходимости уменьшается.        |
-| `loading`               | `lazy`                            | Становится `eager`, когда задан `priority`.                              |
-| `decoding`              | `async` для изображений без `priority` | Нативное значение сохраняется; при `priority` по умолчанию не задаётся. |
-| `fetchPriority`         | `high` с `priority`                | Нативное значение переопределяет значение, заданное `priority`.         |
-| `objectFit`             | `cover`                           | Добавляется во встроенные стили, которые генерирует Unpic.               |
-| `--moduix-image-radius` | `var(--moduix-radius-md)`         | Стандартный видимый радиус скругления в moduix.                          |
-
-### Особенности поведения
-
-- `fixed` сохраняет указанные размеры в CSS-пикселях и может выходить за границы более узкого родительского контейнера,
-  а `fullWidth` заполняет ширину контейнера.
-- Для информативных изображений указывайте содержательный текст в `alt`. Для декоративных используйте `alt=""`.
-  В этом случае Unpic добавляет `role="presentation"`, если вы явно не переопределили роль.
-- Используйте `aspectRatio` вместо `width` и `height`, если нужно указать только соотношение сторон изображения.
-- Unpic генерирует `srcset` на основе URL источника. Используйте `breakpoints`, если стандартный набор адаптивных ширин
-  не подходит.
-- Unpic автоматически определяет поддерживаемые провайдеры изображений. Для остальных URL он сохраняет исходный адрес
-  без изменений, если не передать провайдер через `fallback`.
-- Нативные `loading`, `decoding` и React-свойство `fetchPriority` в camelCase остаются доступными, если нужны другие
-  настройки загрузки.
-- `background="auto"` создаёт фоновое изображение с низким разрешением для поддерживаемых провайдеров. После загрузки
-  основного изображения фон остаётся, поэтому используйте эту настройку только для непрозрачных изображений или задайте
-  собственный фон.
-- `unstyled` отключает встроенные стили раскладки, которые генерирует Unpic. Стиль отображения и скругление, а также хуки
-  `data-slot` moduix остаются доступными. Используйте эту настройку, если источникам с разным кадрированием нужны свои
-  адаптивные правила. Задайте их в собственном CSS.
+`Image` является корневым компонентом и может использоваться напрямую. Используйте `Image.Source`
+только внутри нативного `<picture>` и оставляйте `Image` последним, чтобы он оставался запасным
+изображением, если браузер не выбрал источник. Для выбора формата поставьте источник с `type`
+перед эквивалентным источником без `type`: браузер выберет первый поддерживаемый формат.
 
 ## Примеры
 
 ### Адаптивное кадрирование
 
-Используйте `Image.Source`, чтобы на больших экранах показывать широкий план офиса, а на маленьких экранах использовать
-изображение в портретной ориентации. Первый источник для больших экранов запрашивает AVIF. Следующий источник с тем же медиазапросом
-служит запасным вариантом для браузеров без поддержки AVIF. `Image.Source` должен находиться внутри нативного `<picture>`.
+Используйте `Image.Source`, чтобы на больших экранах показывать широкий план офиса, а на маленьких
+экранах использовать изображение в портретной ориентации. Первый источник для больших экранов
+запрашивает AVIF, а следующий служит запасным вариантом для браузеров без поддержки AVIF.
+`Image.Source` должен находиться внутри нативного `<picture>`.
 
 <ExampleFrame variant="component">
   <ImageArtDirection />
@@ -129,29 +126,40 @@ picture (native)
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/image/art-direction.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/image/image-art-direction.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={imageSolidArtDirection} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/image/image-art-direction.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Фиксированный размер
 
-Используйте `layout="fixed"`, когда изображение должно сохранять точные размеры в CSS-пикселях. Проверьте, что в
-родительском контейнере достаточно места: фиксированное изображение не уменьшится, чтобы поместиться в более узкий
-контейнер.
+Используйте `layout="fixed"`, когда изображение должно сохранять точные размеры в CSS-пикселях.
+Проверьте, что в родительском контейнере достаточно места: фиксированное изображение не уменьшится,
+чтобы поместиться в более узкий контейнер.
 
 <ExampleFrame variant="component">
   <ImageFixed />
@@ -159,11 +167,23 @@ picture (native)
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/image/fixed.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={imageSolidFixed} />
 
     </Tab>
   </Tabs>
@@ -173,8 +193,8 @@ picture (native)
 
 ### На всю ширину
 
-Используйте `layout="fullWidth"` для главного изображения или медиа-блока, который должен занять всю ширину контейнера.
-Передайте `height`, если высота кадрирования должна оставаться фиксированной.
+Используйте `layout="fullWidth"` для главного изображения или медиа-блока, который должен занять
+всю ширину контейнера. Передайте `height`, если высота кадрирования должна оставаться фиксированной.
 
 <ExampleFrame variant="component">
   <ImageFullWidth />
@@ -182,11 +202,23 @@ picture (native)
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/image/full-width.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={imageSolidFullWidth} />
 
     </Tab>
   </Tabs>
@@ -196,6 +228,11 @@ picture (native)
 
 ## Стилизация
 
+Используйте `className` в React или `class` в Solid на `Image` и `Image.Source` для локальной
+стилизации. Варианты Tailwind используют нативные утилиты и классы потребителя. Переменная
+`--moduix-image-radius` настраивает варианты с CSS Modules, а хуки `data-slot` общие для обоих
+вариантов стилизации.
+
 ### CSS-свойства
 
 <CssPropertiesSection properties={ImageDocs.imageCssProperties} />
@@ -204,4 +241,4 @@ picture (native)
 
 - `data-slot="image-root"` позволяет выбрать отрисованный `<img>` в CSS.
 - `data-slot="image-source"` позволяет выбрать узел `<source>` внутри нативного `<picture>`.
-- `className` у `Image` служит рекомендуемым способом локальной стилизации. Корневой элемент по умолчанию блочный.
+- `className` в React и `class` в Solid являются рекомендуемым способом локальной стилизации.

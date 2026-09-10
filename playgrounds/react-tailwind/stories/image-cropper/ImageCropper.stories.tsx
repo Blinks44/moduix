@@ -3,6 +3,7 @@ import type { ComponentProps } from 'react';
 import { useState } from 'react';
 import { Button } from '@/components/button/Button';
 import { ImageCropper, useImageCropper } from '@/components/image-cropper/ImageCropper';
+import { cn } from '@/lib/moduix/cn';
 import {
   FlipHorizontalIcon,
   RestartIcon,
@@ -19,7 +20,7 @@ const toolbarClassName =
   'inline-flex w-fit flex-wrap items-center gap-1 rounded-lg border border-border bg-muted p-1';
 const buttonClassName =
   'inline-flex min-h-8 cursor-pointer items-center justify-center gap-2 rounded-md border border-transparent bg-transparent px-3 text-muted-foreground [font:inherit] transition-[border-color,background-color,box-shadow,color] duration-200 ease-in-out hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring';
-const iconButtonClassName = 'size-8 px-0 [&>svg]:size-4';
+const iconButtonClassName = 'size-8 px-0 [&_svg]:size-4';
 const outputClassName = 'text-xs leading-4 text-muted-foreground';
 const previewClassName =
   'grid size-32 place-items-center overflow-hidden rounded-md border border-border bg-muted [&>img]:size-full [&>img]:object-cover';
@@ -81,7 +82,7 @@ export const ControlledZoom: Story = {
       <div className={stackClassName}>
         <div className={toolbarClassName}>
           <button
-            className={`${buttonClassName} ${iconButtonClassName}`}
+            className={cn(buttonClassName, iconButtonClassName)}
             type="button"
             aria-label="Zoom out"
             onClick={() => setZoom((value) => Math.max(0.5, value - 0.1))}
@@ -90,7 +91,7 @@ export const ControlledZoom: Story = {
           </button>
           <output className={outputClassName}>{zoom.toFixed(1)}x</output>
           <button
-            className={`${buttonClassName} ${iconButtonClassName}`}
+            className={cn(buttonClassName, iconButtonClassName)}
             type="button"
             aria-label="Zoom in"
             onClick={() => setZoom((value) => Math.min(3, value + 0.1))}
@@ -117,7 +118,7 @@ export const TransformControls: Story = {
           {(context) => (
             <div className={toolbarClassName}>
               <button
-                className={`${buttonClassName} ${iconButtonClassName}`}
+                className={cn(buttonClassName, iconButtonClassName)}
                 type="button"
                 aria-label="Zoom out"
                 onClick={() => context.zoomBy(-0.1)}
@@ -125,7 +126,7 @@ export const TransformControls: Story = {
                 <ZoomOutIcon />
               </button>
               <button
-                className={`${buttonClassName} ${iconButtonClassName}`}
+                className={cn(buttonClassName, iconButtonClassName)}
                 type="button"
                 aria-label="Zoom in"
                 onClick={() => context.zoomBy(0.1)}
@@ -133,7 +134,7 @@ export const TransformControls: Story = {
                 <ZoomInIcon />
               </button>
               <button
-                className={`${buttonClassName} ${iconButtonClassName}`}
+                className={cn(buttonClassName, iconButtonClassName)}
                 type="button"
                 aria-label="Rotate counterclockwise"
                 onClick={() => context.rotateBy(-90)}
@@ -141,7 +142,7 @@ export const TransformControls: Story = {
                 <RotateCcwIcon />
               </button>
               <button
-                className={`${buttonClassName} ${iconButtonClassName}`}
+                className={cn(buttonClassName, iconButtonClassName)}
                 type="button"
                 aria-label="Rotate clockwise"
                 onClick={() => context.rotateBy(90)}
@@ -149,7 +150,7 @@ export const TransformControls: Story = {
                 <RotateCwIcon />
               </button>
               <button
-                className={`${buttonClassName} ${iconButtonClassName}`}
+                className={cn(buttonClassName, iconButtonClassName)}
                 type="button"
                 aria-label="Flip horizontally"
                 onClick={() => context.flipHorizontally()}
@@ -157,7 +158,7 @@ export const TransformControls: Story = {
                 <FlipHorizontalIcon />
               </button>
               <button
-                className={`${buttonClassName} ${iconButtonClassName}`}
+                className={cn(buttonClassName, iconButtonClassName)}
                 type="button"
                 aria-label="Reset crop"
                 onClick={() => context.reset()}
@@ -189,7 +190,7 @@ export const RootProvider: Story = {
           </ImageCropper.Viewport>
         </ImageCropper.RootProvider>
         <button
-          className={`${buttonClassName} ${iconButtonClassName}`}
+          className={cn(buttonClassName, iconButtonClassName)}
           type="button"
           aria-label="Reset crop"
           onClick={() => imageCropper.reset()}

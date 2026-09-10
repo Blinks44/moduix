@@ -11,6 +11,7 @@ import {
   ZoomInIcon,
   ZoomOutIcon,
 } from '@/internal/icons/ui/Icons';
+import { cn } from '@/lib/moduix/cn';
 
 const sampleImage =
   'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=640&h=400&q=90';
@@ -19,7 +20,7 @@ const toolbarClass =
   'inline-flex w-fit flex-wrap items-center gap-1 rounded-lg border border-border bg-muted p-1';
 const buttonClass =
   'inline-flex min-h-8 cursor-pointer items-center justify-center gap-2 rounded-md border border-transparent bg-transparent px-3 text-muted-foreground [font:inherit] transition-[border-color,background-color,box-shadow,color] duration-200 ease-in-out hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring';
-const iconButtonClass = 'size-8 px-0 [&>svg]:size-4';
+const iconButtonClass = 'size-8 px-0 [&_svg]:size-4';
 const outputClass = 'text-xs leading-4 text-muted-foreground';
 const previewClass =
   'grid size-32 place-items-center overflow-hidden rounded-md border border-border bg-muted [&>img]:size-full [&>img]:object-cover';
@@ -83,7 +84,7 @@ export const ControlledZoom: Story = {
       <div class={stackClass}>
         <div class={toolbarClass}>
           <button
-            class={`${buttonClass} ${iconButtonClass}`}
+            class={cn(buttonClass, iconButtonClass)}
             type="button"
             aria-label="Zoom out"
             onClick={() => setZoom((value) => Math.max(0.5, value - 0.1))}
@@ -92,7 +93,7 @@ export const ControlledZoom: Story = {
           </button>
           <output class={outputClass}>{zoom().toFixed(1)}x</output>
           <button
-            class={`${buttonClass} ${iconButtonClass}`}
+            class={cn(buttonClass, iconButtonClass)}
             type="button"
             aria-label="Zoom in"
             onClick={() => setZoom((value) => Math.min(3, value + 0.1))}
@@ -119,7 +120,7 @@ export const TransformControls: Story = {
           {(context) => (
             <div class={toolbarClass}>
               <button
-                class={`${buttonClass} ${iconButtonClass}`}
+                class={cn(buttonClass, iconButtonClass)}
                 type="button"
                 aria-label="Zoom out"
                 onClick={() => context().zoomBy(-0.1)}
@@ -127,7 +128,7 @@ export const TransformControls: Story = {
                 <ZoomOutIcon />
               </button>
               <button
-                class={`${buttonClass} ${iconButtonClass}`}
+                class={cn(buttonClass, iconButtonClass)}
                 type="button"
                 aria-label="Zoom in"
                 onClick={() => context().zoomBy(0.1)}
@@ -135,7 +136,7 @@ export const TransformControls: Story = {
                 <ZoomInIcon />
               </button>
               <button
-                class={`${buttonClass} ${iconButtonClass}`}
+                class={cn(buttonClass, iconButtonClass)}
                 type="button"
                 aria-label="Rotate counterclockwise"
                 onClick={() => context().rotateBy(-90)}
@@ -143,7 +144,7 @@ export const TransformControls: Story = {
                 <RotateCcwIcon />
               </button>
               <button
-                class={`${buttonClass} ${iconButtonClass}`}
+                class={cn(buttonClass, iconButtonClass)}
                 type="button"
                 aria-label="Rotate clockwise"
                 onClick={() => context().rotateBy(90)}
@@ -151,7 +152,7 @@ export const TransformControls: Story = {
                 <RotateCwIcon />
               </button>
               <button
-                class={`${buttonClass} ${iconButtonClass}`}
+                class={cn(buttonClass, iconButtonClass)}
                 type="button"
                 aria-label="Flip horizontally"
                 onClick={() => context().flipHorizontally()}
@@ -159,7 +160,7 @@ export const TransformControls: Story = {
                 <FlipHorizontalIcon />
               </button>
               <button
-                class={`${buttonClass} ${iconButtonClass}`}
+                class={cn(buttonClass, iconButtonClass)}
                 type="button"
                 aria-label="Reset crop"
                 onClick={() => context().reset()}
@@ -191,7 +192,7 @@ export const RootProvider: Story = {
           </ImageCropper.Viewport>
         </ImageCropper.RootProvider>
         <button
-          class={`${buttonClass} ${iconButtonClass}`}
+          class={cn(buttonClass, iconButtonClass)}
           type="button"
           aria-label="Reset crop"
           onClick={() => imageCropper().reset()}

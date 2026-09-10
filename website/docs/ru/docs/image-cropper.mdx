@@ -5,6 +5,18 @@ description: Компонент для кадрирования и преобр�
 ---
 
 import * as ImageCropperDocs from '@/components/examples/image-cropper/css-properties';
+import imageCropperSolidAdvancedCustomization from '../../../snippets/image-cropper/solid/advanced-customization.tsx?raw';
+import imageCropperSolidAspectRatio from '../../../snippets/image-cropper/solid/aspect-ratio.tsx?raw';
+import imageCropperSolidBasic from '../../../snippets/image-cropper/solid/basic.tsx?raw';
+import imageCropperSolidCircleCrop from '../../../snippets/image-cropper/solid/circle-crop.tsx?raw';
+import imageCropperSolidControlledZoom from '../../../snippets/image-cropper/solid/controlled-zoom.tsx?raw';
+import imageCropperSolidCropPreview from '../../../snippets/image-cropper/solid/crop-preview.tsx?raw';
+import imageCropperSolidEvents from '../../../snippets/image-cropper/solid/events.tsx?raw';
+import imageCropperSolidFixedCropArea from '../../../snippets/image-cropper/solid/fixed-crop-area.tsx?raw';
+import imageCropperSolidInitialCrop from '../../../snippets/image-cropper/solid/initial-crop.tsx?raw';
+import imageCropperSolidMinAndMaxSize from '../../../snippets/image-cropper/solid/min-and-max-size.tsx?raw';
+import imageCropperSolidRootProvider from '../../../snippets/image-cropper/solid/root-provider.tsx?raw';
+import imageCropperSolidRotationFlipAndReset from '../../../snippets/image-cropper/solid/rotation-flip-and-reset.tsx?raw';
 import ImageCropperAdvancedCustomization from '@/components/examples/image-cropper/advanced-customization.tsx';
 import ImageCropperAspectRatio from '@/components/examples/image-cropper/aspect-ratio.tsx';
 import ImageCropperBasic from '@/components/examples/image-cropper/basic.tsx';
@@ -34,11 +46,16 @@ import ImageCropperRotationFlipAndReset from '@/components/examples/image-croppe
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/image-cropper/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={imageCropperSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -52,7 +69,28 @@ import ImageCropperRotationFlipAndReset from '@/components/examples/image-croppe
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="image-cropper" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/image-cropper' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/image-cropper' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/image-cropper' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/image-cropper' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -78,54 +116,18 @@ import ImageCropperRotationFlipAndReset from '@/components/examples/image-croppe
 
 ## Композиция
 
-### Рекомендуемая композиция
+Используйте `ImageCropper.CropArea` для стандартной области кадрирования. Она сама создаёт две сетки
+и все маркеры изменения размера, поэтому не принимает `children` и `asChild`. Для стилизации
+области и созданных частей используйте `className`, `gridClassName` и `handleClassName`.
 
-Для обычного сценария используйте `ImageCropper.CropArea`. Компонент сам выводит обе линии сетки и
-все маркеры изменения размера, поэтому повторять эту разметку не нужно. Передавайте `className`,
-`gridClassName` или `handleClassName`, чтобы стилизовать соответствующие части. `CropArea` сам
-создаёт дочернюю структуру, поэтому не передавайте ему `children` и `asChild`.
+Для элементов управления внутри корневого компонента используйте `ImageCropper.Context`. Создайте
+`useImageCropper()` и передайте его в `ImageCropper.RootProvider`, если панели инструментов,
+предварительному просмотру или логике формы нужен экземпляр кадрирования за пределами дерева
+компонентов. Для одного экземпляра состояния выбирайте либо `Root`, либо `RootProvider`.
 
-### Когда нужна собственная композиция
-
-Для элементов управления внутри корневого компонента используйте `ImageCropper.Context` или
-`useImageCropperContext`. Если панели инструментов, предварительному просмотру или логике формы нужен
-экземпляр компонента за пределами дерева компонентов, создайте его с помощью `useImageCropper` и
-передайте в `ImageCropper.RootProvider`. Для одного экземпляра состояния используйте только один из
-вариантов: `Root` или `RootProvider`.
-
-### Свойства по умолчанию
-
-| Свойство                | По умолчанию                             | Примечания                                                        |
-| ----------------------- | ---------------------------------------- | ----------------------------------------------------------------- |
-| `aspectRatio`           | не задано                                | Область кадрирования можно свободно изменять.                    |
-| `cropShape`             | `"rectangle"`                            | Используйте `"circle"` для аватаров.                             |
-| `initialCrop`           | вычисляется                              | Ark вычисляет начальную область по размеру области просмотра и соотношению сторон. |
-| `defaultZoom`            | `1`                                      | Начальный масштаб изображения.                                   |
-| `defaultRotation`        | `0`                                      | Начальный поворот изображения в градусах.                        |
-| `defaultFlip`            | `{ horizontal: false, vertical: false }` | Начальное состояние горизонтального и вертикального отражения.   |
-| `minZoom`               | `1`                                      | Минимальный коэффициент масштабирования.                         |
-| `maxZoom`               | `5`                                      | Максимальный коэффициент масштабирования.                        |
-| `minWidth` / `minHeight` | `40`                                   | Минимальный размер области кадрирования в пикселях.               |
-| `maxWidth` / `maxHeight` | `Infinity`                             | Максимальный размер области кадрирования в пикселях.              |
-| `nudgeStep`             | `1`                                      | Шаг перемещения области стрелками клавиатуры в пикселях.          |
-| `nudgeStepShift`        | `10`                                     | Шаг перемещения при нажатой клавише `Shift`.                      |
-| `nudgeStepCtrl`         | `50`                                     | Шаг перемещения при нажатой клавише `Ctrl` или `Cmd`.              |
-| `fixedCropArea`         | `false`                                  | Фиксирует размер и положение области кадрирования.               |
-
-### Особенности поведения
-
-Компонент измеряет область кадрирования после загрузки изображения. Перетаскивайте маркеры, чтобы
-изменить размер области, и изображение в области просмотра, чтобы панорамировать его. Клавиши со
-стрелками перемещают область, `Alt` со стрелкой изменяет её размер, `Shift` и `Ctrl`/`Cmd` используют
-соответствующие свойства шага перемещения, а `+` и `-` изменяют масштаб. При включённом
-`fixedCropArea` область остаётся на месте, а пользователь панорамирует изображение в области просмотра.
-Область исключается из порядка перехода по Tab.
-
-Корневой компонент имеет роль `role="group"`, а интерактивная область кадрирования получает
-`role="slider"`. Задайте корневому компоненту доступное имя через `aria-label` или настройте свойство
-Ark `translations`. В управляемом режиме обратные вызовы `onCropChange`, `onZoomChange`,
-`onRotationChange` и `onFlipChange` получают объекты `details` от Ark, например `details.crop`,
-`details.zoom`, `details.rotation` и `details.flip`.
+Используйте управляемые `zoom`, `rotation` или `flip` с соответствующим обратным вызовом, если
+состоянием владеет другая часть приложения. Ark передаёт новое значение в объекте `details`.
+`fixedCropArea` фиксирует область, а область просмотра становится поверхностью для панорамирования.
 
 ## Примеры
 
@@ -140,20 +142,24 @@ Ark `translations`. В управляемом режиме обратные вы
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/image-cropper/aspect-ratio.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/image-cropper/image-cropper-aspect-ratio.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={imageCropperSolidAspectRatio} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/image-cropper/image-cropper-aspect-ratio.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -168,11 +174,16 @@ Ark `translations`. В управляемом режиме обратные вы
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/image-cropper/circle-crop.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={imageCropperSolidCircleCrop} />
 
     </Tab>
   </Tabs>
@@ -191,20 +202,24 @@ Ark `translations`. В управляемом режиме обратные вы
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/image-cropper/controlled-zoom.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/image-cropper/image-cropper-controlled-zoom.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={imageCropperSolidControlledZoom} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/image-cropper/image-cropper-controlled-zoom.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -222,20 +237,24 @@ Ark `translations`. В управляемом режиме обратные вы
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/image-cropper/crop-preview.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/image-cropper/image-cropper-crop-preview.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={imageCropperSolidCropPreview} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/image-cropper/image-cropper-crop-preview.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -251,20 +270,24 @@ Ark `translations`. В управляемом режиме обратные вы
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/image-cropper/events.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/image-cropper/image-cropper-events.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={imageCropperSolidEvents} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/image-cropper/image-cropper-events.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -280,11 +303,16 @@ Ark `translations`. В управляемом режиме обратные вы
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/image-cropper/fixed-crop-area.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={imageCropperSolidFixedCropArea} />
 
     </Tab>
   </Tabs>
@@ -303,11 +331,16 @@ Ark `translations`. В управляемом режиме обратные вы
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/image-cropper/initial-crop.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={imageCropperSolidInitialCrop} />
 
     </Tab>
   </Tabs>
@@ -325,11 +358,16 @@ Ark `translations`. В управляемом режиме обратные вы
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/image-cropper/min-and-max-size.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={imageCropperSolidMinAndMaxSize} />
 
     </Tab>
   </Tabs>
@@ -348,20 +386,24 @@ Ark `translations`. В управляемом режиме обратные вы
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/image-cropper/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/image-cropper/image-cropper-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={imageCropperSolidRootProvider} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/image-cropper/image-cropper-root-provider.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -377,20 +419,24 @@ Ark `translations`. В управляемом режиме обратные вы
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/image-cropper/rotation-flip-and-reset.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/image-cropper/image-cropper-rotation-flip-and-reset.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={imageCropperSolidRotationFlipAndReset} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/image-cropper/image-cropper-rotation-flip-and-reset.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -407,11 +453,16 @@ Ark `translations`. В управляемом режиме обратные вы
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/image-cropper/advanced-customization.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={imageCropperSolidAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -420,6 +471,11 @@ Ark `translations`. В управляемом режиме обратные вы
 </ExampleCode>
 
 ## Стилизация
+
+Для структурных стилей используйте `className` в React и `class` в Solid на экспортируемых частях.
+Варианты Tailwind используют нативные классы-утилиты и пользовательские классы, а варианты CSS Modules
+настраиваются свойствами компонента ниже. Значения `data-slot` и атрибуты состояния Ark общие для
+обоих способов стилизации.
 
 ### CSS-свойства
 

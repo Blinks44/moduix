@@ -1,7 +1,7 @@
 ---
 title: Lightbox
 component: lightbox
-description: Dialog-based image previews built on Ark UI.
+description: Build accessible media previews in React or Solid with package and shadcn installation options.
 ---
 
 import * as LightboxDocs from '@/components/examples/lightbox/css-properties';
@@ -15,6 +15,16 @@ import LightboxGallery from '@/components/examples/lightbox/gallery.tsx';
 import LightboxMultipleTriggers from '@/components/examples/lightbox/multiple-triggers.tsx';
 import LightboxNonModal from '@/components/examples/lightbox/non-modal.tsx';
 import LightboxRootProviderAndContext from '@/components/examples/lightbox/root-provider-and-context.tsx';
+import lightboxSolidAdvancedCustomization from '../../../snippets/lightbox/solid/advanced-customization.tsx?raw';
+import lightboxSolidBasic from '../../../snippets/lightbox/solid/basic.tsx?raw';
+import lightboxSolidBindCmsContent from '../../../snippets/lightbox/solid/bind-cms-content.tsx?raw';
+import lightboxSolidClickToCloseImage from '../../../snippets/lightbox/solid/click-to-close-image.tsx?raw';
+import lightboxSolidControlled from '../../../snippets/lightbox/solid/controlled.tsx?raw';
+import lightboxSolidFocusAndIds from '../../../snippets/lightbox/solid/focus-and-ids.tsx?raw';
+import lightboxSolidGallery from '../../../snippets/lightbox/solid/gallery.tsx?raw';
+import lightboxSolidMultipleTriggers from '../../../snippets/lightbox/solid/multiple-triggers.tsx?raw';
+import lightboxSolidNonModal from '../../../snippets/lightbox/solid/non-modal.tsx?raw';
+import lightboxSolidRootProviderAndContext from '../../../snippets/lightbox/solid/root-provider-and-context.tsx?raw';
 
 ## API Reference
 
@@ -35,6 +45,10 @@ Use `Lightbox` when you primarily need to view images or other media in a modal 
 
 ## Basic
 
+Lightbox ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered
+preview on this page uses the React CSS Modules package; the framework tabs show native source for
+the same public contract.
+
 Build the explicit Ark UI dialog structure with `Lightbox`, `Lightbox.Trigger`,
 `Lightbox.Backdrop`, `Lightbox.Positioner`, and `Lightbox.Content`. Use `asChild` with a single
 semantic trigger element.
@@ -45,27 +59,61 @@ semantic trigger element.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/lightbox/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/lightbox/lightbox-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={lightboxSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/lightbox/lightbox-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="lightbox" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/lightbox' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/lightbox' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/lightbox' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/lightbox' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+See [Quick Start](/docs/quick-start) for package installation and registry setup.
 
 ## Anatomy
 
@@ -97,7 +145,7 @@ Lightbox.RootProvider
 | `Lightbox.Backdrop`          | Modal backdrop with Ark `data-state` and layer variables.                      |
 | `Lightbox.Positioner`        | Fixed, centered overlay container.                                             |
 | `Lightbox.Content`           | The actual Ark dialog content node.                                            |
-| `Lightbox.Title`             | Optional accessible title.                                                     |
+| `Lightbox.Title`             | Optional accessible title.                                                      |
 | `Lightbox.Description`       | Optional accessible description.                                               |
 | `Lightbox.CloseTrigger`      | Low-level Ark close trigger.                                                   |
 | `Lightbox.CloseIcon`         | Convenience wrapper that combines `CloseButton.Root` with the Ark close trigger. |
@@ -109,71 +157,18 @@ Lightbox.RootProvider
 
 ## Composition
 
-By default, the root renders `Backdrop` and `Positioner` through a portal. Use `portalled={false}`
-to render them in place, or pass `portalRef` to target a custom container. The structural parts
-remain explicit and can be styled independently.
+`Lightbox` owns Dialog state, while `Backdrop`, `Positioner`, and `Content` stay explicit. The
+overlay parts are portalled by default. Use `portalled={false}` to keep them in place or `portalRef`
+to target a custom container. Keep `CloseIcon` beside `Content` inside `Positioner` when it should
+stay pinned to the viewport rather than follow content transforms. Use `asChild` with one semantic
+element; in Solid, `asChild` is a render function that receives the props for that element.
 
-### Recommended composition
-
-Keep the modal structure explicit. `Lightbox.Content` is the actual Ark content part. It does not
-render a backdrop, positioner, image, gallery, or close button for you.
-
-Use `Lightbox.Image` for a single image. It renders a native `<img>`, accepts native image props,
-and forwards its ref to the `HTMLImageElement`. `Lightbox.Header`, `Body`, and `Footer` are optional
-layout helpers that keep text, media, and actions visually separated.
-
-Wrap `Carousel` in `Lightbox.Gallery` for a known image collection. `Gallery` provides the
-lightbox-specific viewport, arrow alignment, media sizing, and indicator layout while `Carousel`
-continues to manage all slide behavior.
-
-Render `Lightbox.CloseIcon` as a sibling of `Lightbox.Content` inside `Lightbox.Positioner` when
-you want it pinned to the viewport corner. Rendering it inside `Lightbox.Content` makes it inherit
-content transforms during entry and exit motion.
-
-### When to go custom
-
-Render custom content directly inside `Lightbox.Content` when it is not a single media frame or a
-`Carousel` gallery. Use `Lightbox.Bind` only when the source markup cannot render
-`Lightbox.Trigger`. For a structured image array, use explicit triggers and compose `Carousel`
-inside `Lightbox.Gallery`.
-
-### Default props
-
-By default, portalled content mounts lazily and unmounts after its exit animation. Set
-`unmountOnExit={false}` to keep it mounted after the first open. Set both lifecycle props to `false`
-only when the content must render eagerly on the initial page load.
-
-| Prop                     | Default    | Notes                                                               |
-| ------------------------ | ---------- | ------------------------------------------------------------------- |
-| `closeOnEscape`          | `true`     | Inherited from Ark Dialog.                                          |
-| `closeOnInteractOutside` | `true`     | Inherited from Ark Dialog.                                          |
-| `defaultOpen`            | `false`    | Uncontrolled initial state.                                         |
-| `modal`                  | `true`     | Prevents outside interaction and hides content below the lightbox.  |
-| `preventScroll`          | `true`     | Locks page scroll while the lightbox is open.                       |
-| `role`                   | `"dialog"` | Use `aria-label` or `Lightbox.Title` for an accessible name; `ids` only makes those relationships stable. |
-| `trapFocus`              | `true`     | Keeps keyboard focus inside the lightbox while it is open.          |
-| `lazyMount`              | `true`     | Defers heavy media until the first open.                             |
-| `unmountOnExit`          | `true`     | Removes overlay nodes after the exit animation.                     |
-
-### Behavioral notes
-
-`onOpenChange` and `onTriggerValueChange` use Ark's detail-object callback signature. Read
-`details.open` for controlled open state and `details.value` for galleries with multiple triggers.
-
-Use `useLightbox()` with `Lightbox.RootProvider` when controls live outside the rendered root.
-Read dialog state in child components with `useLightboxContext()`. Both APIs are available from
-`@moduix/react` and on the `Lightbox` namespace.
-
-`Lightbox.Image closeOnClick` is the supported shortcut for dismissing the overlay when the image is
-clicked. `Lightbox.Bind` connects CMS or third-party markup that cannot be wrapped in
-`Lightbox.Trigger`. Render it inside `Lightbox`; it reports the selected image through
-`onImageSelect(details)`. The details contain `src`, optional `alt`, and the source
-`HTMLImageElement` as `element`. `selector` is required and should match a semantic button or link
-so every preview remains keyboard-accessible.
-
-Other inherited Dialog props pass through unchanged, including `id`, `ids`, `initialFocusEl`,
-`finalFocusEl`, `persistentElements`, `restoreFocus`, `present`, `immediate`,
-`skipAnimationOnMount`, and outside-interaction callbacks.
+For galleries, keep the selected image and Carousel page in application state. Pass the image key to
+`Lightbox.Trigger value` and update that state from `onTriggerValueChange(details)` or
+`Carousel`'s page callback. Use `RootProvider` with `useLightbox()` when state or the opener lives
+outside the root, and read child state with `useLightboxContext()`. `Bind` is renderless and only
+selects an image from external markup, so the surrounding Lightbox still needs its explicit overlay
+parts. `Image closeOnClick` is the shortcut for closing after an image click.
 
 ## Examples
 
@@ -186,8 +181,7 @@ parent Lightbox but renders no overlay structure, so the backdrop, content, clos
 layout remain yours to compose. It reads the source from `data-lightbox-src`, then `currentSrc`, then
 `src`, and preloads it on pointer hover or keyboard focus. Use a semantic button or link for the
 matched `selector` so native keyboard activation produces the click that opens the Lightbox. If your
-server already returns a structured image array, prefer the `Lightbox.Gallery + Carousel` composition
-above.
+server already returns a structured image array, prefer the `Lightbox.Gallery + Carousel` composition.
 
 <ExampleFrame variant="component">
   <LightboxBindCmsContent />
@@ -195,20 +189,31 @@ above.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/lightbox/bind-cms-content.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/lightbox/lightbox-bind-cms-content.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={lightboxSolidBindCmsContent} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/lightbox/lightbox-bind-cms-content.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -224,27 +229,38 @@ close icon remains available and keeps the same Ark close semantics.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/lightbox/click-to-close-image.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/lightbox/lightbox-click-to-close-image.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={lightboxSolidClickToCloseImage} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/lightbox/lightbox-click-to-close-image.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Controlled
 
-Use Ark's `onOpenChange(details)` callback when synchronizing lightbox state with React.
+Use Ark's `onOpenChange(details)` callback when synchronizing lightbox state with React or Solid.
 
 <ExampleFrame variant="component">
   <LightboxControlled />
@@ -252,20 +268,31 @@ Use Ark's `onOpenChange(details)` callback when synchronizing lightbox state wit
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/lightbox/controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/lightbox/lightbox-controlled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={lightboxSolidControlled} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/lightbox/lightbox-controlled.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -282,20 +309,31 @@ after close so the focus handoff is visible.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/lightbox/focus-and-ids.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/lightbox/lightbox-focus-and-ids.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={lightboxSolidFocusAndIds} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/lightbox/lightbox-focus-and-ids.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -303,8 +341,8 @@ after close so the focus handoff is visible.
 ### Gallery
 
 When a CMS or API returns a structured array of images, keep the selected image and Carousel page in
-React state, then compose `Carousel` inside `Lightbox.Gallery`. Use `Lightbox.Trigger.value` to choose
-the initial slide and keep the Carousel page in sync as the user navigates.
+React or Solid state, then compose `Carousel` inside `Lightbox.Gallery`. Use `Lightbox.Trigger.value`
+to choose the initial slide and keep the Carousel page in sync as the user navigates.
 
 <ExampleFrame variant="component">
   <LightboxGallery />
@@ -312,20 +350,31 @@ the initial slide and keep the Carousel page in sync as the user navigates.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/lightbox/gallery.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/lightbox/lightbox-gallery.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={lightboxSolidGallery} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/lightbox/lightbox-gallery.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -341,20 +390,31 @@ component does not maintain a hidden image registry.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/lightbox/multiple-triggers.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/lightbox/lightbox-multiple-triggers.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={lightboxSolidMultipleTriggers} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/lightbox/lightbox-multiple-triggers.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -371,20 +431,31 @@ while the image is open.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/lightbox/non-modal.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/lightbox/lightbox-non-modal.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={lightboxSolidNonModal} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/lightbox/lightbox-non-modal.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -400,20 +471,31 @@ component with `useLightboxContext()`. The external opener is a regular moduix `
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/lightbox/root-provider-and-context.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/lightbox/lightbox-root-provider-and-context.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={lightboxSolidRootProviderAndContext} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/lightbox/lightbox-root-provider-and-context.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -429,20 +511,31 @@ overrides. `Backdrop`, `Positioner`, and `Content` remain explicit.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/lightbox/advanced-customization.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/lightbox/lightbox-advanced-customization.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={lightboxSolidAdvancedCustomization} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/lightbox/lightbox-advanced-customization.module.css"
+```
 </div>
 
 </ExampleCode>
