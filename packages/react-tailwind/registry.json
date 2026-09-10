@@ -556,6 +556,51 @@
       ]
     },
     {
+      "name": "listbox",
+      "type": "registry:item",
+      "title": "Listbox",
+      "description": "moduix React Tailwind Listbox component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-react-tailwind/foundation",
+        "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/icons",
+        "@moduix-react-tailwind/close-button"
+      ],
+      "files": [
+        {
+          "path": "src/components/listbox/Listbox.tsx",
+          "target": "@components/ui/listbox/Listbox.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/listbox/index.ts",
+          "target": "@components/ui/listbox/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "list",
+      "type": "registry:item",
+      "title": "List",
+      "description": "moduix React Tailwind List component.",
+      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/list/List.tsx",
+          "target": "@components/ui/list/List.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/list/index.ts",
+          "target": "@components/ui/list/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "empty",
       "type": "registry:item",
       "title": "Empty",
@@ -931,6 +976,26 @@
       ]
     },
     {
+      "name": "marquee",
+      "type": "registry:item",
+      "title": "Marquee",
+      "description": "moduix React Tailwind Marquee component.",
+      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/marquee/Marquee.tsx",
+          "target": "@components/ui/marquee/Marquee.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/marquee/index.ts",
+          "target": "@components/ui/marquee/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "menu",
       "type": "registry:item",
       "title": "Menu",
@@ -1015,6 +1080,30 @@
         {
           "path": "src/components/scroll-area/index.ts",
           "target": "@components/ui/scroll-area/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "native-select",
+      "type": "registry:item",
+      "title": "NativeSelect",
+      "description": "moduix React Tailwind NativeSelect component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-react-tailwind/foundation",
+        "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/native-select/NativeSelect.tsx",
+          "target": "@components/ui/native-select/NativeSelect.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/native-select/index.ts",
+          "target": "@components/ui/native-select/index.ts",
           "type": "registry:component"
         }
       ]

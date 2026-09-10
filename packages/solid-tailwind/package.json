@@ -270,11 +270,35 @@
       "import": "./dist/components/lightbox/index.js",
       "default": "./dist/components/lightbox/index.js"
     },
+    "./marquee": {
+      "types": "./dist/components/marquee/index.d.ts",
+      "solid": "./dist/components/marquee/index.jsx",
+      "import": "./dist/components/marquee/index.js",
+      "default": "./dist/components/marquee/index.js"
+    },
+    "./list": {
+      "types": "./dist/components/list/index.d.ts",
+      "solid": "./dist/components/list/index.jsx",
+      "import": "./dist/components/list/index.js",
+      "default": "./dist/components/list/index.js"
+    },
+    "./listbox": {
+      "types": "./dist/components/listbox/index.d.ts",
+      "solid": "./dist/components/listbox/index.jsx",
+      "import": "./dist/components/listbox/index.js",
+      "default": "./dist/components/listbox/index.js"
+    },
     "./menu": {
       "types": "./dist/components/menu/index.d.ts",
       "solid": "./dist/components/menu/index.jsx",
       "import": "./dist/components/menu/index.js",
       "default": "./dist/components/menu/index.js"
+    },
+    "./native-select": {
+      "types": "./dist/components/native-select/index.d.ts",
+      "solid": "./dist/components/native-select/index.jsx",
+      "import": "./dist/components/native-select/index.js",
+      "default": "./dist/components/native-select/index.js"
     },
     "./radio-group": {
       "types": "./dist/components/radio-group/index.d.ts",

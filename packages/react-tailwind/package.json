@@ -194,9 +194,25 @@
       "types": "./dist/components/lightbox/index.d.ts",
       "import": "./dist/components/lightbox/index.js"
     },
+    "./marquee": {
+      "types": "./dist/components/marquee/index.d.ts",
+      "import": "./dist/components/marquee/index.js"
+    },
+    "./list": {
+      "types": "./dist/components/list/index.d.ts",
+      "import": "./dist/components/list/index.js"
+    },
+    "./listbox": {
+      "types": "./dist/components/listbox/index.d.ts",
+      "import": "./dist/components/listbox/index.js"
+    },
     "./menu": {
       "types": "./dist/components/menu/index.d.ts",
       "import": "./dist/components/menu/index.js"
+    },
+    "./native-select": {
+      "types": "./dist/components/native-select/index.d.ts",
+      "import": "./dist/components/native-select/index.js"
     },
     "./radio-group": {
       "types": "./dist/components/radio-group/index.d.ts",

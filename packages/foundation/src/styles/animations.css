@@ -39,6 +39,26 @@
   }
 }
 
+@keyframes moduix-marquee-x {
+  from {
+    transform: translateX(0%);
+  }
+
+  to {
+    transform: translateX(var(--marquee-translate));
+  }
+}
+
+@keyframes moduix-marquee-y {
+  from {
+    transform: translateY(0%);
+  }
+
+  to {
+    transform: translateY(var(--marquee-translate));
+  }
+}
+
 @keyframes moduix-accordion-item-content-open {
   from {
     height: 0;
