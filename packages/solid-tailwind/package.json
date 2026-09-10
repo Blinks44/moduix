@@ -210,6 +210,30 @@
       "import": "./dist/components/fieldset/index.js",
       "default": "./dist/components/fieldset/index.js"
     },
+    "./file-upload": {
+      "types": "./dist/components/file-upload/index.d.ts",
+      "solid": "./dist/components/file-upload/index.jsx",
+      "import": "./dist/components/file-upload/index.js",
+      "default": "./dist/components/file-upload/index.js"
+    },
+    "./floating-panel": {
+      "types": "./dist/components/floating-panel/index.d.ts",
+      "solid": "./dist/components/floating-panel/index.jsx",
+      "import": "./dist/components/floating-panel/index.js",
+      "default": "./dist/components/floating-panel/index.js"
+    },
+    "./heading": {
+      "types": "./dist/components/heading/index.d.ts",
+      "solid": "./dist/components/heading/index.jsx",
+      "import": "./dist/components/heading/index.js",
+      "default": "./dist/components/heading/index.js"
+    },
+    "./hover-card": {
+      "types": "./dist/components/hover-card/index.d.ts",
+      "solid": "./dist/components/hover-card/index.jsx",
+      "import": "./dist/components/hover-card/index.js",
+      "default": "./dist/components/hover-card/index.js"
+    },
     "./input": {
       "types": "./dist/components/input/index.d.ts",
       "solid": "./dist/components/input/index.jsx",

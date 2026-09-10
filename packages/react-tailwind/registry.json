@@ -639,6 +639,101 @@
       ]
     },
     {
+      "name": "file-upload",
+      "type": "registry:item",
+      "title": "FileUpload",
+      "description": "moduix React Tailwind FileUpload component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-react-tailwind/foundation",
+        "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/icons",
+        "@moduix-react-tailwind/close-button"
+      ],
+      "files": [
+        {
+          "path": "src/components/file-upload/FileUpload.tsx",
+          "target": "@components/ui/file-upload/FileUpload.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/index.ts",
+          "target": "@components/ui/file-upload/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "floating-panel",
+      "type": "registry:item",
+      "title": "FloatingPanel",
+      "description": "moduix React Tailwind FloatingPanel component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-react-tailwind/foundation",
+        "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/icons",
+        "@moduix-react-tailwind/close-button",
+        "@moduix-react-tailwind/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/floating-panel/FloatingPanel.tsx",
+          "target": "@components/ui/floating-panel/FloatingPanel.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/index.ts",
+          "target": "@components/ui/floating-panel/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "heading",
+      "type": "registry:item",
+      "title": "Heading",
+      "description": "moduix React Tailwind Heading component.",
+      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/heading/Heading.tsx",
+          "target": "@components/ui/heading/Heading.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/heading/index.ts",
+          "target": "@components/ui/heading/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "hover-card",
+      "type": "registry:item",
+      "title": "HoverCard",
+      "description": "moduix React Tailwind HoverCard component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-react-tailwind/foundation",
+        "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/hover-card/HoverCard.tsx",
+          "target": "@components/ui/hover-card/HoverCard.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/hover-card/index.ts",
+          "target": "@components/ui/hover-card/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "input",
       "type": "registry:item",
       "title": "Input",

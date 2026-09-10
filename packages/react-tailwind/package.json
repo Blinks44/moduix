@@ -154,6 +154,22 @@
       "types": "./dist/components/fieldset/index.d.ts",
       "import": "./dist/components/fieldset/index.js"
     },
+    "./file-upload": {
+      "types": "./dist/components/file-upload/index.d.ts",
+      "import": "./dist/components/file-upload/index.js"
+    },
+    "./floating-panel": {
+      "types": "./dist/components/floating-panel/index.d.ts",
+      "import": "./dist/components/floating-panel/index.js"
+    },
+    "./heading": {
+      "types": "./dist/components/heading/index.d.ts",
+      "import": "./dist/components/heading/index.js"
+    },
+    "./hover-card": {
+      "types": "./dist/components/hover-card/index.d.ts",
+      "import": "./dist/components/hover-card/index.js"
+    },
     "./input": {
       "types": "./dist/components/input/index.d.ts",
       "import": "./dist/components/input/index.js"
