@@ -15,12 +15,26 @@ import MarqueeReverse from '@/components/examples/marquee/reverse.tsx';
 import MarqueeRtl from '@/components/examples/marquee/rtl.tsx';
 import MarqueeSpeed from '@/components/examples/marquee/speed.tsx';
 import MarqueeVertical from '@/components/examples/marquee/vertical.tsx';
+import marqueeSolidAutoFill from '../../../snippets/marquee/solid/auto-fill.tsx?raw';
+import marqueeSolidBasic from '../../../snippets/marquee/solid/basic.tsx?raw';
+import marqueeSolidEdges from '../../../snippets/marquee/solid/edges.tsx?raw';
+import marqueeSolidFiniteLoops from '../../../snippets/marquee/solid/finite-loops.tsx?raw';
+import marqueeSolidPauseOnInteraction from '../../../snippets/marquee/solid/pause-on-interaction.tsx?raw';
+import marqueeSolidProgrammaticControl from '../../../snippets/marquee/solid/programmatic-control.tsx?raw';
+import marqueeSolidReverse from '../../../snippets/marquee/solid/reverse.tsx?raw';
+import marqueeSolidRtl from '../../../snippets/marquee/solid/rtl.tsx?raw';
+import marqueeSolidSpeed from '../../../snippets/marquee/solid/speed.tsx?raw';
+import marqueeSolidVertical from '../../../snippets/marquee/solid/vertical.tsx?raw';
 
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/marquee" />
 
 ## Basic
+
+Marquee ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered
+preview on this page uses the React CSS Modules package; the framework tabs show native source for
+the same public contract.
 
 Use the short `Marquee` root and compose `Viewport`, `Content`, and `Item` inside it. Add
 `aria-label` or `translations.root` when the moving content conveys information. `Marquee`
@@ -33,27 +47,59 @@ frame. The example styles its items and limits the root width separately.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/marquee/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/marquee/marquee-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={marqueeSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/marquee/marquee-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="marquee" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/marquee' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/marquee' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/marquee' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/marquee' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
@@ -81,69 +127,14 @@ Marquee.RootProvider
 
 ## Composition
 
-### Recommended composition
+Use `Marquee` with its explicit `Viewport`, `Content`, and `Item` parts. Add `Marquee.Edge` inside the
+same root when the content should fade into the page background; each edge needs a `side`.
 
-Use the short root form, `Marquee`, and keep the Ark part tree explicit. The library supplies the
-animation keyframes and state hooks, while item visuals and root framing stay in consumer CSS.
-
-### When to go custom
-
-Use `Marquee.Edge` when the content should fade into the page background. Use moduix `useMarquee()` with
-`Marquee.RootProvider` when controls outside the marquee need the API: `pause()`, `resume()`,
-`togglePause()`, and `restart()`. Do not render `Marquee` and `Marquee.RootProvider` for the same
-state object.
-
-Use `Marquee.Context` or `useMarqueeContext()` when a control inside the marquee tree needs to read
-the current API. Use `useMarquee()` with `Marquee.RootProvider` when the state is created separately
-or shared with controls outside the tree.
-
-Use `asChild` on Ark parts when replacing the host element. Keep the replacement child semantic and
-single. Use `ids` when a custom tree needs stable root, viewport, or content ids.
-
-### Default props
-
-The table lists the defaults for the root. `Marquee.Edge` requires a `side` value, and
-`Marquee.RootProvider` requires a `value` returned by `useMarquee()`.
-
-| Prop                 | Default | Notes                                                            |
-| -------------------- | ------- | ---------------------------------------------------------------- |
-| `side`               | `start` | Use `start`, `end`, `top`, or `bottom`. Top/bottom are vertical. |
-| `speed`              | `50`    | Pixels per second. Ark calculates duration from content size.    |
-| `spacing`            | `1rem`  | Gap between content instances and items.                         |
-| `delay`              | `0`     | Delay before animation starts, in seconds.                       |
-| `loopCount`          | `0`     | `0` means infinite loops.                                        |
-| `autoFill`           | `false` | Duplicates content until the viewport is filled.                 |
-| `pauseOnInteraction` | `false` | Pauses on hover and focus. Recommended for readable content.     |
-| `reverse`            | `false` | Reverses animation direction without changing `side`.            |
-| `defaultPaused`      | `false` | Initial uncontrolled pause state.                                |
-| `paused`             | -       | Controlled pause state. Pair with `onPauseChange`.               |
-| `onPauseChange`      | -       | Receives Ark pause status details.                               |
-| `onLoopComplete`     | -       | Fires after each loop iteration.                                 |
-| `onComplete`         | -       | Fires after the final loop when `loopCount` is greater than `0`. |
-| `translations`       | -       | Localized root label. Use this or `aria-label`.                  |
-| `ids`                | -       | Stable ids for root, viewport, and content instances.            |
-| `asChild`            | -       | Preserved on every Ark part for host element replacement.        |
-| `Marquee.Edge side`  | -       | Required edge side: `start`, `end`, `top`, or `bottom`.          |
-| `RootProvider.value` | -       | Required `UseMarqueeReturn` from `useMarquee()`.                 |
-
-### Behavioral notes
-
-Use `paused` with `onPauseChange(details)` for controlled playback. `defaultPaused` only sets
-the initial state for an uncontrolled marquee. Use `loopCount`, `onLoopComplete`, and
-`onComplete` when the marquee should stop after a finite number of loops. The callback signatures
-are Ark's original signatures.
-
-Ark renders marquee semantics as a labelled region and hides cloned content from assistive
-technology. Pass a useful `aria-label` or `translations.root`. Prefer `pauseOnInteraction` when
-content is interactive or needs time to read, and avoid marquees for critical information.
-
-There is no roving focus or arrow-key navigation. When `pauseOnInteraction` is enabled, focus pauses
-the marquee and blur resumes it.
-
-When the user prefers reduced motion, moduix disables the content animation while keeping the
-marquee content available.
-
-Refs on every wrapped part are forwarded to the underlying Ark DOM element.
+Use `defaultPaused` for an uncontrolled initial state. If another part of the application owns playback,
+use `paused` with `onPauseChange(details)`. For controls outside the marquee tree, create state with
+`useMarquee()` and pass it to `Marquee.RootProvider`; do not render `Marquee` and `RootProvider` for the
+same state. Controls inside the tree can read the current API from `Marquee.Context` or
+`useMarqueeContext()`.
 
 ## Examples
 
@@ -158,20 +149,31 @@ between duplicated content instances.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/marquee/auto-fill.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/marquee/marquee-auto-fill.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={marqueeSolidAutoFill} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/marquee/marquee-auto-fill.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -187,20 +189,31 @@ decorative and does not receive pointer events.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/marquee/edges.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/marquee/marquee-edges.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={marqueeSolidEdges} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/marquee/marquee-edges.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -216,20 +229,31 @@ after the final loop.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/marquee/finite-loops.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/marquee/marquee-finite-loops.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={marqueeSolidFiniteLoops} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/marquee/marquee-finite-loops.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -244,20 +268,31 @@ Use `pauseOnInteraction` to pause while the user hovers the marquee or focuses c
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/marquee/pause-on-interaction.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/marquee/marquee-pause-on-interaction.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={marqueeSolidPauseOnInteraction} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/marquee/marquee-pause-on-interaction.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -273,20 +308,31 @@ or restart playback.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/marquee/programmatic-control.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/marquee/marquee-programmatic-control.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={marqueeSolidProgrammaticControl} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/marquee/marquee-programmatic-control.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -302,20 +348,31 @@ orientation.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/marquee/reverse.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/marquee/marquee-reverse.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={marqueeSolidReverse} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/marquee/marquee-reverse.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -331,20 +388,31 @@ the configured direction.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/marquee/rtl.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/marquee/marquee-rtl.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={marqueeSolidRtl} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/marquee/marquee-rtl.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -359,20 +427,31 @@ Control motion with `speed`, measured in pixels per second. Lower values are eas
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/marquee/speed.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/marquee/marquee-speed.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={marqueeSolidSpeed} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/marquee/marquee-speed.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -388,20 +467,31 @@ Set `side="top"` or `side="bottom"` for vertical marquees. The root uses
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/marquee/vertical.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/marquee/marquee-vertical.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={marqueeSolidVertical} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/marquee/marquee-vertical.module.css"
+```
 </div>
 
 </ExampleCode>

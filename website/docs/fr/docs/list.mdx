@@ -12,13 +12,20 @@ import ListNativeItems from '@/components/examples/list/native-items.tsx';
 import ListOrdered from '@/components/examples/list/ordered.tsx';
 import ListRootAsChild from '@/components/examples/list/root-as-child.tsx';
 import ListTone from '@/components/examples/list/tone.tsx';
+import listSolidBasic from '../../../snippets/list/solid/basic.tsx?raw';
+import listSolidCustomComposition from '../../../snippets/list/solid/custom-composition.tsx?raw';
+import listSolidMarkerless from '../../../snippets/list/solid/markerless.tsx?raw';
+import listSolidNativeItems from '../../../snippets/list/solid/native-items.tsx?raw';
+import listSolidOrdered from '../../../snippets/list/solid/ordered.tsx?raw';
+import listSolidRootAsChild from '../../../snippets/list/solid/root-as-child.tsx?raw';
+import listSolidTone from '../../../snippets/list/solid/tone.tsx?raw';
 
 ## Référence de l’API
 
-Ark UI ne fournit pas de primitive dédiée pour les listes. moduix s’appuie sur Ark factory pour composer des éléments
-natifs `ul`, `ol` et `li`. Consultez les guides d’Ark sur la [composition](https://ark-ui.com/docs/guides/composition),
-les [styles](https://ark-ui.com/docs/guides/styling) et la [transmission des refs](https://ark-ui.com/docs/guides/ref)
-pour connaître le modèle sous-jacent.
+Ark UI ne fournit pas de primitive dédiée pour les listes. moduix s’appuie sur l’[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory)
+pour composer des éléments natifs `ul`, `ol` et `li`. Consultez les guides d’Ark sur la
+[composition](https://ark-ui.com/docs/guides/composition), les [styles](https://ark-ui.com/docs/guides/styling) et
+la [transmission des refs](https://ark-ui.com/docs/guides/ref) pour connaître le modèle sous-jacent.
 
 ## Choisir le bon composant
 
@@ -31,9 +38,13 @@ Si l’utilisateur doit parcourir la liste au clavier et sélectionner une ou pl
 
 ## Exemple de base
 
-`List` rend un élément `<ul>` sémantique par défaut. Utilisez `List.Item` si vous avez besoin de son slot stable et
+`List` est disponible pour React et Solid dans les paquets CSS Modules et Tailwind. L’aperçu de cette page utilise
+le paquet React avec CSS Modules ; les onglets de framework affichent le code natif correspondant au même contrat public.
+
+`List` rend un élément `<ul>` sémantique par défaut. Utilisez `List.Item` si vous avez besoin de sa partie stable et
 de ses points d’accroche CSS, ou passez directement des éléments `<li>` natifs si ce wrapper ne vous est pas utile.
-La racine `List` gère l’espacement, la typographie, la tonalité et les marqueurs.
+La racine `List` gère l’espacement, la typographie, la tonalité et les marqueurs. Laissez `marker` absent pour le
+mode sémantique par défaut, ou définissez explicitement `disc`, `decimal` ou `none`.
 
 <ExampleFrame variant="component">
   <ListBasic />
@@ -41,85 +52,82 @@ La racine `List` gère l’espacement, la typographie, la tonalité et les marqu
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/list/basic.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listSolidBasic} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="list" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/list' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/list' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/list' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/list' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
-
-La composition courante est simple :
 
 ```text
 List / List.Root
 └─ List.Item | li
 ```
 
-| Partie               | Rôle                                                                                              |
-| -------------------- | ------------------------------------------------------------------------------------------------- |
+| Partie               | Rôle                                                                                                  |
+| -------------------- | ----------------------------------------------------------------------------------------------------- |
 | `List` / `List.Root` | Racine sémantique de la liste, qui rend `ul` ou `ol` et contrôle les marqueurs, l’espacement, la taille et la tonalité. |
 | `List.Item`          | Partie facultative qui rend `li`, transmet les attributs natifs et la ref, et prend en charge `asChild`.             |
 
 ## Composition
 
-### Composition recommandée
-
-Utilisez `<List>` pour une liste non ordonnée et `<List as="ol">` pour une liste ordonnée. Les propriétés natives
-de `ol`, comme `start`, `reversed` et `type`, sont transmises à la racine. Utilisez `List.Item` si vous avez besoin
-de ses points d’accroche stables ou de `asChild`. Sinon, de simples éléments `li` suffisent.
-
-### Quand créer une composition personnalisée
-
-Utilisez `asChild` uniquement avec un composant qui rend un seul élément sémantique et lui transmet les props et la ref
-reçues. Pour la racine, cet élément doit rester `ul` ou `ol` ; pour un élément de liste, `li`.
-
-`List` ne fournit ni machine à états, ni utilitaires pour les listes imbriquées, ni API dédiée au rendu des marqueurs.
-Pour les styles courants, utilisez `className` et le CSS natif, notamment `li::marker`.
-
-Les éléments doivent rester des enfants directs de la liste. L’espacement intégré et le style des marqueurs ne
-s’appliquent qu’à ces éléments.
-
-### Propriétés par défaut
-
-Les propriétés ci-dessous concernent la racine `List`. `List.Item` accepte les props natives de `li`, ainsi que
-`className` et `asChild`.
-
-| Prop      | Valeur par défaut        | Remarques                                                                                                 |
-| --------- | ------------------------ | --------------------------------------------------------------------------------------------------------- |
-| `gap`     | `sm`                     | Espacement entre les éléments directs de la liste.                                                         |
-| `size`    | `md`                     | Taille du texte dans l’échelle typographique.                                                             |
-| `tone`    | `default`                | Couleur sémantique du texte et des marqueurs.                                                             |
-| `marker`  | `auto` (mode sémantique) | `auto` est le mode par défaut, il n’est pas nécessaire de le passer. Il utilise `disc` pour `ul` et les marqueurs natifs du navigateur pour `ol`. Les valeurs `disc`, `decimal` et `none` imposent le style du marqueur. |
-| `as`      | `ul`                     | Rend la racine avec l’élément natif `ul` ou `ol`.                                                          |
-| `asChild` | `false`                  | Utilise un enfant fourni par votre code comme élément sémantique rendu de la liste.                       |
-
-### Comportement
-
-- Les attributs natifs de la racine sont transmis à l’élément `ul` ou `ol` rendu, et ceux de l’élément de liste sont transmis à `List.Item`.
-- La ref transmise pointe vers la racine ou l’élément de liste rendu.
-- Utilisez `marker="none"` pour masquer les marqueurs tout en conservant la sémantique de liste. Dans ce cas, `List` ajoute
-  `role="list"`, sauf si vous fournissez explicitement une autre valeur pour `role`.
-- L’espacement de la racine repose sur `gap` de Flexbox, avec une direction en colonne par défaut. Si votre CSS change la direction
-  ou active le retour à la ligne, `gap` suit cette disposition.
-- `List.Item` est facultatif. Utilisez de simples éléments `li` si cette partie exportée ne vous est pas utile.
+Utilisez `List` ou `List.Root` comme racine. Ses enfants directs doivent être `List.Item` ou des éléments `li` natifs,
+car l’espacement de la racine et le style des marqueurs ciblent les éléments directs de la liste. Utilisez `List.Item`
+si vous avez besoin de sa partie stable, de `className`/`class` ou de `asChild` ; sinon, de simples éléments `li`
+suffisent. Utilisez `asChild` uniquement lorsqu’un composant de l’application rend un seul élément sémantique `ul`,
+`ol` ou `li` et transmet les props et la ref reçues. En Solid, utilisez la forme d’`asChild` avec une fonction de rendu.
+`List` ne fournit ni machine à états ni callbacks : la sélection au clavier relève de `Listbox`.
 
 ## Exemples
 
 ### Racine personnalisée
 
 Utilisez `List asChild` lorsqu’un composant de votre application doit rendre lui-même l’élément sémantique de la liste.
-Il doit transmettre les props et la ref reçues à un unique `<ul>` ou `<ol>`.
+En React, il doit transmettre les props et la ref reçues à un seul `<ul>` ou `<ol>` ; en Solid, utilisez la forme avec
+fonction de rendu.
 
 <ExampleFrame variant="component">
   <ListRootAsChild />
@@ -127,21 +135,33 @@ Il doit transmettre les props et la ref reçues à un unique `<ul>` ou `<ol>`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/list/root-as-child.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listSolidRootAsChild} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Sans marqueurs
 
-Utilisez `marker="none"` si vous avez besoin de la sémantique d’une liste sans marqueurs visibles.
+Utilisez `marker="none"` si vous avez besoin de la sémantique d’une liste sans marqueurs visibles. Dans ce mode,
+`List` ajoute `role="list"` par défaut, sauf si vous fournissez une autre valeur pour `role`.
 
 <ExampleFrame variant="component">
   <ListMarkerless />
@@ -149,16 +169,27 @@ Utilisez `marker="none"` si vous avez besoin de la sémantique d’une liste san
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/list/markerless.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listSolidMarkerless} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Éléments natifs
@@ -171,21 +202,33 @@ Utilisez des éléments `li` natifs si vous n’avez pas besoin de la partie exp
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/list/native-items.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listSolidNativeItems} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Liste ordonnée
 
 Utilisez `as="ol"` pour rendre une liste ordonnée tout en conservant les styles appliqués par la racine moduix.
+Les propriétés natives `start`, `reversed` et `type` sont transmises à la racine de la liste ordonnée.
 
 <ExampleFrame variant="component">
   <ListOrdered />
@@ -193,16 +236,27 @@ Utilisez `as="ol"` pour rendre une liste ordonnée tout en conservant les styles
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/list/ordered.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listSolidOrdered} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Tonalité
@@ -215,29 +269,39 @@ Utilisez `tone` pour appliquer une couleur sémantique au texte et aux marqueurs
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/list/tone.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/list/list-tone.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={listSolidTone} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/list/list-tone.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Personnalisation avancée
 
 Utilisez `List.Item asChild` lorsqu’un composant personnalisé doit rendre lui-même l’élément `<li>`. Il doit
 transmettre les props et la ref reçues et conserver l’élément sémantique `<li>`. Dans les autres cas, utilisez
-directement `List.Item className`.
+directement `List.Item className` ou `class`.
 
 <ExampleFrame variant="component">
   <ListCustomComposition />
@@ -245,29 +309,39 @@ directement `List.Item className`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/list/custom-composition.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/list/list-custom-composition.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={listSolidCustomComposition} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/list/list-custom-composition.module.css"
+```
+</div>
 </ExampleCode>
 
 ## Styles
 
-Appliquez des styles à `List` avec `className`, les attributs `data-*` alignés sur Ark, le sélecteur natif
-`li::marker` et les variables CSS publiques `--moduix-list-*` répertoriées ci-dessous. Cette liste couvre l’API CSS
-publique.
+Appliquez des styles à `List` avec la propriété de classe (`className` en React et `class` en Solid), les attributs
+`data-*` alignés sur Ark, le sélecteur natif `li::marker` et les variables CSS publiques `--moduix-list-*`
+répertoriées ci-dessous. Cette liste couvre l’API CSS publique.
 
 ### Propriétés CSS
 

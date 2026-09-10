@@ -12,6 +12,13 @@ import ListNativeItems from '@/components/examples/list/native-items.tsx';
 import ListOrdered from '@/components/examples/list/ordered.tsx';
 import ListRootAsChild from '@/components/examples/list/root-as-child.tsx';
 import ListTone from '@/components/examples/list/tone.tsx';
+import listSolidBasic from '../../../snippets/list/solid/basic.tsx?raw';
+import listSolidCustomComposition from '../../../snippets/list/solid/custom-composition.tsx?raw';
+import listSolidMarkerless from '../../../snippets/list/solid/markerless.tsx?raw';
+import listSolidNativeItems from '../../../snippets/list/solid/native-items.tsx?raw';
+import listSolidOrdered from '../../../snippets/list/solid/ordered.tsx?raw';
+import listSolidRootAsChild from '../../../snippets/list/solid/root-as-child.tsx?raw';
+import listSolidTone from '../../../snippets/list/solid/tone.tsx?raw';
 
 ## API Reference
 
@@ -31,9 +38,13 @@ If users need to navigate with the keyboard and select one or more options, use 
 
 ## Basic
 
+`List` ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered preview on this
+page uses the React CSS Modules package; the framework tabs show native source for the same public contract.
+
 `List` renders a semantic `<ul>` by default. Use `List.Item` when you need the stable item part and its
 styling hooks, or use native `<li>` children when you do not need the wrapper. The root controls spacing,
-typography, tone, and markers.
+typography, tone, and markers. Leave `marker` unset for semantic defaults, or set it to `disc`, `decimal`, or
+`none` explicitly.
 
 <ExampleFrame variant="component">
   <ListBasic />
@@ -41,83 +52,81 @@ typography, tone, and markers.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/list/basic.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listSolidBasic} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="list" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/list' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/list' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/list' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/list' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
-
-The usual composition is simple:
 
 ```text
 List / List.Root
 └─ List.Item | li
 ```
 
-| Part                 | Role                                                                                       |
-| -------------------- | ------------------------------------------------------------------------------------------ |
-| `List` / `List.Root` | Semantic list root that renders `ul` or `ol` and controls markers, spacing, size, and tone. |
+| Part                 | Role                                                                                              |
+| -------------------- | ------------------------------------------------------------------------------------------------- |
+| `List` / `List.Root` | Semantic list root that renders `ul` or `ol` and controls markers, spacing, size, and tone.      |
 | `List.Item`          | Optional item part that renders `li`, forwards native attributes and refs, and supports `asChild`. |
 
 ## Composition
 
-### Recommended composition
-
-Use `<List>` for unordered content and `<List as="ol">` for ordered content. Native ordered-list props such
-as `start`, `reversed`, and `type` are forwarded to the root. Use `List.Item` when you need its stable
-styling hooks or `asChild`; otherwise, native `li` elements are enough.
-
-### When to go custom
-
-Use `asChild` only with a component that renders one semantic element and forwards the props and ref it
-receives. A root child must preserve `ul` or `ol`; an item child must preserve `li`.
-
-`List` does not provide a state machine, nested-list helpers, or a marker rendering API. For ordinary item
-styling, use `className` and native CSS such as `li::marker`.
-
-Keep each item as a direct child of the list. The built-in spacing and marker styling apply only to direct
-list items.
-
-### Default props
-
-The props below apply to the `List` root. `List.Item` accepts native `li` props plus `className` and `asChild`.
-
-| Prop      | Default                | Notes                                                                                                      |
-| --------- | ---------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `gap`     | `sm`                   | Spacing between direct list items.                                                                         |
-| `size`    | `md`                   | Typography size from the design scale.                                                                     |
-| `tone`    | `default`              | Semantic color used for text and markers.                                                                  |
-| `marker`  | `auto` (semantic mode) | `auto` uses `disc` for `ul` and the browser's default markers for `ol`. Use `disc`, `decimal`, or `none` to set a marker explicitly. |
-| `as`      | `ul`                   | Renders the root as the native `ul` or `ol` element.                                                       |
-| `asChild` | `false`                | Uses one child from your code as the rendered semantic list element.                                      |
-
-### Behavioral notes
-
-- Native root attributes are forwarded to the rendered `ul` or `ol`, and native item attributes are forwarded to `List.Item`.
-- Refs point to the rendered semantic root or item element.
-- Use `marker="none"` to hide markers while keeping list semantics. When markers are disabled, `List` adds
-  `role="list"` unless you explicitly provide another `role`.
-- Root spacing uses flex `gap` with a column direction by default. If your CSS changes the direction or enables wrapping, `gap` follows that layout.
-- `List.Item` is optional. Use plain `li` elements when you do not need the exported item part.
+Use `List` or `List.Root` for the root. Its direct children should be `List.Item` or native `li` elements,
+because root spacing and marker styling target direct list items. Use `List.Item` when you need its stable
+slot, `className`/`class`, or `asChild`; native `li` is enough otherwise. Use `asChild` only when an application
+component owns one semantic `ul`, `ol`, or `li` and forwards the received props and ref. In Solid, pass the
+render function form of `asChild`. `List` has no state machine or callbacks, so keyboard selection belongs to
+`Listbox`.
 
 ## Examples
 
 ### Custom Root
 
 Use `List asChild` when a component from your application must render the semantic list element. It must
-forward the received props and ref to one `<ul>` or `<ol>`.
+forward the received props and ref to one `<ul>` or `<ol>` in React, or use the render-function form in Solid.
 
 <ExampleFrame variant="component">
   <ListRootAsChild />
@@ -125,21 +134,33 @@ forward the received props and ref to one `<ul>` or `<ol>`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/list/root-as-child.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listSolidRootAsChild} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Markerless
 
-Use `marker="none"` when you need list semantics without visible markers.
+Use `marker="none"` when you need list semantics without visible markers. `List` adds `role="list"` by default
+in this mode unless you provide another `role`.
 
 <ExampleFrame variant="component">
   <ListMarkerless />
@@ -147,16 +168,27 @@ Use `marker="none"` when you need list semantics without visible markers.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/list/markerless.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listSolidMarkerless} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Native Items
@@ -169,21 +201,33 @@ Use native `li` elements when you do not need the exported `List.Item` part.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/list/native-items.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listSolidNativeItems} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Ordered
 
-Use `as="ol"` to render an ordered list while keeping the styling applied by the moduix root.
+Use `as="ol"` to render an ordered list while keeping the styling applied by the moduix root. Native props such
+as `start`, `reversed`, and `type` are forwarded to the ordered-list root.
 
 <ExampleFrame variant="component">
   <ListOrdered />
@@ -191,16 +235,27 @@ Use `as="ol"` to render an ordered list while keeping the styling applied by the
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/list/ordered.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listSolidOrdered} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Tone
@@ -213,28 +268,38 @@ Use `tone` to apply a semantic text and marker color to the list.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/list/tone.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/list/list-tone.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={listSolidTone} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/list/list-tone.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Advanced Customization
 
 Use `List.Item asChild` when a custom component must render the `<li>` itself. It must forward the received
-props and ref and preserve the semantic `<li>` element. In other cases, use `List.Item className` directly.
+props and ref and preserve the semantic `<li>` element. In other cases, use `List.Item className` or `class` directly.
 
 <ExampleFrame variant="component">
   <ListCustomComposition />
@@ -242,28 +307,39 @@ props and ref and preserve the semantic `<li>` element. In other cases, use `Lis
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/list/custom-composition.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/list/list-custom-composition.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={listSolidCustomComposition} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/list/list-custom-composition.module.css"
+```
+</div>
 </ExampleCode>
 
 ## Styling
 
-Style `List` with `className`, the exported Ark-style `data-*` attributes, native `li::marker`, and the public
-`--moduix-list-*` CSS variables shown below. This list covers the public CSS API.
+Style `List` with the framework's class prop (`className` in React and `class` in Solid), the exported Ark-style
+`data-*` attributes, native `li::marker`, and the public `--moduix-list-*` CSS variables shown below. This list
+covers the public CSS API.
 
 ### CSS Properties
 
@@ -279,14 +355,14 @@ Style `List` with `className`, the exported Ark-style `data-*` attributes, nativ
   </Tabs>
 </div>
 
-### Styling hooks
+### Styling Hooks
 
-`List` exposes the following public styling hooks:
+`List` exposes these public styling hooks:
 
 - root: `data-scope="list"`, `data-part="root"`, `data-slot="list-root"`
 - item: `data-scope="list"`, `data-part="item"`, `data-slot="list-item"`
-- `data-gap="xs" | "sm" | "md" | "lg" | "xl" | "2xl"` for spacing-based styles
-- `data-marker="auto" | "disc" | "decimal" | "none"` for marker-based styles
-- `data-size="xs" | "sm" | "md" | "lg" | "xl"` for size-specific typography styles
-- `data-tone="default" | "muted" | "subtle" | "primary" | "destructive"` for semantic color styles
-- native `li::marker` targeting for marker-specific color or weight overrides
+- `data-gap="xs" | "sm" | "md" | "lg" | "xl" | "2xl"` for spacing-related styles
+- `data-marker="auto" | "disc" | "decimal" | "none"` for marker-related styles
+- `data-size="xs" | "sm" | "md" | "lg" | "xl"` for typography size styles
+- `data-tone="default" | "muted" | "subtle" | "primary" | "destructive"` for semantic colors
+- native `li::marker` for overriding marker color or weight

@@ -1,6 +1,6 @@
-import { Field } from '@ark-ui/solid/field';
 import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
+import { Field } from '@/components/field';
 import { NativeSelect } from '@/components/native-select/NativeSelect';
 
 const meta = {

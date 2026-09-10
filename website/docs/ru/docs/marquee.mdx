@@ -15,12 +15,26 @@ import MarqueeReverse from '@/components/examples/marquee/reverse.tsx';
 import MarqueeRtl from '@/components/examples/marquee/rtl.tsx';
 import MarqueeSpeed from '@/components/examples/marquee/speed.tsx';
 import MarqueeVertical from '@/components/examples/marquee/vertical.tsx';
+import marqueeSolidAutoFill from '../../../snippets/marquee/solid/auto-fill.tsx?raw';
+import marqueeSolidBasic from '../../../snippets/marquee/solid/basic.tsx?raw';
+import marqueeSolidEdges from '../../../snippets/marquee/solid/edges.tsx?raw';
+import marqueeSolidFiniteLoops from '../../../snippets/marquee/solid/finite-loops.tsx?raw';
+import marqueeSolidPauseOnInteraction from '../../../snippets/marquee/solid/pause-on-interaction.tsx?raw';
+import marqueeSolidProgrammaticControl from '../../../snippets/marquee/solid/programmatic-control.tsx?raw';
+import marqueeSolidReverse from '../../../snippets/marquee/solid/reverse.tsx?raw';
+import marqueeSolidRtl from '../../../snippets/marquee/solid/rtl.tsx?raw';
+import marqueeSolidSpeed from '../../../snippets/marquee/solid/speed.tsx?raw';
+import marqueeSolidVertical from '../../../snippets/marquee/solid/vertical.tsx?raw';
 
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/marquee" />
 
 ## Базовый пример
+
+Marquee доступен для React и Solid в пакетах с CSS Modules и Tailwind. Превью на этой странице
+использует пакет React с CSS Modules, а вкладки фреймворков показывают нативный код для того же
+публичного контракта.
 
 Используйте короткую форму `Marquee` и явно соберите внутри неё `Viewport`, `Content` и `Item`. Если движущееся
 содержимое передаёт пользователю информацию, задайте метку через `aria-label` или `translations.root`. Компонент
@@ -33,27 +47,59 @@ import MarqueeVertical from '@/components/examples/marquee/vertical.tsx';
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/marquee/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/marquee/marquee-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={marqueeSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/marquee/marquee-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="marquee" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/marquee' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/marquee' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/marquee' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/marquee' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -81,68 +127,14 @@ Marquee.RootProvider
 
 ## Композиция
 
-### Рекомендуемая композиция
+Используйте `Marquee` с явными частями `Viewport`, `Content` и `Item`. Добавляйте `Marquee.Edge` внутрь того же
+корня, если содержимое должно плавно исчезать на фоне страницы; для каждой границы нужно указать `side`.
 
-Используйте короткую форму `Marquee` и оставляйте дерево частей Ark явным. Библиотека добавляет ключевые кадры
-анимации и атрибуты состояния, а оформление элементов и самого корневого элемента задаётся в CSS приложения.
-
-### Когда нужна собственная композиция
-
-Используйте `Marquee.Edge`, если содержимое должно плавно исчезать на фоне страницы. Используйте `useMarquee()`
-из moduix с `Marquee.RootProvider`, когда внешним элементам управления нужны методы `pause()`, `resume()`,
-`togglePause()` и `restart()`. Не используйте `Marquee` и `Marquee.RootProvider` для одного и того же состояния.
-
-Используйте `Marquee.Context` или `useMarqueeContext()`, если элемент управления внутри дерева должен получить
-доступ к текущему API. Используйте `useMarquee()` с `Marquee.RootProvider`, если состояние создаётся отдельно
-или должно быть доступно элементам управления за пределами дерева.
-
-Используйте `asChild` у частей Ark, если нужно заменить элемент, который они рендерят. Заменяющий элемент должен
-быть семантически подходящим и единственным дочерним элементом. Передавайте `ids`, если пользовательской
-композиции нужны стабильные идентификаторы корня, области просмотра или содержимого.
-
-### Свойства по умолчанию
-
-В таблице перечислены значения по умолчанию для корневого элемента. Для `Marquee.Edge` нужно указать `side`,
-а `Marquee.RootProvider` требует `value`, полученное из `useMarquee()`.
-
-| Свойство             | По умолчанию | Примечания                                                            |
-| -------------------- | ------------ | --------------------------------------------------------------------- |
-| `side`               | `start`      | Значения `start`, `end`, `top` и `bottom`; последние два задают вертикальную ориентацию. |
-| `speed`              | `50`         | Скорость в пикселях в секунду. Ark вычисляет длительность по размеру содержимого.          |
-| `spacing`            | `1rem`       | Расстояние между копиями содержимого и отдельными элементами.                            |
-| `delay`              | `0`          | Задержка перед запуском анимации, в секундах.                                             |
-| `loopCount`          | `0`          | Число повторов. `0` означает бесконечное воспроизведение.                                 |
-| `autoFill`           | `false`      | Повторяет содержимое, пока оно не заполнит область просмотра.                             |
-| `pauseOnInteraction` | `false`      | Ставит компонент на паузу при наведении или фокусе. Рекомендуется для содержимого, которое нужно прочитать. |
-| `reverse`            | `false`      | Меняет направление анимации, не изменяя `side`.                                           |
-| `defaultPaused`      | `false`      | Начальное состояние паузы для неуправляемого компонента.                                  |
-| `paused`             | -            | Управляемое состояние паузы. Используйте вместе с `onPauseChange`.                        |
-| `onPauseChange`      | -            | Получает сведения Ark о состоянии паузы.                                                  |
-| `onLoopComplete`     | -            | Вызывается после каждого повтора.                                                         |
-| `onComplete`         | -            | Вызывается после последнего повтора, если `loopCount` больше `0`.                          |
-| `translations`       | -            | Локализованная метка корневого элемента через `translations.root`. Используйте её или `aria-label`. |
-| `ids`                | -            | Стабильные идентификаторы корня, области просмотра и экземпляров содержимого.              |
-| `asChild`            | -            | Поддерживается каждой частью Ark и позволяет заменить рендеримый элемент.                  |
-| `Marquee.Edge side`  | -            | Обязательная сторона: `start`, `end`, `top` или `bottom`.                                 |
-| `RootProvider.value` | -            | Обязательное значение `UseMarqueeReturn`, полученное из `useMarquee()`.                    |
-
-### Особенности поведения
-
-Для управляемого воспроизведения передайте `paused` и `onPauseChange(details)`. Свойство `defaultPaused` задаёт
-только начальное состояние неуправляемого компонента. Передавайте `loopCount`, `onLoopComplete` и `onComplete`,
-если прокрутка должна остановиться после заданного числа циклов. Сигнатуры колбэков такие же, как в Ark.
-
-Ark задаёт корневому элементу роль именованного региона и скрывает клонированное содержимое от скринридеров и других
-вспомогательных технологий. Передавайте понятный `aria-label` или `translations.root`. Включайте
-`pauseOnInteraction`, если содержимое интерактивно или его нужно успеть прочитать, и не используйте компонент
-для критически важной информации.
-
-Компонент не перемещает фокус между элементами и не поддерживает навигацию стрелками. Если включён
-`pauseOnInteraction`, фокус приостанавливает прокрутку, а потеря фокуса возобновляет её.
-
-Если в системе включено уменьшение анимации, moduix отключает анимацию содержимого, но не скрывает его.
-
-`ref` каждой обёртки передаётся фактическому DOM-элементу Ark.
+Используйте `defaultPaused` для начального состояния без внешнего управления. Если воспроизведением управляет другая
+часть приложения, передавайте `paused` и `onPauseChange(details)`. Для внешних элементов управления создайте состояние
+через `useMarquee()` и передайте его в `Marquee.RootProvider`; не используйте `Marquee` и `RootProvider` для одного
+состояния. Элементы управления внутри дерева могут получить текущий API через `Marquee.Context` или
+`useMarqueeContext()`.
 ## Примеры
 
 ### Автозаполнение
@@ -156,20 +148,31 @@ Ark задаёт корневому элементу роль именованн
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/marquee/auto-fill.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/marquee/marquee-auto-fill.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={marqueeSolidAutoFill} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/marquee/marquee-auto-fill.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -185,20 +188,31 @@ Ark задаёт корневому элементу роль именованн
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/marquee/edges.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/marquee/marquee-edges.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={marqueeSolidEdges} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/marquee/marquee-edges.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -214,20 +228,31 @@ Ark задаёт корневому элементу роль именованн
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/marquee/finite-loops.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/marquee/marquee-finite-loops.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={marqueeSolidFiniteLoops} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/marquee/marquee-finite-loops.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -243,20 +268,31 @@ Ark задаёт корневому элементу роль именованн
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/marquee/pause-on-interaction.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/marquee/marquee-pause-on-interaction.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={marqueeSolidPauseOnInteraction} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/marquee/marquee-pause-on-interaction.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -272,20 +308,31 @@ Ark задаёт корневому элементу роль именованн
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/marquee/programmatic-control.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/marquee/marquee-programmatic-control.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={marqueeSolidProgrammaticControl} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/marquee/marquee-programmatic-control.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -301,20 +348,31 @@ Ark задаёт корневому элементу роль именованн
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/marquee/reverse.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/marquee/marquee-reverse.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={marqueeSolidReverse} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/marquee/marquee-reverse.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -330,20 +388,31 @@ Ark задаёт корневому элементу роль именованн
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/marquee/rtl.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/marquee/marquee-rtl.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={marqueeSolidRtl} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/marquee/marquee-rtl.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -358,20 +427,31 @@ Ark задаёт корневому элементу роль именованн
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/marquee/speed.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/marquee/marquee-speed.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={marqueeSolidSpeed} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/marquee/marquee-speed.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -387,20 +467,31 @@ Ark задаёт корневому элементу роль именованн
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/marquee/vertical.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/marquee/marquee-vertical.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={marqueeSolidVertical} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/marquee/marquee-vertical.module.css"
+```
 </div>
 
 </ExampleCode>

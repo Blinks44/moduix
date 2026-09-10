@@ -9,6 +9,10 @@ import NativeSelectBasic from '@/components/examples/native-select/basic.tsx';
 import NativeSelectControlled from '@/components/examples/native-select/controlled.tsx';
 import NativeSelectField from '@/components/examples/native-select/field-integration.tsx';
 import NativeSelectMultiple from '@/components/examples/native-select/multiple-selection.tsx';
+import nativeSelectSolidBasic from '../../../snippets/native-select/solid/basic.tsx?raw';
+import nativeSelectSolidControlled from '../../../snippets/native-select/solid/controlled.tsx?raw';
+import nativeSelectSolidField from '../../../snippets/native-select/solid/field-integration.tsx?raw';
+import nativeSelectSolidMultiple from '../../../snippets/native-select/solid/multiple-selection.tsx?raw';
 
 ## Référence de l’API
 
@@ -26,6 +30,9 @@ les API de collection, des options riches, une action d’effacement ou le contr
 
 ## Exemple de base
 
+NativeSelect est disponible pour React et Solid dans les packages CSS Modules et Tailwind. L’aperçu interactif de cette page
+utilise le package React CSS Modules ; les onglets de framework montrent le code natif correspondant au même contrat public.
+
 Ajoutez des éléments natifs `option` ou `optgroup` comme enfants et passez les mêmes propriétés qu’à un élément HTML `<select>`.
 
 <ExampleFrame variant="component">
@@ -34,11 +41,23 @@ Ajoutez des éléments natifs `option` ou `optgroup` comme enfants et passez les
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/native-select/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={nativeSelectSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -48,12 +67,33 @@ Ajoutez des éléments natifs `option` ou `optgroup` comme enfants et passez les
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="native-select" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/native-select' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/native-select' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/native-select' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/native-select' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
-`NativeSelect` rend le véritable `<select>` dans un conteneur externe. En mode sélection unique et fenêtre fermée, il ajoute
-l’icône décorative `ChevronDownIcon`. Elle est masquée avec `multiple` ou `size > 1`, lorsque le navigateur affiche une liste.
+`NativeSelect` rend le véritable `<select>` dans un conteneur externe `<span>`. En mode sélection unique et fenêtre fermée,
+il ajoute l’icône décorative `ChevronDownIcon`. Elle est masquée avec `multiple` ou `size > 1`, lorsque le navigateur affiche une liste.
 
 ```text
 NativeSelect / NativeSelect.Root
@@ -65,59 +105,25 @@ NativeSelect / NativeSelect.Root
       └─ ChevronDownIcon
 ```
 
-| Partie                              | Rôle                                                                    |
-| ---------------------------------- | ----------------------------------------------------------------------- |
+| Partie | Rôle |
+| ------ | ---- |
 | `NativeSelect` / `NativeSelect.Root` | Composant racine public. Rend le `<select>` natif et l’indicateur décoratif. |
 
 ## Composition
 
-### Composition recommandée
-
-Utilisez `NativeSelect` directement pour un contrôle simple. Ajoutez des éléments natifs `option` et `optgroup` comme enfants.
-Placez-le dans `Field.Root` lorsque le contrôle doit afficher un libellé, une description, un message d’erreur ou partager
-les états `required`, `invalid` et `disabled`.
-Donnez-lui un nom accessible avec `Field.Label`, un élément `<label>`, `aria-label` ou `aria-labelledby`.
-
-`NativeSelect.Root` est un alias conservé pour la compatibilité. Dans le code de l’application, utilisez plutôt `NativeSelect`.
-
-### Quand créer une composition personnalisée
-
-Passez à `Select` si l’application doit contrôler l’affichage des options, utiliser une collection, ajouter une action
-d’effacement ou contrôler programmatiquement la fenêtre. Gardez `NativeSelect` lorsque vous souhaitez laisser le navigateur
-gérer la sélection.
-
-### Propriétés par défaut
-
-| Propriété      | Valeur par défaut             | Remarques                                                                    |
-| -------------- | ----------------------------- | ---------------------------------------------------------------------------- |
-| `value`        | -                             | Valeur en mode contrôlé.                                                     |
-| `defaultValue` | -                             | Valeur initiale en mode non contrôlé.                                        |
-| `onChange`     | -                             | Événement natif `ChangeEvent<HTMLSelectElement>`.                            |
-| `multiple`     | `false`                       | Active la sélection native de plusieurs options.                             |
-| `size`         | valeur par défaut du navigateur | Nombre de lignes visibles, pas une variante visuelle de taille.              |
-| `disabled`     | `false`                       | Désactive le contrôle.                                                        |
-| `controlProps` | -                             | Propriétés du `<span>` externe, notamment pour son style.                    |
-| `asChild`      | `false`                       | Composition Ark ; l’enfant doit rester un élément `<select>` sémantique.     |
-
-### Comportement
-
-- La `ref` pointe vers le véritable `HTMLSelectElement`.
-- La soumission du formulaire, la saisie automatique, la réinitialisation, la validation `required`, la gestion des options
-  et le comportement clavier natif sont conservés.
-- Avec `multiple` ou une valeur de `size` supérieure à un, le navigateur définit la hauteur de la liste et gère son apparence
-  ainsi que ses interactions.
-- `Field.Root` relie le libellé, le texte associé et le message d’erreur au `<select>`, et fournit les identifiants,
-  `aria-describedby`, `aria-invalid`, `disabled` et `required`.
-- Avec `asChild`, passez un seul élément HTML `<select>` sémantique comme enfant.
-- L’élément HTML `<select>` ne prend pas en charge le mode lecture seule.
-- L’icône `ChevronDownIcon` est décorative et masquée pour les listes ; le navigateur reste responsable de l’apparence de la fenêtre.
+Utilisez `defaultValue` pour une sélection non contrôlée. Utilisez `value` avec `onChange` lorsque l’état de l’application
+possède la valeur courante. Placez `NativeSelect` dans `Field.Root` lorsque le libellé, le texte associé, la validation ou
+l’état `disabled` doivent être partagés avec le contrôle. Les éléments de `Field` relient ce contenu au select natif, tandis
+que le navigateur continue de gérer la sélection des options. Avec `multiple` ou `size > 1`, le navigateur gère l’interaction
+avec la liste et l’indicateur décoratif est masqué. `asChild` peut remplacer le select rendu, mais l’enfant doit rester un seul
+élément HTML `<select>` sémantique.
 
 ## Exemples
 
 ### État contrôlé
 
-Utilisez `value` et `onChange` lorsque React doit contrôler la valeur courante. Lisez la nouvelle valeur
-dans `event.target.value` et transmettez-la via `value`.
+Utilisez `value` et `onChange` lorsque l’application contrôle la valeur courante. Lisez la nouvelle valeur dans l’événement
+natif et transmettez-la via `value`.
 
 <ExampleFrame variant="component">
   <NativeSelectControlled />
@@ -125,11 +131,23 @@ dans `event.target.value` et transmettez-la via `value`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/native-select/controlled.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={nativeSelectSolidControlled} />
 
     </Tab>
   </Tabs>
@@ -139,8 +157,8 @@ dans `event.target.value` et transmettez-la via `value`.
 
 ### Champ de formulaire
 
-Utilisez `Field.Root` lorsque le `<select>` a besoin d’un libellé visible, d’un texte d’aide, d’un message d’erreur
-ou d’un état de champ partagé. `Field` relie ces éléments au contrôle natif.
+Utilisez `Field.Root` lorsque le select a besoin d’un libellé visible, d’un texte d’aide, d’un message d’erreur ou d’un état
+de champ partagé. `Field` relie ces éléments au contrôle natif.
 
 <ExampleFrame variant="component">
   <NativeSelectField />
@@ -149,30 +167,38 @@ ou d’un état de champ partagé. `Field` relie ces éléments au contrôle nat
 <ExampleCode>
 <div className="docs-reference">
   <Tabs
-    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
     className="docs-tabs"
   >
-    <Tab value="React">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/native-select/field-integration.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/native-select/native-select-field-integration.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={nativeSelectSolidField} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/native-select/native-select-field-integration.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Sélection multiple
 
-Passez les propriétés natives `multiple` et `size` pour afficher une liste à sélection multiple. Le navigateur
-gère directement les options sélectionnées et les interactions au clavier.
+Passez les propriétés natives `multiple` et `size` pour afficher une liste à sélection multiple. Le navigateur gère directement
+les options sélectionnées et les interactions au clavier.
 
 <ExampleFrame variant="component">
   <NativeSelectMultiple />
@@ -180,11 +206,23 @@ gère directement les options sélectionnées et les interactions au clavier.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/native-select/multiple-selection.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={nativeSelectSolidMultiple} />
 
     </Tab>
   </Tabs>
@@ -194,11 +232,15 @@ gère directement les options sélectionnées et les interactions au clavier.
 
 ## Styles
 
+`NativeSelect` réutilise les variables `--moduix-select-*` des variantes CSS Modules de `Select`. Vous pouvez ainsi régler de
+manière cohérente les dimensions, l’espacement de l’indicateur, les bordures, les couleurs, le rayon, l’anneau de focus,
+l’opacité à l’état désactivé et les transitions. Les variantes Tailwind utilisent des classes utilitaires natives et les classes
+transmises par l’utilisateur.
+
 ### Propriétés CSS
 
-`NativeSelect` réutilise les mêmes variables `--moduix-select-*` que `Select`. Vous pouvez ainsi régler de manière cohérente
-les dimensions, l’espacement de l’indicateur, les bordures, les couleurs, le rayon, l’anneau de focus, l’opacité à l’état
-désactivé et les transitions. L’espacement interne par défaut et la géométrie de l’indicateur suivent l’échelle commune de 4 px.
+Les variables suivantes sont disponibles dans les variantes CSS Modules. L’espacement interne par défaut et la géométrie de
+l’indicateur suivent l’échelle commune de 4 px.
 
 <div className="docs-reference">
   <Tabs
@@ -214,9 +256,10 @@ désactivé et les transitions. L’espacement interne par défaut et la géomé
 
 ### Points d’accroche CSS
 
-- `className` applique les styles au véritable `<select>`. Utilisez `controlProps.className` pour le conteneur externe.
-- Placez dans `controlProps.style` les variables `--moduix-select-*` liées à l’indicateur lorsqu’elles doivent être
-  héritées à la fois par l’élément `<select>` et par l’indicateur.
+- En React, utilisez `className` sur le select et, en Solid, `class`. Utilisez `controlProps.className` ou `controlProps.class`
+  pour le conteneur externe `<span>`.
+- Placez dans `controlProps.style` les variables `--moduix-select-*` liées à l’indicateur lorsqu’elles doivent être héritées à
+  la fois par l’élément `<select>` et par l’indicateur.
 - `data-scope="field"` et `data-part="select"` préservent le contrat de styles d’Ark Field.
 - `data-slot="native-select-root"` est le sélecteur moduix stable de l’élément `<select>`.
 - `data-slot="native-select-control"` et `data-slot="native-select-indicator"` ciblent le conteneur interne et l’icône.
