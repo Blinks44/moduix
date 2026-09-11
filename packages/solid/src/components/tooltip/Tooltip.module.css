@@ -94,7 +94,7 @@
     border-radius: var(--moduix-tooltip-radius, var(--moduix-radius-md));
     background-color: var(--moduix-tooltip-bg, var(--moduix-color-popover));
     color: var(--moduix-tooltip-color, var(--moduix-color-popover-foreground));
-    box-shadow: var(--moduix-tooltip-shadow, var(--moduix-shadow-lg));
+    box-shadow: var(--moduix-tooltip-shadow, var(--moduix-shadow-md));
     font-size: var(--moduix-tooltip-font-size, var(--moduix-text-sm));
     line-height: var(--moduix-tooltip-line-height, var(--moduix-line-height-text-sm));
     text-align: center;

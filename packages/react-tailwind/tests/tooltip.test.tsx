@@ -245,7 +245,8 @@ describe('Tooltip', () => {
     expect(trigger).toHaveClass('px-2', 'text-primary');
     expect(trigger).not.toHaveClass('px-3.5', 'text-foreground');
     expect(positioner).toHaveClass('max-w-none');
-    expect(content).toHaveClass('bg-card', 'px-6', 'text-left');
+    expect(content).toHaveClass('bg-card', 'px-6', 'text-left', 'shadow-md');
+    expect(content).not.toHaveClass('shadow-lg');
     expect(content).not.toHaveClass('bg-popover', 'px-2', 'text-center');
     expect(arrow).toHaveClass('[--arrow-size:0.625rem]');
     expect(arrowTip).toHaveClass('border-primary');

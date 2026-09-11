@@ -3387,7 +3387,7 @@
   --moduix-tooltip-popup-starting-translate-x: initial; /* 0 */
   --moduix-tooltip-popup-starting-translate-y: initial; /* 0 */
   --moduix-tooltip-radius: initial; /* var(--moduix-radius-md) */
-  --moduix-tooltip-shadow: initial; /* var(--moduix-shadow-lg) */
+  --moduix-tooltip-shadow: initial; /* var(--moduix-shadow-md) */
   --moduix-tooltip-transition: initial; /* 150ms */
   --moduix-tooltip-trigger-bg: initial; /* var(--moduix-color-background) */
   --moduix-tooltip-trigger-bg-active: initial; /* var(--moduix-tooltip-trigger-bg-hover, var(--moduix-color-accent)) */
