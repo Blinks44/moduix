@@ -39,9 +39,9 @@ const StackRoot = forwardRef<HTMLElement, StackRootProps>(function StackRoot(
       className={clsx(styles.root, className)}
       style={
         {
-          '--moduix-stack-direction-desktop': desktopDirection,
-          '--moduix-stack-direction-mobile': mobileDirection,
-          '--moduix-stack-flex': fill == null ? undefined : fill ? '1 1 0' : 'initial',
+          '--moduix-stack-direction-desktop': desktopDirection ?? 'column',
+          '--moduix-stack-direction-mobile': mobileDirection ?? 'column',
+          '--moduix-stack-flex': fill == null ? undefined : fill ? '1 1 0%' : 'initial',
           gap,
           alignItems: align,
           justifyContent: justify,

@@ -47,10 +47,12 @@ function StackRoot(props: StackRootProps) {
       : (local.direction?.desktop ?? local.direction?.mobile);
 
   const stackStyle = (): JSX.CSSProperties | string => {
+    const mobile = mobileDirection();
+    const desktop = desktopDirection();
     const generatedStyle: JSX.CSSProperties = {
-      '--moduix-stack-direction-desktop': desktopDirection(),
-      '--moduix-stack-direction-mobile': mobileDirection(),
-      '--moduix-stack-flex': local.fill == null ? undefined : local.fill ? '1 1 0' : 'initial',
+      '--moduix-stack-direction-desktop': desktop ?? 'column',
+      '--moduix-stack-direction-mobile': mobile ?? 'column',
+      '--moduix-stack-flex': local.fill == null ? undefined : local.fill ? '1 1 0%' : 'initial',
       gap: toCssLength(local.gap),
       'align-items': local.align,
       'justify-content': local.justify,

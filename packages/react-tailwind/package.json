@@ -306,9 +306,25 @@
       "types": "./dist/components/splitter/index.d.ts",
       "import": "./dist/components/splitter/index.js"
     },
+    "./stack": {
+      "types": "./dist/components/stack/index.d.ts",
+      "import": "./dist/components/stack/index.js"
+    },
+    "./steps": {
+      "types": "./dist/components/steps/index.d.ts",
+      "import": "./dist/components/steps/index.js"
+    },
     "./switch": {
       "types": "./dist/components/switch/index.d.ts",
       "import": "./dist/components/switch/index.js"
+    },
+    "./table": {
+      "types": "./dist/components/table/index.d.ts",
+      "import": "./dist/components/table/index.js"
+    },
+    "./toc": {
+      "types": "./dist/components/toc/index.d.ts",
+      "import": "./dist/components/toc/index.js"
     },
     "./tooltip": {
       "types": "./dist/components/tooltip/index.d.ts",

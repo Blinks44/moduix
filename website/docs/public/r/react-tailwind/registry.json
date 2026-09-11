@@ -1555,6 +1555,30 @@
       ]
     },
     {
+      "name": "steps",
+      "type": "registry:item",
+      "title": "Steps",
+      "description": "moduix React Tailwind Steps component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-react-tailwind/foundation",
+        "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/steps/Steps.tsx",
+          "target": "@components/ui/steps/Steps.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/steps/index.ts",
+          "target": "@components/ui/steps/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "switch",
       "type": "registry:item",
       "title": "Switch",
@@ -1570,6 +1594,66 @@
         {
           "path": "src/components/switch/index.ts",
           "target": "@components/ui/switch/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "stack",
+      "type": "registry:item",
+      "title": "Stack",
+      "description": "moduix React Tailwind Stack component.",
+      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/stack/Stack.tsx",
+          "target": "@components/ui/stack/Stack.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/stack/index.ts",
+          "target": "@components/ui/stack/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "table",
+      "type": "registry:item",
+      "title": "Table",
+      "description": "moduix React Tailwind Table component.",
+      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/table/Table.tsx",
+          "target": "@components/ui/table/Table.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/table/index.ts",
+          "target": "@components/ui/table/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "toc",
+      "type": "registry:item",
+      "title": "Table of Contents",
+      "description": "moduix React Tailwind Table of Contents component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/toc/Toc.tsx",
+          "target": "@components/ui/toc/Toc.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toc/index.ts",
+          "target": "@components/ui/toc/index.ts",
           "type": "registry:component"
         }
       ]

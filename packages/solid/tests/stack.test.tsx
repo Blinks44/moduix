@@ -39,7 +39,7 @@ test('writes flex props and reverse directions as root styles', () => {
 
   expect(stack.style.getPropertyValue('--moduix-stack-direction-mobile')).toBe('column-reverse');
   expect(stack.style.getPropertyValue('--moduix-stack-direction-desktop')).toBe('row-reverse');
-  expect(stack.style.getPropertyValue('--moduix-stack-flex')).toBe('1 1 0');
+  expect(stack.style.getPropertyValue('--moduix-stack-flex')).toBe('1 1 0%');
   expect(stack).toHaveStyle({
     alignItems: 'center',
     flexWrap: 'wrap',
@@ -69,6 +69,19 @@ test('cross-falls back responsive directions when only one breakpoint is provide
   );
 });
 
+test('keeps the default direction on nested roots', () => {
+  render(() => (
+    <Stack direction="row" data-testid="outer">
+      <Stack data-testid="inner" />
+    </Stack>
+  ));
+
+  const inner = screen.getByTestId('inner');
+
+  expect(inner.style.getPropertyValue('--moduix-stack-direction-mobile')).toBe('column');
+  expect(inner.style.getPropertyValue('--moduix-stack-direction-desktop')).toBe('column');
+});
+
 test('leaves optional layout styles unset and lets style override layout props', () => {
   render(() => (
     <>
@@ -87,8 +100,8 @@ test('leaves optional layout styles unset and lets style override layout props',
   const defaults = screen.getByTestId('defaults');
   const overridden = screen.getByTestId('overridden');
 
-  expect(defaults.style.getPropertyValue('--moduix-stack-direction-mobile')).toBe('');
-  expect(defaults.style.getPropertyValue('--moduix-stack-direction-desktop')).toBe('');
+  expect(defaults.style.getPropertyValue('--moduix-stack-direction-mobile')).toBe('column');
+  expect(defaults.style.getPropertyValue('--moduix-stack-direction-desktop')).toBe('column');
   expect(defaults.style.getPropertyValue('--moduix-stack-flex')).toBe('');
   expect(defaults.style.gap).toBe('');
   expect(overridden).toHaveStyle({ flexWrap: 'nowrap', gap: '2rem' });
