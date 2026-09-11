@@ -115,6 +115,10 @@ test('renders all parts and preserves Tailwind-owned styles', () => {
   );
 
   expect(screen.getByTestId('trigger-icon')).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: 'Products' })).toHaveClass(
+    '[&>svg]:transition-[rotate]',
+    'data-[state=open]:[&>svg]:rotate-180',
+  );
   expect(screen.getByTestId('item-indicator')).toHaveClass('absolute', 'h-0.5', 'bg-current');
   expect(screen.getByTestId('indicator')).toHaveClass('absolute', 'h-2.5');
   expect(screen.getByTestId('arrow')).toHaveClass('size-2.5', 'rotate-45', 'bg-popover');
@@ -288,5 +292,14 @@ test('keeps viewport motion and provider composition Ark-shaped', async () => {
         '[data-slot="navigation-menu-content"][data-motion="from-end"]',
       ),
     ).toBeInTheDocument(),
+  );
+  expect(viewport?.className).toContain(
+    '[&_[data-slot=navigation-menu-content][data-motion=from-end][data-state=open]]:animate-moduix-navigation-menu-content-from-end',
+  );
+  expect(viewport?.className).toContain(
+    '[&_[data-slot=navigation-menu-content][data-motion=to-start][data-state=closed]]:animate-moduix-navigation-menu-content-to-start',
+  );
+  expect(viewport?.className).not.toContain(
+    '[&_[data-slot=navigation-menu-content][data-motion=from-end]]:opacity-0',
   );
 });

@@ -18,6 +18,19 @@ import NumberInputRootProvider from '@/components/examples/number-input/root-pro
 import NumberInputScrubbing from '@/components/examples/number-input/scrubbing.tsx';
 import NumberInputValueText from '@/components/examples/number-input/value-text.tsx';
 import NumberInputCustomIcons from '@/components/examples/number-input/custom-icons.tsx';
+import numberInputSolidBasic from '../../../snippets/number-input/solid/basic.tsx?raw';
+import numberInputSolidControlled from '../../../snippets/number-input/solid/controlled.tsx?raw';
+import numberInputSolidDisabledAndReadOnly from '../../../snippets/number-input/solid/disabled-and-read-only.tsx?raw';
+import numberInputSolidField from '../../../snippets/number-input/solid/field.tsx?raw';
+import numberInputSolidFormatting from '../../../snippets/number-input/solid/formatting.tsx?raw';
+import numberInputSolidMinAndMax from '../../../snippets/number-input/solid/min-and-max.tsx?raw';
+import numberInputSolidMouseWheel from '../../../snippets/number-input/solid/mouse-wheel.tsx?raw';
+import numberInputSolidFormSubmission from '../../../snippets/number-input/solid/form-submission.tsx?raw';
+import numberInputSolidPrecision from '../../../snippets/number-input/solid/precision.tsx?raw';
+import numberInputSolidRootProvider from '../../../snippets/number-input/solid/root-provider.tsx?raw';
+import numberInputSolidScrubbing from '../../../snippets/number-input/solid/scrubbing.tsx?raw';
+import numberInputSolidValueText from '../../../snippets/number-input/solid/value-text.tsx?raw';
+import numberInputSolidCustomIcons from '../../../snippets/number-input/solid/custom-icons.tsx?raw';
 
 ## API Reference
 
@@ -25,7 +38,15 @@ import NumberInputCustomIcons from '@/components/examples/number-input/custom-ic
 
 ## Basic
 
-Use `NumberInput` with `NumberInput.Field` for a standard input with increment and decrement controls.
+NumberInput ships for React and Solid in both the CSS Modules and Tailwind packages. Import it from
+`@moduix/react/number-input` or `@moduix/solid/number-input` for CSS Modules, and from the matching
+`@moduix/react-tailwind/number-input` or `@moduix/solid-tailwind/number-input` path for Tailwind CSS.
+The rendered preview on this page uses the React CSS Modules package; the framework tabs show native
+source for the same public contract.
+
+Use `NumberInput` as the root and `NumberInput.Field` for the standard input with increment and
+decrement controls. Give the input an accessible name with `NumberInput.Label`, `aria-label`, or
+`aria-labelledby`.
 
 <ExampleFrame variant="component">
   <NumberInputBasic />
@@ -33,11 +54,23 @@ Use `NumberInput` with `NumberInput.Field` for a standard input with increment a
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/number-input/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={numberInputSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -47,12 +80,35 @@ Use `NumberInput` with `NumberInput.Field` for a standard input with increment a
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="number-input" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/number-input' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/number-input' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/number-input' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/number-input' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+See [Quick Start](/docs/quick-start) for full package setup and registry configuration.
 
 ## Anatomy
 
 ```text
-NumberInput.Root
+NumberInput / NumberInput.Root
 ├─ NumberInput.Label
 ├─ NumberInput.Scrubber (optional)
 ├─ NumberInput.Field (recommended shortcut)
@@ -66,81 +122,32 @@ NumberInput.RootProvider
 └─ same part tree connected to state created by `useNumberInput()`
 ```
 
-| Part                               | Role                                                                   |
-| ---------------------------------- | ---------------------------------------------------------------------- |
-| `NumberInput` / `NumberInput.Root` | Owns number input state, parsing, formatting, and keyboard behavior.   |
-| `NumberInput.RootProvider`         | Connects parts to state created by `useNumberInput()`.                 |
-| `NumberInput.Context`              | Exposes formatted and numeric values plus imperative state methods.    |
-| `NumberInput.Label`                | Accessible label for the managed input.                                |
-| `NumberInput.Scrubber`             | Optional drag target that changes the value as the pointer moves.      |
-| `NumberInput.Control`              | Groups the input and increment/decrement triggers.                    |
-| `NumberInput.Field`                | Convenience part that renders the standard control and trigger group. |
-| `NumberInput.DecrementTrigger`     | Button that decreases the current value. Renders the moduix minus icon by default. |
-| `NumberInput.Input`                | Editable numeric text input managed by Ark UI.                         |
-| `NumberInput.IncrementTrigger`     | Button that increases the current value. Renders the moduix plus icon by default.  |
-| `NumberInput.ValueText`            | Read-only text element for the formatted value.                       |
+| Part | Role |
+| --- | --- |
+| `NumberInput` / `NumberInput.Root` | Owns number input state, parsing, formatting, and keyboard behavior. |
+| `NumberInput.RootProvider` | Connects parts to state created with `useNumberInput()`. |
+| `NumberInput.Context` | Exposes formatted and numeric values plus imperative state methods. |
+| `NumberInput.Label` | Accessible label for the managed input. |
+| `NumberInput.Scrubber` | Optional drag target that changes the value as the pointer moves. |
+| `NumberInput.Control` | Groups the input and increment and decrement triggers. |
+| `NumberInput.Field` | Convenience part that renders the standard control and trigger group. |
+| `NumberInput.DecrementTrigger` | Button that decreases the current value. It renders the moduix minus icon by default. |
+| `NumberInput.Input` | Editable numeric text input managed by Ark UI. |
+| `NumberInput.IncrementTrigger` | Button that increases the current value. It renders the moduix plus icon by default. |
+| `NumberInput.ValueText` | Read-only text element for the formatted value. |
 
 ## Composition
 
-### Recommended composition
+Use `NumberInput.Field` for the standard three-part control. Keep `value` and `defaultValue` as
+strings, and read `details.value` from `onValueChange` when the input is controlled. When state must
+be created outside the rendered part tree, call `useNumberInput()` and pass the matching store to
+`NumberInput.RootProvider`; do not render `NumberInput` or `NumberInput.Root` for the same store.
+React reads store properties directly, while Solid reads them through the returned accessor.
 
-`NumberInput` handles parsing, range validation, keyboard increment and decrement, repeated changes
-while a trigger is held, drag-to-change interaction, and formatting. Set `allowMouseWheel` when
-wheel-based changes are intentional. Use `NumberInput.Field` for the standard visible parts.
-
-Give the input an accessible name with `NumberInput.Label`, `aria-label`, or `aria-labelledby`.
-Add `NumberInput.ValueText` when the formatted value should also appear outside the input.
-
-Use strings for `value` and `defaultValue`. Ark reports changes through `onValueChange(details)`,
-where `details.value` is the string value and `details.valueAsNumber` is the numeric representation.
-
-### When to go custom
-
-Use `NumberInput.Control` with its individual parts when the trigger order, icons, or input styling
-must differ from the standard `NumberInput.Field`. Add `NumberInput.Scrubber` alongside the field
-when users should be able to change the value by dragging.
-
-### Default props
-
-| Prop                          | Default                   | Notes                                                               |
-| ----------------------------- | ------------------------- | ------------------------------------------------------------------- |
-| `allowOverflow`               | `true`                    | Allows typed values to exceed `min` and `max`.                      |
-| `clampValueOnBlur`            | `true`                    | Clamps the value to `min` or `max` when the input loses focus.       |
-| `focusInputOnChange`          | `true`                    | Keeps the input focused after a trigger changes the value.           |
-| `inputMode`                   | `'decimal'`               | Shows a decimal-friendly keyboard on supported mobile devices.      |
-| `largeStep`                   | `10 * step`               | Amount changed by `Shift` plus an Arrow key.                         |
-| `locale`                      | `'en-US'`                 | Locale used when formatting the value.                              |
-| `max`                         | `Number.MAX_SAFE_INTEGER` | Maximum value.                                                      |
-| `min`                         | `Number.MIN_SAFE_INTEGER` | Minimum value.                                                      |
-| `spinOnPress`                 | `true`                    | Repeats the change while a trigger is held.                         |
-| `step`                        | `1`                       | Amount added or subtracted by each change.                          |
-| `smallStep`                   | `step / 10`               | Amount changed by `Alt` plus an Arrow key.                           |
-| `NumberInput.Field`           | -                         | Renders the standard control, input, and trigger group.             |
-| `NumberInput.DecrementTrigger` | -                        | Renders the moduix minus icon when no children are provided.         |
-| `NumberInput.IncrementTrigger` | -                        | Renders the moduix plus icon when no children are provided.          |
-
-### Behavioral notes
-
-- Use `formatOptions` with `Intl.NumberFormat` for localized or currency formatting. Set `locale`
-  when the formatting locale is not `en-US`.
-- Use `translations.incrementLabel`, `translations.decrementLabel`, and `translations.valueText`
-  to localize accessible labels and value text.
-- `min`, `max`, `step`, `allowOverflow`, `clampValueOnBlur`, `spinOnPress`, `inputMode`, and
-  `allowMouseWheel` are passed through to Ark.
-- `largeStep` controls `Shift` plus an Arrow key, and `smallStep` controls `Alt` plus an Arrow
-  key. `Home` and `End` move the value to `min` and `max`.
-- `onValueInvalid(details)` reports that the value is outside the configured range. The details
-  include `rangeUnderflow` or `rangeOverflow` as the reason.
-- Set `clampValueOnBlur={false}` when typed values outside `min` or `max` should remain unchanged
-  after the input loses focus.
-- `onValueCommit(details)` fires when the value is committed on blur or Enter. Use `onFocusChange`
-  to observe focus changes, and use `ids` when external labels or descriptions need stable IDs.
-- Ark-backed parts support `asChild` for custom host elements. `NumberInput.Field` intentionally
-  renders its fixed three-part structure and forwards its ref to `NumberInput.Control`.
-- `useNumberInput`, `useNumberInputContext`, and `NumberInput.Context` are available from `@moduix/react`.
-- `name` and `form` are forwarded to the visible spinbutton for native form submission. Render a
-  hidden native input through `NumberInput.Context` with `context.valueAsNumber` only when the form
-  needs the parsed numeric representation instead of the displayed string.
+Use `NumberInput.Control` with individual parts when the trigger order, icons, or input styling must
+differ. Add `NumberInput.Scrubber` alongside the field for drag-to-change behavior. Use
+`NumberInput.Context` only when another part, such as a hidden form control, needs the formatted value
+or `valueAsNumber`.
 
 ## Examples
 
@@ -154,28 +161,32 @@ Keep controlled state as a string and use `details.value` in `onValueChange`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/number-input/controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/number-input/number-input-controlled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={numberInputSolidControlled} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/number-input/number-input-controlled.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Disabled and read-only
 
-Use `disabled` to prevent all interaction. Use `readOnly` when the value should remain selectable
-but must not be editable.
+Use `disabled` to prevent all interaction. Use `readOnly` when the value should remain selectable but
+must not be editable.
 
 <ExampleFrame variant="component">
   <NumberInputDisabledAndReadOnly />
@@ -183,20 +194,24 @@ but must not be editable.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/number-input/disabled-and-read-only.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/number-input/number-input-disabled-and-read-only.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={numberInputSolidDisabledAndReadOnly} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/number-input/number-input-disabled-and-read-only.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -211,20 +226,24 @@ Use `Field` when form state, helper text, error text, and accessibility metadata
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/number-input/field.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/number-input/number-input-field.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={numberInputSolidField} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/number-input/number-input-field.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -239,11 +258,16 @@ Pass `formatOptions` to format the visible value with `Intl.NumberFormat`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/number-input/formatting.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={numberInputSolidFormatting} />
 
     </Tab>
   </Tabs>
@@ -263,11 +287,16 @@ typed value should remain visible after the input loses focus.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/number-input/min-and-max.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={numberInputSolidMinAndMax} />
 
     </Tab>
   </Tabs>
@@ -285,11 +314,16 @@ Set `allowMouseWheel` when changing the value with the mouse wheel is intentiona
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/number-input/mouse-wheel.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={numberInputSolidMouseWheel} />
 
     </Tab>
   </Tabs>
@@ -299,9 +333,9 @@ Set `allowMouseWheel` when changing the value with the mouse wheel is intentiona
 
 ### Native form submission
 
-Set `name` to submit the visible text spinbutton through a native form. Render a hidden native input
-through `NumberInput.Context` only when the form needs the parsed numeric representation instead of
-the displayed string.
+Set `name` to submit the visible text spinbutton through a native form. `NumberInput` submits its
+displayed string value. Use `NumberInput.Context` for a second hidden input only when the form needs
+the parsed numeric representation.
 
 <ExampleFrame variant="component">
   <NumberInputFormSubmission />
@@ -309,20 +343,24 @@ the displayed string.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/number-input/form-submission.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/number-input/number-input-form-submission.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={numberInputSolidFormSubmission} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/number-input/number-input-form-submission.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -338,11 +376,16 @@ fraction digits.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/number-input/precision.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={numberInputSolidPrecision} />
 
     </Tab>
   </Tabs>
@@ -352,8 +395,8 @@ fraction digits.
 
 ### Root Provider
 
-Use `useNumberInput()` with `NumberInput.RootProvider` when state must be created outside the
-rendered part tree.
+Use `useNumberInput()` with `NumberInput.RootProvider` when state must be created outside the rendered
+part tree.
 
 <ExampleFrame variant="component">
   <NumberInputRootProvider />
@@ -361,20 +404,24 @@ rendered part tree.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/number-input/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/number-input/number-input-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={numberInputSolidRootProvider} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/number-input/number-input-root-provider.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -389,20 +436,24 @@ Drag `NumberInput.Scrubber` left or right to change the value.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/number-input/scrubbing.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/number-input/number-input-scrubbing.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={numberInputSolidScrubbing} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/number-input/number-input-scrubbing.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -418,11 +469,16 @@ input.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/number-input/value-text.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={numberInputSolidValueText} />
 
     </Tab>
   </Tabs>
@@ -441,43 +497,41 @@ must be customized. Pass `translations` when custom trigger content needs locali
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/number-input/custom-icons.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/number-input/number-input-advanced-customization.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={numberInputSolidCustomIcons} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/number-input/number-input-advanced-customization.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Styling
 
+Use `className` in React or `class` in Solid on exported parts for structural styles. Tailwind variants
+use native utilities and consumer classes; the CSS variables below customize the CSS Modules variants.
+Data attributes and `data-slot` hooks are shared by both styling tracks.
+
 ### CSS Properties
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <NumberInputDocs.NumberInputCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<NumberInputDocs.NumberInputCssPropertiesPanel />
 
 ### Styling hooks
 
-- moduix `data-slot` values: `number-input-root`, `number-input-root-provider`, `number-input-label`,
+- Stable `data-slot` selectors: `number-input-root`, `number-input-root-provider`, `number-input-label`,
   `number-input-scrubber`, `number-input-control`, `number-input-decrement-trigger`,
   `number-input-input`, `number-input-increment-trigger`, and `number-input-value-text`.
 - Ark state hooks: `data-disabled`, `data-invalid`, `data-focus`, and `data-scrubbing`.

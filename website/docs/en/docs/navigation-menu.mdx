@@ -8,6 +8,9 @@ import * as NavigationMenuDocs from '@/components/examples/navigation-menu/css-p
 import NavigationMenuBasic from '@/components/examples/navigation-menu/basic.tsx';
 import NavigationMenuControlledValue from '@/components/examples/navigation-menu/controlled-value.tsx';
 import NavigationMenuViewport from '@/components/examples/navigation-menu/viewport.tsx';
+import navigationMenuSolidBasic from '../../../snippets/navigation-menu/solid/basic.tsx?raw';
+import navigationMenuSolidControlledValue from '../../../snippets/navigation-menu/solid/controlled-value.tsx?raw';
+import navigationMenuSolidViewport from '../../../snippets/navigation-menu/solid/viewport.tsx?raw';
 
 ## API Reference
 
@@ -24,42 +27,85 @@ related destinations.
 
 ## Basic
 
+NavigationMenu ships for React and Solid in both the CSS Modules and Tailwind packages. The preview
+on this page uses the React CSS Modules package; the framework tabs show native source for the same
+public contract.
+
+Import it from the matching package subpath: `@moduix/react/navigation-menu`,
+`@moduix/solid/navigation-menu`, `@moduix/react-tailwind/navigation-menu`, or
+`@moduix/solid-tailwind/navigation-menu`.
+
 Use `NavigationMenu` with `NavigationMenu.List` and `NavigationMenu.Item`. Give every item a unique
 `value`. For a group of links, place `NavigationMenu.Trigger` and `NavigationMenu.Content` inside
-the same item. Use `NavigationMenu.Link` for direct top-level destinations and for links inside a panel.
+the same item. Use `NavigationMenu.Link` for direct top-level destinations and for links inside a
+panel.
 
-<ExampleFrame clientOnly variant="component">
+<ExampleFrame variant="component">
   <NavigationMenuBasic />
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/navigation-menu/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/navigation-menu/navigation-menu-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={navigationMenuSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/navigation-menu/navigation-menu-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="navigation-menu" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/navigation-menu' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/navigation-menu' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/navigation-menu' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/navigation-menu' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+See [Quick start](/docs/quick-start) for full package setup and registry configuration.
 
 ## Anatomy
 
 ```text
-NavigationMenu (NavigationMenu.Root)
+NavigationMenu / NavigationMenu.Root
 ├─ NavigationMenu.List
 │  ├─ NavigationMenu.Item[value]
 │  │  └─ NavigationMenu.Link
@@ -81,7 +127,7 @@ NavigationMenu.Context
 
 | Part | Role |
 | --- | --- |
-| `NavigationMenu` | The root `nav` element that owns the open value, delays, focus behavior, and orientation. |
+| `NavigationMenu` / `NavigationMenu.Root` | Root `nav` element that owns the open value, delays, focus behavior, and orientation. |
 | `NavigationMenu.RootProvider` | Connects the parts to a store created with `useNavigationMenu()`. |
 | `NavigationMenu.Context` | Exposes the current navigation state through a render prop. |
 | `NavigationMenu.List` | Groups top-level navigation items. |
@@ -96,83 +142,56 @@ NavigationMenu.Context
 
 ## Composition
 
-### Recommended composition
+Use `defaultValue` for an uncontrolled menu. When another part of the application owns the open
+item, pass `value` and `onValueChange(details)`; `details.value` is the open item's value or an
+empty string when all panels are closed. Use `NavigationMenu.RootProvider` with
+`useNavigationMenu()` when the store must be created outside the rendered tree. Pass the returned
+store to `RootProvider` and do not render another root for that store. React reads the store as an
+object; Solid reads its reactive state through the returned accessor.
 
-Keep the Ark parts explicit in your markup. Give every `NavigationMenu.Item` a stable, unique `value`.
-Its `Trigger` and `Content` are connected through the enclosing item, so they do not need matching
-`value` props. Use `NavigationMenu.Link` for direct destinations and for links inside a disclosure panel.
-
-The root accepts Ark props such as `value`, `defaultValue`, `onValueChange(details)`, `openDelay`,
-`closeDelay`, `orientation`, `disableClickTrigger`, `disableHoverTrigger`,
-`disablePointerLeaveClose`, `ids`, `translations`, `lazyMount`, `unmountOnExit`, and `hideMode`.
-
-### When to go custom
-
-Use `asChild` on `NavigationMenu.Trigger` or `NavigationMenu.Link` when a router link or another
-semantic host should receive Ark's behavior. The child must remain a single interactive, focusable
-element so that Ark can preserve its keyboard, focus, and ARIA behavior.
-
-Add `NavigationMenu.ViewportPositioner` and `NavigationMenu.Viewport` when several panels should open
-inside one animated surface. Place an optional `Indicator` inside `List`; with a shared viewport, it can
-contain an `Arrow` that points to the active trigger. The shared viewport measures each panel and animates
-its width and height as you move between triggers. Without a shared viewport, `Content` renders beside its
-item as a compact disclosure panel.
-
-Use `useNavigationMenu()` with `NavigationMenu.RootProvider` when the navigation state must be created
-outside the rendered component tree. Use `NavigationMenu.Context` or `useNavigationMenuContext()` when
-the surrounding UI needs to read that state. Pass the hook result to the required `value` prop of
-`NavigationMenu.RootProvider`.
-
-### Default props
-
-| Prop | Default | Notes |
-| --- | --- | --- |
-| `NavigationMenu.openDelay` | `200` | Delay before a panel opens on hover. |
-| `NavigationMenu.closeDelay` | `300` | Delay before the open panel closes. |
-| `NavigationMenu.orientation` | `horizontal` | Sets the direction used by layout and keyboard navigation. |
-| `NavigationMenu.lazyMount` | `false` | Mounts content only after it is first opened. |
-| `NavigationMenu.unmountOnExit` | `false` | Removes inactive content from the DOM after it closes. |
-| `NavigationMenu.hideMode` | `display-none` | Hides mounted content with the `hidden` attribute. React 19 also supports `activity`. |
-| `NavigationMenu.Link.closeOnClick` | `true` | Closes the menu after the link is selected. |
-| `NavigationMenu.ViewportPositioner.align` | `center` | Aligns the shared viewport with the trigger. |
-
-### Behavioral notes
-
-- `onValueChange` receives Ark's detail object. `details.value` contains the value of the currently open item, or an empty string when all panels are closed.
-- By default, a mouse hover or a click on a trigger opens its panel. Use `disableHoverTrigger`, `disableClickTrigger`, and `disablePointerLeaveClose` to change that behavior.
-- `NavigationMenu` renders a semantic `nav`. Ark manages the disclosure ARIA attributes, focus movement, and keyboard interaction between triggers and panels.
-- Set `current` on `NavigationMenu.Link` to mark the current destination. The link exposes the corresponding current-state attribute for styling.
-- `Content` and `Viewport` preserve Ark's presence attributes, so `lazyMount`, `unmountOnExit`, and the default exit animation work together.
-- The wrapper does not add a trigger icon or a shared `Viewport`. Add them only when your composition needs them.
-- `Indicator` is optional and is not part of the recommended basic composition. Use `Arrow` only with a shared `Viewport`.
+Add `ViewportPositioner` and `Viewport` when several panels should share one animated surface. Keep
+`Indicator` inside `List`, and add `Arrow` there only with a shared viewport. Without a shared
+viewport, `Content` renders beside its item. Use `asChild` for router links or custom triggers only
+when the child remains one interactive, focusable element.
 
 ## Examples
 
 ### Controlled Value
 
-Control the open value from React state when the active panel also needs to drive nearby application UI.
-The output below shows the value of the currently open item.
+Control the open value from React state or Solid signals when the active panel also needs to drive
+nearby application UI. The output below shows the value of the currently open item.
 
-<ExampleFrame clientOnly variant="component">
+<ExampleFrame variant="component">
   <NavigationMenuControlledValue />
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/navigation-menu/controlled-value.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/navigation-menu/navigation-menu-controlled-value.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={navigationMenuSolidControlledValue} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/navigation-menu/navigation-menu-controlled-value.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -180,38 +199,51 @@ The output below shows the value of the currently open item.
 ### Viewport
 
 Use a shared `Viewport` when panels have different sizes but should animate inside one surface. This
-example uses a two-column panel and panels with different widths, so switching triggers visibly animates
-the viewport's measured width and height.
+example uses a two-column panel and panels with different widths, so switching triggers visibly
+animates the viewport's measured width and height.
 
-<ExampleFrame clientOnly variant="component">
+<ExampleFrame variant="component">
   <NavigationMenuViewport />
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/navigation-menu/viewport.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/navigation-menu/navigation-menu-viewport.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={navigationMenuSolidViewport} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/navigation-menu/navigation-menu-viewport.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Styling
 
-Style `NavigationMenu` with `className`, stable `data-slot="navigation-menu-*"` hooks, Ark's
-`data-scope` and `data-part` attributes, and the public `--moduix-navigation-menu-*` variables in the
-CSS reference below.
+Use `className` in React or `class` in Solid on exported parts for structural styles. For state-based
+styles, prefer Ark data attributes such as `data-state`, `data-current`, and `data-orientation`,
+together with moduix `data-slot` selectors. Tailwind variants use native utilities and consumer
+classes; the variables below customize the CSS Modules variants. Data attributes and `data-slot`
+hooks are shared by both styling tracks.
 
 ### CSS Properties
 

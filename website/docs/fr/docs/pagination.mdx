@@ -16,12 +16,27 @@ import PaginationPageRange from '@/components/examples/pagination/page-range.tsx
 import PaginationPageSizeControl from '@/components/examples/pagination/page-size-control.tsx';
 import PaginationRootProvider from '@/components/examples/pagination/root-provider.tsx';
 import PaginationWithEdges from '@/components/examples/pagination/with-edges.tsx';
+import paginationSolidAdvancedCustomization from '../../../snippets/pagination/solid/advanced-customization.tsx?raw';
+import paginationSolidBasic from '../../../snippets/pagination/solid/basic.tsx?raw';
+import paginationSolidContext from '../../../snippets/pagination/solid/context.tsx?raw';
+import paginationSolidControlled from '../../../snippets/pagination/solid/controlled.tsx?raw';
+import paginationSolidCustomized from '../../../snippets/pagination/solid/customized.tsx?raw';
+import paginationSolidDataSlicing from '../../../snippets/pagination/solid/data-slicing.tsx?raw';
+import paginationSolidLink from '../../../snippets/pagination/solid/link.tsx?raw';
+import paginationSolidPageRange from '../../../snippets/pagination/solid/page-range.tsx?raw';
+import paginationSolidPageSizeControl from '../../../snippets/pagination/solid/page-size-control.tsx?raw';
+import paginationSolidRootProvider from '../../../snippets/pagination/solid/root-provider.tsx?raw';
+import paginationSolidWithEdges from '../../../snippets/pagination/solid/with-edges.tsx?raw';
 
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/pagination" />
 
 ## Exemple de base
+
+Pagination est disponible pour React et Solid dans les packages CSS Modules et Tailwind. L’aperçu de
+cette page utilise le package React CSS Modules ; les onglets présentent le code natif pour le même
+contrat public.
 
 Utilisez `Pagination` comme composant racine. `Pagination.Items` affiche les boutons de page et les
 points de suspension correspondant à la plage courante.
@@ -32,30 +47,63 @@ points de suspension correspondant à la plage courante.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/pagination/basic.tsx"
 ```
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={paginationSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/pagination/pagination-basic.module.css"
 ```
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="pagination" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/pagination' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/pagination' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/pagination' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/pagination' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
 ```text
-Pagination
+Pagination / Pagination.Root
 ├─ Pagination.FirstTrigger (facultatif)
 ├─ Pagination.PrevTrigger
 ├─ Pagination.Items (recommandé)
@@ -86,44 +134,16 @@ Pagination.RootProvider
 
 ## Composition
 
-### Composition recommandée
+Utilisez `defaultPage` et `defaultPageSize` lorsque le composant doit gérer son propre état. Si une
+autre partie de l’application le contrôle, transmettez `page`, `pageSize` et les gestionnaires de
+changement correspondants. Indiquez dans `count` le nombre total d’éléments, et non le nombre de pages,
+puis définissez une taille de page pour qu’Ark puisse calculer `totalPages`.
 
-`Pagination` et `Pagination.Root` gèrent la navigation au clavier, la page active, le nombre d’éléments
-par page, l’état des contrôles, le calcul de la plage de pages et les libellés d’accessibilité. Indiquez
-dans `count` le nombre total d’éléments, et non le nombre de pages. Avec `pageSize` ou `defaultPageSize`,
-Ark peut calculer `totalPages`.
-
-Utilisez `Pagination.Items` pour afficher la liste standard des pages. Le composant parcourt le tableau
-`pages` calculé par Ark avec `Pagination.Item` et `Pagination.Ellipsis`, en conservant l’état sélectionné,
-les libellés et les gestionnaires d’événements.
-
-### Quand créer une composition personnalisée
-
-Utilisez `Pagination.Context` pour personnaliser l’affichage des éléments de page ou des contrôles voisins.
-Si l’état doit être créé en dehors de l’arborescence de pagination, créez-le avec
-`Pagination.usePagination()` puis transmettez-le à `Pagination.RootProvider`. Un composant descendant
-peut lire ce même état via `Pagination.usePaginationContext()`. Définissez `type="link"` et fournissez
-`getPageUrl(details)` lorsque le changement de page doit utiliser de vrais liens de navigation.
-
-### Propriétés par défaut
-
-| Propriété         | Valeur par défaut | Remarques                                                        |
-| ----------------- | ----------------- | ---------------------------------------------------------------- |
-| `aria-label`      | `pagination` | Libellé Ark de la zone de navigation ; définissez `translations.rootLabel` pour le localiser. |
-| `defaultPage`     | `1`               | Page active initiale lorsque le composant gère son état.                  |
-| `defaultPageSize` | `10`              | Nombre initial d’éléments par page lorsque le composant gère son état.    |
-| `siblingCount`    | `1`               | Nombre de pages affichées de part et d’autre de la page active.           |
-| `boundaryCount`   | `1`               | Nombre de pages affichées au début et à la fin de la plage.               |
-| `type`            | `button`          | Type de contrôle. Utilisez `link` avec `getPageUrl(details)` pour les liens. |
-
-### Comportement
-
-Utilisez `defaultPage` et `defaultPageSize` lorsque le composant doit gérer son propre état. Pour le
-contrôler depuis votre application, passez `page`, `pageSize`, `onPageChange(details)` et
-`onPageSizeChange(details)`. Les fonctions de rappel reçoivent les objets `details` d’Ark : lisez
-`details.page` et `details.pageSize` directement. Le composant moduix conserve la navigation au clavier, la
-sémantique de l’élément sélectionné, l’état désactivé des contrôles, `ids`, `asChild`, les traductions
-et la génération des URL. Avec `asChild`, fournissez un seul enfant sémantique, tel qu’une ancre.
+Utilisez `Pagination.Items` pour la liste standard. Utilisez `Pagination.Context` lorsque les éléments
+de page ou les contrôles voisins doivent être personnalisés. Si l’état doit être créé en dehors de
+l’arborescence rendue, créez-le avec `Pagination.usePagination()` et transmettez-le à
+`Pagination.RootProvider`. Pour une navigation par URL, définissez `type="link"`, fournissez
+`getPageUrl(details)` et rendez des ancres sémantiques avec `asChild`.
 
 ## Exemples
 
@@ -137,18 +157,30 @@ Passez la page active avec `page` et mettez-la à jour dans `onPageChange(detail
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/pagination/controlled.tsx"
 ```
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={paginationSolidControlled} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/pagination/pagination-controlled.module.css"
 ```
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -164,11 +196,23 @@ méthodes de navigation telles que `goToFirstPage()` ou `goToLastPage()`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/pagination/context.tsx"
 ```
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={paginationSolidContext} />
+
     </Tab>
   </Tabs>
 </div>
@@ -186,18 +230,30 @@ correspondant à la page courante.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/pagination/data-slicing.tsx"
 ```
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={paginationSolidDataSlicing} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/pagination/pagination-data-slicing.module.css"
 ```
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -213,18 +269,30 @@ naviguer vers une URL réelle.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/pagination/link.tsx"
 ```
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={paginationSolidLink} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/pagination/pagination-link.module.css"
 ```
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -239,18 +307,30 @@ Utilisez `pagination.pageRange` pour indiquer quels éléments sont visibles sur
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/pagination/page-range.tsx"
 ```
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={paginationSolidPageRange} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/pagination/pagination-page-range.module.css"
 ```
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -266,18 +346,30 @@ nombre d’éléments par page.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/pagination/page-size-control.tsx"
 ```
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={paginationSolidPageSizeControl} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/pagination/pagination-page-size-control.module.css"
 ```
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -293,18 +385,30 @@ l’état est géré en dehors de l’arborescence qui affiche la pagination.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/pagination/root-provider.tsx"
 ```
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={paginationSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/pagination/pagination-root-provider.module.css"
 ```
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -320,18 +424,30 @@ visible avec `siblingCount`, `boundaryCount` et les propriétés liées au nombr
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/pagination/customized.tsx"
 ```
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={paginationSolidCustomized} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/pagination/pagination-customized.module.css"
 ```
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -347,18 +463,30 @@ accès rapide à la première et à la dernière page.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/pagination/with-edges.tsx"
 ```
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={paginationSolidWithEdges} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/pagination/pagination-with-edges.module.css"
 ```
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -375,18 +503,30 @@ de suspension doivent afficher un contenu personnalisé. Transmettez chaque obje
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/pagination/advanced-customization.tsx"
 ```
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={paginationSolidAdvancedCustomization} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/pagination/pagination-advanced-customization.module.css"
 ```
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>

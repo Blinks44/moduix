@@ -163,11 +163,11 @@ export const CustomIcons: Story = {
     >
       <NumberInput.Label>Floors</NumberInput.Label>
       <NumberInput.Control>
-        <NumberInput.DecrementTrigger className="rounded-lg bg-muted p-2 [&>svg]:size-4 [@media(hover:hover)]:hover:bg-accent">
+        <NumberInput.DecrementTrigger className="bg-muted [&>svg]:size-4 [@media(hover:hover)]:hover:bg-accent">
           <ChevronDownIcon />
         </NumberInput.DecrementTrigger>
         <NumberInput.Input className="w-28 text-lg" />
-        <NumberInput.IncrementTrigger className="rounded-lg bg-muted p-2 [&>svg]:size-4 [@media(hover:hover)]:hover:bg-accent">
+        <NumberInput.IncrementTrigger className="bg-muted [&>svg]:size-4 [@media(hover:hover)]:hover:bg-accent">
           <ChevronUpIcon />
         </NumberInput.IncrementTrigger>
       </NumberInput.Control>

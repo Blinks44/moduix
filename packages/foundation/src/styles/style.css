@@ -139,6 +139,14 @@
     var(--moduix-transition-default);
   --animate-moduix-menu-open: moduix-menu-content-open var(--moduix-transition-default);
   --animate-moduix-menu-closed: moduix-menu-content-closed var(--moduix-transition-default);
+  --animate-moduix-navigation-menu-content-from-start: moduix-navigation-menu-content-from-start
+    var(--moduix-transition-default) both;
+  --animate-moduix-navigation-menu-content-from-end: moduix-navigation-menu-content-from-end
+    var(--moduix-transition-default) both;
+  --animate-moduix-navigation-menu-content-to-start: moduix-navigation-menu-content-to-start
+    var(--moduix-transition-default) both;
+  --animate-moduix-navigation-menu-content-to-end: moduix-navigation-menu-content-to-end
+    var(--moduix-transition-default) both;
   --animate-moduix-drawer-backdrop-in: moduix-drawer-backdrop-in var(--moduix-transition-spring);
   --animate-moduix-drawer-backdrop-out: moduix-drawer-backdrop-out var(--moduix-transition-spring)
     forwards;

@@ -177,6 +177,54 @@
   }
 }
 
+@keyframes moduix-navigation-menu-content-from-start {
+  from {
+    opacity: 0;
+    translate: -12.5rem 0;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes moduix-navigation-menu-content-from-end {
+  from {
+    opacity: 0;
+    translate: 12.5rem 0;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes moduix-navigation-menu-content-to-start {
+  from {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  to {
+    opacity: 0;
+    translate: -12.5rem 0;
+  }
+}
+
+@keyframes moduix-navigation-menu-content-to-end {
+  from {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  to {
+    opacity: 0;
+    translate: 12.5rem 0;
+  }
+}
+
 @keyframes moduix-drawer-backdrop-in {
   from {
     opacity: 0;

@@ -8,6 +8,9 @@ import * as NavigationMenuDocs from '@/components/examples/navigation-menu/css-p
 import NavigationMenuBasic from '@/components/examples/navigation-menu/basic.tsx';
 import NavigationMenuControlledValue from '@/components/examples/navigation-menu/controlled-value.tsx';
 import NavigationMenuViewport from '@/components/examples/navigation-menu/viewport.tsx';
+import navigationMenuSolidBasic from '../../../snippets/navigation-menu/solid/basic.tsx?raw';
+import navigationMenuSolidControlledValue from '../../../snippets/navigation-menu/solid/controlled-value.tsx?raw';
+import navigationMenuSolidViewport from '../../../snippets/navigation-menu/solid/viewport.tsx?raw';
 
 ## Référence de l’API
 
@@ -24,43 +27,85 @@ Utilisez `NavigationMenu` pour la navigation principale d’un site ou d’un pr
 
 ## Exemple de base
 
+`NavigationMenu` est disponible pour React et Solid dans les packages CSS Modules et Tailwind. L’aperçu
+de cette page utilise le package React CSS Modules ; les onglets de framework présentent le code natif
+correspondant au même contrat public.
+
+Importez-le depuis le sous-chemin du package adapté : `@moduix/react/navigation-menu`,
+`@moduix/solid/navigation-menu`, `@moduix/react-tailwind/navigation-menu` ou
+`@moduix/solid-tailwind/navigation-menu`.
+
 Utilisez `NavigationMenu` avec `NavigationMenu.List` et `NavigationMenu.Item`. Attribuez une valeur
 `value` unique à chaque élément. Pour un groupe de liens, placez `NavigationMenu.Trigger` et
 `NavigationMenu.Content` dans le même élément. Utilisez `NavigationMenu.Link` pour les destinations
 directes du premier niveau et pour les liens à l’intérieur d’un panneau.
 
-<ExampleFrame clientOnly variant="component">
+<ExampleFrame variant="component">
   <NavigationMenuBasic />
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/navigation-menu/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/navigation-menu/navigation-menu-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={navigationMenuSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/navigation-menu/navigation-menu-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="navigation-menu" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/navigation-menu' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/navigation-menu' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/navigation-menu' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/navigation-menu' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+Consultez le [guide de démarrage rapide](/docs/quick-start) pour la configuration complète des packages et du registry.
 
 ## Anatomie
 
 ```text
-NavigationMenu (NavigationMenu.Root)
+NavigationMenu / NavigationMenu.Root
 ├─ NavigationMenu.List
 │  ├─ NavigationMenu.Item[value]
 │  │  └─ NavigationMenu.Link
@@ -82,7 +127,7 @@ NavigationMenu.Context
 
 | Partie | Rôle |
 | --- | --- |
-| `NavigationMenu` | Élément `nav` racine qui gère l’élément ouvert, les délais, le focus et l’orientation. |
+| `NavigationMenu` / `NavigationMenu.Root` | Élément `nav` racine qui gère l’élément ouvert, les délais, le focus et l’orientation. |
 | `NavigationMenu.RootProvider` | Relie les parties à l’état créé avec `useNavigationMenu()`. |
 | `NavigationMenu.Context` | Expose l’état courant de la navigation via une fonction de rendu. |
 | `NavigationMenu.List` | Regroupe les éléments de navigation de premier niveau. |
@@ -90,93 +135,65 @@ NavigationMenu.Context
 | `NavigationMenu.Trigger` | Bouton qui ouvre ou ferme le panneau dépliable de l’élément. |
 | `NavigationMenu.Content` | Panneau dépliable de l’élément. Il peut s’afficher à côté de l’élément ou dans une zone `Viewport` partagée. |
 | `NavigationMenu.Link` | Lien vers une destination directe ou lien à l’intérieur d’un panneau dépliable. |
-| `NavigationMenu.ItemIndicator` | Marqueur visuel facultatif de l’élément actif. |
+| `NavigationMenu.ItemIndicator` | Marqueur visuel facultatif de l’élément courant. |
 | `NavigationMenu.Indicator` | Repère facultatif du déclencheur actif ; placez-le dans `List`. Utilisez `Arrow` avec une zone `Viewport` partagée. |
 | `NavigationMenu.ViewportPositioner` | Positionne une zone `Viewport` partagée. |
 | `NavigationMenu.Viewport` | Zone animée partagée pour le contenu actuellement ouvert. |
 
 ## Composition
 
-### Composition recommandée
+Utilisez `defaultValue` pour un menu non contrôlé. Lorsqu’une autre partie de l’application gère
+l’élément ouvert, transmettez `value` et `onValueChange(details)` ; `details.value` contient la valeur
+de l’élément ouvert ou une chaîne vide lorsque tous les panneaux sont fermés. Utilisez
+`NavigationMenu.RootProvider` avec `useNavigationMenu()` lorsque le store doit être créé en dehors de
+l’arbre rendu. Transmettez le store obtenu à `RootProvider` et ne rendez pas une autre racine pour ce
+store. React expose le store comme un objet, tandis que Solid donne accès à son état réactif au moyen
+de la fonction retournée.
 
-Gardez les parties Ark explicites dans votre balisage. Attribuez une valeur `value` stable et unique à
-chaque `NavigationMenu.Item`. Son `Trigger` et son `Content` sont reliés par l’`Item` qui les contient,
-il n’est donc pas nécessaire de leur attribuer la prop `value`. Utilisez `NavigationMenu.Link`
-pour les destinations directes et pour les liens à l’intérieur d’un panneau dépliable.
-
-La racine accepte les propriétés Ark telles que `value`, `defaultValue`, `onValueChange(details)`,
-`openDelay`, `closeDelay`, `orientation`, `disableClickTrigger`, `disableHoverTrigger`,
-`disablePointerLeaveClose`, `ids`, `translations`, `lazyMount`, `unmountOnExit` et `hideMode`.
-
-### Quand créer une composition personnalisée
-
-Utilisez `asChild` sur `NavigationMenu.Trigger` ou `NavigationMenu.Link` lorsqu’un lien de routeur ou
-un autre élément sémantique doit recevoir le comportement d’Ark. L’enfant doit rester un seul élément
-interactif pouvant recevoir le focus afin qu’Ark conserve les comportements clavier, le focus et les
-attributs ARIA.
-
-Ajoutez `NavigationMenu.ViewportPositioner` et `NavigationMenu.Viewport` lorsque plusieurs panneaux
-doivent s’ouvrir dans une même zone animée. Placez un `Indicator` facultatif dans `List` ; avec une zone
-`Viewport` partagée, il peut contenir un `Arrow` qui indique le déclencheur actif. La zone `Viewport`
-mesure chaque panneau et anime sa largeur et sa hauteur lorsque vous passez d’un déclencheur à l’autre.
-Sans zone `Viewport` partagée, `Content` s’affiche à côté de son `Item` sous la forme d’un panneau
-dépliable compact.
-
-Utilisez `useNavigationMenu()` avec `NavigationMenu.RootProvider` lorsque l’état de navigation doit être
-créé en dehors de l’arbre des composants rendus. Transmettez le résultat du hook à la prop `value`,
-obligatoire sur `NavigationMenu.RootProvider`. Utilisez `NavigationMenu.Context` ou
-`useNavigationMenuContext()` lorsque le reste de l’interface doit lire cet état.
-
-### Propriétés par défaut
-
-| Propriété | Valeur par défaut | Remarques |
-| --- | --- | --- |
-| `NavigationMenu.openDelay` | `200` | Délai avant l’ouverture d’un panneau au survol. |
-| `NavigationMenu.closeDelay` | `300` | Délai avant la fermeture du panneau ouvert. |
-| `NavigationMenu.orientation` | `horizontal` | Définit la direction de la mise en page et de la navigation au clavier. |
-| `NavigationMenu.lazyMount` | `false` | Ne monte le contenu qu’après sa première ouverture. |
-| `NavigationMenu.unmountOnExit` | `false` | Retire le contenu inactif du DOM après sa fermeture. |
-| `NavigationMenu.hideMode` | `display-none` | Masque le contenu monté avec l’attribut `hidden`. React 19 prend également en charge le mode `activity`. |
-| `NavigationMenu.Link.closeOnClick` | `true` | Ferme le menu après la sélection du lien. |
-| `NavigationMenu.ViewportPositioner.align` | `center` | Aligne la zone `Viewport` partagée sur le déclencheur. |
-
-### Comportement
-
-- `onValueChange` reçoit l’objet `details` d’Ark. `details.value` contient la valeur de l’élément actuellement ouvert, ou une chaîne vide lorsque tous les panneaux sont fermés.
-- Par défaut, le survol à la souris ou un clic sur un déclencheur ouvre son panneau. Utilisez `disableHoverTrigger`, `disableClickTrigger` et `disablePointerLeaveClose` pour modifier ce comportement.
-- `NavigationMenu` rend un élément `nav` sémantique. Ark gère les attributs ARIA des panneaux, le déplacement du focus et la navigation au clavier entre les déclencheurs et les panneaux.
-- Définissez `current` sur `NavigationMenu.Link` pour marquer la destination courante. Le lien expose l’attribut `data-current`, utilisable pour le style.
-- `Content` et `Viewport` conservent les attributs de présence d’Ark. `lazyMount`, `unmountOnExit` et l’animation de sortie par défaut fonctionnent donc ensemble.
-- Le composant n’ajoute ni icône de déclencheur ni zone `Viewport` partagée. Ajoutez-les uniquement lorsque votre composition en a besoin.
-- `Indicator` est facultatif et ne fait pas partie de la composition de base recommandée. Utilisez `Arrow` uniquement avec une zone `Viewport` partagée.
+Ajoutez `ViewportPositioner` et `Viewport` lorsque plusieurs panneaux doivent partager une même zone
+animée. Placez `Indicator` dans `List` et ajoutez-y `Arrow` uniquement avec une zone `Viewport`
+partagée. Sans zone `Viewport` partagée, `Content` s’affiche à côté de son `Item`. Utilisez `asChild`
+pour les liens de routeur ou les déclencheurs personnalisés uniquement si l’enfant reste un seul élément
+interactif pouvant recevoir le focus.
 
 ## Exemples
 
 ### Valeur contrôlée
 
-Contrôlez l’élément ouvert avec un état React lorsque le panneau actif doit également piloter une partie
-voisine de l’interface. La sortie sous l’exemple affiche la valeur de l’élément actuellement ouvert.
+Contrôlez la valeur ouverte avec un état React ou un signal Solid lorsque le panneau actif doit également
+piloter une partie voisine de l’interface. La sortie sous l’exemple affiche la valeur de l’élément ouvert.
 
-<ExampleFrame clientOnly variant="component">
+<ExampleFrame variant="component">
   <NavigationMenuControlledValue />
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/navigation-menu/controlled-value.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/navigation-menu/navigation-menu-controlled-value.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={navigationMenuSolidControlledValue} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/navigation-menu/navigation-menu-controlled-value.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -184,39 +201,53 @@ voisine de l’interface. La sortie sous l’exemple affiche la valeur de l’é
 ### Viewport
 
 Utilisez une zone `Viewport` partagée lorsque les panneaux ont des tailles différentes, mais doivent
-s’animer dans une même zone. Cet exemple utilise un panneau à deux colonnes et des panneaux de largeurs
-différentes, afin de rendre visibles les animations de largeur et de hauteur de `Viewport` lors du passage
-d’un déclencheur à l’autre.
+s’animer dans une même surface. Cet exemple utilise un panneau à deux colonnes et des panneaux de
+largeurs différentes, afin de rendre visibles les animations de largeur et de hauteur de `Viewport`
+lors du passage d’un déclencheur à l’autre.
 
-<ExampleFrame clientOnly variant="component">
+<ExampleFrame variant="component">
   <NavigationMenuViewport />
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/navigation-menu/viewport.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/navigation-menu/navigation-menu-viewport.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={navigationMenuSolidViewport} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/navigation-menu/navigation-menu-viewport.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Styles
 
-Stylisez `NavigationMenu` avec `className`, les points d’accroche stables `data-slot="navigation-menu-*"`,
-les attributs Ark `data-scope` et `data-part`, ainsi que les variables CSS publiques
-`--moduix-navigation-menu-*` présentées dans le tableau ci-dessous.
+Utilisez `className` dans React ou `class` dans Solid sur les parties exportées pour les styles
+structurels. Pour les styles liés à l’état, privilégiez les attributs de données Ark comme `data-state`,
+`data-current` et `data-orientation`, avec les sélecteurs moduix `data-slot`. Les variantes Tailwind
+utilisent des utilitaires natifs et les classes du consommateur ; les variables ci-dessous personnalisent
+les variantes CSS Modules. Les attributs de données et les points d’accroche `data-slot` sont communs
+aux deux modes de style.
 
 ### Propriétés CSS
 
