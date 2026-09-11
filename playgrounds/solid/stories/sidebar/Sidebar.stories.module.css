@@ -101,11 +101,8 @@
   font-weight: var(--moduix-weight-semibold);
 }
 
-.workspaceLabel {
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.workspaceSelect {
+  width: 100%;
 }
 
 .accountMenu {
@@ -123,6 +120,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  & strong {
+    font-weight: var(--moduix-weight-medium);
   }
 
   & span {

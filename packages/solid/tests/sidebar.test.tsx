@@ -199,13 +199,15 @@ test('marks collapsed navigation content as hidden by default', () => {
   expect(screen.getByTestId('collapsed-projects')).toHaveAttribute('hidden');
 });
 
-test('allows a navigation list directly below a group action', () => {
+test('composes an explicit group header', () => {
   render(() => (
     <Sidebar>
       <Sidebar.Panel>
         <Sidebar.Group>
-          <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
-          <Sidebar.GroupAction aria-label="Create workspace item">+</Sidebar.GroupAction>
+          <Sidebar.GroupHeader>
+            <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
+            <Sidebar.GroupAction aria-label="Create workspace item">+</Sidebar.GroupAction>
+          </Sidebar.GroupHeader>
           <Sidebar.NavigationList>
             <Sidebar.NavigationItem>
               <Sidebar.NavigationButton>Overview</Sidebar.NavigationButton>

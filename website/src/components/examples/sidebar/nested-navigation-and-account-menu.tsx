@@ -32,10 +32,12 @@ export default function AppSidebar() {
         </Sidebar.Header>
         <Sidebar.Content>
           <Sidebar.Group>
-            <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
-            <Sidebar.GroupAction aria-label="Create workspace item">
-              <Plus />
-            </Sidebar.GroupAction>
+            <Sidebar.GroupHeader>
+              <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
+              <Sidebar.GroupAction aria-label="Create workspace item">
+                <Plus />
+              </Sidebar.GroupAction>
+            </Sidebar.GroupHeader>
             <Sidebar.NavigationList>
               <Sidebar.NavigationItem>
                 <Sidebar.Tooltip content="Overview">
@@ -46,7 +48,6 @@ export default function AppSidebar() {
                     </a>
                   </Sidebar.NavigationButton>
                 </Sidebar.Tooltip>
-                <Sidebar.NavigationBadge>3</Sidebar.NavigationBadge>
               </Sidebar.NavigationItem>
               <Sidebar.NavigationItem>
                 <Sidebar.ExpandedContent>
@@ -60,9 +61,6 @@ export default function AppSidebar() {
                         </Sidebar.NavigationButton>
                       </Collapsible.Trigger>
                     </Sidebar.Tooltip>
-                    <Sidebar.NavigationAction aria-label="Rename project group">
-                      <Pencil />
-                    </Sidebar.NavigationAction>
                     <Collapsible.Content>
                       <Sidebar.NavigationSubList>
                         <Sidebar.NavigationSubItem>
@@ -110,7 +108,6 @@ export default function AppSidebar() {
                     </a>
                   </Sidebar.NavigationButton>
                 </Sidebar.Tooltip>
-                <Sidebar.NavigationBadge>12</Sidebar.NavigationBadge>
               </Sidebar.NavigationItem>
               <Sidebar.NavigationItem>
                 <Sidebar.Tooltip content="Documents">

@@ -63,6 +63,7 @@ const readPersistedSidebarSize = (): SidebarSize | null => {
 function WorkspaceSelect() {
   return (
     <Select
+      className={styles.workspaceSelect}
       collection={workspaces}
       defaultValue={['acme']}
       positioning={{ placement: 'right-start', gutter: 8, flip: false }}
@@ -72,8 +73,11 @@ function WorkspaceSelect() {
           <span className={styles.workspaceMark} data-sidebar-icon>
             AC
           </span>
-          <Sidebar.Label className={styles.workspaceLabel}>
-            <Select.ValueText placeholder="Select workspace" />
+          <Sidebar.Label className={styles.accountMeta}>
+            <strong>
+              <Select.ValueText placeholder="Select workspace" />
+            </strong>
+            <span>Workspace</span>
           </Sidebar.Label>
           <Select.Indicator />
         </Sidebar.NavigationButton>
@@ -176,10 +180,12 @@ function SidebarNavigation() {
       </Sidebar.Header>
       <Sidebar.Content>
         <Sidebar.Group>
-          <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
-          <Sidebar.GroupAction aria-label="Create workspace item" title="Create workspace item">
-            <PlusIcon />
-          </Sidebar.GroupAction>
+          <Sidebar.GroupHeader>
+            <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
+            <Sidebar.GroupAction aria-label="Create workspace item" title="Create workspace item">
+              <PlusIcon />
+            </Sidebar.GroupAction>
+          </Sidebar.GroupHeader>
           <Sidebar.NavigationList>
             <Sidebar.NavigationItem>
               <Sidebar.Tooltip content="Overview">
@@ -190,7 +196,6 @@ function SidebarNavigation() {
                   </a>
                 </Sidebar.NavigationButton>
               </Sidebar.Tooltip>
-              <Sidebar.NavigationBadge>3</Sidebar.NavigationBadge>
             </Sidebar.NavigationItem>
             <Sidebar.NavigationItem>
               <Sidebar.ExpandedContent>
@@ -204,12 +209,6 @@ function SidebarNavigation() {
                       </Sidebar.NavigationButton>
                     </Collapsible.Trigger>
                   </Sidebar.Tooltip>
-                  <Sidebar.NavigationAction
-                    aria-label="Rename project group"
-                    title="Rename project group"
-                  >
-                    <PencilIcon />
-                  </Sidebar.NavigationAction>
                   <Collapsible.Content>
                     <Sidebar.NavigationSubList>
                       <Sidebar.NavigationSubItem>
@@ -257,7 +256,6 @@ function SidebarNavigation() {
                   </a>
                 </Sidebar.NavigationButton>
               </Sidebar.Tooltip>
-              <Sidebar.NavigationBadge>12</Sidebar.NavigationBadge>
             </Sidebar.NavigationItem>
           </Sidebar.NavigationList>
         </Sidebar.Group>

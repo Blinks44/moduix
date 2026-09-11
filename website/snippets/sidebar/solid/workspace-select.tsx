@@ -10,7 +10,6 @@ import {
   FileText,
   Gauge,
   LogOut,
-  Pencil,
   Plus,
   Settings,
   Users,
@@ -34,6 +33,7 @@ export default function WorkspaceSidebar() {
           <Sidebar.NavigationList>
             <Sidebar.NavigationItem>
               <Select
+                class={styles.workspaceSelect}
                 collection={workspaces}
                 defaultValue={['acme']}
                 positioning={{ placement: 'right-start', gutter: 8, flip: false }}
@@ -50,8 +50,11 @@ export default function WorkspaceSidebar() {
                   <span data-sidebar-icon class={styles.workspaceMark}>
                     AC
                   </span>
-                  <Sidebar.Label>
-                    <Select.ValueText placeholder="Select workspace" />
+                  <Sidebar.Label class={styles.accountLabel}>
+                    <strong class={styles.accountName}>
+                      <Select.ValueText placeholder="Select workspace" />
+                    </strong>
+                    <span class={styles.accountEmail}>Workspace</span>
                   </Sidebar.Label>
                   <Select.Indicator />
                 </Select.Trigger>
@@ -73,41 +76,35 @@ export default function WorkspaceSidebar() {
         </Sidebar.Header>
         <Sidebar.Content>
           <Sidebar.Group>
-            <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
-            <Sidebar.GroupAction aria-label="Create workspace item">
-              <Plus />
-            </Sidebar.GroupAction>
-            <Sidebar.GroupContent>
-              <Sidebar.NavigationList>
-                <Sidebar.NavigationItem>
-                  <Sidebar.NavigationButton
-                    active
-                    asChild={(props) => <a {...props()} href="/overview" />}
-                  >
-                    <Gauge />
-                    <Sidebar.Label>Overview</Sidebar.Label>
-                  </Sidebar.NavigationButton>
-                  <Sidebar.NavigationBadge>3</Sidebar.NavigationBadge>
-                </Sidebar.NavigationItem>
-                <Sidebar.NavigationItem>
-                  <Sidebar.NavigationButton
-                    asChild={(props) => <a {...props()} href="/calendar" />}
-                  >
-                    <CalendarDays />
-                    <Sidebar.Label>Calendar</Sidebar.Label>
-                  </Sidebar.NavigationButton>
-                </Sidebar.NavigationItem>
-                <Sidebar.NavigationItem>
-                  <Sidebar.NavigationButton asChild={(props) => <a {...props()} href="/team" />}>
-                    <Users />
-                    <Sidebar.Label>Team</Sidebar.Label>
-                  </Sidebar.NavigationButton>
-                  <Sidebar.NavigationAction aria-label="Rename team section">
-                    <Pencil />
-                  </Sidebar.NavigationAction>
-                </Sidebar.NavigationItem>
-              </Sidebar.NavigationList>
-            </Sidebar.GroupContent>
+            <Sidebar.GroupHeader>
+              <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
+              <Sidebar.GroupAction aria-label="Create workspace item">
+                <Plus />
+              </Sidebar.GroupAction>
+            </Sidebar.GroupHeader>
+            <Sidebar.NavigationList>
+              <Sidebar.NavigationItem>
+                <Sidebar.NavigationButton
+                  active
+                  asChild={(props) => <a {...props()} href="/overview" />}
+                >
+                  <Gauge />
+                  <Sidebar.Label>Overview</Sidebar.Label>
+                </Sidebar.NavigationButton>
+              </Sidebar.NavigationItem>
+              <Sidebar.NavigationItem>
+                <Sidebar.NavigationButton asChild={(props) => <a {...props()} href="/calendar" />}>
+                  <CalendarDays />
+                  <Sidebar.Label>Calendar</Sidebar.Label>
+                </Sidebar.NavigationButton>
+              </Sidebar.NavigationItem>
+              <Sidebar.NavigationItem>
+                <Sidebar.NavigationButton asChild={(props) => <a {...props()} href="/team" />}>
+                  <Users />
+                  <Sidebar.Label>Team</Sidebar.Label>
+                </Sidebar.NavigationButton>
+              </Sidebar.NavigationItem>
+            </Sidebar.NavigationList>
           </Sidebar.Group>
           <Sidebar.Group>
             <Sidebar.GroupLabel>Library</Sidebar.GroupLabel>

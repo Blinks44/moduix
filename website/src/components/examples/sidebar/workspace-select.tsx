@@ -10,7 +10,6 @@ import {
   FileText,
   Gauge,
   LogOut,
-  Pencil,
   Plus,
   Settings,
   Users,
@@ -42,6 +41,7 @@ export default function WorkspaceSidebar() {
           <Sidebar.NavigationList>
             <Sidebar.NavigationItem>
               <Select
+                className={styles.workspaceSelect}
                 collection={workspaces}
                 defaultValue={['acme']}
                 positioning={{
@@ -55,8 +55,11 @@ export default function WorkspaceSidebar() {
                     <span data-sidebar-icon className={styles.workspaceMark}>
                       AC
                     </span>
-                    <Sidebar.Label>
-                      <Select.ValueText placeholder="Select workspace" />
+                    <Sidebar.Label className={styles.accountLabel}>
+                      <strong className={styles.accountName}>
+                        <Select.ValueText placeholder="Select workspace" />
+                      </strong>
+                      <span className={styles.accountEmail}>Workspace</span>
                     </Sidebar.Label>
                     <Select.Indicator />
                   </Sidebar.NavigationButton>
@@ -77,42 +80,38 @@ export default function WorkspaceSidebar() {
         </Sidebar.Header>
         <Sidebar.Content>
           <Sidebar.Group>
-            <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
-            <Sidebar.GroupAction aria-label="Create workspace item">
-              <Plus />
-            </Sidebar.GroupAction>
-            <Sidebar.GroupContent>
-              <Sidebar.NavigationList>
-                <Sidebar.NavigationItem>
-                  <Sidebar.NavigationButton asChild active>
-                    <a href="/overview">
-                      <Gauge />
-                      <Sidebar.Label>Overview</Sidebar.Label>
-                    </a>
-                  </Sidebar.NavigationButton>
-                  <Sidebar.NavigationBadge>3</Sidebar.NavigationBadge>
-                </Sidebar.NavigationItem>
-                <Sidebar.NavigationItem>
-                  <Sidebar.NavigationButton asChild>
-                    <a href="/calendar">
-                      <CalendarDays />
-                      <Sidebar.Label>Calendar</Sidebar.Label>
-                    </a>
-                  </Sidebar.NavigationButton>
-                </Sidebar.NavigationItem>
-                <Sidebar.NavigationItem>
-                  <Sidebar.NavigationButton asChild>
-                    <a href="/team">
-                      <Users />
-                      <Sidebar.Label>Team</Sidebar.Label>
-                    </a>
-                  </Sidebar.NavigationButton>
-                  <Sidebar.NavigationAction aria-label="Rename team section">
-                    <Pencil />
-                  </Sidebar.NavigationAction>
-                </Sidebar.NavigationItem>
-              </Sidebar.NavigationList>
-            </Sidebar.GroupContent>
+            <Sidebar.GroupHeader>
+              <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
+              <Sidebar.GroupAction aria-label="Create workspace item">
+                <Plus />
+              </Sidebar.GroupAction>
+            </Sidebar.GroupHeader>
+            <Sidebar.NavigationList>
+              <Sidebar.NavigationItem>
+                <Sidebar.NavigationButton asChild active>
+                  <a href="/overview">
+                    <Gauge />
+                    <Sidebar.Label>Overview</Sidebar.Label>
+                  </a>
+                </Sidebar.NavigationButton>
+              </Sidebar.NavigationItem>
+              <Sidebar.NavigationItem>
+                <Sidebar.NavigationButton asChild>
+                  <a href="/calendar">
+                    <CalendarDays />
+                    <Sidebar.Label>Calendar</Sidebar.Label>
+                  </a>
+                </Sidebar.NavigationButton>
+              </Sidebar.NavigationItem>
+              <Sidebar.NavigationItem>
+                <Sidebar.NavigationButton asChild>
+                  <a href="/team">
+                    <Users />
+                    <Sidebar.Label>Team</Sidebar.Label>
+                  </a>
+                </Sidebar.NavigationButton>
+              </Sidebar.NavigationItem>
+            </Sidebar.NavigationList>
           </Sidebar.Group>
           <Sidebar.Group>
             <Sidebar.GroupLabel>Library</Sidebar.GroupLabel>

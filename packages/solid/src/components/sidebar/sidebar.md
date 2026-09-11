@@ -28,13 +28,15 @@ Exported parts:
 
 - `Root`, `Panel`, `Inset`, `ResizeTrigger`, `Trigger`
 - `Label`, `Input`, `Header`, `Content`, `ExpandedContent`, `CollapsedContent`, `Footer`, `Separator`
-- `Group`, `GroupLabel`, `GroupAction`, `GroupContent`
-- `NavigationList`, `NavigationItem`, `NavigationButton`, `NavigationAction`, `NavigationBadge`
+- `Group`, `GroupHeader`, `GroupLabel`, `GroupAction`
+- `NavigationList`, `NavigationItem`, `NavigationButton`
 - `NavigationSubList`, `NavigationSubItem`, `NavigationSubButton`, `Tooltip`
 - `useSidebar`
 
 `useSidebar()` returns native Solid accessors: `collapsed()`, `side()`, and `state()`, plus
 `toggleSidebar()`. The hook and layout parts require the Splitter context created by `Sidebar.Root`.
+Text that must disappear in the collapsed rail belongs in `Sidebar.Label`; Sidebar does not infer
+text children from arbitrary markup.
 
 ## Composition
 
@@ -53,10 +55,12 @@ collapsed-label tooltips:
     </Sidebar.Header>
     <Sidebar.Content>
       <Sidebar.Group>
-        <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
-        <Sidebar.GroupAction aria-label="Add workspace item">
-          <PlusIcon />
-        </Sidebar.GroupAction>
+        <Sidebar.GroupHeader>
+          <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
+          <Sidebar.GroupAction aria-label="Add workspace item">
+            <PlusIcon />
+          </Sidebar.GroupAction>
+        </Sidebar.GroupHeader>
         <Sidebar.NavigationList>
           <Sidebar.NavigationItem>
             <Sidebar.Tooltip content="Overview">

@@ -17,6 +17,10 @@
   background-color: var(--moduix-color-accent);
 }
 
+.workspaceSelect {
+  width: 100%;
+}
+
 .footer {
   display: grid;
   width: 100%;
@@ -33,6 +37,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.accountName {
+  font-weight: var(--moduix-weight-medium);
 }
 
 .accountEmail {

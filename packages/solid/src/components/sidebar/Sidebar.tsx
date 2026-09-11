@@ -322,6 +322,20 @@ function SidebarGroupLabel(props: HTMLArkProps<'h3'>) {
   );
 }
 
+function SidebarGroupHeader(props: HTMLArkProps<'div'>) {
+  const [local, others] = splitProps(props, ['class']);
+
+  return (
+    <ark.div
+      data-scope="sidebar"
+      data-part="group-header"
+      data-slot="sidebar-group-header"
+      class={clsx(styles.groupHeader, local.class)}
+      {...others}
+    />
+  );
+}
+
 function SidebarGroupAction(props: HTMLArkProps<'button'>) {
   const [local, others] = splitProps(props, ['class', 'type']);
 
@@ -332,20 +346,6 @@ function SidebarGroupAction(props: HTMLArkProps<'button'>) {
       data-part="group-action"
       data-slot="sidebar-group-action"
       class={clsx(styles.groupAction, local.class)}
-      {...others}
-    />
-  );
-}
-
-function SidebarGroupContent(props: HTMLArkProps<'div'>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ark.div
-      data-scope="sidebar"
-      data-part="group-content"
-      data-slot="sidebar-group-content"
-      class={clsx(styles.groupContent, local.class)}
       {...others}
     />
   );
@@ -405,35 +405,6 @@ function SidebarNavigationButton(
       data-active={local.active ? '' : undefined}
       data-size={local.size ?? 'md'}
       class={clsx(styles.menuButton, local.class)}
-      {...others}
-    />
-  );
-}
-
-function SidebarNavigationAction(props: HTMLArkProps<'button'>) {
-  const [local, others] = splitProps(props, ['class', 'type']);
-
-  return (
-    <ark.button
-      type={local.type ?? 'button'}
-      data-scope="sidebar"
-      data-part="navigation-action"
-      data-slot="sidebar-navigation-action"
-      class={clsx(styles.menuAction, local.class)}
-      {...others}
-    />
-  );
-}
-
-function SidebarNavigationBadge(props: HTMLArkProps<'div'>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ark.div
-      data-scope="sidebar"
-      data-part="navigation-badge"
-      data-slot="sidebar-navigation-badge"
-      class={clsx(styles.menuBadge, local.class)}
       {...others}
     />
   );
@@ -571,15 +542,13 @@ const Sidebar = Object.assign(SidebarRoot, {
   Footer: SidebarFooter,
   Separator: SidebarSeparator,
   Group: SidebarGroup,
+  GroupHeader: SidebarGroupHeader,
   GroupLabel: SidebarGroupLabel,
   GroupAction: SidebarGroupAction,
-  GroupContent: SidebarGroupContent,
   NavigationList: SidebarNavigationList,
   NavigationItem: SidebarNavigationItem,
   Tooltip: SidebarTooltip,
   NavigationButton: SidebarNavigationButton,
-  NavigationAction: SidebarNavigationAction,
-  NavigationBadge: SidebarNavigationBadge,
   NavigationSubList: SidebarNavigationSubList,
   NavigationSubItem: SidebarNavigationSubItem,
   NavigationSubButton: SidebarNavigationSubButton,

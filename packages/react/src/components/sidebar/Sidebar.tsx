@@ -342,6 +342,21 @@ const SidebarGroupLabel = forwardRef<HTMLHeadingElement, HTMLArkProps<'h3'>>(
   },
 );
 
+const SidebarGroupHeader = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
+  function SidebarGroupHeader({ className, ...props }, ref) {
+    return (
+      <ark.div
+        ref={ref}
+        data-scope="sidebar"
+        data-part="group-header"
+        data-slot="sidebar-group-header"
+        className={clsx(styles.groupHeader, className)}
+        {...props}
+      />
+    );
+  },
+);
+
 const SidebarGroupAction = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>(
   function SidebarGroupAction({ className, type = 'button', ...props }, ref) {
     return (
@@ -352,21 +367,6 @@ const SidebarGroupAction = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>
         data-part="group-action"
         data-slot="sidebar-group-action"
         className={clsx(styles.groupAction, className)}
-        {...props}
-      />
-    );
-  },
-);
-
-const SidebarGroupContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
-  function SidebarGroupContent({ className, ...props }, ref) {
-    return (
-      <ark.div
-        ref={ref}
-        data-scope="sidebar"
-        data-part="group-content"
-        data-slot="sidebar-group-content"
-        className={clsx(styles.groupContent, className)}
         {...props}
       />
     );
@@ -435,37 +435,6 @@ const SidebarNavigationButton = forwardRef<
     />
   );
 });
-
-const SidebarNavigationAction = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>(
-  function SidebarNavigationAction({ className, type = 'button', ...props }, ref) {
-    return (
-      <ark.button
-        ref={ref}
-        type={type}
-        data-scope="sidebar"
-        data-part="navigation-action"
-        data-slot="sidebar-navigation-action"
-        className={clsx(styles.menuAction, className)}
-        {...props}
-      />
-    );
-  },
-);
-
-const SidebarNavigationBadge = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
-  function SidebarNavigationBadge({ className, ...props }, ref) {
-    return (
-      <ark.div
-        ref={ref}
-        data-scope="sidebar"
-        data-part="navigation-badge"
-        data-slot="sidebar-navigation-badge"
-        className={clsx(styles.menuBadge, className)}
-        {...props}
-      />
-    );
-  },
-);
 
 const SidebarNavigationSubList = forwardRef<HTMLUListElement, HTMLArkProps<'ul'>>(
   function SidebarNavigationSubList({ className, ...props }, ref) {
@@ -598,15 +567,13 @@ const Sidebar = Object.assign(SidebarRoot, {
   Footer: SidebarFooter,
   Separator: SidebarSeparator,
   Group: SidebarGroup,
+  GroupHeader: SidebarGroupHeader,
   GroupLabel: SidebarGroupLabel,
   GroupAction: SidebarGroupAction,
-  GroupContent: SidebarGroupContent,
   NavigationList: SidebarNavigationList,
   NavigationItem: SidebarNavigationItem,
   Tooltip: SidebarTooltip,
   NavigationButton: SidebarNavigationButton,
-  NavigationAction: SidebarNavigationAction,
-  NavigationBadge: SidebarNavigationBadge,
   NavigationSubList: SidebarNavigationSubList,
   NavigationSubItem: SidebarNavigationSubItem,
   NavigationSubButton: SidebarNavigationSubButton,

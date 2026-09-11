@@ -213,7 +213,7 @@ function SelectIndicator(props: ComponentProps<typeof SelectPrimitive.Indicator>
     <SelectPrimitive.Indicator
       data-slot="select-indicator"
       class={cn(
-        'pointer-events-none absolute end-2 top-1/2 inline-flex size-control-xs shrink-0 -translate-y-1/2 items-center justify-center rounded-sm bg-transparent leading-none text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out peer-[:not([disabled]):not([data-disabled]):hover]/select-trigger:bg-muted peer-[:not([disabled]):not([data-disabled]):hover]/select-trigger:text-foreground motion-reduce:transition-none [&>svg]:block [&>svg]:size-4',
+        'pointer-events-none inline-flex size-control-xs shrink-0 items-center justify-center rounded-sm bg-transparent leading-none text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out peer-[:not([disabled]):not([data-disabled]):hover]/select-trigger:bg-muted peer-[:not([disabled]):not([data-disabled]):hover]/select-trigger:text-foreground motion-reduce:transition-none [&>svg]:block [&>svg]:size-4',
         local.class,
       )}
       {...others}
@@ -232,7 +232,9 @@ function SelectField(props: SelectFieldProps) {
         <SelectValueText placeholder={local.placeholder} />
       </SelectTrigger>
       {local.clearLabel && <SelectClearTrigger aria-label={local.clearLabel} />}
-      <SelectIndicator>{local.indicator}</SelectIndicator>
+      <SelectIndicator class="absolute end-2 top-1/2 -translate-y-1/2">
+        {local.indicator}
+      </SelectIndicator>
     </SelectControl>
   );
 }

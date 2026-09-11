@@ -34,8 +34,6 @@ type Story = StoryObj<typeof meta>;
 
 const demoClassName = 'h-152 w-[min(68rem,calc(100vw-4rem))] rounded-lg shadow-md';
 const customPanelClassName = 'bg-[color-mix(in_oklab,var(--color-primary)_5%,var(--color-card))]';
-const customAccentClassName =
-  'bg-[color-mix(in_oklab,var(--color-primary)_14%,var(--color-accent))]';
 const customAccentInteractiveClassName =
   'data-active:bg-[color-mix(in_oklab,var(--color-primary)_14%,var(--color-accent))] [&:not(:disabled):not([aria-disabled=true])]:hover:bg-[color-mix(in_oklab,var(--color-primary)_14%,var(--color-accent))]';
 const brandClassName = 'flex min-w-0 items-center gap-2 font-semibold';
@@ -52,10 +50,9 @@ const placeholderClassName = 'min-h-72 rounded-lg border border-dashed border-bo
 const accountButtonClassName = 'h-auto';
 const workspaceMarkClassName =
   'grid size-control-sm flex-none place-items-center rounded-sm bg-accent text-xs font-semibold text-accent-foreground';
-const workspaceLabelClassName = 'flex-1 truncate';
 const accountMenuClassName = 'min-w-56 max-w-72';
 const accountMetaClassName =
-  'grid flex-1 text-start [&>strong]:truncate [&>span]:truncate [&>span]:text-xs [&>span]:leading-5 [&>span]:text-muted-foreground';
+  'grid flex-1 text-start [&>strong]:truncate [&>strong]:font-medium [&>span]:truncate [&>span]:text-xs [&>span]:leading-5 [&>span]:text-muted-foreground';
 
 const workspaces = createListCollection({
   items: [
@@ -88,6 +85,7 @@ const readPersistedSidebarSize = (): SidebarSize | null => {
 function WorkspaceSelect({ accentClassName }: { accentClassName?: string } = {}) {
   return (
     <Select
+      class="w-full"
       collection={workspaces}
       defaultValue={['acme']}
       positioning={{ placement: 'right-start', gutter: 8, flip: false }}
@@ -104,8 +102,11 @@ function WorkspaceSelect({ accentClassName }: { accentClassName?: string } = {})
             <span class={workspaceMarkClassName} data-sidebar-icon>
               AC
             </span>
-            <Sidebar.Label class={workspaceLabelClassName}>
-              <Select.ValueText placeholder="Select workspace" />
+            <Sidebar.Label class={accountMetaClassName}>
+              <strong>
+                <Select.ValueText placeholder="Select workspace" />
+              </strong>
+              <span>Workspace</span>
             </Sidebar.Label>
             <Select.Indicator />
           </Sidebar.NavigationButton>
@@ -194,10 +195,7 @@ function AccountMenu({ accentClassName }: { accentClassName?: string } = {}) {
   );
 }
 
-function SidebarNavigation({
-  accentClassName,
-  badgeClassName,
-}: { accentClassName?: string; badgeClassName?: string } = {}) {
+function SidebarNavigation({ accentClassName }: { accentClassName?: string } = {}) {
   return (
     <>
       <Sidebar.Header>
@@ -213,14 +211,16 @@ function SidebarNavigation({
       </Sidebar.Header>
       <Sidebar.Content>
         <Sidebar.Group>
-          <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
-          <Sidebar.GroupAction
-            aria-label="Create workspace item"
-            title="Create workspace item"
-            class={accentClassName}
-          >
-            <PlusIcon />
-          </Sidebar.GroupAction>
+          <Sidebar.GroupHeader>
+            <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
+            <Sidebar.GroupAction
+              aria-label="Create workspace item"
+              title="Create workspace item"
+              class={accentClassName}
+            >
+              <PlusIcon />
+            </Sidebar.GroupAction>
+          </Sidebar.GroupHeader>
           <Sidebar.NavigationList>
             <Sidebar.NavigationItem>
               <Sidebar.Tooltip content="Overview">
@@ -238,7 +238,6 @@ function SidebarNavigation({
                   />
                 )}
               </Sidebar.Tooltip>
-              <Sidebar.NavigationBadge class={badgeClassName}>3</Sidebar.NavigationBadge>
             </Sidebar.NavigationItem>
             <Sidebar.NavigationItem>
               <Sidebar.ExpandedContent>
@@ -260,13 +259,6 @@ function SidebarNavigation({
                       />
                     )}
                   </Sidebar.Tooltip>
-                  <Sidebar.NavigationAction
-                    aria-label="Rename project group"
-                    title="Rename project group"
-                    class={accentClassName}
-                  >
-                    <PencilIcon />
-                  </Sidebar.NavigationAction>
                   <Collapsible.Content>
                     <Sidebar.NavigationSubList>
                       <Sidebar.NavigationSubItem>
@@ -337,7 +329,6 @@ function SidebarNavigation({
                   />
                 )}
               </Sidebar.Tooltip>
-              <Sidebar.NavigationBadge class={badgeClassName}>12</Sidebar.NavigationBadge>
             </Sidebar.NavigationItem>
           </Sidebar.NavigationList>
         </Sidebar.Group>
@@ -522,10 +513,7 @@ export const CustomStyling: Story = {
   render: () => (
     <Sidebar class={demoClassName}>
       <Sidebar.Panel class={customPanelClassName}>
-        <SidebarNavigation
-          accentClassName={customAccentInteractiveClassName}
-          badgeClassName={customAccentClassName}
-        />
+        <SidebarNavigation accentClassName={customAccentInteractiveClassName} />
       </Sidebar.Panel>
       <Sidebar.ResizeTrigger />
       <Sidebar.Trigger />

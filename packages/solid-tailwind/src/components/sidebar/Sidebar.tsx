@@ -323,9 +323,23 @@ function SidebarGroup(props: HTMLArkProps<'section'>) {
       data-part="group"
       data-slot="sidebar-group"
       class={cn(
-        'group/sidebar-group flex flex-col gap-1 p-3 group-data-[state=collapsed]/sidebar-panel:px-1 has-[[data-slot=sidebar-group-action]]:grid has-[[data-slot=sidebar-group-action]]:grid-cols-[minmax(0,1fr)_auto] has-[[data-slot=sidebar-group-action]]:gap-x-2',
+        'flex flex-col gap-1 p-3 group-data-[state=collapsed]/sidebar-panel:px-1',
         local.class,
       )}
+      {...others}
+    />
+  );
+}
+
+function SidebarGroupHeader(props: HTMLArkProps<'div'>) {
+  const [local, others] = splitProps(props, ['class']);
+
+  return (
+    <ark.div
+      data-scope="sidebar"
+      data-part="group-header"
+      data-slot="sidebar-group-header"
+      class={cn('flex min-w-0 items-center gap-2', local.class)}
       {...others}
     />
   );
@@ -340,7 +354,7 @@ function SidebarGroupLabel(props: HTMLArkProps<'h3'>) {
       data-part="group-label"
       data-slot="sidebar-group-label"
       class={cn(
-        'min-w-0 truncate px-2 text-xs leading-4 font-medium text-muted-foreground group-has-[[data-slot=sidebar-group-action]]/sidebar-group:col-start-1 group-has-[[data-slot=sidebar-group-action]]/sidebar-group:flex group-has-[[data-slot=sidebar-group-action]]/sidebar-group:min-h-control-xs group-has-[[data-slot=sidebar-group-action]]/sidebar-group:items-center group-data-[state=collapsed]/sidebar-panel:sr-only',
+        'min-w-0 flex-1 truncate px-2 text-xs leading-4 font-medium text-muted-foreground group-data-[state=collapsed]/sidebar-panel:sr-only',
         local.class,
       )}
       {...others}
@@ -358,24 +372,7 @@ function SidebarGroupAction(props: HTMLArkProps<'button'>) {
       data-part="group-action"
       data-slot="sidebar-group-action"
       class={cn(
-        'focus-visible:outline-offset-0.5 col-start-2 me-2 inline-flex size-control-xs cursor-pointer items-center justify-center self-center rounded-md p-0 text-muted-foreground outline-0 transition-colors duration-200 ease-in-out hover:bg-accent hover:text-accent-foreground focus-visible:outline-2 focus-visible:outline-ring motion-reduce:transition-none @max-[7rem]:hidden [&>svg]:size-4',
-        local.class,
-      )}
-      {...others}
-    />
-  );
-}
-
-function SidebarGroupContent(props: HTMLArkProps<'div'>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ark.div
-      data-scope="sidebar"
-      data-part="group-content"
-      data-slot="sidebar-group-content"
-      class={cn(
-        'w-full min-w-0 group-has-[[data-slot=sidebar-group-action]]/sidebar-group:col-span-full',
+        'focus-visible:outline-offset-0.5 me-2 inline-flex size-control-xs flex-none cursor-pointer items-center justify-center rounded-md p-0 text-muted-foreground outline-0 transition-colors duration-200 ease-in-out hover:bg-accent hover:text-accent-foreground focus-visible:outline-2 focus-visible:outline-ring motion-reduce:transition-none @max-[7rem]:hidden [&>svg]:size-4',
         local.class,
       )}
       {...others}
@@ -391,10 +388,7 @@ function SidebarNavigationList(props: HTMLArkProps<'ul'>) {
       data-scope="sidebar"
       data-part="navigation-list"
       data-slot="sidebar-navigation-list"
-      class={cn(
-        'flex w-full min-w-0 flex-col gap-1 group-has-[[data-slot=sidebar-group-action]]/sidebar-group:col-span-full',
-        local.class,
-      )}
+      class={cn('flex w-full min-w-0 flex-col gap-1', local.class)}
       {...others}
     />
   );
@@ -408,10 +402,7 @@ function SidebarNavigationItem(props: HTMLArkProps<'li'>) {
       data-scope="sidebar"
       data-part="navigation-item"
       data-slot="sidebar-navigation-item"
-      class={cn(
-        'group/sidebar-navigation-item relative min-w-0 [&>[data-scope=select][data-part=root]]:w-full',
-        local.class,
-      )}
+      class={cn('min-w-0', local.class)}
       {...others}
     />
   );
@@ -443,49 +434,16 @@ function SidebarNavigationButton(
       data-active={local.active ? '' : undefined}
       data-size={local.size ?? 'md'}
       class={cn(
-        'flex w-full min-w-0 cursor-pointer items-center gap-2 overflow-hidden rounded-md px-2 py-1 text-start text-sm leading-5 text-ellipsis whitespace-nowrap text-card-foreground outline-0 transition-[background-color,border-color,color,box-shadow] duration-200 ease-in-out',
+        'flex w-full min-w-0 cursor-pointer items-center gap-2 overflow-hidden rounded-md px-2 py-1 text-start text-sm leading-5 text-ellipsis whitespace-nowrap text-card-foreground outline-0 transition-colors duration-200 ease-in-out',
         'focus-visible:outline-offset-0.5 focus-visible:outline-2 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-active:bg-accent data-active:font-medium data-active:text-accent-foreground motion-reduce:transition-none [&:not(:disabled):not([aria-disabled=true])]:hover:bg-accent [&:not(:disabled):not([aria-disabled=true])]:hover:text-accent-foreground',
-        'group-data-[state=collapsed]/sidebar-panel:mx-auto group-data-[state=collapsed]/sidebar-panel:min-h-control-md group-data-[state=collapsed]/sidebar-panel:w-control-md group-data-[state=collapsed]/sidebar-panel:justify-center group-data-[state=collapsed]/sidebar-panel:bg-transparent group-data-[state=collapsed]/sidebar-panel:px-0 group-data-[state=collapsed]/sidebar-panel:hover:bg-transparent group-data-[state=collapsed]/sidebar-panel:[&>*:not(svg):not([data-sidebar-icon]):not([data-slot=sidebar-label])]:hidden group-data-[state=collapsed]/sidebar-panel:[&>[data-sidebar-icon]]:mx-auto group-data-[state=collapsed]/sidebar-panel:[&>svg]:mx-auto',
-        '@min-[7.0001rem]:group-has-[[data-slot=sidebar-navigation-action]]/sidebar-navigation-item:pe-10 @min-[7.0001rem]:group-has-[[data-slot=sidebar-navigation-badge]]/sidebar-navigation-item:pe-9.25 @min-[7.0001rem]:group-has-[[data-slot=sidebar-navigation-action]]/sidebar-navigation-item:group-has-[[data-slot=sidebar-navigation-badge]]/sidebar-navigation-item:pe-17.25 @min-[7.0001rem]:has-[[data-scope=select][data-part=indicator]]:pe-10',
-        '@max-[7rem]:[&>[data-scope=select][data-part=indicator]]:hidden [&>[data-sidebar-icon]]:shrink-0 [&>[data-slot=collapsible-indicator]]:ms-auto @max-[7rem]:[&>[data-slot=collapsible-indicator]]:hidden [&>[data-slot=menu-indicator]]:ms-auto [&>[data-slot=menu-indicator]]:size-control-xs [&>[data-slot=menu-indicator]]:leading-none @max-[7rem]:[&>[data-slot=menu-indicator]]:hidden [&>[data-slot=menu-indicator]>svg]:block [&>[data-slot=menu-indicator]>svg]:size-4 [&>span:last-child]:min-w-0 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0',
+        'group-data-[state=collapsed]/sidebar-panel:mx-auto group-data-[state=collapsed]/sidebar-panel:min-h-control-md group-data-[state=collapsed]/sidebar-panel:w-control-md group-data-[state=collapsed]/sidebar-panel:justify-center group-data-[state=collapsed]/sidebar-panel:bg-transparent group-data-[state=collapsed]/sidebar-panel:px-0 group-data-[state=collapsed]/sidebar-panel:hover:bg-transparent',
+        '[&>[data-sidebar-icon]]:shrink-0 [&>span:last-child]:min-w-0 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0',
+        '[&>[data-scope=select][data-part=indicator]]:ms-auto @max-[7rem]:[&>[data-scope=select][data-part=indicator]]:hidden',
+        '[&>[data-slot=collapsible-indicator]]:ms-auto [&>[data-slot=collapsible-indicator]]:size-control-xs @max-[7rem]:[&>[data-slot=collapsible-indicator]]:hidden [&>[data-slot=collapsible-indicator]>svg]:size-3',
+        '[&>[data-slot=menu-indicator]]:ms-auto [&>[data-slot=menu-indicator]]:size-control-xs [&>[data-slot=menu-indicator]]:leading-none @max-[7rem]:[&>[data-slot=menu-indicator]]:hidden [&>[data-slot=menu-indicator]>svg]:block [&>[data-slot=menu-indicator]>svg]:size-4',
         local.size === 'sm' && 'min-h-control-sm text-xs',
         (local.size === undefined || local.size === 'md') && 'min-h-control-md',
         local.size === 'lg' && 'min-h-control-lg',
-        local.class,
-      )}
-      {...others}
-    />
-  );
-}
-
-function SidebarNavigationAction(props: HTMLArkProps<'button'>) {
-  const [local, others] = splitProps(props, ['class', 'type']);
-
-  return (
-    <ark.button
-      type={local.type ?? 'button'}
-      data-scope="sidebar"
-      data-part="navigation-action"
-      data-slot="sidebar-navigation-action"
-      class={cn(
-        'focus-visible:outline-offset-0.5 absolute end-2 top-1.5 z-1 inline-flex size-control-xs cursor-pointer items-center justify-center rounded-md p-0 text-muted-foreground outline-0 transition-colors duration-200 ease-in-out group-has-[[data-slot=sidebar-navigation-badge]]/sidebar-navigation-item:end-9.25 hover:bg-accent hover:text-accent-foreground focus-visible:outline-2 focus-visible:outline-ring motion-reduce:transition-none @max-[7rem]:hidden [&>svg]:size-4',
-        local.class,
-      )}
-      {...others}
-    />
-  );
-}
-
-function SidebarNavigationBadge(props: HTMLArkProps<'div'>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ark.div
-      data-scope="sidebar"
-      data-part="navigation-badge"
-      data-slot="sidebar-navigation-badge"
-      class={cn(
-        'absolute end-2.75 top-2.25 z-1 inline-flex min-h-4.5 min-w-4.5 items-center justify-center rounded-full bg-accent px-0.5 text-[0.625rem] leading-none font-medium text-accent-foreground tabular-nums @max-[7rem]:hidden',
         local.class,
       )}
       {...others}
@@ -637,15 +595,13 @@ const Sidebar = Object.assign(SidebarRoot, {
   Footer: SidebarFooter,
   Separator: SidebarSeparator,
   Group: SidebarGroup,
+  GroupHeader: SidebarGroupHeader,
   GroupLabel: SidebarGroupLabel,
   GroupAction: SidebarGroupAction,
-  GroupContent: SidebarGroupContent,
   NavigationList: SidebarNavigationList,
   NavigationItem: SidebarNavigationItem,
   Tooltip: SidebarTooltip,
   NavigationButton: SidebarNavigationButton,
-  NavigationAction: SidebarNavigationAction,
-  NavigationBadge: SidebarNavigationBadge,
   NavigationSubList: SidebarNavigationSubList,
   NavigationSubItem: SidebarNavigationSubItem,
   NavigationSubButton: SidebarNavigationSubButton,
