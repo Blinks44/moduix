@@ -16,6 +16,16 @@ import SegmentGroupFormSubmission from '@/components/examples/segment-group/form
 import SegmentGroupInvalid from '@/components/examples/segment-group/invalid.tsx';
 import SegmentGroupRootProvider from '@/components/examples/segment-group/root-provider.tsx';
 import SegmentGroupVerticalOrientation from '@/components/examples/segment-group/vertical-orientation.tsx';
+import segmentGroupSolidAsChild from '../../../snippets/segment-group/solid/aschild.tsx?raw';
+import segmentGroupSolidBasic from '../../../snippets/segment-group/solid/basic.tsx?raw';
+import segmentGroupSolidConditionalMount from '../../../snippets/segment-group/solid/conditional-mount.tsx?raw';
+import segmentGroupSolidControlled from '../../../snippets/segment-group/solid/controlled.tsx?raw';
+import segmentGroupSolidDisabled from '../../../snippets/segment-group/solid/disabled.tsx?raw';
+import segmentGroupSolidField from '../../../snippets/segment-group/solid/field.tsx?raw';
+import segmentGroupSolidFormSubmission from '../../../snippets/segment-group/solid/form-submission.tsx?raw';
+import segmentGroupSolidInvalid from '../../../snippets/segment-group/solid/invalid.tsx?raw';
+import segmentGroupSolidRootProvider from '../../../snippets/segment-group/solid/root-provider.tsx?raw';
+import segmentGroupSolidVerticalOrientation from '../../../snippets/segment-group/solid/vertical-orientation.tsx?raw';
 
 ## Справочник API
 
@@ -33,8 +43,13 @@ import SegmentGroupVerticalOrientation from '@/components/examples/segment-group
 
 ## Базовый пример
 
-Используйте `SegmentGroup.Items`, если каждому сегменту нужна только текстовая подпись. Для каждого
-элемента списка он создаёт части Ark `item`, `text` и `control`, а также одно синхронизированное
+`SegmentGroup` доступен для React и Solid в пакетах с CSS Modules и Tailwind. Интерактивные
+превью на этой странице используют React и CSS Modules, а вкладки с кодом показывают нативный
+исходный код с тем же публичным контрактом.
+
+Используйте `SegmentGroup` как корневой компонент, разместите `SegmentGroup.Indicator` перед
+элементами и выберите `SegmentGroup.Items`, если каждому сегменту нужна только текстовая подпись.
+`Items` создаёт для каждого элемента части item, text и control, а также одно синхронизированное
 нативное поле формы.
 
 <ExampleFrame variant="component">
@@ -43,11 +58,23 @@ import SegmentGroupVerticalOrientation from '@/components/examples/segment-group
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/segment-group/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={segmentGroupSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -57,7 +84,28 @@ import SegmentGroupVerticalOrientation from '@/components/examples/segment-group
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="segment-group" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/segment-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/segment-group' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/segment-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/segment-group' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -93,64 +141,15 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 
 ## Композиция
 
-### Нативное поле формы
+Для обычной композиции используйте `SegmentGroup` с `SegmentGroup.Indicator` перед
+`SegmentGroup.Items`. `Items` добавляет к каждому элементу `ItemText`, `ItemControl` и ровно одно
+`ItemHiddenInput`. Если вы собираете `SegmentGroup.Item` напрямую, добавьте эти части самостоятельно
+и оставьте внутри каждого элемента ровно одно `ItemHiddenInput`. Прямой дочерний элемент
+`asChild` должен оставаться одним семантическим `label`.
 
-`SegmentGroup.ItemHiddenInput` экспортируется напрямую из Ark. Вложите по одному полю в каждый
-явный `SegmentGroup.Item`: сам элемент его не добавляет. Поле нужно для нативной работы с клавиатурой
-и формами. Задайте `name`, `required` и `form` на корневом компоненте или в параметрах хука
-при использовании `RootProvider`.
-
-`SegmentGroup.Items` уже содержит `ItemHiddenInput` в каждом созданном элементе; второе поле добавлять не нужно.
-
-### Рекомендуемый вариант
-
-В обычном случае используйте короткую форму `<SegmentGroup>` вместе с `SegmentGroup.Items`.
-Разместите `SegmentGroup.Indicator` перед элементами, чтобы измеренное выделение находилось под
-выбранным сегментом. `Items` сохраняет нативное поле формы в каждом созданном элементе, поэтому
-работают отправка формы и её сброс.
-
-### Когда нужна собственная композиция
-
-Используйте `SegmentGroup.Item`, если сегменту нужны произвольное содержимое, отдельный класс или
-`asChild`. Прямой дочерний элемент `asChild` всё равно должен быть одним семантическим `label`.
-Используйте `SegmentGroup.RootProvider` вместе с `useSegmentGroup()` из `@moduix/react`, если
-элементам управления за пределами дерева сегментов нужен доступ к методам `setValue`, `clearValue`
-или `focus`. Для собственной разметки, зависящей от состояния, используйте
-`SegmentGroup.Context`, `SegmentGroup.ItemContext`, `useSegmentGroupContext` или
-`useSegmentGroupItemContext` из `@moduix/react`.
-
-`SegmentGroup.Items` включает `ItemHiddenInput` в фиксированную композицию. При прямом использовании
-`SegmentGroup.Item` добавьте в него ровно один `SegmentGroup.ItemHiddenInput`.
-
-### Свойства по умолчанию
-
-| Свойство       | По умолчанию | Примечания                                                          |
-| -------------- | ------------ | ------------------------------------------------------------------- |
-| `defaultValue` | не задано    | Начальное значение неконтролируемой группы.                         |
-| `value`        | не задано    | Выбранное значение управляемой группы.                              |
-| `orientation`  | `horizontal` | Значение moduix по умолчанию; для вертикальной группы укажите `vertical`. |
-| `disabled`     | `false`      | Отключает всю группу, если задано на корневом элементе.             |
-| `readOnly`     | `false`      | Запрещает изменения, но оставляет текущее значение видимым.         |
-| `required`     | `false`      | Делает нативные поля обязательными при проверке формы.              |
-| `invalid`      | `false`      | Добавляет атрибуты недопустимого состояния Ark для стилей и ARIA.   |
-
-### Поведение
-
-`onValueChange(details)` сохраняет формат обратного вызова Ark. Выбранное значение находится в
-`details.value`. Ark управляет выбранным значением, перемещением фокуса, навигацией стрелками,
-состояниями `disabled`, `readOnly`, `invalid` и `required`, а также отправкой формы и синхронизацией
-при её сбросе.
-
-Клавиша <kbd>Tab</kbd> переводит фокус на выбранный элемент, а если выбор ещё не сделан, на
-первый элемент. Стрелки перемещают фокус и выбирают следующий или предыдущий элемент, а
-<kbd>Space</kbd> выбирает элемент в фокусе. Укажите `name` на корневом элементе, чтобы выбранное
-значение попало в нативный `FormData`.
-
-`Root`, `RootProvider`, `Label`, `Item`, `ItemControl`, `ItemText` и `Indicator` передают ref на
-соответствующие DOM-части Ark. Используйте `Field` или `Fieldset`, если их общее состояние должно
-распространяться на группу: `Field` передаёт состояния `disabled`, `invalid`, `required` и
-`readOnly`, а `Fieldset` передаёт `disabled` и `invalid`. Используйте `ids`, если составным
-подписям или элементам управления нужны предсказуемые идентификаторы доступности.
+Используйте `SegmentGroup.RootProvider` вместе с `useSegmentGroup()`, если состояние нужно создать
+вне дерева компонента или передать управление другой части приложения. React читает хранилище как
+объект, а Solid получает реактивное состояние через возвращаемую функцию доступа.
 
 ## Примеры
 
@@ -165,20 +164,31 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/segment-group/conditional-mount.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/segment-group/segment-group-conditional-mount.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={segmentGroupSolidConditionalMount} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/segment-group/segment-group-conditional-mount.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -194,20 +204,31 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/segment-group/controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/segment-group/segment-group-controlled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={segmentGroupSolidControlled} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/segment-group/segment-group-controlled.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -224,20 +245,31 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/segment-group/disabled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/segment-group/segment-group-disabled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={segmentGroupSolidDisabled} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/segment-group/segment-group-disabled.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -254,20 +286,31 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/segment-group/field.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/segment-group/segment-group-field.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={segmentGroupSolidField} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/segment-group/segment-group-field.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -283,20 +326,31 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/segment-group/form-submission.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/segment-group/segment-group-form-submission.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={segmentGroupSolidFormSubmission} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/segment-group/segment-group-form-submission.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -312,11 +366,23 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/segment-group/invalid.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={segmentGroupSolidInvalid} />
 
     </Tab>
   </Tabs>
@@ -335,20 +401,31 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/segment-group/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/segment-group/segment-group-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={segmentGroupSolidRootProvider} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/segment-group/segment-group-root-provider.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -364,20 +441,31 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/segment-group/vertical-orientation.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/segment-group/segment-group-vertical-orientation.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={segmentGroupSolidVerticalOrientation} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/segment-group/segment-group-vertical-orientation.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -393,29 +481,42 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/segment-group/aschild.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/segment-group/segment-group-advanced-customization.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={segmentGroupSolidAsChild} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/segment-group/segment-group-advanced-customization.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Стилизация
 
-Стилизуйте `SegmentGroup` с помощью `className`, стабильных хуков `data-slot="segment-group-*"`,
-атрибутов Ark `data-scope`, `data-part` и атрибутов состояния, а также публичных CSS-переменных
-`--moduix-segment-group-*`, перечисленных ниже.
+В React используйте `className`, а в Solid `class` на экспортируемых частях для структурных
+стилей. Для стилей состояний используйте атрибуты Ark, например `data-state`, `data-disabled` и
+`data-orientation`, вместе с селекторами moduix `data-slot`. Варианты Tailwind используют нативные
+utility-классы и классы потребителя, а переменные ниже настраивают варианты CSS Modules. Атрибуты
+состояния и хуки data-slot общие для обоих способов стилизации.
 
 ### CSS-свойства
 
@@ -423,15 +524,14 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 
 ### Хуки стилизации
 
-- Хуки анатомии Ark: `data-scope="segment-group"` и `data-part` на корневом элементе, подписи,
-  индикаторе, элементе, тексте элемента, контроле элемента и скрытом поле ввода.
-- Хуки состояний Ark: `data-state="checked" | "unchecked"`, `data-orientation`,
-  `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-active` и
-  `data-focus-visible`.
-- Хуки moduix: `data-slot="segment-group-root"`, `segment-group-root-provider`,
+- Стабильные селекторы `data-slot`: `segment-group-root`, `segment-group-root-provider`,
   `segment-group-label`, `segment-group-indicator`, `segment-group-item`,
-  `segment-group-item-text`, `segment-group-item-control`.
-- Индикатор использует переменные времени выполнения Ark `--left`, `--top`, `--width` и `--height`
-  для размера. Его анимация использует `--transition-duration` и `--transition-timing-function`,
-  а значения moduix по умолчанию задаются через `--moduix-segment-group-indicator-transition-duration`
+  `segment-group-item-text` и `segment-group-item-control`.
+- Селекторы частей Ark: `data-scope="segment-group"` и `data-part` на корневом элементе, подписи,
+  индикаторе, элементе, тексте элемента, его control и скрытом поле.
+- Селекторы состояний Ark: `data-state="checked|unchecked"`, `data-orientation`, `data-disabled`,
+  `data-readonly`, `data-invalid`, `data-required` и `data-focus-visible`.
+- Индикатор использует переменные Ark `--left`, `--top`, `--width` и `--height` для определения
+  размера. Для анимации используются `--transition-duration` и `--transition-timing-function`;
+  значения moduix по умолчанию задаются через `--moduix-segment-group-indicator-transition-duration`
   и `--moduix-segment-group-indicator-transition-timing-function`.

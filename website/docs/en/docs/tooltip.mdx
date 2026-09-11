@@ -16,6 +16,17 @@ import TooltipPositioning from '@/components/examples/tooltip/positioning.tsx';
 import TooltipRootProvider from '@/components/examples/tooltip/root-provider.tsx';
 import TooltipWithArrow from '@/components/examples/tooltip/with-arrow.tsx';
 import TooltipWithinFixedContainers from '@/components/examples/tooltip/within-fixed-containers.tsx';
+import tooltipSolidAdvancedCustomization from '../../../snippets/tooltip/solid/advanced-customization.tsx?raw';
+import tooltipSolidBasic from '../../../snippets/tooltip/solid/basic.tsx?raw';
+import tooltipSolidContext from '../../../snippets/tooltip/solid/context.tsx?raw';
+import tooltipSolidControlled from '../../../snippets/tooltip/solid/controlled.tsx?raw';
+import tooltipSolidDelay from '../../../snippets/tooltip/solid/delay.tsx?raw';
+import tooltipSolidDisabledTrigger from '../../../snippets/tooltip/solid/disabled-trigger.tsx?raw';
+import tooltipSolidMultipleTriggers from '../../../snippets/tooltip/solid/multiple-triggers.tsx?raw';
+import tooltipSolidPositioning from '../../../snippets/tooltip/solid/positioning.tsx?raw';
+import tooltipSolidRootProvider from '../../../snippets/tooltip/solid/root-provider.tsx?raw';
+import tooltipSolidWithArrow from '../../../snippets/tooltip/solid/with-arrow.tsx?raw';
+import tooltipSolidWithinFixedContainers from '../../../snippets/tooltip/solid/within-fixed-containers.tsx?raw';
 
 ## API Reference
 
@@ -31,10 +42,14 @@ Use `Tooltip` for short, non-essential information that appears on hover or focu
 
 ## Basic
 
+Tooltip ships for React and Solid in both CSS Modules and Tailwind packages. The rendered preview
+uses the React CSS Modules package; the framework tabs show native source for the same public
+contract.
+
 Use `Tooltip.Trigger` for the element that opens the tooltip and `Tooltip.Body` for its content.
-`Tooltip.Body` is a convenience wrapper around `Tooltip.Positioner` and `Tooltip.Content`.
-Give the trigger an accessible name of its own. Tooltip content is supplemental and does not replace
-visible text or an `aria-label`.
+`Tooltip.Body` combines `Tooltip.Positioner` and `Tooltip.Content`. Give the trigger an accessible
+name of its own. Tooltip content is supplemental and does not replace visible text or an
+`aria-label`.
 
 <ExampleFrame variant="component">
   <TooltipBasic />
@@ -42,11 +57,23 @@ visible text or an `aria-label`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tooltip/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tooltipSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -56,7 +83,30 @@ visible text or an `aria-label`.
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="tooltip" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tooltip' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tooltip' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tooltip' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tooltip' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+See [Quick Start](/docs/quick-start) for package setup and registry configuration.
 
 ## Anatomy
 
@@ -98,93 +148,21 @@ Tooltip / Tooltip.Root
 
 ## Composition
 
-By default, the root renders `Positioner` in a portal. Set `portalled={false}` to keep it in the
-current DOM tree, or pass `portalRef` to choose a custom portal container. The structural parts
-remain explicit and styleable.
-
-### Recommended composition
-
-For most tooltips, use `Tooltip.Trigger` with `Tooltip.Body`. This keeps the positioning API on the
-root while expanding the content into `Tooltip.Positioner` and `Tooltip.Content`. The explicit Ark
-parts remain available when you need to control that structure yourself.
-
-When migrating from shadcn, `Tooltip.Body` is the closest moduix equivalent to the usual
-`TooltipContent` step.
-
-### When to go custom
-
-Use `asChild` on `Tooltip.Trigger` when the trigger should render as a moduix `Button`, a link, or
-another semantic control. The child must remain one focusable element that supports the trigger
-interaction.
-
-Use `Tooltip.DisabledTrigger` around exactly one disabled native control that needs a short
-explanation. Give the wrapper its own accessible name. The wrapper can receive focus while the
-disabled child remains non-interactive, so the explanation is still available to keyboard and
-pointer users.
-
-Use `positioning` on `Tooltip` for placement, strategy, offset, collision handling, and other Ark
-positioning options. Use explicit `Tooltip.Positioner` and `Tooltip.Content` when you need
-positioner-specific styling or lower-level control of the Ark-shaped structure. Use `ids` when
-separate tooltip parts need stable shared IDs.
-
-### Default props
-
-The portalled content mounts lazily and is removed after its exit animation by default. Set
-`unmountOnExit={false}` to keep it mounted after the first open. Set both lifecycle props to
-`false` only when the content must render eagerly.
-
-| Prop | Default | Notes |
-| --- | --- | --- |
-| `openDelay` | `400` | Delay before opening on hover or focus. |
-| `closeDelay` | `150` | Delay before closing after hover or focus leaves. |
-| `closeOnClick` | `true` | Closes the tooltip when the trigger is clicked. |
-| `closeOnEscape` | `true` | Closes the tooltip when Escape is pressed. |
-| `closeOnPointerDown` | `true` | Closes the tooltip on pointer down. |
-| `closeOnScroll` | `true` | Closes the tooltip when the user scrolls. |
-| `interactive` | `false` | Keeps the tooltip open while its content is hovered. |
-| `lazyMount` | `true` | Mounts the content only after the first open. |
-| `unmountOnExit` | `true` | Removes the content after its exit animation. |
-| `skipAnimationOnMount` | `false` | Keeps the first presence animation enabled. |
-| `portalled` | `true` | Renders the positioner in a portal. |
-| `portalRef` | `-` | Targets a custom portal container. |
-| `positioning` | `-` | Ark positioning options. |
-| `ids` | `-` | Stable IDs for tooltip parts. |
-| `defaultOpen` | `-` | Initial open state for uncontrolled usage. |
-| `open` | `-` | Controlled open state. |
-| `disabled` | `false` | Disables tooltip interactions. |
-
-### Behavioral notes
-
-- `onOpenChange(details)` receives an object. Read the next open state from `details.open`.
-- `defaultOpen` sets the initial state for uncontrolled usage. `disabled` turns off tooltip
-  interaction without changing the trigger's own semantics.
-- Ark presence props such as `present`, `immediate`, `onExitComplete`, `lazyMount`, and
-  `unmountOnExit` pass through unchanged.
-- `Tooltip.RootProvider`, `Tooltip.Context`, `useTooltip`, and `useTooltipContext` are available
-  from `@moduix/react` for advanced state access. Use the provider and `useTooltip` when state is
-  created outside the rendered tooltip tree.
-- `Tooltip.Trigger` receives the moduix trigger styling only when `asChild` is not used. With
-  `asChild`, the child element owns its styling.
-- `Tooltip.DisabledTrigger` is intended for one disabled direct child. Use it instead of repeating
-  a focusable `span`, `tabIndex`, and pointer-events override for every disabled control.
-- `Tooltip.Body` forwards its props, children, and ref to `Tooltip.Content`. It does not add a DOM
-  part or a separate positioning API.
-- `Tooltip.Content` owns the visible surface and z-index. `Tooltip.Positioner` owns floating
-  positioning and exposes Ark variables such as `--available-width`, `--available-height`, and
-  `--transform-origin`.
-- Ark emits `data-state="open" | "closed"` on the trigger and content. With trigger values, it also
-  emits `data-value`, `data-current`, and `data-expanded` on the trigger. Content exposes placement
-  attributes such as `data-placement` and `data-side`.
-- Trigger transitions and content animations are disabled when the user prefers reduced motion.
-- Tooltip content wraps long unbroken strings. Use `Popover` or `HoverCard` for long or interactive
-  content instead of turning a tooltip into a scrollable surface.
+Use `Tooltip.Body` for the standard `Trigger` plus content composition. It combines
+`Tooltip.Positioner` and `Tooltip.Content`; use those parts explicitly when they need independent
+styling or structure. The root owns state, so use `defaultOpen` for an uncontrolled tooltip or
+`open` with `onOpenChange(details)` when another part of the application owns it. Use
+`Tooltip.RootProvider` with `useTooltip()` when the store is created outside the rendered tree, and
+use `Tooltip.Context` or `useTooltipContext()` when a descendant needs that state. `asChild` requires
+one focusable child; Solid uses a render function. `Tooltip.DisabledTrigger` is for one disabled
+native control. Portalling is enabled by default, so set `portalled={false}` or pass `portalRef`
+only when the tooltip must stay within a specific DOM boundary.
 
 ## Examples
 
 ### Context
 
-Use `useTooltipContext()` inside a descendant that needs the current tooltip state. Use
-`Tooltip.Context` when a render prop makes the custom composition clearer.
+Use `useTooltipContext()` inside a descendant that needs the current tooltip state.
 
 <ExampleFrame variant="component">
   <TooltipContext />
@@ -192,11 +170,23 @@ Use `useTooltipContext()` inside a descendant that needs the current tooltip sta
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tooltip/context.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tooltipSolidContext} />
 
     </Tab>
   </Tabs>
@@ -214,11 +204,23 @@ Control whether the tooltip is open with `open` and `onOpenChange(details)`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tooltip/controlled.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tooltipSolidControlled} />
 
     </Tab>
   </Tabs>
@@ -236,11 +238,23 @@ Set `openDelay` and `closeDelay` on the root to adjust hover and focus timing.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tooltip/delay.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tooltipSolidDelay} />
 
     </Tab>
   </Tabs>
@@ -251,7 +265,7 @@ Set `openDelay` and `closeDelay` on the root to adjust hover and focus timing.
 ### Disabled Trigger
 
 Use `Tooltip.DisabledTrigger` when a disabled native control still needs a short explanation. It
-keeps a focusable wrapper around the disabled child without changing the child's disabled state.
+keeps a focusable wrapper around the disabled child without changing its disabled state.
 
 <ExampleFrame variant="component">
   <TooltipDisabledTrigger />
@@ -259,11 +273,23 @@ keeps a focusable wrapper around the disabled child without changing the child's
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tooltip/disabled-trigger.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tooltipSolidDisabledTrigger} />
 
     </Tab>
   </Tabs>
@@ -283,22 +309,30 @@ several triggers.
 <ExampleCode>
 <div className="docs-reference">
   <Tabs
-    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
     className="docs-tabs"
   >
-    <Tab value="React">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tooltip/multiple-triggers.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/tooltip/component-multiple-triggers.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={tooltipSolidMultipleTriggers} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/tooltip/component-multiple-triggers.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -313,20 +347,31 @@ Pass Ark positioning options to `Tooltip`, including placement and offset values
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tooltip/positioning.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/tooltip/component-positioning.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={tooltipSolidPositioning} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/tooltip/component-positioning.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -342,11 +387,23 @@ rendered tooltip tree.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tooltip/root-provider.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tooltipSolidRootProvider} />
 
     </Tab>
   </Tabs>
@@ -366,11 +423,23 @@ Add `Tooltip.Arrow` as the first child of the tooltip content when it needs a vi
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tooltip/with-arrow.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tooltipSolidWithArrow} />
 
     </Tab>
   </Tabs>
@@ -391,22 +460,30 @@ checking the tooltip's alignment.
 <ExampleCode>
 <div className="docs-reference">
   <Tabs
-    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
     className="docs-tabs"
   >
-    <Tab value="React">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tooltip/within-fixed-containers.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/tooltip/component-within-fixed-containers.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={tooltipSolidWithinFixedContainers} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/tooltip/component-within-fixed-containers.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -422,11 +499,23 @@ composition or styling.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tooltip/advanced-customization.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tooltipSolidAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -435,6 +524,11 @@ composition or styling.
 </ExampleCode>
 
 ## Styling
+
+Use `className` in React or `class` in Solid on exported parts for structural styles. For state-based
+styles, prefer Ark data attributes such as `data-state`, `data-placement`, and `data-side`, together
+with moduix `data-slot` selectors. Tailwind variants use native utilities and consumer classes; the
+CSS variables below customize the CSS Modules variants.
 
 ### CSS Properties
 
@@ -452,9 +546,7 @@ composition or styling.
 
 ### Styling hooks
 
-Style the part that owns the visual concern:
-
-- `Tooltip.Body` does not create a DOM node. When you use the explicit composition, style
+- `Tooltip.Body` does not create a DOM node. When using the explicit composition, style
   `Tooltip.Positioner` and `Tooltip.Content` separately.
 - `Tooltip.Trigger` controls trigger chrome, hover and open feedback, and focus styling.
 - `Tooltip.DisabledTrigger` controls the disabled-control wrapper and its direct disabled child.

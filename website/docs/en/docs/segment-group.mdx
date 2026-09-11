@@ -16,12 +16,22 @@ import SegmentGroupFormSubmission from '@/components/examples/segment-group/form
 import SegmentGroupInvalid from '@/components/examples/segment-group/invalid.tsx';
 import SegmentGroupRootProvider from '@/components/examples/segment-group/root-provider.tsx';
 import SegmentGroupVerticalOrientation from '@/components/examples/segment-group/vertical-orientation.tsx';
+import segmentGroupSolidAsChild from '../../../snippets/segment-group/solid/aschild.tsx?raw';
+import segmentGroupSolidBasic from '../../../snippets/segment-group/solid/basic.tsx?raw';
+import segmentGroupSolidConditionalMount from '../../../snippets/segment-group/solid/conditional-mount.tsx?raw';
+import segmentGroupSolidControlled from '../../../snippets/segment-group/solid/controlled.tsx?raw';
+import segmentGroupSolidDisabled from '../../../snippets/segment-group/solid/disabled.tsx?raw';
+import segmentGroupSolidField from '../../../snippets/segment-group/solid/field.tsx?raw';
+import segmentGroupSolidFormSubmission from '../../../snippets/segment-group/solid/form-submission.tsx?raw';
+import segmentGroupSolidInvalid from '../../../snippets/segment-group/solid/invalid.tsx?raw';
+import segmentGroupSolidRootProvider from '../../../snippets/segment-group/solid/root-provider.tsx?raw';
+import segmentGroupSolidVerticalOrientation from '../../../snippets/segment-group/solid/vertical-orientation.tsx?raw';
 
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/segment-group" />
 
-## Choosing The Right Component
+## Choosing the right component
 
 Use `SegmentGroup` when users choose one value from a small set that is visible at the same time.
 
@@ -32,8 +42,13 @@ Use `SegmentGroup` when users choose one value from a small set that is visible 
 
 ## Basic
 
-Use `SegmentGroup.Items` when each segment only needs a text label. It creates the Ark item, text,
-control, and one synchronized native form input for every entry in the list.
+`SegmentGroup` is available for React and Solid in both the CSS Modules and Tailwind packages. The
+interactive previews on this page use React and CSS Modules; the framework tabs show native source
+for the same public contract.
+
+Use `SegmentGroup` as the root, place `SegmentGroup.Indicator` before the items, and use
+`SegmentGroup.Items` when every segment only needs a text label. `Items` creates the item, text,
+control, and one synchronized native form input for every entry.
 
 <ExampleFrame variant="component">
   <SegmentGroupBasic />
@@ -41,11 +56,23 @@ control, and one synchronized native form input for every entry in the list.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/segment-group/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={segmentGroupSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -55,7 +82,28 @@ control, and one synchronized native form input for every entry in the list.
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="segment-group" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/segment-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/segment-group' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/segment-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/segment-group' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
@@ -69,82 +117,32 @@ SegmentGroup / SegmentGroup.Root
    └─ the native form input
 
 SegmentGroup.RootProvider
-└─ the same item tree connected to a moduix useSegmentGroup() store
-
-SegmentGroup.Context / SegmentGroup.ItemContext
-└─ advanced render-prop access to Ark state
+└─ the same item tree connected to a useSegmentGroup() store
 ```
 
-| Part                                 | Role                                                                |
-| ------------------------------------ | ------------------------------------------------------------------- |
-| `SegmentGroup` / `SegmentGroup.Root` | Owns the selected value, keyboard navigation, and form integration. |
-| `SegmentGroup.ItemHiddenInput` | Native Ark form control; compose explicitly as described below. |
-| `SegmentGroup.RootProvider`          | Connects the parts to state created with moduix `useSegmentGroup()`. |
-| `SegmentGroup.Context`               | Provides advanced render-prop access to the root state.            |
-| `SegmentGroup.ItemContext`            | Provides advanced render-prop access to the current item state.    |
-| `SegmentGroup.Label`                 | Optional accessible label for the group.                           |
-| `SegmentGroup.Indicator`             | Positions the active-item highlight using Ark CSS variables.      |
-| `SegmentGroup.Items`                 | Recommended renderer for standard text segments.                   |
-| `SegmentGroup.Item`                  | One selectable segment; renders a `label` by default.              |
-| `SegmentGroup.ItemText`              | Visible text for a segment.                                         |
-| `SegmentGroup.ItemControl`           | Ark control part used for item state; hidden by moduix styles.     |
+| Part | Role |
+| ---- | ---- |
+| `SegmentGroup` / `SegmentGroup.Root` | Root part that owns the selected value, keyboard navigation, and form integration. |
+| `SegmentGroup.RootProvider` | Connects the parts to state created with `useSegmentGroup()`. |
+| `SegmentGroup.Item` | One selectable segment with a required `value`. |
+| `SegmentGroup.ItemHiddenInput` | Native Ark form control for an explicit item composition. |
+| `SegmentGroup.ItemText` | Visible text for a segment. |
+| `SegmentGroup.ItemControl` | Ark control part used for item state and hidden by moduix styles. |
+| `SegmentGroup.Items` | Renderer for standard text segments with the native input included. |
+| `SegmentGroup.Indicator` | Positions the active-item highlight using Ark CSS variables. |
+| `SegmentGroup.Label` | Optional accessible label for the group. |
 
 ## Composition
 
-### Native form control
+Use `SegmentGroup` with `SegmentGroup.Indicator` before `SegmentGroup.Items` for the usual
+composition. `Items` includes `ItemText`, `ItemControl`, and exactly one
+`ItemHiddenInput` for every item. When rendering `SegmentGroup.Item` directly, compose those
+parts yourself and keep exactly one `ItemHiddenInput` inside each item. The direct child of
+`asChild` must remain one semantic `label`.
 
-`SegmentGroup.ItemHiddenInput` is exposed directly from Ark. Place one inside every explicit
-`SegmentGroup.Item`; the item does not add it. Keep it for native keyboard interaction and form behavior.
-Set `name`, `required`, and `form` on the root, or in the hook options with `RootProvider`.
-
-`SegmentGroup.Items` already includes `ItemHiddenInput` in every generated item; do not add a second input.
-
-### Recommended composition
-
-For the common case, use the short root form `<SegmentGroup>` with `SegmentGroup.Items`. Place
-`SegmentGroup.Indicator` before the items so the measured highlight appears behind the selected
-segment. `Items` keeps a native form input in every generated item, which supports native form
-submission and reset behavior.
-
-### When to go custom
-
-Use `SegmentGroup.Item` when a segment needs custom content, its own class, or `asChild`. The direct
-child passed to `asChild` must still be one semantic `label`. Use `SegmentGroup.RootProvider` with
-`useSegmentGroup()` from `@moduix/react` when controls outside the segment tree need to call methods
-such as `setValue`, `clearValue`, or `focus`. For custom visuals driven by state, use
-`SegmentGroup.Context`, `SegmentGroup.ItemContext`, `useSegmentGroupContext`, or
-`useSegmentGroupItemContext` from `@moduix/react`.
-
-`SegmentGroup.Items` includes `ItemHiddenInput` in its fixed composition. When using
-`SegmentGroup.Item` directly, add exactly one `SegmentGroup.ItemHiddenInput` inside it.
-
-### Default props
-
-| Prop           | Default      | Notes                                                     |
-| -------------- | ------------ | --------------------------------------------------------- |
-| `defaultValue` | not set      | Initial value for an uncontrolled group.                 |
-| `value`        | not set      | Selected value for a controlled group.                   |
-| `orientation`  | `horizontal` | moduix default; set `vertical` for a vertical group.    |
-| `disabled`     | `false`      | Disables the whole group when set on the root.            |
-| `readOnly`     | `false`      | Prevents changes while keeping the current value visible. |
-| `required`     | `false`      | Marks the native inputs as required for form validation.  |
-| `invalid`      | `false`      | Adds Ark invalid-state attributes for styling and ARIA.   |
-
-### Behavioral notes
-
-`onValueChange(details)` keeps Ark's callback shape. Read the selected value from `details.value`.
-Ark manages the selected value, focus movement, arrow-key navigation, disabled, read-only,
-invalid, and required states, as well as form submission and reset synchronization.
-
-Press <kbd>Tab</kbd> to focus the selected item, or the first item when nothing is selected. Use
-the arrow keys to move between items and <kbd>Space</kbd> to select the focused item. Set `name`
-on the root when the selected value should be included in native `FormData`.
-
-`Root`, `RootProvider`, `Label`, `Item`, `ItemControl`, `ItemText`, and `Indicator` forward refs to
-their corresponding Ark DOM parts. Use `Field` or `Fieldset` when their shared state should apply:
-`Field` passes disabled, invalid, required, and read-only state, while `Fieldset` passes disabled
-and invalid state. Use `ids` when composed labels or controls need deterministic accessibility
-identifiers.
+Use `SegmentGroup.RootProvider` with `useSegmentGroup()` when the state must be created outside
+the rendered tree or controlled by another part of the application. React reads the store as an
+object, while Solid reads its reactive state through the returned accessor.
 
 ## Examples
 
@@ -159,27 +157,39 @@ geometry used by the indicator.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/segment-group/conditional-mount.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/segment-group/segment-group-conditional-mount.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={segmentGroupSolidConditionalMount} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/segment-group/segment-group-conditional-mount.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Controlled
 
-Keep the selected value in React state and update it from `details.value` in `onValueChange`.
+Keep the selected value in application state and update it from `details.value` in
+`onValueChange`.
 
 <ExampleFrame variant="component">
   <SegmentGroupControlled />
@@ -187,20 +197,31 @@ Keep the selected value in React state and update it from `details.value` in `on
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/segment-group/controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/segment-group/segment-group-controlled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={segmentGroupSolidControlled} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/segment-group/segment-group-controlled.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -208,8 +229,7 @@ Keep the selected value in React state and update it from `details.value` in `on
 ### Disabled
 
 Set `disabled` on an item when only that segment should be unavailable. Set it on the root to
-disable the whole group. The root's disabled style dims the group once, without compounding the
-opacity of individual items.
+disable the whole group.
 
 <ExampleFrame variant="component">
   <SegmentGroupDisabled />
@@ -217,28 +237,39 @@ opacity of individual items.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/segment-group/disabled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/segment-group/segment-group-disabled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={segmentGroupSolidDisabled} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/segment-group/segment-group-disabled.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Field
 
-Wrap the group in `Field` when its native inputs should be accompanied by helper or error text. Ark
-inherits the field's disabled, invalid, required, and read-only state.
+Wrap the group in `Field` when its native inputs should be accompanied by helper or error text.
+Ark inherits the field's disabled, invalid, required, and read-only state.
 
 <ExampleFrame variant="component">
   <SegmentGroupField />
@@ -246,20 +277,31 @@ inherits the field's disabled, invalid, required, and read-only state.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/segment-group/field.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/segment-group/segment-group-field.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={segmentGroupSolidField} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/segment-group/segment-group-field.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -275,20 +317,31 @@ adds a native form input to every generated item.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/segment-group/form-submission.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/segment-group/segment-group-form-submission.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={segmentGroupSolidFormSubmission} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/segment-group/segment-group-form-submission.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -304,11 +357,23 @@ group participates in native form validation.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/segment-group/invalid.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={segmentGroupSolidInvalid} />
 
     </Tab>
   </Tabs>
@@ -318,8 +383,8 @@ group participates in native form validation.
 
 ### Root Provider
 
-Use `useSegmentGroup()` with `RootProvider` when controls outside the segment tree need access to
-the same state.
+Use `useSegmentGroup()` with `RootProvider` when controls outside the segment tree need access
+to the same state.
 
 <ExampleFrame variant="component">
   <SegmentGroupRootProvider />
@@ -327,20 +392,31 @@ the same state.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/segment-group/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/segment-group/segment-group-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={segmentGroupSolidRootProvider} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/segment-group/segment-group-root-provider.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -356,20 +432,31 @@ navigation.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/segment-group/vertical-orientation.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/segment-group/segment-group-vertical-orientation.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={segmentGroupSolidVerticalOrientation} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/segment-group/segment-group-vertical-orientation.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -385,29 +472,42 @@ own the item's DOM node.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/segment-group/aschild.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/segment-group/segment-group-advanced-customization.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={segmentGroupSolidAsChild} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/segment-group/segment-group-advanced-customization.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Styling
 
-Style `SegmentGroup` with `className`, stable `data-slot="segment-group-*"` hooks, Ark's
-`data-scope`, `data-part`, and state attributes, and the public `--moduix-segment-group-*` CSS
-variables listed below.
+Use `className` in React or `class` in Solid on exported parts for structural styles. For state-based
+styles, prefer Ark data attributes such as `data-state`, `data-disabled`, and `data-orientation`,
+together with moduix `data-slot` selectors. Tailwind variants use native utilities and consumer
+classes; the component variables below customize the CSS Modules variants. Data attributes and
+`data-slot` hooks are shared by both styling tracks.
 
 ### CSS Properties
 
@@ -415,14 +515,13 @@ variables listed below.
 
 ### Styling hooks
 
-- Ark anatomy hooks: `data-scope="segment-group"` and `data-part` on the root, label, indicator,
-  item, item text, item control, and hidden input.
-- Ark state hooks: `data-state="checked" | "unchecked"`, `data-orientation`, `data-disabled`,
-  `data-readonly`, `data-invalid`, `data-required`, `data-active`, and `data-focus-visible`.
-- moduix hooks: `data-slot="segment-group-root"`, `segment-group-root-provider`,
+- Stable `data-slot` selectors: `segment-group-root`, `segment-group-root-provider`,
   `segment-group-label`, `segment-group-indicator`, `segment-group-item`,
-  `segment-group-item-text`, `segment-group-item-control`.
-
+  `segment-group-item-text`, and `segment-group-item-control`.
+- Ark part selectors: `data-scope="segment-group"` and `data-part` on the root, label, indicator,
+  item, item text, item control, and hidden input.
+- Ark state selectors: `data-state="checked|unchecked"`, `data-orientation`, `data-disabled`,
+  `data-readonly`, `data-invalid`, `data-required`, and `data-focus-visible`.
 - The indicator uses Ark runtime variables `--left`, `--top`, `--width`, and `--height` for its
   size. Its motion uses `--transition-duration` and `--transition-timing-function`, with moduix
   defaults mapped from `--moduix-segment-group-indicator-transition-duration` and

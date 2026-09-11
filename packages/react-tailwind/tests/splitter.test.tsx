@@ -22,8 +22,22 @@ test('preserves Ark keyboard affordances and Tailwind trigger defaults', async (
   const indicator = container.querySelector('[data-slot="splitter-resize-trigger-indicator"]');
 
   expect(root).toHaveClass('h-112', 'w-full', 'rounded-md', 'bg-card');
-  expect(trigger).toHaveClass('w-px', 'min-w-px', 'before:w-[0.5px]', 'before:h-full');
-  expect(indicator).toHaveClass('h-control-xs', 'w-1.5', 'rounded-full', 'bg-background');
+  expect(trigger).toHaveClass(
+    'w-px',
+    'min-w-px',
+    'before:w-[0.5px]',
+    'before:h-full',
+    'data-dragging:before:bg-muted-foreground/40',
+    '[@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:before:bg-muted-foreground/40',
+  );
+  expect(indicator).toHaveClass(
+    'h-control-xs',
+    'w-1.5',
+    'rounded-full',
+    'bg-background',
+    'group-hover/trigger:border-muted-foreground/40',
+  );
+  expect(indicator).not.toHaveClass('data-dragging:border-border');
   expect(indicator).toBeVisible();
   expect(trigger).toHaveAttribute('aria-valuenow', '40');
   expect(trigger).toHaveAttribute('aria-valuemin', '20');

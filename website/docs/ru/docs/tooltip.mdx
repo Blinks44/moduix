@@ -16,6 +16,17 @@ import TooltipPositioning from '@/components/examples/tooltip/positioning.tsx';
 import TooltipRootProvider from '@/components/examples/tooltip/root-provider.tsx';
 import TooltipWithArrow from '@/components/examples/tooltip/with-arrow.tsx';
 import TooltipWithinFixedContainers from '@/components/examples/tooltip/within-fixed-containers.tsx';
+import tooltipSolidAdvancedCustomization from '../../../snippets/tooltip/solid/advanced-customization.tsx?raw';
+import tooltipSolidBasic from '../../../snippets/tooltip/solid/basic.tsx?raw';
+import tooltipSolidContext from '../../../snippets/tooltip/solid/context.tsx?raw';
+import tooltipSolidControlled from '../../../snippets/tooltip/solid/controlled.tsx?raw';
+import tooltipSolidDelay from '../../../snippets/tooltip/solid/delay.tsx?raw';
+import tooltipSolidDisabledTrigger from '../../../snippets/tooltip/solid/disabled-trigger.tsx?raw';
+import tooltipSolidMultipleTriggers from '../../../snippets/tooltip/solid/multiple-triggers.tsx?raw';
+import tooltipSolidPositioning from '../../../snippets/tooltip/solid/positioning.tsx?raw';
+import tooltipSolidRootProvider from '../../../snippets/tooltip/solid/root-provider.tsx?raw';
+import tooltipSolidWithArrow from '../../../snippets/tooltip/solid/with-arrow.tsx?raw';
+import tooltipSolidWithinFixedContainers from '../../../snippets/tooltip/solid/within-fixed-containers.tsx?raw';
 
 ## Справочник API
 
@@ -32,10 +43,14 @@ import TooltipWithinFixedContainers from '@/components/examples/tooltip/within-f
 
 ## Базовый пример
 
+Tooltip доступен для React и Solid в вариантах с CSS Modules и Tailwind. Предпросмотр на этой
+странице использует React и CSS Modules, а вкладки показывают нативный исходный код для React и
+Solid с тем же публичным контрактом.
+
 Используйте `Tooltip.Trigger` для элемента, который открывает подсказку, а `Tooltip.Body` для её
-содержимого. `Tooltip.Body` - удобная обёртка над `Tooltip.Positioner` и `Tooltip.Content`.
-У самого триггера должно быть доступное имя. Содержимое подсказки дополняет интерфейс и не заменяет
-видимый текст или `aria-label`.
+содержимого. `Tooltip.Body` объединяет `Tooltip.Positioner` и `Tooltip.Content`. У триггера должно
+быть собственное доступное имя. Содержимое подсказки дополняет интерфейс и не заменяет видимый
+текст или `aria-label`.
 
 <ExampleFrame variant="component">
   <TooltipBasic />
@@ -43,11 +58,23 @@ import TooltipWithinFixedContainers from '@/components/examples/tooltip/within-f
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tooltip/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tooltipSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -57,7 +84,30 @@ import TooltipWithinFixedContainers from '@/components/examples/tooltip/within-f
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="tooltip" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tooltip' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tooltip' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tooltip' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tooltip' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+Подробнее об установке пакета и настройке registry рассказано в разделе [Quick Start](/docs/quick-start).
 
 ## Анатомия
 
@@ -99,98 +149,22 @@ Tooltip / Tooltip.Root
 
 ## Композиция
 
-По умолчанию корневой компонент выводит `Positioner` через портал. Передайте `portalled={false}`,
-чтобы оставить его в текущем DOM-дереве, или укажите `portalRef`, чтобы выбрать свой контейнер
-портала. Структурные части остаются явными и доступными для стилизации.
-
-### Рекомендуемая композиция
-
-Для большинства подсказок используйте `Tooltip.Trigger` вместе с `Tooltip.Body`. API
-позиционирования остаётся у корневого компонента, а содержимое разворачивается в
-`Tooltip.Positioner` и `Tooltip.Content`. Явные части Ark доступны, когда структурой нужно
-управлять вручную.
-
-При миграции с shadcn `Tooltip.Body` ближе всего к обычному шагу `TooltipContent` в moduix.
-
-### Когда нужна собственная композиция
-
-Используйте `asChild` у `Tooltip.Trigger`, если триггером должна быть кнопка moduix `Button`, ссылка
-или другой семантический элемент управления. Потомок должен оставаться одним доступным для фокуса
-элементом, который поддерживает взаимодействие триггера.
-
-Используйте `Tooltip.DisabledTrigger` вокруг одного отключённого нативного элемента управления,
-которому нужно краткое пояснение. Задайте обёртке собственное доступное имя. Она может получать
-фокус, пока отключённый потомок остаётся неинтерактивным, поэтому пояснение доступно пользователям
-клавиатуры и указателя.
-
-Используйте `positioning` у `Tooltip`, чтобы настроить размещение, стратегию, отступ, обработку
-выхода за границы и другие параметры позиционирования Ark. Используйте явные
-`Tooltip.Positioner` и `Tooltip.Content`, если нужны отдельные стили для Positioner или более
-точный контроль над структурой в стиле Ark. Используйте `ids`, когда разным частям подсказки нужны
-стабильные общие идентификаторы.
-
-### Свойства по умолчанию
-
-Содержимое, выводимое через портал, по умолчанию монтируется при первом открытии и удаляется после
-анимации закрытия. Установите `unmountOnExit={false}`, чтобы сохранять его после первого открытия.
-Устанавливайте оба свойства жизненного цикла в `false`, только если содержимое должно отображаться
-сразу.
-
-| Свойство | По умолчанию | Примечания |
-| --- | --- | --- |
-| `openDelay` | `400` | Задержка перед открытием при наведении или фокусе. |
-| `closeDelay` | `150` | Задержка перед закрытием после ухода указателя или фокуса. |
-| `closeOnClick` | `true` | Закрывает подсказку при нажатии на триггер. |
-| `closeOnEscape` | `true` | Закрывает подсказку при нажатии Escape. |
-| `closeOnPointerDown` | `true` | Закрывает подсказку при нажатии указателя. |
-| `closeOnScroll` | `true` | Закрывает подсказку при прокрутке. |
-| `interactive` | `false` | Оставляет подсказку открытой, пока указатель находится над её содержимым. |
-| `lazyMount` | `true` | Монтирует содержимое только после первого открытия. |
-| `unmountOnExit` | `true` | Удаляет содержимое после анимации закрытия. |
-| `skipAnimationOnMount` | `false` | Сохраняет первую анимацию появления. |
-| `portalled` | `true` | Выводит Positioner через портал. |
-| `portalRef` | `-` | Указывает пользовательский контейнер портала. |
-| `positioning` | `-` | Параметры позиционирования Ark. |
-| `ids` | `-` | Стабильные идентификаторы частей подсказки. |
-| `defaultOpen` | `-` | Начальное состояние при неконтролируемом использовании. |
-| `open` | `-` | Управляемое состояние открытия. |
-| `disabled` | `false` | Отключает взаимодействие с подсказкой. |
-
-### Особенности поведения
-
-- `onOpenChange(details)` получает объект. Читайте новое состояние открытия из `details.open`.
-- `defaultOpen` задаёт начальное состояние при неконтролируемом использовании. `disabled`
-  отключает взаимодействие с подсказкой, не меняя семантику самого триггера.
-- Свойства присутствия Ark, такие как `present`, `immediate`, `onExitComplete`, `lazyMount` и
-  `unmountOnExit`, передаются без изменений.
-- `Tooltip.RootProvider`, `Tooltip.Context`, `useTooltip` и `useTooltipContext` доступны из
-  `@moduix/react` для расширенного доступа к состоянию. Используйте провайдер и `useTooltip`, если
-  состояние создаётся за пределами дерева подсказки.
-- `Tooltip.Trigger` получает стандартное оформление триггера moduix, только если не используется
-  `asChild`. При `asChild` за стилизацию отвечает дочерний элемент.
-- `Tooltip.DisabledTrigger` рассчитан на одного прямого отключённого потомка. Используйте его
-  вместо повторения обёртки, доступной для фокуса, `tabIndex` и правила `pointer-events` для каждого
-  отключённого элемента управления.
-- `Tooltip.Body` передаёт свойства, потомков и ref в `Tooltip.Content`. Он не добавляет отдельную
-  DOM-часть или собственный API позиционирования.
-- `Tooltip.Content` отвечает за видимую поверхность и `z-index`. `Tooltip.Positioner` отвечает за
-  плавающее позиционирование и предоставляет переменные Ark, например `--available-width`,
-  `--available-height` и `--transform-origin`.
-- Ark добавляет `data-state="open" | "closed"` к триггеру и содержимому. При использовании значений
-  триггеров он также добавляет к триггеру `data-value`, `data-current` и `data-expanded`. Содержимое
-  получает атрибуты позиционирования, например `data-placement` и `data-side`.
-- Переходы триггера и анимации содержимого отключаются, если пользователь предпочитает уменьшить
-  количество движения.
-- Содержимое подсказки переносит длинные неразрывные строки. Для длинного или интерактивного
-  содержимого используйте `Popover` или `HoverCard`, а не превращайте подсказку в прокручиваемую
-  область.
+Для стандартной композиции `Trigger` и содержимого используйте `Tooltip.Body`: он объединяет
+`Tooltip.Positioner` и `Tooltip.Content`. Используйте эти части явно, если им нужны независимые
+стили или структура. Корневой компонент владеет состоянием: `defaultOpen` подходит для
+неконтролируемой подсказки, а `open` вместе с `onOpenChange(details)` используется, когда состояние
+хранится в другой части приложения. Используйте `Tooltip.RootProvider` с `useTooltip()`, если
+хранилище создаётся за пределами дерева, а `Tooltip.Context` или `useTooltipContext()`, если
+состояние нужно потомку. `asChild` принимает один доступный для фокуса элемент, а в Solid
+используется функция рендеринга. `Tooltip.DisabledTrigger` предназначен для одного отключённого
+нативного элемента. Портал включён по умолчанию, поэтому задавайте `portalled={false}` или
+передавайте `portalRef` только при необходимости ограничить подсказку конкретной DOM-областью.
 
 ## Примеры
 
 ### Контекст
 
 Используйте `useTooltipContext()` внутри потомка, которому нужно текущее состояние подсказки.
-Используйте `Tooltip.Context`, когда для пользовательской композиции удобнее render prop.
 
 <ExampleFrame variant="component">
   <TooltipContext />
@@ -198,11 +172,23 @@ Tooltip / Tooltip.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tooltip/context.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tooltipSolidContext} />
 
     </Tab>
   </Tabs>
@@ -220,11 +206,23 @@ Tooltip / Tooltip.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tooltip/controlled.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tooltipSolidControlled} />
 
     </Tab>
   </Tabs>
@@ -243,11 +241,23 @@ Tooltip / Tooltip.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tooltip/delay.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tooltipSolidDelay} />
 
     </Tab>
   </Tabs>
@@ -266,11 +276,23 @@ Tooltip / Tooltip.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tooltip/disabled-trigger.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tooltipSolidDisabledTrigger} />
 
     </Tab>
   </Tabs>
@@ -290,22 +312,30 @@ Tooltip / Tooltip.Root
 <ExampleCode>
 <div className="docs-reference">
   <Tabs
-    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
     className="docs-tabs"
   >
-    <Tab value="React">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tooltip/multiple-triggers.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/tooltip/component-multiple-triggers.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={tooltipSolidMultipleTriggers} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/tooltip/component-multiple-triggers.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -320,20 +350,31 @@ Tooltip / Tooltip.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tooltip/positioning.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/tooltip/component-positioning.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={tooltipSolidPositioning} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/tooltip/component-positioning.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -349,11 +390,23 @@ Tooltip / Tooltip.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tooltip/root-provider.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tooltipSolidRootProvider} />
 
     </Tab>
   </Tabs>
@@ -364,8 +417,8 @@ Tooltip / Tooltip.Root
 ### Со стрелкой
 
 Добавьте `Tooltip.Arrow` первым потомком содержимого, если подсказка должна визуально указывать на
-триггер. При использовании `Tooltip.Body` разместите его непосредственно внутри `Tooltip.Body`.
-Обёртка сама добавит стандартный `Tooltip.ArrowTip`.
+триггер. При использовании `Tooltip.Body` разместите его непосредственно внутри `Tooltip.Body`,
+обёртка сама добавит стандартный `Tooltip.ArrowTip`.
 
 <ExampleFrame variant="component">
   <TooltipWithArrow />
@@ -373,11 +426,23 @@ Tooltip / Tooltip.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tooltip/with-arrow.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tooltipSolidWithArrow} />
 
     </Tab>
   </Tabs>
@@ -388,8 +453,8 @@ Tooltip / Tooltip.Root
 ### В фиксированных контейнерах
 
 Используйте `positioning.strategy: "fixed"`, если триггер находится в фиксированной или липкой
-области интерфейса. В этом примере задано `closeOnScroll={false}`, поэтому можно сфокусировать
-триггер, прокручивать панель и проверять выравнивание подсказки.
+области интерфейса. В этом примере задано `closeOnScroll={false}`, чтобы можно было сфокусировать
+триггер, прокрутить панель и проверить выравнивание подсказки.
 
 <ExampleFrame variant="component">
   <TooltipWithinFixedContainers />
@@ -398,29 +463,37 @@ Tooltip / Tooltip.Root
 <ExampleCode>
 <div className="docs-reference">
   <Tabs
-    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
     className="docs-tabs"
   >
-    <Tab value="React">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tooltip/within-fixed-containers.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/tooltip/component-within-fixed-containers.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={tooltipSolidWithinFixedContainers} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/tooltip/component-within-fixed-containers.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Расширенная настройка
 
-Используйте явные части `Tooltip.Positioner` и `Tooltip.Content`, если им нужны независимые
+Используйте явные части `Tooltip.Positioner` и `Tooltip.Content`, когда им нужны независимые
 композиция или стилизация.
 
 <ExampleFrame variant="component">
@@ -429,11 +502,23 @@ Tooltip / Tooltip.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tooltip/advanced-customization.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tooltipSolidAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -442,6 +527,11 @@ Tooltip / Tooltip.Root
 </ExampleCode>
 
 ## Стилизация
+
+Используйте `className` в React или `class` в Solid у экспортируемых частей для структурных
+стилей. Для состояний предпочитайте атрибуты Ark, такие как `data-state`, `data-placement` и
+`data-side`, вместе с селекторами moduix `data-slot`. Варианты Tailwind используют нативные
+утилиты и классы потребителя, а переменные CSS ниже настраивают вариант с CSS Modules.
 
 ### CSS-свойства
 
@@ -458,8 +548,6 @@ Tooltip / Tooltip.Root
 </div>
 
 ### Точки для стилизации
-
-Стилизуйте часть, которая отвечает за нужный визуальный элемент:
 
 - `Tooltip.Body` не создаёт DOM-узел. При явной композиции стилизуйте отдельно
   `Tooltip.Positioner` и `Tooltip.Content`.

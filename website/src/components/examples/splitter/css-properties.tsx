@@ -1,7 +1,7 @@
 import type { CssPropertyInput } from '../../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
-const splitterOverrideCssProperties: CssPropertyInput[] = [
+export const splitterOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-splitter-height', '28rem', 'Controls the root height.'],
   ['--moduix-splitter-width', '100%', 'Controls the root width.'],
   ['--moduix-splitter-min-height', '0', 'Controls the root minimum height.'],

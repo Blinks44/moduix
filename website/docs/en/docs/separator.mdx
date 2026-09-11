@@ -11,6 +11,12 @@ import SeparatorSizes from '@/components/examples/separator/sizes.tsx';
 import SeparatorVariants from '@/components/examples/separator/variants.tsx';
 import SeparatorVertical from '@/components/examples/separator/vertical.tsx';
 import SeparatorAsChild from '@/components/examples/separator/as-child.tsx';
+import separatorSolidBasic from '../../../snippets/separator/solid/basic.tsx?raw';
+import separatorSolidDecorative from '../../../snippets/separator/solid/decorative.tsx?raw';
+import separatorSolidSizes from '../../../snippets/separator/solid/sizes.tsx?raw';
+import separatorSolidVariants from '../../../snippets/separator/solid/variants.tsx?raw';
+import separatorSolidVertical from '../../../snippets/separator/solid/vertical.tsx?raw';
+import separatorSolidAsChild from '../../../snippets/separator/solid/as-child.tsx?raw';
 
 ## API Reference
 
@@ -19,13 +25,18 @@ Ark UI does not ship a dedicated separator primitive. moduix builds this compone
 [composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
 [refs](https://ark-ui.com/docs/guides/ref).
 
-The `orientation`, `variant`, and `size` props follow the familiar Chakra UI Separator model. See the
+The \`orientation\`, \`variant\`, and \`size\` props follow the familiar Chakra UI Separator model. See the
 [Chakra UI Separator docs](https://chakra-ui.com/docs/components/separator) for the upstream reference
 that informed this API.
 
 ## Basic
 
-Use `Separator` to make the boundary between related sections visible.
+Separator ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered preview
+on this page uses the React CSS Modules package; the framework tabs show native source for the same
+public contract.
+
+Use \`Separator\` to make the boundary between related sections visible. The defaults are
+\`orientation="horizontal"\`, \`variant="solid"\`, and \`size="sm"\`.
 
 <ExampleFrame variant="component">
   <SeparatorBasic />
@@ -33,84 +44,87 @@ Use `Separator` to make the boundary between related sections visible.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-```tsx pure file="../../../src/components/examples/separator/basic.tsx"
-```
+\`\`\`tsx pure file="../../../src/components/examples/separator/basic.tsx"
+\`\`\`
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/separator/separator-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={separatorSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+\`\`\`css file="../../../src/components/examples/separator/separator-basic.module.css"
+\`\`\`
 </div>
 
 </ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="separator" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/separator' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/separator' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/separator' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/separator' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
-`Separator` exposes one root part.
+\`Separator\` exposes one root part.
 
-```text
+\`\`\`text
 Separator / Separator.Root
 └─ root[data-scope="separator"][data-part="root"][data-slot="separator-root"]
-```
+\`\`\`
 
-| Part                           | Role                                                                   |
-| ------------------------------ | ---------------------------------------------------------------------- |
-| `Separator` / `Separator.Root` | Root divider element. Sets orientation, accessibility metadata, and visual style. |
-
-Use `className` and the `--moduix-separator-*` CSS properties to style the root. Use `asChild` when a
-different element should host the divider.
+| Part                               | Role                                                                       |
+| ---------------------------------- | -------------------------------------------------------------------------- |
+| \`Separator\` / \`Separator.Root\` | Root divider element. Sets orientation, accessibility metadata, and style. |
 
 ## Composition
 
-### Recommended composition
-
-For most dividers, use the short `<Separator />` form. It is the same root component as
-`<Separator.Root />`, so you can switch between them without changing behavior.
-
-### When to go custom
-
-Use `asChild` only when you need a different element to host the divider. `Separator` already renders a
-semantic divider. Pass one child that can receive the merged `role`, ARIA and `data-*` attributes, class
-name, and ref.
-
-### Default props
-
-| Prop          | Default      | Notes                                  |
-| ------------- | ------------ | -------------------------------------- |
-| `orientation` | `horizontal` | `horizontal`, `vertical`               |
-| `variant`     | `solid`      | `solid`, `dashed`, `dotted`            |
-| `size`        | `sm`         | `xs`, `sm`, `md`, `lg`                 |
-| `asChild`     | `false`      | Ark factory single-child composition   |
-| `role`        | `separator`  | Pass `presentation` for decorative use |
-
-### Behavioral notes
-
-- When its role is `separator`, `Separator` sets `aria-orientation` from `orientation`. For another role,
-  such as `presentation`, it omits `aria-orientation`, even if you pass one yourself.
-- Use `role="presentation"` when the line is purely visual and carries no structural meaning for assistive
-  technology.
-- A horizontal separator fills the available width by default.
-- A vertical separator is `1em` high by default, which helps it align with inline text and compact action rows.
-- `Separator` is not interactive and does not expose state, callbacks, disabled behavior, or focus management.
-- For whitespace-only gaps, use layout primitives or spacing tokens.
+\`Separator\` is a root-only component, so it does not own state or require a provider. Use
+\`<Separator />\` for the usual divider; it is the same root as \`<Separator.Root />\`. When another
+element must host the divider, use \`asChild\` with one child that accepts the merged role, ARIA,
+\`data-*\`, class, and ref props. React passes the child element directly, while Solid uses
+\`asChild={(props) => <hr {...props()} />}\`.
 
 ## Examples
 
 ### Decorative
 
-Use `role="presentation"` for a line that is only visual and carries no structural meaning for assistive
-technology.
+Use \`role="presentation"\` for a line that is only visual and carries no structural meaning for
+assistive technology.
 
 <ExampleFrame variant="component">
   <SeparatorDecorative />
@@ -118,27 +132,38 @@ technology.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-```tsx pure file="../../../src/components/examples/separator/decorative.tsx"
-```
+\`\`\`tsx pure file="../../../src/components/examples/separator/decorative.tsx"
+\`\`\`
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/separator/separator-decorative.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={separatorSolidDecorative} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+\`\`\`css file="../../../src/components/examples/separator/separator-decorative.module.css"
+\`\`\`
 </div>
 
 </ExampleCode>
 
 ### Sizes
 
-Use `size` to choose the separator thickness, then override it with CSS properties when needed.
+Use \`size\` to choose the separator thickness, then override it with CSS properties when needed.
 
 <ExampleFrame variant="component">
   <SeparatorSizes />
@@ -146,27 +171,38 @@ Use `size` to choose the separator thickness, then override it with CSS properti
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-```tsx pure file="../../../src/components/examples/separator/sizes.tsx"
-```
+\`\`\`tsx pure file="../../../src/components/examples/separator/sizes.tsx"
+\`\`\`
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/separator/separator-sizes.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={separatorSolidSizes} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+\`\`\`css file="../../../src/components/examples/separator/separator-sizes.module.css"
+\`\`\`
 </div>
 
 </ExampleCode>
 
 ### Variants
 
-Use `variant` to choose a solid, dashed, or dotted line.
+Use \`variant\` to choose a solid, dashed, or dotted line.
 
 <ExampleFrame variant="component">
   <SeparatorVariants />
@@ -174,27 +210,38 @@ Use `variant` to choose a solid, dashed, or dotted line.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-```tsx pure file="../../../src/components/examples/separator/variants.tsx"
-```
+\`\`\`tsx pure file="../../../src/components/examples/separator/variants.tsx"
+\`\`\`
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/separator/separator-variants.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={separatorSolidVariants} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+\`\`\`css file="../../../src/components/examples/separator/separator-variants.module.css"
+\`\`\`
 </div>
 
 </ExampleCode>
 
 ### Vertical
 
-Use `orientation="vertical"` for inline groups such as navigation links.
+Use \`orientation="vertical"\` for inline groups such as navigation links.
 
 <ExampleFrame variant="component">
   <SeparatorVertical />
@@ -202,28 +249,39 @@ Use `orientation="vertical"` for inline groups such as navigation links.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-```tsx pure file="../../../src/components/examples/separator/vertical.tsx"
-```
+\`\`\`tsx pure file="../../../src/components/examples/separator/vertical.tsx"
+\`\`\`
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/separator/separator-vertical.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={separatorSolidVertical} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+\`\`\`css file="../../../src/components/examples/separator/separator-vertical.module.css"
+\`\`\`
 </div>
 
 </ExampleCode>
 
 ### Advanced Customization
 
-Use `asChild` when a specific host element needs to receive the separator role, styling hooks, and forwarded
-ref. Otherwise, use `<Separator />` directly.
+Use \`asChild\` when a specific host element needs to receive the separator role, styling hooks, and
+forwarded ref. Otherwise, use \`<Separator />\` directly.
 
 <ExampleFrame variant="component">
   <SeparatorAsChild />
@@ -231,28 +289,40 @@ ref. Otherwise, use `<Separator />` directly.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-```tsx pure file="../../../src/components/examples/separator/as-child.tsx"
-```
+\`\`\`tsx pure file="../../../src/components/examples/separator/as-child.tsx"
+\`\`\`
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/separator/separator-as-child.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={separatorSolidAsChild} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+\`\`\`css file="../../../src/components/examples/separator/separator-as-child.module.css"
+\`\`\`
 </div>
 
 </ExampleCode>
 
 ## Styling
 
-`Separator` exposes Ark-style part selectors and a focused set of `--moduix-separator-*` CSS properties for
-color, border style, thickness, and orientation-specific length.
+Use \`className\` in React or \`class\` in Solid on the root. Tailwind variants use native utility
+classes and consumer classes; the CSS properties below customize the CSS Modules variants. Data
+attributes and \`data-slot\` hooks are shared by both styling tracks.
 
 ### CSS Properties
 
@@ -270,8 +340,8 @@ color, border style, thickness, and orientation-specific length.
 
 ### Styling hooks
 
-- `data-scope="separator"` and `data-part="root"` identify the Ark-style root part.
-- `data-slot="separator-root"` is the stable moduix selector.
-- `data-orientation="horizontal"` and `data-orientation="vertical"` target axis-specific styles.
-- `data-size="xs|sm|md|lg"` and `data-variant="solid|dashed|dotted"` expose the visual settings.
-- `className` and `style` are applied directly to the root separator element.
+- \`data-scope="separator"\` and \`data-part="root"\` identify the Ark-style root part.
+- \`data-slot="separator-root"\` is the stable moduix selector.
+- \`data-orientation="horizontal"\` and \`data-orientation="vertical"\` target axis-specific styles.
+- \`data-size="xs|sm|md|lg"\` and \`data-variant="solid|dashed|dotted"\` expose the visual settings.
+- \`className\` or \`class\` and \`style\` are applied directly to the root separator element.

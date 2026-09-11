@@ -70,7 +70,9 @@ export function AutoplayGallery() {
               <Carousel.ItemGroup
                 className={styles.itemGroup}
                 onTouchStart={api.pause}
-                onWheel={api.pause}
+                onWheel={(event) => {
+                  if (event.deltaX !== 0) api.pause();
+                }}
               >
                 {slides.map((slide, index) => (
                   <Carousel.Item

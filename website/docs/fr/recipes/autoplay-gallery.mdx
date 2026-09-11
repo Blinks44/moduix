@@ -64,11 +64,15 @@ La recette utilise deux blocs `Carousel.Context` connectés à la même racine. 
 marquer la diapositive active et afficher les boutons précédent et suivant. Le second construit les indicateurs de
 progression à partir de `api.pageSnapPoints` et marque l’indicateur courant avec `data-current`.
 
+Chaque indicateur conserve `overflow: visible` afin que sa zone transparente `::after` agrandisse la zone de clic
+de la fine barre de progression. Le remplissage visible anime sa `width` au lieu d’utiliser `scaleX`, ce qui conserve
+le bord arrondi hérité pendant le remplissage.
+
 Les clics sur les flèches et les indicateurs appellent `requestAnimationFrame(api.play)`. La navigation manuelle met la
 lecture automatique en pause : le lancement au prochain cycle d’affichage laisse le changement de diapositive se terminer
-avant de lancer un nouvel intervalle. Les interactions tactiles et la molette mettent également la lecture automatique en
-pause. Si votre produit doit la reprendre après ces interactions, ajoutez ce comportement à votre logique ou affichez
-`Carousel.AutoplayTrigger`.
+avant de lancer un nouvel intervalle. Les interactions tactiles et le défilement horizontal à la molette mettent également
+la lecture automatique en pause. Si votre produit doit la reprendre après ces interactions, ajoutez ce comportement à votre
+logique ou affichez `Carousel.AutoplayTrigger`.
 
 Ark met la lecture automatique en pause lorsque le document est masqué. La recette écoute `visibilitychange` et appelle
 la méthode publique `api.play()` lorsque le document redevient visible.

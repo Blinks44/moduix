@@ -11,6 +11,12 @@ import SeparatorSizes from '@/components/examples/separator/sizes.tsx';
 import SeparatorVariants from '@/components/examples/separator/variants.tsx';
 import SeparatorVertical from '@/components/examples/separator/vertical.tsx';
 import SeparatorAsChild from '@/components/examples/separator/as-child.tsx';
+import separatorSolidBasic from '../../../snippets/separator/solid/basic.tsx?raw';
+import separatorSolidDecorative from '../../../snippets/separator/solid/decorative.tsx?raw';
+import separatorSolidSizes from '../../../snippets/separator/solid/sizes.tsx?raw';
+import separatorSolidVariants from '../../../snippets/separator/solid/variants.tsx?raw';
+import separatorSolidVertical from '../../../snippets/separator/solid/vertical.tsx?raw';
+import separatorSolidAsChild from '../../../snippets/separator/solid/as-child.tsx?raw';
 
 ## Справочник API
 
@@ -19,12 +25,17 @@ import SeparatorAsChild from '@/components/examples/separator/as-child.tsx';
 [композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
 [ref](https://ark-ui.com/docs/guides/ref).
 
-Свойства `orientation`, `variant` и `size` соответствуют привычной модели `Separator` из Chakra UI. См. [документацию
+Свойства \`orientation\`, \`variant\` и \`size\` соответствуют привычной модели \`Separator\` из Chakra UI. См. [документацию
 Chakra UI по компоненту Separator](https://chakra-ui.com/docs/components/separator), которая послужила основой для этого API.
 
 ## Базовый пример
 
-Используйте `Separator`, чтобы визуально обозначить границу между связанными разделами.
+Separator доступен для React и Solid в вариантах с CSS Modules и Tailwind. Предпросмотр на этой
+странице использует React CSS Modules, а во вкладках показан нативный код для обоих фреймворков с
+одинаковым публичным контрактом.
+
+Используйте \`Separator\`, чтобы визуально обозначить границу между связанными разделами. По умолчанию
+используются \`orientation="horizontal"\`, \`variant="solid"\` и \`size="sm"\`.
 
 <ExampleFrame variant="component">
   <SeparatorBasic />
@@ -32,83 +43,88 @@ Chakra UI по компоненту Separator](https://chakra-ui.com/docs/compon
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-```tsx pure file="../../../src/components/examples/separator/basic.tsx"
-```
+\`\`\`tsx pure file="../../../src/components/examples/separator/basic.tsx"
+\`\`\`
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/separator/separator-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={separatorSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+\`\`\`css file="../../../src/components/examples/separator/separator-basic.module.css"
+\`\`\`
 </div>
 
 </ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="separator" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/separator' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/separator' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/separator' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/separator' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
-У `Separator` одна корневая часть.
+У \`Separator\` одна корневая часть.
 
-```text
+\`\`\`text
 Separator / Separator.Root
 └─ root[data-scope="separator"][data-part="root"][data-slot="separator-root"]
-```
+\`\`\`
 
-| Часть                          | Назначение                                                                |
-| ------------------------------ | ------------------------------------------------------------------------- |
-| `Separator` / `Separator.Root` | Корневой элемент-разделитель. Задаёт ориентацию, метаданные доступности и визуальный стиль. |
-
-Стилизуйте корневой элемент с помощью `className` и CSS-свойств `--moduix-separator-*`. Используйте
-`asChild`, если разделитель должен отрисовываться на другом элементе.
+| Часть                              | Назначение                                                                 |
+| ---------------------------------- | -------------------------------------------------------------------------- |
+| \`Separator\` / \`Separator.Root\` | Корневой элемент-разделитель. Задаёт ориентацию, доступность и визуальный стиль. |
 
 ## Композиция
 
-### Рекомендуемая композиция
-
-Для большинства разделителей используйте короткую форму `<Separator />`. Это тот же корневой компонент,
-что и `<Separator.Root />`, поэтому их можно менять местами без изменения поведения.
-
-### Когда нужна собственная композиция
-
-Используйте `asChild`, только если нужно отрисовать разделитель на другом элементе. `Separator` уже рендерит
-семантический разделитель. Передайте один дочерний элемент, который может принять объединённые атрибуты
-`role`, ARIA и `data-*`, а также `className` и `ref`.
-
-### Свойства по умолчанию
-
-| Свойство       | По умолчанию | Примечания                                    |
-| -------------- | ------------ | --------------------------------------------- |
-| `orientation`  | `horizontal` | `horizontal`, `vertical`                     |
-| `variant`      | `solid`      | `solid`, `dashed`, `dotted`                  |
-| `size`         | `sm`         | `xs`, `sm`, `md`, `lg`                       |
-| `asChild`      | `false`      | Композиция фабрики Ark с одним дочерним элементом |
-| `role`         | `separator`  | Передайте `presentation` для декоративной линии |
-
-### Особенности поведения
-
-- Если роль компонента равна `separator`, `Separator` задаёт `aria-orientation` на основе `orientation`.
-  Для другой роли, например `presentation`, компонент не добавляет `aria-orientation`, даже если вы передадите его вручную.
-- Используйте `role="presentation"`, если линия нужна только для оформления и не сообщает вспомогательным технологиям о структуре.
-- Горизонтальный разделитель по умолчанию занимает всю доступную ширину.
-- Вертикальный разделитель по умолчанию имеет высоту `1em`, поэтому хорошо выравнивается со строчным текстом и компактными рядами действий.
-- `Separator` не интерактивен и не имеет состояния, колбэков, режима отключения или управления фокусом.
-- Если нужен только промежуток, используйте примитивы раскладки или токены отступов.
+\`Separator\` состоит только из корневого элемента, поэтому не владеет состоянием и не требует
+провайдера. Для обычного разделителя используйте \`<Separator />\`: это тот же корневой компонент, что
+и \`<Separator.Root />\`. Если разделитель должен размещаться на другом элементе, используйте
+\`asChild\` с одним дочерним элементом, который принимает объединённые свойства \`role\`, ARIA,
+\`data-*\`, class и ref. В React дочерний элемент передаётся напрямую, а в Solid используется форма
+\`asChild={(props) => <hr {...props()} />}\`.
 
 ## Примеры
 
 ### Декоративный
 
-Используйте `role="presentation"` для линии, которая нужна только для оформления и не сообщает вспомогательным
-технологиям о структуре.
+Используйте \`role="presentation"\` для линии, которая нужна только для оформления и не сообщает
+вспомогательным технологиям о структуре.
 
 <ExampleFrame variant="component">
   <SeparatorDecorative />
@@ -116,27 +132,39 @@ Separator / Separator.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-```tsx pure file="../../../src/components/examples/separator/decorative.tsx"
-```
+\`\`\`tsx pure file="../../../src/components/examples/separator/decorative.tsx"
+\`\`\`
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/separator/separator-decorative.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={separatorSolidDecorative} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+\`\`\`css file="../../../src/components/examples/separator/separator-decorative.module.css"
+\`\`\`
 </div>
 
 </ExampleCode>
 
 ### Размеры
 
-Используйте `size`, чтобы выбрать толщину разделителя, а при необходимости переопределите её CSS-свойствами.
+Используйте \`size\`, чтобы выбрать толщину разделителя, а при необходимости переопределите её
+CSS-свойствами.
 
 <ExampleFrame variant="component">
   <SeparatorSizes />
@@ -144,27 +172,38 @@ Separator / Separator.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-```tsx pure file="../../../src/components/examples/separator/sizes.tsx"
-```
+\`\`\`tsx pure file="../../../src/components/examples/separator/sizes.tsx"
+\`\`\`
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/separator/separator-sizes.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={separatorSolidSizes} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+\`\`\`css file="../../../src/components/examples/separator/separator-sizes.module.css"
+\`\`\`
 </div>
 
 </ExampleCode>
 
 ### Варианты
 
-Используйте `variant`, чтобы выбрать сплошную, пунктирную или точечную линию.
+Используйте \`variant\`, чтобы выбрать сплошную, пунктирную или точечную линию.
 
 <ExampleFrame variant="component">
   <SeparatorVariants />
@@ -172,27 +211,38 @@ Separator / Separator.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-```tsx pure file="../../../src/components/examples/separator/variants.tsx"
-```
+\`\`\`tsx pure file="../../../src/components/examples/separator/variants.tsx"
+\`\`\`
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/separator/separator-variants.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={separatorSolidVariants} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+\`\`\`css file="../../../src/components/examples/separator/separator-variants.module.css"
+\`\`\`
 </div>
 
 </ExampleCode>
 
 ### Вертикальный
 
-Используйте `orientation="vertical"` для групп элементов в строке, например навигационных ссылок.
+Используйте \`orientation="vertical"\` для групп элементов в строке, например навигационных ссылок.
 
 <ExampleFrame variant="component">
   <SeparatorVertical />
@@ -200,28 +250,39 @@ Separator / Separator.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-```tsx pure file="../../../src/components/examples/separator/vertical.tsx"
-```
+\`\`\`tsx pure file="../../../src/components/examples/separator/vertical.tsx"
+\`\`\`
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/separator/separator-vertical.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={separatorSolidVertical} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+\`\`\`css file="../../../src/components/examples/separator/separator-vertical.module.css"
+\`\`\`
 </div>
 
 </ExampleCode>
 
 ### Расширенная настройка
 
-Используйте `asChild`, если конкретный элемент должен получить роль разделителя, хуки стилизации и переданный
-`ref`. В остальных случаях используйте `<Separator />` напрямую.
+Используйте \`asChild\`, если конкретный элемент должен получить роль разделителя, хуки стилизации и
+переданный \`ref\`. В остальных случаях используйте \`<Separator />\` напрямую.
 
 <ExampleFrame variant="component">
   <SeparatorAsChild />
@@ -229,28 +290,40 @@ Separator / Separator.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-```tsx pure file="../../../src/components/examples/separator/as-child.tsx"
-```
+\`\`\`tsx pure file="../../../src/components/examples/separator/as-child.tsx"
+\`\`\`
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/separator/separator-as-child.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={separatorSolidAsChild} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+\`\`\`css file="../../../src/components/examples/separator/separator-as-child.module.css"
+\`\`\`
 </div>
 
 </ExampleCode>
 
 ## Стилизация
 
-`Separator` предоставляет селекторы корневой части в стиле Ark и набор CSS-свойств `--moduix-separator-*`
-для цвета, стиля границы, толщины и длины, зависящей от ориентации.
+Используйте \`className\` в React или \`class\` в Solid для корневого элемента. В вариантах с
+Tailwind применяйте нативные utility-классы и классы потребителя, а CSS-свойства ниже относятся к
+вариантам с CSS Modules. Атрибуты данных и хуки \`data-slot\` общие для обоих способов стилизации.
 
 ### CSS-свойства
 
@@ -268,8 +341,8 @@ Separator / Separator.Root
 
 ### Хуки стилизации
 
-- `data-scope="separator"` и `data-part="root"` определяют корневую часть в стиле Ark.
-- `data-slot="separator-root"` - стабильный селектор moduix.
-- `data-orientation="horizontal"` и `data-orientation="vertical"` позволяют настраивать стили для каждой оси.
-- `data-size="xs|sm|md|lg"` и `data-variant="solid|dashed|dotted"` раскрывают визуальные настройки.
-- `className` и `style` применяются непосредственно к корневому элементу разделителя.
+- \`data-scope="separator"\` и \`data-part="root"\` определяют корневую часть в стиле Ark.
+- \`data-slot="separator-root"\` является стабильным селектором moduix.
+- \`data-orientation="horizontal"\` и \`data-orientation="vertical"\` позволяют настраивать стили для каждой оси.
+- \`data-size="xs|sm|md|lg"\` и \`data-variant="solid|dashed|dotted"\` раскрывают визуальные настройки.
+- \`className\` или \`class\`, а также \`style\` применяются непосредственно к корневому элементу.

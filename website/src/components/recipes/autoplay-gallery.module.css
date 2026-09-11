@@ -116,7 +116,7 @@
 
 .indicator {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   background-color: color-mix(
     in oklab,
     var(--moduix-color-muted) 90%,
@@ -134,15 +134,23 @@
 
   &::before {
     position: absolute;
-    inset: 0;
+    inset-block: 0;
+    inset-inline-start: 0;
+    width: 0;
     background-color: var(--moduix-carousel-indicator-bg-current, var(--moduix-color-primary));
+    border-radius: inherit;
     content: '';
-    transform: scaleX(0);
-    transform-origin: left;
+  }
+
+  &::after {
+    position: absolute;
+    inset-block: calc(-1 * var(--moduix-spacing-2));
+    inset-inline: 0;
+    content: '';
   }
 
   &[data-current]::before {
-    transform: scaleX(1);
+    width: 100%;
   }
 
   &[data-current][data-playing]::before {
@@ -152,11 +160,11 @@
 
 @keyframes autoplay-gallery-progress {
   from {
-    transform: scaleX(0);
+    width: 0;
   }
 
   to {
-    transform: scaleX(1);
+    width: 100%;
   }
 }
 
@@ -198,6 +206,6 @@
 
   .indicator[data-current]::before {
     animation: none;
-    transform: scaleX(1);
+    width: 100%;
   }
 }

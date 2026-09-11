@@ -13,6 +13,14 @@ import InputQrCode from '@/components/examples/qr-code/input.tsx';
 import OverlayQrCode from '@/components/examples/qr-code/overlay.tsx';
 import RootProviderQrCode from '@/components/examples/qr-code/root-provider.tsx';
 import * as QrCodeDocs from '@/components/examples/qr-code/css-properties';
+import qrCodeSolidBasic from '../../../snippets/qr-code/solid/basic.tsx?raw';
+import qrCodeSolidControlled from '../../../snippets/qr-code/solid/controlled.tsx?raw';
+import qrCodeSolidDownload from '../../../snippets/qr-code/solid/download.tsx?raw';
+import qrCodeSolidErrorCorrection from '../../../snippets/qr-code/solid/error-correction.tsx?raw';
+import qrCodeSolidFill from '../../../snippets/qr-code/solid/fill.tsx?raw';
+import qrCodeSolidInput from '../../../snippets/qr-code/solid/input.tsx?raw';
+import qrCodeSolidOverlay from '../../../snippets/qr-code/solid/overlay.tsx?raw';
+import qrCodeSolidRootProvider from '../../../snippets/qr-code/solid/root-provider.tsx?raw';
 
 ## Référence de l’API
 
@@ -20,7 +28,11 @@ import * as QrCodeDocs from '@/components/examples/qr-code/css-properties';
 
 ## Exemple de base
 
-Pour le cas courant, utilisez `QrCode`. Passez le contenu à encoder dans `defaultValue`, puis affichez
+QrCode est disponible pour React et Solid dans les packages CSS Modules et Tailwind. L’aperçu de
+cette page utilise le package React CSS Modules ; les onglets de framework affichent le code source
+natif correspondant au même contrat public.
+
+Utilisez `QrCode` dans le cas courant. Passez le contenu à encoder dans `defaultValue`, puis affichez
 explicitement `QrCode.Frame` et `QrCode.Pattern` pour rendre le SVG généré. Donnez un nom accessible
 à `QrCode.Frame` lorsque le code QR transmet une information.
 
@@ -30,11 +42,23 @@ explicitement `QrCode.Frame` et `QrCode.Pattern` pour rendre le SVG généré. D
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/qr-code/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={qrCodeSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -44,7 +68,28 @@ explicitement `QrCode.Frame` et `QrCode.Pattern` pour rendre le SVG généré. D
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="qr-code" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/qr-code' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/qr-code' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/qr-code' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/qr-code' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
@@ -56,82 +101,33 @@ QrCode / QrCode.Root
 └─ QrCode.DownloadTrigger
 
 QrCode.RootProvider
-└─ même arborescence de parties, connectée à useQrCode() de @moduix/react
+└─ même arbre de parties connecté à un store useQrCode()
 ```
 
-| Partie                    | Rôle                                                                    |
-| ------------------------- | ----------------------------------------------------------------------- |
-| `QrCode` / `QrCode.Root` | Gère la valeur encodée et les options de génération, et fournit l’état du QR code. |
-| `QrCode.RootProvider`    | Relie les parties à un objet d’état créé avec `useQrCode()` en dehors de l’arbre.      |
-| `QrCode.Frame`           | Élément SVG qui contient le code QR généré.                             |
-| `QrCode.Pattern`         | Chemin SVG qui dessine les modules du code QR.                          |
-| `QrCode.Overlay`         | Contenu centré affiché par-dessus le code QR.                           |
-| `QrCode.DownloadTrigger` | Bouton qui télécharge le code QR actuel sous forme d’image.             |
+| Part                     | Rôle                                                                  |
+| ------------------------ | --------------------------------------------------------------------- |
+| `QrCode` / `QrCode.Root` | Possède la valeur encodée et les options de génération, et fournit l’état du code QR. |
+| `QrCode.RootProvider`    | Connecte les parties à l’état créé avec `useQrCode()`.                |
+| `QrCode.Frame`           | Élément SVG qui contient le code QR généré.                            |
+| `QrCode.Pattern`         | Chemin SVG qui dessine les modules du code QR.                         |
+| `QrCode.Overlay`         | Contenu affiché au centre du code QR.                                  |
+| `QrCode.DownloadTrigger` | Bouton qui télécharge le code QR actuel comme image.                   |
 
 ## Composition
 
-### Composition recommandée
+Utilisez `defaultValue` pour un code QR non contrôlé. Lorsque l’état de l’application possède la
+valeur, utilisez `value` avec `onValueChange(details)` et lisez la nouvelle valeur dans
+`details.value`. Créez l’état avec `useQrCode()` depuis le package du framework correspondant, puis
+transmettez-le à `QrCode.RootProvider` lorsqu’il doit être partagé en dehors de l’arbre QR. Ne
+restituez pas `QrCode` et `QrCode.RootProvider` pour le même store.
 
-`QrCode` est la forme abrégée de `QrCode.Root`. Utilisez l’un ou l’autre en gardant `QrCode.Frame`
-et `QrCode.Pattern` explicites. Utilisez `defaultValue` pour un code QR non contrôlé. Si la valeur
-provient de l’état de l’application, utilisez plutôt `value` avec `onValueChange(details)`.
-
-Ajoutez `QrCode.Overlay` uniquement si la zone masquée reste assez petite pour que le code soit lisible.
-Pour une superposition, définissez `encoding={{ ecc: 'H' }}` et testez le code final avec les scanners
-utilisés par vos utilisateurs.
-
-### Quand créer une composition personnalisée
-
-Utilisez `QrCode.RootProvider` lorsque l’état du code QR doit être créé en dehors de l’arbre rendu ou
-lorsque des contrôles externes doivent accéder à l’API du code QR. Créez l’état avec `useQrCode()` depuis
-`@moduix/react/qr-code`, puis transmettez-le à `RootProvider`. Utilisez `QrCode.Context` ou
-`useQrCodeContext()` lorsqu’un descendant a besoin de la valeur actuelle ou de l’API du code QR.
-N’utilisez pas `QrCode` et `QrCode.RootProvider` avec le même objet d’état.
-
-Utilisez `asChild` sur une partie Ark uniquement lorsqu’un autre élément doit porter le nœud DOM rendu.
-Conservez un enfant unique et sémantique. Utilisez `ids` lorsqu’une composition personnalisée a besoin
-d’identifiants stables pour la racine ou le cadre.
-
-### Propriétés courantes
-
-Le tableau réunit les propriétés dont la plupart des utilisateurs ont besoin. Chaque partie accepte
-également les attributs DOM correspondants, notamment `className` et `asChild` lorsque ces propriétés
-sont prises en charge. Consultez la référence pour voir toute l’API Ark.
-
-| Partie          | Propriété       | Rôle                                                                  |
-| --------------- | --------------- | --------------------------------------------------------------------- |
-| Root            | `defaultValue`  | Valeur initiale pour un usage non contrôlé.                           |
-| Root            | `value`         | Valeur contrôlée à encoder.                                           |
-| Root            | `onValueChange` | Reçoit l’objet `details` d’origine d’Ark. Lisez la nouvelle valeur dans `details.value`. |
-| Root            | `encoding`      | Options du générateur, notamment `ecc` et `boostEcc`.                 |
-| Root            | `pixelSize`     | Taille de pixel transmise au générateur de code QR.                   |
-| Root            | `id`            | Identifiant stable de la machine transmis à Ark.                      |
-| Root            | `ids`           | Identifiants stables de la racine et du cadre.                        |
-| RootProvider    | `value`         | Objet d’état obligatoire renvoyé par `useQrCode()`.                   |
-| DownloadTrigger | `fileName`      | Nom obligatoire du fichier téléchargé.                                |
-| DownloadTrigger | `mimeType`      | Type d’image obligatoire, par exemple `image/png` ou `image/svg+xml`.  |
-| DownloadTrigger | `quality`       | Qualité facultative transmise au générateur.                           |
-
-### Comportement
-
-En mode contrôlé, `onValueChange(details)` synchronise la valeur avec l’état du code QR. Il utilise
-l’objet `details` d’origine d’Ark, donc lisez la nouvelle valeur encodée dans `details.value`.
-
-`QrCode.Context` et `useQrCodeContext()` fournissent aux descendants l’API du code QR le plus proche.
-Cette API comprend la `value` actuelle, `setValue` et `getDataUrl()` pour générer une URL de données.
-
-Le code QR n’est pas un contrôle de formulaire et n’ajoute pas de champ masqué. Il ne fournit pas non
-plus de navigation spécifique avec les flèches ni de déplacement du focus entre ses parties.
-`QrCode.DownloadTrigger` est un bouton natif : il conserve le focus, l’activation au clavier et le
-comportement `disabled` habituels d’un bouton.
-
-Le SVG est un contenu visuel. Lorsque le code QR transmet une information, ajoutez `role="img"` et
-`aria-label` à `QrCode.Frame`. S’il répète un texte adjacent, conservez ce texte et ajoutez
-`aria-hidden="true"` à `QrCode.Frame`.
+Utilisez `QrCode.Context` ou `useQrCodeContext()` lorsqu’un descendant a besoin de l’API QR actuelle.
+Ajoutez `QrCode.Overlay` uniquement avec un niveau de correction suffisant pour la zone couverte,
+puis testez le code final avec les scanners utilisés par vos utilisateurs.
 
 ## Exemples
 
-### État contrôlé
+### Valeur contrôlée
 
 Contrôlez `value` lorsque le code QR doit suivre une destination sélectionnée ou un autre état de
 l’application.
@@ -142,28 +138,39 @@ l’application.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/qr-code/controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/qr-code/component-controlled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={qrCodeSolidControlled} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/qr-code/component-controlled.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Téléchargement
 
-Ajoutez `QrCode.DownloadTrigger` lorsque les utilisateurs doivent enregistrer le code généré sous forme
-d’image. Définissez `fileName` et `mimeType` sur le déclencheur.
+Ajoutez `QrCode.DownloadTrigger` lorsque les utilisateurs doivent enregistrer le code généré comme
+image. Définissez `fileName` et `mimeType` sur le trigger.
 
 <ExampleFrame variant="component">
   <DownloadQrCode />
@@ -171,11 +178,23 @@ d’image. Définissez `fileName` et `mimeType` sur le déclencheur.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/qr-code/download.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={qrCodeSolidDownload} />
 
     </Tab>
   </Tabs>
@@ -185,14 +204,14 @@ d’image. Définissez `fileName` et `mimeType` sur le déclencheur.
 
 ### Correction d’erreurs
 
-Utilisez `encoding.ecc` pour choisir la quantité de données endommagées que le code QR peut récupérer.
-Les niveaux élevés sont utiles lorsqu’une superposition recouvre une partie du code ou lorsque celui-ci
-risque d’être rayé ou déformé.
+Utilisez `encoding.ecc` pour choisir la quantité de données endommagées que le code QR peut
+récupérer. Les niveaux élevés sont utiles lorsqu’une superposition couvre une partie du code ou
+qu’il peut être rayé ou déformé.
 
 - `L` : récupère jusqu’à 7 % des données endommagées.
-- `M` : récupère jusqu’à 15 %.
-- `Q` : récupère jusqu’à 25 %.
-- `H` : récupère jusqu’à 30 %.
+- `M` : jusqu’à 15 %.
+- `Q` : jusqu’à 25 %.
+- `H` : jusqu’à 30 %.
 
 <ExampleFrame variant="component">
   <ErrorCorrectionQrCode />
@@ -200,27 +219,38 @@ risque d’être rayé ou déformé.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/qr-code/error-correction.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/qr-code/component-error-correction.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={qrCodeSolidErrorCorrection} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/qr-code/component-error-correction.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Remplissage
 
-Les modules du code QR utilisent `currentColor` par défaut. Modifiez le remplissage du SVG avec
+Par défaut, les modules du code QR utilisent `currentColor`. Modifiez le remplissage du SVG avec
 `style`, une classe ou la variable `--moduix-qr-code-fill`.
 
 <ExampleFrame variant="component">
@@ -229,28 +259,39 @@ Les modules du code QR utilisent `currentColor` par défaut. Modifiez le remplis
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/qr-code/fill.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/qr-code/component-fill.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={qrCodeSolidFill} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/qr-code/component-fill.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Champ de saisie
 
-Liez `value` à un champ de texte lorsque les utilisateurs doivent saisir ou modifier le contenu encodé
-dans le code QR. Donnez à `QrCode.Frame` un nom accessible qui explique ce que représente le code.
+Liez `value` à un champ de texte lorsque les utilisateurs doivent saisir ou modifier le contenu
+encodé dans le code QR. Donnez à la frame un nom accessible qui explique ce que représente le code.
 
 <ExampleFrame variant="component">
   <InputQrCode />
@@ -258,29 +299,40 @@ dans le code QR. Donnez à `QrCode.Frame` un nom accessible qui explique ce que 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/qr-code/input.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/qr-code/component-input.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={qrCodeSolidInput} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/qr-code/component-input.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Superposition
 
-Utilisez `QrCode.Overlay` pour un petit logo ou une marque textuelle. Définissez un niveau élevé de
-correction d’erreurs et gardez la superposition assez petite pour que les scanners puissent toujours
-lire le code.
+Utilisez `QrCode.Overlay` pour un logo compact ou une marque textuelle. Définissez un niveau élevé
+de correction d’erreurs et gardez la superposition assez petite pour que les scanners puissent
+encore lire le code.
 
 <ExampleFrame variant="component">
   <OverlayQrCode />
@@ -288,20 +340,31 @@ lire le code.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/qr-code/overlay.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/qr-code/component-overlay.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={qrCodeSolidOverlay} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/qr-code/component-overlay.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -309,7 +372,7 @@ lire le code.
 ### Root Provider
 
 Créez l’état du code QR avec `useQrCode()` lorsqu’il doit être partagé avec des contrôles situés en
-dehors de l’arbre du code QR, puis transmettez cet état à `QrCode.RootProvider`.
+dehors de l’arbre QR, puis transmettez cet état à `QrCode.RootProvider`.
 
 <ExampleFrame variant="component">
   <RootProviderQrCode />
@@ -317,11 +380,23 @@ dehors de l’arbre du code QR, puis transmettez cet état à `QrCode.RootProvid
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/qr-code/root-provider.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={qrCodeSolidRootProvider} />
 
     </Tab>
   </Tabs>
@@ -331,34 +406,21 @@ dehors de l’arbre du code QR, puis transmettez cet état à `QrCode.RootProvid
 
 ## Styles
 
-Moduix ajoute des styles fondés sur des tokens pour la taille et l’espacement du code QR, son remplissage,
-sa superposition et son déclencheur de téléchargement. Utilisez `className` pour les styles propres au
-composant et les attributs `data-slot` stables pour les sélecteurs partagés. Le panneau CSS Variables
-présente l’ensemble des variables publiques.
+Utilisez `className` en React ou `class` en Solid sur les parties exportées pour les styles
+structurels. Les variantes Tailwind utilisent les utilitaires natifs et les classes du consommateur ;
+les variables ci-dessous personnalisent les variantes CSS Modules. Les attributs de données et les
+hooks `data-slot` sont partagés par les deux pistes de style.
+
+Le panneau CSS Variables répertorie l’ensemble des variables publiques. Ark définit également au
+runtime `--qrcode-pixel-size`, `--qrcode-width` et `--qrcode-height` sur la racine.
 
 ### Propriétés CSS
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <QrCodeDocs.QrCodeCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
-
-Ark définit également à l’exécution `--qrcode-pixel-size`, `--qrcode-width` et `--qrcode-height` sur la
-racine. Ces variables décrivent le cadre généré et peuvent servir à intégrer des styles personnalisés.
+<CssPropertiesSection properties={QrCodeDocs.qrCodeOverrideCssProperties} />
 
 ### Points d’accroche CSS
 
-- `QrCode.Root` -> `data-slot="qr-code-root"`
-- `QrCode.RootProvider` -> `data-slot="qr-code-root-provider"`
-- `QrCode.Frame` -> `data-slot="qr-code-frame"`
-- `QrCode.Pattern` -> `data-slot="qr-code-pattern"`
-- `QrCode.Overlay` -> `data-slot="qr-code-overlay"`
-- `QrCode.DownloadTrigger` -> `data-slot="qr-code-download-trigger"`
-- Attributs Ark : `data-scope="qr-code"` et `data-part="root|frame|pattern|overlay|download-trigger"`
+- Sélecteurs `data-slot` stables : `qr-code-root`, `qr-code-root-provider`, `qr-code-frame`,
+  `qr-code-pattern`, `qr-code-overlay` et `qr-code-download-trigger`.
+- Sélecteurs de parties Ark : `data-scope="qr-code"` et
+  `data-part="root|frame|pattern|overlay|download-trigger"`.

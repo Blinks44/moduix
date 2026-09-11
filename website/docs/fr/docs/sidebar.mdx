@@ -13,32 +13,41 @@ import SidebarNestedNavigationAndAccountMenu from '@/components/examples/sidebar
 import SidebarPersistedLayout from '@/components/examples/sidebar/persisted-layout.tsx';
 import SidebarRightSidebar from '@/components/examples/sidebar/right-sidebar.tsx';
 import SidebarWorkspaceSelect from '@/components/examples/sidebar/workspace-select.tsx';
+import sidebarSolidBasic from '../../../snippets/sidebar/solid/basic.tsx?raw';
+import sidebarSolidCustomScrollArea from '../../../snippets/sidebar/solid/custom-scroll-area.tsx?raw';
+import sidebarSolidCustomSizes from '../../../snippets/sidebar/solid/custom-sizes.tsx?raw';
+import sidebarSolidNestedNavigation from '../../../snippets/sidebar/solid/nested-navigation.tsx?raw';
+import sidebarSolidNestedNavigationAndAccountMenu from '../../../snippets/sidebar/solid/nested-navigation-and-account-menu.tsx?raw';
+import sidebarSolidPersistedLayout from '../../../snippets/sidebar/solid/persisted-layout.tsx?raw';
+import sidebarSolidRightSidebar from '../../../snippets/sidebar/solid/right-sidebar.tsx?raw';
+import sidebarSolidWorkspaceSelect from '../../../snippets/sidebar/solid/workspace-select.tsx?raw';
 
 ## Référence de l’API
 
 `Sidebar` est la mise en page moduix dédiée à la navigation d’une application. Elle associe des
-parties de navigation au composant
-[Ark UI Splitter](https://ark-ui.com/docs/components/splitter), qui fournit le redimensionnement,
-l’état replié, les interactions au clavier et l’accessibilité. L’état et les callbacks exposés suivent
-le contrat de `Splitter`.
+parties de navigation au composant [Ark UI Splitter](https://ark-ui.com/docs/components/splitter),
+qui fournit le redimensionnement, l’état replié, les interactions au clavier et l’accessibilité.
+L’état et les callbacks exposés suivent le contrat de `Splitter`.
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/splitter" />
 
 ## Choisir le bon composant
 
-- Choisissez **`Sidebar`** pour une navigation d’application qui doit être redimensionnable, se
-  replier en barre d’icônes et rester à côté du contenu principal.
-- Choisissez **`Splitter`** lorsque vous avez besoin de deux panneaux redimensionnables génériques,
-  plutôt que d’un panneau de navigation et d’un inset de contenu principal.
+- Choisissez **`Sidebar`** pour une navigation qui doit être redimensionnable, se replier en barre
+  d’icônes et rester à côté du contenu principal.
+- Choisissez **`Splitter`** lorsque vous avez besoin de panneaux redimensionnables génériques, plutôt
+  que d’un panneau de navigation et d’une zone de contenu principale.
 
 ## Exemple de base
 
-Composez le panneau de navigation, la poignée de redimensionnement et le panneau de contenu
-principal comme enfants directs de la racine. Les identifiants et contraintes par défaut conviennent
-à la mise en page classique avec une barre latérale à gauche, sans configuration supplémentaire.
-L’exemple montre aussi comment conserver les libellés des boutons de navigation à icône après le
-repli : enveloppez `Sidebar.NavigationButton` dans `Sidebar.Tooltip`. L’infobulle gère son propre
-état contextuel.
+`Sidebar` est disponible pour React et Solid dans les packages CSS Modules et Tailwind. L’aperçu
+interactif utilise React et CSS Modules, tandis que les onglets affichent le code natif pour la même
+composition.
+
+Composez le panneau de navigation, la poignée de redimensionnement et la zone de contenu principale
+comme enfants directs de la racine. Les identifiants et contraintes par défaut conviennent à la mise
+en page classique avec une barre latérale à gauche. Enveloppez les boutons de navigation réduits à
+une icône dans `Sidebar.Tooltip` pour conserver leurs libellés après le repli.
 
 <ExampleFrame variant="component">
   <SidebarBasic />
@@ -46,27 +55,59 @@ repli : enveloppez `Sidebar.NavigationButton` dans `Sidebar.Tooltip`. L’infobu
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/sidebar/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/sidebar/sidebar-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={sidebarSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/sidebar/sidebar-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="sidebar" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/sidebar' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/sidebar' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/sidebar' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/sidebar' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+Consultez [Quick start](/docs/quick-start) pour configurer le registry et choisir l’installation du
+package.
 
 ## Anatomie
 
@@ -81,16 +122,14 @@ Sidebar / Sidebar.Root
 │  │     ├─ Sidebar.GroupLabel
 │  │     ├─ Sidebar.GroupAction
 │  │     └─ Sidebar.NavigationList
-│  │           └─ Sidebar.NavigationItem
-│  │              ├─ Sidebar.ExpandedContent
-│  │              │  └─ Collapsible
-│  │              ├─ Sidebar.CollapsedContent
-│  │              │  └─ Menu
-│  │              ├─ Sidebar.NavigationAction
-│  │              ├─ Sidebar.NavigationBadge
-│  │              └─ Sidebar.NavigationSubList
-│  │                 └─ Sidebar.NavigationSubItem
-│  │                    └─ Sidebar.NavigationSubButton
+│  │        └─ Sidebar.NavigationItem
+│  │           ├─ Sidebar.ExpandedContent
+│  │           ├─ Sidebar.CollapsedContent
+│  │           ├─ Sidebar.NavigationAction
+│  │           ├─ Sidebar.NavigationBadge
+│  │           └─ Sidebar.NavigationSubList
+│  │              └─ Sidebar.NavigationSubItem
+│  │                 └─ Sidebar.NavigationSubButton
 │  └─ Sidebar.Footer
 │     └─ Sidebar.Separator
 ├─ Sidebar.ResizeTrigger
@@ -100,135 +139,38 @@ Sidebar / Sidebar.Root
 
 | Partie | Rôle |
 | --- | --- |
-| `Sidebar` / `Sidebar.Root` | Racine Ark Splitter avec des valeurs par défaut adaptées à deux panneaux. |
-| `Sidebar.Panel` | Panneau de navigation repliable ; son identifiant par défaut est `"sidebar"`. |
-| `Sidebar.Inset` | Panneau du contenu principal ; son identifiant par défaut est `"content"`. |
-| `Sidebar.ResizeTrigger` | Ligne accessible pour le redimensionnement au pointeur et au clavier. |
-| `Sidebar.Trigger` | Contrôle flottant qui replie et déploie le panneau en tenant compte de son côté. |
-| `Sidebar.Label` | Texte qui quitte la mise en page visuelle dans la barre d’icônes repliée. |
-| `Sidebar.Input` | Champ de recherche ou de filtrage pleine largeur, adapté à la barre latérale. |
-| `Sidebar.Header` | Zone supérieure qui ne défile pas avec le contenu. |
-| `Sidebar.Content` | Zone centrale défilable. |
-| `Sidebar.Footer` | Zone inférieure qui ne défile pas avec le contenu. |
-| `Sidebar.Separator` | Séparateur aux couleurs de la barre latérale entre les sections ou les blocs du pied de page. |
-| `Sidebar.Group` | Section de navigation sémantique avec un titre facultatif. |
-| `Sidebar.GroupLabel` | Titre d’un groupe de navigation. |
-| `Sidebar.GroupAction` | Bouton d’action compact aligné sur le titre du groupe. |
-| `Sidebar.GroupContent` | Conteneur facultatif pour le contenu personnalisé d’un groupe. |
-| `Sidebar.ExpandedContent` | Contenu rendu uniquement lorsque le panneau est déployé. |
-| `Sidebar.CollapsedContent` | Contenu rendu uniquement lorsque le panneau est replié. |
-| `Sidebar.NavigationList` | Liste de navigation. |
-| `Sidebar.NavigationItem` | Élément de liste positionné pour un contrôle de navigation. |
-| `Sidebar.Tooltip` | Aide de libellé affichée uniquement dans la barre repliée, avec un placement adapté au côté. |
-| `Sidebar.NavigationButton` | Bouton ou lien `asChild` avec des états d’activité et de taille. |
-| `Sidebar.NavigationAction` | Action avec icône placée à la fin d’un élément de navigation. |
-| `Sidebar.NavigationBadge` | Compteur ou indicateur d’état placé à la fin d’un élément de navigation. |
+| `Sidebar` / `Sidebar.Root` | Racine Ark Splitter avec les réglages d’une barre à deux panneaux. |
+| `Sidebar.Panel` | Panneau de navigation repliable, avec l’identifiant `"sidebar"` par défaut. |
+| `Sidebar.Inset` | Panneau de contenu principal, avec l’identifiant `"content"` par défaut. |
+| `Sidebar.ResizeTrigger` | Ligne accessible pour le redimensionnement à la souris ou au clavier. |
+| `Sidebar.Trigger` | Contrôle latéral pour replier ou déplier le panneau. |
+| `Sidebar.Header` | Zone supérieure qui ne défile pas. |
+| `Sidebar.Content` | Zone centrale défilante. |
+| `Sidebar.Footer` | Zone inférieure qui ne défile pas. |
+| `Sidebar.Group` | Section de navigation sémantique. |
+| `Sidebar.NavigationButton` | Bouton ou lien `asChild` avec les états active et size. |
+| `Sidebar.ExpandedContent` | Contenu affiché lorsque le panneau est déplié. |
+| `Sidebar.CollapsedContent` | Contenu affiché lorsque le panneau est replié. |
+| `Sidebar.Tooltip` | Aide de libellé repliée avec positionnement adapté au côté. |
 | `Sidebar.NavigationSubList` | Liste de navigation imbriquée. |
-| `Sidebar.NavigationSubItem` | Élément d’une liste de navigation imbriquée. |
-| `Sidebar.NavigationSubButton` | Lien de navigation imbriqué avec un état actif. |
 
 ## Composition
 
-### Composition recommandée
-
-Gardez chaque partie de la mise en page comme enfant direct de la racine. Pour une barre latérale à
-gauche, utilisez `Panel`, `ResizeTrigger`, `Trigger`, puis `Inset`. Pour une barre à droite,
-inversez l’ordre visuel : `Inset`, `Trigger`, `ResizeTrigger`, puis `Panel`. Le déclencheur se
-place au-dessus de la ligne de redimensionnement et du séparateur habituel de la barre supérieure du
-contenu. Il n’occupe pas de largeur dans la mise en page et n’est rogné par aucun panneau. Ajustez
-`--moduix-sidebar-trigger-offset-y` si la barre supérieure a une autre hauteur.
-
-Utilisez `Collapsible` pour les éléments de menu imbriqués dans le panneau déployé et
-`Menu + Avatar` pour les actions du compte. Lorsque `Menu.Trigger asChild` enveloppe
-`Sidebar.NavigationButton`, placez `Menu.Indicator` comme enfant direct à la fin de la ligne.
-Il est aligné à l’extrémité de la ligne et masqué dans la barre repliée. `Sidebar.Input`,
-`Sidebar.GroupAction`, `Sidebar.NavigationAction`, `Sidebar.NavigationBadge` et
-`Sidebar.Separator` couvrent les éléments courants d’une interface d’application sans ajouter un
-second état à Sidebar.
-
-Pour les boutons de navigation à icône seule, enveloppez `Sidebar.NavigationButton` dans
-`Sidebar.Tooltip` afin que le libellé reste disponible au survol. Les deux intégrations les plus
-courantes sont les suivantes :
-
-1. **Libellés dans la barre repliée :** `Sidebar.Tooltip` autour de
-   `Sidebar.NavigationButton`.
-2. **Persistance :** conservez la largeur dans `size` contrôlé, mettez-la à jour depuis
-   `onResize(details)`, puis enregistrez-la depuis `onResizeEnd(details)` dans l’état ou le
-   stockage de l’application.
-
-`Sidebar` est la forme courte de `Sidebar.Root`.
-
-`Sidebar.NavigationList` est généralement un enfant direct de `Sidebar.Group`. Utilisez
-`Sidebar.GroupContent` uniquement si l’application a besoin d’un conteneur personnalisé
-supplémentaire. Pour la navigation imbriquée, composez deux mises en page explicites : placez
-`Collapsible` et ses liens inline dans `Sidebar.ExpandedContent`, puis un `Menu` contextuel
-avec des liens dans `Sidebar.CollapsedContent` lorsque les éléments enfants doivent rester
-directement accessibles. Ces parties sélectionnent uniquement leurs enfants à partir de l’état Ark
-du panneau. Elles ne gèrent pas l’état de Menu ou de Collapsible et ne transforment pas un primitif
-en un autre. Utilisez `useSidebar().collapsed` uniquement lorsque l’application doit réellement
-modifier son arbre React. Si le parent possède une page d’ensemble utile, la barre repliée peut
-plutôt mener vers cette page.
-
-### Quand personnaliser la composition
-
-Utilisez `defaultSize`, `size` contrôlé et les callbacks lorsque la mise en page par défaut,
-fondée sur des longueurs CSS, ne convient pas. `useSidebar()` expose `collapsed`, `state`,
-`side` et `toggleSidebar`. Utilisez directement `Splitter` si vous avez besoin de contraintes
-de panneaux différentes, de ses API de provider ou de registre, ou de plus de deux panneaux.
-
-`panelId` modifie l’identifiant par défaut du panneau de navigation et celui de la poignée de
-redimensionnement correspondante ; l’identifiant de l’inset reste `"content"`. Les parties de
-mise en page de Sidebar n’acceptent volontairement pas d’identifiants individuels. Les panneaux,
-le déclencheur et `useSidebar()` restent ainsi alignés sur le même contrat de panneau Ark.
-Utilisez directement `Splitter` si votre mise en page nécessite un identifiant d’inset personnalisé
-ou plus de deux panneaux.
-
-Utilisez `asChild` sur les boutons de navigation et de navigation imbriquée pour rendre des liens
-gérés par votre routeur. Transmettez un seul enfant sémantique capable d’accepter les props fusionnées
-et la ref.
-
-Gardez dans `Sidebar` les parties liées à Splitter : `Panel`, `Inset`, `ResizeTrigger`,
-`Trigger` et `useSidebar()`.
-
-### Propriétés par défaut
-
-| Valeur | Valeur par défaut |
-| --- | --- |
-| Identifiants des panneaux | `"sidebar"` et `"content"` |
-| Largeur initiale de la barre latérale | `"16rem"` (256px) |
-| Contraintes de la barre latérale | `minSize: "3rem"`, `maxSize: "18rem"`, `collapsedSize: "3rem"` |
-| Contraintes du contenu | Aucune taille minimale |
-| Côté | `"left"` |
-| Orientation | `"horizontal"` (fixe pour la mise en page sidebar/inset) |
-| `panelId` de la racine | `"sidebar"` |
-| Taille `size` du bouton de navigation | `"md"` |
-
-### Comportement
-
-Ark accepte les pourcentages et les longueurs CSS pour dimensionner les panneaux. Les longueurs CSS
-sont mesurées dans le navigateur, donc une mise en page rendue côté serveur peut bouger après
-l’hydratation. Préférez les pourcentages lorsque la stabilité de la mise en page SSR est importante.
-`Trigger` expose `aria-expanded`, appelle d’abord votre `onClick` et ne bascule pas si ce
-gestionnaire appelle `preventDefault()`.
-
-Ark conserve le déplacement au pointeur, le redimensionnement avec les touches fléchées, l’état du
-focus et les objets de détails des callbacks : `onResize(details)`,
-`onResizeEnd(details)`, `onCollapse(details)` et `onExpand(details)`.
-
-Le repli et le déploiement appliquent immédiatement les tailles Ark. Sidebar n’anime volontairement
-pas la largeur du panneau, car une transition CSS sur flex prendrait du retard sur le redimensionnement
-au pointeur et au clavier. Le contenu de Collapsible, les menus contextuels, les infobulles et l’icône
-du déclencheur conservent leurs propres transitions.
+`Sidebar` possède l’état de mise en page du Splitter, tandis que `Collapsible`, `Menu` et
+`Sidebar.Tooltip` possèdent chacun leur propre état. Gardez `Panel`, `ResizeTrigger`, `Trigger` et
+`Inset` comme enfants directs, dans l’ordre visuel: `Panel` en premier à gauche, `Inset` en premier
+à droite. `ExpandedContent` et `CollapsedContent` ne font que changer la branche visible. Ils servent
+à associer des liens `Collapsible` dans la vue étendue et un `Menu` dans la barre repliée, sans
+déplacer l’état dans Sidebar. Pour conserver la largeur, contrôlez `size`, mettez-le à jour dans
+`onResize(details)` et enregistrez la valeur finale dans `onResizeEnd(details)`. Dans Solid, `asChild`
+utilise une fonction de rendu qui reçoit les props fusionnées.
 
 ## Exemples
 
 ### Navigation imbriquée
 
-Gardez les deux mises en page de navigation explicites et côte à côte.
-`Sidebar.ExpandedContent` conserve le `Collapsible` inline dans le panneau complet, tandis que
-`Sidebar.CollapsedContent` le remplace par un `Menu` contextuel dans la barre d’icônes. Ces
-parties ne changent que la visibilité : la personnalisation de Menu et de Collapsible reste dans
-votre composition.
+Utilisez `ExpandedContent` pour les liens imbriqués affichés dans le panneau et `CollapsedContent`
+pour les mêmes liens dans un menu contextuel. Les deux branches restent composées par l’application.
 
 <ExampleFrame variant="component">
   <SidebarNestedNavigation />
@@ -236,29 +178,32 @@ votre composition.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/sidebar/nested-navigation.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/sidebar/sidebar-nested-navigation.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={sidebarSolidNestedNavigation} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/sidebar/sidebar-nested-navigation.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Zone de défilement personnalisée
 
-Le défilement natif est utilisé par défaut. Si vous avez besoin d’une barre de défilement stylisée
-ou d’un fondu sur le bord, placez un `ScrollArea` dans `Sidebar.Content`. Désactivez le
-débordement de la partie de contenu externe pour que `ScrollArea.Viewport` soit l’unique conteneur
+Le défilement natif est utilisé par défaut. Placez `ScrollArea` dans `Sidebar.Content` pour ajouter
+une barre de défilement stylisée ou un fondu sur le bord, et faites de son viewport le seul conteneur
 de défilement.
 
 <ExampleFrame variant="component">
@@ -267,30 +212,32 @@ de défilement.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/sidebar/custom-scroll-area.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/sidebar/sidebar-custom-scroll-area.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={sidebarSolidCustomScrollArea} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/sidebar/sidebar-custom-scroll-area.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Mise en page persistante sur ordinateur
 
-Conservez la largeur de la barre latérale pour ordinateur en dehors du composant. Contrôlez
-`size`, mettez-la à jour pendant le déplacement avec `onResize(details)`, puis enregistrez la
-valeur finale dans `onResizeEnd(details)`. Splitter reste responsable de la mise en page et la
-largeur choisie sera conservée lors de la prochaine visite.
+Conservez la largeur de la barre latérale dans l’état de l’application ou dans le stockage. Contrôlez
+`size` pendant le redimensionnement et enregistrez la valeur finale dans `onResizeEnd(details)`.
 
 <ExampleFrame variant="component">
   <SidebarPersistedLayout />
@@ -298,35 +245,33 @@ largeur choisie sera conservée lors de la prochaine visite.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/sidebar/persisted-layout.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/sidebar/sidebar-persisted-layout.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={sidebarSolidPersistedLayout} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/sidebar/sidebar-persisted-layout.module.css"
+```
 </div>
 
 </ExampleCode>
 
-<span id="recommended-app-shell" />
-
 ### Structure complète de l’application
 
-Placez `Sidebar.Input`, `Sidebar.GroupAction`, `Sidebar.NavigationAction` et
-`Sidebar.NavigationBadge` à côté de l’élément de navigation concerné. L’élément Projects conserve
-les deux compositions dans cet exemple : `Sidebar.ExpandedContent` sélectionne le
-`Collapsible` inline, tandis que `Sidebar.CollapsedContent` sélectionne le `Menu` contextuel.
-Chaque primitif gère toujours son propre état, le focus, le positionnement du menu et ses animations.
-L’exemple montre aussi une longue liste de projets qui défile dans `Sidebar.Content`, ainsi que
-des infobulles pour la barre d’icônes repliée.
+Combinez la recherche, les actions de groupe, les badges, la navigation imbriquée, le menu de la
+barre repliée et le menu du compte dans une même structure. Chaque primitive imbriquée conserve son
+propre état et sa gestion du focus.
 
 <ExampleFrame variant="component">
   <SidebarNestedNavigationAndAccountMenu />
@@ -334,30 +279,33 @@ des infobulles pour la barre d’icônes repliée.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/sidebar/nested-navigation-and-account-menu.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/sidebar/sidebar-nested-navigation-and-account-menu.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={sidebarSolidNestedNavigationAndAccountMenu} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/sidebar/sidebar-nested-navigation-and-account-menu.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Barre latérale à droite
 
-Passez `side="right"` et rendez `Inset`, `Trigger`, `ResizeTrigger`, puis `Panel` dans cet
-ordre. Sidebar ajuste automatiquement la configuration des panneaux, l’identifiant et la position du
-déclencheur, ainsi que la direction du chevron. L’exemple Inspector comprend des outils regroupés,
-des liens d’activité, un défilement interne et un menu de pied de page.
+Passez `side="right"` et rendez `Inset`, `Trigger`, `ResizeTrigger` et `Panel` dans cet ordre.
+Sidebar ajuste automatiquement la configuration des panneaux, les identifiants, le placement et la
+direction du chevron.
 
 <ExampleFrame variant="component">
   <SidebarRightSidebar />
@@ -365,31 +313,33 @@ des liens d’activité, un défilement interne et un menu de pied de page.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/sidebar/right-sidebar.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/sidebar/sidebar-right-sidebar.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={sidebarSolidRightSidebar} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/sidebar/sidebar-right-sidebar.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Sélection d’un espace de travail
 
-Utilisez `Select.Trigger asChild` avec `Sidebar.NavigationButton`. Placez le texte de la valeur
-sélectionnée dans `Sidebar.Label`, gardez `Select.Indicator` comme enfant direct du déclencheur,
-puis marquez le repère visuel compact avec `data-sidebar-icon`. Select place son indicateur direct
-à la fin de la ligne ; Sidebar le masque dans la barre repliée. L’exemple associe un sélecteur
-d’espace de travail à une navigation, une zone de contenu défilable et un menu de compte.
+Utilisez `Select.Trigger asChild` avec `Sidebar.NavigationButton`. Placez la valeur sélectionnée
+dans `Sidebar.Label`, gardez `Select.Indicator` comme enfant direct du trigger et marquez l’ancre
+visuelle compacte avec `data-sidebar-icon`.
 
 <ExampleFrame variant="component">
   <SidebarWorkspaceSelect />
@@ -397,28 +347,32 @@ d’espace de travail à une navigation, une zone de contenu défilable et un me
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/sidebar/workspace-select.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/sidebar/sidebar-workspace-select.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={sidebarSolidWorkspaceSelect} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/sidebar/sidebar-workspace-select.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Personnalisation avancée
 
-Utilisez directement `Splitter` lorsque la mise en page nécessite d’autres contraintes de panneaux,
-des identifiants d’inset personnalisés, plus de deux panneaux ou les API de provider et de registre.
+Définissez une taille initiale explicite et composez d’autres primitives dans la structure lorsque
+la largeur initiale par défaut ne convient pas.
 
 <ExampleFrame variant="component">
   <SidebarCustomSizes />
@@ -426,67 +380,50 @@ des identifiants d’inset personnalisés, plus de deux panneaux ou les API de p
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/sidebar/custom-sizes.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/sidebar/sidebar-custom-sizes.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={sidebarSolidCustomSizes} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/sidebar/sidebar-custom-sizes.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Styles
 
-Le panneau de navigation utilise les tokens de carte et l’inset utilise l’arrière-plan de
-l’application. La configuration par défaut du panneau réserve une barre d’icônes de `3rem`.
-Lorsqu’il est replié, `Sidebar.Label` et les libellés de groupe sortent de la mise en page visuelle
-grâce à un masquage visuel, les listes de navigation imbriquées et `Sidebar.Input` sont masquées,
-et les éléments SVG ainsi que ceux marqués `data-sidebar-icon` sont centrés. Les libellés restent
-disponibles pour les technologies d’assistance sans occuper d’espace flex. Marquez les repères
-visuels qui ne sont pas des SVG, comme Avatar, le repère d’espace de travail Select ou une marque,
-avec `data-sidebar-icon` pour conserver leurs dimensions. Placez dans `Sidebar.Label` le texte,
-les valeurs et les libellés qui doivent sortir de la mise en page visuelle ; gardez les indicateurs
-comme enfants directs du primitif qui gère leur placement. Les actions placées à la fin des groupes
-et des éléments de navigation sont automatiquement masquées dans l’état replié à icônes seules.
-Les boutons de navigation et de navigation imbriquée tronquent leur texte direct à toute largeur de
-Sidebar. Utilisez `Sidebar.Label` lorsque le texte ou les valeurs doivent aussi disparaître de la
-barre repliée.
+Chaque partie sémantique accepte `className` en React et `class` en Solid et expose un hook stable
+`data-slot="sidebar-*"`. `Sidebar.Panel` ajoute `data-state="expanded"` ou `"collapsed"`, tandis
+que les parties de mise en page exposent `data-side`. `NavigationButton` et `NavigationSubButton`
+exposent `data-active`, et `NavigationButton` expose aussi `data-size`.
 
-À une largeur réduite mais encore déployée, inférieure à `7rem`, Sidebar masque aussi les actions
-de groupe et de navigation, les badges et les indicateurs avant qu’ils ne recouvrent l’icône
-principale. Le panneau reste déployé et son état Ark comme ses libellés restent inchangés.
+Lorsque la barre est repliée, les libellés et titres de groupe sortent de la mise en page visuelle
+tout en restant accessibles aux technologies d’assistance. Les listes imbriquées, champs, actions,
+badges et indicateurs sont masqués pour garder la barre d’icônes compacte. Marquez les ancres
+visuelles non-SVG, comme `Avatar` ou une marque, avec `data-sidebar-icon`.
 
-La largeur du panneau relève de l’état Ark, et non du CSS visuel. Remplacez `defaultSize` et
-`size` contrôlé pour modifier la largeur actuelle de Sidebar ; utilisez `Splitter` lorsque les
-contraintes déployée, minimale, maximale ou repliée doivent être différentes. `panelId` modifie
-l’identifiant de navigation par défaut. Utilisez les variables publiques `--moduix-sidebar-*`
-pour les espacements internes, les dimensions des éléments, les couleurs et le décalage vertical
-du déclencheur.
-
-Le déclencheur flottant se trouve à l’intersection de la ligne de redimensionnement et d’un séparateur
-habituel de la barre supérieure de l’inset, sans recouvrir l’en-tête de navigation. Son décalage par
-défaut de `40px` convient à une barre supérieure d’inset de `3.5rem`. Remplacez
-`--moduix-sidebar-trigger-offset-y` pour une autre hauteur d’en-tête. L’interface de
-redimensionnement se limite volontairement à une ligne. Sa couleur au repos correspond à la bordure,
-elle se rapproche légèrement de `--moduix-color-muted-foreground` au survol et pendant le
-déplacement, tandis que le focus au clavier utilise la couleur d’anneau de focus de Sidebar.
-Ne remplacez les variables `--moduix-splitter-resize-trigger-line-color-*` que si le produit
-nécessite un retour visuel plus marqué.
+La largeur des panneaux appartient à l’état d’Ark, pas au CSS visuel. Remplacez `defaultSize` ou
+contrôlez `size` pour définir la largeur courante. Utilisez les variables publiques
+`--moduix-sidebar-*` pour les espacements internes, les dimensions, les couleurs et le décalage du
+trigger.
 
 ### Propriétés CSS
 
 <div className="docs-reference">
   <Tabs
-    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
     className="docs-reference-tabs"
     contentItemClassName="docs-reference-panel"
   >
@@ -498,18 +435,7 @@ nécessite un retour visuel plus marqué.
 
 ### Points d’accroche CSS
 
-Chaque partie sémantique accepte `className` et expose un hook stable
-`data-slot="sidebar-*"`. Les parties d’enveloppe de Sidebar exposent aussi
-`data-scope="sidebar"` et `data-part`. `Sidebar.Input` et `Sidebar.Separator` conservent
-les scopes de leurs primitives sous-jacentes, tandis que les parties de mise en page basées sur Ark
-conservent les attributs d’état de Splitter.
-
-`Sidebar.Panel` ajoute `data-state="expanded"` ou `"collapsed"`.
-`Sidebar.ExpandedContent` et `Sidebar.CollapsedContent` exposent
-`data-slot="sidebar-expanded-content"` et `data-slot="sidebar-collapsed-content"` pour une
-personnalisation selon l’état. La racine, le panneau, l’inset, la poignée de redimensionnement et le
-déclencheur flottant exposent `data-side`. `NavigationButton` et `NavigationSubButton` exposent
-`data-active`, et `NavigationButton` expose aussi `data-size`. Les autres parties d’enveloppe
-conservent des hooks stables `data-slot="sidebar-*"` pour une mise en page ou un thème
-personnalisés. L’état du redimensionnement reste disponible via les attributs Ark `data-focus`,
-`data-dragging`, `data-disabled` et `data-orientation`.
+Les parties de la coque Sidebar exposent aussi `data-scope="sidebar"` et `data-part`. `Sidebar.Input`
+et `Sidebar.Separator` conservent les scopes de leurs primitives, tandis que les parties basées sur
+Ark conservent les attributs d’état du Splitter, notamment `data-focus`, `data-dragging`,
+`data-disabled` et `data-orientation`.
