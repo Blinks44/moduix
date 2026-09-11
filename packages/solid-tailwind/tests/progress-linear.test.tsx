@@ -26,7 +26,7 @@ test('renders the linear Ark anatomy with stable hooks and an accessible name', 
   expect(rootRef).toHaveClass('grid', 'w-48', 'text-foreground');
   expect(progressbar).toHaveAttribute('data-slot', 'progress-linear-track');
   expect(progressbar).toHaveAttribute('aria-valuenow', '42');
-  expect(progressbar).toHaveClass('block', 'h-2', 'bg-muted');
+  expect(progressbar).toHaveClass('block', 'h-2', 'bg-muted', 'ring-1', 'ring-inset');
   expect(trackRef).toBe(progressbar);
   expect(range).toHaveAttribute('data-slot', 'progress-linear-range');
   expect(range).toHaveClass('block', 'h-full', 'bg-primary');

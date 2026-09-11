@@ -14,6 +14,15 @@ import PinInputMasking from '@/components/examples/pin-input/masking.tsx';
 import PinInputOtpMode from '@/components/examples/pin-input/otp-mode.tsx';
 import PinInputPlaceholder from '@/components/examples/pin-input/placeholder.tsx';
 import PinInputRootProvider from '@/components/examples/pin-input/root-provider.tsx';
+import pinInputSolidBasic from '../../../snippets/pin-input/solid/basic.tsx?raw';
+import pinInputSolidBlurOnComplete from '../../../snippets/pin-input/solid/blur-on-complete.tsx?raw';
+import pinInputSolidChangeEvents from '../../../snippets/pin-input/solid/change-events.tsx?raw';
+import pinInputSolidField from '../../../snippets/pin-input/solid/field.tsx?raw';
+import pinInputSolidGroupedLayout from '../../../snippets/pin-input/solid/grouped-layout.tsx?raw';
+import pinInputSolidMasking from '../../../snippets/pin-input/solid/masking.tsx?raw';
+import pinInputSolidOtpMode from '../../../snippets/pin-input/solid/otp-mode.tsx?raw';
+import pinInputSolidPlaceholder from '../../../snippets/pin-input/solid/placeholder.tsx?raw';
+import pinInputSolidRootProvider from '../../../snippets/pin-input/solid/root-provider.tsx?raw';
 
 ## Référence de l’API
 
@@ -21,20 +30,21 @@ import PinInputRootProvider from '@/components/examples/pin-input/root-provider.
 
 ## Choisir le bon composant
 
-Utilisez `PinInput` lorsqu’un code court de longueur fixe doit être saisi un caractère à la fois dans des cases
-distinctes.
+Utilisez `PinInput` lorsqu’un code court de longueur fixe doit être saisi caractère par caractère dans des cases séparées.
 
-- Choisissez **`PinInput`** pour les codes à usage unique, les codes PIN, les codes de secours et les codes d’invitation.
-- Choisissez **`Input`** lorsqu’un seul champ de texte simple suffit.
-- Choisissez **`PasswordInput`** lorsque la valeur est une chaîne secrète unique avec un bouton de visibilité.
+- Choisissez **`PinInput`** pour les codes à usage unique, les codes PIN, les codes de récupération et les codes d’invitation.
+- Choisissez **`Input`** lorsqu’un seul champ de texte suffit.
+- Choisissez **`PasswordInput`** lorsque la valeur est une chaîne secrète unique avec un bouton d’affichage.
 
 ## Exemple de base
 
-Pour la disposition standard, utilisez `<PinInput>`. Il s’agit d’un raccourci pour `<PinInput.Root>`. Indiquez
-`count` pour que le rendu SSR et les attributs ARIA soient prévisibles.
+PinInput est disponible pour React et Solid dans les paquets CSS Modules et Tailwind. L’aperçu interactif de cette
+page utilise React avec CSS Modules ; les onglets présentent le code natif correspondant au même contrat public.
+Consultez le [Quick Start](/docs/quick-start) pour configurer le paquet et choisir le mode de style.
 
-Composez explicitement `PinInput.HiddenInput`. Passez `name` lorsque la valeur doit être envoyée avec
-un formulaire, et indiquez aussi `form` lorsque le composant ne se trouve pas dans ce formulaire.
+Utilisez `PinInput` comme racine et définissez explicitement `count`. Ajoutez `Label` pour donner un nom accessible
+au groupe, placez `Inputs` dans `Control` et composez `HiddenInput` lorsque la valeur doit participer au comportement
+d’un formulaire natif.
 
 <ExampleFrame variant="component">
   <PinInputBasic />
@@ -42,11 +52,23 @@ un formulaire, et indiquez aussi `form` lorsque le composant ne se trouve pas da
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/pin-input/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={pinInputSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -56,7 +78,30 @@ un formulaire, et indiquez aussi `form` lorsque le composant ne se trouve pas da
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="pin-input" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/pin-input' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/pin-input' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/pin-input' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/pin-input' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+Consultez le [Quick Start](/docs/quick-start) pour la configuration complète du paquet et du registry.
 
 ## Anatomie
 
@@ -68,85 +113,40 @@ PinInput / PinInput.Root
 │  ├─ PinInput.Input[index=1]
 │  └─ PinInput.Input[index=2]
 └─ PinInput.HiddenInput (explicite)
+
+PinInput.RootProvider
+└─ même arbre de parties relié à un store usePinInput()
 ```
 
-| Partie                                  | Rôle                                                                                                  |
-| --------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `PinInput` / `PinInput.Root`            | Machine à états racine, nombre de cases, tableau de valeurs, validation et options de formulaire.    |
-| `PinInput.HiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
-| `PinInput.RootProvider`                 | Rend l’arborescence à partir de l’état renvoyé par `usePinInput`.                                     |
-| `PinInput.Context`                      | Expose l’état racine aux descendants via une fonction de rendu.                                       |
-| `PinInput.Label`                        | Libellé du groupe de saisie du code PIN ou du code de vérification.                                   |
-| `PinInput.Control`                      | Conteneur des champs visibles indexés.                                                                |
-| `PinInput.Input`                        | Champ visible qui accepte un caractère. Fournissez un `index` commençant à zéro.                     |
-| `PinInput.Inputs`                       | Génère un `Input` indexé pour chaque élément du contexte Ark. Son `className` est appliqué à chaque champ. |
-| `PinInput.Separator`                    | Composant décoratif moduix pour regrouper les champs. Ce n’est pas une partie du primitif Ark.       |
-| `usePinInput`                           | Crée l’état à utiliser avec `PinInput.RootProvider`.                                                  |
-| `usePinInputContext`                    | Lit l’état actuel de Pin Input dans l’arborescence du composant.                                     |
+| Partie | Rôle |
+| --- | --- |
+| `PinInput` / `PinInput.Root` | Gère le nombre de cases, l’état de la valeur, la validation et les options du formulaire. |
+| `PinInput.HiddenInput` | Contrôle de formulaire natif Ark à composer explicitement. |
+| `PinInput.RootProvider` | Relie les parties à l’état créé avec `usePinInput()`. |
+| `PinInput.Context` | Expose l’état de la racine aux descendants via une render prop. |
+| `PinInput.Label` | Donne un libellé au groupe de saisie du code PIN ou de vérification. |
+| `PinInput.Control` | Conteneur des cases visibles indexées. |
+| `PinInput.Input` | Une case visible pour un caractère. Utilisez un `index` commençant à zéro. |
+| `PinInput.Inputs` | Génère une partie `Input` indexée pour chaque élément du contexte Ark. |
+| `PinInput.Separator` | Aide décorative de moduix pour les groupes, et non une partie du primitif Ark. |
+| `usePinInput` | Crée l’état à utiliser avec `PinInput.RootProvider`. |
+| `usePinInputContext` | Lit l’état courant de Pin Input dans l’arbre du composant. |
 
 ## Composition
 
-### Champ de formulaire natif
+Composez explicitement `PinInput.HiddenInput` dans `PinInput` ou `PinInput.RootProvider` lorsque la valeur doit
+être envoyée par un formulaire natif et être réinitialisée avec lui. Définissez `name` sur la racine et utilisez
+`form` lorsque le formulaire se trouve en dehors de l’arbre du composant.
 
-`PinInput.HiddenInput` est le champ natif d’Ark, exporté directement. Ajoutez-le explicitement dans
-`PinInput` ou `PinInput.RootProvider` : la racine ne le crée pas automatiquement.
-Définissez `name` sur la racine pour inclure la valeur dans la soumission native du formulaire.
-
-Pour un formulaire extérieur à l’arbre du composant, définissez `form` sur la racine.
-
-### Composition recommandée
-
-Utilisez la syntaxe compacte `<PinInput>`, ajoutez un `Label` visible et placez `Inputs` dans `Control`. Passez
-`name` lorsque le code doit être inclus dans la soumission d’un formulaire.
-
-### Quand créer une composition personnalisée
-
-Rendez explicitement les parties `Input` indexées et `Separator` lorsque le code doit être divisé en groupes ou que
-les champs ont besoin de propriétés différentes. Utilisez `PinInput.RootProvider` et `usePinInput` lorsque l’état
-doit être créé en dehors de l’arborescence rendue. Les index doivent commencer à zéro et rester consécutifs dans
-toute la composition.
-
-### Propriétés par défaut
-
-| Propriété        | Valeur par défaut | Remarques                                                                                          |
-| ---------------- | ----------------- | -------------------------------------------------------------------------------------------------- |
-| `count`          | -                 | Nombre de cases. Indiquez-le explicitement pour rendre prévisibles le SSR et les attributs ARIA.   |
-| `type`           | `numeric`         | `numeric`, `alphabetic` ou `alphanumeric`.                                                         |
-| `placeholder`    | `''` dans moduix  | Ark utilise `○` par défaut ; moduix utilise une chaîne vide tant que la propriété est absente.    |
-| `otp`            | `false`           | Ajoute `autocomplete="one-time-code"` aux champs visibles.                                         |
-| `mask`           | `false`           | Masque les caractères saisis comme dans un champ de mot de passe.                                  |
-| `blurOnComplete` | `false`           | Retire le focus du dernier champ lorsque toutes les cases sont remplies.                          |
-| `selectOnFocus`  | -                 | Sélectionne la valeur actuelle lorsqu’un champ reçoit le focus.                                    |
-| `autoFocus`      | -                 | Place le focus sur le premier champ au montage du composant.                                      |
-| `autoSubmit`     | -                 | Soumet le formulaire associé lorsque tous les champs sont remplis.                                |
-| `pattern`        | -                 | Expression régulière personnalisée pour les caractères acceptés.                                  |
-| `sanitizeValue`  | -                 | Nettoie les valeurs collées avant validation, par exemple en supprimant les espaces ou les tirets. |
-| `defaultValue`   | `[]`              | Valeur initiale non contrôlée, sous forme de tableau de chaînes.                                   |
-| `value`          | -                 | Valeur contrôlée, sous forme de tableau de chaînes.                                                |
-
-### Comportement
-
-`value` et `defaultValue` sont des tableaux de chaînes. Les callbacks `onValueChange(details)` et
-`onValueComplete(details)` exposent `details.value` et `details.valueAsString`. Le callback
-`onValueInvalid(details)` expose la valeur rejetée dans `details.value` et son `details.index`.
-
-Utilisez `type` pour les jeux de caractères intégrés et `pattern` pour une expression régulière personnalisée.
-`sanitizeValue` reçoit le texte collé et renvoie la valeur à valider.
-
-`Field.Root` et `Fieldset.Root` peuvent fournir les états `disabled`, `invalid`, `required` et `readOnly` via le
-contexte Ark. Passez à `PinInput` les options de la racine telles que `name`, `form`, `ids` et `translations`. La racine
-et ses parties acceptent `asChild`.
-
-Passez `className` à `PinInput.Inputs` lorsque tous les champs générés doivent partager la même classe. Utilisez
-des parties `Input` explicites lorsque les champs doivent avoir des propriétés ou des styles différents.
-
-Activez `autoSubmit` uniquement si la saisie complète doit soumettre le formulaire associé. Le comportement clavier
-est celui d’Ark : les touches fléchées passent d’une case à l’autre, la touche Backspace efface une case et revient
-en arrière si nécessaire, la touche Delete efface la case courante et le collage remplit les cases restantes.
+`PinInput.Inputs` génère une case indexée pour chaque élément du contexte Ark. Utilisez des parties `Input` explicites
+avec des index continus commençant à zéro, ainsi que `Separator` lorsque le code doit être divisé en groupes. Les
+valeurs sont des tableaux de chaînes. Utilisez `RootProvider` avec `usePinInput` lorsque l’état ou les méthodes
+impératives doivent être gérés en dehors de l’arbre rendu ; React reçoit un objet store, tandis que Solid reçoit un
+accessor réactif.
 
 ## Exemples
 
-### Retirer le focus après la saisie
+### Retirer le focus à la fin
 
 Définissez `blurOnComplete` lorsque le focus doit quitter le dernier champ une fois toutes les cases remplies.
 
@@ -156,11 +156,20 @@ Définissez `blurOnComplete` lorsque le focus doit quitter le dernier champ une 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/pin-input/blur-on-complete.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={pinInputSolidBlurOnComplete} />
 
     </Tab>
   </Tabs>
@@ -168,10 +177,9 @@ Définissez `blurOnComplete` lorsque le focus doit quitter le dernier champ une 
 
 </ExampleCode>
 
-### Événements de modification
+### Événements de changement
 
-Conservez le tableau de valeurs dans l’état React et lisez `details.value` ou `details.valueAsString` dans les
-callbacks Ark.
+Conservez le tableau de valeurs dans l’état et lisez `details.value` ou `details.valueAsString` dans les callbacks Ark.
 
 <ExampleFrame variant="component">
   <PinInputChangeEvents />
@@ -179,20 +187,28 @@ callbacks Ark.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/pin-input/change-events.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/pin-input/pin-input-change-events.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={pinInputSolidChangeEvents} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/pin-input/pin-input-change-events.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -200,7 +216,7 @@ callbacks Ark.
 ### Field
 
 Placez `PinInput` dans `Field` lorsque le libellé, le texte d’aide, le message d’erreur et l’état du champ doivent
-être associés aux champs visibles grâce aux mécanismes d’accessibilité d’Ark pour les formulaires.
+être associés aux cases visibles par les mécanismes d’accessibilité des formulaires d’Ark.
 
 <ExampleFrame variant="component">
   <PinInputField />
@@ -208,28 +224,36 @@ Placez `PinInput` dans `Field` lorsque le libellé, le texte d’aide, le messag
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/pin-input/field.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/pin-input/pin-input-field.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={pinInputSolidField} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/pin-input/pin-input-field.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Disposition groupée
 
-Utilisez des parties `Input` indexées explicites lorsqu’un séparateur divise le code en groupes. Gardez des index
-consécutifs, même si les champs sont rendus dans des groupes distincts.
+Utilisez des parties `Input` indexées explicites et `Separator` lorsqu’un séparateur doit diviser le code en groupes.
+Gardez des index continus dans toute la composition.
 
 <ExampleFrame variant="component">
   <PinInputGroupedLayout />
@@ -237,11 +261,20 @@ consécutifs, même si les champs sont rendus dans des groupes distincts.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/pin-input/grouped-layout.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={pinInputSolidGroupedLayout} />
 
     </Tab>
   </Tabs>
@@ -251,7 +284,7 @@ consécutifs, même si les champs sont rendus dans des groupes distincts.
 
 ### Masquage
 
-Définissez `mask` lorsque le code saisi est sensible et ne doit pas apparaître en clair.
+Définissez `mask` lorsque le code saisi est sensible et ne doit pas être affiché en clair.
 
 <ExampleFrame variant="component">
   <PinInputMasking />
@@ -259,11 +292,20 @@ Définissez `mask` lorsque le code saisi est sensible et ne doit pas apparaître
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/pin-input/masking.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={pinInputSolidMasking} />
 
     </Tab>
   </Tabs>
@@ -282,11 +324,20 @@ codes à usage unique sur les navigateurs mobiles compatibles.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/pin-input/otp-mode.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={pinInputSolidOtpMode} />
 
     </Tab>
   </Tabs>
@@ -294,10 +345,9 @@ codes à usage unique sur les navigateurs mobiles compatibles.
 
 </ExampleCode>
 
-### Texte indicatif
+### Placeholder
 
-Passez `placeholder` pour afficher un caractère dans chaque case vide. moduix laisse le texte indicatif vide par
-défaut.
+Passez `placeholder` pour afficher un caractère dans chaque case vide. Par défaut, moduix laisse le placeholder vide.
 
 <ExampleFrame variant="component">
   <PinInputPlaceholder />
@@ -305,11 +355,20 @@ défaut.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/pin-input/placeholder.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={pinInputSolidPlaceholder} />
 
     </Tab>
   </Tabs>
@@ -320,7 +379,7 @@ défaut.
 ### Personnalisation avancée
 
 Utilisez `usePinInput` avec `RootProvider` lorsque l’état et les méthodes impératives doivent être gérés en dehors
-de l’arborescence rendue. Cet exemple remplace `Inputs` par des parties `Input` indexées explicites.
+de l’arbre rendu. Cet exemple remplace `Inputs` par des parties `Input` indexées explicites.
 
 <ExampleFrame variant="component">
   <PinInputRootProvider />
@@ -328,34 +387,39 @@ de l’arborescence rendue. Cet exemple remplace `Inputs` par des parties `Input
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/pin-input/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/pin-input/pin-input-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={pinInputSolidRootProvider} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/pin-input/pin-input-root-provider.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Accessibilité
 
-Ark gère le transfert du focus, la répartition du texte collé, la modification au clavier, les données de formulaire
-et le remplissage automatique des codes à usage unique. Ajoutez un `Label` pour donner un nom accessible au groupe.
+Ark gère le transfert du focus, la répartition du texte collé, la saisie au clavier, les données du formulaire et
+le remplissage automatique des codes à usage unique. Ajoutez `Label` pour donner un nom accessible au groupe.
 
-`PinInput.Separator` est décoratif par défaut et rend les attributs `aria-hidden` et `role="presentation"`. Placez
-tout texte porteur de sens en dehors du séparateur.
-
-Pour la soumission native, passez `name` à la racine, ajoutez `PinInput.HiddenInput` et utilisez
-`form` lorsque le composant appartient à un formulaire situé ailleurs dans le document.
+`PinInput.Separator` est décoratif par défaut et rend `aria-hidden` ainsi que `role="presentation"`. Placez tout
+texte porteur de sens en dehors du séparateur.
 
 ## Styles
 
@@ -373,13 +437,16 @@ Pour la soumission native, passez `name` à la racine, ajoutez `PinInput.HiddenI
   </Tabs>
 </div>
 
+Les paquets CSS Modules exposent les variables publiques ci-dessus. Les variantes Tailwind utilisent des classes
+utilitaires natives et les remplacements de l’utilisateur via `className` ou `class`.
+
 ### Points d’accroche CSS
 
 - La racine et `RootProvider` exposent `data-slot="pin-input-root"` et `data-slot="pin-input-root-provider"`.
-- `Label`, `Control` et `Input` exposent respectivement `data-slot="pin-input-label"`,
-  `data-slot="pin-input-control"` et `data-slot="pin-input-input"`.
+- `Label`, `Control` et `Input` exposent `data-slot="pin-input-label"`, `data-slot="pin-input-control"` et
+  `data-slot="pin-input-input"`.
 - Les parties Ark utilisent `data-scope="pin-input"` et `data-part="root" | "label" | "control" | "input"`.
 - Les styles de l’état racine utilisent `data-disabled`, `data-invalid`, `data-complete` et `data-readonly`.
-- Les styles d’état du champ utilisent `data-disabled`, `data-invalid`, `data-complete`, `data-filled` et
+- Les styles d’état des cases utilisent `data-disabled`, `data-invalid`, `data-complete`, `data-filled` et
   `data-index`.
 - `PinInput.Separator` expose `data-slot="pin-input-separator"` et est décoratif par défaut.

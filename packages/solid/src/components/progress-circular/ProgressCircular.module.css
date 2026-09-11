@@ -90,7 +90,7 @@
     display: contents;
   }
 
-  @keyframes progress-circular-indeterminate {
+  @keyframes :global(progress-circular-indeterminate) {
     from {
       transform: rotate(-90deg);
     }

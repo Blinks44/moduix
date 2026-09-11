@@ -83,7 +83,7 @@ function ProgressLinearTrack(props: ComponentProps<typeof ProgressPrimitive.Trac
       asChild={local.asChild}
       data-slot="progress-linear-track"
       class={cn(
-        'col-span-full box-border block h-2 w-full overflow-hidden rounded-full bg-muted outline-1 -outline-offset-1 outline-border data-[orientation=vertical]:flex data-[orientation=vertical]:h-full data-[orientation=vertical]:w-2 data-[orientation=vertical]:items-end data-[orientation=vertical]:justify-self-center',
+        'col-span-full box-border block h-2 w-full overflow-hidden rounded-full bg-muted ring-1 ring-border ring-inset data-[orientation=vertical]:flex data-[orientation=vertical]:h-full data-[orientation=vertical]:w-2 data-[orientation=vertical]:items-end data-[orientation=vertical]:justify-self-center',
         local.class,
       )}
       {...others}

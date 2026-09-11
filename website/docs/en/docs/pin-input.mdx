@@ -14,6 +14,15 @@ import PinInputMasking from '@/components/examples/pin-input/masking.tsx';
 import PinInputOtpMode from '@/components/examples/pin-input/otp-mode.tsx';
 import PinInputPlaceholder from '@/components/examples/pin-input/placeholder.tsx';
 import PinInputRootProvider from '@/components/examples/pin-input/root-provider.tsx';
+import pinInputSolidBasic from '../../../snippets/pin-input/solid/basic.tsx?raw';
+import pinInputSolidBlurOnComplete from '../../../snippets/pin-input/solid/blur-on-complete.tsx?raw';
+import pinInputSolidChangeEvents from '../../../snippets/pin-input/solid/change-events.tsx?raw';
+import pinInputSolidField from '../../../snippets/pin-input/solid/field.tsx?raw';
+import pinInputSolidGroupedLayout from '../../../snippets/pin-input/solid/grouped-layout.tsx?raw';
+import pinInputSolidMasking from '../../../snippets/pin-input/solid/masking.tsx?raw';
+import pinInputSolidOtpMode from '../../../snippets/pin-input/solid/otp-mode.tsx?raw';
+import pinInputSolidPlaceholder from '../../../snippets/pin-input/solid/placeholder.tsx?raw';
+import pinInputSolidRootProvider from '../../../snippets/pin-input/solid/root-provider.tsx?raw';
 
 ## API Reference
 
@@ -29,11 +38,12 @@ Use `PinInput` when a short, fixed-length code should be entered one character a
 
 ## Basic
 
-Use `<PinInput>` for the standard layout. It is a shorthand for `<PinInput.Root>`. Set `count` explicitly so the
-server-rendered markup and ARIA attributes are predictable.
+PinInput ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered preview on this
+page uses the React CSS Modules package; the framework tabs show native source for the same public contract. See
+[Quick Start](/docs/quick-start) for package setup and styling-track guidance.
 
-Compose `PinInput.HiddenInput` explicitly. Pass `name` when the value should be submitted with a
-form, and pass `form` as well when the component is not inside that form.
+Use `PinInput` as the root and set `count` explicitly. Add `Label` for an accessible name, put `Inputs` inside
+`Control`, and compose `HiddenInput` when the value must participate in native form behavior.
 
 <ExampleFrame variant="component">
   <PinInputBasic />
@@ -41,11 +51,23 @@ form, and pass `form` as well when the component is not inside that form.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/pin-input/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={pinInputSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -55,7 +77,30 @@ form, and pass `form` as well when the component is not inside that form.
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="pin-input" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/pin-input' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/pin-input' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/pin-input' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/pin-input' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+See [Quick Start](/docs/quick-start) for full package setup and registry configuration.
 
 ## Anatomy
 
@@ -67,80 +112,35 @@ PinInput / PinInput.Root
 │  ├─ PinInput.Input[index=1]
 │  └─ PinInput.Input[index=2]
 └─ PinInput.HiddenInput (explicit)
+
+PinInput.RootProvider
+└─ same part tree connected to a usePinInput() store
 ```
 
-| Part                                   | Role                                                                                         |
-| -------------------------------------- | -------------------------------------------------------------------------------------------- |
-| `PinInput` / `PinInput.Root`           | Root state machine, input count, value array, validation, and form options.                  |
-| `PinInput.HiddenInput` | Native Ark form control; compose explicitly as described below. |
-| `PinInput.RootProvider`                | Renders the tree from a state object returned by `usePinInput`.                              |
-| `PinInput.Context`                     | Exposes the current root state to descendants through a render prop.                        |
-| `PinInput.Label`                       | Labels the PIN or code input group.                                                          |
-| `PinInput.Control`                     | Container for the visible indexed inputs.                                                    |
-| `PinInput.Input`                       | One visible character input. Pass a zero-based `index`.                                      |
-| `PinInput.Inputs`                      | Generates one indexed `Input` for each item in the Ark context. Its `className` is applied to each input. |
-| `PinInput.Separator`                   | Decorative moduix helper for grouping. It is not an Ark primitive part.                      |
-| `usePinInput`                          | Creates state for use with `PinInput.RootProvider`.                                          |
-| `usePinInputContext`                    | Reads the current Pin Input state from inside the component tree.                            |
+| Part | Role |
+| --- | --- |
+| `PinInput` / `PinInput.Root` | Owns input count, value state, validation, and form options. |
+| `PinInput.HiddenInput` | Native Ark form control that must be composed explicitly. |
+| `PinInput.RootProvider` | Connects the parts to state created with `usePinInput()`. |
+| `PinInput.Context` | Exposes the current root state to descendants through a render prop. |
+| `PinInput.Label` | Labels the PIN or code input group. |
+| `PinInput.Control` | Container for the visible indexed inputs. |
+| `PinInput.Input` | One visible character input. Pass a zero-based `index`. |
+| `PinInput.Inputs` | Generates one indexed `Input` for each item in the Ark context. |
+| `PinInput.Separator` | Decorative moduix helper for grouping. It is not an Ark primitive part. |
+| `usePinInput` | Creates state for use with `PinInput.RootProvider`. |
+| `usePinInputContext` | Reads the current Pin Input state inside the component tree. |
 
 ## Composition
 
-### Native form control
+Compose `PinInput.HiddenInput` explicitly inside `PinInput` or `PinInput.RootProvider` when the value should
+participate in native form submission and reset behavior. Set `name` on the root, and set `form` when the form is
+outside the component tree.
 
-`PinInput.HiddenInput` is Ark's native input, exposed directly. Render it explicitly inside
-`PinInput` or `PinInput.RootProvider`; the root does not add it. Set `name` on the root
-to include the value in native form submission.
-
-For a form outside the component tree, set `form` on the root.
-
-### Recommended composition
-
-Use the compact `<PinInput>` root, add a visible `Label`, and place `Inputs` inside `Control`. Use `name` when the
-code should be included in form submission.
-
-### When to go custom
-
-Render indexed `Input` parts and `Separator` explicitly when the code needs groups or individual input props. Use
-`PinInput.RootProvider` and `usePinInput` when state must be created outside the rendered tree. Keep indexes
-zero-based and continuous across the entire composition.
-
-### Default props
-
-| Prop             | Default        | Notes                                                                 |
-| ---------------- | -------------- | --------------------------------------------------------------------- |
-| `count`          | -              | Number of cells. Set it explicitly for predictable SSR and ARIA output. |
-| `type`           | `numeric`      | `numeric`, `alphabetic`, or `alphanumeric`.                           |
-| `placeholder`    | `''` in moduix  | Ark uses `○` by default; moduix uses an empty string unless you pass this prop. |
-| `otp`            | `false`        | Adds `autocomplete="one-time-code"` to the visible inputs.            |
-| `mask`           | `false`        | Masks entered characters like a password input.                       |
-| `blurOnComplete` | `false`        | Blurs the last input after all cells are filled.                      |
-| `selectOnFocus`  | -              | Selects the current value when an input receives focus.               |
-| `autoFocus`      | -              | Focuses the first input when the component mounts.                    |
-| `autoSubmit`     | -              | Submits the owning form after all inputs are filled.                  |
-| `pattern`        | -              | Custom regular expression for accepted characters.                    |
-| `sanitizeValue`  | -              | Cleans pasted values before validation, such as by removing spaces or dashes. |
-| `defaultValue`   | `[]`           | Uncontrolled initial value as a string array.                         |
-| `value`          | -              | Controlled value as a string array.                                   |
-
-### Behavioral notes
-
-`value` and `defaultValue` are string arrays. `onValueChange(details)` and `onValueComplete(details)` expose
-`details.value` and `details.valueAsString`. `onValueInvalid(details)` exposes the rejected value in `details.value`
-and its `details.index`.
-
-Use `type` for the built-in character sets and `pattern` for a custom regular expression. `sanitizeValue` receives
-pasted text and returns the value to validate.
-
-`Field.Root` and `Fieldset.Root` can provide `disabled`, `invalid`, `required`, and `readOnly` through Ark context.
-Pass root options such as `name`, `form`, `ids`, and `translations` to `PinInput`. The root and its parts support
-`asChild`.
-
-Pass `className` to `PinInput.Inputs` when every generated input should share the same class. Use explicit `Input`
-parts when individual inputs need different props or styles.
-
-Set `autoSubmit` only when completing the code should submit its owning form. Keyboard behavior follows Ark: arrow
-keys move between cells, Backspace clears a cell and moves back when needed, Delete clears the current cell, and
-pasting fills the remaining cells.
+`PinInput.Inputs` renders one indexed input for every item in the Ark context. Use explicit `Input` parts with
+continuous zero-based indexes and `Separator` when the code needs groups. Values are string arrays. Use
+`RootProvider` with `usePinInput` when state or imperative methods must be owned outside the rendered tree; React
+receives a store object, while Solid receives an accessor.
 
 ## Examples
 
@@ -154,11 +154,20 @@ Set `blurOnComplete` when focus should leave the final input after all cells are
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/pin-input/blur-on-complete.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={pinInputSolidBlurOnComplete} />
 
     </Tab>
   </Tabs>
@@ -168,7 +177,7 @@ Set `blurOnComplete` when focus should leave the final input after all cells are
 
 ### Change Events
 
-Keep the value array in React state and read `details.value` or `details.valueAsString` from the Ark callbacks.
+Keep the value array in state and read `details.value` or `details.valueAsString` from the Ark callbacks.
 
 <ExampleFrame variant="component">
   <PinInputChangeEvents />
@@ -176,20 +185,28 @@ Keep the value array in React state and read `details.value` or `details.valueAs
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/pin-input/change-events.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/pin-input/pin-input-change-events.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={pinInputSolidChangeEvents} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/pin-input/pin-input-change-events.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -205,28 +222,36 @@ visible inputs through Ark's form accessibility behavior.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/pin-input/field.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/pin-input/pin-input-field.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={pinInputSolidField} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/pin-input/pin-input-field.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Grouped Layout
 
-Use explicit indexed `Input` parts when a separator divides the code into groups. Keep the indexes continuous even
-though the inputs are rendered in separate groups.
+Use explicit indexed `Input` parts and `Separator` when a divider should split the code into groups. Keep indexes
+continuous across the entire composition.
 
 <ExampleFrame variant="component">
   <PinInputGroupedLayout />
@@ -234,11 +259,20 @@ though the inputs are rendered in separate groups.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/pin-input/grouped-layout.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={pinInputSolidGroupedLayout} />
 
     </Tab>
   </Tabs>
@@ -256,11 +290,20 @@ Set `mask` when the entered code is sensitive and should not be shown in plain t
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/pin-input/masking.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={pinInputSolidMasking} />
 
     </Tab>
   </Tabs>
@@ -279,11 +322,20 @@ supported mobile browsers.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/pin-input/otp-mode.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={pinInputSolidOtpMode} />
 
     </Tab>
   </Tabs>
@@ -301,11 +353,20 @@ Pass `placeholder` to show a character in each empty cell. moduix leaves the pla
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/pin-input/placeholder.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={pinInputSolidPlaceholder} />
 
     </Tab>
   </Tabs>
@@ -324,20 +385,28 @@ This example replaces `Inputs` with explicit indexed `Input` parts.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/pin-input/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/pin-input/pin-input-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={pinInputSolidRootProvider} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/pin-input/pin-input-root-provider.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -345,13 +414,10 @@ This example replaces `Inputs` with explicit indexed `Input` parts.
 ## Accessibility
 
 Ark manages focus transfer, paste distribution, keyboard editing, hidden form data, and one-time-code
-autocomplete. Add a `Label` so the group has an accessible name.
+autocomplete. Add `Label` so the group has an accessible name.
 
 `PinInput.Separator` is decorative by default and renders with `aria-hidden` and `role="presentation"`. Keep
 meaningful text outside the separator.
-
-For native form submission, pass `name` to the root, add `PinInput.HiddenInput`, and use `form` when
-the component belongs to a form elsewhere in the document.
 
 ## Styling
 
@@ -368,6 +434,9 @@ the component belongs to a form elsewhere in the document.
     </Tab>
   </Tabs>
 </div>
+
+CSS Modules packages expose the public variables above. Tailwind packages use native utilities and consumer
+`className` or `class` overrides.
 
 ### Styling hooks
 

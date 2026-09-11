@@ -26,6 +26,27 @@ import SliderThumbCollision from '@/components/examples/slider/thumb-collision.t
 import SliderThumbOverlap from '@/components/examples/slider/thumb-overlap.tsx';
 import SliderVertical from '@/components/examples/slider/vertical.tsx';
 import SliderVerticalWithMarks from '@/components/examples/slider/vertical-with-marks.tsx';
+import sliderSolidBasic from '../../../snippets/slider/solid/basic.tsx?raw';
+import sliderSolidCenterOrigin from '../../../snippets/slider/solid/center-origin.tsx?raw';
+import sliderSolidChangeEvents from '../../../snippets/slider/solid/change-events.tsx?raw';
+import sliderSolidContext from '../../../snippets/slider/solid/context.tsx?raw';
+import sliderSolidControlled from '../../../snippets/slider/solid/controlled.tsx?raw';
+import sliderSolidDisabled from '../../../snippets/slider/solid/disabled.tsx?raw';
+import sliderSolidForm from '../../../snippets/slider/solid/form.tsx?raw';
+import sliderSolidDraggingIndicator from '../../../snippets/slider/solid/dragging-indicator.tsx?raw';
+import sliderSolidInvalid from '../../../snippets/slider/solid/invalid.tsx?raw';
+import sliderSolidMarks from '../../../snippets/slider/solid/marks.tsx?raw';
+import sliderSolidMinAndMax from '../../../snippets/slider/solid/min-and-max.tsx?raw';
+import sliderSolidRange from '../../../snippets/slider/solid/range.tsx?raw';
+import sliderSolidReadOnly from '../../../snippets/slider/solid/read-only.tsx?raw';
+import sliderSolidRootProvider from '../../../snippets/slider/solid/root-provider.tsx?raw';
+import sliderSolidStep from '../../../snippets/slider/solid/step.tsx?raw';
+import sliderSolidThumbAlignment from '../../../snippets/slider/solid/thumb-alignment.tsx?raw';
+import sliderSolidThumbCollision from '../../../snippets/slider/solid/thumb-collision.tsx?raw';
+import sliderSolidThumbOverlap from '../../../snippets/slider/solid/thumb-overlap.tsx?raw';
+import sliderSolidVertical from '../../../snippets/slider/solid/vertical.tsx?raw';
+import sliderSolidVerticalWithMarks from '../../../snippets/slider/solid/vertical-with-marks.tsx?raw';
+import sliderSolidAdvancedCustomization from '../../../snippets/slider/solid/advanced-customization.tsx?raw';
 
 ## Справочник API
 
@@ -42,6 +63,10 @@ import SliderVerticalWithMarks from '@/components/examples/slider/vertical-with-
 
 ## Базовый пример
 
+Slider доступен для React и Solid как в пакетах с CSS Modules, так и в вариантах на Tailwind.
+Интерактивный пример на этой странице использует React и CSS Modules, а вкладки с кодом показывают
+нативную реализацию того же публичного API для обоих фреймворков.
+
 `Slider.Thumbs` создаёт по одному ползунку с нативным полем на значение. Для своего содержимого ползунка
 используйте `Slider.Thumb` явно и вложите в него `Slider.HiddenInput`.
 
@@ -51,27 +76,61 @@ import SliderVerticalWithMarks from '@/components/examples/slider/vertical-with-
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/slider/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/slider/slider-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={sliderSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/slider/slider-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="slider" />
+Slider доступен во всех четырёх пакетах. Выберите команду registry для нужного фреймворка и способа стилизации:
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/slider' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/slider' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/slider' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/slider' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -106,62 +165,18 @@ Slider / Slider.Root
 
 ## Композиция
 
-### Нативное поле формы
+Используйте `Slider.Thumbs` для стандартной композиции с одним ползунком на каждое значение:
+компонент также добавляет по одному `Slider.HiddenInput` на каждый ползунок. Если ползунку
+нужны своё содержимое, доступное имя или определённый порядок, используйте `Slider.Thumb`
+явно и вложите в него один `Slider.HiddenInput`. Для отправки формы задайте `name` на корневом
+компоненте.
 
-`Slider.HiddenInput` экспортируется напрямую из Ark. При явном использовании `Slider.Thumb`
-вложите по одному полю в каждый ползунок: ни корневой компонент, ни `Thumb` не добавляют его.
-`Slider.Thumbs` уже содержит по одному полю на ползунок в своей фиксированной композиции.
-Задайте `name` на корневом компоненте для отправки и `form` для внешней формы.
-Диапазон отправляется повторяющимися записями `name[]`.
-
-### Рекомендуемая композиция
-
-Используйте дерево частей Ark: корневой элемент, подпись, при необходимости текст значения, область управления, дорожку,
-заполненный диапазон и `Slider.Thumbs`. Компонент создаёт по одному ползунку с нативным полем на значение.
-Для своей композиции используйте явные ползунки.
-
-`Slider` - короткая запись для корня, эквивалентная `Slider.Root`.
-
-### Когда нужна собственная композиция
-
-Используйте `asChild`, если часть должна рендериться в вашем элементе. Внутри должен оставаться один семантический
-дочерний элемент, который принимает свойства Ark. Если отдельным ползункам нужны свои дочерние элементы, доступные имена
-или определённый порядок либо вложенный `Slider.HiddenInput`, используйте `Slider.Thumb` явно. Для расширенного доступа
-к состоянию используйте `Slider.Context` или `useSliderContext`, чтобы читать состояние под корневым элементом. Если состояние
-нужно создать вне дерева слайдера, импортируйте `useSlider` из `@moduix/react/slider` и используйте его с
-`Slider.RootProvider`.
-
-### Свойства по умолчанию
-
-| Свойство                 | По умолчанию  | Примечания                                                                 |
-| ------------------------ | ------------- | -------------------------------------------------------------------------- |
-| `defaultValue`           | `[min]`       | Ark хранит значения в виде `number[]`.                                    |
-| `orientation`            | `horizontal`  | `vertical` переключает вертикальную ориентацию.                           |
-| `min`                    | `0`           | Нижняя граница.                                                            |
-| `max`                    | `100`         | Верхняя граница.                                                           |
-| `step`                   | `1`           | Шаг для указателя и клавиатуры.                                            |
-| `largeStep`              | `10 * step`   | Шаг для Page Up, Page Down и Shift + стрелки.                              |
-| `minStepsBetweenThumbs`  | `0`           | Минимальное число шагов между ползунками диапазона.                       |
-| `origin`                 | `start`       | Точка, от которой заполняется диапазон с одним значением.                  |
-| `thumbAlignment`         | `contain`     | Используйте `center`, чтобы ползунок выходил за края дорожки.              |
-| `thumbCollisionBehavior` | `none`        | Используйте `push` или `swap`, чтобы изменить поведение при встрече.       |
-| `thumbSize`              | измеряется    | Переопределяет размеры ползунка, измеренные Ark.                           |
-
-`value`, `defaultValue`, `onValueChange(details)` и `onValueChangeEnd(details)` используют объекты details Ark.
-Читайте массив из `details.value`. `onFocusChange(details)` сообщает, какой ползунок получил фокус. Если `defaultValue`
-не задан, начальное значение равно `[min]`, то есть по умолчанию `[0]`. Используйте `ids`, если другим элементам нужны
-стабильные идентификаторы частей слайдера.
-
-### Особенности поведения
-
-`Slider` реализует паттерн слайдера WAI-ARIA из Ark. У каждого ползунка должно быть доступное имя, заданное через
-`Slider.Label`, `aria-label` или `aria-labelledby`. В горизонтальном слайдере работают стрелки влево и вправо, в
-вертикальном - вверх и вниз. `Page Up`, `Page Down` и `Shift + ArrowUp` или `Shift + ArrowDown` используют `largeStep`
-(по умолчанию `10 * step`). `Home` и `End` устанавливают минимальное и максимальное значения активного ползунка.
-
-Вложите по одному `Slider.HiddenInput` в каждый явный `Slider.Thumb` для отправки и сброса формы.
-`id`, `asChild`, `disabled`, `invalid`, `readOnly`, `name`, `form`, `ids`, `aria-label`, `aria-labelledby`
-и `getAriaValueText(details)` без изменений передаются в Ark.
+Для управляемого состояния сохраняйте `details.value` из `onValueChange` или
+`onValueChangeEnd`. Используйте `useSliderContext` во вложенных компонентах, чтобы читать
+состояние. Если состояние нужно создать вне дерева, создайте его через `useSlider` и передайте
+в `Slider.RootProvider`; не создавайте второй корневой компонент для того же store. В React
+store читается как объект, а в Solid через возвращённый реактивный accessor. `Slider` является
+сокращением для `Slider.Root`.
 
 ## Примеры
 
@@ -175,20 +190,31 @@ Slider / Slider.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/slider/center-origin.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/slider/slider-center-origin.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={sliderSolidCenterOrigin} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/slider/slider-center-origin.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -204,20 +230,31 @@ Slider / Slider.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/slider/change-events.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/slider/slider-change-events.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={sliderSolidChangeEvents} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/slider/slider-change-events.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -233,11 +270,23 @@ Slider / Slider.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/slider/context.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={sliderSolidContext} />
 
     </Tab>
   </Tabs>
@@ -255,20 +304,31 @@ Slider / Slider.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/slider/controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/slider/slider-controlled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={sliderSolidControlled} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/slider/slider-controlled.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -283,48 +343,31 @@ Slider / Slider.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/slider/disabled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={sliderSolidDisabled} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/slider/slider-disabled.module.css"
 ```
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
-
-### Форма
-
-Задайте `name` и вложите `Slider.HiddenInput` в каждый явный ползунок, чтобы отправлять текущее значение.
-
-<ExampleFrame variant="component">
-  <SliderForm />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
-
-```tsx pure file="../../../src/components/examples/slider/form.tsx"
-```
-
-    </Tab>
-    <Tab value="Styles">
-
-```css file="../../../src/components/examples/slider/slider-form.module.css"
-```
-
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -339,14 +382,66 @@ Slider / Slider.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/slider/dragging-indicator.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={sliderSolidDraggingIndicator} />
+
+    </Tab>
   </Tabs>
+</div>
+
+</ExampleCode>
+
+
+### Форма
+
+Задайте `name` и вложите `Slider.HiddenInput` в каждый явный ползунок, чтобы отправлять текущее значение.
+
+<ExampleFrame variant="component">
+  <SliderForm />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/slider/form.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={sliderSolidForm} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/slider/slider-form.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -362,20 +457,31 @@ Slider / Slider.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/slider/invalid.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/slider/slider-invalid.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={sliderSolidInvalid} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/slider/slider-invalid.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -391,20 +497,31 @@ Slider / Slider.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/slider/marks.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/slider/slider-marks.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={sliderSolidMarks} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/slider/slider-marks.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -419,11 +536,23 @@ Slider / Slider.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/slider/min-and-max.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={sliderSolidMinAndMax} />
 
     </Tab>
   </Tabs>
@@ -442,11 +571,23 @@ Slider / Slider.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/slider/range.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={sliderSolidRange} />
 
     </Tab>
   </Tabs>
@@ -465,20 +606,31 @@ Slider / Slider.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/slider/read-only.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/slider/slider-read-only.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={sliderSolidReadOnly} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/slider/slider-read-only.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -494,20 +646,31 @@ Slider / Slider.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/slider/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/slider/slider-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={sliderSolidRootProvider} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/slider/slider-root-provider.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -522,20 +685,31 @@ Slider / Slider.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/slider/step.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/slider/slider-step.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={sliderSolidStep} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/slider/slider-step.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -550,20 +724,31 @@ Slider / Slider.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/slider/thumb-alignment.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/slider/slider-thumb-alignment.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={sliderSolidThumbAlignment} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/slider/slider-thumb-alignment.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -579,20 +764,31 @@ Slider / Slider.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/slider/thumb-collision.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/slider/slider-thumb-collision.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={sliderSolidThumbCollision} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/slider/slider-thumb-collision.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -608,20 +804,31 @@ Slider / Slider.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/slider/thumb-overlap.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/slider/slider-thumb-overlap.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={sliderSolidThumbOverlap} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/slider/slider-thumb-overlap.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -636,20 +843,31 @@ Slider / Slider.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/slider/vertical.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/slider/slider-vertical.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={sliderSolidVertical} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/slider/slider-vertical.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -664,20 +882,31 @@ Slider / Slider.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/slider/vertical-with-marks.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/slider/slider-vertical-with-marks.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={sliderSolidVerticalWithMarks} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/slider/slider-vertical-with-marks.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -693,20 +922,31 @@ Slider / Slider.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/slider/advanced-customization.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/slider/slider-advanced-customization.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={sliderSolidAdvancedCustomization} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/slider/slider-advanced-customization.module.css"
+```
 </div>
 
 </ExampleCode>

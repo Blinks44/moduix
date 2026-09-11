@@ -149,7 +149,7 @@ export const RootProvider: Story = {
         <ProgressLinear.Label>Team rollout</ProgressLinear.Label>
         <ProgressLinear.ValueText />
         <ProgressLinear.Track
-          className="h-4 rounded-md bg-background outline-1 -outline-offset-1 outline-chart-3/55"
+          className="h-4 rounded-md bg-background ring-1 ring-chart-3/55 ring-inset"
           aria-label="Team rollout"
         >
           <ProgressLinear.Range className="rounded-[inherit] bg-linear-to-r from-chart-3 to-primary" />
@@ -165,7 +165,7 @@ export const CustomStyles: Story = {
       <ProgressLinear.Label>Monthly quota</ProgressLinear.Label>
       <ProgressLinear.ValueText />
       <ProgressLinear.Track
-        className="h-3 bg-accent outline-2 -outline-offset-1 outline-primary/25"
+        className="h-3 bg-accent ring-2 ring-primary/25 ring-inset"
         aria-label="Monthly quota"
       >
         <ProgressLinear.Range className="bg-linear-to-r from-primary to-chart-2" />

@@ -110,7 +110,7 @@
     display: contents;
   }
 
-  @keyframes progress-linear-indeterminate {
+  @keyframes :global(progress-linear-indeterminate) {
     from {
       transform: translateX(-100%);
     }
@@ -120,7 +120,7 @@
     }
   }
 
-  @keyframes progress-linear-indeterminate-vertical {
+  @keyframes :global(progress-linear-indeterminate-vertical) {
     from {
       transform: translateY(100%);
     }
