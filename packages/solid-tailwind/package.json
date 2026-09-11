@@ -318,11 +318,35 @@
       "import": "./dist/components/pagination/index.js",
       "default": "./dist/components/pagination/index.js"
     },
+    "./pin-input": {
+      "types": "./dist/components/pin-input/index.d.ts",
+      "solid": "./dist/components/pin-input/index.jsx",
+      "import": "./dist/components/pin-input/index.js",
+      "default": "./dist/components/pin-input/index.js"
+    },
+    "./popover": {
+      "types": "./dist/components/popover/index.d.ts",
+      "solid": "./dist/components/popover/index.jsx",
+      "import": "./dist/components/popover/index.js",
+      "default": "./dist/components/popover/index.js"
+    },
     "./password-input": {
       "types": "./dist/components/password-input/index.d.ts",
       "solid": "./dist/components/password-input/index.jsx",
       "import": "./dist/components/password-input/index.js",
       "default": "./dist/components/password-input/index.js"
+    },
+    "./progress-circular": {
+      "types": "./dist/components/progress-circular/index.d.ts",
+      "solid": "./dist/components/progress-circular/index.jsx",
+      "import": "./dist/components/progress-circular/index.js",
+      "default": "./dist/components/progress-circular/index.js"
+    },
+    "./progress-linear": {
+      "types": "./dist/components/progress-linear/index.d.ts",
+      "solid": "./dist/components/progress-linear/index.jsx",
+      "import": "./dist/components/progress-linear/index.js",
+      "default": "./dist/components/progress-linear/index.js"
     },
     "./radio-group": {
       "types": "./dist/components/radio-group/index.d.ts",
@@ -347,6 +371,12 @@
       "solid": "./dist/components/select/index.jsx",
       "import": "./dist/components/select/index.js",
       "default": "./dist/components/select/index.js"
+    },
+    "./slider": {
+      "types": "./dist/components/slider/index.d.ts",
+      "solid": "./dist/components/slider/index.jsx",
+      "import": "./dist/components/slider/index.js",
+      "default": "./dist/components/slider/index.js"
     },
     "./spinner": {
       "types": "./dist/components/spinner/index.d.ts",

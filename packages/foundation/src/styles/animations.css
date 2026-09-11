@@ -39,6 +39,26 @@
   }
 }
 
+@keyframes moduix-progress-linear-indeterminate {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(300%);
+  }
+}
+
+@keyframes moduix-progress-linear-indeterminate-vertical {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(-300%);
+  }
+}
+
 @keyframes moduix-marquee-x {
   from {
     transform: translateX(0%);

@@ -129,6 +129,10 @@
     var(--marquee-loop-count);
   --animate-moduix-marquee-y: moduix-marquee-y var(--marquee-duration) linear var(--marquee-delay)
     var(--marquee-loop-count);
+  --animate-moduix-progress-linear-indeterminate: moduix-progress-linear-indeterminate 1.5s
+    ease-in-out infinite;
+  --animate-moduix-progress-linear-indeterminate-vertical: moduix-progress-linear-indeterminate-vertical
+    1.5s ease-in-out infinite;
   --animate-moduix-collapsible-open: moduix-collapsible-content-open
     var(--moduix-transition-default);
   --animate-moduix-collapsible-closed: moduix-collapsible-content-closed

@@ -226,9 +226,25 @@
       "types": "./dist/components/pagination/index.d.ts",
       "import": "./dist/components/pagination/index.js"
     },
+    "./pin-input": {
+      "types": "./dist/components/pin-input/index.d.ts",
+      "import": "./dist/components/pin-input/index.js"
+    },
+    "./popover": {
+      "types": "./dist/components/popover/index.d.ts",
+      "import": "./dist/components/popover/index.js"
+    },
     "./password-input": {
       "types": "./dist/components/password-input/index.d.ts",
       "import": "./dist/components/password-input/index.js"
+    },
+    "./progress-circular": {
+      "types": "./dist/components/progress-circular/index.d.ts",
+      "import": "./dist/components/progress-circular/index.js"
+    },
+    "./progress-linear": {
+      "types": "./dist/components/progress-linear/index.d.ts",
+      "import": "./dist/components/progress-linear/index.js"
     },
     "./radio-group": {
       "types": "./dist/components/radio-group/index.d.ts",
@@ -245,6 +261,10 @@
     "./select": {
       "types": "./dist/components/select/index.d.ts",
       "import": "./dist/components/select/index.js"
+    },
+    "./slider": {
+      "types": "./dist/components/slider/index.d.ts",
+      "import": "./dist/components/slider/index.js"
     },
     "./spinner": {
       "types": "./dist/components/spinner/index.d.ts",

@@ -780,6 +780,46 @@
       ]
     },
     {
+      "name": "progress-circular",
+      "type": "registry:item",
+      "title": "ProgressCircular",
+      "description": "moduix Solid Tailwind ProgressCircular component.",
+      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/progress-circular/ProgressCircular.tsx",
+          "target": "@components/ui/progress-circular/ProgressCircular.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/progress-circular/index.ts",
+          "target": "@components/ui/progress-circular/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "progress-linear",
+      "type": "registry:item",
+      "title": "ProgressLinear",
+      "description": "moduix Solid Tailwind ProgressLinear component.",
+      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/progress-linear/ProgressLinear.tsx",
+          "target": "@components/ui/progress-linear/ProgressLinear.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/progress-linear/index.ts",
+          "target": "@components/ui/progress-linear/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "hover-card",
       "type": "registry:item",
       "title": "HoverCard",
@@ -1201,6 +1241,55 @@
       ]
     },
     {
+      "name": "popover",
+      "type": "registry:item",
+      "title": "Popover",
+      "description": "moduix Solid Tailwind Popover component.",
+      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-solid-tailwind/foundation",
+        "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/close-button",
+        "@moduix-solid-tailwind/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/popover/Popover.tsx",
+          "target": "@components/ui/popover/Popover.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/index.ts",
+          "target": "@components/ui/popover/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "pin-input",
+      "type": "registry:item",
+      "title": "PinInput",
+      "description": "moduix Solid Tailwind PinInput component.",
+      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-solid-tailwind/foundation",
+        "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/pin-input/PinInput.tsx",
+          "target": "@components/ui/pin-input/PinInput.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/pin-input/index.ts",
+          "target": "@components/ui/pin-input/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "select",
       "type": "registry:item",
       "title": "Select",
@@ -1222,6 +1311,26 @@
         {
           "path": "src/components/select/index.ts",
           "target": "@components/ui/select/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "slider",
+      "type": "registry:item",
+      "title": "Slider",
+      "description": "moduix Solid Tailwind Slider component.",
+      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/slider/Slider.tsx",
+          "target": "@components/ui/slider/Slider.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/slider/index.ts",
+          "target": "@components/ui/slider/index.ts",
           "type": "registry:component"
         }
       ]
