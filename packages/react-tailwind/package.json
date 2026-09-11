@@ -246,6 +246,10 @@
       "types": "./dist/components/progress-linear/index.d.ts",
       "import": "./dist/components/progress-linear/index.js"
     },
+    "./qr-code": {
+      "types": "./dist/components/qr-code/index.d.ts",
+      "import": "./dist/components/qr-code/index.js"
+    },
     "./radio-group": {
       "types": "./dist/components/radio-group/index.d.ts",
       "import": "./dist/components/radio-group/index.js"
@@ -258,9 +262,21 @@
       "types": "./dist/components/scroll-area/index.d.ts",
       "import": "./dist/components/scroll-area/index.js"
     },
+    "./sidebar": {
+      "types": "./dist/components/sidebar/index.d.ts",
+      "import": "./dist/components/sidebar/index.js"
+    },
     "./select": {
       "types": "./dist/components/select/index.d.ts",
       "import": "./dist/components/select/index.js"
+    },
+    "./segment-group": {
+      "types": "./dist/components/segment-group/index.d.ts",
+      "import": "./dist/components/segment-group/index.js"
+    },
+    "./separator": {
+      "types": "./dist/components/separator/index.d.ts",
+      "import": "./dist/components/separator/index.js"
     },
     "./slider": {
       "types": "./dist/components/slider/index.d.ts",
@@ -270,9 +286,17 @@
       "types": "./dist/components/spinner/index.d.ts",
       "import": "./dist/components/spinner/index.js"
     },
+    "./splitter": {
+      "types": "./dist/components/splitter/index.d.ts",
+      "import": "./dist/components/splitter/index.js"
+    },
     "./switch": {
       "types": "./dist/components/switch/index.d.ts",
       "import": "./dist/components/switch/index.js"
+    },
+    "./tooltip": {
+      "types": "./dist/components/tooltip/index.d.ts",
+      "import": "./dist/components/tooltip/index.js"
     },
     "./style.css": "./dist/styles/style.css",
     "./presets/*": "./dist/presets/*",

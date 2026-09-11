@@ -844,6 +844,26 @@
       ]
     },
     {
+      "name": "qr-code",
+      "type": "registry:item",
+      "title": "QR Code",
+      "description": "moduix React Tailwind QR Code component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/qr-code/QrCode.tsx",
+          "target": "@components/ui/qr-code/QrCode.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/qr-code/index.ts",
+          "target": "@components/ui/qr-code/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "image",
       "type": "registry:item",
       "title": "Image",
@@ -1149,6 +1169,34 @@
       ]
     },
     {
+      "name": "sidebar",
+      "type": "registry:item",
+      "title": "Sidebar",
+      "description": "moduix React Tailwind Sidebar component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-react-tailwind/foundation",
+        "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/icons",
+        "@moduix-react-tailwind/input",
+        "@moduix-react-tailwind/separator",
+        "@moduix-react-tailwind/splitter",
+        "@moduix-react-tailwind/tooltip"
+      ],
+      "files": [
+        {
+          "path": "src/components/sidebar/Sidebar.tsx",
+          "target": "@components/ui/sidebar/Sidebar.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/index.ts",
+          "target": "@components/ui/sidebar/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "navigation-menu",
       "type": "registry:item",
       "title": "NavigationMenu",
@@ -1316,6 +1364,46 @@
       ]
     },
     {
+      "name": "separator",
+      "type": "registry:item",
+      "title": "Separator",
+      "description": "moduix React Tailwind Separator component.",
+      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/separator/Separator.tsx",
+          "target": "@components/ui/separator/Separator.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/separator/index.ts",
+          "target": "@components/ui/separator/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "segment-group",
+      "type": "registry:item",
+      "title": "SegmentGroup",
+      "description": "moduix React Tailwind SegmentGroup component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/segment-group/SegmentGroup.tsx",
+          "target": "@components/ui/segment-group/SegmentGroup.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/segment-group/index.ts",
+          "target": "@components/ui/segment-group/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "slider",
       "type": "registry:item",
       "title": "Slider",
@@ -1356,6 +1444,26 @@
       ]
     },
     {
+      "name": "splitter",
+      "type": "registry:item",
+      "title": "Splitter",
+      "description": "moduix React Tailwind Splitter component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/splitter/Splitter.tsx",
+          "target": "@components/ui/splitter/Splitter.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/splitter/index.ts",
+          "target": "@components/ui/splitter/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "switch",
       "type": "registry:item",
       "title": "Switch",
@@ -1371,6 +1479,30 @@
         {
           "path": "src/components/switch/index.ts",
           "target": "@components/ui/switch/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:item",
+      "title": "Tooltip",
+      "description": "moduix React Tailwind Tooltip component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-react-tailwind/foundation",
+        "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/tooltip/Tooltip.tsx",
+          "target": "@components/ui/tooltip/Tooltip.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tooltip/index.ts",
+          "target": "@components/ui/tooltip/index.ts",
           "type": "registry:component"
         }
       ]

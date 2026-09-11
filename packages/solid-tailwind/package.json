@@ -348,6 +348,12 @@
       "import": "./dist/components/progress-linear/index.js",
       "default": "./dist/components/progress-linear/index.js"
     },
+    "./qr-code": {
+      "types": "./dist/components/qr-code/index.d.ts",
+      "solid": "./dist/components/qr-code/index.jsx",
+      "import": "./dist/components/qr-code/index.js",
+      "default": "./dist/components/qr-code/index.js"
+    },
     "./radio-group": {
       "types": "./dist/components/radio-group/index.d.ts",
       "solid": "./dist/components/radio-group/index.jsx",
@@ -366,11 +372,29 @@
       "import": "./dist/components/scroll-area/index.js",
       "default": "./dist/components/scroll-area/index.js"
     },
+    "./sidebar": {
+      "types": "./dist/components/sidebar/index.d.ts",
+      "solid": "./dist/components/sidebar/index.jsx",
+      "import": "./dist/components/sidebar/index.js",
+      "default": "./dist/components/sidebar/index.js"
+    },
     "./select": {
       "types": "./dist/components/select/index.d.ts",
       "solid": "./dist/components/select/index.jsx",
       "import": "./dist/components/select/index.js",
       "default": "./dist/components/select/index.js"
+    },
+    "./segment-group": {
+      "types": "./dist/components/segment-group/index.d.ts",
+      "solid": "./dist/components/segment-group/index.jsx",
+      "import": "./dist/components/segment-group/index.js",
+      "default": "./dist/components/segment-group/index.js"
+    },
+    "./separator": {
+      "types": "./dist/components/separator/index.d.ts",
+      "solid": "./dist/components/separator/index.jsx",
+      "import": "./dist/components/separator/index.js",
+      "default": "./dist/components/separator/index.js"
     },
     "./slider": {
       "types": "./dist/components/slider/index.d.ts",
@@ -384,11 +408,23 @@
       "import": "./dist/components/spinner/index.js",
       "default": "./dist/components/spinner/index.js"
     },
+    "./splitter": {
+      "types": "./dist/components/splitter/index.d.ts",
+      "solid": "./dist/components/splitter/index.jsx",
+      "import": "./dist/components/splitter/index.js",
+      "default": "./dist/components/splitter/index.js"
+    },
     "./switch": {
       "types": "./dist/components/switch/index.d.ts",
       "solid": "./dist/components/switch/index.jsx",
       "import": "./dist/components/switch/index.js",
       "default": "./dist/components/switch/index.js"
+    },
+    "./tooltip": {
+      "types": "./dist/components/tooltip/index.d.ts",
+      "solid": "./dist/components/tooltip/index.jsx",
+      "import": "./dist/components/tooltip/index.js",
+      "default": "./dist/components/tooltip/index.js"
     },
     "./style.css": "./dist/styles/style.css",
     "./presets/*": "./dist/presets/*",
