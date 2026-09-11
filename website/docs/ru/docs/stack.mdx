@@ -1,7 +1,7 @@
 ---
 title: Stack
 component: stack
-description: Небольшой компонент для вертикальной и горизонтальной flex-разметки на базе фабрики Ark.
+description: Небольшой flex-компонент для вертикальной и горизонтальной раскладки в React и Solid.
 ---
 
 import * as StackDocs from '@/components/examples/stack/css-properties';
@@ -13,18 +13,30 @@ import StackRowLayout from '@/components/examples/stack/row-layout.tsx';
 import StackSemanticElement from '@/components/examples/stack/semantic-element.tsx';
 import StackSeparator from '@/components/examples/stack/separator.tsx';
 import StackWrappedItems from '@/components/examples/stack/wrapped-items.tsx';
+import stackSolidBasic from '../../../snippets/stack/solid/basic.tsx?raw';
+import stackSolidFill from '../../../snippets/stack/solid/growing-child-stack.tsx?raw';
+import stackSolidLoadingLayout from '../../../snippets/stack/solid/loading-layout.tsx?raw';
+import stackSolidResponsiveDirection from '../../../snippets/stack/solid/responsive-direction.tsx?raw';
+import stackSolidRowLayout from '../../../snippets/stack/solid/row-layout.tsx?raw';
+import stackSolidSemanticElement from '../../../snippets/stack/solid/semantic-element.tsx?raw';
+import stackSolidSeparator from '../../../snippets/stack/solid/separator.tsx?raw';
+import stackSolidWrappedItems from '../../../snippets/stack/solid/wrapped-items.tsx?raw';
 
 ## Справочник API
 
 В Ark UI нет отдельного примитива `Stack`. В moduix этот компонент реализован на основе официальной
 [фабрики Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по
 [композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
-[работе с ref](https://ark-ui.com/docs/guides/ref). Названия свойств раскладки взяты из модели
+[работе с ref](https://ark-ui.com/docs/guides/ref). Названия свойств раскладки взяты из документации
 [Stack](https://chakra-ui.com/docs/components/stack) в Chakra UI.
 
 ## Базовый пример
 
-Используйте `Stack`, когда достаточно одного flex-контейнера и нужно настроить только направление, отступ и
+Stack доступен для React и Solid в пакетах с CSS Modules и в вариантах на Tailwind. Интерактивное
+превью на этой странице использует React и CSS Modules, а вкладки показывают нативный исходный код
+для того же публичного контракта.
+
+Используйте `Stack`, когда достаточно одного flex-контейнера и нужно настроить направление, промежуток и
 выравнивание.
 
 <ExampleFrame variant="component">
@@ -33,11 +45,23 @@ import StackWrappedItems from '@/components/examples/stack/wrapped-items.tsx';
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/stack/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={stackSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -47,7 +71,28 @@ import StackWrappedItems from '@/components/examples/stack/wrapped-items.tsx';
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="stack" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/stack' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/stack' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/stack' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/stack' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -67,48 +112,10 @@ Stack / Stack.Root
 
 ## Композиция
 
-### Рекомендуемая композиция
-
-Для обычного вывода `div` используйте короткую форму `<Stack>`. `Stack.Root` пригодится, когда рядом с составными
-компонентами важно единообразное пространство имён.
-
-Для типичной flex-раскладки используйте `direction`, `gap`, `align`, `justify` и `wrap`. Свойство `fill` позволяет
-вложенному `Stack` расти как flex-элемент. Если нужен визуальный разделитель, добавьте `Separator` moduix
-непосредственно в список дочерних элементов. Используйте `asChild`, чтобы корневым элементом стал семантический
-элемент.
-
-### Когда нужна собственная композиция
-
-Перейдите на локальный CSS, если нужны несколько flex-контейнеров, разные значения `gap` на разных точках останова,
-правила для отдельных элементов или более сложная адаптивность, чем встроенное переключение направления mobile/desktop.
-CSS также будет понятнее, если набор свойств компонента становится слишком длинным.
-
-Используйте `style` для разового переопределения публичных переменных `--moduix-stack-*` или вычисляемых flex-свойств.
-
-### Свойства по умолчанию
-
-| Свойство    | По умолчанию       | Примечания                                                               |
-| ----------- | ------------------ | ------------------------------------------------------------------------ |
-| `direction` | `column`           | `row`, `row-reverse`, `column`, `column-reverse` или объект `mobile/desktop` |
-| `gap`       | значение браузера  | Значение CSS-длины (`number` = `px`)                                     |
-| `align`     | значение браузера  | Любое допустимое значение `align-items`                                  |
-| `justify`   | значение браузера  | Любое допустимое значение `justify-content`                              |
-| `wrap`      | значение браузера  | Любое допустимое значение `flex-wrap`                                    |
-| `fill`      | `initial`          | `true` задаёт `flex: 1 1 0`; `false` задаёт `flex: initial`              |
-| `asChild`   | `false`            | Композиция фабрики Ark с одним семантическим дочерним элементом          |
-
-### Особенности поведения
-
-- `Stack` отрисовывает ровно один корневой элемент и передаёт ему DOM-свойства фабрики Ark.
-- `direction={{ mobile, desktop }}` использует значение `desktop` начиная с `640px`. Если указано только одно
-  значение, `Stack` использует его в обоих диапазонах.
-- `direction` также принимает `row-reverse` и `column-reverse` для обратного визуального порядка.
-- `fill` влияет на `Stack` как на flex-элемент, а не на его дочерние элементы.
-- `Separator` - обычный дочерний элемент. Декоративным разделителям добавляйте `aria-hidden`.
-- `gap`, `align`, `justify` и `wrap` записываются во встроенные стили только при явной передаче.
-- `Stack` предоставляет `data-scope="stack"`, `data-part="root"` и `data-slot="stack-root"` для стилизации по
-  соглашениям Ark.
-- `Stack` не добавляет обёртки элементов, обработку клавиатуры, ARIA-семантику, контекст или управляемое состояние.
+`Stack` не владеет управляемым состоянием и предоставляет один корневой элемент. Для обычного вывода `div` используйте
+короткую форму `<Stack>`, а `Stack.Root` является её псевдонимом. Свойство `fill` влияет на `Stack` как на flex-элемент,
+а не на его дочерние элементы. Добавляйте `Separator` напрямую, если нужен разделитель, и используйте `asChild`, когда
+корневой элемент должен иметь семантический тег.
 
 ## Примеры
 
@@ -122,11 +129,23 @@ CSS также будет понятнее, если набор свойств �
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/stack/growing-child-stack.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={stackSolidFill} />
 
     </Tab>
   </Tabs>
@@ -144,11 +163,23 @@ CSS также будет понятнее, если набор свойств �
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/stack/loading-layout.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={stackSolidLoadingLayout} />
 
     </Tab>
   </Tabs>
@@ -158,8 +189,9 @@ CSS также будет понятнее, если набор свойств �
 
 ### Адаптивное направление
 
-Используйте адаптивный `direction`, чтобы просто переключать раскладку с колонки на мобильных экранах на строку на
-больших экранах.
+Используйте адаптивный `direction`, чтобы переключать раскладку с колонки на мобильных экранах на строку на больших.
+Значение `desktop` начинает действовать с `640px`; если указать только одну часть адаптивного значения, Stack
+использует её в обоих диапазонах.
 
 <ExampleFrame variant="component">
   <StackResponsiveDirection />
@@ -167,11 +199,23 @@ CSS также будет понятнее, если набор свойств �
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/stack/responsive-direction.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={stackSolidResponsiveDirection} />
 
     </Tab>
   </Tabs>
@@ -189,11 +233,23 @@ CSS также будет понятнее, если набор свойств �
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/stack/row-layout.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={stackSolidRowLayout} />
 
     </Tab>
   </Tabs>
@@ -211,11 +267,23 @@ CSS также будет понятнее, если набор свойств �
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/stack/semantic-element.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={stackSolidSemanticElement} />
 
     </Tab>
   </Tabs>
@@ -234,11 +302,23 @@ CSS также будет понятнее, если набор свойств �
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/stack/separator.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={stackSolidSeparator} />
 
     </Tab>
   </Tabs>
@@ -256,11 +336,23 @@ CSS также будет понятнее, если набор свойств �
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/stack/wrapped-items.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={stackSolidWrappedItems} />
 
     </Tab>
   </Tabs>
@@ -269,6 +361,10 @@ CSS также будет понятнее, если набор свойств �
 </ExampleCode>
 
 ## Стилизация
+
+Используйте `className` в React или `class` в Solid на корневом элементе для структурных стилей. Варианты Tailwind
+используют нативные утилитарные классы и переопределения потребителя, а CSS-переменные ниже настраивают варианты
+CSS Modules. Атрибуты данных и хук `data-slot` общие для обоих вариантов стилизации.
 
 ### CSS-свойства
 
@@ -290,8 +386,7 @@ CSS также будет понятнее, если набор свойств �
 
 ### Хуки стилизации
 
-- `className` задаёт стили единственному корневому элементу: ширину, внутренние отступы, границы, фон и другие
-  свойства оформления.
+- `className` или `class` задаёт стили единственному корневому элементу: ширину, внутренние отступы, границы, фон и другие свойства оформления.
 - `data-scope="stack"` и `data-part="root"` соответствуют соглашениям Ark для стилизации.
 - `data-slot="stack-root"` - стабильный селектор moduix для корневого элемента в локальном CSS.
 - `style` применяется последним и может переопределить вычисляемые `gap`, `alignItems`, `justifyContent`, `flexWrap`

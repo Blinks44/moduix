@@ -1,7 +1,7 @@
 ---
 title: Stack
 component: stack
-description: A lightweight flex layout primitive for arranging content vertically or horizontally.
+description: A lightweight flex layout primitive for arranging content vertically or horizontally in React or Solid.
 ---
 
 import * as StackDocs from '@/components/examples/stack/css-properties';
@@ -13,6 +13,14 @@ import StackRowLayout from '@/components/examples/stack/row-layout.tsx';
 import StackSemanticElement from '@/components/examples/stack/semantic-element.tsx';
 import StackSeparator from '@/components/examples/stack/separator.tsx';
 import StackWrappedItems from '@/components/examples/stack/wrapped-items.tsx';
+import stackSolidBasic from '../../../snippets/stack/solid/basic.tsx?raw';
+import stackSolidFill from '../../../snippets/stack/solid/growing-child-stack.tsx?raw';
+import stackSolidLoadingLayout from '../../../snippets/stack/solid/loading-layout.tsx?raw';
+import stackSolidResponsiveDirection from '../../../snippets/stack/solid/responsive-direction.tsx?raw';
+import stackSolidRowLayout from '../../../snippets/stack/solid/row-layout.tsx?raw';
+import stackSolidSemanticElement from '../../../snippets/stack/solid/semantic-element.tsx?raw';
+import stackSolidSeparator from '../../../snippets/stack/solid/separator.tsx?raw';
+import stackSolidWrappedItems from '../../../snippets/stack/solid/wrapped-items.tsx?raw';
 
 ## API Reference
 
@@ -24,6 +32,9 @@ documentation informs the layout prop names only.
 
 ## Basic
 
+Stack ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered preview on this page uses
+the React CSS Modules package; the framework tabs show native source for the same public contract.
+
 Use `Stack` when a single flex container is enough and you only need to control direction, gap, and alignment.
 
 <ExampleFrame variant="component">
@@ -32,11 +43,23 @@ Use `Stack` when a single flex container is enough and you only need to control 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/stack/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={stackSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -46,7 +69,28 @@ Use `Stack` when a single flex container is enough and you only need to control 
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="stack" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/stack' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/stack' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/stack' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/stack' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
@@ -65,46 +109,9 @@ Stack / Stack.Root
 
 ## Composition
 
-### Recommended composition
-
-Use the short `<Stack>` form for regular `div` output. Use `Stack.Root` when matching the namespace pattern is useful
-alongside multipart components.
-
-Use `direction`, `gap`, `align`, `justify`, and `wrap` for common flex layouts. Use `fill` when a nested `Stack`
-should grow as a flex item. Add the moduix `Separator` directly as a child when the layout needs a visual divider.
-Use `asChild` when the `Stack` should render as a semantic element.
-
-### When to go custom
-
-Move layout rules to local CSS when you need multiple flex containers, different gaps at different breakpoints,
-item-level rules, or more responsive behavior than the built-in mobile/desktop direction switch. CSS may also be
-clearer than a long combination of component props.
-
-Use `style` for a one-off override of public `--moduix-stack-*` variables or computed flex properties.
-
-### Default props
-
-| Prop        | Default         | Notes                                                   |
-| ----------- | --------------- | ------------------------------------------------------- |
-| `direction` | `column`        | `row`, `row-reverse`, `column`, `column-reverse`, or responsive object |
-| `gap`       | browser default | CSS length (`number` = `px`)                            |
-| `align`     | browser default | Any valid `align-items` value                           |
-| `justify`   | browser default | Any valid `justify-content` value                       |
-| `wrap`      | browser default | Any valid `flex-wrap` value                             |
-| `fill`      | `initial`       | `true` sets `flex: 1 1 0`; `false` sets `flex: initial` |
-| `asChild`   | `false`         | Ark factory composition with one semantic child element |
-
-### Behavioral notes
-
-- `Stack` renders exactly one root and forwards Ark factory DOM props to that root.
-- `direction={{ mobile, desktop }}` uses the desktop value from `640px` upward. If only one value is provided,
-  `Stack` uses it at both breakpoints.
-- `direction` also accepts `row-reverse` and `column-reverse` for reversed visual order.
-- `fill` affects the `Stack` as a flex item, not its children.
-- `Separator` is an ordinary child. Mark decorative dividers with `aria-hidden`.
-- `gap`, `align`, `justify`, and `wrap` are written inline only when you provide them.
-- `Stack` exposes `data-scope="stack"`, `data-part="root"`, and `data-slot="stack-root"` for Ark-style styling.
-- `Stack` does not add item wrappers, keyboard behavior, ARIA semantics, context, or managed state.
+`Stack` owns no managed state and exposes one root. Use the short `<Stack>` form for regular `div` output; `Stack.Root`
+is an alias for the same root. `fill` applies to the `Stack` as a flex item, not to its children. Add `Separator`
+directly as a child when the layout needs a divider, and use `asChild` when the root should be a semantic element.
 
 ## Examples
 
@@ -118,11 +125,23 @@ Use `fill` when a nested `Stack` should take the remaining space in a flex row.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/stack/growing-child-stack.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={stackSolidFill} />
 
     </Tab>
   </Tabs>
@@ -140,11 +159,23 @@ Combine `Stack` and `Skeleton` for a loading layout that only needs flex composi
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/stack/loading-layout.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={stackSolidLoadingLayout} />
 
     </Tab>
   </Tabs>
@@ -154,7 +185,8 @@ Combine `Stack` and `Skeleton` for a loading layout that only needs flex composi
 
 ### Responsive Direction
 
-Use responsive `direction` for a simple column-on-mobile, row-on-desktop layout.
+Use responsive `direction` for a simple column-on-mobile, row-on-desktop layout. The desktop value starts at `640px`;
+if only one responsive value is provided, Stack uses it at both breakpoints.
 
 <ExampleFrame variant="component">
   <StackResponsiveDirection />
@@ -162,11 +194,23 @@ Use responsive `direction` for a simple column-on-mobile, row-on-desktop layout.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/stack/responsive-direction.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={stackSolidResponsiveDirection} />
 
     </Tab>
   </Tabs>
@@ -184,11 +228,23 @@ Use `direction="row"` with alignment props for inline content.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/stack/row-layout.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={stackSolidRowLayout} />
 
     </Tab>
   </Tabs>
@@ -206,11 +262,23 @@ Use Ark's `asChild` when the layout wrapper should also express document structu
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/stack/semantic-element.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={stackSolidSemanticElement} />
 
     </Tab>
   </Tabs>
@@ -220,8 +288,8 @@ Use Ark's `asChild` when the layout wrapper should also express document structu
 
 ### Separator
 
-Add `Separator` directly when a horizontal or vertical `Stack` needs a repeated visual divider between children.
-`gap` applies to every child, including dividers.
+Add `Separator` directly when a horizontal or vertical `Stack` needs a repeated visual divider between children. `gap`
+applies to every child, including dividers.
 
 <ExampleFrame variant="component">
   <StackSeparator />
@@ -229,11 +297,23 @@ Add `Separator` directly when a horizontal or vertical `Stack` needs a repeated 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/stack/separator.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={stackSolidSeparator} />
 
     </Tab>
   </Tabs>
@@ -251,11 +331,23 @@ Use `wrap="wrap"` when items should flow onto the next line.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/stack/wrapped-items.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={stackSolidWrappedItems} />
 
     </Tab>
   </Tabs>
@@ -264,6 +356,10 @@ Use `wrap="wrap"` when items should flow onto the next line.
 </ExampleCode>
 
 ## Styling
+
+Use `className` in React or `class` in Solid on the root for structural styles. Tailwind variants use native utility
+classes and consumer overrides; the CSS variables below customize the CSS Modules variants. Data attributes and the
+`data-slot` hook are shared by both styling tracks.
 
 ### CSS Properties
 
@@ -284,7 +380,7 @@ Use `wrap="wrap"` when items should flow onto the next line.
 
 ### Styling hooks
 
-- `className` styles the single root for width, padding, borders, backgrounds, and other surface concerns.
+- `className` or `class` styles the single root for width, padding, borders, backgrounds, and other surface concerns.
 - `data-scope="stack"` and `data-part="root"` align the wrapper with Ark styling conventions.
 - `data-slot="stack-root"` is the stable moduix selector for targeting the root in local CSS.
 - `style` is applied last, so it can override computed `gap`, `alignItems`, `justifyContent`, `flexWrap`, and any

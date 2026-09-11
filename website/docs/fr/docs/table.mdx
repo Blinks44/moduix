@@ -17,6 +17,18 @@ import TableSizesAndVariants from '@/components/examples/table/sizes-and-variant
 import TableStickyHeaderAndColumn from '@/components/examples/table/sticky-header-and-column.tsx';
 import TableStripedRows from '@/components/examples/table/striped-rows.tsx';
 import TableWithScrollarea from '@/components/examples/table/with-scrollarea.tsx';
+import tableSolidBasic from '../../../snippets/table/solid/basic.tsx?raw';
+import tableSolidCaptionAndFooter from '../../../snippets/table/solid/caption-and-footer.tsx?raw';
+import tableSolidColumnGroupAndBorders from '../../../snippets/table/solid/column-group-and-borders.tsx?raw';
+import tableSolidCustomComposition from '../../../snippets/table/solid/custom-composition.tsx?raw';
+import tableSolidEmptyState from '../../../snippets/table/solid/empty-state.tsx?raw';
+import tableSolidInsideCard from '../../../snippets/table/solid/inside-card.tsx?raw';
+import tableSolidNumericColumns from '../../../snippets/table/solid/numeric-columns.tsx?raw';
+import tableSolidRowActions from '../../../snippets/table/solid/row-actions-with-menu.tsx?raw';
+import tableSolidSizesAndVariants from '../../../snippets/table/solid/sizes-and-variants.tsx?raw';
+import tableSolidStickyHeaderAndColumn from '../../../snippets/table/solid/sticky-header-and-column.tsx?raw';
+import tableSolidStripedRows from '../../../snippets/table/solid/striped-rows.tsx?raw';
+import tableSolidWithScrollarea from '../../../snippets/table/solid/with-scrollarea.tsx?raw';
 
 ## Référence de l’API
 
@@ -25,12 +37,16 @@ Ark UI ne fournit pas de primitive dédiée aux tableaux. moduix construit `Tabl
 d’Ark concernant la [composition](https://ark-ui.com/docs/guides/composition), les
 [styles](https://ark-ui.com/docs/guides/styling) et les [refs](https://ark-ui.com/docs/guides/ref).
 
-Chaque partie rend par défaut l’élément HTML natif correspondant, accepte ses propriétés et
-`className`, transmet sa ref et prend en charge `asChild`. Avec `asChild`, fournissez un seul
-élément sémantique. `Table.Empty` fait exception à cette composition habituelle : `asChild` y remplace
-uniquement la cellule `td` générée.
+Chaque partie rend par défaut l’élément HTML natif correspondant, accepte ses propriétés, `className`
+en React ou `class` en Solid, transmet sa ref et prend en charge `asChild`. Avec `asChild`, fournissez
+un seul élément sémantique. `Table.Empty` fait exception à cette composition habituelle : `asChild` y
+remplace uniquement la cellule `td` générée.
 
 ## Exemple de base
+
+`Table` est disponible en React et Solid dans les quatre packages CSS Modules et Tailwind. L’aperçu
+de cette page utilise React avec CSS Modules ; les onglets de framework affichent le code source natif
+du même contrat public.
 
 Si le tableau risque de dépasser la largeur de son conteneur, enveloppez-le dans `Table.ScrollArea`. Composez
 ensuite `Table` avec `Table.Header`, `Table.Body`, `Table.Row` et les parties correspondantes pour les en-têtes et
@@ -43,11 +59,23 @@ interfaces d’administration.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/table/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tableSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -57,7 +85,28 @@ interfaces d’administration.
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="table" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/table' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/table' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/table' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/table' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
@@ -96,58 +145,15 @@ Table.ScrollArea (optional)
 
 ## Composition
 
-### Composition recommandée
+Utilisez `Table.ScrollArea` lorsque le tableau a besoin d’un conteneur bordé avec défilement horizontal.
+Ne l’utilisez pas si la mise en page parente gère déjà le défilement, les espacements, la bordure ou
+la surface ; placez alors les parties natives du tableau dans votre propre conteneur.
 
-Pour la plupart des tableaux de données en lecture seule, utilisez les parties sémantiques et ajoutez
-`Table.ScrollArea` lorsque le tableau a besoin d’un conteneur bordé avec défilement horizontal.
-
-Utilisez `numeric` sur `Table.ColumnHeader` et `Table.Cell` pour les montants, les quantités, les pourcentages, les
-latences et autres valeurs numériques. Utilisez `Table.Caption` pour un titre ou une description courte, et
-`Table.Footer` lorsque la dernière ligne contient des totaux ou des agrégats. Utilisez `striped`, `interactive`,
-`showColumnBorder`, `stickyHeader` et `size` / `variant` pour modifier l’affichage sans ajouter d’état au tableau.
-
-### Quand créer une composition personnalisée
-
-N’utilisez pas `Table.ScrollArea` lorsque le conteneur parent gère déjà le défilement, les espacements, la bordure ou
-le fond. Conservez `Table` et gérez ces responsabilités dans votre propre composant ou balisage d’enveloppe.
-
-`Table` ne gère ni le tri, ni le filtrage, ni la sélection, ni la pagination, ni la virtualisation, ni l’état des
-actions de ligne. Considérez-le comme la base visuelle et sémantique sur laquelle des abstractions de tableau de
-plus haut niveau peuvent s’appuyer. Pour l’état et le rendu de TanStack Table, consultez le guide de composition
-[Data Table](/recipes/data-table).
-
-### Propriétés par défaut
-
-Toutes les parties acceptent les propriétés natives de l’élément correspondant, ainsi que `className` et `asChild`,
-comme indiqué plus haut. Elles transmettent également les refs à l’élément rendu.
-
-| Composant            | Propriété          | Par défaut     | Remarques                                                           |
-| -------------------- | ------------------ | -------------- | ------------------------------------------------------------------- |
-| `Table`              | `interactive`      | `false`        | Active la mise en évidence au survol des lignes de contenu.         |
-| `Table`              | `showColumnBorder` | `false`        | Ajoute des bordures entre les colonnes visibles.                    |
-| `Table`              | `size`             | `'md'`         | Accepte `'sm'`, `'md'` et `'lg'`.                                   |
-| `Table`              | `stickyHeader`     | `false`        | Rend `Table.Header` fixe dans un conteneur défilant.                |
-| `Table`              | `striped`          | `false`        | Alterne le fond des lignes de contenu paires, sauf les lignes vides. |
-| `Table`              | `variant`          | `'line'`       | Accepte `'line'` et `'outline'`.                                    |
-| `Table.Caption`      | `side`             | `'bottom'`     | Accepte `'top'` et `'bottom'`.                                      |
-| `Table.Column`       | `htmlWidth`        | -              | Correspond à l’attribut natif `width` de `col`.                     |
-| `Table.ColumnHeader` | `numeric`          | `false`        | Aligne le contenu en fin de ligne et utilise des chiffres tabulaires. |
-| `Table.Cell`         | `numeric`          | `false`        | Aligne le contenu en fin de ligne et utilise des chiffres tabulaires. |
-| `Table.Empty`        | `colSpan`          | obligatoire    | Doit correspondre au nombre actuel de colonnes.                      |
-| `Table.Empty`        | `children`         | `'No results.'` | Texte affiché en l’absence de contenu.                              |
-
-### Comportement
-
-- `Table.Empty` affiche une ligne complète pour l’état vide : transmettez donc le nombre de colonnes du corps via
-  `colSpan`. Son option `asChild` remplace uniquement la cellule générée : fournissez donc un unique `td`
-  sémantique ; composez directement `Table.Row` et `Table.Cell` lorsque la ligne doit être personnalisée.
-  La ligne générée expose `data-empty` et ne reçoit ni les rayures ni les styles interactifs.
-- Les lignes d’en-tête et de contenu affichent un séparateur inférieur commun. La dernière ligne de contenu n’a pas
-  de bordure.
-- Avec `interactive`, les lignes de contenu reçoivent un arrière-plan discret au survol et conservent ce contexte
-  lorsqu’un contrôle qu’elles contiennent reçoit le focus au clavier.
-- `Table.Caption` hérite d’une typographie atténuée et ajoute un padding inline afin de ne pas toucher les bords du
-  tableau.
+`Table.Empty` crée une ligne vide complète dans `Table.Body`, son `colSpan` obligatoire doit donc
+correspondre au nombre actuel de colonnes. Son `asChild` remplace uniquement le `td` généré ; composez
+directement `Table.Row` et `Table.Cell` lorsque la ligne elle-même doit être personnalisée. `Table`
+gère uniquement la présentation : le tri, le filtrage, la sélection, la pagination, la virtualisation
+et les actions de ligne appartiennent à une composition de niveau supérieur, comme [Data Table](/recipes/data-table).
 
 ### Accessibilité
 
@@ -170,11 +176,23 @@ totaux ou les synthèses.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/table/caption-and-footer.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tableSolidCaptionAndFooter} />
 
     </Tab>
   </Tabs>
@@ -193,11 +211,23 @@ Utilisez `Table.ColumnGroup` et `Table.Column` pour définir les largeurs native
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/table/column-group-and-borders.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tableSolidColumnGroupAndBorders} />
 
     </Tab>
   </Tabs>
@@ -216,11 +246,23 @@ colonnes.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/table/empty-state.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tableSolidEmptyState} />
 
     </Tab>
   </Tabs>
@@ -239,11 +281,23 @@ carte.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/table/inside-card.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tableSolidInsideCard} />
 
     </Tab>
   </Tabs>
@@ -262,11 +316,23 @@ autres valeurs numériques.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/table/numeric-columns.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tableSolidNumericColumns} />
 
     </Tab>
   </Tabs>
@@ -285,11 +351,23 @@ secondaires. `Menu` convient à ce cas sans modifier la structure native du tabl
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/table/row-actions-with-menu.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tableSolidRowActions} />
 
     </Tab>
   </Tabs>
@@ -308,20 +386,31 @@ sur la racine native sans ajouter d’état au tableau.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/table/sizes-and-variants.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/table/table-sizes-and-variants.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={tableSolidSizesAndVariants} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/table/table-sizes-and-variants.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -337,20 +426,31 @@ horizontalement ou verticalement doit conserver son en-tête ou une colonne impo
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/table/sticky-header-and-column.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/table/table-sticky-header-and-column.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={tableSolidStickyHeaderAndColumn} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/table/table-sticky-header-and-column.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -366,11 +466,23 @@ sans passer à une abstraction de tableau plus directive.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/table/striped-rows.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tableSolidStripedRows} />
 
     </Tab>
   </Tabs>
@@ -390,20 +502,31 @@ défilement horizontal. Gardez la structure de `ScrollArea` explicite afin que l
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/table/with-scrollarea.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/table/table-with-scrollarea.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={tableSolidWithScrollarea} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/table/table-with-scrollarea.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -420,28 +543,41 @@ conteneur.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/table/custom-composition.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/table/table-custom-composition.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={tableSolidCustomComposition} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/table/table-custom-composition.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Styles
 
-Stylisez `Table` avec `className`, les hooks publics `data-slot`, `data-scope` et `data-part`, les attributs `data-side`
-et `data-numeric`, ainsi que les variables CSS `--moduix-table-*` présentées ci-dessous.
+Stylisez `Table` avec `className` en React ou `class` en Solid, les hooks publics `data-slot`,
+`data-scope` et `data-part`, les attributs `data-side` et `data-numeric`, ainsi que les variables
+CSS `--moduix-table-*` présentées ci-dessous. Les variantes Tailwind utilisent des classes utilitaires
+natives et les classes du consommateur ; les variables ci-dessous s’appliquent aux variantes CSS Modules.
 
 ### Variables CSS
 
