@@ -294,11 +294,35 @@
       "import": "./dist/components/menu/index.js",
       "default": "./dist/components/menu/index.js"
     },
+    "./navigation-menu": {
+      "types": "./dist/components/navigation-menu/index.d.ts",
+      "solid": "./dist/components/navigation-menu/index.jsx",
+      "import": "./dist/components/navigation-menu/index.js",
+      "default": "./dist/components/navigation-menu/index.js"
+    },
     "./native-select": {
       "types": "./dist/components/native-select/index.d.ts",
       "solid": "./dist/components/native-select/index.jsx",
       "import": "./dist/components/native-select/index.js",
       "default": "./dist/components/native-select/index.js"
+    },
+    "./number-input": {
+      "types": "./dist/components/number-input/index.d.ts",
+      "solid": "./dist/components/number-input/index.jsx",
+      "import": "./dist/components/number-input/index.js",
+      "default": "./dist/components/number-input/index.js"
+    },
+    "./pagination": {
+      "types": "./dist/components/pagination/index.d.ts",
+      "solid": "./dist/components/pagination/index.jsx",
+      "import": "./dist/components/pagination/index.js",
+      "default": "./dist/components/pagination/index.js"
+    },
+    "./password-input": {
+      "types": "./dist/components/password-input/index.d.ts",
+      "solid": "./dist/components/password-input/index.jsx",
+      "import": "./dist/components/password-input/index.js",
+      "default": "./dist/components/password-input/index.js"
     },
     "./radio-group": {
       "types": "./dist/components/radio-group/index.d.ts",

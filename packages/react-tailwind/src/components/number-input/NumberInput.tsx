@@ -1,0 +1,193 @@
+'use client';
+
+import {
+  NumberInput as NumberInputPrimitive,
+  useNumberInput,
+  useNumberInputContext,
+} from '@ark-ui/react/number-input';
+import type { ComponentProps, ComponentRef } from 'react';
+import { forwardRef } from 'react';
+import { cn } from '@/lib/moduix/cn';
+import { MinusIcon, PlusIcon } from '@/lib/moduix/icons/ui';
+
+const NumberInputRoot = forwardRef<
+  ComponentRef<typeof NumberInputPrimitive.Root>,
+  ComponentProps<typeof NumberInputPrimitive.Root>
+>(function NumberInputRoot({ className, ...props }, ref) {
+  return (
+    <NumberInputPrimitive.Root
+      ref={ref}
+      data-slot="number-input-root"
+      className={cn(
+        'group/number-input flex w-auto max-w-none flex-col items-start gap-1 data-disabled:opacity-50',
+        className,
+      )}
+      {...props}
+    />
+  );
+});
+
+const NumberInputRootProvider = forwardRef<
+  ComponentRef<typeof NumberInputPrimitive.RootProvider>,
+  ComponentProps<typeof NumberInputPrimitive.RootProvider>
+>(function NumberInputRootProvider({ className, ...props }, ref) {
+  return (
+    <NumberInputPrimitive.RootProvider
+      ref={ref}
+      data-slot="number-input-root-provider"
+      className={cn(
+        'group/number-input flex w-auto max-w-none flex-col items-start gap-1 data-disabled:opacity-50',
+        className,
+      )}
+      {...props}
+    />
+  );
+});
+
+const NumberInputLabel = forwardRef<
+  ComponentRef<typeof NumberInputPrimitive.Label>,
+  ComponentProps<typeof NumberInputPrimitive.Label>
+>(function NumberInputLabel({ className, ...props }, ref) {
+  return (
+    <NumberInputPrimitive.Label
+      ref={ref}
+      data-slot="number-input-label"
+      className={cn('text-sm leading-5 font-medium text-foreground', className)}
+      {...props}
+    />
+  );
+});
+
+const NumberInputScrubber = forwardRef<
+  ComponentRef<typeof NumberInputPrimitive.Scrubber>,
+  ComponentProps<typeof NumberInputPrimitive.Scrubber>
+>(function NumberInputScrubber({ className, ...props }, ref) {
+  return (
+    <NumberInputPrimitive.Scrubber
+      ref={ref}
+      data-slot="number-input-scrubber"
+      className={cn(
+        'inline-flex cursor-ew-resize items-center gap-2 text-foreground select-none data-disabled:cursor-default',
+        className,
+      )}
+      {...props}
+    />
+  );
+});
+
+const NumberInputControl = forwardRef<
+  ComponentRef<typeof NumberInputPrimitive.Control>,
+  ComponentProps<typeof NumberInputPrimitive.Control>
+>(function NumberInputControl({ className, ...props }, ref) {
+  return (
+    <NumberInputPrimitive.Control
+      ref={ref}
+      data-slot="number-input-control"
+      className={cn('inline-flex items-stretch', className)}
+      {...props}
+    />
+  );
+});
+
+const NumberInputDecrementTrigger = forwardRef<
+  ComponentRef<typeof NumberInputPrimitive.DecrementTrigger>,
+  ComponentProps<typeof NumberInputPrimitive.DecrementTrigger>
+>(function NumberInputDecrementTrigger({ className, children, ...props }, ref) {
+  return (
+    <NumberInputPrimitive.DecrementTrigger
+      ref={ref}
+      data-slot="number-input-decrement-trigger"
+      className={cn(
+        'box-border inline-flex size-control-md min-w-control-md cursor-pointer items-center justify-center rounded-s-md border border-e-0 border-border bg-background p-0 text-foreground outline-0 transition-[background-color,border-color,color,opacity] duration-200 ease-in-out select-none group-data-invalid/number-input:border-destructive focus-visible:z-1 focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring group-data-invalid/number-input:focus-visible:outline-destructive active:bg-accent disabled:pointer-events-none data-disabled:pointer-events-none data-focus:z-1 data-focus:outline-1 data-focus:-outline-offset-1 data-focus:outline-ring group-data-invalid/number-input:data-focus:outline-destructive data-invalid:border-destructive data-invalid:focus-visible:outline-destructive data-invalid:data-focus:outline-destructive motion-reduce:transition-none [&>svg]:size-3.5 [&>svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
+        className,
+      )}
+      {...props}
+    >
+      {children ?? <MinusIcon />}
+    </NumberInputPrimitive.DecrementTrigger>
+  );
+});
+
+const NumberInputInput = forwardRef<
+  ComponentRef<typeof NumberInputPrimitive.Input>,
+  ComponentProps<typeof NumberInputPrimitive.Input>
+>(function NumberInputInput({ className, ...props }, ref) {
+  return (
+    <NumberInputPrimitive.Input
+      ref={ref}
+      data-slot="number-input-input"
+      className={cn(
+        'h-control-md w-24 rounded-none border-x-0 border-y border-border border-x-current bg-background px-3 py-1 text-center text-md leading-6 text-foreground tabular-nums outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out group-data-invalid/number-input:border-t-destructive group-data-invalid/number-input:border-b-destructive focus-visible:z-1 focus-visible:outline-ring group-data-invalid/number-input:focus-visible:outline-destructive data-focus:z-1 data-focus:outline-ring group-data-invalid/number-input:data-focus:outline-destructive data-invalid:border-t-destructive data-invalid:border-b-destructive data-invalid:focus-visible:outline-destructive data-invalid:data-focus:outline-destructive motion-reduce:transition-none',
+        className,
+      )}
+      {...props}
+    />
+  );
+});
+
+const NumberInputIncrementTrigger = forwardRef<
+  ComponentRef<typeof NumberInputPrimitive.IncrementTrigger>,
+  ComponentProps<typeof NumberInputPrimitive.IncrementTrigger>
+>(function NumberInputIncrementTrigger({ className, children, ...props }, ref) {
+  return (
+    <NumberInputPrimitive.IncrementTrigger
+      ref={ref}
+      data-slot="number-input-increment-trigger"
+      className={cn(
+        'box-border inline-flex size-control-md min-w-control-md cursor-pointer items-center justify-center rounded-e-md border border-s-0 border-border bg-background p-0 text-foreground outline-0 transition-[background-color,border-color,color,opacity] duration-200 ease-in-out select-none group-data-invalid/number-input:border-destructive focus-visible:z-1 focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring group-data-invalid/number-input:focus-visible:outline-destructive active:bg-accent disabled:pointer-events-none data-disabled:pointer-events-none data-focus:z-1 data-focus:outline-1 data-focus:-outline-offset-1 data-focus:outline-ring group-data-invalid/number-input:data-focus:outline-destructive data-invalid:border-destructive data-invalid:focus-visible:outline-destructive data-invalid:data-focus:outline-destructive motion-reduce:transition-none [&>svg]:size-3.5 [&>svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
+        className,
+      )}
+      {...props}
+    >
+      {children ?? <PlusIcon />}
+    </NumberInputPrimitive.IncrementTrigger>
+  );
+});
+
+const NumberInputValueText = forwardRef<
+  ComponentRef<typeof NumberInputPrimitive.ValueText>,
+  ComponentProps<typeof NumberInputPrimitive.ValueText>
+>(function NumberInputValueText({ className, ...props }, ref) {
+  return (
+    <NumberInputPrimitive.ValueText
+      ref={ref}
+      data-slot="number-input-value-text"
+      className={cn('text-sm leading-5 text-muted-foreground tabular-nums', className)}
+      {...props}
+    />
+  );
+});
+
+type NumberInputFieldProps = Omit<
+  ComponentProps<typeof NumberInputControl>,
+  'asChild' | 'children'
+>;
+
+const NumberInputField = forwardRef<
+  ComponentRef<typeof NumberInputPrimitive.Control>,
+  NumberInputFieldProps
+>(function NumberInputField(props, ref) {
+  return (
+    <NumberInputControl ref={ref} {...props}>
+      <NumberInputDecrementTrigger />
+      <NumberInputInput />
+      <NumberInputIncrementTrigger />
+    </NumberInputControl>
+  );
+});
+
+const NumberInput = Object.assign(NumberInputRoot, {
+  Root: NumberInputRoot,
+  RootProvider: NumberInputRootProvider,
+  Context: NumberInputPrimitive.Context,
+  Label: NumberInputLabel,
+  Scrubber: NumberInputScrubber,
+  Control: NumberInputControl,
+  Field: NumberInputField,
+  DecrementTrigger: NumberInputDecrementTrigger,
+  Input: NumberInputInput,
+  IncrementTrigger: NumberInputIncrementTrigger,
+  ValueText: NumberInputValueText,
+});
+
+export { NumberInput, useNumberInput, useNumberInputContext };

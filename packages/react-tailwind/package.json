@@ -210,9 +210,25 @@
       "types": "./dist/components/menu/index.d.ts",
       "import": "./dist/components/menu/index.js"
     },
+    "./navigation-menu": {
+      "types": "./dist/components/navigation-menu/index.d.ts",
+      "import": "./dist/components/navigation-menu/index.js"
+    },
     "./native-select": {
       "types": "./dist/components/native-select/index.d.ts",
       "import": "./dist/components/native-select/index.js"
+    },
+    "./number-input": {
+      "types": "./dist/components/number-input/index.d.ts",
+      "import": "./dist/components/number-input/index.js"
+    },
+    "./pagination": {
+      "types": "./dist/components/pagination/index.d.ts",
+      "import": "./dist/components/pagination/index.js"
+    },
+    "./password-input": {
+      "types": "./dist/components/password-input/index.d.ts",
+      "import": "./dist/components/password-input/index.js"
     },
     "./radio-group": {
       "types": "./dist/components/radio-group/index.d.ts",

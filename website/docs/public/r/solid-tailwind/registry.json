@@ -889,6 +889,30 @@
       ]
     },
     {
+      "name": "password-input",
+      "type": "registry:item",
+      "title": "PasswordInput",
+      "description": "moduix Solid Tailwind PasswordInput component.",
+      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-solid-tailwind/foundation",
+        "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/password-input/PasswordInput.tsx",
+          "target": "@components/ui/password-input/PasswordInput.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/password-input/index.ts",
+          "target": "@components/ui/password-input/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "chart",
       "type": "registry:item",
       "title": "Chart",
@@ -1085,6 +1109,26 @@
       ]
     },
     {
+      "name": "navigation-menu",
+      "type": "registry:item",
+      "title": "NavigationMenu",
+      "description": "moduix Solid Tailwind NavigationMenu component.",
+      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/navigation-menu/NavigationMenu.tsx",
+          "target": "@components/ui/navigation-menu/NavigationMenu.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/navigation-menu/index.ts",
+          "target": "@components/ui/navigation-menu/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "native-select",
       "type": "registry:item",
       "title": "NativeSelect",
@@ -1104,6 +1148,54 @@
         {
           "path": "src/components/native-select/index.ts",
           "target": "@components/ui/native-select/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "number-input",
+      "type": "registry:item",
+      "title": "NumberInput",
+      "description": "moduix Solid Tailwind NumberInput component.",
+      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-solid-tailwind/foundation",
+        "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/number-input/NumberInput.tsx",
+          "target": "@components/ui/number-input/NumberInput.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/number-input/index.ts",
+          "target": "@components/ui/number-input/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "pagination",
+      "type": "registry:item",
+      "title": "Pagination",
+      "description": "moduix Solid Tailwind Pagination component.",
+      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-solid-tailwind/foundation",
+        "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/pagination/Pagination.tsx",
+          "target": "@components/ui/pagination/Pagination.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/pagination/index.ts",
+          "target": "@components/ui/pagination/index.ts",
           "type": "registry:component"
         }
       ]

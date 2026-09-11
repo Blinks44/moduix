@@ -1,7 +1,5 @@
-@layer ui.docs {
-  .gridRoot {
-    --moduix-listbox-width: 16rem;
-    --moduix-listbox-grid-selected-bg: var(--moduix-color-muted);
-    --moduix-listbox-grid-selected-color: var(--moduix-color-foreground);
-  }
+.gridRoot {
+  --moduix-listbox-width: 16rem;
+  --moduix-listbox-grid-selected-bg: var(--moduix-color-muted);
+  --moduix-listbox-grid-selected-color: var(--moduix-color-foreground);
 }
