@@ -1,7 +1,7 @@
 ---
 title: Skeleton
 component: skeleton
-description: Un espace réservé affiché pendant le chargement de textes, de cartes, de médias et de sections personnalisées.
+description: Un espace réservé pour le chargement de textes, cartes, médias et sections personnalisées en React et Solid.
 ---
 
 import * as SkeletonDocs from '@/components/examples/skeleton/css-properties';
@@ -12,6 +12,13 @@ import SkeletonLoadedContent from '@/components/examples/skeleton/loaded-content
 import SkeletonMediaObject from '@/components/examples/skeleton/media-object.tsx';
 import SkeletonResponsiveLayout from '@/components/examples/skeleton/responsive-layout.tsx';
 import SkeletonVariants from '@/components/examples/skeleton/variants.tsx';
+import skeletonSolidBasic from '../../../snippets/skeleton/solid/basic.tsx?raw';
+import skeletonSolidCard from '../../../snippets/skeleton/solid/card.tsx?raw';
+import skeletonSolidCustomHost from '../../../snippets/skeleton/solid/custom-host.tsx?raw';
+import skeletonSolidLoadedContent from '../../../snippets/skeleton/solid/loaded-content.tsx?raw';
+import skeletonSolidMediaObject from '../../../snippets/skeleton/solid/media-object.tsx?raw';
+import skeletonSolidResponsiveLayout from '../../../snippets/skeleton/solid/responsive-layout.tsx?raw';
+import skeletonSolidVariants from '../../../snippets/skeleton/solid/variants.tsx?raw';
 
 ## Référence de l’API
 
@@ -22,7 +29,13 @@ d’Ark pour la [composition](https://ark-ui.com/docs/guides/composition), les
 
 ## Exemple de base
 
-Commencez par quelques lignes `Skeleton` lorsque le texte est encore en cours de chargement.
+`Skeleton` est disponible pour React et Solid dans les packages CSS Modules et Tailwind. L’aperçu de cette page
+utilise le package React CSS Modules ; les onglets de framework affichent le code natif correspondant au même
+contrat public.
+
+Utilisez `Skeleton` pour les lignes de texte, les cartes, les avatars et les espaces réservés aux médias. La
+mise en page environnante gère les espacements et la composition responsive. Consultez le [guide de démarrage](/docs/quick-start)
+pour l’installation des packages, la configuration du registre et le choix du mode de style.
 
 <ExampleFrame variant="component">
   <SkeletonBasic />
@@ -30,27 +43,59 @@ Commencez par quelques lignes `Skeleton` lorsque le texte est encore en cours de
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/skeleton/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/skeleton/skeleton-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={skeletonSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/skeleton/skeleton-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="skeleton" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/skeleton' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/skeleton' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/skeleton' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/skeleton' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
@@ -67,51 +112,20 @@ Skeleton.Root
 
 ## Composition
 
-### Composition recommandée
+`Skeleton` ne gère pas l’état de chargement. La zone de données ou de page qui porte la requête transmet `loading`
+et doit porter `aria-busy` ; l’espace réservé est décoratif. Définissez `loading={false}` pour afficher les enfants
+dans le même élément racine.
 
-Utilisez directement `Skeleton` pour les lignes de texte, les cartes, les avatars et les espaces réservés aux
-médias. Pendant le chargement, il affiche un bloc décoratif. Avec `loading={false}`, il affiche ses enfants dans
-le même élément racine.
-
-La variante par défaut est `variant="pulse"`, qui anime l’espace réservé. Utilisez `variant="none"` pour obtenir
-un espace réservé statique. L’animation est également désactivée lorsque les préférences de l’utilisateur demandent
-de réduire les mouvements.
-
-### Quand créer une composition personnalisée
-
-Utilisez `asChild` si la racine doit être un élément sémantique autre que `div`. Dans ce mode, l’enfant devient la
-racine et doit donc être un unique élément sémantique.
-
-Pour les dimensions courantes, utilisez `width`, `height`, `boxSize` et `borderRadius`. Pour les surfaces plus
-Pour une apparence plus spécifique, utilisez `className`, `style` ou les variables CSS publiques.
-
-### Propriétés par défaut
-
-| Propriété       | Par défaut                             | Remarques                                                                                                                        |
-| --------------- | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `loading`       | `true`                                 | Active les styles d’attente ou affiche normalement les enfants.                                                                 |
-| `variant`       | `pulse`                                | Accepte `pulse` et `none`.                                                                                                       |
-| `height`        | `var(--moduix-spacing-4)` (pendant le chargement) | Le CSS définit la hauteur standard de l’espace réservé pendant le chargement. Le contenu chargé conserve sa hauteur naturelle si aucune hauteur n’est fixée. |
-| `width`         | `100%`                                 | Le CSS définit la largeur standard de la racine. Les valeurs numériques sont converties en `px`.                                |
-| `boxSize`       | Non défini                          | Définit simultanément la largeur et la hauteur. Une valeur explicite de `width` ou `height` reste prioritaire pour l’axe concerné. |
-| `borderRadius`  | `var(--moduix-skeleton-border-radius, var(--moduix-radius-md))` | Les valeurs numériques sont converties en `px` ; les styles inline restent prioritaires. |
-
-### Comportement
-
-- `Skeleton.Root` désigne le même composant que `Skeleton` ; cet alias assure la cohérence de l’espace de noms.
-- Les refs sont transmises à l’élément racine.
-- `loading={true}` définit `aria-hidden`, `data-state="loading"` et `data-loading`, sauf si vous définissez explicitement `aria-hidden`.
-- `loading={false}` définit `data-state="loaded"` et laisse les enfants utiliser leur hauteur naturelle si `height`,
-  `boxSize` et `style.height` ne sont pas définis.
-- `variant` agit uniquement sur les styles ; aucun minuteur interne ni gestion d’état n’est ajouté.
-- `Skeleton` est décoratif et n’annonce pas le chargement. Définissez `aria-busy` sur la zone qui porte l’état de
-  chargement, ou utilisez `Spinner` lorsqu’un statut de chargement doit être annoncé dans le flux.
+`Skeleton` ne comporte qu’une seule partie visuelle : composez les cartes, les objets média et les mises en page
+responsives dans votre propre conteneur. Les packages CSS Modules peuvent utiliser `Stack`, tandis que les packages
+Tailwind utilisent les utilitaires flex et grid natifs. Utilisez `asChild` uniquement lorsqu’un autre élément
+sémantique doit devenir la racine ; en Solid, `asChild` reçoit une fonction de rendu.
 
 ## Exemples
 
 ### Carte
 
-Utilisez un grand bloc et des lignes de texte plus courtes pour préserver la mise en page d’une carte pendant le chargement du contenu.
+Utilisez un grand bloc et des lignes de texte plus courtes pour préserver la mise en page d’une carte pendant le chargement.
 
 <ExampleFrame variant="component">
   <SkeletonCard />
@@ -119,20 +133,31 @@ Utilisez un grand bloc et des lignes de texte plus courtes pour préserver la mi
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/skeleton/card.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/skeleton/skeleton-card.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={skeletonSolidCard} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/skeleton/skeleton-card.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -147,20 +172,31 @@ Utilisez `loading` pour conserver le même élément racine lors du remplacement
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/skeleton/loaded-content.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/skeleton/skeleton-loaded-content.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={skeletonSolidLoadedContent} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/skeleton/skeleton-loaded-content.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -175,27 +211,38 @@ Utilisez `boxSize` avec un rayon complet pour l’espace réservé d’un avatar
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/skeleton/media-object.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/skeleton/skeleton-media-object.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={skeletonSolidMediaObject} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/skeleton/skeleton-media-object.module.css"
+```
 </div>
 
 </ExampleCode>
 
-### Mise en page adaptative
+### Mise en page responsive
 
-Laissez la logique de mise en page responsive dans le balisage englobant et utilisez chaque `Skeleton` comme un bloc visuel.
+Laissez la logique de mise en page responsive dans le conteneur et utilisez chaque `Skeleton` comme un bloc visuel.
 
 <ExampleFrame variant="component">
   <SkeletonResponsiveLayout />
@@ -203,20 +250,31 @@ Laissez la logique de mise en page responsive dans le balisage englobant et util
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/skeleton/responsive-layout.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/skeleton/skeleton-responsive-layout.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={skeletonSolidResponsiveLayout} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/skeleton/skeleton-responsive-layout.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -231,20 +289,31 @@ Utilisez `variant` pour choisir un espace réservé animé par pulsation ou stat
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/skeleton/variants.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/skeleton/skeleton-variants.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={skeletonSolidVariants} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/skeleton/skeleton-variants.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -259,22 +328,41 @@ Utilisez `asChild` pour qu’un élément sémantique tel que `section` devienne
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/skeleton/custom-host.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={skeletonSolidCustomHost} />
+
+    </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/skeleton/skeleton-custom-host.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Styles
 
-`Skeleton` expose des attributs de partie et d’état inspirés d’Ark ainsi que des variables publiques
-`--moduix-skeleton-*` pour sa couleur, son rayon, sa hauteur et son animation.
+Utilisez `className` en React ou `class` en Solid pour les styles structurels et les classes utilitaires de votre
+application. Les variantes Tailwind utilisent les utilitaires natifs et les classes du consommateur ; les variantes
+CSS Modules exposent les variables ci-dessous. Les attributs d’état et les hooks `data-slot` sont communs aux deux
+modes de style.
 
 ### Variables CSS
 

@@ -150,6 +150,20 @@ test('keeps the primary action independent and exposes stable popup slots', asyn
   await waitFor(() => expect(actions).toEqual(['save', 'duplicate']));
 });
 
+test('matches the CSS Modules default trigger padding', () => {
+  render(
+    <SplitButton aria-label="Project actions">
+      <SplitButton.Action>Save</SplitButton.Action>
+      <SplitButton.Trigger />
+    </SplitButton>,
+  );
+
+  const trigger = screen.getByRole('button', { name: 'More actions' });
+
+  expect(trigger).toHaveClass('px-4');
+  expect(trigger).not.toHaveClass('px-3');
+});
+
 test('keeps component-owned utilities visible and lets consumers replace conflicts', () => {
   render(
     <SplitButton aria-label="Project actions">

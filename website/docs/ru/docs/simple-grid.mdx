@@ -1,28 +1,34 @@
 ---
 title: Simple Grid
 component: simple-grid
-description: Сетка CSS с равными колонками, которая подстраивается под доступную ширину.
+description: Адаптивная сетка с равными колонками для React и Solid с установкой через пакет или shadcn.
 ---
 
 import SimpleGridBasic from '@/components/examples/simple-grid/basic.tsx';
 import SimpleGridFixedColumns from '@/components/examples/simple-grid/fixed-columns.tsx';
 import SimpleGridMediaGallery from '@/components/examples/simple-grid/media-gallery.tsx';
+import simpleGridSolidBasic from '../../../snippets/simple-grid/solid/basic.tsx?raw';
+import simpleGridSolidFixedColumns from '../../../snippets/simple-grid/solid/fixed-columns.tsx?raw';
+import simpleGridSolidMediaGallery from '../../../snippets/simple-grid/solid/media-gallery.tsx?raw';
 
 ## Справочник API
 
 `SimpleGrid` не является примитивом Ark UI. moduix предоставляет небольшой компонент раскладки,
 построенный с помощью фабрики Ark. Он следует рекомендациям Ark по
 [композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling)
-и [ссылкам на элементы](https://ark-ui.com/docs/guides/ref). Его свойства `columns` и `minChildWidth`
-заимствуют модель раскладки у [SimpleGrid](https://chakra-ui.com/docs/components/simple-grid) из Chakra UI,
-но адаптивные свойства Chakra UI для стилизации здесь не поддерживаются.
+и [ссылкам на элементы](https://ark-ui.com/docs/guides/ref). Его свойства `columns` и
+`minChildWidth` заимствуют модель раскладки у [SimpleGrid](https://chakra-ui.com/docs/components/simple-grid)
+из Chakra UI, но адаптивные свойства Chakra UI для стилизации здесь не поддерживаются.
 
 ## Базовый пример
 
-Импортируйте `SimpleGrid` из `@moduix/react/simple-grid`. Используйте `minChildWidth`, если число
-равных колонок должно меняться вместе с доступной шириной. Компонент использует `auto-fit` и
-`minmax()` из CSS Grid: числовые значения считаются пикселями, а строки могут содержать любую
-корректную длину CSS.
+`SimpleGrid` доступен для React и Solid в пакетах с CSS Modules и Tailwind. Предпросмотр на этой
+странице работает на React с CSS Modules, а во вкладках показан нативный исходный код для того же
+публичного контракта.
+
+Используйте `minChildWidth`, если число равных колонок должно меняться вместе с доступной шириной.
+Компонент использует `auto-fit` и `minmax()` из CSS Grid: числовые значения считаются пикселями,
+а строки могут содержать любую корректную длину CSS.
 
 Число колонок меняется вместе с шириной корневого элемента, а дочерние элементы остаются его
 непосредственными элементами сетки. Если внутри дочернего элемента есть непереносимый контент,
@@ -34,29 +40,63 @@ import SimpleGridMediaGallery from '@/components/examples/simple-grid/media-gall
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/simple-grid/basic.tsx"
 ```
+
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={simpleGridSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/simple-grid/simple-grid-basic.module.css"
 ```
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="simple-grid" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/simple-grid' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/simple-grid' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/simple-grid' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/simple-grid' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
-`SimpleGrid` рендерит один корневой элемент CSS Grid и не добавляет обёрток вокруг дочерних элементов.
+`SimpleGrid` рендерит один корневой элемент CSS Grid и не добавляет обёртки вокруг дочерних элементов.
 
 ```text
 SimpleGrid
@@ -70,57 +110,15 @@ SimpleGrid
 
 ## Композиция
 
-### Рекомендуемая композиция
+Используйте короткую форму `<SimpleGrid>` для корневого элемента; `SimpleGrid.Root` — равнозначный
+алиас для совместимости. Выберите либо `minChildWidth` для автоматического числа колонок, либо
+`columns` для фиксированного числа. Если передать оба свойства, `minChildWidth` имеет приоритет.
 
-Используйте короткую форму `<SimpleGrid>` для корневого элемента. `SimpleGrid.Root` рендерит тот же
-компонент и остаётся алиасом для совместимости.
-
-Выберите один режим раскладки:
-
-- `minChildWidth` позволяет браузеру автоматически разместить столько равных колонок, сколько
-  помещается в доступную ширину.
-- `columns` создаёт заданное число равных колонок.
-
-Если элементам нужен визуальный интервал, задайте `gap`, `rowGap` или `columnGap`. Используйте
-`asChild`, когда корневым элементом должен быть семантический тег, например `ul`, `section` или `nav`.
-`asChild` требует ровно одного дочернего элемента, который становится корневым элементом.
-
-### Когда нужна другая композиция
-
-Перейдите на локальный CSS, если раскладке нужны именованные области, колонки разной ширины,
-элементы, занимающие несколько колонок, или разные шаблоны при срабатывании медиазапросов и
-контейнерных запросов. Не передавайте `columns` и `minChildWidth`, а задайте
-`grid-template-columns` в таблице стилей.
-
-### Свойства по умолчанию
-
-| Свойство        | По умолчанию       | Примечания                                              |
-| --------------- | ------------------ | ------------------------------------------------------- |
-| `columns`       | `1`                | Конечное положительное целое число равных колонок       |
-| `minChildWidth` | не задано          | CSS-длина; числа считаются пикселями                    |
-| `gap`           | значение браузера  | CSS-длина; числа считаются пикселями                    |
-| `rowGap`        | значение браузера  | CSS-длина; числа считаются пикселями                    |
-| `columnGap`     | значение браузера  | CSS-длина; числа считаются пикселями                    |
-| `asChild`       | `false`            | Композиция Ark с одним дочерним элементом               |
-| `className`     | не задано          | Применяется к отрендеренному корневому элементу         |
-| `style`         | не задано          | Применяется последним как переопределение экземпляра    |
-
-### Особенности поведения
-
-- Если не задан ни `columns`, ни `minChildWidth`, сетка содержит одну равную колонку.
-- Если заданы оба свойства, `minChildWidth` имеет приоритет над `columns`.
-- `columns={3}` создаёт три равные колонки и не добавляет обёртки вокруг дочерних элементов.
-- `minChildWidth={160}` создаёт столько колонок, сколько помещается, и трактует число как `160px`.
-- Числовое значение `columns` должно быть конечным положительным целым числом. Числовое значение
-  `minChildWidth` должно быть конечным неотрицательным числом.
-- Режим `auto-fit` предотвращает переполнение, если сетка становится уже `minChildWidth`.
-- `gap`, `rowGap` и `columnGap` записываются в inline-стили только при передаче.
-- `style` применяется последним и может переопределить любые сгенерированные стили, включая `display`,
-  `gridTemplateColumns` и интервалы.
-- `ref` указывает на фактически отрендеренный корневой элемент. При `asChild` он указывает на
-  единственный дочерний элемент.
-- Компонент не добавляет роли, подписи, поведение клавиатуры, управление фокусом, состояние или
-  контекст провайдера. Семантические дочерние элементы нужно выбрать в своей разметке.
+Используйте `asChild`, когда корневым элементом сетки должен быть семантический тег, например `ul`,
+`section` или `nav`. Он требует ровно одного дочернего элемента, который становится отрендеренным
+корнем. В React передавайте `asChild` как boolean, а в Solid используйте форму с функцией-рендерером,
+которая возвращает этот элемент. Для именованных областей, колонок разной ширины или элементов,
+занимающих несколько колонок, не передавайте свойства раскладки и задайте шаблон сетки в своём CSS.
 
 ## Примеры
 
@@ -135,18 +133,31 @@ SimpleGrid
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/simple-grid/fixed-columns.tsx"
 ```
+
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={simpleGridSolidFixedColumns} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/simple-grid/simple-grid-fixed-columns.module.css"
 ```
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -162,18 +173,31 @@ SimpleGrid
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/simple-grid/media-gallery.tsx"
 ```
+
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={simpleGridSolidMediaGallery} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/simple-grid/simple-grid-media-gallery.module.css"
 ```
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -184,13 +208,17 @@ SimpleGrid
 корневого элемента. Если `grid-template-columns` должен задаваться таблицей стилей, не передавайте
 `columns` и `minChildWidth`.
 
+Используйте `className` в React и `class` в Solid для структурной стилизации. Варианты Tailwind
+используют обычные utility-классы и классы приложения; атрибуты данных и хук `data-slot` общие для
+обоих вариантов стилизации.
+
 ### Хуки стилизации
 
-- `className` стилизует отрендеренный корневой элемент: его ширину, расположение, фон и адаптивную
-  раскладку.
+- `className` или `class` стилизует отрендеренный корневой элемент: его ширину, расположение, фон и
+  адаптивную раскладку.
 - `data-scope="simple-grid"` и `data-part="root"` соответствуют соглашениям Ark о стилизации.
-- `data-slot="simple-grid-root"` - стабильный селектор moduix для локального CSS.
+- `data-slot="simple-grid-root"` — стабильный селектор moduix для локального CSS.
 - `columns`, `minChildWidth`, `gap`, `rowGap` и `columnGap` записывают inline-стили и имеют приоритет
-  над объявлениями из `className`.
+  над объявлениями из классов приложения.
 - `style` объединяется после этих свойств и является последним переопределением для экземпляра.
 - Компонент не предоставляет хуков стилизации для состояния или анимации.

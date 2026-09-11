@@ -1,7 +1,7 @@
 ---
 title: Skeleton
 component: skeleton
-description: Заполнитель, который сохраняет место для текста, карточек, медиаобъектов и разделов страницы во время загрузки.
+description: Заполнитель для текста, карточек, медиа и разделов страницы во время загрузки в React и Solid.
 ---
 
 import * as SkeletonDocs from '@/components/examples/skeleton/css-properties';
@@ -12,6 +12,13 @@ import SkeletonLoadedContent from '@/components/examples/skeleton/loaded-content
 import SkeletonMediaObject from '@/components/examples/skeleton/media-object.tsx';
 import SkeletonResponsiveLayout from '@/components/examples/skeleton/responsive-layout.tsx';
 import SkeletonVariants from '@/components/examples/skeleton/variants.tsx';
+import skeletonSolidBasic from '../../../snippets/skeleton/solid/basic.tsx?raw';
+import skeletonSolidCard from '../../../snippets/skeleton/solid/card.tsx?raw';
+import skeletonSolidCustomHost from '../../../snippets/skeleton/solid/custom-host.tsx?raw';
+import skeletonSolidLoadedContent from '../../../snippets/skeleton/solid/loaded-content.tsx?raw';
+import skeletonSolidMediaObject from '../../../snippets/skeleton/solid/media-object.tsx?raw';
+import skeletonSolidResponsiveLayout from '../../../snippets/skeleton/solid/responsive-layout.tsx?raw';
+import skeletonSolidVariants from '../../../snippets/skeleton/solid/variants.tsx?raw';
 
 ## Справочник API
 
@@ -22,7 +29,13 @@ import SkeletonVariants from '@/components/examples/skeleton/variants.tsx';
 
 ## Базовый пример
 
-Начните с нескольких строк `Skeleton`, пока текст ещё загружается.
+`Skeleton` доступен для React и Solid в пакетах с CSS Modules и Tailwind. Предпросмотр на этой странице
+использует пакет React с CSS Modules, а вкладки фреймворков показывают нативный исходный код с тем же публичным
+контрактом.
+
+Используйте `Skeleton` для строк текста, карточек, аватаров и медиа-заполнителей. Окружающая разметка отвечает
+за отступы и адаптивную компоновку. Инструкции по установке пакетов, настройке реестра и выбору способа
+стилизации находятся в разделе [Быстрый старт](/docs/quick-start).
 
 <ExampleFrame variant="component">
   <SkeletonBasic />
@@ -30,27 +43,59 @@ import SkeletonVariants from '@/components/examples/skeleton/variants.tsx';
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/skeleton/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/skeleton/skeleton-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={skeletonSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/skeleton/skeleton-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Установка с помощью shadcn
 
-<ShadcnInstall packageName="skeleton" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/skeleton' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/skeleton' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/skeleton' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/skeleton' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -67,48 +112,20 @@ Skeleton.Root
 
 ## Композиция
 
-### Рекомендуемая композиция
+`Skeleton` не управляет состоянием загрузки. Область данных или страницы, которая владеет запросом, передаёт
+`loading` и должна получать `aria-busy`; сам заполнитель служит только для оформления. Установите
+`loading={false}`, чтобы показать дочерние элементы в том же корневом элементе.
 
-Используйте `Skeleton` напрямую для строк текста, карточек, аватаров и медиа-заполнителей. Пока `loading`
-имеет значение `true`, компонент показывает декоративный блок. При `loading={false}` он показывает дочерние
-элементы в том же корневом элементе.
-
-По умолчанию используется `variant="pulse"`, который добавляет анимацию пульсации. Если анимация не нужна,
-используйте `variant="none"`. Если пользователь предпочитает уменьшить движение, компонент также отключает анимацию.
-
-### Когда нужна собственная композиция
-
-Используйте `asChild`, если корневым элементом должен быть семантический элемент, отличный от `div`. В этом
-режиме дочерний элемент становится корневым, поэтому он должен быть единственным и семантическим.
-
-Для распространённых размеров используйте `width`, `height`, `boxSize` и `borderRadius`. Для более
-особого оформления применяйте `className`, `style` или публичные CSS-переменные.
-
-### Свойства по умолчанию
-
-| Свойство       | По умолчанию                          | Примечания                                                                                                    |
-| -------------- | -------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `loading`      | `true`                                 | Управляет активностью стилей заполнителя или обычным показом дочерних элементов.                              |
-| `variant`      | `pulse`                                | Поддерживает `pulse` и `none`.                                                                                |
-| `height`       | `var(--moduix-spacing-4)` (во время загрузки) | CSS задаёт стандартную высоту заполнителя во время загрузки. Загруженное содержимое использует естественную высоту, если высота не задана. |
-| `width`        | `100%`                                 | CSS задаёт стандартную ширину корня. Числовые значения свойства становятся `px`.                              |
-| `boxSize`      | Не задано                            | Одновременно задаёт ширину и высоту. Явно заданные `width` и `height` имеют приоритет для соответствующей оси. |
-| `borderRadius` | `var(--moduix-skeleton-border-radius, var(--moduix-radius-md))` | Числовые значения преобразуются в `px`; встроенные стили имеют приоритет. |
-
-### Особенности поведения
-
-- `Skeleton.Root` - тот же компонент, что и `Skeleton`; он предоставлен для единообразия пространства имён.
-- `ref` пробрасывается в корневой элемент.
-- `loading={true}` задаёт `aria-hidden`, `data-state="loading"` и `data-loading`, если вы явно не задали `aria-hidden`.
-- `loading={false}` задаёт `data-state="loaded"` и позволяет дочерним элементам использовать естественную высоту, если не заданы `height`, `boxSize` или `style.height`.
-- `variant` влияет только на стили; внутренние таймеры и управление состоянием не добавляются.
-- `Skeleton` служит только для оформления и не сообщает о загрузке. Задавайте `aria-busy` для области, которая управляет состоянием загрузки, или используйте `Spinner`, когда нужно объявить встроенный статус.
+`Skeleton` состоит из одной визуальной части, поэтому карточки, медиаобъекты и адаптивные раскладки следует
+собирать в собственной обёртке. В пакетах с CSS Modules можно использовать `Stack`, а в пакетах Tailwind -
+нативные классы-утилиты flex и grid. Используйте `asChild`, только если нужен другой семантический корневой
+элемент; в Solid в `asChild` передаётся функция рендера.
 
 ## Примеры
 
 ### Карточка
 
-Используйте крупный блок и более короткие строки текста, чтобы сохранить компоновку карточки во время загрузки содержимого.
+Используйте крупный блок и более короткие строки текста, чтобы сохранить компоновку карточки во время загрузки.
 
 <ExampleFrame variant="component">
   <SkeletonCard />
@@ -116,27 +133,38 @@ Skeleton.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/skeleton/card.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/skeleton/skeleton-card.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={skeletonSolidCard} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/skeleton/skeleton-card.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Загруженное содержимое
 
-Используйте `loading`, чтобы переключаться между заполнителем и реальным содержимым в одном и том же корневом элементе.
+Используйте `loading`, чтобы сохранить один и тот же корневой элемент при замене заполнителя реальным содержимым.
 
 <ExampleFrame variant="component">
   <SkeletonLoadedContent />
@@ -144,20 +172,31 @@ Skeleton.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/skeleton/loaded-content.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/skeleton/skeleton-loaded-content.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={skeletonSolidLoadedContent} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/skeleton/skeleton-loaded-content.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -172,20 +211,31 @@ Skeleton.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/skeleton/media-object.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/skeleton/skeleton-media-object.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={skeletonSolidMediaObject} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/skeleton/skeleton-media-object.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -200,20 +250,31 @@ Skeleton.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/skeleton/responsive-layout.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/skeleton/skeleton-responsive-layout.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={skeletonSolidResponsiveLayout} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/skeleton/skeleton-responsive-layout.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -228,20 +289,31 @@ Skeleton.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/skeleton/variants.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/skeleton/skeleton-variants.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={skeletonSolidVariants} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/skeleton/skeleton-variants.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -256,22 +328,40 @@ Skeleton.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/skeleton/custom-host.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={skeletonSolidCustomHost} />
+
+    </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/skeleton/skeleton-custom-host.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Стилизация
 
-`Skeleton` предоставляет атрибуты частей и состояний в стиле Ark, а также публичные переменные
-`--moduix-skeleton-*` для цвета, радиуса, высоты и анимации.
+Используйте `className` в React или `class` в Solid для структурных стилей и классов-утилит приложения.
+Варианты Tailwind используют нативные utility-классы и классы приложения, а варианты с CSS Modules предоставляют
+переменные ниже. Атрибуты состояния и хуки `data-slot` общие для обоих способов стилизации.
 
 ### CSS-переменные
 

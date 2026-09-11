@@ -13,12 +13,24 @@ import SignaturePadFormSerialization from '@/components/examples/signature-pad/f
 import SignaturePadImagePreview from '@/components/examples/signature-pad/image-preview.tsx';
 import SignaturePadRootProvider from '@/components/examples/signature-pad/root-provider.tsx';
 import SignaturePadAdvancedCustomization from '@/components/examples/signature-pad/advanced-customization.tsx';
+import signaturePadSolidBasic from '../../../snippets/signature-pad/solid/basic.tsx?raw';
+import signaturePadSolidControlled from '../../../snippets/signature-pad/solid/controlled.tsx?raw';
+import signaturePadSolidDrawing from '../../../snippets/signature-pad/solid/drawing.tsx?raw';
+import signaturePadSolidField from '../../../snippets/signature-pad/solid/field.tsx?raw';
+import signaturePadSolidFormSerialization from '../../../snippets/signature-pad/solid/form-serialization.tsx?raw';
+import signaturePadSolidImagePreview from '../../../snippets/signature-pad/solid/image-preview.tsx?raw';
+import signaturePadSolidRootProvider from '../../../snippets/signature-pad/solid/root-provider.tsx?raw';
+import signaturePadSolidAdvancedCustomization from '../../../snippets/signature-pad/solid/advanced-customization.tsx?raw';
 
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/signature-pad" />
 
 ## Exemple de base
+
+SignaturePad est disponible pour React et Solid dans les packages CSS Modules et Tailwind. L’aperçu
+affiché sur cette page utilise le package React CSS Modules ; les onglets montrent le code natif
+pour le même contrat public.
 
 Pour la plupart des cas, commencez avec `SignaturePad.Canvas`. Il fournit la surface de dessin
 standard avec les parties Ark `Control`, `Segment`, `ClearTrigger` et `Guide`, ainsi que l’icône
@@ -30,11 +42,23 @@ d’effacement par défaut de moduix.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/signature-pad/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={signaturePadSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -44,7 +68,31 @@ d’effacement par défaut de moduix.
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="signature-pad" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/signature-pad' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/signature-pad' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/signature-pad' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/signature-pad' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+Consultez le [Quick Start](/docs/quick-start) pour la configuration complète du package et du
+registry.
 
 ## Anatomie
 
@@ -62,103 +110,32 @@ SignaturePad.RootProvider
 └─ même arbre de parties connecté à l’état de useSignaturePad()
 ```
 
-| Partie                                  | Rôle                                                                                     |
-| --------------------------------------- | ---------------------------------------------------------------------------------------- |
-| `SignaturePad` / `SignaturePad.Root`    | Gère les tracés, les options de dessin, le nom du champ, les identifiants et les fonctions de rappel. |
-| `SignaturePad.HiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
-| `SignaturePad.RootProvider`             | Rend le même arbre de parties à partir de l’état créé avec `useSignaturePad()`.          |
-| `SignaturePad.Label`                    | Associe le libellé visible à la zone de dessin et au champ natif masqué.                 |
-| `SignaturePad.Canvas`                   | Surface prête à l’emploi qui rend les parties standard et transmet les propriétés et le `ref` de `Control`. |
-| `SignaturePad.Control`                  | Zone de dessin au pointeur et au toucher, pouvant recevoir le focus.                     |
-| `SignaturePad.Segment`                  | Calque SVG pour les traits enregistrés et le trait en cours.                             |
-| `SignaturePad.ClearTrigger`             | Bouton natif qui efface les tracés. Ark le masque lorsque le champ est vide ou pendant le dessin. |
-| `SignaturePad.Guide`                    | Ligne repère non interactive dans la zone de dessin.                                    |
+| Partie                               | Rôle                                                                    |
+| ------------------------------------ | ----------------------------------------------------------------------- |
+| `SignaturePad` / `SignaturePad.Root` | Gère les tracés, les options de dessin, le nom du champ, les identifiants et les rappels. |
+| `SignaturePad.HiddenInput`           | Champ natif d’Ark à composer explicitement.                             |
+| `SignaturePad.RootProvider`          | Rend le même arbre de parties à partir de l’état créé avec `useSignaturePad()`. |
+| `SignaturePad.Label`                 | Associe le libellé visible à la zone de dessin et au champ masqué.      |
+| `SignaturePad.Canvas`                | Surface prête à l’emploi qui rend les parties standard et transmet les propriétés de `Control`. |
+| `SignaturePad.Control`               | Zone de dessin au pointeur et au toucher, pouvant recevoir le focus.     |
+| `SignaturePad.Segment`               | Calque SVG pour les traits enregistrés et le trait en cours.            |
+| `SignaturePad.ClearTrigger`          | Bouton natif qui efface les tracés.                                     |
+| `SignaturePad.Guide`                 | Ligne repère non interactive dans la zone de dessin.                    |
 
 ## Composition
 
-### Champ de formulaire natif
+Pour la composition standard, utilisez `Label` et `Canvas`. `Canvas` utilise une arborescence
+d’enfants fixe ; utilisez donc `Control`, `Segment`, `ClearTrigger` et `Guide` si la structure de
+la zone de dessin ou le bouton d’effacement doit changer.
 
-`SignaturePad.HiddenInput` est le champ natif d’Ark, exporté directement. Ajoutez-le explicitement dans
-`SignaturePad` ou `SignaturePad.RootProvider` : la racine ne le crée pas automatiquement.
-Définissez `name` sur la racine pour inclure la valeur dans la soumission native du formulaire.
+`SignaturePad.HiddenInput` n’est pas rendu automatiquement. Ajoutez-le explicitement et transmettez
+une valeur sérialisée, généralement lue avec `SignaturePad.Context` ou
+`useSignaturePadContext()`, lorsque la signature doit être envoyée par un formulaire natif.
 
-Transmettez une `value` sérialisée à `SignaturePad.HiddenInput`. Récupérez les `paths` actuels avec
-`SignaturePad.Context` ou `useSignaturePadContext` et sérialisez-les dans votre application.
-Pour un formulaire extérieur à l’arbre du composant, définissez `form` directement sur `HiddenInput`.
-
-### Composition recommandée
-
-Pour la composition standard, utilisez `Label` et `Canvas`. `Canvas` conserve la cible de focus
-d’Ark, la capture du pointeur, le comportement accessible du bouton d’effacement et le rendu SVG,
-sans répéter le balisage de la surface de dessin. Il transmet les propriétés et le `ref` de `Control`.
-`Canvas` utilise une arborescence d’enfants fixe. Utilisez donc les parties de plus bas niveau si vous
-avez besoin d’une autre structure.
-
-### Quand créer une composition personnalisée
-
-Utilisez explicitement les parties `Control`, `Segment`, `ClearTrigger` et `Guide` lorsque vous devez
-modifier leur structure, remplacer l’icône ou utiliser `asChild`. Utilisez `paths` en mode contrôlé
-lorsque l’application doit restaurer, effacer, enregistrer automatiquement ou valider la signature en
-dehors du composant. Utilisez `RootProvider` avec `useSignaturePad()` lorsque l’état doit
-être créé en dehors de l’arborescence rendue ou que des contrôles externes doivent accéder directement
-à `paths`, `clear()` ou `getDataUrl()`.
-
-Pour lire l’état depuis l’arborescence du composant, utilisez `SignaturePad.Context` ou
-`useSignaturePadContext()` pour les besoins avancés.
-
-Transmettez `name` lorsque la signature doit être incluse dans la soumission native, puis composez
-explicitement `SignaturePad.HiddenInput` avec une `value` sérialisée. Lisez les tracés courants avec
-`useSignaturePadContext()`.
-
-Utilisez `drawing` pour personnaliser chaque trait. `drawing.size` modifie son épaisseur,
-`drawing.simulatePressure` contrôle la simulation de pression et `drawing.fill` définit sa couleur.
-`drawing.fill` doit contenir une couleur CSS valide. Ark n’accepte pas de variable CSS pour cette
-option. Pour utiliser un token du thème, ne définissez pas `fill` et redéfinissez plutôt
-`--moduix-signature-pad-stroke-color`.
-
-### Propriétés par défaut
-
-| Propriété        | Valeur par défaut                     | Remarques                                                        |
-| ---------------- | ------------------------------------- | ---------------------------------------------------------------- |
-| `defaultPaths`   | -                                     | Tableau initial de tracés SVG non contrôlé.                       |
-| `paths`          | -                                     | Tableau contrôlé de tracés SVG. Utilisez-le avec `onDraw(details)`. |
-| `drawing`        | `{ size: 2, simulatePressure: false }` | Options de dessin Zag. `fill` doit contenir une couleur CSS valide. |
-| `name`           | -                                     | Nom du champ de formulaire natif.                                |
-| `disabled`       | -                                     | Désactive le dessin et l’interaction avec le bouton d’effacement. |
-| `readOnly`       | -                                     | Empêche le dessin et désactive le bouton d’effacement.            |
-| `required`       | -                                     | Rend le libellé et le champ masqué obligatoires.                  |
-| `ids`            | -                                     | Identifiants stables de la racine, de la zone de dessin, du champ masqué et du libellé. |
-| `translations`   | Valeurs Ark par défaut                | Libellés accessibles de la zone de dessin et du bouton d’effacement. |
-
-La zone de dessin standard mesure `17.5rem` sur `10rem`, soit environ `280px` sur `160px` avec
-l’échelle de tokens par défaut. Redéfinissez `--moduix-signature-pad-width`,
-`--moduix-signature-pad-height` ou les variables plus précises
-`--moduix-signature-pad-control-*` pour modifier sa taille. La hauteur minimale par défaut suit la
-hauteur configurée de la zone de dessin ; une hauteur inférieure est donc bien prise en compte.
-
-### Comportement
-
-Utilisez `defaultPaths` pour définir une signature initiale non contrôlée. Utilisez `paths` avec
-`onDraw(details)` lorsque la signature doit rester dans l’état de l’application. `onDraw(details)`
-s’exécute pendant le dessin et lorsque les tracés enregistrés changent. `details.paths` contient les
-traits terminés, tandis que `details.currentPath` contient le trait en cours.
-
-`onDrawEnd(details)` s’exécute à la fin d’un trait ou lorsque la signature est effacée. Sa méthode
-`details.getDataUrl(type, quality?)` prend en charge `image/png`, `image/jpeg` et `image/svg+xml`.
-Elle renvoie une chaîne vide lorsque la signature est vide.
-
-Définissez `name` sur la racine lorsque le formulaire doit être soumis nativement et ajoutez
-explicitement `SignaturePad.HiddenInput value={serializedPaths}`. Enveloppez le composant dans
-`Field.Root` lorsque le texte d’aide, le
-message d’erreur, l’état obligatoire (`required`) ou l’état désactivé (`disabled`) doivent être partagés avec le reste du formulaire.
-L’état `invalid` de `Field` gère les messages et les descriptions du champ, mais n’ajoute pas
-`data-invalid` aux parties de Signature Pad.
-
-`Control` peut recevoir le focus au clavier et fournit `role="application"` avec
-`aria-roledescription="signature pad"`. Le dessin s’effectue au pointeur ou au toucher, et non avec
-les touches fléchées. `ClearTrigger` est un bouton natif, son activation avec Entrée ou Espace conserve
-donc le comportement standard d’un bouton. En lecture seule, moduix désactive le bouton d’effacement
-pour éviter toute modification accidentelle de la signature affichée.
+Utilisez `defaultPaths` pour un état local non contrôlé. Utilisez `paths` avec
+`onDraw(details)` lorsque l’application possède les données de la signature. Utilisez
+`RootProvider` avec `useSignaturePad()` lorsque l’état doit être créé en dehors de l’arborescence
+rendue ou que des contrôles externes doivent accéder à `paths`, `clear()` ou `getDataUrl()`.
 
 ## Exemples
 
@@ -173,20 +150,31 @@ coordonner avec des contrôles de réinitialisation ou une logique d’enregistr
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/signature-pad/controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/signature-pad/signature-pad-controlled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={signaturePadSolidControlled} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/signature-pad/signature-pad-controlled.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -202,11 +190,23 @@ doivent différer des valeurs par défaut.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/signature-pad/drawing.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={signaturePadSolidDrawing} />
 
     </Tab>
   </Tabs>
@@ -217,7 +217,7 @@ doivent différer des valeurs par défaut.
 ### Champ de formulaire
 
 Utilisez `Field` autour de `SignaturePad` lorsque le texte d’aide, le message d’erreur, l’état
-obligatoire (`required`) ou le message de validation concernent un même contrôle de formulaire.
+obligatoire ou le message de validation concernent un même contrôle de formulaire.
 
 <ExampleFrame variant="component">
   <SignaturePadField />
@@ -225,20 +225,31 @@ obligatoire (`required`) ou le message de validation concernent un même contrô
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/signature-pad/field.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/signature-pad/signature-pad-field.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={signaturePadSolidField} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/signature-pad/signature-pad-field.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -254,20 +265,31 @@ attend un autre format. Cet exemple envoie un tableau JSON.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/signature-pad/form-serialization.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/signature-pad/signature-pad-form-serialization.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={signaturePadSolidFormSerialization} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/signature-pad/signature-pad-form-serialization.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -282,30 +304,40 @@ Utilisez `onDrawEnd` pour exporter la signature et l’afficher avant son enregi
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/signature-pad/image-preview.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/signature-pad/signature-pad-image-preview.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={signaturePadSolidImagePreview} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/signature-pad/signature-pad-image-preview.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Root Provider
 
-Créez l’état avec `useSignaturePad()` et transmettez-le à `RootProvider` lorsque des contrôles situés
-en dehors de l’arborescence rendue doivent accéder directement à `paths`, `clear()` ou `getDataUrl()`.
-Transmettez les options de la racine, comme `translations`, `ids` et `drawing`, à
-`useSignaturePad(...)`.
+Créez l’état avec `useSignaturePad()` et transmettez-le à `RootProvider` lorsque des contrôles
+situés en dehors de l’arborescence rendue doivent accéder directement à `paths`, `clear()` ou
+`getDataUrl()`.
 
 <ExampleFrame variant="component">
   <SignaturePadRootProvider />
@@ -313,28 +345,39 @@ Transmettez les options de la racine, comme `translations`, `ids` et `drawing`, 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/signature-pad/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/signature-pad/signature-pad-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={signaturePadSolidRootProvider} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/signature-pad/signature-pad-root-provider.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Personnalisation avancée
 
-Utilisez les parties explicites à la place de `Canvas` lorsque vous devez contrôler l’arborescence des
-parties de dessin ou fournir votre propre bouton d’effacement.
+Utilisez les parties explicites à la place de `Canvas` lorsque vous devez contrôler l’arborescence
+des parties de dessin ou fournir votre propre bouton d’effacement.
 
 <ExampleFrame variant="component">
   <SignaturePadAdvancedCustomization />
@@ -342,11 +385,23 @@ parties de dessin ou fournir votre propre bouton d’effacement.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/signature-pad/advanced-customization.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={signaturePadSolidAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -372,20 +427,20 @@ parties de dessin ou fournir votre propre bouton d’effacement.
 
 ### Points d’accroche CSS
 
-Utilisez `className` sur toute partie exportée pour appliquer des styles locaux. moduix ajoute
-également des attributs `data-slot` stables :
+Utilisez `className` dans React ou `class` dans Solid sur toute partie exportée pour appliquer des
+styles locaux. moduix ajoute également des attributs `data-slot` stables :
 
-| Partie                                  | `data-slot`                   |
-| --------------------------------------- | ----------------------------- |
-| `SignaturePad` / `SignaturePad.Root`    | `signature-pad-root`          |
-| `SignaturePad.RootProvider`             | `signature-pad-root-provider` |
-| `SignaturePad.Label`                    | `signature-pad-label`         |
-| `SignaturePad.Control`                  | `signature-pad-control`       |
-| `SignaturePad.Segment`                  | `signature-pad-segment`       |
-| `SignaturePad.Guide`                    | `signature-pad-guide`         |
-| `SignaturePad.ClearTrigger`             | `signature-pad-clear-trigger` |
+| Partie                               | `data-slot`                   |
+| ------------------------------------ | ----------------------------- |
+| `SignaturePad` / `SignaturePad.Root` | `signature-pad-root`          |
+| `SignaturePad.RootProvider`          | `signature-pad-root-provider` |
+| `SignaturePad.Label`                 | `signature-pad-label`          |
+| `SignaturePad.Control`               | `signature-pad-control`        |
+| `SignaturePad.Segment`               | `signature-pad-segment`        |
+| `SignaturePad.Guide`                 | `signature-pad-guide`          |
+| `SignaturePad.ClearTrigger`          | `signature-pad-clear-trigger` |
 
 Les attributs Ark restent disponibles pour cibler les styles. `Root`, `Label`, `Control`, `Segment`,
-`Guide`, `ClearTrigger` et les tracés internes du segment fournissent `data-scope="signature-pad"` et
-`data-part`. `data-disabled` apparaît sur la racine, le libellé, la zone de dessin et la ligne repère,
-tandis que `data-required` apparaît sur le libellé.
+`Guide`, `ClearTrigger` et les tracés internes du segment fournissent `data-scope="signature-pad"`
+et `data-part` ; `data-disabled` apparaît sur la racine, le libellé, la zone de dessin et la ligne
+repère, tandis que `data-required` apparaît sur le libellé.

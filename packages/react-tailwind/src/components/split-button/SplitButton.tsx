@@ -40,13 +40,13 @@ type SplitButtonContentProps = ComponentProps<typeof Menu.Content>;
 type SplitButtonPositionerProps = ComponentProps<typeof Menu.Positioner>;
 
 const splitButtonTriggerVariants = cva(
-  "relative min-w-0 -ms-px rounded-s-none px-3 before:pointer-events-none before:absolute before:inset-y-1.5 before:start-0 before:w-px before:bg-current before:opacity-[0.16] before:content-['']",
+  "relative min-w-0 -ms-px rounded-s-none before:pointer-events-none before:absolute before:inset-y-1.5 before:start-0 before:w-px before:bg-current before:opacity-[0.16] before:content-['']",
   {
     variants: {
       size: {
         xs: 'px-2',
         sm: 'px-2.5',
-        md: 'px-3',
+        md: 'px-4',
         lg: 'px-3.5',
         xl: 'px-4',
       },

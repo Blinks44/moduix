@@ -13,6 +13,14 @@ import SignaturePadFormSerialization from '@/components/examples/signature-pad/f
 import SignaturePadImagePreview from '@/components/examples/signature-pad/image-preview.tsx';
 import SignaturePadRootProvider from '@/components/examples/signature-pad/root-provider.tsx';
 import SignaturePadAdvancedCustomization from '@/components/examples/signature-pad/advanced-customization.tsx';
+import signaturePadSolidBasic from '../../../snippets/signature-pad/solid/basic.tsx?raw';
+import signaturePadSolidControlled from '../../../snippets/signature-pad/solid/controlled.tsx?raw';
+import signaturePadSolidDrawing from '../../../snippets/signature-pad/solid/drawing.tsx?raw';
+import signaturePadSolidField from '../../../snippets/signature-pad/solid/field.tsx?raw';
+import signaturePadSolidFormSerialization from '../../../snippets/signature-pad/solid/form-serialization.tsx?raw';
+import signaturePadSolidImagePreview from '../../../snippets/signature-pad/solid/image-preview.tsx?raw';
+import signaturePadSolidRootProvider from '../../../snippets/signature-pad/solid/root-provider.tsx?raw';
+import signaturePadSolidAdvancedCustomization from '../../../snippets/signature-pad/solid/advanced-customization.tsx?raw';
 
 ## Справочник API
 
@@ -20,9 +28,13 @@ import SignaturePadAdvancedCustomization from '@/components/examples/signature-p
 
 ## Базовый пример
 
-Для большинства случаев начните с `SignaturePad.Canvas`. Он выводит стандартную область рисования с
-частями Ark `Control`, `Segment`, `ClearTrigger` и `Guide`, а также со стандартной кнопкой очистки
-moduix.
+SignaturePad доступен для React и Solid в пакетах CSS Modules и Tailwind. Предпросмотр на этой
+странице использует пакет React CSS Modules, а вкладки показывают нативный код для того же
+публичного контракта.
+
+Для большинства случаев начните с `SignaturePad.Canvas`. Он выводит стандартную область рисования
+с частями Ark `Control`, `Segment`, `ClearTrigger` и `Guide`, а также со стандартной кнопкой
+очистки moduix.
 
 <ExampleFrame variant="component">
   <SignaturePadBasic />
@@ -30,11 +42,23 @@ moduix.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/signature-pad/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={signaturePadSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -44,7 +68,30 @@ moduix.
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="signature-pad" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/signature-pad' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/signature-pad' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/signature-pad' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/signature-pad' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+Полная настройка пакета и registry описана в разделе [Quick Start](/docs/quick-start).
 
 ## Анатомия
 
@@ -65,98 +112,29 @@ SignaturePad.RootProvider
 | Часть                                | Назначение                                                                    |
 | ------------------------------------ | ----------------------------------------------------------------------------- |
 | `SignaturePad` / `SignaturePad.Root` | Хранит пути, параметры рисования, имя поля формы, идентификаторы и колбэки.    |
-| `SignaturePad.HiddenInput` | Нативное поле Ark; правила явной композиции описаны ниже. |
+| `SignaturePad.HiddenInput`           | Нативное поле Ark, которое нужно добавлять явно.                              |
 | `SignaturePad.RootProvider`          | Выводит то же дерево частей из состояния, созданного через `useSignaturePad()`. |
 | `SignaturePad.Label`                 | Связывает видимую подпись с областью рисования и скрытым полем формы.         |
-| `SignaturePad.Canvas`                | Готовая область рисования с основными частями; передаёт свойства `Control` и `ref`. |
+| `SignaturePad.Canvas`                | Готовая область рисования со стандартными частями; передаёт свойства `Control`. |
 | `SignaturePad.Control`               | Область рисования указателем или касанием, доступная для фокуса.              |
 | `SignaturePad.Segment`               | SVG-слой для сохранённых штрихов и текущего незавершённого штриха.            |
-| `SignaturePad.ClearTrigger`          | Нативная кнопка очистки путей. Ark скрывает её, пока поле пусто или идёт рисование. |
+| `SignaturePad.ClearTrigger`          | Нативная кнопка очистки путей.                                                |
 | `SignaturePad.Guide`                 | Неинтерактивная линия для подписи внутри области рисования.                  |
 
 ## Композиция
 
-### Нативное поле формы
+Для стандартной композиции используйте `Label` и `Canvas`. У `Canvas` фиксированный набор
+дочерних частей, поэтому переходите к `Control`, `Segment`, `ClearTrigger` и `Guide`, если нужно
+изменить структуру области рисования или кнопку очистки.
 
-`SignaturePad.HiddenInput` — нативное поле Ark, экспортируемое без обёртки. Добавьте его явно внутрь
-`SignaturePad` или `SignaturePad.RootProvider`: корневой компонент не создаёт его автоматически.
-Задайте `name` на корневом компоненте, чтобы значение отправлялось с формой.
+`SignaturePad.HiddenInput` не создаётся автоматически. Добавьте его явно и передайте
+сериализованное значение, обычно полученное через `SignaturePad.Context` или
+`useSignaturePadContext()`, когда подпись должна отправляться нативной формой.
 
-Передайте сериализованное `value` в `SignaturePad.HiddenInput`. Получите текущие `paths` через
-`SignaturePad.Context` или `useSignaturePadContext` и преобразуйте их в строку в своём приложении.
-Если форма находится вне дерева компонента, задайте `form` непосредственно на `HiddenInput`.
-
-### Рекомендуемая композиция
-
-В обычной композиции используйте `Label` и `Canvas`. `Canvas` сохраняет элемент, который получает
-фокус в Ark, захват указателя, доступное поведение кнопки очистки и SVG-отрисовку, избавляя от
-повторяющейся разметки области рисования. Он передаёт свойства `Control` и `ref`. У `Canvas`
-фиксированный набор дочерних частей, поэтому для другой структуры используйте отдельные части.
-
-### Когда нужна собственная композиция
-
-Используйте отдельные `Control`, `Segment`, `ClearTrigger` и `Guide`, если нужно изменить их
-структуру, заменить иконку или применить `asChild`. Используйте управляемый `paths`, если приложение
-должно восстанавливать, очищать, автоматически сохранять или проверять подпись, храня её в своём
-состоянии. Используйте `RootProvider` вместе с `useSignaturePad()`, когда состояние нужно создать
-вне выводимого дерева или внешним элементам нужен прямой доступ к `paths`, `clear()` или
-`getDataUrl()`.
-
-Для расширенного чтения состояния внутри дерева доступны `SignaturePad.Context` и
-`useSignaturePadContext()`.
-
-Передайте `name`, если подпись должна попасть в нативную отправку формы, затем явно добавьте
-`SignaturePad.HiddenInput` с сериализованным `value`. Текущие пути можно прочитать через
-`useSignaturePadContext()`.
-
-Используйте `drawing`, чтобы настроить каждый штрих. `drawing.size` меняет его толщину,
-`drawing.simulatePressure` управляет имитацией давления, а `drawing.fill` задаёт цвет штриха.
-`drawing.fill` должен быть строкой с допустимым CSS-цветом. Ark не принимает переменную CSS в этой
-опции. Чтобы использовать токен темы, не задавайте `fill`, а переопределите
-`--moduix-signature-pad-stroke-color`.
-
-### Свойства по умолчанию
-
-| Свойство        | По умолчанию                          | Примечания                                                        |
-| --------------- | ------------------------------------- | ----------------------------------------------------------------- |
-| `defaultPaths`  | -                                     | Исходный неуправляемый массив SVG-путей.                         |
-| `paths`         | -                                     | Управляемый массив SVG-путей. Используйте вместе с `onDraw(details)`. |
-| `drawing`       | `{ size: 2, simulatePressure: false }` | Параметры штриха Zag. `fill` должен быть допустимым CSS-цветом.   |
-| `name`          | -                                     | Имя поля нативной формы.                                          |
-| `disabled`      | -                                     | Отключает рисование и взаимодействие с кнопкой очистки.           |
-| `readOnly`      | -                                     | Запрещает рисование и отключает кнопку очистки.                   |
-| `required`      | -                                     | Делает подпись и скрытое поле обязательными.                      |
-| `ids`           | -                                     | Стабильные идентификаторы корня, области рисования, скрытого поля и подписи. |
-| `translations`  | Значения Ark по умолчанию             | Доступные подписи для области рисования и кнопки очистки.         |
-
-Стандартная область рисования имеет размер `17.5rem` на `10rem`, то есть примерно `280px` на
-`160px` при стандартном масштабе токенов. Чтобы изменить её размер, переопределите
-`--moduix-signature-pad-width`, `--moduix-signature-pad-height` или более конкретные переменные
-`--moduix-signature-pad-control-*`. Минимальная высота по умолчанию следует высоте области рисования,
-поэтому меньшая высота действительно применяется.
-
-### Особенности поведения
-
-Используйте `defaultPaths` для начальной неуправляемой подписи. Используйте `paths` вместе с
-`onDraw(details)`, когда подпись должна храниться в состоянии приложения. `onDraw(details)`
-срабатывает во время рисования и при изменении сохранённых путей. `details.paths` содержит только
-завершённые штрихи, а `details.currentPath` содержит текущий штрих.
-
-`onDrawEnd(details)` срабатывает после завершения штриха или очистки подписи. Метод
-`details.getDataUrl(type, quality?)` поддерживает `image/png`, `image/jpeg` и `image/svg+xml` и
-возвращает пустую строку для пустой подписи.
-
-Задайте `name` корню, когда нужна нативная отправка формы, и явно добавьте
-`SignaturePad.HiddenInput value={serializedPaths}`. Оберните компонент в
-`Field.Root`, когда текст-подсказка, текст ошибки, обязательность или отключённое состояние должны
-быть общими с остальным интерфейсом формы. Состояние `invalid` у `Field` управляет сообщениями и
-описаниями поля, но не добавляет `data-invalid` к частям `SignaturePad`.
-
-`Control` получает фокус с клавиатуры и предоставляет `role="application"` с
-`aria-roledescription="signature pad"`. Рисование выполняется указателем или касанием, клавиши-
-стрелки для него не используются. `ClearTrigger` является нативной кнопкой, поэтому Enter и Space
-сохраняют стандартную активацию кнопки. В режиме только для чтения moduix отключает кнопку
-очистки, чтобы отображаемую подпись нельзя было случайно изменить.
+Используйте `defaultPaths` для локального неуправляемого состояния. Используйте `paths` вместе с
+`onDraw(details)`, когда состояние подписи принадлежит приложению. Используйте `RootProvider` с
+`useSignaturePad()`, когда состояние нужно создать вне выводимого дерева или внешним элементам
+нужен доступ к `paths`, `clear()` или `getDataUrl()`.
 
 ## Примеры
 
@@ -171,20 +149,31 @@ SignaturePad.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/signature-pad/controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/signature-pad/signature-pad-controlled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={signaturePadSolidControlled} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/signature-pad/signature-pad-controlled.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -199,11 +188,23 @@ SignaturePad.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/signature-pad/drawing.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={signaturePadSolidDrawing} />
 
     </Tab>
   </Tabs>
@@ -222,20 +223,31 @@ SignaturePad.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/signature-pad/field.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/signature-pad/signature-pad-field.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={signaturePadSolidField} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/signature-pad/signature-pad-field.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -251,20 +263,31 @@ SignaturePad.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/signature-pad/form-serialization.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/signature-pad/signature-pad-form-serialization.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={signaturePadSolidFormSerialization} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/signature-pad/signature-pad-form-serialization.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -279,20 +302,31 @@ SignaturePad.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/signature-pad/image-preview.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/signature-pad/signature-pad-image-preview.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={signaturePadSolidImagePreview} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/signature-pad/signature-pad-image-preview.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -300,8 +334,7 @@ SignaturePad.RootProvider
 ### Root Provider
 
 Создайте состояние с помощью `useSignaturePad()` и передайте его в `RootProvider`, когда элементам
-вне выводимого дерева нужен прямой доступ к `paths`, `clear()` или `getDataUrl()`. Передавайте
-параметры корня, например `translations`, `ids` и `drawing`, в `useSignaturePad(...)`.
+вне выводимого дерева нужен прямой доступ к `paths`, `clear()` или `getDataUrl()`.
 
 <ExampleFrame variant="component">
   <SignaturePadRootProvider />
@@ -309,20 +342,31 @@ SignaturePad.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/signature-pad/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/signature-pad/signature-pad-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={signaturePadSolidRootProvider} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/signature-pad/signature-pad-root-provider.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -338,11 +382,23 @@ SignaturePad.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/signature-pad/advanced-customization.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={signaturePadSolidAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -368,20 +424,20 @@ SignaturePad.RootProvider
 
 ### Хуки стилизации
 
-Используйте `className` на любой экспортируемой части для локальной стилизации. moduix также
-добавляет стабильные атрибуты `data-slot`:
+Используйте `className` в React или `class` в Solid на любой экспортируемой части для локальной
+стилизации. moduix также добавляет стабильные атрибуты `data-slot`:
 
 | Часть                                | `data-slot`                   |
 | ------------------------------------ | ----------------------------- |
 | `SignaturePad` / `SignaturePad.Root` | `signature-pad-root`          |
 | `SignaturePad.RootProvider`          | `signature-pad-root-provider` |
 | `SignaturePad.Label`                 | `signature-pad-label`         |
-| `SignaturePad.Control`               | `signature-pad-control`       |
-| `SignaturePad.Segment`               | `signature-pad-segment`       |
-| `SignaturePad.Guide`                 | `signature-pad-guide`         |
+| `SignaturePad.Control`               | `signature-pad-control`        |
+| `SignaturePad.Segment`               | `signature-pad-segment`        |
+| `SignaturePad.Guide`                 | `signature-pad-guide`          |
 | `SignaturePad.ClearTrigger`          | `signature-pad-clear-trigger` |
 
 Атрибуты Ark остаются доступны для точечной стилизации. `Root`, `Label`, `Control`, `Segment`,
 `Guide`, `ClearTrigger` и внутренние пути сегмента предоставляют `data-scope="signature-pad"` и
-`data-part`. Атрибут `data-disabled` появляется на корне, подписи, области рисования и линии
+`data-part`; атрибут `data-disabled` появляется на корне, подписи, области рисования и линии
 ориентира, а `data-required` появляется на подписи.
