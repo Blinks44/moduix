@@ -91,7 +91,7 @@ function SidebarRoot(props: SidebarRootProps) {
         data-side={side()}
         data-slot="sidebar-root"
         class={cn(
-          'isolate h-dvh min-h-96 w-full min-w-0 rounded-lg border border-border bg-background text-foreground shadow-md',
+          'isolate h-dvh min-h-96 w-full min-w-0 rounded-none border border-border bg-background text-foreground shadow-none',
           local.class,
         )}
       />
@@ -126,7 +126,7 @@ function SidebarPanel(props: SidebarPanelProps) {
       data-slot="sidebar-panel"
       data-state={collapsed() ? 'collapsed' : 'expanded'}
       class={cn(
-        'group/sidebar-panel @container/sidebar-panel relative box-border flex min-h-0 min-w-0 flex-col overflow-hidden bg-card p-0 text-card-foreground transition-colors duration-200 ease-in-out',
+        'group/sidebar-panel @container/sidebar-panel relative flex min-h-0 min-w-0 flex-col overflow-hidden bg-card p-0 text-card-foreground transition-colors duration-200 ease-in-out motion-reduce:transition-none',
         local.class,
       )}
     />
@@ -203,7 +203,10 @@ function SidebarTrigger(props: SidebarTriggerProps) {
       data-slot="sidebar-trigger"
       data-state={collapsed() ? 'collapsed' : 'expanded'}
       class={cn(
-        'focus-visible:outline-offset-0.5 relative z-4 -mx-3.5 box-border inline-flex size-7 flex-none translate-y-10 cursor-pointer appearance-none items-center justify-center rounded-full border border-border bg-background p-0 text-muted-foreground shadow-sm outline-0 transition-[background-color,color,box-shadow] duration-200 ease-in-out focus-visible:outline-2 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 motion-reduce:transition-none [&>svg]:size-4 [&>svg]:transition-transform [&>svg]:duration-200 [&>svg]:ease-in-out data-[side=left]:data-[state=collapsed]:[&>svg]:rotate-180 data-[side=right]:data-[state=expanded]:[&>svg]:rotate-180 [@media(hover:hover)]:hover:bg-accent [@media(hover:hover)]:hover:text-accent-foreground',
+        'relative z-4 -mx-3.5 inline-flex size-7 flex-none translate-y-10 cursor-pointer items-center justify-center rounded-full border border-border bg-background p-0 text-muted-foreground shadow-sm outline-0 transition-[background-color,color,box-shadow] duration-200 ease-in-out',
+        'focus-visible:outline-offset-0.5 focus-visible:outline-2 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 motion-reduce:transition-none',
+        '[&>svg]:size-4 [&>svg]:transition-transform [&>svg]:duration-200 [&>svg]:ease-in-out data-[side=left]:data-[state=collapsed]:[&>svg]:rotate-180 data-[side=right]:data-[state=expanded]:[&>svg]:rotate-180',
+        'hover:bg-accent hover:text-accent-foreground',
         local.class,
       )}
       onClick={handleClick}
@@ -254,7 +257,7 @@ function SidebarContent(props: HTMLArkProps<'div'>) {
       data-part="content"
       data-slot="sidebar-content"
       class={cn(
-        'flex min-h-0 flex-auto [scrollbar-gutter:stable] flex-col overflow-auto overscroll-contain group-data-[state=collapsed]/sidebar-panel:[scrollbar-width:none] group-data-[state=collapsed]/sidebar-panel:[scrollbar-gutter:auto] group-data-[state=collapsed]/sidebar-panel:overflow-x-hidden group-data-[state=collapsed]/sidebar-panel:overflow-y-auto motion-reduce:transition-none',
+        'flex min-h-0 flex-auto [scrollbar-gutter:stable] flex-col overflow-auto overscroll-contain group-data-[state=collapsed]/sidebar-panel:[scrollbar-width:none] group-data-[state=collapsed]/sidebar-panel:[scrollbar-gutter:auto] group-data-[state=collapsed]/sidebar-panel:overflow-x-hidden group-data-[state=collapsed]/sidebar-panel:overflow-y-auto',
         local.class,
       )}
       {...others}
@@ -320,7 +323,7 @@ function SidebarGroup(props: HTMLArkProps<'section'>) {
       data-part="group"
       data-slot="sidebar-group"
       class={cn(
-        'group/sidebar-group flex flex-col gap-1 p-3 group-has-[[data-slot=sidebar-group-action]]/sidebar-group:grid group-has-[[data-slot=sidebar-group-action]]/sidebar-group:grid-cols-[minmax(0,1fr)_auto] group-has-[[data-slot=sidebar-group-action]]/sidebar-group:gap-x-2 group-has-[[data-slot=sidebar-group-action]]/sidebar-group:gap-y-1 group-data-[state=collapsed]/sidebar-panel:px-1',
+        'group/sidebar-group flex flex-col gap-1 p-3 group-data-[state=collapsed]/sidebar-panel:px-1 has-[[data-slot=sidebar-group-action]]:grid has-[[data-slot=sidebar-group-action]]:grid-cols-[minmax(0,1fr)_auto] has-[[data-slot=sidebar-group-action]]:gap-x-2',
         local.class,
       )}
       {...others}
@@ -355,7 +358,7 @@ function SidebarGroupAction(props: HTMLArkProps<'button'>) {
       data-part="group-action"
       data-slot="sidebar-group-action"
       class={cn(
-        'focus-visible:outline-offset-0.5 inline-flex size-control-xs cursor-pointer appearance-none items-center justify-center rounded-md border-0 bg-transparent p-0 text-muted-foreground outline-0 transition-[background-color,color] duration-200 ease-in-out group-has-[[data-slot=sidebar-group-action]]/sidebar-group:col-start-2 group-has-[[data-slot=sidebar-group-action]]/sidebar-group:me-2 group-has-[[data-slot=sidebar-group-action]]/sidebar-group:self-center group-data-[state=collapsed]/sidebar-panel:hidden focus-visible:outline-2 focus-visible:outline-ring motion-reduce:transition-none @max-[7rem]:hidden [&>svg]:size-4 [@media(hover:hover)]:hover:bg-accent [@media(hover:hover)]:hover:text-accent-foreground',
+        'focus-visible:outline-offset-0.5 col-start-2 me-2 inline-flex size-control-xs cursor-pointer items-center justify-center self-center rounded-md p-0 text-muted-foreground outline-0 transition-colors duration-200 ease-in-out hover:bg-accent hover:text-accent-foreground focus-visible:outline-2 focus-visible:outline-ring motion-reduce:transition-none @max-[7rem]:hidden [&>svg]:size-4',
         local.class,
       )}
       {...others}
@@ -405,7 +408,10 @@ function SidebarNavigationItem(props: HTMLArkProps<'li'>) {
       data-scope="sidebar"
       data-part="navigation-item"
       data-slot="sidebar-navigation-item"
-      class={cn('group/sidebar-navigation-item relative min-w-0', local.class)}
+      class={cn(
+        'group/sidebar-navigation-item relative min-w-0 [&>[data-scope=select][data-part=root]]:w-full',
+        local.class,
+      )}
       {...others}
     />
   );
@@ -437,7 +443,14 @@ function SidebarNavigationButton(
       data-active={local.active ? '' : undefined}
       data-size={local.size ?? 'md'}
       class={cn(
-        'focus-visible:outline-offset-0.5 box-border flex min-h-control-md w-full min-w-0 cursor-pointer items-center gap-2 overflow-hidden rounded-md border-0 bg-transparent px-2 py-1 text-start text-sm leading-5 whitespace-nowrap text-card-foreground no-underline outline-0 transition-[background-color,border-color,color,box-shadow] duration-200 ease-in-out select-none [font:inherit] group-data-[state=collapsed]/sidebar-panel:mx-auto group-data-[state=collapsed]/sidebar-panel:min-h-control-md group-data-[state=collapsed]/sidebar-panel:w-control-md group-data-[state=collapsed]/sidebar-panel:justify-center group-data-[state=collapsed]/sidebar-panel:border-transparent group-data-[state=collapsed]/sidebar-panel:bg-transparent group-data-[state=collapsed]/sidebar-panel:px-0 group-data-[state=collapsed]/sidebar-panel:shadow-none group-data-[state=collapsed]/sidebar-panel:group-has-[[data-slot=sidebar-navigation-action]]/sidebar-navigation-item:pe-0 group-data-[state=collapsed]/sidebar-panel:group-has-[[data-slot=sidebar-navigation-badge]]/sidebar-navigation-item:pe-0 focus-visible:outline-2 focus-visible:outline-ring disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:cursor-default aria-disabled:opacity-50 data-active:bg-accent data-active:font-medium data-active:text-accent-foreground data-[size=lg]:min-h-control-lg data-[size=sm]:min-h-control-sm data-[size=sm]:text-xs motion-reduce:transition-none group-data-[state=collapsed]/sidebar-panel:[&>*:not(svg):not([data-sidebar-icon]):not([data-slot=sidebar-label])]:hidden [&>[data-scope=select][data-part=indicator]]:ms-auto @max-[7rem]:[&>[data-scope=select][data-part=indicator]]:hidden [&>[data-sidebar-icon]]:shrink-0 group-data-[state=collapsed]/sidebar-panel:[&>[data-sidebar-icon]]:mx-auto [&>[data-slot=collapsible-indicator]]:ms-auto @max-[7rem]:[&>[data-slot=collapsible-indicator]]:hidden [&>[data-slot=menu-indicator]]:ms-auto @max-[7rem]:[&>[data-slot=menu-indicator]]:hidden @max-[7rem]:[&>[data-slot=select-indicator]]:hidden [&>span:last-child]:min-w-0 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 group-data-[state=collapsed]/sidebar-panel:[&>svg]:mx-auto group-data-[state=collapsed]/sidebar-panel:[@media(hover:hover)]:hover:bg-transparent [@media(hover:hover)]:[&:not(:disabled):not([aria-disabled=true])]:hover:bg-accent [@media(hover:hover)]:[&:not(:disabled):not([aria-disabled=true])]:hover:text-accent-foreground',
+        'flex w-full min-w-0 cursor-pointer items-center gap-2 overflow-hidden rounded-md px-2 py-1 text-start text-sm leading-5 text-ellipsis whitespace-nowrap text-card-foreground outline-0 transition-[background-color,border-color,color,box-shadow] duration-200 ease-in-out',
+        'focus-visible:outline-offset-0.5 focus-visible:outline-2 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-active:bg-accent data-active:font-medium data-active:text-accent-foreground motion-reduce:transition-none [&:not(:disabled):not([aria-disabled=true])]:hover:bg-accent [&:not(:disabled):not([aria-disabled=true])]:hover:text-accent-foreground',
+        'group-data-[state=collapsed]/sidebar-panel:mx-auto group-data-[state=collapsed]/sidebar-panel:min-h-control-md group-data-[state=collapsed]/sidebar-panel:w-control-md group-data-[state=collapsed]/sidebar-panel:justify-center group-data-[state=collapsed]/sidebar-panel:bg-transparent group-data-[state=collapsed]/sidebar-panel:px-0 group-data-[state=collapsed]/sidebar-panel:hover:bg-transparent group-data-[state=collapsed]/sidebar-panel:[&>*:not(svg):not([data-sidebar-icon]):not([data-slot=sidebar-label])]:hidden group-data-[state=collapsed]/sidebar-panel:[&>[data-sidebar-icon]]:mx-auto group-data-[state=collapsed]/sidebar-panel:[&>svg]:mx-auto',
+        '@min-[7.0001rem]:group-has-[[data-slot=sidebar-navigation-action]]/sidebar-navigation-item:pe-10 @min-[7.0001rem]:group-has-[[data-slot=sidebar-navigation-badge]]/sidebar-navigation-item:pe-9.25 @min-[7.0001rem]:group-has-[[data-slot=sidebar-navigation-action]]/sidebar-navigation-item:group-has-[[data-slot=sidebar-navigation-badge]]/sidebar-navigation-item:pe-17.25 @min-[7.0001rem]:has-[[data-scope=select][data-part=indicator]]:pe-10',
+        '@max-[7rem]:[&>[data-scope=select][data-part=indicator]]:hidden [&>[data-sidebar-icon]]:shrink-0 [&>[data-slot=collapsible-indicator]]:ms-auto @max-[7rem]:[&>[data-slot=collapsible-indicator]]:hidden [&>[data-slot=menu-indicator]]:ms-auto [&>[data-slot=menu-indicator]]:size-control-xs [&>[data-slot=menu-indicator]]:leading-none @max-[7rem]:[&>[data-slot=menu-indicator]]:hidden [&>[data-slot=menu-indicator]>svg]:block [&>[data-slot=menu-indicator]>svg]:size-4 [&>span:last-child]:min-w-0 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0',
+        local.size === 'sm' && 'min-h-control-sm text-xs',
+        (local.size === undefined || local.size === 'md') && 'min-h-control-md',
+        local.size === 'lg' && 'min-h-control-lg',
         local.class,
       )}
       {...others}
@@ -455,7 +468,7 @@ function SidebarNavigationAction(props: HTMLArkProps<'button'>) {
       data-part="navigation-action"
       data-slot="sidebar-navigation-action"
       class={cn(
-        'focus-visible:outline-offset-0.5 absolute end-2 top-1/2 z-1 box-border inline-flex size-control-xs -translate-y-1/2 cursor-pointer appearance-none items-center justify-center rounded-md border-0 bg-transparent p-0 text-muted-foreground outline-0 transition-[background-color,color] duration-200 ease-in-out group-has-[[data-slot=sidebar-navigation-badge]]/sidebar-navigation-item:end-[2.3125rem] group-data-[state=collapsed]/sidebar-panel:hidden focus-visible:outline-2 focus-visible:outline-ring motion-reduce:transition-none @max-[7rem]:hidden [&>svg]:size-4 [@media(hover:hover)]:hover:bg-accent [@media(hover:hover)]:hover:text-accent-foreground',
+        'focus-visible:outline-offset-0.5 absolute end-2 top-1.5 z-1 inline-flex size-control-xs cursor-pointer items-center justify-center rounded-md p-0 text-muted-foreground outline-0 transition-colors duration-200 ease-in-out group-has-[[data-slot=sidebar-navigation-badge]]/sidebar-navigation-item:end-9.25 hover:bg-accent hover:text-accent-foreground focus-visible:outline-2 focus-visible:outline-ring motion-reduce:transition-none @max-[7rem]:hidden [&>svg]:size-4',
         local.class,
       )}
       {...others}
@@ -472,7 +485,7 @@ function SidebarNavigationBadge(props: HTMLArkProps<'div'>) {
       data-part="navigation-badge"
       data-slot="sidebar-navigation-badge"
       class={cn(
-        'absolute end-[2.3125rem] top-1/2 z-1 inline-flex min-h-[1.125rem] min-w-[1.125rem] -translate-y-1/2 items-center justify-center rounded-full bg-accent px-0.5 text-[0.625rem] leading-none font-medium text-accent-foreground tabular-nums group-data-[state=collapsed]/sidebar-panel:hidden @max-[7rem]:hidden',
+        'absolute end-2.75 top-2.25 z-1 inline-flex min-h-4.5 min-w-4.5 items-center justify-center rounded-full bg-accent px-0.5 text-[0.625rem] leading-none font-medium text-accent-foreground tabular-nums @max-[7rem]:hidden',
         local.class,
       )}
       {...others}
@@ -489,7 +502,7 @@ function SidebarNavigationSubList(props: HTMLArkProps<'ul'>) {
       data-part="navigation-sub-list"
       data-slot="sidebar-navigation-sub-list"
       class={cn(
-        'ms-4 mt-1 box-border flex w-auto min-w-0 flex-col gap-1 border-s border-border ps-2 group-data-[state=collapsed]/sidebar-panel:hidden',
+        'ms-4 mt-1 flex w-auto min-w-0 flex-col gap-1 border-s border-border ps-2 group-data-[state=collapsed]/sidebar-panel:hidden',
         local.class,
       )}
       {...others}
@@ -533,7 +546,9 @@ function SidebarNavigationSubButton(
       data-slot="sidebar-navigation-sub-button"
       data-active={local.active ? '' : undefined}
       class={cn(
-        'focus-visible:outline-offset-0.5 box-border flex min-h-control-sm w-full min-w-0 cursor-pointer items-center gap-2 overflow-hidden rounded-md border-0 bg-transparent px-2 text-start text-sm leading-5 whitespace-nowrap text-card-foreground no-underline outline-0 transition-[background-color,border-color,color,box-shadow] duration-200 ease-in-out select-none [font:inherit] focus-visible:outline-2 focus-visible:outline-ring disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:cursor-default aria-disabled:opacity-50 data-active:bg-accent data-active:font-medium data-active:text-accent-foreground motion-reduce:transition-none [&>[data-sidebar-icon]]:shrink-0 [&>span:last-child]:min-w-0 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:[&:not(:disabled):not([aria-disabled=true])]:hover:bg-accent [@media(hover:hover)]:[&:not(:disabled):not([aria-disabled=true])]:hover:text-accent-foreground',
+        'flex min-h-control-sm w-full min-w-0 cursor-pointer items-center gap-2 overflow-hidden rounded-md px-2 text-start text-sm leading-5 text-ellipsis whitespace-nowrap text-card-foreground outline-0 transition-[background-color,border-color,color,box-shadow] duration-200 ease-in-out',
+        'focus-visible:outline-offset-0.5 focus-visible:outline-2 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-active:bg-accent data-active:font-medium data-active:text-accent-foreground motion-reduce:transition-none [&:not(:disabled):not([aria-disabled=true])]:hover:bg-accent [&:not(:disabled):not([aria-disabled=true])]:hover:text-accent-foreground',
+        '[&>[data-sidebar-icon]]:shrink-0 [&>span:last-child]:min-w-0 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0',
         local.class,
       )}
       {...others}
@@ -586,7 +601,13 @@ function SidebarTooltip(
 function SidebarInput(props: ComponentProps<typeof Input.Root>) {
   const [local, others] = splitProps(props, ['class']);
 
-  return <Input.Root data-slot="sidebar-input" class={cn('w-full', local.class)} {...others} />;
+  return (
+    <Input.Root
+      data-slot="sidebar-input"
+      class={cn('w-full group-data-[state=collapsed]/sidebar-panel:hidden', local.class)}
+      {...others}
+    />
+  );
 }
 
 function SidebarSeparator(props: ComponentProps<typeof Separator.Root>) {

@@ -36,7 +36,7 @@ const customPanelClassName = 'bg-[color-mix(in_oklab,var(--color-primary)_5%,var
 const customAccentClassName =
   'bg-[color-mix(in_oklab,var(--color-primary)_14%,var(--color-accent))]';
 const customAccentInteractiveClassName =
-  'data-active:bg-[color-mix(in_oklab,var(--color-primary)_14%,var(--color-accent))] [@media(hover:hover)]:[&:not(:disabled):not([aria-disabled=true])]:hover:bg-[color-mix(in_oklab,var(--color-primary)_14%,var(--color-accent))]';
+  'data-active:bg-[color-mix(in_oklab,var(--color-primary)_14%,var(--color-accent))] [&:not(:disabled):not([aria-disabled=true])]:hover:bg-[color-mix(in_oklab,var(--color-primary)_14%,var(--color-accent))]';
 const brandClassName = 'flex min-w-0 items-center gap-2 font-semibold';
 const headerStackClassName = 'grid w-full gap-3';
 const footerStackClassName = 'grid w-full';
@@ -54,7 +54,7 @@ const workspaceMarkClassName =
 const workspaceLabelClassName = 'flex-1 truncate';
 const accountMenuClassName = 'min-w-56 max-w-72';
 const accountMetaClassName =
-  'grid flex-1 text-start [&>strong]:truncate [&>span]:truncate [&>span]:text-xs [&>span]:text-muted-foreground';
+  'grid flex-1 text-start [&>strong]:truncate [&>span]:truncate [&>span]:text-xs [&>span]:leading-5 [&>span]:text-muted-foreground';
 
 const workspaces = createListCollection({
   items: [
