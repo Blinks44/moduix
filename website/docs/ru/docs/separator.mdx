@@ -25,7 +25,7 @@ import separatorSolidAsChild from '../../../snippets/separator/solid/as-child.ts
 [композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
 [ref](https://ark-ui.com/docs/guides/ref).
 
-Свойства \`orientation\`, \`variant\` и \`size\` соответствуют привычной модели \`Separator\` из Chakra UI. См. [документацию
+Свойства `orientation`, `variant` и `size` соответствуют привычной модели `Separator` из Chakra UI. См. [документацию
 Chakra UI по компоненту Separator](https://chakra-ui.com/docs/components/separator), которая послужила основой для этого API.
 
 ## Базовый пример
@@ -34,8 +34,8 @@ Separator доступен для React и Solid в вариантах с CSS Mo
 странице использует React CSS Modules, а во вкладках показан нативный код для обоих фреймворков с
 одинаковым публичным контрактом.
 
-Используйте \`Separator\`, чтобы визуально обозначить границу между связанными разделами. По умолчанию
-используются \`orientation="horizontal"\`, \`variant="solid"\` и \`size="sm"\`.
+Используйте `Separator`, чтобы визуально обозначить границу между связанными разделами. По умолчанию
+используются `orientation="horizontal"`, `variant="solid"` и `size="sm"`.
 
 <ExampleFrame variant="component">
   <SeparatorBasic />
@@ -53,8 +53,8 @@ Separator доступен для React и Solid в вариантах с CSS Mo
   >
     <Tab value="react">
 
-\`\`\`tsx pure file="../../../src/components/examples/separator/basic.tsx"
-\`\`\`
+```tsx pure file="../../../src/components/examples/separator/basic.tsx"
+```
 
     </Tab>
     <Tab value="solid">
@@ -66,8 +66,8 @@ Separator доступен для React и Solid в вариантах с CSS Mo
 
 **Стили**
 
-\`\`\`css file="../../../src/components/examples/separator/separator-basic.module.css"
-\`\`\`
+```css file="../../../src/components/examples/separator/separator-basic.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -99,31 +99,31 @@ Separator доступен для React и Solid в вариантах с CSS Mo
 
 ## Анатомия
 
-У \`Separator\` одна корневая часть.
+У `Separator` одна корневая часть.
 
-\`\`\`text
+```text
 Separator / Separator.Root
 └─ root[data-scope="separator"][data-part="root"][data-slot="separator-root"]
-\`\`\`
+```
 
 | Часть                              | Назначение                                                                 |
 | ---------------------------------- | -------------------------------------------------------------------------- |
-| \`Separator\` / \`Separator.Root\` | Корневой элемент-разделитель. Задаёт ориентацию, доступность и визуальный стиль. |
+| `Separator` / `Separator.Root` | Корневой элемент-разделитель. Задаёт ориентацию, доступность и визуальный стиль. |
 
 ## Композиция
 
-\`Separator\` состоит только из корневого элемента, поэтому не владеет состоянием и не требует
-провайдера. Для обычного разделителя используйте \`<Separator />\`: это тот же корневой компонент, что
-и \`<Separator.Root />\`. Если разделитель должен размещаться на другом элементе, используйте
-\`asChild\` с одним дочерним элементом, который принимает объединённые свойства \`role\`, ARIA,
-\`data-*\`, class и ref. В React дочерний элемент передаётся напрямую, а в Solid используется форма
-\`asChild={(props) => <hr {...props()} />}\`.
+`Separator` состоит только из корневого элемента, поэтому не владеет состоянием и не требует
+провайдера. Для обычного разделителя используйте `<Separator />`: это тот же корневой компонент, что
+и `<Separator.Root />`. Если разделитель должен размещаться на другом элементе, используйте
+`asChild` с одним дочерним элементом, который принимает объединённые свойства `role`, ARIA,
+`data-*`, class и ref. В React дочерний элемент передаётся напрямую, а в Solid используется форма
+`asChild={(props) => <hr {...props()} />}`.
 
 ## Примеры
 
 ### Декоративный
 
-Используйте \`role="presentation"\` для линии, которая нужна только для оформления и не сообщает
+Используйте `role="presentation"` для линии, которая нужна только для оформления и не сообщает
 вспомогательным технологиям о структуре.
 
 <ExampleFrame variant="component">
@@ -142,8 +142,8 @@ Separator / Separator.Root
   >
     <Tab value="react">
 
-\`\`\`tsx pure file="../../../src/components/examples/separator/decorative.tsx"
-\`\`\`
+```tsx pure file="../../../src/components/examples/separator/decorative.tsx"
+```
 
     </Tab>
     <Tab value="solid">
@@ -155,15 +155,15 @@ Separator / Separator.Root
 
 **Стили**
 
-\`\`\`css file="../../../src/components/examples/separator/separator-decorative.module.css"
-\`\`\`
+```css file="../../../src/components/examples/separator/separator-decorative.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Размеры
 
-Используйте \`size\`, чтобы выбрать толщину разделителя, а при необходимости переопределите её
+Используйте `size`, чтобы выбрать толщину разделителя, а при необходимости переопределите её
 CSS-свойствами.
 
 <ExampleFrame variant="component">
@@ -182,8 +182,8 @@ CSS-свойствами.
   >
     <Tab value="react">
 
-\`\`\`tsx pure file="../../../src/components/examples/separator/sizes.tsx"
-\`\`\`
+```tsx pure file="../../../src/components/examples/separator/sizes.tsx"
+```
 
     </Tab>
     <Tab value="solid">
@@ -195,15 +195,15 @@ CSS-свойствами.
 
 **Стили**
 
-\`\`\`css file="../../../src/components/examples/separator/separator-sizes.module.css"
-\`\`\`
+```css file="../../../src/components/examples/separator/separator-sizes.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Варианты
 
-Используйте \`variant\`, чтобы выбрать сплошную, пунктирную или точечную линию.
+Используйте `variant`, чтобы выбрать сплошную, пунктирную или точечную линию.
 
 <ExampleFrame variant="component">
   <SeparatorVariants />
@@ -221,8 +221,8 @@ CSS-свойствами.
   >
     <Tab value="react">
 
-\`\`\`tsx pure file="../../../src/components/examples/separator/variants.tsx"
-\`\`\`
+```tsx pure file="../../../src/components/examples/separator/variants.tsx"
+```
 
     </Tab>
     <Tab value="solid">
@@ -234,15 +234,15 @@ CSS-свойствами.
 
 **Стили**
 
-\`\`\`css file="../../../src/components/examples/separator/separator-variants.module.css"
-\`\`\`
+```css file="../../../src/components/examples/separator/separator-variants.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Вертикальный
 
-Используйте \`orientation="vertical"\` для групп элементов в строке, например навигационных ссылок.
+Используйте `orientation="vertical"` для групп элементов в строке, например навигационных ссылок.
 
 <ExampleFrame variant="component">
   <SeparatorVertical />
@@ -260,8 +260,8 @@ CSS-свойствами.
   >
     <Tab value="react">
 
-\`\`\`tsx pure file="../../../src/components/examples/separator/vertical.tsx"
-\`\`\`
+```tsx pure file="../../../src/components/examples/separator/vertical.tsx"
+```
 
     </Tab>
     <Tab value="solid">
@@ -273,16 +273,16 @@ CSS-свойствами.
 
 **Стили**
 
-\`\`\`css file="../../../src/components/examples/separator/separator-vertical.module.css"
-\`\`\`
+```css file="../../../src/components/examples/separator/separator-vertical.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Расширенная настройка
 
-Используйте \`asChild\`, если конкретный элемент должен получить роль разделителя, хуки стилизации и
-переданный \`ref\`. В остальных случаях используйте \`<Separator />\` напрямую.
+Используйте `asChild`, если конкретный элемент должен получить роль разделителя, хуки стилизации и
+переданный `ref`. В остальных случаях используйте `<Separator />` напрямую.
 
 <ExampleFrame variant="component">
   <SeparatorAsChild />
@@ -300,8 +300,8 @@ CSS-свойствами.
   >
     <Tab value="react">
 
-\`\`\`tsx pure file="../../../src/components/examples/separator/as-child.tsx"
-\`\`\`
+```tsx pure file="../../../src/components/examples/separator/as-child.tsx"
+```
 
     </Tab>
     <Tab value="solid">
@@ -313,17 +313,17 @@ CSS-свойствами.
 
 **Стили**
 
-\`\`\`css file="../../../src/components/examples/separator/separator-as-child.module.css"
-\`\`\`
+```css file="../../../src/components/examples/separator/separator-as-child.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Стилизация
 
-Используйте \`className\` в React или \`class\` в Solid для корневого элемента. В вариантах с
+Используйте `className` в React или `class` в Solid для корневого элемента. В вариантах с
 Tailwind применяйте нативные utility-классы и классы потребителя, а CSS-свойства ниже относятся к
-вариантам с CSS Modules. Атрибуты данных и хуки \`data-slot\` общие для обоих способов стилизации.
+вариантам с CSS Modules. Атрибуты данных и хуки `data-slot` общие для обоих способов стилизации.
 
 ### CSS-свойства
 
@@ -341,8 +341,8 @@ Tailwind применяйте нативные utility-классы и клас�
 
 ### Хуки стилизации
 
-- \`data-scope="separator"\` и \`data-part="root"\` определяют корневую часть в стиле Ark.
-- \`data-slot="separator-root"\` является стабильным селектором moduix.
-- \`data-orientation="horizontal"\` и \`data-orientation="vertical"\` позволяют настраивать стили для каждой оси.
-- \`data-size="xs|sm|md|lg"\` и \`data-variant="solid|dashed|dotted"\` раскрывают визуальные настройки.
-- \`className\` или \`class\`, а также \`style\` применяются непосредственно к корневому элементу.
+- `data-scope="separator"` и `data-part="root"` определяют корневую часть в стиле Ark.
+- `data-slot="separator-root"` является стабильным селектором moduix.
+- `data-orientation="horizontal"` и `data-orientation="vertical"` позволяют настраивать стили для каждой оси.
+- `data-size="xs|sm|md|lg"` и `data-variant="solid|dashed|dotted"` раскрывают визуальные настройки.
+- `className` или `class`, а также `style` применяются непосредственно к корневому элементу.

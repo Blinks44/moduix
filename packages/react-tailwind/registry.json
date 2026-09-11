@@ -1384,6 +1384,46 @@
       ]
     },
     {
+      "name": "simple-grid",
+      "type": "registry:item",
+      "title": "Simple Grid",
+      "description": "moduix React Tailwind Simple Grid component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/simple-grid/SimpleGrid.tsx",
+          "target": "@components/ui/simple-grid/SimpleGrid.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/simple-grid/index.ts",
+          "target": "@components/ui/simple-grid/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:item",
+      "title": "Skeleton",
+      "description": "moduix React Tailwind Skeleton component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/skeleton/Skeleton.tsx",
+          "target": "@components/ui/skeleton/Skeleton.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/skeleton/index.ts",
+          "target": "@components/ui/skeleton/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "segment-group",
       "type": "registry:item",
       "title": "SegmentGroup",
@@ -1399,6 +1439,31 @@
         {
           "path": "src/components/segment-group/index.ts",
           "target": "@components/ui/segment-group/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "signature-pad",
+      "type": "registry:item",
+      "title": "SignaturePad",
+      "description": "moduix React Tailwind SignaturePad component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-react-tailwind/foundation",
+        "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/icons",
+        "@moduix-react-tailwind/close-button"
+      ],
+      "files": [
+        {
+          "path": "src/components/signature-pad/SignaturePad.tsx",
+          "target": "@components/ui/signature-pad/SignaturePad.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/signature-pad/index.ts",
+          "target": "@components/ui/signature-pad/index.ts",
           "type": "registry:component"
         }
       ]
@@ -1439,6 +1504,32 @@
         {
           "path": "src/components/spinner/index.ts",
           "target": "@components/ui/spinner/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "split-button",
+      "type": "registry:item",
+      "title": "SplitButton",
+      "description": "moduix React Tailwind SplitButton component.",
+      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-react-tailwind/foundation",
+        "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/button",
+        "@moduix-react-tailwind/icons",
+        "@moduix-react-tailwind/menu"
+      ],
+      "files": [
+        {
+          "path": "src/components/split-button/SplitButton.tsx",
+          "target": "@components/ui/split-button/SplitButton.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/split-button/index.ts",
+          "target": "@components/ui/split-button/index.ts",
           "type": "registry:component"
         }
       ]

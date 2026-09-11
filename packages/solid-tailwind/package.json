@@ -396,6 +396,24 @@
       "import": "./dist/components/separator/index.js",
       "default": "./dist/components/separator/index.js"
     },
+    "./signature-pad": {
+      "types": "./dist/components/signature-pad/index.d.ts",
+      "solid": "./dist/components/signature-pad/index.jsx",
+      "import": "./dist/components/signature-pad/index.js",
+      "default": "./dist/components/signature-pad/index.js"
+    },
+    "./simple-grid": {
+      "types": "./dist/components/simple-grid/index.d.ts",
+      "solid": "./dist/components/simple-grid/index.jsx",
+      "import": "./dist/components/simple-grid/index.js",
+      "default": "./dist/components/simple-grid/index.js"
+    },
+    "./skeleton": {
+      "types": "./dist/components/skeleton/index.d.ts",
+      "solid": "./dist/components/skeleton/index.jsx",
+      "import": "./dist/components/skeleton/index.js",
+      "default": "./dist/components/skeleton/index.js"
+    },
     "./slider": {
       "types": "./dist/components/slider/index.d.ts",
       "solid": "./dist/components/slider/index.jsx",
@@ -407,6 +425,12 @@
       "solid": "./dist/components/spinner/index.jsx",
       "import": "./dist/components/spinner/index.js",
       "default": "./dist/components/spinner/index.js"
+    },
+    "./split-button": {
+      "types": "./dist/components/split-button/index.d.ts",
+      "solid": "./dist/components/split-button/index.jsx",
+      "import": "./dist/components/split-button/index.js",
+      "default": "./dist/components/split-button/index.js"
     },
     "./splitter": {
       "types": "./dist/components/splitter/index.d.ts",

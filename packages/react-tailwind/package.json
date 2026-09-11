@@ -278,6 +278,18 @@
       "types": "./dist/components/separator/index.d.ts",
       "import": "./dist/components/separator/index.js"
     },
+    "./signature-pad": {
+      "types": "./dist/components/signature-pad/index.d.ts",
+      "import": "./dist/components/signature-pad/index.js"
+    },
+    "./simple-grid": {
+      "types": "./dist/components/simple-grid/index.d.ts",
+      "import": "./dist/components/simple-grid/index.js"
+    },
+    "./skeleton": {
+      "types": "./dist/components/skeleton/index.d.ts",
+      "import": "./dist/components/skeleton/index.js"
+    },
     "./slider": {
       "types": "./dist/components/slider/index.d.ts",
       "import": "./dist/components/slider/index.js"
@@ -285,6 +297,10 @@
     "./spinner": {
       "types": "./dist/components/spinner/index.d.ts",
       "import": "./dist/components/spinner/index.js"
+    },
+    "./split-button": {
+      "types": "./dist/components/split-button/index.d.ts",
+      "import": "./dist/components/split-button/index.js"
     },
     "./splitter": {
       "types": "./dist/components/splitter/index.d.ts",
