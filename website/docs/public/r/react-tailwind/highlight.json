@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "highlight",
+  "title": "Highlight",
+  "description": "moduix React Tailwind Highlight component.",
+  "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+  "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+  "files": [
+    {
+      "path": "src/components/highlight/Highlight.tsx",
+      "content": "import { Highlight as HighlightPrimitive } from '@ark-ui/react/highlight';\nimport type { ComponentProps } from 'react';\nimport { cn } from '@/lib/moduix/cn';\n\nfunction HighlightRoot({ className, ...props }: ComponentProps<typeof HighlightPrimitive>) {\n  return (\n    <HighlightPrimitive\n      {...props}\n      data-scope=\"highlight\"\n      data-part=\"root\"\n      data-slot=\"highlight-root\"\n      className={cn(\n        'px-1 py-px rounded-xs bg-[color-mix(in_oklab,var(--color-warning)_40%,var(--color-accent))] font-medium text-foreground no-underline shadow-none [box-decoration-break:clone] [-webkit-box-decoration-break:clone]',\n        className,\n      )}\n    />\n  );\n}\n\nconst Highlight = Object.assign(HighlightRoot, {\n  Root: HighlightRoot,\n});\n\nexport { Highlight };\n",
+      "type": "registry:component",
+      "target": "@components/ui/highlight/Highlight.tsx"
+    },
+    {
+      "path": "src/components/highlight/index.ts",
+      "content": "export { Highlight } from './Highlight.js';\n",
+      "type": "registry:component",
+      "target": "@components/ui/highlight/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

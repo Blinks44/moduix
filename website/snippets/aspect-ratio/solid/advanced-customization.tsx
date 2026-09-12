@@ -12,15 +12,11 @@ export default function AspectRatioAsChildDemo() {
     <AspectRatio
       ratio={media.ratio}
       class={styles.root}
-      asChild={(props) => {
-        const childProps = props();
-
-        return (
-          <figure {...childProps} class={`${childProps.class ?? ''} ${styles.figure}`.trim()}>
-            <img src={media.src} alt={media.alt} class={styles.image} />
-          </figure>
-        );
-      }}
+      asChild={(props) => (
+        <figure {...props()} class={`${props().class ?? ''} ${styles.figure}`.trim()}>
+          <img src={media.src} alt={media.alt} class={styles.image} />
+        </figure>
+      )}
     />
   );
 }

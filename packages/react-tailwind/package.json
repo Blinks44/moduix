@@ -166,6 +166,10 @@
       "types": "./dist/components/heading/index.d.ts",
       "import": "./dist/components/heading/index.js"
     },
+    "./highlight": {
+      "types": "./dist/components/highlight/index.d.ts",
+      "import": "./dist/components/highlight/index.js"
+    },
     "./hover-card": {
       "types": "./dist/components/hover-card/index.d.ts",
       "import": "./dist/components/hover-card/index.js"
@@ -177,6 +181,10 @@
     "./image-cropper": {
       "types": "./dist/components/image-cropper/index.d.ts",
       "import": "./dist/components/image-cropper/index.js"
+    },
+    "./json-tree-view": {
+      "types": "./dist/components/json-tree-view/index.d.ts",
+      "import": "./dist/components/json-tree-view/index.js"
     },
     "./input": {
       "types": "./dist/components/input/index.d.ts",
@@ -317,6 +325,10 @@
     "./switch": {
       "types": "./dist/components/switch/index.d.ts",
       "import": "./dist/components/switch/index.js"
+    },
+    "./swap": {
+      "types": "./dist/components/swap/index.d.ts",
+      "import": "./dist/components/swap/index.js"
     },
     "./table": {
       "types": "./dist/components/table/index.d.ts",

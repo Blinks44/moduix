@@ -125,6 +125,14 @@
     var(--moduix-transition-default);
   --animate-moduix-accordion-closed-horizontal: moduix-accordion-item-content-closed-horizontal
     var(--moduix-transition-default);
+  --animate-moduix-swap-fade-enter: moduix-fade-in var(--moduix-transition-slow);
+  --animate-moduix-swap-fade-exit: moduix-fade-out var(--moduix-transition-slow);
+  --animate-moduix-swap-scale-enter: moduix-swap-scale-enter var(--moduix-transition-slow);
+  --animate-moduix-swap-scale-exit: moduix-swap-scale-exit var(--moduix-transition-slow);
+  --animate-moduix-swap-rotate-enter: moduix-swap-rotate-enter var(--moduix-transition-slow);
+  --animate-moduix-swap-rotate-exit: moduix-swap-rotate-exit var(--moduix-transition-slow);
+  --animate-moduix-swap-flip-enter: moduix-swap-flip-enter var(--moduix-transition-slow);
+  --animate-moduix-swap-flip-exit: moduix-swap-flip-exit var(--moduix-transition-slow);
   --animate-moduix-marquee-x: moduix-marquee-x var(--marquee-duration) linear var(--marquee-delay)
     var(--marquee-loop-count);
   --animate-moduix-marquee-y: moduix-marquee-y var(--marquee-duration) linear var(--marquee-delay)

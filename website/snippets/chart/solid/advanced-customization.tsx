@@ -38,12 +38,9 @@ export default function AdvancedCustomizationChartDemo() {
       asChild={(props) => <section {...props()} aria-labelledby="dashboard-revenue-title" />}
     >
       <Chart.Header
-        asChild={(props) => {
-          const childProps = props();
-          return (
-            <header {...childProps} class={`${childProps.class ?? ''} ${styles.header}`.trim()} />
-          );
-        }}
+        asChild={(props) => (
+          <header {...props()} class={`${props().class ?? ''} ${styles.header}`.trim()} />
+        )}
       >
         <div>
           <Chart.Title asChild={(props) => <h2 {...props()} id="dashboard-revenue-title" />} />
