@@ -30,8 +30,8 @@ const expandedToaster = createToaster({
   gap: 16,
 });
 const maxToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 16, max: 3 });
-const promiseToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 16 });
-const typeToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 16 });
+const promiseToaster = createToaster({ placement: 'bottom-end', overlap: false, gap: 16 });
+const typeToaster = createToaster({ placement: 'bottom-end', overlap: false, gap: 16 });
 const updateToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 24 });
 const varyingHeightToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 16 });
 const customToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 24 });
@@ -209,6 +209,7 @@ export const Types: Story = {
 };
 
 export const Update: Story = {
+  name: 'Update an existing toast',
   render: () => <UpdateStory />,
 };
 
@@ -328,11 +329,11 @@ function UpdateStory() {
             idRef.current = updateToaster.create({
               title: 'Sending message...',
               description: 'Please wait while we deliver your message.',
-              type: 'neutral',
+              type: 'loading',
             });
           }}
         >
-          Send message
+          Create pending toast
         </Button>
         <Button
           onClick={() => {
@@ -347,7 +348,7 @@ function UpdateStory() {
             });
           }}
         >
-          Mark as sent
+          Update same toast
         </Button>
       </div>
       <ToastRenderer toaster={updateToaster} />

@@ -15,19 +15,32 @@ import ToastPlacement from '@/components/examples/toast/placement.tsx';
 import ToastPromise from '@/components/examples/toast/promise-toast.tsx';
 import ToastTypes from '@/components/examples/toast/types.tsx';
 import ToastUpdate from '@/components/examples/toast/update.tsx';
+import toastSolidAction from '../../../snippets/toast/solid/action.tsx?raw';
+import toastSolidBasic from '../../../snippets/toast/solid/basic.tsx?raw';
+import toastSolidCustomComposition from '../../../snippets/toast/solid/custom-composition.tsx?raw';
+import toastSolidDuration from '../../../snippets/toast/solid/duration.tsx?raw';
+import toastSolidMaximumVisible from '../../../snippets/toast/solid/max-toasts.tsx?raw';
+import toastSolidNonOverlapping from '../../../snippets/toast/solid/always-expanded.tsx?raw';
+import toastSolidPlacement from '../../../snippets/toast/solid/placement.tsx?raw';
+import toastSolidPromise from '../../../snippets/toast/solid/promise-toast.tsx?raw';
+import toastSolidTypes from '../../../snippets/toast/solid/types.tsx?raw';
+import toastSolidUpdate from '../../../snippets/toast/solid/update.tsx?raw';
 
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/toast" />
 
-Библиотека moduix экспортирует `Toast`, `Toaster`, `createToaster` и `useToastContext` из
-`@moduix/react/toast`. На этой странице описаны настройки moduix и основные способы композиции.
-Полный API toaster и его составных частей приведён в справочнике Ark.
+Moduix экспортирует `Toast`, `Toaster`, `createToaster` и `useToastContext` из
+`@moduix/react/toast` и `@moduix/solid/toast`. Полный API хранилища и его частей приведён в
+справочнике Ark.
 
 ## Базовый пример
 
-Один раз создайте экземпляр toaster через `createToaster()`, добавляйте уведомления его методами и
-передайте его в `Toaster`.
+Toast доступен для React и Solid в пакетах с CSS Modules и Tailwind. Превью ниже использует React и
+CSS Modules, а во вкладках показан нативный исходный код для того же публичного контракта.
+
+Один раз создайте toaster через `createToaster()`, добавляйте уведомления его методами и выведите
+их с помощью `Toaster`.
 
 <ExampleFrame variant="component">
   <ToastBasic />
@@ -35,27 +48,59 @@ import ToastUpdate from '@/components/examples/toast/update.tsx';
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toast/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/toast/toast-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={toastSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/toast/toast-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="toast" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/toast' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/toast' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/toast' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/toast' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -69,91 +114,28 @@ createToaster()
       └─ Toast.CloseTrigger
 ```
 
-| Часть                         | Назначение                                                                                  |
-| ----------------------------- | -------------------------------------------------------------------------------------------- |
-| `Toast` / `Toast.Root`        | Корень видимого уведомления. `Toast.Root` - алиас `Toast` для совместимости.                 |
-| `Toaster` / `Toast.Toaster`   | Подключает экземпляр toaster и управляет группой уведомлений.                              |
-| `Toast.Title`                 | Заголовок. Если дочерние элементы не переданы, использует `title` текущего уведомления.      |
-| `Toast.Description`           | Описание. Если дочерние элементы не переданы, использует `description` текущего уведомления. |
-| `Toast.ActionTrigger`         | Кнопка действия, связанная с `toast.action.onClick`. Передайте `toast.action.label` как содержимое. |
-| `Toast.CloseTrigger`          | Кнопка закрытия. По умолчанию использует `CloseButton.Root`.                                |
-| `Toast.Context`               | Контекстная часть для собственной композиции. Для доступа к состоянию используйте `useToastContext()`. |
+| Часть                          | Назначение                                                                            |
+| ------------------------------ | ------------------------------------------------------------------------------------- |
+| `Toast` / `Toast.Root`         | Корень видимого уведомления. `Toast.Root` является алиасом `Toast` для совместимости. |
+| `Toaster` / `Toast.Toaster`    | Выводит хранилище toaster и управляет группой уведомлений.                            |
+| `Toast.Title`                  | Заголовок. Если дочерние элементы не переданы, использует `title` текущего уведомления. |
+| `Toast.Description`            | Описание. Если дочерние элементы не переданы, использует `description` текущего уведомления. |
+| `Toast.ActionTrigger`          | Кнопка действия, связанная с `toast.action.onClick`.                                 |
+| `Toast.CloseTrigger`           | Кнопка закрытия. По умолчанию использует `CloseButton.Root`.                         |
+| `Toast.Context`                | Контекстная часть для собственной композиции и прямого доступа к состоянию уведомления. |
 
 ## Композиция
 
-По умолчанию `Toaster` выводит группу уведомлений через портал в `document.body`. Установите
-`portalled={false}`, чтобы оставить группу в месте, где смонтирован `Toaster`, или передайте
-`portalRef`, чтобы использовать другой контейнер. Отдельная обёртка `Portal` не нужна.
+По возможности создайте toaster вне тела компонента и передайте тот же экземпляр в `Toaster`.
+Toaster управляет размещением, стеком, очередью, таймерами и фокусом. По умолчанию `Toaster`
+выводит группу через портал в `document.body`; используйте `portalled={false}` или `portalRef`,
+если группа должна находиться в другом контейнере. Отдельная обёртка `Portal` не нужна.
 
-### Рекомендуемая композиция
-
-Создайте toaster один раз, по возможности вне тела компонента, и передайте тот же объект в
-`Toaster`. Он управляет размещением, перекрытием, расстоянием, размером очереди, длительностью,
-задержкой удаления, паузой при бездействии и горячей клавишей фокуса `Alt+T`.
-
-В собственной разметке, которую возвращает render prop, используйте `Toast` как корневой элемент.
-`Toast.Root` остаётся доступен как алиас для совместимости.
-
-Если render prop не передан, `Toaster` использует стандартную разметку moduix. Она показывает
-заголовок и описание, если они есть, добавляет действие, когда оно задано, и кнопку закрытия, если
-не установлено `closable: false`. Для обычных уведомлений приложения это рекомендуемый вариант.
-
-### Когда нужна собственная композиция
-
-Передайте render prop в `Toaster`, если уведомлению нужны другая разметка, иконка или собственные
-элементы управления. Например, так можно заменить стандартную иконку закрытия. Оставьте `Toast`
-внешним элементом, чтобы Ark мог управлять стеком, измерением высоты, закрытием, паузой,
-клавиатурным фокусом и атрибутами типа и состояния.
-
-Части Ark, которые выводят элементы интерфейса, поддерживают `asChild`. Если вы заменяете
-`ActionTrigger` или `CloseTrigger`, используйте один семантически подходящий дочерний элемент и
-сохраните поведение кнопки.
-
-Если дочернему элементу нужен прямой доступ к состоянию уведомления, импортируйте
-`useToastContext()` из `@moduix/react/toast`.
-
-### Свойства по умолчанию
-
-| Свойство                       | По умолчанию         | Примечания                                                                                 |
-| ------------------------------ | -------------------- | ------------------------------------------------------------------------------------------ |
-| `createToaster.duration`       | Зависит от типа      | Длительность новых уведомлений по умолчанию. Для одного уведомления задайте `duration`.    |
-| `createToaster.gap`            | `16`                 | Расстояние между уведомлениями.                                                            |
-| `createToaster.max`            | `24`                 | Новые уведомления встают в очередь, когда видимый стек достигает этого лимита.             |
-| `createToaster.hotkey`         | `["altKey", "KeyT"]` | Перемещает фокус на группу уведомлений.                                                   |
-| `createToaster.offsets`        | `"1rem"`             | Отступ от безопасного края окна.                                                          |
-| `createToaster.overlap`        | `false`              | Установите `true`, чтобы уведомления перекрывались в стеке.                               |
-| `createToaster.pauseOnPageIdle`| `false`              | Установите `true`, чтобы при бездействии страницы приостанавливать таймеры.                |
-| `createToaster.placement`      | `"bottom"`           | `top-start`, `top`, `top-end`, `bottom-start`, `bottom` или `bottom-end`.                  |
-| `createToaster.removeDelay`    | `200`                | Оставляет закрытые уведомления смонтированными на время анимации выхода.                  |
-| `Toaster.portalled`            | `true`               | Установите `false`, чтобы выводить группу в месте монтирования `Toaster`.                  |
-
-### Особенности поведения
-
-- Вызывайте `toaster.create()` или вспомогательные методы `success()`, `error()`, `warning()`,
-  `info()`, `loading()`, `promise()`, `update()`, `dismiss()`, `remove()` и `dismissByPlacement()`
-  у экземпляра toaster.
-- Если `type` не задан, используется значение Ark по умолчанию `type: "info"`. В moduix типы
-  `info`, `success`, `warning` и `error` оформлены как карточные варианты, согласованные с `Alert`.
-- `toast.action` имеет форму `{ label, onClick }` и выводится через `Toast.ActionTrigger`.
-- `toast.duration` задаёт длительность одного уведомления. `createToaster({ duration })` задаёт
-  значение по умолчанию для toaster.
-- `toast.onStatusChange(details)` получает изменения статуса Ark: `visible`, `dismissing` и
-  `unmounted`.
-- При создании уведомления внутри эффекта отложите вызов метода toaster через
-  `queueMicrotask(() => toaster.create(...))`, чтобы избежать предупреждений React `flushSync`.
-- `Toast` предоставляет атрибуты состояния Ark, включая `data-state`, `data-type`,
-  `data-placement`, `data-align`, `data-side`, `data-mounted`, `data-paused`, `data-first`,
-  `data-sibling`, `data-stack` и `data-overlap`.
-
-### Доступность
-
-Ark сохраняет поведение live region, группировку уведомлений, паузу, горячую клавишу фокуса,
-жизненный цикл закрытия и колбэки статуса. Если группе уведомлений нужно собственное доступное
-имя, передайте его через свойство `label` компонента `Toaster`.
-
-`Toast.CloseTrigger` по умолчанию является кнопкой с доступным именем `Close toast`. При
-использовании `asChild` дочерний элемент должен сохранять доступное имя и семантику кнопки.
-`Toast.ActionTrigger` также остаётся кнопкой, связанной с `toast.action.onClick`.
+Для обычного уведомления используйте стандартный рендерер `Toaster`: он выводит заголовок, описание,
+действие и кнопку закрытия. Для другой разметки или собственных элементов управления передайте
+render prop, оставьте `Toast` или `Toast.Root` внешним элементом и соберите внутри его части.
+Используйте `asChild` только с семантическим дочерним элементом-кнопкой, а `useToastContext()`
+подключайте, когда собственному элементу нужен прямой доступ к текущему уведомлению.
 
 ## Примеры
 
@@ -167,20 +149,24 @@ Ark сохраняет поведение live region, группировку у
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toast/action.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/toast/toast-action.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={toastSolidAction} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/toast/toast-action.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -196,25 +182,29 @@ Ark сохраняет поведение live region, группировку у
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toast/duration.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/toast/toast-duration.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={toastSolidDuration} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/toast/toast-duration.module.css"
+```
 </div>
 
 </ExampleCode>
 
-### Максимум видимых уведомлений
+### Максимум видимых
 
 Установите `max` на toaster, если всплески уведомлений должны вставать в очередь, а не заполнять
 экран.
@@ -225,28 +215,32 @@ Ark сохраняет поведение live region, группировку у
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toast/max-toasts.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/toast/toast-max-toasts.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={toastSolidMaximumVisible} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/toast/toast-max-toasts.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Стек без перекрытия
 
-Задайте `overlap: false`, если каждое уведомление должно оставаться полностью видимым, а не
-сворачиваться в перекрывающийся стек. Это настройка toaster, а не отдельный режим компонента.
+Задайте `overlap: false`, если каждое уведомление должно оставаться полностью видимым. Это настройка
+toaster, а не отдельный режим компонента.
 
 <ExampleFrame variant="component">
   <ToastNonOverlapping />
@@ -254,20 +248,24 @@ Ark сохраняет поведение live region, группировку у
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toast/always-expanded.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/toast/toast-always-expanded.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={toastSolidNonOverlapping} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/toast/toast-always-expanded.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -283,20 +281,24 @@ Ark сохраняет поведение live region, группировку у
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toast/placement.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/toast/toast-placement.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={toastSolidPlacement} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/toast/toast-placement.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -312,20 +314,24 @@ Ark сохраняет поведение live region, группировку у
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toast/promise-toast.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/toast/toast-promise-toast.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={toastSolidPromise} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/toast/toast-promise-toast.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -341,28 +347,32 @@ Ark сохраняет поведение live region, группировку у
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toast/types.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/toast/toast-types.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={toastSolidTypes} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/toast/toast-types.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Обновление
 
-Сохраните ID, который возвращает создание уведомления, и передайте его в `toaster.update()`, если
-существующее уведомление нужно изменить на месте.
+Сохраните идентификатор, который возвращает создание уведомления, и передайте его в
+`toaster.update()`, если существующее уведомление нужно изменить на месте.
 
 <ExampleFrame variant="component">
   <ToastUpdate />
@@ -370,20 +380,24 @@ Ark сохраняет поведение live region, группировку у
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toast/update.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/toast/toast-update.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={toastSolidUpdate} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/toast/toast-update.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -399,20 +413,24 @@ Ark сохраняет поведение live region, группировку у
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toast/custom-composition.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/toast/toast-custom-composition.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={toastSolidCustomComposition} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/toast/toast-custom-composition.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -420,13 +438,14 @@ Ark сохраняет поведение live region, группировку у
 ## Стилизация
 
 Стилизуйте `Toast` с помощью атрибутов частей Ark, хуков `data-slot` и публичных переменных
-`--moduix-toast-*` из CSS API.
+`--moduix-toast-*`. Варианты Tailwind используют нативные утилиты и классы приложения, а переменные
+CSS ниже относятся к вариантам с CSS Modules.
 
 ### CSS-переменные
 
 <div className="docs-reference">
   <Tabs
-    values={[{ label: 'Переменные CSS', value: 'CSS Variables' }]}
+    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
     className="docs-reference-tabs"
     contentItemClassName="docs-reference-panel"
   >
@@ -438,7 +457,7 @@ Ark сохраняет поведение live region, группировку у
 
 ### Хуки стилизации
 
-На `Toast` задавайте стили поверхности уведомления, границы, анимации и вариантов по типу. Для
+На корневом элементе задавайте стили поверхности, границы, анимации и вариантов по типу. Для
 внутренней типографики и элементов управления используйте `Toast.Title`, `Toast.Description`,
 `Toast.ActionTrigger` и `Toast.CloseTrigger`.
 

@@ -11,6 +11,12 @@ import TextareaControlled from '@/components/examples/textarea/controlled.tsx';
 import TextareaDisabledAndReadonly from '@/components/examples/textarea/disabled-and-readonly.tsx';
 import TextareaFieldValidation from '@/components/examples/textarea/field-validation.tsx';
 import TextareaNativeAttributes from '@/components/examples/textarea/native-attributes.tsx';
+import textareaSolidAutoResize from '../../../snippets/textarea/solid/auto-resize.tsx?raw';
+import textareaSolidBasic from '../../../snippets/textarea/solid/basic.tsx?raw';
+import textareaSolidControlled from '../../../snippets/textarea/solid/controlled.tsx?raw';
+import textareaSolidDisabledAndReadonly from '../../../snippets/textarea/solid/disabled-and-readonly.tsx?raw';
+import textareaSolidFieldValidation from '../../../snippets/textarea/solid/field-validation.tsx?raw';
+import textareaSolidNativeAttributes from '../../../snippets/textarea/solid/native-attributes.tsx?raw';
 
 ## API Reference
 
@@ -34,33 +40,68 @@ Use `Textarea` for plain text that can span multiple lines and should behave lik
 Place `Textarea` inside `Field` when the control needs an accessible label or supporting text. This
 is the recommended setup for comments, notes, issue descriptions, and similar content.
 
+Textarea ships for React and Solid in both the CSS Modules and Tailwind packages. The preview uses the
+React CSS Modules package; the framework tabs show native source for the same public contract.
+
 <ExampleFrame variant="component">
   <TextareaBasic />
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/textarea/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/textarea/textarea-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={textareaSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/textarea/textarea-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="textarea" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/textarea' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/textarea' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/textarea' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/textarea' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
@@ -80,41 +121,16 @@ hidden inputs, or a label or character-counter API.
 
 ## Composition
 
-### Recommended composition
+Use `defaultValue` for an uncontrolled textarea. Use `value` with native `onChange` when the
+application owns the content, using the matching framework's state primitive.
 
-Keep `Textarea` as the control for ordinary multiline text entry.
+Wrap `Textarea` with `Field`, `Field.Label`, `Field.HelperText`, and `Field.ErrorText` when the
+control needs a label, supporting text, or validation. Outside `Field`, provide an accessible name
+with a native `<label>` or `aria-label`.
 
-Use it directly with native props such as `rows`, `name`, `placeholder`, `maxLength`, `readOnly`,
-`disabled`, `required`, `value`, `defaultValue`, and `form`.
-
-Wrap it with `Field`, `Field.Label`, `Field.HelperText`, and `Field.ErrorText` when it needs a
-declarative label, helper text, or validation message. When you use `Textarea` outside `Field`, give
-it an accessible name with a native `<label>` or `aria-label`.
-
-### When to go custom
-
-Use `Field.Textarea` only when you need the lower-level `Field` namespace. For ordinary forms,
-prefer `Textarea` so multiline controls share the same moduix styling contract.
-
-Use `Editable` for interfaces where text is displayed first and then edited.
-
-### Default props
-
-| Prop         | Default | Notes                                            |
-| ------------ | ------- | ------------------------------------------------ |
-| `autoresize` | `false` | Ark auto-resize behavior is opt-in per textarea. |
-
-### Behavioral notes
-
-- Use `value` and native `onChange` to control the value from React state.
-- Set `name` to include the textarea in native form submission, then read its value from `FormData`.
-- A native form reset restores an uncontrolled textarea to `defaultValue`. Use `form` to associate
-  it with a form outside the textarea's DOM subtree.
-- The forwarded ref points to the real `HTMLTextAreaElement`. With `asChild`, provide one semantic
-  textarea host that can receive the merged props and ref.
-- Set `autoresize` when the textarea should grow with its content. Ark disables manual resizing
-  while it is enabled, so `--moduix-textarea-resize` applies only when `autoresize` is false.
-- Use `Editable` for inline flows with preview text, edit triggers, and commit or cancel controls.
+Set `autoresize` only when the control should grow with its content. Ark disables manual resizing in
+that mode, so `--moduix-textarea-resize` applies only when `autoresize` is false. With `asChild`,
+provide one semantic textarea host that can receive the merged props and ref.
 
 ## Examples
 
@@ -129,27 +145,38 @@ this option is enabled.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/textarea/auto-resize.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/textarea/textarea-auto-resize.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={textareaSolidAutoResize} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/textarea/textarea-auto-resize.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Controlled value
 
-Use `value` and native `onChange` when React state should control the content.
+Use `value` and native `onChange` when application state should control the content.
 
 <ExampleFrame variant="component">
   <TextareaControlled />
@@ -157,20 +184,31 @@ Use `value` and native `onChange` when React state should control the content.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/textarea/controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/textarea/textarea-controlled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={textareaSolidControlled} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/textarea/textarea-controlled.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -186,20 +224,31 @@ and select the value but must not edit it.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/textarea/disabled-and-readonly.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/textarea/textarea-disabled-and-readonly.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={textareaSolidDisabledAndReadonly} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/textarea/textarea-disabled-and-readonly.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -215,20 +264,31 @@ its error text.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/textarea/field-validation.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/textarea/textarea-field-validation.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={textareaSolidFieldValidation} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/textarea/textarea-field-validation.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -244,28 +304,40 @@ example also submits the form and reads the current value from `FormData`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/textarea/native-attributes.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/textarea/textarea-native-attributes.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={textareaSolidNativeAttributes} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/textarea/textarea-native-attributes.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Styling
 
-Style the control with `className`, `data-slot="textarea-root"`, and the public
-`--moduix-textarea-*` variables documented by the CSS API.
+Style the control with `className` in React or `class` in Solid, together with
+`data-slot="textarea-root"`. Tailwind variants use native utility and consumer classes. The public
+`--moduix-textarea-*` variables below apply to the CSS Modules variants.
 
 ### CSS Properties
 

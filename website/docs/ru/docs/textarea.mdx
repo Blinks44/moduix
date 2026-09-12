@@ -11,6 +11,12 @@ import TextareaControlled from '@/components/examples/textarea/controlled.tsx';
 import TextareaDisabledAndReadonly from '@/components/examples/textarea/disabled-and-readonly.tsx';
 import TextareaFieldValidation from '@/components/examples/textarea/field-validation.tsx';
 import TextareaNativeAttributes from '@/components/examples/textarea/native-attributes.tsx';
+import textareaSolidAutoResize from '../../../snippets/textarea/solid/auto-resize.tsx?raw';
+import textareaSolidBasic from '../../../snippets/textarea/solid/basic.tsx?raw';
+import textareaSolidControlled from '../../../snippets/textarea/solid/controlled.tsx?raw';
+import textareaSolidDisabledAndReadonly from '../../../snippets/textarea/solid/disabled-and-readonly.tsx?raw';
+import textareaSolidFieldValidation from '../../../snippets/textarea/solid/field-validation.tsx?raw';
+import textareaSolidNativeAttributes from '../../../snippets/textarea/solid/native-attributes.tsx?raw';
 
 ## Справочник API
 
@@ -35,33 +41,68 @@ import TextareaNativeAttributes from '@/components/examples/textarea/native-attr
 Поместите `Textarea` внутрь `Field`, если полю нужны доступная метка или поясняющий текст. Это
 рекомендуемый вариант для комментариев, заметок, описаний задач и похожих полей.
 
+Textarea доступен для React и Solid в вариантах с CSS Modules и Tailwind. Предпросмотр использует
+пакет React CSS Modules, а вкладки фреймворков показывают нативный код с тем же публичным контрактом.
+
 <ExampleFrame variant="component">
   <TextareaBasic />
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/textarea/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/textarea/textarea-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={textareaSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/textarea/textarea-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="textarea" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/textarea' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/textarea' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/textarea' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/textarea' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -81,43 +122,18 @@ Field (optional wrapper)
 
 ## Композиция
 
-### Рекомендуемая композиция
+Для неуправляемого поля используйте `defaultValue`. Если состояние хранится в приложении,
+используйте `value` и нативный `onChange`, передавая значение через примитив состояния выбранного
+фреймворка.
 
-Для обычного многострочного ввода используйте `Textarea` как основной элемент.
+Оборачивайте `Textarea` в `Field`, `Field.Label`, `Field.HelperText` и `Field.ErrorText`, когда
+нужны метка, пояснение или валидация. Если `Textarea` находится вне `Field`, задайте ему доступное
+имя через нативный `<label>` или `aria-label`.
 
-Передавайте ему нативные свойства, например `rows`, `name`, `placeholder`, `maxLength`, `readOnly`,
-`disabled`, `required`, `value`, `defaultValue` и `form`.
-
-Добавьте `Field`, `Field.Label`, `Field.HelperText` и `Field.ErrorText`, если вы хотите декларативно
-связать с полем метку, пояснение или сообщение об ошибке. Если `Textarea` используется без `Field`, задайте ему
-доступное имя через нативный `<label>` или `aria-label`.
-
-### Когда нужна собственная композиция
-
-Используйте `Field.Textarea` только если нужна низкоуровневая композиция через пространство имён
-`Field`. В обычных формах лучше выбирать `Textarea`, чтобы все многострочные поля следовали единому
-контракту стилей moduix.
-
-Если текст сначала отображается, а затем редактируется, используйте `Editable`.
-
-### Свойства по умолчанию
-
-| Свойство     | По умолчанию | Примечание                                           |
-| ------------ | ------- | ------------------------------------------------ |
-|`autoresize`|`false`|Автоматическое изменение высоты Ark включается явно.|
-
-### Особенности поведения
-
-- Чтобы управлять значением из состояния React, передавайте `value` и нативный `onChange`.
-- Задайте `name`, чтобы включить textarea в нативную отправку формы, и читайте его значение через `FormData`.
-- При нативном сбросе формы неуправляемое поле возвращается к `defaultValue`. Атрибут `form` позволяет
-  связать textarea с формой, расположенной вне его DOM-ветки.
-- Переданный ref указывает на настоящий `HTMLTextAreaElement`. При использовании `asChild` передавайте
-  один семантический элемент textarea, который принимает объединённые свойства и ref.
-- Включайте `autoresize`, если поле должно расти вместе с содержимым. Пока этот режим включён, Ark
-  отключает ручное изменение размера, поэтому `--moduix-textarea-resize` действует только при
-  `autoresize={false}`.
-- Для сценария, где текст просматривают, а затем редактируют, используйте `Editable`.
+Включайте `autoresize`, только если поле должно расти вместе с содержимым. В этом режиме Ark
+отключает ручное изменение размера, поэтому `--moduix-textarea-resize` действует только при
+`autoresize={false}`. При использовании `asChild` передавайте один семантический элемент textarea,
+который принимает объединённые свойства и ref.
 
 ## Примеры
 
@@ -132,27 +148,38 @@ Ark отключает ручное изменение размера.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/textarea/auto-resize.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/textarea/textarea-auto-resize.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={textareaSolidAutoResize} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/textarea/textarea-auto-resize.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Управляемое значение
 
-Передавайте `value` и нативный `onChange`, если содержимым должно управлять состояние React.
+Передавайте `value` и нативный `onChange`, если содержимым должно управлять состояние приложения.
 
 <ExampleFrame variant="component">
   <TextareaControlled />
@@ -160,20 +187,31 @@ Ark отключает ручное изменение размера.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/textarea/controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/textarea/textarea-controlled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={textareaSolidControlled} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/textarea/textarea-controlled.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -189,20 +227,31 @@ Ark отключает ручное изменение размера.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/textarea/disabled-and-readonly.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/textarea/textarea-disabled-and-readonly.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={textareaSolidDisabledAndReadonly} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/textarea/textarea-disabled-and-readonly.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -218,20 +267,31 @@ Ark отключает ручное изменение размера.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/textarea/field-validation.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/textarea/textarea-field-validation.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={textareaSolidFieldValidation} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/textarea/textarea-field-validation.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -247,28 +307,40 @@ Ark отключает ручное изменение размера.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/textarea/native-attributes.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/textarea/textarea-native-attributes.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={textareaSolidNativeAttributes} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/textarea/textarea-native-attributes.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Стилизация
 
-Настраивайте поле через `className`, `data-slot="textarea-root"` и публичные переменные
-`--moduix-textarea-*`, перечисленные в CSS API.
+В React настраивайте поле через `className`, а в Solid через `class`, вместе с
+`data-slot="textarea-root"`. Варианты Tailwind используют нативные utility-классы и классы
+потребителя. Публичные переменные `--moduix-textarea-*` ниже относятся к вариантам с CSS Modules.
 
 ### CSS-свойства
 
@@ -282,7 +354,7 @@ Ark отключает ручное изменение размера.
 
 ### Хуки стилизации
 
-Оформляйте внешний вид через `Textarea`, а расположение поля и дополнительного текста - через окружающий `Field`.
+Оформляйте внешний вид через `Textarea`, а расположение поля и дополнительного текста через окружающий `Field`.
 
 - `Textarea` отвечает за границу, фон, placeholder, изменение размера и индикатор фокуса.
 - `Field` задаёт ширину, интервалы и расположение метки, описания и сообщения об ошибке.

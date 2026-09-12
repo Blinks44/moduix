@@ -7,22 +7,22 @@ import { useState } from 'react';
 
 function BrowserDetails() {
   const [refreshedAt, setRefreshedAt] = useState(() => new Date());
-  const locale = navigator.language;
-  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const locale = 'en-GB';
+  const timeZone = 'Europe/London';
 
   return (
     <Card>
       <Card.Header>
         <Card.Title>Browser details</Card.Title>
         <Card.Description>
-          These values are read only after the component reaches the browser.
+          The current time is read and formatted after the component reaches the browser.
         </Card.Description>
       </Card.Header>
       <Card.Body>
         <Stack gap={4}>
           <span>Language: {locale}</span>
           <span>Time zone: {timeZone}</span>
-          <span>Read at: {refreshedAt.toLocaleTimeString(locale)}</span>
+          <span>Read at: {refreshedAt.toLocaleTimeString(locale, { timeZone })}</span>
         </Stack>
       </Card.Body>
       <Card.Footer>
