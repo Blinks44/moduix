@@ -462,6 +462,30 @@
       "import": "./dist/components/table/index.js",
       "default": "./dist/components/table/index.js"
     },
+    "./tabs": {
+      "types": "./dist/components/tabs/index.d.ts",
+      "solid": "./dist/components/tabs/index.jsx",
+      "import": "./dist/components/tabs/index.js",
+      "default": "./dist/components/tabs/index.js"
+    },
+    "./tag": {
+      "types": "./dist/components/tag/index.d.ts",
+      "solid": "./dist/components/tag/index.jsx",
+      "import": "./dist/components/tag/index.js",
+      "default": "./dist/components/tag/index.js"
+    },
+    "./tags-input": {
+      "types": "./dist/components/tags-input/index.d.ts",
+      "solid": "./dist/components/tags-input/index.jsx",
+      "import": "./dist/components/tags-input/index.js",
+      "default": "./dist/components/tags-input/index.js"
+    },
+    "./text": {
+      "types": "./dist/components/text/index.d.ts",
+      "solid": "./dist/components/text/index.jsx",
+      "import": "./dist/components/text/index.js",
+      "default": "./dist/components/text/index.js"
+    },
     "./toc": {
       "types": "./dist/components/toc/index.d.ts",
       "solid": "./dist/components/toc/index.jsx",

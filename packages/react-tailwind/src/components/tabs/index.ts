@@ -1,0 +1,1 @@
+export { Tabs, useTabs, useTabsContext } from './Tabs.js';

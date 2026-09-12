@@ -1639,6 +1639,70 @@
       ]
     },
     {
+      "name": "tabs",
+      "type": "registry:item",
+      "title": "Tabs",
+      "description": "moduix React Tailwind Tabs component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/tabs/Tabs.tsx",
+          "target": "@components/ui/tabs/Tabs.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tabs/index.ts",
+          "target": "@components/ui/tabs/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "tag",
+      "type": "registry:item",
+      "title": "Tag",
+      "description": "moduix React Tailwind Tag component.",
+      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-react-tailwind/foundation",
+        "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/close-button"
+      ],
+      "files": [
+        {
+          "path": "src/components/tag/Tag.tsx",
+          "target": "@components/ui/tag/Tag.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tag/index.ts",
+          "target": "@components/ui/tag/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "text",
+      "type": "registry:item",
+      "title": "Text",
+      "description": "moduix React Tailwind Text component.",
+      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/text/Text.tsx",
+          "target": "@components/ui/text/Text.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/text/index.ts",
+          "target": "@components/ui/text/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "toc",
       "type": "registry:item",
       "title": "Table of Contents",
@@ -1654,6 +1718,31 @@
         {
           "path": "src/components/toc/index.ts",
           "target": "@components/ui/toc/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "tags-input",
+      "type": "registry:item",
+      "title": "TagsInput",
+      "description": "moduix React Tailwind TagsInput component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-react-tailwind/foundation",
+        "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/icons",
+        "@moduix-react-tailwind/close-button"
+      ],
+      "files": [
+        {
+          "path": "src/components/tags-input/TagsInput.tsx",
+          "target": "@components/ui/tags-input/TagsInput.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tags-input/index.ts",
+          "target": "@components/ui/tags-input/index.ts",
           "type": "registry:component"
         }
       ]

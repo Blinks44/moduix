@@ -131,8 +131,8 @@
       --moduix-tag-close-trigger-bg-hover,
       color-mix(in oklab, currentColor 12%, transparent)
     );
-    --moduix-close-button-color: inherit;
-    --moduix-close-button-color-hover: inherit;
+    --moduix-close-button-color: currentColor;
+    --moduix-close-button-color-hover: currentColor;
     --moduix-close-button-disabled-opacity: var(
       --moduix-tag-disabled-opacity,
       var(--moduix-opacity-disabled)
