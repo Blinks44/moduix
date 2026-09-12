@@ -36,6 +36,7 @@ export default function ListCollectionDemo() {
           </Select.ItemGroup>
         </Select.Content>
       </Select.Positioner>
+      <Select.HiddenSelect />
     </Select>
   );
 }

@@ -1,28 +1,58 @@
 ---
 title: List Selection
-description: Gérez la sélection simple, multiple, désélectionnable, par plage et avec touches modificatrices dans des listes personnalisées.
+description: Gérez la sélection simple, multiple, désélectionnable et par plage dans des listes personnalisées.
 ---
 
 import ListSelectionBasic from '@/components/examples/list-selection/basic.tsx';
+import ListSelectionMultiple from '@/components/examples/list-selection/multiple.tsx';
+import listSelectionSolidBasic from '../../../snippets/list-selection/solid/basic.tsx?raw';
+import listSelectionSolidMultiple from '../../../snippets/list-selection/solid/multiple.tsx?raw';
 
 # List Selection
+
+`useListSelection` gère les valeurs sélectionnées dans une `ListCollection`, tandis que votre
+application garde la responsabilité du balisage et des interactions.
 
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/collections/list-selection" />
 
-Le hook `useListSelection` suit les valeurs sélectionnées dans une `ListCollection`. Utilisez-le
-pour créer une liste personnalisée qui a besoin d’un état de sélection sans adopter un composant de
-collection prêt à l’emploi. `Select`, `Combobox` et `Listbox` gèrent déjà la sélection. Vous n’avez
-donc généralement pas besoin de ce hook avec ces composants.
+Ce hook est fourni par Ark UI et n’est pas réexporté par Moduix. Importez-le depuis le point d’entrée
+des collections correspondant au framework de votre application :
 
-Importez les utilitaires de collection depuis Ark UI :
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
 
 ```tsx
 import { createListCollection, useListSelection } from '@ark-ui/react/collection';
 ```
 
-## Sélection unique
+  </Tab>
+  <Tab value="solid">
+
+```tsx
+import { createListCollection, useListSelection } from '@ark-ui/solid/collection';
+```
+
+  </Tab>
+</Tabs>
+
+`list-selection` n’est exporté ni par `@moduix/react`, `@moduix/solid`, `@moduix/react-tailwind` et
+`@moduix/solid-tailwind`, ni par leurs registres. Cette page documente le hook Ark UI, utilisable avec
+n’importe lequel de ces packages.
+
+## Sélection simple
+
+Le hook conserve l’état de sélection. L’exemple fournit une section nommée, des boutons natifs avec
+`aria-pressed` et un message d’état en direct. L’aperçu utilise la source React ; l’onglet Solid
+contient l’implémentation native équivalente.
 
 <ExampleFrame variant="component">
   <ListSelectionBasic />
@@ -30,181 +60,125 @@ import { createListCollection, useListSelection } from '@ark-ui/react/collection
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/list-selection/basic.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listSelectionSolidBasic} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
-Cet exemple utilise des boutons pour une courte liste d’options indépendantes. Le hook suit les
-valeurs sélectionnées, tandis que votre interface gère l’affichage, les rôles sémantiques, le focus,
-les interactions au clavier et les libellés accessibles.
-
-Les boutons conviennent ici, car chaque option est une action indépendante et `aria-pressed` expose
-son état de sélection. N’ajoutez pas `role="listbox"` à une structure personnalisée sans implémenter
-aussi le modèle complet de navigation au clavier et de gestion du focus d’une listbox. Pour un
-sélecteur d’options classique, utilisez [Listbox](/docs/listbox), qui fournit la sémantique d’une
-listbox et les interactions au clavier.
-
-## Configuration
-
-| Propriété                 | Description                                                               | Valeur par défaut |
-| ------------------------- | ------------------------------------------------------------------------- | ----------------- |
-| `collection`              | Collection contenant les valeurs pouvant être sélectionnées.              | requis            |
-| `selectionMode`           | `'single'`, `'multiple'`, `'extended'` ou `'none'`.                      | `'single'`        |
-| `deselectable`            | Indique si la sélection peut être vidée en sélectionnant à nouveau la valeur actuelle. | `true` |
-| `initialSelectedValues`   | Valeurs initiales de la sélection non contrôlée.                          | `[]`              |
-| `resetOnCollectionChange` | Réinitialise la sélection en la vidant lorsque la collection change.      | `false`           |
-
-`initialSelectedValues` n’est utilisée qu’à la création de l’état de sélection. Utilisez
-`setSelectedValues` pour modifier la sélection après le montage. Le mode `extended` convient lorsque votre couche
-d’interaction transmet les touches modificatrices à `select(value, true)` ; le hook ne gère pas lui-même les
-événements de la souris ou du clavier.
-
-## État
-
-| Valeur               | Description                                           |
-| -------------------- | ----------------------------------------------------- |
-| `selectedValues`     | Tableau des valeurs actuellement sélectionnées.      |
-| `isEmpty`            | Indique si aucune valeur n’est sélectionnée.          |
-| `firstSelectedValue` | Première valeur sélectionnée dans l’ordre de la collection, ou `null`. |
-| `lastSelectedValue`  | Dernière valeur sélectionnée dans l’ordre de la collection, ou `null`. |
-
-## Méthodes de vérification
-
-| Méthode             | Description                                                  |
-| ------------------- | ------------------------------------------------------------ |
-| `isSelected(value)` | Vérifie si une valeur est sélectionnée.                     |
-| `canSelect(value)`  | Vérifie si la sélection est autorisée par le mode actuel.       |
-| `isAllSelected()`   | Vérifie si tous les éléments de la collection sont sélectionnés. |
-| `isSomeSelected()`  | Vérifie si au moins un élément de la collection est sélectionné. |
-
-Utilisez `canSelect` avant d’exposer une action de sélection personnalisée lorsque `selectionMode`
-peut valoir `'none'`.
-
-## Actions
-
-| Méthode                             | Description                                                        |
-| ---------------------------------- | ------------------------------------------------------------------ |
-| `select(value, forceToggle?)`      | Sélectionne une valeur selon le mode actuel.                       |
-| `deselect(value)`                  | Désélectionne une valeur.                                         |
-| `toggle(value)`                    | Inverse l’état de sélection d’une valeur.                         |
-| `replace(value)`                   | Remplace la sélection par une valeur. Avec `null`, elle reste inchangée. |
-| `extend(anchorValue, targetValue)` | Étend la sélection entre deux valeurs dans l’ordre de la collection. |
-| `setSelectedValues(values)`        | Définit la sélection avec les valeurs fournies, selon le mode actuel. |
-| `clear()`                          | Vide la sélection lorsque `deselectable` vaut `true`.             |
-| `resetSelection()`                 | Vide la sélection et la recrée avec les paramètres actuels.       |
-
-`clear()` respecte `deselectable`. Utilisez `resetSelection()` pour obtenir une sélection vide même
-lorsque `deselectable` vaut `false`.
+`deselectable` vaut `true` par défaut : sélectionner à nouveau la valeur active l’efface. Le hook ne
+rend pas les contrôles et ne les désactive pas. Déduisez la propriété `disabled` des données de
+l’élément dans votre balisage, comme dans l’exemple.
 
 ## Sélection multiple
 
-```tsx
-import { createListCollection, useListSelection } from '@ark-ui/react/collection';
-import { Button } from '@moduix/react/button';
+Utilisez `selectionMode: 'multiple'` lorsque plusieurs valeurs peuvent être sélectionnées sans touche
+modificatrice. L’exemple utilise aussi `isAllSelected`, `setSelectedValues` et `clear` pour proposer
+une action de sélection globale.
 
-const teams = createListCollection({
-  items: [
-    { label: 'Platform', value: 'platform' },
-    { label: 'Product', value: 'product' },
-    { label: 'Design', value: 'design' },
-  ],
-});
+<ExampleFrame variant="component">
+  <ListSelectionMultiple />
+</ExampleFrame>
 
-function TeamSelectionActions() {
-  const selection = useListSelection({
-    collection: teams,
-    selectionMode: 'multiple',
-    initialSelectedValues: ['platform'],
-  });
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  function toggleAll() {
-    if (selection.isAllSelected()) {
-      selection.clear();
-      return;
-    }
-
-    selection.setSelectedValues(teams.getValues());
-  }
-
-  return (
-    <Button type="button" onClick={toggleAll}>
-      {selection.isAllSelected() ? 'Clear all' : 'Select all'}
-    </Button>
-  );
-}
+```tsx pure file="../../../src/components/examples/list-selection/multiple.tsx"
 ```
 
-Définissez `selectionMode` sur `'multiple'` lorsque plusieurs valeurs peuvent être sélectionnées
-simultanément. L’exemple utilise `isAllSelected()` pour choisir entre vider la sélection et
-sélectionner toutes les valeurs.
+    </Tab>
+    <Tab value="solid">
 
-Le hook suit uniquement l’état de sélection et ne désactive donc pas vos contrôles. Désactivez-les à
-partir de l’état de l’élément dans la collection, comme dans l’exemple de base. Lorsque vous appelez
-`setSelectedValues` avec des valeurs externes, vérifiez-les avec `collection.has` et
-`collection.getItemDisabled` si les éléments désactivés doivent être exclus.
+<CodeBlockRuntime lang="tsx" code={listSelectionSolidMultiple} />
 
-## Sélection par plage
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
-Conservez la valeur d’ancrage dans votre logique d’interaction, puis appelez `extend` lorsque
-l’utilisateur sélectionne une plage :
+## API essentiel
 
-```tsx
-import { useRef } from 'react';
-import { useListSelection, type ListCollection } from '@ark-ui/react/collection';
+### Configuration
 
-type Team = {
-  label: string;
-  value: string;
-};
+| Option                    | Description                                                        | Valeur par défaut |
+| ------------------------- | ------------------------------------------------------------------ | ----------------- |
+| `collection`              | `ListCollection` dont les valeurs peuvent être sélectionnées.     | requis            |
+| `selectionMode`           | `'single'`, `'multiple'`, `'extended'` ou `'none'`.               | `'single'`        |
+| `deselectable`            | Autorise la désélection en sélectionnant à nouveau la valeur.     | `true`            |
+| `initialSelectedValues`   | Valeurs initiales de la sélection non contrôlée.                  | `[]`              |
+| `resetOnCollectionChange` | Efface la sélection lorsque la collection change.                 | `false`           |
 
-function useRangeSelection(collection: ListCollection<Team>) {
-  const selection = useListSelection({
-    collection,
-    selectionMode: 'multiple',
-  });
-  const anchorRef = useRef<string | null>(null);
+`initialSelectedValues` est lu lors de la création de l’état de sélection. Utilisez ensuite
+`setSelectedValues` ou une autre action pour modifier la sélection. Dans Solid, les propriétés d’état
+sont des accessors : lisez-les avec `selection.selectedValues()` et `selection.isEmpty()`. Les actions
+gardent la même forme d’appel qu’en React.
 
-  function handleSelect(value: string, withRange: boolean) {
-    if (withRange && anchorRef.current) {
-      selection.extend(anchorRef.current, value);
-      return;
-    }
+### État et actions
 
-    selection.replace(value);
-    anchorRef.current = value;
-  }
+| API                                | Description                                                  |
+| ---------------------------------- | ------------------------------------------------------------ |
+| `selectedValues`                   | Valeurs actuellement sélectionnées.                          |
+| `isEmpty`                          | Indique si aucune valeur n’est sélectionnée.                 |
+| `firstSelectedValue`               | Première valeur sélectionnée dans l’ordre de la collection, ou `null`. |
+| `lastSelectedValue`                | Dernière valeur sélectionnée dans l’ordre de la collection, ou `null`. |
+| `isSelected(value)`                | Vérifie si une valeur est sélectionnée.                      |
+| `canSelect(value)`                 | Vérifie si la valeur peut être sélectionnée dans ce mode.    |
+| `isAllSelected()`                  | Vérifie si toutes les valeurs de la collection sont sélectionnées. |
+| `isSomeSelected()`                 | Vérifie si au moins une valeur de la collection est sélectionnée. |
+| `select(value, forceToggle?)`      | Sélectionne selon le mode actuel.                            |
+| `deselect(value)`                  | Retire une valeur de la sélection.                           |
+| `toggle(value)`                    | Inverse l’état de sélection d’une valeur.                    |
+| `replace(value)`                   | Remplace la sélection par une valeur.                        |
+| `extend(anchorValue, targetValue)` | Étend la sélection entre deux valeurs dans l’ordre de la collection. |
+| `setSelectedValues(values)`        | Définit les valeurs sélectionnées selon le mode actuel.       |
+| `clear()`                          | Vide la sélection lorsque `deselectable` vaut `true`.         |
+| `resetSelection()`                 | Crée une sélection vide avec les paramètres actuels.          |
 
-  return { selection, handleSelect };
-}
-```
+`replace(null)` laisse la sélection actuelle inchangée. Utilisez `resetSelection()` pour obtenir une
+sélection vide même lorsque `deselectable` vaut `false`.
 
-Associez `withRange` à un clic avec la touche Maj ou à un autre geste de sélection par plage. La sélection par
-plage au clavier nécessite aussi la gestion du focus et des touches Maj + Flèche. Si vous avez besoin
-d’une listbox conforme à ARIA, utilisez [Listbox](/docs/listbox) et laissez-le gérer ces interactions.
+## Interactions et accessibilité
 
-## Mise à jour de la collection
+`useListSelection` n’écoute pas les événements de la souris ou du clavier et n’ajoute pas d’attributs
+ARIA. Choisissez la sémantique adaptée à votre balisage :
 
-Définissez `resetOnCollectionChange: true` lorsque la nouvelle collection représente un autre jeu de
-données et que l’ancienne sélection ne doit pas être conservée.
+- Utilisez des boutons natifs avec `aria-pressed` lorsque chaque option est un contrôle indépendant,
+  comme dans les exemples.
+- Gérez le focus, les raccourcis clavier et les messages d’état dans la couche d’interaction de
+  l’application.
+- Pour un clic avec Maj ou un autre geste de sélection par plage, conservez la valeur d’ancrage dans
+  l’état de l’application et appelez `extend(anchorValue, targetValue)`. Pour une sélection avec une
+  touche modificatrice, appelez `select(value, true)`.
+- Utilisez `Listbox` lorsque les utilisateurs ont besoin d’un sélecteur classique avec la sémantique
+  listbox et la navigation au clavier. `Select` et `Combobox` gèrent également leur propre sélection.
 
-Gardez la valeur par défaut `false` lorsque le filtrage masque temporairement des éléments et que la
-sélection doit être conservée malgré le filtre. Si la collection supprime des valeurs qui ne doivent
-plus rester sélectionnées, filtrez les valeurs sélectionnées et transmettez le résultat à
-`setSelectedValues` :
-
-```tsx
-const validValues = selection.selectedValues.filter((value) => collection.has(value));
-
-selection.setSelectedValues(validValues);
-```
-
-Effectuez cette synchronisation dans un gestionnaire d’événement ou un effet lorsque la collection
-change, jamais pendant le rendu.
+Lorsque la collection change, gardez `resetOnCollectionChange: false` si un filtrage temporaire doit
+conserver la sélection. Pour un nouveau jeu de données, définissez-le sur `true`. Si des valeurs
+supprimées ne doivent plus rester sélectionnées, filtrez-les avec `collection.has(value)` puis appelez
+`setSelectedValues` dans un gestionnaire d’événement ou un effet, jamais pendant le rendu.

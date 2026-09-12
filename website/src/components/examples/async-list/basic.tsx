@@ -1,5 +1,4 @@
 import { useAsyncList } from '@ark-ui/react/collection';
-import { Button } from '@moduix/react/button';
 
 type User = {
   id: number;
@@ -27,9 +26,9 @@ export default function AsyncListDemo() {
     return (
       <div>
         <p role="alert">Users could not be loaded.</p>
-        <Button type="button" variant="outline" onClick={() => list.reload()}>
+        <button type="button" onClick={() => list.reload()}>
           Try again
-        </Button>
+        </button>
       </div>
     );
   }
@@ -46,9 +45,9 @@ export default function AsyncListDemo() {
           ))}
         </ul>
       )}
-      <Button type="button" onClick={() => list.reload()} loading={list.loading}>
+      <button type="button" onClick={() => list.reload()} disabled={list.loading}>
         {list.loading ? 'Refreshing…' : 'Refresh'}
-      </Button>
+      </button>
     </section>
   );
 }

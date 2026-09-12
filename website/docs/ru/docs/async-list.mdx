@@ -1,9 +1,11 @@
 ---
 title: Async List
-description: Управляйте асинхронными данными списка с помощью useAsyncList: загружайте, фильтруйте, сортируйте и постранично подгружайте данные, отменяйте запросы и повторяйте загрузку после ошибок.
+description: Управляйте асинхронными данными списка с помощью useAsyncList - загружайте, фильтруйте, сортируйте и постранично подгружайте данные, отменяйте запросы и повторяйте загрузку после ошибок.
 ---
 
 import AsyncListBasic from '@/components/examples/async-list/basic.tsx';
+import asyncListSolidBasic from '../../../snippets/async-list/solid/basic.tsx?raw';
+import asyncListSolidServerDriven from '../../../snippets/async-list/solid/server-driven.tsx?raw';
 
 # Async List
 
@@ -11,36 +13,48 @@ import AsyncListBasic from '@/components/examples/async-list/basic.tsx';
 
 <PrimitiveReference href="https://ark-ui.com/docs/collections/async-list" />
 
-`useAsyncList` представляет собой хук Ark UI, который хранит загруженные элементы и состояние запросов. С его
-помощью можно перезагружать список, подгружать дополнительные элементы, фильтровать и сортировать
-данные, а также отменять запросы. Хук не создаёт разметку: компонент сам решает, как показывать
-список, состояние загрузки, пустой результат и ошибку.
+`useAsyncList` управляет асинхронными данными коллекции и состоянием запросов, не создавая
+разметку. Хук хранит элементы, фильтрацию, сортировку, постраничную загрузку, состояния загрузки
+и ошибки, а компонент сам выбирает структуру списка и отображение этих состояний.
 
-Хук поставляется в пакете `@ark-ui/react/collection`. `@moduix/react` не экспортирует этот хук, но в
-примерах ниже используются его компоненты `Button` и `Input`.
+Хук предоставляет Ark UI, а Moduix его не экспортирует. Используйте точку входа для нужного
+фреймворка:
 
-Если Ark UI ещё не установлен в приложении, установите его:
-
-```bash
-npm install @ark-ui/react
-```
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
 
 ```tsx
 import { useAsyncList } from '@ark-ui/react/collection';
 ```
 
-## Загрузка
+  </Tab>
+  <Tab value="solid">
 
-Установите `autoReload: true`, если первый запрос нужно запустить после монтирования компонента.
-По умолчанию это значение равно `false`. Без этой опции вызовите `list.reload()`, когда приложение
-будет готово загружать данные.
+```tsx
+import { useAsyncList } from '@ark-ui/solid/collection';
+```
 
-Передавайте `signal`, полученный в `load`, в `fetch` или любой другой инструмент с поддержкой отмены.
-Так хук сможет отменить запрос, если его заменит новая загрузка.
+  </Tab>
+</Tabs>
 
-В исполняемом примере используются небольшой локальный набор данных и короткая задержка. Он
-показывает начальную загрузку и обновление, а также содержит ветки для пустого списка и ошибки,
-которые можно подключить к своей функции загрузки.
+`useAsyncList` не является компонентом Moduix. Его нет среди экспортов и registry manifests пакетов
+`@moduix/react`, `@moduix/solid`, `@moduix/react-tailwind` и `@moduix/solid-tailwind`. Поэтому
+CSS Modules и Tailwind не меняют API hook. Стилизуйте окружающую разметку выбранным способом или
+используйте нативные элементы, как в примерах ниже.
+
+## Базовый список
+
+Установите `autoReload: true`, чтобы загрузить начальные элементы после монтирования компонента.
+Показывайте отдельные состояния загрузки, пустого результата и ошибки, а для обновления и повтора
+после ошибки вызывайте `reload()`. Хук не добавляет семантику списка, поэтому пример сам задаёт
+подписанную секцию, список и роли для сообщений о состоянии.
 
 <ExampleFrame clientOnly variant="component">
   <AsyncListBasic />
@@ -48,246 +62,144 @@ import { useAsyncList } from '@ark-ui/react/collection';
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/async-list/basic.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={asyncListSolidBasic} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
-`reload()` сначала очищает текущие элементы, а затем запускает новую загрузку. Поэтому полное
-состояние загрузки стоит показывать, когда `list.loading` имеет значение `true`, а элементов ещё
-нет. Во время фильтрации и сортировки текущие элементы остаются доступными, пока выполняется новая
-операция.
+## Список с загрузкой с сервера
 
-## Конфигурация
+Используйте аргументы `load`, чтобы передать API текущий фильтр, курсор, дескриптор сортировки и
+сигнал отмены. Возвращайте текущую страницу в `items`, а `cursor` добавляйте только при наличии
+следующей страницы. `setFilterText` сразу запускает новую загрузку, а `loadMore()` добавляет
+следующую страницу к уже загруженным элементам.
 
-| Параметр               | Назначение                                               | По умолчанию |
-| ---------------------- | -------------------------------------------------------- | ------------ |
-| `load`                 | Обязательная функция, которая загружает данные.          | -            |
-| `sort`                 | Необязательная синхронная или асинхронная сортировка на клиенте. | -            |
-| `autoReload`           | Запускает начальную загрузку при монтировании компонента. | `false`      |
-| `initialItems`         | Элементы, которые показываются до первой успешной загрузки. | `[]`         |
-| `dependencies`         | Значения, изменение которых запускает загрузку заново.  | `[]`         |
-| `initialFilterText`    | Начальное значение, передаваемое в `load` как `filterText`. | `''`         |
-| `initialSortDescriptor` | Начальный дескриптор сортировки `{ column, direction }`. | `undefined`  |
-| `onSuccess`            | Вызывается с `{ items }` после успешной загрузки или сортировки. | -            |
-| `onError`              | Вызывается с `{ error }` после ошибки загрузки или сортировки. | -            |
+Копируемый пример ожидает, что `GET /api/users?query=...&cursor=...&sort=...&direction=...`
+вернёт `{ users: User[], nextCursor?: string }`. При фильтрации, сортировке и загрузке следующей
+страницы уже полученные элементы остаются на экране. Передавайте `signal` в `fetch`, чтобы отменять
+заменённые запросы.
 
-В `dependencies` можно передавать значения типов `string`, `number`, `boolean`, `null` и
-`undefined`. Не добавляйте туда объекты и массивы. Вместо них получайте стабильные примитивные
-значения.
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-## `load`
-
-Функция `load` получает текущее состояние списка и возвращает следующую порцию элементов.
-
-Каждый вызов получает:
-
-| Значение         | Назначение                                                  |
-| ---------------- | ----------------------------------------------------------- |
-| `signal`         | Сигнал отмены активного запроса. Может иметь значение `undefined`. |
-| `filterText`     | Текущий текст, установленный через `setFilterText`.        |
-| `cursor`         | Курсор предыдущего результата при дозагрузке элементов.    |
-| `sortDescriptor` | Текущие поле и направление сортировки.                     |
-
-Возвращайте объект с `items` и, если доступны дополнительные данные, с `cursor` для следующей
-загрузки:
-
-```tsx
-const list = useAsyncList<User, string>({
-  autoReload: true,
-  async load({ cursor, signal }) {
-    const params = new URLSearchParams();
-
-    if (cursor != null) params.set('cursor', cursor);
-
-    const response = await fetch(`/api/users?${params}`, { signal });
-    if (!response.ok) throw new Error('Could not load users');
-
-    const data: { users: User[]; nextCursor?: string } = await response.json();
-    return {
-      items: data.users,
-      cursor: data.nextCursor,
-    };
-  },
-});
+```tsx pure file="../../../src/components/examples/async-list/server-driven.tsx"
 ```
 
-`sortDescriptor.column` имеет тип ключа элемента, а `direction` может быть `'ascending'` или
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={asyncListSolidServerDriven} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
+
+Для серверной сортировки читайте `sortDescriptor` внутри `load`, как в примере. Для сортировки на
+клиенте передайте `sort`. Она получает текущие `items`, выбранный `descriptor` и `filterText` и
+может вернуть `{ items }` сразу или из промиса. Клиентская сортировка меняет только элементы в
+памяти, поэтому при серверной пагинации обычно лучше сортировать на сервере.
+
+## Основные части API
+
+### Конфигурация
+
+| Параметр                | Назначение                                                     | По умолчанию |
+| ----------------------- | -------------------------------------------------------------- | ------------ |
+| `load`                  | Обязательная функция, возвращающая `{ items, cursor }`.       | -            |
+| `sort`                  | Необязательная синхронная или асинхронная сортировка на клиенте. | -          |
+| `autoReload`            | Загружает начальные элементы при монтировании компонента.     | `false`     |
+| `initialItems`          | Элементы до первой успешной загрузки.                         | `[]`         |
+| `dependencies`          | Стабильные примитивы, изменения которых запускают загрузку.  | `[]`         |
+| `initialFilterText`     | Начальное значение, передаваемое в `load` как `filterText`.   | `''`         |
+| `initialSortDescriptor` | Начальный дескриптор `{ column, direction }`.                 | `undefined`  |
+| `onSuccess`             | Callback с `{ items }` после успешной загрузки или сортировки. | -          |
+| `onError`               | Callback с `{ error }` после ошибки загрузки или сортировки.  | -            |
+
+Передавайте в `dependencies` стабильные примитивные значения. Если зависимость берётся из объекта
+или массива, сначала получите значение, которое действительно должно запускать новую загрузку.
+
+### Контракт `load`
+
+`load` получает контекст текущего запроса:
+
+| Значение         | Назначение                                                    |
+| ---------------- | ------------------------------------------------------------- |
+| `signal`         | `AbortSignal` активного запроса или `undefined`.              |
+| `filterText`     | Текущее значение, установленное через `setFilterText`.       |
+| `cursor`         | Курсор страницы, которую запросил `loadMore()`.               |
+| `sortDescriptor` | Текущая пара `{ column, direction }`, если она задана.       |
+
+Возвращайте `{ items }` для последней страницы или `{ items, cursor }`, если доступна следующая.
+В дескрипторе сортировки `column` является ключом элемента, а `direction` равен `'ascending'` или
 `'descending'`.
 
-## Состояние и действия
+### Состояние и действия
 
-| Состояние        | Значение                                      |
-| ---------------- | --------------------------------------------- |
-| `items`          | Текущие элементы списка.                      |
-| `filterText`     | Текущий текст фильтра.                        |
-| `cursor`         | Курсор следующей страницы.                    |
-| `sortDescriptor` | Текущий дескриптор сортировки.                |
-| `loading`        | Выполняется загрузка данных.                  |
-| `sorting`        | Выполняется сортировка.                       |
-| `empty`          | Текущий массив элементов пуст.                |
-| `hasMore`        | Есть курсор для следующей страницы.           |
-| `error`          | Ошибка последней неудачной загрузки.          |
+| Состояние        | Значение                                               |
+| ---------------- | ------------------------------------------------------ |
+| `items`          | Текущие элементы списка.                               |
+| `filterText`     | Текущий текст фильтра.                                 |
+| `cursor`         | Курсор из последнего результата.                       |
+| `sortDescriptor` | Текущий дескриптор сортировки.                         |
+| `loading`        | Выполняется загрузка или сортировка.                   |
+| `sorting`        | Выполняется сортировка.                                |
+| `empty`          | Массив `items` пуст.                                   |
+| `hasMore`        | Последний результат содержит курсор.                   |
+| `error`          | Ошибка последней неудачной загрузки или сортировки.    |
 
-| Действие               | Назначение                                      |
-| ---------------------- | ---------------------------------------------- |
-| `reload()`             | Очищает элементы и запускает новую загрузку.    |
-| `loadMore()`           | Загружает текущий курсор и добавляет результат.  |
-| `abort()`              | Отменяет активный запрос.                       |
-| `setFilterText(value)` | Устанавливает фильтр и запускает новую загрузку. |
-| `clearFilter()`        | Очищает текст фильтра.                          |
-| `sort(descriptor)`     | Применяет дескриптор сортировки.                |
+| Действие               | Назначение                                          |
+| ---------------------- | --------------------------------------------------- |
+| `reload()`             | Очищает элементы и запускает новую загрузку.        |
+| `loadMore()`           | Загружает текущий курсор и добавляет результат.     |
+| `abort()`              | Отменяет активный запрос.                            |
+| `setFilterText(value)` | Устанавливает фильтр и запускает новую загрузку.    |
+| `clearFilter()`        | Очищает фильтр и запускает новую загрузку.          |
+| `sort(descriptor)`     | Применяет дескриптор сортировки.                    |
 
-## Фильтрация
+## Интеграция и доступность
 
-Хук не фильтрует элементы сам. Он хранит `filterText` и передаёт его в `load`, поэтому фильтрацию
-можно выполнять на сервере или в приложении:
+- По умолчанию `autoReload` равен `false`. Вызовите `reload()`, если начальный запрос нужно
+  запускать вручную.
+- `reload()` очищает текущие элементы перед загрузкой. Полное состояние загрузки показывайте,
+  только если элементов ещё нет; при фильтрации, сортировке и `loadMore()` сохраняйте список на
+  экране.
+- Передавайте `signal` в каждый запрос, который поддерживает отмену. `AbortError` от заменённого
+  запроса hook игнорирует: ошибка не попадёт в `error`, а `onError` не вызовется.
+- `fetch` не отклоняет промис из-за HTTP-ошибок. Проверяйте `response.ok` и выбрасывайте ошибку из
+  `load`, если ответ нельзя использовать.
+- Подписывайте поля поиска, показывайте сообщения о загрузке через `role="status"`, а ошибки через
+  `role="alert"`. Для списка, который остаётся видимым во время фоновой загрузки, используйте
+  `aria-busy`.
+- Если фильтр не должен отправлять запрос после каждого символа, добавьте debounce в приложении.
 
-```tsx
-import { Input } from '@moduix/react/input';
-
-function UserSearch() {
-  const list = useAsyncList<User>({
-    autoReload: true,
-    async load({ filterText, signal }) {
-      const params = new URLSearchParams({ query: filterText });
-      const response = await fetch(`/api/users?${params}`, { signal });
-
-      if (!response.ok) throw new Error('Search failed');
-      return { items: await response.json() };
-    },
-  });
-
-  return (
-    <Input
-      type="search"
-      aria-label="Search users"
-      value={list.filterText}
-      onChange={(event) => list.setFilterText(event.currentTarget.value)}
-    />
-  );
-}
-```
-
-`setFilterText` сразу запускает загрузку. Если не нужно отправлять запрос после каждого символа,
-добавьте в приложение задержку перед загрузкой. Хук отменяет запросы, которые были заменены новыми,
-а правила поиска и максимальное число результатов определяются вашей функцией загрузки или сервером.
-
-## Постраничная загрузка
-
-Возвращайте курсор, пока доступны дополнительные данные, а затем вызывайте `loadMore()`:
-
-```tsx
-import { Button } from '@moduix/react/button';
-
-{
-  list.hasMore && (
-    <Button type="button" onClick={() => list.loadMore()} loading={list.loading}>
-      {list.loading ? 'Loading…' : 'Load more'}
-    </Button>
-  );
-}
-```
-
-`hasMore` определяется по курсору из последнего результата. Не вычисляйте его отдельно.
-
-## Сортировка
-
-Для сортировки на сервере читайте `sortDescriptor` внутри `load`:
-
-```tsx
-function useServerSortedUsers() {
-  return useAsyncList<User>({
-    autoReload: true,
-    async load({ sortDescriptor, signal }) {
-      const params = new URLSearchParams();
-
-      if (sortDescriptor) {
-        params.set('sort', String(sortDescriptor.column));
-        params.set('direction', sortDescriptor.direction);
-      }
-
-      const response = await fetch(`/api/users?${params}`, { signal });
-      if (!response.ok) throw new Error('Could not sort users');
-
-      return { items: await response.json() };
-    },
-  });
-}
-```
-
-Для сортировки на клиенте передайте функцию `sort`:
-
-```tsx
-function useClientSortedUsers() {
-  return useAsyncList<User>({
-    autoReload: true,
-    async load({ signal }) {
-      const response = await fetch('/api/users', { signal });
-      if (!response.ok) throw new Error('Could not load users');
-      return { items: await response.json() };
-    },
-    sort({ items, descriptor }) {
-      const direction = descriptor.direction === 'ascending' ? 1 : -1;
-
-      return {
-        items: items.toSorted(
-          (a, b) =>
-            String(a[descriptor.column]).localeCompare(String(b[descriptor.column])) * direction,
-        ),
-      };
-    },
-  });
-}
-```
-
-Функция `sort` получает текущие `items`, `descriptor` и `filterText`. Отсортированные элементы
-можно вернуть сразу или из промиса.
-
-Сортировка на клиенте затрагивает только уже загруженные элементы. Если сервер также отвечает за
-разбиение на страницы, лучше сортировать там: сортировка одной загруженной страницы может исказить
-результаты.
-
-## Зависимости
-
-Используйте `dependencies`, когда внешний фильтр должен заново загружать список:
-
-```tsx
-function useDepartmentUsers(department: string) {
-  return useAsyncList<User>({
-    autoReload: true,
-    dependencies: [department],
-    async load({ signal }) {
-      const params = new URLSearchParams({ department });
-      const response = await fetch(`/api/users?${params}`, { signal });
-
-      if (!response.ok) throw new Error('Could not load users');
-      return { items: await response.json() };
-    },
-  });
-}
-```
-
-## Ошибки
-
-Обрабатывайте ошибки и запросы, которые были заменены более новыми, отдельно. Передавайте `signal`
-в запросы, поддерживающие отмену, а для повтора после ошибки используйте `reload()`.
-
-- Проверяйте `response.ok`: `fetch` не отклоняет промис из-за HTTP-статусов ошибок.
-- Передавайте `signal` в каждый запрос, который можно отменить.
-- Во время фильтрации и сортировки текущие элементы остаются доступными. `reload()` очищает их
-  перед загрузкой нового результата.
-- Хук игнорирует запросы, завершившиеся ошибкой `AbortError`: они не записываются в `error` и не
-  вызывают `onError`.
-- Используйте `reload()` для действий повтора.
-- Рассматривайте `error` как данные приложения с неизвестным типом и проверяйте его перед чтением
-  `.message`.
-- Используйте `onSuccess` и `onError` для внешних эффектов, а не для дублирования состояния элементов
-  или ошибок, которым управляет хук.
+Хук отвечает только за данные и состояние запросов. Для CSS Modules используйте stylesheet
+приложения, а для Tailwind - native utilities и классы потребителя. У `async-list` нет CSS
+variables, экспортов Moduix или registry-команд.

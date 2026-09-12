@@ -1,28 +1,58 @@
 ---
 title: List Selection
-description: Управляйте одиночным, множественным, отменяемым выбором и выбором диапазона с модификаторами в пользовательских списках.
+description: Управляйте одиночным, множественным, отменяемым выбором и выбором диапазона в пользовательских списках.
 ---
 
 import ListSelectionBasic from '@/components/examples/list-selection/basic.tsx';
+import ListSelectionMultiple from '@/components/examples/list-selection/multiple.tsx';
+import listSelectionSolidBasic from '../../../snippets/list-selection/solid/basic.tsx?raw';
+import listSelectionSolidMultiple from '../../../snippets/list-selection/solid/multiple.tsx?raw';
 
 # List Selection
+
+`useListSelection` хранит выбранные значения в `ListCollection`, а приложение отвечает за разметку и
+логику взаимодействия.
 
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/collections/list-selection" />
 
-Хук `useListSelection` хранит выбранные значения в `ListCollection`. Используйте его, когда создаёте
-свой список и хотите добавить в него состояние выбора, не подключая готовый компонент для работы с
-коллекцией. `Select`, `Combobox` и `Listbox` уже управляют выбором, поэтому вместе с ними этот хук
-обычно не нужен.
+Хук предоставляется Ark UI и не реэкспортируется Moduix. Импортируйте его из точки входа коллекции
+для нужного фреймворка:
 
-Импортируйте вспомогательные функции для работы с коллекцией из Ark UI:
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
 
 ```tsx
 import { createListCollection, useListSelection } from '@ark-ui/react/collection';
 ```
 
+  </Tab>
+  <Tab value="solid">
+
+```tsx
+import { createListCollection, useListSelection } from '@ark-ui/solid/collection';
+```
+
+  </Tab>
+</Tabs>
+
+В `@moduix/react`, `@moduix/solid`, `@moduix/react-tailwind` и `@moduix/solid-tailwind` нет экспорта
+`list-selection` и записи для него в registry. На этой странице описан хук Ark UI, который можно
+использовать вместе с любым из этих пакетов.
+
 ## Одиночный выбор
+
+Хук хранит состояние выбора. В примере есть секция с подписью, нативные кнопки с `aria-pressed` и
+сообщение о текущем состоянии. Preview работает на React-исходнике, а вкладка Solid содержит
+эквивалентную нативную реализацию для Solid.
 
 <ExampleFrame variant="component">
   <ListSelectionBasic />
@@ -30,179 +60,125 @@ import { createListCollection, useListSelection } from '@ark-ui/react/collection
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/list-selection/basic.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listSelectionSolidBasic} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
-В этом примере для короткого списка независимых вариантов используются кнопки. Хук хранит выбранные
-значения, а интерфейс отвечает за отображение, семантические роли, фокус, взаимодействие с
-клавиатурой и доступные подписи.
-
-Кнопки подходят здесь, потому что каждый вариант является отдельным действием, а `aria-pressed`
-сообщает о его состоянии выбора. Не добавляйте `role="listbox"` в пользовательскую разметку, если
-не готовы также реализовать полную модель клавиатурного управления и фокуса listbox. Для обычного
-списка вариантов используйте [Listbox](/docs/listbox), который предоставляет семантику listbox и
-клавиатурное управление.
-
-## Конфигурация
-
-| Свойство                  | Описание                                                              | По умолчанию |
-| ------------------------- | --------------------------------------------------------------------- | ------------ |
-| `collection`              | Коллекция со значениями, которые можно выбирать.                      | обязательное |
-| `selectionMode`           | `'single'`, `'multiple'`, `'extended'` или `'none'`.                 | `'single'`   |
-| `deselectable`            | Можно ли снять выбор повторным выбором текущего значения.             | `true`       |
-| `initialSelectedValues`   | Начальные значения для неконтролируемого выбора.                      | `[]`         |
-| `resetOnCollectionChange` | Очищать ли выбор при изменении коллекции.                             | `false`      |
-
-`initialSelectedValues` используется только при создании состояния выбора. Чтобы изменить выбор
-после монтирования, используйте `setSelectedValues`. Режим `extended` подходит, если слой взаимодействия
-передаёт модификаторы клавиш в `select(value, true)`; сам хук не обрабатывает события мыши и клавиатуры.
-
-## Состояние
-
-| Значение             | Описание                                                  |
-| -------------------- | --------------------------------------------------------- |
-| `selectedValues`     | Массив выбранных значений.                                |
-| `isEmpty`            | Показывает, пуст ли выбор.                                |
-| `firstSelectedValue` | Первое выбранное значение в порядке коллекции или `null`. |
-| `lastSelectedValue`  | Последнее выбранное значение в порядке коллекции или `null`. |
-
-## Методы проверки
-
-| Метод               | Описание                                                   |
-| ------------------- | ---------------------------------------------------------- |
-| `isSelected(value)` | Проверяет, выбрано ли значение.                            |
-| `canSelect(value)`  | Проверяет, разрешён ли выбор в текущем режиме.              |
-| `isAllSelected()`   | Проверяет, выбраны ли все элементы коллекции.              |
-| `isSomeSelected()`  | Проверяет, выбран ли хотя бы один элемент коллекции.       |
-
-Используйте `canSelect`, прежде чем показывать действие выбора, если `selectionMode` может быть
-равен `'none'`.
-
-## Действия
-
-| Метод                              | Описание                                                       |
-| ---------------------------------- | -------------------------------------------------------------- |
-| `select(value, forceToggle?)`      | Выбирает значение согласно текущему режиму.                    |
-| `deselect(value)`                  | Снимает выбор с одного значения.                              |
-| `toggle(value)`                    | Переключает состояние выбора одного значения.                 |
-| `replace(value)`                   | Заменяет выбор одним значением. При передаче `null` выбор не меняется. |
-| `extend(anchorValue, targetValue)` | Расширяет выбор между двумя значениями в порядке коллекции.   |
-| `setSelectedValues(values)`        | Устанавливает выбор из переданных значений с учётом текущего режима. |
-| `clear()`                          | Очищает выбор, если `deselectable` равен `true`.                |
-| `resetSelection()`                 | Очищает выбор и создаёт его заново с текущими настройками.    |
-
-`clear()` учитывает `deselectable`. Используйте `resetSelection()`, если нужно получить пустой выбор
-даже при `deselectable: false`.
+По умолчанию `deselectable` равен `true`, поэтому повторный выбор текущего значения снимает выбор.
+Хук не рендерит элементы управления и не отключает их. Получайте значение `disabled` из данных
+элемента коллекции в своей разметке, как в примере.
 
 ## Множественный выбор
 
-```tsx
-import { createListCollection, useListSelection } from '@ark-ui/react/collection';
-import { Button } from '@moduix/react/button';
+Используйте `selectionMode: 'multiple'`, когда пользователь может выбрать несколько значений без
+модификаторов клавиш. В примере также используются `isAllSelected`, `setSelectedValues` и `clear`
+для действия «выбрать все».
 
-const teams = createListCollection({
-  items: [
-    { label: 'Platform', value: 'platform' },
-    { label: 'Product', value: 'product' },
-    { label: 'Design', value: 'design' },
-  ],
-});
+<ExampleFrame variant="component">
+  <ListSelectionMultiple />
+</ExampleFrame>
 
-function TeamSelectionActions() {
-  const selection = useListSelection({
-    collection: teams,
-    selectionMode: 'multiple',
-    initialSelectedValues: ['platform'],
-  });
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  function toggleAll() {
-    if (selection.isAllSelected()) {
-      selection.clear();
-      return;
-    }
-
-    selection.setSelectedValues(teams.getValues());
-  }
-
-  return (
-    <Button type="button" onClick={toggleAll}>
-      {selection.isAllSelected() ? 'Clear all' : 'Select all'}
-    </Button>
-  );
-}
+```tsx pure file="../../../src/components/examples/list-selection/multiple.tsx"
 ```
 
-Установите `selectionMode` в `'multiple'`, если пользователь должен иметь возможность выбрать
-несколько значений одновременно. В примере `isAllSelected()` помогает выбрать между очисткой выбора
-и выбором всех значений.
+    </Tab>
+    <Tab value="solid">
 
-Хук только хранит состояние выбора и не отключает элементы интерфейса. Отключайте их на основе
-состояния элемента в коллекции, как в базовом примере. Если передаёте в `setSelectedValues` внешние
-значения, проверяйте их через `collection.has` и `collection.getItemDisabled`, если отключённые
-элементы нужно исключить.
+<CodeBlockRuntime lang="tsx" code={listSelectionSolidMultiple} />
 
-## Выбор диапазона
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
-Храните опорное значение в логике взаимодействия, а при выборе диапазона вызывайте `extend`:
+## Основные части API
 
-```tsx
-import { useRef } from 'react';
-import { useListSelection, type ListCollection } from '@ark-ui/react/collection';
+### Конфигурация
 
-type Team = {
-  label: string;
-  value: string;
-};
+| Параметр                  | Описание                                                             | По умолчанию |
+| ------------------------- | -------------------------------------------------------------------- | ------------ |
+| `collection`              | `ListCollection` со значениями, которые можно выбирать.              | обязателен   |
+| `selectionMode`           | `'single'`, `'multiple'`, `'extended'` или `'none'`.                 | `'single'`   |
+| `deselectable`            | Можно ли снять выбор повторным выбором текущего значения.            | `true`       |
+| `initialSelectedValues`   | Начальные значения для неконтролируемого выбора.                     | `[]`         |
+| `resetOnCollectionChange` | Очищать ли выбор при изменении коллекции.                            | `false`      |
 
-function useRangeSelection(collection: ListCollection<Team>) {
-  const selection = useListSelection({
-    collection,
-    selectionMode: 'multiple',
-  });
-  const anchorRef = useRef<string | null>(null);
+`initialSelectedValues` читается при создании состояния выбора. После этого меняйте состояние через
+`setSelectedValues` или другие действия. В Solid свойства состояния являются accessors, поэтому их
+нужно читать как `selection.selectedValues()` и `selection.isEmpty()`. Действия вызываются так же,
+как в React.
 
-  function handleSelect(value: string, withRange: boolean) {
-    if (withRange && anchorRef.current) {
-      selection.extend(anchorRef.current, value);
-      return;
-    }
+### Состояние и действия
 
-    selection.replace(value);
-    anchorRef.current = value;
-  }
+| API                                | Описание                                                    |
+| ---------------------------------- | ----------------------------------------------------------- |
+| `selectedValues`                   | Текущие выбранные значения.                                 |
+| `isEmpty`                          | Показывает, выбран ли хотя бы один элемент.                 |
+| `firstSelectedValue`               | Первое выбранное значение в порядке коллекции или `null`.  |
+| `lastSelectedValue`                | Последнее выбранное значение в порядке коллекции или `null`. |
+| `isSelected(value)`                | Проверяет, выбрано ли значение.                             |
+| `canSelect(value)`                 | Проверяет, можно ли выбрать значение в текущем режиме.     |
+| `isAllSelected()`                  | Проверяет, выбраны ли все значения коллекции.               |
+| `isSomeSelected()`                 | Проверяет, выбрано ли хотя бы одно значение коллекции.      |
+| `select(value, forceToggle?)`      | Выбирает значение согласно текущему режиму.                 |
+| `deselect(value)`                  | Снимает выбор с одного значения.                            |
+| `toggle(value)`                    | Переключает выбор одного значения.                          |
+| `replace(value)`                   | Заменяет выбор одним значением.                             |
+| `extend(anchorValue, targetValue)` | Расширяет выбор между значениями в порядке коллекции.       |
+| `setSelectedValues(values)`        | Устанавливает выбор с учётом текущего режима.               |
+| `clear()`                          | Очищает выбор, если `deselectable` равен `true`.             |
+| `resetSelection()`                 | Создаёт пустой выбор с текущими настройками.                 |
 
-  return { selection, handleSelect };
-}
-```
+`replace(null)` оставляет текущий выбор без изменений. Используйте `resetSelection()`, если нужен
+пустой выбор даже при `deselectable: false`.
 
-Передавайте в `withRange` признак клика с зажатой клавишей Shift или другого жеста выбора диапазона. Для выбора
-диапазона с клавиатуры также нужны управление фокусом и обработка Shift + клавиш со стрелками. Если нужен
-стандартный `Listbox` с поддержкой ARIA, используйте [Listbox](/docs/listbox) и поручите ему эти
-взаимодействия.
+## Взаимодействие и доступность
 
-## Изменения коллекции
+`useListSelection` не обрабатывает события мыши и клавиатуры и не добавляет ARIA-атрибуты. Выбирайте
+семантику в соответствии со своей разметкой:
 
-Установите `resetOnCollectionChange: true`, если новая коллекция представляет другой набор данных и
-старый выбор не должен переноситься.
+- Используйте нативные кнопки с `aria-pressed`, если каждый вариант является независимым переключателем,
+  как в примерах.
+- Реализуйте управление фокусом, сочетания клавиш и сообщения о состоянии в слое взаимодействия
+  приложения.
+- Для клика с Shift или другого жеста выбора диапазона храните опорное значение в состоянии приложения
+  и вызывайте `extend(anchorValue, targetValue)`. Для переключения с модификатором клавиш вызывайте
+  `select(value, true)`.
+- Используйте `Listbox`, если нужен обычный выбор вариантов с семантикой listbox и клавиатурным
+  управлением. `Select` и `Combobox` также сами управляют выбором.
 
-Оставьте значение по умолчанию `false`, если фильтрация временно скрывает элементы, а выбор нужно
-сохранить при фильтрации. Если коллекция удаляет значения, которые больше не должны быть выбраны,
-отфильтруйте выбранные значения и передайте результат в `setSelectedValues`:
-
-```tsx
-const validValues = selection.selectedValues.filter((value) => collection.has(value));
-
-selection.setSelectedValues(validValues);
-```
-
-Выполняйте эту синхронизацию в обработчике события или эффекте при изменении коллекции, а не во время
-рендера.
+Если коллекция меняется, оставьте `resetOnCollectionChange: false`, когда временная фильтрация должна
+сохранять выбор. Для нового набора данных установите `true`. Если удалённые значения больше не должны
+оставаться выбранными, отфильтруйте их через `collection.has(value)` и вызовите `setSelectedValues` в
+обработчике события или эффекте, а не во время рендера.

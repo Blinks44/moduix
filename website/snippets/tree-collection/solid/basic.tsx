@@ -2,7 +2,8 @@ import {
   TreeView,
   createTreeCollection,
   type TreeViewNodeProviderProps,
-} from '@moduix/react/tree-view';
+} from '@moduix/solid/tree-view';
+import { For, Show } from 'solid-js';
 
 type FileNode = {
   children?: FileNode[];
@@ -42,11 +43,18 @@ const collection = createTreeCollection<FileNode>({
   },
 });
 
-function FileTreeNode({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
+function FileTreeNode(props: TreeViewNodeProviderProps<FileNode>) {
   return (
-    <TreeView.Node node={node} indexPath={indexPath}>
-      {({ node: currentNode, indexPath: currentIndexPath, state }) =>
-        state.isBranch ? (
+    <TreeView.Node node={props.node} indexPath={props.indexPath}>
+      {({ node: currentNode, indexPath: currentIndexPath, state }) => (
+        <Show
+          when={state().isBranch}
+          fallback={
+            <TreeView.Item>
+              <TreeView.ItemText>{currentNode.label}</TreeView.ItemText>
+            </TreeView.Item>
+          }
+        >
           <TreeView.Branch>
             <TreeView.BranchControl>
               <TreeView.BranchIndicator />
@@ -54,21 +62,15 @@ function FileTreeNode({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) 
             </TreeView.BranchControl>
             <TreeView.BranchContent>
               <TreeView.BranchIndentGuide />
-              {currentNode.children?.map((child, index) => (
-                <FileTreeNode
-                  key={child.value}
-                  node={child}
-                  indexPath={[...currentIndexPath, index]}
-                />
-              ))}
+              <For each={currentNode.children ?? []}>
+                {(child, index) => (
+                  <FileTreeNode node={child} indexPath={[...currentIndexPath, index()]} />
+                )}
+              </For>
             </TreeView.BranchContent>
           </TreeView.Branch>
-        ) : (
-          <TreeView.Item>
-            <TreeView.ItemText>{currentNode.label}</TreeView.ItemText>
-          </TreeView.Item>
-        )
-      }
+        </Show>
+      )}
     </TreeView.Node>
   );
 }
@@ -78,9 +80,9 @@ export default function TreeViewBasicDemo() {
     <TreeView collection={collection} defaultExpandedValue={['src', 'src/components']}>
       <TreeView.Label>Project files</TreeView.Label>
       <TreeView.Tree>
-        {collection.rootNode.children?.map((node, index) => (
-          <FileTreeNode key={node.value} node={node} indexPath={[index]} />
-        ))}
+        <For each={collection.rootNode.children ?? []}>
+          {(node, index) => <FileTreeNode node={node} indexPath={[index()]} />}
+        </For>
       </TreeView.Tree>
     </TreeView>
   );

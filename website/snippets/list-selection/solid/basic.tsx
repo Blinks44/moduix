@@ -1,4 +1,5 @@
-import { createListCollection, useListSelection } from '@ark-ui/react/collection';
+import { createListCollection, useListSelection } from '@ark-ui/solid/collection';
+import { For } from 'solid-js';
 
 const teams = createListCollection({
   items: [
@@ -15,32 +16,31 @@ export default function ListSelectionDemo() {
     deselectable: true,
   });
 
+  const selectedLabel = () => {
+    const value = selection.firstSelectedValue();
+    return value ? `Selected: ${teams.stringify(value)}` : 'No team selected';
+  };
+
   return (
     <section aria-labelledby="team-heading">
       <h3 id="team-heading">Choose a team</h3>
       <ul>
-        {teams.items.map((team) => {
-          const selected = selection.isSelected(team.value);
-
-          return (
-            <li key={team.value}>
+        <For each={teams.items}>
+          {(team) => (
+            <li>
               <button
                 type="button"
-                aria-pressed={selected}
+                aria-pressed={selection.isSelected(team.value)}
                 disabled={teams.getItemDisabled(team)}
                 onClick={() => selection.select(team.value)}
               >
                 {team.label}
               </button>
             </li>
-          );
-        })}
+          )}
+        </For>
       </ul>
-      <p aria-live="polite">
-        {selection.firstSelectedValue
-          ? `Selected: ${teams.stringify(selection.firstSelectedValue)}`
-          : 'No team selected'}
-      </p>
+      <p aria-live="polite">{selectedLabel()}</p>
     </section>
   );
 }
