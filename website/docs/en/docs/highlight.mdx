@@ -10,6 +10,12 @@ import HighlightExactMatch from '@/components/examples/highlight/exact-match.tsx
 import HighlightIgnoreCase from '@/components/examples/highlight/ignore-case.tsx';
 import HighlightMatchAll from '@/components/examples/highlight/match-all.tsx';
 import HighlightMultipleQueries from '@/components/examples/highlight/multiple-queries.tsx';
+import highlightSolidBasic from '../../../snippets/highlight/solid/basic.tsx?raw';
+import highlightSolidDynamicQuery from '../../../snippets/highlight/solid/dynamic-query.tsx?raw';
+import highlightSolidExactMatch from '../../../snippets/highlight/solid/exact-match.tsx?raw';
+import highlightSolidIgnoreCase from '../../../snippets/highlight/solid/ignore-case.tsx?raw';
+import highlightSolidMatchAll from '../../../snippets/highlight/solid/match-all.tsx?raw';
+import highlightSolidMultipleQueries from '../../../snippets/highlight/solid/multiple-queries.tsx?raw';
 
 ## API Reference
 
@@ -17,13 +23,17 @@ import HighlightMultipleQueries from '@/components/examples/highlight/multiple-q
 
 ## Choosing the right component
 
-Use `Highlight` to emphasize search terms inside text that already has a semantic container.
-It renders the matched ranges, but does not add a layout wrapper of its own.
+Use `Highlight` to emphasize search terms inside text that already has a semantic container. It
+renders the matched ranges, but does not add a layout wrapper of its own.
 
 - Choose **`Highlight`** when one or more terms in an existing sentence, label, or text block need emphasis.
 - Choose **`Text`** when the whole string only needs typographic styling and no query-based matching.
 
 ## Basic
+
+Highlight ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered
+preview on this page uses the React CSS Modules package; the framework tabs show native source for
+the same public contract.
 
 Pass the complete source string through `text` and the term to find through `query`. Place
 `Highlight` inside the text component or HTML element that should provide the surrounding layout
@@ -35,21 +45,53 @@ and semantics.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/highlight/basic.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={highlightSolidBasic} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="highlight" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/highlight' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/highlight' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/highlight' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/highlight' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
@@ -68,45 +110,17 @@ Highlight / Highlight.Root
 
 ## Composition
 
-### Recommended composition
-
-Use the short `<Highlight>` form inside `Text`, `Heading`, a list item, a table cell, or another
-text-owning container. It is equivalent to `<Highlight.Root>`.
-
-### When to go custom
-
-Use `Highlight` when native `<mark>` elements are the right output for every match. If each match
-needs a different element, interactive behavior, or custom content, render that markup in your own
-component. The moduix component intentionally does not expose a chunk-rendering API.
-
-### Default props
-
-| Prop         | Default                                   | Notes                                                   |
-| ------------ | ----------------------------------------- | ------------------------------------------------------- |
-| `query`      | -                                         | String or string array of terms to highlight.           |
-| `text`       | -                                         | Required complete source string.                        |
-| `ignoreCase` | `false`                                   | Matches letters without considering their case.         |
-| `matchAll`   | `false` for a string; `true` for an array | Highlights every match. An array cannot be used with `false`. |
-| `exactMatch` | `false`                                   | Matches complete words instead of partial words.        |
-
-### Behavioral notes
-
-`className`, `style`, `title`, `id`, and other props for `<mark>` are applied to every matched
-segment. When there is no match, `Highlight` renders the source text without any `<mark>` element.
-
-`Highlight` does not add a wrapper or manage state, focus, keyboard interaction, or form behavior.
-Each matched mark uses the stable moduix data attributes described in [Styling](#styling).
-
-`exactMatch` uses JavaScript word boundaries. It works reliably for Latin text, but JavaScript word
-boundaries do not treat Cyrillic and some other non-ASCII scripts as whole words. If whole-word
-matching must work for those scripts, use a locale-aware matcher in your own search logic and render
-the result yourself.
+`Highlight` is stateless and owns no layout wrapper. Place it inside an existing text container such
+as `Text`, a heading, a list item, or a table cell. Control `query` from the parent when search input
+changes, and use `Highlight.Root` only when the namespaced form is clearer. A string-array `query`
+requires `matchAll` to remain `true`; use custom markup in your own component when each match needs a
+different element or interactive behavior.
 
 ## Examples
 
 ### Dynamic Query
 
-Control `query` from React state to highlight the current term while a user searches or filters
+Control `query` from framework state to highlight the current term while a user searches or filters
 visible text.
 
 <ExampleFrame variant="component">
@@ -115,28 +129,39 @@ visible text.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/highlight/dynamic-query.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/highlight/highlight-dynamic-query.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={highlightSolidDynamicQuery} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/highlight/highlight-dynamic-query.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Exact Match
 
 Set `exactMatch` when partial-word matches are too broad. In this example, `box` matches the
-standalone word but not `checkbox` or `combobox`.
+standalone word but not `checkbox` or `combobox`. Matching follows JavaScript word boundaries,
+which are reliable for Latin text but do not treat Cyrillic and some other scripts as whole words.
 
 <ExampleFrame variant="component">
   <HighlightExactMatch />
@@ -144,22 +169,32 @@ standalone word but not `checkbox` or `combobox`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/highlight/exact-match.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/highlight/highlight-exact-match.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={highlightSolidExactMatch} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/highlight/highlight-exact-match.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Ignore Case
@@ -172,16 +207,27 @@ Set `ignoreCase` when the capitalization of the source text should not affect th
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/highlight/ignore-case.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={highlightSolidIgnoreCase} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Match All
@@ -194,22 +240,32 @@ Set `matchAll` when every occurrence should be highlighted instead of only the f
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/highlight/match-all.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/highlight/highlight-match-all.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={highlightSolidMatchAll} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/highlight/highlight-match-all.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Multiple Queries
@@ -223,23 +279,34 @@ Pass a string array when several terms should be highlighted in the same text. F
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/highlight/multiple-queries.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={highlightSolidMultipleQueries} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ## Styling
 
-Matched ranges receive moduix's default `<mark>` styles. Use `className` for a local adjustment,
-or set `--moduix-highlight-*` variables when the same treatment should be shared by several
-instances.
+Matched ranges receive moduix's default `<mark>` styles. Use `className` in React or `class` in Solid
+for a local adjustment. CSS Modules variants also expose the `--moduix-highlight-*` variables; use
+Tailwind utilities or consumer classes for Tailwind variants.
 
 ### CSS Properties
 
@@ -249,5 +316,5 @@ instances.
 
 - Every matched `<mark>` has `data-scope="highlight"` and `data-part="root"`.
 - `data-slot="highlight-root"` is the stable moduix selector for each matched mark.
-- There is no wrapper element, state attribute, or Ark runtime CSS variable. The output consists
-  of ordinary text nodes and matched `<mark>` elements.
+- Props such as `className`/`class`, `style`, `title`, `id`, and `data-*` are applied to every matched `<mark>`.
+- There is no wrapper element, state attribute, or Ark runtime CSS variable.

@@ -10,6 +10,12 @@ import HighlightExactMatch from '@/components/examples/highlight/exact-match.tsx
 import HighlightIgnoreCase from '@/components/examples/highlight/ignore-case.tsx';
 import HighlightMatchAll from '@/components/examples/highlight/match-all.tsx';
 import HighlightMultipleQueries from '@/components/examples/highlight/multiple-queries.tsx';
+import highlightSolidBasic from '../../../snippets/highlight/solid/basic.tsx?raw';
+import highlightSolidDynamicQuery from '../../../snippets/highlight/solid/dynamic-query.tsx?raw';
+import highlightSolidExactMatch from '../../../snippets/highlight/solid/exact-match.tsx?raw';
+import highlightSolidIgnoreCase from '../../../snippets/highlight/solid/ignore-case.tsx?raw';
+import highlightSolidMatchAll from '../../../snippets/highlight/solid/match-all.tsx?raw';
+import highlightSolidMultipleQueries from '../../../snippets/highlight/solid/multiple-queries.tsx?raw';
 
 ## Référence de l’API
 
@@ -17,17 +23,22 @@ import HighlightMultipleQueries from '@/components/examples/highlight/multiple-q
 
 ## Choisir le bon composant
 
-Utilisez `Highlight` pour mettre en évidence des termes de recherche dans un texte qui possède
-déjà un conteneur sémantique. Le composant rend les segments correspondants sans ajouter son
-propre conteneur de mise en page.
+Utilisez `Highlight` pour mettre en évidence des termes de recherche dans un texte qui possède déjà
+un conteneur sémantique. Le composant rend les segments correspondants sans ajouter son propre
+conteneur.
 
 - Choisissez **`Highlight`** lorsqu’un ou plusieurs termes doivent ressortir dans une phrase, un libellé ou un bloc de texte existant.
 - Choisissez **`Text`** lorsque toute la chaîne a seulement besoin d’un style typographique, sans recherche de correspondances.
 
 ## Exemple de base
 
+`Highlight` est disponible pour React et Solid dans les packages CSS Modules et Tailwind. L’aperçu de
+cette page utilise le package React CSS Modules ; les onglets React et Solid présentent le code natif
+pour le même contrat public.
+
 Transmettez le texte source complet via `text` et le terme recherché via `query`. Placez `Highlight`
-dans le composant de texte ou l’élément HTML qui définit la mise en page et la sémantique autour du texte.
+dans le composant de texte ou l’élément HTML qui définit la mise en page et la sémantique autour du
+texte.
 
 <ExampleFrame variant="component">
   <HighlightBasic />
@@ -35,25 +46,57 @@ dans le composant de texte ou l’élément HTML qui définit la mise en page et
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/highlight/basic.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={highlightSolidBasic} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="highlight" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/highlight' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/highlight' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/highlight' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/highlight' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
-`Highlight` n’expose qu’une racine publique. Il renvoie un fragment sans ajouter de conteneur
+`Highlight` n’expose qu’une racine publique et renvoie un fragment sans ajouter de conteneur
 supplémentaire. Chaque segment correspondant devient un élément natif `<mark>`, tandis que le texte
 sans correspondance reste du texte ordinaire dans le flux environnant.
 
@@ -64,53 +107,23 @@ Highlight / Highlight.Root
 
 | Partie                         | Rôle                                                                  |
 | ------------------------------ | --------------------------------------------------------------------- |
-| `Highlight` / `Highlight.Root` | Applique les styles moduix à chaque correspondance du texte fourni. |
+| `Highlight` / `Highlight.Root` | Applique les styles moduix à chaque correspondance du texte fourni.   |
 
 ## Composition
 
-### Composition recommandée
-
-Utilisez la forme courte `<Highlight>` dans `Text`, `Heading`, un élément de liste, une cellule de
-tableau ou tout autre conteneur qui contient le texte. Elle équivaut à `<Highlight.Root>`.
-
-### Quand créer une composition personnalisée
-
-Utilisez `Highlight` lorsque chaque correspondance peut être rendue dans un élément natif `<mark>`.
-Si les correspondances doivent utiliser des éléments différents, recevoir un comportement interactif
-ou contenir un contenu spécifique, construisez cette structure dans votre propre composant. Le composant
-moduix ne fournit volontairement pas d’API de rendu personnalisé pour chaque segment.
-
-### Propriétés par défaut
-
-| Propriété     | Valeur par défaut                    | Remarques                                                     |
-| ------------- | ------------------------------------ | ------------------------------------------------------------- |
-| `query`       | -                                    | Chaîne ou tableau de chaînes à rechercher.                    |
-| `text`        | -                                    | Texte source complet obligatoire.                             |
-| `ignoreCase`  | `false`                              | Ignore la casse pendant la recherche.                        |
-| `matchAll`    | `false` pour une chaîne ; `true` pour un tableau | Met en évidence chaque correspondance. Avec un tableau, la valeur `false` provoque une erreur. |
-| `exactMatch`  | `false`                              | Recherche des mots entiers, et non des fragments de mots.    |
-
-### Comportement
-
-`className`, `style`, `title`, `id` et les autres propriétés de `<mark>` s’appliquent à chaque
-segment correspondant. Lorsque rien ne correspond, `Highlight` affiche le texte source sans aucun
-élément `<mark>`.
-
-`Highlight` n’ajoute pas de conteneur et ne gère ni l’état, ni le focus, ni les interactions au clavier,
-ni le comportement des formulaires. Les attributs `data-*` stables de moduix sur chaque élément
-correspondant sont décrits dans la section [Styles](#styles).
-
-`exactMatch` utilise les limites de mots de JavaScript. Cela fonctionne de manière fiable pour le
-texte latin, mais ces limites ne reconnaissent pas le cyrillique ni certaines autres écritures non ASCII
-comme des mots entiers. Si la recherche de mots entiers doit fonctionner pour ces écritures, effectuez-la
-avec une logique adaptée à la langue, puis affichez vous-même le résultat.
+`Highlight` est sans état et ne crée pas de conteneur de mise en page. Placez-le dans un conteneur
+de texte existant comme `Text`, un titre, un élément de liste ou une cellule de tableau. Contrôlez
+`query` depuis le composant parent lorsque la recherche change et utilisez la forme `Highlight.Root`
+seulement si elle rend la composition plus claire. Un tableau de chaînes exige que `matchAll` reste
+à `true` ; si chaque correspondance doit utiliser un élément différent ou un comportement interactif,
+construisez cette structure dans votre propre composant.
 
 ## Exemples
 
 ### Requête dynamique
 
-Contrôlez `query` avec l’état React pour mettre en évidence le terme saisi pendant une recherche ou
-un filtrage du texte affiché.
+Contrôlez `query` avec l’état du framework pour mettre en évidence le terme saisi pendant une
+recherche ou un filtrage du texte affiché.
 
 <ExampleFrame variant="component">
   <HighlightDynamicQuery />
@@ -118,28 +131,40 @@ un filtrage du texte affiché.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/highlight/dynamic-query.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/highlight/highlight-dynamic-query.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={highlightSolidDynamicQuery} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/highlight/highlight-dynamic-query.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Correspondance exacte
 
 Activez `exactMatch` lorsque les correspondances partielles sont trop larges. Dans cet exemple,
-`box` correspond au mot isolé, mais pas à `checkbox` ni à `combobox`.
+`box` correspond au mot isolé, mais pas à `checkbox` ni à `combobox`. La recherche suit les limites
+de mots de JavaScript, fiables pour le texte latin, mais qui ne reconnaissent pas le cyrillique ni
+certaines autres écritures comme des mots entiers.
 
 <ExampleFrame variant="component">
   <HighlightExactMatch />
@@ -147,22 +172,32 @@ Activez `exactMatch` lorsque les correspondances partielles sont trop larges. Da
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/highlight/exact-match.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/highlight/highlight-exact-match.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={highlightSolidExactMatch} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/highlight/highlight-exact-match.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Casse ignorée
@@ -175,16 +210,27 @@ Activez `ignoreCase` lorsque la casse du texte source ne doit pas influencer le 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/highlight/ignore-case.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={highlightSolidIgnoreCase} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Toutes les correspondances
@@ -197,28 +243,39 @@ Activez `matchAll` pour mettre en évidence chaque occurrence au lieu de la prem
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/highlight/match-all.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/highlight/highlight-match-all.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={highlightSolidMatchAll} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/highlight/highlight-match-all.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Plusieurs requêtes
 
 Transmettez un tableau de chaînes lorsque plusieurs termes doivent être mis en évidence dans le même
-texte. Pour un tableau, `matchAll` vaut `true` par défaut ; définir `matchAll={false}` provoque une erreur.
+texte. Pour un tableau, `matchAll` vaut `true` par défaut ; définir `matchAll={false}` provoque une
+erreur.
 
 <ExampleFrame variant="component">
   <HighlightMultipleQueries />
@@ -226,23 +283,35 @@ texte. Pour un tableau, `matchAll` vaut `true` par défaut ; définir `matchAll=
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/highlight/multiple-queries.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={highlightSolidMultipleQueries} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ## Styles
 
 Les segments correspondants reçoivent les styles `<mark>` par défaut de moduix. Utilisez `className`
-pour une modification locale, ou les variables `--moduix-highlight-*` si la même apparence doit être
-partagée par plusieurs instances.
+dans React ou `class` dans Solid pour une modification locale. Les variantes CSS Modules exposent
+également les variables `--moduix-highlight-*` ; pour Tailwind, utilisez des classes utilitaires ou
+les classes du consommateur.
 
 ### Propriétés CSS
 
@@ -252,5 +321,5 @@ partagée par plusieurs instances.
 
 - Chaque `<mark>` correspondant porte `data-scope="highlight"` et `data-part="root"`.
 - `data-slot="highlight-root"` est le sélecteur moduix stable de chaque `mark` correspondant.
-- Il n’y a ni conteneur supplémentaire, ni attribut d’état, ni variable CSS d’exécution Ark. Le rendu
-  se compose uniquement de nœuds de texte ordinaires et d’éléments `<mark>` correspondants.
+- Les propriétés comme `className`/`class`, `style`, `title`, `id` et `data-*` s’appliquent à chaque `<mark>` correspondant.
+- Il n’y a ni conteneur supplémentaire, ni attribut d’état, ni variable CSS d’exécution Ark.

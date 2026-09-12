@@ -1,5 +1,6 @@
 ---
 title: Swap
+component: swap
 description: Анимируйте переход между двумя визуальными состояниями с готовыми пресетами moduix на базе Ark UI.
 ---
 
@@ -8,6 +9,10 @@ import SwapBasic from '@/components/examples/swap/basic.tsx';
 import * as SwapDocs from '@/components/examples/swap/css-properties';
 import SwapCustomAnimation from '@/components/examples/swap/custom-animation.tsx';
 import SwapRootProvider from '@/components/examples/swap/root-provider.tsx';
+import swapSolidAnimationPresets from '../../../snippets/swap/solid/animation-presets.tsx?raw';
+import swapSolidBasic from '../../../snippets/swap/solid/basic.tsx?raw';
+import swapSolidCustomAnimation from '../../../snippets/swap/solid/custom-animation.tsx?raw';
+import swapSolidRootProvider from '../../../snippets/swap/solid/root-provider.tsx?raw';
 
 ## Справочник API
 
@@ -15,10 +20,13 @@ import SwapRootProvider from '@/components/examples/swap/root-provider.tsx';
 
 ## Базовый пример
 
+Swap доступен для React и Solid как в пакетах с CSS Modules, так и в вариантах на Tailwind. Превью
+на этой странице использует React и CSS Modules, а вкладки с кодом показывают нативный исходный код
+для того же публичного API.
+
 Используйте `Swap`, когда элемент интерфейса должен переключаться между двумя визуальными состояниями,
-например когда иконка меняется после действия пользователя. Передайте текущее логическое значение в
-`swap`: при `false` отображается индикатор `off`, при `true` индикатор `on`. Внешний элемент управления отвечает
-за взаимодействие и доступное имя.
+например когда иконка меняется после действия. Передайте текущее логическое значение в `swap`: при
+`false` отображается индикатор `off`, а при `true` индикатор `on`.
 
 <ExampleFrame variant="component">
   <SwapBasic />
@@ -26,11 +34,23 @@ import SwapRootProvider from '@/components/examples/swap/root-provider.tsx';
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/swap/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={swapSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -40,9 +60,28 @@ import SwapRootProvider from '@/components/examples/swap/root-provider.tsx';
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="swap" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
-Эта команда также добавляет общие стили основы moduix, которые нужны встроенным пресетам анимации.
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/swap' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/swap' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/swap' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/swap' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -50,60 +89,36 @@ import SwapRootProvider from '@/components/examples/swap/root-provider.tsx';
 Swap / Swap.Root
 ├─ Swap.Indicator type="off"
 └─ Swap.Indicator type="on"
+
+Swap.RootProvider
+└─ то же дерево индикаторов, подключённое к состоянию из Swap.useSwap()
 ```
 
 | Часть                | Назначение                                                        |
 | -------------------- | ----------------------------------------------------------------- |
-| `Swap` / `Swap.Root` | Передаёт состояние `swap` из Ark и размещает оба визуальных состояния в одной ячейке. |
-| `Swap.RootProvider`  | Предоставляет состояние, созданное с помощью `Swap.useSwap()` вне поддерева.            |
-| `Swap.Indicator`     | Отрисовывает состояние `on` или `off`, выбранное свойством `type`.                       |
-
-Размещайте оба индикатора непосредственными дочерними элементами корня. Они используют одну ячейку
-сетки, а встроенные рецепты анимации остаются в пределах этого экземпляра `Swap`.
+| `Swap` / `Swap.Root` | Передаёт состояние `swap` и размещает оба визуальных состояния.  |
+| `Swap.RootProvider`  | Подключает части к состоянию, созданному через `Swap.useSwap()`. |
+| `Swap.Indicator`     | Отрисовывает состояние `on` или `off`, выбранное свойством `type`. |
 
 ## Композиция
 
-### Рекомендуемая композиция
+`Swap` отвечает только за визуальное представление. Состояние, взаимодействие, фокус и доступное имя
+оставьте у окружающего семантического элемента. Для индикаторов, содержащих только иконки, добавьте
+`aria-hidden="true"`. Размещайте оба индикатора непосредственными дочерними элементами, чтобы они
+использовали одну ячейку сетки, а встроенные рецепты оставались в пределах этого экземпляра `Swap`.
 
-`Swap` отвечает только за визуальную часть, а не за кнопку или переключатель. Поместите его внутрь
-семантической кнопки, ссылки или элемента, который сообщает статус. Состояние, обработчики событий,
-фокус и доступное имя оставьте у родительского элемента. Если индикаторы содержат только иконки,
-добавьте им `aria-hidden="true"`.
-
-### Когда использовать собственную анимацию
-
-Используйте `animation`, чтобы выбрать один из встроенных рецептов: `fade`, `scale`, `rotate` или
-`flip`. Свойство также принимает любое пользовательское имя. moduix записывает его в
-`data-animation` и не применяет встроенную анимацию, поэтому переход можно полностью описать в CSS
-с помощью атрибутов `data-state` от Ark.
-
-### Свойства по умолчанию
-
-| Свойство        | По умолчанию | Описание                                                               |
-| --------------- | ------------ | ---------------------------------------------------------------------- |
-| `swap`          | `false`      | Показывает индикатор `off`.                                           |
-| `animation`     | `scale`      | Использует пресет moduix с затуханием и масштабированием.             |
-| `lazyMount`     | `false`      | Сразу монтирует оба индикатора, не откладывая неактивный.              |
-| `unmountOnExit` | `false`      | Оставляет индикатор в DOM после завершения его анимации выхода.        |
-
-### Особенности поведения
-
-- `swap` управляется извне. `Swap` сам не реагирует на наведение или клики и по умолчанию отрисовывает
-  элемент `span`.
-- Presence от Ark добавляет индикаторам `data-state="open" | "closed"`, чтобы CSS мог различать
-  состояния появления и выхода. Используйте `lazyMount` или `unmountOnExit`, если нужно управлять
-  моментом добавления неактивных индикаторов в DOM и их удаления.
-- `Swap.RootProvider` принимает состояние, возвращённое `Swap.useSwap()`, а `useSwapContext()` позволяет
-  потомку прочитать состояние ближайшего провайдера.
-- `asChild` доступен для каждой отрисовываемой части. Передавайте ровно один семантический дочерний
-  элемент, чтобы Ark мог объединить с ним свои свойства и ref.
+По умолчанию `Swap` использует анимацию `scale`. Передайте в `animation` `fade`, `scale`, `rotate` или
+`flip`, либо задайте пользовательское имя и опишите CSS через `data-animation` корня и атрибуты
+`data-state` индикаторов от Ark. Если состояние нужно создать вне дерева, передайте результат
+`Swap.useSwap()` в `Swap.RootProvider` и не создавайте для этого состояния ещё один корень. При
+использовании `asChild` передавайте ровно один семантический дочерний элемент.
 
 ## Примеры
 
 ### Предустановки анимации
 
-Попробуйте каждый встроенный рецепт, затем активируйте кнопку, чтобы увидеть выбранный переход. Текущее
-значение и кнопки выбора отображаются под демонстрацией.
+Выберите встроенный рецепт и активируйте кнопку, чтобы увидеть переход. Текущее значение и кнопки
+выбора рецепта отображаются под демонстрацией.
 
 <ExampleFrame variant="component">
   <SwapAnimationPresets />
@@ -111,30 +126,41 @@ Swap / Swap.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/swap/animation-presets.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/swap/swap-animation-presets.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={swapSolidAnimationPresets} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/swap/swap-animation-presets.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Пользовательская анимация
 
-Передайте пользовательское имя `animation` и обращайтесь в CSS к `data-animation` корня и
-`data-state` индикаторов от Ark. Рецепт `bounce` ниже написан на обычном CSS. Дополнительный API
-или JavaScript для `Swap` не нужен, но пользовательский рецепт должен описывать анимации появления
-и выхода и предусматривать вариант для пользователей, включивших уменьшение анимации.
+Передайте пользовательское имя `animation` и обращайтесь в CSS к `data-animation` корня и атрибуту
+`data-state` индикаторов от Ark. Рецепт `bounce` ниже написан на обычном CSS. Пользовательский рецепт
+должен описывать анимации появления и выхода и предусматривать вариант для пользователей, включивших
+уменьшение анимации.
 
 <ExampleFrame variant="component">
   <SwapCustomAnimation />
@@ -142,28 +168,39 @@ Swap / Swap.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/swap/custom-animation.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/swap/swap-custom-animation.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={swapSolidCustomAnimation} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/swap/swap-custom-animation.module.css"
+```
 </div>
 
 </ExampleCode>
 
-### RootProvider
+### Root Provider
 
 Создайте состояние отдельно с помощью `Swap.useSwap()`, затем передайте его в `Swap.RootProvider`
-через свойство `value`. В этом примере используется и `asChild`, поэтому семантическая кнопка становится
+через свойство `value`. В этом примере используется `asChild`, поэтому семантическая кнопка становится
 отрисованным корнем `Swap`.
 
 <ExampleFrame variant="component">
@@ -172,28 +209,41 @@ Swap / Swap.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/swap/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/swap/swap-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={swapSolidRootProvider} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/swap/swap-root-provider.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Стилизация
 
-Встроенные рецепты используют перечисленные ниже CSS-переменные. Пользовательское имя анимации отключает
-эти рецепты, но в собственном CSS по-прежнему можно использовать `--moduix-swap-transition`.
+Встроенные рецепты используют перечисленные ниже CSS-переменные в вариантах с CSS Modules. Варианты
+на Tailwind используют нативные utility-классы и классы, заданные потребителем. Пользовательское имя
+анимации отключает встроенные рецепты, но в собственном CSS по-прежнему можно использовать
+`--moduix-swap-transition`.
 
 ### CSS-свойства
 

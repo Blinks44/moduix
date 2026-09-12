@@ -10,6 +10,12 @@ import HighlightExactMatch from '@/components/examples/highlight/exact-match.tsx
 import HighlightIgnoreCase from '@/components/examples/highlight/ignore-case.tsx';
 import HighlightMatchAll from '@/components/examples/highlight/match-all.tsx';
 import HighlightMultipleQueries from '@/components/examples/highlight/multiple-queries.tsx';
+import highlightSolidBasic from '../../../snippets/highlight/solid/basic.tsx?raw';
+import highlightSolidDynamicQuery from '../../../snippets/highlight/solid/dynamic-query.tsx?raw';
+import highlightSolidExactMatch from '../../../snippets/highlight/solid/exact-match.tsx?raw';
+import highlightSolidIgnoreCase from '../../../snippets/highlight/solid/ignore-case.tsx?raw';
+import highlightSolidMatchAll from '../../../snippets/highlight/solid/match-all.tsx?raw';
+import highlightSolidMultipleQueries from '../../../snippets/highlight/solid/multiple-queries.tsx?raw';
 
 ## Справочник API
 
@@ -18,16 +24,19 @@ import HighlightMultipleQueries from '@/components/examples/highlight/multiple-q
 ## Выбор подходящего компонента
 
 Используйте `Highlight`, чтобы выделить поисковые термины внутри текста, у которого уже есть
-семантический контейнер. Компонент выводит совпавшие фрагменты, но не добавляет собственную обёртку
-для разметки.
+семантический контейнер. Компонент выводит совпавшие фрагменты, но не добавляет собственную обёртку.
 
 - Выбирайте **`Highlight`**, когда нужно выделить один или несколько терминов в готовом предложении, подписи или текстовом блоке.
 - Выбирайте **`Text`**, когда всей строке нужно только типографическое оформление, без поиска совпадений.
 
 ## Базовый пример
 
-Передайте полный исходный текст в `text`, а искомый термин - в `query`. Разместите `Highlight`
-внутри текстового компонента или HTML-элемента, который отвечает за внешнюю разметку и семантику.
+`Highlight` доступен для React и Solid в пакетах CSS Modules и Tailwind. Превью на этой странице
+работает на React-пакете CSS Modules, а вкладки React и Solid показывают нативный исходный код для
+того же публичного контракта.
+
+Передайте полный исходный текст в `text`, а искомый термин в `query`. Разместите `Highlight` внутри
+текстового компонента или HTML-элемента, который отвечает за внешнюю разметку и семантику.
 
 <ExampleFrame variant="component">
   <HighlightBasic />
@@ -35,21 +44,53 @@ import HighlightMultipleQueries from '@/components/examples/highlight/multiple-q
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/highlight/basic.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={highlightSolidBasic} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="highlight" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/highlight' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/highlight' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/highlight' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/highlight' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -68,47 +109,18 @@ Highlight / Highlight.Root
 
 ## Композиция
 
-### Рекомендуемая композиция
-
-Используйте короткую форму `<Highlight>` внутри `Text`, `Heading`, элемента списка, ячейки таблицы
-или другого контейнера, который отвечает за текст. Она равнозначна `<Highlight.Root>`.
-
-### Когда нужна собственная композиция
-
-Используйте `Highlight`, если для каждого совпадения подходит нативный `<mark>`. Если совпадениям
-нужны разные элементы, интерактивное поведение или собственное содержимое, выведите такую разметку
-в отдельном компоненте. Компонент moduix намеренно не предоставляет API для отдельного рендеринга
-фрагментов.
-
-### Свойства по умолчанию
-
-| Свойство     | По умолчанию                         | Примечания                                                      |
-| ------------ | ------------------------------------ | --------------------------------------------------------------- |
-| `query`      | -                                    | Строка или массив строк для поиска.                             |
-| `text`       | -                                    | Полная исходная строка. Свойство обязательно.                   |
-| `ignoreCase` | `false`                              | Игнорирует регистр при поиске.                                  |
-| `matchAll`   | `false` для строки; `true` для массива | Выделяет все совпадения. Для массива значение `false` вызывает ошибку. |
-| `exactMatch` | `false`                              | Ищет целые слова, а не фрагменты слов.                          |
-
-### Особенности поведения
-
-`className`, `style`, `title`, `id` и другие свойства элемента `<mark>` применяются ко всем
-совпавшим сегментам. Если совпадений нет, `Highlight` выводит исходный текст без элементов `<mark>`.
-
-`Highlight` не добавляет обёртку и не управляет состоянием, фокусом, клавиатурными взаимодействиями
-или поведением формы. Стабильные data-атрибуты moduix для совпавших элементов описаны в разделе
-[Стилизация](#стилизация).
-
-`exactMatch` использует границы слов JavaScript. Для латинского текста это работает надёжно, но
-границы слов JavaScript не распознают кириллицу и некоторые другие системы письма как целые слова.
-Если поиск целых слов должен работать для таких систем письма, выполняйте его с учётом языка в своей
-логике и выводите результат самостоятельно.
+`Highlight` не хранит состояние и не создаёт обёртку для внешней разметки. Размещайте его внутри
+готового текстового контейнера, например `Text`, заголовка, элемента списка или ячейки таблицы.
+Управляйте `query` из родительского компонента, если поисковый запрос меняется. Используйте
+`Highlight.Root`, только если форма с пространством имён делает композицию понятнее. Для массива строк
+`matchAll` должен оставаться равным `true`; если каждому совпадению нужен другой элемент или
+интерактивное поведение, создайте такую разметку самостоятельно.
 
 ## Примеры
 
 ### Динамический запрос
 
-Управляйте `query` через состояние React, чтобы выделять текущий термин во время поиска или
+Управляйте `query` состоянием React или Solid, чтобы выделять текущий термин во время поиска или
 фильтрации видимого текста.
 
 <ExampleFrame variant="component">
@@ -117,28 +129,40 @@ Highlight / Highlight.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/highlight/dynamic-query.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/highlight/highlight-dynamic-query.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={highlightSolidDynamicQuery} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Стили**
+
+```css file="../../../src/components/examples/highlight/highlight-dynamic-query.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Точное совпадение
 
-Включите `exactMatch`, когда частичные совпадения дают слишком много лишних результатов. В этом
-примере `box` совпадёт с отдельным словом, но не с `checkbox` и `combobox`.
+Включите `exactMatch`, если частичные совпадения дают слишком много лишних результатов. В этом
+примере `box` совпадёт с отдельным словом, но не с `checkbox` и `combobox`. Поиск использует
+границы слов JavaScript: для латинского текста они работают надёжно, но не распознают кириллицу и
+некоторые другие системы письма как целые слова.
 
 <ExampleFrame variant="component">
   <HighlightExactMatch />
@@ -146,22 +170,32 @@ Highlight / Highlight.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/highlight/exact-match.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/highlight/highlight-exact-match.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={highlightSolidExactMatch} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Стили**
+
+```css file="../../../src/components/examples/highlight/highlight-exact-match.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Игнорирование регистра
@@ -174,16 +208,27 @@ Highlight / Highlight.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/highlight/ignore-case.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={highlightSolidIgnoreCase} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Все совпадения
@@ -196,22 +241,32 @@ Highlight / Highlight.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/highlight/match-all.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/highlight/highlight-match-all.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={highlightSolidMatchAll} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Стили**
+
+```css file="../../../src/components/examples/highlight/highlight-match-all.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Несколько запросов
@@ -225,23 +280,34 @@ Highlight / Highlight.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/highlight/multiple-queries.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={highlightSolidMultipleQueries} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ## Стилизация
 
-Совпавшие фрагменты получают стандартные стили moduix для `<mark>`. Используйте `className` для
-локальной правки или переменные `--moduix-highlight-*`, если одинаковое оформление должно применяться
-к нескольким экземплярам компонента.
+Совпавшие фрагменты получают стандартные стили moduix для `<mark>`. Для локальной правки в React
+используйте `className`, а в Solid `class`. Варианты CSS Modules также предоставляют переменные
+`--moduix-highlight-*`; для Tailwind используйте utility-классы или классы потребителя.
 
 ### CSS-свойства
 
@@ -250,5 +316,6 @@ Highlight / Highlight.Root
 ### Хуки стилизации
 
 - Каждый совпавший `<mark>` получает `data-scope="highlight"` и `data-part="root"`.
-- `data-slot="highlight-root"` - стабильный селектор moduix для каждого совпавшего `mark`.
-- Компонент не создаёт обёртку, не добавляет атрибут состояния и не задаёт CSS-переменных Ark. На выходе только обычные текстовые узлы и совпавшие элементы `<mark>`.
+- `data-slot="highlight-root"` является стабильным селектором moduix для каждого совпавшего `mark`.
+- Такие свойства, как `className`/`class`, `style`, `title`, `id` и `data-*`, применяются к каждому совпавшему `<mark>`.
+- Компонент не создаёт обёртку, не добавляет атрибут состояния и не задаёт CSS-переменных Ark.
