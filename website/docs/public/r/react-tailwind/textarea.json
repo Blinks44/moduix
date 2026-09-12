@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "textarea",
+  "title": "Textarea",
+  "description": "moduix React Tailwind Textarea component.",
+  "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+  "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+  "files": [
+    {
+      "path": "src/components/textarea/Textarea.tsx",
+      "content": "import { Field as FieldPrimitive } from '@ark-ui/react/field';\nimport type { ComponentProps, ComponentRef } from 'react';\nimport { forwardRef } from 'react';\nimport { cn } from '@/lib/moduix/cn';\n\nconst Textarea = forwardRef<\n  ComponentRef<typeof FieldPrimitive.Textarea>,\n  ComponentProps<typeof FieldPrimitive.Textarea>\n>(function Textarea({ autoresize, className, ...props }, ref) {\n  return (\n    <FieldPrimitive.Textarea\n      ref={ref}\n      {...props}\n      data-scope=\"field\"\n      data-part=\"textarea\"\n      data-slot=\"textarea-root\"\n      data-autoresize={autoresize ? '' : undefined}\n      className={cn(\n        'w-full max-w-none min-h-24 rounded-md border border-border bg-background px-3.5 py-2 text-md leading-6 text-foreground outline-1 -outline-offset-1 outline-transparent resize-y transition-[border-color,outline-color,opacity] duration-200 ease-in-out placeholder:text-muted-foreground focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 data-invalid:border-destructive data-invalid:focus-visible:outline-destructive aria-invalid:border-destructive aria-invalid:focus-visible:outline-destructive data-autoresize:overflow-y-hidden motion-reduce:transition-none',\n        className,\n      )}\n      autoresize={autoresize}\n    />\n  );\n});\n\nexport { Textarea };\n",
+      "type": "registry:component",
+      "target": "@components/ui/textarea/Textarea.tsx"
+    },
+    {
+      "path": "src/components/textarea/index.ts",
+      "content": "export { Textarea } from './Textarea';\n",
+      "type": "registry:component",
+      "target": "@components/ui/textarea/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

@@ -338,9 +338,25 @@
       "types": "./dist/components/text/index.d.ts",
       "import": "./dist/components/text/index.js"
     },
+    "./timer": {
+      "types": "./dist/components/timer/index.d.ts",
+      "import": "./dist/components/timer/index.js"
+    },
+    "./textarea": {
+      "types": "./dist/components/textarea/index.d.ts",
+      "import": "./dist/components/textarea/index.js"
+    },
     "./toc": {
       "types": "./dist/components/toc/index.d.ts",
       "import": "./dist/components/toc/index.js"
+    },
+    "./toggle": {
+      "types": "./dist/components/toggle/index.d.ts",
+      "import": "./dist/components/toggle/index.js"
+    },
+    "./toast": {
+      "types": "./dist/components/toast/index.d.ts",
+      "import": "./dist/components/toast/index.js"
     },
     "./tooltip": {
       "types": "./dist/components/tooltip/index.d.ts",

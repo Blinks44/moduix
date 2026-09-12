@@ -1683,6 +1683,26 @@
       ]
     },
     {
+      "name": "toggle",
+      "type": "registry:item",
+      "title": "Toggle",
+      "description": "moduix React Tailwind Toggle component.",
+      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/toggle/Toggle.tsx",
+          "target": "@components/ui/toggle/Toggle.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toggle/index.ts",
+          "target": "@components/ui/toggle/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "text",
       "type": "registry:item",
       "title": "Text",
@@ -1698,6 +1718,71 @@
         {
           "path": "src/components/text/index.ts",
           "target": "@components/ui/text/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:item",
+      "title": "Textarea",
+      "description": "moduix React Tailwind Textarea component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/textarea/Textarea.tsx",
+          "target": "@components/ui/textarea/Textarea.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/textarea/index.ts",
+          "target": "@components/ui/textarea/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "timer",
+      "type": "registry:item",
+      "title": "Timer",
+      "description": "moduix React Tailwind Timer component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/timer/Timer.tsx",
+          "target": "@components/ui/timer/Timer.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/timer/index.ts",
+          "target": "@components/ui/timer/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "toast",
+      "type": "registry:item",
+      "title": "Toast",
+      "description": "moduix React Tailwind Toast component.",
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-react-tailwind/foundation",
+        "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/close-button",
+        "@moduix-react-tailwind/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/toast/Toast.tsx",
+          "target": "@components/ui/toast/Toast.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toast/index.ts",
+          "target": "@components/ui/toast/index.ts",
           "type": "registry:component"
         }
       ]

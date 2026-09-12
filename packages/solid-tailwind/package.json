@@ -486,11 +486,35 @@
       "import": "./dist/components/text/index.js",
       "default": "./dist/components/text/index.js"
     },
+    "./timer": {
+      "types": "./dist/components/timer/index.d.ts",
+      "solid": "./dist/components/timer/index.jsx",
+      "import": "./dist/components/timer/index.js",
+      "default": "./dist/components/timer/index.js"
+    },
+    "./textarea": {
+      "types": "./dist/components/textarea/index.d.ts",
+      "solid": "./dist/components/textarea/index.jsx",
+      "import": "./dist/components/textarea/index.js",
+      "default": "./dist/components/textarea/index.js"
+    },
     "./toc": {
       "types": "./dist/components/toc/index.d.ts",
       "solid": "./dist/components/toc/index.jsx",
       "import": "./dist/components/toc/index.js",
       "default": "./dist/components/toc/index.js"
+    },
+    "./toggle": {
+      "types": "./dist/components/toggle/index.d.ts",
+      "solid": "./dist/components/toggle/index.jsx",
+      "import": "./dist/components/toggle/index.js",
+      "default": "./dist/components/toggle/index.js"
+    },
+    "./toast": {
+      "types": "./dist/components/toast/index.d.ts",
+      "solid": "./dist/components/toast/index.jsx",
+      "import": "./dist/components/toast/index.js",
+      "default": "./dist/components/toast/index.js"
     },
     "./tooltip": {
       "types": "./dist/components/tooltip/index.d.ts",
@@ -533,6 +557,7 @@
     "@tanstack/charts": "^0.16.0",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/user-event": "^14.6.7",
     "@types/node": "^26.4.1",
     "happy-dom": "^20.14.0",
     "solid-js": "^1.9.15",
