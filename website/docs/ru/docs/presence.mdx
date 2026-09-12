@@ -1,47 +1,26 @@
 ---
 title: Presence
-description: Управляйте монтированием, скрытием и размонтированием содержимого с помощью Presence из Ark UI и используйте его вместе с компонентами moduix.
+description: Управляйте монтированием, скрытием, анимацией и размонтированием содержимого приложения в React и Solid.
 ---
 
 import PresenceBasic from '@/components/examples/presence/basic.tsx';
 import PresenceMountOnDemand from '@/components/examples/presence/mount-on-demand.tsx';
+import presenceSolidBasic from '../../../snippets/presence/solid/basic.tsx?raw';
+import presenceSolidExitAnimations from '../../../snippets/presence/solid/exit-animations.tsx?raw';
+import presenceSolidMountOnDemand from '../../../snippets/presence/solid/mount-on-demand.tsx?raw';
 
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/presence" />
 
-## Что делает Presence
+## Базовый жизненный цикл
 
-`Presence` является утилитой Ark UI, а не компонентом, экспортируемым из `@moduix/react`. Он управляет одним
-поддеревом через свойство `present`. В зависимости от параметров стратегии рендеринга это поддерево может оставаться
-смонтированным и скрытым, монтироваться только при первом показе или размонтироваться после анимации выхода.
+`Presence` - утилита Ark UI для содержимого, жизненным циклом которого управляет приложение. Она
+рендерит одно поддерево, пока `present` равно `true`, и добавляет `data-state="open"` или `data-state="closed"`
+для стилизации состояний.
 
-По умолчанию Presence рендерит корневой `<div>` с атрибутами `data-scope="presence"` и `data-part="root"`. На корень
-также добавляется `data-state="open"` или `data-state="closed"`, поэтому состояния появления и исчезновения можно
-настроить с помощью CSS. Укажите `asChild`, если существующий дочерний элемент должен получить свойства Presence без
-дополнительной обёртки.
-
-Импортируйте Presence напрямую из Ark UI:
-
-```tsx
-import { Presence } from '@ark-ui/react/presence';
-```
-
-## Когда использовать
-
-Используйте отдельный `Presence` для панелей, уведомлений, карточек и другого содержимого, которым управляет приложение
-и для которого нужно явно контролировать жизненный цикл монтирования.
-
-Для Dialog, Drawer, Lightbox, Menu, Popover, Tooltip, Tour и похожих корневых компонентов moduix используйте встроенные
-свойства Presence. Эти компоненты уже согласуют монтирование с управлением фокусом, позиционированием и закрытием.
-Отдельный `Presence` нужен, когда жизненным циклом содержимого управляет само приложение, а не существующий корневой
-компонент moduix.
-
-## Базовый пример
-
-Управляйте `Presence` через свойство `present`. Если `unmountOnExit` равно `false`, при закрытии корень скрывается, но
-остаётся смонтированным. Благодаря этому сохраняется локальное состояние, а эффекты продолжают работать. В примере
-включён `unmountOnExit`, поэтому анимация выхода успевает завершиться до удаления корня.
+Укажите `unmountOnExit`, если поддерево нужно удалить после анимации выхода. Без этого параметра корень остаётся
+смонтированным, а Ark скрывает его атрибутом `hidden`, когда `present` становится `false`.
 
 <ExampleFrame variant="component">
   <PresenceBasic />
@@ -49,29 +28,40 @@ import { Presence } from '@ark-ui/react/presence';
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/presence/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/presence/presence-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={presenceSolidBasic} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Стили**
+
+```css file="../../../src/components/examples/presence/presence-basic.module.css"
+```
+</div>
 </ExampleCode>
 
 ## Монтирование по требованию
 
-Сочетайте `lazyMount` и `unmountOnExit`, если содержимое не должно существовать до первого показа и после закрытия.
-`lazyMount` откладывает первое монтирование, но само по себе не удаляет содержимое при закрытии. За это отвечает
-`unmountOnExit`.
+Добавьте `lazyMount`, если содержимое не должно монтироваться до первого появления. Сочетайте его с
+`unmountOnExit`, если содержимое должно отсутствовать и до первого открытия, и после закрытия.
+
+Сам по себе `lazyMount` только откладывает первое монтирование и не удаляет поддерево после закрытия.
 
 <ExampleFrame variant="component">
   <PresenceMountOnDemand />
@@ -79,92 +69,97 @@ import { Presence } from '@ark-ui/react/presence';
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/presence/mount-on-demand.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/presence/presence-mount-on-demand.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={presenceSolidMountOnDemand} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Стили**
+
+```css file="../../../src/components/examples/presence/presence-mount-on-demand.module.css"
+```
+</div>
 </ExampleCode>
 
-## Анимации выхода
+## Анимации выхода и обратные вызовы
 
-Когда включён `unmountOnExit`, Presence оставляет корень в DOM на время CSS-анимации выхода. Используйте
-`data-state="open"` и `data-state="closed"`, чтобы задать стили появления и исчезновения. Если другой код должен
-дождаться окончания анимации выхода, используйте `onExitComplete`.
+При включённом `unmountOnExit` Ark оставляет корень смонтированным, пока выполняется CSS-анимация выхода. Задавайте
+стили для `data-state="open"` и `data-state="closed"` в таблице стилей того же корня. Используйте
+`onEnterComplete` и `onExitComplete`, если окружающий интерфейс или аналитика должны реагировать после завершения
+анимации.
 
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/presence/exit-animations.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/presence/presence-exit-animations.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={presenceSolidExitAnimations} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/presence/presence-exit-animations.module.css"
+```
 </div>
 
-Укажите `skipAnimationOnMount`, если первое появление не должно быть анимированным. Укажите `immediate`, если
-изменение `present` нужно применить сразу, не откладывая его до следующего кадра.
+Укажите `skipAnimationOnMount`, если первое появление должно быть мгновенным. Укажите `immediate`, если изменение
+`present` нужно применить сразу, не дожидаясь следующего кадра.
 
-## Как скрывать смонтированное содержимое
+## Параметры, влияющие на рендеринг
 
-Если содержимое остаётся смонтированным, параметр `hideMode` определяет способ его скрытия:
+| Параметр | Поведение |
+| --- | --- |
+| `present` | Управляет присутствием поддерева. |
+| `lazyMount` | Откладывает первое монтирование до момента, когда `present` станет `true`. |
+| `unmountOnExit` | Удаляет корень после завершения анимации закрытого состояния. |
+| `onEnterComplete` / `onExitComplete` | Вызываются после завершения анимации появления или выхода. |
+| `skipAnimationOnMount` | Отключает начальную анимацию присутствия. |
+| `immediate` | Применяет изменение `present` сразу, не дожидаясь следующего кадра. |
+| `hideMode` | Только React. `display-none` использует `hidden`, а `activity` приостанавливает эффекты через `Activity` из React 19. |
 
-- `display-none` используется по умолчанию. Он добавляет атрибут `hidden`, поэтому эффекты в поддереве продолжают
-  работать.
-- `activity` использует компонент `Activity` из React 19 с параметром `mode="hidden"`, приостанавливая эффекты
-  скрытого содержимого. Этот режим требует React 19 или более новой версии. Если `Activity` недоступен, Ark
-  возвращается к поведению с атрибутом `hidden`.
+Общие параметры жизненного цикла и обратные вызовы имеют одинаковый смысл в React и Solid. Ark Solid не экспортирует
+`hideMode`: смонтированное, но отсутствующее содержимое скрывается атрибутом `hidden`.
 
-Выбирайте `lazyMount` и `unmountOnExit`, если поддерево не должно существовать вне активной части своего жизненного
-цикла. Выбирайте `hideMode`, если содержимое должно оставаться смонтированным, но скрываться другим способом.
+## Композиция и доступность
 
-## Композиция
+Используйте `Presence`, когда приложение управляет жизненным циклом панели, уведомления, карточки или другого
+поддерева. Утилита не добавляет управление фокусом, закрытие, позиционирование или семантику диалога. Для Dialog,
+Drawer, Menu, Popover, Tooltip, Tour и других интерактивных корней используйте их собственные параметры Presence,
+чтобы сохранить согласованную модель взаимодействия.
 
-### Рекомендуемая композиция
-
-Размещайте `Presence` непосредственно вокруг содержимого, жизненным циклом монтирования которого он управляет. Внутри
-может находиться компонент moduix или семантический HTML-элемент. Передайте `className` корню Presence, если этому
-контейнеру нужны стили компоновки или анимации.
-
-### Когда использовать `asChild`
-
-Используйте `asChild`, если у вас уже есть подходящий корневой элемент и свойства Presence нужно передать ему без
-дополнительной обёртки. Убедитесь, что дочерний элемент принимает `ref`, `hidden`, `data-*` и передаваемый класс.
-Не используйте `asChild` с несколькими дочерними элементами.
-
-## Использование с moduix
-
-Внутри `Presence` можно разместить любой компонент moduix: карточки, кнопки, формы и собственные панели сохранят
-обычные стили и поведение. Presence управляет только жизненным циклом монтирования и атрибутами состояния, не меняя
-семантику и модель взаимодействия дочернего элемента.
-
-## Ark UI и moduix
-
-Ark UI предоставляет API `Presence`, управляет стратегией монтирования и жизненным циклом анимации. `@moduix/react` не экспортирует
-`Presence`, поэтому импортируйте его из `@ark-ui/react/presence`, а компоненты moduix размещайте внутри. Корневые
-компоненты moduix, которые сами управляют открытием, закрытием или поведением оверлея, предоставляют аналогичные
-свойства Presence там, где это уместно.
-
-Если вы используете отдельный Presence вместе с moduix, установите оба пакета:
-
-```bash
-pnpm add @ark-ui/react @moduix/react
-```
+По умолчанию `Presence` рендерит `<div>` с атрибутами `data-scope="presence"` и `data-part="root"`. Укажите
+`asChild`, если эти свойства должен получить существующий элемент без дополнительной обёртки. Дочерний элемент React
+должен принимать передаваемые ref, `hidden`, `data-*` и класс. В Solid используется форма с render-функцией:
+`asChild={(props) => <article {...props()} />}`. В обоих фреймворках сохраняйте один семантический корень и его
+доступное имя и содержимое. Не заменяйте поведение `hidden` одной только прозрачностью, если неактивное содержимое
+должно исчезать из дерева доступности.

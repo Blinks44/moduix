@@ -19,3 +19,9 @@
 .panel[data-state='closed'] {
   animation: activity-panel-exit 120ms ease-in;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .panel[data-state] {
+    animation-duration: 1ms;
+  }
+}

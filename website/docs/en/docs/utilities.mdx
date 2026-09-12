@@ -1,38 +1,38 @@
 ---
 title: Utilities
-description: Lower-level Ark UI utilities and moduix wrappers for browser rendering, focus management, formatting, and content lifecycle.
+description: Framework-aware building blocks from Ark UI and moduix for browser-only rendering, focus, formatting, keyboard shortcuts, and content lifecycle.
 ---
 
 import { Card, Cards } from '@/components/mdx/Components';
 
 # Utilities
 
-This section covers lower-level building blocks from Ark UI and moduix. Use them for browser-only rendering, custom
-document contexts, focus management, formatting, keyboard shortcuts, or control over when content mounts.
+Use a utility when your application owns the surrounding markup or behavior. If a moduix component already owns the
+interaction you need, start with that component instead.
 
-Most guides use Ark UI directly. `Highlight`, `JsonTreeView`, and `Swap` are moduix wrappers with library styles or
-defaults, while `Locale` is exposed through a stable `@moduix/react/locale` entry point. Each guide shows the import
-you need, a runnable example, and a link to the complete Ark API.
+The guides below cover direct Ark UI utilities and moduix components built on the same primitives. Ark UI utilities
+provide framework-specific behavior and do not choose a styling system. `Highlight`, `JsonTreeView`, and `Swap` wrap
+the corresponding Ark UI primitives and add moduix composition and styling. They are available in React and Solid
+packages for both styling tracks.
 
-Start with a moduix component when it already owns the interaction. Use one of these utilities when your application
-owns the surrounding markup or behavior.
+## Ark UI utilities
 
-## Guides
+Import these utilities from the matching Ark UI package or subpath. Their guides explain the API and integration code.
 
 <Cards>
   <Card
     title="Client Only"
-    description="Render browser-dependent content after hydration while keeping a useful server fallback."
+    description="Render browser-dependent content after hydration while keeping a useful fallback."
     href="/docs/client-only"
   />
   <Card
     title="Download Trigger"
-    description="Trigger downloads for a URL, Blob, File, or generated data from a button."
+    description="Trigger downloads for a string, Blob, File, or generated data from a button."
     href="/docs/download-trigger"
   />
   <Card
     title="Environment"
-    description="Point Ark UI's DOM queries at an iframe, Shadow DOM, Electron, or another document."
+    description="Route Ark UI DOM queries to an iframe, Shadow DOM, Electron, or another document."
     href="/docs/environment"
   />
   <Card
@@ -62,13 +62,8 @@ owns the surrounding markup or behavior.
   />
   <Card
     title="Frame"
-    description="Render isolated React content in an iframe."
+    description="Render isolated content in an iframe."
     href="/docs/frame"
-  />
-  <Card
-    title="Highlight"
-    description="Highlight matching words and phrases with Ark's matching logic and moduix styles."
-    href="/docs/highlight"
   />
   <Card
     title="Hotkeys"
@@ -76,23 +71,45 @@ owns the surrounding markup or behavior.
     href="/docs/hotkeys"
   />
   <Card
+    title="Presence"
+    description="Control when application-owned content mounts, hides, or unmounts."
+    href="/docs/presence"
+  />
+</Cards>
+
+## Moduix components built on Ark UI
+
+These components keep the same public behavior across React and Solid packages for both styling tracks. CSS Modules
+packages ship component styles. Tailwind packages use native utility classes and allow consumer class overrides.
+
+<Cards>
+  <Card
+    title="Highlight"
+    description="Highlight matching words and phrases with accessible markup and moduix styles."
+    href="/docs/highlight"
+  />
+  <Card
     title="JSON Tree View"
     description="Inspect JSON and JavaScript values in an accessible, expandable tree."
     href="/docs/json-tree-view"
   />
   <Card
-    title="Locale"
-    description="Provide a locale and text direction to Ark formatters and locale-aware components."
-    href="/docs/locale"
-  />
-  <Card
-    title="Presence"
-    description="Control when application-owned content mounts, hides, or unmounts."
-    href="/docs/presence"
-  />
-  <Card
     title="Swap"
     description="Switch between two visual states with moduix animation presets."
     href="/docs/swap"
+  />
+</Cards>
+
+## Locale context
+
+`Locale` provides locale and text direction to Ark UI formatters and locale-aware components. It is framework context,
+not a styled component: use `@moduix/react/locale` in React or `@moduix/solid/locale` in Solid. Package and stylesheet
+setup is covered in [Quick Start](/docs/quick-start).
+
+<Cards>
+  <Card
+    title="Locale"
+    description="Provide a locale and text direction to Ark formatters and locale-aware components."
+    href="/docs/locale"
   />
 </Cards>

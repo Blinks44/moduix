@@ -1,34 +1,26 @@
 ---
 title: Format Time
-description: Показывайте время в формате текущей локали с помощью Ark UI Format.Time и moduix.
+description: Форматируйте время в заданной локали в React и Solid с помощью Ark UI Format.Time.
 ---
 
 import FormatTimeBasic from '@/components/examples/format-time/basic.tsx';
 import FormatTimeSecondsAndLabels from '@/components/examples/format-time/seconds-and-labels.tsx';
+import FormatTimeLocale from '@/components/examples/format-time/locale.tsx';
+import formatTimeSolidBasic from '../../../snippets/format-time/solid/basic.tsx?raw';
+import formatTimeSolidSecondsAndLabels from '../../../snippets/format-time/solid/seconds-and-labels.tsx?raw';
+import formatTimeSolidLocale from '../../../snippets/format-time/solid/locale.tsx?raw';
+
+`Format.Time` превращает значение времени в текст с учётом локали в React и Solid. В обоих фреймворках используются
+одни и те же параметры.
 
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/format-time" />
 
-## Когда использовать
-
-Используйте `Format.Time`, когда нужно показать время в формате текущей локали: в расписании, ленте событий, часах
-работы службы поддержки и других элементах интерфейса. Компонент принимает объект `Date` или строку времени формата `HH:mm`
-либо `HH:mm:ss`.
-
-Для времени по расписанию используйте строку: она не будет меняться при смене часового пояса. Передавайте `Date`, если
-значение обозначает конкретный момент.
-
-Импортируйте `Format` напрямую из Ark UI:
-
-```tsx
-import { Format } from '@ark-ui/react';
-```
-
 ## Базовый пример
 
-Для времени по расписанию передайте строку, чтобы результат не зависел от часового пояса. Покажите его в компонентах
-moduix рядом с событием, к которому оно относится.
+Передайте строку в формате `HH:mm` или `HH:mm:ss`, если это время на циферблате, например время отправления по
+расписанию. Строка не преобразуется между часовыми поясами.
 
 <ExampleFrame variant="component">
   <FormatTimeBasic />
@@ -36,23 +28,34 @@ moduix рядом с событием, к которому оно относит
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/format-time/basic.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={formatTimeSolidBasic} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
-## 12-часовой формат, секунды и обозначения AM/PM
+## Параметры форматирования
 
-По умолчанию `Format.Time` использует 24-часовой формат. Укажите `format="12h"`, чтобы переключиться на 12-часовой
-формат. Добавляйте `withSeconds`, когда секунды действительно важны, например в индикаторе последней синхронизации.
-В 12-часовом формате `amLabel` и `pmLabel` заменяют стандартные обозначения части суток.
+По умолчанию используется 24-часовой формат. Укажите `format="12h"`, чтобы использовать 12-часовой формат,
+`withSeconds`, чтобы добавить секунды, а `amLabel` и `pmLabel`, чтобы заменить обозначения части суток в 12-часовом
+выводе.
 
 <ExampleFrame variant="component">
   <FormatTimeSecondsAndLabels />
@@ -61,69 +64,64 @@ moduix рядом с событием, к которому оно относит
 <ExampleCode>
 <div className="docs-reference">
   <Tabs
+    groupId="framework"
     values={[
-      { label: 'React', value: 'React' },
-      { label: 'Styles', value: 'Styles' },
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
     ]}
     className="docs-tabs"
   >
-    <Tab value="React">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/format-time/seconds-and-labels.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/format-time/format-time-seconds-and-labels.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={formatTimeSolidSecondsAndLabels} />
 
     </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
-Не добавляйте секунды в расписание только потому, что они есть в исходных данных. Выбирайте точность, которая помогает
-человеку сориентироваться.
+Добавляйте секунды только тогда, когда они помогают человеку действовать. Не выводите их в расписании только потому,
+что они есть в исходных данных.
 
 ## Локаль и значения Date
 
-`Format.Time` получает локаль из `LocaleProvider`. moduix переэкспортирует этот провайдер, поэтому его можно
-использовать как единый провайдер локали для всего интерфейса:
+`Format.Time` получает локаль из ближайшего `LocaleProvider`. Если провайдер не задан, Ark UI использует `en-US`.
+Используйте `Date`, когда значение обозначает конкретный момент, например временную метку из API. Отображаемое время
+для `Date` определяется часовым поясом среды выполнения. `LocaleProvider` меняет локаль, но не часовой пояс.
 
-```tsx
-import { Format } from '@ark-ui/react';
-import { LocaleProvider } from '@moduix/react/locale';
+Оставляйте время по расписанию строкой. Передавайте `Date` только тогда, когда преобразование часового пояса задумано.
 
-export function LocalizedTime() {
-  return (
-    <LocaleProvider locale="fr-FR">
-      <Format.Time value="17:15" />
-    </LocaleProvider>
-  );
-}
+<ExampleFrame variant="component">
+  <FormatTimeLocale />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/format-time/locale.tsx"
 ```
 
-Используйте `Date`, если у вас уже есть точное значение даты и времени, например временная метка из API:
+    </Tab>
+    <Tab value="solid">
 
-```tsx
-import { Format } from '@ark-ui/react';
+<CodeBlockRuntime lang="tsx" code={formatTimeSolidLocale} />
 
-export function UpdatedAt({ value }: { value: Date }) {
-  return <Format.Time value={value} />;
-}
-```
-
-Для `Date` компонент отображает время в часовом поясе среды выполнения. `LocaleProvider` задаёт локаль,
-но не часовой пояс. Поэтому не заменяйте время из расписания на `Date`, если такое преобразование не нужно.
-
-## Использование с moduix
-
-`Format.Time` выводит только текст. Используйте `Card`, `Stack`, `Text` и компоненты статуса moduix, чтобы пояснить,
-что означает время. Не создавайте отдельный компонент только для вызова форматтера.
-
-## Границы ответственности
-
-Ark UI отвечает за форматирование времени и API `Format.Time`. moduix предоставляет окружающие компоненты интерфейса и
-переэкспортирует `LocaleProvider`, но не переэкспортирует `Format.Time`.
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>

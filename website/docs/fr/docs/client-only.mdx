@@ -1,38 +1,29 @@
 ---
 title: Client Only
-description: Affichez côté client une interface moduix qui dépend du navigateur avec ClientOnly d’Ark UI et un fallback qui préserve la mise en page.
+description: Affichez une interface dépendante du navigateur après l’hydratation avec ClientOnly d’Ark UI et un fallback qui préserve la mise en page.
 ---
 
 import ClientOnlyBasic from '@/components/examples/client-only/basic.tsx';
+import clientOnlySolidBasic from '../../../snippets/client-only/solid/basic.tsx?raw';
+
+Utilisez `ClientOnly` lorsqu’une sous-arborescence dépendante du navigateur doit rester absente du rendu serveur, tandis
+qu’un `fallback` conserve sa place dans la mise en page.
 
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/client-only" />
 
-## Quand utiliser `ClientOnly`
+## Afficher du contenu dépendant du navigateur
 
-Utilisez `ClientOnly` pour la partie de l’interface qui doit accéder au DOM ou à des API du navigateur indisponibles
-côté serveur, comme `window`, `navigator`, le stockage, les mesures de mise en page ou une bibliothèque réservée au
-navigateur. Lors du rendu côté serveur, le composant affiche le `fallback`, puis son contenu enfant après
-l’hydratation.
+Pendant le rendu serveur et jusqu’à la fin de l’hydratation, `ClientOnly` affiche le `fallback`. Il affiche ensuite son
+contenu enfant côté client. Utilisez-le pour le code qui lit `window`, `document`, `navigator`, le stockage, les
+mesures de mise en page ou une bibliothèque réservée au navigateur.
 
-`ClientOnly` est fourni par Ark UI. moduix ne l’encapsule pas et ne le réexporte pas : importez-le directement.
+## Recette de base
 
-```tsx
-import { ClientOnly } from '@ark-ui/react/client-only';
-```
-
-Si Ark UI ne figure pas déjà parmi les dépendances de votre application, installez-le :
-
-```bash
-pnpm add @ark-ui/react
-```
-
-## Exemple de base
-
-Placez le code qui dépend du navigateur dans le composant enfant à l’intérieur de `ClientOnly`. Choisissez un
-`fallback` proche de l’interface moduix finale et de dimensions comparables. Le serveur affiche ainsi un contenu utile
-et la mise en page ne se décale pas brusquement au moment où le client prend le relais.
+Cette recette affiche une `Card` dépendante du navigateur avec un `Skeleton` qui réserve la même structure pendant le
+chargement. L’aperçu utilise le package React avec CSS Modules ; les onglets de code contiennent des exemples natifs
+en React et en Solid qui produisent le même comportement.
 
 <ExampleFrame clientOnly variant="component">
   <ClientOnlyBasic />
@@ -40,40 +31,45 @@ et la mise en page ne se décale pas brusquement au moment où le client prend l
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/client-only/basic.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={clientOnlySolidBasic} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
-## Choisir un `fallback`
+## Garder les API du navigateur dans la limite `ClientOnly`
 
-Le `fallback` est le contenu visible pendant le rendu côté serveur et jusqu’à la fin de l’hydratation. Utilisez un
-`Skeleton`, une version statique du contenu ou un autre élément utile de dimensions proches de l’interface finale.
-Reproduisez notamment les lignes et les contrôles importants pour éviter un changement de hauteur brutal. N’accédez
-pas aux objets globaux du navigateur pour construire le `fallback`.
+`ClientOnly` contrôle le moment où sa sous-arborescence enfant est rendue. Il ne transforme pas le composant parent ni
+son module en module client. Gardez les accès aux objets globaux du navigateur dans l’enfant rendu par `ClientOnly`,
+ou dans un effet ou un gestionnaire d’événements. Si votre framework exige une frontière client distincte, ajoutez-la
+selon ses propres règles.
 
-## Garder les API du navigateur côté client
+N’accédez pas aux objets globaux du navigateur lors de la création du `fallback`. Celui-ci doit pouvoir être rendu côté
+serveur et rester suffisamment proche du contenu final pour éviter un décalage de mise en page.
 
-`ClientOnly` contrôle le rendu de son contenu, mais ne transforme pas un composant ou un module SSR en module client.
-Accédez à `window`, `document`, `navigator`, `localStorage` et aux mesures de mise en page uniquement dans le
-composant enfant placé dans `ClientOnly`, ou dans un effet ou un gestionnaire d’événements. Ne placez pas ces accès
-dans le composant parent qui crée la frontière `ClientOnly` : ce parent est toujours rendu côté serveur.
+## Intégration et accessibilité
 
-## Utiliser `ClientOnly` avec moduix
+Aucun provider, routeur ou enregistrement dans la mise en page racine n’est nécessaire. Rendez la limite à
+l’emplacement de la région dépendante du navigateur.
 
-Les composants moduix fonctionnent normalement dans le sous-arbre rendu par `ClientOnly`. Dans l’exemple, `Card`
-affiche des informations lues dans le navigateur et `Skeleton` conserve la même structure dans le `fallback`. Si un
-composant moduix peut déjà être rendu côté serveur avec le comportement souhaité, utilisez son API documentée au lieu
-d’ajouter une frontière `ClientOnly`.
-
-## Responsabilités
-
-Ark UI fournit `ClientOnly`, son comportement d’hydratation et sa propriété `fallback`. moduix explique comment
-l’associer à ses composants, mais ne stylise pas l’utilitaire et ne l’inclut pas dans les exports du package.
+Donnez au `fallback` des dimensions approximativement identiques à celles du contenu final. Dans la recette,
+`aria-busy="true"` indique que la carte temporaire est en cours de préparation et le `Skeleton` en chargement reste
+décoratif. N’ajoutez pas de contrôles interactifs en double dans un `fallback` si les utilisateurs ne peuvent pas les
+activer avant l’hydratation.

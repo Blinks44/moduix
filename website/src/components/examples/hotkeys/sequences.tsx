@@ -46,8 +46,8 @@ export default function HotkeysSequencesDemo() {
         </Stack>
       </Card.Body>
       <Card.Footer>
-        <PreviewMeta>
-          <output>Current view: {destination}</output>
+        <PreviewMeta style={{ marginInline: 'auto', placeItems: 'center' }}>
+          <output aria-live="polite">Current view: {destination}</output>
         </PreviewMeta>
       </Card.Footer>
     </Card>

@@ -1,124 +1,94 @@
 ---
 title: Focus Trap
-description: Keep keyboard focus inside a custom interactive surface with Ark UI FocusTrap and moduix controls.
+description: Keep keyboard focus inside a custom interactive surface with Ark UI FocusTrap.
 ---
 
 import FocusTrapBasic from '@/components/examples/focus-trap/basic.tsx';
+import focusTrapSolidCssModules from '../../../snippets/focus-trap/solid/css-modules.tsx?raw';
 
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/focus-trap" />
 
-## Choosing the right component
+`FocusTrap` is an Ark UI utility for custom interactive surfaces where keyboard focus must stay inside a container until
+the workflow is released. Import it from `@ark-ui/react/focus-trap` or `@ark-ui/solid/focus-trap`.
 
-`FocusTrap` is a low-level utility for managing focus. Use it when your application owns a custom interactive
-surface and needs keyboard focus to stay inside that surface until a task is complete or the user explicitly leaves it.
-
-Use `Dialog` for a modal window and `Drawer` for a modal panel attached to the edge of the viewport. Both already
-handle focus trapping, focus restoration, scroll prevention, dismissal, and dialog semantics. Do not add `FocusTrap`
-inside either component.
-
-`FocusTrap` comes from Ark UI, so import it from there. moduix does not re-export or style this utility:
-
-```tsx
-import { FocusTrap } from '@ark-ui/react/focus-trap';
-```
-
-If these packages are not dependencies in your app yet, install them with:
-
-```bash
-pnpm add @ark-ui/react @moduix/react
-```
+Use `Dialog` for a modal window and `Drawer` for a modal panel attached to the edge of the viewport. They already provide
+the surrounding modal behavior. Do not add `FocusTrap` inside either component.
 
 ## Basic
 
-Keep `FocusTrap` mounted and toggle its `disabled` prop as the workflow starts and ends. In this example,
-`initialFocus` sends focus to **Review details** when review mode starts.
+Keep the trap mounted and toggle `disabled` when the workflow starts and ends. The example sends focus to **Review details**
+with `initialFocus`, keeps `isReviewing` in sync from `onDeactivate`, and restores focus to **Start review** when the trap
+is released. The preview uses the React CSS Modules package and reports whether the trap is active. The source tabs show
+the same behavior with native React and Solid code.
 
 <ExampleFrame variant="component">
   <FocusTrapBasic />
 </ExampleFrame>
 
 <ExampleCode>
-<div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
 
-```tsx pure file="../../../src/components/examples/focus-trap/basic.tsx"
+```tsx pure file="../../../snippets/focus-trap/css-modules/react.tsx"
 ```
 
-    </Tab>
-    <Tab value="Styles">
+  </Tab>
+  <Tab value="solid">
 
-```css file="../../../src/components/examples/focus-trap/focus-trap-basic.module.css"
+<CodeBlockRuntime lang="tsx" code={focusTrapSolidCssModules} />
+
+  </Tab>
+</Tabs>
+
+**Styles**
+
+```css file="../../../snippets/focus-trap/css-modules/focus-trap-basic.module.css"
 ```
-
-    </Tab>
-  </Tabs>
-</div>
-
 </ExampleCode>
-
-Click **Start review** to activate the trap. Focus moves to **Review details**, then `Tab` and `Shift + Tab` cycle
-between the two buttons in the card. Click **Finish review** to deactivate the trap. Because **Start review** had focus
-before activation, Ark returns focus to that button.
 
 ## Focus lifecycle
 
-### Choosing initial focus
+### Initial focus
 
-By default, the first tabbable element inside the trap receives focus when the trap is activated. An element with the
-`autofocus` attribute is also respected. In React, use the `autoFocus` prop for this attribute. Use `initialFocus` when
-another element, such as the main input or primary action, should receive focus first.
+When the trap is activated, focus moves to the first tabbable element by default. `initialFocus` accepts an element, a
+selector, or a function returning one. Set it to `false` when activation must not move focus. An element with the
+`autofocus` attribute is also respected.
 
-Set `initialFocus={false}` when activation should not move focus at all. This also prevents `fallbackFocus` from being
-used during activation.
+### Empty surfaces
 
-### Handling an empty surface
-
-If the trapped surface has no tabbable elements, provide `fallbackFocus`. Give the fallback target `tabIndex={-1}` so
-Ark can focus it programmatically. When `initialFocus` is not `false`, activation throws an error if it cannot find a
-tabbable element or a fallback target.
+If the surface has no tabbable elements, provide `fallbackFocus` and give its target `tabIndex={-1}`. Activation throws
+when it cannot find a tabbable element or fallback target, unless `initialFocus` is `false`.
 
 ### Restoring focus
 
-By default, focus returns to the element that was focused before the trap was activated. Set
-`returnFocusOnDeactivate={false}` when another part of the workflow owns focus after deactivation. Use
-`setReturnFocus` to replace the default target with an element or a function that returns one. You can also set it to
-`false` to skip focus restoration.
+Focus returns to the element that was active before activation by default. Set `returnFocusOnDeactivate={false}` to skip
+that behavior, or use `setReturnFocus` to provide an element, a function returning one, or `false`.
 
-The `onActivate` and `onDeactivate` callbacks run before Ark moves focus to the next target. Use them for side effects,
-not as a replacement for the focus lifecycle.
+`onActivate` and `onDeactivate` are lifecycle callbacks. Use them for side effects and to synchronize application state,
+as in the example, not as a replacement for `disabled`.
 
-### Including portalled content
+### Portalled content and custom roots
 
-If interactive content is rendered in a portal outside the trapped surface, pass functions that return those elements to
-`persistentElements` so Ark treats that content as part of the trap. Keep related focusable content inside the trapped
-surface when possible.
+If interactive content is rendered in a portal outside the trapped surface, pass functions returning those elements in
+`persistentElements`. Keep related focusable content inside the surface whenever possible.
 
-### Using a custom root
+`FocusTrap` renders a wrapper by default. Set `asChild` to apply the behavior to one semantic child element that your
+application owns.
 
-By default, `FocusTrap` renders a wrapper around its children. Set `asChild` to apply the trap to one child element when
-your own element must be the container. Use a single semantic element as the child.
+## Limits and accessibility
 
-## What FocusTrap does not do
+`FocusTrap` manages keyboard focus only. It does not add a backdrop or portal, dialog semantics or an accessible name,
+inert behavior for the rest of the page, scroll locking, or the open and close state of your surface. Use `Dialog` or
+`Drawer` when their complete interaction model fits the task.
 
-`FocusTrap` manages keyboard focus only. It does not render a backdrop or portal, add a dialog role or accessible name,
-make the rest of the page inert, block scrolling, handle Escape, or dismiss the surface after outside interaction.
-
-Add those behaviors yourself for a custom modal surface, or use `Dialog` or `Drawer` when their complete interaction
-model fits the task.
-
-## Using moduix
-
-Place `Card`, `Button`, `Stack`, and other moduix controls inside the trap as usual. Give the surface a clear heading
-and description, and provide a visible action that releases the trap. Never trap focus in content that the user cannot
-dismiss.
-
-If the surface is a modal dialog or drawer, use the corresponding moduix component instead of assembling the modal
-behavior around `FocusTrap`.
-
-## Ownership
-
-Ark UI owns `FocusTrap` and its focus lifecycle API. moduix supplies the surrounding controls and documents how to
-combine them, but it does not re-export or style `FocusTrap`.
+Any custom trapped surface needs a clear heading, an accessible description when needed, and a visible action that lets
+the user leave the workflow. Do not trap focus in content that cannot be dismissed.

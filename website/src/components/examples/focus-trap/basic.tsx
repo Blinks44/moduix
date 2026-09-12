@@ -4,26 +4,25 @@ import { Card } from '@moduix/react/card';
 import { Stack } from '@moduix/react/stack';
 import { useRef, useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/focus-trap/focus-trap-basic.module.css';
+import styles from '../../../../snippets/focus-trap/css-modules/focus-trap-basic.module.css';
 
-export default function FocusTrapBasicDemo() {
+export default function FocusTrapBasicPreview() {
   const [isReviewing, setIsReviewing] = useState(false);
   const detailsButtonRef = useRef<HTMLButtonElement>(null);
 
   return (
     <Stack align="center" className={styles.root} gap={4}>
       <FocusTrap
+        className={styles.trap}
         disabled={!isReviewing}
         initialFocus={() => detailsButtonRef.current}
-        className={styles.trap}
+        onDeactivate={() => setIsReviewing(false)}
       >
         <Card>
           <Card.Header>
             <Card.Title>Review mode</Card.Title>
           </Card.Header>
-          <Card.Body>
-            When active, use Tab and Shift + Tab to move only between these actions.
-          </Card.Body>
+          <Card.Body>When active, Tab and Shift + Tab stay inside these actions.</Card.Body>
           <Card.Footer>
             <Button ref={detailsButtonRef} size="sm" type="button" variant="outline">
               Review details
@@ -36,7 +35,7 @@ export default function FocusTrapBasicDemo() {
       </FocusTrap>
 
       <PreviewMeta>
-        <output>Focus trap: {isReviewing ? 'active' : 'inactive'}</output>
+        <output aria-live="polite">Focus trap: {isReviewing ? 'active' : 'inactive'}</output>
         <Button disabled={isReviewing} size="sm" type="button" onClick={() => setIsReviewing(true)}>
           Start review
         </Button>

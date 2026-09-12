@@ -1,31 +1,32 @@
 ---
 title: Locale
-description: Définissez la locale et le sens d’écriture pour les utilitaires de formatage Ark et les composants moduix qui en tiennent compte.
+description: Fournissez une locale et une direction d’écriture aux formateurs Ark et au contenu localisé, avec React ou Solid.
 ---
 
 import LocaleBasic from '@/components/examples/locale/basic.tsx';
 import LocaleContext from '@/components/examples/locale/context.tsx';
+import localeSolidBasic from '../../../snippets/locale/solid/basic.tsx?raw';
+import localeSolidContext from '../../../snippets/locale/solid/context.tsx?raw';
+import localeSolidDocument from '../../../snippets/locale/solid/document.tsx?raw';
+
+`LocaleProvider` fournit une locale et sa direction d’écriture à un sous-arbre. Les formateurs Ark et le contenu
+localisé utilisent ce contexte.
 
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/locale" />
 
-## Rôle de `LocaleProvider`
+## Choisir l’import du provider
 
-`LocaleProvider` définit une locale et un sens d’écriture pour une partie de l’application. Les utilitaires de formatage
-Ark et les composants qui tiennent compte de la locale lisent ce contexte pour formater les valeurs et choisir le sens du
-texte. Sans provider, Ark utilise `en-US` et le sens de gauche à droite (`ltr`).
+Importez `LocaleProvider` et `useLocaleContext` depuis `@ark-ui/react/locale` ou `@ark-ui/solid/locale`.
 
-moduix réexporte le provider et son hook de contexte depuis une entrée publique dédiée :
+`Format.Number`, `Format.Time` et les autres utilitaires `Format` restent importés depuis `@ark-ui/react` ou
+`@ark-ui/solid`.
 
-```tsx
-import { LocaleProvider, useLocaleContext } from '@moduix/react/locale';
-```
+## Définir une locale
 
-## Exemple de base
-
-Entourez la partie localisée de votre interface avec le provider. Cet exemple associe un utilitaire de formatage Ark aux composants
-de mise en page moduix, afin que le montant et l’interface qui l’accompagne utilisent la même locale.
+Entourez la partie de l’interface qui partage une locale. Les formateurs et les composants qui tiennent compte de la
+locale lisent alors le même contexte.
 
 <ExampleFrame variant="component">
   <LocaleBasic />
@@ -33,22 +34,37 @@ de mise en page moduix, afin que le montant et l’interface qui l’accompagne 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/locale/basic.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={localeSolidBasic} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
+
+`LocaleProvider` accepte une chaîne de locale au format BCP 47, par exemple `fr-FR`. Sans provider, Ark utilise `en-US`
+et `ltr`.
 
 ## Lire le contexte de locale
 
-`useLocaleContext` renvoie `locale` et `dir` depuis le provider le plus proche. Utilisez ces valeurs dans votre contenu
-lorsqu’il doit reprendre la même locale ou le même sens d’écriture que le reste de la zone localisée.
+`useLocaleContext` renvoie `locale` et `dir` depuis le provider le plus proche. Utilisez ces valeurs lorsque votre propre
+structure doit reprendre la même langue et la même direction que les composants qui tiennent compte de la locale. React
+lit directement les valeurs ; Solid les lit via un accessor.
 
 <ExampleFrame variant="component">
   <LocaleContext />
@@ -56,52 +72,59 @@ lorsqu’il doit reprendre la même locale ou le même sens d’écriture que le
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/locale/context.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={localeSolidContext} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
+
+## Définir la langue et la direction du document
+
+`LocaleProvider` déduit la direction `dir` d’Ark à partir de la locale, mais ne modifie pas les attributs natifs `lang`
+et `dir` du document. Si toute l’application utilise une même direction, définissez les deux attributs sur la racine du
+document :
+
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/locale/document.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={localeSolidDocument} />
+
+    </Tab>
   </Tabs>
 </div>
 
-</ExampleCode>
-
-## Langue et direction du document
-
-`LocaleProvider` déduit la direction utilisée par Ark à partir de la locale, mais il ne modifie pas les attributs HTML
-du document. Si toute l’application utilise une même locale, définissez les valeurs correspondantes de `lang` et
-`dir` sur la racine du document, en particulier pour une langue qui s’écrit de droite à gauche.
-
-```tsx
-import type { ReactNode } from 'react';
-import { LocaleProvider } from '@moduix/react/locale';
-
-export function Document({ children }: { children: ReactNode }) {
-  return (
-    <html dir="rtl" lang="ar">
-      <body>
-        <LocaleProvider locale="ar-EG">{children}</LocaleProvider>
-      </body>
-    </html>
-  );
-}
-```
-
-Pour une zone plus petite avec un sens d’écriture différent, définissez sa valeur `lang` et appliquez à sa racine la
-valeur `dir` renvoyée par `useLocaleContext`. Consultez [De droite à gauche (RTL)](/docs/rtl) pour les conseils de mise
-en page, de portails et d’icônes directionnelles.
-
-## Utilisation avec moduix
-
-Placez un seul `LocaleProvider` autour de la partie de l’interface qui partage une locale. Les utilitaires `Format`
-et les primitives Ark qui tiennent compte de la locale lisent alors le même contexte.
-
-`Format.Number`, `Format.Time` et les autres utilitaires `Format` restent importés depuis Ark. moduix fournit les
-composants d’interface et réexporte le contexte de locale ; il n’ajoute pas de seconde API de formatage.
-
-## Responsabilités
-
-Ark UI gère la résolution de la locale, la direction du texte et l’API du provider. moduix réexporte
-`LocaleProvider` et `useLocaleContext` depuis `@moduix/react/locale` via son entrée publique dédiée.
+Pour une zone RTL dans une application LTR, définissez `lang` et la valeur correspondante de `dir` sur la racine de
+cette zone, comme dans l’exemple de contexte. Si les utilisateurs peuvent passer d’une locale LTR à une locale RTL sans
+recharger la page, mettez à jour les attributs du document en même temps que `locale`. Consultez [De droite à gauche
+(RTL)](/docs/rtl) pour les portails, les propriétés CSS logiques et les icônes directionnelles.

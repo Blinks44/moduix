@@ -1,10 +1,13 @@
 ---
 title: Format Relative Time
-description: Форматируйте даты как относительное время через Ark UI и задавайте локаль через LocaleProvider из moduix.
+description: Форматируйте даты относительно текущего момента в Ark UI для React и Solid с учетом локали и компактных вариантов отображения.
 ---
 
 import FormatRelativeTimeBasic from '@/components/examples/format-relative-time/basic.tsx';
 import FormatRelativeTimeShort from '@/components/examples/format-relative-time/short.tsx';
+import formatRelativeTimeSolidBasic from '../../../snippets/format-relative-time/solid/basic.tsx?raw';
+import formatRelativeTimeSolidLocale from '../../../snippets/format-relative-time/solid/locale.tsx?raw';
+import formatRelativeTimeSolidShort from '../../../snippets/format-relative-time/solid/short.tsx?raw';
 
 ## Справочник API
 
@@ -12,24 +15,19 @@ import FormatRelativeTimeShort from '@/components/examples/format-relative-time/
 
 ## Когда использовать
 
-Используйте `Format.RelativeTime`, когда важнее, сколько времени прошло или осталось до события, чем точная отметка
-времени: в лентах активности, статусах сохранения, дедлайнах и списках предстоящих событий. Передайте объект `Date`
-в `value`. Во время рендера Ark сравнивает дату с текущим временем, выбирает подходящую единицу, от секунд до лет,
-и форматирует результат через `Intl.RelativeTimeFormat`.
+Используйте `Format.RelativeTime`, когда расстояние от текущего момента важнее точной отметки времени: в лентах
+активности, статусах сохранения, дедлайнах и списках предстоящих событий. Передайте объект `Date` в `value`. Во
+время рендера Ark вычисляет разницу, выбирает единицу от секунд до лет и форматирует результат через
+`Intl.RelativeTimeFormat`.
 
-По умолчанию `numeric` имеет значение `"always"`, поэтому результат будет числовым, например «через 12 минут» или
-«1 день назад». Укажите `numeric="auto"`, чтобы использовать естественные формулировки вроде «завтра» и «вчера».
-
-Импортируйте `Format` напрямую из Ark UI:
-
-```tsx
-import { Format } from '@ark-ui/react';
-```
+Форматтер выводит только текст. Добавьте его в разметку, которая объясняет значение. Если значение представляет
+момент времени, используйте семантический элемент `<time>` и передайте его точное значение в формате ISO через
+`dateTime`.
 
 ## Базовый пример
 
-Используйте `numeric="auto"`, когда даты, близкие к сегодняшнему дню, можно описать естественными словами, например
-«завтра» или «вчера». В этом примере карточка показывает, через сколько начнётся запланированная проверка.
+Укажите `numeric="auto"`, когда близкие к текущей дате значения лучше описывать словами вроде «завтра» или «вчера».
+Предпросмотр в документации работает на React, а вкладка Solid содержит нативный эквивалент той же композиции.
 
 <ExampleFrame variant="component">
   <FormatRelativeTimeBasic />
@@ -37,22 +35,34 @@ import { Format } from '@ark-ui/react';
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/format-relative-time/basic.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={formatRelativeTimeSolidBasic} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
-## Краткая форма
+## Краткий формат
 
-Используйте `style="short"`, когда место ограничено, например в списке или компактной строке статуса. Если человеку
-может понадобиться точная отметка времени, оставьте дату и время доступными в другом месте.
+Укажите `style="short"`, когда место ограничено, например в компактной строке статуса. `style="narrow"` дает самый
+короткий вариант, если окружающая интерфейсная разметка уже объясняет смысл. Оставляйте точную отметку времени в
+`dateTime`, если человеку может понадобиться ее проверить.
 
 <ExampleFrame variant="component">
   <FormatRelativeTimeShort />
@@ -60,63 +70,73 @@ import { Format } from '@ark-ui/react';
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/format-relative-time/short.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={formatRelativeTimeSolidShort} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
+
+`Format.RelativeTime` принимает все стандартные параметры `Intl.RelativeTimeFormatOptions` в дополнение к `value`:
+
+| Параметр        | Значения                                                 | Назначение                                  |
+| --------------- | -------------------------------------------------------- | ------------------------------------------- |
+| `localeMatcher` | `"best fit"` (по умолчанию), `"lookup"`                | Выбрать алгоритм сопоставления локали.      |
+| `numeric`       | `"always"` (по умолчанию), `"auto"`                    | Использовать числа или естественные слова.  |
+| `style`         | `"long"` (по умолчанию), `"short"`, `"narrow"`        | Управлять длиной результата.                |
+
+Единица времени и числовое расстояние вычисляются по объекту `Date`, поэтому отдельно передавать их не нужно.
 
 ## Локаль
 
-`Format.RelativeTime` получает локаль из `LocaleProvider`. Если провайдер не задан, Ark использует `en-US`. moduix
-переэкспортирует `LocaleProvider`, поэтому одним провайдером можно задать локаль для относительного времени и других
-компонентов, учитывающих локаль:
+`Format.RelativeTime` получает локаль из ближайшего Ark `LocaleProvider`. Если провайдер не задан, используется
+`en-US`. Импортируйте провайдер из соответствующего пакета Ark.
 
-```tsx
-import { Format } from '@ark-ui/react';
-import { LocaleProvider } from '@moduix/react/locale';
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-const lastUpdatedAt = new Date(Date.now() - 24 * 60 * 60 * 1000);
-
-export function LocalizedUpdate() {
-  return (
-    <LocaleProvider locale="fr-FR">
-      <Format.RelativeTime numeric="auto" value={lastUpdatedAt} />
-    </LocaleProvider>
-  );
-}
+```tsx pure file="../../../src/components/examples/format-relative-time/locale.tsx"
 ```
 
-## Параметры отображения
+    </Tab>
+    <Tab value="solid">
 
-`Format.RelativeTime` принимает стандартные параметры `Intl.RelativeTimeFormatOptions`. Чаще всего нужны следующие:
+<CodeBlockRuntime lang="tsx" code={formatRelativeTimeSolidLocale} />
 
-| Параметр  | Значения                                   | Назначение                                  |
-| --------- | ------------------------------------------ | ------------------------------------------- |
-| `numeric` | `"always"` (по умолчанию), `"auto"`       | Числа или естественные формулировки.        |
-| `style`   | `"long"` (по умолчанию), `"short"`, `"narrow"` | Длина результата.                         |
+    </Tab>
+  </Tabs>
+</div>
 
-Единицу времени и число отдельно передавать не нужно. Компонент вычисляет их по объекту `Date`, переданному в
-`value`.
+Разместите один провайдер вокруг части приложения, в которой должна использоваться одна локаль. Он также передает
+контекст локали другим форматтерам Ark и компонентам, учитывающим локаль.
 
 ## Обновление со временем
 
-`Format.RelativeTime` не запускает таймер. Компонент вычисляет строку во время рендера и не меняет её, пока приложение
-не отрендерит его снова. Если подпись должна оставаться актуальной, обеспечьте повторный рендер с подходящей для
-интерфейса частотой. Для длительности или обратного отсчёта, которые должны обновляться постоянно, используйте
+`Format.RelativeTime` вычисляет текст во время рендера и не запускает таймер. Подпись вроде «2 минуты назад» не
+изменится, пока приложение не отрендерит ее снова. Запускайте обновления через состояние приложения с частотой,
+подходящей интерфейсу. Для постоянно обновляемой длительности или обратного отсчета используйте
 [`Timer`](/docs/timer).
-
-## Использование с moduix
-
-`Format.RelativeTime` выводит только текст, без элемента-обёртки. Поместите его в компонент компоновки, статуса или
-отображения данных, который поясняет, к чему относится относительное время. В примерах на этой странице для такого
-контекста используются `Card` и `Stack` из moduix.
-
-Форматирование выполняет Ark UI, поэтому `Format.RelativeTime` импортируется из `@ark-ui/react`. moduix предоставляет
-компоненты интерфейса и переэкспортирует `LocaleProvider`, но не переэкспортирует `Format.RelativeTime`.

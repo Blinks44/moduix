@@ -1,8 +1,5 @@
 import { DownloadTrigger } from '@ark-ui/react/download-trigger';
 import { Button } from '@moduix/react/button';
-import { Card } from '@moduix/react/card';
-import { Stack } from '@moduix/react/stack';
-import styles from '@/components/examples/download-trigger/download-trigger-async-data.module.css';
 
 const members = [
   ['Name', 'Role'],
@@ -18,29 +15,15 @@ async function createMemberExport() {
 
 export default function DownloadTriggerAsyncDataDemo() {
   return (
-    <Card className={styles.root}>
-      <Card.Header>
-        <Card.Title>Team members</Card.Title>
-        <Card.Description>Create the export only when someone asks for it.</Card.Description>
-      </Card.Header>
-      <Card.Body>
-        <Stack gap={2}>
-          <strong>2 members</strong>
-          <span>CSV · generated on demand</span>
-        </Stack>
-      </Card.Body>
-      <Card.Footer>
-        <DownloadTrigger
-          asChild
-          data={createMemberExport}
-          fileName="team-members.csv"
-          mimeType="text/csv"
-        >
-          <Button type="button" variant="outline">
-            Download CSV
-          </Button>
-        </DownloadTrigger>
-      </Card.Footer>
-    </Card>
+    <DownloadTrigger
+      asChild
+      data={createMemberExport}
+      fileName="team-members.csv"
+      mimeType="text/csv"
+    >
+      <Button type="button" variant="outline">
+        Download CSV
+      </Button>
+    </DownloadTrigger>
   );
 }

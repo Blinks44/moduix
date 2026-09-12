@@ -1,8 +1,5 @@
 import { DownloadTrigger } from '@ark-ui/react/download-trigger';
 import { Button } from '@moduix/react/button';
-import { Card } from '@moduix/react/card';
-import { Stack } from '@moduix/react/stack';
-import styles from '@/components/examples/download-trigger/download-trigger-basic.module.css';
 
 const workspaceSummary = JSON.stringify(
   {
@@ -16,27 +13,13 @@ const workspaceSummary = JSON.stringify(
 
 export default function DownloadTriggerBasicDemo() {
   return (
-    <Card className={styles.root}>
-      <Card.Header>
-        <Card.Title>Workspace summary</Card.Title>
-        <Card.Description>Export the current workspace details as a JSON file.</Card.Description>
-      </Card.Header>
-      <Card.Body>
-        <Stack gap={2}>
-          <strong>Ready to export</strong>
-          <span>JSON · 3 fields</span>
-        </Stack>
-      </Card.Body>
-      <Card.Footer>
-        <DownloadTrigger
-          asChild
-          data={workspaceSummary}
-          fileName="workspace-summary.json"
-          mimeType="application/json"
-        >
-          <Button type="button">Download JSON</Button>
-        </DownloadTrigger>
-      </Card.Footer>
-    </Card>
+    <DownloadTrigger
+      asChild
+      data={workspaceSummary}
+      fileName="workspace-summary.json"
+      mimeType="application/json"
+    >
+      <Button type="button">Download JSON</Button>
+    </DownloadTrigger>
   );
 }

@@ -1,45 +1,25 @@
 ---
 title: Presence
-description: Control when content mounts, hides, and unmounts with Ark UI Presence, then compose it with moduix components.
+description: Control when application-owned content mounts, stays hidden, animates, and unmounts in React or Solid.
 ---
 
 import PresenceBasic from '@/components/examples/presence/basic.tsx';
 import PresenceMountOnDemand from '@/components/examples/presence/mount-on-demand.tsx';
+import presenceSolidBasic from '../../../snippets/presence/solid/basic.tsx?raw';
+import presenceSolidExitAnimations from '../../../snippets/presence/solid/exit-animations.tsx?raw';
+import presenceSolidMountOnDemand from '../../../snippets/presence/solid/mount-on-demand.tsx?raw';
 
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/presence" />
 
-## What Presence does
+## Basic lifecycle
 
-`Presence` is an Ark UI utility, not a component exported by `@moduix/react`. It controls one child subtree with the
-`present` prop. Depending on its render-strategy props, that subtree can stay mounted while hidden, mount only when it
-is first shown, or unmount after its exit animation.
+`Presence` is an Ark UI utility for application-owned content. It renders one child subtree while
+`present` is `true`, and adds `data-state="open"` or `data-state="closed"` for state-based styles.
 
-By default, Presence renders a `<div>` root with `data-scope="presence"` and `data-part="root"`. The root also gets
-`data-state="open"` or `data-state="closed"`, which lets you style enter and exit states with CSS. Use `asChild` when
-an existing child element should receive Presence's props instead of adding a wrapper.
-
-Import it directly from Ark UI:
-
-```tsx
-import { Presence } from '@ark-ui/react/presence';
-```
-
-## When to use it
-
-Use standalone `Presence` for application-controlled panels, notices, cards, or other content whose mount lifecycle
-needs explicit control.
-
-For Dialog, Drawer, Lightbox, Menu, Popover, Tooltip, Tour, and similar moduix roots, use the presence props exposed by
-those components. They already coordinate presence with focus management, positioning, and dismissal. Use standalone
-`Presence` when the lifecycle belongs to your application rather than to an existing moduix root.
-
-## Basic
-
-Control `Presence` with the `present` prop. When `unmountOnExit` is `false`, closing hides the root but keeps it mounted.
-This preserves local state and lets effects continue to run. The example enables `unmountOnExit` so the exit animation
-can finish before the root is removed.
+Use `unmountOnExit` when the subtree should be removed after its exit animation. Without it, the root stays mounted
+and Ark hides it with the `hidden` attribute when `present` becomes `false`.
 
 <ExampleFrame variant="component">
   <PresenceBasic />
@@ -47,28 +27,40 @@ can finish before the root is removed.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/presence/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/presence/presence-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={presenceSolidBasic} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/presence/presence-basic.module.css"
+```
+</div>
 </ExampleCode>
 
-## Mount on demand
+## Lazy mount
 
-Combine `lazyMount` and `unmountOnExit` when content should be absent before its first appearance and after it closes.
-`lazyMount` delays the first mount; by itself it does not remove content on close. `unmountOnExit` handles that part.
+Add `lazyMount` when the content should not be mounted before its first appearance. Combine it with
+`unmountOnExit` when the content should be absent both before the first open and after it closes.
+
+`lazyMount` only delays the first mount. It does not remove a subtree after closing on its own.
 
 <ExampleFrame variant="component">
   <PresenceMountOnDemand />
@@ -76,89 +68,95 @@ Combine `lazyMount` and `unmountOnExit` when content should be absent before its
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/presence/mount-on-demand.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/presence/presence-mount-on-demand.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={presenceSolidMountOnDemand} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/presence/presence-mount-on-demand.module.css"
+```
+</div>
 </ExampleCode>
 
-## Exit animations
+## Exit animations and callbacks
 
-When `unmountOnExit` is enabled, Presence keeps the root in the DOM while its CSS exit animation runs. Target
-`data-state="open"` and `data-state="closed"` to define the enter and exit styles. Use `onExitComplete` when other
-work must wait until the exit animation has finished.
+When `unmountOnExit` is enabled, Ark keeps the root mounted while the CSS exit animation runs. Target
+`data-state="open"` and `data-state="closed"` in the same stylesheet as the root class. Use `onEnterComplete` and
+`onExitComplete` when surrounding UI or analytics must react after an animation finishes.
 
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/presence/exit-animations.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/presence/presence-exit-animations.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={presenceSolidExitAnimations} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/presence/presence-exit-animations.module.css"
+```
 </div>
 
-Set `skipAnimationOnMount` when the first appearance should be immediate. Set `immediate` when the `present` change
-should be applied immediately instead of being deferred to the next frame.
+Set `skipAnimationOnMount` when the initial appearance should be immediate. Set `immediate` when a `present` change
+must be applied immediately instead of being deferred to the next frame.
 
-## Hiding mounted content
+## Options that affect rendering
 
-When content stays mounted, `hideMode` controls how Ark hides it:
+| Option | Behavior |
+| --- | --- |
+| `present` | Controls whether the subtree is present. |
+| `lazyMount` | Delays the first mount until `present` is `true`. |
+| `unmountOnExit` | Removes the root after the closed-state animation finishes. |
+| `onEnterComplete` / `onExitComplete` | Run after the enter or exit animation completes. |
+| `skipAnimationOnMount` | Skips the initial presence animation. |
+| `immediate` | Applies a `present` change immediately instead of waiting for the next frame. |
+| `hideMode` | React only. Use `display-none` for `hidden` behavior or `activity` to pause effects with React 19 `Activity`. |
 
-- `display-none` is the default. It uses the `hidden` attribute, so effects in the subtree continue to run.
-- `activity` uses React 19's `Activity` component with `mode="hidden"`, which pauses effects while the content is
-  hidden. This option requires React 19 or later. If `Activity` is not available, Ark falls back to the `hidden`
-  attribute.
+The shared lifecycle options and callbacks have the same meaning in React and Solid. Ark Solid does not expose
+`hideMode`; mounted but non-present content uses the `hidden` attribute.
 
-Choose `lazyMount` and `unmountOnExit` when the subtree should not exist outside its active lifecycle. Choose
-`hideMode` when it should stay mounted but needs a different hidden-state behavior.
+## Composition and accessibility
 
-## Composition
+Use `Presence` when the application owns the lifecycle of a panel, notice, card, or other subtree. It does not add
+focus management, dismissal, positioning, or dialog semantics. For Dialog, Drawer, Menu, Popover, Tooltip, Tour, and
+other interactive roots, use that component's own presence options so its interaction model stays coordinated.
 
-### Recommended composition
-
-Keep `Presence` close to the content whose mount lifecycle it controls. It can wrap a moduix component or a semantic
-HTML element. Pass `className` to the Presence root when that container needs layout or animation styles.
-
-### When to use `asChild`
-
-Use `asChild` when you already have one suitable root element and want Presence to merge its props into that element.
-Make sure the child can receive a ref, `hidden`, `data-*`, and the forwarded class name. Do not use `asChild` with
-multiple children.
-
-## Using moduix
-
-Place any moduix component inside `Presence`: cards, buttons, forms, and custom panels keep their regular styling and
-behavior. Presence only manages the mount lifecycle and state attributes; it does not replace the child's semantics or
-interaction model.
-
-## Ark UI and moduix
-
-Ark UI provides the `Presence` API, mount strategy, and animation lifecycle. `@moduix/react` does not re-export `Presence`,
-so import it from `@ark-ui/react/presence` and use moduix components inside it. Moduix roots that manage their own
-expandable or overlay behavior expose equivalent presence props where appropriate.
-
-If you use the standalone utility with moduix, install both packages:
-
-```bash
-pnpm add @ark-ui/react @moduix/react
-```
+`Presence` renders a `<div>` by default with `data-scope="presence"` and `data-part="root"`. Use `asChild` when one
+existing element should receive those props instead of adding a wrapper. The React child must accept the forwarded ref,
+`hidden`, `data-*`, and class name. Solid uses Ark's render-function form:
+`asChild={(props) => <article {...props()} />}`. In either framework, keep one semantic root and preserve its accessible
+name and content. Do not use `opacity` alone as a replacement for the hidden behavior when inactive content must leave
+the accessibility tree.

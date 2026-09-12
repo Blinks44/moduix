@@ -1,33 +1,26 @@
 ---
 title: Download Trigger
-description: Lancez le téléchargement de chaînes, de Blob, de File ou de données générées à la demande avec Ark UI, puis intégrez l’action aux boutons moduix.
+description: Déclenchez dans le navigateur le téléchargement de chaînes, de Blob, de File ou de données générées à la demande avec Ark UI.
 ---
 
 import DownloadTriggerBasic from '@/components/examples/download-trigger/basic.tsx';
 import DownloadTriggerAsyncData from '@/components/examples/download-trigger/async-data.tsx';
+import downloadTriggerSolidBasic from '../../../snippets/download-trigger/solid/basic.tsx?raw';
+import downloadTriggerSolidAsyncData from '../../../snippets/download-trigger/solid/async-data.tsx?raw';
+
+Utilisez `DownloadTrigger` d’Ark UI pour transformer des données de fichier en téléchargement dans le navigateur.
+Associez-le à un `Button` moduix lorsque l’action doit s’intégrer au reste de votre interface.
 
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/download-trigger" />
 
-## Fonctionnement
-
-`DownloadTrigger` est un utilitaire Ark UI qui affiche par défaut un bouton natif et lance le téléchargement lorsque
-l’utilisateur l’active. La prop `data` accepte le contenu du fichier : une chaîne, un `Blob`, un `File` ou une fonction
-qui renvoie l’une de ces valeurs directement ou via une promesse. Une chaîne est traitée comme le
-contenu du fichier, et non comme une URL à récupérer. Pour télécharger une ressource distante, récupérez-la dans votre
-application et renvoyez `await response.blob()` depuis la fonction passée à `data`.
-
-Importez cet utilitaire générique directement depuis Ark UI. Il n’est pas réexporté par `@moduix/react` :
-
-```tsx
-import { DownloadTrigger } from '@ark-ui/react/download-trigger';
-```
-
 ## Exemple de base
 
-Utilisez `data` lorsque le contenu est déjà disponible, puis définissez `fileName` et `mimeType`. Avec `asChild`, Ark
-transmet le comportement de téléchargement à l’élément enfant. Ici, l’élément enfant est un bouton `Button` de moduix.
+Passez les données déjà prêtes via `data`. La prop accepte une chaîne, un `Blob` ou un `File`. `fileName` et `mimeType`
+décrivent le fichier enregistré par le navigateur.
+
+L’aperçu utilise React. Les onglets de code contiennent des exemples natifs React et Solid avec le même comportement.
 
 <ExampleFrame clientOnly variant="component">
   <DownloadTriggerBasic />
@@ -35,17 +28,23 @@ transmet le comportement de téléchargement à l’élément enfant. Ici, l’�
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/download-trigger/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/download-trigger/download-trigger-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={downloadTriggerSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -55,8 +54,8 @@ transmet le comportement de téléchargement à l’élément enfant. Ici, l’�
 
 ## Générer les données à la demande
 
-Passez une fonction lorsque le fichier doit être créé avant le téléchargement. Ark l’appelle après l’activation du
-déclencheur. Si elle renvoie une promesse, Ark attend sa résolution avant d’enregistrer le fichier.
+Passez une fonction lorsque le fichier doit être créé après l’activation du déclencheur. Ark appelle cette fonction au
+moment du clic et attend la résolution de la promesse renvoyée avant d’enregistrer le résultat.
 
 <ExampleFrame clientOnly variant="component">
   <DownloadTriggerAsyncData />
@@ -64,17 +63,23 @@ déclencheur. Si elle renvoie une promesse, Ark attend sa résolution avant d’
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/download-trigger/async-data.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/download-trigger/download-trigger-async-data.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={downloadTriggerSolidAsyncData} />
 
     </Tab>
   </Tabs>
@@ -82,25 +87,22 @@ déclencheur. Si elle renvoie une promesse, Ark attend sa résolution avant d’
 
 </ExampleCode>
 
-`DownloadTrigger` n’expose ni état de chargement ni gestionnaire d’erreur. Si la génération peut prendre du temps, suivez
-son état dans votre application et gérez les erreurs dans la fonction passée à `data`. Désactivez ou remplacez le
-déclencheur pendant l’opération.
+`DownloadTrigger` n’expose ni état de chargement ni gestionnaire d’erreur. Si la génération prend du temps, gérez cet
+état dans votre application, désactivez ou remplacez le déclencheur pendant l’opération et traitez les erreurs dans la
+fonction passée à `data`. Pour télécharger une ressource distante, récupérez-la dans votre application et renvoyez
+`response.blob()`. Une chaîne est traitée comme le contenu du fichier, et non comme une URL.
 
-## Choisir les métadonnées du fichier
+## Métadonnées du fichier
 
-Faites correspondre l’extension de `fileName` au contenu et indiquez le type MIME associé avec `mimeType`, par exemple
-`application/json`, `text/csv`, `image/svg+xml` ou `application/pdf`. Si vous renvoyez un `Blob` ou un `File`, gardez
-également sa propriété `type` cohérente avec `mimeType`.
+Faites correspondre l’extension de `fileName` au contenu et définissez le `mimeType` associé, par exemple
+`application/json`, `text/csv`, `image/svg+xml` ou `application/pdf`. Si vous renvoyez un `Blob` ou un `File`, veillez
+également à ce que sa propriété `type` corresponde au type MIME demandé.
 
-## Utilisation avec moduix
+## Composition
 
-`DownloadTrigger` n’applique aucun style. Composez-le avec `asChild` et un `Button` moduix pour que l’action s’intègre
-au reste de l’interface. Pour télécharger une image produite par le composant moduix `QrCode`, consultez la page
-[`QrCode`](/docs/qr-code) et utilisez `QrCode.DownloadTrigger`. Il récupère l’image auprès du QR code parent et
-l’exporte pour vous.
+Par défaut, `DownloadTrigger` rend un bouton natif. Utilisez `asChild` lorsqu’un `Button` moduix doit posséder l’élément
+bouton et ses états. React utilise une prop `asChild` booléenne avec un élément enfant ; Solid utilise une prop `asChild`
+sous forme de fonction de rendu. Dans les deux cas, le DOM contient un seul bouton accessible.
 
-## Ce qui vient d’Ark UI
-
-Ark UI fournit le comportement générique de téléchargement ainsi que l’API `data`, `fileName` et `mimeType`. moduix
-montre comment associer cet utilitaire à ses composants, mais ne fournit pas d’export générique `DownloadTrigger` et
-n’ajoute aucun style au composant Ark.
+Pour les images QR, utilisez `QrCode.DownloadTrigger` sur la page [QrCode](/docs/qr-code). Il récupère l’image du QR code
+le plus proche et l’exporte avec les métadonnées de fichier requises.

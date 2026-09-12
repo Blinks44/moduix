@@ -35,14 +35,12 @@ export default function HotkeysBasicDemo() {
         </Stack>
       </Card.Body>
       <Card.Footer>
-        <Stack align="center" direction="row" justify="space-between" className={styles.stack}>
-          <PreviewMeta>
-            <output>{status}</output>
-          </PreviewMeta>
+        <PreviewMeta style={{ marginInline: 'auto', placeItems: 'center' }}>
+          <output aria-live="polite">{status}</output>
           <Button onClick={saveDraft} type="button">
             Save draft
           </Button>
-        </Stack>
+        </PreviewMeta>
       </Card.Footer>
     </Card>
   );
