@@ -5,7 +5,7 @@ import { defineConfig } from '@rslib/core';
 export default defineConfig({
   source: {
     entry: {
-      index: ['./src/**/*.{ts,tsx}'],
+      index: ['./src/**/*.{css,ts,tsx}'],
     },
     tsconfigPath: './tsconfig.build.json',
   },

@@ -1,310 +1,493 @@
-@layer moduix.components {
-  .root {
-    box-sizing: border-box;
-    color: var(--moduix-color-foreground);
-    font-family: var(--moduix-typeset-font-body, inherit);
-    font-size: calc(var(--moduix-typeset-size, 1em) * 1.125);
-    line-height: var(--moduix-typeset-leading, 1.75);
-    overflow-wrap: anywhere;
-  }
+/*
+ * shadcn/typeset
+ * https://ui.shadcn.com/docs/typeset.
+ */
 
-  @media (min-width: 48rem), print {
-    .root {
-      font-size: var(--moduix-typeset-size, 1em);
+@layer base {
+  .root {
+    --moduix-typeset-font-body: inherit;
+    --moduix-typeset-font-heading: var(--moduix-font-sans);
+    --moduix-typeset-font-mono: var(--moduix-font-mono);
+    --moduix-typeset-size: 1em;
+    --moduix-typeset-leading: 1.75;
+    --moduix-typeset-flow: 1.25em;
+  }
+}
+
+@layer components {
+  .root {
+    font-family: var(--moduix-typeset-font-body);
+    font-size: calc(var(--moduix-typeset-size) * 1.125);
+    line-height: var(--moduix-typeset-leading);
+    color: var(--moduix-color-foreground, currentColor);
+    overflow-wrap: break-word;
+    margin-trim: block-start;
+
+    @media (min-width: 48rem), print {
+      font-size: var(--moduix-typeset-size);
     }
   }
 
-  .root {
-    &
-      *:not(
-        :where(
-          :global(.not-typeset),
-          [data-not-typeset],
-          :global(.not-typeset) *,
-          [data-not-typeset] *
-        )
-      ) {
-      &:where(p) {
-        margin-block: var(--moduix-typeset-flow, 1.25em) 0;
-      }
+  .root
+    *:not(
+      :where(
+        :global(.not-typeset),
+        [data-not-typeset],
+        :global(.not-typeset) *,
+        [data-not-typeset] *
+      )
+    ) {
+    /* Paragraphs. */
+    &:where(p) {
+      margin-block-start: var(--moduix-typeset-flow);
+      margin-block-end: 0;
+    }
 
-      &:where(h1, h2, h3, h4, h5, h6) {
-        color: var(--moduix-color-foreground);
-        font-family: var(--moduix-typeset-font-heading, var(--moduix-font-sans));
-        font-weight: var(--moduix-weight-semibold);
-        letter-spacing: -0.02em;
-        margin-block-end: 0;
-      }
+    /* Headings. */
+    &:where(h1, h2, h3, h4, h5, h6) {
+      color: var(--moduix-color-foreground, currentColor);
+      font-family: var(--moduix-typeset-font-heading);
+      font-weight: 600;
+      margin-block-end: 0;
+    }
+    &:where(h1) {
+      font-size: 1.75em;
+      line-height: 1.3;
+      margin-block-start: var(--moduix-typeset-flow);
+    }
+    &:where(h2) {
+      font-size: 1.25em;
+      line-height: 1.4;
+      margin-block-start: calc(var(--moduix-typeset-flow) * 1.4);
+    }
+    &:where(h3) {
+      font-size: 1.125em;
+      line-height: 1.45;
+      margin-block-start: var(--moduix-typeset-flow);
+    }
+    &:where(h4) {
+      font-size: 1em;
+      line-height: 1.5;
+      margin-block-start: var(--moduix-typeset-flow);
+    }
+    &:where(h5) {
+      font-size: 0.875em;
+      line-height: 1.5;
+      font-weight: 500;
+      color: var(
+        --moduix-color-muted-foreground,
+        color-mix(in oklab, currentColor 60%, transparent)
+      );
+      margin-block-start: calc(var(--moduix-typeset-flow) / 0.875);
+    }
+    &:where(h6) {
+      font-size: 0.8125em;
+      line-height: 1.5;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(
+        --moduix-color-muted-foreground,
+        color-mix(in oklab, currentColor 60%, transparent)
+      );
+      margin-block-start: calc(var(--moduix-typeset-flow) / 0.8125);
+    }
+    /* Anchors. */
+    &:where([id]) {
+      scroll-margin-block-start: var(--moduix-typeset-flow);
+    }
 
-      &:where(h1) {
-        font-size: 1.75em;
-        line-height: 1.3;
-        margin-block-start: var(--moduix-typeset-flow, 1.25em);
-      }
+    /* Headings own the space below them. */
+    &:where(h1 + *, h2 + *, h3 + *, h4 + *, h5 + *, h6 + *) {
+      margin-block-start: 1em;
+    }
+    &:where(:is(h1, h2, h3, h4) :is(code)) {
+      font-size: 0.9em;
+    }
 
-      &:where(h2) {
-        font-size: 1.25em;
-        line-height: 1.4;
-        margin-block-start: calc(var(--moduix-typeset-flow, 1.25em) * 1.4);
-      }
+    /* Links. */
+    &:where(a) {
+      color: inherit;
+      font-weight: 500;
+      text-decoration-line: underline;
+      text-decoration-color: color-mix(in oklab, currentColor 30%, transparent);
+    }
+    &:where(a:hover) {
+      text-decoration-color: currentColor;
+    }
+    &:where(a:focus-visible) {
+      outline: 2px solid var(--moduix-color-ring, currentColor);
+      outline-offset: 2px;
+      border-radius: 0.125em;
+    }
+    &:where(:is(h1, h2, h3, h4, h5, h6) :is(a)) {
+      font-weight: inherit;
+    }
 
-      &:where(h3) {
-        font-size: 1.125em;
-        line-height: 1.45;
-        margin-block-start: var(--moduix-typeset-flow, 1.25em);
-      }
+    /* Inline semantics. */
+    &:where(strong, b) {
+      font-weight: 600;
+    }
+    &:where(:is(h1, h2, h3, h4) :is(strong, b)) {
+      font-weight: 600;
+    }
+    &:where(mark) {
+      background-color: color-mix(in oklab, oklch(0.86 0.17 95) 40%, transparent);
+      color: inherit;
+      padding: 0.05em 0.15em;
+      border-radius: 0.2em;
+    }
+    &:where(abbr[title]) {
+      text-decoration-line: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 0.2em;
+      cursor: help;
+    }
+    &:where(del, s) {
+      color: var(
+        --moduix-color-muted-foreground,
+        color-mix(in oklab, currentColor 60%, transparent)
+      );
+      text-decoration-line: line-through;
+    }
+    &:where(sup, sub) {
+      font-size: 0.75em;
+      line-height: 0;
+      position: relative;
+      vertical-align: baseline;
+    }
+    &:where(sup) {
+      top: -0.5em;
+    }
+    &:where(sub) {
+      bottom: -0.25em;
+    }
+    &:where(sup a) {
+      text-decoration-line: none;
+      font-weight: 500;
+    }
 
-      &:where(h4) {
-        font-size: 1em;
-        line-height: 1.5;
-        margin-block-start: var(--moduix-typeset-flow, 1.25em);
-      }
+    /* Lists. */
+    &:where(ul) {
+      list-style-type: disc;
+    }
+    &:where(ol) {
+      list-style-type: decimal;
+    }
+    &:where(ul ul) {
+      list-style-type: circle;
+    }
+    &:where(ul ul ul) {
+      list-style-type: square;
+    }
+    &:where(ol[type='a' i]) {
+      list-style-type: lower-alpha;
+    }
+    &:where(ol[type='i' i]) {
+      list-style-type: lower-roman;
+    }
+    &:where(ol[type='A' s]) {
+      list-style-type: upper-alpha;
+    }
+    &:where(ol[type='I' s]) {
+      list-style-type: upper-roman;
+    }
+    &:where(ul, ol) {
+      margin-block-start: var(--moduix-typeset-flow);
+      margin-block-end: 0;
+      padding-inline-start: 1.5em;
+    }
+    &:where(li) {
+      margin-block-start: 0.5em;
+      padding-inline-start: 0.4em;
+    }
+    &:where(li > p, li > ul, li > ol) {
+      margin-block-start: 0.5em;
+    }
+    &:where(ul > li)::marker {
+      color: var(
+        --moduix-color-muted-foreground,
+        color-mix(in oklab, currentColor 60%, transparent)
+      );
+    }
+    &:where(ol > li)::marker {
+      color: var(
+        --moduix-color-muted-foreground,
+        color-mix(in oklab, currentColor 60%, transparent)
+      );
+    }
 
-      &:where(h5) {
-        color: var(--moduix-color-muted-foreground);
-        font-size: 0.875em;
-        font-weight: var(--moduix-weight-medium);
-        line-height: 1.5;
-        margin-block-start: calc(var(--moduix-typeset-flow, 1.25em) / 0.875);
-      }
+    /* GFM task lists. */
+    &:where(ul:global(.contains-task-list)) {
+      list-style-type: none;
+      padding-inline-start: 0.25em;
+    }
+    &:where(li:global(.task-list-item) > input[type='checkbox']) {
+      margin-inline-end: 0.5em;
+      vertical-align: -0.1em;
+      accent-color: var(--moduix-color-primary, currentColor);
+    }
 
-      &:where(h6) {
-        color: var(--moduix-color-muted-foreground);
-        font-size: 0.8125em;
-        font-weight: var(--moduix-weight-medium);
-        letter-spacing: 0.08em;
-        line-height: 1.5;
-        margin-block-start: calc(var(--moduix-typeset-flow, 1.25em) / 0.8125);
-        text-transform: uppercase;
-      }
+    /* Disclosures. */
+    &:where(details) {
+      margin-block-start: var(--moduix-typeset-flow);
+      margin-block-end: 0;
+    }
+    &:where(summary) {
+      cursor: pointer;
+      font-weight: 500;
+    }
+    &:where(summary)::marker {
+      color: var(
+        --moduix-color-muted-foreground,
+        color-mix(in oklab, currentColor 60%, transparent)
+      );
+    }
 
-      &:where([id]) {
-        scroll-margin-block-start: var(--moduix-typeset-flow, 1.25em);
-      }
+    /* Keyboard keys. */
+    &:where(kbd) {
+      font-family: inherit;
+      font-size: 0.85em;
+      font-weight: 500;
+      border: 1px solid
+        var(--moduix-color-border, color-mix(in oklab, currentColor 20%, transparent));
+      border-block-end-width: 2px;
+      border-radius: min(calc(var(--moduix-radius-md, 0.5em) * 0.6), 0.35em);
+      padding: 0.0625em 0.35em;
+    }
 
-      &:where(h1 + *, h2 + *, h3 + *, h4 + *, h5 + *, h6 + *) {
-        margin-block-start: 1em;
-      }
+    /* Definition lists. */
+    &:where(dl) {
+      margin-block-start: var(--moduix-typeset-flow);
+      margin-block-end: 0;
+    }
+    &:where(dt) {
+      font-weight: 500;
+      margin-block-start: 1em;
+    }
+    &:where(dt + dt) {
+      margin-block-start: 0.25em;
+    }
+    &:where(dd) {
+      margin-block-start: 0.25em;
+      margin-inline-start: 0;
+      padding-inline-start: 1em;
+      color: var(
+        --moduix-color-muted-foreground,
+        color-mix(in oklab, currentColor 60%, transparent)
+      );
+    }
 
-      &:where(a) {
-        color: var(--moduix-color-primary);
-        text-decoration: underline;
-        text-decoration-thickness: 0.08em;
-        text-underline-offset: 0.15em;
-      }
+    /* Inline code. */
+    &:where(:not(pre) > code) {
+      background-color: var(
+        --moduix-color-muted,
+        color-mix(in oklab, currentColor 8%, transparent)
+      );
+      font-family: var(--moduix-typeset-font-mono);
+      font-size: 0.85em;
+      border-radius: min(calc(var(--moduix-radius-md, 0.5em) * 0.6), 0.35em);
+      padding: 0.125em 0.3em;
+    }
 
-      &:where(ul, ol) {
-        margin-block: var(--moduix-typeset-flow, 1.25em) 0;
-        padding-inline-start: 1.5em;
-      }
+    /* Code blocks. */
+    &:where(pre) {
+      background-color: var(
+        --moduix-color-muted,
+        color-mix(in oklab, currentColor 8%, transparent)
+      );
+      font-family: var(--moduix-typeset-font-mono);
+      font-size: 0.875em;
+      line-height: 1.5;
+      tab-size: 2;
+      direction: ltr;
+      border-radius: var(--moduix-radius-md, 0.5em);
+      padding: 0.75em 1em;
+      overflow-x: auto;
+      margin-block-start: calc(var(--moduix-typeset-flow) / 0.875);
+      margin-block-end: 0;
+    }
+    &:where(pre code) {
+      background-color: transparent;
+      font-family: inherit;
+      font-size: inherit;
+      padding: 0;
+      border-radius: 0;
+    }
 
-      &:where(ul) {
-        list-style: disc;
-      }
+    /* Blockquote. */
+    &:where(blockquote) {
+      border-inline-start: 2px solid
+        var(--moduix-color-border, color-mix(in oklab, currentColor 20%, transparent));
+      padding-inline-start: 1em;
+      margin-block-start: var(--moduix-typeset-flow);
+      margin-block-end: 0;
+      margin-inline: 0;
+    }
 
-      &:where(ol) {
-        list-style: decimal;
-      }
+    /* Dividers. */
+    &:where(hr) {
+      border: 0;
+      border-block-start: 1px solid
+        var(--moduix-color-border, color-mix(in oklab, currentColor 20%, transparent));
+      margin-block-start: calc(var(--moduix-typeset-flow) * 2.4);
+      margin-block-end: 0;
+    }
+    &:where(hr + h1, hr + h2, hr + h3, hr + h4) {
+      margin-block-start: var(--moduix-typeset-flow);
+    }
 
-      &:where(ul ul) {
-        list-style: circle;
-      }
+    /* GFM footnotes. */
+    &:where(:global(.footnotes), [data-footnotes]) {
+      margin-block-start: calc(var(--moduix-typeset-flow) * 2);
+      border-block-start: 1px solid
+        var(--moduix-color-border, color-mix(in oklab, currentColor 20%, transparent));
+      padding-block-start: var(--moduix-typeset-flow);
+      font-size: 0.875em;
+      color: var(
+        --moduix-color-muted-foreground,
+        color-mix(in oklab, currentColor 60%, transparent)
+      );
+    }
 
-      &:where(ul ul ul) {
-        list-style: square;
-      }
+    /* Math. */
+    &:where(math[display='block']) {
+      margin-block-start: var(--moduix-typeset-flow);
+      margin-block-end: 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-block: 0.25em;
+    }
 
-      &:where(ol ol) {
-        list-style: lower-alpha;
-      }
+    /* Media. */
+    &:where(img, video) {
+      border-radius: var(--moduix-radius-md, 0.5em);
+      max-width: 100%;
+      height: auto;
+      margin-block-start: var(--moduix-typeset-flow);
+      margin-block-end: 0;
+    }
+    &:where(p img) {
+      margin-block-start: 0;
+    }
+    &:where(figure) {
+      margin-block-start: var(--moduix-typeset-flow);
+      margin-block-end: 0;
+      margin-inline: 0;
+    }
+    &:where(figcaption, caption) {
+      color: var(
+        --moduix-color-muted-foreground,
+        color-mix(in oklab, currentColor 60%, transparent)
+      );
+      font-size: 0.875em;
+      text-align: center;
+      margin-block-start: calc(0.75em / 0.875);
+    }
+    &:where(caption) {
+      caption-side: bottom;
+    }
 
-      &:where(ol ol ol) {
-        list-style: lower-roman;
-      }
+    /* Tables. Separators sit on cells, not tr:last-child: append-safe.
+       Bare tables stay real tables (keep their semantics) and wrap to fit. */
+    &:where(table) {
+      max-width: 100%;
+      font-size: 1em;
+      line-height: 1.5;
+      font-variant-numeric: tabular-nums;
+      border-collapse: separate;
+      border-spacing: 0;
+      border-block-end: 1px solid
+        var(--moduix-color-border, color-mix(in oklab, currentColor 20%, transparent));
+      margin-block-start: var(--moduix-typeset-flow);
+      margin-block-end: 0;
+    }
 
-      &:where(li)::marker {
-        color: var(--moduix-color-muted-foreground);
-        font-weight: var(--moduix-weight-semibold);
-      }
+    /* Horizontal scroll for any wide block. Wrap it and the wrapper owns the
+       flow margin. Tables shrink to fit, so widen the table to make it scroll
+       instead of compress. */
+    &:where(.scroll) {
+      overflow-x: auto;
+      margin-block-start: var(--moduix-typeset-flow);
+    }
+    &:where(.scroll > *) {
+      margin-block-start: 0;
+    }
+    &:where(.scroll table) {
+      width: max-content;
+      max-width: none;
+    }
+    &:where(thead th) {
+      font-weight: 500;
+      text-align: start;
+      white-space: nowrap;
+      padding: 0.65em 1em;
+    }
+    &:where(:is(tbody, tfoot) :is(td, th)) {
+      padding: 0.75em 1em;
+      text-align: start;
+      vertical-align: top;
+      border-block-start: 1px solid
+        var(--moduix-color-border, color-mix(in oklab, currentColor 20%, transparent));
+    }
+    &:where(tbody th, tfoot th) {
+      font-weight: 500;
+    }
+    &:where(th:first-child, td:first-child) {
+      padding-inline-start: 0;
+    }
+    &:where(th[align='center'], td[align='center']) {
+      text-align: center;
+    }
+    &:where(th[align='right'], td[align='right']) {
+      text-align: end;
+    }
 
-      &:where(li + li) {
-        margin-block-start: 0.25em;
-      }
+    /* Blocks inside list items keep the list's tighter rhythm. */
+    &:where(li > blockquote, li > table, li > figure) {
+      margin-block-start: 0.5em;
+    }
+    &:where(li > pre) {
+      margin-block-start: calc(0.5em / 0.875);
+    }
 
-      &:where(li > ul, li > ol) {
-        margin-block-start: 0.5em;
+    @media print {
+      &:where(pre, table, blockquote, figure) {
+        break-inside: avoid;
       }
-
-      &:where(:global(ul.contains-task-list)) {
-        list-style: none;
-        padding-inline-start: 0.25em;
+      &:where(h1, h2, h3, h4) {
+        break-after: avoid;
       }
+    }
 
-      &:where(:global(li.task-list-item) > input[type='checkbox']) {
-        margin-inline-end: 0.5em;
-        vertical-align: -0.1em;
-        accent-color: var(--moduix-color-primary);
-      }
-
-      &:where(blockquote) {
-        margin-block: var(--moduix-typeset-flow, 1.25em) 0;
-        margin-inline: 0;
-        border-inline-start: var(--moduix-border-width-md) solid var(--moduix-color-border);
-        padding-inline-start: 1em;
-        color: var(--moduix-color-muted-foreground);
-      }
-
+    /* Forced colors strips the code background, so give it a border. */
+    @media (forced-colors: active) {
       &:where(:not(pre) > code) {
-        padding: 0.1em 0.3em;
-        border-radius: var(--moduix-radius-sm);
-        background: var(--moduix-color-muted);
-        color: var(--moduix-color-foreground);
-        font-family: var(--moduix-typeset-font-mono, var(--moduix-font-mono));
-        font-size: 0.875em;
-      }
-
-      &:where(pre) {
-        max-width: 100%;
-        overflow-x: auto;
-        margin-block: var(--moduix-typeset-flow, 1.25em) 0;
-        padding: 1em;
-        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-        border-radius: var(--moduix-radius-md);
-        background: var(--moduix-color-muted);
-        color: var(--moduix-color-foreground);
-        font-family: var(--moduix-typeset-font-mono, var(--moduix-font-mono));
-        font-size: 0.875em;
-        line-height: 1.6;
-      }
-
-      &:where(pre > code) {
-        padding: 0;
-        border-radius: 0;
-        background: transparent;
-        color: inherit;
-        font: inherit;
-      }
-
-      &:where(hr) {
-        margin-block: var(--moduix-typeset-flow, 1.25em) 0;
-        border: 0;
-        border-block-start: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-      }
-
-      &:where(table) {
-        width: 100%;
-        max-width: 100%;
-        margin-block: var(--moduix-typeset-flow, 1.25em) 0;
-        border-collapse: separate;
-        border-spacing: 0;
-        border-block-end: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-        font-size: 1em;
-        font-variant-numeric: tabular-nums;
-        line-height: 1.5;
-      }
-
-      &:where(thead th) {
-        padding: 0.65em 1em;
-        font-weight: var(--moduix-weight-medium);
-        text-align: start;
-        white-space: nowrap;
-      }
-
-      &:where(:is(tbody, tfoot) :is(td, th)) {
-        padding: 0.75em 1em;
-        border-block-start: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-        text-align: start;
-        vertical-align: top;
-      }
-
-      &:where(tbody th, tfoot th) {
-        font-weight: var(--moduix-weight-medium);
-      }
-
-      &:where(th:first-child, td:first-child) {
-        padding-inline-start: 0;
-      }
-
-      &:where(th[align='center'], td[align='center']) {
-        text-align: center;
-      }
-
-      &:where(th[align='right'], td[align='right']) {
-        text-align: end;
-      }
-
-      &:where(img, video) {
-        display: block;
-        max-width: 100%;
-        height: auto;
-        margin-block: var(--moduix-typeset-flow, 1.25em) 0;
-        border-radius: var(--moduix-radius-md);
-      }
-
-      &:where(p img) {
-        margin-block-start: 0;
-      }
-
-      &:where(figure) {
-        margin-block: var(--moduix-typeset-flow, 1.25em) 0;
-        margin-inline: 0;
-      }
-
-      &:where(figcaption, caption) {
-        margin-block-start: 0.75em;
-        color: var(--moduix-color-muted-foreground);
-        font-size: 0.875em;
-        text-align: center;
-      }
-
-      &:where(caption) {
-        caption-side: bottom;
-      }
-
-      &:where(details) {
-        margin-block: var(--moduix-typeset-flow, 1.25em) 0;
-      }
-
-      &:where(summary) {
-        cursor: pointer;
-        font-weight: var(--moduix-weight-medium);
-      }
-
-      &:where(summary)::marker {
-        color: var(--moduix-color-muted-foreground);
-      }
-
-      &:where(dl) {
-        margin-block: var(--moduix-typeset-flow, 1.25em) 0;
-      }
-
-      &:where(dt) {
-        margin-block-start: 1em;
-        font-weight: var(--moduix-weight-medium);
-      }
-
-      &:where(dt + dt) {
-        margin-block-start: 0.25em;
-      }
-
-      &:where(dd) {
-        margin-block-start: 0.25em;
-        margin-inline-start: 0;
-        padding-inline-start: 1em;
-        color: var(--moduix-color-muted-foreground);
-      }
-
-      &:where(:global(.footnotes), [data-footnotes]) {
-        margin-block: calc(var(--moduix-typeset-flow, 1.25em) * 2) 0;
-        border-block-start: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-        padding-block-start: var(--moduix-typeset-flow, 1.25em);
-        color: var(--moduix-color-muted-foreground);
-        font-size: 0.875em;
+        border: 1px solid;
       }
     }
   }
 
-  .root > :where(:first-child):not(:where(:global(.not-typeset), [data-not-typeset])),
+  /* First child adds no space above. Last so it wins ties. */
+  .root
+    > :where(:first-child):not(
+      :where(
+        :global(.not-typeset),
+        [data-not-typeset],
+        :global(.not-typeset) *,
+        [data-not-typeset] *
+      )
+    ),
+  .root
+    > :where(:first-child)
+    > :where(:first-child):not(
+      :where(
+        :global(.not-typeset),
+        [data-not-typeset],
+        :global(.not-typeset) *,
+        [data-not-typeset] *
+      )
+    ),
   .root
     :where(
       li > :first-child,
@@ -324,49 +507,15 @@
     ) {
     margin-block-start: 0;
   }
-
   .scroll {
+    box-sizing: border-box;
     max-width: 100%;
-    overflow-x: auto;
-    margin-block-start: var(--moduix-typeset-flow, 1.25em);
     overscroll-behavior-inline: contain;
-
-    &:focus-visible {
-      outline: var(--moduix-focus-ring-width, var(--moduix-border-width-md)) solid
-        var(--moduix-color-ring);
-      outline-offset: var(--moduix-focus-ring-inset-offset);
-    }
   }
 
-  .root > .scroll:first-child {
-    margin-block-start: 0;
-  }
-
-  .root .scroll > * {
-    margin-block-start: 0;
-  }
-
-  .root .scroll table {
-    width: max-content;
-    max-width: none;
-  }
-
-  :global(.not-typeset) .root,
-  :global(.not-typeset) .root *,
-  :global(.not-typeset) .scroll,
-  :global(.not-typeset) .scroll *,
-  [data-not-typeset] .root,
-  [data-not-typeset] .root *,
-  [data-not-typeset] .scroll,
-  [data-not-typeset] .scroll *,
-  .root:global(.not-typeset),
-  .root:global(.not-typeset) *,
-  .root[data-not-typeset],
-  .root[data-not-typeset] *,
-  .scroll:global(.not-typeset),
-  .scroll:global(.not-typeset) *,
-  .scroll[data-not-typeset],
-  .scroll[data-not-typeset] * {
-    all: revert-layer;
+  .scroll:focus-visible {
+    outline: var(--moduix-focus-ring-width, var(--moduix-border-width-md)) solid
+      var(--moduix-color-ring);
+    outline-offset: var(--moduix-focus-ring-inset-offset);
   }
 }

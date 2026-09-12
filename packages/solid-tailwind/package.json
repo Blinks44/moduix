@@ -510,6 +510,12 @@
       "import": "./dist/components/toggle/index.js",
       "default": "./dist/components/toggle/index.js"
     },
+    "./toggle-group": {
+      "types": "./dist/components/toggle-group/index.d.ts",
+      "solid": "./dist/components/toggle-group/index.jsx",
+      "import": "./dist/components/toggle-group/index.js",
+      "default": "./dist/components/toggle-group/index.js"
+    },
     "./toast": {
       "types": "./dist/components/toast/index.d.ts",
       "solid": "./dist/components/toast/index.jsx",
@@ -521,6 +527,24 @@
       "solid": "./dist/components/tooltip/index.jsx",
       "import": "./dist/components/tooltip/index.js",
       "default": "./dist/components/tooltip/index.js"
+    },
+    "./tour": {
+      "types": "./dist/components/tour/index.d.ts",
+      "solid": "./dist/components/tour/index.jsx",
+      "import": "./dist/components/tour/index.js",
+      "default": "./dist/components/tour/index.js"
+    },
+    "./tree-view": {
+      "types": "./dist/components/tree-view/index.d.ts",
+      "solid": "./dist/components/tree-view/index.jsx",
+      "import": "./dist/components/tree-view/index.js",
+      "default": "./dist/components/tree-view/index.js"
+    },
+    "./typeset": {
+      "types": "./dist/components/typeset/index.d.ts",
+      "solid": "./dist/components/typeset/index.jsx",
+      "import": "./dist/components/typeset/index.js",
+      "default": "./dist/components/typeset/index.js"
     },
     "./style.css": "./dist/styles/style.css",
     "./presets/*": "./dist/presets/*",

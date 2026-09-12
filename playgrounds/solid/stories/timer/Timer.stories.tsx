@@ -149,7 +149,9 @@ export const RootProvider: Story = {
     return (
       <Timer.RootProvider value={timer}>
         <Timer.Context>
-          {(api) => <p class={styles.status}>Progress: {api().progressPercent.toFixed(0)}%</p>}
+          {(api) => (
+            <p class={styles.status}>Progress: {(api().progressPercent * 100).toFixed(0)}%</p>
+          )}
         </Timer.Context>
         <ShortTimerValue />
         <TimerControls />

@@ -58,7 +58,7 @@ function FileTreeNode({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) 
               <TreeView.BranchIndicator />
               <TreeView.BranchText>
                 {state.expanded ? <FolderOpenIcon /> : <FolderIcon />}
-                {currentNode.name}
+                <span className={styles.text}>{currentNode.name}</span>
               </TreeView.BranchText>
             </TreeView.BranchControl>
             <TreeView.BranchContent>
@@ -76,7 +76,7 @@ function FileTreeNode({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) 
           <TreeView.Item>
             <TreeView.ItemText>
               <FileIcon />
-              {currentNode.name}
+              <span className={styles.text}>{currentNode.name}</span>
             </TreeView.ItemText>
           </TreeView.Item>
         )

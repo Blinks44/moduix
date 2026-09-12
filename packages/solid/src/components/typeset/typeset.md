@@ -34,8 +34,8 @@ host composition are separate native paths.
 ## Styling
 
 The CSS module is intentionally identical to the React component. It styles semantic paragraphs,
-headings, lists, task lists, blockquotes, code, tables, media, disclosures, definition lists, and
-GFM footnotes using the existing moduix theme tokens.
+headings, inline semantics, lists, task lists, blockquotes, code, keyboard keys, tables, math,
+media, disclosures, definition lists, and GFM footnotes using the existing moduix theme tokens.
 
 The public rhythm variables are `--moduix-typeset-size`, `--moduix-typeset-leading`, and
 `--moduix-typeset-flow`; optional font variables are `--moduix-typeset-font-body`,
@@ -46,3 +46,4 @@ The public rhythm variables are `--moduix-typeset-size`, `--moduix-typeset-leadi
 - https://ark-ui.com/docs/guides/composition
 - https://ark-ui.com/docs/guides/ref
 - https://ark-ui.com/docs/guides/styling
+- https://ui.shadcn.com/docs/typeset (reviewed 2026-09-12)

@@ -38,7 +38,7 @@ export default function RootProviderTimerDemo() {
           </Timer.ActionTrigger>
         </Timer.Control>
       </Timer.RootProvider>
-      <output>Progress: {timer().progressPercent.toFixed(0)}%</output>
+      <output>Progress: {(timer().progressPercent * 100).toFixed(0)}%</output>
     </>
   );
 }

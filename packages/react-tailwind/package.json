@@ -354,6 +354,10 @@
       "types": "./dist/components/toggle/index.d.ts",
       "import": "./dist/components/toggle/index.js"
     },
+    "./toggle-group": {
+      "types": "./dist/components/toggle-group/index.d.ts",
+      "import": "./dist/components/toggle-group/index.js"
+    },
     "./toast": {
       "types": "./dist/components/toast/index.d.ts",
       "import": "./dist/components/toast/index.js"
@@ -361,6 +365,18 @@
     "./tooltip": {
       "types": "./dist/components/tooltip/index.d.ts",
       "import": "./dist/components/tooltip/index.js"
+    },
+    "./tour": {
+      "types": "./dist/components/tour/index.d.ts",
+      "import": "./dist/components/tour/index.js"
+    },
+    "./tree-view": {
+      "types": "./dist/components/tree-view/index.d.ts",
+      "import": "./dist/components/tree-view/index.js"
+    },
+    "./typeset": {
+      "types": "./dist/components/typeset/index.d.ts",
+      "import": "./dist/components/typeset/index.js"
     },
     "./style.css": "./dist/styles/style.css",
     "./presets/*": "./dist/presets/*",

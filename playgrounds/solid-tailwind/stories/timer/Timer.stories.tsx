@@ -154,7 +154,7 @@ export const RootProvider: Story = {
         <Timer.Context>
           {(api) => (
             <p class="m-0 text-sm leading-5 text-muted-foreground">
-              Progress: {api().progressPercent.toFixed(0)}%
+              Progress: {(api().progressPercent * 100).toFixed(0)}%
             </p>
           )}
         </Timer.Context>
