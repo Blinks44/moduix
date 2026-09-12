@@ -1,7 +1,7 @@
 import { Collapsible } from '@moduix/react/collapsible';
 import { useI18n } from '@rspress/core/runtime';
 import { CodeBlockRuntime, Link, PackageManagerTabs, Tab, Tabs } from '@rspress/core/theme';
-import { ArrowUpRight, Code2 } from 'lucide-react';
+import { ArrowUpRight, Code2, Layers3 } from 'lucide-react';
 import type { ComponentProps, ReactNode } from 'react';
 import { useLocalizedPath } from '@/utils/localized-path';
 import styles from './Components.module.css';
@@ -18,9 +18,14 @@ function PrimitiveReference({ href }: { href: string }) {
 
   return (
     <aside className={styles.reference}>
-      <div>
-        <strong>{t('primitiveReferenceTitle')}</strong>
-        <p>{t('primitiveReferenceDescription')}</p>
+      <div className={styles.referenceBody}>
+        <span className={styles.referenceIcon} aria-hidden="true">
+          <Layers3 />
+        </span>
+        <div className={styles.referenceContent}>
+          <strong>{t('primitiveReferenceTitle')}</strong>
+          <p>{t('primitiveReferenceDescription')}</p>
+        </div>
       </div>
       <a className={styles.referenceLink} href={href} target="_blank" rel="noreferrer">
         {t('primitiveReferenceLink')}

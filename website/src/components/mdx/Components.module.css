@@ -5,15 +5,60 @@
   gap: 1rem;
   margin-block: 1.5rem;
   border: 1px solid var(--rp-c-divider-light);
-  border-radius: var(--rp-radius-small);
-  background: var(--rp-c-bg-soft);
-  padding: 1rem;
+  border-radius: 0.875rem;
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      color-mix(in oklab, var(--rp-c-brand) 7%, transparent),
+      transparent 42%
+    ),
+    color-mix(in oklab, var(--rp-c-bg-soft) 82%, var(--rp-c-bg));
+  box-shadow:
+    inset 3px 0 0 color-mix(in oklab, var(--rp-c-brand) 46%, transparent),
+    0 1px 2px color-mix(in srgb, var(--rp-c-text-1) 6%, transparent);
+  padding: 1rem 1.125rem;
+}
+
+.referenceBody {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  min-width: 0;
+}
+
+.referenceIcon {
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex: none;
+  place-items: center;
+  border: 1px solid var(--rp-c-divider-light);
+  border-radius: 0.625rem;
+  background: color-mix(in oklab, var(--rp-c-bg) 86%, transparent);
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--rp-c-text-1) 8%, transparent);
+  color: var(--rp-c-text-1);
+}
+
+.referenceIcon svg {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.referenceContent {
+  min-width: 0;
+}
+
+.referenceContent strong {
+  color: var(--rp-c-text-1);
+  font-size: 0.875rem;
+  letter-spacing: -0.01em;
 }
 
 .reference p {
-  margin: 0.25rem 0 0;
+  margin: 0.1875rem 0 0;
   color: var(--rp-c-text-2);
   font-size: 0.875rem;
+  line-height: 1.5;
 }
 
 .referenceLink {
@@ -21,11 +66,10 @@
   align-items: center;
   gap: 0.375rem;
   flex: none;
-  border: 1px solid var(--rp-c-brand);
+  border: 1px solid var(--rp-c-divider-light);
   border-radius: 0.5rem;
-  background: var(--rp-c-brand);
-  box-shadow: 0 1px 2px color-mix(in srgb, var(--rp-c-text-1) 16%, transparent);
-  color: var(--rp-c-bg);
+  background: color-mix(in oklab, var(--rp-c-bg) 76%, transparent);
+  color: var(--rp-c-text-1);
   padding: 0.5rem 0.75rem;
   font-size: 0.875rem;
   font-weight: 600;
@@ -33,15 +77,11 @@
   text-decoration: none;
   transition:
     background 160ms ease,
-    border-color 160ms ease,
-    box-shadow 160ms ease,
-    transform 160ms ease;
+    border-color 160ms ease;
 
   &:hover {
-    border-color: var(--rp-c-brand-dark);
-    background: var(--rp-c-brand-dark);
-    box-shadow: 0 2px 4px color-mix(in srgb, var(--rp-c-text-1) 20%, transparent);
-    transform: translateY(-1px);
+    border-color: var(--rp-c-divider);
+    background: var(--rp-c-bg);
   }
 
   &:focus-visible {
@@ -52,6 +92,11 @@
   & svg {
     width: 1rem;
     height: 1rem;
+    transition: transform 160ms ease;
+  }
+
+  &:hover svg {
+    transform: translate(1px, -1px);
   }
 }
 
@@ -339,5 +384,9 @@
   .reference {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .referenceLink {
+    margin-inline-start: 3.125rem;
   }
 }
