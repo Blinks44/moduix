@@ -13,6 +13,14 @@ import TextSize from '@/components/examples/text/size.tsx';
 import TextTone from '@/components/examples/text/tone.tsx';
 import TextTruncation from '@/components/examples/text/truncation.tsx';
 import TextWeight from '@/components/examples/text/weight.tsx';
+import textSolidAlignment from '../../../snippets/text/solid/alignment.tsx?raw';
+import textSolidBasic from '../../../snippets/text/solid/basic.tsx?raw';
+import textSolidCustomComposition from '../../../snippets/text/solid/custom-composition.tsx?raw';
+import textSolidSemantics from '../../../snippets/text/solid/semantics.tsx?raw';
+import textSolidSize from '../../../snippets/text/solid/size.tsx?raw';
+import textSolidTone from '../../../snippets/text/solid/tone.tsx?raw';
+import textSolidTruncation from '../../../snippets/text/solid/truncation.tsx?raw';
+import textSolidWeight from '../../../snippets/text/solid/weight.tsx?raw';
 
 ## Référence de l’API
 
@@ -32,6 +40,9 @@ suivre l’échelle typographique de moduix.
 
 ## Exemple de base
 
+`Text` est disponible pour React et Solid dans les packages CSS Modules et Tailwind. L’aperçu de cette
+page utilise React avec CSS Modules ; les onglets de framework montrent le code natif avec la même API.
+
 Utilisez l’élément `p` par défaut pour un paragraphe. Passez `as` lorsque le contenu doit utiliser une autre balise HTML
 sémantique tout en conservant le style typographique de `Text`.
 
@@ -41,27 +52,61 @@ sémantique tout en conservant le style typographique de `Text`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/text/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/text/text-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={textSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/text/text-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="text" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/text' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/text' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/text' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/text' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+Consultez le [Démarrage rapide](/docs/quick-start) pour configurer le registre et choisir le package adapté.
 
 ## Anatomie
 
@@ -78,38 +123,10 @@ Text / Text.Root
 
 ## Composition
 
-### Composition recommandée
-
-Utilisez la forme courte `<Text>` pour le texte courant et les libellés auxiliaires. Elle équivaut à `<Text.Root>`,
-rend un élément `p` par défaut et transmet la `ref` à l’élément `HTMLElement` rendu.
-
-### Quand créer une composition personnalisée
-
-Utilisez `as` pour choisir une balise HTML prise en charge lorsque l’élément sémantique doit changer. Utilisez `asChild`
-si un élément existant, par exemple un lien, doit devenir la racine et recevoir la classe moduix, le style, les attributs
-de données et la `ref`. L’enfant doit être un élément unique capable d’accepter les propriétés transmises.
-
-`Text` accepte également les attributs HTML habituels de l’élément rendu, notamment `className`, `style`, les
-gestionnaires d’événements et une `ref` transmise.
-
-### Propriétés par défaut
-
-| Propriété   | Valeur par défaut                 | Remarques                                                            |
-| ----------- | --------------------------------- | -------------------------------------------------------------------- |
-| `as`        | `p`                               | `p`, `span`, `small`, `strong`, `em` ou `div`.                       |
-| `asChild`   | `false`                           | Utilise l’unique élément enfant comme élément racine.                |
-| `size`      | Selon l’élément                  | `sm` par défaut pour `small` ; `md` pour les autres éléments.        |
-| `weight`    | Selon l’élément                  | `semibold` par défaut pour `strong` ; `regular` dans les autres cas. |
-| `tone`      | `default`                         | `default`, `muted`, `subtle`, `primary` ou `destructive`.            |
-| `align`     | Non défini (visuellement `start`) | `start`, `center`, `end`, `left`, `right` ou `justify`.              |
-| `truncate`  | `false`                           | Troncature CSS sur une ligne avec points de suspension.              |
-| `lineClamp` | Non défini                       | Entier positif ; les valeurs non valides désactivent la limitation.  |
-
-### Comportement
-
-`Text` s’occupe de la présentation et de la sémantique du texte. Il ne gère ni l’état, ni les interactions au clavier,
-ni le dépliage. `truncate` et `lineClamp` appliquent uniquement des contraintes visuelles CSS. Ajoutez séparément un
-bouton ou un autre contrôle si les utilisateurs doivent pouvoir afficher le texte complet.
+`Text` se limite à un élément racine et ne possède ni état ni sous-parties. Utilisez `<Text>` ou `<Text.Root>`
+pour le même élément racine, `as` pour une balise sémantique prise en charge et `asChild` seulement lorsqu’un élément
+existant doit recevoir les propriétés et la `ref` du texte. La troncature ne fait que limiter l’affichage ; l’état et le
+contrôle du dépliage restent dans l’interface environnante.
 
 ## Exemples
 
@@ -123,20 +140,31 @@ Utilisez `align` lorsque l’alignement appartient au texte lui-même et non à 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/text/alignment.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/text/text-alignment.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={textSolidAlignment} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/text/text-alignment.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -151,20 +179,31 @@ Utilisez `as` pour choisir une balise HTML sémantique tout en conservant le sty
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/text/semantics.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/text/text-semantics.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={textSolidSemantics} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/text/text-semantics.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -179,20 +218,31 @@ Utilisez `size` pour modifier la hiérarchie visuelle sans changer de composant 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/text/size.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/text/text-size.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={textSolidSize} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/text/text-size.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -207,20 +257,31 @@ Utilisez `tone` pour indiquer le rôle du texte sans ajouter de classe de couleu
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/text/tone.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/text/text-tone.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={textSolidTone} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/text/text-tone.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -236,20 +297,31 @@ compacts sur plusieurs lignes. Ajoutez le comportement de dépliage dans l’int
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/text/truncation.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/text/text-truncation.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={textSolidTruncation} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/text/text-truncation.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -264,20 +336,31 @@ Utilisez `weight` lorsque l’emphase doit rester dans le même élément séman
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/text/weight.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/text/text-weight.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={textSolidWeight} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/text/text-weight.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -293,11 +376,23 @@ charge par `as`. L’enfant doit être un élément unique capable d’accepter 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/text/custom-composition.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={textSolidCustomComposition} />
 
     </Tab>
   </Tabs>
@@ -307,8 +402,9 @@ charge par `as`. L’enfant doit être un élément unique capable d’accepter 
 
 ## Styles
 
-Personnalisez `Text` avec `className`, les attributs de données de la racine et les variables CSS publiques
-`--moduix-text-*` répertoriées dans l’API CSS.
+Personnalisez `Text` avec `className`, les attributs de données de la racine et l’API CSS publique. Les packages
+CSS Modules exposent les variables `--moduix-text-*` ci-dessous ; les packages Tailwind utilisent des classes utilitaires
+et les remplacements de classes fournis par l’application.
 
 ### Propriétés CSS
 

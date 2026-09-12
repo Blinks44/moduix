@@ -53,7 +53,7 @@ function DocDescription() {
 }
 
 function CodeBlockRuntime(props: ComponentProps<typeof OriginalCodeBlockRuntime>) {
-  return <OriginalCodeBlockRuntime height={600} {...props} />;
+  return <OriginalCodeBlockRuntime height={520} {...props} />;
 }
 
 function SocialMetadata() {

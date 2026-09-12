@@ -1,7 +1,7 @@
 ---
 title: Tabs
 component: tabs
-description: Basculez entre des panneaux associés avec une navigation clavier accessible, un état contrôlé, un montage différé, des liens et une orientation verticale.
+description: Basculez entre des panneaux liés avec une navigation clavier accessible, un état contrôlé, un montage différé, des liens et une orientation verticale.
 ---
 
 import * as TabsDocs from '@/components/examples/tabs/css-properties';
@@ -15,6 +15,17 @@ import TabsLinks from '@/components/examples/tabs/links.tsx';
 import TabsManualActivation from '@/components/examples/tabs/manual-activation.tsx';
 import TabsRootProvider from '@/components/examples/tabs/root-provider.tsx';
 import TabsVertical from '@/components/examples/tabs/vertical.tsx';
+import tabsPreviewStyles from '@/components/examples/tabs/tabs-preview.module.css';
+import tabsSolidBasic from '../../../snippets/tabs/solid/basic.tsx?raw';
+import tabsSolidControlledValue from '../../../snippets/tabs/solid/controlled-value.tsx?raw';
+import tabsSolidCustomIcons from '../../../snippets/tabs/solid/custom-icons.tsx?raw';
+import tabsSolidDisabledTab from '../../../snippets/tabs/solid/disabled-tab.tsx?raw';
+import tabsSolidLazyMount from '../../../snippets/tabs/solid/lazy-mount.tsx?raw';
+import tabsSolidLine from '../../../snippets/tabs/solid/line.tsx?raw';
+import tabsSolidLinks from '../../../snippets/tabs/solid/links.tsx?raw';
+import tabsSolidManualActivation from '../../../snippets/tabs/solid/manual-activation.tsx?raw';
+import tabsSolidRootProvider from '../../../snippets/tabs/solid/root-provider.tsx?raw';
+import tabsSolidVertical from '../../../snippets/tabs/solid/vertical.tsx?raw';
 
 ## Référence de l’API
 
@@ -22,29 +33,48 @@ import TabsVertical from '@/components/examples/tabs/vertical.tsx';
 
 ## Choisir le bon composant
 
-Utilisez `Tabs` pour faire alterner des vues liées dans une même zone de page. La sélection d’un onglet affiche le
-panneau correspondant et masque les autres.
+Utilisez `Tabs` pour basculer entre des vues liées dans une même zone de la page. La sélection d’un
+onglet affiche le panneau correspondant et masque les autres panneaux.
 
-- Choisissez **`Tabs`** lorsque chaque onglet doit afficher un panneau de contenu associé.
+- Choisissez **`Tabs`** lorsque chaque onglet doit afficher un panneau associé.
 - Choisissez **`Accordion`** lorsque les sections doivent rester empilées et s’ouvrir indépendamment.
-- Choisissez **`ToggleGroup`** lorsque le contrôle change un état ou un mode sans gérer le contenu d’un panneau.
+- Choisissez **`ToggleGroup`** lorsque le contrôle modifie un état ou un mode sans gérer le contenu d’un panneau.
 
 ## Exemple de base
 
-Commencez avec `Tabs` et donnez la même valeur `value` à chaque paire `Tabs.Trigger` et `Tabs.Content`. Ajoutez
-explicitement `Tabs.Indicator` lorsque vous souhaitez mettre en évidence l’onglet sélectionné.
+`Tabs` est disponible pour React et Solid dans les paquets CSS Modules et Tailwind. L’aperçu
+interactif de cette page utilise le paquet React avec CSS Modules ; les onglets de framework affichent
+la source native correspondant au même contrat public.
+
+Commencez avec `Tabs` et donnez la même valeur `value` à chaque paire `Tabs.Trigger` et
+`Tabs.Content`. Rendez `Tabs.Indicator` explicitement lorsque l’onglet sélectionné doit avoir un
+marqueur visuel.
 
 <ExampleFrame variant="component">
-  <TabsBasic />
+  <div className={tabsPreviewStyles.root}>
+    <TabsBasic />
+  </div>
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tabs/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tabsSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -54,12 +84,33 @@ explicitement `Tabs.Indicator` lorsque vous souhaitez mettre en évidence l’on
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="tabs" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tabs' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tabs' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tabs' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tabs' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
 ```text
-Tabs
+Tabs / Tabs.Root
 ├─ Tabs.List
 │  ├─ Tabs.Trigger[value]
 │  ├─ Tabs.Trigger[value]
@@ -67,88 +118,66 @@ Tabs
 └─ Tabs.Content[value]
 
 Tabs.RootProvider
-└─ Tabs.* + useTabs()
+└─ mêmes parties reliées à un store useTabs()
 
 Tabs.Context
 └─ render prop
 ```
 
-| Partie              | Rôle                                                               |
-| ------------------- | ------------------------------------------------------------------ |
-| `Tabs`              | Racine qui gère la valeur sélectionnée, le focus, l’orientation et le mode. |
-| `Tabs.RootProvider` | Relie les parties à l’état créé avec `useTabs()` de moduix.        |
-| `Tabs.Context`      | Expose l’état courant des onglets via une fonction de rendu.       |
-| `Tabs.List`         | Regroupe les onglets et gère le déplacement du focus entre eux.   |
-| `Tabs.Trigger`      | Bouton d’onglet interactif, ou hôte `asChild`, avec une valeur obligatoire. |
-| `Tabs.Indicator`    | Indicateur facultatif de l’onglet sélectionné.                    |
-| `Tabs.Content`      | Panneau associé à un onglet qui possède la même valeur.           |
+| Partie                | Rôle                                                               |
+| --------------------- | ------------------------------------------------------------------ |
+| `Tabs` / `Tabs.Root`  | Racine qui gère la valeur sélectionnée, le focus, l’orientation et le mode. |
+| `Tabs.RootProvider`   | Relie les parties à l’état créé avec `useTabs()` de moduix.        |
+| `Tabs.Context`        | Expose l’état courant des onglets via une render prop.             |
+| `Tabs.List`           | Regroupe les déclencheurs et gère les déplacements du focus.       |
+| `Tabs.Trigger`        | Bouton d’onglet interactif, ou hôte `asChild`, avec une valeur obligatoire. |
+| `Tabs.Indicator`      | Indicateur facultatif de l’onglet sélectionné.                     |
+| `Tabs.Content`        | Panneau associé au déclencheur qui possède la même valeur.        |
 
 ## Composition
 
-### Composition recommandée
+Utilisez `defaultValue` pour un composant non contrôlé. Lorsqu’une autre partie de l’application
+gère la sélection, transmettez `value` et `onValueChange(details)`, puis lisez la valeur choisie
+dans `details.value`.
 
-Utilisez `<Tabs>` dans le cas courant. Il gère la navigation au clavier, le déplacement du focus et l’onglet
-sélectionné. Utilisez `defaultValue` pour choisir l’onglet initial, ou associez `value` à
-`onValueChange(details)` lorsque l’état React doit contrôler la sélection. Lisez la valeur sélectionnée dans
-`details.value`.
-
-La racine accepte aussi `onFocusChange(details)`, `activationMode`, `orientation`, `loopFocus`, `deselectable`,
-`lazyMount`, `unmountOnExit`, `ids` et `navigate`, qui sont transmis à Ark UI.
-
-Conservez l’arbre de parties explicite. `Tabs.List` regroupe les onglets mais ne rend pas automatiquement
-l’indicateur. Ajoutez `Tabs.Indicator` lorsque l’onglet sélectionné doit être mis en évidence.
-
-### Composition personnalisée
-
-Utilisez `asChild` sur `Tabs.Trigger` lorsqu’un onglet doit être rendu comme un lien ou un composant de votre
-routeur. L’enfant doit être un unique élément sémantique qui conserve les comportements clavier, focus et ARIA
-d’Ark.
-
-Utilisez `useTabs()` ou `Tabs.useTabs()` avec `Tabs.RootProvider` lorsque l’état des onglets doit être créé en
-dehors de l’arbre rendu, ou lorsque l’interface voisine doit lire ou modifier la sélection. N’entourez pas la même
-instance d’état d’une autre racine `Tabs`.
-
-Utilisez `Tabs.Context` pour une fonction de rendu (`render prop`), ou `useTabsContext()` pour lire l’état courant
-depuis les descendants de `Tabs` ou de `Tabs.RootProvider`.
-
-### Propriétés par défaut
-
-| Propriété              | Valeur par défaut | Remarques                                                              |
-| ---------------------- | ----------------- | ---------------------------------------------------------------------- |
-| `Tabs.variant`         | `default`         | Style visuel : `default` ou `line`.                                   |
-| `Tabs.activationMode`  | `automatic`       | Le focus sélectionne automatiquement l’onglet, sauf avec `manual`.    |
-| `Tabs.orientation`     | `horizontal`      | Les onglets horizontaux utilisent gauche/droite, les verticaux haut/bas. |
-| `Tabs.loopFocus`       | `true`            | Le focus revient au premier onglet après le dernier.                  |
-| `Tabs.lazyMount`       | `false`           | Monte un panneau lorsqu’il est sélectionné pour la première fois.     |
-| `Tabs.unmountOnExit`   | `false`           | Démonte les panneaux inactifs, généralement avec `lazyMount`.         |
-
-### Comportement
-
-- `Tabs.Trigger` et `Tabs.Content` sont associés par des valeurs `value` identiques, qui doivent être des chaînes.
-- Avec `activationMode="automatic"`, déplacer le focus sélectionne l’onglet. Avec `manual`, le focus se déplace d’abord et la sélection se fait lors de l’activation.
-- `onValueChange` reçoit l’objet `details` d’Ark UI. La valeur sélectionnée se trouve dans `details.value`.
-- Un `Tabs.Trigger` désactivé reste visible, mais ne peut recevoir ni le focus ni la sélection.
-- `variant="line"` s’applique uniquement aux onglets horizontaux. Les onglets verticaux utilisent le style rempli `default`, y compris avec `Tabs.RootProvider`.
-- Ark UI gère les attributs ARIA, les relations entre onglets et panneaux, la navigation au clavier, le déplacement du focus et le comportement des onglets désactivés.
+Utilisez `Tabs.RootProvider` avec `useTabs()` lorsque l’état doit être créé en dehors de l’arbre
+rendu ou partagé avec une interface voisine. Transmettez le store à `RootProvider` et ne rendez pas
+une autre racine `Tabs` pour ce même état. Utilisez `asChild` sur `Tabs.Trigger` pour un lien ou un
+composant de routeur, et rendez `Tabs.Indicator` explicitement, car `Tabs.List` ne l’ajoute pas
+automatiquement.
 
 ## Exemples
 
 ### Valeur contrôlée
 
-Contrôlez l’onglet sélectionné avec un état React lorsque le panneau actif doit se coordonner avec le reste de
-l’interface.
+Contrôlez l’onglet sélectionné avec l’état de l’application lorsque le panneau actif doit se synchroniser avec
+d’autres éléments de l’interface.
 
 <ExampleFrame variant="component">
-  <TabsControlledValue />
+  <div className={tabsPreviewStyles.root}>
+    <TabsControlledValue />
+  </div>
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tabs/controlled-value.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tabsSolidControlledValue} />
 
     </Tab>
   </Tabs>
@@ -161,16 +190,30 @@ l’interface.
 Placez directement les icônes et les libellés dans `Tabs.Trigger`.
 
 <ExampleFrame variant="component">
-  <TabsCustomIcons />
+  <div className={tabsPreviewStyles.root}>
+    <TabsCustomIcons />
+  </div>
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tabs/custom-icons.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tabsSolidCustomIcons} />
 
     </Tab>
   </Tabs>
@@ -183,16 +226,30 @@ Placez directement les icônes et les libellés dans `Tabs.Trigger`.
 Désactivez un onglet qui doit rester visible, mais qui n’est pas encore disponible.
 
 <ExampleFrame variant="component">
-  <TabsDisabledTab />
+  <div className={tabsPreviewStyles.root}>
+    <TabsDisabledTab />
+  </div>
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tabs/disabled-tab.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tabsSolidDisabledTab} />
 
     </Tab>
   </Tabs>
@@ -202,20 +259,34 @@ Désactivez un onglet qui doit rester visible, mais qui n’est pas encore dispo
 
 ### Montage différé
 
-Utilisez `lazyMount` pour ne monter un panneau qu’au moment où il est sélectionné. Ajoutez `unmountOnExit` pour
-le retirer du DOM lorsque l’utilisateur change d’onglet.
+Utilisez `lazyMount` lorsque les panneaux inactifs ne doivent être montés qu’après leur sélection.
+Ajoutez `unmountOnExit` pour les retirer à nouveau du DOM lorsque l’utilisateur les quitte.
 
 <ExampleFrame variant="component">
-  <TabsLazyMount />
+  <div className={tabsPreviewStyles.root}>
+    <TabsLazyMount />
+  </div>
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tabs/lazy-mount.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tabsSolidLazyMount} />
 
     </Tab>
   </Tabs>
@@ -225,20 +296,34 @@ le retirer du DOM lorsque l’utilisateur change d’onglet.
 
 ### Variante ligne
 
-Utilisez `variant="line"` lorsque l’indicateur doit suivre le bord actif au lieu de remplir l’onglet sélectionné.
-Ce style est disponible pour les onglets horizontaux.
+Utilisez `variant="line"` lorsque l’indicateur doit se placer sur le bord actif au lieu de remplir
+l’onglet sélectionné. Ce traitement est disponible pour les onglets horizontaux.
 
 <ExampleFrame variant="component">
-  <TabsLine />
+  <div className={tabsPreviewStyles.root}>
+    <TabsLine />
+  </div>
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tabs/line.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tabsSolidLine} />
 
     </Tab>
   </Tabs>
@@ -248,20 +333,34 @@ Ce style est disponible pour les onglets horizontaux.
 
 ### Liens
 
-Utilisez `asChild` lorsque les onglets doivent être rendus comme des ancres ou des liens pris en charge par
-votre routeur.
+Utilisez `asChild` lorsque les déclencheurs doivent être rendus comme des liens gérés par votre
+routeur.
 
 <ExampleFrame variant="component">
-  <TabsLinks />
+  <div className={tabsPreviewStyles.root}>
+    <TabsLinks />
+  </div>
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tabs/links.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tabsSolidLinks} />
 
     </Tab>
   </Tabs>
@@ -271,20 +370,34 @@ votre routeur.
 
 ### Activation manuelle
 
-Définissez `activationMode="manual"` lorsque les touches fléchées doivent déplacer le focus sans modifier l’onglet
-sélectionné. Activez-le avec un clic, la touche Entrée ou la barre d’espace.
+Définissez `activationMode="manual"` lorsque les flèches doivent déplacer le focus sans changer
+l’onglet sélectionné. Activez-le avec un clic, Entrée ou Espace.
 
 <ExampleFrame variant="component">
-  <TabsManualActivation />
+  <div className={tabsPreviewStyles.root}>
+    <TabsManualActivation />
+  </div>
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tabs/manual-activation.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tabsSolidManualActivation} />
 
     </Tab>
   </Tabs>
@@ -292,22 +405,37 @@ sélectionné. Activez-le avec un clic, la touche Entrée ou la barre d’espace
 
 </ExampleCode>
 
-### Orientation verticale
+### Vertical
 
-Utilisez `orientation="vertical"` lorsque la liste des onglets doit se trouver à côté du panneau actif. Les onglets
-verticaux utilisent l’indicateur rempli, ce qui facilite le repérage de l’élément sélectionné.
+Utilisez `orientation="vertical"` lorsque la liste des onglets doit se trouver à côté du panneau
+actif. Les onglets verticaux utilisent l’indicateur plein, ce qui rend l’élément sélectionné facile
+à repérer.
 
 <ExampleFrame variant="component">
-  <TabsVertical />
+  <div className={tabsPreviewStyles.root}>
+    <TabsVertical />
+  </div>
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tabs/vertical.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tabsSolidVertical} />
 
     </Tab>
   </Tabs>
@@ -317,44 +445,59 @@ verticaux utilisent l’indicateur rempli, ce qui facilite le repérage de l’�
 
 ### Personnalisation avancée
 
-Créez l’état des onglets avec `useTabs()` lorsqu’il doit exister avant le rendu de l’arbre de parties ou lorsque
-l’interface voisine doit lire la valeur sélectionnée.
+Créez l’état des onglets avec `useTabs()` lorsqu’il doit exister avant le rendu de l’arbre de parties
+ou lorsque l’interface voisine doit lire la valeur sélectionnée.
 
 <ExampleFrame variant="component">
-  <TabsRootProvider />
+  <div className={tabsPreviewStyles.root}>
+    <TabsRootProvider />
+  </div>
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tabs/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/tabs/tabs-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={tabsSolidRootProvider} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/tabs/tabs-root-provider.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Styles
 
-Stylisez `Tabs` avec `className`, les points d’accroche stables `data-slot="tabs-*"`, les attributs Ark
-`data-scope` et `data-part`, l’attribut `data-variant` de la racine et les variables CSS publiques
-`--moduix-tabs-*` listées ci-dessous.
+Utilisez `className` en React ou `class` en Solid sur les parties exportées pour les styles de
+structure. Pour les styles liés à l’état, préférez les attributs de données d’Ark tels que
+`data-selected`, `data-disabled` et `data-orientation`, avec les sélecteurs `data-slot` de moduix.
+Les variantes Tailwind utilisent les utilitaires natifs et les classes du consommateur ; les
+variables ci-dessous personnalisent les variantes CSS Modules.
 
-### Variables CSS
+### Propriétés CSS
 
 <div className="docs-reference">
   <Tabs
-    values={[{ label: 'Variables CSS', value: 'Variables CSS' }]}
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
     className="docs-reference-tabs"
     contentItemClassName="docs-reference-panel"
   >
@@ -366,18 +509,18 @@ Stylisez `Tabs` avec `className`, les points d’accroche stables `data-slot="ta
 
 ### Points d’accroche CSS
 
-Ciblez la partie responsable de l’aspect que vous souhaitez modifier :
+Ciblez la partie qui porte la responsabilité visuelle concernée :
 
-- `Tabs` pour la largeur, l’espacement global, l’orientation et les surcharges liées à la variante
-- `Tabs.List` pour l’apparence de la liste, les bordures, l’arrière-plan et l’espacement autour de l’indicateur
-- `Tabs.Trigger` pour la disposition du libellé, l’espacement de l’icône, les états sélectionné et désactivé et le style du focus
-- `Tabs.Indicator` pour personnaliser la couleur, la taille et les transitions de l’indicateur
-- `Tabs.Content` pour la surface du panneau, l’espacement intérieur et le style du focus
+- `Tabs` pour la largeur, l’espacement général, l’orientation et les remplacements liés à la variante
+- `Tabs.List` pour le fond, les bordures, l’habillage de la liste et l’espacement autour de l’indicateur
+- `Tabs.Trigger` pour la disposition du libellé, l’espacement de l’icône, les états sélectionné et désactivé, et le focus
+- `Tabs.Indicator` pour la couleur, la taille et les transitions de l’indicateur
+- `Tabs.Content` pour la surface, les marges internes et le focus du panneau
 
-Les principaux points d’accroche publics sont `data-slot="tabs-root"`, `data-slot="tabs-root-provider"`,
-`data-slot="tabs-list"`, `data-slot="tabs-trigger"`, `data-slot="tabs-indicator"` et
-`data-slot="tabs-content"`.
+Les principaux points d’accroche publics sont `data-slot="tabs-root"`,
+`data-slot="tabs-root-provider"`, `data-slot="tabs-list"`, `data-slot="tabs-trigger"`,
+`data-slot="tabs-indicator"` et `data-slot="tabs-content"`.
 
-Parmi les attributs Ark utiles figurent `data-scope="tabs"`, `data-part`, `data-orientation`, `data-selected`,
-`data-disabled`, `data-focus` et les variables de positionnement de l’indicateur `--left`, `--top`, `--width`,
-`--height` et `--transition-property`.
+Les points d’accroche Ark utiles sont `data-scope="tabs"`, `data-part`, `data-orientation`,
+`data-selected`, `data-disabled`, `data-focus`, ainsi que les variables de l’indicateur `--left`,
+`--top`, `--width`, `--height` et `--transition-property`.

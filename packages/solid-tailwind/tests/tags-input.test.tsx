@@ -251,3 +251,26 @@ test('lets consumer utilities replace defaults and keeps visual parts visible', 
   expect(clearTrigger).toHaveClass('size-5');
   expect(clearTrigger).not.toHaveClass('size-control-xs');
 });
+
+test('keeps consumer-owned styles on an asChild clear trigger', () => {
+  const { container } = render(() => (
+    <TagsInput defaultValue={['React']}>
+      <TagsInput.Control>
+        <TagsInput.Items />
+        <TagsInput.Input />
+      </TagsInput.Control>
+      <TagsInput.ClearTrigger
+        asChild={(props) => (
+          <button {...props()} class={`${props().class} h-9 rounded-lg`} type="button">
+            Clear all tags
+          </button>
+        )}
+      />
+    </TagsInput>
+  ));
+
+  const clearTrigger = container.querySelector('[data-slot="tags-input-clear-trigger"]')!;
+
+  expect(clearTrigger).toHaveClass('h-9', 'rounded-lg');
+  expect(clearTrigger).not.toHaveClass('size-control-xs', 'rounded-sm');
+});

@@ -1,7 +1,7 @@
 ---
 title: Tags Input
 component: tags-input
-description: Редактируемое поле для списка строковых тегов с проверкой и отправкой формы, которое можно дополнить подсказками.
+description: Редактируемое поле для списка строковых тегов с проверкой, отправкой формы и необязательными подсказками.
 ---
 
 import * as TagsInputDocs from '@/components/examples/tags-input/css-properties';
@@ -20,6 +20,21 @@ import TagsInputRootProvider from '@/components/examples/tags-input/root-provide
 import TagsInputSanitizeAndBlur from '@/components/examples/tags-input/sanitize-and-blur.tsx';
 import TagsInputValidationAndMax from '@/components/examples/tags-input/validation-and-max.tsx';
 import TagsInputWithCombobox from '@/components/examples/tags-input/with-combobox.tsx';
+import tagsInputSolidAdvancedCustomization from '../../../snippets/tags-input/solid/advanced-customization.tsx?raw';
+import tagsInputSolidAllowDuplicates from '../../../snippets/tags-input/solid/allow-duplicates.tsx?raw';
+import tagsInputSolidBasic from '../../../snippets/tags-input/solid/basic.tsx?raw';
+import tagsInputSolidControlled from '../../../snippets/tags-input/solid/controlled.tsx?raw';
+import tagsInputSolidControlledInputValue from '../../../snippets/tags-input/solid/controlled-input-value.tsx?raw';
+import tagsInputSolidDelimiterAndPaste from '../../../snippets/tags-input/solid/delimiter-and-paste.tsx?raw';
+import tagsInputSolidDisableEditing from '../../../snippets/tags-input/solid/disable-editing.tsx?raw';
+import tagsInputSolidDisabledAndReadOnly from '../../../snippets/tags-input/solid/disabled-and-read-only.tsx?raw';
+import tagsInputSolidField from '../../../snippets/tags-input/solid/field.tsx?raw';
+import tagsInputSolidForm from '../../../snippets/tags-input/solid/form.tsx?raw';
+import tagsInputSolidMaxWithOverflow from '../../../snippets/tags-input/solid/max-with-overflow.tsx?raw';
+import tagsInputSolidRootProvider from '../../../snippets/tags-input/solid/root-provider.tsx?raw';
+import tagsInputSolidSanitizeAndBlur from '../../../snippets/tags-input/solid/sanitize-and-blur.tsx?raw';
+import tagsInputSolidValidationAndMax from '../../../snippets/tags-input/solid/validation-and-max.tsx?raw';
+import tagsInputSolidWithCombobox from '../../../snippets/combobox/solid/with-tags-input.tsx?raw';
 
 ## Справочник API
 
@@ -27,14 +42,18 @@ import TagsInputWithCombobox from '@/components/examples/tags-input/with-combobo
 
 ## Как выбрать компонент
 
-Используйте `TagsInput`, когда пользователю нужно вводить и редактировать список строковых
-значений в одном элементе управления формой.
+Используйте `TagsInput`, когда пользователю нужно вводить и редактировать список строковых значений
+в одном элементе управления формы.
 
 - Выбирайте **`TagsInput`** для меток, навыков, фильтров, получателей, тем и других списков строк, которые пользователь вводит сам.
-- Выбирайте **`Tag`**, когда интерфейс только показывает уже существующий токен и, возможно, предлагает отдельное действие удаления.
-- Выбирайте **`Combobox`**, когда пользователь должен выбирать значения из известного списка, а основное взаимодействие связано с фильтрацией.
+- Выбирайте **`Tag`**, когда интерфейс только показывает существующий токен и может предложить отдельное действие удаления.
+- Выбирайте **`Combobox`**, когда пользователь выбирает значение из известного списка, а основное взаимодействие связано с фильтрацией.
 
 ## Базовый пример
+
+TagsInput доступен для React и Solid в пакетах с CSS Modules и в вариантах на Tailwind. Интерактивные
+примеры используют пакет React с CSS Modules, а вкладки показывают нативный исходный код для того
+же публичного контракта.
 
 Начните с корня, подписи, `Control`, `Items`, поля ввода и кнопки очистки. Добавьте
 `TagsInput.HiddenInput` явно, если теги нужно отправлять вместе с формой.
@@ -45,27 +64,59 @@ import TagsInputWithCombobox from '@/components/examples/tags-input/with-combobo
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/tags-input/tags-input-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={tagsInputSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/tags-input/tags-input-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="tags-input" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tags-input' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tags-input' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tags-input' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tags-input' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -81,109 +132,49 @@ TagsInput / TagsInput.Root
 │     └─ TagsInput.ItemInput
 │  ├─ TagsInput.Input
 │  └─ TagsInput.ClearTrigger
-└─ TagsInput.HiddenInput (явно)
+└─ TagsInput.HiddenInput (explicit)
+
+TagsInput.RootProvider
+└─ same part tree connected to a useTagsInput() store
 ```
 
-| Часть                                  | Назначение                                                               |
-| -------------------------------------- | ------------------------------------------------------------------------ |
-| `TagsInput` / `TagsInput.Root`         | Управляет состоянием, значениями тегов, вводом, проверкой и формой.      |
-| `TagsInput.HiddenInput` | Нативное поле Ark; правила явной композиции описаны ниже. |
-| `TagsInput.RootProvider`               | Подключает разметку к состоянию, которое вернул Ark `useTagsInput`.       |
-| `TagsInput.Label`                      | Доступная подпись поля тегов.                                            |
-| `TagsInput.Control`                    | Видимая область с тегами, полем ввода и кнопкой очистки.                 |
-| `TagsInput.Items`                      | Стандартно отображает редактируемые теги из текущего состояния.          |
-| `TagsInput.Item`                       | Один тег. Передайте ему `index` и `value`.                               |
-| `TagsInput.ItemContext`                | Доступ к состоянию текущего тега через render prop.                      |
-| `TagsInput.ItemPreview`                | Отображение тега вне режима редактирования.                              |
-| `TagsInput.ItemText`                   | Видимый текст тега.                                                       |
-| `TagsInput.ItemDeleteTrigger`          | Удаляет один тег; moduix по умолчанию добавляет компактный значок закрытия. |
-| `TagsInput.ItemInput`                  | Поле, которое используется для редактирования тега на месте.            |
-| `TagsInput.Input`                      | Поле ввода новых тегов.                                                   |
-| `TagsInput.ClearTrigger`               | Удаляет все теги; по умолчанию moduix использует общий `CloseButton.Root`. |
-| `TagsInput.Context`                    | Render prop с состоянием корневого компонента внутри его дерева.         |
-| `useTagsInputContext`                  | Даёт дочернему компоненту доступ к состоянию и методам корня.             |
-| `useTagsInputItemContext`              | Даёт доступ к состоянию текущего тега внутри `TagsInput.Item`.            |
-| `moduix useTagsInput` + `RootProvider` | Внешнее управление состоянием и императивными методами.                  |
+| Часть | Назначение |
+| --- | --- |
+| `TagsInput` / `TagsInput.Root` | Корень, который управляет состоянием, значениями тегов, вводом, проверкой и формой. |
+| `TagsInput.RootProvider` | Подключает части к состоянию, которое вернул `useTagsInput()`. |
+| `TagsInput.Label` | Доступная подпись поля тегов. |
+| `TagsInput.Control` | Видимая область с тегами, полем ввода и кнопкой очистки. |
+| `TagsInput.Items` | Стандартно отображает редактируемые теги из текущего состояния. |
+| `TagsInput.Item` | Один тег. Передайте `index` и `value` для собственных элементов. |
+| `TagsInput.ItemPreview` | Отображает тег вне режима редактирования. |
+| `TagsInput.ItemText` | Видимый текст тега. |
+| `TagsInput.ItemDeleteTrigger` | Удаляет один тег и по умолчанию показывает компактный значок закрытия. |
+| `TagsInput.ItemInput` | Поле для редактирования тега на месте. |
+| `TagsInput.Input` | Поле ввода новых тегов. |
+| `TagsInput.ClearTrigger` | Удаляет все теги и по умолчанию использует оформление общей кнопки закрытия. |
+| `TagsInput.HiddenInput` | Явно добавляемое нативное поле для отправки формы. |
+| `TagsInput.Context` | Render prop с доступом к состоянию корня внутри дерева компонента. |
 
 ## Композиция
 
-### Нативное поле формы
+Используйте короткую форму `<TagsInput>` для стандартной композиции. Оставьте `TagsInput.Items`,
+`TagsInput.Input` и `TagsInput.ClearTrigger` внутри `TagsInput.Control`. Добавьте
+`TagsInput.HiddenInput` явно и передайте корню `name`, если теги нужно отправлять с формой. Если
+связанная форма находится вне дерева компонента, задайте `form`.
 
-`TagsInput.HiddenInput` — нативное поле Ark, экспортируемое без обёртки. Добавьте его явно внутрь
-`TagsInput` или `TagsInput.RootProvider`: корневой компонент не создаёт его автоматически.
-Задайте `name` на корневом компоненте, чтобы значение отправлялось с формой.
-
-Если форма находится вне дерева компонента, задайте `form` на корневом компоненте.
-
-### Рекомендуемая композиция
-
-Используйте короткую форму `<TagsInput>`, которая эквивалентна `<TagsInput.Root>`. Поместите
-`TagsInput.Items`, `TagsInput.Input` и `TagsInput.ClearTrigger` внутрь `TagsInput.Control`.
-Так вы получите стандартное поведение редактируемых тегов. Для формы явно добавьте
-`TagsInput.HiddenInput`.
-
-Чтобы участвовать в отправке формы, передайте корню свойство `name`. Используйте `form`, если
-связанная форма находится за пределами DOM-дерева компонента.
-
-### Когда нужна собственная композиция
-
-Используйте `TagsInput.Context` и части для отдельных тегов, если им нужны собственное содержимое
-или дополнительные действия. Пройдитесь по `tagsInput.value`, для каждого значения создайте
-`TagsInput.Item` с `index` и `value`, а внутри него оставьте `ItemInput`, если редактирование на
-месте должно продолжать работать. Если содержимое зависит от состояния тега, используйте
-`ItemContext` или `useTagsInputItemContext`.
-
-Сочетайте `TagsInput.RootProvider` с moduix `useTagsInput`, когда состояние или императивные методы,
-например `addValue`, `setValue`, `clearValue`, `setInputValue` и `focus`, должны быть доступны за
-пределами дерева отрисованного поля. Свойство `ids` пригодится при совместной работе с другим
-примитивом Ark, например `Combobox`, когда компоненты используют один и тот же идентификатор
-поля или элемента управления.
-
-Каждая примитивная часть поддерживает `asChild` с одним семантическим дочерним элементом, который
-пробрасывает свойства и `ref`. `TagsInput.Items` — это
-готовый компонент для отображения тегов без собственных свойств частей; для своей разметки тегов
-используйте отдельные части.
-
-### Свойства по умолчанию
-
-| Свойство            | По умолчанию             | Примечание                                                                |
-| ------------------- | ------------------------ | ------------------------------------------------------------------------- |
-| `defaultValue`      | `[]`                     | Начальный массив тегов в неконтролируемом режиме.                         |
-| `value`             | -                        | Управляемый массив тегов. Обновляйте его из `onValueChange(details).value`. |
-| `defaultInputValue` | `''`                     | Начальное значение поля ввода в неконтролируемом режиме.                  |
-| `inputValue`        | -                        | Управляемое значение поля ввода.                                          |
-| `delimiter`         | `','`                    | Строка или регулярное выражение для клавиши-разделителя и разделения вставленного текста. |
-| `max`               | `Infinity`               | Максимальное количество тегов.                                            |
-| `maxLength`         | -                        | Максимальное число символов, принимаемых полем ввода.                     |
-| `allowOverflow`     | `false`                  | Разрешает превысить `max`, но помечает корень как невалидный.              |
-| `allowDuplicates`   | `false`                  | Разрешает добавлять одну и ту же строку несколько раз.                    |
-| `editable`          | `true`                   | Разрешает перейти к редактированию тега после фокуса, Enter или двойного щелчка. |
-| `addOnPaste`        | `false`                  | Разделяет вставленный текст на теги с помощью `delimiter`.                |
-| `blurBehavior`      | -                        | Задайте `"add"`, чтобы добавить значение при потере фокуса, или `"clear"`, чтобы его отбросить. |
-| `sanitizeValue`     | `(value) => value.trim()` | Нормализует значение перед проверкой и добавлением.                       |
-
-Свойства `disabled`, `invalid`, `readOnly`, `required` и `autoFocus` не включены, пока вы не
-зададите их явно. Для подсказки в поле ввода используйте `placeholder`, а для доступных названий
-действий задайте `translations`.
-
-### Особенности поведения
-
-`onValueChange(details)`, `onInputValueChange(details)`, `onHighlightChange(details)` и
-`onValueInvalid(details)` получают объекты `details` от Ark. Функция `validate(details)` принимает
-или отклоняет новый тег, а `sanitizeValue(value)` нормализует его перед проверкой и
-добавлением. Обработчики `onFocusOutside`, `onInteractOutside` и `onPointerDownOutside` получают
-соответствующие события взаимодействия за пределами компонента.
-
-Через контекст Ark компоненты `Field.Root` и `Fieldset.Root` могут передавать состояния `disabled`,
-`invalid`, `required` и `readOnly`. Стандартная кнопка очистки использует `CloseButton.Root` через
-Ark `asChild`, а для удаления отдельного тега остаётся компактная кнопка со значком.
+Для собственного содержимого или действий тегов используйте `TagsInput.Context` и свяжите его
+значения с `TagsInput.Item`, передав `index` и `value`. Оставьте `TagsInput.ItemInput` внутри каждого
+элемента, если нужно сохранить редактирование на месте. Используйте `TagsInput.RootProvider` с
+`useTagsInput()` только тогда, когда состояние или методы вроде `addValue`, `clearValue` и `focus`
+нужны за пределами дерева компонента. В Solid store является accessor: читайте `tagsInput().value`
+и вызывайте `tagsInput().addValue()`. При объединении с `Combobox` используйте общие идентификаторы
+поля и элемента управления и объединяйте поля через `asChild`.
 
 ## Примеры
 
 ### Разрешить дубликаты
 
-Включите `allowDuplicates`, если одно и то же значение может встречаться несколько раз и это важно
-для сценария.
+Включите `allowDuplicates`, если одна и та же строка может появляться несколько раз.
 
 <ExampleFrame variant="component">
   <TagsInputAllowDuplicates />
@@ -191,27 +182,26 @@ Ark `asChild`, а для удаления отдельного тега оста
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/allow-duplicates.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidAllowDuplicates} /></Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/tags-input/tags-input-allow-duplicates.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
-### Управляемый список тегов
+### Управляемое состояние
 
-Храните массив тегов в состоянии React, если от него зависит другая часть экрана или список нужно
+Храните массив тегов в состоянии компонента, если от него зависит другая часть экрана или его нужно
 сбрасывать программно.
 
 <ExampleFrame variant="component">
@@ -220,22 +210,21 @@ Ark `asChild`, а для удаления отдельного тега оста
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidControlled} /></Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/tags-input/tags-input-controlled.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Управляемое значение поля ввода
@@ -249,28 +238,27 @@ Ark `asChild`, а для удаления отдельного тега оста
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/controlled-input-value.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidControlledInputValue} /></Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/tags-input/tags-input-controlled-input-value.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Разделитель и вставка
 
 Используйте `delimiter` вместе с `addOnPaste`, если вставленный текст должен превратиться в несколько
-тегов. В примере разделителями служат запятая, точка с запятой и пробел.
+тегов. В этом примере разделителями служат запятая, точка с запятой и пробел.
 
 <ExampleFrame variant="component">
   <TagsInputDelimiterAndPaste />
@@ -278,22 +266,21 @@ Ark `asChild`, а для удаления отдельного тега оста
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/delimiter-and-paste.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidDelimiterAndPaste} /></Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/tags-input/tags-input-delimiter-and-paste.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Запретить редактирование
@@ -306,28 +293,27 @@ Ark `asChild`, а для удаления отдельного тега оста
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/disable-editing.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidDisableEditing} /></Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/tags-input/tags-input-disable-editing.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
-### Отключённое состояние и режим только для чтения
+### Отключено и только для чтения
 
-Используйте `disabled` для полностью неинтерактивного поля. `readOnly` оставляет теги видимыми, но
-запрещает добавлять, удалять и редактировать их.
+Используйте `disabled` для неинтерактивного поля. `readOnly` оставляет теги видимыми, но запрещает
+добавлять, удалять и редактировать их.
 
 <ExampleFrame variant="component">
   <TagsInputDisabledAndReadOnly />
@@ -335,28 +321,27 @@ Ark `asChild`, а для удаления отдельного тега оста
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/disabled-and-read-only.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidDisabledAndReadOnly} /></Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/tags-input/tags-input-disabled-and-read-only.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Field
 
-Оберните `TagsInput` в `Field`, если подпись, поясняющий текст, состояние ошибки и
-сообщение об ошибке должны быть связаны с полем по правилам доступности Ark.
+Оберните `TagsInput` в `Field`, если подпись, поясняющий текст, невалидное состояние и сообщение об
+ошибке должны использовать общую схему доступности форм Ark.
 
 <ExampleFrame variant="component">
   <TagsInputField />
@@ -364,28 +349,26 @@ Ark `asChild`, а для удаления отдельного тега оста
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/field.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidField} /></Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/tags-input/tags-input-field.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Форма
 
 Передайте корню `name` и добавьте `TagsInput.HiddenInput`, чтобы список тегов попал в `FormData`.
-Ark синхронизирует поле со сбросом формы.
 
 <ExampleFrame variant="component">
   <TagsInputForm />
@@ -393,28 +376,27 @@ Ark синхронизирует поле со сбросом формы.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/form.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidForm} /></Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/tags-input/tags-input-form.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
-### Максимальное число тегов с превышением
+### Максимум с превышением
 
-Используйте `allowOverflow` вместе с `max`, если пользователь может временно превысить лимит, а
-поле при этом должно сообщить о невалидном состоянии.
+Используйте `allowOverflow` вместе с `max`, если пользователь может временно превысить лимит, а поле
+должно сообщить о невалидном состоянии.
 
 <ExampleFrame variant="component">
   <TagsInputMaxWithOverflow />
@@ -422,28 +404,27 @@ Ark синхронизирует поле со сбросом формы.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/max-with-overflow.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidMaxWithOverflow} /></Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/tags-input/tags-input-max-with-overflow.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
-### RootProvider
+### Root Provider
 
-Используйте moduix `useTagsInput` с `RootProvider`, когда состояние и императивные методы должны
-использоваться за пределами дерева отрисованного поля.
+Используйте `useTagsInput` с `RootProvider`, когда состояние и императивные методы нужны за пределами
+дерева отрисованного поля.
 
 <ExampleFrame variant="component">
   <TagsInputRootProvider />
@@ -451,28 +432,27 @@ Ark синхронизирует поле со сбросом формы.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidRootProvider} /></Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/tags-input/tags-input-root-provider.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Нормализация и потеря фокуса
 
-Используйте `sanitizeValue`, чтобы нормализовать вводимые теги, а `blurBehavior="add"`, чтобы
-добавить текущее значение, когда фокус покидает поле.
+Используйте `sanitizeValue`, чтобы нормализовать вводимые теги, а `blurBehavior="add"`, чтобы добавить
+текущее значение при потере фокуса.
 
 <ExampleFrame variant="component">
   <TagsInputSanitizeAndBlur />
@@ -480,29 +460,28 @@ Ark синхронизирует поле со сбросом формы.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/sanitize-and-blur.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidSanitizeAndBlur} /></Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/tags-input/tags-input-sanitize-and-blur.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Проверка и максимум
 
-Используйте `validate`, `max` и `onValueInvalid`, чтобы отклонять недопустимые значения и понимать,
-почему добавление не состоялось. Добавьте `maxLength`, если поле не должно принимать слишком длинные
-значения ещё до запуска проверки.
+Используйте `validate`, `max` и `onValueInvalid`, чтобы отклонять недопустимые значения и понимать
+причину отказа. Добавьте `maxLength`, если поле не должно принимать слишком длинные значения до
+запуска проверки.
 
 <ExampleFrame variant="component">
   <TagsInputValidationAndMax />
@@ -510,29 +489,28 @@ Ark синхронизирует поле со сбросом формы.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/validation-and-max.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidValidationAndMax} /></Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/tags-input/tags-input-validation-and-max.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Вместе с Combobox
 
 Объедините `TagsInput` с `Combobox`, если поле должно предлагать варианты из известного списка и
-одновременно разрешать пользовательские значения. В примере компоненты используют общие
-идентификаторы, а поля объединяются через `asChild`.
+одновременно разрешать пользовательские теги. Используйте общие идентификаторы поля и элемента
+управления и объединяйте поля через `asChild`.
 
 <ExampleFrame variant="component">
   <TagsInputWithCombobox />
@@ -540,29 +518,28 @@ Ark синхронизирует поле со сбросом формы.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/with-combobox.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidWithCombobox} /></Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/tags-input/tags-input-with-combobox.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Расширенная настройка
 
-Не используйте `Items`, если каждому тегу нужны собственное содержимое или действия. Свяжите
-значения корня с полной структурой частей Ark и оставьте `ItemInput` внутри каждого тега, если
-редактирование на месте всё ещё нужно.
+Не используйте `Items`, если каждому тегу нужны собственное содержимое или действия. Свяжите значения
+корня с полной структурой частей и оставьте `ItemInput` внутри каждого тега, если редактирование на
+месте всё ещё нужно.
 
 <ExampleFrame variant="component">
   <TagsInputAdvancedCustomization />
@@ -570,22 +547,21 @@ Ark синхронизирует поле со сбросом формы.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/advanced-customization.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidAdvancedCustomization} /></Tab>
+  </Tabs>
+
+**Стили**
 
 ```css file="../../../src/components/examples/tags-input/tags-input-advanced-customization.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
 ## Стилизация
@@ -606,18 +582,18 @@ Ark синхронизирует поле со сбросом формы.
 
 ### Хуки стилизации
 
-- Корневой компонент и `RootProvider` предоставляют `data-slot="tags-input-root"` и `data-slot="tags-input-root-provider"`.
+- Корень и `RootProvider` предоставляют `data-slot="tags-input-root"` и `data-slot="tags-input-root-provider"`.
 - Части Ark сохраняют `data-scope="tags-input"` и значения `data-part` из анатомии.
-- Для стилизации состояний используйте `data-disabled`, `data-readonly`, `data-invalid`, `data-focus`, `data-empty`, `data-required`, `data-value` и `data-highlighted` на тех частях, где их добавляет Ark.
-- Кнопки удаления и очистки имеют стабильные `data-slot`. Для отдельного тега используется компактный значок закрытия, а очистка всех тегов использует оформление общего `CloseButton.Root`.
-- `TagsInput.ClearTrigger` остаётся у края элемента управления, даже когда строки тегов переносятся.
+- Состояния можно стилизовать через `data-disabled`, `data-readonly`, `data-invalid`, `data-focus`, `data-empty`, `data-required`, `data-value` и `data-highlighted`, если Ark добавляет их к части.
+- Кнопки удаления и очистки имеют стабильные `data-slot`. Для отдельного тега используется компактный значок закрытия, а очистка всех тегов использует оформление общей кнопки закрытия.
+- CSS Modules используют документированные переменные `--moduix-tags-input-*`. Варианты на Tailwind используют нативные утилиты и классы, которые задаёт потребитель.
 - В режиме только для чтения moduix скрывает поле ввода и кнопку очистки, оставляя видимыми только неизменяемые значения тегов.
 
 ## Доступность
 
 Ark связывает подпись с полем, управляет выделением и редактированием тегов, удалением, вставкой и
-скрытым полем формы. Явно добавленное скрытое поле сериализует список тегов для нативной отправки формы;
-передайте `name`, а при необходимости и `form`, чтобы связать его с нужной формой.
+скрытым полем формы. Явно добавленное скрытое поле сериализует список тегов для нативной отправки
+формы. Передайте `name`, а при необходимости и `form`, чтобы связать его с формой.
 
 ### Поддержка клавиатуры
 

@@ -78,7 +78,7 @@ export default defineConfig({
   ],
   markdown: {
     defaultCodeOverflow: {
-      height: 600,
+      height: 520,
       behavior: 'scroll',
     },
     link: {

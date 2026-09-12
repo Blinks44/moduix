@@ -20,6 +20,21 @@ import TagsInputRootProvider from '@/components/examples/tags-input/root-provide
 import TagsInputSanitizeAndBlur from '@/components/examples/tags-input/sanitize-and-blur.tsx';
 import TagsInputValidationAndMax from '@/components/examples/tags-input/validation-and-max.tsx';
 import TagsInputWithCombobox from '@/components/examples/tags-input/with-combobox.tsx';
+import tagsInputSolidAdvancedCustomization from '../../../snippets/tags-input/solid/advanced-customization.tsx?raw';
+import tagsInputSolidAllowDuplicates from '../../../snippets/tags-input/solid/allow-duplicates.tsx?raw';
+import tagsInputSolidBasic from '../../../snippets/tags-input/solid/basic.tsx?raw';
+import tagsInputSolidControlled from '../../../snippets/tags-input/solid/controlled.tsx?raw';
+import tagsInputSolidControlledInputValue from '../../../snippets/tags-input/solid/controlled-input-value.tsx?raw';
+import tagsInputSolidDelimiterAndPaste from '../../../snippets/tags-input/solid/delimiter-and-paste.tsx?raw';
+import tagsInputSolidDisableEditing from '../../../snippets/tags-input/solid/disable-editing.tsx?raw';
+import tagsInputSolidDisabledAndReadOnly from '../../../snippets/tags-input/solid/disabled-and-read-only.tsx?raw';
+import tagsInputSolidField from '../../../snippets/tags-input/solid/field.tsx?raw';
+import tagsInputSolidForm from '../../../snippets/tags-input/solid/form.tsx?raw';
+import tagsInputSolidMaxWithOverflow from '../../../snippets/tags-input/solid/max-with-overflow.tsx?raw';
+import tagsInputSolidRootProvider from '../../../snippets/tags-input/solid/root-provider.tsx?raw';
+import tagsInputSolidSanitizeAndBlur from '../../../snippets/tags-input/solid/sanitize-and-blur.tsx?raw';
+import tagsInputSolidValidationAndMax from '../../../snippets/tags-input/solid/validation-and-max.tsx?raw';
+import tagsInputSolidWithCombobox from '../../../snippets/combobox/solid/with-tags-input.tsx?raw';
 
 ## API Reference
 
@@ -36,6 +51,10 @@ control.
 
 ## Basic
 
+TagsInput is available for React and Solid in both CSS Modules and Tailwind packages. The rendered
+previews use the React CSS Modules package; the framework tabs show native source for the same public
+contract.
+
 Start with the root, label, control, `Items`, entry input, clear trigger, and an explicit
 `TagsInput.HiddenInput` when the tags should be submitted with a form.
 
@@ -45,27 +64,59 @@ Start with the root, label, control, `Items`, entry input, clear trigger, and an
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/tags-input/tags-input-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={tagsInputSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/tags-input/tags-input-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="tags-input" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tags-input' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tags-input' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tags-input' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tags-input' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
@@ -82,103 +133,48 @@ TagsInput / TagsInput.Root
 │  ├─ TagsInput.Input
 │  └─ TagsInput.ClearTrigger
 └─ TagsInput.HiddenInput (explicit)
+
+TagsInput.RootProvider
+└─ same part tree connected to a useTagsInput() store
 ```
 
-| Part                                   | Role                                                                 |
-| -------------------------------------- | -------------------------------------------------------------------- |
-| `TagsInput` / `TagsInput.Root`         | Root state, tag values, entry input, validation, and form integration. |
-| `TagsInput.HiddenInput` | Native Ark form control; compose explicitly as described below. |
-| `TagsInput.RootProvider`               | Renders the tags input from state returned by Ark `useTagsInput`.     |
-| `TagsInput.Label`                      | Accessible label for the tags input.                                 |
-| `TagsInput.Control`                    | Visible shell containing tags, the entry input, and the clear trigger. |
-| `TagsInput.Items`                      | Standard editable tag renderer for the current root values.          |
-| `TagsInput.Item`                       | One tag. Pass `index` and `value`.                                    |
-| `TagsInput.ItemContext`                | Render-prop access to the current tag's state.                       |
-| `TagsInput.ItemPreview`                | Visible tag content outside edit mode.                                |
-| `TagsInput.ItemText`                   | Visible tag text.                                                     |
-| `TagsInput.ItemDeleteTrigger`          | Removes one tag; moduix supplies a compact close icon by default.    |
-| `TagsInput.ItemInput`                  | Input used when a tag is edited in place.                             |
-| `TagsInput.Input`                      | Entry input for new tags.                                             |
-| `TagsInput.ClearTrigger`               | Clears all tags; moduix uses the shared `CloseButton.Root` by default. |
-| `TagsInput.Context`                    | Render-prop access to the root state inside the component tree.       |
-| `useTagsInputContext`                  | Accesses root state and methods from a descendant component.          |
-| `useTagsInputItemContext`              | Accesses the current tag's state inside an item.                     |
-| `moduix useTagsInput` + `RootProvider` | External state ownership and imperative methods.                     |
+| Part | Role |
+| --- | --- |
+| `TagsInput` / `TagsInput.Root` | Root state, tag values, entry input, validation, and form integration. |
+| `TagsInput.RootProvider` | Connects the parts to state returned by `useTagsInput()`. |
+| `TagsInput.Label` | Accessible label for the tags input. |
+| `TagsInput.Control` | Visible shell containing tags, the entry input, and the clear trigger. |
+| `TagsInput.Items` | Standard editable tag renderer for the current root values. |
+| `TagsInput.Item` | One tag. Pass `index` and `value` when rendering custom items. |
+| `TagsInput.ItemPreview` | Visible tag content outside edit mode. |
+| `TagsInput.ItemText` | Visible tag text. |
+| `TagsInput.ItemDeleteTrigger` | Removes one tag and provides a compact close icon by default. |
+| `TagsInput.ItemInput` | Input used when a tag is edited in place. |
+| `TagsInput.Input` | Entry input for new tags. |
+| `TagsInput.ClearTrigger` | Clears all tags and uses the shared close-button visual by default. |
+| `TagsInput.HiddenInput` | Explicit native input for form submission. |
+| `TagsInput.Context` | Render-prop access to the root state inside the component tree. |
 
 ## Composition
 
-### Native form control
+Use the short `<TagsInput>` form for the standard composition. Keep `TagsInput.Items`,
+`TagsInput.Input`, and `TagsInput.ClearTrigger` inside `TagsInput.Control`. Add
+`TagsInput.HiddenInput` explicitly and pass `name` to the root when the tags must be submitted with
+a form. Use `form` when the associated form is outside the component tree.
 
-`TagsInput.HiddenInput` is Ark's native input, exposed directly. Render it explicitly inside
-`TagsInput` or `TagsInput.RootProvider`; the root does not add it. Set `name` on the root
-to include the value in native form submission.
-
-For a form outside the component tree, set `form` on the root.
-
-### Recommended composition
-
-Use the short `<TagsInput>` form, which is equivalent to `<TagsInput.Root>`. Place
-`TagsInput.Items`, `TagsInput.Input`, and `TagsInput.ClearTrigger` inside `TagsInput.Control`.
-This gives you the standard editable tag behavior. Add `TagsInput.HiddenInput` explicitly for forms.
-
-To participate in a form, pass `name` to the root. Use `form` when the associated form is outside
-the component's DOM subtree.
-
-### When to go custom
-
-Use `TagsInput.Context` and the lower-level item parts when tags need custom content or actions.
-Map `tagsInput.value` to `TagsInput.Item`, pass its `index` and `value`, and keep `ItemInput` inside
-the item so inline editing continues to work. Use `ItemContext` or `useTagsInputItemContext` when
-custom item content depends on the current tag state.
-
-Use `TagsInput.RootProvider` with moduix `useTagsInput` when state or imperative methods such as
-`addValue`, `setValue`, `clearValue`, `setInputValue`, or `focus` must be available outside the
-rendered tags input tree. Use `ids` when `TagsInput` shares an input or control with another Ark
-primitive, such as `Combobox`.
-
-Every primitive part supports `asChild` with one semantic child that forwards its props and `ref`.
-`TagsInput.Items` is a convenience renderer and does not accept part
-props; use the lower-level parts for custom item markup.
-
-### Default props
-
-| Prop                | Default                   | Notes                                                                 |
-| ------------------- | ------------------------- | --------------------------------------------------------------------- |
-| `defaultValue`      | `[]`                      | Initial tag array for uncontrolled usage.                             |
-| `value`             | -                         | Controlled tag array. Update it from `onValueChange(details).value`.  |
-| `defaultInputValue` | `''`                      | Initial entry input value for uncontrolled usage.                     |
-| `inputValue`        | -                         | Controlled entry input value.                                         |
-| `delimiter`         | `','`                     | String or regular expression used for delimiter keys and paste splitting. |
-| `max`               | `Infinity`                | Maximum number of tags.                                               |
-| `maxLength`         | -                         | Maximum number of characters accepted by the entry input.             |
-| `allowOverflow`     | `false`                   | Allows more than `max` tags while marking the root invalid.           |
-| `allowDuplicates`   | `false`                   | Allows the same string value to be added more than once.              |
-| `editable`          | `true`                    | Allows a tag to enter edit mode after focus, Enter, or a double click. |
-| `addOnPaste`        | `false`                   | Splits pasted text into tags using `delimiter`.                       |
-| `blurBehavior`      | -                         | Set to `"add"` to commit the entry value on blur or `"clear"` to discard it. |
-| `sanitizeValue`     | `(value) => value.trim()` | Normalizes each value before validation and addition.                 |
-
-The `disabled`, `invalid`, `readOnly`, `required`, and `autoFocus` options are off unless you set
-them. Use `placeholder` for the entry input and `translations` for accessible labels.
-
-### Behavioral notes
-
-`onValueChange(details)`, `onInputValueChange(details)`, `onHighlightChange(details)`, and
-`onValueInvalid(details)` receive Ark detail objects. `validate(details)` accepts or rejects the
-pending tag, while `sanitizeValue(value)` normalizes it before validation and addition. The
-outside-interaction callbacks `onFocusOutside`, `onInteractOutside`, and `onPointerDownOutside`
-receive their corresponding events.
-
-`Field.Root` and `Fieldset.Root` can provide `disabled`, `invalid`, `required`, and `readOnly`
-state through Ark context. The default clear trigger uses `CloseButton.Root` through Ark
-`asChild`; item deletion keeps a smaller tag-level icon button.
+For custom tag content or actions, use `TagsInput.Context` and map its values to
+`TagsInput.Item` with `index` and `value`. Keep `TagsInput.ItemInput` inside each item when inline
+editing should remain available. Use `TagsInput.RootProvider` with `useTagsInput()` only when state
+or methods such as `addValue`, `clearValue`, or `focus` must be used outside the component tree.
+In Solid, the store is an accessor, so read `tagsInput().value` and call `tagsInput().addValue()`.
+When combining `TagsInput` with `Combobox`, share the input and control IDs and compose the inputs
+with `asChild`.
 
 ## Examples
 
 ### Allow Duplicates
 
-Set `allowDuplicates` when the same string may appear more than once, for example when repeated
-values carry meaning.
+Set `allowDuplicates` when the same string may appear more than once.
 
 <ExampleFrame variant="component">
   <TagsInputAllowDuplicates />
@@ -186,27 +182,26 @@ values carry meaning.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/allow-duplicates.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidAllowDuplicates} /></Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/tags-input/tags-input-allow-duplicates.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Controlled
 
-Keep the tag array in React state when another part of the screen depends on it or you need to
+Keep the tag array in component state when another part of the screen depends on it or you need to
 reset it programmatically.
 
 <ExampleFrame variant="component">
@@ -215,22 +210,21 @@ reset it programmatically.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidControlled} /></Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/tags-input/tags-input-controlled.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Controlled Input Value
@@ -243,27 +237,26 @@ Control `inputValue` separately when another control should prefill or clear the
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/controlled-input-value.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidControlledInputValue} /></Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/tags-input/tags-input-controlled-input-value.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Delimiter and Paste
 
-Use `delimiter` with `addOnPaste` when pasted text should create multiple tags. The example accepts
+Use `delimiter` with `addOnPaste` when pasted text should create multiple tags. This example accepts
 commas, semicolons, and spaces as separators.
 
 <ExampleFrame variant="component">
@@ -272,22 +265,21 @@ commas, semicolons, and spaces as separators.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/delimiter-and-paste.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidDelimiterAndPaste} /></Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/tags-input/tags-input-delimiter-and-paste.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Disable Editing
@@ -300,22 +292,21 @@ Set `editable={false}` when existing tags should remain removable but not editab
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/disable-editing.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidDisableEditing} /></Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/tags-input/tags-input-disable-editing.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Disabled and Read-only
@@ -329,22 +320,21 @@ users must not add, remove, or edit them.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/disabled-and-read-only.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidDisabledAndReadOnly} /></Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/tags-input/tags-input-disabled-and-read-only.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Field
@@ -358,28 +348,26 @@ Ark's form accessibility wiring.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/field.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidField} /></Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/tags-input/tags-input-field.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Form
 
-Pass `name` to the root and add `TagsInput.HiddenInput` to include the tag list in `FormData`. Ark
-keeps the input synchronized with form reset.
+Pass `name` to the root and add `TagsInput.HiddenInput` to include the tag list in `FormData`.
 
 <ExampleFrame variant="component">
   <TagsInputForm />
@@ -387,22 +375,21 @@ keeps the input synchronized with form reset.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/form.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidForm} /></Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/tags-input/tags-input-form.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Max With Overflow
@@ -416,28 +403,27 @@ an invalid state.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/max-with-overflow.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidMaxWithOverflow} /></Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/tags-input/tags-input-max-with-overflow.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Root Provider
 
-Use moduix `useTagsInput` with `RootProvider` when state and imperative methods need to be used
-outside the rendered tags input tree.
+Use `useTagsInput` with `RootProvider` when state and imperative methods need to be used outside the
+rendered tags input tree.
 
 <ExampleFrame variant="component">
   <TagsInputRootProvider />
@@ -445,28 +431,27 @@ outside the rendered tags input tree.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidRootProvider} /></Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/tags-input/tags-input-root-provider.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Sanitize and Blur
 
-Use `sanitizeValue` to normalize incoming tags and `blurBehavior="add"` to commit the current
-input when focus leaves the control.
+Use `sanitizeValue` to normalize incoming tags and `blurBehavior="add"` to commit the current input
+when focus leaves the control.
 
 <ExampleFrame variant="component">
   <TagsInputSanitizeAndBlur />
@@ -474,29 +459,27 @@ input when focus leaves the control.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/sanitize-and-blur.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidSanitizeAndBlur} /></Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/tags-input/tags-input-sanitize-and-blur.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Validation and Max
 
 Use `validate`, `max`, and `onValueInvalid` to reject invalid values and observe why an addition was
-rejected. Add `maxLength` when the entry input should stop accepting long values before validation
-runs.
+rejected. Add `maxLength` when the entry input should stop accepting long values before validation.
 
 <ExampleFrame variant="component">
   <TagsInputValidationAndMax />
@@ -504,28 +487,27 @@ runs.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/validation-and-max.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidValidationAndMax} /></Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/tags-input/tags-input-validation-and-max.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
 ### With Combobox
 
 Compose `TagsInput` with `Combobox` when typed input should offer known options while still allowing
-custom tags. The example shares IDs and composes both inputs with `asChild`.
+custom tags. Share the input and control IDs and compose the inputs with `asChild`.
 
 <ExampleFrame variant="component">
   <TagsInputWithCombobox />
@@ -533,28 +515,27 @@ custom tags. The example shares IDs and composes both inputs with `asChild`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/with-combobox.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidWithCombobox} /></Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/tags-input/tags-input-with-combobox.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Advanced Customization
 
-Bypass `Items` when each tag needs custom content or actions. Map the root values to the full
-Ark-shaped item tree and keep `ItemInput` in each item if inline editing is still needed.
+Bypass `Items` when each tag needs custom content or actions. Map the root values to the full item
+tree and keep `ItemInput` in each item if inline editing is still needed.
 
 <ExampleFrame variant="component">
   <TagsInputAdvancedCustomization />
@@ -562,22 +543,21 @@ Ark-shaped item tree and keep `ItemInput` in each item if inline editing is stil
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/advanced-customization.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidAdvancedCustomization} /></Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/examples/tags-input/tags-input-advanced-customization.module.css"
 ```
-
-    </Tab>
-  </Tabs>
 </div>
-
 </ExampleCode>
 
 ## Styling
@@ -600,13 +580,10 @@ Ark-shaped item tree and keep `ItemInput` in each item if inline editing is stil
 
 - The root and root provider expose `data-slot="tags-input-root"` and `data-slot="tags-input-root-provider"`.
 - Ark parts keep `data-scope="tags-input"` and their `data-part` values from the anatomy.
-- State styling can use `data-disabled`, `data-readonly`, `data-invalid`, `data-focus`, `data-empty`,
-  `data-required`, `data-value`, and `data-highlighted` on the parts where Ark emits them.
-- Delete and clear triggers expose stable `data-slot` hooks. Item deletion uses a compact close icon;
-  clear-all uses the shared `CloseButton.Root` styling.
-- `TagsInput.ClearTrigger` stays at the inline end of the control when tag rows wrap.
-- In read-only state, moduix hides the entry input and clear trigger, leaving only the immutable tag
-  values visible.
+- State styling can use `data-disabled`, `data-readonly`, `data-invalid`, `data-focus`, `data-empty`, `data-required`, `data-value`, and `data-highlighted` where Ark emits them.
+- Delete and clear triggers expose stable `data-slot` hooks. Item deletion uses a compact close icon; clear-all uses the shared close-button styling.
+- CSS Modules use the documented `--moduix-tags-input-*` variables. Tailwind variants use native utilities and consumer class overrides.
+- In read-only state, moduix hides the entry input and clear trigger, leaving only immutable tag values visible.
 
 ## Accessibility
 

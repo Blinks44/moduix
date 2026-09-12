@@ -1,7 +1,7 @@
 ---
 title: Tag
 component: tag
-description: Une étiquette compacte pour afficher une valeur sélectionnée, un filtre, une attribution ou une autre information courte, avec des icônes et une action de suppression facultatives.
+description: Un token compact pour les valeurs sélectionnées, les filtres, les affectations et les autres valeurs courtes de l’interface, avec des icônes et une action de suppression facultatives.
 ---
 
 import * as TagDocs from '@/components/examples/tag/css-properties';
@@ -12,23 +12,36 @@ import TagOverflow from '@/components/examples/tag/overflow.tsx';
 import TagRenderAsButton from '@/components/examples/tag/render-as-button.tsx';
 import TagSizes from '@/components/examples/tag/sizes.tsx';
 import TagVariants from '@/components/examples/tag/variants.tsx';
+import tagSolidBasic from '../../../snippets/tag/solid/basic.tsx?raw';
+import tagSolidClosable from '../../../snippets/tag/solid/closable.tsx?raw';
+import tagSolidIcon from '../../../snippets/tag/solid/icon.tsx?raw';
+import tagSolidOverflow from '../../../snippets/tag/solid/overflow.tsx?raw';
+import tagSolidRenderAsButton from '../../../snippets/tag/solid/render-as-button.tsx?raw';
+import tagSolidSizes from '../../../snippets/tag/solid/sizes.tsx?raw';
+import tagSolidVariants from '../../../snippets/tag/solid/variants.tsx?raw';
 
 ## Référence de l’API
 
-Ark UI ne fournit pas de primitive `tag` dédiée. moduix construit ce composant avec la [fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations d’Ark concernant la [composition](https://ark-ui.com/docs/guides/composition), les [styles](https://ark-ui.com/docs/guides/styling) et les [refs](https://ark-ui.com/docs/guides/ref).
+Ark UI ne fournit pas de primitive `tag` dédiée. moduix construit ce composant avec la
+[fabrique Ark officielle](https://ark-ui.com/docs/guides/composition#the-ark-factory) et suit les recommandations Ark pour la
+[composition](https://ark-ui.com/docs/guides/composition), le [style](https://ark-ui.com/docs/guides/styling) et les
+[références DOM](https://ark-ui.com/docs/guides/ref).
 
 ## Choisir le bon composant
 
-Utilisez `Tag` lorsque l’interface affiche une valeur ou un élément qui fait partie de son état
-actuel et peut nécessiter une action locale, par exemple une suppression.
+Utilisez `Tag` lorsque l’interface affiche une valeur ou un élément lié à son état courant et qui
+peut nécessiter une action locale, comme la suppression.
 
-- Choisissez **`Badge`** pour de courtes métadonnées : statut, catégorie, version ou nombre.
-- Choisissez **`Tag`** pour les valeurs sélectionnées, les filtres, les attributions ou les libellés qui font partie de l’état actuel de l’interface.
+- Choisissez **`Badge`** pour les métadonnées courtes comme un statut, une catégorie, une version ou un nombre.
+- Choisissez **`Tag`** pour les valeurs sélectionnées, les filtres, les affectations ou les libellés qui font partie de l’état courant de l’interface.
 
 ## Exemple de base
 
-Commencez avec un `Tag` et `Tag.Label`. Ajoutez les autres parties uniquement si l’étiquette a
-besoin d’une icône, d’un contenu complémentaire ou d’une action de fermeture intégrée.
+`Tag` est disponible pour React et Solid dans les variantes CSS Modules et Tailwind. Commencez par
+un `Tag` racine et `Tag.Label`. Ajoutez les autres parties uniquement si le token a besoin d’une
+icône, d’un contenu complémentaire ou d’une action de suppression intégrée. L’aperçu rendu utilise
+la variante React avec CSS Modules ; les onglets affichent le code natif des deux frameworks pour
+le même contrat public.
 
 <ExampleFrame variant="component">
   <TagBasic />
@@ -36,91 +49,92 @@ besoin d’une icône, d’un contenu complémentaire ou d’une action de ferme
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tag/basic.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tagSolidBasic} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="tag" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tag' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tag' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tag' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tag' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+Consultez le [démarrage rapide](/docs/quick-start) pour configurer le package et le registre.
 
 ## Anatomie
 
-La racine est également disponible sous le nom `Tag.Root`. Les formes courtes `<Tag>` et `<Tag.Root>` sont équivalentes.
+La racine est également disponible avec `Tag.Root`. Les formes courtes `<Tag>` et `<Tag.Root>` sont équivalentes.
 
 ```text
 Tag / Tag.Root
-├─ Tag.StartElement (optional)
+├─ Tag.StartElement (facultatif)
 ├─ Tag.Label
-└─ Tag.EndElement (optional)
-   └─ Tag.CloseTrigger (optional)
+└─ Tag.EndElement (facultatif)
+   └─ Tag.CloseTrigger (facultatif)
 ```
 
 | Partie             | Rôle                                                                                     |
 | ------------------ | ---------------------------------------------------------------------------------------- |
-| `Tag` / `Tag.Root` | Élément racine. Applique la disposition, la bordure, la taille, la variante et la composition `asChild`. |
+| `Tag` / `Tag.Root` | Élément racine. Applique la mise en page du token, la bordure, la taille, la variante et la composition `asChild`. |
 | `Tag.Label`        | Conteneur de la valeur visible et limite de troncature.                                 |
-| `Tag.StartElement` | Zone de début facultative pour une icône, un avatar ou un indicateur d’état.             |
-| `Tag.EndElement`   | Zone de fin facultative pour une icône ou une action.                                    |
-| `Tag.CloseTrigger` | Bouton facultatif pour supprimer l’étiquette.                                            |
+| `Tag.StartElement` | Zone facultative à gauche pour une icône, un avatar ou un indicateur d’état.              |
+| `Tag.EndElement`   | Zone facultative à droite pour une icône ou une action.                                  |
+| `Tag.CloseTrigger` | Bouton facultatif pour supprimer le token.                                               |
 
 ## Composition
 
-### Composition recommandée
+`Tag` est uniquement visuel et ne gère pas les valeurs sélectionnées ou supprimées. Conservez la
+collection dans le composant parent, mettez-la à jour depuis `Tag.CloseTrigger` et placez ce trigger
+dans `Tag.EndElement`.
 
-Pour une étiquette simple, utilisez `Tag` avec `Tag.Label`. Conservez la valeur visible dans
-`Tag.Label` et utilisez `Tag.StartElement` ou `Tag.EndElement` pour le contenu intégré. Si
-l’étiquette peut être supprimée, placez `Tag.CloseTrigger` dans `Tag.EndElement`.
-
-Toutes les parties exportées transmettent `ref` et `className` et acceptent les propriétés
-standard de l’élément qu’elles rendent.
-
-### Quand créer une composition personnalisée
-
-Utilisez `asChild` sur la racine lorsque celle-ci doit rendre un élément sémantique, comme un
-`button` ou un lien, à la place du `span` par défaut. Fournissez exactement un enfant. Cet enfant
-devient le nœud DOM racine et porte sa propre sémantique ainsi que son comportement interactif.
-
-Utilisez `Tag.CloseTrigger asChild` uniquement lorsque l’action de suppression doit utiliser son
-propre enfant sémantique. Fournissez alors vous-même l’icône et le nom accessible, car l’icône par
-défaut n’est pas rendue dans ce mode.
-
-### Propriétés par défaut
-
-| Surface            | Propriété    | Valeur par défaut  | Remarques                                                                            |
-| ------------------ | ------------ | ------------------ | ------------------------------------------------------------------------------------ |
-| `Tag`              | `variant`    | `default`         | `default`, `secondary`, `outline`, `ghost`, `destructive`                   |
-| `Tag`              | `size`       | `md`              | `sm`, `md`                                                                       |
-| `Tag`              | `asChild`    | `false`           | Remplace le `span` par défaut par un unique élément enfant.                       |
-| `Tag.CloseTrigger` | `type`       | `button`          | S’applique au bouton natif par défaut et évite la soumission accidentelle du formulaire. |
-| `Tag.CloseTrigger` | `asChild`    | `false`           | Remplace le `button` par défaut ; l’enfant doit fournir le contenu de fermeture.   |
-| `Tag.CloseTrigger` | `children`   | icône de fermeture  | Utilisé sans `asChild` ; des enfants personnalisés remplacent l’icône par défaut.   |
-| `Tag.CloseTrigger` | `aria-label` | `Remove tag`      | Utilisé sans enfant personnalisé, sans `aria-labelledby` et sans `asChild`.       |
-
-### Comportement
-
-- `Tag` ne gère pas l’état des valeurs sélectionnées, supprimées ou réordonnées. Le composant parent conserve les valeurs et le gestionnaire qui les met à jour.
-- `Tag.CloseTrigger` relève d’une composition explicite. La racine ne fournit pas de propriété `onClose`.
-- Les variantes intégrées utilisent les mêmes rôles de couleur que `Badge` ; `Tag` ajoute une anatomie d’étiquette et une action de fermeture facultative.
-- Donnez à chaque déclencheur de fermeture un nom accessible précis lorsque plusieurs étiquettes amovibles sont affichées ensemble.
-- Sans enfant personnalisé, `Tag.CloseTrigger` utilise l’icône de fermeture moduix et le libellé de remplacement `Remove tag`. Avec des enfants personnalisés et sans libellé, le `CloseButton` partagé utilise `Close`.
-- Un déclencheur de fermeture désactivé ou marqué `aria-disabled` expose `data-disabled` et n’active pas son gestionnaire de clic.
-- `asChild` suit la composition de la fabrique Ark et exige exactement un enfant. `Tag.CloseTrigger asChild` exige également un enfant sémantique explicite.
+Utilisez `asChild` uniquement lorsque la racine ou le trigger de suppression doit remplacer son
+élément hôte par défaut. L’enfant unique devient l’hôte DOM et doit fournir la sémantique attendue.
+En particulier, `Tag.CloseTrigger asChild` nécessite un contrôle de fermeture explicite et un nom accessible.
 
 ## Exemples
 
 ### Avec suppression
 
-Le composant parent conserve la liste des valeurs et supprime un élément après le clic sur le
-bouton de fermeture. Donnez à chaque bouton un nom qui contient la valeur supprimée.
+Le composant parent possède la liste des valeurs et supprime un élément après le clic sur son trigger
+de suppression. Donnez à chaque trigger un libellé qui indique la valeur supprimée.
 
 <ExampleFrame variant="component">
   <TagClosable />
@@ -128,28 +142,38 @@ bouton de fermeture. Donnez à chaque bouton un nom qui contient la valeur suppr
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tag/closable.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/tag/tag-closable.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={tagSolidClosable} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/tag/tag-closable.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Avec une icône
 
-Utilisez `Tag.StartElement` et `Tag.EndElement` pour les icônes et les actions. `Tag.Label` reste
-ainsi la limite de troncature et la taille de l’action reste indépendante.
+Utilisez `Tag.StartElement` et `Tag.EndElement` pour les icônes et les actions. Ainsi,
+`Tag.Label` reste la limite de troncature et la taille de l’action reste indépendante.
 
 <ExampleFrame variant="component">
   <TagIcon />
@@ -157,29 +181,39 @@ ainsi la limite de troncature et la taille de l’action reste indépendante.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tag/icon.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/tag/tag-icon.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={tagSolidIcon} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/tag/tag-icon.module.css"
+```
+</div>
 </ExampleCode>
 
-### Valeurs longues
+### Débordement
 
-Limitez la largeur de la racine lorsque les valeurs longues doivent tenir dans un espace étroit.
-`Tag.Label` devient la limite de troncature et affiche des points de suspension ; ajoutez `title`
-pour que la valeur complète reste consultable.
+Limitez la racine lorsque les valeurs longues doivent tenir dans une zone étroite. `Tag.Label`
+devient la limite de troncature et affiche des points de suspension. Ajoutez `title` si la valeur
+complète doit rester consultable.
 
 <ExampleFrame variant="component">
   <TagOverflow />
@@ -187,28 +221,38 @@ pour que la valeur complète reste consultable.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tag/overflow.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/tag/tag-overflow.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={tagSolidOverflow} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/tag/tag-overflow.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Tailles
 
-Utilisez `size="sm"` pour les rangées d’étiquettes denses. Conservez la taille `md` par défaut
-pour les étiquettes seules et un espacement plus confortable.
+Utilisez `size="sm"` pour les rangées de tokens denses. Conservez la taille `md` par défaut pour
+les tokens autonomes et des espacements plus généreux.
 
 <ExampleFrame variant="component">
   <TagSizes />
@@ -216,28 +260,37 @@ pour les étiquettes seules et un espacement plus confortable.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tag/sizes.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/tag/tag-sizes.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={tagSolidSizes} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/tag/tag-sizes.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Variantes
 
-Utilisez les variantes intégrées pour les rôles de couleur courants de moduix tout en conservant
-la même structure de parties.
+Utilisez les variantes intégrées pour les rôles de couleur courants de moduix, en conservant la même structure de parties.
 
 <ExampleFrame variant="component">
   <TagVariants />
@@ -245,29 +298,39 @@ la même structure de parties.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tag/variants.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/tag/tag-variants.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={tagSolidVariants} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/tag/tag-variants.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Personnalisation avancée
 
-Utilisez `asChild` lorsque l’étiquette entière est une action. Cette option remplace le `span` par
-défaut ; l’unique enfant devient l’élément sémantique et interactif. Il doit donc fournir le
-comportement attendu d’un bouton ou d’un lien.
+Utilisez `asChild` lorsque le token entier doit être une action. Cela remplace le `span` par défaut ;
+l’enfant unique devient l’hôte sémantique et interactif et doit fournir le comportement attendu d’un
+bouton ou d’un lien.
 
 <ExampleFrame variant="component">
   <TagRenderAsButton />
@@ -275,35 +338,46 @@ comportement attendu d’un bouton ou d’un lien.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tag/render-as-button.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/tag/tag-render-as-button.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={tagSolidRenderAsButton} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/tag/tag-render-as-button.module.css"
+```
+</div>
 </ExampleCode>
 
 ## Styles
 
-Commencez par une variante intégrée. Pour modifier ponctuellement la taille ou la couleur,
-utilisez des variables CSS locales ou une surcharge `className`. Les variables de couleur globales
-du composant sont prioritaires sur celles des variantes individuelles.
+Commencez par une variante intégrée. Avec CSS Modules, vous pouvez ajuster les variables publiques
+ou remplacer le style d’une partie exportée avec `className` en React et `class` en Solid. Avec
+Tailwind, utilisez les classes utilitaires natives sur les parties exportées. Les attributs de données
+et les hooks `data-slot` sont communs aux deux systèmes de style.
 
 ### Variables CSS
 
 <div className="docs-reference">
   <Tabs
-    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
+    values={[{ label: 'Variables CSS', value: 'Variables CSS' }]}
     className="docs-reference-tabs"
     contentItemClassName="docs-reference-panel"
   >
@@ -313,9 +387,9 @@ du composant sont prioritaires sur celles des variantes individuelles.
   </Tabs>
 </div>
 
-### Sélecteurs et attributs de style
+### Hooks de style
 
 - Les parties exportées émettent `data-scope="tag"` et `data-part="root" | "label" | "start-element" | "end-element" | "close-trigger"`.
 - `data-slot="tag-root"`, `data-slot="tag-label"`, `data-slot="tag-start-element"`, `data-slot="tag-end-element"` et `data-slot="tag-close-trigger"` sont des sélecteurs moduix stables.
-- `Tag` inscrit la taille et la variante sélectionnées dans `data-size` et `data-variant`.
-- `Tag.CloseTrigger` expose `data-disabled` lorsqu’il est désactivé ou marqué `aria-disabled` et hérite de la couleur de l’étiquette.
+- `Tag` écrit la taille et la variante sélectionnées dans `data-size` et `data-variant`.
+- `Tag.CloseTrigger` expose `data-disabled` pour les états désactivé ou `aria-disabled` et hérite de la couleur du token.

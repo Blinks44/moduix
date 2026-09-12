@@ -9,7 +9,7 @@ const actionsClassName = 'inline-flex flex-wrap gap-2';
 const hintClassName = 'm-0 text-xs leading-4 text-muted-foreground';
 const fieldClassName = 'w-96 max-w-full';
 const clearButtonClassName =
-  'w-max cursor-pointer rounded-md border border-border bg-background px-3 py-1.5 text-sm leading-5 text-foreground [font:inherit]';
+  'w-max cursor-pointer rounded-md border border-border bg-background px-3 py-1.5 text-sm leading-5 text-foreground';
 
 const meta = {
   title: 'Components/TagsInput',

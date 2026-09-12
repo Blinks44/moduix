@@ -13,6 +13,14 @@ import TextSize from '@/components/examples/text/size.tsx';
 import TextTone from '@/components/examples/text/tone.tsx';
 import TextTruncation from '@/components/examples/text/truncation.tsx';
 import TextWeight from '@/components/examples/text/weight.tsx';
+import textSolidAlignment from '../../../snippets/text/solid/alignment.tsx?raw';
+import textSolidBasic from '../../../snippets/text/solid/basic.tsx?raw';
+import textSolidCustomComposition from '../../../snippets/text/solid/custom-composition.tsx?raw';
+import textSolidSemantics from '../../../snippets/text/solid/semantics.tsx?raw';
+import textSolidSize from '../../../snippets/text/solid/size.tsx?raw';
+import textSolidTone from '../../../snippets/text/solid/tone.tsx?raw';
+import textSolidTruncation from '../../../snippets/text/solid/truncation.tsx?raw';
+import textSolidWeight from '../../../snippets/text/solid/weight.tsx?raw';
 
 ## API Reference
 
@@ -32,6 +40,9 @@ on moduix's typography scale.
 
 ## Basic
 
+Text ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered preview on
+this page uses the React CSS Modules package; the framework tabs show native source for the same API.
+
 Use the default `p` root for a paragraph. Pass `as` when the content needs a different semantic HTML
 element but should keep `Text`'s typography styles.
 
@@ -41,27 +52,61 @@ element but should keep `Text`'s typography styles.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/text/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/text/text-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={textSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/text/text-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="text" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/text' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/text' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/text' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/text' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+See [Quick start](/docs/quick-start) for registry setup and package installation choices.
 
 ## Anatomy
 
@@ -79,38 +124,10 @@ Text / Text.Root
 
 ## Composition
 
-### Recommended composition
-
-Use the short `<Text>` root for body copy and supporting text. It is equivalent to `<Text.Root>`,
-renders a `p` by default, and forwards the ref to the rendered `HTMLElement`.
-
-### When to go custom
-
-Use `as` for supported intrinsic HTML elements when the semantic element should change. Use `asChild`
-when an existing element, such as a link, should become the root and receive the moduix class name,
-style, data attributes, and ref. The child must be a single element that accepts the forwarded props.
-
-`Text` also accepts standard HTML props for the rendered element, including `className`, `style`,
-event handlers, and a forwarded `ref`.
-
-### Default props
-
-| Prop        | Default                       | Notes                                                                  |
-| ----------- | ----------------------------- | ---------------------------------------------------------------------- |
-| `as`        | `p`                           | `p`, `span`, `small`, `strong`, `em`, or `div`.                        |
-| `asChild`   | `false`                       | Uses the single child as the host element.                             |
-| `size`      | Element-based                 | `small` defaults to `sm`; other elements default to `md`.              |
-| `weight`    | Element-based                 | `strong` defaults to `semibold`; other elements default to `regular`. |
-| `tone`      | `default`                     | `default`, `muted`, `subtle`, `primary`, or `destructive`.             |
-| `align`     | Not set (visually `start`)    | `start`, `center`, `end`, `left`, `right`, or `justify`.               |
-| `truncate`  | `false`                       | Single-line CSS ellipsis.                                              |
-| `lineClamp` | Not set                       | Positive integer; invalid values disable clamping.                     |
-
-### Behavioral notes
-
-`Text` handles text presentation and semantics. It does not manage state, keyboard interactions, or
-disclosure. `truncate` and `lineClamp` apply visual CSS constraints only. Add a button or another
-control separately when users need to reveal the full text.
+`Text` is root-only and owns no state or child parts. Use `<Text>` or `<Text.Root>` for the same root,
+`as` for a supported semantic element, and `asChild` only when one existing element should receive
+the text props and ref. Truncation only constrains rendering, so disclosure state and its control stay
+in the surrounding UI.
 
 ## Examples
 
@@ -124,20 +141,31 @@ Use `align` when alignment belongs to the text rather than its surrounding layou
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/text/alignment.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/text/text-alignment.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={textSolidAlignment} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/text/text-alignment.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -152,20 +180,31 @@ Use `as` to choose a semantic HTML element while keeping `Text`'s typography sty
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/text/semantics.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/text/text-semantics.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={textSolidSemantics} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/text/text-semantics.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -180,20 +219,31 @@ Use `size` to change the visual hierarchy without switching to a different typog
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/text/size.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/text/text-size.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={textSolidSize} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/text/text-size.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -208,20 +258,31 @@ Use `tone` to express the role of the copy without adding local color classes.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/text/tone.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/text/text-tone.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={textSolidTone} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/text/text-tone.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -237,20 +298,31 @@ expansion or disclosure behavior in the surrounding UI.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/text/truncation.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/text/text-truncation.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={textSolidTruncation} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/text/text-truncation.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -265,20 +337,31 @@ Use `weight` when the emphasis should stay within the same semantic element.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/text/weight.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/text/text-weight.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={textSolidWeight} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/text/text-weight.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -294,11 +377,23 @@ intrinsic `as` values. The child must be a single element that accepts the forwa
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/text/custom-composition.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={textSolidCustomComposition} />
 
     </Tab>
   </Tabs>
@@ -308,8 +403,9 @@ intrinsic `as` values. The child must be a single element that accepts the forwa
 
 ## Styling
 
-Style `Text` through `className`, root data attributes, and the public `--moduix-text-*` CSS
-variables documented by the public CSS API.
+Style `Text` through `className`, root data attributes, and the public CSS API. CSS Modules packages
+expose the `--moduix-text-*` variables below; Tailwind packages use utility classes and consumer
+class overrides.
 
 ### CSS Properties
 

@@ -151,7 +151,7 @@ const TagsInputItemInput = forwardRef<
       ref={ref}
       data-slot="tags-input-item-input"
       className={cn(
-        'h-control-xs min-w-28 shrink grow-0 basis-28 border-0 bg-transparent px-1 text-sm leading-5 text-inherit outline-0 [font:inherit] placeholder:text-muted-foreground read-only:cursor-default data-readonly:cursor-default',
+        'h-control-xs min-w-28 shrink grow-0 basis-28 border-0 bg-transparent px-1 text-sm leading-5 text-inherit outline-0 placeholder:text-muted-foreground read-only:cursor-default data-readonly:cursor-default',
         className,
       )}
       {...props}
@@ -168,7 +168,7 @@ const TagsInputInput = forwardRef<
       ref={ref}
       data-slot="tags-input-input"
       className={cn(
-        'h-control-xs min-w-28 shrink grow basis-28 border-0 bg-transparent px-1 text-sm leading-5 text-inherit outline-0 [font:inherit] placeholder:text-muted-foreground read-only:cursor-default data-readonly:hidden data-readonly:cursor-default',
+        'h-control-xs min-w-28 shrink grow basis-28 border-0 bg-transparent px-1 text-sm leading-5 text-inherit outline-0 placeholder:text-muted-foreground read-only:cursor-default data-readonly:hidden data-readonly:cursor-default',
         className,
       )}
       {...props}
@@ -198,7 +198,9 @@ const TagsInputClearTrigger = forwardRef<
       asChild
       data-slot="tags-input-clear-trigger"
       className={cn(
-        'ms-auto size-control-xs shrink-0 self-center rounded-sm bg-transparent text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring data-readonly:hidden motion-reduce:transition-none [&>svg]:size-3 [@media(hover:hover)]:hover:bg-muted [@media(hover:hover)]:hover:text-foreground',
+        asChild
+          ? 'ms-auto shrink-0 self-center data-readonly:hidden'
+          : 'ms-auto size-control-xs shrink-0 self-center rounded-sm bg-transparent text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring data-readonly:hidden motion-reduce:transition-none [&>svg]:size-3 [@media(hover:hover)]:hover:bg-muted [@media(hover:hover)]:hover:text-foreground',
         className,
       )}
       aria-label={asChild ? ariaLabel : undefined}
