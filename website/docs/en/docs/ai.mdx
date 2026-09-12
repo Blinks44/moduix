@@ -1,108 +1,65 @@
 ---
 title: AI
-description: "Use moduix with AI assistants: provide the right context, choose an ownership model, and review generated code."
+description: Give AI assistants focused moduix context and make package and registry ownership explicit.
 ---
 
 # AI
 
-moduix keeps its public API and source structure readable for both developers and AI assistants.
-Give an assistant the smallest piece of documentation that answers the question, then tell it which
-ownership model your project uses.
+Use this guide when an AI assistant reads moduix documentation or changes a project that uses moduix.
+
+This page documents a workflow, not a runtime API. moduix does not export an AI utility, package, or hook. The relevant sources are the public documentation and, for copied components, the moduix registries.
 
 ## Choose the right context
 
-| Task                                             | Give the assistant                |
-| ------------------------------------------------ | --------------------------------- |
-| A product overview or a component discovery task | [`llms.txt`](/llms.txt)           |
-| Help with one component, guide, or error         | That page's **Copy Markdown**     |
-| A broad repository-level review                  | [`llms-full.txt`](/llms-full.txt) |
+Give the assistant only the documentation needed for the task.
 
-Every MDX page has a canonical Markdown URL such as `https://moduix.dev/docs/button.md`. It contains
-the page without the docs interface, so it is the best default context for a focused implementation
-or debugging task.
+| Task | Context |
+| --- | --- |
+| Discover available documentation | [llms.txt](/llms.txt) |
+| Work with one component or guide | Use **Copy Markdown** on that page, or add `.md` to its URL |
+| Review several related areas | [llms-full.txt](/llms-full.txt) |
 
-## Ask about the current page
-
-When an assistant needs one page without the docs interface, use **Copy Markdown** below the page
-title. Component pages also have an **Open** menu with GitHub, **View as Markdown**, ChatGPT, and
-Claude shortcuts.
-
-Give the assistant the URL and a concrete goal. For example:
+State the framework, styling system, ownership model, and expected change in the prompt:
 
 ```text
-Read https://moduix.dev/docs/dialog.md. Add a confirmation dialog to our delete action.
-We use @moduix/react/dialog from the npm package. Keep the Ark composition explicit and make the
-trigger a button.
+Read https://moduix.dev/docs/button.md. Add a destructive action to our React application.
+We use @moduix/react with CSS Modules. Import Button from @moduix/react/button and show the
+proposed diff before changing files.
 ```
 
-## Install with an AI assistant
+## Install the moduix Skill
 
-Before an assistant writes an import or install command, tell it where the moduix code should live:
+moduix publishes the consumer-facing Agent Skill `moduix` from the repository's `skills/moduix` directory. It helps compatible agents identify the project's framework, styling track, and ownership model before changing code. The Skill provides instructions only; it does not install moduix packages or copy registry components.
 
-| Project model | Tell the assistant to use |
-| --- | --- |
-| Package, CSS Modules | The matching `@moduix/react` or `@moduix/solid` package and its `style.css` |
-| Package, Tailwind | The matching `*-tailwind` package, its `style.css`, and a scoped package `@source` |
-| shadcn, CSS Modules | The matching `@moduix-react` or `@moduix-solid` registry |
-| shadcn, Tailwind | The matching `@moduix-react-tailwind` or `@moduix-solid-tailwind` registry |
+Install only the `moduix` Skill from the repository:
 
-For a copy-owned project, the assistant should read the component page and inspect `components.json`
-before adding a registry item. The [Quick start](/docs/quick-start) guide has the complete registry
-configuration.
+<PackageManagerTabs command="skills add https://github.com/Blinks44/moduix --skill moduix" dlx />
 
-## Use the moduix Skill
+Run the command from the project where the agent will use moduix. In agents that support explicit invocation, use `$moduix` for moduix tasks.
 
-The moduix Skill and the shadcn registry serve different purposes. The Skill installs instructions
-for an AI agent; the shadcn registry installs component source, styles, and utilities into your
-project.
+## State how moduix is managed
 
-Install the moduix Skill from the repository with Skills CLI:
+moduix supports two ownership models:
 
-```bash
-npx skills add https://github.com/Blinks44/moduix --skill moduix
-```
+- **Package-managed:** the project imports a public `@moduix/*` package. Updates come through the package manager.
+- **Copy-owned:** the shadcn CLI copies an item from a moduix registry into the project. The project owns and maintains the generated files.
 
-Before changing code, the Skill identifies the existing framework, styling track, and ownership
-model from imports, styles, and `components.json`. It reads the canonical docs and uses shadcn
-discovery plus dry-run or diff checks for copy-owned updates. It does not migrate between those
-choices unless you ask. Invoke it as `$moduix` in skill-aware agents.
+Use the package and registry that match the project:
 
-## Connect shadcn MCP
+| Setup | Package import | Registry namespace |
+| --- | --- | --- |
+| React with CSS Modules | `@moduix/react/<component>` | `@moduix-react/<name>` |
+| Solid with CSS Modules | `@moduix/solid/<component>` | `@moduix-solid/<name>` |
+| React with Tailwind CSS | `@moduix/react-tailwind/<component>` | `@moduix-react-tailwind/<name>` |
+| Solid with Tailwind CSS | `@moduix/solid-tailwind/<component>` | `@moduix-solid-tailwind/<name>` |
 
-The shadcn MCP server can use the hosted moduix registry. moduix does not need a separate MCP
-server: configure the registry in the consuming project, then connect shadcn to your AI client.
+See [Quick Start](./quick-start) for package installation and registry configuration. Do not ask an assistant to copy registry source into a package-managed project unless you intend to change the ownership model.
 
-### 1. Configure the registry
+## Connect the shadcn MCP server
 
-Add the registry namespace that matches the project's framework and styling track to
-`components.json`. These are the available moduix registries:
+The optional MCP server is provided by shadcn, not moduix. It lets an AI assistant inspect and install items from shadcn-compatible registries configured in the project's `components.json`.
 
-```json
-{
-  "registries": {
-    "@moduix-react": "https://moduix.dev/r/react/{name}.json",
-    "@moduix-solid": "https://moduix.dev/r/solid/{name}.json",
-    "@moduix-react-tailwind": "https://moduix.dev/r/react-tailwind/{name}.json",
-    "@moduix-solid-tailwind": "https://moduix.dev/r/solid-tailwind/{name}.json"
-  }
-}
-```
-
-You only need the namespace for the track you use. Registry items install their declared source,
-styles, utilities, and dependencies. Recipes remain documentation; install the components they
-list. See [Quick start](/docs/quick-start) for the complete `components.json` configuration.
-
-### 2. Connect the AI client
-
-For clients supported by the shadcn initializer, run it in the consuming project and choose the
-matching client. For example:
-
-```bash
-npx shadcn@latest mcp init --client cursor
-```
-
-Codex currently uses manual MCP configuration. Add the server to `~/.codex/config.toml`, then
-restart Codex:
+For Codex, add the server to `~/.codex/config.toml`:
 
 ```toml
 [mcp_servers.shadcn]
@@ -110,60 +67,16 @@ command = "npx"
 args = ["shadcn@latest", "mcp"]
 ```
 
-The [shadcn MCP guide](https://ui.shadcn.com/docs/mcp) has the current setup for Claude Code,
-Cursor, VS Code, Codex, and other supported clients.
+Restart Codex after changing the configuration. For other clients, follow the [shadcn MCP documentation](https://ui.shadcn.com/docs/mcp).
 
-### 3. Discover before installing
+## Review generated changes
 
-Ask the assistant to inspect the relevant docs and registry item before it changes files. These
-prompts cover components, themes, and multi-component recipes:
+Before accepting a change, check that the assistant:
 
-```text
-Find the moduix component for an editable text field. Show the component documentation and registry
-item before proposing code.
-```
+- selected the correct framework, styling system, and ownership model
+- used documented public imports and APIs
+- did not overwrite local changes
+- kept accessibility behavior and application-owned state intact
+- ran the project's focused type checks, lint checks, and tests
 
-```text
-Read https://moduix.dev/recipes/login-simple.md. List the moduix components it uses and the
-application code I need to connect before proposing changes.
-```
-
-```text
-Find a high-contrast moduix theme. Show how it is applied before changing the project.
-```
-
-### 4. Use the CLI when needed
-
-Use the CLI when MCP is unavailable or when you want a command-line review trail. In a copy-owned
-project, inspect the configuration, search by product need, view the item, and preview the change:
-
-```bash
-npx shadcn@latest info --json
-npx shadcn@latest search @moduix-react --query "confirmation dialog"
-npx shadcn@latest view @moduix-react/dialog
-npx shadcn@latest add @moduix-react/dialog --dry-run
-```
-
-Replace `@moduix-react` with the namespace configured for the project's framework and styling track.
-
-For an already-installed item, inspect the generated-file diff before updating it:
-
-```bash
-npx shadcn@latest add @moduix-react/dialog --diff src/components/ui/dialog/Dialog.tsx
-```
-
-Run `add` without preview flags only after the item, dependencies, target paths, and ownership
-model are correct. Do not use `--overwrite` without an explicit decision to replace local changes.
-
-## Review generated code
-
-Treat generated code as a draft. Before merging it, check that it:
-
-- uses the documented moduix parts and callback detail objects instead of invented aliases;
-- keeps the correct framework, styling track, and package or registry ownership model;
-- passes your normal typecheck, tests, and accessibility review.
-
-MCP can discover either ownership model, but only copy-owned projects should use registry `add`
-commands. Package-managed projects keep imports from their selected `@moduix/*` package and update
-through their package manager. The [Updating and migration](/docs/updating) guide explains the
-copy-owned update workflow.
+Documentation and registry metadata provide context, but the application still owns its data, routing, handlers, and final review.
