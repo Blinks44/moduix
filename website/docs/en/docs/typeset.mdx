@@ -11,6 +11,12 @@ import TypesetMarkdownExtensions from '@/components/examples/typeset/markdown-ex
 import TypesetReadingRhythm from '@/components/examples/typeset/reading-rhythm.tsx';
 import TypesetScrollableTable from '@/components/examples/typeset/scrollable-table.tsx';
 import TypesetStreamingContent from '@/components/examples/typeset/streaming-content.tsx';
+import typesetSolidBasic from '../../../snippets/typeset/solid/basic.tsx?raw';
+import typesetSolidExcludedSubtree from '../../../snippets/typeset/solid/excluded-subtree.tsx?raw';
+import typesetSolidMarkdownExtensions from '../../../snippets/typeset/solid/markdown-extensions.tsx?raw';
+import typesetSolidReadingRhythm from '../../../snippets/typeset/solid/reading-rhythm.tsx?raw';
+import typesetSolidScrollableTable from '../../../snippets/typeset/solid/scrollable-table.tsx?raw';
+import typesetSolidStreamingContent from '../../../snippets/typeset/solid/streaming-content.tsx?raw';
 
 ## API Reference
 
@@ -22,7 +28,16 @@ moduix builds `Typeset` with the
 [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory). `Typeset` and
 `Typeset.Scroll` therefore accept native `div` props, refs, and `asChild` composition.
 
+The CSS-first contract follows the approach documented in
+[shadcn/typeset](https://ui.shadcn.com/docs/typeset). It uses the same three rhythm controls while
+leaving content rendering and reading width to the application; moduix adds framework-native
+components and `Typeset.Scroll`.
+
 ## Basic
+
+Typeset ships for React and Solid in both the CSS Modules and Tailwind packages. The preview on this
+page uses the React CSS Modules package; the framework tabs show native source for the same public
+contract.
 
 Wrap HTML that your renderer has already produced in `<Typeset>`. Use `asChild` only when the outer
 container needs to be semantic, such as an `article` or `section`. Keep lists as native `<ul>` and
@@ -34,28 +49,58 @@ container needs to be semantic, such as an `article` or `section`. Keep lists as
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/typeset/basic.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={typesetSolidBasic} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ## Install with shadcn
 
-```bash
-npx shadcn@latest add @moduix-react/typeset
-```
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/typeset' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/typeset' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/typeset' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/typeset' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
 ```text
-Typeset
+Typeset / Typeset.Root
 └─ Typeset.Scroll (optional)
 ```
 
@@ -66,32 +111,12 @@ Typeset
 
 ## Composition
 
-### Recommended composition
-
-Parse, sanitize, render, and size Markdown in your application. `Typeset` only styles descendants
-inside its root and intentionally has no width prop. Wrap a wide table or another block in
-`Typeset.Scroll` when horizontal scrolling is the better result.
-
-### When to go custom
-
-If a subtree needs its own visual treatment, use semantic HTML directly, then add `.not-typeset` or
-`data-not-typeset` to exclude that element and all of its descendants. Give every user-facing
-`Typeset.Scroll` an `aria-label` or `aria-labelledby`. moduix adds `role="region"` when the scroller
-has an accessible name, unless you provide another role. You can also set a custom `tabIndex`.
-
-### Default props
-
-| Part | Default | Notes |
-| --- | --- | --- |
-| `Typeset` | `div` | Use `asChild` with exactly one semantic child to render a different container. |
-| `Typeset.Scroll` | `div`, `tabIndex={0}` | The default focus makes a wide static table reachable with the keyboard. Add an accessible name to a user-facing scroller to give it `role="region"`. |
-
-### Behavioral notes
-
-The `Typeset` root does not manage state, keyboard interactions, form controls, or hidden inputs.
-`Typeset.Scroll` is keyboard-focusable by default so the browser can scroll a wide static block.
-Styles add space before rendered blocks and avoid `:last-child`, `:has()`, and `:empty`, so appending
-streamed content does not change the layout of earlier blocks.
+`Typeset` owns no state and does not parse, sanitize, or size content. Keep rendered semantic
+elements inside the root, use `asChild` when the root must be an `article` or `section`, and compose
+`Typeset.Scroll` around a wide block that should scroll instead of compressing. Mark an application-
+owned subtree with `.not-typeset` or `data-not-typeset` when it needs its own visual treatment. A
+user-facing scroll region should have an accessible name; `Typeset.Scroll` is keyboard-focusable by
+default.
 
 ## Examples
 
@@ -108,24 +133,31 @@ including a nested `Typeset` root.
 <ExampleCode>
 <div className="docs-reference">
   <Tabs
-    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
     className="docs-tabs"
   >
-    <Tab value="React">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/typeset/excluded-subtree.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/typeset/typeset-excluded-subtree.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={typesetSolidExcludedSubtree} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/typeset/typeset-excluded-subtree.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Markdown extensions
@@ -139,16 +171,27 @@ block spacing as the core HTML elements.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/typeset/markdown-extensions.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={typesetSolidMarkdownExtensions} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Reading rhythm
@@ -163,24 +206,31 @@ props.
 <ExampleCode>
 <div className="docs-reference">
   <Tabs
-    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
     className="docs-tabs"
   >
-    <Tab value="React">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/typeset/reading-rhythm.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/typeset/typeset-reading-rhythm.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={typesetSolidReadingRhythm} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/typeset/typeset-reading-rhythm.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Scrollable table
@@ -195,24 +245,31 @@ narrow container. Give the scroller an accessible name that identifies the table
 <ExampleCode>
 <div className="docs-reference">
   <Tabs
-    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
     className="docs-tabs"
   >
-    <Tab value="React">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/typeset/scrollable-table.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/typeset/typeset-scrollable-table.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={typesetSolidScrollableTable} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/typeset/typeset-scrollable-table.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Streaming content
@@ -227,24 +284,31 @@ content stays in place as the stream grows.
 <ExampleCode>
 <div className="docs-reference">
   <Tabs
-    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
     className="docs-tabs"
   >
-    <Tab value="React">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/typeset/streaming-content.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/typeset/typeset-streaming-content.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={typesetSolidStreamingContent} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/typeset/typeset-streaming-content.module.css"
+```
+</div>
 </ExampleCode>
 
 ## Styling
@@ -267,6 +331,10 @@ Use `--moduix-typeset-size`, `--moduix-typeset-leading`, and `--moduix-typeset-f
 reading rhythm. Font variables are optional; colors, borders, and radius come from the active moduix
 theme. Element rules live in the `moduix.components` layer and use low-specificity `:where()`
 selectors, so normal application CSS can override individual elements without `!important`.
+
+Use `className` in React or `class` in Solid on exported parts for structural styles. Tailwind
+variants use native utility and consumer classes; the variables below customize the CSS Modules
+variants.
 
 ### Styling hooks
 

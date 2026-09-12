@@ -1,7 +1,6 @@
 import type { CssPropertyInput } from '../../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
-const toggleGroupOverrideCssProperties: CssPropertyInput[] = [
+export const toggleGroupOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-toggle-group-bg', 'var(--moduix-color-muted)', 'Controls group background color.'],
   [
     '--moduix-toggle-group-border-color',
@@ -39,18 +38,3 @@ const toggleGroupOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--moduix-toggle-group-radius', 'var(--moduix-radius-lg)', 'Controls group corner radius.'],
 ];
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property)) {
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  }
-
-  return property;
-}
-
-const toggleGroupCssPropertiesReference =
-  toggleGroupOverrideCssProperties.map(normalizeCssProperty);
-
-export function ToggleGroupCssPropertiesPanel() {
-  return <CSSPropertiesReferenceTable properties={toggleGroupCssPropertiesReference} />;
-}

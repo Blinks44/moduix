@@ -12,6 +12,13 @@ import FileIconsTreeView from '@/components/examples/tree-view/file-icons.tsx';
 import LinkedTreeView from '@/components/examples/tree-view/links.tsx';
 import RootProviderTreeView from '@/components/examples/tree-view/root-provider.tsx';
 import TreeViewBasic from '@/components/examples/tree-view/basic.tsx';
+import treeViewSolidAsyncLoading from '../../../snippets/tree-view/solid/async-loading.tsx?raw';
+import treeViewSolidBasic from '../../../snippets/tree-view/solid/basic.tsx?raw';
+import treeViewSolidCheckboxes from '../../../snippets/tree-view/solid/checkboxes.tsx?raw';
+import treeViewSolidControlledSelection from '../../../snippets/tree-view/solid/controlled-selection.tsx?raw';
+import treeViewSolidFileIcons from '../../../snippets/tree-view/solid/file-icons.tsx?raw';
+import treeViewSolidLinks from '../../../snippets/tree-view/solid/links.tsx?raw';
+import treeViewSolidRootProvider from '../../../snippets/tree-view/solid/root-provider.tsx?raw';
 
 ## API Reference
 
@@ -19,9 +26,13 @@ import TreeViewBasic from '@/components/examples/tree-view/basic.tsx';
 
 ## Basic
 
+TreeView ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered
+preview on this page uses the React CSS Modules package; the framework tabs show native source for
+the same public contract.
+
 Create the data collection with `createTreeCollection`, then pass it to `TreeView`.
 `TreeView.Node` gives each recursive render callback the current `node`, `indexPath`, and `state`, so
-you can render a branch or a leaf without wiring a provider and context into every level yourself.
+you can render a branch or a leaf while keeping the part structure explicit.
 
 <ExampleFrame variant="component">
   <TreeViewBasic />
@@ -29,11 +40,23 @@ you can render a branch or a leaf without wiring a provider and context into eve
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tree-view/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={treeViewSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -43,7 +66,31 @@ you can render a branch or a leaf without wiring a provider and context into eve
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="tree-view" />
+Choose the command for your framework and styling track. See [Quick start](/docs/quick-start) for
+registry setup and package selection.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tree-view' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tree-view' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tree-view' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tree-view' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
@@ -78,27 +125,19 @@ TreeView / TreeView.Root
 
 ## Composition
 
-### Recommended composition
+Use `TreeView.Node` for recursive renderers. It supplies `node`, `indexPath`, and the current node
+`state` while you choose the `Branch` or `Item` parts. If a custom recursive component needs direct
+node context, use `TreeView.NodeProvider` instead of wrapping `Node`. When controls outside the tree
+own its state, create it with `useTreeView` and pass it to `TreeView.RootProvider`; do not render a
+second root for the same store. If a branch has a separate `BranchTrigger`, set `role="none"` on
+`BranchControl`.
 
-Use `TreeView.Node` for a regular recursive renderer. Its child function receives the current
-`node`, `indexPath`, and Ark node `state`, then returns either branch or leaf markup. This keeps the
-part structure explicit while removing repeated context setup.
+## Examples
 
-### When to use NodeProvider
+### Links
 
-Use `TreeView.NodeProvider` when your own recursive component needs direct access to tree-node
-context. It is the lower-level alternative to `TreeView.Node`, not an additional wrapper to use with it.
-
-### Branch rows and expand buttons
-
-`BranchControl` makes the whole branch row expandable by default. If you render a separate
-`BranchTrigger`, set `role="none"` on `BranchControl` so one interactive tree item is not nested
-inside another.
-
-### Link items
-
-Use `asChild` on `TreeView.Item` when a leaf should be a single semantic child, such as a link. The
-child must accept the Ark props so that focus and keyboard behavior stay intact.
+Use `asChild` on `TreeView.Item` when a leaf should be one semantic element, such as a link. The
+child must accept the Ark props so focus and keyboard behavior stay intact.
 
 <ExampleFrame variant="component">
   <LinkedTreeView />
@@ -106,42 +145,29 @@ child must accept the Ark props so that focus and keyboard behavior stay intact.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tree-view/links.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={treeViewSolidLinks} />
 
     </Tab>
   </Tabs>
 </div>
 
 </ExampleCode>
-
-### State and keyboard support
-
-Ark UI implements the WAI-ARIA tree pattern. People can move through the tree with the arrow keys,
-Home and End, and typeahead; you normally do not need to manage focus yourself. Make
-`expandedValue`, `selectedValue`, `checkedValue`, or `focusedValue` controlled only when your
-application needs to own that state, and pair each value with its corresponding callback.
-
-| Prop            | Default    | Notes                                                       |
-| --------------- | ---------- | ----------------------------------------------------------- |
-| `selectionMode` | `"single"` | Use `"multiple"` for modifier-key and range selection.      |
-| `expandOnClick` | `true`     | Clicking a branch row opens or closes it.                   |
-| `typeahead`     | `true`     | Matches the text returned by the collection's `nodeToString`. |
-| `lazyMount`     | `false`    | Renders branch content only after its first expansion.      |
-| `unmountOnExit` | `false`    | Removes closed content after its exit lifecycle.            |
-
-### Renaming and large trees
-
-To allow renaming, provide `canRename`, render `NodeRenameInput` while `state.renaming` is true, and
-update the collection in `onRenameComplete`. For a virtualized tree, create state with
-`useTreeView`, connect it with `RootProvider`, render the flattened result of `getVisibleNodes()`,
-and provide `scrollToIndexFn` so keyboard navigation can scroll to a node. Moduix does not add a
-separate virtualization API.
-
-## Examples
 
 ### Async loading
 
@@ -154,11 +180,23 @@ For a branch with a known `childrenCount`, load its children with `loadChildren`
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tree-view/async-loading.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={treeViewSolidAsyncLoading} />
 
     </Tab>
   </Tabs>
@@ -177,11 +215,23 @@ the checked and indeterminate states.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tree-view/checkboxes.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={treeViewSolidCheckboxes} />
 
     </Tab>
   </Tabs>
@@ -191,8 +241,8 @@ the checked and indeterminate states.
 
 ### File icons
 
-Put decorative file and folder icons inside `BranchText` and `ItemText`. Keep
-`BranchIndicator` separate so it remains the only expand and collapse affordance.
+Put decorative file and folder icons inside `BranchText` and `ItemText`. Keep `BranchIndicator`
+separate so it remains the only expand and collapse affordance.
 
 <ExampleFrame variant="component">
   <FileIconsTreeView />
@@ -200,11 +250,23 @@ Put decorative file and folder icons inside `BranchText` and `ItemText`. Keep
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tree-view/file-icons.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={treeViewSolidFileIcons} />
 
     </Tab>
   </Tabs>
@@ -214,8 +276,8 @@ Put decorative file and folder icons inside `BranchText` and `ItemText`. Keep
 
 ### Multiple selection
 
-Set `selectionMode="multiple"`. Use Ctrl or ⌘ to add or remove individual items, and Shift to extend
-a selection range. The example keeps the selected values in application state.
+Set `selectionMode="multiple"`. Use Ctrl or ⌘ to add or remove individual items, and Shift to
+extend a selection range. The example keeps the selected values in application state.
 
 <ExampleFrame variant="component">
   <ControlledSelectionTreeView />
@@ -224,22 +286,30 @@ a selection range. The example keeps the selected values in application state.
 <ExampleCode>
 <div className="docs-reference">
   <Tabs
-    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
     className="docs-tabs"
   >
-    <Tab value="React">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tree-view/controlled-selection.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/tree-view/tree-view-controlled-selection.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={treeViewSolidControlledSelection} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/tree-view/tree-view-controlled-selection.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -256,34 +326,45 @@ or `collapse()`. Pass that state to `RootProvider` instead of rendering a second
 <ExampleCode>
 <div className="docs-reference">
   <Tabs
-    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
     className="docs-tabs"
   >
-    <Tab value="React">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tree-view/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/tree-view/tree-view-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={treeViewSolidRootProvider} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/tree-view/tree-view-root-provider.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Styling
 
-Use `className` on any exported part for structural styling. Branch parts expose
-`data-state="open|closed"`; checkbox parts expose
-`data-state="checked|unchecked|indeterminate"`; and node parts expose `data-focus`,
-`data-selected`, `data-disabled`, `data-loading`, `data-renaming`, `data-depth`, `data-path`, and
-`data-value`. The wrapper respects Ark's `--depth` indentation and `--height` collapse-measurement
-variables, and it disables branch animation when reduced motion is preferred.
+Use `className` in React or `class` in Solid on any exported part for structural styling. Branch
+parts expose `data-state="open|closed"`; checkbox parts expose
+`data-state="checked|unchecked|indeterminate"`; and node parts expose `data-focus`, `data-selected`,
+`data-disabled`, `data-loading`, `data-renaming`, `data-depth`, `data-path`, and `data-value`. The
+wrapper respects Ark's `--depth` indentation and `--height` collapse-measurement variables, and it
+disables branch animation when reduced motion is preferred.
+
+Tailwind variants use native utilities and consumer classes. The CSS Modules variants expose the
+documented `--moduix-tree-view-*` variables below.
 
 <div className="docs-reference">
   <Tabs
@@ -305,4 +386,5 @@ variables, and it disables branch animation when reduced motion is preferred.
   `tree-view-branch-indent-guide`, `tree-view-item`, `tree-view-item-text`,
   `tree-view-item-indicator`, `tree-view-node-checkbox`, `tree-view-node-checkbox-indicator`, and
   `tree-view-node-rename-input`.
-- Use the documented `--moduix-tree-view-*` variables for visual customization.
+- Use the documented `--moduix-tree-view-*` variables for visual customization on CSS Modules
+  packages.

@@ -1,10 +1,11 @@
 ---
 title: Toggle Group
 component: toggle-group
-description: A keyboard-navigable group of toggle buttons for single or multiple selection.
+description: A keyboard-navigable group of toggle buttons for single or multiple selection in React and Solid.
 ---
 
 import * as ToggleGroupDocs from '@/components/examples/toggle-group/css-properties';
+import { CssPropertiesSection } from '@/components/mdx/Components';
 import ToggleGroupAsChild from '@/components/examples/toggle-group/as-child.tsx';
 import ToggleGroupBasic from '@/components/examples/toggle-group/basic.tsx';
 import ToggleGroupContext from '@/components/examples/toggle-group/context.tsx';
@@ -15,11 +16,23 @@ import ToggleGroupMultipleSelection from '@/components/examples/toggle-group/mul
 import ToggleGroupRootProvider from '@/components/examples/toggle-group/root-provider.tsx';
 import ToggleGroupVariants from '@/components/examples/toggle-group/variants.tsx';
 import ToggleGroupVertical from '@/components/examples/toggle-group/vertical.tsx';
+import toggleGroupSolidAsChild from '../../../snippets/toggle-group/solid/as-child.tsx?raw';
+import toggleGroupSolidBasic from '../../../snippets/toggle-group/solid/basic.tsx?raw';
+import toggleGroupSolidContext from '../../../snippets/toggle-group/solid/context.tsx?raw';
+import toggleGroupSolidControlled from '../../../snippets/toggle-group/solid/controlled.tsx?raw';
+import toggleGroupSolidDisabled from '../../../snippets/toggle-group/solid/disabled.tsx?raw';
+import toggleGroupSolidIcons from '../../../snippets/toggle-group/solid/icons.tsx?raw';
+import toggleGroupSolidMultipleSelection from '../../../snippets/toggle-group/solid/multiple-selection.tsx?raw';
+import toggleGroupSolidRootProvider from '../../../snippets/toggle-group/solid/root-provider.tsx?raw';
+import toggleGroupSolidVariants from '../../../snippets/toggle-group/solid/variants.tsx?raw';
+import toggleGroupSolidVertical from '../../../snippets/toggle-group/solid/vertical.tsx?raw';
 
 ## API Reference
 
 `ToggleGroup` wraps Ark UI's Toggle Group primitive and adds moduix visual props for variants and
-sizes. Import it from `@moduix/react/toggle-group`.
+sizes. Import it from the matching framework package: `@moduix/react/toggle-group`,
+`@moduix/solid/toggle-group`, `@moduix/react-tailwind/toggle-group`, or
+`@moduix/solid-tailwind/toggle-group`.
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/toggle-group" />
 
@@ -35,9 +48,12 @@ can allow one selected value or several selected values.
 
 ## Basic
 
-Use `<ToggleGroup>` for the common case. It is shorthand for `<ToggleGroup.Root>`; add one
-`ToggleGroup.Item` for each choice. Give the group an accessible name with `aria-label` or
-`aria-labelledby`.
+`ToggleGroup` ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered
+preview below uses the React CSS Modules package; the framework tabs show native source for the same
+public contract.
+
+Use `ToggleGroup` as the root and add one `ToggleGroup.Item` for each choice. Give the group an
+accessible name with `aria-label` or `aria-labelledby`.
 
 <ExampleFrame variant="component">
   <ToggleGroupBasic />
@@ -45,21 +61,53 @@ Use `<ToggleGroup>` for the common case. It is shorthand for `<ToggleGroup.Root>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toggle-group/basic.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toggleGroupSolidBasic} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="toggle-group" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/toggle-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/toggle-group' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/toggle-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/toggle-group' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
@@ -74,80 +122,30 @@ ToggleGroup.RootProvider
 
 | Part                               | Role                                                                                   |
 | ---------------------------------- | -------------------------------------------------------------------------------------- |
-| `ToggleGroup` / `ToggleGroup.Root` | Owns selected values, focus movement, orientation, and disabled state.                |
-| `ToggleGroup.Item`                 | An interactive item with a required `value` and Ark selection state.                  |
-| `ToggleGroup.RootProvider`         | Connects the item tree to a `useToggleGroup()` state instance created outside the tree. |
+| `ToggleGroup` / `ToggleGroup.Root` | Root part that owns selected values, focus movement, orientation, and disabled state.   |
+| `ToggleGroup.Item`                 | Interactive item with a required `value` and Ark selection state.                      |
+| `ToggleGroup.RootProvider`         | Connects the item tree to state created with `useToggleGroup()`.                       |
 | `ToggleGroup.Context`              | Exposes the current group state through a render prop.                                 |
 
 ## Composition
 
-### Recommended composition
+Use `defaultValue` for an uncontrolled group, or pass `value` with `onValueChange(details)` when
+another part of the application owns the selection. Both values are `string[]` in single and
+multiple-selection modes. Use `ToggleGroup.RootProvider` with `useToggleGroup()` from the matching
+framework package when state must be created outside the rendered tree. React reads the store as an
+object, while Solid reads its reactive state through the returned accessor.
 
-`ToggleGroup` is the short form of `ToggleGroup.Root`. Use `defaultValue` for an uncontrolled group,
-or pass `value` with `onValueChange` when React state should control the selection. Both `value` and
-`defaultValue` are string arrays in single and multiple-selection modes.
-
-moduix adds two visual props to `ToggleGroup`, `ToggleGroup.Root`, `ToggleGroup.RootProvider`, and
-`ToggleGroup.Item`:
-
-| Prop      | Default   | Values                                                  |
-| --------- | --------- | ------------------------------------------------------- |
-| `variant` | `default` | `default`, `outline`, `ghost`                           |
-| `size`    | `md`      | `xs`, `sm`, `md`, `lg`, `icon-sm`, `icon-md`, `icon-lg` |
-
-Items inherit `variant` and `size` from the root. Set either prop on an item only when that control
-needs a different visual treatment.
-
-### When to go custom
-
-Use `asChild` on the root, `ToggleGroup.RootProvider`, or an item when another element should host
-the rendered part. For an item, pass exactly one button-like child so Ark can merge its interaction
-props and ARIA state into that element.
-
-Use `ToggleGroup.RootProvider` with moduix `useToggleGroup()` when state must be created outside the
-rendered tree. Use `useToggleGroupContext()` below a root or provider when a custom component needs
-the current group state. Do not render `ToggleGroup.Root` and `ToggleGroup.RootProvider` for the
-same state instance. Direct Ark imports are only needed for compositions outside the moduix API.
-
-### Default props
-
-| Prop           | Default      | Notes                                                           |
-| -------------- | ------------ | --------------------------------------------------------------- |
-| `deselectable` | `true`       | Allows selection to be cleared in single-selection mode.       |
-| `loopFocus`    | `true`       | Wraps arrow-key focus from the last item to the first and back. |
-| `orientation`  | `horizontal` | Sets the layout axis and matching keyboard navigation.         |
-| `rovingFocus`  | `true`       | Keeps one item in the tab order while arrow keys move focus.   |
-| `multiple`     | `false`      | Allows several items to stay pressed at the same time.         |
-| `variant`      | `default`    | moduix visual treatment.                                        |
-| `size`         | `md`         | moduix item size.                                               |
-
-### Behavioral notes
-
-- `onValueChange` receives Ark details. Read the selected string array from `details.value`.
-- Use `value` together with `onValueChange` when the group is controlled by React state.
-- `deselectable` is ignored when `multiple` is enabled.
-- Give the group an accessible name with `aria-label` or `aria-labelledby`.
-- Icon-only items need their own accessible name, such as `aria-label="Align left"`.
-- Use `disabled` on the group for the whole set or on one item for a single unavailable choice.
-- Use `ids` to provide stable root and item IDs when composing the group with other accessible UI.
-- Single-selection groups use `radiogroup` and `radio` semantics. Multiple-selection groups use
-  `group` and `aria-pressed`.
-- Horizontal groups use Left/Right arrows, vertical groups use Up/Down, and Home/End move focus to
-  the first or last enabled item. Space and Enter activate the focused button, while `loopFocus`
-  controls whether arrow navigation wraps.
-- Refs are forwarded to the rendered root and item elements. With `asChild`, the ref points to the
-  child element that receives the Ark behavior.
-- Ark writes `data-scope="toggle-group"`, `data-part`, `data-orientation`, `data-disabled`,
-  `data-focus`, and item `data-state="on" | "off"` for styling.
-- Horizontal groups scroll when they are wider than their container instead of wrapping and changing
-  the arrow-key navigation layout.
+Use `ToggleGroup.Context` or `useToggleGroupContext()` when a custom item needs the current group
+state. With `asChild`, React receives one button-like child, while Solid receives a render function
+that returns the element hosting the Ark behavior. Do not render `ToggleGroup.Root` and
+`ToggleGroup.RootProvider` for the same state instance.
 
 ## Examples
 
 ### asChild
 
-Use `asChild` on an item when a custom button must own the rendered element. Keep exactly one
-button-like child so Ark can merge the group semantics and keyboard behavior.
+Use `asChild` on an item when a custom button must host the rendered element. Keep exactly one
+button-like child so Ark can merge the group's semantics and keyboard behavior into it.
 
 <ExampleFrame variant="component">
   <ToggleGroupAsChild />
@@ -155,16 +153,27 @@ button-like child so Ark can merge the group semantics and keyboard behavior.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toggle-group/as-child.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toggleGroupSolidAsChild} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Context
@@ -178,21 +187,32 @@ Use `useToggleGroupContext()` in a custom item when its contents need the curren
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toggle-group/context.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toggleGroupSolidContext} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Controlled
 
-Control `value` from React state when the group needs to stay in sync with surrounding UI.
+Control `value` when the selected items must stay in sync with surrounding application state.
 
 <ExampleFrame variant="component">
   <ToggleGroupControlled />
@@ -200,27 +220,37 @@ Control `value` from React state when the group needs to stay in sync with surro
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toggle-group/controlled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/toggle-group/toggle-group-controlled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={toggleGroupSolidControlled} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/toggle-group/toggle-group-controlled.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Disabled
 
-Use `disabled` on the group or on a specific item to prevent interaction.
+Set `disabled` on the group or on a specific item to prevent interaction.
 
 <ExampleFrame variant="component">
   <ToggleGroupDisabled />
@@ -228,22 +258,32 @@ Use `disabled` on the group or on a specific item to prevent interaction.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toggle-group/disabled.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/toggle-group/toggle-group-disabled.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={toggleGroupSolidDisabled} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/toggle-group/toggle-group-disabled.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Icons
@@ -256,21 +296,32 @@ Pass icons as regular children. Icon-only items should always include an accessi
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toggle-group/icons.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toggleGroupSolidIcons} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Multiple Selection
 
-Use `multiple` when several options can stay pressed at the same time.
+Set `multiple` when several options can stay pressed at the same time.
 
 <ExampleFrame variant="component">
   <ToggleGroupMultipleSelection />
@@ -278,16 +329,27 @@ Use `multiple` when several options can stay pressed at the same time.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toggle-group/multiple-selection.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toggleGroupSolidMultipleSelection} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Variants
@@ -300,22 +362,32 @@ Set `variant` on the group when every item should share the same visual treatmen
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toggle-group/variants.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/toggle-group/toggle-group-variants.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={toggleGroupSolidVariants} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/toggle-group/toggle-group-variants.module.css"
+```
+</div>
 </ExampleCode>
 
 ### Vertical
@@ -328,22 +400,33 @@ Set `orientation="vertical"` when the choices should stack in a column.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toggle-group/vertical.tsx"
 ```
 
     </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toggleGroupSolidVertical} />
+
+    </Tab>
   </Tabs>
 </div>
-
 </ExampleCode>
 
 ### Advanced Customization
 
-Use `ToggleGroup.RootProvider` with moduix `useToggleGroup` when the state instance must be shared or
-controlled before the root is rendered.
+Use `ToggleGroup.RootProvider` with `useToggleGroup()` when the state instance must be created
+outside the rendered group tree.
 
 <ExampleFrame variant="component">
   <ToggleGroupRootProvider />
@@ -351,42 +434,44 @@ controlled before the root is rendered.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toggle-group/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/toggle-group/toggle-group-advanced-customization.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={toggleGroupSolidRootProvider} />
 
     </Tab>
   </Tabs>
-</div>
 
+**Styles**
+
+```css file="../../../src/components/examples/toggle-group/toggle-group-advanced-customization.module.css"
+```
+</div>
 </ExampleCode>
 
 ## Styling
 
-`ToggleGroup` exposes stable `data-slot` hooks for moduix and Ark anatomy and state attributes for
-behavior-based styling.
+Use `className` in React or `class` in Solid on exported parts for structural styles. Tailwind
+variants use native utilities and consumer classes; CSS Modules variants expose the
+`--moduix-toggle-group-*` tokens. Items inherit `variant` and `size` from the root, and can override
+either prop when one item needs different treatment.
 
 ### CSS Properties
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <ToggleGroupDocs.ToggleGroupCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={ToggleGroupDocs.toggleGroupOverrideCssProperties} />
 
 The table covers group-level properties. Each `ToggleGroup.Item` also supports the [Toggle CSS
 properties](/docs/toggle#css-properties) for its colors and interaction states. Set a
@@ -394,10 +479,8 @@ properties](/docs/toggle#css-properties) for its colors and interaction states. 
 
 ### Styling hooks
 
-- `data-slot="toggle-group-root"` and `data-slot="toggle-group-root-provider"` are stable root selectors.
-- `data-slot="toggle-group-item"` is the stable item selector.
-- `data-scope="toggle-group"` and `data-part="root" | "item"` come from Ark.
-- `data-state="on" | "off"` is written on each item.
-- `data-orientation="horizontal" | "vertical"` is written on the root and item parts.
-- `data-disabled` and `data-focus` are Ark state attributes.
-- `data-variant` and `data-size` reflect the moduix visual props.
+- Stable `data-slot` selectors: `toggle-group-root`, `toggle-group-root-provider`, and `toggle-group-item`.
+- Ark part selectors: `data-scope="toggle-group"` and `data-part="root" | "item"`.
+- Ark state selectors: `data-state="on" | "off"`, `data-disabled`, `data-focus`, and
+  `data-orientation="horizontal" | "vertical"`.
+- moduix selectors: `data-variant` and `data-size`.

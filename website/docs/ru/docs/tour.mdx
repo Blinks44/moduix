@@ -10,6 +10,11 @@ import TourBasic from '@/components/examples/tour/basic.tsx';
 import TourEvents from '@/components/examples/tour/events.tsx';
 import TourWaitForInput from '@/components/examples/tour/wait-for-input.tsx';
 import TourWithArrow from '@/components/examples/tour/with-arrow.tsx';
+import tourSolidAdvancedCustomization from '../../../snippets/tour/solid/advanced-customization.tsx?raw';
+import tourSolidBasic from '../../../snippets/tour/solid/basic.tsx?raw';
+import tourSolidEvents from '../../../snippets/tour/solid/events.tsx?raw';
+import tourSolidWaitForInput from '../../../snippets/tour/solid/wait-for-input.tsx?raw';
+import tourSolidWithArrow from '../../../snippets/tour/solid/with-arrow.tsx?raw';
 
 ## Справочник API
 
@@ -17,10 +22,12 @@ import TourWithArrow from '@/components/examples/tour/with-arrow.tsx';
 
 ## Базовый пример
 
-Создайте состояние тура через `useTour`, опишите шаги и передайте возвращённый объект в `Tour`.
-В примере сначала открывается диалог, затем подсказка у элемента интерфейса, а в конце появляется
-плавающий шаг. Все элементы композиции остаются в JSX, поэтому их легко настроить при необходимости.
-`Tour.Body` прокручивает длинный текст внутри панели.
+Tour доступен для React и Solid в пакетах CSS Modules и Tailwind. Превью на этой странице использует пакет React
+CSS Modules, а вкладки фреймворков показывают нативный исходный код с тем же публичным контрактом.
+
+Создайте состояние тура через `useTour`, опишите шаги и передайте возвращённый объект в `Tour`. В примере сначала
+открывается диалог, затем подсказка у элемента интерфейса, а в конце появляется плавающий шаг. Оставляйте части
+композиции явными, чтобы при необходимости изменить их. `Tour.Body` прокручивает длинный текст внутри панели.
 
 <ExampleFrame variant="component">
   <TourBasic />
@@ -28,32 +35,66 @@ import TourWithArrow from '@/components/examples/tour/with-arrow.tsx';
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tour/basic.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/tour/tour-basic.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={tourSolidBasic} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/tour/tour-basic.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="tour" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tour' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tour' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tour' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tour' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
+
+Полная настройка пакета и registry описана в разделе [Быстрый старт](/docs/quick-start).
 
 ## Анатомия
 
 ```text
-Tour
+Tour / Tour.Root
 └─ Поддерево оверлея (по умолчанию выводится в портал)
    ├─ Tour.Backdrop
    ├─ Tour.Spotlight
@@ -73,66 +114,31 @@ Tour
 
 | Часть | Роль |
 | --- | --- |
-| `Tour` | Корневой компонент, получающий объект `UseTourReturn`. `Tour.Root` является его псевдонимом. |
+| `Tour` / `Tour.Root` | Корневой компонент, связанный с объектом, который возвращает `useTour`. |
 | `Tour.Backdrop` / `Tour.Spotlight` | Необязательный фон и подсветка текущего целевого элемента. |
 | `Tour.Positioner` / `Tour.Content` | Позиционируют и отображают элемент `alertdialog` из Ark. |
 | `Tour.Arrow` | По умолчанию выводит `ArrowTip` из moduix для шагов с подсказкой. |
-| `Tour.CloseIcon` | Кнопка закрытия с доступным именем и иконкой. Для своей разметки используйте `CloseTrigger`. |
+| `Tour.CloseIcon` / `Tour.CloseTrigger` | Доступное закрытие по умолчанию или собственная кнопка закрытия. |
 | `Tour.Body` | Прокручиваемая обёртка moduix для заголовка, описания и текста прогресса. |
 | `Tour.Control` / `Tour.ActionList` | Рекомендуемая строка действий и действия текущего шага. |
 | `Tour.Actions` / `Tour.ActionTrigger` | Позволяют отрисовать свои действия, сохранив объекты действий Ark. |
 
 ## Композиция
 
-### Рекомендуемая композиция
-
-`Tour` автоматически выводит `Backdrop`, `Spotlight` и `Positioner` в портал. Укажите
-`portalled={false}`, только если оверлей должен остаться в разметке страницы, или передайте
-`portalRef`, чтобы отрисовать его в определённом контейнере. Оставляйте структурные части явными.
-Добавьте `Tour.ActionList`, если вашему интерфейсу подходят действия из `steps`: он отрисует
-действия текущего шага.
-
-### Когда нужна своя разметка
-
-Используйте `Tour.Actions` и `Tour.ActionTrigger`, когда для действия требуется своя разметка. Они
-сохраняют поведение Ark: навигацию, закрытие и отключённое состояние, но позволяют отрисовать свои
-элементы управления. Передайте в `useTour` `onStepChange`, `onStepsChange` или `onStatusChange`,
-если на тур должен реагировать внешний интерфейс или система аналитики. Внутри дерева доступны
-экспорты moduix `useTourContext` и `Tour.Context`: с их помощью можно получить активный шаг и
-методы навигации.
-
-### Свойства по умолчанию
-
-Содержимое оверлея в портале монтируется при первом открытии и удаляется после анимации закрытия.
-Укажите `unmountOnExit={false}`, чтобы сохранить его после первого открытия. Оба свойства
-жизненного цикла стоит устанавливать в `false`, только если оверлей должен отрисоваться сразу.
-
-| Свойство | По умолчанию | Примечание |
-| --- | --- | --- |
-| `closeOnEscape` | `true` | Клавиша Escape закрывает тур. |
-| `closeOnInteractOutside` | `true` | Взаимодействие за пределами тура закрывает его, если это не отключено. |
-| `keyboardNavigation` | `true` | Стрелки влево и вправо переключают доступные шаги. |
-| `preventInteraction` | `false` | Укажите `true`, чтобы блокировать действия на странице, пока тур открыт. |
-| `spotlightOffset` | `{ x: 10, y: 10 }` | Расширяет область подсветки вокруг целевого элемента. |
-| `spotlightRadius` | `4` | Скругляет углы подсветки. |
-| `lazyMount` | `true` | Не создаёт оверлей до первого открытия. |
-| `unmountOnExit` | `true` | Удаляет оверлей после анимации закрытия. |
-
-### Поведение и доступность
-
-`Tour.Title` задаёт доступное имя диалогового окна, а `Tour.Description` добавляет описание. Ark
-управляет фокусом при открытии и закрытии, обработкой Escape, взаимодействием за пределами тура и
-навигацией стрелками влево и вправо. Не отключайте `keyboardNavigation`, если только шаг не
-использует эти клавиши намеренно. В интерфейсе с направлением RTL Ark меняет навигацию влево и
-вправо местами.
+Создайте состояние через `useTour` и передайте его в `Tour`. В Solid результат является accessor, поэтому для вызова
+методов вроде `start()` и `next()` используйте `tour()`. Оставляйте структурные части явными и добавляйте `Title` и
+`Description`, чтобы у `alertdialog` были доступные имя и описание. `Backdrop`, `Spotlight` и `Positioner` по
+умолчанию выводятся в портал; используйте `portalled={false}` или `portalRef`, только если оверлей должен остаться в
+разметке или попасть в определённый контейнер. Используйте `ActionList` для действий из `steps`, а для собственной
+разметки заменяйте его на `Actions` с `ActionTrigger asChild`. По умолчанию `lazyMount` и `unmountOnExit` равны `true`;
+передавайте колбэки в `useTour`, если внешний интерфейс или аналитика должны реагировать на смену шага или статуса.
 
 ## Примеры
 
 ### События
 
-Используйте объект `details`, который приходит в колбэки Ark, чтобы обновить другой элемент
-интерфейса или отправить данные в аналитику. Запустите тур, затем нажмите Next и Done.
-`PreviewMeta` в этом примере покажет смену шага и итоговый статус.
+Используйте объекты `details` из колбэков Ark, чтобы обновить другой элемент интерфейса или отправить данные в
+аналитику. Запустите тур, нажмите Next, затем Done. В выводе отображается последнее событие смены шага или статуса.
 
 <ExampleFrame variant="component">
   <TourEvents />
@@ -140,29 +146,40 @@ Tour
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tour/events.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/tour/tour-events.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={tourSolidEvents} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/tour/tour-events.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Ожидание ввода
 
-В этом примере обработчик поля вызывает `tour.next()` после ввода двух символов.
-Для шагов, которые зависят от асинхронного условия, из `@moduix/react/tour` также экспортируются
-`waitForElement`, `waitForElementValue`, `waitForEvent` и `waitForPromise`.
+Вызовите `tour.next()` из обработчика поля после ввода двух символов. Для шагов, которые зависят от асинхронного
+условия, из `@moduix/react/tour` и `@moduix/solid/tour` также экспортируются `waitForElement`, `waitForElementValue`,
+`waitForEvent` и `waitForPromise`.
 
 <ExampleFrame variant="component">
   <TourWaitForInput />
@@ -170,28 +187,39 @@ Tour
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tour/wait-for-input.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/tour/tour-wait-for-input.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={tourSolidWaitForInput} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/tour/tour-wait-for-input.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Со стрелкой
 
-Добавьте `Tour.Arrow` в шаг с подсказкой, если он должен визуально указывать на целевой элемент.
-Включите у шага опцию `arrow`, и Ark сам расположит стрелку.
+Добавьте `Tour.Arrow` в шаг с подсказкой, если он должен визуально указывать на целевой элемент. Включите у шага
+опцию `arrow`, и Ark сам расположит стрелку.
 
 <ExampleFrame variant="component">
   <TourWithArrow />
@@ -199,30 +227,40 @@ Tour
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tour/with-arrow.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/tour/tour-with-arrow.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={tourSolidWithArrow} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/tour/tour-with-arrow.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Расширенная настройка
 
-Замените `Tour.ActionList`, когда для каждого действия нужна своя разметка. В примере используются
-свои элементы `Button` для Continue, Back и Skip tour. Каждый `Tour.ActionTrigger` всё равно
-получает исходный объект действия Ark, поэтому навигация, закрытие и отключённое состояние продолжают
-работать.
+Замените `Tour.ActionList`, когда для каждого действия нужна своя разметка. В примере используются собственные
+элементы `Button` для Continue, Back и Skip tour. Каждый `Tour.ActionTrigger` всё равно получает исходный объект
+действия Ark, поэтому навигация, закрытие и отключённое состояние продолжают работать.
 
 <ExampleFrame variant="component">
   <TourAdvancedCustomization />
@@ -230,20 +268,31 @@ Tour
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tour/advanced-customization.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/tour/tour-advanced-customization.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={tourSolidAdvancedCustomization} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/tour/tour-advanced-customization.module.css"
+```
 </div>
 
 </ExampleCode>
@@ -268,10 +317,9 @@ Tour
 
 ### Хуки стилизации
 
-Для локальной стилизации используйте атрибуты moduix `data-slot`, например `tour-content`,
-`tour-body` и `tour-action-trigger`. Ark также добавляет `data-scope="tour"`, `data-part`,
-`data-state`, `data-type`, `data-placement`, `data-side`, `data-step` и `data-disabled`, а также
-CSS-переменные `--tour-layer`, `--tour-z-index`, `--available-width`, `--available-height`,
-`--transform-origin` и переменные стрелки. Передайте `className` в `Tour.ActionList`, чтобы
-стилизовать каждый созданный триггер. Если пользователь уменьшил анимации в системе, стили
+Для локальной стилизации используйте атрибуты moduix `data-slot`, например `tour-content`, `tour-body` и
+`tour-action-trigger`. Ark также добавляет `data-scope="tour"`, `data-part`, `data-state`, `data-type`,
+`data-placement`, `data-side`, `data-step` и `data-disabled`, а также CSS-переменные `--tour-layer`, `--tour-z-index`,
+`--available-width`, `--available-height`, `--transform-origin` и переменные стрелки. Передайте `className` в
+`Tour.ActionList`, чтобы стилизовать каждый созданный триггер. Если пользователь уменьшил анимации в системе, стили
 сокращают анимацию оверлея и убирают переходы у кнопок действий.

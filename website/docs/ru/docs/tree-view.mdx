@@ -12,6 +12,13 @@ import FileIconsTreeView from '@/components/examples/tree-view/file-icons.tsx';
 import LinkedTreeView from '@/components/examples/tree-view/links.tsx';
 import RootProviderTreeView from '@/components/examples/tree-view/root-provider.tsx';
 import TreeViewBasic from '@/components/examples/tree-view/basic.tsx';
+import treeViewSolidAsyncLoading from '../../../snippets/tree-view/solid/async-loading.tsx?raw';
+import treeViewSolidBasic from '../../../snippets/tree-view/solid/basic.tsx?raw';
+import treeViewSolidCheckboxes from '../../../snippets/tree-view/solid/checkboxes.tsx?raw';
+import treeViewSolidControlledSelection from '../../../snippets/tree-view/solid/controlled-selection.tsx?raw';
+import treeViewSolidFileIcons from '../../../snippets/tree-view/solid/file-icons.tsx?raw';
+import treeViewSolidLinks from '../../../snippets/tree-view/solid/links.tsx?raw';
+import treeViewSolidRootProvider from '../../../snippets/tree-view/solid/root-provider.tsx?raw';
 
 ## Справочник API
 
@@ -19,9 +26,13 @@ import TreeViewBasic from '@/components/examples/tree-view/basic.tsx';
 
 ## Базовый пример
 
+TreeView доступен для React и Solid в пакетах CSS Modules и Tailwind. Превью на этой странице
+использует пакет React CSS Modules, а framework-табы показывают нативный код для того же публичного
+контракта.
+
 Создайте коллекцию данных с помощью `createTreeCollection`, затем передайте её в `TreeView`.
 `TreeView.Node` передаёт в рекурсивный рендерер текущие `node`, `indexPath` и `state`, поэтому можно
-вывести ветку или конечный узел без повторной настройки провайдера и контекста на каждом уровне.
+вывести ветку или конечный узел, сохранив явную структуру частей.
 
 <ExampleFrame variant="component">
   <TreeViewBasic />
@@ -29,11 +40,23 @@ import TreeViewBasic from '@/components/examples/tree-view/basic.tsx';
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tree-view/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={treeViewSolidBasic} />
 
     </Tab>
   </Tabs>
@@ -43,7 +66,31 @@ import TreeViewBasic from '@/components/examples/tree-view/basic.tsx';
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="tree-view" />
+Выберите команду для нужного фреймворка и способа стилизации. Полная настройка registry и выбор
+пакета описаны в разделе [Quick start](/docs/quick-start).
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tree-view' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tree-view' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tree-view' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tree-view' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -78,27 +125,19 @@ TreeView / TreeView.Root
 
 ## Композиция
 
-### Рекомендуемая композиция
+Для рекурсивного рендера используйте `TreeView.Node`. Он передаёт `node`, `indexPath` и текущее
+состояние узла, а вы выбираете части `Branch` или `Item`. Если вашему рекурсивному компоненту нужен
+прямой доступ к контексту узла, используйте `TreeView.NodeProvider`, а не дополнительную обёртку над
+`Node`. Когда состояние дерева должно быть доступно внешним элементам управления, создайте его через
+`useTreeView` и передайте в `TreeView.RootProvider`; не создавайте второй root для того же хранилища.
+Если у ветки есть отдельный `BranchTrigger`, задайте `role="none"` для `BranchControl`.
 
-Для обычного рекурсивного рендерера используйте `TreeView.Node`. Его дочерняя функция получает
-текущие `node`, `indexPath` и состояние узла Ark, а затем возвращает разметку ветки или конечного
-узла. Структура частей остаётся явной, но не приходится заново подключать контекст.
+## Примеры
 
-### Когда нужен NodeProvider
+### Ссылки
 
-Используйте `TreeView.NodeProvider`, если вашему рекурсивному компоненту нужен прямой доступ к
-контексту узла. Это низкоуровневая альтернатива `TreeView.Node`, а не дополнительная обёртка вокруг него.
-
-### Строка ветки и отдельная кнопка
-
-По умолчанию `BranchControl` раскрывает или сворачивает ветку при клике по всей строке. Если нужна
-отдельная кнопка `BranchTrigger`, задайте для `BranchControl` `role="none"`, чтобы не вкладывать один
-интерактивный элемент дерева в другой.
-
-### Конечные элементы в виде ссылок
-
-Используйте `asChild` у `TreeView.Item`, когда конечный узел должен состоять из одного семантического
-элемента, например ссылки. Этот элемент должен принимать props Ark, чтобы не нарушить фокус и
+Используйте `asChild` у `TreeView.Item`, когда конечный узел должен быть одним семантическим
+элементом, например ссылкой. Этот элемент должен принимать props Ark, чтобы сохранить фокус и
 клавиатурное управление.
 
 <ExampleFrame variant="component">
@@ -107,11 +146,23 @@ TreeView / TreeView.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tree-view/links.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={treeViewSolidLinks} />
 
     </Tab>
   </Tabs>
@@ -119,34 +170,9 @@ TreeView / TreeView.Root
 
 </ExampleCode>
 
-### Состояние и клавиатурная навигация
-
-Ark UI реализует паттерн дерева WAI-ARIA. Пользователь перемещается по нему стрелками, клавишами Home
-и End и поиском по мере ввода, поэтому вручную управлять фокусом обычно не нужно. Передавайте
-`expandedValue`, `selectedValue`, `checkedValue` или `focusedValue` только если это состояние должно
-храниться в вашем приложении, и добавляйте соответствующий callback.
-
-| Prop            | По умолчанию | Что делает                                                     |
-| --------------- | ------------ | -------------------------------------------------------------- |
-| `selectionMode` | `"single"`   | Выберите `"multiple"` для выбора с модификаторами и диапазонами. |
-| `expandOnClick` | `true`       | Клик по строке ветки раскрывает или сворачивает её.           |
-| `typeahead`     | `true`       | Ищет по тексту, который возвращает `nodeToString` коллекции.  |
-| `lazyMount`     | `false`      | Создаёт содержимое ветки только при её первом раскрытии.      |
-| `unmountOnExit` | `false`      | Удаляет закрытое содержимое после завершения анимации.        |
-
-### Переименование и большие деревья
-
-Чтобы разрешить переименование, передайте `canRename`, выводите `NodeRenameInput`, пока
-`state.renaming` равно `true`, и обновляйте коллекцию в `onRenameComplete`. Для виртуализированного
-дерева создайте состояние через `useTreeView`, подключите его с помощью `RootProvider`, отрисовывайте
-плоский результат `getVisibleNodes()` и передайте `scrollToIndexFn`, чтобы клавиатурная навигация
-прокручивала список до нужного узла. Moduix не добавляет отдельный API для виртуализации.
-
-## Примеры
-
 ### Асинхронная загрузка
 
-Если у ветки известен `childrenCount`, загрузите её дочерние узлы через `loadChildren`. В
+Если у ветки известно значение `childrenCount`, загрузите дочерние узлы через `loadChildren`. В
 `onLoadChildrenComplete` замените коллекцию в состоянии приложения значением `details.collection`.
 
 <ExampleFrame variant="component">
@@ -155,11 +181,23 @@ Ark UI реализует паттерн дерева WAI-ARIA. Пользова
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tree-view/async-loading.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={treeViewSolidAsyncLoading} />
 
     </Tab>
   </Tabs>
@@ -178,11 +216,23 @@ Ark UI реализует паттерн дерева WAI-ARIA. Пользова
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tree-view/checkboxes.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={treeViewSolidCheckboxes} />
 
     </Tab>
   </Tabs>
@@ -193,7 +243,7 @@ Ark UI реализует паттерн дерева WAI-ARIA. Пользова
 ### Значки файлов
 
 Помещайте декоративные значки файлов и папок внутрь `BranchText` и `ItemText`. Оставьте
-`BranchIndicator` отдельным элементом, чтобы он по-прежнему отвечал только за раскрытие и сворачивание.
+`BranchIndicator` отдельным элементом, чтобы он отвечал только за раскрытие и сворачивание.
 
 <ExampleFrame variant="component">
   <FileIconsTreeView />
@@ -201,11 +251,23 @@ Ark UI реализует паттерн дерева WAI-ARIA. Пользова
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tree-view/file-icons.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={treeViewSolidFileIcons} />
 
     </Tab>
   </Tabs>
@@ -216,7 +278,8 @@ Ark UI реализует паттерн дерева WAI-ARIA. Пользова
 ### Множественный выбор
 
 Задайте `selectionMode="multiple"`. Используйте Ctrl или ⌘, чтобы добавлять и убирать отдельные
-элементы, и Shift, чтобы расширять диапазон выбора. В примере выбранные значения хранятся в состоянии приложения.
+элементы, и Shift, чтобы расширять диапазон выбора. В примере выбранные значения хранятся в состоянии
+приложения.
 
 <ExampleFrame variant="component">
   <ControlledSelectionTreeView />
@@ -225,31 +288,39 @@ Ark UI реализует паттерн дерева WAI-ARIA. Пользова
 <ExampleCode>
 <div className="docs-reference">
   <Tabs
-    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
     className="docs-tabs"
   >
-    <Tab value="React">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tree-view/controlled-selection.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/tree-view/tree-view-controlled-selection.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={treeViewSolidControlledSelection} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/tree-view/tree-view-controlled-selection.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ### Root provider
 
-Создайте состояние дерева через `useTreeView`, если кнопкам и другим элементам вне дерева нужны методы
-вроде `expand()` или `collapse()`. Передайте это состояние в `RootProvider` вместо того, чтобы
-рендерить второй `TreeView.Root`.
+Создайте состояние дерева через `useTreeView`, если кнопкам и другим элементам вне дерева нужны
+методы вроде `expand()` или `collapse()`. Передайте состояние в `RootProvider`, а не создавайте второй
+`TreeView.Root`.
 
 <ExampleFrame variant="component">
   <RootProviderTreeView />
@@ -258,34 +329,45 @@ Ark UI реализует паттерн дерева WAI-ARIA. Пользова
 <ExampleCode>
 <div className="docs-reference">
   <Tabs
-    values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]}
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
     className="docs-tabs"
   >
-    <Tab value="React">
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tree-view/root-provider.tsx"
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/examples/tree-view/tree-view-root-provider.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={treeViewSolidRootProvider} />
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/tree-view/tree-view-root-provider.module.css"
+```
 </div>
 
 </ExampleCode>
 
 ## Стилизация
 
-Используйте `className` у любой экспортируемой части для структурной стилизации. Части веток имеют
-`data-state="open|closed"`, части флажков имеют
-`data-state="checked|unchecked|indeterminate"`, а части узлов имеют `data-focus`,
-`data-selected`, `data-disabled`, `data-loading`, `data-renaming`, `data-depth`, `data-path` и
-`data-value`. Обёртка использует переменные Ark `--depth` для отступов и `--height` для высоты при
-сворачивании, а также отключает анимацию веток при предпочтении уменьшенного движения.
+Используйте `className` в React или `class` в Solid на любой экспортируемой части для структурной
+стилизации. Части ветки имеют `data-state="open|closed"`, части флажка имеют
+`data-state="checked|unchecked|indeterminate"`, а части узлов имеют `data-focus`, `data-selected`,
+`data-disabled`, `data-loading`, `data-renaming`, `data-depth`, `data-path` и `data-value`. Обёртка
+использует переменные Ark `--depth` для отступов и `--height` для высоты при сворачивании, а также
+отключает анимацию веток при предпочтении уменьшенного движения.
+
+Варианты Tailwind используют нативные utility-классы и классы приложения. Варианты CSS Modules
+предоставляют документированные переменные `--moduix-tree-view-*` ниже.
 
 <div className="docs-reference">
   <Tabs
@@ -307,4 +389,5 @@ Ark UI реализует паттерн дерева WAI-ARIA. Пользова
   `tree-view-branch-indent-guide`, `tree-view-item`, `tree-view-item-text`,
   `tree-view-item-indicator`, `tree-view-node-checkbox`, `tree-view-node-checkbox-indicator` и
   `tree-view-node-rename-input`.
-- Для визуальной настройки используйте документированные переменные `--moduix-tree-view-*`.
+- Для визуальной настройки вариантов CSS Modules используйте документированные переменные
+  `--moduix-tree-view-*`.
