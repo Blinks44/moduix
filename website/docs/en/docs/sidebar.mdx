@@ -122,11 +122,14 @@ Sidebar / Sidebar.Root
 │  │     │  └─ Sidebar.GroupAction
 │  │     └─ Sidebar.NavigationList
 │  │        └─ Sidebar.NavigationItem
+│  │           ├─ Sidebar.NavigationButton
+│  │           ├─ Sidebar.NavigationBadge (optional)
 │  │           ├─ Sidebar.ExpandedContent
 │  │           ├─ Sidebar.CollapsedContent
 │  │           └─ Sidebar.NavigationSubList
 │  │              └─ Sidebar.NavigationSubItem
-│  │                 └─ Sidebar.NavigationSubButton
+│  │                 ├─ Sidebar.NavigationSubButton
+│  │                 └─ Sidebar.NavigationBadge (optional)
 │  └─ Sidebar.Footer
 │     └─ Sidebar.Separator
 ├─ Sidebar.ResizeTrigger
@@ -146,6 +149,7 @@ Sidebar / Sidebar.Root
 | `Sidebar.Footer` | Non-scrolling bottom region. |
 | `Sidebar.Group` | Semantic navigation section. |
 | `Sidebar.NavigationButton` | Button or `asChild` link with active and size states. |
+| `Sidebar.NavigationBadge` | Optional counter beside a simple navigation button or sub-button. |
 | `Sidebar.ExpandedContent` | Content shown while the panel is expanded. |
 | `Sidebar.CollapsedContent` | Content shown while the panel is collapsed. |
 | `Sidebar.Tooltip` | Collapsed-only label helper with side-aware placement. |
@@ -160,6 +164,8 @@ a right sidebar. `ExpandedContent` and `CollapsedContent` only switch which comp
 use them to pair inline `Collapsible` links with a collapsed `Menu` without moving state into
 Sidebar. For a persisted width, control `size`, update it from `onResize(details)`, and save it from
 `onResizeEnd(details)`. In Solid, `asChild` uses a render function that receives the merged props.
+Place `NavigationBadge` after a simple `NavigationButton` or `NavigationSubButton`; it reserves
+trailing space for the counter and hides with the other trailing affordances in the compact rail.
 
 ## Examples
 

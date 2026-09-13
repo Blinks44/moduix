@@ -123,11 +123,14 @@ Sidebar / Sidebar.Root
 │  │     │  └─ Sidebar.GroupAction
 │  │     └─ Sidebar.NavigationList
 │  │        └─ Sidebar.NavigationItem
+│  │           ├─ Sidebar.NavigationButton
+│  │           ├─ Sidebar.NavigationBadge (facultatif)
 │  │           ├─ Sidebar.ExpandedContent
 │  │           ├─ Sidebar.CollapsedContent
 │  │           └─ Sidebar.NavigationSubList
 │  │              └─ Sidebar.NavigationSubItem
-│  │                 └─ Sidebar.NavigationSubButton
+│  │                 ├─ Sidebar.NavigationSubButton
+│  │                 └─ Sidebar.NavigationBadge (facultatif)
 │  └─ Sidebar.Footer
 │     └─ Sidebar.Separator
 ├─ Sidebar.ResizeTrigger
@@ -147,6 +150,7 @@ Sidebar / Sidebar.Root
 | `Sidebar.Footer` | Zone inférieure qui ne défile pas. |
 | `Sidebar.Group` | Section de navigation sémantique. |
 | `Sidebar.NavigationButton` | Bouton ou lien `asChild` avec les états active et size. |
+| `Sidebar.NavigationBadge` | Compteur facultatif placé à côté d’un bouton de navigation simple ou imbriqué. |
 | `Sidebar.ExpandedContent` | Contenu affiché lorsque le panneau est déplié. |
 | `Sidebar.CollapsedContent` | Contenu affiché lorsque le panneau est replié. |
 | `Sidebar.Tooltip` | Aide de libellé repliée avec positionnement adapté au côté. |
@@ -162,6 +166,8 @@ Sidebar / Sidebar.Root
 déplacer l’état dans Sidebar. Pour conserver la largeur, contrôlez `size`, mettez-le à jour dans
 `onResize(details)` et enregistrez la valeur finale dans `onResizeEnd(details)`. Dans Solid, `asChild`
 utilise une fonction de rendu qui reçoit les props fusionnées.
+Placez `NavigationBadge` après un `NavigationButton` ou un `NavigationSubButton` simple. Le composant
+réserve l’espace nécessaire au compteur et disparaît avec les autres icônes dans la barre compacte.
 
 ## Exemples
 

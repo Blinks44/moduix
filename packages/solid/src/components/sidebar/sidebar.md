@@ -29,7 +29,7 @@ Exported parts:
 - `Root`, `Panel`, `Inset`, `ResizeTrigger`, `Trigger`
 - `Label`, `Input`, `Header`, `Content`, `ExpandedContent`, `CollapsedContent`, `Footer`, `Separator`
 - `Group`, `GroupHeader`, `GroupLabel`, `GroupAction`
-- `NavigationList`, `NavigationItem`, `NavigationButton`
+- `NavigationList`, `NavigationItem`, `NavigationButton`, `NavigationBadge`
 - `NavigationSubList`, `NavigationSubItem`, `NavigationSubButton`, `Tooltip`
 - `useSidebar`
 
@@ -106,6 +106,9 @@ and does not toggle when the event is prevented.
 Active navigation controls set `data-active` and default `aria-current="page"`.
 `NavigationSubButton` renders an anchor by default, supports `active` and `asChild`, and wraps string
 children in `data-slot="sidebar-navigation-sub-label"` for truncation.
+`NavigationBadge` is an optional counter placed after a direct `NavigationButton` or
+`NavigationSubButton` sibling. It reserves trailing space for truncation, hides in the compact rail,
+and does not add special handling to Collapsible or Select triggers.
 
 `ExpandedContent` and `CollapsedContent` only toggle the HTML `hidden` attribute from Splitter state;
 they do not create popup or collapsible state. Compose nested expanded navigation with `Collapsible`
@@ -134,5 +137,7 @@ render function; ordinary refs and custom-host composition remain separate nativ
 
 ## Local changelog
 
+- 2026-09-13: Added `NavigationBadge` for direct `NavigationButton` and `NavigationSubButton`
+  siblings with compact-rail hiding and preserved label truncation.
 - 2026-09-03: Ported Sidebar to Solid with native Splitter/Tooltip composition, accessor-based
   `useSidebar`, equivalent CSS, tests, playground stories, package exports, and registry metadata.

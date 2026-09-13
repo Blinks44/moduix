@@ -91,6 +91,7 @@ test('preserves active link composition for primary and nested navigation', () =
                 </a>
               )}
             />
+            <Sidebar.NavigationBadge data-testid="primary-badge">12</Sidebar.NavigationBadge>
             <Sidebar.NavigationSubList>
               <Sidebar.NavigationSubItem>
                 <Sidebar.NavigationSubButton
@@ -101,6 +102,7 @@ test('preserves active link composition for primary and nested navigation', () =
                     </a>
                   )}
                 />
+                <Sidebar.NavigationBadge data-testid="nested-badge">3</Sidebar.NavigationBadge>
               </Sidebar.NavigationSubItem>
               <Sidebar.NavigationSubItem>
                 <Sidebar.NavigationSubButton href="#very-long-item">
@@ -127,6 +129,11 @@ test('preserves active link composition for primary and nested navigation', () =
   expect(details).toHaveAttribute('aria-current', 'page');
   expect(details).toHaveAttribute('data-slot', 'sidebar-navigation-sub-button');
   expect(details).toHaveAttribute('data-active');
+  expect(screen.getByTestId('primary-badge')).toHaveAttribute(
+    'data-slot',
+    'sidebar-navigation-badge',
+  );
+  expect(screen.getByTestId('nested-badge')).toHaveTextContent('3');
   expect(screen.getByText('A very long nested navigation item')).toHaveAttribute(
     'data-slot',
     'sidebar-navigation-sub-label',

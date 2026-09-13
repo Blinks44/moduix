@@ -278,12 +278,37 @@
     list-style: none;
   }
 
-  .menuItem {
+  .menuItem,
+  .menuSubItem {
+    position: relative;
     min-width: 0;
   }
 
-  .menuSubItem {
-    min-width: 0;
+  .menuButton:has(+ .menuBadge),
+  .menuSubButton:has(+ .menuBadge) {
+    padding-inline-end: var(--moduix-spacing-10);
+  }
+
+  .menuBadge {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-end: var(--moduix-spacing-2-5);
+    z-index: 1;
+    box-sizing: border-box;
+    display: inline-grid;
+    place-items: center;
+    width: var(--moduix-spacing-5);
+    height: var(--moduix-spacing-5);
+    padding: 0;
+    border-radius: var(--moduix-radius-full);
+    background-color: var(--moduix-color-primary);
+    color: var(--moduix-color-primary-foreground);
+    font-size: 0.5625rem;
+    font-weight: var(--moduix-weight-medium);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    pointer-events: none;
+    transform: translateY(-50%);
   }
 
   .menuButton,
@@ -436,10 +461,25 @@
 
   @container (max-width: 7rem) {
     .groupAction,
+    .menuBadge,
     [data-slot='collapsible-indicator'],
     [data-slot='menu-indicator'],
     [data-slot='select-indicator'] {
       display: none;
+    }
+
+    .menuButton:has(+ .menuBadge) {
+      padding-inline-end: var(
+        --moduix-sidebar-navigation-button-padding-x,
+        var(--moduix-spacing-2)
+      );
+    }
+
+    .menuSubButton:has(+ .menuBadge) {
+      padding-inline-end: var(
+        --moduix-sidebar-navigation-sub-button-padding-x,
+        var(--moduix-spacing-2)
+      );
     }
   }
 

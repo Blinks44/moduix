@@ -213,6 +213,7 @@ function SidebarNavigation() {
                   />
                 )}
               </Sidebar.Tooltip>
+              <Sidebar.NavigationBadge>12</Sidebar.NavigationBadge>
             </Sidebar.NavigationItem>
             <Sidebar.NavigationItem>
               <Sidebar.ExpandedContent>
@@ -236,6 +237,7 @@ function SidebarNavigation() {
                         <Sidebar.NavigationSubButton href="#website">
                           Website
                         </Sidebar.NavigationSubButton>
+                        <Sidebar.NavigationBadge>3</Sidebar.NavigationBadge>
                       </Sidebar.NavigationSubItem>
                       <Sidebar.NavigationSubItem>
                         <Sidebar.NavigationSubButton href="#mobile">

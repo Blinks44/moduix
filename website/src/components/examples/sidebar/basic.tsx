@@ -33,6 +33,7 @@ export default function AppSidebar() {
                     </a>
                   </Sidebar.NavigationButton>
                 </Sidebar.Tooltip>
+                <Sidebar.NavigationBadge>12</Sidebar.NavigationBadge>
               </Sidebar.NavigationItem>
             </Sidebar.NavigationList>
           </Sidebar.Group>

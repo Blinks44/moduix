@@ -123,11 +123,14 @@ Sidebar / Sidebar.Root
 │  │     │  └─ Sidebar.GroupAction
 │  │     └─ Sidebar.NavigationList
 │  │        └─ Sidebar.NavigationItem
+│  │           ├─ Sidebar.NavigationButton
+│  │           ├─ Sidebar.NavigationBadge (необязательно)
 │  │           ├─ Sidebar.ExpandedContent
 │  │           ├─ Sidebar.CollapsedContent
 │  │           └─ Sidebar.NavigationSubList
 │  │              └─ Sidebar.NavigationSubItem
-│  │                 └─ Sidebar.NavigationSubButton
+│  │                 ├─ Sidebar.NavigationSubButton
+│  │                 └─ Sidebar.NavigationBadge (необязательно)
 │  └─ Sidebar.Footer
 │     └─ Sidebar.Separator
 ├─ Sidebar.ResizeTrigger
@@ -147,6 +150,7 @@ Sidebar / Sidebar.Root
 | `Sidebar.Footer` | Непрокручиваемая нижняя область. |
 | `Sidebar.Group` | Семантическая секция навигации. |
 | `Sidebar.NavigationButton` | Кнопка или ссылка через `asChild` с состояниями active и size. |
+| `Sidebar.NavigationBadge` | Необязательный счётчик рядом с обычной кнопкой навигации или вложенной кнопкой. |
 | `Sidebar.ExpandedContent` | Содержимое при развернутой панели. |
 | `Sidebar.CollapsedContent` | Содержимое при свернутой панели. |
 | `Sidebar.Tooltip` | Подпись для свернутого режима с учетом стороны панели. |
@@ -162,6 +166,8 @@ Sidebar / Sidebar.Root
 состояние в Sidebar. Для сохранения ширины управляйте `size`, обновляйте его в `onResize(details)`
 и сохраняйте итоговое значение в `onResizeEnd(details)`. В Solid `asChild` использует render-функцию,
 получающую объединенные props.
+Помещайте `NavigationBadge` после обычного `NavigationButton` или `NavigationSubButton`. Компонент
+оставляет справа место для счётчика и скрывается вместе с остальными иконками в компактном режиме.
 
 ## Примеры
 

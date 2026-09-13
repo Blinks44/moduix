@@ -410,6 +410,20 @@ function SidebarNavigationButton(
   );
 }
 
+function SidebarNavigationBadge(props: HTMLArkProps<'span'>) {
+  const [local, others] = splitProps(props, ['class']);
+
+  return (
+    <ark.span
+      data-scope="sidebar"
+      data-part="navigation-badge"
+      data-slot="sidebar-navigation-badge"
+      class={clsx(styles.menuBadge, local.class)}
+      {...others}
+    />
+  );
+}
+
 function SidebarNavigationSubList(props: HTMLArkProps<'ul'>) {
   const [local, others] = splitProps(props, ['class']);
 
@@ -549,6 +563,7 @@ const Sidebar = Object.assign(SidebarRoot, {
   NavigationItem: SidebarNavigationItem,
   Tooltip: SidebarTooltip,
   NavigationButton: SidebarNavigationButton,
+  NavigationBadge: SidebarNavigationBadge,
   NavigationSubList: SidebarNavigationSubList,
   NavigationSubItem: SidebarNavigationSubItem,
   NavigationSubButton: SidebarNavigationSubButton,

@@ -436,6 +436,21 @@ const SidebarNavigationButton = forwardRef<
   );
 });
 
+const SidebarNavigationBadge = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(
+  function SidebarNavigationBadge({ className, ...props }, ref) {
+    return (
+      <ark.span
+        ref={ref}
+        data-scope="sidebar"
+        data-part="navigation-badge"
+        data-slot="sidebar-navigation-badge"
+        className={clsx(styles.menuBadge, className)}
+        {...props}
+      />
+    );
+  },
+);
+
 const SidebarNavigationSubList = forwardRef<HTMLUListElement, HTMLArkProps<'ul'>>(
   function SidebarNavigationSubList({ className, ...props }, ref) {
     return (
@@ -574,6 +589,7 @@ const Sidebar = Object.assign(SidebarRoot, {
   NavigationItem: SidebarNavigationItem,
   Tooltip: SidebarTooltip,
   NavigationButton: SidebarNavigationButton,
+  NavigationBadge: SidebarNavigationBadge,
   NavigationSubList: SidebarNavigationSubList,
   NavigationSubItem: SidebarNavigationSubItem,
   NavigationSubButton: SidebarNavigationSubButton,

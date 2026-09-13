@@ -57,6 +57,9 @@ place it at the trailing edge.
   `event.preventDefault()`.
 - `useSidebar()` exposes the sidebar-specific `side`, `collapsed`, `state`, and `toggleSidebar`.
 - `Sidebar.NavigationButton` supports `active`, `size`, and `asChild`.
+- `Sidebar.NavigationBadge` is an optional counter placed after a direct `NavigationButton` or
+  `NavigationSubButton` sibling. It reserves trailing space for truncation and is hidden in the
+  compact rail. It does not add special handling to Collapsible or Select triggers.
 - Text that must disappear in the collapsed rail belongs in `Sidebar.Label`; Sidebar does not infer
   text children from arbitrary markup.
 - `Sidebar.Tooltip` wraps the shared Tooltip primitive with collapsed-only behavior and side-aware
@@ -85,9 +88,11 @@ Sidebar / Sidebar.Root
 │  │           └─ Sidebar.NavigationItem
 │  │              ├─ Sidebar.Tooltip
 │  │              │  └─ Sidebar.NavigationButton
+│  │              ├─ Sidebar.NavigationBadge
 │  │              └─ Sidebar.NavigationSubList
 │  │                 └─ Sidebar.NavigationSubItem
-│  │                    └─ Sidebar.NavigationSubButton
+│  │                    ├─ Sidebar.NavigationSubButton
+│  │                    └─ Sidebar.NavigationBadge
 │  ├─ Sidebar.Footer
 │  │  └─ Sidebar.Separator
 ├─ Sidebar.ResizeTrigger
@@ -118,6 +123,7 @@ Sidebar / Sidebar.Root
 | `NavigationItem`      | `sidebar-navigation-item`       | Positioned list item for a navigation control.             |
 | `Sidebar.Tooltip`     | n/a                             | Collapsed-only label helper with side-aware placement.     |
 | `NavigationButton`    | `sidebar-navigation-button`     | Button/link composition with active and size states.       |
+| `NavigationBadge`     | `sidebar-navigation-badge`      | Optional counter beside a simple navigation control.       |
 | `NavigationSubList`   | `sidebar-navigation-sub-list`   | Nested navigation list.                                    |
 | `NavigationSubItem`   | `sidebar-navigation-sub-item`   | Nested list item.                                          |
 | `NavigationSubButton` | `sidebar-navigation-sub-button` | Nested anchor/link composition.                            |
@@ -294,6 +300,8 @@ feedback.
 
 ## Local changelog
 
+- 2026-09-13: Added `NavigationBadge` for direct `NavigationButton` and `NavigationSubButton`
+  siblings with compact-rail hiding and preserved label truncation.
 - 2026-08-29: Added `ExpandedContent` and `CollapsedContent` as stylable, accessibility-safe state
   branches for explicit nested navigation compositions. Corrected Select guidance so its indicator is
   a direct trigger child.

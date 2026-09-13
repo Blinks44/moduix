@@ -224,6 +224,7 @@ function SidebarNavigation({ accentClassName }: { accentClassName?: string } = {
                   </a>
                 </Sidebar.NavigationButton>
               </Sidebar.Tooltip>
+              <Sidebar.NavigationBadge>12</Sidebar.NavigationBadge>
             </Sidebar.NavigationItem>
             <Sidebar.NavigationItem>
               <Sidebar.ExpandedContent>
@@ -243,6 +244,7 @@ function SidebarNavigation({ accentClassName }: { accentClassName?: string } = {
                         <Sidebar.NavigationSubButton href="#website" className={accentClassName}>
                           Website
                         </Sidebar.NavigationSubButton>
+                        <Sidebar.NavigationBadge>3</Sidebar.NavigationBadge>
                       </Sidebar.NavigationSubItem>
                       <Sidebar.NavigationSubItem>
                         <Sidebar.NavigationSubButton href="#mobile" className={accentClassName}>

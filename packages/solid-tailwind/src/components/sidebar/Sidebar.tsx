@@ -402,7 +402,7 @@ function SidebarNavigationItem(props: HTMLArkProps<'li'>) {
       data-scope="sidebar"
       data-part="navigation-item"
       data-slot="sidebar-navigation-item"
-      class={cn('min-w-0', local.class)}
+      class={cn('relative min-w-0', local.class)}
       {...others}
     />
   );
@@ -434,7 +434,7 @@ function SidebarNavigationButton(
       data-active={local.active ? '' : undefined}
       data-size={local.size ?? 'md'}
       class={cn(
-        'flex w-full min-w-0 cursor-pointer items-center gap-2 overflow-hidden rounded-md px-2 py-1 text-start text-sm leading-5 text-ellipsis whitespace-nowrap text-card-foreground outline-0 transition-colors duration-200 ease-in-out',
+        'flex w-full min-w-0 cursor-pointer items-center gap-2 overflow-hidden rounded-md px-2 py-1 text-start text-sm leading-5 text-ellipsis whitespace-nowrap text-card-foreground outline-0 transition-colors duration-200 ease-in-out has-[+_[data-slot=sidebar-navigation-badge]]:pe-10 @max-[7rem]:has-[+_[data-slot=sidebar-navigation-badge]]:pe-2',
         'focus-visible:outline-offset-0.5 focus-visible:outline-2 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-active:bg-accent data-active:font-medium data-active:text-accent-foreground motion-reduce:transition-none [&:not(:disabled):not([aria-disabled=true])]:hover:bg-accent [&:not(:disabled):not([aria-disabled=true])]:hover:text-accent-foreground',
         'group-data-[state=collapsed]/sidebar-panel:mx-auto group-data-[state=collapsed]/sidebar-panel:min-h-control-md group-data-[state=collapsed]/sidebar-panel:w-control-md group-data-[state=collapsed]/sidebar-panel:justify-center group-data-[state=collapsed]/sidebar-panel:bg-transparent group-data-[state=collapsed]/sidebar-panel:px-0 group-data-[state=collapsed]/sidebar-panel:hover:bg-transparent',
         '[&>[data-sidebar-icon]]:shrink-0 [&>span:last-child]:min-w-0 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0',
@@ -444,6 +444,23 @@ function SidebarNavigationButton(
         local.size === 'sm' && 'min-h-control-sm text-xs',
         (local.size === undefined || local.size === 'md') && 'min-h-control-md',
         local.size === 'lg' && 'min-h-control-lg',
+        local.class,
+      )}
+      {...others}
+    />
+  );
+}
+
+function SidebarNavigationBadge(props: HTMLArkProps<'span'>) {
+  const [local, others] = splitProps(props, ['class']);
+
+  return (
+    <ark.span
+      data-scope="sidebar"
+      data-part="navigation-badge"
+      data-slot="sidebar-navigation-badge"
+      class={cn(
+        'pointer-events-none absolute end-2.5 top-1/2 z-1 box-border inline-grid size-5 -translate-y-1/2 place-items-center rounded-full bg-primary p-0 text-[0.5625rem] leading-none font-medium text-primary-foreground tabular-nums @max-[7rem]:hidden',
         local.class,
       )}
       {...others}
@@ -476,7 +493,7 @@ function SidebarNavigationSubItem(props: HTMLArkProps<'li'>) {
       data-scope="sidebar"
       data-part="navigation-sub-item"
       data-slot="sidebar-navigation-sub-item"
-      class={cn('min-w-0', local.class)}
+      class={cn('relative min-w-0', local.class)}
       {...others}
     />
   );
@@ -504,7 +521,7 @@ function SidebarNavigationSubButton(
       data-slot="sidebar-navigation-sub-button"
       data-active={local.active ? '' : undefined}
       class={cn(
-        'flex min-h-control-sm w-full min-w-0 cursor-pointer items-center gap-2 overflow-hidden rounded-md px-2 text-start text-sm leading-5 text-ellipsis whitespace-nowrap text-card-foreground outline-0 transition-[background-color,border-color,color,box-shadow] duration-200 ease-in-out',
+        'flex min-h-control-sm w-full min-w-0 cursor-pointer items-center gap-2 overflow-hidden rounded-md px-2 text-start text-sm leading-5 text-ellipsis whitespace-nowrap text-card-foreground outline-0 transition-[background-color,border-color,color,box-shadow] duration-200 ease-in-out has-[+_[data-slot=sidebar-navigation-badge]]:pe-10 @max-[7rem]:has-[+_[data-slot=sidebar-navigation-badge]]:pe-2',
         'focus-visible:outline-offset-0.5 focus-visible:outline-2 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-active:bg-accent data-active:font-medium data-active:text-accent-foreground motion-reduce:transition-none [&:not(:disabled):not([aria-disabled=true])]:hover:bg-accent [&:not(:disabled):not([aria-disabled=true])]:hover:text-accent-foreground',
         '[&>[data-sidebar-icon]]:shrink-0 [&>span:last-child]:min-w-0 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0',
         local.class,
@@ -602,6 +619,7 @@ const Sidebar = Object.assign(SidebarRoot, {
   NavigationItem: SidebarNavigationItem,
   Tooltip: SidebarTooltip,
   NavigationButton: SidebarNavigationButton,
+  NavigationBadge: SidebarNavigationBadge,
   NavigationSubList: SidebarNavigationSubList,
   NavigationSubItem: SidebarNavigationSubItem,
   NavigationSubButton: SidebarNavigationSubButton,
