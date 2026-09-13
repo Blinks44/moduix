@@ -20,6 +20,9 @@
   "files": [
     "dist/components",
     "dist/internal",
+    "dist/locale.d.ts",
+    "dist/locale.js",
+    "dist/locale.jsx",
     "dist/presets",
     "dist/styles/animations.css",
     "dist/styles/borders.css",
@@ -563,6 +566,12 @@
       "solid": "./dist/components/typeset/index.jsx",
       "import": "./dist/components/typeset/index.js",
       "default": "./dist/components/typeset/index.js"
+    },
+    "./locale": {
+      "types": "./dist/locale.d.ts",
+      "solid": "./dist/locale.jsx",
+      "import": "./dist/locale.js",
+      "default": "./dist/locale.js"
     },
     "./style.css": "./dist/styles/style.css",
     "./presets/*": "./dist/presets/*",

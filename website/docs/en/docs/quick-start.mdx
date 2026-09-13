@@ -7,6 +7,10 @@ import { FrameworkGrid } from '@/components/docs/framework-grid';
 import { Card, Cards } from '@/components/mdx/Components';
 import componentsCssModules from '../../../snippets/quick-start/components-css-modules.json?raw';
 import componentsTailwind from '../../../snippets/quick-start/components-tailwind.json?raw';
+import reactCssModules from '../../../snippets/quick-start/react-css-modules.tsx?raw';
+import reactTailwind from '../../../snippets/quick-start/react-tailwind.tsx?raw';
+import solidCssModules from '../../../snippets/quick-start/solid-css-modules.tsx?raw';
+import solidTailwind from '../../../snippets/quick-start/solid-tailwind.tsx?raw';
 
 # Quick start
 
@@ -150,6 +154,26 @@ the consuming bundle.
 For a curated visual starting point, import one optional preset after `style.css`; see
 [Themes](/docs/themes).
 
+#### 3. Use a component
+
+Accordion is available in every shipped framework and styling variant, so it is a useful first check:
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<CodeBlockRuntime lang="tsx" code={reactCssModules} />
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<CodeBlockRuntime lang="tsx" code={solidCssModules} />
+
+  </Tab>
+</Tabs>
+
+The setup is working when the trigger uses moduix styles and the panel opens with both keyboard and
+pointer input.
+
   </Tab>
   <Tab label="Tailwind CSS" value="tailwind">
 
@@ -204,111 +228,26 @@ directory:
 Resolve `@source` relative to this stylesheet and keep it limited to `dist/components`. Do not add
 the moduix reset: Tailwind Preflight already provides it.
 
-  </Tab>
-</Tabs>
-
-### 3. Use a component
-
-Accordion is available in every shipped framework and styling variant, so it is a useful first check for either styling
-track:
-
-<Tabs groupId="styling">
-  <Tab label="CSS Modules" value="css-modules">
+#### 3. Use a component
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
 
-```tsx
-import { Accordion } from '@moduix/react/accordion';
-
-export function Example() {
-  return (
-    <Accordion defaultValue={['first']}>
-      <Accordion.Item value="first">
-        <Accordion.ItemTrigger>What is moduix?</Accordion.ItemTrigger>
-        <Accordion.ItemContent>
-          <Accordion.ItemBody>A framework-native component library built on Ark UI.</Accordion.ItemBody>
-        </Accordion.ItemContent>
-      </Accordion.Item>
-    </Accordion>
-  );
-}
-```
+<CodeBlockRuntime lang="tsx" code={reactTailwind} />
 
   </Tab>
   <Tab label="Solid" value="solid">
 
-```tsx
-import { Accordion } from '@moduix/solid/accordion';
-
-export function Example() {
-  return (
-    <Accordion defaultValue={['first']}>
-      <Accordion.Item value="first">
-        <Accordion.ItemTrigger>What is moduix?</Accordion.ItemTrigger>
-        <Accordion.ItemContent>
-          <Accordion.ItemBody>A framework-native component library built on Ark UI.</Accordion.ItemBody>
-        </Accordion.ItemContent>
-      </Accordion.Item>
-    </Accordion>
-  );
-}
-```
-
-  </Tab>
-</Tabs>
-
-  </Tab>
-  <Tab label="Tailwind CSS" value="tailwind">
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-```tsx
-import { Accordion } from '@moduix/react-tailwind/accordion';
-
-export function Example() {
-  return (
-    <Accordion defaultValue={['first']}>
-      <Accordion.Item value="first">
-        <Accordion.ItemTrigger>What is moduix?</Accordion.ItemTrigger>
-        <Accordion.ItemContent>
-          <Accordion.ItemBody>A framework-native component library built on Ark UI.</Accordion.ItemBody>
-        </Accordion.ItemContent>
-      </Accordion.Item>
-    </Accordion>
-  );
-}
-```
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-```tsx
-import { Accordion } from '@moduix/solid-tailwind/accordion';
-
-export function Example() {
-  return (
-    <Accordion defaultValue={['first']}>
-      <Accordion.Item value="first">
-        <Accordion.ItemTrigger>What is moduix?</Accordion.ItemTrigger>
-        <Accordion.ItemContent>
-          <Accordion.ItemBody>A framework-native component library built on Ark UI.</Accordion.ItemBody>
-        </Accordion.ItemContent>
-      </Accordion.Item>
-    </Accordion>
-  );
-}
-```
-
-  </Tab>
-</Tabs>
+<CodeBlockRuntime lang="tsx" code={solidTailwind} />
 
   </Tab>
 </Tabs>
 
 The setup is working when the trigger uses moduix styles and the panel opens with both keyboard and
 pointer input.
+
+  </Tab>
+</Tabs>
 
 ## Install with the shadcn CLI
 

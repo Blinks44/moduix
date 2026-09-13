@@ -1,6 +1,6 @@
 ---
 title: React Router
-description: "Intégrez moduix à une application React Router en mode Framework, chargez les styles de base et utilisez un composant dans un module de route."
+description: "Intégrez moduix à React Router en mode Framework par paquet ou avec shadcn, avec les styles, les alias, les routes, le SSR et l’hydratation."
 ---
 
 # React Router
@@ -8,7 +8,22 @@ description: "Intégrez moduix à une application React Router en mode Framework
 Cette page concerne React Router en mode Framework. Si votre application utilise déjà ce mode, ajoutez moduix en
 suivant les étapes ci-dessous. Pour les modes Data ou Declarative, suivez la [configuration Vite](/docs/installation/vite) : les imports moduix restent identiques.
 
-## Installer le paquet
+## Choisir votre configuration
+
+- **Framework :** React en mode Framework. Utilisez le guide Vite pour les modes Data ou Declarative.
+- **Styles :** CSS Modules ou Tailwind CSS v4.
+- **Distribution :** paquet ou code source copié avec la CLI shadcn.
+
+Commencez par la [configuration du paquet](/docs/quick-start#installer-le-paquet) ou la
+[configuration shadcn](/docs/quick-start#installer-avec-la-cli-shadcn) commune à votre approche de
+style. Les exemples ci-dessous utilisent les imports du paquet CSS Modules ; les fichiers React Router,
+les alias, le SSR et les vérifications d’hydratation restent identiques avec le paquet ou le registre
+Tailwind pour React.
+
+Toutes les commandes de paquet et tous les imports de feuilles de style présentés ci-dessous concernent la configuration CSS Modules. Avec Tailwind,
+conservez la feuille globale configurée dans le Démarrage rapide.
+
+## Installation par paquet
 
 <PackageManagerTabs command="install @moduix/react @ark-ui/react" />
 
@@ -39,7 +54,7 @@ export default function Home() {
 
 La route d’index est accessible à l’adresse `/`. Ouvrez cette adresse après avoir lancé le serveur de développement.
 
-## Installer avec la CLI shadcn
+## Installation avec la CLI shadcn
 
 Choisissez cette méthode si vous voulez conserver le code source et les styles des composants dans votre dépôt.
 Commencez par suivre la [configuration de la CLI shadcn](/docs/quick-start#installer-avec-la-cli-shadcn). Le modèle
@@ -56,7 +71,11 @@ React Router standard place le code de l’application dans `app`. Associez donc
 }
 ```
 
-Le mode Framework utilise Vite. Rendez le même alias disponible pour le bundler en suivant la [configuration Vite](/docs/installation/vite#installer-avec-la-cli-shadcn) et en remplaçant `./src` par `./app`. Conservez le plugin React Router et les autres réglages Vite déjà présents dans votre projet.
+Le mode Framework utilise Vite. Rendez le même alias disponible pour le bundler en suivant la [configuration Vite](/docs/installation/vite#installation-avec-la-cli-shadcn) et en remplaçant `./src` par `./app`. Conservez le plugin React Router et les autres réglages Vite déjà présents dans votre projet.
+
+Ajoutez le Button depuis l’espace de noms de votre approche de style :
+
+<ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/button' }]} />
 
 Après la génération des fichiers, remplacez l’import de la feuille de style du paquet dans `app/root.tsx` par celui de
 la feuille générée :
@@ -67,7 +86,7 @@ import '@/lib/moduix/styles/style.css';
 
 N’importez pas les deux feuilles de style. Avec cette méthode, la feuille générée fournit les styles de base.
 
-## Vérifier
+## Vérification
 
 Lancez le serveur de développement et ouvrez `/`. La page doit être rendue côté serveur, s’hydrater sans divergence et
 conserver le fonctionnement des composants interactifs après l’hydratation. Pendant le rendu, ne faites pas dépendre le

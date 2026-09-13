@@ -1,18 +1,28 @@
 ---
 title: Vite
-description: Настройка moduix в приложениях Vite на React и Solid через npm-пакет или shadcn CLI.
+description: Подключение moduix к Vite на React или Solid через пакеты или shadcn, включая глобальные стили, пути TypeScript и алиасы Vite.
 ---
 
 # Vite
 
-В примерах ниже используются пакеты с CSS Modules, в которых доступен полный каталог компонентов.
-Для компонентов на Tailwind выполните [настройку Tailwind-пакета](/docs/quick-start#tailwind-css)
-и выберите пакет или реестр для React либо Solid.
-
 В этом руководстве предполагается существующее приложение, созданное из шаблона Vite для React,
 React + TypeScript, Solid или Solid + TypeScript.
 
-## Установка moduix из пакета
+## Выберите вариант настройки
+
+- **Среда:** React или Solid с соответствующим плагином Vite.
+- **Стилизация:** CSS Modules или Tailwind CSS v4.
+- **Поставка:** пакет или исходный код, добавленный через shadcn CLI.
+
+Сначала выполните общую [настройку пакета](/docs/quick-start#установить-как-пакет) или
+[настройку shadcn](/docs/quick-start#установить-через-shadcn-cli) для выбранного варианта стилей. Ниже
+показаны импорты пакетов на CSS Modules; точки входа Vite и настройка алиасов не меняются при выборе
+соответствующего Tailwind-пакета или реестра.
+
+Все показанные ниже команды установки пакетов и импорты таблиц стилей относятся к CSS Modules. С Tailwind сохраняйте глобальную
+таблицу стилей, настроенную в Быстром старте.
+
+## Установка из пакета
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
@@ -53,7 +63,7 @@ export function App() {
 
 ## Установка через shadcn CLI
 
-Выполните [первоначальную настройку shadcn CLI](/docs/quick-start#установка-через-shadcn-cli), затем
+Выполните [первоначальную настройку shadcn CLI](/docs/quick-start#установить-через-shadcn-cli), затем
 задайте алиас `@/*` для `src/*`. В шаблонах Vite для TypeScript настройки разделены между
 `tsconfig.json` и конфигурацией приложения. Добавьте алиас в оба файла:
 
@@ -92,7 +102,7 @@ export default defineConfig({
 });
 ```
 
-<PackageManagerTabs command="shadcn@latest add @moduix-react/button" dlx />
+<ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/button' }]} />
 
   </Tab>
   <Tab label="Solid" value="solid">
@@ -112,13 +122,13 @@ export default defineConfig({
 });
 ```
 
-<PackageManagerTabs command="shadcn@latest add @moduix-solid/button" dlx />
+<ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/button' }]} />
 
   </Tab>
 </Tabs>
 
-Импортируйте сгенерированные основные стили из точки входа вместо стилей пакета — подключать оба
-файла не нужно:
+Импортируйте сгенерированные основные стили из точки входа вместо стилей пакета.
+Подключать оба файла не нужно:
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">

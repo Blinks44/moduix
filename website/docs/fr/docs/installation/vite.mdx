@@ -1,18 +1,28 @@
 ---
 title: Vite
-description: Configurez moduix dans une application Vite React ou Solid par paquet ou avec la CLI shadcn.
+description: Intégrez moduix à Vite avec React ou Solid par paquet ou avec shadcn, avec les styles globaux, les chemins TypeScript et les alias Vite.
 ---
 
 # Vite
 
-Les exemples ci-dessous utilisent les paquets CSS Modules, qui proposent le catalogue complet. Pour
-un composant disponible avec Tailwind, suivez la [configuration du paquet Tailwind](/docs/quick-start#tailwind-css)
-et choisissez le paquet ou le registre React ou Solid correspondant.
-
 Ce guide part d’une application existante, créée avec un modèle Vite pour React, React + TypeScript,
 Solid ou Solid + TypeScript.
 
-## Installer moduix comme paquet
+## Choisir votre configuration
+
+- **Framework :** React ou Solid avec le plugin Vite correspondant.
+- **Styles :** CSS Modules ou Tailwind CSS v4.
+- **Distribution :** paquet ou code source copié avec la CLI shadcn.
+
+Commencez par la [configuration du paquet](/docs/quick-start#installer-le-paquet) ou la
+[configuration shadcn](/docs/quick-start#installer-avec-la-cli-shadcn) commune à votre approche de
+style. Les exemples utilisent les imports des paquets CSS Modules ; les points d’entrée Vite et la
+configuration des alias restent identiques avec le paquet ou le registre Tailwind correspondant.
+
+Toutes les commandes de paquet et tous les imports de feuilles de style présentés ci-dessous concernent la configuration CSS Modules. Avec Tailwind,
+conservez la feuille globale configurée dans le Démarrage rapide.
+
+## Installation par paquet
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
@@ -51,9 +61,9 @@ export function App() {
   </Tab>
 </Tabs>
 
-## Installer avec la CLI shadcn
+## Installation avec la CLI shadcn
 
-Effectuez la [configuration initiale de la CLI shadcn](/docs/quick-start#installation-avec-la-cli-shadcn),
+Effectuez la [configuration initiale de la CLI shadcn](/docs/quick-start#installer-avec-la-cli-shadcn),
 puis faites pointer `@/*` vers `src/*`. Les modèles TypeScript de Vite répartissent leur
 configuration entre `tsconfig.json` et un fichier propre à l’application. Ajoutez l’alias aux deux :
 
@@ -92,7 +102,7 @@ export default defineConfig({
 });
 ```
 
-<PackageManagerTabs command="shadcn@latest add @moduix-react/button" dlx />
+<ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/button' }]} />
 
   </Tab>
   <Tab label="Solid" value="solid">
@@ -112,7 +122,7 @@ export default defineConfig({
 });
 ```
 
-<PackageManagerTabs command="shadcn@latest add @moduix-solid/button" dlx />
+<ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/button' }]} />
 
   </Tab>
 </Tabs>
@@ -137,7 +147,7 @@ import '@/lib/moduix/styles/style.css';
   </Tab>
 </Tabs>
 
-## Vérifier l’installation
+## Vérification
 
 Démarrez Vite. Avec le paquet, le composant importé depuis le paquet moduix choisi doit être mis en
 forme. Avec shadcn, la feuille de styles générée et l’import `@/components/ui/button` doivent être

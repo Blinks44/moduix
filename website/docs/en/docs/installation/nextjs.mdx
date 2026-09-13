@@ -1,6 +1,6 @@
 ---
 title: Next.js
-description: Use moduix with the Next.js App Router, loading the foundation stylesheet once and adding client boundaries where interactive composition needs them.
+description: Integrate moduix with the Next.js App Router through packages or shadcn, including global styles, RSC configuration, and client boundaries.
 ---
 
 # Next.js
@@ -8,6 +8,20 @@ description: Use moduix with the Next.js App Router, loading the foundation styl
 This guide assumes an existing Next.js project using the App Router. Import the foundation
 stylesheet from the root layout, and add a client boundary with the `'use client'` directive only
 where your composition needs client-side behavior.
+
+## Choose your setup
+
+- **Runtime:** React with the Next.js App Router.
+- **Styling:** CSS Modules or Tailwind CSS v4.
+- **Distribution:** a package or source copied with the shadcn CLI.
+
+Complete the shared [package setup](/docs/quick-start#install-as-a-package) or
+[shadcn setup](/docs/quick-start#install-with-the-shadcn-cli) for your styling track first. This page
+uses CSS Modules package imports to keep the Next.js-specific layout and client-boundary steps clear;
+those steps stay the same with `@moduix/react-tailwind` or `@moduix-react-tailwind`.
+
+All package commands and stylesheet imports shown below belong to CSS Modules. With Tailwind, keep the global stylesheet
+configured in Quick Start instead.
 
 ## Install as a package
 
@@ -64,7 +78,7 @@ export default function Page() {
 Server Components can render the surrounding markup and include `ContinueButton`. Pass serializable
 data to a client component. Event handlers and other functions cannot cross the server/client boundary.
 
-## Use the shadcn CLI
+## Install with the shadcn CLI
 
 Choose this route when you want to copy moduix components into your application. Complete the
 [shadcn CLI setup](/docs/quick-start#install-with-the-shadcn-cli) and set `"rsc": true` in
@@ -73,6 +87,13 @@ Choose this route when you want to copy moduix components into your application.
 Keep the default `@/*` alias from the Next.js starter. If your aliases are different, update
 `components.json` and the paths to the generated files. Import the generated foundation stylesheet
 from the root layout instead of importing `@moduix/react/style.css`:
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/button' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/button' },
+  ]}
+/>
 
 ```tsx title="app/layout.tsx"
 import '@/lib/moduix/styles/style.css';

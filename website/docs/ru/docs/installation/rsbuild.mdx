@@ -1,18 +1,28 @@
 ---
 title: Rsbuild
-description: Подключение moduix к приложениям Rsbuild на React и Solid через npm-пакет или shadcn CLI.
+description: Подключение moduix к Rsbuild на React или Solid через пакеты или shadcn, включая стили, алиасы и нативные импорты.
 ---
 
 # Rsbuild
 
-В примерах ниже используются пакеты с CSS Modules, в которых доступен полный каталог компонентов.
-Для компонентов на Tailwind выполните [настройку Tailwind-пакета](/docs/quick-start#tailwind-css)
-и выберите пакет или реестр для React либо Solid.
-
 В этом руководстве предполагается, что приложение Rsbuild уже настроено для React или Solid. Rsbuild
 сам учитывает алиасы из TypeScript, поэтому для shadcn не нужно повторять `resolve.alias`.
 
-## Установите пакет
+## Выберите вариант настройки
+
+- **Среда:** React или Solid с соответствующим плагином Rsbuild.
+- **Стилизация:** CSS Modules или Tailwind CSS v4.
+- **Поставка:** пакет или исходный код, добавленный через shadcn CLI.
+
+Сначала выполните общую [настройку пакета](/docs/quick-start#установить-как-пакет) или
+[настройку shadcn](/docs/quick-start#установить-через-shadcn-cli) для выбранного варианта стилей. Ниже
+показаны импорты пакетов на CSS Modules; точки входа Rsbuild и обработка алиасов TypeScript не меняются
+при выборе соответствующего Tailwind-пакета или реестра.
+
+Все показанные ниже команды установки пакетов и импорты таблиц стилей относятся к CSS Modules. С Tailwind сохраняйте глобальную
+таблицу стилей, настроенную в Быстром старте.
+
+## Установка из пакета
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
@@ -53,7 +63,7 @@ export function App() {
 
 ## Установка через shadcn CLI
 
-Сначала выполните [первоначальную настройку shadcn CLI](/docs/quick-start#установка-через-shadcn-cli),
+Сначала выполните [первоначальную настройку shadcn CLI](/docs/quick-start#установить-через-shadcn-cli),
 затем задайте алиас `@/*` для `src/*` в `tsconfig.json`:
 
 ```json title="tsconfig.json"
@@ -72,17 +82,17 @@ Rsbuild автоматически читает `compilerOptions.paths`. Доб�
 <Tabs groupId="framework">
   <Tab label="React" value="react">
 
-<PackageManagerTabs command="shadcn@latest add @moduix-react/button" dlx />
+<ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/button' }]} />
 
   </Tab>
   <Tab label="Solid" value="solid">
 
-<PackageManagerTabs command="shadcn@latest add @moduix-solid/button" dlx />
+<ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/button' }]} />
 
   </Tab>
 </Tabs>
 
-Замените импорт стилей из пакета на импорт сгенерированного файла — подключать оба не нужно:
+Замените импорт стилей из пакета на импорт сгенерированного файла. Подключать оба не нужно:
 
 ```tsx title="src/index.tsx"
 import '@/lib/moduix/styles/style.css';

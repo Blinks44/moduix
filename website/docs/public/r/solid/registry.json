@@ -1552,7 +1552,7 @@
       ]
     },
     {
-      "name": "table-of-contents",
+      "name": "toc",
       "type": "registry:item",
       "title": "Table of Contents",
       "description": "moduix Solid Table of Contents component.",

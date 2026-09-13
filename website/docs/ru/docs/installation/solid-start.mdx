@@ -1,16 +1,26 @@
 ---
 title: SolidStart
-description: Подключение moduix к SolidStart с безопасной для SSR установкой из пакета или через shadcn CLI.
+description: Подключение moduix к SolidStart через пакеты или shadcn, включая глобальные стили, алиасы, безопасный SSR и гидратацию.
 ---
 
 # SolidStart
 
-В примерах ниже используется `@moduix/solid` с полным каталогом компонентов на CSS Modules. Для
-компонентов на Tailwind выполните [настройку Tailwind-пакета](/docs/quick-start#tailwind-css)
-и используйте `@moduix/solid-tailwind` или реестр `@moduix-solid-tailwind`.
-
 SolidStart рендерит Solid-приложение на сервере и гидратирует его в браузере. В этом руководстве
 предполагается, что проект уже создан с помощью `create-solid`.
+
+## Выберите вариант настройки
+
+- **Среда:** Solid.
+- **Стилизация:** CSS Modules или Tailwind CSS v4.
+- **Поставка:** пакет или исходный код, добавленный через shadcn CLI.
+
+Сначала выполните общую [настройку пакета](/docs/quick-start#установить-как-пакет) или
+[настройку shadcn](/docs/quick-start#установить-через-shadcn-cli) для выбранного варианта стилей. Ниже
+показаны импорты пакета на CSS Modules; корень SolidStart, алиас, SSR и гидратация не меняются с
+`@moduix/solid-tailwind` или `@moduix-solid-tailwind`.
+
+Все показанные ниже команды установки пакетов и импорты таблиц стилей относятся к CSS Modules. С Tailwind сохраняйте глобальную
+таблицу стилей, настроенную в Быстром старте.
 
 ## Установка из пакета
 
@@ -37,7 +47,7 @@ export default function Home() {
 ## Установка через shadcn CLI
 
 В SolidStart алиас `~` указывает на `src`, а в примерах реестра moduix используется `@`. Выполните
-[первоначальную настройку shadcn CLI](/docs/quick-start#установка-через-shadcn-cli), затем задайте
+[первоначальную настройку shadcn CLI](/docs/quick-start#установить-через-shadcn-cli), затем задайте
 алиас `@/*` для `src/*` в `tsconfig.json`:
 
 ```json title="tsconfig.json"
@@ -70,7 +80,7 @@ export default defineConfig({
 
 Затем добавьте компонент для Solid:
 
-<PackageManagerTabs command="shadcn@latest add @moduix-solid/button" dlx />
+<ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/button' }]} />
 
 Импортируйте сгенерированные основные стили из `src/app.tsx` вместо стилей пакета:
 

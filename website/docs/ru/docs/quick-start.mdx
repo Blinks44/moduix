@@ -7,6 +7,10 @@ import { FrameworkGrid } from '@/components/docs/framework-grid';
 import { Card, Cards } from '@/components/mdx/Components';
 import componentsCssModules from '../../../snippets/quick-start/components-css-modules.json?raw';
 import componentsTailwind from '../../../snippets/quick-start/components-tailwind.json?raw';
+import reactCssModules from '../../../snippets/quick-start/react-css-modules.tsx?raw';
+import reactTailwind from '../../../snippets/quick-start/react-tailwind.tsx?raw';
+import solidCssModules from '../../../snippets/quick-start/solid-css-modules.tsx?raw';
+import solidTailwind from '../../../snippets/quick-start/solid-tailwind.tsx?raw';
 
 # Быстрый старт
 
@@ -155,42 +159,12 @@ Accordion доступен в каждом выпущенном фреймвор
 <Tabs groupId="framework">
   <Tab label="React" value="react">
 
-```tsx
-import { Accordion } from '@moduix/react/accordion';
-
-export function Example() {
-  return (
-    <Accordion defaultValue={['first']}>
-      <Accordion.Item value="first">
-        <Accordion.ItemTrigger>Что такое moduix?</Accordion.ItemTrigger>
-        <Accordion.ItemContent>
-          <Accordion.ItemBody>Библиотека нативных компонентов на базе Ark UI.</Accordion.ItemBody>
-        </Accordion.ItemContent>
-      </Accordion.Item>
-    </Accordion>
-  );
-}
-```
+<CodeBlockRuntime lang="tsx" code={reactCssModules} />
 
   </Tab>
   <Tab label="Solid" value="solid">
 
-```tsx
-import { Accordion } from '@moduix/solid/accordion';
-
-export function Example() {
-  return (
-    <Accordion defaultValue={['first']}>
-      <Accordion.Item value="first">
-        <Accordion.ItemTrigger>Что такое moduix?</Accordion.ItemTrigger>
-        <Accordion.ItemContent>
-          <Accordion.ItemBody>Библиотека нативных компонентов на базе Ark UI.</Accordion.ItemBody>
-        </Accordion.ItemContent>
-      </Accordion.Item>
-    </Accordion>
-  );
-}
-```
+<CodeBlockRuntime lang="tsx" code={solidCssModules} />
 
   </Tab>
 </Tabs>
@@ -254,42 +228,12 @@ export function Example() {
 <Tabs groupId="framework">
   <Tab label="React" value="react">
 
-```tsx
-import { Accordion } from '@moduix/react-tailwind/accordion';
-
-export function Example() {
-  return (
-    <Accordion defaultValue={['first']}>
-      <Accordion.Item value="first">
-        <Accordion.ItemTrigger>Что такое moduix?</Accordion.ItemTrigger>
-        <Accordion.ItemContent>
-          <Accordion.ItemBody>Библиотека нативных компонентов на базе Ark UI.</Accordion.ItemBody>
-        </Accordion.ItemContent>
-      </Accordion.Item>
-    </Accordion>
-  );
-}
-```
+<CodeBlockRuntime lang="tsx" code={reactTailwind} />
 
   </Tab>
   <Tab label="Solid" value="solid">
 
-```tsx
-import { Accordion } from '@moduix/solid-tailwind/accordion';
-
-export function Example() {
-  return (
-    <Accordion defaultValue={['first']}>
-      <Accordion.Item value="first">
-        <Accordion.ItemTrigger>Что такое moduix?</Accordion.ItemTrigger>
-        <Accordion.ItemContent>
-          <Accordion.ItemBody>Библиотека нативных компонентов на базе Ark UI.</Accordion.ItemBody>
-        </Accordion.ItemContent>
-      </Accordion.Item>
-    </Accordion>
-  );
-}
-```
+<CodeBlockRuntime lang="tsx" code={solidTailwind} />
 
   </Tab>
 </Tabs>

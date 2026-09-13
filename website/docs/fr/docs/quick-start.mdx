@@ -7,6 +7,10 @@ import { FrameworkGrid } from '@/components/docs/framework-grid';
 import { Card, Cards } from '@/components/mdx/Components';
 import componentsCssModules from '../../../snippets/quick-start/components-css-modules.json?raw';
 import componentsTailwind from '../../../snippets/quick-start/components-tailwind.json?raw';
+import reactCssModules from '../../../snippets/quick-start/react-css-modules.tsx?raw';
+import reactTailwind from '../../../snippets/quick-start/react-tailwind.tsx?raw';
+import solidCssModules from '../../../snippets/quick-start/solid-css-modules.tsx?raw';
+import solidTailwind from '../../../snippets/quick-start/solid-tailwind.tsx?raw';
 
 # Démarrage rapide
 
@@ -161,42 +165,12 @@ mode de style choisi :
 <Tabs groupId="framework">
   <Tab label="React" value="react">
 
-```tsx
-import { Accordion } from '@moduix/react/accordion';
-
-export function Example() {
-  return (
-    <Accordion defaultValue={['first']}>
-      <Accordion.Item value="first">
-        <Accordion.ItemTrigger>Qu’est-ce que moduix ?</Accordion.ItemTrigger>
-        <Accordion.ItemContent>
-          <Accordion.ItemBody>Une bibliothèque de composants natifs basée sur Ark UI.</Accordion.ItemBody>
-        </Accordion.ItemContent>
-      </Accordion.Item>
-    </Accordion>
-  );
-}
-```
+<CodeBlockRuntime lang="tsx" code={reactCssModules} />
 
   </Tab>
   <Tab label="Solid" value="solid">
 
-```tsx
-import { Accordion } from '@moduix/solid/accordion';
-
-export function Example() {
-  return (
-    <Accordion defaultValue={['first']}>
-      <Accordion.Item value="first">
-        <Accordion.ItemTrigger>Qu’est-ce que moduix ?</Accordion.ItemTrigger>
-        <Accordion.ItemContent>
-          <Accordion.ItemBody>Une bibliothèque de composants natifs basée sur Ark UI.</Accordion.ItemBody>
-        </Accordion.ItemContent>
-      </Accordion.Item>
-    </Accordion>
-  );
-}
-```
+<CodeBlockRuntime lang="tsx" code={solidCssModules} />
 
   </Tab>
 </Tabs>
@@ -261,42 +235,12 @@ Résolvez `@source` par rapport à votre feuille de styles et limitez-le au rép
 <Tabs groupId="framework">
   <Tab label="React" value="react">
 
-```tsx
-import { Accordion } from '@moduix/react-tailwind/accordion';
-
-export function Example() {
-  return (
-    <Accordion defaultValue={['first']}>
-      <Accordion.Item value="first">
-        <Accordion.ItemTrigger>Qu’est-ce que moduix ?</Accordion.ItemTrigger>
-        <Accordion.ItemContent>
-          <Accordion.ItemBody>Une bibliothèque de composants natifs basée sur Ark UI.</Accordion.ItemBody>
-        </Accordion.ItemContent>
-      </Accordion.Item>
-    </Accordion>
-  );
-}
-```
+<CodeBlockRuntime lang="tsx" code={reactTailwind} />
 
   </Tab>
   <Tab label="Solid" value="solid">
 
-```tsx
-import { Accordion } from '@moduix/solid-tailwind/accordion';
-
-export function Example() {
-  return (
-    <Accordion defaultValue={['first']}>
-      <Accordion.Item value="first">
-        <Accordion.ItemTrigger>Qu’est-ce que moduix ?</Accordion.ItemTrigger>
-        <Accordion.ItemContent>
-          <Accordion.ItemBody>Une bibliothèque de composants natifs basée sur Ark UI.</Accordion.ItemBody>
-        </Accordion.ItemContent>
-      </Accordion.Item>
-    </Accordion>
-  );
-}
-```
+<CodeBlockRuntime lang="tsx" code={solidTailwind} />
 
   </Tab>
 </Tabs>

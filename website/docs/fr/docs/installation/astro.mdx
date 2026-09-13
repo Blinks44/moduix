@@ -1,19 +1,30 @@
 ---
 title: Astro
-description: Utilisez les composants moduix React ou Solid dans des îlots Astro interactifs avec leurs styles partagés.
+description: Intégrez les composants moduix React ou Solid à Astro par paquet ou avec shadcn, avec les styles, les alias et les directives client.
 ---
 
 # Astro
-
-Les exemples ci-dessous utilisent les paquets CSS Modules, qui proposent le catalogue complet. Pour
-un composant disponible avec Tailwind, suivez la [configuration du paquet Tailwind](/docs/quick-start#tailwind-css)
-et choisissez le paquet ou le registre React ou Solid correspondant.
 
 Ce guide part d’un projet Astro existant dans lequel l’intégration officielle de React ou de Solid
 est déjà configurée. Par défaut, Astro produit du HTML statique ; ajoutez une directive `client:*`
 lorsqu’un composant doit devenir interactif dans le navigateur.
 
-## Installer le paquet
+## Choisir votre configuration
+
+- **Framework :** React ou Solid avec l’intégration Astro officielle correspondante.
+- **Styles :** CSS Modules ou Tailwind CSS v4.
+- **Distribution :** paquet ou code source copié avec la CLI shadcn.
+
+Cette page se concentre sur l’emplacement des fichiers et l’hydratation des îlots dans Astro.
+Commencez par la [configuration du paquet](/docs/quick-start#installer-le-paquet) ou la
+[configuration shadcn](/docs/quick-start#installer-avec-la-cli-shadcn) commune à votre approche de
+style. Les exemples ci-dessous utilisent les imports du paquet CSS Modules ; les points d’entrée Astro
+et les règles `client:*` restent identiques avec le paquet ou le registre Tailwind correspondant.
+
+Toutes les commandes de paquet et tous les imports de feuilles de style présentés ci-dessous concernent la configuration CSS Modules. Avec Tailwind,
+conservez la feuille globale configurée dans le Démarrage rapide.
+
+## Installation par paquet
 
 Installez le paquet adapté au framework ainsi que la dépendance Ark UI correspondante :
 
@@ -103,9 +114,9 @@ Utilisez `client:load` pour un contrôle visible immédiatement, `client:idle` s
 attendre et `client:visible` pour un composant situé plus bas dans la page. Les composants interactifs
 comme `Dialog`, `Menu` et `Select` ont besoin d’une directive client.
 
-## Installer avec la CLI shadcn
+## Installation avec la CLI shadcn
 
-Effectuez la [configuration initiale de la CLI shadcn](/docs/quick-start#installation-avec-la-cli-shadcn),
+Effectuez la [configuration initiale de la CLI shadcn](/docs/quick-start#installer-avec-la-cli-shadcn),
 faites pointer `@/*` vers `src/*` dans `tsconfig.json`, puis importez
 `@/lib/moduix/styles/style.css` dans la mise en page partagée. Ajoutez ensuite le composant adapté au
 framework :
@@ -113,12 +124,12 @@ framework :
 <Tabs groupId="framework">
   <Tab label="React" value="react">
 
-<PackageManagerTabs command="shadcn@latest add @moduix-react/button" dlx />
+<ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/button' }]} />
 
   </Tab>
   <Tab label="Solid" value="solid">
 
-<PackageManagerTabs command="shadcn@latest add @moduix-solid/button" dlx />
+<ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/button' }]} />
 
   </Tab>
 </Tabs>
@@ -127,7 +138,7 @@ Importez le composant généré directement dans le fichier `.astro` avant de lu
 directive `client:*`. Astro n’accepte ces directives que sur les composants de framework importés
 directement dans la page.
 
-## Vérifier l’installation
+## Vérification
 
 La page doit contenir du HTML rendu côté serveur et déjà mis en forme, puis le composant doit réagir
 une fois la directive client exécutée.

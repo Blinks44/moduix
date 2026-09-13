@@ -1,6 +1,6 @@
 ---
 title: Rsbuild
-description: Add moduix to an Rsbuild React or Solid app with package and shadcn installation paths.
+description: Integrate moduix with an Rsbuild React or Solid app through packages or shadcn, including styles, aliases, and runtime-specific imports.
 ---
 
 # Rsbuild
@@ -8,11 +8,22 @@ description: Add moduix to an Rsbuild React or Solid app with package and shadcn
 This guide assumes an existing Rsbuild app configured for React or Solid. Rsbuild honors TypeScript
 path aliases automatically, so the shadcn setup does not need a second `resolve.alias` entry.
 
-The examples below use the CSS Modules packages, which contain the full component catalog. For a
-component available in the Tailwind track, follow the [Tailwind package setup](/docs/quick-start#tailwind-package-setup)
-and choose the matching React or Solid Tailwind package or registry.
 
-## Install the package
+## Choose your setup
+
+- **Runtime:** React or Solid with the matching Rsbuild plugin.
+- **Styling:** CSS Modules or Tailwind CSS v4.
+- **Distribution:** a package or source copied with the shadcn CLI.
+
+Complete the shared [package setup](/docs/quick-start#install-as-a-package) or
+[shadcn setup](/docs/quick-start#install-with-the-shadcn-cli) for your styling track first. This page
+uses CSS Modules package imports; Rsbuild entry points and TypeScript alias handling stay the same
+with the matching Tailwind package or registry.
+
+All package commands and stylesheet imports shown below belong to CSS Modules. With Tailwind, keep the global stylesheet
+configured in Quick Start instead.
+
+## Install as a package
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
@@ -72,12 +83,22 @@ Rsbuild reads `compilerOptions.paths` automatically. Add the component for your 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
 
-<PackageManagerTabs command="shadcn@latest add @moduix-react/button" dlx />
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/button' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/button' },
+  ]}
+/>
 
   </Tab>
   <Tab label="Solid" value="solid">
 
-<PackageManagerTabs command="shadcn@latest add @moduix-solid/button" dlx />
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/button' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/button' },
+  ]}
+/>
 
   </Tab>
 </Tabs>

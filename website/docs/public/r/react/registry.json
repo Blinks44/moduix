@@ -2082,7 +2082,7 @@
       ]
     },
     {
-      "name": "table-of-contents",
+      "name": "toc",
       "type": "registry:item",
       "title": "Table of Contents",
       "description": "moduix React Table of Contents component.",

@@ -1,19 +1,30 @@
 ---
 title: TanStack Start
-description: Installez moduix dans TanStack Start pour React ou Solid par paquet ou avec la CLI shadcn.
+description: Intégrez moduix à TanStack Start pour React ou Solid par paquet ou avec shadcn, avec les styles racine, les alias, le SSR et l’hydratation.
 ---
 
 # TanStack Start
-
-Les exemples ci-dessous utilisent les paquets CSS Modules, qui proposent le catalogue complet. Pour
-un composant disponible avec Tailwind, suivez la [configuration du paquet Tailwind](/docs/quick-start#tailwind-css)
-et choisissez le paquet ou le registre React ou Solid correspondant.
 
 Ce guide part d’une application TanStack Start existante, configurée pour React ou Solid. Start peut
 utiliser Vite ou Rsbuild, rend l’arbre des routes côté serveur, puis l’hydrate dans le navigateur ;
 dans une configuration standard, moduix ne nécessite pas de directive `use client`.
 
-## Installer le paquet
+## Choisir votre configuration
+
+- **Framework :** React ou Solid avec l’adaptateur TanStack Start correspondant.
+- **Styles :** CSS Modules ou Tailwind CSS v4.
+- **Distribution :** paquet ou code source copié avec la CLI shadcn.
+
+Commencez par la [configuration du paquet](/docs/quick-start#installer-le-paquet) ou la
+[configuration shadcn](/docs/quick-start#installer-avec-la-cli-shadcn) commune à votre approche de
+style. Les exemples utilisent les imports des paquets CSS Modules ; l’emplacement de la route racine,
+les alias, le SSR et les vérifications d’hydratation restent identiques avec le paquet ou le registre
+Tailwind correspondant.
+
+Toutes les commandes de paquet et tous les imports de feuilles de style présentés ci-dessous concernent la configuration CSS Modules. Avec Tailwind,
+conservez la feuille globale configurée dans le Démarrage rapide.
+
+## Installation par paquet
 
 Installez le paquet qui correspond au framework de votre application :
 
@@ -86,9 +97,9 @@ function Home() {
   </Tab>
 </Tabs>
 
-## Installer avec la CLI shadcn
+## Installation avec la CLI shadcn
 
-Effectuez la [configuration initiale de la CLI shadcn](/docs/quick-start#installation-avec-la-cli-shadcn).
+Effectuez la [configuration initiale de la CLI shadcn](/docs/quick-start#installer-avec-la-cli-shadcn).
 Si le projet ne fait pas déjà pointer `@/*` vers `src/*`, ajoutez cet alias au fichier
 `tsconfig.json` racine :
 
@@ -109,12 +120,12 @@ avec Vite, suivez le guide de TanStack Start consacré aux alias. Ajoutez ensuit
 <Tabs groupId="framework">
   <Tab label="React" value="react">
 
-<PackageManagerTabs command="shadcn@latest add @moduix-react/button" dlx />
+<ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/button' }]} />
 
   </Tab>
   <Tab label="Solid" value="solid">
 
-<PackageManagerTabs command="shadcn@latest add @moduix-solid/button" dlx />
+<ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/button' }]} />
 
   </Tab>
 </Tabs>
@@ -125,7 +136,7 @@ Dans la route racine, remplacez la feuille de styles du paquet par le fichier g�
 import '@/lib/moduix/styles/style.css';
 ```
 
-## Vérifier l’installation
+## Vérification
 
 Démarrez le serveur de développement et ouvrez `/`. La page rendue côté serveur doit déjà inclure les
 styles moduix, puis s’hydrater sans divergence. Évitez dans le rendu serveur les API réservées au

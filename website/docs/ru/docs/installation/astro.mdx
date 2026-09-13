@@ -1,19 +1,30 @@
 ---
 title: Astro
-description: Подключение компонентов moduix для React и Solid к интерактивным островам Astro с общими стилями и клиентскими директивами.
+description: Подключение компонентов moduix для React и Solid к Astro через пакеты или shadcn, включая стили, алиасы и клиентские директивы.
 ---
 
 # Astro
-
-В примерах ниже используются пакеты с CSS Modules, в которых доступен полный каталог компонентов.
-Для компонентов на Tailwind выполните [настройку Tailwind-пакета](/docs/quick-start#tailwind-css)
-и выберите пакет или реестр для React либо Solid.
 
 Руководство предполагает существующий Astro-проект с уже настроенной официальной интеграцией React
 или Solid. По умолчанию компонент превращается в статический HTML. Чтобы он работал в браузере,
 добавьте директиву `client:*`.
 
-## Установите пакет
+## Выберите вариант настройки
+
+- **Среда:** React или Solid с соответствующей официальной интеграцией Astro.
+- **Стилизация:** CSS Modules или Tailwind CSS v4.
+- **Поставка:** пакет или исходный код, добавленный через shadcn CLI.
+
+Эта страница посвящена расположению файлов и гидратации островов в Astro. Сначала выполните общую
+[настройку пакета](/docs/quick-start#установить-как-пакет) или
+[настройку shadcn](/docs/quick-start#установить-через-shadcn-cli) для выбранного варианта стилей. Ниже
+показаны импорты пакета на CSS Modules; точки входа Astro и правила `client:*` не меняются при выборе
+соответствующего Tailwind-пакета или реестра.
+
+Все показанные ниже команды установки пакетов и импорты таблиц стилей относятся к CSS Modules. С Tailwind сохраняйте глобальную
+таблицу стилей, настроенную в Быстром старте.
+
+## Установка из пакета
 
 Установите пакет для выбранного фреймворка и соответствующую зависимость Ark UI:
 
@@ -105,19 +116,19 @@ import { ContinueButton } from '../components/ContinueButton';
 
 ## Установка через shadcn CLI
 
-Выполните [первоначальную настройку shadcn CLI](/docs/quick-start#установка-через-shadcn-cli), задайте
+Выполните [первоначальную настройку shadcn CLI](/docs/quick-start#установить-через-shadcn-cli), задайте
 алиас `@/*` для `src/*` в `tsconfig.json` и импортируйте `@/lib/moduix/styles/style.css` в общем
 макете. Затем добавьте компонент для выбранного фреймворка:
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
 
-<PackageManagerTabs command="shadcn@latest add @moduix-react/button" dlx />
+<ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/button' }]} />
 
   </Tab>
   <Tab label="Solid" value="solid">
 
-<PackageManagerTabs command="shadcn@latest add @moduix-solid/button" dlx />
+<ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/button' }]} />
 
   </Tab>
 </Tabs>
@@ -131,6 +142,6 @@ import { ContinueButton } from '../components/ContinueButton';
 До гидратации страница должна содержать оформленный серверный HTML, а после выполнения клиентской
 директивы компонент должен реагировать на действия пользователя.
 
-Подробнее — в руководстве Astro по [компонентам разных фреймворков](https://docs.astro.build/en/guides/framework-components/)
+Подробности есть в руководстве Astro по [компонентам разных фреймворков](https://docs.astro.build/en/guides/framework-components/)
 и официальных инструкциях для [React](https://docs.astro.build/en/guides/integrations-guide/react/)
 и [Solid](https://docs.astro.build/en/guides/integrations-guide/solid-js/).
