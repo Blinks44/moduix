@@ -18,6 +18,35 @@ traverse and filter nodes, and produce immutable updates.
 
 <PrimitiveReference href="https://ark-ui.com/docs/collections/tree-collection" />
 
+Import the collection helpers from the Ark UI entry point for your framework:
+
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
+
+```tsx
+import { createFileTreeCollection, createTreeCollection } from '@ark-ui/react/collection';
+```
+
+  </Tab>
+  <Tab value="solid">
+
+```tsx
+import { createFileTreeCollection, createTreeCollection } from '@ark-ui/solid/collection';
+```
+
+  </Tab>
+</Tabs>
+
+Moduix also re-exports both helpers from each `tree-view` entry point. The component-based examples
+below use that path so `TreeView` and its collection helpers come from the same package.
+
 ## Basic
 
 `createTreeCollection` accepts a `rootNode`. The default node shape reads `value`, `label`,
@@ -28,7 +57,9 @@ Use the collection as the data source for `TreeView`. Render `collection.rootNod
 each node's numeric position as its `indexPath`.
 
 <ExampleFrame variant="component">
-  <TreeCollectionBasic />
+  <PreviewFrame maxWidth="sm">
+    <TreeCollectionBasic />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>
@@ -261,6 +292,13 @@ state that owns the tree and render its new `rootNode`.
   </Tab>
 </Tabs>
 
-Use the framework and styling import from the table above. For async children, update the collection
-only after the request succeeds. The [Tree View](/docs/tree-view) async-loading example shows how to
-connect that new collection to an accessible tree.
+For async children, update the collection only after the request succeeds. The
+[Tree View](/docs/tree-view) async-loading example shows how to connect that new collection to an
+accessible tree.
+
+## Integration and accessibility
+
+The collection manages hierarchy only. Use `TreeView` for tree semantics, focus, keyboard
+navigation, expansion, and selection. A custom renderer must provide those behaviors itself. Keep
+stable node values in application state, and resolve fresh index paths from the current collection
+after an immutable update.

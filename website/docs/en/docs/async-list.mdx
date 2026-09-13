@@ -9,13 +9,13 @@ import asyncListSolidServerDriven from '../../../snippets/async-list/solid/serve
 
 # Async List
 
-## API reference
-
-<PrimitiveReference href="https://ark-ui.com/docs/collections/async-list" />
-
 `useAsyncList` manages asynchronous collection data and request state without rendering markup. It
 keeps items, filtering, sorting, pagination, loading, and errors together while your component
 chooses the list structure and status UI.
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/collections/async-list" />
 
 This hook is provided by Ark UI, not re-exported by Moduix. Use the collection entry point for the
 framework in your application:
@@ -56,7 +56,9 @@ empty, and error states, and use `reload()` for refresh and retry actions. The h
 any list semantics, so the example supplies a labelled section, a list, and status roles itself.
 
 <ExampleFrame clientOnly variant="component">
-  <AsyncListBasic />
+  <PreviewFrame maxWidth="sm">
+    <AsyncListBasic />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>

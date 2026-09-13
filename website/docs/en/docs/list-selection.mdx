@@ -13,7 +13,7 @@ import listSelectionSolidMultiple from '../../../snippets/list-selection/solid/m
 `useListSelection` manages selected values in a `ListCollection` while your application owns the
 markup and interaction model.
 
-## API reference
+## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/collections/list-selection" />
 
@@ -55,7 +55,9 @@ The hook stores selection state. The example supplies a labelled section, native
 the equivalent native Solid implementation.
 
 <ExampleFrame variant="component">
-  <ListSelectionBasic />
+  <PreviewFrame maxWidth="sm">
+    <ListSelectionBasic />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>
@@ -93,7 +95,9 @@ Use `selectionMode: 'multiple'` when users can select several values without mod
 example also uses `isAllSelected`, `setSelectedValues`, and `clear` for a select-all action.
 
 <ExampleFrame variant="component">
-  <ListSelectionMultiple />
+  <PreviewFrame maxWidth="sm">
+    <ListSelectionMultiple />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>

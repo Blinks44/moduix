@@ -15,9 +15,40 @@ arborescentes. Elle ne rend aucune interface et ne gère ni la sélection, ni le
 au clavier. Utilisez-la pour créer une hiérarchie typée, interroger les relations entre les nœuds,
 parcourir et filtrer l'arbre, puis produire des mises à jour immuables.
 
-## Référence de l'API
+## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/collections/tree-collection" />
+
+Importez les fonctions de collection depuis le point d’entrée Ark UI correspondant à votre
+framework :
+
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
+
+```tsx
+import { createFileTreeCollection, createTreeCollection } from '@ark-ui/react/collection';
+```
+
+  </Tab>
+  <Tab value="solid">
+
+```tsx
+import { createFileTreeCollection, createTreeCollection } from '@ark-ui/solid/collection';
+```
+
+  </Tab>
+</Tabs>
+
+Moduix réexporte également les deux fonctions depuis chaque point d’entrée `tree-view`. Les exemples
+avec le composant utilisent ce chemin afin d’importer `TreeView` et les fonctions de collection depuis
+le même package.
 
 ## Exemple de base
 
@@ -29,7 +60,9 @@ Utilisez la collection comme source de données pour `TreeView`. Rendez
 `collection.rootNode.children` et transmettez à chaque nœud sa position numérique comme `indexPath`.
 
 <ExampleFrame variant="component">
-  <TreeCollectionBasic />
+  <PreviewFrame maxWidth="sm">
+    <TreeCollectionBasic />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>
@@ -266,7 +299,13 @@ séparés par `/` :
   </Tab>
 </Tabs>
 
-Utilisez l'import correspondant au framework et au style dans le tableau ci-dessus. Pour un chargement
-asynchrone, mettez à jour la collection uniquement après la réussite de la requête. L'exemple
-sur le chargement asynchrone de [Tree View](/docs/tree-view) montre comment connecter cette nouvelle collection à un
-arbre accessible.
+Pour un chargement asynchrone, mettez à jour la collection uniquement après la réussite de la
+requête. L’exemple de chargement asynchrone de [Tree View](/docs/tree-view) montre comment connecter
+cette nouvelle collection à un arbre accessible.
+
+## Intégration et accessibilité
+
+La collection gère uniquement la hiérarchie. Utilisez `TreeView` pour la sémantique d’arbre, le
+focus, la navigation au clavier, l’ouverture et la sélection. Un rendu personnalisé doit fournir
+lui-même ces comportements. Conservez des valeurs de nœud stables dans l’état de l’application et
+recalculez les chemins d’index depuis la collection courante après une mise à jour immuable.

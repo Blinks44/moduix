@@ -9,13 +9,13 @@ import asyncListSolidServerDriven from '../../../snippets/async-list/solid/serve
 
 # Async List
 
-## Référence de l’API
-
-<PrimitiveReference href="https://ark-ui.com/docs/collections/async-list" />
-
 `useAsyncList` gère les données asynchrones d’une collection et l’état des requêtes sans générer de
 marquage. Il regroupe les éléments, le filtrage, le tri, la pagination, les chargements et les
 erreurs, tandis que votre composant choisit la structure de la liste et l’affichage de ses états.
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/collections/async-list" />
 
 Ce hook est fourni par Ark UI et n’est pas réexporté par Moduix. Utilisez le point d’entrée du
 framework de votre application :
@@ -58,7 +58,9 @@ actualiser la liste ou réessayer après une erreur. Le hook ne fournit aucune s
 l’exemple ajoute lui-même une section nommée, une liste et les rôles des messages d’état.
 
 <ExampleFrame clientOnly variant="component">
-  <AsyncListBasic />
+  <PreviewFrame maxWidth="sm">
+    <AsyncListBasic />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>

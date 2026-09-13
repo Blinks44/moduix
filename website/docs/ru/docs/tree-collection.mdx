@@ -19,6 +19,35 @@ import treeCollectionSolidBasic from '../../../snippets/tree-collection/solid/ba
 
 <PrimitiveReference href="https://ark-ui.com/docs/collections/tree-collection" />
 
+Импортируйте функции коллекции из точки входа Ark UI для нужного фреймворка:
+
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
+
+```tsx
+import { createFileTreeCollection, createTreeCollection } from '@ark-ui/react/collection';
+```
+
+  </Tab>
+  <Tab value="solid">
+
+```tsx
+import { createFileTreeCollection, createTreeCollection } from '@ark-ui/solid/collection';
+```
+
+  </Tab>
+</Tabs>
+
+Moduix также реэкспортирует обе функции из каждой точки входа `tree-view`. В примерах с компонентом
+используется этот путь, поэтому `TreeView` и функции коллекции импортируются из одного пакета.
+
 ## Базовый пример
 
 `createTreeCollection` принимает `rootNode`. В стандартной структуре используются поля `value`,
@@ -29,7 +58,9 @@ import treeCollectionSolidBasic from '../../../snippets/tree-collection/solid/ba
 `collection.rootNode.children` и передавайте каждой ветви её числовую позицию как `indexPath`.
 
 <ExampleFrame variant="component">
-  <TreeCollectionBasic />
+  <PreviewFrame maxWidth="sm">
+    <TreeCollectionBasic />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>
@@ -262,6 +293,13 @@ const moved = collection.move([readmePath], srcPath);
   </Tab>
 </Tabs>
 
-Используйте импорт фреймворка и стилизации из таблицы выше. При асинхронной загрузке обновляйте
-коллекцию только после успешного ответа. Пример подключения новой коллекции к доступному дереву
-есть в разделе асинхронной загрузки на странице [Tree View](/docs/tree-view).
+При асинхронной загрузке обновляйте коллекцию только после успешного ответа. Пример подключения
+новой коллекции к доступному дереву есть в разделе асинхронной загрузки на странице
+[Tree View](/docs/tree-view).
+
+## Интеграция и доступность
+
+Коллекция управляет только иерархией. Семантику дерева, фокус, клавиатурную навигацию, раскрытие и
+выбор обеспечивает `TreeView`. При собственной отрисовке эти возможности нужно реализовать в
+приложении. Храните в состоянии стабильные значения узлов, а после неизменяемого обновления заново
+получайте пути индексов из текущей коллекции.

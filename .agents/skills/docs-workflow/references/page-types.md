@@ -42,9 +42,28 @@ Keep utility pages concise. Do not reproduce the upstream prop table or every ex
 
 Use `ExampleFrame variant="component"` for a displayed example. Wrap its content in `<PreviewFrame maxWidth="sm">` by default because utilities do not need a full-width canvas. Choose another existing size only when the example itself requires it and keep the choice consistent across locales. Source-only examples do not need an empty visual preview.
 
-## Collections, forms, and guides
+## Collection pages
 
-These families do not yet have a canonical page structure. Do not infer one from a single page or force the component or utility template onto them.
+Use this structure for Ark collection APIs that manage data without owning the complete interface:
+
+1. `API Reference` with the exact upstream Ark UI page and a compact import example for every shipped framework;
+2. a recommended basic use case with one live preview when rendering helps explain the data contract;
+3. native framework source tabs for each applicable preview;
+4. focused usage sections for distinct concerns such as item mapping, asynchronous loading, selection, querying, traversal, filtering, or immutable updates;
+5. `API essentials` only when a compact configuration, state, or action summary helps readers choose the right API;
+6. integration and accessibility guidance that clearly separates collection-owned data behavior from application-owned or component-owned interaction.
+
+Prefer the Ark UI collection entry point when documenting an API that consumers use directly. If Moduix re-exports a helper as part of a component contract, explain that relationship and let component-based examples use the matching Moduix entry point.
+
+Do not reproduce every upstream method or example. Teach the basic data model, the operations needed for common integration, and the state or lifecycle constraints that are easy to misuse. Keep framework differences next to the code or API shape they affect.
+
+Use `ExampleFrame variant="component"` for a displayed example and wrap its content in `<PreviewFrame maxWidth="sm">` by default. Collection examples are data-focused and should not expand to the full documentation canvas. Choose another existing size only when the rendered interface genuinely needs it and keep the choice consistent across locales.
+
+List Collection is the current structural reference. It is not the source of truth for which collection APIs or framework adapters ship.
+
+## Forms and guides
+
+These families do not yet have a canonical page structure. Do not infer one from a single page or force the component, utility, or collection template onto them.
 
 When one of these families is deliberately standardized:
 

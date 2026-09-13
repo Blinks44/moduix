@@ -9,13 +9,13 @@ import asyncListSolidServerDriven from '../../../snippets/async-list/solid/serve
 
 # Async List
 
-## Справочник API
-
-<PrimitiveReference href="https://ark-ui.com/docs/collections/async-list" />
-
 `useAsyncList` управляет асинхронными данными коллекции и состоянием запросов, не создавая
 разметку. Хук хранит элементы, фильтрацию, сортировку, постраничную загрузку, состояния загрузки
 и ошибки, а компонент сам выбирает структуру списка и отображение этих состояний.
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/collections/async-list" />
 
 Хук предоставляет Ark UI, а Moduix его не экспортирует. Используйте точку входа для нужного
 фреймворка:
@@ -57,7 +57,9 @@ CSS Modules и Tailwind не меняют API hook. Стилизуйте окр�
 подписанную секцию, список и роли для сообщений о состоянии.
 
 <ExampleFrame clientOnly variant="component">
-  <AsyncListBasic />
+  <PreviewFrame maxWidth="sm">
+    <AsyncListBasic />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>
