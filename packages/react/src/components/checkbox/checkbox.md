@@ -80,10 +80,10 @@ Checkbox.Group
 | indeterminate icon          | `checkbox-indicator-indeterminate-icon` | Default indeterminate icon wrapper.                  |
 | `Checkbox.Label`            | `checkbox-label`                        | Styled Ark label.                                    |
 | `Checkbox.Group`            | `checkbox-group`                        | Styled Ark group root for shared value state.        |
-| `Checkbox.Context`          | —                                       | Render-prop access to current checkbox state.        |
-| `useCheckboxContext()`      | —                                       | Hook access to current checkbox state.               |
-| `useCheckboxGroup()`        | —                                       | Creates group state for Ark `GroupProvider`.         |
-| `useCheckboxGroupContext()` | —                                       | Hook access to the nearest checkbox group state.     |
+| `Checkbox.Context`          | -                                       | Render-prop access to current checkbox state.        |
+| `useCheckboxContext()`      | -                                       | Hook access to current checkbox state.               |
+| `useCheckboxGroup()`        | -                                       | Creates group state for Ark `GroupProvider`.         |
+| `useCheckboxGroupContext()` | -                                       | Hook access to the nearest checkbox group state.     |
 
 ## Composition
 

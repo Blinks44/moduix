@@ -73,9 +73,9 @@ Timer.Segments
 | `Timer.Separator`      | `timer-separator`      | Visual separator between items.                            |
 | `Timer.Control`        | `timer-control`        | Groups action triggers.                                    |
 | `Timer.ActionTrigger`  | `timer-action-trigger` | Button that dispatches an Ark timer action.                |
-| `Timer.Context`        | —                      | Reads the current Ark timer API in the rendered subtree.   |
-| `useTimer`             | —                      | Creates Ark timer state for `Timer.RootProvider`.          |
-| `useTimerContext`      | —                      | Reads the current Ark timer API from context.              |
+| `Timer.Context`        | -                      | Reads the current Ark timer API in the rendered subtree.   |
+| `useTimer`             | -                      | Creates Ark timer state for `Timer.RootProvider`.          |
+| `useTimerContext`      | -                      | Reads the current Ark timer API from context.              |
 
 ## Composition
 

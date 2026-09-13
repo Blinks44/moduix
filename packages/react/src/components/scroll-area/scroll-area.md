@@ -81,7 +81,7 @@ ScrollArea / ScrollArea.Root
 | `ScrollArea.Scrollbar`           | `scroll-area-scrollbar`     | One scrollbar track; vertical by default.                   |
 | `ScrollArea.Thumb`               | `scroll-area-thumb`         | Draggable thumb.                                            |
 | `ScrollArea.Corner`              | `scroll-area-corner`        | Bottom-end filler for two-axis overflow.                    |
-| `ScrollArea.useScrollArea`       | —                           | Ark state hook for `RootProvider` composition.              |
+| `ScrollArea.useScrollArea`       | -                           | Ark state hook for `RootProvider` composition.              |
 
 No flat part aliases such as `ScrollAreaRoot` or `ScrollAreaViewport` are exported.
 

@@ -73,7 +73,7 @@
   {
     "type": "file",
     "name": "angle-slider",
-    "label": "AngleSlider",
+    "label": "Angle Slider",
     "tag": "component"
   },
   {
@@ -163,7 +163,7 @@
     "name": "container",
     "tag": "component"
   },
-  { "type": "file", "name": "date-input", "tag": "component" },
+  { "type": "file", "name": "date-input", "label": "Date Input", "tag": "component" },
   { "type": "file", "name": "date-picker", "tag": "component" },
   { "type": "file", "name": "dialog", "tag": "component" },
   { "type": "file", "name": "drawer", "tag": "component" },

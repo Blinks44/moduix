@@ -19,7 +19,7 @@ is moduix sugar for the standard sequence of indexed inputs.
 The official Ark UI 5.38.1 documentation and installed Ark UI 5.37.2 primitive were reviewed on
 2026-08-11.
 
-## Upstream comparison — reviewed 2026-08-11
+## Upstream comparison - reviewed 2026-08-11
 
 | Source              | Useful difference                                                                     | Decision                                                                                                                                                 |
 | ------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |

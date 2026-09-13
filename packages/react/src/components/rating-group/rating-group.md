@@ -61,10 +61,10 @@ RatingGroup.RootProvider
 | `.RootProvider`         | `data-slot="rating-group-root-provider"`  | Connects an Ark `useRatingGroup()` store. |
 | `.Label`                | `data-slot="rating-group-label"`          | Ark label part.                           |
 | `.Control`              | `data-slot="rating-group-control"`        | Ark item container.                       |
-| `.Items`                | —                                         | Renders Ark items and default stars.      |
+| `.Items`                | -                                         | Renders Ark items and default stars.      |
 | `.Item`                 | `data-slot="rating-group-item"`           | Ark item; requires numeric `index`.       |
-| `.ItemContext`          | —                                         | Render-prop access to current item state. |
-| `.Context`              | —                                         | Render-prop access to current root state. |
+| `.ItemContext`          | -                                         | Render-prop access to current item state. |
+| `.Context`              | -                                         | Render-prop access to current root state. |
 | `.ItemIndicator`        | `data-slot="rating-group-item-indicator"` | Default moduix star visual.               |
 
 ## Composition

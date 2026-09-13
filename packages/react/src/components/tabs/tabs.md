@@ -48,13 +48,13 @@ State and callbacks must remain Ark-shaped. `onValueChange(details)` exposes the
 | ------------------- | -------------------- | -------------------------------------------------- |
 | `Tabs`              | `tabs-root`          | Root div, selected value, focus and orientation.   |
 | `Tabs.RootProvider` | `tabs-root-provider` | Root provider div for `useTabs()` state.           |
-| `Tabs.Context`      | —                    | Advanced render-prop access to the current state.  |
+| `Tabs.Context`      | -                    | Advanced render-prop access to the current state.  |
 | `Tabs.List`         | `tabs-list`          | Trigger list.                                      |
 | `Tabs.Trigger`      | `tabs-trigger`       | Button by default; supports Ark `asChild`.         |
 | `Tabs.Indicator`    | `tabs-indicator`     | Optional active-trigger indicator.                 |
 | `Tabs.Content`      | `tabs-content`       | Content region for a matching trigger value.       |
-| `useTabs`           | —                    | Ark-compatible state hook for `Tabs.RootProvider`. |
-| `useTabsContext`    | —                    | Reads the current state from a Tabs tree.          |
+| `useTabs`           | -                    | Ark-compatible state hook for `Tabs.RootProvider`. |
+| `useTabsContext`    | -                    | Reads the current state from a Tabs tree.          |
 
 ## Composition
 

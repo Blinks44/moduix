@@ -7,9 +7,9 @@
 - `packages/<framework>`: public framework-native CSS Modules adapters, tests, and component-local docs. The current adapters are `react` and `solid`.
 - `packages/<framework>-tailwind`: public Tailwind variants kept behaviorally aligned with the CSS Modules adapter for that framework. The current variants are `react-tailwind` and `solid-tailwind`.
 - `playgrounds/<framework>` and `playgrounds/<framework>-tailwind`: private playgrounds for parity checks when that adapter ships.
-- `website` — the Rspress documentation site, runnable component examples, and generated registry artifacts.
-- `packages/foundation/registry.json` and each public package's `registry.json` — source manifests for the hosted registries; each manifest owns files within its package.
-- `packages/oxlint-config` and `packages/oxfmt-config` — shared linting and formatting configuration.
+- `website` - the Rspress documentation site, runnable component examples, and generated registry artifacts.
+- `packages/foundation/registry.json` and each public package's `registry.json` - source manifests for the hosted registries; each manifest owns files within its package.
+- `packages/oxlint-config` and `packages/oxfmt-config` - shared linting and formatting configuration.
 
 ## README package-manager commands
 

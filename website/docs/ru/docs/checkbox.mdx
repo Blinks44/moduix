@@ -148,10 +148,10 @@ Checkbox.Group
 
 ## Композиция
 
-`Checkbox.HiddenInput` — нативное поле Ark. Добавляйте его явно внутрь `Checkbox.Root` или
+`Checkbox.HiddenInput` - нативное поле Ark. Добавляйте его явно внутрь `Checkbox.Root` или
 `Checkbox.RootProvider`, даже вне формы: оно отвечает за нативный фокус, работу с клавиатурой,
 доступность и участие в форме. Для отдельного поля задайте `name` и `value` на корневом компоненте;
-для группы задайте `name` на `Checkbox.Group`, а `value` — на каждом `Checkbox.Root`.
+для группы задайте `name` на `Checkbox.Group`, а `value` - на каждом `Checkbox.Root`.
 
 `Checkbox.Group` хранит массив выбранных значений, а каждый дочерний элемент является
 `Checkbox.Root` со своим `value`. Оставьте `Checkbox.Control` пустым, чтобы использовать встроенные

@@ -21,12 +21,12 @@ integration intact. `Items` includes each input; direct item composition is expl
 
 Reviewed on 2026-08-12:
 
-- Ark UI: https://ark-ui.com/docs/components/segment-group — required correctness: radio-group
+- Ark UI: https://ark-ui.com/docs/components/segment-group - required correctness: radio-group
   semantics, roving focus, arrow-key selection, `RootProvider`, measured indicator, and native
   input lifecycle.
-- Chakra UI: https://chakra-ui.com/docs/components/segmented-control — consumer ergonomics:
+- Chakra UI: https://chakra-ui.com/docs/components/segmented-control - consumer ergonomics:
   `Items` is the appropriate concise path for standard item lists.
-- shadcn/ui: https://ui.shadcn.com/docs/components/base/toggle-group — consumer expectation:
+- shadcn/ui: https://ui.shadcn.com/docs/components/base/toggle-group - consumer expectation:
   keep the default composition concise and make orientation and disabled states discoverable.
 
 Intentional differences: moduix keeps Ark-shaped parts, explicit native inputs, and CSS-variable
@@ -63,10 +63,10 @@ moduix defaults `orientation` to `horizontal` on `SegmentGroup.Root`. Explicit
 | --------------------------- | ----------------------------- | ------------------------------------------ |
 | `SegmentGroup` / `Root`     | `segment-group-root`          | Ark root, value state, orientation, forms. |
 | `SegmentGroup.RootProvider` | `segment-group-root-provider` | Uses state from `useSegmentGroup`.         |
-| `SegmentGroup.Context`      | —                             | Advanced render-prop access to root state. |
-| `SegmentGroup.ItemContext`  | —                             | Advanced render-prop access to item state. |
+| `SegmentGroup.Context`      | -                             | Advanced render-prop access to root state. |
+| `SegmentGroup.ItemContext`  | -                             | Advanced render-prop access to item state. |
 | `SegmentGroup.Label`        | `segment-group-label`         | Optional Ark group label.                  |
-| `SegmentGroup.Items`        | —                             | Renders standard text items.               |
+| `SegmentGroup.Items`        | -                             | Renders standard text items.               |
 | `SegmentGroup.Item`         | `segment-group-item`          | Ark item, renders a `label` by default.    |
 | `SegmentGroup.ItemControl`  | `segment-group-item-control`  | Hidden visual control part for Ark state.  |
 | `SegmentGroup.ItemText`     | `segment-group-item-text`     | Visible item text.                         |

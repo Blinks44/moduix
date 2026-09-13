@@ -33,12 +33,12 @@ For a moduix-owned native form control, state whether moduix inserts it automati
 
 Use these compact sections when relevant:
 
-1. **Upstream reference** — exact URL or explicit absence of a dedicated primitive.
-2. **Purpose** — one short statement.
-3. **Public contract** — parts, defaults, and composition.
-4. **Preservation notes** — Ark-shaped behavior that must not regress.
-5. **Styling and accessibility** — only real consumer hooks and constraints.
-6. **Differences from upstream** — intentional deviations and migration notes.
+1. **Upstream reference** - exact URL or explicit absence of a dedicated primitive.
+2. **Purpose** - one short statement.
+3. **Public contract** - parts, defaults, and composition.
+4. **Preservation notes** - Ark-shaped behavior that must not regress.
+5. **Styling and accessibility** - only real consumer hooks and constraints.
+6. **Differences from upstream** - intentional deviations and migration notes.
 
 ## Keep it current
 

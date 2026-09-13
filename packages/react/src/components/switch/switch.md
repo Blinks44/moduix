@@ -60,9 +60,9 @@ for the same state instance.
 | `Switch.Control`         | `SwitchPrimitive.Control`      | `switch-control`       | Visual track, focus ring target.                        |
 | `Switch.Thumb`           | `SwitchPrimitive.Thumb`        | `switch-thumb`         | Movable thumb; supports custom children.                |
 | `Switch.Label`           | `SwitchPrimitive.Label`        | `switch-label`         | Ark-connected label text.                               |
-| `Switch.Context`         | `SwitchContext`                | —                      | Render-prop access to the current Ark switch state.     |
-| `useSwitchContext`       | `useSwitchContext`             | —                      | Hook access to the current Ark switch state.            |
-| `useSwitch`              | `useSwitch`                    | —                      | Creates state for `Switch.RootProvider`.                |
+| `Switch.Context`         | `SwitchContext`                | -                      | Render-prop access to the current Ark switch state.     |
+| `useSwitchContext`       | `useSwitchContext`             | -                      | Hook access to the current Ark switch state.            |
+| `useSwitch`              | `useSwitch`                    | -                      | Creates state for `Switch.RootProvider`.                |
 
 State helpers are imported from `@moduix/react` with `Switch`.
 

@@ -57,7 +57,7 @@ ToggleGroup.RootProvider
 | ---------------------------------- | ---------------------------- | ------------------------------------------------------ |
 | `ToggleGroup` / `ToggleGroup.Root` | `toggle-group-root`          | Ark root with selected values, roving focus, and size. |
 | `ToggleGroup.RootProvider`         | `toggle-group-root-provider` | Ark root driven by an external `useToggleGroup` state. |
-| `ToggleGroup.Context`              | —                            | Render-prop access to current group state.             |
+| `ToggleGroup.Context`              | -                            | Render-prop access to current group state.             |
 | `ToggleGroup.Item`                 | `toggle-group-item`          | Ark item button styled with moduix toggle visuals.     |
 
 ## Composition

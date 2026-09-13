@@ -1,6 +1,6 @@
 # Eject Components Reference
 
-Eject copies a built-in component's source code into your project for full customization. This is the heaviest approach — ejected components do not receive automatic updates when Rspress upgrades. Prefer CSS variables, BEM overrides, or Layout slots whenever possible.
+Eject copies a built-in component's source code into your project for full customization. This is the heaviest approach - ejected components do not receive automatic updates when Rspress upgrades. Prefer CSS variables, BEM overrides, or Layout slots whenever possible.
 
 Official reference: <https://rspress.rs/api/commands>
 
@@ -22,7 +22,7 @@ Ejected source is placed in `theme/components/<ComponentName>/`.
 
 | Component        | Description                               | Consider wrapping first?                         |
 | ---------------- | ----------------------------------------- | ------------------------------------------------ |
-| `Layout`         | Main layout container with all slot props | Yes — use Layout slots instead                   |
+| `Layout`         | Main layout container with all slot props | Yes - use Layout slots instead                   |
 | `Root`           | Application root wrapper                  | Only eject for global providers                  |
 | `Banner`         | Notification banner at top of page        | Check `top` slot first                           |
 | `NavTitle`       | Navigation logo and title                 | Check `navTitle` / `beforeNavTitle` slots        |
@@ -35,8 +35,8 @@ Ejected source is placed in `theme/components/<ComponentName>/`.
 | `EditLink`       | "Edit this page" link                     | Configure via `themeConfig.editLink`             |
 | `LastUpdated`    | Last updated timestamp                    | Usually config is enough                         |
 | `PrevNextPage`   | Previous/next page navigation             | Check `beforeDocFooter` slot                     |
-| `OverviewGroup`  | Overview page group cards                 | —                                                |
-| `Tag`            | Tag/label component                       | —                                                |
+| `OverviewGroup`  | Overview page group cards                 | -                                                |
+| `Tag`            | Tag/label component                       | -                                                |
 
 ## Step-by-Step Eject Workflow
 
@@ -83,7 +83,7 @@ export { Root } from './components/Root';
 
 ## Common Pattern: Custom Home Page (HomeLayout)
 
-When the default home page structure (Hero + Features) doesn't meet the design requirements — for example, you need a completely different landing page with custom sections, animations, or a non-standard layout — write a custom `HomeLayout` component and re-export it directly:
+When the default home page structure (Hero + Features) doesn't meet the design requirements - for example, you need a completely different landing page with custom sections, animations, or a non-standard layout - write a custom `HomeLayout` component and re-export it directly:
 
 ```tsx
 // theme/components/HomeLayout/index.tsx
@@ -123,9 +123,9 @@ export * from '@rspress/core/theme-original';
 export { HomeLayout } from './components/HomeLayout';
 ```
 
-The named export overrides the built-in `HomeLayout` from the wildcard re-export — no need to eject first.
+The named export overrides the built-in `HomeLayout` from the wildcard re-export - no need to eject first.
 
-If you only need to add content before/after the Hero or Features sections (without replacing the entire home page), prefer Layout slots (`beforeHero`, `afterHero`, `beforeFeatures`, `afterFeatures`) instead — see `references/layout-slots.md`.
+If you only need to add content before/after the Hero or Features sections (without replacing the entire home page), prefer Layout slots (`beforeHero`, `afterHero`, `beforeFeatures`, `afterFeatures`) instead - see `references/layout-slots.md`.
 
 ## Common Pattern: Custom Doc Footer
 
@@ -148,4 +148,4 @@ export function DocFooter() {
 
 - Always import from `@rspress/core/theme-original` in `theme/` files, never from `@rspress/core/theme` (the latter resolves to your own `theme/index.tsx`, causing circular imports).
 - After ejecting, you own that component. Track Rspress changelogs for upstream changes you might want to incorporate manually.
-- Run `rspress eject` (no args) to see the up-to-date list of available components — the list above may change between Rspress versions.
+- Run `rspress eject` (no args) to see the up-to-date list of available components - the list above may change between Rspress versions.

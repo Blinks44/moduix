@@ -32,7 +32,7 @@ Charts](https://tanstack.com/charts/latest/docs/framework/react/reference/chart)
 элементы, шкалы, взаимодействия и колбэки вы по-прежнему задаёте средствами TanStack Charts, а
 moduix предоставляет доступную оболочку композиции.
 
-`@tanstack/charts` — необязательная peer-зависимость moduix. Пакеты для React и Solid используют
+`@tanstack/charts` - необязательная peer-зависимость moduix. Пакеты для React и Solid используют
 одинаковый API определения графика; пакет Solid работает через адаптер рендерера TanStack.
 
 ## Базовый пример
@@ -127,7 +127,7 @@ Chart / Chart.Root
 
 ## Композиция
 
-`Chart` — это презентационная оболочка. TanStack `definition` владеет графическими элементами,
+`Chart` - это презентационная оболочка. TanStack `definition` владеет графическими элементами,
 шкалами, взаимодействиями и колбэками, поэтому храните его на уровне модуля или мемоизируйте
 полностью, если он зависит от props или состояния. Собирайте `Chart.Header`, `Chart.Plot` и
 `Chart.Legend` внутри корневого элемента; `Chart.Plot` продолжает передавать TanStack состояние
@@ -252,7 +252,7 @@ TanStack.
 ### Горизонтальные столбцы
 
 Используйте `barX`, когда подписи категорий длинные или рейтинг должен читаться сверху вниз.
-Числовое значение передаётся по оси x, а категория — по оси y.
+Числовое значение передаётся по оси x, а категория - по оси y.
 
 <ExampleFrame variant="component">
   <ChartHorizontalBars />
@@ -338,7 +338,7 @@ TanStack.
 заголовок.
 
 `Chart.Plot` остаётся хостом TanStack, а не слотом. Используйте `class` или `className` и `style`
-для внешнего элемента, а `renderTooltipBody` — для расширения подсказки. Рендерите `defaultBody`
+для внешнего элемента, а `renderTooltipBody` - для расширения подсказки. Рендерите `defaultBody`
 внутри своей оболочки, пока TanStack продолжает управлять позиционированием и порталом. Добавляйте
 интерактивные элементы только в закреплённую подсказку.
 
@@ -371,7 +371,7 @@ TanStack.
 
 ## Стилизация
 
-Стилизуйте `figure` через `Chart.Root`, а хост TanStack — через `Chart.Plot`. Публичные CSS-свойства
+Стилизуйте `figure` через `Chart.Root`, а хост TanStack - через `Chart.Plot`. Публичные CSS-свойства
 управляют поверхностью, контуром фокуса, оболочкой подсказки и её стандартной раскладкой. Геометрию
 графика задавайте в определении TanStack через параметры графических элементов, шкалы и цветовые
 каналы.
@@ -403,7 +403,7 @@ CSS-свойства настраивают варианты с CSS Modules. А�
 - Стандартная подсказка использует слоты данных `chart-tooltip-body`, `chart-tooltip-title`,
   `chart-tooltip-rows`, `chart-tooltip-row`, `chart-tooltip-swatch`, `chart-tooltip-label`,
   `chart-tooltip-value` и `chart-tooltip-text`.
-- Используйте `--moduix-color-chart-1` — `--moduix-color-chart-5` в цветовых шкалах TanStack.
+- Используйте `--moduix-color-chart-1` - `--moduix-color-chart-5` в цветовых шкалах TanStack.
 - Оболочка подсказки настраивается через документированные переменные `--ts-chart-tooltip-*`,
   связанные со свойствами moduix. Для собственных CSS-селекторов используйте `tooltip.className`,
-  а для собственного содержимого — `renderTooltipBody` и нативный `defaultBody`.
+  а для собственного содержимого - `renderTooltipBody` и нативный `defaultBody`.

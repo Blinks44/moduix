@@ -13,13 +13,13 @@ locales instead of adding another runtime to the documentation bundle.
 ## Section order
 
 1. `API Reference`
-2. `Choosing the right component` — only for close alternatives
+2. `Choosing the right component` - only for close alternatives
 3. `Basic`
-4. `Install with shadcn` — when applicable
+4. `Install with shadcn` - when applicable
 5. `Anatomy`
-6. `Composition` — only when the component has a meaningful choice not already clear from Basic or examples
+6. `Composition` - only when the component has a meaningful choice not already clear from Basic or examples
 7. `Examples`
-8. `Styling` — when the public styling contract is meaningful
+8. `Styling` - when the public styling contract is meaningful
 
 `Basic` is the recommended happy path and must not be repeated without a clear structural reason. Every example heading has a short lead-in. Order feature examples alphabetically; put `Advanced Customization` last when it intentionally bypasses convenience composition.
 
