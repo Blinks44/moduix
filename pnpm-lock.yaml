@@ -580,6 +580,9 @@ importers:
       '@ark-ui/solid':
         specifier: ^5.39.1
         version: 5.39.1(solid-js@1.9.15)
+      '@formisch/solid':
+        specifier: ^1.1.0
+        version: 1.1.0(solid-js@1.9.15)(typescript@7.0.2)(valibot@1.4.2(typescript@7.0.2))
       '@moduix/solid':
         specifier: workspace:*
         version: link:../packages/solid
@@ -589,6 +592,9 @@ importers:
       '@rspress/plugin-sitemap':
         specifier: ^2.0.21
         version: 2.0.21(@rspress/core@2.0.21(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@10.2.2))(supports-color@10.2.2))
+      '@tanstack/solid-form':
+        specifier: ^1.33.5
+        version: 1.33.5(solid-js@1.9.15)
       '@types/node':
         specifier: ^26.4.1
         version: 26.4.1
@@ -1339,6 +1345,16 @@ packages:
     peerDependencies:
       react: '>=16.8.0 <20'
       react-dom: '>=16.8.0 <20'
+      typescript: '>=5 <8'
+      valibot: '>=1.4.1 <2'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
+  '@formisch/solid@1.1.0':
+    resolution: {integrity: sha512-US/EQTQ2SwO74o5BD7oTMjtkz1riX+cCrWV1rleHJJRAhvlSgViVSJ7578vvZue7VnmZDf9i2stUUPUba6BTsw==}
+    peerDependencies:
+      solid-js: '>=1.6 <2'
       typescript: '>=5 <8'
       valibot: '>=1.4.1 <2'
     peerDependenciesMeta:
@@ -2912,6 +2928,16 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
+  '@tanstack/solid-form@1.33.5':
+    resolution: {integrity: sha512-azYHYzNwop64bedJRKgjCpi5w9cHu7cNz+dAdSXzaqy9M6JO+GlKNQn54VFhCLYJo45sgNjcdrnz4eyTmgzJ/w==}
+    peerDependencies:
+      solid-js: '>=1.9.9'
+
+  '@tanstack/solid-store@0.11.1':
+    resolution: {integrity: sha512-wzJsiqqLHyQacqbYPT8dKNfhR00NNu743vGeWz2lEpOyE/R+6AYIfFLhXsCIT/Kb+KKiT1KDkB2/35DhLEGx8g==}
+    peerDependencies:
+      solid-js: ^1.6.0
 
   '@tanstack/solid-virtual@3.13.38':
     resolution: {integrity: sha512-J2/gWwrqtKdY2e3DRttUT0nZRMdkDwHcy1CgwgyJwXZ2w8c2i/Qy459RqsQxtMtlF8ojTJcNjrLw2dJyMuP7yg==}
@@ -7354,6 +7380,13 @@ snapshots:
     optionalDependencies:
       typescript: 7.0.2
 
+  '@formisch/solid@1.1.0(solid-js@1.9.15)(typescript@7.0.2)(valibot@1.4.2(typescript@7.0.2))':
+    dependencies:
+      solid-js: 1.9.15
+      valibot: 1.4.2(typescript@7.0.2)
+    optionalDependencies:
+      typescript: 7.0.2
+
   '@hono/node-server@2.1.1(hono@4.13.5)':
     dependencies:
       hono: 4.13.5
@@ -8590,6 +8623,17 @@ snapshots:
       '@tanstack/virtual-core': 3.17.8
       react: 19.2.8
       react-dom: 19.2.8(react@19.2.8)
+
+  '@tanstack/solid-form@1.33.5(solid-js@1.9.15)':
+    dependencies:
+      '@tanstack/form-core': 1.33.5
+      '@tanstack/solid-store': 0.11.1(solid-js@1.9.15)
+      solid-js: 1.9.15
+
+  '@tanstack/solid-store@0.11.1(solid-js@1.9.15)':
+    dependencies:
+      '@tanstack/store': 0.11.1
+      solid-js: 1.9.15
 
   '@tanstack/solid-virtual@3.13.38(solid-js@1.9.15)':
     dependencies:

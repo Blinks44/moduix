@@ -11,7 +11,7 @@ import { ClientOnly } from '@ark-ui/react/client-only';
 moduix themes are CSS token layers. `Calm` is the default foundation theme; `Dense`, `Soft`, and
 `Contrast` are optional presets for different visual directions. A preset can change the palette,
 radii, spacing, control density, and shadows without changing component APIs or adding a theme
-provider or runtime. React and Solid packages use the same theme files and token contract.
+provider or runtime. Every shipped adapter uses the same theme files and token contract.
 
 <ClientOnly fallback={<ThemePresets />}>
   <ThemePresets />
@@ -120,9 +120,7 @@ Replace `soft.css` with `dense.css` or `contrast.css` under the same package pre
 Presets are framework-neutral, so the same foundation registry URL works with React or Solid and
 with either styling track. The CLI copies the CSS source into your project:
 
-```bash
-npx shadcn@latest add https://moduix.dev/r/foundation/theme-dense.json
-```
+<PackageManagerTabs command="shadcn@latest add https://moduix.dev/r/foundation/theme-dense.json" dlx />
 
 ```tsx
 import '@/lib/moduix/styles/style.css';

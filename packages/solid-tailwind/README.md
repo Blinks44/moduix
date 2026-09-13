@@ -9,7 +9,7 @@ Alert, Angle Slider, Avatar, Button, and Chart while preserving their public Ark
 In an existing Solid project configured with Tailwind CSS v4, install the package and its Ark UI
 peer dependency:
 
-```sh
+```bash
 pnpm add @moduix/solid-tailwind @ark-ui/solid
 ```
 
@@ -17,7 +17,7 @@ pnpm add @moduix/solid-tailwind @ark-ui/solid
 
 The optional `Chart` component also requires `@tanstack/charts`:
 
-```sh
+```bash
 pnpm add @tanstack/charts
 ```
 
@@ -83,7 +83,7 @@ Configure the namespace and add the component with the standard CLI:
 }
 ```
 
-```sh
+```bash
 pnpm dlx shadcn@latest add @moduix-solid-tailwind/accordion
 ```
 

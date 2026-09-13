@@ -17,7 +17,16 @@ to your application through the hosted shadcn registry when you want to own it.
 [Documentation](https://moduix.dev/) ·
 [Quick start](https://moduix.dev/docs/quick-start) ·
 [Components](https://moduix.dev/docs/components) ·
-[npm](https://www.npmjs.com/package/@moduix/react)
+[Packages](#current-packages)
+
+## Current packages
+
+| Runtime | CSS Modules                                                    | Tailwind                                                                         |
+| ------- | -------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| React   | [`@moduix/react`](https://www.npmjs.com/package/@moduix/react) | [`@moduix/react-tailwind`](https://www.npmjs.com/package/@moduix/react-tailwind) |
+| Solid   | [`@moduix/solid`](https://www.npmjs.com/package/@moduix/solid) | [`@moduix/solid-tailwind`](https://www.npmjs.com/package/@moduix/solid-tailwind) |
+
+The package matrix grows with shipped adapters. Shared workflows and documentation are structured so Vue and Svelte can join without redefining the library around today's runtimes.
 
 ## Why moduix
 
@@ -37,12 +46,12 @@ to your application through the hosted shadcn registry when you want to own it.
 The example below uses the React CSS Modules package. Choose the shipped framework, styling track,
 and ownership model that matches your application in the [Quick start](https://moduix.dev/docs/quick-start).
 
-### Use the npm package
+### Use the published package
 
 Install moduix and its Ark UI peer dependency:
 
 ```bash
-npm install @moduix/react @ark-ui/react
+pnpm add @moduix/react @ark-ui/react
 ```
 
 Import the shared foundation stylesheet once in your application entry point:
@@ -99,11 +108,11 @@ up `components.json` with the [Quick start](https://moduix.dev/docs/quick-start)
 components you need:
 
 ```bash
-npx shadcn@latest add @moduix-react/button @moduix-react/dialog
+pnpm dlx shadcn@latest add @moduix-react/button @moduix-react/dialog
 ```
 
 The generated source includes the component, its CSS Module, and any required supporting files.
-The registry preserves the same component contracts and design tokens as the npm package. Your
+The registry preserves the same component contracts and design tokens as the published package. Your
 `components.json` aliases determine the destination paths.
 
 ## Styling and theming

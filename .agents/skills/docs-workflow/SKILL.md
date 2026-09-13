@@ -15,7 +15,7 @@ This skill owns documentation content and source-to-locale consistency. It does 
 2. The corresponding default-language page (currently English) and the affected locale pages. Use `rspress-localization` for the translation itself.
 3. The shipped component API, its local markdown, and its existing examples when the page documents a component.
 
-Read [the page-type contract](references/page-types.md) when creating or substantially restructuring a page. It records the shared structure for component and utility pages and is the place to add future collection, form, or guide structures after they are deliberately standardized.
+Read [the page-type contract](references/page-types.md) when creating or substantially restructuring a page. It records the shared structure for component, utility, collection, form, and guide pages and is the place to add future page types after they are deliberately standardized.
 
 When adding or synchronizing a supported runtime across overview, setup, migration, theme, token,
 or component-index pages, read [the framework-support contract](references/framework-support.md).
@@ -29,6 +29,7 @@ or component-index pages, read [the framework-support contract](references/frame
   future adapters from package exports and registries. The documentation application runs React;
   do not silently present its live preview as a different runtime or styling variant.
 - Keep prose and snippets consumer-facing, complete, and production-like. Do not hide required setup, callbacks, collection data, or Ark composition behind docs-only helpers.
+- Render every reader-facing package installation, dependency update, executable package, registry CLI, or skill installation command with Rspress `PackageManagerTabs`. Pass a manager-neutral command such as `install <package>` and set `dlx` for temporary executables. Do not hardcode npm, pnpm, Yarn, Bun, or Deno commands in MDX unless manager-specific behavior is the subject of the page.
 - Prefer a small local helper to repeated visible ceremony, but never a page builder, hidden DSL, or abstraction that hides the documented composition.
 - Keep demo-only styling in the docs app or example CSS module, separate from library styling.
 - When changing reader-facing prose in a locale page, load `rspress-localization` and complete its

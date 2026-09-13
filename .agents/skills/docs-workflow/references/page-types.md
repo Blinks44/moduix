@@ -14,6 +14,8 @@ Every localized page has:
 
 Use `groupId="framework"` for framework tabs. Framework-neutral prose, anatomy, accessibility, styling, and conceptual guidance stay outside those tabs. Add a framework tab only after that adapter and the documented API actually ship.
 
+Use Rspress `PackageManagerTabs` for package installation, dependency updates, executable packages, registry CLIs, and skill installation. Give it a manager-neutral `command`, use `dlx` for temporary executables, and keep it inside a framework tab only when the packages or command differ by framework.
+
 ## Component pages
 
 Read [the component-page contract](component-pages.md) for the full structure. Its canonical order is:
@@ -61,14 +63,54 @@ Use `ExampleFrame variant="component"` for a displayed example and wrap its cont
 
 List Collection is the current structural reference. It is not the source of truth for which collection APIs or framework adapters ship.
 
-## Forms and guides
+## Form pages
 
-These families do not yet have a canonical page structure. Do not infer one from a single page or force the component, utility, or collection template onto them.
+Form documentation has two related page types.
 
-When one of these families is deliberately standardized:
+The Forms overview uses this order:
 
-1. audit every page in the family and every locale;
-2. identify the smallest shared hierarchy and the legitimate page-specific sections;
-3. choose one accepted default-language page as the visual and structural reference;
-4. record the resulting contract in this file before or together with the migration;
-5. migrate all pages in the family and verify locale and framework parity.
+1. `Choose an approach` with native forms first and form libraries only for state or validation needs that justify them;
+2. `Framework support` that distinguishes multi-framework libraries from framework-specific integrations;
+3. core composition and native form participation rules;
+4. one complete native form with source for every shipped framework;
+5. validation, reset, submission, repeated-field, and server-error guidance only to the depth shared by every approach.
+
+A form-library integration guide uses this order:
+
+1. framework availability and installation through `PackageManagerTabs`;
+2. the smallest complete mapping between library field state and Moduix controls;
+3. validation and reset behavior;
+4. one complete form with native source for every framework supported by both the library and Moduix;
+5. concise guidance for repeated fields, server errors, focus, and behavioral constraints.
+
+Keep framework support truthful. A framework-specific library page must state that constraint near the beginning and must not show empty or fictional tabs for other adapters. Link readers to a real alternative when another shipped framework needs the same capability.
+
+Keep responsibilities explicit: the form library owns application state, validation timing, and submission lifecycle; Moduix owns the visible controls, field semantics, and required native form parts. Do not register or render a second hidden input for a value already supplied by a Moduix component.
+
+Use `groupId="framework"` for framework installation and source tabs. Put shared prose and shared styles outside those tabs. The documentation preview may render the React source, but say so and provide native source for every other supported shipped framework.
+
+Wrap complete form previews in `<PreviewFrame maxWidth="sm">` by default. Forms are narrow reading and input flows, so they should not expand to the full documentation canvas. Reuse one example stylesheet across framework snippets when their visual contract is the same.
+
+Forms is the current overview reference. Formisch is the current multi-framework integration reference. Neither page determines which adapters a third-party form library supports.
+
+## Guides
+
+Guides share a decision flow, not one rigid list of headings. Use this order as the common backbone:
+
+1. state the outcome and the recommended default near the beginning;
+2. help readers choose the correct scope, ownership layer, installation path, or API before showing details;
+3. present the smallest complete setup or workflow;
+4. keep framework-specific imports, source, and runtime mechanics in `groupId="framework"` tabs;
+5. explain the page-specific edge cases that can invalidate the basic setup;
+6. finish with a compact verification checklist, troubleshooting table, or next-step links when they add practical value.
+
+Keep the sections that belong to the guide's purpose:
+
+- system styling guides such as Animations, Dark mode, and Styling lead with the styling track and scope of the change, then show tokens, classes, or attributes at the layer that owns them;
+- composition guides progress from shipped parts to re-exports, focused product wrappers, and external state, in that order;
+- environment and localization guides such as RTL start with platform-level configuration, then provider setup, component integration, portal behavior, and a release checklist;
+- update guides branch first by distribution method, then by shipped framework and styling adapter, and end with application-level verification.
+
+Do not add framework tabs to CSS, HTML, commands, or conceptual prose that is genuinely shared. Do not make React the conceptual default because the documentation application renders React previews. When a guide includes a live preview, label its runtime honestly, provide native source for every applicable shipped framework, and choose the narrowest existing `PreviewFrame` size that preserves the lesson. A focused control or surface normally uses `maxWidth="sm"`. A comparison gallery whose grid benefits from the full canvas may omit `PreviewFrame`; Animations is the current example.
+
+Animations is the reference for a system styling guide, Composition Patterns for API ownership, RTL for environment setup, and Update and migration for distribution workflows. These references establish information flow, not identical headings.

@@ -1,126 +1,112 @@
 ---
 title: Right-to-left (RTL)
-description: Set the document direction and Ark locale for Arabic, Hebrew, and other RTL interfaces.
+description: Configure document direction, Ark locale context, portals, and logical styles for RTL interfaces.
 ---
+
+import reactSection from '../../../snippets/rtl/react/section.tsx?raw';
+import solidSection from '../../../snippets/rtl/solid/section.tsx?raw';
 
 # Right-to-left (RTL)
 
-An RTL interface needs two settings:
+An RTL interface needs two coordinated settings: native `lang` and `dir` attributes for browser layout,
+and Moduix `LocaleProvider` for Ark's locale-aware behavior. Set both at the highest scope that owns
+the language.
 
-- the native `dir` attribute, which controls text flow and CSS direction in the browser;
-- the moduix `LocaleProvider`, which gives Ark the locale and the matching direction.
+## Configure the document
 
-## Set the document direction
+For an application-wide RTL locale, put `lang` and `dir` on `<html>`:
 
-When the whole application uses a right-to-left language, set both `lang` and `dir` on the document root. In an SSR
-application, the document component might look like this:
-
-```tsx
-import type { ReactNode } from 'react';
-import { LocaleProvider } from '@moduix/react/locale';
-
-export function Document({ children }: { children: ReactNode }) {
-  return (
-    <html lang="ar" dir="rtl">
-      <body>
-        <LocaleProvider locale="ar-EG">{children}</LocaleProvider>
-      </body>
-    </html>
-  );
-}
+```html
+<html lang="ar" dir="rtl"></html>
 ```
 
-`LocaleProvider` derives Ark's `dir` from the locale, so locale-aware primitives and Ark formatters use the same
-context. The provider does not change the document's native attributes. Keep `lang` and `dir` on `<html>` so the
-browser applies the direction to text, CSS logical properties, and portalled content.
+Wrap the application with the provider from its native adapter:
 
-If users can switch between LTR and RTL locales without reloading the page, update the document's `lang` and `dir`
-at the same time as the `locale` passed to `LocaleProvider`.
-
-## Component example
-
-For an RTL section inside an otherwise LTR application, put `dir` and `lang` on the section's root and wrap its
-moduix components with `LocaleProvider`. If the entire document is RTL, use the document-level setup above instead of
-adding another wrapper.
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
 ```tsx
-import { createListCollection } from '@ark-ui/react/collection';
-import { Button } from '@moduix/react/button';
 import { LocaleProvider } from '@moduix/react/locale';
-import { Select } from '@moduix/react/select';
 
-const cities = createListCollection({
-  items: [
-    { label: 'القاهرة', value: 'cairo' },
-    { label: 'الإسكندرية', value: 'alexandria' },
-  ],
-});
-
-export function ArabicPreferences() {
-  return (
-    <div dir="rtl" lang="ar">
-      <LocaleProvider locale="ar-EG">
-        <Select collection={cities}>
-          <Select.Label>المدينة</Select.Label>
-          <Select.Field placeholder="اختر مدينة" />
-          <Select.Positioner>
-            <Select.Content>
-              <Select.ItemGroup>
-                {cities.items.map((city) => (
-                  <Select.Item key={city.value} item={city}>
-                    <Select.ItemText>{city.label}</Select.ItemText>
-                    <Select.ItemIndicator />
-                  </Select.Item>
-                ))}
-              </Select.ItemGroup>
-            </Select.Content>
-          </Select.Positioner>
-        </Select>
-        <Button>حفظ</Button>
-      </LocaleProvider>
-    </div>
-  );
-}
+<LocaleProvider locale="ar-EG">{children}</LocaleProvider>;
 ```
 
-The collection comes from Ark UI, while `Select`, `Button`, and `LocaleProvider` come from moduix. The components use
-the direction from the locale context, so they do not need a separate RTL prop.
+  </Tab>
+  <Tab label="Solid" value="solid">
 
-## Portals and mixed-direction content
+```tsx
+import { LocaleProvider } from '@moduix/solid/locale';
 
-An overlay rendered through a portal gets its inherited CSS direction from the DOM container that receives it, not from
-the trigger. Set `dir` on `<html>` for an application-wide RTL direction, or place a custom portal container inside the
+<LocaleProvider locale="ar-EG">{props.children}</LocaleProvider>;
+```
+
+  </Tab>
+</Tabs>
+
+`LocaleProvider` derives Ark's direction from the locale, but it does not change native document
+attributes. Update `lang`, `dir`, and the provider locale together when users switch languages without
+reloading.
+
+## Scope an RTL section
+
+For one RTL area inside an LTR application, put `lang` and `dir` on that area's root and wrap its Moduix
+components with `LocaleProvider`.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<CodeBlockRuntime lang="tsx" code={reactSection} />
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<CodeBlockRuntime lang="tsx" code={solidSection} />
+
+  </Tab>
+</Tabs>
+
+The collection comes from the matching Ark UI adapter. Select, Button, and LocaleProvider come from
+the matching Moduix adapter. Components read direction from the locale context and do not need a
+separate RTL prop.
+
+## Handle portals and mixed direction
+
+Portalled content inherits CSS direction from its destination container, not from the trigger. Use
+document-level direction for an application-wide locale, or render into a portal container inside the
 RTL subtree.
 
-Keep the application direction on the outer container when content mixes writing directions. Use `dir="auto"` for
-plain text whose direction is unknown, and `dir="ltr"` for values that should keep a left-to-right order, such as email
-addresses, URLs, codes, and telephone numbers.
+For mixed content:
 
-## Styles
+- use `dir="auto"` for plain text whose direction is unknown;
+- use `dir="ltr"` for email addresses, URLs, codes, and telephone numbers that must keep LTR order;
+- keep the surrounding application direction on the outer container.
 
-Use logical CSS properties whenever a rule depends on the inline start or end of the text. For example, use
-`padding-inline`, `inset-inline-end`, `border-inline-start`, and `text-align: start`. The same component styles can
-then follow either reading direction.
+## Use logical styles
 
-Keep physical `left` and `right` only when they describe screen geometry, such as an indicator coordinate, a resize
-edge, or an explicit swipe direction. Do not replace them mechanically: they may describe a measured position or a
-gesture rather than reading order.
+Prefer logical properties when a rule follows reading direction:
 
-Mirror icons whose meaning depends on inline direction, such as back, forward, undo, or redo. Do not mirror icons with
-a fixed meaning, such as play, check, download, or a brand logo. Prefer an icon library's RTL variant when available;
-otherwise apply the transform only inside an RTL scope.
+```css
+.item {
+  padding-inline: var(--moduix-spacing-4);
+  border-inline-start: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  text-align: start;
+}
+```
+
+Keep physical `left` and `right` only for real screen geometry, measured coordinates, resize edges, or
+explicit gesture directions. Mirror directional icons such as back and forward, but not play, check,
+download, or brand icons.
 
 ## Release checklist
 
-Before shipping, test the interface with an RTL locale after changing layout code, especially:
+- Test inputs with clear or action buttons.
+- Check Select, Combobox, and Date Picker triggers and popups.
+- Verify portalled Dialog, Popover, Menu, and Tooltip content.
+- Test keyboard navigation, focus order, and directional keys.
+- Mix Arabic or Hebrew text with email addresses, numbers, and codes.
+- Check directional icons, gestures, and narrow layouts.
 
-- inputs with clear or action buttons;
-- select, combobox, and date picker triggers;
-- portalled dialogs, popovers, menus, and tooltips;
-- keyboard navigation and the visible focus order;
-- Arabic or Hebrew text mixed with email addresses, numbers, and codes;
-- directional icons, swipe gestures, and start/end alignment at narrow widths.
+## Related
 
-`LocaleProvider` and the locale context are re-exported by moduix from Ark UI. See the [Locale page](/docs/locale) for
-locale context and formatting, and the [Ark Locale documentation](https://ark-ui.com/docs/utilities/locale) for the
-provider API.
+- [Locale](/docs/locale)
+- [Ark Locale documentation](https://ark-ui.com/docs/utilities/locale)

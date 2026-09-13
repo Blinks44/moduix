@@ -23,7 +23,7 @@ properties, `className`, stable `data-slot` hooks, and Ark state attributes.
 Install the package and its Ark UI peer dependency:
 
 ```bash
-npm install @moduix/react @ark-ui/react
+pnpm add @moduix/react @ark-ui/react
 ```
 
 `react`, `react-dom`, and `@ark-ui/react` are peer dependencies. moduix supports React 18 and 19.
@@ -31,7 +31,7 @@ npm install @moduix/react @ark-ui/react
 The optional `Chart` component also requires its TanStack peer dependency:
 
 ```bash
-npm install @tanstack/charts
+pnpm add @tanstack/charts
 ```
 
 ## Add styles
@@ -132,7 +132,7 @@ form. Set up `components.json` with the [Quick start](https://moduix.dev/docs/qu
 the components you need:
 
 ```bash
-npx shadcn@latest add @moduix-react/button @moduix-react/dialog
+pnpm dlx shadcn@latest add @moduix-react/button @moduix-react/dialog
 ```
 
 Generated files include the component source, CSS Modules, and required supporting files. Their

@@ -2,6 +2,8 @@
 
 This is the moduix documentation site built with Rspress.
 
+The site documents a multi-framework library. React and Solid adapters ship today; its page structure, shared prose, and framework tabs are designed to accept Vue and Svelte when those adapters ship.
+
 ## Commands
 
 Run commands from the monorepo root:

@@ -1,257 +1,172 @@
 ---
 title: Composition Patterns
-description: Compose moduix parts while keeping Ark behavior and application-level customization visible.
+description: Compose Moduix parts across framework adapters without hiding Ark behavior or product ownership.
 ---
+
+import reactAsChild from '../../../snippets/composition-patterns/react/as-child.tsx?raw';
+import solidAsChild from '../../../snippets/composition-patterns/solid/as-child.tsx?raw';
+import reactExternalState from '../../../snippets/composition-patterns/react/external-state.tsx?raw';
+import solidExternalState from '../../../snippets/composition-patterns/solid/external-state.tsx?raw';
+import solidProductDialog from '../../../snippets/composition-patterns/solid/product-dialog.tsx?raw';
 
 # Composition Patterns
 
-`moduix` keeps Ark's composition model visible. Most components expose a stateful root and separate
-parts for structure, semantics, and styling. This makes it clear which layer owns each responsibility
-and gives you a predictable way to customize a component:
+Moduix keeps Ark's part-based composition visible. Start with the shipped parts, re-export them when
+your application needs stable local imports, and add a wrapper only when it represents a repeated
+product decision.
 
-- use the shipped parts directly;
-- re-export them from your product layer;
-- wrap only the parts that need repeated product styling or layout.
+The same ownership model applies to every shipped framework adapter, whether components come from an npm package or
+the shadcn registry. Framework tabs below show only the mechanics that actually differ.
 
-The same approach works with `@moduix/react` and with source code copied from the registry.
+## Choose an ownership level
 
-## Choose an install
+| Need | Start with |
+| --- | --- |
+| Standard component behavior | Shipped Moduix parts |
+| Product-owned import paths | Direct re-exports |
+| Repeated visual or layout rule | A focused wrapper around the part that owns it |
+| State outside the rendered tree | `use<Component>()` with `RootProvider` |
 
-Choose the npm package when you want your package manager to handle updates. Import components from
-`@moduix/react/*` and the shared styles from `@moduix/react/style.css`.
+Choose the lowest level that solves the repeated need. A one-off class or callback does not justify a
+new component API.
 
-Choose the `shadcn` registry when your application should own the component source. It copies the
-selected component and its required moduix styles, icons, and utilities into your project. You can
-then change that code directly and import it from `@/components/ui/*`.
+## Start with the part tree
 
-Components whose source lives in your application do not receive package updates automatically. When
-a new moduix version is available, add the component again through `shadcn`, then review and merge
-the resulting diff. Follow the [Quick start](/docs/quick-start#install-with-the-shadcn-cli) for the
-one-time registry setup and component commands.
-
-## Use the part tree
-
-Before creating wrappers, start with the part tree on the component page. Apply `className`, CSS
-variables, `data-slot`, and Ark state attributes to the parts that actually own those responsibilities.
-
-Root exports such as `Popover`, `Tooltip`, and `Select` are shortcuts for `*.Root`. For dialog-like
-and popup components, the root automatically portals the overlay subtree, so the structure remains
-explicit without a separate `Portal` wrapper.
-
-For example:
+Read the anatomy on the component page before writing a wrapper. Keep structural parts visible so
+placement, scrolling, focus, and styling ownership remain easy to find.
 
 ```text
 Dialog / Dialog.Root
 ├─ Dialog.Trigger
-├─ Overlay subtree (automatically portalled)
-│  ├─ Dialog.Backdrop
-│  └─ Dialog.Positioner
-│     └─ Dialog.Content
-│        ├─ Dialog.Title
-│        ├─ Dialog.Description
-│        └─ Dialog.CloseTrigger
+└─ Overlay subtree, automatically portalled
+   ├─ Dialog.Backdrop
+   └─ Dialog.Positioner
+      └─ Dialog.Content
+         ├─ Dialog.Title
+         ├─ Dialog.Description
+         └─ Dialog.CloseTrigger
 ```
 
-Use `portalled={false}` for inline rendering and `portalRef` for a custom container when the
-component supports those props. Use `Dialog.RootProvider` when the state object is created outside
-the rendered tree.
+Use `portalled={false}` for inline rendering and `portalRef` for a custom container when the component
+supports those props. Use `RootProvider` only when state was created outside the rendered tree.
 
-## Structural parts
+## Compose a semantic child
 
-Not every primitive exposes every part below. Start with the anatomy on the component page, then keep
-the parts it documents visible when your product needs to override them.
+Use `asChild` when an existing element should remain the DOM node and a Moduix part should add only
+its behavior. React accepts a single child element. Solid accepts a render function and requires Ark
+props to be spread onto the returned element.
 
-| Part         | Responsibility                                                                    |
-| ------------ | ------------------------------------------------------------------------------- |
-| `Backdrop`   | Separates a modal surface from the rest of the page and receives outside interactions. |
-| `Positioner` | Owns viewport or anchored placement and scrolling behavior.                       |
-| `Content`    | Renders the interactive surface and receives state attributes.                    |
-| `Arrow`      | Connects anchored popup content to its trigger when the primitive supports it.   |
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
-Do not hide these nodes inside product wrappers unless your product contract intentionally removes
-their override points.
+<CodeBlockRuntime lang="tsx" code={reactAsChild} />
 
-## `asChild`
+  </Tab>
+  <Tab label="Solid" value="solid">
 
-Use `asChild` when an existing semantic element should be the DOM node and a moduix part should only
-add its behavior to that element.
+<CodeBlockRuntime lang="tsx" code={solidAsChild} />
 
-```tsx
-import { Button } from '@moduix/react/button';
-import { Popover } from '@moduix/react/popover';
-// shadcn copy-owned: import { Button } from '@/components/ui/button';
-// shadcn copy-owned: import { Popover } from '@/components/ui/popover';
+  </Tab>
+</Tabs>
 
-export function FiltersPopover() {
-  return (
-    <Popover positioning={{ gutter: 8 }}>
-      <Popover.Trigger asChild>
-        <Button variant="outline">Filters</Button>
-      </Popover.Trigger>
-      <Popover.Positioner>
-        <Popover.Content>Choose one or more filters.</Popover.Content>
-      </Popover.Positioner>
-    </Popover>
-  );
-}
-```
+The semantic child must accept the forwarded attributes, event handlers, and ref. If it drops them,
+keyboard interaction and accessibility relationships can break.
 
-Keep one semantic child that can receive Ark props. If the child component swallows refs, event
-handlers, or attributes, `asChild` will not behave correctly.
+## Re-export before wrapping
 
-## `ids`
+Re-exports give the application a stable product import without changing behavior. Import the native
+adapter and expose only the names your product wants to support:
 
-Most compositions create their own relationships automatically. Use `ids` when two primitives need
-to coordinate a stable ID, such as when they share the same trigger element. Do not write the ARIA
-relationships by hand.
-
-```tsx
-import { Avatar } from '@moduix/react/avatar';
-import { Tooltip } from '@moduix/react/tooltip';
-import { useId } from 'react';
-
-export function AssigneeTooltip() {
-  const id = useId();
-
-  return (
-    <Tooltip ids={{ trigger: id }}>
-      <Tooltip.Trigger asChild>
-        <Avatar ids={{ root: id }}>
-          <Avatar.Fallback>SO</Avatar.Fallback>
-        </Avatar>
-      </Tooltip.Trigger>
-      <Tooltip.Body>Sam Ortiz is online</Tooltip.Body>
-    </Tooltip>
-  );
-}
-```
-
-This keeps the accessibility wiring in Ark instead of duplicating `aria-*` attributes manually.
-
-## Re-export first
-
-If your product needs shorter imports or a branded API, start with re-exports before writing new
-abstractions. Re-exports preserve the original behavior while giving your application a stable local
-API.
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
 ```tsx
 import { Dialog as ModuixDialog } from '@moduix/react/dialog';
-// shadcn copy-owned: import { Dialog as ModuixDialog } from '@/components/ui/dialog';
 
 export const Dialog = ModuixDialog;
 export const DialogTrigger = ModuixDialog.Trigger;
-export const DialogBackdrop = ModuixDialog.Backdrop;
-export const DialogPositioner = ModuixDialog.Positioner;
 export const DialogContent = ModuixDialog.Content;
-export const DialogTitle = ModuixDialog.Title;
-export const DialogDescription = ModuixDialog.Description;
-export const DialogCloseTrigger = ModuixDialog.CloseTrigger;
 ```
 
-This is the lowest-risk customization path:
+  </Tab>
+  <Tab label="Solid" value="solid">
 
-- consumers import from your product layer instead of directly from `@moduix/react/*` or
-  `@/components/ui/*`;
-- Ark behavior stays untouched;
-- moving from package usage to source-owned usage stays straightforward;
-- wrappers can be added later only where they are actually needed.
+```tsx
+import { Dialog as ModuixDialog } from '@moduix/solid/dialog';
+
+export const Dialog = ModuixDialog;
+export const DialogTrigger = ModuixDialog.Trigger;
+export const DialogContent = ModuixDialog.Content;
+```
+
+  </Tab>
+</Tabs>
+
+This keeps a later move between package imports and source-owned registry imports straightforward.
 
 ## Add a product contract
 
-Give a product contract only to the part that owns the decision. The local `Dialog` becomes a complete
-product boundary: consumers import one component and use `Dialog.Trigger`, `Dialog.Content`, and the
-other parts from it. Internally, only the dialog surface adds the small `tone` contract because it owns
-the visual decision.
+Wrap only the part that owns the product decision. In this example, `Dialog.Content` adds a `tone`
+prop and maps it to public Dialog variables. The rest of the part tree remains unchanged.
 
 <div className="docs-reference">
-  <Tabs values={[{ label: 'Code', value: 'Code' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="Code">
+  <Tabs groupId="framework" className="docs-tabs">
+    <Tab label="React" value="react">
 
 ```tsx pure file="../../../src/components/examples/composition-patterns/product-dialog.tsx"
 
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab label="Solid" value="solid">
+
+<CodeBlockRuntime lang="tsx" code={solidProductDialog} />
+
+    </Tab>
+    <Tab label="Styles" value="styles">
 
 ```css file="../../../src/components/examples/composition-patterns/product-dialog.module.css"
 
 ```
 
     </Tab>
-
   </Tabs>
 </div>
 
-Consumers now import only the product component:
+Preserve the original props, ref behavior, consumer class, and part names. A product data attribute is
+a useful local styling hook; copied component CSS is not.
 
-```tsx
-import { Dialog } from '@/components/ui/dialog';
+## Move state only when ownership changes
 
-export function DeleteProjectDialog() {
-  return (
-    <Dialog>
-      <Dialog.Trigger>Delete project</Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content tone="danger">
-          <Dialog.Header>
-            <Dialog.Title>Delete this project?</Dialog.Title>
-            <Dialog.CloseIcon />
-            <Dialog.Description>This cannot be undone.</Dialog.Description>
-          </Dialog.Header>
-          <Dialog.Footer>
-            <Dialog.CloseTrigger>Cancel</Dialog.CloseTrigger>
-          </Dialog.Footer>
-        </Dialog.Content>
-      </Dialog.Positioner>
-    </Dialog>
-  );
-}
-```
+Use `Context` for a one-off read inside the tree. Use `useDialogContext()` in reusable descendants.
+Create state with `useDialog()` and connect it through `Dialog.RootProvider` only when controls outside
+the dialog need the same state.
 
-The product root preserves the complete moduix API. Its custom `Dialog.Content` forwards `ref`,
-`className`, and every existing content prop. The `data-dialog-tone` attribute is a product styling
-hook; the CSS maps it to public dialog variables instead of copying the component's styles.
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
-Keep the part tree explicit: `Dialog.Backdrop`, `Dialog.Positioner`, and `Dialog.Content` make overlay
-behavior and styling ownership easy to find. Add a wrapper only when it represents a repeated product
-decision, not for a one-off class name.
+<CodeBlockRuntime lang="tsx" code={reactExternalState} />
 
-## External state
+  </Tab>
+  <Tab label="Solid" value="solid">
 
-Move state outside the tree only when its ownership changes, and keep Ark detail objects intact. For
-example, dialog open state still uses `onOpenChange(details)` and reads `details.open`.
+<CodeBlockRuntime lang="tsx" code={solidExternalState} />
 
-Use the component's state APIs according to where you need access:
+  </Tab>
+</Tabs>
 
-- `Dialog.Context` for a one-off read in the render tree;
-- `useDialogContext()` inside reusable descendants that already live under the root;
-- `useDialog()` with `Dialog.RootProvider` when state is created outside the rendered tree.
+Do not render `Root` and `RootProvider` for the same state instance. Keep Ark detail objects intact,
+such as `onOpenChange(details)` and `details.open`.
 
-```tsx
-import { Dialog, useDialog } from '@moduix/react/dialog';
+## Review the boundary
 
-export function DialogFromExternalState() {
-  const dialog = useDialog();
+- Keep `Backdrop`, `Positioner`, `Content`, and other meaningful parts visible.
+- Prefer public CSS variables and state attributes over copied internal styles.
+- Forward every native prop and framework-specific ref contract your wrapper accepts.
+- Add a custom prop only for a repeated product decision.
+- Test keyboard interaction, focus return, portals, and controlled state after wrapping.
 
-  return (
-    <Dialog.RootProvider value={dialog}>
-      <Dialog.Trigger>Open dialog</Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>State is owned by useDialog().</Dialog.Content>
-      </Dialog.Positioner>
-    </Dialog.RootProvider>
-  );
-}
-```
+## Related
 
-Do not render `Root` and `RootProvider` for the same state instance.
-
-## Choose a level
-
-- Need only the standard usage? Stay with the shipped parts.
-- Need product-specific import paths? Re-export first.
-- Need repeated product visuals? Wrap the specific parts that own those visuals.
-- Need different behavior? Use the explicit part tree instead of inventing new top-level props.
+- [Styling](/docs/styling)
+- [Updating](/docs/updating)

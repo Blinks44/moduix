@@ -11,6 +11,12 @@
 - `packages/foundation/registry.json` and each public package's `registry.json` — source manifests for the hosted registries; each manifest owns files within its package.
 - `packages/oxlint-config` and `packages/oxfmt-config` — shared linting and formatting configuration.
 
+## README package-manager commands
+
+GitHub Markdown does not provide the interactive package-manager tabs used by Rspress. Use `pnpm`
+for installation, CLI, and repository commands in the root and package README files. npm badges and
+links may still identify the registry where a package is published.
+
 ## Skill routing
 
 Use project skills from [`.agents/skills/`](.agents/skills/README.md). Apply only the skills that match the changed surface.

@@ -190,6 +190,6 @@ options de présence afin de préserver leur modèle d’interaction.
 Par défaut, `Presence` rend un `<div>` avec `data-scope="presence"` et `data-part="root"`. Utilisez `asChild` lorsqu’un
 élément existant doit recevoir ces props sans ajouter de conteneur. L’enfant React doit accepter la ref transmise,
 `hidden`, `data-*` et la classe. Solid utilise la forme avec fonction de rendu :
-`asChild={(props) => <article {...props()} />}`. Dans les deux frameworks, conservez une seule racine sémantique ainsi
+`asChild={(props) => <article {...props()} />}`. Dans chaque adaptateur, conservez une seule racine sémantique ainsi
 que son nom et son contenu accessibles. Ne remplacez pas le comportement de `hidden` par la seule opacité lorsque le
 contenu inactif doit sortir de l’arbre d’accessibilité.

@@ -1,128 +1,86 @@
 ---
-title: Styliser les composants
-description: Découvrez comment styliser les composants moduix avec CSS Modules, Panda CSS, Tailwind CSS ou du CSS classique.
+title: Styles
+description: Choisissez la bonne couche de style pour les composants Moduix dans chaque framework pris en charge.
 ---
 
-import { Accordion } from '@moduix/react/accordion';
-import styles from '@/components/examples/styling.module.css';
+import { ProjectChecklist } from '@/components/examples/styling/project-checklist';
+import solidProjectChecklist from '../../../snippets/styling/solid/project-checklist.tsx?raw';
 
-# Styliser les composants
+# Styles
 
-moduix fournit les styles de ses composants ainsi qu’une base CSS commune, sans imposer d’outil particulier. Vous pouvez
-conserver l’approche déjà utilisée par votre application : CSS Modules, Panda CSS, Tailwind CSS, CSS classique ou toute
-autre solution. L’API des composants reste la même dans tous les cas.
+Moduix publie des packages CSS Modules et Tailwind distincts pour chaque framework actuel. Choisissez
+la méthode déjà utilisée par l’application, puis placez chaque modification au niveau le plus élevé
+qui porte la décision.
 
-Importez la feuille de styles de base une seule fois depuis le point d’entrée de l’application :
+Ce guide suppose que le package et la feuille de styles correspondants sont déjà configurés avec le
+[Démarrage rapide](/docs/quick-start).
 
-```tsx
-import '@moduix/react/style.css';
-```
+## Choisir une méthode de style
 
-moduix n’installe pas Panda CSS ni Tailwind CSS pour vous. Les exemples ci-dessous appliquent chaque outil à la même
-composition `ProjectChecklist` : seule la syntaxe de style change. Ils supposent que l’outil correspondant est déjà
-configuré dans votre application.
+| Méthode | React | Solid | Cas adapté |
+| --- | --- | --- | --- |
+| CSS Modules | `@moduix/react` | `@moduix/solid` | Styles fournis, avec redéfinitions par tokens et classes locales |
+| Tailwind CSS | `@moduix/react-tailwind` | `@moduix/solid-tailwind` | Composants basés sur des utilitaires dans une application Tailwind v4 |
 
-## Choisir où effectuer la modification
+CSS Modules et Tailwind sont deux modes de distribution équivalents, pas deux couches à combiner sur
+un même composant. Le package doit correspondre au framework et à la méthode de style.
+
+## Choisir le niveau de modification
 
 | Objectif | Surface recommandée |
 | --- | --- |
-| Adopter une direction visuelle complète | Un [preset de thème](/docs/themes) préparé |
-| Modifier une couleur, une taille, un rayon ou un espacement à l’échelle du système | Un token primitif ou sémantique de la section [Tokens](/docs/tokens) |
-| Harmoniser une famille de contrôles ou de lignes dans des composants flottants | Un token partagé par une famille, comme `--moduix-popup-item-min-height` |
-| Modifier volontairement un seul composant | Un alias `--moduix-<component>-*` documenté |
-| Styliser une composition propre au produit | `className` sur chaque partie à modifier, de préférence avec du CSS local |
+| Adopter une direction visuelle complète | [Preset de thème](/docs/themes) |
+| Modifier une couleur, taille, rayon ou espace dans tout le système | Token sémantique de [Tokens](/docs/tokens) |
+| Aligner une famille de composants | Token partagé de cette famille |
+| Modifier un composant CSS Modules | Variable documentée du composant |
+| Styliser une composition du produit | Classes du consommateur sur les parties responsables |
 
-Choisissez le niveau le plus élevé qui correspond à la portée de la décision. Utilisez un token si la modification doit
-s’appliquer à plusieurs composants. Descendez jusqu’à une partie rendue si elle ne concerne qu’une composition.
+Commencez par les tokens pour une décision globale. Descendez jusqu’à une partie rendue seulement
+lorsque le choix appartient à une composition.
 
-## Styliser les parties
+## Styliser les parties exportées
 
-Ajoutez `className` à la partie qui porte le changement visuel. L’anatomie du composant reste ainsi explicite et la règle
-reste limitée au composant de votre produit. Pour les états, combinez cette classe avec les attributs Ark `data-*`
-documentés sur la même partie. Utilisez une variable CSS publique lorsque le composant expose la valeur à modifier.
+Placez la classe sur la partie qui porte la modification visuelle. Pour un état, associez-la aux
+attributs Ark comme `data-state` ou `data-disabled`. Ne dépendez ni des classes générées ni de l’ordre
+du DOM.
 
-L’exemple ci-dessous utilise CSS Modules et applique les styles directement aux parties exportées d’Accordion.
+L’aperçu utilise React, car le site de documentation fonctionne avec React. La source Solid partage la
+même feuille de styles et utilise les props `class` natives.
 
-<section className={styles.example}>
-  <Accordion className={styles.accordion} collapsible defaultValue={['outcome']}>
-    <Accordion.Item className={styles.item} value="outcome">
-      <Accordion.ItemTrigger className={styles.trigger}>
-        <span className={styles.triggerCopy}>
-          <span className={styles.step}>01</span>
-          <span className={styles.title}>Define the project outcome</span>
-        </span>
-        <Accordion.ItemIndicator className={styles.indicator} />
-      </Accordion.ItemTrigger>
-      <Accordion.ItemContent className={styles.content}>
-        <Accordion.ItemBody className={styles.body}>
-          <p>Write one sentence that makes the next decision obvious to everyone on the project.</p>
-        </Accordion.ItemBody>
-      </Accordion.ItemContent>
-    </Accordion.Item>
-    <Accordion.Item className={styles.item} value="team">
-      <Accordion.ItemTrigger className={styles.trigger}>
-        <span className={styles.triggerCopy}>
-          <span className={styles.step}>02</span>
-          <span className={styles.title}>Invite the people who need context</span>
-        </span>
-        <Accordion.ItemIndicator className={styles.indicator} />
-      </Accordion.ItemTrigger>
-      <Accordion.ItemContent className={styles.content}>
-        <Accordion.ItemBody className={styles.body}>
-          <p>Give contributors a shared space for feedback, decisions, and the work in progress.</p>
-        </Accordion.ItemBody>
-      </Accordion.ItemContent>
-    </Accordion.Item>
-    <Accordion.Item className={styles.item} value="ritual">
-      <Accordion.ItemTrigger className={styles.trigger}>
-        <span className={styles.triggerCopy}>
-          <span className={styles.step}>03</span>
-          <span className={styles.title}>Create a weekly shipping ritual</span>
-        </span>
-        <Accordion.ItemIndicator className={styles.indicator} />
-      </Accordion.ItemTrigger>
-      <Accordion.ItemContent className={styles.content}>
-        <Accordion.ItemBody className={styles.body}>
-          <p>
-            Turn progress into a short update so the team can spot risks before they become
-            blockers.
-          </p>
-        </Accordion.ItemBody>
-      </Accordion.ItemContent>
-    </Accordion.Item>
-  </Accordion>
-</section>
-
-## CSS Modules
-
-CSS Modules constituent le point de départ sans dépendance. Dans ce `ProjectChecklist`, chaque classe est appliquée
-directement à la partie qu’elle met en forme.
+<ExampleFrame variant="component">
+  <PreviewFrame maxWidth="lg">
+    <ProjectChecklist />
+  </PreviewFrame>
+</ExampleFrame>
 
 <div className="docs-reference">
-  <Tabs values={[{ label: 'ProjectChecklist.tsx', value: 'ProjectChecklist.tsx' }, { label: 'ProjectChecklist.module.css', value: 'ProjectChecklist.module.css' }]} className="docs-tabs">
-    <Tab value="ProjectChecklist.tsx">
+  <Tabs groupId="framework" className="docs-tabs">
+    <Tab label="React" value="react">
 
 ```tsx pure file="../../../src/components/examples/styling/project-checklist.tsx"
 
 ```
 
     </Tab>
-    <Tab value="ProjectChecklist.module.css">
+    <Tab label="Solid" value="solid">
+
+<CodeBlockRuntime lang="tsx" code={solidProjectChecklist} />
+
+    </Tab>
+    <Tab label="Styles" value="styles">
 
 ```css file="../../../src/components/examples/styling/project-checklist.module.css"
 
 ```
 
     </Tab>
-
   </Tabs>
 </div>
 
-### Parties masquées
+## Cibler les parties masquées avec prudence
 
-Si un composant de votre produit gère la composition sans exposer l’une de ses parties internes comme prop, ciblez cette
-partie avec son `data-slot` stable. Vous pouvez ainsi styliser un déclencheur interne sans dépendre de l’ordre du DOM ni
-de noms de classes générés :
+Lorsqu’un wrapper du produit masque volontairement une partie interne, utilisez son `data-slot`
+stable comme solution de secours :
 
 ```css
 .root {
@@ -136,159 +94,82 @@ de noms de classes générés :
 }
 ```
 
-Utilisez cette technique en dernier recours, pas comme remplacement de `className`. Les parties telles que
-`Dialog.Content` et `Tooltip.Content` sont rendues par défaut dans un portail. Placez donc `className` sur la partie
-elle-même ou appliquez ses variables au conteneur du portail.
+Préférez une classe directe lorsque la partie est disponible. Placez les classes et variables locales
+sur les parties rendues dans un portail ou sur leur conteneur de portail.
 
-## Panda CSS
+## Utiliser Panda CSS
 
-Si votre application utilise déjà Panda CSS, générez des classes pour les mêmes parties de `ProjectChecklist`. Les noms
-de tokens de cet exemple viennent de votre thème Panda, pas de moduix.
+Panda CSS peut générer des classes du consommateur pour chaque framework pris en charge. Ses noms de tokens
+appartiennent au thème Panda, pas à Moduix. Transmettez la chaîne générée avec `className` en React ou
+`class` en Solid.
 
-```tsx
-import { Accordion } from '@moduix/react/accordion';
+```ts
 import { css } from '../styled-system/css';
 
-const root = css({
-  maxW: '2xl',
-  p: '3',
-  borderWidth: '1px',
-  borderColor: 'blue.200',
-  borderRadius: 'xl',
-  bg: 'blue.50',
-});
-const accordion = css({ display: 'flex', flexDirection: 'column', gap: '3' });
-const item = css({
-  overflow: 'hidden',
-  borderWidth: '1px',
-  borderColor: 'blue.200',
-  borderRadius: 'lg',
-  bg: 'white',
-  transition: 'colors',
-  '&[data-state=open]': { borderColor: 'blue.500', boxShadow: 'lg' },
-});
 const trigger = css({
   display: 'grid',
   gridTemplateColumns: 'minmax(0, 1fr) auto',
-  gap: '3',
-  alignItems: 'center',
-  w: 'full',
   px: '4',
   py: '4',
-  bg: 'blue.50',
-  color: 'gray.950',
-  fontWeight: 'semibold',
-  textAlign: 'left',
-  transition: 'colors',
   _hover: { bg: 'blue.100' },
-  _focusVisible: { outlineWidth: '2px', outlineColor: 'blue.500', outlineOffset: '-1px' },
-  '&[data-state=open]': { bg: 'blue.100', color: 'blue.700' },
+  '&[data-state=open]': { color: 'blue.700' },
 });
-const triggerCopy = css({ display: 'flex', gap: '3', alignItems: 'center', minW: '0' });
-const step = css({
-  display: 'grid',
-  flexShrink: '0',
-  placeItems: 'center',
-  w: '7',
-  h: '7',
-  borderWidth: '1px',
-  borderColor: 'blue.300',
-  borderRadius: 'xl',
-  bg: 'blue.100',
-  color: 'blue.700',
-  fontSize: 'xs',
-  fontWeight: 'semibold',
-});
-const title = css({ minW: '0' });
-const indicator = css({ flexShrink: '0', color: 'blue.700' });
-const content = css({
-  borderTopWidth: '1px',
-  borderColor: 'blue.200',
-  bg: 'blue.50',
-  color: 'gray.950',
-});
-const body = css({ px: '4', py: '4', color: 'gray.700', lineHeight: '6' });
-
-export function ProjectChecklist() {
-  return (
-    <section className={root}>
-      <Accordion className={accordion} collapsible defaultValue={['outcome']}>
-        <Accordion.Item className={item} value="outcome">
-          <Accordion.ItemTrigger className={trigger}>
-            <span className={triggerCopy}>
-              <span className={step}>01</span>
-              <span className={title}>Define the project outcome</span>
-            </span>
-            <Accordion.ItemIndicator className={indicator} />
-          </Accordion.ItemTrigger>
-          <Accordion.ItemContent className={content}>
-            <Accordion.ItemBody className={body}>
-              <p>
-                Write one sentence that makes the next decision obvious to everyone on the project.
-              </p>
-            </Accordion.ItemBody>
-          </Accordion.ItemContent>
-        </Accordion.Item>
-      </Accordion>
-    </section>
-  );
-}
 ```
 
-## Tailwind CSS
+## Utiliser Tailwind CSS
 
-Si votre application utilise déjà Tailwind CSS, appliquez les utilitaires et les variantes d’état aux mêmes parties de
-`ProjectChecklist`. Aucun plugin ni aucune configuration Tailwind spécifique à moduix n’est nécessaire.
+Les packages Tailwind contiennent déjà les styles utilitaires par défaut. Ajoutez les classes du
+consommateur à la partie précise que vous souhaitez modifier :
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
 ```tsx
-import { Accordion } from '@moduix/react/accordion';
+import { Accordion } from '@moduix/react-tailwind/accordion';
 
-export function ProjectChecklist() {
-  return (
-    <section className="max-w-2xl rounded-xl border border-blue-200 bg-blue-50 p-3">
-      <Accordion className="flex flex-col gap-3" collapsible defaultValue={['outcome']}>
-        <Accordion.Item
-          className="overflow-hidden rounded-lg border border-blue-200 bg-white transition-[border-color,box-shadow] data-[state=open]:border-blue-500 data-[state=open]:shadow-lg"
-          value="outcome"
-        >
-          <Accordion.ItemTrigger className="grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-3 bg-blue-50 p-4 text-left font-semibold text-slate-950 transition-colors hover:bg-blue-100 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-[-1px] data-[state=open]:bg-blue-100 data-[state=open]:text-blue-700">
-            <span className="flex min-w-0 items-center gap-3">
-              <span className="grid size-7 shrink-0 place-items-center rounded-xl border border-blue-300 bg-blue-100 text-xs font-semibold text-blue-700">
-                01
-              </span>
-              <span className="min-w-0">Define the project outcome</span>
-            </span>
-            <Accordion.ItemIndicator className="shrink-0 text-blue-700" />
-          </Accordion.ItemTrigger>
-          <Accordion.ItemContent className="border-t border-blue-200 bg-blue-50 text-slate-950">
-            <Accordion.ItemBody className="p-4 leading-6 text-slate-700">
-              <p>
-                Write one sentence that makes the next decision obvious to everyone on the project.
-              </p>
-            </Accordion.ItemBody>
-          </Accordion.ItemContent>
-        </Accordion.Item>
-      </Accordion>
-    </section>
-  );
-}
+<Accordion collapsible>
+  <Accordion.Item value="shipping" className="rounded-lg border data-[state=open]:border-blue-500">
+    <Accordion.ItemTrigger className="px-4">Shipping</Accordion.ItemTrigger>
+    <Accordion.ItemContent className="px-4">Usually 2 to 4 days.</Accordion.ItemContent>
+  </Accordion.Item>
+</Accordion>;
 ```
 
-## Résoudre les problèmes
+  </Tab>
+  <Tab label="Solid" value="solid">
 
-| Symptôme | Vérification la plus probable |
+```tsx
+import { Accordion } from '@moduix/solid-tailwind/accordion';
+
+<Accordion collapsible>
+  <Accordion.Item value="shipping" class="rounded-lg border data-[state=open]:border-blue-500">
+    <Accordion.ItemTrigger class="px-4">Shipping</Accordion.ItemTrigger>
+    <Accordion.ItemContent class="px-4">Usually 2 to 4 days.</Accordion.ItemContent>
+  </Accordion.Item>
+</Accordion>;
+```
+
+  </Tab>
+</Tabs>
+
+Conservez l’entrée `@source` du package choisi afin que Tailwind génère ses classes. Le
+[Démarrage rapide](/docs/quick-start) décrit la feuille de styles complète.
+
+## Diagnostiquer la cascade
+
+| Symptôme | Vérification |
 | --- | --- |
-| Une variable n’a aucun effet | Vérifiez qu’elle est documentée sur la page du composant et que votre redéfinition est chargée après `style.css`. |
-| Un composant flottant ignore une valeur définie sur son conteneur | Il est peut-être rendu dans un portail. Placez la variable sur sa partie, sa racine ou le conteneur du portail. |
-| Le sélecteur d’état ne correspond jamais | Inspectez l’attribut Ark exact, par exemple `data-state` ou `data-disabled`. |
-| La classe atteint la racine, mais pas la partie | Placez `className` sur la partie exportée qui contrôle la propriété visuelle. |
-| Une classe utilitaire est supplantée par le CSS du composant | Préférez une variable CSS documentée ou vérifiez l’ordre de cascade de votre classe locale. |
+| Une variable n’a aucun effet | Vérifiez qu’elle est documentée et que la redéfinition arrive après `style.css`. |
+| Un popup ignore la valeur d’un conteneur | Placez-la sur la partie rendue dans un portail, la racine ou le conteneur de portail. |
+| Un sélecteur d’état ne correspond jamais | Inspectez l’attribut Ark exact sur cette partie. |
+| La classe atteint la racine mais pas une partie interne | Appliquez-la à la partie exportée qui porte la propriété. |
+| Les utilitaires Tailwind manquent | Vérifiez la feuille du package, le chemin `@source` et l’ordre des classes. |
 
-Avant d’augmenter la spécificité d’un sélecteur, utilisez les outils de développement du navigateur pour inspecter la
-partie rendue, son `data-slot`, ses attributs d’état et les propriétés personnalisées calculées.
+Inspectez la partie rendue, son `data-slot`, ses attributs d’état et ses valeurs calculées avant
+d’augmenter la spécificité.
 
 ## Ressources associées
 
-- [Tokens](/docs/tokens) présente la base CSS commune et les variables publiques.
-- [Modèles de composition](/docs/composition-patterns) explique comment limiter les composants d’encapsulation propres
-  au produit.
+- [Démarrage rapide](/docs/quick-start)
+- [Tokens](/docs/tokens)
+- [Patrons de composition](/docs/composition-patterns)

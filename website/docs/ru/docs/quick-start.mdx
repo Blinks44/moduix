@@ -48,7 +48,7 @@ moduix можно использовать в приложении двумя р
 ## Выберите фреймворк
 
 Выберите нативные для фреймворка пакет и пространство имён реестра. Пакеты на CSS Modules для React
-и Solid содержат полный каталог, а Tailwind-пакеты — только компоненты с завершённым переносом стилей.
+и Solid содержат полный каталог, а Tailwind-пакеты содержат только компоненты с завершённым переносом стилей.
 
 | Среда | CSS Modules | Tailwind CSS |
 | --- | --- | --- |
@@ -149,7 +149,7 @@ import '@moduix/solid/style.css';
 
 #### 3. Используйте компонент
 
-Accordion доступен во всех четырёх пакетах, поэтому по нему удобно проверить любой подход к стилям:
+Accordion доступен в каждом выпущенном фреймворке и варианте стилей, поэтому по нему удобно проверить любой подход к стилям:
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
@@ -392,16 +392,12 @@ import '@/lib/moduix/styles/style.css';
 <Tabs groupId="framework">
   <Tab label="React" value="react">
 
-```bash
-npx shadcn@latest add @moduix-react/reset
-```
+<PackageManagerTabs command="shadcn@latest add @moduix-react/reset" dlx />
 
   </Tab>
   <Tab label="Solid" value="solid">
 
-```bash
-npx shadcn@latest add @moduix-solid/reset
-```
+<PackageManagerTabs command="shadcn@latest add @moduix-solid/reset" dlx />
 
   </Tab>
 </Tabs>
@@ -491,7 +487,7 @@ moduix совместим с подходом к стилям, который у
 На страницах компонентов перечислены общие точки настройки стилей и публичные переменные, доступные
 в CSS Modules. Tailwind-варианты используют семантические утилиты и пользовательские классы, а не
 повторяют эти компонентные переменные. Полная иерархия описана в [Токенах](/docs/tokens), а
-настройка движения — в [Анимациях](/docs/animations).
+настройка движения описана в [Анимациях](/docs/animations).
 
 ## Устранение неполадок
 

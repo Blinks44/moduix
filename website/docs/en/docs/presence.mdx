@@ -187,6 +187,6 @@ other interactive roots, use that component's own presence options so its intera
 `Presence` renders a `<div>` by default with `data-scope="presence"` and `data-part="root"`. Use `asChild` when one
 existing element should receive those props instead of adding a wrapper. The React child must accept the forwarded ref,
 `hidden`, `data-*`, and class name. Solid uses Ark's render-function form:
-`asChild={(props) => <article {...props()} />}`. In either framework, keep one semantic root and preserve its accessible
+`asChild={(props) => <article {...props()} />}`. In every adapter, keep one semantic root and preserve its accessible
 name and content. Do not use `opacity` alone as a replacement for the hidden behavior when inactive content must leave
 the accessibility tree.

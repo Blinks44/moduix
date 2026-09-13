@@ -26,7 +26,7 @@ Skills are intentionally narrow and composable:
 - `research-upstream-libraries`: current Ark UI, Chakra UI, and shadcn research.
 - `rstest-best-practices`: Rstest configuration and test design.
 - `rslib-best-practices`: Rslib configuration, outputs, and build troubleshooting.
-- `docs-workflow`: localized MDX, page-type structure, framework synchronization, previews, CSS-variable references, and registry guidance in `website`.
+- `docs-workflow`: localized MDX, page-type structure, framework synchronization, previews, package-manager-neutral commands, CSS-variable references, and registry guidance in `website`.
 - `rspress-best-practices`: Rspress configuration, navigation, search, assets, deployment, and debugging.
 - `rspress-custom-theme`: the Rspress visual shell, theme variables, slots, wrappers, and ejection.
 - `rspress-description-generator`: description frontmatter and search/AI metadata.

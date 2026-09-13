@@ -12,7 +12,7 @@ Les thèmes moduix sont des couches de tokens CSS. `Calm` correspond aux valeurs
 socle ; `Dense`, `Soft` et `Contrast` sont des préréglages facultatifs pour d’autres directions
 visuelles. Un préréglage peut modifier la palette, les rayons, l’espacement, la densité des
 contrôles et les ombres sans changer l’API des composants ni dépendre d’un moteur de thème distinct.
-Les paquets React et Solid utilisent les mêmes fichiers de thème et le même contrat de tokens.
+Tous les adaptateurs publiés utilisent les mêmes fichiers de thème et le même contrat de tokens.
 
 <ClientOnly fallback={<ThemePresets />}>
   <ThemePresets />
@@ -127,9 +127,7 @@ même préfixe de paquet.
 Les préréglages sont indépendants du framework. La même URL du registre commun fonctionne avec React
 ou Solid, quelle que soit l’approche de stylisation. La CLI copie le fichier CSS dans votre projet :
 
-```bash
-npx shadcn@latest add https://moduix.dev/r/foundation/theme-dense.json
-```
+<PackageManagerTabs command="shadcn@latest add https://moduix.dev/r/foundation/theme-dense.json" dlx />
 
 ```tsx
 import '@/lib/moduix/styles/style.css';

@@ -22,7 +22,7 @@ are composed from named parts and customizable through CSS custom properties, `c
 Install the package and its Ark UI peer dependency in an existing Solid project:
 
 ```bash
-npm install @moduix/solid @ark-ui/solid
+pnpm add @moduix/solid @ark-ui/solid
 ```
 
 `solid-js` and `@ark-ui/solid` are peer dependencies. moduix supports Solid 1.9 and later 1.x releases.
@@ -30,7 +30,7 @@ npm install @moduix/solid @ark-ui/solid
 The optional `Chart` component also requires its TanStack peer dependency:
 
 ```bash
-npm install @tanstack/charts
+pnpm add @tanstack/charts
 ```
 
 ## Add styles
@@ -104,7 +104,7 @@ The available presets are `dense`, `soft`, and `contrast`.
 The hosted shadcn-compatible registry provides the same component contracts in source form:
 
 ```bash
-npx shadcn@latest add @moduix-solid/accordion
+pnpm dlx shadcn@latest add @moduix-solid/accordion
 ```
 
 ## Links
