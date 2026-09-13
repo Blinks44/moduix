@@ -1,9 +1,10 @@
 ---
 title: Verification code
-description: A six-digit email verification form built with moduix React components.
+description: A six-digit email verification form built with moduix components.
 ---
 
 import { VerificationCode } from '@/components/recipes/verification-code/verification-code';
+import verificationCodeSolid from '../../../snippets/recipes/solid/verification-code.tsx?raw';
 
 # Verification code
 
@@ -13,35 +14,50 @@ native form input, handles keyboard navigation and paste, and enables OTP autofi
 with fewer than six digits to see the built-in field error. This check only confirms that all six digits
 are present. Your application still needs to verify the code on the server.
 
+The live preview uses the React package. The source tabs show native React and Solid implementations that share the same stylesheet.
+
 <ExampleFrame variant="recipe" clientOnly>
+  <PreviewFrame maxWidth="sm">
   <VerificationCode onSubmit={(event) => event.preventDefault()} />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/recipes/verification-code/verification-code.tsx"
 
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={verificationCodeSolid} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/recipes/verification-code/verification-code-form.module.css"
 
 ```
-
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
 
 ## Install
 
-<ShadcnInstall packageName={['button', 'card', 'field', 'pin-input']} itemKind="recipe" copiedSource />
+<ShadcnInstall packageName={['button', 'card', 'field', 'pin-input']} itemKind="recipe" frameworks copiedSource />
 
 ## Use the recipe in a route
 

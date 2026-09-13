@@ -4,6 +4,7 @@ description: Компактная группа перекрывающихся а
 ---
 
 import { ExpandableAvatarGroup } from '@/components/recipes/expandable-avatar-group';
+import expandableAvatarGroupSolid from '../../../snippets/recipes/solid/expandable-avatar-group.tsx?raw';
 
 # Раскрывающаяся группа аватаров
 
@@ -12,37 +13,53 @@ import { ExpandableAvatarGroup } from '@/components/recipes/expandable-avatar-gr
 раздвинуть группу и увидеть имя и роль участника.
 
 Этот рецепт можно скопировать в приложение. Это не компонент `ExpandableAvatarGroup`, экспортируемый
-из `@moduix/react`, а композиция на основе `Avatar` и `Tooltip`. Установите эти компоненты, скопируйте
+moduix, а композиция на основе `Avatar` и `Tooltip`. Установите эти компоненты, скопируйте
 код и стили ниже, а затем замените демонстрационных участников данными из приложения.
 
+Живое превью использует React-пакет. Во вкладках исходников приведены нативные реализации для React и Solid с общими стилями.
+
 <ExampleFrame variant="recipe" clientOnly>
+  <PreviewFrame maxWidth="sm">
   <ExpandableAvatarGroup />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Стили', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/recipes/expandable-avatar-group.tsx"
+
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={expandableAvatarGroupSolid} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/recipes/expandable-avatar-group.module.css"
+
 ```
-
-    </Tab>
-
-  </Tabs>
 </div>
 
 </ExampleCode>
 
 ## Установка
 
-<ShadcnInstall packageName={['avatar', 'tooltip']} itemKind="recipe" copiedSource />
+<ShadcnInstall packageName={['avatar', 'tooltip']} itemKind="recipe" frameworks copiedSource />
 
 ## Настройка рецепта
 

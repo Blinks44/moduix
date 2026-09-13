@@ -4,47 +4,63 @@ description: Готовый к копированию рецепт moduix с д�
 ---
 
 import { ParallaxCardPreview } from '@/components/recipes/parallax-card-preview';
+import parallaxCardSolid from '../../../snippets/recipes/solid/parallax-card.tsx?raw';
 
 # Карточка с параллаксом
 
-Этот рецепт сочетает `Card.Background` из `@moduix/react/card` с `react-parallax-tilt` и создаёт карточку
-с фоновым изображением на всю площадь и лёгким 3D-наклоном при наведении. Это готовая композиция для
-копирования, а не компонент `ParallaxCard`, экспортируемый из `@moduix/react`.
+Этот рецепт сочетает `Card.Background`, небольшой обработчик указателя и CSS-трансформации. Получается
+карточка с фоновым изображением на всю площадь и лёгким 3D-наклоном. Это готовая композиция приложения,
+а не компонент `ParallaxCard`, экспортируемый moduix.
 
 `Card.Background` размещает изображение за содержимым карточки. Градиент поверх изображения и контраст
 текста задаются в CSS-примере, поэтому их можно настроить под выбранное изображение. Наклон включается
 только на устройствах с точным указателем, поддерживающим наведение. Если такой указатель недоступен или
 пользователь включил уменьшение анимации, карточка остаётся статичной.
 
+Живое превью использует React-пакет. Во вкладках исходников приведены нативные реализации для React и Solid с общими стилями.
+
 <ExampleFrame variant="recipe" clientOnly>
+  <PreviewFrame maxWidth="sm">
   <ParallaxCardPreview />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Стили', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/recipes/parallax-card.tsx"
 
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={parallaxCardSolid} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/recipes/parallax-card.module.css"
 
 ```
-
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
 
 ## Установка
 
-<ShadcnInstall packageName="card" itemKind="recipe" copiedSource dependencies={['react-parallax-tilt']} />
+<ShadcnInstall packageName="card" itemKind="recipe" frameworks copiedSource />
 
 ## Использование на странице
 

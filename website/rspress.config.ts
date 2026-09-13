@@ -5,9 +5,9 @@ import { fileURLToPath } from 'node:url';
 
 const siteOrigin = 'https://moduix.dev';
 const brandName = 'Moduix';
-const defaultTitle = `${brandName} - Accessible Component Library Built on Ark UI`;
+const defaultTitle = `${brandName} - Multi-framework Component System Built on Ark UI`;
 const defaultDescription =
-  'Accessible React and Solid components with calm defaults, explicit composition, and shared design tokens.';
+  'Accessible React and Solid components with native APIs, considered defaults, and matching CSS Modules and Tailwind styling tracks.';
 const locales = [
   {
     lang: 'en',
@@ -18,16 +18,16 @@ const locales = [
   {
     lang: 'fr',
     label: 'Français',
-    title: `${brandName} - bibliothèque de composants accessibles, fondée sur Ark UI`,
+    title: `${brandName} - système de composants multi-framework fondé sur Ark UI`,
     description:
-      'Composants accessibles pour React et Solid, avec des valeurs par défaut soignées, une composition explicite et des tokens partagés.',
+      'Composants accessibles pour React et Solid avec des API natives, des valeurs par défaut soignées et deux approches avec CSS Modules et Tailwind.',
   },
   {
     lang: 'ru',
     label: 'Русский',
-    title: `${brandName} - библиотека доступных компонентов на базе Ark UI`,
+    title: `${brandName} - мультифреймворковая система компонентов на базе Ark UI`,
     description:
-      'Доступные компоненты для React и Solid с продуманными настройками по умолчанию, явной композицией и общими дизайн-токенами.',
+      'Доступные компоненты для React и Solid с нативными API, продуманными настройками и равноправными вариантами на CSS Modules и Tailwind.',
   },
 ];
 const socialImage = `${siteOrigin}/banner.png`;

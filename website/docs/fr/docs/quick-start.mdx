@@ -1,6 +1,6 @@
 ---
 title: Démarrage rapide
-description: Installez moduix en tant que paquet ou ajoutez le code source des composants depuis le registre shadcn.
+description: Choisissez React ou Solid, CSS Modules ou Tailwind, puis installez moduix comme paquet ou copiez son code source avec la CLI shadcn.
 ---
 
 import { FrameworkGrid } from '@/components/docs/framework-grid';
@@ -23,7 +23,7 @@ conserver le code source et la manière dont vous souhaitez le mettre à jour.
 Partez d’une application React ou Solid existante. Si vous choisissez un paquet ou un registre
 Tailwind, Tailwind CSS v4 doit déjà être configuré dans l’application.
 
-## Choisir une méthode d'installation
+## Choisir où conserver le code source
 
 <Cards>
   <Card
@@ -38,8 +38,8 @@ Tailwind, Tailwind CSS v4 doit déjà être configuré dans l’application.
   />
 </Cards>
 
-Pour commencer, choisissez React 18 ou 19 avec `@ark-ui/react`, ou Solid 1.9 avec `@ark-ui/solid`.
-Votre framework ou bundler doit pouvoir importer du CSS depuis des paquets npm. Lorsque le framework
+Pour commencer, choisissez React 18 ou 19 avec `@ark-ui/react`, ou Solid 1.9 ou une version 1.x
+ultérieure avec `@ark-ui/solid`. Votre framework ou bundler doit pouvoir importer du CSS depuis les paquets installés. Lorsque le framework
 l’exige, placez les composants interactifs dans une frontière client.
 
 L’accessibilité est une responsabilité partagée : Ark UI fournit le comportement des primitives, moduix définit les
@@ -48,9 +48,10 @@ validation et le parcours utilisateur.
 
 ## Choisir votre framework
 
-Choisissez le paquet et le registre natifs de votre framework. Les paquets CSS Modules pour React et
-Solid proposent le catalogue complet ; les paquets Tailwind contiennent uniquement les composants
-dont le portage Tailwind est terminé.
+Choisissez le paquet et le registre natifs de votre framework. Les catalogues de composants React et
+Solid sont disponibles avec les deux approches de style. CSS Modules fournit en plus la réinitialisation
+facultative de moduix, tandis que Tailwind utilise Preflight. Les adaptateurs Vue et Svelte sont prévus,
+mais ne sont pas encore disponibles à l’installation.
 
 | Framework | CSS Modules | Tailwind CSS |
 | --- | --- | --- |
@@ -352,7 +353,7 @@ utilise :
 ```
 
 La CLI `shadcn` dispose ainsi des alias et de l’URL du registre pour écrire les fichiers générés dans votre répertoire
-source plutôt que dans un dossier `@` littéral. La [configuration du framework](#choisir-votre-framework) indique si le
+source plutôt que dans un dossier `@` littéral. Le guide du framework choisi ci-dessus précise si le
 même alias doit aussi être déclaré dans le bundler et quel répertoire source utiliser.
 
 ### 2. Ajouter un composant
@@ -448,6 +449,9 @@ import { Accordion } from '@/components/ui/accordion';
 
 La plupart des composants sont composés de parties nommées. Cette structure préserve leur comportement accessible tout
 en vous laissant maîtriser le balisage, la mise en page et les styles dans votre application.
+
+Le registre est correctement configuré lorsque l’import du composant généré est résolu, que les styles
+moduix sont visibles et que l’Accordion s’ouvre au clavier comme au pointeur.
 
 La gestion du code source s’inspire de [shadcn/ui](https://ui.shadcn.com/), tandis que la structure des composants et
 leur comportement restent alignés sur [Ark UI](https://ark-ui.com/).

@@ -4,6 +4,7 @@ description: Une structure de tableau de bord prête à copier, avec navigation 
 ---
 
 import { SidebarDashboardPreview } from '@/components/recipes/sidebar-dashboard-preview';
+import sidebarDashboardSolid from '../../../snippets/recipes/solid/sidebar-dashboard.tsx?raw';
 
 # Tableau de bord avec navigation latérale
 
@@ -18,8 +19,10 @@ Vous pouvez redimensionner la barre latérale en faisant glisser le séparateur 
 navigation lorsque la barre se réduit à une rangée d’icônes.
 
 Il s’agit d’une composition prête à copier, et non d’un composant `SidebarDashboard` exporté par
-`@moduix/react`. Copiez le composant et le CSS ci-dessous, puis remplacez les liens, libellés et
+moduix. Copiez le composant et le CSS ci-dessous, puis remplacez les liens, libellés et
 données de démonstration.
+
+L’aperçu interactif utilise le paquet React. Les onglets de code présentent des implémentations natives pour React et Solid avec les mêmes styles.
 
 <ExampleFrame variant="recipe" clientOnly>
   <SidebarDashboardPreview />
@@ -27,29 +30,40 @@ données de démonstration.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/recipes/sidebar-dashboard.tsx"
 
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={sidebarDashboardSolid} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/recipes/sidebar-dashboard.module.css"
 
 ```
-
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
 
 ## Installation
 
-<ShadcnInstall packageName={['button', 'card', 'collapsible', 'menu', 'sidebar']} itemKind="recipe" copiedSource dependencies={['lucide-react']} />
+<ShadcnInstall packageName={['button', 'card', 'collapsible', 'menu', 'sidebar']} itemKind="recipe" frameworks copiedSource dependencies={['lucide-react']} solidDependencies={['lucide-solid']} />
 
 ## Adapter la recette à l’application
 

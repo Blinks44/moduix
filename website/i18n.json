@@ -107,19 +107,94 @@
     "fr": "Inspiré par shadcn"
   },
   "homeLead": {
-    "en": "Framework-native React and Solid components with accessible behavior, calm defaults, and explicit composition. Shared tokens keep the visual system consistent, with CSS Modules available now and Tailwind support on the way.",
-    "ru": "Нативные компоненты для React и Solid с доступным поведением, продуманными настройками по умолчанию и явной композицией. Общие токены сохраняют единый визуальный язык: CSS Modules доступны уже сейчас, а поддержка Tailwind развивается.",
-    "fr": "Des composants natifs pour React et Solid, avec un comportement accessible, des valeurs par défaut soignées et une composition explicite. Les tokens partagés assurent la cohérence visuelle ; CSS Modules est disponible dès maintenant et le support de Tailwind arrive progressivement."
+    "en": "A multi-framework component system built on Ark UI. React and Solid ship with native APIs, accessible behavior, considered defaults, and matching CSS Modules and Tailwind styling tracks.",
+    "ru": "Мультифреймворковая система компонентов на базе Ark UI. React и Solid уже доступны с нативными API, доступным поведением, продуманными настройками и равноправными вариантами на CSS Modules и Tailwind.",
+    "fr": "Un système de composants multi-framework fondé sur Ark UI. React et Solid proposent des API natives, un comportement accessible, des valeurs par défaut soignées et deux approches équivalentes avec CSS Modules et Tailwind."
+  },
+  "homeFrameworkStatus": {
+    "en": "React and Solid are available today. Vue and Svelte are planned.",
+    "ru": "React и Solid доступны сейчас. Vue и Svelte запланированы.",
+    "fr": "React et Solid sont disponibles dès maintenant. Vue et Svelte sont prévus."
   },
   "homeGetStarted": {
     "en": "Get started",
     "ru": "Начать работу",
     "fr": "Démarrer"
   },
-  "homeComponents": {
+  "homeDocumentationEyebrow": {
+    "en": "One system, clear paths",
+    "ru": "Одна система, понятные разделы",
+    "fr": "Un seul système, des parcours clairs"
+  },
+  "homeDocumentationTitle": {
+    "en": "From primitives to product patterns.",
+    "ru": "От примитивов до продуктовых сценариев",
+    "fr": "Des primitives aux scénarios produit"
+  },
+  "homeDocumentationDescription": {
+    "en": "Use the layer you need. Each section follows a consistent structure and shows native React and Solid source where the runtime matters.",
+    "ru": "Выберите нужный уровень. Все разделы построены единообразно и показывают нативный код для React и Solid там, где важен фреймворк.",
+    "fr": "Choisissez le niveau dont vous avez besoin. Chaque section suit une structure cohérente et présente du code natif React et Solid lorsque le framework compte."
+  },
+  "homeAreaComponents": {
     "en": "Components",
     "ru": "Компоненты",
     "fr": "Composants"
+  },
+  "homeAreaComponentsDescription": {
+    "en": "Styled building blocks with accessible behavior and explicit composition.",
+    "ru": "Стилизованные блоки с доступным поведением и явной композицией.",
+    "fr": "Des blocs stylisés au comportement accessible et à la composition explicite."
+  },
+  "homeAreaCollections": {
+    "en": "Ark Collections",
+    "ru": "Ark Collections",
+    "fr": "Ark Collections"
+  },
+  "homeAreaCollectionsDescription": {
+    "en": "Data models for lists, trees, selection, and asynchronous sources.",
+    "ru": "Модели данных для списков, деревьев, выбора и асинхронных источников.",
+    "fr": "Des modèles de données pour les listes, les arbres, la sélection et les sources asynchrones."
+  },
+  "homeAreaUtilities": {
+    "en": "Ark Utilities",
+    "ru": "Ark Utilities",
+    "fr": "Ark Utilities"
+  },
+  "homeAreaUtilitiesDescription": {
+    "en": "Focused helpers for rendering, focus, formatting, locale, and presence.",
+    "ru": "Точечные инструменты для рендеринга, фокуса, форматирования, локали и присутствия.",
+    "fr": "Des outils ciblés pour le rendu, le focus, le formatage, la locale et la présence."
+  },
+  "homeAreaForms": {
+    "en": "Forms",
+    "ru": "Формы",
+    "fr": "Formulaires"
+  },
+  "homeAreaFormsDescription": {
+    "en": "Integration guides for Formisch, React Hook Form, and TanStack Form.",
+    "ru": "Руководства по интеграции с Formisch, React Hook Form и TanStack Form.",
+    "fr": "Des guides d’intégration pour Formisch, React Hook Form et TanStack Form."
+  },
+  "homeAreaGuides": {
+    "en": "Guides",
+    "ru": "Руководства",
+    "fr": "Guides"
+  },
+  "homeAreaGuidesDescription": {
+    "en": "Practical guidance for styling, composition, motion, RTL, and updates.",
+    "ru": "Практические рекомендации по стилям, композиции, анимации, RTL и обновлениям.",
+    "fr": "Des conseils pratiques sur les styles, la composition, les animations, le RTL et les mises à jour."
+  },
+  "homeAreaRecipes": {
+    "en": "Recipes",
+    "ru": "Рецепты",
+    "fr": "Recettes"
+  },
+  "homeAreaRecipesDescription": {
+    "en": "Complete product patterns with copyable React and Solid implementations.",
+    "ru": "Готовые продуктовые сценарии с копируемыми реализациями для React и Solid.",
+    "fr": "Des scénarios produit complets avec des implémentations React et Solid prêtes à copier."
   },
   "homeCompositionInPractice": {
     "en": "Composition in practice",
@@ -377,9 +452,9 @@
     "fr": "Pour ajouter cette recette au code source de votre projet plutôt que dans node_modules, installez-la depuis le registre moduix hébergé :"
   },
   "shadcnImportHint": {
-    "en": "The examples below use npm imports. With the shadcn CLI, use the local import path shown below instead.",
-    "ru": "В примерах ниже используются npm-импорты. При установке через shadcn CLI используйте вместо них локальный путь импорта из примера ниже.",
-    "fr": "Les exemples ci-dessous utilisent les imports npm. Avec la CLI shadcn, utilisez plutôt le chemin d’import local indiqué ci-dessous."
+    "en": "The examples below use package imports. With the shadcn CLI, use the local import path shown below instead.",
+    "ru": "В примерах ниже используются импорты из пакета. При установке через shadcn CLI используйте вместо них локальный путь импорта из примера ниже.",
+    "fr": "Les exemples ci-dessous utilisent les imports du paquet. Avec la CLI shadcn, utilisez plutôt le chemin d’import local indiqué ci-dessous."
   },
   "shadcnCopyComponent": {
     "en": "Copy this component and its CSS from the tabs above, then add the moduix components it uses:",

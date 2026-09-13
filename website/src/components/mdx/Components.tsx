@@ -40,11 +40,15 @@ function ShadcnInstall({
   itemKind = 'component',
   copiedSource = false,
   dependencies = [],
+  solidDependencies = [],
+  frameworks = false,
 }: {
   packageName: string | string[];
   itemKind?: 'component' | 'recipe';
   copiedSource?: boolean;
   dependencies?: string[];
+  solidDependencies?: string[];
+  frameworks?: boolean;
 }) {
   const packageNames = Array.isArray(packageName) ? packageName : [packageName];
   const t = useI18n<typeof import('i18n')>();
@@ -52,29 +56,42 @@ function ShadcnInstall({
     itemKind === 'recipe' ? t('shadcnInstallRecipe') : t('shadcnInstallComponent');
   const copyMessage = itemKind === 'recipe' ? t('shadcnCopyRecipe') : t('shadcnCopyComponent');
 
-  return (
+  const renderInstall = (framework: 'react' | 'solid', extraDependencies: string[]) => (
     <div className={styles.install}>
       <p>{copiedSource ? copyMessage : installMessage}</p>
       <PackageManagerTabs
-        command={`shadcn@latest add ${packageNames.map((name) => `@moduix-react/${name}`).join(' ')}`}
+        command={`shadcn@latest add ${packageNames.map((name) => `@moduix-${framework}/${name}`).join(' ')}`}
         dlx
       />
       <p>{t('shadcnImportHint')}</p>
       <CodeBlockRuntime
         lang="tsx"
-        code={`// npm
-// import { Component } from '@moduix/react/<component>';
+        code={`// Package
+// import { Component } from '@moduix/${framework}/<component>';
 
 // shadcn
 import { Component } from '@/components/ui/<component>';`}
       />
-      {dependencies.length > 0 ? (
+      {extraDependencies.length > 0 ? (
         <>
           <p>{t('shadcnExampleRequires')}</p>
-          <PackageManagerTabs command={`install ${dependencies.join(' ')}`} />
+          <PackageManagerTabs command={`install ${extraDependencies.join(' ')}`} />
         </>
       ) : null}
     </div>
+  );
+
+  if (!frameworks) return renderInstall('react', dependencies);
+
+  return (
+    <Tabs groupId="framework">
+      <Tab label="React" value="react">
+        {renderInstall('react', dependencies)}
+      </Tab>
+      <Tab label="Solid" value="solid">
+        {renderInstall('solid', solidDependencies)}
+      </Tab>
+    </Tabs>
   );
 }
 

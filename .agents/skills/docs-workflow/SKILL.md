@@ -15,7 +15,7 @@ This skill owns documentation content and source-to-locale consistency. It does 
 2. The corresponding default-language page (currently English) and the affected locale pages. Use `rspress-localization` for the translation itself.
 3. The shipped component API, its local markdown, and its existing examples when the page documents a component.
 
-Read [the page-type contract](references/page-types.md) when creating or substantially restructuring a page. It records the shared structure for component, utility, collection, form, and guide pages and is the place to add future page types after they are deliberately standardized.
+Read [the page-type contract](references/page-types.md) when creating or substantially restructuring a page. It records the shared structure for component, utility, collection, form, guide, and recipe pages and is the place to add future page types after they are deliberately standardized.
 
 When adding or synchronizing a supported runtime across overview, setup, migration, theme, token,
 or component-index pages, read [the framework-support contract](references/framework-support.md).
@@ -117,6 +117,6 @@ Read [preview rules](references/previews.md) whenever adding or changing a previ
 
 ## Local development
 
-- Use `npm run dev:docs` for interactive documentation work. It already watches the library output.
+- Use `pnpm run dev:docs` for interactive documentation work. It already watches the library output.
 - Do not run another package watcher or clean package build while it is active.
 - Do not run `build:docs` while `dev:docs` is active. Use it only for an explicit production check after stopping the dev workflow.

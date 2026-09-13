@@ -7,7 +7,17 @@ import { Switch } from '@moduix/react/switch';
 import { Tabs } from '@moduix/react/tabs';
 import { useI18n } from '@rspress/core/runtime';
 import { Link } from '@rspress/core/theme';
-import { ArrowRight, Component, Layers3, Sparkles } from 'lucide-react';
+import {
+  ArrowRight,
+  BookOpen,
+  Boxes,
+  ClipboardList,
+  Component,
+  Database,
+  Layers3,
+  Sparkles,
+  Wrench,
+} from 'lucide-react';
 import { useState } from 'react';
 import { FrameworkSupport } from '@/components/home/framework-support';
 import { DataTable } from '@/components/recipes/data-table';
@@ -18,7 +28,50 @@ export function Home() {
   const t = useI18n<typeof import('i18n')>();
   const docsPath = useLocalizedPath('/docs/');
   const componentsPath = useLocalizedPath('/docs/components');
+  const collectionsPath = useLocalizedPath('/docs/collections');
+  const utilitiesPath = useLocalizedPath('/docs/utilities');
+  const formsPath = useLocalizedPath('/docs/forms');
+  const guidesPath = useLocalizedPath('/docs/styling');
+  const recipesPath = useLocalizedPath('/recipes');
   const dataTablePath = useLocalizedPath('/recipes/data-table');
+  const documentationAreas = [
+    {
+      title: t('homeAreaComponents'),
+      description: t('homeAreaComponentsDescription'),
+      href: componentsPath,
+      icon: Component,
+    },
+    {
+      title: t('homeAreaCollections'),
+      description: t('homeAreaCollectionsDescription'),
+      href: collectionsPath,
+      icon: Database,
+    },
+    {
+      title: t('homeAreaUtilities'),
+      description: t('homeAreaUtilitiesDescription'),
+      href: utilitiesPath,
+      icon: Wrench,
+    },
+    {
+      title: t('homeAreaForms'),
+      description: t('homeAreaFormsDescription'),
+      href: formsPath,
+      icon: ClipboardList,
+    },
+    {
+      title: t('homeAreaGuides'),
+      description: t('homeAreaGuidesDescription'),
+      href: guidesPath,
+      icon: BookOpen,
+    },
+    {
+      title: t('homeAreaRecipes'),
+      description: t('homeAreaRecipesDescription'),
+      href: recipesPath,
+      icon: Boxes,
+    },
+  ];
   return (
     <main className={`${styles.home} moduix-home`}>
       <div className={styles.spotlight} />
@@ -44,14 +97,11 @@ export function Home() {
           </h1>
           <p className={styles.lead}>{t('homeLead')}</p>
           <FrameworkSupport />
+          <p className={styles.frameworkStatus}>{t('homeFrameworkStatus')}</p>
           <div className={styles.actions}>
             <Link href={docsPath} className={styles.primary}>
               {t('homeGetStarted')}
               <ArrowRight size={18} aria-hidden="true" />
-            </Link>
-            <Link href={componentsPath} className={styles.secondary}>
-              {t('homeComponents')}
-              <Component size={18} aria-hidden="true" />
             </Link>
           </div>
         </div>
@@ -71,6 +121,28 @@ export function Home() {
             <div className={styles.menuLine} />
             <div className={styles.menuLine} />
           </div>
+        </div>
+      </section>
+
+      <section className={styles.documentationSection} aria-labelledby="documentation-title">
+        <div className={styles.documentationIntro}>
+          <span className={styles.sectionEyebrow}>{t('homeDocumentationEyebrow')}</span>
+          <h2 id="documentation-title">{t('homeDocumentationTitle')}</h2>
+          <p>{t('homeDocumentationDescription')}</p>
+        </div>
+        <div className={styles.documentationGrid}>
+          {documentationAreas.map(({ title, description, href, icon: Icon }) => (
+            <Link key={title} href={href} className={styles.documentationCard}>
+              <span className={styles.documentationIcon}>
+                <Icon size={18} aria-hidden="true" />
+              </span>
+              <span className={styles.documentationCardContent}>
+                <strong>{title}</strong>
+                <span>{description}</span>
+              </span>
+              <ArrowRight size={16} aria-hidden="true" />
+            </Link>
+          ))}
         </div>
       </section>
 

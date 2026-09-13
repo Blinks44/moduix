@@ -118,6 +118,123 @@
   }
 }
 
+.documentationSection {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 1.5rem;
+  width: min(100% - 24px, 28rem);
+  margin: 0 auto;
+  padding: 1.5rem 0 2.5rem;
+
+  @media (min-width: 521px) {
+    width: min(100% - 32px, 42rem);
+    padding: 2rem 0 3.5rem;
+  }
+
+  @media (min-width: 901px) {
+    grid-template-columns: minmax(15rem, 0.7fr) minmax(0, 1.3fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    width: min(1180px, calc(100% - 40px));
+    padding: 1rem 0 5rem;
+  }
+}
+
+.documentationIntro {
+  & h2 {
+    max-width: 30rem;
+    margin: 0.5rem 0 0;
+    color: var(--rp-c-text-1);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 650;
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+  }
+
+  & p {
+    max-width: 32rem;
+    margin: 0.85rem 0 0;
+    color: var(--rp-c-text-2);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+}
+
+.documentationGrid {
+  display: grid;
+  gap: 0.75rem;
+
+  @media (min-width: 521px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.documentationCard {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 0.85rem;
+  min-height: 8rem;
+  padding: 1rem;
+  border: 1px solid color-mix(in oklab, var(--rp-c-divider-light) 78%, transparent);
+  border-radius: 0.75rem;
+  background: color-mix(in oklab, var(--rp-c-bg) 74%, transparent);
+  color: var(--rp-c-text-1);
+  text-decoration: none;
+  backdrop-filter: blur(16px);
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+
+  &:hover {
+    border-color: color-mix(in oklab, var(--moduix-home-brand) 34%, var(--rp-c-divider-light));
+    color: var(--rp-c-text-1);
+    box-shadow: 0 10px 28px color-mix(in oklab, var(--moduix-home-brand) 8%, transparent);
+
+    & .documentationIcon {
+      background: color-mix(in oklab, var(--moduix-home-brand) 18%, var(--rp-c-bg));
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--rp-c-text-1);
+    outline-offset: 3px;
+  }
+
+  & > svg {
+    margin-top: 0.15rem;
+    color: var(--rp-c-text-2);
+  }
+}
+
+.documentationIcon {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.65rem;
+  background: color-mix(in oklab, var(--moduix-home-brand) 13%, var(--rp-c-bg));
+  color: color-mix(in oklab, var(--moduix-home-brand) 84%, var(--rp-c-text-1));
+  transition: background 160ms ease;
+}
+
+.documentationCardContent {
+  display: grid;
+  gap: 0.35rem;
+
+  & strong {
+    font-size: 0.95rem;
+    font-weight: 650;
+    line-height: 1.35;
+  }
+
+  & span {
+    color: var(--rp-c-text-2);
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+}
+
 .dataTableIntro {
   display: flex;
   align-items: end;
@@ -234,6 +351,14 @@
   }
 }
 
+.frameworkStatus {
+  max-width: 30rem;
+  margin: 0.65rem 0 0;
+  color: var(--rp-c-text-2);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;
@@ -263,41 +388,6 @@
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 22px 54px color-mix(in oklab, var(--rp-c-text-1) 34%, transparent);
-  }
-
-  @media (min-width: 521px) {
-    width: auto;
-  }
-}
-
-.secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.55rem;
-  width: 100%;
-  min-height: 3rem;
-  padding: 0 1.2rem;
-  border: 1px solid color-mix(in oklab, var(--rp-c-divider-light) 86%, transparent);
-  border-radius: 0.5rem;
-  background: color-mix(in oklab, var(--rp-c-bg) 72%, transparent);
-  color: var(--rp-c-text-1);
-  font-size: 0.95rem;
-  font-weight: 600;
-  text-decoration: none;
-  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.08);
-  backdrop-filter: blur(16px);
-  transition:
-    transform 180ms ease,
-    border-color 180ms ease,
-    background 180ms ease,
-    box-shadow 180ms ease;
-
-  &:hover {
-    border-color: color-mix(in oklab, var(--rp-c-text-1) 32%, var(--rp-c-divider-light));
-    background: color-mix(in oklab, var(--rp-c-text-1) 8%, var(--rp-c-bg));
-    transform: translateY(-2px);
-    box-shadow: 0 22px 54px rgba(0, 0, 0, 0.12);
   }
 
   @media (min-width: 521px) {

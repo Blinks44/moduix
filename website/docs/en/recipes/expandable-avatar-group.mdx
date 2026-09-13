@@ -4,6 +4,7 @@ description: A compact avatar group that expands on hover or keyboard focus and 
 ---
 
 import { ExpandableAvatarGroup } from '@/components/recipes/expandable-avatar-group';
+import expandableAvatarGroupSolid from '../../../snippets/recipes/solid/expandable-avatar-group.tsx?raw';
 
 # Expandable avatar group
 
@@ -11,36 +12,53 @@ Use this recipe for a small team roster when space is limited but people still n
 identify. Hover or focus an avatar to spread the group and show that person's name and role.
 
 This is a copy-ready composition, not an `ExpandableAvatarGroup` component exported by
-`@moduix/react`. It combines `Avatar` and `Tooltip`. Install those components, copy the source
+moduix. It combines `Avatar` and `Tooltip`. Install those components, copy the source
 and styles below, then replace the sample members with data from your application.
 
+The live preview uses the React package. The source tabs show native React and Solid implementations that share the same stylesheet.
+
 <ExampleFrame variant="recipe" clientOnly>
+  <PreviewFrame maxWidth="sm">
   <ExpandableAvatarGroup />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/recipes/expandable-avatar-group.tsx"
+
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/recipes/expandable-avatar-group.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={expandableAvatarGroupSolid} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/recipes/expandable-avatar-group.module.css"
+
+```
 </div>
 
 </ExampleCode>
 
 ## Install
 
-<ShadcnInstall packageName={['avatar', 'tooltip']} itemKind="recipe" copiedSource />
+<ShadcnInstall packageName={['avatar', 'tooltip']} itemKind="recipe" frameworks copiedSource />
 
 ## Customize the recipe
 

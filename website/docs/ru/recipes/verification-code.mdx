@@ -1,9 +1,10 @@
 ---
 title: Код подтверждения
-description: Форма подтверждения адреса электронной почты шестизначным кодом на React-компонентах moduix.
+description: Форма подтверждения адреса электронной почты шестизначным кодом на компонентах moduix.
 ---
 
 import { VerificationCode } from '@/components/recipes/verification-code/verification-code';
+import verificationCodeSolid from '../../../snippets/recipes/solid/verification-code.tsx?raw';
 
 # Код подтверждения
 
@@ -14,35 +15,50 @@ import { VerificationCode } from '@/components/recipes/verification-code/verific
 встроенную ошибку поля. Эта проверка подтверждает только наличие всех шести цифр. Проверяйте сам код на
 сервере.
 
+Живое превью использует React-пакет. Во вкладках исходников приведены нативные реализации для React и Solid с общими стилями.
+
 <ExampleFrame variant="recipe" clientOnly>
+  <PreviewFrame maxWidth="sm">
   <VerificationCode onSubmit={(event) => event.preventDefault()} />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Стили', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/recipes/verification-code/verification-code.tsx"
 
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={verificationCodeSolid} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/recipes/verification-code/verification-code-form.module.css"
 
 ```
-
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
 
 ## Установка
 
-<ShadcnInstall packageName={['button', 'card', 'field', 'pin-input']} itemKind="recipe" copiedSource />
+<ShadcnInstall packageName={['button', 'card', 'field', 'pin-input']} itemKind="recipe" frameworks copiedSource />
 
 ## Используйте рецепт в маршруте
 

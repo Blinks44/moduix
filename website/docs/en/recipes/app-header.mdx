@@ -4,6 +4,7 @@ description: A responsive app header with one level of navigation, focused actio
 ---
 
 import { AppHeaderPreview } from '@/components/recipes/app-header-preview';
+import appHeaderSolid from '../../../snippets/recipes/solid/app-header.tsx?raw';
 
 # App header
 
@@ -19,33 +20,48 @@ scan.
 - A separate `Menu` for the main navigation on small screens.
 - Accessible names for icon-only controls and an avatar fallback while the image loads.
 
+The live preview uses the React package. The source tabs show native React and Solid implementations that share the same stylesheet.
+
 <ExampleFrame variant="recipe" clientOnly>
   <AppHeaderPreview />
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/recipes/app-header.tsx"
+
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/recipes/app-header.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={appHeaderSolid} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/recipes/app-header.module.css"
+
+```
 </div>
 
 </ExampleCode>
 
 ## Install
 
-<ShadcnInstall packageName={['avatar', 'button', 'command-palette', 'menu']} itemKind="recipe" copiedSource dependencies={['lucide-react']} />
+<ShadcnInstall packageName={['avatar', 'button', 'command-palette', 'menu']} itemKind="recipe" frameworks copiedSource dependencies={['lucide-react']} solidDependencies={['lucide-solid']} />
 
 ## In your application
 

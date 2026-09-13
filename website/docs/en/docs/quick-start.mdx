@@ -1,6 +1,6 @@
 ---
 title: Quick start
-description: Install moduix as a package or copy components from the shadcn registry.
+description: Choose React or Solid, CSS Modules or Tailwind, then install moduix as a package or copy its source with the shadcn CLI.
 ---
 
 import { FrameworkGrid } from '@/components/docs/framework-grid';
@@ -21,7 +21,7 @@ system. Choose based on where you want the source to live and how you plan to up
 Start from an existing React or Solid application. If you choose a Tailwind package or registry,
 the application must already be configured with Tailwind CSS v4.
 
-## Choose an installation method
+## Choose where the source lives
 
 <Cards>
   <Card
@@ -36,8 +36,8 @@ the application must already be configured with Tailwind CSS v4.
   />
 </Cards>
 
-To get started, choose React 18 or 19 with `@ark-ui/react`, or Solid 1.9 with `@ark-ui/solid`. Your
-framework or bundler must import CSS from npm packages. Interactive components must render inside a
+To get started, choose React 18 or 19 with `@ark-ui/react`, or Solid 1.9 or later in the 1.x line
+with `@ark-ui/solid`. Your framework or bundler must import CSS from installed packages. Interactive components must render inside a
 client boundary when the application framework requires one.
 
 Accessibility is a shared responsibility: Ark UI provides primitive behavior, moduix defines wrapper
@@ -46,9 +46,9 @@ flow.
 
 ## Choose your framework
 
-Choose a framework-native package and registry namespace. React and Solid CSS Modules packages have
-the complete component catalog; the Tailwind packages currently expose only components that have
-completed the Tailwind port.
+Choose a framework-native package and registry namespace. The React and Solid component catalogs are
+available in both styling tracks. CSS Modules additionally provides the optional moduix reset, while
+Tailwind uses Preflight. Vue and Svelte adapters are planned but are not available for installation yet.
 
 | Runtime | CSS Modules | Tailwind CSS |
 | ------- | ----------- | ------------ |
@@ -356,8 +356,8 @@ Make sure your project resolves the `@/*` alias to its source directory. A typic
 ```
 
 This gives the `shadcn` CLI the aliases and registry URL it needs to place generated files in your
-source tree instead of a literal `@` directory. Your [framework setup](#choose-your-framework)
-shows whether the same alias also belongs in the bundler config and which source root to use.
+source tree instead of a literal `@` directory. The matching framework guide above explains whether
+the alias also belongs in the bundler config and which source root to use.
 
 ### 2. Add a component
 
@@ -384,8 +384,9 @@ shows whether the same alias also belongs in the bundler config and which source
   </Tab>
 </Tabs>
 
-Run the same command with another item name under the selected namespace to add more components.
-Tailwind registries currently contain only components that have completed the Tailwind port.
+Run the same command with another item name under the selected namespace to add more components. Use
+the namespace that matches both your framework and styling track. Do not mix generated files from
+different namespaces in one component tree.
 
 The registry installs only the shared runtime files each component needs. It does not add a global
 font, so typography continues to inherit from your application.
@@ -452,6 +453,9 @@ import { Accordion } from '@/components/ui/accordion';
 
 Most components are built from named parts. This keeps behavior accessible while letting you control
 markup, layout, and styling in your application.
+
+The registry setup is working when the generated import resolves, moduix styles are visible, and the
+Accordion opens with both keyboard and pointer input.
 
 This source-ownership model is inspired by [shadcn/ui](https://ui.shadcn.com/), while component anatomy
 and interaction behavior remain aligned with [Ark UI](https://ark-ui.com/).

@@ -4,6 +4,7 @@ description: Адаптивная шапка приложения с основ�
 ---
 
 import { AppHeaderPreview } from '@/components/recipes/app-header-preview';
+import appHeaderSolid from '../../../snippets/recipes/solid/app-header.tsx?raw';
 
 # Шапка приложения
 
@@ -19,28 +20,41 @@ import { AppHeaderPreview } from '@/components/recipes/app-header-preview';
 - Отдельное меню `Menu` для основной навигации на узких экранах.
 - Доступные имена для кнопок только с иконками и резервное отображение аватара.
 
+Живое превью использует React-пакет. Во вкладках исходников приведены нативные реализации для React и Solid с общими стилями.
+
 <ExampleFrame variant="recipe" clientOnly>
   <AppHeaderPreview />
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Стили', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/recipes/app-header.tsx"
 
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={appHeaderSolid} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/recipes/app-header.module.css"
 
 ```
-
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -50,7 +64,7 @@ import { AppHeaderPreview } from '@/components/recipes/app-header-preview';
 Установите компоненты moduix, которые использует рецепт, и `lucide-react` для иконок. На вкладках
 «Компонент» и «Стили» находятся файлы, которые нужно скопировать в приложение.
 
-<ShadcnInstall packageName={['avatar', 'button', 'command-palette', 'menu']} itemKind="recipe" copiedSource dependencies={['lucide-react']} />
+<ShadcnInstall packageName={['avatar', 'button', 'command-palette', 'menu']} itemKind="recipe" frameworks copiedSource dependencies={['lucide-react']} solidDependencies={['lucide-solid']} />
 
 ## Подключение к приложению
 

@@ -1,9 +1,12 @@
 ---
 title: Connexion
-description: Un formulaire de connexion par e-mail et mot de passe composé avec les composants React de moduix.
+description: Un formulaire de connexion par e-mail et mot de passe composé avec les composants moduix.
 ---
 
 import { LoginSimple } from '@/components/recipes/login-simple/login-simple';
+import loginSimpleSolid from '../../../snippets/recipes/solid/login-simple.tsx?raw';
+import loginRouteReact from '../../../snippets/recipes/react/login-route.tsx?raw';
+import loginRouteSolid from '../../../snippets/recipes/solid/login-route.tsx?raw';
 
 # Connexion
 
@@ -13,8 +16,12 @@ pour s’inscrire. Elle utilise les composants moduix `Card`, `Field`, `Input`, 
 Elle ne gère ni l’authentification ni l’état de la requête. Branchez ces éléments dans votre application
 via `onSubmit`.
 
+L’aperçu interactif utilise le paquet React. Les onglets de code présentent des implémentations natives pour React et Solid avec les mêmes styles.
+
 <ExampleFrame variant="recipe" clientOnly>
+  <PreviewFrame maxWidth="sm">
   <LoginSimple onSubmit={(event) => event.preventDefault()} />
+  </PreviewFrame>
 </ExampleFrame>
 
 L’aperçu empêche l’envoi standard du formulaire et n’appelle donc aucune API d’authentification. La recette
@@ -22,29 +29,40 @@ copiée transmet `onSubmit` au formulaire natif et laisse votre application gér
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/recipes/login-simple/login-simple.tsx"
 
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={loginSimpleSolid} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/recipes/login-simple/login-simple-form.module.css"
 
 ```
-
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
 
 ## Installation
 
-<ShadcnInstall packageName={['button', 'card', 'checkbox', 'field', 'input']} itemKind="recipe" copiedSource />
+<ShadcnInstall packageName={['button', 'card', 'checkbox', 'field', 'input']} itemKind="recipe" frameworks copiedSource />
 
 ## Connecter le formulaire à l’authentification
 
@@ -53,30 +71,24 @@ du formulaire : appelez `event.preventDefault()`, créez un `FormData` à partir
 puis envoyez-le à votre API. Les champs du formulaire s’appellent `email`, `password` et `remember` ;
 `remember` n’est envoyé que si la case est cochée.
 
-```tsx
-import type { FormEvent } from 'react';
-import { LoginSimple } from './login-simple';
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+>
+  <Tab value="react">
 
-export function SignInRoute() {
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+<CodeBlockRuntime lang="tsx" code={loginRouteReact} />
 
-    const response = await fetch('/api/sign-in', {
-      method: 'POST',
-      body: new FormData(event.currentTarget),
-    });
+  </Tab>
+  <Tab value="solid">
 
-    if (!response.ok) {
-      // Show a form-level error and keep the entered email.
-      return;
-    }
+<CodeBlockRuntime lang="tsx" code={loginRouteSolid} />
 
-    window.location.assign('/dashboard');
-  }
-
-  return <LoginSimple onSubmit={handleSubmit} />;
-}
-```
+  </Tab>
+</Tabs>
 
 Remplacez `/api/sign-in` et `/dashboard` par les routes de votre application. Dans la recette copiée,
 remplacez également les liens `/forgot-password` et `/sign-up`.

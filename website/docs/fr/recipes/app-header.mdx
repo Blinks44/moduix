@@ -4,6 +4,7 @@ description: En-tête d’application responsive avec navigation principale, esp
 ---
 
 import { AppHeaderPreview } from '@/components/recipes/app-header-preview';
+import appHeaderSolid from '../../../snippets/recipes/solid/app-header.tsx?raw';
 
 # En-tête d’application
 
@@ -19,28 +20,41 @@ navigation principale, la recherche et les actions du compte dans une mise en pa
 - Un `Menu` distinct pour la navigation principale sur les petits écrans.
 - Des noms accessibles pour les contrôles composés uniquement d’une icône et un affichage de secours pour l’avatar.
 
+L’aperçu interactif utilise le paquet React. Les onglets de code présentent des implémentations natives pour React et Solid avec les mêmes styles.
+
 <ExampleFrame variant="recipe" clientOnly>
   <AppHeaderPreview />
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/recipes/app-header.tsx"
 
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={appHeaderSolid} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/recipes/app-header.module.css"
 
 ```
-
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -50,7 +64,7 @@ navigation principale, la recherche et les actions du compte dans une mise en pa
 Installez les composants moduix utilisés par la recette ainsi que `lucide-react` pour les icônes. Les
 onglets « Composant » et « Styles » contiennent les fichiers à copier dans votre application.
 
-<ShadcnInstall packageName={['avatar', 'button', 'command-palette', 'menu']} itemKind="recipe" copiedSource dependencies={['lucide-react']} />
+<ShadcnInstall packageName={['avatar', 'button', 'command-palette', 'menu']} itemKind="recipe" frameworks copiedSource dependencies={['lucide-react']} solidDependencies={['lucide-solid']} />
 
 ## Dans votre application
 

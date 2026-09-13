@@ -1,5 +1,6 @@
 .tilt {
   width: min(100%, 24rem);
+  perspective: 75rem;
 }
 
 .card {
@@ -8,7 +9,9 @@
   border: 0;
   background: var(--moduix-color-muted);
   box-shadow: var(--moduix-shadow-lg);
+  transform: rotateX(var(--parallax-rotate-x, 0deg)) rotateY(var(--parallax-rotate-y, 0deg));
   transform-style: preserve-3d;
+  transition: transform 300ms ease;
 }
 
 .overlay {
@@ -57,7 +60,15 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .card,
   .header {
+    transform: none;
+    transition: none;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .card {
     transform: none;
   }
 }

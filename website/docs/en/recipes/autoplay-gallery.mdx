@@ -4,6 +4,7 @@ description: An autoplay gallery recipe built with Carousel, overlaid slide copy
 ---
 
 import { AutoplayGalleryPreview } from '@/components/recipes/autoplay-gallery-preview';
+import autoplayGallerySolid from '../../../snippets/recipes/solid/autoplay-gallery.tsx?raw';
 
 # Autoplay gallery
 
@@ -11,33 +12,48 @@ Use this recipe for featured content that advances automatically while keeping n
 `Carousel` with partially visible neighbouring slides, overlaid copy, arrow controls, and indicators that fill during
 each autoplay interval.
 
+The live preview uses the React package. The source tabs show native React and Solid implementations that share the same stylesheet.
+
 <ExampleFrame variant="recipe" clientOnly>
   <AutoplayGalleryPreview />
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/recipes/autoplay-gallery.tsx"
+
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/recipes/autoplay-gallery.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={autoplayGallerySolid} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/recipes/autoplay-gallery.module.css"
+
+```
 </div>
 
 </ExampleCode>
 
 ## Install
 
-<ShadcnInstall packageName="carousel" itemKind="recipe" copiedSource />
+<ShadcnInstall packageName="carousel" itemKind="recipe" frameworks copiedSource />
 
 The command adds `Carousel` to your project. Copy the recipe component and its stylesheet from the tabs above, then
 replace the demo content with your own.

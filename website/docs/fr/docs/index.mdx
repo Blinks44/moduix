@@ -1,6 +1,6 @@
 ---
 title: Introduction
-description: Prise en charge de React et Solid avec CSS Modules, Tailwind, les paquets npm et le code source intégré au projet.
+description: Architecture multi-framework de moduix, prise en charge de React et Solid, approches de style, modes d’intégration et sections de la documentation.
 ---
 
 import { OwnershipLayers } from '@/components/docs/ownership-layers';
@@ -8,21 +8,37 @@ import { Card, Cards } from '@/components/mdx/Components';
 
 # moduix
 
-moduix est une bibliothèque de composants natifs pour React et Solid, construite sur
-[Ark UI](https://ark-ui.com/). Elle associe les primitives d’interaction accessibles d’Ark à des
-valeurs par défaut soignées, une composition explicite et des tokens de design partagés.
+moduix est un système de composants multi-framework fondé sur [Ark UI](https://ark-ui.com/). Il associe
+les primitives d’interaction accessibles d’Ark à des valeurs par défaut soignées, une composition
+explicite et des tokens de design partagés. Chaque adaptateur conserve une API native pour son framework.
 
 Commencez par le [Démarrage rapide](/docs/quick-start) pour choisir une méthode d’installation et
 afficher votre premier composant.
 
+## Prise en charge des frameworks
+
+React et Solid sont disponibles dès maintenant. Vue et Svelte sont prévus et adopteront les mêmes
+contrats de composants et les mêmes approches de style lors de leur sortie.
+
+| Framework | Statut | Documentation |
+| --------- | ------ | ------------- |
+| React | Disponible | Code React natif et aperçus interactifs |
+| Solid | Disponible | Code Solid natif aux côtés de l’aperçu React |
+| Vue | Prévu | Ajouté après la sortie de l’adaptateur |
+| Svelte | Prévu | Ajouté après la sortie de l’adaptateur |
+
+Les onglets par framework apparaissent uniquement lorsque le code diffère réellement. Les concepts
+communs restent en dehors des onglets afin de préserver une documentation concise lors de l’ajout de
+nouveaux adaptateurs.
+
 ## Choisissez votre mode d’intégration
 
-Choisissez le paquet npm si vous souhaitez recevoir les mises à jour via votre gestionnaire de paquets. Choisissez
+Choisissez un paquet si vous souhaitez recevoir les mises à jour via votre gestionnaire de paquets. Choisissez
 le registre shadcn si vous voulez conserver le code source des composants, les styles et les utilitaires dans votre dépôt.
 
 | Mode d’installation | Imports | À privilégier si |
 | --- | --- | --- |
-| Paquet npm | `@moduix/react/*` ou `@moduix/solid/*` | Vous voulez des mises à jour centralisées et un minimum de code géré par l’application. |
+| Paquet | `@moduix/react/*` ou `@moduix/solid/*` | Vous voulez des mises à jour centralisées et un minimum de code géré par l’application. |
 | Registre shadcn avec code source dans le projet | `@/components/ui/*` | Vous voulez garder la main sur le code source et ses modifications locales. |
 
 Les deux approches exposent la même API, native pour le framework choisi, et le même système de
@@ -51,9 +67,9 @@ source :
   </tbody>
 </table>
 
-Les paquets React et Solid fondés sur des CSS Modules contiennent le catalogue complet. Les paquets
-Tailwind s’enrichissent composant par composant ; vérifiez la page du composant avant de les choisir.
-Le [Démarrage rapide](/docs/quick-start) explique la configuration complète de chaque approche.
+Les paquets CSS Modules et Tailwind sont disponibles pour React et Solid. Consultez la page du
+composant visé pour connaître précisément les paquets et les commandes de registre disponibles. Le
+[Démarrage rapide](/docs/quick-start) explique la configuration complète de chaque approche.
 
 ## Versions prises en charge
 
@@ -95,9 +111,9 @@ propres à shadcn. Les paquets Tailwind sont disponibles pour les composants dé
 
 ## Comment fonctionnent les styles
 
-Les paquets complets pour React et Solid utilisent des CSS Modules : des fichiers CSS classiques dont
-les noms de classe sont isolés localement. Le paquet npm fournit les styles avec chaque point
-d’entrée, tandis que le registre copie les mêmes sources et fichiers `.module.css` dans votre dépôt.
+Les paquets CSS Modules utilisent des fichiers CSS classiques dont les noms de classe sont isolés
+localement. Le paquet fournit les styles avec chaque point d’entrée, tandis que le registre copie les
+mêmes sources et fichiers `.module.css` dans votre dépôt.
 
 Les paquets Tailwind expriment les mêmes valeurs visuelles par défaut avec des classes utilitaires
 et utilisent Preflight à la place de la réinitialisation facultative de moduix. Les deux approches
@@ -119,23 +135,38 @@ dépendre de Tailwind, ou Tailwind si les classes utilitaires doivent rester dir
 avec le code copié. Consultez [Tokens](/docs/tokens) pour la hiérarchie complète et
 [Thèmes](/docs/themes) pour des préréglages prêts à l’emploi.
 
-## Par où commencer
+## Explorer la documentation
 
 <Cards>
   <Card
-    title="Démarrage rapide"
-    description="Choisissez l’installation par paquet ou ajoutez le code source au projet, puis affichez le premier composant."
-    href="/docs/quick-start"
+    title="Composants"
+    description="Parcourez des blocs stylisés et accessibles avec des exemples natifs pour chaque framework."
+    href="/docs/components"
   />
   <Card
-    title="Thèmes"
-    description="Adoptez un préréglage soigné ou utilisez-en un comme point de départ pour votre propre thème."
-    href="/docs/themes"
+    title="Ark Collections"
+    description="Modélisez des listes, des arbres, la sélection et les données asynchrones pour les composants Ark."
+    href="/docs/collections"
   />
   <Card
-    title="Tokens"
-    description="Comprenez les tokens globaux, les valeurs par défaut partagées et les portées de redéfinition locales."
-    href="/docs/tokens"
+    title="Ark Utilities"
+    description="Utilisez les outils Ark dédiés au rendu, au focus, au formatage, à la locale et à la présence."
+    href="/docs/utilities"
+  />
+  <Card
+    title="Formulaires"
+    description="Connectez les composants moduix à Formisch, React Hook Form ou TanStack Form."
+    href="/docs/forms"
+  />
+  <Card
+    title="Guides"
+    description="Appliquez les conventions de style, de composition, d’animation, de RTL et de mise à jour."
+    href="/docs/styling"
+  />
+  <Card
+    title="Recettes"
+    description="Copiez des scénarios produit complets avec des implémentations natives pour React et Solid."
+    href="/recipes"
   />
 </Cards>
 

@@ -4,6 +4,7 @@ description: Une recette de galerie à lecture automatique avec Carousel, texte 
 ---
 
 import { AutoplayGalleryPreview } from '@/components/recipes/autoplay-gallery-preview';
+import autoplayGallerySolid from '../../../snippets/recipes/solid/autoplay-gallery.tsx?raw';
 
 # Galerie à lecture automatique
 
@@ -11,33 +12,48 @@ Utilisez cette recette pour du contenu mis en avant qui défile automatiquement 
 Elle associe `Carousel` à des diapositives voisines partiellement visibles, du texte superposé, des flèches de
 navigation et des indicateurs qui se remplissent pendant chaque intervalle de lecture automatique.
 
+L’aperçu interactif utilise le paquet React. Les onglets de code présentent des implémentations natives pour React et Solid avec les mêmes styles.
+
 <ExampleFrame variant="recipe" clientOnly>
   <AutoplayGalleryPreview />
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'Composant', value: 'Composant' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="Composant">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/recipes/autoplay-gallery.tsx"
+
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/recipes/autoplay-gallery.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={autoplayGallerySolid} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/recipes/autoplay-gallery.module.css"
+
+```
 </div>
 
 </ExampleCode>
 
 ## Installation
 
-<ShadcnInstall packageName="carousel" itemKind="recipe" copiedSource />
+<ShadcnInstall packageName="carousel" itemKind="recipe" frameworks copiedSource />
 
 La commande ajoute `Carousel` à votre projet. Copiez le composant de la recette et sa feuille de styles depuis les
 onglets ci-dessus, puis remplacez le contenu de démonstration par le vôtre.

@@ -1,9 +1,12 @@
 ---
 title: Регистрация
-description: Готовая к копированию форма регистрации, собранная из React-компонентов moduix.
+description: Готовая к копированию форма регистрации, собранная из компонентов moduix.
 ---
 
 import { SignUp } from '@/components/recipes/sign-up/sign-up';
+import signUpSolid from '../../../snippets/recipes/solid/sign-up.tsx?raw';
+import signUpRouteReact from '../../../snippets/recipes/react/sign-up-route.tsx?raw';
+import signUpRouteSolid from '../../../snippets/recipes/solid/sign-up-route.tsx?raw';
 
 # Регистрация
 
@@ -12,35 +15,50 @@ import { SignUp } from '@/components/recipes/sign-up/sign-up';
 наличие согласия с условиями. Рецепт не содержит интеграции с сервисом аутентификации и не сравнивает два
 пароля, поэтому добавьте эту логику в обработчик `onSubmit`.
 
+Живое превью использует React-пакет. Во вкладках исходников приведены нативные реализации для React и Solid с общими стилями.
+
 <ExampleFrame variant="recipe" clientOnly>
+  <PreviewFrame maxWidth="sm">
   <SignUp onSubmit={(event) => event.preventDefault()} />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Стили', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/recipes/sign-up/sign-up.tsx"
 
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={signUpSolid} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/recipes/sign-up/sign-up-form.module.css"
 
 ```
-
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
 
 ## Установка
 
-<ShadcnInstall packageName={['button', 'card', 'checkbox', 'field', 'input']} itemKind="recipe" copiedSource />
+<ShadcnInstall packageName={['button', 'card', 'checkbox', 'field', 'input']} itemKind="recipe" frameworks copiedSource />
 
 ## Использование в маршруте
 
@@ -48,40 +66,24 @@ import { SignUp } from '@/components/recipes/sign-up/sign-up';
 файла. Браузер проверяет нативные ограничения до вызова `onSubmit`. В обработчике сравните два пароля
 и отправьте данные формы на сервер регистрации.
 
-```tsx
-import type { FormEvent } from 'react';
-import { SignUp } from '@/components/sign-up';
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+>
+  <Tab value="react">
 
-export function SignUpRoute() {
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+<CodeBlockRuntime lang="tsx" code={signUpRouteReact} />
 
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-    const password = formData.get('password');
-    const confirmation = formData.get('confirm-password');
+  </Tab>
+  <Tab value="solid">
 
-    if (password !== confirmation) {
-      const confirmationInput = form.elements.namedItem('confirm-password');
+<CodeBlockRuntime lang="tsx" code={signUpRouteSolid} />
 
-      if (confirmationInput instanceof HTMLInputElement) {
-        confirmationInput.setCustomValidity('Passwords do not match.');
-        confirmationInput.reportValidity();
-        confirmationInput.setCustomValidity('');
-      }
-
-      return;
-    }
-
-    await fetch('/api/sign-up', {
-      method: 'POST',
-      body: formData,
-    });
-  }
-
-  return <SignUp onSubmit={handleSubmit} />;
-}
-```
+  </Tab>
+</Tabs>
 
 У полей есть имена `name`, `email`, `password`, `confirm-password` и `terms`, поэтому по этим ключам
 их значения можно получить из `FormData`. Замените `/api/sign-up` и путь импорта на значения из своего

@@ -4,6 +4,10 @@ description: Создавайте таблицы с сортировкой, фи
 ---
 
 import { DataTable } from '@/components/recipes/data-table';
+import DataTableBasic from '@/components/recipes/data-table/basic';
+import InteractiveDataTable from '@/components/recipes/data-table/sorting-filtering-and-pagination';
+import dataTableSolid from '../../../snippets/recipes/solid/data-table.tsx?raw';
+import dataTableBasicSolid from '../../../snippets/recipes/solid/data-table-basic.tsx?raw';
 
 # Таблица данных
 
@@ -30,28 +34,41 @@ import { DataTable } from '@/components/recipes/data-table';
 Подключайте только те элементы управления, которые нужны таблице. Уберите выбор, настройку видимости
 столбцов, действия или пагинацию, если пользователю не нужна соответствующая возможность.
 
+Живые превью используют React-пакет. Во вкладках исходников приведены нативные реализации TanStack Table v9 для React и Solid.
+
 <ExampleFrame variant="recipe" clientOnly>
   <DataTable />
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Стили', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/recipes/data-table.tsx"
 
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dataTableSolid} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/recipes/data-table.module.css"
 
 ```
-
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -61,25 +78,38 @@ import { DataTable } from '@/components/recipes/data-table';
 <ShadcnInstall
   packageName={['badge', 'button', 'checkbox', 'input', 'input-group', 'menu', 'table']}
   itemKind="recipe"
+  frameworks
   copiedSource
-  dependencies={['@tanstack/react-table@^9.2.3', 'lucide-react']}
+  dependencies={['@tanstack/react-table@^9.2.4', 'lucide-react']}
+  solidDependencies={['@tanstack/solid-table@^9.2.4', 'lucide-solid']}
 />
 
 ## Настройка
 
 Установите TanStack Table в приложение или функциональный модуль, который отвечает за логику таблицы:
 
-<PackageManagerTabs command="install @tanstack/react-table@^9.2.3" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
-`Table` доступен в `@moduix/react/table`. TanStack Table намеренно не входит в этот пакет, поэтому приложениям,
+<PackageManagerTabs command="install @tanstack/react-table@^9.2.4" />
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<PackageManagerTabs command="install @tanstack/solid-table@^9.2.4" />
+
+  </Tab>
+</Tabs>
+
+`Table` доступен из соответствующего пакета `@moduix/<framework>/table`. TanStack Table намеренно не входит в него, поэтому приложениям,
 которым нужна только семантическая таблица, не приходится загружать лишнюю логику таблицы данных.
 
 ## Базовый пример
 
-Объявите набор возможностей через `tableFeatures()`, опишите типизированные столбцы
-`ColumnDef<typeof features, Payment>` и создайте экземпляр таблицы с помощью `useTable`. Отобразите группы
-заголовков и видимые ячейки в анатомии таблицы moduix. Для заголовков и ячеек используйте `flexRender`,
-поскольку определения столбцов могут содержать простые значения или React-функции рендеринга.
+Объявите набор возможностей через `tableFeatures()` и опишите типизированные столбцы
+`ColumnDef<typeof features, Payment>`. В React создайте экземпляр через `useTable` и используйте
+`flexRender`; в Solid используйте `createTable` и `table.FlexRender`. В обоих случаях отобразите группы
+заголовков и видимые ячейки в анатомии таблицы moduix.
 
 В примере используются методы для отображения видимых столбцов и ячеек, поэтому он регистрирует
 `columnVisibilityFeature`. Остальные возможности подключайте только при необходимости.
@@ -95,20 +125,46 @@ import { DataTable } from '@/components/recipes/data-table';
       }
     `}</style>
 
-```tsx preview file="../../../src/components/recipes/data-table/basic.tsx"
+<ExampleFrame variant="recipe">
+  <DataTableBasic />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/recipes/data-table/basic.tsx"
 
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dataTableBasicSolid} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 Храните описания столбцов рядом с типом данных функционального модуля. Здесь удобно задавать форматирование,
 выравнивание чисел, действия со строками и фильтры предметной области.
 
 ## Стабильные ссылки
 
-В примерах `features`, `payments` и `columns` объявлены вне компонентов, поэтому TanStack Table получает одни
-и те же ссылки при каждом рендере. Если данные или столбцы зависят от свойств компонента или состояния,
-создавайте итоговый массив через `useMemo`, а не внутри компонента и не передавайте `data.filter(...)`
-напрямую в `useTable`. Новый массив на каждом рендере заставляет TanStack Table пересчитывать состояние и
-может привести к циклу рендеринга React. Подробнее об этом написано в [FAQ](https://tanstack.com/table/latest/docs/faq)
+В примерах `features`, `payments` и `columns` объявлены вне компонентов, поэтому TanStack Table получает
+стабильные входные данные. В React мемоизируйте массивы, зависящие от свойств или состояния, вместо передачи
+новой ссылки в `useTable` при каждом рендере. В Solid передавайте изменяемые данные в `createTable` через
+реактивный геттер `data`. Подробнее об этом написано в [FAQ](https://tanstack.com/table/latest/docs/faq)
 TanStack.
 
 ## Ширина столбцов
@@ -120,7 +176,7 @@ TanStack.
 ## Управление таблицей
 
 Подключайте только те возможности TanStack и модели строк, которые нужны таблице. В интерактивном примере
-состояния сортировки, фильтров столбцов и выбора хранятся в React. Фильтр применяется к столбцу электронной
+состояния сортировки, фильтров столбцов и выбора хранятся средствами выбранного фреймворка. Фильтр применяется к столбцу электронной
 почты, для строк используются стабильные ID платежей через `getRowId`, а на странице показывается пять строк.
 
 Импортируйте только используемые встроенные функции фильтрации и сортировки и зарегистрируйте их в
@@ -171,9 +227,36 @@ TanStack.
       }
     `}</style>
 
-```tsx preview file="../../../src/components/recipes/data-table/sorting-filtering-and-pagination.tsx"
+<ExampleFrame variant="recipe">
+  <InteractiveDataTable />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/recipes/data-table/sorting-filtering-and-pagination.tsx"
 
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dataTableSolid} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 Для сортируемого заголовка используйте обычную кнопку внутри `Table.ColumnHeader`. В примере у значков Lucide
 единый размер, а сортируемые заголовки получают `aria-sort="none" | "ascending" | "descending"`. В столбце

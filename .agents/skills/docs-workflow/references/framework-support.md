@@ -66,6 +66,12 @@ Also inspect framework-specific installation pages, navigation, reusable MDX com
 `i18n.json`, and site metadata. Change them only when the new framework makes their current claim
 incomplete.
 
+Quick Start owns the reusable installation mechanics. Framework setup pages link to those mechanics
+and document only the integration points that change for the framework, such as entry files, aliases,
+RSC boundaries, island directives, SSR behavior, and hydration checks. Every setup page must still
+make the available runtime, styling, and distribution choices explicit before narrowing to its
+framework-specific steps.
+
 ## Examples and previews
 
 Keep one source-language copyable example per shipped runtime. Locale pages reference the same source or

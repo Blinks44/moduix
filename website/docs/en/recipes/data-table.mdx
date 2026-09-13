@@ -4,6 +4,10 @@ description: Build sortable, filterable, and paginated tables with moduix Table 
 ---
 
 import { DataTable } from '@/components/recipes/data-table';
+import DataTableBasic from '@/components/recipes/data-table/basic';
+import InteractiveDataTable from '@/components/recipes/data-table/sorting-filtering-and-pagination';
+import dataTableSolid from '../../../snippets/recipes/solid/data-table.tsx?raw';
+import dataTableBasicSolid from '../../../snippets/recipes/solid/data-table-basic.tsx?raw';
 
 # Data Table
 
@@ -29,28 +33,41 @@ example records and actions with your product data.
 Use only the controls your table needs. Remove selection, column visibility, actions, or pagination
 when users cannot use that capability.
 
+The live previews use the React package. The source tabs show native React and Solid implementations for TanStack Table v9.
+
 <ExampleFrame variant="recipe" clientOnly>
   <DataTable />
 </ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'React', value: 'React' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="React">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
 ```tsx pure file="../../../src/components/recipes/data-table.tsx"
 
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dataTableSolid} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/recipes/data-table.module.css"
 
 ```
-
-    </Tab>
-  </Tabs>
 </div>
 
 </ExampleCode>
@@ -60,25 +77,38 @@ when users cannot use that capability.
 <ShadcnInstall
   packageName={['badge', 'button', 'checkbox', 'input', 'input-group', 'menu', 'table']}
   itemKind="recipe"
+  frameworks
   copiedSource
-  dependencies={['@tanstack/react-table@^9.2.3', 'lucide-react']}
+  dependencies={['@tanstack/react-table@^9.2.4', 'lucide-react']}
+  solidDependencies={['@tanstack/solid-table@^9.2.4', 'lucide-solid']}
 />
 
 ## Setup
 
 Install TanStack Table in the application or feature that owns the data-grid behavior:
 
-<PackageManagerTabs command="install @tanstack/react-table@^9.2.3" />
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
-`Table` is available from `@moduix/react/table`. It deliberately does not include TanStack Table, so
+<PackageManagerTabs command="install @tanstack/react-table@^9.2.4" />
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<PackageManagerTabs command="install @tanstack/solid-table@^9.2.4" />
+
+  </Tab>
+</Tabs>
+
+`Table` is available from the matching `@moduix/<framework>/table` package. It deliberately does not include TanStack Table, so
 applications that only need a semantic table do not load data-grid logic.
 
 ## Basic
 
-Declare the feature set with `tableFeatures()`, define typed `ColumnDef<typeof features, Payment>`
-entries, and create a table instance with `useTable`. Map its header groups and visible cells into the
-moduix table anatomy. Use `flexRender` for headers and cells because column definitions may contain
-plain values or React render functions.
+Declare the feature set with `tableFeatures()` and define typed `ColumnDef<typeof features, Payment>`
+entries. React creates the instance with `useTable` and renders definitions with `flexRender`; Solid
+uses `createTable` and `table.FlexRender`. In both cases, map header groups and visible cells into the
+moduix table anatomy.
 
 The snippet renders visible columns and cells, so it registers `columnVisibilityFeature`. Add other
 features only when the table needs them.
@@ -94,9 +124,36 @@ features only when the table needs them.
       }
     `}</style>
 
-```tsx preview file="../../../src/components/recipes/data-table/basic.tsx"
+<ExampleFrame variant="recipe">
+  <DataTableBasic />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/recipes/data-table/basic.tsx"
 
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dataTableBasicSolid} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 Keep the columns alongside the feature's data type. This is the natural place for formatting, numeric
 alignment, row actions, and business-specific filter definitions.
@@ -104,10 +161,9 @@ alignment, row actions, and business-specific filter definitions.
 ## Stable references
 
 The examples define `features`, `payments`, and `columns` outside their components, so TanStack Table
-receives the same references between renders. When data or columns depend on props or state, use
-`useMemo` for the resulting array instead of creating it inline in the component or passing
-`data.filter(...)` directly to `useTable`. A new reference on every render makes TanStack Table
-recalculate and can cause React render loops. See the TanStack
+receives stable inputs. In React, memoize arrays derived from props or state instead of passing a new
+reference to `useTable` on every render. In Solid, expose changing data through the reactive `data`
+getter passed to `createTable`. See the TanStack
 [FAQ](https://tanstack.com/table/latest/docs/faq) for the full explanation.
 
 ## Column widths
@@ -119,7 +175,7 @@ space, while a changing sort icon cannot resize its column.
 ## Table controls
 
 Add only the TanStack features and row models the table needs. The interactive example below keeps
-sorting, column filters, and row selection in React state, filters the email column, uses stable
+sorting, column filters, and row selection in framework-native state, filters the email column, uses stable
 payment IDs through `getRowId`, and shows five rows per page.
 
 Import the individual built-in filter and sort functions that a table uses and register them in
@@ -170,9 +226,36 @@ Import the individual built-in filter and sort functions that a table uses and r
       }
     `}</style>
 
-```tsx preview file="../../../src/components/recipes/data-table/sorting-filtering-and-pagination.tsx"
+<ExampleFrame variant="recipe">
+  <InteractiveDataTable />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/recipes/data-table/sorting-filtering-and-pagination.tsx"
 
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dataTableSolid} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 For a sortable header, render a real button inside `Table.ColumnHeader`. The example uses Lucide
 icons with a consistent size and sets `aria-sort="none" | "ascending" | "descending"` on sortable

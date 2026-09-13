@@ -16,6 +16,46 @@ Use `groupId="framework"` for framework tabs. Framework-neutral prose, anatomy, 
 
 Use Rspress `PackageManagerTabs` for package installation, dependency updates, executable packages, registry CLIs, and skill installation. Give it a manager-neutral `command`, use `dlx` for temporary executables, and keep it inside a framework tab only when the packages or command differ by framework.
 
+## Quick Start
+
+Quick Start is the canonical setup page for the whole library. It keeps four independent choices
+separate: shipped framework, CSS Modules or Tailwind, package or shadcn registry, and package
+manager. Use this order:
+
+1. state the supported frameworks and the prerequisites for an existing application;
+2. explain package-managed and source-owned distribution without coupling either one to a styling track;
+3. show the framework package and registry namespaces in one compact matrix;
+4. document the package workflow with styling tabs outside framework tabs, including installation,
+   the required global stylesheet, one first component, and a concrete verification result;
+5. document the registry workflow with styling-specific `components.json`, framework-specific
+   registry commands, generated stylesheet setup, one import, and a concrete verification result;
+6. keep shared portal layering, styling guidance, troubleshooting, and next steps after both workflows.
+
+Use a component that ships in every documented framework and styling variant. Keep future frameworks
+out of commands and tabs until their adapters ship, but describe the surrounding choices so another
+adapter can be added without restructuring the page.
+
+## Framework setup pages
+
+Framework setup pages explain where moduix connects to an existing application created with that
+framework. Quick Start remains the source of truth for package, registry, and styling details. Use
+this order:
+
+1. state the supported moduix runtimes for that framework and the assumed existing setup;
+2. add `Choose your setup` with the available runtime, styling, and distribution choices, then link
+   to the exact Quick Start sections that own their shared configuration;
+3. show the shortest package integration with the correct application entry point, global stylesheet,
+   and one component import;
+4. show only the registry-specific alias, bundler, RSC, island, SSR, or generated-style steps that
+   differ for this framework, while offering every shipped styling namespace;
+5. explain the framework-specific rendering boundary, hydration, route, or client directive near the
+   code it affects;
+6. finish with a concrete verification checklist and official framework references.
+
+Use the same top-level heading sequence in every framework guide. Keep runtime tabs only on guides
+that genuinely support multiple shipped runtimes. Do not duplicate `components.json`, token, reset,
+or Tailwind setup from Quick Start unless a framework requires a different value or file location.
+
 ## Component pages
 
 Read [the component-page contract](component-pages.md) for the full structure. Its canonical order is:
@@ -114,3 +154,24 @@ Keep the sections that belong to the guide's purpose:
 Do not add framework tabs to CSS, HTML, commands, or conceptual prose that is genuinely shared. Do not make React the conceptual default because the documentation application renders React previews. When a guide includes a live preview, label its runtime honestly, provide native source for every applicable shipped framework, and choose the narrowest existing `PreviewFrame` size that preserves the lesson. A focused control or surface normally uses `maxWidth="sm"`. A comparison gallery whose grid benefits from the full canvas may omit `PreviewFrame`; Animations is the current example.
 
 Animations is the reference for a system styling guide, Composition Patterns for API ownership, RTL for environment setup, and Update and migration for distribution workflows. These references establish information flow, not identical headings.
+
+## Recipe pages
+
+Recipes are application-owned compositions assembled from shipped components. They demonstrate a complete product pattern, but they are not new components exported by moduix.
+
+Use this structure:
+
+1. state the product outcome, when the recipe fits, and the boundary between the copied composition and application-owned logic;
+2. show one complete live preview before the source;
+3. provide native source for every shipped framework that supports the recipe in `groupId="framework"` tabs, followed by shared styles outside those tabs;
+4. provide the registry installation and any extra dependencies through `ShadcnInstall`, `ShadcnInstallOptions`, or `PackageManagerTabs` without hardcoded package-manager commands;
+5. explain the smallest integration step for routes, data, authentication, uploads, or other product logic owned by the application;
+6. finish with only the customization, responsive, accessibility, motion, and production-state guidance that is specific to the recipe.
+
+Label the documentation runtime honestly: `ExampleFrame` currently renders the React source, while the source tabs contain native implementations for the other supported shipped frameworks. Keep one framework-neutral stylesheet when the visual contract is shared. Do not place styles, fixtures, or conceptual prose inside framework tabs.
+
+Use `ExampleFrame variant="recipe"` for the preview. A recipe may use the full documentation canvas when its layout, spatial relationships, or responsive shell are part of the lesson. Wrap narrow flows such as authentication forms in `<PreviewFrame maxWidth="sm">`; keep that width consistent across locales.
+
+Keep framework availability truthful. When an essential third-party dependency supports only one shipped framework, state the limitation near the beginning, show only the real implementation, and point other frameworks to the closest shipped or framework-neutral path. Do not create fictional parity by transliterating framework-specific hooks or types.
+
+Recipes is the overview reference. App Header and Sign in are the current references for a full-width application composition and a narrow product flow. Data Table is the reference for a multi-framework third-party integration with framework-specific packages and runtime APIs.
