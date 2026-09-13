@@ -1,27 +1,29 @@
 ---
 name: component-workflow
-description: Coordinate moduix component behavior, API, styles, tests, stories, exports, and registries across React, Solid, React Tailwind, and Solid Tailwind packages.
+description: Coordinate moduix component behavior, API, styles, tests, stories, exports, and registries across every shipped framework and styling adapter.
 ---
 
 # Component Workflow
 
-Own the public component contract across the four package variants:
+Own the public component contract across every shipped framework and styling adapter. The current matrix is:
 
 | Runtime | CSS Modules      | Tailwind                  |
 | ------- | ---------------- | ------------------------- |
 | React   | `packages/react` | `packages/react-tailwind` |
 | Solid   | `packages/solid` | `packages/solid-tailwind` |
 
+Vue and Svelte adapters are planned but are not shipped contracts yet. When a new adapter becomes public, add its package and playground rows to this matrix; the rest of this workflow should continue to operate on the discovered shipped set.
+
 Use framework-native code in every package. Share tokens, animations, reset, and presets through
 `packages/foundation`; do not create a shared component runtime or generate framework source.
 
 ## Start with an impact check
 
-Before editing, locate the component in all four packages and their tests, playground stories,
-exports, local markdown, and registry items.
+Before editing, locate the component in every shipped adapter and styling variant, together with its
+tests, playground stories, exports, local markdown, and registry items.
 
 - Synchronize every counterpart that already exists and is affected by the changed contract.
-- A new component intended for the package family includes all four variants unless the user scopes
+- A new component intended for the package family includes every shipped variant unless the user scopes
   the task more narrowly or an upstream/dependency gap is reported.
 - Do not create an unrelated missing port merely because another component changed.
 - If a change is genuinely runtime- or styling-specific, keep unaffected variants unchanged and
@@ -31,14 +33,15 @@ exports, local markdown, and registry items.
 
 Keep public names, parts, props, defaults, controlled state, callbacks, refs, DOM anatomy, ARIA,
 keyboard behavior, focus management, native form behavior, Ark state/data attributes, visual defaults,
-and lifecycle equivalent wherever the frameworks support the same contract. Keep React/Solid peers
+and lifecycle equivalent wherever the frameworks support the same contract. Keep framework peers
 within the same styling track equivalent. CSS Modules and Tailwind may intentionally expose different
 styling mechanisms: detailed component variables for CSS Modules and utility/class overrides for Tailwind.
 
-React is the established product contract, not source code to copy mechanically. Translate it into
-native Solid and Tailwind forms using `migration-react-to-solid`, `conventions-react`,
-`migration-css-modules-to-tailwind`, and `conventions-css` as applicable. Preserve intentional framework
-differences and verify current Ark APIs instead of emulating missing primitives.
+Treat the shipped public behavior, component-local contract docs, and Ark UI behavior as the product
+contract. An existing implementation can provide evidence, but it is not framework-neutral source
+code to copy mechanically. Translate the contract into each adapter's native primitives and syntax.
+Use framework-specific convention or migration skills when they exist, preserve intentional framework
+differences, and verify current Ark APIs instead of emulating missing primitives.
 
 ## Synchronization surfaces
 
@@ -57,7 +60,7 @@ Never edit `website/docs/public/r` by hand. When a registry source changes, run
 
 ## Stories and tests
 
-The four playgrounds are a comparison matrix, not four independent catalogs. For a component that
+The configured playgrounds are a comparison matrix, not independent catalogs. For a component that
 exists in multiple variants, keep story names, scenario data, states, and demo styling aligned;
 adapt only framework syntax and the styling mechanism.
 
@@ -69,7 +72,7 @@ variant-specific coverage only for a real variant-specific contract.
 
 Before handoff:
 
-1. Re-run the four-package impact check and report any intentional gap.
+1. Re-run the shipped-variant impact check and report any intentional gap.
 2. Run focused tests for every changed package.
 3. Build affected package and Storybook outputs when exports, CSS generation, or distribution changed.
 4. Run registry generation when registry sources changed.

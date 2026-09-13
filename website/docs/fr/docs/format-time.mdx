@@ -17,13 +17,41 @@ utilisent les mêmes paramètres.
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/format-time" />
 
+Importez l’utilitaire depuis le paquet Ark UI correspondant à votre framework :
+
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
+
+```tsx
+import { Format } from '@ark-ui/react';
+```
+
+  </Tab>
+  <Tab value="solid">
+
+```tsx
+import { Format } from '@ark-ui/solid';
+```
+
+  </Tab>
+</Tabs>
+
 ## Exemple de base
 
 Passez une chaîne au format `HH:mm` ou `HH:mm:ss` pour une heure civile, par exemple l’heure de départ d’un planning.
 Une chaîne n’est pas convertie entre les fuseaux horaires.
 
 <ExampleFrame variant="component">
-  <FormatTimeBasic />
+  <PreviewFrame maxWidth="sm">
+    <FormatTimeBasic />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>
@@ -57,7 +85,9 @@ Le format par défaut est sur 24 heures. Utilisez `format="12h"` pour un afficha
 ajouter les secondes, et `amLabel` ou `pmLabel` pour remplacer les libellés de période en affichage sur 12 heures.
 
 <ExampleFrame variant="component">
-  <FormatTimeSecondsAndLabels />
+  <PreviewFrame maxWidth="sm">
+    <FormatTimeSecondsAndLabels />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>
@@ -99,7 +129,9 @@ Conservez les heures civiles d’un planning sous forme de chaînes. Ne passez u
 prévue.
 
 <ExampleFrame variant="component">
-  <FormatTimeLocale />
+  <PreviewFrame maxWidth="sm">
+    <FormatTimeLocale />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>

@@ -13,6 +13,32 @@ import formatRelativeTimeSolidShort from '../../../snippets/format-relative-time
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/format-relative-time" />
 
+Импортируйте утилиту из пакета Ark UI для используемого фреймворка:
+
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
+
+```tsx
+import { Format } from '@ark-ui/react';
+```
+
+  </Tab>
+  <Tab value="solid">
+
+```tsx
+import { Format } from '@ark-ui/solid';
+```
+
+  </Tab>
+</Tabs>
+
 ## Когда использовать
 
 Используйте `Format.RelativeTime`, когда расстояние от текущего момента важнее точной отметки времени: в лентах
@@ -30,7 +56,9 @@ import formatRelativeTimeSolidShort from '../../../snippets/format-relative-time
 Предпросмотр в документации работает на React, а вкладка Solid содержит нативный эквивалент той же композиции.
 
 <ExampleFrame variant="component">
-  <FormatRelativeTimeBasic />
+  <PreviewFrame maxWidth="sm">
+    <FormatRelativeTimeBasic />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>
@@ -65,7 +93,9 @@ import formatRelativeTimeSolidShort from '../../../snippets/format-relative-time
 `dateTime`, если человеку может понадобиться ее проверить.
 
 <ExampleFrame variant="component">
-  <FormatRelativeTimeShort />
+  <PreviewFrame maxWidth="sm">
+    <FormatRelativeTimeShort />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>

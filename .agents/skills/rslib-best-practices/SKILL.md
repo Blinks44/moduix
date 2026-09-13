@@ -32,7 +32,7 @@ Apply these rules when writing or reviewing Rslib library projects.
 - Prefer to use bundleless mode with `output.target` set to `'web'` when building component libraries
 - Prefer to use bundle mode when building Node.js utility libraries
 - Ensure `exports` field in `../../../package.json` is correctly configured and matches the actual JavaScript output and declaration files output of different formats (ESM, CJS, etc.)
-- Keep all four public packages in the root `build:packages` and `check:packages` commands.
+- Keep every shipped public adapter package in the root `build:packages` and `check:packages` commands.
 - For Solid packages, preserve the established dual output: compiled ESM for general bundlers and
   `.jsx` under the `solid` export condition for Solid-aware SSR. Give Rslib outputs stable ids and
   point Rstest at the compiled id; do not invent a custom transform pipeline.

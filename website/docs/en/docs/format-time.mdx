@@ -16,13 +16,41 @@ import formatTimeSolidLocale from '../../../snippets/format-time/solid/locale.ts
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/format-time" />
 
+Import the utility from the matching Ark UI package:
+
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
+
+```tsx
+import { Format } from '@ark-ui/react';
+```
+
+  </Tab>
+  <Tab value="solid">
+
+```tsx
+import { Format } from '@ark-ui/solid';
+```
+
+  </Tab>
+</Tabs>
+
 ## Basic
 
 Pass a string in `HH:mm` or `HH:mm:ss` form for a wall-clock value such as a scheduled departure. A string is not
 converted between time zones.
 
 <ExampleFrame variant="component">
-  <FormatTimeBasic />
+  <PreviewFrame maxWidth="sm">
+    <FormatTimeBasic />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>
@@ -56,7 +84,9 @@ The default format is 24-hour. Set `format="12h"` for a 12-hour clock, `withSeco
 `amLabel` or `pmLabel` to replace the day-period labels in 12-hour output.
 
 <ExampleFrame variant="component">
-  <FormatTimeSecondsAndLabels />
+  <PreviewFrame maxWidth="sm">
+    <FormatTimeSecondsAndLabels />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>
@@ -96,7 +126,9 @@ time zone. `LocaleProvider` changes the locale, not the time zone.
 Keep scheduled wall-clock times as strings. Pass a `Date` only when the time-zone conversion is intended.
 
 <ExampleFrame variant="component">
-  <FormatTimeLocale />
+  <PreviewFrame maxWidth="sm">
+    <FormatTimeLocale />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>

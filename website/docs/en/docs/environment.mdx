@@ -13,12 +13,40 @@ import environmentSolidCustomRoot from '../../../snippets/environment/solid/cust
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/environment" />
 
+Import the utility from the matching Ark UI package:
+
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
+
+```tsx
+import { EnvironmentProvider, useEnvironmentContext } from '@ark-ui/react/environment';
+```
+
+  </Tab>
+  <Tab value="solid">
+
+```tsx
+import { EnvironmentProvider, useEnvironmentContext } from '@ark-ui/solid/environment';
+```
+
+  </Tab>
+</Tabs>
+
 ## Basic setup
 
 Use `EnvironmentProvider` around the whole subtree that belongs to the environment. Without a `value`, it resolves the environment where the provider is rendered. Use `useEnvironmentContext` when application code needs the resolved root, document, or window.
 
 <ExampleFrame variant="component">
-  <EnvironmentBasic />
+  <PreviewFrame maxWidth="sm">
+    <EnvironmentBasic />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>

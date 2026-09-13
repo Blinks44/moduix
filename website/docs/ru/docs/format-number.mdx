@@ -16,6 +16,32 @@ import formatNumberSolidOptions from '../../../snippets/format-number/solid/opti
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/format-number" />
 
+Импортируйте утилиту из пакета Ark UI для используемого фреймворка:
+
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
+
+```tsx
+import { Format } from '@ark-ui/react';
+```
+
+  </Tab>
+  <Tab value="solid">
+
+```tsx
+import { Format } from '@ark-ui/solid';
+```
+
+  </Tab>
+</Tabs>
+
 ## Базовый пример
 
 Передайте число в `value`. Если параметры форматирования не заданы, результат зависит от активной локали.
@@ -25,7 +51,9 @@ import formatNumberSolidOptions from '../../../snippets/format-number/solid/opti
 версия того же примера.
 
 <ExampleFrame variant="component">
-  <FormatNumberBasic />
+  <PreviewFrame maxWidth="sm">
+    <FormatNumberBasic />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>
@@ -59,7 +87,9 @@ import formatNumberSolidOptions from '../../../snippets/format-number/solid/opti
 `unitDisplay`, `notation` и параметры количества знаков после запятой.
 
 <ExampleFrame variant="component">
-  <FormatNumberOptions />
+  <PreviewFrame maxWidth="sm">
+    <FormatNumberOptions />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>

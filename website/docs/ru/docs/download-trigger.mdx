@@ -15,6 +15,32 @@ import downloadTriggerSolidAsyncData from '../../../snippets/download-trigger/so
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/download-trigger" />
 
+Импортируйте утилиту из пакета Ark UI для используемого фреймворка:
+
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
+
+```tsx
+import { DownloadTrigger } from '@ark-ui/react/download-trigger';
+```
+
+  </Tab>
+  <Tab value="solid">
+
+```tsx
+import { DownloadTrigger } from '@ark-ui/solid/download-trigger';
+```
+
+  </Tab>
+</Tabs>
+
 ## Базовый пример
 
 Передайте готовое содержимое через `data`. Поддерживаются строка, `Blob` и `File`. Параметры `fileName` и `mimeType`
@@ -24,7 +50,9 @@ import downloadTriggerSolidAsyncData from '../../../snippets/download-trigger/so
 поведением.
 
 <ExampleFrame clientOnly variant="component">
-  <DownloadTriggerBasic />
+  <PreviewFrame maxWidth="sm">
+    <DownloadTriggerBasic />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>
@@ -59,7 +87,9 @@ import downloadTriggerSolidAsyncData from '../../../snippets/download-trigger/so
 выполнения возвращённого промиса, прежде чем сохранить результат.
 
 <ExampleFrame clientOnly variant="component">
-  <DownloadTriggerAsyncData />
+  <PreviewFrame maxWidth="sm">
+    <DownloadTriggerAsyncData />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>

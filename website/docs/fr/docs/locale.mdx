@@ -16,9 +16,31 @@ localisé utilisent ce contexte.
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/locale" />
 
-## Choisir l’import du provider
+Importez l’utilitaire depuis le paquet Ark UI correspondant à votre framework :
 
-Importez `LocaleProvider` et `useLocaleContext` depuis `@ark-ui/react/locale` ou `@ark-ui/solid/locale`.
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
+
+```tsx
+import { LocaleProvider, useLocaleContext } from '@ark-ui/react/locale';
+```
+
+  </Tab>
+  <Tab value="solid">
+
+```tsx
+import { LocaleProvider, useLocaleContext } from '@ark-ui/solid/locale';
+```
+
+  </Tab>
+</Tabs>
 
 `Format.Number`, `Format.Time` et les autres utilitaires `Format` restent importés depuis `@ark-ui/react` ou
 `@ark-ui/solid`.
@@ -29,7 +51,9 @@ Entourez la partie de l’interface qui partage une locale. Les formateurs et le
 locale lisent alors le même contexte.
 
 <ExampleFrame variant="component">
-  <LocaleBasic />
+  <PreviewFrame maxWidth="sm">
+    <LocaleBasic />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>
@@ -67,7 +91,9 @@ structure doit reprendre la même langue et la même direction que les composant
 lit directement les valeurs ; Solid les lit via un accessor.
 
 <ExampleFrame variant="component">
-  <LocaleContext />
+  <PreviewFrame maxWidth="sm">
+    <LocaleContext />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>

@@ -2,10 +2,10 @@
 
 Read this reference when creating, migrating, or substantially restructuring a component page in `website/docs/en/docs`.
 
-Use `website/docs/en/docs/accordion.mdx` as the canonical multi-framework component page. Match its
-section order, React/Solid source tabs, honest React-powered preview note, shared styling contract,
-and locale structure. Show only installation choices that actually ship; Accordion demonstrates all
-four runtime/styling combinations, but an incomplete Tailwind port must stay visibly unavailable.
+Use `website/docs/en/docs/accordion.mdx` as the current canonical multi-framework component page. Match its
+section order, framework source tabs, honest React-powered preview note, shared styling contract,
+and locale structure. Show only installation choices that actually ship; Accordion currently demonstrates
+every shipped runtime/styling combination, but an incomplete adapter or styling track must stay visibly unavailable.
 Keep non-React source display-only when it cannot run in the React-based documentation application.
 Import one shared source file with `?raw`, render it with `CodeBlockRuntime`, and reuse it across
 locales instead of adding another runtime to the documentation bundle.
@@ -26,7 +26,7 @@ locales instead of adding another runtime to the documentation bundle.
 ## Section intent
 
 - **API Reference:** a compact upstream reference. Link the dedicated Ark page when it exists. Otherwise state that no dedicated Ark primitive exists and link the precise guide or factory model; link Chakra only when it materially informs the contract.
-- **Basic:** render one shared preview, then show native React and Solid source in
+- **Basic:** render one shared preview, then show native source for every shipped framework in
   `groupId="framework"` tabs. Keep shared example CSS outside the framework tabs. State honestly
   when the preview itself is React-powered.
 - **Install with shadcn:** put runtime choices in `groupId="framework"` tabs and list only the CSS
@@ -58,14 +58,14 @@ Rely on the upstream API link for ordinary primitive behavior instead of repeati
 Keep the complete preservation contract in component-local maintainer markdown. Public pages should
 prioritize the happy path, meaningful choices, examples, and moduix-specific styling hooks.
 
-## React and Solid synchronization
+## Framework synchronization
 
-When migrating an existing React-first page, preserve its useful example inventory and add a native
-Solid snippet for each applicable example. Keep React and Solid in `groupId="framework"` tabs and
-verify both snippets against their public package APIs. Do not rewrite React syntax into
-React-shaped Solid code, and do not duplicate shared prose, anatomy, or styling guidance per
-framework. Follow Accordion for page structure and runtime tabs; follow Quick Start only when the
-page needs to point readers to the common installation setup.
+When adding or synchronizing a framework on an existing page, preserve its useful example inventory
+and add a native snippet for each applicable example. Keep every shipped framework in
+`groupId="framework"` tabs and verify each snippet against its public package API. Do not transliterate
+one framework's syntax into another framework's shape, and do not duplicate shared prose, anatomy,
+or styling guidance per framework. Follow Accordion for page structure and runtime tabs; follow
+Quick Start only when the page needs to point readers to the common installation setup.
 
 Use the moduix export path in consumer code. Direct Ark imports are rare escape hatches, not the default tutorial path. For root-only components, use `<Component>` in runnable snippets and reserve `<Component.Root>` for anatomy or explicit namespace discussion.
 

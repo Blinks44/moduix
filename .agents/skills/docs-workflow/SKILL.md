@@ -1,6 +1,6 @@
 ---
 name: docs-workflow
-description: Maintain localized Rspress documentation, including component pages, React/Solid support, setup guides, runnable examples, CSS-variable references, and registry guidance.
+description: Maintain localized Rspress documentation, including page-type structure, multi-framework support, setup guides, runnable examples, CSS-variable references, and registry guidance.
 ---
 
 # Docs Workflow
@@ -15,6 +15,8 @@ This skill owns documentation content and source-to-locale consistency. It does 
 2. The corresponding default-language page (currently English) and the affected locale pages. Use `rspress-localization` for the translation itself.
 3. The shipped component API, its local markdown, and its existing examples when the page documents a component.
 
+Read [the page-type contract](references/page-types.md) when creating or substantially restructuring a page. It records the shared structure for component and utility pages and is the place to add future collection, form, or guide structures after they are deliberately standardized.
+
 When adding or synchronizing a supported runtime across overview, setup, migration, theme, token,
 or component-index pages, read [the framework-support contract](references/framework-support.md).
 
@@ -22,9 +24,10 @@ or component-index pages, read [the framework-support contract](references/frame
 
 - Document only the shipped public API. Remove stale props, examples, styling hooks, and guidance in the same task.
 - Keep package implementation, public docs, snippets, registry guidance, and supported imports aligned. Teach the recommended path before lower-level composition.
-- Use public imports from the package the example documents: `@moduix/react`, `@moduix/solid`,
-  `@moduix/react-tailwind`, or `@moduix/solid-tailwind`. Existing website examples are React-first;
-  do not silently present a React example as a different runtime or styling variant.
+- Use public imports from the shipped package the example documents. Current package roots are
+  `@moduix/react`, `@moduix/solid`, `@moduix/react-tailwind`, and `@moduix/solid-tailwind`; discover
+  future adapters from package exports and registries. The documentation application runs React;
+  do not silently present its live preview as a different runtime or styling variant.
 - Keep prose and snippets consumer-facing, complete, and production-like. Do not hide required setup, callbacks, collection data, or Ark composition behind docs-only helpers.
 - Prefer a small local helper to repeated visible ceremony, but never a page builder, hidden DSL, or abstraction that hides the documented composition.
 - Keep demo-only styling in the docs app or example CSS module, separate from library styling.
@@ -32,9 +35,9 @@ or component-index pages, read [the framework-support contract](references/frame
   target-language review before finishing. A literal but awkward translation is not complete
   documentation.
 
-## Cross-locale component-page consistency
+## Cross-locale page consistency
 
-When editing localized component pages, also use `rspress-localization`. Treat the default-language
+When editing localized pages, also use `rspress-localization`. Treat the default-language
 page as the canonical source for public API coverage, information architecture, example intent, and
 heading hierarchy. A localized page must preserve that contract unless the task explicitly records an
 intentional product difference.
@@ -57,10 +60,10 @@ default-language and target-locale heading sequences and resolve unexplained dif
 
 For a new, migrated, or substantially restructured component page, read [the component-page contract](references/component-pages.md). It defines section order, Ark-alignment coverage, and styling-reference expectations.
 
-When adding Solid to an existing component page, treat the work as a component-page migration: keep
-the existing example coverage, add native Solid source for every applicable React example, simplify
-the explanatory structure, and update every locale. Use Accordion as the page reference; use Quick
-Start only for shared installation and framework-selection guidance.
+When adding a framework adapter to an existing component page, treat the work as a component-page
+migration: keep the existing example coverage, add native source for the new framework to every
+applicable example, simplify the explanatory structure, and update every locale. Use Accordion as
+the current page reference; use Quick Start only for shared installation and framework-selection guidance.
 
 ## Runnable previews
 
@@ -101,15 +104,15 @@ Read [preview rules](references/previews.md) whenever adding or changing a previ
   dependencies; the reset applies only to CSS Modules variants because Tailwind uses Preflight.
 - In Quick Start, present CSS Modules and Tailwind as equal styling paths with the shared
   `groupId="styling"` tabs. Keep install commands, required stylesheet setup, and the first usable
-  example inside the selected path instead of appending Tailwind as a later exception. Use
-  Accordion for four-package setup examples because it ships in every runtime and styling variant.
-- Quick Start and framework setup guides start from an existing application with its React or Solid
-  runtime already configured; a Tailwind path also assumes Tailwind CSS v4 is configured. Do not
-  scaffold a project or reinstall `react`, `react-dom`, `solid-js`, or `tailwindcss`. Keep the
-  matching Ark UI peer explicit in package commands so the instructions work consistently across
-  npm, pnpm, Yarn, and Bun.
-- Never edit `website/docs/public/r` by hand. Regenerate `/r/foundation`, `/r/react`, `/r/solid`,
-  `/r/react-tailwind`, and `/r/solid-tailwind` with `pnpm run build:registry`.
+  example inside the selected path instead of appending Tailwind as a later exception. Use a
+  component that actually ships in every documented runtime and styling variant; currently Accordion
+  fulfills that role.
+- Quick Start and framework setup guides start from an existing application with its runtime already
+  configured; a Tailwind path also assumes Tailwind CSS v4 is configured. Do not scaffold a project
+  or reinstall framework runtimes or `tailwindcss`. Keep the matching Ark UI peer explicit in package
+  commands so the instructions work consistently across npm, pnpm, Yarn, and Bun.
+- Never edit `website/docs/public/r` by hand. Run `pnpm run build:registry` and keep generated output
+  for every shipped package registry affected by the source change.
 
 ## Local development
 

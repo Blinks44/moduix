@@ -13,6 +13,32 @@ import presenceSolidMountOnDemand from '../../../snippets/presence/solid/mount-o
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/presence" />
 
+Import the utility from the matching Ark UI package:
+
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
+
+```tsx
+import { Presence } from '@ark-ui/react/presence';
+```
+
+  </Tab>
+  <Tab value="solid">
+
+```tsx
+import { Presence } from '@ark-ui/solid/presence';
+```
+
+  </Tab>
+</Tabs>
+
 ## Basic lifecycle
 
 `Presence` is an Ark UI utility for application-owned content. It renders one child subtree while
@@ -22,7 +48,9 @@ Use `unmountOnExit` when the subtree should be removed after its exit animation.
 and Ark hides it with the `hidden` attribute when `present` becomes `false`.
 
 <ExampleFrame variant="component">
-  <PresenceBasic />
+  <PreviewFrame maxWidth="sm">
+    <PresenceBasic />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>
@@ -63,7 +91,9 @@ Add `lazyMount` when the content should not be mounted before its first appearan
 `lazyMount` only delays the first mount. It does not remove a subtree after closing on its own.
 
 <ExampleFrame variant="component">
-  <PresenceMountOnDemand />
+  <PreviewFrame maxWidth="sm">
+    <PresenceMountOnDemand />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>

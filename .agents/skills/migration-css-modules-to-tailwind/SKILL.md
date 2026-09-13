@@ -1,17 +1,17 @@
 ---
 name: migration-css-modules-to-tailwind
-description: Port a shipped moduix component to the React and Solid Tailwind packages, verify its distribution, and review or, when authorized, simplify all four implementations against current shadcn.
+description: Port a shipped moduix component from CSS Modules to Tailwind across every shipped framework adapter, verify distribution, and review or simplify affected implementations against current shadcn.
 ---
 
 # CSS Modules to Tailwind Migration
 
-Port one shipped component from `packages/react` and `packages/solid` into
-`packages/react-tailwind` and `packages/solid-tailwind` as one parity task. The outcome has two
-parts:
+Port one shipped component from each framework's CSS Modules adapter into its Tailwind counterpart
+as one parity task. React and Solid are the current shipped adapter pairs; include future adapters
+only after their source and Tailwind packages exist. The outcome has two parts:
 
 1. a correct, framework-native Tailwind port with tests, stories, exports, builds, and registries;
 2. a post-port review that identifies justified differences and avoidable styling or composition
-   complexity across all four packages, and implements shared simplifications only when authorized.
+   complexity across all affected packages, and implements shared simplifications only when authorized.
 
 Use this skill with `component-workflow`, `conventions-css`, `conventions-react`,
 `migration-react-to-solid`, and `rstest-best-practices` as routed by `AGENTS.md`. Use
@@ -19,10 +19,10 @@ Use this skill with `component-workflow`, `conventions-css`, `conventions-react`
 
 ## Sources and boundaries
 
-The matching React and Solid CSS Modules implementations are the behavior and visual sources of
-truth for the port. React defines the established product contract; Solid defines native Solid
-mechanics. Read both implementations, styles, tests, stories, package exports, registry items, and
-component-local markdown before editing.
+The matching CSS Modules implementation for each shipped runtime is the behavior and visual source
+for its Tailwind port. The shared public contract and Ark behavior define cross-framework parity;
+each existing adapter defines its native mechanics. Read every affected implementation, style,
+test, story, package export, registry item, and component-local markdown before editing.
 
 Parity means the same public component behavior, anatomy, accessibility, states, and visual defaults.
 It does not mean copying the CSS Modules customization mechanism: detailed component variables may
@@ -33,7 +33,7 @@ consumer children even though those children should own their presentation. Do n
 the Tailwind packages behave differently. For a parity-only migration, preserve the established
 behavior with the narrowest temporary selector and record the ownership problem in the
 `Simplification review`. When the task authorizes shared simplification, remove that behavior from
-all four packages and move the presentation into stories and examples that own the content.
+all affected packages and move the presentation into stories and examples that own the content.
 
 Use existing Tailwind components as mechanical references:
 
@@ -44,8 +44,8 @@ Copy mechanics, not their component-specific classes or dependencies. Do not imp
 component or reset into a Tailwind package. Do not change build, Rslib, Rstest, Storybook, or
 `@source` configuration for an ordinary component port.
 
-Do not change the two CSS Modules implementations merely to make the port easier. The later
-simplification review may recommend a four-package change, but implement it only when the user's
+Do not change CSS Modules implementations merely to make the port easier. The later
+simplification review may recommend a cross-variant change, but implement it only when the user's
 request already authorizes that broader work or after the user accepts the recommendation. A real
 shared bug discovered during the port must be reported instead of silently copied. Fix it only when
 the request includes that work; then use `component-workflow` to synchronize affected variants.
@@ -73,7 +73,7 @@ declaration as one of:
 2. required Ark/runtime behavior or internal coordination to preserve explicitly;
 3. already guaranteed by Tailwind Preflight, the semantic host, or inheritance, and therefore omit;
 4. consumer-owned presentation that should not become a Tailwind default;
-5. questionable shared behavior to preserve temporarily for parity and report for four-package
+5. questionable shared behavior to preserve temporarily for parity and report for cross-variant
    simplification.
 
 This ledger may stay in working notes, but unresolved declarations are not optional. Do not treat a
@@ -99,8 +99,8 @@ make styling convenient.
 
 ## 2. Implement native Tailwind variants
 
-Create matching component directories and re-export-only `index.ts` files in both Tailwind
-packages.
+Create matching component directories and re-export-only `index.ts` files in every affected Tailwind
+package.
 
 - Implement React from the React contract with native React, `className`, and the real ref contract.
 - Implement Solid from the Solid contract with native reactivity, `splitProps`/`mergeProps` where
@@ -138,15 +138,15 @@ motion.
 Before translating reset-looking declarations, inspect the actual semantic host and Tailwind
 Preflight. Omit defaults already guaranteed by them, including redundant margin, border,
 `box-sizing`, font, color, line-height, and media display rules. Do not assume a reset is redundant:
-remove or omit it only after verifying the relevant computed styles in both Tailwind Storybooks.
+remove or omit it only after verifying the relevant computed styles in every affected Tailwind playground.
 Keep a declaration when it protects a supported `asChild` host that Preflight does not normalize.
 
 Prefer existing semantic utilities such as `gap-3`, `size-5`, `rounded-full`, `text-sm`, `bg-muted`,
 and `border-border`. Verify that a claimed foundation utility actually exists. When only a shared
 runtime token or keyframe exists, either use a focused unambiguous arbitrary property or add a named
-foundation utility when both Tailwind runtimes genuinely need that semantic primitive.
+foundation utility when multiple Tailwind runtimes genuinely need that semantic primitive.
 
-When adding a named foundation theme value, update both Tailwind packages' local `cn` merge
+When adding a named foundation theme value, update every affected Tailwind package's local class merge
 configuration if `tailwind-merge` cannot infer its suffixes. Namespace custom suffixes so they do not
 alter unrelated standard utilities; for example, prefer semantic `space-lg` over a generic `lg`
 spacing token that could also change `max-w-lg`.
@@ -174,8 +174,8 @@ internal coordination. Put the selected utilities on the owning part; when a roo
 a slot, prefer a named `group-data-*`/`peer-data-*` variant. Use a local variable only when its
 value is genuinely runtime-dynamic and multiple owned parts must consume it.
 
-Before tests, search both Tailwind component directories with
-`rg -n '\[--[^]]+\]|var\(--' <react-component-dir> <solid-component-dir>`. The result must be empty
+Before tests, search every affected Tailwind component directory with
+`rg -n '\[--[^]]+\]|var\(--' packages/*-tailwind/src/components/<component>`. The result must be empty
 or every match must be named in the handoff as an Ark/runtime variable, with its producer, consumer,
 and reason a utility cannot express it. A fixed-style variable is not an exception.
 
@@ -185,7 +185,7 @@ utility, documented selector, or required runtime variable. Avoid ambiguous shor
 `[border-width:var(--runtime-width)]` when the variable is required. Inspect generated CSS for every
 variable-backed or otherwise ambiguous arbitrary utility.
 
-Before continuing, search both Tailwind component directories for component-specific variables and
+Before continuing, search every affected Tailwind component directory for component-specific variables and
 justify every remaining match. Also confirm that inherited behavior such as `currentColor` has not
 been wrapped in a needless component variable.
 
@@ -204,7 +204,7 @@ Add Tailwind-specific coverage that:
 Do not snapshot complete class strings. JSDOM class assertions complement but do not replace browser
 computed-style checks.
 
-Add scenario-equivalent, framework-native stories to both Tailwind playgrounds. Preserve exported
+Add scenario-equivalent, framework-native stories to every affected Tailwind playground. Preserve exported
 story names, controls, states, edge cases, and demo layout. Translate demo CSS into small static
 Tailwind strings. Consumer-owned `asChild` content must carry its own visual utilities; do not add a
 descendant bundle to the component root to keep demo markup unstyled.
@@ -218,7 +218,7 @@ first or report the component migration as incomplete.
 
 ## 5. Exports and registries
 
-For both Tailwind packages:
+For every affected Tailwind package:
 
 - add the component subpath export in alphabetical order;
 - add a package-owned registry item with framework-native files and dependencies;
@@ -226,7 +226,7 @@ For both Tailwind packages:
   when directly used;
 - add `class-variance-authority` to package runtime and registry dependencies when the component uses
   `cva`;
-- keep React registry items free of Solid dependencies and Solid items free of React dependencies.
+- keep every registry item free of dependencies from other framework adapters.
 
 The existing source globs already build component files and shadcn-copied source is scanned in the
 consumer project. Do not add per-component Rslib entries or `@source` rules.
@@ -240,13 +240,13 @@ when explicitly requested.
 
 ## 6. Verify the port
 
-1. Run focused React Tailwind and Solid Tailwind component tests.
-2. Build both Tailwind packages and confirm implementation and declaration output for the subpath.
-3. Build both Tailwind Storybooks and compare matching scenarios in a browser.
+1. Run focused component tests in every affected Tailwind package.
+2. Build every affected Tailwind package and confirm implementation and declaration output for the subpath.
+3. Build every affected Tailwind playground and compare matching scenarios in a browser.
 4. Inspect computed styles for default component-owned visual parts and the `asChild` replacement
    host: dimensions, visible paint, radius, and animation where applicable.
 5. Inspect generated CSS for arbitrary utilities whose emitted property is not self-evident.
-6. Generate and validate registries, then inspect both generated component items.
+6. Generate and validate registries, then inspect every affected generated component item.
 7. Run `pnpm run fmt:fix`, `pnpm run lint:check`, and `pnpm run tsc:check` from the repository root.
 
 A passing unit test, a class token in the DOM, or a text-only Storybook snapshot does not prove visual
@@ -254,15 +254,15 @@ parity. A packed-consumer smoke test is additionally required only when shared e
 configuration, foundation delivery, `cn`, or registry infrastructure changed.
 
 When an authorized simplification changes the CSS Modules implementations or shared public
-contract, repeat the relevant tests, package builds, Storybook scenarios, and browser checks for all
-four variants, not only the Tailwind pair. Search for and remove dead foundation variables,
+contract, repeat the relevant tests, package builds, playground scenarios, and browser checks for all
+affected variants, not only the Tailwind counterparts. Search for and remove dead foundation variables,
 documentation references, test assumptions, and generated registry content before completing.
 
-## 7. Review whether all four variants should be simpler
+## 7. Review whether all affected variants should be simpler
 
-Only after the Tailwind port is correct, re-open all four moduix implementations and find the current
+Only after the Tailwind port is correct, re-open every affected moduix implementation and find the current
 official shadcn documentation and registry source for the same component. Record source URLs and
-access date. If no counterpart exists, say so and still perform the internal four-variant review.
+access date. If no counterpart exists, say so and still perform the internal cross-variant review.
 Use a nearby shadcn component only when its responsibility and anatomy are genuinely comparable, and
 label that comparison approximate. Do not rely on memory or local snapshots.
 
@@ -304,14 +304,14 @@ ownership are candidates for removal.
 
 Fix ordinary Tailwind translation mistakes during the port. Do not silently change shared anatomy,
 behavior, or CSS Modules implementations merely because shadcn is smaller. A simplification that
-affects the existing contract is a four-package product change: report it and wait for the user's
+affects the existing contract is a cross-variant product change: report it and wait for the user's
 decision unless the original request authorizes that broader refactor.
 
-When broader simplification is authorized, implement the smallest coherent four-package change in
+When broader simplification is authorized, implement the smallest coherent cross-variant change in
 the same task. Keep intentional accessibility and Ark behavior, remove presentation-only plumbing,
 move consumer-owned styling into examples, and synchronize tests, stories, contracts,
 documentation, foundation tokens, and registries according to the actual impact. Re-run the
-four-variant checks before deciding whether more simplification is warranted.
+cross-variant checks before deciding whether more simplification is warranted.
 
 ### Mandatory simplification handoff gate
 
@@ -326,7 +326,7 @@ Before writing the final response, answer all of these explicitly:
    historical structure?
 4. Which simplifications were applied, and what concrete complexity did each remove?
 5. What is the smallest remaining justified simplification proposal, including whether it is
-   breaking and which of the four packages and distribution surfaces it affects?
+   breaking and which packages and distribution surfaces it affects?
 
 A migration handoff containing only changed files and validation results is incomplete. If the
 audit finds no worthwhile change, answer every gate item briefly and state `No simplification
@@ -346,10 +346,10 @@ Finish every migration handoff with a `Simplification review` containing:
 
 ## Completion
 
-The migration is complete only when the React and Solid Tailwind implementations preserve the
-existing contract through native utilities; focused tests, package builds, Storybooks, browser
+The migration is complete only when every shipped Tailwind implementation preserves the existing
+contract through native utilities; focused tests, package builds, playgrounds, browser
 visual checks, exports, and registries pass; unexplained component styling variables and ambiguous
 arbitrary utilities are absent; redundant Preflight defaults and unresolved ownership conflicts are
 absent or explicitly reported; any authorized shared simplification is verified across all affected
-variants and documentation; and the final report includes the evidence-backed four-variant
+variants and documentation; and the final report includes the evidence-backed cross-variant
 `Simplification review`.

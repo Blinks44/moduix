@@ -1,4 +1,4 @@
 interface:
   display_name: 'moduix'
-  short_description: 'Build React or Solid UI with moduix'
+  short_description: 'Build UI with shipped moduix framework adapters'
   default_prompt: 'Use $moduix to add or update moduix UI while preserving the project’s framework, styling track, and ownership model.'

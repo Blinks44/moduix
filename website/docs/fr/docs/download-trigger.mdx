@@ -15,6 +15,32 @@ Associez-le à un `Button` moduix lorsque l’action doit s’intégrer au reste
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/download-trigger" />
 
+Importez l’utilitaire depuis le paquet Ark UI correspondant à votre framework :
+
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
+
+```tsx
+import { DownloadTrigger } from '@ark-ui/react/download-trigger';
+```
+
+  </Tab>
+  <Tab value="solid">
+
+```tsx
+import { DownloadTrigger } from '@ark-ui/solid/download-trigger';
+```
+
+  </Tab>
+</Tabs>
+
 ## Exemple de base
 
 Passez les données déjà prêtes via `data`. La prop accepte une chaîne, un `Blob` ou un `File`. `fileName` et `mimeType`
@@ -23,7 +49,9 @@ décrivent le fichier enregistré par le navigateur.
 L’aperçu utilise React. Les onglets de code contiennent des exemples natifs React et Solid avec le même comportement.
 
 <ExampleFrame clientOnly variant="component">
-  <DownloadTriggerBasic />
+  <PreviewFrame maxWidth="sm">
+    <DownloadTriggerBasic />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>
@@ -58,7 +86,9 @@ Passez une fonction lorsque le fichier doit être créé après l’activation d
 moment du clic et attend la résolution de la promesse renvoyée avant d’enregistrer le résultat.
 
 <ExampleFrame clientOnly variant="component">
-  <DownloadTriggerAsyncData />
+  <PreviewFrame maxWidth="sm">
+    <DownloadTriggerAsyncData />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>

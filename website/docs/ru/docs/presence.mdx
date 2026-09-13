@@ -13,6 +13,32 @@ import presenceSolidMountOnDemand from '../../../snippets/presence/solid/mount-o
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/presence" />
 
+Импортируйте утилиту из пакета Ark UI для используемого фреймворка:
+
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
+
+```tsx
+import { Presence } from '@ark-ui/react/presence';
+```
+
+  </Tab>
+  <Tab value="solid">
+
+```tsx
+import { Presence } from '@ark-ui/solid/presence';
+```
+
+  </Tab>
+</Tabs>
+
 ## Базовый жизненный цикл
 
 `Presence` - утилита Ark UI для содержимого, жизненным циклом которого управляет приложение. Она
@@ -23,7 +49,9 @@ import presenceSolidMountOnDemand from '../../../snippets/presence/solid/mount-o
 смонтированным, а Ark скрывает его атрибутом `hidden`, когда `present` становится `false`.
 
 <ExampleFrame variant="component">
-  <PresenceBasic />
+  <PreviewFrame maxWidth="sm">
+    <PresenceBasic />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>
@@ -64,7 +92,9 @@ import presenceSolidMountOnDemand from '../../../snippets/presence/solid/mount-o
 Сам по себе `lazyMount` только откладывает первое монтирование и не удаляет поддерево после закрытия.
 
 <ExampleFrame variant="component">
-  <PresenceMountOnDemand />
+  <PreviewFrame maxWidth="sm">
+    <PresenceMountOnDemand />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>

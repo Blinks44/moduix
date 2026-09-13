@@ -16,6 +16,32 @@ import frameSolidStaticDocument from '../../../snippets/frame/solid/static-docum
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/frame" />
 
+Импортируйте утилиту из пакета Ark UI для используемого фреймворка:
+
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
+
+```tsx
+import { Frame } from '@ark-ui/react';
+```
+
+  </Tab>
+  <Tab value="solid">
+
+```tsx
+import { Frame } from '@ark-ui/solid';
+```
+
+  </Tab>
+</Tabs>
+
 ## Базовый пример
 
 `Frame` рендерит свои дочерние элементы внутри документа iframe. Всегда задавайте содержательный `title`: он становится
@@ -23,7 +49,9 @@ import frameSolidStaticDocument from '../../../snippets/frame/solid/static-docum
 документа не проникают внутрь iframe.
 
 <ExampleFrame variant="component">
-  <FrameBasic />
+  <PreviewFrame maxWidth="sm">
+    <FrameBasic />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>
@@ -61,7 +89,9 @@ import frameSolidStaticDocument from '../../../snippets/frame/solid/static-docum
 содержимым. Переменную `--width` можно использовать так же для inline-размера.
 
 <ExampleFrame variant="component">
-  <FrameSizing />
+  <PreviewFrame maxWidth="sm">
+    <FrameSizing />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>

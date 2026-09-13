@@ -5,6 +5,11 @@ description: Port and synchronize moduix components from React to native Solid i
 
 # React to Solid Migration
 
+This skill is intentionally specific to the current React-to-Solid adapter pair. Use
+`component-workflow` for framework-neutral coordination. When another adapter enters development,
+create a focused native migration or convention skill instead of extending this one with unrelated
+framework mechanics.
+
 Port a shipped React component as a native Solid adapter without introducing a shared component
 runtime, generated TSX, or React-compatibility layer. Use `packages/react` → `packages/solid` for the
 CSS Modules track and `packages/react-tailwind` → `packages/solid-tailwind` for the Tailwind track.
@@ -118,7 +123,7 @@ package and framework-native helpers. CSS Modules artifacts are published at `/r
   `@moduix-solid/foundation`, `@moduix-solid/icons`, or another already-ported Solid item, never
   an `@moduix-react/*` item.
 - Do not manually edit `website/docs/public/r`. Run `pnpm run build:registry` to regenerate
-  foundation and all four package artifact trees together.
+  foundation and the paired React/Solid CSS Modules and Tailwind artifact trees together.
 
 ## Playground stories
 

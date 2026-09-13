@@ -13,6 +13,32 @@ place in the layout.
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/client-only" />
 
+Import the utility from the matching Ark UI package:
+
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
+
+```tsx
+import { ClientOnly } from '@ark-ui/react/client-only';
+```
+
+  </Tab>
+  <Tab value="solid">
+
+```tsx
+import { ClientOnly } from '@ark-ui/solid/client-only';
+```
+
+  </Tab>
+</Tabs>
+
 ## Render browser-dependent content
 
 During server rendering and until hydration is complete, `ClientOnly` renders `fallback`. It then renders its children
@@ -25,7 +51,9 @@ This recipe shows a browser-dependent `Card` with a `Skeleton` fallback that res
 uses the React CSS Modules package; the source tabs contain native React and Solid code for the same behavior.
 
 <ExampleFrame clientOnly variant="component">
-  <ClientOnlyBasic />
+  <PreviewFrame maxWidth="sm">
+    <ClientOnlyBasic />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>

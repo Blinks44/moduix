@@ -1,12 +1,12 @@
 # moduix-monorepo
 
-`moduix` is an Ark UI-backed React and Solid component system distributed as CSS Modules and Tailwind packages, with shadcn-compatible registries and an Rspress documentation site.
+`moduix` is a multi-framework, Ark UI-backed component system distributed as CSS Modules and Tailwind packages, with shadcn-compatible registries and an Rspress documentation site. React and Solid adapters ship today; Vue and Svelte adapters are planned. Shared workflows must be framework-neutral and discover shipped adapters instead of assuming that the current package count is permanent.
 
 ## Workspace map
 
-- `packages/react` and `packages/solid` — public framework-native CSS Modules packages, tests, and component-local docs.
-- `packages/react-tailwind` and `packages/solid-tailwind` — public Tailwind variants kept behaviorally aligned with their framework counterparts.
-- `playgrounds/react`, `playgrounds/solid`, `playgrounds/react-tailwind`, and `playgrounds/solid-tailwind` — private Storybooks for parity checks.
+- `packages/<framework>`: public framework-native CSS Modules adapters, tests, and component-local docs. The current adapters are `react` and `solid`.
+- `packages/<framework>-tailwind`: public Tailwind variants kept behaviorally aligned with the CSS Modules adapter for that framework. The current variants are `react-tailwind` and `solid-tailwind`.
+- `playgrounds/<framework>` and `playgrounds/<framework>-tailwind`: private playgrounds for parity checks when that adapter ships.
 - `website` — the Rspress documentation site, runnable component examples, and generated registry artifacts.
 - `packages/foundation/registry.json` and each public package's `registry.json` — source manifests for the hosted registries; each manifest owns files within its package.
 - `packages/oxlint-config` and `packages/oxfmt-config` — shared linting and formatting configuration.
@@ -16,8 +16,11 @@
 Use project skills from [`.agents/skills/`](.agents/skills/README.md). Apply only the skills that match the changed surface.
 
 - **Any coding task:** `engineering-principles`.
-- **Any component implementation or public contract change:** `component-workflow`; it owns the four-package impact check and synchronization of existing counterparts, tests, stories, exports, and registries.
+- **Any component implementation or public contract change:** `component-workflow`; it owns the shipped-adapter impact check and synchronization of existing counterparts, tests, stories, exports, and registries.
 - **React implementation in `packages/react` or `packages/react-tailwind`:** `conventions-react`.
+- **Framework-specific implementation:** use the matching native convention or migration skill when
+  it exists. Add a focused framework skill when a new adapter enters development instead of expanding
+  React or Solid instructions into generic pseudocode.
 - **React-to-Solid component ports or synchronization:** `migration-react-to-solid`; additionally use `conventions-css` for styles,
   `research-upstream-libraries` for current Ark Solid behavior, `rstest-best-practices` for tests, and
   `rslib-best-practices` when changing a Solid package build.

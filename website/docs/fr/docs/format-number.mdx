@@ -16,6 +16,32 @@ lecture seule, pas un champ de saisie.
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/format-number" />
 
+Importez l’utilitaire depuis le paquet Ark UI correspondant à votre framework :
+
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
+
+```tsx
+import { Format } from '@ark-ui/react';
+```
+
+  </Tab>
+  <Tab value="solid">
+
+```tsx
+import { Format } from '@ark-ui/solid';
+```
+
+  </Tab>
+</Tabs>
+
 ## Exemple de base
 
 Passez un nombre à `value`. Sans option de formatage, le résultat suit la locale active. `Format.Number` ne rend que
@@ -25,7 +51,9 @@ L’aperçu utilise l’implémentation React, car le site de documentation fonc
 la version Solid native du même exemple.
 
 <ExampleFrame variant="component">
-  <FormatNumberBasic />
+  <PreviewFrame maxWidth="sm">
+    <FormatNumberBasic />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>
@@ -59,7 +87,9 @@ la version Solid native du même exemple.
 `unitDisplay`, `notation` et les options qui contrôlent le nombre de décimales.
 
 <ExampleFrame variant="component">
-  <FormatNumberOptions />
+  <PreviewFrame maxWidth="sm">
+    <FormatNumberOptions />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>

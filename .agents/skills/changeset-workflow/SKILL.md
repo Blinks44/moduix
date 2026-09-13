@@ -58,7 +58,7 @@ Multi-package:
 '@moduix/solid': patch
 ---
 
-Accordion: Keep keyboard navigation aligned across React and Solid.
+Accordion: Keep keyboard navigation aligned across affected framework adapters.
 ```
 
 Multi-line:

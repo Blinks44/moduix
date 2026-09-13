@@ -13,6 +13,32 @@ import formatRelativeTimeSolidShort from '../../../snippets/format-relative-time
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/format-relative-time" />
 
+Import the utility from the matching Ark UI package:
+
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
+
+```tsx
+import { Format } from '@ark-ui/react';
+```
+
+  </Tab>
+  <Tab value="solid">
+
+```tsx
+import { Format } from '@ark-ui/solid';
+```
+
+  </Tab>
+</Tabs>
+
 ## When to use it
 
 Use `Format.RelativeTime` when the distance from now is more useful than an exact timestamp: for activity feeds,
@@ -28,7 +54,9 @@ Set `numeric="auto"` when nearby dates should use natural words such as “tomor
 rendered with React in the documentation app; the Solid tab contains the native equivalent for the same composition.
 
 <ExampleFrame variant="component">
-  <FormatRelativeTimeBasic />
+  <PreviewFrame maxWidth="sm">
+    <FormatRelativeTimeBasic />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>
@@ -63,7 +91,9 @@ form when the surrounding interface already makes the meaning clear. Keep the ex
 `dateTime` when people may need to inspect it.
 
 <ExampleFrame variant="component">
-  <FormatRelativeTimeShort />
+  <PreviewFrame maxWidth="sm">
+    <FormatRelativeTimeShort />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>

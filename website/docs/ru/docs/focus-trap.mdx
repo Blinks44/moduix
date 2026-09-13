@@ -6,13 +6,37 @@ description: Удерживайте фокус при навигации с кл
 import FocusTrapBasic from '@/components/examples/focus-trap/basic.tsx';
 import focusTrapSolidCssModules from '../../../snippets/focus-trap/solid/css-modules.tsx?raw';
 
+`FocusTrap` удерживает фокус при навигации с клавиатуры внутри пользовательской интерактивной области до завершения сценария.
+
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/focus-trap" />
 
-`FocusTrap` - это утилита Ark UI для пользовательских интерактивных областей, где фокус при навигации с клавиатуры
-должен оставаться внутри контейнера, пока сценарий не завершён. Импортируйте его из
-`@ark-ui/react/focus-trap` или `@ark-ui/solid/focus-trap`.
+Импортируйте утилиту из пакета Ark UI для используемого фреймворка:
+
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
+
+```tsx
+import { FocusTrap } from '@ark-ui/react/focus-trap';
+```
+
+  </Tab>
+  <Tab value="solid">
+
+```tsx
+import { FocusTrap } from '@ark-ui/solid/focus-trap';
+```
+
+  </Tab>
+</Tabs>
 
 Для модального окна используйте `Dialog`, а для модальной панели, прикреплённой к краю экрана, `Drawer`. Эти компоненты
 уже предоставляют необходимое модальное поведение. Не добавляйте `FocusTrap` внутрь них.
@@ -25,7 +49,9 @@ import focusTrapSolidCssModules from '../../../snippets/focus-trap/solid/css-mod
 с исходным кодом показывают одинаковое поведение с нативными примерами для React и Solid.
 
 <ExampleFrame variant="component">
-  <FocusTrapBasic />
+  <PreviewFrame maxWidth="sm">
+    <FocusTrapBasic />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>

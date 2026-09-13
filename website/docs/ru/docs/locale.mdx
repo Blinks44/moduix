@@ -16,9 +16,31 @@ import localeSolidDocument from '../../../snippets/locale/solid/document.tsx?raw
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/locale" />
 
-## Выберите импорт провайдера
+Импортируйте утилиту из пакета Ark UI для используемого фреймворка:
 
-Импортируйте `LocaleProvider` и `useLocaleContext` из `@ark-ui/react/locale` или `@ark-ui/solid/locale`.
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
+
+```tsx
+import { LocaleProvider, useLocaleContext } from '@ark-ui/react/locale';
+```
+
+  </Tab>
+  <Tab value="solid">
+
+```tsx
+import { LocaleProvider, useLocaleContext } from '@ark-ui/solid/locale';
+```
+
+  </Tab>
+</Tabs>
 
 `Format.Number`, `Format.Time` и другие утилиты `Format` по-прежнему импортируются из `@ark-ui/react` или
 `@ark-ui/solid`.
@@ -29,7 +51,9 @@ import localeSolidDocument from '../../../snippets/locale/solid/document.tsx?raw
 провайдера будут читать общий контекст.
 
 <ExampleFrame variant="component">
-  <LocaleBasic />
+  <PreviewFrame maxWidth="sm">
+    <LocaleBasic />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>
@@ -67,7 +91,9 @@ import localeSolidDocument from '../../../snippets/locale/solid/document.tsx?raw
 напрямую, а в Solid доступны через accessor-функцию.
 
 <ExampleFrame variant="component">
-  <LocaleContext />
+  <PreviewFrame maxWidth="sm">
+    <LocaleContext />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>

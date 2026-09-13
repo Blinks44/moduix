@@ -6,12 +6,37 @@ description: Keep keyboard focus inside a custom interactive surface with Ark UI
 import FocusTrapBasic from '@/components/examples/focus-trap/basic.tsx';
 import focusTrapSolidCssModules from '../../../snippets/focus-trap/solid/css-modules.tsx?raw';
 
+`FocusTrap` keeps keyboard focus inside a custom interactive surface until the workflow is released.
+
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/focus-trap" />
 
-`FocusTrap` is an Ark UI utility for custom interactive surfaces where keyboard focus must stay inside a container until
-the workflow is released. Import it from `@ark-ui/react/focus-trap` or `@ark-ui/solid/focus-trap`.
+Import the utility from the matching Ark UI package:
+
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
+
+```tsx
+import { FocusTrap } from '@ark-ui/react/focus-trap';
+```
+
+  </Tab>
+  <Tab value="solid">
+
+```tsx
+import { FocusTrap } from '@ark-ui/solid/focus-trap';
+```
+
+  </Tab>
+</Tabs>
 
 Use `Dialog` for a modal window and `Drawer` for a modal panel attached to the edge of the viewport. They already provide
 the surrounding modal behavior. Do not add `FocusTrap` inside either component.
@@ -24,7 +49,9 @@ is released. The preview uses the React CSS Modules package and reports whether 
 the same behavior with native React and Solid code.
 
 <ExampleFrame variant="component">
-  <FocusTrapBasic />
+  <PreviewFrame maxWidth="sm">
+    <FocusTrapBasic />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>

@@ -1,25 +1,29 @@
 ---
 name: moduix
-description: Build or modify React and Solid applications with moduix CSS Modules or Tailwind components. Use when discovering, installing, composing, updating, or reviewing package-managed or shadcn copy-owned moduix UI.
+description: Build or modify applications with shipped moduix framework adapters and CSS Modules or Tailwind components. Use when discovering, installing, composing, updating, or reviewing package-managed or shadcn copy-owned moduix UI.
 ---
 
 # moduix
 
 Use the public moduix documentation as the source of truth. Preserve the project's framework,
-styling track, and ownership model. Do not migrate between React and Solid, CSS Modules and
+styling track, and ownership model. Do not migrate between framework adapters, CSS Modules and
 Tailwind, or package-managed and copy-owned code unless the user asks.
+
+moduix is multi-framework by design. React and Solid adapters ship today; Vue and Svelte are planned.
+Never present a planned adapter as available. Discover the current package or registry before choosing
+commands, imports, or examples.
 
 ## Identify the project setup
 
 Inspect the package manager, existing imports, application stylesheet, and `components.json` before
 changing code. Select the matching package or registry:
 
-| Runtime        | CSS Modules     | Tailwind CSS v4          |
-| -------------- | --------------- | ------------------------ |
-| React package  | `@moduix/react` | `@moduix/react-tailwind` |
-| Solid package  | `@moduix/solid` | `@moduix/solid-tailwind` |
-| React registry | `@moduix-react` | `@moduix-react-tailwind` |
-| Solid registry | `@moduix-solid` | `@moduix-solid-tailwind` |
+| Runtime | Ownership | CSS Modules     | Tailwind CSS v4          |
+| ------- | --------- | --------------- | ------------------------ |
+| React   | package   | `@moduix/react` | `@moduix/react-tailwind` |
+| React   | registry  | `@moduix-react` | `@moduix-react-tailwind` |
+| Solid   | package   | `@moduix/solid` | `@moduix/solid-tailwind` |
+| Solid   | registry  | `@moduix-solid` | `@moduix-solid-tailwind` |
 
 Assume the application is already configured for its framework. For a Tailwind track, also confirm
 that Tailwind CSS v4 is already configured. Do not scaffold a framework, install Tailwind, or
@@ -39,7 +43,7 @@ Read [references/discovery.md](references/discovery.md), then:
 ## Use package-managed components
 
 1. Use the project's package manager and the install command from the current Quick start. Do not
-   reinstall React or Solid in an initialized application.
+   reinstall the framework runtime in an initialized application.
 2. Import components from package subpaths such as `@moduix/react/accordion` or
    `@moduix/solid-tailwind/accordion`.
 3. For CSS Modules, import the matching package's `style.css` once. Component imports carry their
@@ -86,8 +90,8 @@ files and preserve local changes. Never use `--overwrite` without explicit user 
 
 - Preserve the documented Ark-shaped part tree, callback detail objects, context hooks, form
   behavior, and accessibility contract.
-- Use native framework patterns. Do not translate React-only composition directly into Solid or
-  invent shadcn-style aliases that moduix does not export.
+- Use native framework patterns. Do not transliterate one adapter's composition into another
+  framework's shape or invent shadcn-style aliases that moduix does not export.
 - Keep package imports and copy-owned imports separate.
 - Customize CSS Modules through documented variables, classes, slots, and state attributes.
   Customize Tailwind components with consumer utilities; avoid recreating component-specific

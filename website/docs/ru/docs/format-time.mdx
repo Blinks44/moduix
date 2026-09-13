@@ -17,13 +17,41 @@ import formatTimeSolidLocale from '../../../snippets/format-time/solid/locale.ts
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/format-time" />
 
+Импортируйте утилиту из пакета Ark UI для используемого фреймворка:
+
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
+
+```tsx
+import { Format } from '@ark-ui/react';
+```
+
+  </Tab>
+  <Tab value="solid">
+
+```tsx
+import { Format } from '@ark-ui/solid';
+```
+
+  </Tab>
+</Tabs>
+
 ## Базовый пример
 
 Передайте строку в формате `HH:mm` или `HH:mm:ss`, если это время на циферблате, например время отправления по
 расписанию. Строка не преобразуется между часовыми поясами.
 
 <ExampleFrame variant="component">
-  <FormatTimeBasic />
+  <PreviewFrame maxWidth="sm">
+    <FormatTimeBasic />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>
@@ -58,7 +86,9 @@ import formatTimeSolidLocale from '../../../snippets/format-time/solid/locale.ts
 выводе.
 
 <ExampleFrame variant="component">
-  <FormatTimeSecondsAndLabels />
+  <PreviewFrame maxWidth="sm">
+    <FormatTimeSecondsAndLabels />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>
@@ -98,7 +128,9 @@ import formatTimeSolidLocale from '../../../snippets/format-time/solid/locale.ts
 Оставляйте время по расписанию строкой. Передавайте `Date` только тогда, когда преобразование часового пояса задумано.
 
 <ExampleFrame variant="component">
-  <FormatTimeLocale />
+  <PreviewFrame maxWidth="sm">
+    <FormatTimeLocale />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>

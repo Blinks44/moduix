@@ -13,6 +13,32 @@ import formatRelativeTimeSolidShort from '../../../snippets/format-relative-time
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/format-relative-time" />
 
+Importez l’utilitaire depuis le paquet Ark UI correspondant à votre framework :
+
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
+
+```tsx
+import { Format } from '@ark-ui/react';
+```
+
+  </Tab>
+  <Tab value="solid">
+
+```tsx
+import { Format } from '@ark-ui/solid';
+```
+
+  </Tab>
+</Tabs>
+
 ## Quand l’utiliser
 
 Utilisez `Format.RelativeTime` lorsque la distance par rapport à maintenant est plus utile qu’un horodatage exact :
@@ -30,7 +56,9 @@ Définissez `numeric="auto"` lorsque les dates proches peuvent être exprimées 
 composition.
 
 <ExampleFrame variant="component">
-  <FormatRelativeTimeBasic />
+  <PreviewFrame maxWidth="sm">
+    <FormatRelativeTimeBasic />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>
@@ -65,7 +93,9 @@ Définissez `style="short"` lorsque l’espace est limité, par exemple dans une
 Conservez l’horodatage exact dans `dateTime` si la personne doit pouvoir le vérifier.
 
 <ExampleFrame variant="component">
-  <FormatRelativeTimeShort />
+  <PreviewFrame maxWidth="sm">
+    <FormatRelativeTimeShort />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>

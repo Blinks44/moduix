@@ -1,15 +1,16 @@
 ---
 name: component-contract-docs
-description: Maintain component-local contract markdown in packages/react and packages/solid, including framework differences and preservation notes.
+description: Maintain component-local contract markdown in shipped framework packages, including framework differences and preservation notes.
 ---
 
 # Component Contract Docs
 
-Own component-local markdown in `packages/react/src/components` and `packages/solid/src/components`.
+Own component-local markdown in `packages/<framework>/src/components` for shipped CSS Modules adapters.
+The current locations are `packages/react/src/components` and `packages/solid/src/components`.
 It records the shipped moduix wrapper contract for maintainers; it is not a second public
 documentation site or a copy of upstream reference material.
 
-Keep shared contract sections aligned between React and Solid when both files exist. Describe native
+Keep shared contract sections aligned between framework adapters when multiple files exist. Describe native
 framework mechanics only in the affected file, and never claim parity where Ark exposes a real
 difference. Tailwind variants reuse this behavioral contract but not the CSS Modules customization
 mechanism: their normal styling API is utilities plus `className`/`class`. They do not need

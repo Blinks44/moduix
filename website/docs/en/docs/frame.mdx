@@ -16,6 +16,32 @@ import frameSolidStaticDocument from '../../../snippets/frame/solid/static-docum
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/frame" />
 
+Import the utility from the matching Ark UI package:
+
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
+
+```tsx
+import { Frame } from '@ark-ui/react';
+```
+
+  </Tab>
+  <Tab value="solid">
+
+```tsx
+import { Frame } from '@ark-ui/solid';
+```
+
+  </Tab>
+</Tabs>
+
 ## Basic
 
 `Frame` renders its children inside the iframe document. Always provide a descriptive `title`, because it becomes the
@@ -23,7 +49,9 @@ iframe's accessible name. The example also passes a `<style>` element through `h
 document do not cross the iframe boundary.
 
 <ExampleFrame variant="component">
-  <FrameBasic />
+  <PreviewFrame maxWidth="sm">
+    <FrameBasic />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>
@@ -61,7 +89,9 @@ metadata. Styles needed by the embedded UI must also be loaded through this prop
 the same way for inline size.
 
 <ExampleFrame variant="component">
-  <FrameSizing />
+  <PreviewFrame maxWidth="sm">
+    <FrameSizing />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>

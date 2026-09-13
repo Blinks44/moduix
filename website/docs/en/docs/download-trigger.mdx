@@ -15,6 +15,32 @@ action should match the rest of your interface.
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/download-trigger" />
 
+Import the utility from the matching Ark UI package:
+
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
+
+```tsx
+import { DownloadTrigger } from '@ark-ui/react/download-trigger';
+```
+
+  </Tab>
+  <Tab value="solid">
+
+```tsx
+import { DownloadTrigger } from '@ark-ui/solid/download-trigger';
+```
+
+  </Tab>
+</Tabs>
+
 ## Basic
 
 Pass ready-to-use content through `data`. It accepts a string, `Blob`, or `File`. `fileName` and `mimeType` describe the
@@ -23,7 +49,9 @@ file saved by the browser.
 The preview uses React. The source tabs contain native React and Solid examples with the same behavior.
 
 <ExampleFrame clientOnly variant="component">
-  <DownloadTriggerBasic />
+  <PreviewFrame maxWidth="sm">
+    <DownloadTriggerBasic />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>
@@ -58,7 +86,9 @@ Pass a function when the file should be created after the user activates the tri
 activation and waits for a returned promise before saving the result.
 
 <ExampleFrame clientOnly variant="component">
-  <DownloadTriggerAsyncData />
+  <PreviewFrame maxWidth="sm">
+    <DownloadTriggerAsyncData />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>

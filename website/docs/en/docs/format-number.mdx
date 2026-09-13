@@ -16,6 +16,32 @@ an input control.
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/format-number" />
 
+Import the utility from the matching Ark UI package:
+
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
+
+```tsx
+import { Format } from '@ark-ui/react';
+```
+
+  </Tab>
+  <Tab value="solid">
+
+```tsx
+import { Format } from '@ark-ui/solid';
+```
+
+  </Tab>
+</Tabs>
+
 ## Basic
 
 Pass a number to `value`. Without formatting options, the result follows the active locale. `Format.Number` renders
@@ -25,7 +51,9 @@ The preview uses the React implementation because the documentation site runs Re
 Solid version of the same example.
 
 <ExampleFrame variant="component">
-  <FormatNumberBasic />
+  <PreviewFrame maxWidth="sm">
+    <FormatNumberBasic />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>
@@ -59,7 +87,9 @@ Solid version of the same example.
 `unitDisplay`, `notation`, and fraction digit options.
 
 <ExampleFrame variant="component">
-  <FormatNumberOptions />
+  <PreviewFrame maxWidth="sm">
+    <FormatNumberOptions />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>

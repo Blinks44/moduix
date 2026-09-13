@@ -6,13 +6,37 @@ description: Maintenez le focus clavier dans une interface interactive personnal
 import FocusTrapBasic from '@/components/examples/focus-trap/basic.tsx';
 import focusTrapSolidCssModules from '../../../snippets/focus-trap/solid/css-modules.tsx?raw';
 
+`FocusTrap` maintient le focus clavier dans une interface interactive personnalisée jusqu’à la fin du parcours.
+
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/focus-trap" />
 
-`FocusTrap` est un utilitaire Ark UI destiné aux interfaces interactives personnalisées où le focus clavier doit rester
-dans un conteneur jusqu’à la fin du parcours. Importez-le depuis `@ark-ui/react/focus-trap` ou
-`@ark-ui/solid/focus-trap`.
+Importez l’utilitaire depuis le paquet Ark UI correspondant à votre framework :
+
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
+
+```tsx
+import { FocusTrap } from '@ark-ui/react/focus-trap';
+```
+
+  </Tab>
+  <Tab value="solid">
+
+```tsx
+import { FocusTrap } from '@ark-ui/solid/focus-trap';
+```
+
+  </Tab>
+</Tabs>
 
 Utilisez `Dialog` pour une fenêtre modale et `Drawer` pour un panneau modal attaché au bord de la fenêtre. Ces composants
 fournissent déjà le comportement modal associé. N’ajoutez pas `FocusTrap` dans l’un de ces composants.
@@ -25,7 +49,9 @@ le focus sur **Review details**, `isReviewing` reste synchronisé grâce à `onD
 de code présentent le même comportement avec des exemples natifs en React et en Solid.
 
 <ExampleFrame variant="component">
-  <FocusTrapBasic />
+  <PreviewFrame maxWidth="sm">
+    <FocusTrapBasic />
+  </PreviewFrame>
 </ExampleFrame>
 
 <ExampleCode>

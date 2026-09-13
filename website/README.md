@@ -35,7 +35,7 @@ per-page Markdown, `llms.txt`, `llms-full.txt`, and `sitemap.xml`.
 
 ## Localization
 
-English is the default locale. Russian translation is delivered incrementally: until a page has a
-Russian counterpart, omit it from Russian navigation and locale-filtered collections. Do not add an
-implicit English fallback or a link that produces a Russian 404. Add the page and its navigation entry
-when its translation is ready, and keep existing locale pairs aligned when the English source changes.
+English is the default locale. Russian and French are supported localized trees. Keep matching pages,
+navigation, framework coverage, and shared examples aligned across every configured locale. Do not add
+an implicit English fallback or a locale link that produces a 404; add a page to localized navigation
+only when that translation is ready.

@@ -9,8 +9,8 @@ Use this skill for CSS, CSS Modules, and styling work in this repo.
 
 ## Scope
 
-- component CSS Modules in `packages/react` and `packages/solid`
-- component utility classes in `packages/react-tailwind` and `packages/solid-tailwind`
+- component CSS Modules in shipped `packages/<framework>` adapters
+- component utility classes in shipped `packages/<framework>-tailwind` adapters
 - shared tokens, layers, reset, animations, and presets in `packages/foundation`
 - docs example CSS Modules in `website`
 - selector structure
@@ -28,8 +28,8 @@ Use this skill for CSS, CSS Modules, and styling work in this repo.
 - In CSS Modules, use design tokens and public CSS variables instead of hardcoded one-off values when a token already exists.
 - Keep component CSS and demo CSS separate. Library styling belongs in its package; demo-only layout belongs in stories or docs examples.
 - When a component exists in several variants, preserve the same visual and state contract. Keep
-  React and Solid CSS Modules equivalent, and translate that result into Tailwind utilities for both
-  Tailwind packages.
+  CSS Modules equivalent across framework adapters, and translate that result into native Tailwind
+  utilities for every shipped Tailwind counterpart.
 - Do not import CSS Modules across packages or add them to a Tailwind component.
 
 ## CSS Variable References
@@ -63,13 +63,13 @@ Use this skill for CSS, CSS Modules, and styling work in this repo.
 - Keep every part's fixed static utilities directly in its JSX `cn(...)` call. Do not extract
   intermediate class-string constants. A component-local `cva` recipe is appropriate when it makes
   prop-driven visual variants or an identical Root/RootProvider recipe materially clearer. Keep its
-  utilities statically discoverable, use it in both Tailwind runtimes, and merge the consumer class
+  utilities statically discoverable, use it in every affected Tailwind runtime, and merge the consumer class
   last through `cn`. Do not use `cva` for Ark-owned runtime `data-*` states or fixed styles.
 - Preserve the same API, behavior, states, accessibility, and visual defaults as CSS Modules, but
   use Tailwind's native customization model rather than mirroring every component CSS variable.
 - Prefer familiar utilities and the foundation's named semantic theme utilities. Use arbitrary
   values only for genuine one-off values, calculations, selectors, or required runtime variables.
-- Keep custom theme suffixes synchronized with both Tailwind packages' local `cn` merge
+- Keep custom theme suffixes synchronized with every Tailwind package's local class merge
   configuration when `tailwind-merge` cannot infer their conflict groups.
 - Namespace custom theme suffixes that would otherwise collide with Tailwind defaults across the
   shared theme namespace. Semantic spacing uses `space-*` rather than bare `xs`/`sm`/`md`/`lg`/`xl`

@@ -4,7 +4,7 @@
 
 - Use `https://moduix.dev/llms.txt` to discover components, recipes, themes, and guides.
 - Read `https://moduix.dev/docs/<slug>.md` before implementing a focused component or workflow.
-- Use the component page to confirm its API, framework examples, styling track availability, and
+- Use the component page to confirm its API, shipped framework examples, styling track availability, and
   required composition.
 
 ## Select the matching registry

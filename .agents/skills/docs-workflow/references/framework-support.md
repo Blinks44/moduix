@@ -17,13 +17,24 @@ Verify the framework package and registry rather than copying another framework'
 Do not describe a planned package or incomplete styling track as fully available. Keep the React
 implementation of the documentation site separate from the runtimes the library supports.
 
-## Keep the four choices distinct
+## Model current and future frameworks
+
+moduix is multi-framework by design. React and Solid adapters ship today; Vue and Svelte are planned.
+Shared prose and workflows must speak about framework adapters without implying that the current set
+is permanent. Availability claims, tabs, commands, and examples must include only adapters verified
+against current packages and registries.
+
+When an adapter ships, add it to the runtime choice and affected pages without changing the surrounding
+information architecture. Do not make React the permanent conceptual owner merely because the Rspress
+application uses React.
+
+## Keep choices distinct
 
 Documentation may vary across four independent axes:
 
 | Axis            | moduix choices                 |
 | --------------- | ------------------------------ |
-| Runtime         | React or Solid                 |
+| Runtime         | Any shipped framework adapter  |
 | Styling         | CSS Modules or Tailwind        |
 | Distribution    | npm package or shadcn registry |
 | Package manager | npm, yarn, pnpm, bun, or deno  |
@@ -31,7 +42,7 @@ Documentation may vary across four independent axes:
 Use neutral prose for shared behavior and show variants only where commands, imports, source, or
 runtime behavior differ.
 
-- Use Rspress `Tabs` with the same `groupId="framework"` for React/Solid code and commands on one
+- Use Rspress `Tabs` with the same `groupId="framework"` for framework-specific code and commands on one
   page. Do not add a custom global framework store or header switcher.
 - Keep `PackageManagerTabs` inside the selected framework tab; it owns only package-manager syntax.
 - Introduce styling choice separately. Do not imply npm means CSS Modules or shadcn means Tailwind.
@@ -57,13 +68,13 @@ incomplete.
 
 ## Examples and previews
 
-Keep one source-language copyable example per runtime. Locale pages reference the same source or
+Keep one source-language copyable example per shipped runtime. Locale pages reference the same source or
 keep inline code byte-identical across languages. Do not translate identifiers or example UI copy.
 
 Rspress renders the documentation application with React. A React-powered visual preview may
-represent a shared visual contract, but do not label it as a native Solid preview. Add another
-runtime preview only through an established build path; do not introduce a compatibility adapter
-for ordinary documentation work.
+represent a shared visual contract, but do not label it as a native preview for another framework.
+Add another runtime preview only through an established build path; do not introduce a compatibility
+adapter for ordinary documentation work.
 
 ## Verification
 

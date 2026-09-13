@@ -6,8 +6,9 @@
 
 # moduix
 
-Product-minded components built on [Ark UI](https://ark-ui.com/), with accessible behavior,
-explicit composition, and CSS Modules at the core.
+Product-minded, multi-framework components built on [Ark UI](https://ark-ui.com/), with accessible
+behavior, explicit composition, and CSS Modules at the core. React and Solid adapters ship today;
+Vue and Svelte adapters are planned.
 
 moduix combines Ark UI primitives with considered defaults and a shadcn-inspired ownership model.
 Use the published package when you want managed updates, or add the component source
@@ -32,6 +33,9 @@ to your application through the hosted shadcn registry when you want to own it.
   application through the shadcn registry.
 
 ## Get started
+
+The example below uses the React CSS Modules package. Choose the shipped framework, styling track,
+and ownership model that matches your application in the [Quick start](https://moduix.dev/docs/quick-start).
 
 ### Use the npm package
 
@@ -128,11 +132,13 @@ and [Tokens](https://moduix.dev/docs/tokens) for the complete customization mode
 
 ## Repository
 
-| Path             | Purpose                                             |
-| ---------------- | --------------------------------------------------- |
-| `packages/react` | Published React package and component source.       |
-| `website`        | Documentation site and runnable examples.           |
-| `registry`       | Manifest for the hosted shadcn-compatible registry. |
+| Path                            | Purpose                                                                  |
+| ------------------------------- | ------------------------------------------------------------------------ |
+| `packages/<framework>`          | Published framework-native CSS Modules adapters.                         |
+| `packages/<framework>-tailwind` | Published framework-native Tailwind adapters.                            |
+| `packages/foundation`           | Shared framework-neutral tokens, resets, presets, and animations.        |
+| `playgrounds/<framework>*`      | Adapter playgrounds used for parity checks.                              |
+| `website`                       | Documentation site, runnable examples, and generated registry artifacts. |
 
 Install dependencies and run the documentation site locally:
 
@@ -146,7 +152,7 @@ Before opening a pull request, run the repository checks:
 ```bash
 pnpm run fmt:fix
 pnpm run lint:check
-pnpm run build:react
+pnpm run build:packages
 pnpm run tsc:check
 ```
 
