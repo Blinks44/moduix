@@ -3,9 +3,10 @@
 Read this reference when creating, migrating, or substantially restructuring a component page in `website/docs/en/docs`.
 
 Use `website/docs/en/docs/accordion.mdx` as the current canonical multi-framework component page. Match its
-section order, framework source tabs, honest React-powered preview note, shared styling contract,
-and locale structure. Show only installation choices that actually ship; Accordion currently demonstrates
-every shipped runtime/styling combination, but an incomplete adapter or styling track must stay visibly unavailable.
+section order, framework source tabs, shared styling contract, and locale structure. Do not repeat the
+site-wide framework and styling support matrix or explain which runtime powers a documentation preview.
+Call out availability only when a component has a real exception, such as a missing adapter or styling track.
+Show only installation choices that actually ship; an incomplete adapter or styling track must stay visibly unavailable.
 Keep non-React source display-only when it cannot run in the React-based documentation application.
 Import one shared source file with `?raw`, render it with `CodeBlockRuntime`, and reuse it across
 locales instead of adding another runtime to the documentation bundle.
@@ -27,8 +28,8 @@ locales instead of adding another runtime to the documentation bundle.
 
 - **API Reference:** a compact upstream reference. Link the dedicated Ark page when it exists. Otherwise state that no dedicated Ark primitive exists and link the precise guide or factory model; link Chakra only when it materially informs the contract.
 - **Basic:** render one shared preview, then show native source for every shipped framework in
-  `groupId="framework"` tabs. Keep shared example CSS outside the framework tabs. State honestly
-  when the preview itself is React-powered.
+  `groupId="framework"` tabs. Keep shared example CSS outside the framework tabs. The framework tabs
+  make runtime support visible without prose about the implementation of the documentation preview.
 - **Install with shadcn:** put runtime choices in `groupId="framework"` tabs and list only the CSS
   Modules and Tailwind registry commands that currently ship for that runtime. Keep package-manager
   variants inside `PackageManagerTabs`; link to Quick Start for full registry configuration.
