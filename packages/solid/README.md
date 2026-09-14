@@ -107,6 +107,11 @@ The hosted shadcn-compatible registry provides the same component contracts in s
 pnpm dlx shadcn@latest add @moduix-solid/accordion
 ```
 
+## Compatibility
+
+The package is ESM-only and ships modern JavaScript targeting ES2023. Consume it through a modern
+application bundler configured for the browsers your application supports.
+
 ## Links
 
 - [Documentation](https://moduix.dev/)

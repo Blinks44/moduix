@@ -1,6 +1,6 @@
 {
   "name": "@moduix/react-tailwind",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Tailwind CSS implementation of the moduix React component system, built on Ark UI primitives.",
   "keywords": [
     "accessible",
@@ -11,6 +11,10 @@
     "typescript",
     "ui"
   ],
+  "homepage": "https://moduix.dev/",
+  "bugs": {
+    "url": "https://github.com/Blinks44/moduix/issues"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -406,6 +410,7 @@
   "scripts": {
     "build": "rslib",
     "dev": "rslib --watch --no-clean",
+    "prepublishOnly": "pnpm run build && pnpm --dir ../.. run check:package:react-tailwind",
     "test": "rstest run",
     "test:watch": "rstest --watch",
     "tsc:check": "tsc --noEmit"

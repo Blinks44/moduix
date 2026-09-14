@@ -1,6 +1,6 @@
 {
   "name": "@moduix/react",
-  "version": "2.5.1",
+  "version": "2.6.0",
   "description": "React implementation of the moduix component system, built on Ark UI primitives.",
   "keywords": [
     "accessible",
@@ -14,6 +14,10 @@
     "typescript",
     "ui"
   ],
+  "homepage": "https://moduix.dev/",
+  "bugs": {
+    "url": "https://github.com/Blinks44/moduix/issues"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -413,6 +417,7 @@
   "scripts": {
     "build": "rslib",
     "dev": "rslib --watch --no-clean",
+    "prepublishOnly": "pnpm run build && pnpm --dir ../.. run check:package",
     "test": "rstest run",
     "test:watch": "rstest --watch",
     "tsc:check": "tsc --noEmit"

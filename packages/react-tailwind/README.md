@@ -1,8 +1,19 @@
+![moduix banner](https://raw.githubusercontent.com/Blinks44/moduix/main/website/docs/public/banner.png)
+
+[![npm](https://img.shields.io/npm/v/@moduix/react-tailwind?logo=npm&label=npm)](https://www.npmjs.com/package/@moduix/react-tailwind)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE.md)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+
 # @moduix/react-tailwind
 
-Tailwind CSS v4 implementation of moduix React components. The current release contains Accordion,
-Alert, Angle Slider, Avatar, Button, and Chart while preserving their public Ark-shaped APIs from
-`@moduix/react`.
+React components built on [Ark UI](https://ark-ui.com/) and styled with Tailwind CSS v4. The package
+ships the same component subpaths and Ark-shaped contracts as `@moduix/react`, while keeping utility
+classes available for consumer overrides.
+
+[Documentation](https://moduix.dev/) ·
+[Quick start](https://moduix.dev/docs/quick-start) ·
+[Components](https://moduix.dev/docs/components) ·
+[Styling](https://moduix.dev/docs/styling)
 
 ## Install
 
@@ -95,3 +106,25 @@ The registry installs the same foundation stylesheet locally as `@/lib/moduix/st
 ```
 
 No `@source` directive is required for the registry installation because the component source is copied into the application.
+
+## Compatibility
+
+The package is ESM-only and ships modern JavaScript targeting ES2023. Consume it through a modern
+application bundler configured for the browsers your application supports.
+
+## Links
+
+- [Documentation](https://moduix.dev/)
+- [npm package](https://www.npmjs.com/package/@moduix/react-tailwind)
+- [Source repository](https://github.com/Blinks44/moduix)
+- [Issues](https://github.com/Blinks44/moduix/issues)
+
+## Acknowledgements
+
+moduix builds on [Ark UI](https://ark-ui.com/) for accessible primitives,
+[Tailwind CSS](https://tailwindcss.com/) for utility styling, and ideas from
+[Chakra UI](https://chakra-ui.com/) and [shadcn/ui](https://ui.shadcn.com/).
+
+## License
+
+[MIT](./LICENSE.md)

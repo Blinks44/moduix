@@ -14,6 +14,10 @@
     "typescript",
     "ui"
   ],
+  "homepage": "https://moduix.dev/",
+  "bugs": {
+    "url": "https://github.com/Blinks44/moduix/issues"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -21,7 +25,26 @@
     "directory": "packages/solid"
   },
   "files": [
-    "dist",
+    "dist/components",
+    "dist/internal",
+    "dist/locale.d.ts",
+    "dist/locale.js",
+    "dist/locale.jsx",
+    "dist/presets",
+    "dist/styles/animations.css",
+    "dist/styles/borders.css",
+    "dist/styles/colors.css",
+    "dist/styles/opacity.css",
+    "dist/styles/radius.css",
+    "dist/styles/reset.css",
+    "dist/styles/shadows.css",
+    "dist/styles/sizing.css",
+    "dist/styles/spacing.css",
+    "dist/styles/style.css",
+    "dist/styles/transforms.css",
+    "dist/styles/transitions.css",
+    "dist/styles/typography.css",
+    "dist/styles/z-index.css",
     "LICENSE.md",
     "THIRD_PARTY_NOTICES.md"
   ],
@@ -30,12 +53,6 @@
     "**/*.css"
   ],
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "solid": "./dist/index.jsx",
-      "import": "./dist/index.js",
-      "default": "./dist/index.js"
-    },
     "./accordion": {
       "types": "./dist/components/accordion/index.d.ts",
       "solid": "./dist/components/accordion/index.jsx",
@@ -569,8 +586,6 @@
     "./presets/contrast.css": "./dist/presets/contrast.css",
     "./presets/dense.css": "./dist/presets/dense.css",
     "./presets/soft.css": "./dist/presets/soft.css",
-    "./presets/*": "./dist/presets/*",
-    "./styles/*": "./dist/styles/*",
     "./package.json": "./package.json"
   },
   "publishConfig": {
@@ -579,7 +594,8 @@
   "scripts": {
     "build": "rslib",
     "dev": "rslib --watch --no-clean",
-    "test": "rstest run --passWithNoTests",
+    "prepublishOnly": "pnpm run build && pnpm --dir ../.. run check:package:solid",
+    "test": "rstest run",
     "test:watch": "rstest --watch",
     "tsc:check": "tsc --noEmit"
   },

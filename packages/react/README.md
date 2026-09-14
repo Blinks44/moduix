@@ -138,6 +138,11 @@ pnpm dlx shadcn@latest add @moduix-react/button @moduix-react/dialog
 Generated files include the component source, CSS Modules, and required supporting files. Their
 destination paths are controlled by your `components.json` aliases.
 
+## Compatibility
+
+The package is ESM-only and ships modern JavaScript targeting ES2023. Consume it through a modern
+application bundler configured for the browsers your application supports.
+
 ## Links
 
 - [Documentation](https://moduix.dev/)
