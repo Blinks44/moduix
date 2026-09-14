@@ -53,9 +53,9 @@ validation et le parcours utilisateur.
 ## Choisir votre framework
 
 Choisissez le paquet et le registre natifs de votre framework. Les catalogues de composants React et
-Solid sont disponibles avec les deux approches de style. CSS Modules fournit en plus la réinitialisation
-facultative de moduix, tandis que Tailwind utilise Preflight. Les adaptateurs Vue et Svelte sont prévus,
-mais ne sont pas encore disponibles à l’installation.
+Solid sont disponibles avec les deux approches de style. CSS Modules nécessite soit la réinitialisation
+de moduix, soit une réinitialisation équivalente fournie par l’application, tandis que Tailwind utilise
+Preflight. Les adaptateurs Vue et Svelte sont prévus, mais ne sont pas encore disponibles à l’installation.
 
 | Framework | CSS Modules | Tailwind CSS |
 | --- | --- | --- |
@@ -131,7 +131,8 @@ Tous les tokens de design moduix utilisent l'espace de noms `--moduix-*`. Votre 
 de tokens et les associer sélectivement dans un fichier de styles chargé après `style.css` ; consultez
 [Tokens](/docs/tokens).
 
-Si vous souhaitez réinitialiser les styles, importez le fichier facultatif `reset.css` avant le fichier principal :
+Les composants CSS Modules nécessitent une réinitialisation globale. Importez celle de moduix avant le
+fichier principal :
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
@@ -151,6 +152,9 @@ import '@moduix/solid/style.css';
 
   </Tab>
 </Tabs>
+
+Si votre application possède déjà sa propre réinitialisation correcte, utilisez-la à la place de celle
+de moduix.
 
 Ainsi, `style.css` reste limité au socle global et les styles des composants inutilisés peuvent rester hors du bundle.
 
@@ -283,12 +287,11 @@ application React classique. Dans une application React Server Components, défi
 CLI ajoute alors `use client` aux composants client du registre.
 
 Assurez-vous que votre projet résout l'alias `@/*` vers son répertoire source. Une structure classique avec `src`
-utilise :
+utilise l'entrée `paths` suivante, résolue par rapport à `tsconfig.json` :
 
 ```json
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }
@@ -342,7 +345,8 @@ Choisissez l’import correspondant à votre mode de style :
 import '@/lib/moduix/styles/style.css';
 ```
 
-Pour ajouter le reset optionnel, installez l’entrée de registre correspondante :
+Les composants CSS Modules nécessitent une réinitialisation globale. Si votre application n’en fournit
+pas déjà une équivalente, installez celle de moduix avec son entrée de registre séparée :
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
@@ -363,6 +367,8 @@ Importez-le ensuite avant la feuille de styles principale :
 import '@/lib/moduix/styles/reset.css';
 import '@/lib/moduix/styles/style.css';
 ```
+
+Si votre application possède déjà sa propre réinitialisation correcte, utilisez-la à la place.
 
   </Tab>
   <Tab label="Tailwind CSS" value="tailwind">
@@ -452,7 +458,8 @@ réglages d’animation.
 
 | Problème | Vérification |
 | --- | --- |
-| Les composants s'affichent sans styles | Vérifiez l’ordre des imports du mode de style choisi ; utilisez le reset facultatif uniquement avec CSS Modules. |
+| Les composants s'affichent sans styles | Vérifiez l’ordre des imports du mode de style choisi. |
+| Le contenu masqué d’un composant reste visible | Avec CSS Modules, vérifiez que la réinitialisation de moduix ou celle de votre application est chargée. Pour l’approche Tailwind, conservez Preflight. |
 | Le bundler ne trouve pas un import de composant généré | Vérifiez l'alias `@/*` dans TypeScript et votre bundler, puis vérifiez `components.json`. |
 | Une fenêtre contextuelle apparaît sous le contenu de la page | Ajoutez `isolation: isolate` à la racine de l'application et évitez les `z-index` globaux sans rapport. |
 | Le rendu serveur signale des API client | Placez les composants interactifs dans un composant client dans les frameworks qui l'exigent. |

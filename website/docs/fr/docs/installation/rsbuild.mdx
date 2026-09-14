@@ -19,8 +19,9 @@ Commencez par la [configuration du paquet](/docs/quick-start#installer-le-paquet
 style. Les exemples utilisent les imports des paquets CSS Modules ; les points d’entrée Rsbuild et la
 gestion des alias TypeScript restent identiques avec le paquet ou le registre Tailwind correspondant.
 
-Toutes les commandes de paquet et tous les imports de feuilles de style présentés ci-dessous concernent la configuration CSS Modules. Avec Tailwind,
-conservez la feuille globale configurée dans le Démarrage rapide.
+Toutes les commandes de paquet et tous les imports de feuilles de style présentés ci-dessous concernent
+CSS Modules. Utilisez la réinitialisation de moduix présentée ci-dessous ou une réinitialisation correcte de votre application.
+Avec Tailwind, conservez la feuille globale configurée dans le Démarrage rapide.
 
 ## Installation par paquet
 
@@ -30,6 +31,7 @@ conservez la feuille globale configurée dans le Démarrage rapide.
 <PackageManagerTabs command="install @moduix/react @ark-ui/react" />
 
 ```tsx title="src/index.tsx"
+import '@moduix/react/reset.css';
 import '@moduix/react/style.css';
 ```
 
@@ -47,6 +49,7 @@ export function App() {
 <PackageManagerTabs command="install @moduix/solid @ark-ui/solid" />
 
 ```tsx title="src/index.tsx"
+import '@moduix/solid/reset.css';
 import '@moduix/solid/style.css';
 ```
 
@@ -69,7 +72,6 @@ puis faites pointer `@/*` vers `src/*` dans `tsconfig.json` :
 ```json title="tsconfig.json"
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }

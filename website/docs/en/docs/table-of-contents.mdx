@@ -25,8 +25,6 @@ Each item needs a `value` that matches a heading's `id` and a `depth` that match
 level, such as `2` for `<h2>`. Use the same item when rendering `Toc.Item`, then build the matching
 `Toc.Link` fragment from its `value`.
 
-`Toc` ships for React and Solid in both the CSS Modules and Tailwind packages. The preview below uses
-the React CSS Modules package; the framework tabs show native source for the same public contract.
 
 On a regular document page, omit `scrollEl` and the component observes the page viewport. The
 preview below uses an inner scroll container, so it passes that element to `scrollEl` to keep

@@ -20,8 +20,9 @@ Complete the shared [package setup](/docs/quick-start#install-as-a-package) or
 uses CSS Modules package imports; the React Router entry files, aliases, SSR, and hydration checks stay
 the same with the React Tailwind package or registry.
 
-All package commands and stylesheet imports shown below belong to CSS Modules. With Tailwind, keep the global stylesheet
-configured in Quick Start instead.
+All package commands and stylesheet imports shown below belong to CSS Modules. Use the moduix reset
+shown below or a correct reset from your application. With Tailwind, keep the global stylesheet configured in
+Quick Start instead.
 
 ## Install as a package
 
@@ -30,6 +31,7 @@ configured in Quick Start instead.
 React Router renders framework route modules inside `app/root.tsx`. Import the foundation stylesheet there once:
 
 ```tsx title="app/root.tsx"
+import '@moduix/react/reset.css';
 import '@moduix/react/style.css';
 ```
 
@@ -62,7 +64,6 @@ setup](/docs/quick-start#install-with-the-shadcn-cli). The standard React Router
 ```json title="tsconfig.json"
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./app/*"]
     }

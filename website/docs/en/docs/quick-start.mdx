@@ -51,8 +51,9 @@ flow.
 ## Choose your framework
 
 Choose a framework-native package and registry namespace. The React and Solid component catalogs are
-available in both styling tracks. CSS Modules additionally provides the optional moduix reset, while
-Tailwind uses Preflight. Vue and Svelte adapters are planned but are not available for installation yet.
+available in both styling tracks. CSS Modules requires either the moduix reset or an equivalent reset
+from your application, while Tailwind uses Preflight. Vue and Svelte adapters are planned but are not
+available for installation yet.
 
 | Runtime | CSS Modules | Tailwind CSS |
 | ------- | ----------- | ------------ |
@@ -127,7 +128,7 @@ component CSS depends on. Component styles are still loaded alongside the compon
 All moduix design tokens use the `--moduix-*` namespace. Your project can keep its own token names
 and selectively map them in a stylesheet that loads after `style.css`; see [Tokens](/docs/tokens).
 
-If you want the optional reset, import it explicitly before the main stylesheet:
+CSS Modules components require a global reset. Import the moduix reset before the main stylesheet:
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
@@ -147,6 +148,8 @@ import '@moduix/solid/style.css';
 
   </Tab>
 </Tabs>
+
+If your application already has its own correct reset, use it instead of the moduix reset.
 
 That keeps `style.css` focused on the global foundation, while unused component CSS can stay out of
 the consuming bundle.
@@ -281,12 +284,12 @@ Set it to `true` in a React Server Components application; the CLI then adds `us
 components from the registry. Add the directive yourself to React wrappers when they own state,
 effects, or event handlers.
 
-Make sure your project resolves the `@/*` alias to its source directory. A typical `src` layout uses:
+Make sure your project resolves the `@/*` alias to its source directory. A typical `src` layout uses
+the following `paths` entry, resolved relative to `tsconfig.json`:
 
 ```json
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }
@@ -341,7 +344,8 @@ Import the generated foundation using the setup for your styling track:
 import '@/lib/moduix/styles/style.css';
 ```
 
-If you want the optional reset with this method, install its separate registry item:
+CSS Modules components require a global reset. If your application does not already provide an
+equivalent reset, install the moduix reset as a separate registry item:
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
@@ -362,6 +366,8 @@ Then import it before the main stylesheet:
 import '@/lib/moduix/styles/reset.css';
 import '@/lib/moduix/styles/style.css';
 ```
+
+If your application already has its own correct reset, use it instead.
 
   </Tab>
   <Tab label="Tailwind CSS" value="tailwind">
@@ -450,7 +456,8 @@ component variables. See [Tokens](/docs/tokens) for the complete hierarchy and
 
 | Symptom                                  | Check                                                                                 |
 | ---------------------------------------- | ------------------------------------------------------------------------------------- |
-| Components render without styles         | Follow the import order for your styling track; use the optional reset only with CSS Modules. |
+| Components render without styles         | Follow the import order for your styling track.                                           |
+| Hidden component content remains visible | With CSS Modules, check that the moduix reset or your own reset is loaded. Keep Tailwind Preflight enabled for the Tailwind track. |
 | A generated component import is unresolved | Verify the `@/*` alias in TypeScript and your bundler, then check `components.json`.    |
 | A popup appears below page content       | Add `isolation: isolate` to the application root and avoid unrelated global z-indexes. |
 | Server rendering reports client APIs     | Keep interactive components inside a client boundary in frameworks that require one.  |
