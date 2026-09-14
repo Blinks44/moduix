@@ -22,8 +22,9 @@ This page focuses on Astro-specific file placement and island hydration. Complet
 examples below use CSS Modules package imports; the Astro entry points and `client:*` rules are the
 same with the matching Tailwind package or registry.
 
-All package commands and stylesheet imports shown below belong to CSS Modules. With Tailwind, keep the global stylesheet
-configured in Quick Start instead.
+All package commands and stylesheet imports shown below belong to CSS Modules. Use the moduix reset
+shown below or a correct reset from your application. With Tailwind, keep the global stylesheet configured in
+Quick Start instead.
 
 ## Install as a package
 
@@ -49,6 +50,7 @@ Import the foundation stylesheet once in a shared layout:
 
 ```astro title="src/layouts/Layout.astro"
 ---
+import '@moduix/react/reset.css';
 import '@moduix/react/style.css';
 ---
 
@@ -62,6 +64,7 @@ import '@moduix/react/style.css';
 
 ```astro title="src/layouts/Layout.astro"
 ---
+import '@moduix/solid/reset.css';
 import '@moduix/solid/style.css';
 ---
 

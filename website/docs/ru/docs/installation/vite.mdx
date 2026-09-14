@@ -19,8 +19,9 @@ React + TypeScript, Solid или Solid + TypeScript.
 показаны импорты пакетов на CSS Modules; точки входа Vite и настройка алиасов не меняются при выборе
 соответствующего Tailwind-пакета или реестра.
 
-Все показанные ниже команды установки пакетов и импорты таблиц стилей относятся к CSS Modules. С Tailwind сохраняйте глобальную
-таблицу стилей, настроенную в Быстром старте.
+Все показанные ниже команды установки пакетов и импорты таблиц стилей относятся к CSS Modules.
+Используйте показанный ниже reset moduix или корректный собственный reset приложения. С Tailwind сохраняйте
+глобальную таблицу стилей, настроенную в Быстром старте.
 
 ## Установка из пакета
 
@@ -30,6 +31,7 @@ React + TypeScript, Solid или Solid + TypeScript.
 <PackageManagerTabs command="install @moduix/react @ark-ui/react" />
 
 ```tsx title="src/main.tsx"
+import '@moduix/react/reset.css';
 import '@moduix/react/style.css';
 ```
 
@@ -47,6 +49,7 @@ export function App() {
 <PackageManagerTabs command="install @moduix/solid @ark-ui/solid" />
 
 ```tsx title="src/index.tsx"
+import '@moduix/solid/reset.css';
 import '@moduix/solid/style.css';
 ```
 
@@ -70,7 +73,6 @@ export function App() {
 ```json title="tsconfig.json"
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }

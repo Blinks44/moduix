@@ -20,8 +20,9 @@ Complete the shared [package setup](/docs/quick-start#install-as-a-package) or
 uses CSS Modules package imports to keep the Next.js-specific layout and client-boundary steps clear;
 those steps stay the same with `@moduix/react-tailwind` or `@moduix-react-tailwind`.
 
-All package commands and stylesheet imports shown below belong to CSS Modules. With Tailwind, keep the global stylesheet
-configured in Quick Start instead.
+All package commands and stylesheet imports shown below belong to CSS Modules. Use the moduix reset
+shown below or a correct reset from your application. With Tailwind, keep the global stylesheet configured in
+Quick Start instead.
 
 ## Install as a package
 
@@ -30,6 +31,7 @@ configured in Quick Start instead.
 Import the foundation stylesheet once from the root layout:
 
 ```tsx title="app/layout.tsx"
+import '@moduix/react/reset.css';
 import '@moduix/react/style.css';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

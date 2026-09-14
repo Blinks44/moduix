@@ -21,8 +21,9 @@ Complete the shared [package setup](/docs/quick-start#install-as-a-package) or
 uses CSS Modules package imports; root-route placement, aliases, SSR, and hydration checks stay the
 same with the matching Tailwind package or registry.
 
-All package commands and stylesheet imports shown below belong to CSS Modules. With Tailwind, keep the global stylesheet
-configured in Quick Start instead.
+All package commands and stylesheet imports shown below belong to CSS Modules. Use the moduix reset
+shown below or a correct reset from your application. With Tailwind, keep the global stylesheet configured in
+Quick Start instead.
 
 ## Install as a package
 
@@ -47,6 +48,7 @@ Import the foundation stylesheet once from `src/routes/__root.tsx`:
   <Tab label="React" value="react">
 
 ```tsx title="src/routes/__root.tsx"
+import '@moduix/react/reset.css';
 import '@moduix/react/style.css';
 ```
 
@@ -54,6 +56,7 @@ import '@moduix/react/style.css';
   <Tab label="Solid" value="solid">
 
 ```tsx title="src/routes/__root.tsx"
+import '@moduix/solid/reset.css';
 import '@moduix/solid/style.css';
 ```
 
@@ -105,7 +108,6 @@ not already map `@/*` to `src/*`, add the alias to the root `tsconfig.json`:
 ```json title="tsconfig.json"
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }

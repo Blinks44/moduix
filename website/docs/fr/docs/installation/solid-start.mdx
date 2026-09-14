@@ -19,8 +19,9 @@ Commencez par la [configuration du paquet](/docs/quick-start#installer-le-paquet
 style. Les exemples utilisent les imports du paquet CSS Modules ; la racine SolidStart, l’alias, le
 SSR et l’hydratation restent identiques avec `@moduix/solid-tailwind` ou `@moduix-solid-tailwind`.
 
-Toutes les commandes de paquet et tous les imports de feuilles de style présentés ci-dessous concernent la configuration CSS Modules. Avec Tailwind,
-conservez la feuille globale configurée dans le Démarrage rapide.
+Toutes les commandes de paquet et tous les imports de feuilles de style présentés ci-dessous concernent
+CSS Modules. Utilisez la réinitialisation de moduix présentée ci-dessous ou une réinitialisation correcte de votre application.
+Avec Tailwind, conservez la feuille globale configurée dans le Démarrage rapide.
 
 ## Installation par paquet
 
@@ -31,6 +32,7 @@ Installez moduix et ses dépendances Solid :
 Importez une seule fois la feuille de styles de base à la racine de l’application :
 
 ```tsx title="src/app.tsx"
+import '@moduix/solid/reset.css';
 import '@moduix/solid/style.css';
 ```
 
@@ -53,7 +55,6 @@ puis faites pointer `@/*` vers `src/*` dans `tsconfig.json` :
 ```json title="tsconfig.json"
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }

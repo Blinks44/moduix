@@ -20,8 +20,9 @@ Complete the shared [package setup](/docs/quick-start#install-as-a-package) or
 uses CSS Modules package imports; Vite entry points and alias configuration stay the same with the
 matching Tailwind package or registry.
 
-All package commands and stylesheet imports shown below belong to CSS Modules. With Tailwind, keep the global stylesheet
-configured in Quick Start instead.
+All package commands and stylesheet imports shown below belong to CSS Modules. Use the moduix reset
+shown below or a correct reset from your application. With Tailwind, keep the global stylesheet configured in
+Quick Start instead.
 
 ## Install as a package
 
@@ -31,6 +32,7 @@ configured in Quick Start instead.
 <PackageManagerTabs command="install @moduix/react @ark-ui/react" />
 
 ```tsx title="src/main.tsx"
+import '@moduix/react/reset.css';
 import '@moduix/react/style.css';
 ```
 
@@ -48,6 +50,7 @@ export function App() {
 <PackageManagerTabs command="install @moduix/solid @ark-ui/solid" />
 
 ```tsx title="src/index.tsx"
+import '@moduix/solid/reset.css';
 import '@moduix/solid/style.css';
 ```
 
@@ -71,7 +74,6 @@ runtime-specific app config. Add the alias to both files:
 ```json title="tsconfig.json"
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }

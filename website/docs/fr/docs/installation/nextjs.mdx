@@ -21,8 +21,9 @@ style. Cette page utilise les imports du paquet CSS Modules pour garder les éta
 et aux frontières client de Next.js bien visibles. Elles restent identiques avec
 `@moduix/react-tailwind` ou `@moduix-react-tailwind`.
 
-Toutes les commandes de paquet et tous les imports de feuilles de style présentés ci-dessous concernent la configuration CSS Modules. Avec Tailwind,
-conservez la feuille globale configurée dans le Démarrage rapide.
+Toutes les commandes de paquet et tous les imports de feuilles de style présentés ci-dessous concernent
+CSS Modules. Utilisez la réinitialisation de moduix présentée ci-dessous ou une réinitialisation correcte de votre application.
+Avec Tailwind, conservez la feuille globale configurée dans le Démarrage rapide.
 
 ## Installation par paquet
 
@@ -31,6 +32,7 @@ conservez la feuille globale configurée dans le Démarrage rapide.
 Importez une seule fois la feuille de style de base depuis le fichier `app/layout.tsx` à la racine de l’application :
 
 ```tsx title="app/layout.tsx"
+import '@moduix/react/reset.css';
 import '@moduix/react/style.css';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -20,8 +20,9 @@ Complete the shared [package setup](/docs/quick-start#install-as-a-package) or
 uses CSS Modules package imports; the SolidStart root, alias, SSR, and hydration steps stay the same
 with `@moduix/solid-tailwind` or `@moduix-solid-tailwind`.
 
-All package commands and stylesheet imports shown below belong to CSS Modules. With Tailwind, keep the global stylesheet
-configured in Quick Start instead.
+All package commands and stylesheet imports shown below belong to CSS Modules. Use the moduix reset
+shown below or a correct reset from your application. With Tailwind, keep the global stylesheet configured in
+Quick Start instead.
 
 ## Install as a package
 
@@ -32,6 +33,7 @@ Install moduix and its Solid peer dependencies:
 Import the foundation stylesheet once from the application root:
 
 ```tsx title="src/app.tsx"
+import '@moduix/solid/reset.css';
 import '@moduix/solid/style.css';
 ```
 
@@ -54,7 +56,6 @@ the [shadcn CLI setup](/docs/quick-start#install-with-the-shadcn-cli), then map 
 ```json title="tsconfig.json"
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }

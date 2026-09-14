@@ -21,8 +21,9 @@ style. Les exemples utilisent les imports des paquets CSS Modules ; l’emplacem
 les alias, le SSR et les vérifications d’hydratation restent identiques avec le paquet ou le registre
 Tailwind correspondant.
 
-Toutes les commandes de paquet et tous les imports de feuilles de style présentés ci-dessous concernent la configuration CSS Modules. Avec Tailwind,
-conservez la feuille globale configurée dans le Démarrage rapide.
+Toutes les commandes de paquet et tous les imports de feuilles de style présentés ci-dessous concernent
+CSS Modules. Utilisez la réinitialisation de moduix présentée ci-dessous ou une réinitialisation correcte de votre application.
+Avec Tailwind, conservez la feuille globale configurée dans le Démarrage rapide.
 
 ## Installation par paquet
 
@@ -47,6 +48,7 @@ Importez une seule fois la feuille de styles de base depuis `src/routes/__root.t
   <Tab label="React" value="react">
 
 ```tsx title="src/routes/__root.tsx"
+import '@moduix/react/reset.css';
 import '@moduix/react/style.css';
 ```
 
@@ -54,6 +56,7 @@ import '@moduix/react/style.css';
   <Tab label="Solid" value="solid">
 
 ```tsx title="src/routes/__root.tsx"
+import '@moduix/solid/reset.css';
 import '@moduix/solid/style.css';
 ```
 
@@ -106,7 +109,6 @@ Si le projet ne fait pas déjà pointer `@/*` vers `src/*`, ajoutez cet alias au
 ```json title="tsconfig.json"
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }

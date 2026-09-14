@@ -20,8 +20,9 @@ style. Les exemples ci-dessous utilisent les imports du paquet CSS Modules ; les
 les alias, le SSR et les vérifications d’hydratation restent identiques avec le paquet ou le registre
 Tailwind pour React.
 
-Toutes les commandes de paquet et tous les imports de feuilles de style présentés ci-dessous concernent la configuration CSS Modules. Avec Tailwind,
-conservez la feuille globale configurée dans le Démarrage rapide.
+Toutes les commandes de paquet et tous les imports de feuilles de style présentés ci-dessous concernent
+CSS Modules. Utilisez la réinitialisation de moduix présentée ci-dessous ou une réinitialisation correcte de votre application.
+Avec Tailwind, conservez la feuille globale configurée dans le Démarrage rapide.
 
 ## Installation par paquet
 
@@ -31,6 +32,7 @@ En mode Framework, React Router rend les modules de route dans `app/root.tsx`. I
 style de base :
 
 ```tsx title="app/root.tsx"
+import '@moduix/react/reset.css';
 import '@moduix/react/style.css';
 ```
 
@@ -63,7 +65,6 @@ React Router standard place le code de l’application dans `app`. Associez donc
 ```json title="tsconfig.json"
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./app/*"]
     }

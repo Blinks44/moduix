@@ -20,8 +20,9 @@ Start может использовать Vite или Rsbuild, рендерит 
 показаны импорты пакетов на CSS Modules; расположение корневого маршрута, алиасы, SSR и проверка
 гидратации не меняются при выборе соответствующего Tailwind-пакета или реестра.
 
-Все показанные ниже команды установки пакетов и импорты таблиц стилей относятся к CSS Modules. С Tailwind сохраняйте глобальную
-таблицу стилей, настроенную в Быстром старте.
+Все показанные ниже команды установки пакетов и импорты таблиц стилей относятся к CSS Modules.
+Используйте показанный ниже reset moduix или корректный собственный reset приложения. С Tailwind сохраняйте
+глобальную таблицу стилей, настроенную в Быстром старте.
 
 ## Установка из пакета
 
@@ -46,6 +47,7 @@ Start может использовать Vite или Rsbuild, рендерит 
   <Tab label="React" value="react">
 
 ```tsx title="src/routes/__root.tsx"
+import '@moduix/react/reset.css';
 import '@moduix/react/style.css';
 ```
 
@@ -53,6 +55,7 @@ import '@moduix/react/style.css';
   <Tab label="Solid" value="solid">
 
 ```tsx title="src/routes/__root.tsx"
+import '@moduix/solid/reset.css';
 import '@moduix/solid/style.css';
 ```
 
@@ -104,7 +107,6 @@ function Home() {
 ```json title="tsconfig.json"
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }
